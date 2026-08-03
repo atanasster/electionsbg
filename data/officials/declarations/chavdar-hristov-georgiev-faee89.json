@@ -538,7 +538,7 @@
   },
   {
     "slug": "chavdar-hristov-georgiev-faee89",
-    "declarantName": "(unknown)",
+    "declarantName": "Чавдар Христов Георгиев",
     "institution": "Министерство на културата",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -549,7 +549,41 @@
     "entryNumber": "В1068",
     "controlHash": "EEF96CF6",
     "sourceUrl": "https://register.cacbg.bg/2023/CE197679-3CEC-4C05-BAC6-2D06D1082A22155899.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Георгиев Дизайн Студио\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "60%",
+        "companyName": "\"Осогово Солар\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Георгиев Дизайн Студио\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

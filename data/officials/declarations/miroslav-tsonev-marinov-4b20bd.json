@@ -196,7 +196,7 @@
   },
   {
     "slug": "miroslav-tsonev-marinov-4b20bd",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирослав Цонев Маринов",
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор и член на УС",
     "category": "state_enterprise",
@@ -207,7 +207,19 @@
     "entryNumber": "В325",
     "controlHash": "170924CD",
     "sourceUrl": "https://register.cacbg.bg/2022/A750A51F-6567-4116-9416-83AE15B13B85131697.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "Югоизточно държавно предприятие гр. Сливен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

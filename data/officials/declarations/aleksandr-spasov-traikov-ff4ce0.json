@@ -1,7 +1,7 @@
 [
   {
     "slug": "aleksandr-spasov-traikov-ff4ce0",
-    "declarantName": "(unknown)",
+    "declarantName": "Александър Спасов Трайков",
     "institution": "Област - Плевен",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -12,40 +12,33 @@
     "entryNumber": "Г8103",
     "controlHash": "6EC237C1",
     "sourceUrl": "https://register.cacbg.bg/2023/8FACB500-DE7D-4E41-80EE-143EF696AC61154833.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС. Подадена молба с рег. № 27/06.02.2023г., за освобождаване като член на УС.",
+        "companyName": "Търговско промишлена палата Плевен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Кредит",
         "detail": "Александър Спасов Трайков",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "77000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "БНП - Париба",
-        "isSpouse": true,
-        "legalBasis": "Рефинансиране ПИБ",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Търговско промишлена палата Плевен",
-        "detail": null,
-        "location": "Член на УС. Подадена молба с рег. № 27/06.02.2023г., за освобождаване като член на УС.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 39369.474852108826,
+        "legalBasis": "Рефинансиране ПИБ"
       }
     ]
   },

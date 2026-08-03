@@ -1,7 +1,7 @@
 [
   {
     "slug": "rumyana-todorova-vlkova-a0a27e",
-    "declarantName": "(unknown)",
+    "declarantName": "Румяна Тодорова Вълкова",
     "institution": "МБАЛ \"Уни Хоспитал\" ООД, гр. Панагюрище",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -12,7 +12,19 @@
     "entryNumber": "В1097",
     "controlHash": "5AD71187",
     "sourceUrl": "https://register.cacbg.bg/2025/2865F413-97BD-4C35-94FF-18FB0DAEC838218278.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МБАЛ - Уни Хоспитал ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -801,7 +801,7 @@
   },
   {
     "slug": "mariya-ivanova-stefanova-77fe4d",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Иванова  Стефанова",
     "institution": "МБАЛ \"Живот+\" ЕООД, гр. Крумовград",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -812,7 +812,41 @@
     "entryNumber": "В1379",
     "controlHash": "52518185",
     "sourceUrl": "https://register.cacbg.bg/2018/F21823E7-4D11-4090-B57A-F5677F0B29FC89953.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МБАЛ \"Живот +\" ЕООД град Крумовград",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "лекарски кабинет",
+        "companyName": "ЕТ \"Мария Иванова\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "лекарски кабинет",
+        "companyName": "ЕТ \" Мария Иванова \"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

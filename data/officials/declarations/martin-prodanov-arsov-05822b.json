@@ -315,7 +315,7 @@
   },
   {
     "slug": "martin-prodanov-arsov-05822b",
-    "declarantName": "(unknown)",
+    "declarantName": "Мартин Проданов Арсов",
     "institution": "СБР - \"Национален комплекс\" ЕАД, София",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
@@ -326,7 +326,41 @@
     "entryNumber": "В1668",
     "controlHash": "0924CC49",
     "sourceUrl": "https://register.cacbg.bg/2024/392C7FCF-00A6-414D-B9B9-AED1C9147A4F196089.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1250 лв.",
+        "companyName": "Еко Топлина 1 ООД- няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1250 лв.",
+        "companyName": "Еко Топлина 1 ООД- няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на СД",
+        "companyName": "НСБ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

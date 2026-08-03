@@ -516,7 +516,7 @@
   },
   {
     "slug": "aisun-aidnov-avdzhiev-4e587a",
-    "declarantName": "(unknown)",
+    "declarantName": "Айсун Айдънов Авджиев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -527,7 +527,19 @@
     "entryNumber": "В1327",
     "controlHash": "BBD34C11",
     "sourceUrl": "https://register.cacbg.bg/2018/E7757AF2-87C1-4399-8E84-92866B5C23F689896.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%-от създаването си не е осъществявал никаква търговска дейност",
+        "companyName": "ЕЛИТ-23 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -187,7 +187,7 @@
   },
   {
     "slug": "pepa-mircheva-dobreva-bc0987",
-    "declarantName": "(unknown)",
+    "declarantName": "Пепа Мирчева Добрева",
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
@@ -198,7 +198,19 @@
     "entryNumber": "В2995",
     "controlHash": "921F3DC5",
     "sourceUrl": "https://register.cacbg.bg/2018/013CB5B8-239F-4912-8BA6-B2FE226289FF93066.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0",
+        "companyName": "СНЦ Нарцис",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

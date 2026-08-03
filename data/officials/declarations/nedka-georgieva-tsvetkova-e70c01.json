@@ -291,7 +291,7 @@
   },
   {
     "slug": "nedka-georgieva-tsvetkova-e70c01",
-    "declarantName": "(unknown)",
+    "declarantName": "Недка Георгиева Цветкова",
     "institution": "МБАЛ - Тутракан ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -302,7 +302,52 @@
     "entryNumber": "В1452",
     "controlHash": "44470A81",
     "sourceUrl": "https://register.cacbg.bg/2018/9513FF4D-6B1C-42D4-8A1E-8A9E255C457B90037.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,50 лв.",
+        "companyName": "Здраве 97 ООД гр. Силистра",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "25 %",
+        "companyName": "Здраве 97 ООД гр. Силистра",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,50 лв.",
+        "companyName": "Здраве 97 ООД гр. Силистра",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "25 %",
+        "companyName": "Здраве 97 ООД гр. Силистра",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

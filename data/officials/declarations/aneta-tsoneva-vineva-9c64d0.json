@@ -588,7 +588,7 @@
   },
   {
     "slug": "aneta-tsoneva-vineva-9c64d0",
-    "declarantName": "(unknown)",
+    "declarantName": "Анета Цонева Винева",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -599,7 +599,30 @@
     "entryNumber": "В273",
     "controlHash": "9DA6B631",
     "sourceUrl": "https://register.cacbg.bg/2018/710A93EF-C21A-4F0F-B6E3-589C64FFEE4388733.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заместник председател на Облстен съвет на БЧК Ловеч",
+        "companyName": "Български Червен Кръст",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заместник-председател на Областен съвет на БЧК Ловеч",
+        "companyName": "Български Червен Кръст",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

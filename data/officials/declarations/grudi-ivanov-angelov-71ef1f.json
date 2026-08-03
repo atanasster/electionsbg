@@ -1,7 +1,7 @@
 [
   {
     "slug": "grudi-ivanov-angelov-71ef1f",
-    "declarantName": "(unknown)",
+    "declarantName": "Груди Иванов Ангелов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,23 +12,22 @@
     "entryNumber": "Г4033",
     "controlHash": "DD1CB0C8",
     "sourceUrl": "https://register.cacbg.bg/2020/40631466-108B-40EB-ACB5-553EF392888D114801.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "\"СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ\" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ\" Сдружение",
-        "detail": null,
-        "location": "Член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "grudi-ivanov-angelov-71ef1f",
@@ -275,7 +274,7 @@
   },
   {
     "slug": "grudi-ivanov-angelov-71ef1f",
-    "declarantName": "(unknown)",
+    "declarantName": "Груди Иванов Ангелов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -286,23 +285,22 @@
     "entryNumber": "Г3981",
     "controlHash": "064AE2FA",
     "sourceUrl": "https://register.cacbg.bg/2019/40631466-108B-40EB-ACB5-553EF392888D98734.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "\"Индустриален клъстер електромобили\" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Индустриален клъстер електромобили\" Сдружение",
-        "detail": null,
-        "location": "член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "grudi-ivanov-angelov-71ef1f",
@@ -422,7 +420,7 @@
   },
   {
     "slug": "grudi-ivanov-angelov-71ef1f",
-    "declarantName": "(unknown)",
+    "declarantName": "Груди Иванов Ангелов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -433,7 +431,41 @@
     "entryNumber": "В598",
     "controlHash": "1B838A4B",
     "sourceUrl": "https://register.cacbg.bg/2018/40631466-108B-40EB-ACB5-553EF392888D89148.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителния съвет",
+        "companyName": "Сдружение \"Единение\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "Сдружение \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ ИВАН ВАЗОВ ГР. СТАРА ЗАГОРА\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителния съвет",
+        "companyName": "Друженство \"Инициативен комитете за възстановяване на паметника на софийските полкове\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

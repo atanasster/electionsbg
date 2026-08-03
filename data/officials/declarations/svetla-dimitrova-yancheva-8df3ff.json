@@ -770,7 +770,7 @@
   },
   {
     "slug": "svetla-dimitrova-yancheva-8df3ff",
-    "declarantName": "(unknown)",
+    "declarantName": "СВЕТЛА ДИМИТРОВА ЯНЧЕВА",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -781,7 +781,30 @@
     "entryNumber": "В1943",
     "controlHash": "AF43991D",
     "sourceUrl": "https://register.cacbg.bg/2018/88F04273-79EB-4D27-BAE1-D30579076D3F90641.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "34",
+        "companyName": "БУЛИНВЕСТКОНСАЛТИНГ - в ликвидация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "34",
+        "companyName": "БУЛИНВЕСТКОНСАЛТИНГ - в ликвидация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

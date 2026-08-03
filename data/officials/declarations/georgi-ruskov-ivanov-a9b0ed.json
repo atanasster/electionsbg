@@ -1,7 +1,7 @@
 [
   {
     "slug": "georgi-ruskov-ivanov-a9b0ed",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Русков Иванов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В738",
     "controlHash": "8F3E978D",
     "sourceUrl": "https://register.cacbg.bg/2025/8086F5C8-B661-4055-AE94-721A98B9D217205984.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "30",
+        "companyName": "Исторически парк АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "30",
+        "companyName": "Исторически парк АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -707,7 +707,7 @@
   },
   {
     "slug": "lyubka-petrova-stoyanova-23f9ad",
-    "declarantName": "(unknown)",
+    "declarantName": "Любка Петрова Петрова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -721,6 +721,43 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Гинка Христова Тодорова",
+        "detail": "адвокат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Христо Тодоров Христов",
+        "detail": "адвокат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Росен Василев Стоянов",
+        "detail": "адвокат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

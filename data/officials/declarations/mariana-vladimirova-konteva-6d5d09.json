@@ -1,7 +1,7 @@
 [
   {
     "slug": "mariana-vladimirova-konteva-6d5d09",
-    "declarantName": "(unknown)",
+    "declarantName": "МАРИАНА ВЛАДИМИРОВА КОНТЕВА",
     "institution": "СБАЛК \"Аджибадем Сити Клиник гр. Бургас\" ООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -12,42 +12,33 @@
     "entryNumber": "В400",
     "controlHash": "A1DD8284",
     "sourceUrl": "https://register.cacbg.bg/2019/008B5E7E-6EB5-4847-836C-0780FC69BD7196939.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "АСК СБАЛК БУРГАС ООД",
-        "detail": null,
-        "location": "7.5%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "7.5%",
+        "companyName": "АСК СБАЛК БУРГАС ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АСК  МЦ БУРГАС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АСК  МЦ БУРГАС ООД",
-        "detail": null,
-        "location": "УПРАВИТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "mariana-vladimirova-konteva-6d5d09",
@@ -696,7 +687,7 @@
   },
   {
     "slug": "mariana-vladimirova-konteva-6d5d09",
-    "declarantName": "(unknown)",
+    "declarantName": "МАРИАНА ВЛАДИМИРОВА КОНТЕВА",
     "institution": "СБАЛК \"Аджибадем Сити Клиник гр. Бургас\" ООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -707,7 +698,19 @@
     "entryNumber": "В2811",
     "controlHash": "0B4A71D0",
     "sourceUrl": "https://register.cacbg.bg/2018/008B5E7E-6EB5-4847-836C-0780FC69BD7192804.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "7,5%",
+        "companyName": "АСК СБАЛК БУРГАС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

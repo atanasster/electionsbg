@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-02T23:32:49.038Z",
+  "generatedAt": "2026-08-03T13:39:26.184Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1150,8 +1150,8 @@
       ],
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
-      "cadence": "weekly",
-      "freshness": "2026-07-23T06:08:55.136Z",
+      "cadence": "daily",
+      "freshness": "2026-08-03T12:33:07.645Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1162,8 +1162,8 @@
           "id": "eurostat",
           "label": "Eurostat macro (BG): 26 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
-          "cadence": "monthly",
-          "freshness": "2026-07-16T08:56:06.056Z"
+          "cadence": "daily",
+          "freshness": "2026-08-03T12:33:07.645Z"
         },
         {
           "id": "eurostat_policy",
@@ -1183,7 +1183,7 @@
           "id": "eurostat_tourism",
           "label": "Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table",
-          "cadence": "monthly",
+          "cadence": "weekly",
           "freshness": "2026-07-15T06:08:41.204Z"
         },
         {

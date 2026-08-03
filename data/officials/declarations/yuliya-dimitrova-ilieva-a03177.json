@@ -1,7 +1,7 @@
 [
   {
     "slug": "yuliya-dimitrova-ilieva-a03177",
-    "declarantName": "(unknown)",
+    "declarantName": "Юлия Димитрожа Илиежа",
     "institution": "МБАЛ - Пирдоп",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -12,42 +12,33 @@
     "entryNumber": "Г15468",
     "controlHash": "CAC713E2",
     "sourceUrl": "https://register.cacbg.bg/2025/CB01D209-CEED-4F6B-8854-4E108C0547BF219673.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "СТМ ХЕЛП ЕООД",
-        "detail": null,
-        "location": "100",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "СТМ ХЕЛП ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител от 15.07.2025 г.",
+        "companyName": "СТМ ХЕЛП ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СТМ ХЕЛП ЕООД",
-        "detail": null,
-        "location": "Управител от 15.07.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "yuliya-dimitrova-ilieva-a03177",

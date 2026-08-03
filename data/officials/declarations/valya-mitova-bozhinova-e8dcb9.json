@@ -1295,7 +1295,7 @@
   },
   {
     "slug": "valya-mitova-bozhinova-e8dcb9",
-    "declarantName": "(unknown)",
+    "declarantName": "Валя Митова Божинова",
     "institution": "СБПЛРВБ - Мездра ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1306,7 +1306,52 @@
     "entryNumber": "В1357",
     "controlHash": "A44EDF64",
     "sourceUrl": "https://register.cacbg.bg/2018/FDF7F6D8-0CC9-4EBC-8E8E-84DAFC15C8C289930.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "МДЛ Хема Медикъл ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "специализирана медицинска помощ",
+        "companyName": "ЕТ д-р Василовска-Валя Митова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "МДЛ Хема Медикъл ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "специализирана медицинска помощ",
+        "companyName": "ЕТ д-р Василовска-Валя Митова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

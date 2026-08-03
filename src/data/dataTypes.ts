@@ -458,9 +458,11 @@ export type DonorSummary = {
 // declaration only covers ownership stakes — management roles must come from
 // the Commerce Registry instead.
 export type MpOwnershipStake = {
-  // 10 = current shares, 11 = transferred in the prior year. These are LOGICAL
-  // ids — the 2018+ form's numbers — not a citation of the source XML: in a
-  // pre-2018 filing the same content sits in tables 11 and 12.
+  // 10 = held now, 11 = no longer held. These are LOGICAL ids — the 2018+ asset
+  // form's numbers — not a citation of the source XML: in a pre-2018 filing the
+  // same content sits in tables 11 and 12, and on the two INTERESTS forms it
+  // sits in tables 1-3/4-6 (Dekl3) or 15-17/18-20 (Dekl2), where "11" means
+  // "held in the twelve months before appointment, not since".
   table: "10" | "11";
   itemType: string | null; // raw "Вид на имуществото" cell
   shareSize: string | null; // raw text, may be "100%" or a numeric quantity
@@ -857,12 +859,30 @@ export type MpAssetCategory =
  *    declarant's favour, that they did not pay for themselves.
  *  - `third_party_expense` (table 14) — expenses for the declarant, spouse or
  *    minor children paid by someone else. Together with table 13 this is the
- *    closest thing the form has to a gifts register, and neither was parsed. */
+ *    closest thing the form has to a gifts register, and neither was parsed.
+ *
+ *  The last three come from the two INTERESTS forms (Dekl2 / Dekl3), which are
+ *  separate filings with their own table numbering — see `detectFormKind` in
+ *  scripts/declarations/parse_declaration.ts. They belong here for the same
+ *  reason the four above do: a filing records them, and none of them is a
+ *  holding, so none may reach a net worth.
+ *
+ *  - `interest_contract` — a contract the declarant has with someone active in
+ *    a field their own office decides on.
+ *  - `related_person` — a person to whose activity the declarant has a private
+ *    interest.
+ *  - `early_repayment` — a debt settled ahead of term, with the origin of the
+ *    money that settled it in `legalBasis`. That origin is the only reason the
+ *    table exists: "потребителски кредит … дарение" says a consumer loan was
+ *    repaid out of a gift. */
 export type DeclarationEventKind =
   | "disposal_property"
   | "disposal_vehicle"
   | "guarantee"
-  | "third_party_expense";
+  | "third_party_expense"
+  | "interest_contract"
+  | "related_person"
+  | "early_repayment";
 
 export type MpDeclarationEvent = {
   kind: DeclarationEventKind;

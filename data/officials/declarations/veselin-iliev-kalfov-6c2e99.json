@@ -174,7 +174,7 @@
   },
   {
     "slug": "veselin-iliev-kalfov-6c2e99",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Илиев Калфов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -185,7 +185,30 @@
     "entryNumber": "В1436",
     "controlHash": "C5D60C10",
     "sourceUrl": "https://register.cacbg.bg/2018/C4DFFE10-584B-43A0-AC10-CB8EFAB6DF0690017.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател за Община Доспат",
+        "companyName": "Сдружение с нестопанска цел за обществена полезна дейност - Български червен кръст",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС - съпругата ми",
+        "companyName": "Потребителна кооперация \"Барутин\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

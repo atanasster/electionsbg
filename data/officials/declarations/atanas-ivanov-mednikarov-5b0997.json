@@ -443,7 +443,7 @@
   },
   {
     "slug": "atanas-ivanov-mednikarov-5b0997",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Иванов Медникаров",
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
@@ -454,7 +454,30 @@
     "entryNumber": "В1011",
     "controlHash": "03E08035",
     "sourceUrl": "https://register.cacbg.bg/2024/0F34BBB8-FF6A-4E22-8630-4E34C466BF89183424.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителния съвет",
+        "companyName": "Граждански обществен съвет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителния съвет",
+        "companyName": "Граждански обществен съвет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

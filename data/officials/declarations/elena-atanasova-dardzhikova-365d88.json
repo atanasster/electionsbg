@@ -315,7 +315,7 @@
   },
   {
     "slug": "elena-atanasova-dardzhikova-365d88",
-    "declarantName": "(unknown)",
+    "declarantName": "Елена Атанасова Дарджикова",
     "institution": "СОБАЛ \"Вижън\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -326,7 +326,19 @@
     "entryNumber": "В643",
     "controlHash": "2EEB03BE",
     "sourceUrl": "https://register.cacbg.bg/2018/98A0E988-355F-4996-A926-A1402EC1616689195.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ОЧЕН ЛАЗАРЕН ЦЕНТЪР ВИЖЪН ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

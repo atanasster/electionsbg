@@ -1,7 +1,7 @@
 [
   {
     "slug": "lyuben-ivanov-totev-a833f7",
-    "declarantName": "(unknown)",
+    "declarantName": "Любен Иванов Тотев",
     "institution": "Минно - геоложки университет \"Св. Иван Рилски\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -14,31 +14,25 @@
     "sourceUrl": "https://register.cacbg.bg/2019/2D9C12E5-CF86-4F0A-B6D3-C17325A5191994145.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "debt",
+        "kind": "interest_contract",
         "description": "Научно-технически съюз по минно дело, геология и металургия - Сдружение",
-        "detail": null,
+        "detail": "Член на орган на управление",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
         "currency": null,
-        "amount": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "lyuben-ivanov-totev-a833f7",
-    "declarantName": "(unknown)",
+    "declarantName": "Любен Иванов Тотев",
     "institution": "Минно - геоложки университет \"Св. Иван Рилски\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -49,46 +43,32 @@
     "entryNumber": "Г1712",
     "controlHash": "292328F3",
     "sourceUrl": "https://register.cacbg.bg/2019/2D9C12E5-CF86-4F0A-B6D3-C17325A5191996081.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"БИЗНЕС ЦЕНТЪР ИНФОРМА-ИНТЕЛЕКТ\" ООД",
-        "detail": null,
-        "location": "Правоприемник на 10.05.2019 г. на 1620 лв. дялово участие",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Правоприемник на 10.05.2019 г. на 1620 лв. дялово участие",
+        "companyName": "\"БИЗНЕС ЦЕНТЪР ИНФОРМА-ИНТЕЛЕКТ\" ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "Притежавано дялово участие 830 лв. - декларирано във встъпителна декларация",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Притежавано дялово участие 830 лв. - декларирано във встъпителна декларация",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Притежавано дялово участие 830 лв. - декларирано във встъпителна декларация",
+        "companyName": "\"БИЗНЕС ЦЕНТЪР ИНФОРМА-ИНТЕЛЕКТ\" ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {
@@ -845,7 +825,7 @@
   },
   {
     "slug": "lyuben-ivanov-totev-a833f7",
-    "declarantName": "(unknown)",
+    "declarantName": "Любен Иванов Тотев",
     "institution": "Минно - геоложки университет \"Св. Иван Рилски\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -856,7 +836,85 @@
     "entryNumber": "В478",
     "controlHash": "255CDBF1",
     "sourceUrl": "https://register.cacbg.bg/2018/2D9C12E5-CF86-4F0A-B6D3-C17325A5191989025.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "16%",
+        "companyName": "БИЗНЕС ЦЕНТЪР ИНФОРМА-ИНТЕЛЕКТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МИНТЕОУНИВЕРС-ИНЖЕНЕРИНГ-НИС-МГУ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "МИНПРОЕКТ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ХОКЕЙ НА ТРЕВА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Управител",
+        "companyName": "МИНТЕОУНИВЕРС-ИНЖЕНЕРИНГ-НИС-МГУ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "МИНПРОЕКТ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ХОКЕЙ НА ТРЕВА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

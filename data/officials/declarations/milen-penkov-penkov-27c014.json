@@ -3867,7 +3867,7 @@
   },
   {
     "slug": "milen-penkov-penkov-27c014",
-    "declarantName": "(unknown)",
+    "declarantName": "Милен Пенков Пенков",
     "institution": "МБАЛ \"Хаджи Димитър\" ООД - гр. Сливен",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -3878,7 +3878,74 @@
     "entryNumber": "В1570",
     "controlHash": "3198D745",
     "sourceUrl": "https://register.cacbg.bg/2018/09F45371-DDDF-4A6A-8AD7-DEAD36ABE02B90167.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250 дяла с номинал 10 лева",
+        "companyName": "ДКЦ Сливен ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "9 400 дяла с номинал 10 лева",
+        "companyName": "МБАЛ Д-р Пенкови ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "255 дяла с ниминал 10 лева",
+        "companyName": "Мбал Хаджи Димитър ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Евроземеделие ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Медицински център Бюте ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Медлокатор ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

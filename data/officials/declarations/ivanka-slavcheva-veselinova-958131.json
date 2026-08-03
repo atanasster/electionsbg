@@ -346,7 +346,7 @@
   },
   {
     "slug": "ivanka-slavcheva-veselinova-958131",
-    "declarantName": "(unknown)",
+    "declarantName": "Иванка Славчева Веселинова",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -357,7 +357,19 @@
     "entryNumber": "В47",
     "controlHash": "3FE61EC3",
     "sourceUrl": "https://register.cacbg.bg/2024/A01B1DCD-E526-428E-9472-AD975B29BD2A167448.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "Национален дворец на културата – Конгресен център, София ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

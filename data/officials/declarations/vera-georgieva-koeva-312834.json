@@ -766,7 +766,7 @@
   },
   {
     "slug": "vera-georgieva-koeva-312834",
-    "declarantName": "(unknown)",
+    "declarantName": "Вера Георгиева Коева",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -780,6 +780,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Явор Георгиев Коев - съпруг",
+        "detail": "МлПИ при ОД на МВР Благоевград - извършване на предварителна проверка на досъдебно производство",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Николай Георгиев Янев - брат",
+        "detail": "\"Ен Си Ей Компютърс\" ЕООД - управител и собственик Николай Янев, с предмет на дейност - ремонт на компютри и мобилни телефони",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

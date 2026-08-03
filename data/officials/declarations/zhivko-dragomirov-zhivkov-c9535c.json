@@ -917,7 +917,7 @@
   },
   {
     "slug": "zhivko-dragomirov-zhivkov-c9535c",
-    "declarantName": "(unknown)",
+    "declarantName": "Живко Драгомиров Живков",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -928,7 +928,19 @@
     "entryNumber": "В1474",
     "controlHash": "D38AB9D0",
     "sourceUrl": "https://register.cacbg.bg/2018/482D51E9-DA43-42E6-9D54-FC9BA0573B3590066.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Фондация \"Да спасим и съхраним Храма в с.Черковна, построен през 1876 година\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -105,7 +105,7 @@
   },
   {
     "slug": "georgi-aleksandrov-vlchev-156c19",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕОРГИ АЛЕКСАНДРОВ ВЪЛЧЕВ",
     "institution": "Софийски университет \"Климент Охридски\"",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -116,23 +116,22 @@
     "entryNumber": "Г13976",
     "controlHash": "BAEDE59C",
     "sourceUrl": "https://register.cacbg.bg/2024/A286B08F-BCB6-484E-A883-C47B8C2D0BE0196230.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Сдружение на съвета на ректорите на висшите училища в Република България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на съвета на ректорите на висшите училища в Република България",
-        "detail": null,
-        "location": "член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "georgi-aleksandrov-vlchev-156c19",

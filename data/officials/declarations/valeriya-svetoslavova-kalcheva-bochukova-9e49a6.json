@@ -523,7 +523,7 @@
   },
   {
     "slug": "valeriya-svetoslavova-kalcheva-bochukova-9e49a6",
-    "declarantName": "(unknown)",
+    "declarantName": "Валерия Светославова Калчева-Бочукова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -534,7 +534,30 @@
     "entryNumber": "В1893",
     "controlHash": "4A82A8A0",
     "sourceUrl": "https://register.cacbg.bg/2018/622AC7C6-DDD6-4D5A-A164-BC5C13B82D6290543.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "Фонд за органите на местно самоуправление в България - ФЛАГ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "Фонд за органите на местно самоуправление в България - ФЛАГ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

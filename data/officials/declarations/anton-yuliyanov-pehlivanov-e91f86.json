@@ -393,7 +393,7 @@
   },
   {
     "slug": "anton-yuliyanov-pehlivanov-e91f86",
-    "declarantName": "(unknown)",
+    "declarantName": "Антон Юлиянов Пехливанов",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -404,7 +404,19 @@
     "entryNumber": "В162",
     "controlHash": "D36BE657",
     "sourceUrl": "https://register.cacbg.bg/2023/69F0DD91-369E-4873-A4C3-C68FC69A66B6145976.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "ЛРД СЛРД \"Сокол Крумовград\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

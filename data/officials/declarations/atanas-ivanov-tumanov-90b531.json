@@ -56,7 +56,7 @@
   },
   {
     "slug": "atanas-ivanov-tumanov-90b531",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Иваново Туманов",
     "institution": "АСК УМБАЛ ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -67,7 +67,19 @@
     "entryNumber": "В809",
     "controlHash": "7414F849",
     "sourceUrl": "https://register.cacbg.bg/2018/0793193E-AC59-4C2C-8AE6-CEA4BBE6E52989368.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Аджибадем Сити Клиник УМБАЛ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

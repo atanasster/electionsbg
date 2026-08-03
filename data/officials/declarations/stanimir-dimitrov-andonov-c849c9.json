@@ -87,7 +87,7 @@
   },
   {
     "slug": "stanimir-dimitrov-andonov-c849c9",
-    "declarantName": "(unknown)",
+    "declarantName": "СТАНИМИР ДИМИТРОВ АНДОНОВ",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -98,7 +98,30 @@
     "entryNumber": "В651",
     "controlHash": "1462B239",
     "sourceUrl": "https://register.cacbg.bg/2024/FCB5950C-A38B-41B4-AC73-802DB4969652179577.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ОС, УС и Председател на УС",
+        "companyName": "СНЦ \"Спортен клуб Загорски стрелец\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на ОС, УС и Председател на УС",
+        "companyName": "СНЦ \"Спортен клуб Загорски стрелец\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

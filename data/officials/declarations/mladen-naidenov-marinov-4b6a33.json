@@ -1,7 +1,7 @@
 [
   {
     "slug": "mladen-naidenov-marinov-4b6a33",
-    "declarantName": "(unknown)",
+    "declarantName": "Младен Найденов Маринов",
     "institution": "МВР",
     "positionTitle": "Главен секретар на МВР",
     "category": "security_service",
@@ -12,23 +12,22 @@
     "entryNumber": "Г2402",
     "controlHash": "89743D4A",
     "sourceUrl": "https://register.cacbg.bg/2018/8C0D6B0C-CF90-468C-AC1A-C7C44D55A96993029.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Сдружение \"Спортна асоциация-МВР\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Спортна асоциация-МВР\"",
-        "detail": null,
-        "location": "Член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "mladen-naidenov-marinov-4b6a33",

@@ -1,7 +1,7 @@
 [
   {
     "slug": "georgi-sashkov-stefanov-49b96d",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Сашков Стефано",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -12,7 +12,19 @@
     "entryNumber": "В48",
     "controlHash": "A2DA2B1A",
     "sourceUrl": "https://register.cacbg.bg/2022/55CE0254-9A3D-439E-9F9E-3E4E8A5B9FD5131033.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Рох ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

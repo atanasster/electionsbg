@@ -302,7 +302,7 @@
   },
   {
     "slug": "rosen-zhekov-dobrev-207156",
-    "declarantName": "(unknown)",
+    "declarantName": "Росен Жеков Добрев",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -313,28 +313,21 @@
     "entryNumber": "Г2030",
     "controlHash": "721BD2A1",
     "sourceUrl": "https://register.cacbg.bg/2018/BA6C953C-971E-43BA-B99F-E3BE1EF7253492391.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "РОСАГРО ООД -с.Селаноци",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "РОСАГРО ООД -с.Селаноци",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {

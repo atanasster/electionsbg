@@ -1960,7 +1960,7 @@
   },
   {
     "slug": "georgi-nikolov-gelov-2bde95",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Николов Гелов",
     "institution": "МБАЛ - Хасково АД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1971,7 +1971,52 @@
     "entryNumber": "В1540",
     "controlHash": "4B91036B",
     "sourceUrl": "https://register.cacbg.bg/2018/B4D0252D-9D77-4144-967E-350455C4BBEE90137.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МБАЛ ХИГИЯ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение Баскетболен клуб Хасково 2012",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МБАЛ ХИГИЯ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение Баскетболен клуб Хасково 2012",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

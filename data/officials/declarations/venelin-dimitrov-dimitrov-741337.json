@@ -38,7 +38,7 @@
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",
-    "declarantName": "(unknown)",
+    "declarantName": "ВЕНЕЛИН ДИМИТРОВ ДИМИТРОВ",
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -49,42 +49,33 @@
     "entryNumber": "В315",
     "controlHash": "061CEB58",
     "sourceUrl": "https://register.cacbg.bg/2023/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84147551.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТНЕЛНИЯ СЪВЕТ",
+        "companyName": "ЗЕМЕДЕЛСКА КООПЕРАЦИЯ НИВА-93 С. ПРОФЕСОР ИШИРКОВО",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "ЗЕМЕДЕЛСКА КООПЕРАЦИЯ НИВА-93 С. ПРОФЕСОР ИШИРКОВО",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЗЕМЕДЕЛСКА КООПЕРАЦИЯ НИВА-93 С. ПРОФЕСОР ИШИРКОВО",
-        "detail": null,
-        "location": "ЧЛЕН НА УПРАВИТНЕЛНИЯ СЪВЕТ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",
@@ -138,7 +129,7 @@
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",
-    "declarantName": "(unknown)",
+    "declarantName": "ВЕНЕЛИН ДИМИТРОВ ДИМИТРОВ",
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -149,7 +140,74 @@
     "entryNumber": "В508",
     "controlHash": "75501830",
     "sourceUrl": "https://register.cacbg.bg/2022/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84132347.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "ВЕМАКО ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        "companyName": "ЗК НИВА С.ИШИРКОВА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЗАМ.ПРЕДСЕДАТЕЛ",
+        "companyName": "ЛОВНО СДРУЖЕНИЕ НАСЛУКА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "ВЕМАКО ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        "companyName": "ЗК НИВА С.ИШИРКОВО",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЗАМ.ПРЕДСЕДАТЕЛ",
+        "companyName": "ЛОВНО СДРУЖЕНИЕ НАСЛУКА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -262,7 +262,7 @@
   },
   {
     "slug": "zaritsa-georgieva-dinkova-d026da",
-    "declarantName": "(unknown)",
+    "declarantName": "Зарица Георгиева Динкова",
     "institution": "Министерство на туризма",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -273,7 +273,30 @@
     "entryNumber": "В1004",
     "controlHash": "6F76E07B",
     "sourceUrl": "https://register.cacbg.bg/2023/46766D1F-217C-42EE-869E-7EB39E54CC27155781.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател и член на УС- в процес на освобождаване, подадено заявление",
+        "companyName": "Клуб Алпбах България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател и член на УС",
+        "companyName": "Клуб Алпбах България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

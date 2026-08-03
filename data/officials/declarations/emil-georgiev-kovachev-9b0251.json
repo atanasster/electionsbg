@@ -1465,7 +1465,7 @@
   },
   {
     "slug": "emil-georgiev-kovachev-9b0251",
-    "declarantName": "(unknown)",
+    "declarantName": "ЕМИЛ ГЕОРГИЕВ КОВАЧЕВ",
     "institution": "СБАГАЛ \"Проф. Д-р Димитър Стаматов\" - Варна ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1476,7 +1476,30 @@
     "entryNumber": "В580",
     "controlHash": "4021E501",
     "sourceUrl": "https://register.cacbg.bg/2018/62935EF1-D452-4D38-A920-09CFD772D12D89130.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1250",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ЗА АСИСТИРАНА РЕПРОДУКЦИЯ ВАРНА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "СЪДРУЖНИК - ЧЛЕН НА ОСС",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ЗА АСИСТИРАНА РЕПРОДУКЦИЯ ВАРНА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

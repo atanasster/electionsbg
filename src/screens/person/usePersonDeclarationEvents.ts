@@ -5,7 +5,10 @@
 import { useEffect, useState } from "react";
 
 export type DeclarationEventRow = {
-  kind: string; // disposal_property | disposal_vehicle | third_party_expense | guarantee
+  /** One of DeclarationEventKind (src/data/dataTypes.ts): the four asset-form kinds
+   *  (disposal_property | disposal_vehicle | third_party_expense | guarantee) plus the
+   *  three interests-form ones (interest_contract | related_person | early_repayment). */
+  kind: string;
   year: number; // the year the filing was made
   /** The period the filing covers, VERBATIM from the register — null when it does not say.
    *  Deliberately not a computed "event year": declaration_year equals fiscal_year + 1 only

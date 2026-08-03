@@ -1,7 +1,7 @@
 [
   {
     "slug": "andrian-mitkov-yakov-061919",
-    "declarantName": "(unknown)",
+    "declarantName": "АНДРИАН МИТКОВ ЯКОВ",
     "institution": "МБАЛ - Гулянци ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -14,27 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/6A772A6D-545C-4DF5-BDFE-BF11B7D27E9F218917.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "ИНВЕСТИЦИОНЕН КРЕДИТ114100",
         "detail": "АНДРИАН МИТКОВ ЯКОВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "114100",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ АД",
-        "isSpouse": true,
-        "legalBasis": "ИПОТЕЧЕН КРЕДИТ НА ФИЗИЧЕСКИ ЛИЦЕ- МИМА ИВАНОВА ЯКОВА",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 58338.40364448853,
+        "legalBasis": "ИПОТЕЧЕН КРЕДИТ НА ФИЗИЧЕСКИ ЛИЦЕ- МИМА ИВАНОВА ЯКОВА"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "andrian-mitkov-yakov-061919",
@@ -2225,7 +2219,7 @@
   },
   {
     "slug": "andrian-mitkov-yakov-061919",
-    "declarantName": "(unknown)",
+    "declarantName": "АНДРИАН МИТКОВ ЯКОВ",
     "institution": "МБАЛ - Гулянци ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2236,10 +2230,90 @@
     "entryNumber": "В1175",
     "controlHash": "7187B9E1",
     "sourceUrl": "https://register.cacbg.bg/2018/6A772A6D-545C-4DF5-BDFE-BF11B7D27E9F89740.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АИПСИМ по Ендокринология и болести на обмяната Д-р Андриан Яков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АИПСИМ по Ендокринология и болести на обмяната Д-р Андриан Яков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ - Гулянци ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АИПСИМП по Ендокринология и болести на обмяната Д-р Андриан Яков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "АИПСИМ по Ендокринология и болести на обмяната Д-р Андриан Яков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0%",
+        "companyName": "МБАЛ - Гулянци ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "АИПСИМП по Ендокринология и болести на обмяната Д-р Андриан Яков ЕООД",
+        "detail": "ДОГОВОР ЗА НАЕМ ЗА ЛЕКАРСКИ КАБИНЕТ С МБАЛ-Гулянци ЕООД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "andrian-mitkov-yakov-061919",

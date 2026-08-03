@@ -623,7 +623,7 @@
   },
   {
     "slug": "krasimir-ivanov-ivanov-6e8b1b",
-    "declarantName": "(unknown)",
+    "declarantName": "КРАСИМИР ИВАНОВ ИВАНОВ",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -634,7 +634,19 @@
     "entryNumber": "В2834",
     "controlHash": "A10DA934",
     "sourceUrl": "https://register.cacbg.bg/2018/7198A064-346C-46EF-B880-B94E0A4FB9D892844.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "РЕЯ - К. ИВАНОВ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

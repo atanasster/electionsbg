@@ -188,7 +188,7 @@
   },
   {
     "slug": "nedzhmi-niyazi-ali-970806",
-    "declarantName": "(unknown)",
+    "declarantName": "Неджми Ниязи Али",
     "institution": "Джебел",
     "positionTitle": "Кмет",
     "declarationYear": 2025,
@@ -198,27 +198,26 @@
     "entryNumber": "Г14742",
     "controlHash": "E6B4E6E9",
     "sourceUrl": "https://register.cacbg.bg/2025/D9C06EF5-A8CC-47A6-953C-603132DACC7C218186.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Съм член на управителен съвет",
+        "companyName": "Местна инициативна група Джебел - Кърджали 63",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Местна инициативна група Джебел - Кърджали 63",
-        "detail": null,
-        "location": "Съм член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "nedzhmi-niyazi-ali-970806",
-    "declarantName": "(unknown)",
+    "declarantName": "Неджми Ниязи Али",
     "institution": "Джебел",
     "positionTitle": "Кмет",
     "declarationYear": 2025,
@@ -228,22 +227,21 @@
     "entryNumber": "Г15290",
     "controlHash": "B8195711",
     "sourceUrl": "https://register.cacbg.bg/2025/D9C06EF5-A8CC-47A6-953C-603132DACC7C219108.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "НЕ съм член на управителен съвет",
+        "companyName": "Местна инициативна група Джебел-Кърджали 63",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Местна инициативна група Джебел-Кърджали 63",
-        "detail": null,
-        "location": "НЕ съм член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

@@ -240,7 +240,7 @@
   },
   {
     "slug": "dimitr-georgiev-iliev-4335df",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Георгиев Илиев",
     "institution": "Изпълнителна агенция \"Медицински надзор\"",
     "positionTitle": "Заместник-изпълнителен директор",
     "category": "agency_head",
@@ -251,7 +251,19 @@
     "entryNumber": "В515",
     "controlHash": "2F255FED",
     "sourceUrl": "https://register.cacbg.bg/2022/EAD0B468-77A6-4D2C-9155-A998E6A54E26132413.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "Лозина Естейт Уайн Селър",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -50,7 +50,7 @@
   },
   {
     "slug": "byulent-halibryam-ahmed-f9d4be",
-    "declarantName": "(unknown)",
+    "declarantName": "БЮЛЕНТ ХАЛИБРЯМ АХМЕД",
     "institution": "Джебел",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
@@ -60,22 +60,21 @@
     "entryNumber": "Г7933",
     "controlHash": "1B1A7F9F",
     "sourceUrl": "https://register.cacbg.bg/2025/DF1D8633-825E-4E9F-83B6-BCD352643198210938.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        "companyName": "СДРУЖЕНИЕ ФУТБОЛЕН КЛУБ- ДЖЕБЕЛ 2025",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ ФУТБОЛЕН КЛУБ- ДЖЕБЕЛ 2025",
-        "detail": null,
-        "location": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

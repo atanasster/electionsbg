@@ -1,7 +1,7 @@
 [
   {
     "slug": "petr-kirilov-todorov-91930f",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Кирилов Тодоров",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,42 +12,33 @@
     "entryNumber": "Г11512",
     "controlHash": "4527E431",
     "sourceUrl": "https://register.cacbg.bg/2025/CDFB5562-8332-4E72-9C53-16A956DEFCDD214656.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "заличено участие на  15.04.2025 г.",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "заличено участие на  15.04.2025 г.",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заличено  участие на 15.04.2025г.",
+        "companyName": "Прекратено участие в настоятелството на  НЧ \"Виделина -1865\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заличено участие на  15.04.2025 г.",
+        "companyName": "Прекратено  участие в настоятелството на  НЧ \"Виделина -1865\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Прекратено участие в настоятелството на  НЧ \"Виделина -1865\"",
-        "detail": null,
-        "location": "заличено  участие на 15.04.2025г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petr-kirilov-todorov-91930f",
@@ -1042,7 +1033,7 @@
   },
   {
     "slug": "petr-kirilov-todorov-91930f",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Кирилов Тодоров",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",

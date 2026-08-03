@@ -57,7 +57,7 @@
   },
   {
     "slug": "dimitr-vasilev-baturov-edef22",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Василев Батуров",
     "institution": "Национална експертна лекарска комисия",
     "positionTitle": "Заместник-директор",
     "category": "agency_head",
@@ -68,7 +68,30 @@
     "entryNumber": "В1709",
     "controlHash": "19D1957A",
     "sourceUrl": "https://register.cacbg.bg/2024/47A9271D-D6E9-473C-806F-A7915545947E196234.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5 лв.",
+        "companyName": "Българско сдружение по авиационна, морска и космическа медицина",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "секретар",
+        "companyName": "Българско сдружение по авиационна ,морска и космическа медицина",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

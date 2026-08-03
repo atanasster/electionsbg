@@ -68,7 +68,7 @@
   },
   {
     "slug": "blagovest-nikolaev-dimov-276c4c",
-    "declarantName": "(unknown)",
+    "declarantName": "Благовест Николаев Димов",
     "institution": "Добрич",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -80,44 +80,32 @@
     "sourceUrl": "https://register.cacbg.bg/2025/2F9B10A8-60BE-4A2B-B033-77A2BE803168202209.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Благовест Николаев Димов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "5000",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "заплата"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Благовест Николаев Димов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "7500",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "7500",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 3834.6891089716387,
+        "legalBasis": "заплата"
       }
-    ],
-    "events": []
+    ]
   }
 ]

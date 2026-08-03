@@ -1,7 +1,7 @@
 [
   {
     "slug": "vladimir-teofilov-tudzharov-6463d6",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Теофилов Туджаров",
     "institution": "Министерство на икономиката и индустрията",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
@@ -12,10 +12,57 @@
     "entryNumber": "В166",
     "controlHash": "A1100C9C",
     "sourceUrl": "https://register.cacbg.bg/2025/CA41E6CD-07BD-404D-9412-1B2E7D231F36201968.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33 %",
+        "companyName": "Кристъл риъл естейтс комерс ООД, гр.София",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Синтаграм\" ЕООД, гр. София",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Синтаграм\" ЕООД, гр. София /без дейност/",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Министерство на транспорта и съобщенията",
+        "detail": "Договор за изп-е на функции и задачи на член на одитния комитет на \"ХБДЖ\"ЕАД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "vladimir-teofilov-tudzharov-6463d6",

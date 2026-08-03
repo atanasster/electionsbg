@@ -431,7 +431,7 @@
   },
   {
     "slug": "stefan-georgiev-chaikov-fae782",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Георгиев Чайков",
     "institution": "ПУДООС",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -442,10 +442,46 @@
     "entryNumber": "В2394",
     "controlHash": "8B2089CC",
     "sourceUrl": "https://register.cacbg.bg/2018/6AEDB02C-4BFD-416C-A275-4DDF9318AB6F91193.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Българска Браншова Камара \"Пътища\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Българска Браншова Камара \"Пътища\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Антоанета Спасенова Чайкова",
+        "detail": "Управление на строителна фирма",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "stefan-georgiev-chaikov-fae782",

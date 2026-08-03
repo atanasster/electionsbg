@@ -745,7 +745,7 @@
   },
   {
     "slug": "andrei-prvanov-markov-65f468",
-    "declarantName": "(unknown)",
+    "declarantName": "Андрей Първанов Марков",
     "institution": "АСК УМБАЛ ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -756,7 +756,19 @@
     "entryNumber": "В811",
     "controlHash": "21B54EBC",
     "sourceUrl": "https://register.cacbg.bg/2018/8628EDFF-B3A3-4448-9EC8-24F7B2E38E9889370.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Участие",
+        "companyName": "Сити Хелткеър Рисърч енд Еджукейшън Фаундейшън",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

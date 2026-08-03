@@ -529,7 +529,7 @@
   },
   {
     "slug": "iva-ventsislavova-petrova-c05e81",
-    "declarantName": "(unknown)",
+    "declarantName": "Ива Венциславова Петрова",
     "institution": "Министерство на енергетиката",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -547,7 +547,7 @@
   },
   {
     "slug": "iva-ventsislavova-petrova-c05e81",
-    "declarantName": "(unknown)",
+    "declarantName": "ИВА ВЕНЦИСЛАВОВА ПЕТРОВА",
     "institution": "Министерство на енергетиката",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -558,23 +558,22 @@
     "entryNumber": "В51",
     "controlHash": "95951A9C",
     "sourceUrl": "https://register.cacbg.bg/2022/6B4F2444-5CC7-4FF8-8FD9-5AD21DED6F0D131038.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заличена като член на УС на Сдружение \"БЧА\", считано от 24.01.2022 г.",
+        "companyName": "Сдружение \"БЧА\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"БЧА\"",
-        "detail": null,
-        "location": "заличена като член на УС на Сдружение \"БЧА\", считано от 24.01.2022 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "iva-ventsislavova-petrova-c05e81",

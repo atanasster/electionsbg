@@ -775,7 +775,7 @@
   },
   {
     "slug": "anzhelina-vasileva-prvanova-vasileva-13ddb8",
-    "declarantName": "(unknown)",
+    "declarantName": "Анжелина Василева Първанова-Василева",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -786,10 +786,46 @@
     "entryNumber": "В785",
     "controlHash": "9F42500C",
     "sourceUrl": "https://register.cacbg.bg/2018/DA496094-18A2-4D04-B32B-E8EB9B01F5A589340.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "35",
+        "companyName": "\"ПАНЕСИ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "35",
+        "companyName": "\"ПАНЕСИ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Юлиан Младенов Филипов - братовчед",
+        "detail": "Земеделски производител",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "anzhelina-vasileva-prvanova-vasileva-13ddb8",

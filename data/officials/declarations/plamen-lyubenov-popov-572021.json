@@ -171,7 +171,7 @@
   },
   {
     "slug": "plamen-lyubenov-popov-572021",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен любенов попов",
     "institution": "Национален център по наркомании",
     "positionTitle": "Директор",
     "category": "agency_head",
@@ -182,7 +182,41 @@
     "entryNumber": "В2934",
     "controlHash": "FB8CFE90",
     "sourceUrl": "https://register.cacbg.bg/2018/14A4280B-A2CB-4E0F-BADD-F50795BF754F92996.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "20",
+        "companyName": "ГПИСПП Виталис ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "20",
+        "companyName": "ГПИСПП Виталис ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "контрольор",
+        "companyName": "ТЕРЕМ Цар Самуил ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

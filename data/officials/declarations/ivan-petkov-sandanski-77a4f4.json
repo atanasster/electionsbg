@@ -56,7 +56,7 @@
   },
   {
     "slug": "ivan-petkov-sandanski-77a4f4",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Петков Сандански",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -67,7 +67,30 @@
     "entryNumber": "В2061",
     "controlHash": "C9665208",
     "sourceUrl": "https://register.cacbg.bg/2018/C589A923-18C7-4148-8D53-A196DD1B851290802.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Българска асоциация спорт за всички-ЮЛНЦ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Българска асоциация спорт за всички-ЮЛНЦ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

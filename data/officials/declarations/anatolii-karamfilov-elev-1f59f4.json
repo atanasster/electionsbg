@@ -271,7 +271,7 @@
   },
   {
     "slug": "anatolii-karamfilov-elev-1f59f4",
-    "declarantName": "(unknown)",
+    "declarantName": "Анатолий Карамфилов Елев",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -284,27 +284,21 @@
     "sourceUrl": "https://register.cacbg.bg/2023/D72F4A60-8E22-4B2D-8D59-9D0708424C88146452.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Потребителски заем",
         "detail": "Анатолий Карамфилов Елев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "2936",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ЦКБ",
-        "isSpouse": true,
-        "legalBasis": "Рефинансиране на заем",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 1501.1529631920976,
+        "legalBasis": "Рефинансиране на заем"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "anatolii-karamfilov-elev-1f59f4",

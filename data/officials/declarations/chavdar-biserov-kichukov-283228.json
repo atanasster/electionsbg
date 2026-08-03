@@ -1,7 +1,7 @@
 [
   {
     "slug": "chavdar-biserov-kichukov-283228",
-    "declarantName": "(unknown)",
+    "declarantName": "Чавдар Бисеров Кичуков",
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,23 +12,22 @@
     "entryNumber": "Г13228",
     "controlHash": "992B746D",
     "sourceUrl": "https://register.cacbg.bg/2025/3D7D327C-7EA4-4ADE-9034-CDDCB24118CC216426.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Зам. Председател на Управителен съвет",
+        "companyName": "\"Спортен клуб по пожароприложен спорт - Орфей гр. Смолян",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Спортен клуб по пожароприложен спорт - Орфей гр. Смолян",
-        "detail": null,
-        "location": "Зам. Председател на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "chavdar-biserov-kichukov-283228",
@@ -94,7 +93,7 @@
   },
   {
     "slug": "chavdar-biserov-kichukov-283228",
-    "declarantName": "(unknown)",
+    "declarantName": "Чавдар Бисеров Кичуков",
     "institution": "РДПБЗН",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -105,7 +104,30 @@
     "entryNumber": "В1023",
     "controlHash": "2320B40D",
     "sourceUrl": "https://register.cacbg.bg/2024/3D7D327C-7EA4-4ADE-9034-CDDCB24118CC183628.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Сдружение на собствениците на жилищна сграда - \"Бул. България №86-гр.Смолян, бл.16, вх.А и Б\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Сдружение на собствениците на жилищна сграда - \"Бул. България №86-гр.Смолян, бл.16, вх.А и Б\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1385,7 +1385,7 @@
   },
   {
     "slug": "mariya-petkova-badeva-7ba1fb",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Петкова Бадева",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
@@ -1399,6 +1399,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Петър Иванов Бадев",
+        "detail": "\"ПИБ Трейд\" ЕООД, ЕТ\"Петър Бадев\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Радка Петкова Аврамова",
+        "detail": "ЕТ\"Д.Аврамов-44-Радка Аврамова\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

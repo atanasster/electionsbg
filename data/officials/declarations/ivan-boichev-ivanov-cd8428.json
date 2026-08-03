@@ -325,7 +325,7 @@
   },
   {
     "slug": "ivan-boichev-ivanov-cd8428",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Бойчев Иванов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -336,7 +336,19 @@
     "entryNumber": "В1432",
     "controlHash": "6C751B86",
     "sourceUrl": "https://register.cacbg.bg/2018/9BD67CB6-5AA7-4AC2-B3F7-E7C3077A2DF590012.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Надзорния съвет (поради наличие на нормативни ограничения не се получава възнаграждение)",
+        "companyName": "\"Фонд мениджър на финансови инструменти в България\"ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

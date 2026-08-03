@@ -290,7 +290,7 @@
   },
   {
     "slug": "ivailo-georgiev-staikov-8540f4",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Георгиев Стайков",
     "institution": "Министерство на регионалното развитие и благоустройството",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -597,7 +597,7 @@
   },
   {
     "slug": "ivailo-georgiev-staikov-8540f4",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Георгиев Стайков",
     "institution": "Министерство на регионалното развитие и благоустройството",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -608,7 +608,30 @@
     "entryNumber": "В829",
     "controlHash": "D1A7F235",
     "sourceUrl": "https://register.cacbg.bg/2022/3D5B8A7D-F886-4814-A1A0-82E9C0BDE7CA141448.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Премиум Билдинг Мениджмънт ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Нова Инвестмънт Трейд ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -117,7 +117,7 @@
   },
   {
     "slug": "nikolai-petrov-kotev-9674d9",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Петров Котев",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -128,7 +128,30 @@
     "entryNumber": "В535",
     "controlHash": "5E588F65",
     "sourceUrl": "https://register.cacbg.bg/2024/C9EE2960-8F7D-49BD-B7AD-AB9A119655BC178308.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "КОМСТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "ТЕРМОПОР ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

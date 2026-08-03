@@ -160,7 +160,7 @@
   },
   {
     "slug": "georgi-lyubenov-georgiev-b86747",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Любенов Георгиев",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -171,46 +171,32 @@
     "entryNumber": "Г2152",
     "controlHash": "5B1D6BCD",
     "sourceUrl": "https://register.cacbg.bg/2018/E7C93BD4-0748-4BED-9ED0-8575E7E24A9192540.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"ЕВРО БУЛ ИВИ ФИШ\" ООД",
-        "detail": null,
-        "location": "250 ЛВ.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250 ЛВ.",
+        "companyName": "\"ЕВРО БУЛ ИВИ ФИШ\" ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "250 ЛВ.",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "250 ЛВ.",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250 ЛВ.",
+        "companyName": "\"ЕВРО БУЛ ИВИ ФИШ\" ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   }
 ]

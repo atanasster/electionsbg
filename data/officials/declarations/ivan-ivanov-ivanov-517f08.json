@@ -173,7 +173,7 @@
   },
   {
     "slug": "ivan-ivanov-ivanov-517f08",
-    "declarantName": "(unknown)",
+    "declarantName": "ИВАН ИВАНОВ ИВАНОВ",
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
@@ -184,42 +184,33 @@
     "entryNumber": "Г8681",
     "controlHash": "EF8C75F6",
     "sourceUrl": "https://register.cacbg.bg/2023/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590155669.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "ЧЕРВЕН ДЪБ ООД",
-        "detail": null,
-        "location": "500",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "500",
+        "companyName": "ЧЕРВЕН ДЪБ ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "ЧЕРВЕН ДЪБ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЧЕРВЕН ДЪБ ООД",
-        "detail": null,
-        "location": "УПРАВИТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-ivanov-ivanov-517f08",

@@ -681,7 +681,7 @@
   },
   {
     "slug": "gosho-petkov-ginchev-9ee1a6",
-    "declarantName": "(unknown)",
+    "declarantName": "Гошо Петков Гинчев",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -692,7 +692,63 @@
     "entryNumber": "В10281",
     "controlHash": "0ECC3464",
     "sourceUrl": "https://register.cacbg.bg/2020/3F997E54-5AEB-4D50-9ABB-4E391AEDE93D112487.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Генто ООД ЕИК:123647407",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Анди Инженеринг ЕООД ЕИК:175030947",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Генто ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Анди Инженеринг ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "чл.на Съвет на директорите",
+        "companyName": "Академика 2011 ЕАД ЕИК :201745141",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

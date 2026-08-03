@@ -136,7 +136,7 @@
   },
   {
     "slug": "stefan-asparuhov-nikolov-ba3a94",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Аспарухов Николов",
     "institution": "МБАЛ \"Свети Иван Рилски\" ЕООД, гр.Дупница",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -147,7 +147,41 @@
     "entryNumber": "В192",
     "controlHash": "764E908E",
     "sourceUrl": "https://register.cacbg.bg/2024/9696B39C-9329-4FBB-9381-02CC8114FA20171920.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "\"СТИФМАР - НИКОЛОВ И СИЕ\" СД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "\"СТИФМАР - НИКОЛОВ И СИЕ\" СД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Медицински център Свети Иван Рилски\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

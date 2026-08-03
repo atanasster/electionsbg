@@ -1,7 +1,7 @@
 [
   {
     "slug": "iordan-georgiev-georgiev-ac431c",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Георгиев Георгиев",
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Председател на УС",
     "category": "state_enterprise",
@@ -12,7 +12,85 @@
     "entryNumber": "В910",
     "controlHash": "55DD7579",
     "sourceUrl": "https://register.cacbg.bg/2022/72E1BC4E-F02C-433C-AD9D-000605671B38141724.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25,50%",
+        "companyName": "\"ИНТИ\" ООД, Бургас, ЕИК 102660611",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "\"Екаста Комерс\"ООД гр.Бургас ЕИК 147188065",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "\"Инсамид Консултинг\"ООД, гр.София ЕИК 204116812",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"ИНТИ\" ООД, Бургас, ЕИК 102660611",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Екаста Комерс\"ООД гр.Бургас ЕИК 147188065",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет и Представляващ",
+        "companyName": "Сдружение \"Военно патриотичен съюз\"24\"-ти пехотен черноморски полк\" Бургас, ЕИК 205233035",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Българска федерация по водна топка",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

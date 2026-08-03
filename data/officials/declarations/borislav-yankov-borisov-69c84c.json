@@ -2536,7 +2536,7 @@
   },
   {
     "slug": "borislav-yankov-borisov-69c84c",
-    "declarantName": "(unknown)",
+    "declarantName": "Борислав Янков Борисов",
     "institution": "Висше строително училище \"Любен Каравелов\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -2547,9 +2547,34 @@
     "entryNumber": "В878",
     "controlHash": "74AADB6B",
     "sourceUrl": "https://register.cacbg.bg/2018/DEA3BD65-AA80-4B57-8F46-2C66C6BEDC1289438.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Сдружение на урбанистите в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Румяна Николова Борисова",
+        "detail": "консултации, проучване, проектиране и др.",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

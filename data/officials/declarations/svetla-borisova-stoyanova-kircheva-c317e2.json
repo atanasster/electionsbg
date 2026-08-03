@@ -768,7 +768,7 @@
   },
   {
     "slug": "svetla-borisova-stoyanova-kircheva-c317e2",
-    "declarantName": "(unknown)",
+    "declarantName": "Светла Борисова Стоянова-Кирчева",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -779,7 +779,30 @@
     "entryNumber": "В2805",
     "controlHash": "D4B03E87",
     "sourceUrl": "https://register.cacbg.bg/2018/5098DC54-5BEF-47FE-9B17-1EB418C9A89192797.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "335",
+        "companyName": "КАМОС-ИС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "335",
+        "companyName": "КАМОС-ИС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

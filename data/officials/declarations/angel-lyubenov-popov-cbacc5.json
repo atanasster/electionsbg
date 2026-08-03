@@ -649,7 +649,7 @@
   },
   {
     "slug": "angel-lyubenov-popov-cbacc5",
-    "declarantName": "(unknown)",
+    "declarantName": "Ангел Любенов Попов",
     "institution": "МБАЛ \"Люлин\" ЕАД, гр. София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -660,23 +660,22 @@
     "entryNumber": "Г2535",
     "controlHash": "683490E3",
     "sourceUrl": "https://register.cacbg.bg/2020/8ADE222B-BBB0-46EE-AE6C-8D7B9F578A49112744.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "учредител и представляващ",
+        "companyName": "Фондация ЗДРАВЕ И БЪДЕЩЕ ЗА ВСЕКИ, ЕИК 205041775",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация ЗДРАВЕ И БЪДЕЩЕ ЗА ВСЕКИ, ЕИК 205041775",
-        "detail": null,
-        "location": "учредител и представляващ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "angel-lyubenov-popov-cbacc5",
@@ -1012,7 +1011,7 @@
   },
   {
     "slug": "angel-lyubenov-popov-cbacc5",
-    "declarantName": "(unknown)",
+    "declarantName": "АНГЕЛ ЛЮБЕНОВ ПОПОВ",
     "institution": "МБАЛ \"Люлин\" ЕАД, гр. София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1023,7 +1022,118 @@
     "entryNumber": "В655",
     "controlHash": "D37DA3D6",
     "sourceUrl": "https://register.cacbg.bg/2018/8ADE222B-BBB0-46EE-AE6C-8D7B9F578A4989207.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%, 5000лв",
+        "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%, 5000 лв.",
+        "companyName": "\"ТРАНСПОМЕД - 2\" ЕООД, ЕИК 101790979",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "\"ТРАСПОМЕД - 2\" ЕООД, ЕИК 101790979",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "индивидуална практика за специализирана медицинска помощ по ортопедия и травматология",
+        "companyName": "ЕТ \"Доктор Ангел Попов - ИПСМПОТ\", ЕИК 101716523",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%, 5000лв",
+        "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%, 5000лв",
+        "companyName": "\"ТРАНСПОМЕД - 2\" ЕООД, ЕИК 101790979",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "\"ТРАСПОМЕД - 2\" ЕООД, ЕИК 101790979",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "индивидуална практика за специализирана медицинска помощ по ортопедия и травматология",
+        "companyName": "ЕТ \"Доктор Ангел Попов - ИПСМПОТ\", ЕИК 101716523",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

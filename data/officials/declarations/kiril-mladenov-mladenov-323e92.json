@@ -1604,7 +1604,7 @@
   },
   {
     "slug": "kiril-mladenov-mladenov-323e92",
-    "declarantName": "(unknown)",
+    "declarantName": "Кирил Младенов Младенов",
     "institution": "СБР - \"Бургаски минерални бани” ЕАД, гр.Бургас",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1615,7 +1615,30 @@
     "entryNumber": "В527",
     "controlHash": "C0E15D92",
     "sourceUrl": "https://register.cacbg.bg/2018/B1E599D6-F7E3-495C-B6B2-678622BED26D89074.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "15 на 100",
+        "companyName": "\"АТКО 2000\" ООД гр. Бургас жк \"Лазур\" блок 15",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "15 на 100",
+        "companyName": "\"АТК 2000\" ООД гр. Бургас жк \"Лазур\" блок 15",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

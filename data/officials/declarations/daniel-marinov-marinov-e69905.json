@@ -69,7 +69,7 @@
   },
   {
     "slug": "daniel-marinov-marinov-e69905",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниел Маринов Маринов",
     "institution": "Общински предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -80,7 +80,19 @@
     "entryNumber": "В1414",
     "controlHash": "4019B543",
     "sourceUrl": "https://register.cacbg.bg/2024/DBCE8FC7-B835-4B4C-BDE3-3ADA032F2A23191826.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "Егоефект ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikolai-ivanov-markov-0e91a4",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Иванов Марков",
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
@@ -12,58 +12,44 @@
     "entryNumber": "Г15486",
     "controlHash": "5818A7FB",
     "sourceUrl": "https://register.cacbg.bg/2025/95D00B6A-7C1B-4DED-A2B6-6451654FCC47219709.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "управител",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "управител",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. цел",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. Цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Ипотечен кредит",
         "detail": "Николай Иванов Марков и Вера Йораднова Маркова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "5945",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "към\nбанки",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. цел",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "currency": "EUR",
+        "valueEur": 5945.301994549629,
+        "legalBasis": "заплата"
       }
     ]
   },

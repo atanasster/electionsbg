@@ -398,7 +398,7 @@
   },
   {
     "slug": "lyudmil-vchkov-lazarov-038821",
-    "declarantName": "(unknown)",
+    "declarantName": "Людмил Въчков Лазаров",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -409,7 +409,19 @@
     "entryNumber": "В419",
     "controlHash": "0F1E6995",
     "sourceUrl": "https://register.cacbg.bg/2025/8985F78E-F372-472A-91E3-4A9FB7AA0A17202843.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "Държавна Консолидационна компания ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

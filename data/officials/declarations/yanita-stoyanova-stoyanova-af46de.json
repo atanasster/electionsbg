@@ -279,7 +279,7 @@
   },
   {
     "slug": "yanita-stoyanova-stoyanova-af46de",
-    "declarantName": "(unknown)",
+    "declarantName": "Янита Стоянова Стоянова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -290,7 +290,19 @@
     "entryNumber": "В724",
     "controlHash": "ABD133BE",
     "sourceUrl": "https://register.cacbg.bg/2022/02E207C2-5815-4AC7-B786-69B77CBFC054140416.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "Актив Баланс Акаунтинг ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

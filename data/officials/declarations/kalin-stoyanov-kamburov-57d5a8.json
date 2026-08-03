@@ -74,7 +74,7 @@
   },
   {
     "slug": "kalin-stoyanov-kamburov-57d5a8",
-    "declarantName": "(unknown)",
+    "declarantName": "КАЛИН СТОЯНОВ КАМБУРОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -85,7 +85,19 @@
     "entryNumber": "В576",
     "controlHash": "7A2D6B76",
     "sourceUrl": "https://register.cacbg.bg/2025/BDADE758-997F-407D-B730-D0ADC171FD9C203878.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "ЗАЕДНО ЗА БЕЛОВО СДРУЖЕНИЕ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

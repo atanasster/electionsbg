@@ -915,7 +915,7 @@
   },
   {
     "slug": "yasen-georgiev-yanev-88cd55",
-    "declarantName": "(unknown)",
+    "declarantName": "Ясен Георгиев Янев",
     "institution": "МБАЛ \"Хигия\" ООД, гр. Хасково",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -926,28 +926,21 @@
     "entryNumber": "Г748",
     "controlHash": "C807D28B",
     "sourceUrl": "https://register.cacbg.bg/2019/E675F012-F119-443E-8455-E88D9E36D11A95061.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "50%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "50%",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "МЦ Хипократ 2000 ООД (до 30.07.2018г.)",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {

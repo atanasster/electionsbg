@@ -1168,7 +1168,7 @@
   },
   {
     "slug": "evgeni-petrov-stanimirov-31a61d",
-    "declarantName": "(unknown)",
+    "declarantName": "Евгени Петров Станимиров",
     "institution": "Икономически университет - Варна",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -1179,23 +1179,22 @@
     "entryNumber": "Г8794",
     "controlHash": "0573995A",
     "sourceUrl": "https://register.cacbg.bg/2022/ED3E72ED-4C52-4DAD-B72B-A96EFBE25226141668.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Сдружение на съвета на ректорите на висшите училища в РБ / 130307629",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на съвета на ректорите на висшите училища в РБ / 130307629",
-        "detail": null,
-        "location": "член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "evgeni-petrov-stanimirov-31a61d",
@@ -2146,7 +2145,7 @@
   },
   {
     "slug": "evgeni-petrov-stanimirov-31a61d",
-    "declarantName": "(unknown)",
+    "declarantName": "Евгени Петров Станимиров",
     "institution": "Икономически университет - Варна",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -2157,7 +2156,30 @@
     "entryNumber": "В527",
     "controlHash": "4110F81C",
     "sourceUrl": "https://register.cacbg.bg/2019/ED3E72ED-4C52-4DAD-B72B-A96EFBE2522698485.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "БАКСОС - юридическо лице с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "БАКСОС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "iliana-iordanova-stoinova-681585",
-    "declarantName": "(unknown)",
+    "declarantName": "Илиана Йорданова Стойнова",
     "institution": "Висше строително училище \"Любен Каравелов\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -12,10 +12,57 @@
     "entryNumber": "В1429",
     "controlHash": "FCCF17BA",
     "sourceUrl": "https://register.cacbg.bg/2025/58514409-5667-473C-9C35-81BA9C4BDA06219526.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 % /2500 лв./",
+        "companyName": "Йори ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 % /1500 лв./",
+        "companyName": "Конструкшън енд енерджи консултинг ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител, 0% дялово участие",
+        "companyName": "Проектантско дружество СТАС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Станислава Йоданова Стойнева",
+        "detail": "Асистент във ВСУ \"Любен Каравелов\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "iliana-iordanova-stoinova-681585",

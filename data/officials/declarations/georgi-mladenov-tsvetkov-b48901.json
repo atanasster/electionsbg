@@ -167,7 +167,7 @@
   },
   {
     "slug": "georgi-mladenov-tsvetkov-b48901",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Младенов Цветков",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -178,7 +178,30 @@
     "entryNumber": "В969",
     "controlHash": "5F6CA9BF",
     "sourceUrl": "https://register.cacbg.bg/2024/32CAC2CD-DA50-43A5-9C69-B7378A49AEC4182970.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ С НЕСТОПАНСКА ЦЕЛ В ЧАСТНА ПОЛЗА \"СТРЕЛКОВИ КЛУБ 'ХОТ ШОТС'\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ С НЕСТОПАНСКА ЦЕЛ В ЧАСТНА ПОЛЗА \"СТРЕЛКОВИ КЛУБ \"ХОТ ШОТС\"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

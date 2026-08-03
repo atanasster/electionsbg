@@ -1660,7 +1660,7 @@
   },
   {
     "slug": "marin-dimitrov-darakchiev-bc607a",
-    "declarantName": "(unknown)",
+    "declarantName": "Марин Димитров Даракчиев",
     "institution": "МБАЛ \"Д-р Братан Шукеров\" АД, гр.Смолян",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1671,7 +1671,41 @@
     "entryNumber": "В1610",
     "controlHash": "E484137C",
     "sourceUrl": "https://register.cacbg.bg/2018/A9947A50-BD58-410D-B203-8B32781D3D3390207.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "12 дяла по 100 лв.",
+        "companyName": "Димитър Даракчиев ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "12 дяла по 100 лв.",
+        "companyName": "Димитър Даракчиев ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите-изпълнителен директор",
+        "companyName": "МБАЛ\"д-р Братан Шукеров\"АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

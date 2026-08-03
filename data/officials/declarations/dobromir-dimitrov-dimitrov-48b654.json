@@ -219,7 +219,7 @@
   },
   {
     "slug": "dobromir-dimitrov-dimitrov-48b654",
-    "declarantName": "(unknown)",
+    "declarantName": "Добромир Димитров Димитров",
     "institution": "УМБАЛ  “Д-р Георги Странски” ЕАД, гр.Плевен",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
@@ -230,71 +230,66 @@
     "entryNumber": "Г11274",
     "controlHash": "E1D84FDF",
     "sourceUrl": "https://register.cacbg.bg/2024/C7C6E6EC-0F89-4723-8930-06007970B7AD193001.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение \"Българско общество по симулационна медицина\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение \"Българска асоциация по минимално инвазивна и роботизирана хирургия\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение на медицинските университети в Република България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение \"Българско хирургично дружество\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение на съвета на ректорите на висшите училища в Република България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Българско общество по симулационна медицина\"",
-        "detail": null,
-        "location": "член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Българска асоциация по минимално инвазивна и роботизирана хирургия\"",
-        "detail": null,
-        "location": "член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на медицинските университети в Република България",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Българско хирургично дружество\"",
-        "detail": null,
-        "location": "член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на съвета на ректорите на висшите училища в Република България",
-        "detail": null,
-        "location": "член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "dobromir-dimitrov-dimitrov-48b654",

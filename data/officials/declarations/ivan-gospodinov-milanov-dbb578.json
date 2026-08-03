@@ -1602,7 +1602,7 @@
   },
   {
     "slug": "ivan-gospodinov-milanov-dbb578",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Господинов Миланов",
     "institution": "МБАЛНП “Св.Наум” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1613,23 +1613,22 @@
     "entryNumber": "Г3418",
     "controlHash": "256B441B",
     "sourceUrl": "https://register.cacbg.bg/2019/F75754B9-2189-4E8D-80B2-940BCDA582B397871.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, член на Управителния съвет",
+        "companyName": "Съюз на българските медицински специалисти",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Съюз на българските медицински специалисти",
-        "detail": null,
-        "location": "ЮЛНЦ, член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "ivan-gospodinov-milanov-dbb578",
@@ -2013,7 +2012,7 @@
   },
   {
     "slug": "ivan-gospodinov-milanov-dbb578",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Господинов Миланов",
     "institution": "МБАЛНП “Св.Наум” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -2024,7 +2023,162 @@
     "entryNumber": "В667",
     "controlHash": "69042B08",
     "sourceUrl": "https://register.cacbg.bg/2018/F75754B9-2189-4E8D-80B2-940BCDA582B389220.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор, член на Съвета на директорите",
+        "companyName": "МБАЛНП \"Свети Наум\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател, член на Управителния съвет",
+        "companyName": "Българско дружество по неврология",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българско дружество по главоболие и болка",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българска асоциация по двигателни нарушения и множествена склероза",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българска асоциация по клинична електромиография и евокирани потенциали",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Заместник председател",
+        "companyName": "Българска асоциация по невропротекция и невродегенерация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, член на Управителния съвет",
+        "companyName": "Българска сърдечна и съдова асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор, член на Съвета на директорите",
+        "companyName": "МБАЛНП \"Свети Наум\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател, член на Управителния съвет",
+        "companyName": "Българско дружество по неврология",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българско дружество по главоболие и болка",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българска асоциация по двигателни нарушения и множествена склероза",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Председател",
+        "companyName": "Българска асоциация по клинична електромиография и евокирани потенциали",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, Заместник председател",
+        "companyName": "Българска асоциация по невропротекция и невродегенерация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЮЛНЦ, член на Управителния съвет",
+        "companyName": "Българска сърдечна и съдова асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

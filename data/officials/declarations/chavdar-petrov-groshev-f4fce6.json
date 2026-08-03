@@ -87,7 +87,7 @@
   },
   {
     "slug": "chavdar-petrov-groshev-f4fce6",
-    "declarantName": "(unknown)",
+    "declarantName": "Чавдар Петров Грошев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -98,23 +98,22 @@
     "entryNumber": "В314",
     "controlHash": "82B10B34",
     "sourceUrl": "https://register.cacbg.bg/2019/ABADAFED-EDB5-4438-971F-9A93AECA1A1894674.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "на ОС проведено на 13.04.2019 г. освободен и отново избран за член на Управителния съвет",
+        "companyName": "Асоциация напрокурорите",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Асоциация напрокурорите",
-        "detail": null,
-        "location": "на ОС проведено на 13.04.2019 г. освободен и отново избран за член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "chavdar-petrov-groshev-f4fce6",
@@ -234,7 +233,7 @@
   },
   {
     "slug": "chavdar-petrov-groshev-f4fce6",
-    "declarantName": "(unknown)",
+    "declarantName": "Чавдар Петров Грошев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -245,7 +244,19 @@
     "entryNumber": "В1280",
     "controlHash": "862CB353",
     "sourceUrl": "https://register.cacbg.bg/2018/ABADAFED-EDB5-4438-971F-9A93AECA1A1889847.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Асоциация на прокурорите в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

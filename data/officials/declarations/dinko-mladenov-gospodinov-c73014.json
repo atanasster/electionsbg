@@ -700,7 +700,7 @@
   },
   {
     "slug": "dinko-mladenov-gospodinov-c73014",
-    "declarantName": "(unknown)",
+    "declarantName": "Динко Младенов Господинов",
     "institution": "СХБАЛ  \"Медикус Алфа\" ЕООД, гр. Пловдив",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -711,7 +711,85 @@
     "entryNumber": "В1090",
     "controlHash": "409A2F6E",
     "sourceUrl": "https://register.cacbg.bg/2018/F38AB137-F80E-4263-984A-76B331814C2E89653.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Д.Младенов ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Медикус Алфа -Пловдив ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Медикус Алфа -Пампорово ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "ГППМП Виа ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Медикус Алфа-СХБАЛ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Национално Сдружение на частните болници",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Медикус Алфа МДЦ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

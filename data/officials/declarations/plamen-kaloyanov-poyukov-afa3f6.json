@@ -204,7 +204,7 @@
   },
   {
     "slug": "plamen-kaloyanov-poyukov-afa3f6",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Калоянов Поюков",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -215,10 +215,46 @@
     "entryNumber": "В1873",
     "controlHash": "986BA95D",
     "sourceUrl": "https://register.cacbg.bg/2018/792D51AE-574F-4394-8066-AB17179EBD2E90516.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "ЛРД \"Сокол:, гр. Гоце Делчев",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "ЛРД \"Сокол\", гр. Гоце Делчев",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Пламен Светлозаров Даилов",
+        "detail": "дървопреработване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "plamen-kaloyanov-poyukov-afa3f6",

@@ -814,7 +814,7 @@
   },
   {
     "slug": "kiril-petrov-kolev-078c15",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПЕТРОВ КОЛЕВ",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -827,45 +827,33 @@
     "sourceUrl": "https://register.cacbg.bg/2020/40E734A7-930B-4EE4-BF29-5440D9110DA9114502.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "investment",
-        "description": null,
+        "kind": "related_person",
+        "description": "АНТОАНЕТА ПЕТРОВА ИСАКОВА",
         "detail": "служител",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "служител",
-        "amount": null,
+        "currency": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "банков кредит недв.имот с ипотека",
         "detail": "Антоанета Петрова Исакова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "29224",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "29224",
-        "isSpouse": true,
-        "legalBasis": "потребителски кредит/договор",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 14941.993936078288,
+        "legalBasis": "потребителски кредит/договор"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "kiril-petrov-kolev-078c15",
@@ -1211,7 +1199,7 @@
   },
   {
     "slug": "kiril-petrov-kolev-078c15",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПЕТРОВ КОЛЕВ",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1225,7 +1213,20 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "АНТОАНЕТА ПЕТРОВА ИСАКОВА",
+        "detail": "служител",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "kiril-petrov-kolev-078c15",

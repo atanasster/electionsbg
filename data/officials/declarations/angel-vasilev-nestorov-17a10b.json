@@ -220,7 +220,7 @@
   },
   {
     "slug": "angel-vasilev-nestorov-17a10b",
-    "declarantName": "(unknown)",
+    "declarantName": "Ангел Василев Несторов",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -231,42 +231,33 @@
     "entryNumber": "Г14253",
     "controlHash": "9533D55A",
     "sourceUrl": "https://register.cacbg.bg/2024/6F918554-52A2-4136-8AAB-A362ACC8FA2A196812.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател на контролния съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател на контролния съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на контролния съвет",
+        "companyName": "Ловно-рибарско дружество- Плевен",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на контролния съвет",
+        "companyName": "Ловно- рибарско дружество- Плевен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Ловно-рибарско дружество- Плевен",
-        "detail": null,
-        "location": "Председател на контролния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "angel-vasilev-nestorov-17a10b",

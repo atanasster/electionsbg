@@ -1122,7 +1122,7 @@
   },
   {
     "slug": "zhivko-dragomirov-zhivkov-2065b8",
-    "declarantName": "(unknown)",
+    "declarantName": "Живко Драгомиров Живков",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1133,7 +1133,19 @@
     "entryNumber": "В1474",
     "controlHash": "D38AB9D0",
     "sourceUrl": "https://register.cacbg.bg/2018/482D51E9-DA43-42E6-9D54-FC9BA0573B3590066.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Фондация \"Да спасим и съхраним Храма в с.Черковна, построен през 1876 година\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

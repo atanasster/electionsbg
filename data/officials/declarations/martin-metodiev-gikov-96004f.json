@@ -1270,7 +1270,7 @@
   },
   {
     "slug": "martin-metodiev-gikov-96004f",
-    "declarantName": "(unknown)",
+    "declarantName": "Мартин Методиев Гиков",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -1281,7 +1281,19 @@
     "entryNumber": "В1199",
     "controlHash": "8D25A7A5",
     "sourceUrl": "https://register.cacbg.bg/2023/661761D0-20E9-4A15-B335-9C8CAEEF4A34156152.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС и Съвет на директорите",
+        "companyName": "\"Фонд мениджър на финансови инструменти в България\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

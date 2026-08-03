@@ -51,7 +51,7 @@
   },
   {
     "slug": "vlcho-atanasov-atanasov-a4cf95",
-    "declarantName": "(unknown)",
+    "declarantName": "Вълчо Атанасов Атанасов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -62,23 +62,22 @@
     "entryNumber": "Г8694",
     "controlHash": "8AE354A6",
     "sourceUrl": "https://register.cacbg.bg/2023/D2F83B37-4A8A-42CB-B893-8703C90B94BE155718.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Университетски Войскови Спортен Клуб ВВМУ \"Никола Йонков Вапцаров\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Университетски Войскови Спортен Клуб ВВМУ \"Никола Йонков Вапцаров\"",
-        "detail": null,
-        "location": "Председател на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "vlcho-atanasov-atanasov-a4cf95",
@@ -132,7 +131,7 @@
   },
   {
     "slug": "vlcho-atanasov-atanasov-a4cf95",
-    "declarantName": "(unknown)",
+    "declarantName": "Вълчо Атанасов Атанасов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",

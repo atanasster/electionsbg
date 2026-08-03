@@ -534,7 +534,7 @@
   },
   {
     "slug": "lyudmil-simeonov-lichev-2abfb7",
-    "declarantName": "(unknown)",
+    "declarantName": "Людмил Симеонов Личев",
     "institution": "МБАЛ \"проф. д-р Асен Шопов\" ЕООД, гр. Златоград",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -545,7 +545,52 @@
     "entryNumber": "В2283",
     "controlHash": "CE9D8C96",
     "sourceUrl": "https://register.cacbg.bg/2018/41BEA8A7-22B7-46C5-B404-1124C8747EBF91078.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "СТМ ЕВРОМЕД ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ЗЛАТОГРАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "СТМ ЕРВОМЕД ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ЗЛАТОГРАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

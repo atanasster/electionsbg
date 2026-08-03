@@ -87,7 +87,7 @@
   },
   {
     "slug": "adnan-sabri-yusein-a11b6c",
-    "declarantName": "(unknown)",
+    "declarantName": "Аднан Сабри Юсеин",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
@@ -98,42 +98,33 @@
     "entryNumber": "Г12930",
     "controlHash": "E73E2560",
     "sourceUrl": "https://register.cacbg.bg/2024/BEA8B4C5-66D3-43B1-B945-D3A1B3E17E41194806.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Спортен клуб по шахмат - Джебел 2024",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Спортен клуб по шахмат - Джебел 2024",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Спортен клуб по шахмат - Джебел 2024",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "adnan-sabri-yusein-a11b6c",

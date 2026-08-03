@@ -398,7 +398,7 @@
   },
   {
     "slug": "georgi-iliev-georgiev-48b413",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Илиев Георгиев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -409,76 +409,56 @@
     "entryNumber": "Г6972",
     "controlHash": "800F4EF6",
     "sourceUrl": "https://register.cacbg.bg/2025/23225A97-D6B6-4B68-ADD6-B5CF19D14E1D209959.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Съвет на директорите - Член",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Съвет на директорите - Член",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Съвет на директорите - Член",
+        "companyName": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Кредит",
         "detail": "Елена Костадинова Георгиева",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "164",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ПиБ",
-        "isSpouse": true,
-        "legalBasis": "Заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 83.85186851617983,
+        "legalBasis": "Заплата"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Кредит",
         "detail": "Георги Илиев Георгиев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "9776",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ПиБ",
-        "isSpouse": true,
-        "legalBasis": "Заплата",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
-        "detail": null,
-        "location": "Член на Съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 4998.389430574232,
+        "legalBasis": "Заплата"
       }
     ]
   },

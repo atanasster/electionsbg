@@ -252,7 +252,7 @@
   },
   {
     "slug": "daniela-georgieva-dzhurkova-a111a8",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниела Георгиева Джуркова",
     "institution": "НИНКН",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -263,9 +263,45 @@
     "entryNumber": "В2774",
     "controlHash": "BD9E28D7",
     "sourceUrl": "https://register.cacbg.bg/2018/5158C86A-F400-4E70-A0F2-370C7DBFECBD92734.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1650",
+        "companyName": "\"ДОТ АРХИТЕКТУРА\" ООД с ЕИК 175389303",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1650",
+        "companyName": "\"ДОТ АРХИТЕКТУРА\" ООД ЕИК 175389303",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "\"ДОТ АРХИТЕКТУРА\" ООД с ЕИК 175389303",
+        "detail": "Проектиране, управление на строителството и проектирането",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -435,7 +435,7 @@
   },
   {
     "slug": "raimonda-ivanova-ovcharova-a507ba",
-    "declarantName": "(unknown)",
+    "declarantName": "Раймонда Иванова Овчарова",
     "institution": "Национална агенция за приходи",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
@@ -446,7 +446,30 @@
     "entryNumber": "В10505",
     "controlHash": "7E791D1B",
     "sourceUrl": "https://register.cacbg.bg/2020/0556DF27-C9BC-4C48-A595-B7A9362A6BC0113874.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "Сдружение \"Приятели на гимназия с преподаване на чужди езици ГПЧЕ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "Сдружение \"Приятели на гимназия с преподаване на чужди езици ГПЧЕ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -411,7 +411,7 @@
   },
   {
     "slug": "orlin-borisov-filipov-b96232",
-    "declarantName": "(unknown)",
+    "declarantName": "ОРЛИН БОРИСОВ ФИЛИПОВ",
     "institution": "СБАЛОТ \"Витоша\" ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -422,7 +422,52 @@
     "entryNumber": "В844",
     "controlHash": "E60EBCA9",
     "sourceUrl": "https://register.cacbg.bg/2018/2DB08D1C-AF07-4261-8607-1649A5825E2D89403.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "95",
+        "companyName": "ЕКТА СОФИЯ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ФИЛИПОВИ ООД -в ликвидаци",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ВИТОША ЕООД в ликвидация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "СБАЛОТ ВИТОША ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

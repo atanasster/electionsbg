@@ -74,7 +74,7 @@
   },
   {
     "slug": "krasimira-hristova-peeva-c8a6c1",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимира Христова Пеева",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -85,40 +85,33 @@
     "entryNumber": "Г14000",
     "controlHash": "036B7D22",
     "sourceUrl": "https://register.cacbg.bg/2024/7DE2A3B3-946F-4B2E-B510-401EF6152A5E196277.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "Профилактика, рехабилитация и отдих ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "кредит",
         "detail": "Красимира Христова Пеева",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "10050",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "КБС Банк",
-        "isSpouse": true,
-        "legalBasis": "Бари - д-р Акбар Емамзаде ЕТ",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Профилактика, рехабилитация и отдих ЕАД",
-        "detail": null,
-        "location": "член на СД",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 5138.4834060219955,
+        "legalBasis": "Бари - д-р Акбар Емамзаде ЕТ"
       }
     ]
   },

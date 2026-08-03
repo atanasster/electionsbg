@@ -1152,7 +1152,7 @@
   },
   {
     "slug": "dimitr-georgiev-kostov-80fa15",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Георгиев Костов",
     "institution": "МБАЛ  - Шумен АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1163,9 +1163,46 @@
     "entryNumber": "В1524",
     "controlHash": "B880C6E7",
     "sourceUrl": "https://register.cacbg.bg/2018/D46DCCB6-8686-47CC-A408-91C709EE5F9E90121.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"ДКЦ I - Шумен\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Албена Христова Паскалева - Костова",
+        "detail": "Трудов договор",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Албена Христова Паскалева - Костова",
+        "detail": "здравеопазване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -419,7 +419,7 @@
   },
   {
     "slug": "stela-dencheva-stefanova-7a0e40",
-    "declarantName": "(unknown)",
+    "declarantName": "Стела Денчева Стефанова",
     "institution": "СБАЛПФЗ  \"Д-р Трейман” ЕООД, гр. Велико Търново",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -432,45 +432,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/F6147242-E3DF-4F30-BA49-4FF1A03EF3ED149268.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Финансов лизинг",
         "detail": "Стела Денчева Стефанова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "20954",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Уникредит Булбанк",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 10713.610078585561,
+        "legalBasis": "заплата"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Потребителски кредит",
         "detail": "Стела Денчева Стефанова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "20661",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Търговска банка Д",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 10563.80155739507,
+        "legalBasis": "заплата"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "stela-dencheva-stefanova-7a0e40",
@@ -1508,7 +1496,7 @@
   },
   {
     "slug": "stela-dencheva-stefanova-7a0e40",
-    "declarantName": "(unknown)",
+    "declarantName": "Стела Денчева Стефанова",
     "institution": "СБАЛПФЗ  \"Д-р Трейман” ЕООД, гр. Велико Търново",
     "positionTitle": "Управител",
     "category": "hospital_head",

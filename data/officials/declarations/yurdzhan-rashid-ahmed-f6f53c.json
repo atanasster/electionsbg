@@ -87,7 +87,7 @@
   },
   {
     "slug": "yurdzhan-rashid-ahmed-f6f53c",
-    "declarantName": "(unknown)",
+    "declarantName": "Юрджан Рашид Ахмед",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -98,7 +98,19 @@
     "entryNumber": "В755",
     "controlHash": "2CDE7DDC",
     "sourceUrl": "https://register.cacbg.bg/2024/656EB648-B869-4775-87E4-03A8A9ACA5E5180332.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50% - 5000 лева",
+        "companyName": "РЕСТЛИНГ СЕКЮРИТИ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

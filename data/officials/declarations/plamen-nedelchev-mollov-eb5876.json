@@ -2269,7 +2269,7 @@
   },
   {
     "slug": "plamen-nedelchev-mollov-eb5876",
-    "declarantName": "(unknown)",
+    "declarantName": "ПЛАМЕН НЕДЕЛЧЕВ МОЛЛОВ",
     "institution": "Университет по хранителни технологии - Пловдив",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -2280,27 +2280,26 @@
     "entryNumber": "В10670",
     "controlHash": "35BD54FA",
     "sourceUrl": "https://register.cacbg.bg/2020/67C4A590-BA89-4390-A985-AFA8CEA15801114663.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "СЪВЕТ НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СЪВЕТ НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
-        "detail": null,
-        "location": "ЧЛЕН",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "plamen-nedelchev-mollov-eb5876",
-    "declarantName": "(unknown)",
+    "declarantName": "ПЛАМЕН НЕДЕЛЧЕВ МОЛЛОВ",
     "institution": "Университет по хранителни технологии - Пловдив",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -2311,7 +2310,41 @@
     "entryNumber": "В10434",
     "controlHash": "EFCA0D29",
     "sourceUrl": "https://register.cacbg.bg/2020/67C4A590-BA89-4390-A985-AFA8CEA15801113373.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ НА УС",
+        "companyName": "СНЦ ШК ЛОКОМОТИВ 2000 ПЛОВДИВ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "105",
+        "companyName": "ДЕЙРИ ИНСТИТУТ БЪЛТАРИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "ВЕГАЛАКТ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -331,7 +331,7 @@
   },
   {
     "slug": "tsanko-ivanov-nikolov-2b213d",
-    "declarantName": "(unknown)",
+    "declarantName": "Цанко Иванов Николов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -342,7 +342,19 @@
     "entryNumber": "В2033",
     "controlHash": "F418F61F",
     "sourceUrl": "https://register.cacbg.bg/2018/20DCB0CD-C3BC-410C-BE56-6B67FBBAD22090768.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Добруджанска инициативна група /НПО/",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

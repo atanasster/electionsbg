@@ -2686,7 +2686,7 @@
   },
   {
     "slug": "georgi-leonidov-kobakov-8cbf64",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕОРГИ ЛЕОНИДОВ КОБАКОВ",
     "institution": "СБАЛОЗ \"Д-р Марко Антонов Марков\" - Варна ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2697,7 +2697,30 @@
     "entryNumber": "В577",
     "controlHash": "521DF3E4",
     "sourceUrl": "https://register.cacbg.bg/2018/02EFF869-4317-4890-848E-60373D91D0A289127.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 % едноличен собственик Ивелина Иванова Кобакова",
+        "companyName": "Медико-дентален център Д-р Кобакови ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 % едноличен собственик Ивелина Иванова Кобакова",
+        "companyName": "Медико-дентален център Д-р Кобакови ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

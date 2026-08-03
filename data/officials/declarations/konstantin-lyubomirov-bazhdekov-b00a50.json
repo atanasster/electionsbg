@@ -390,7 +390,7 @@
   },
   {
     "slug": "konstantin-lyubomirov-bazhdekov-b00a50",
-    "declarantName": "(unknown)",
+    "declarantName": "Константин Любомиров Баждеков",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -401,7 +401,19 @@
     "entryNumber": "В490",
     "controlHash": "C60C643D",
     "sourceUrl": "https://register.cacbg.bg/2018/7F821293-7A13-4533-9E83-77253697D91B89037.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Фондация \"Васил Левски\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

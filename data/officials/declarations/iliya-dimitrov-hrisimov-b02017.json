@@ -439,7 +439,7 @@
   },
   {
     "slug": "iliya-dimitrov-hrisimov-b02017",
-    "declarantName": "(unknown)",
+    "declarantName": "Илия Димитров Хрисимов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -450,7 +450,30 @@
     "entryNumber": "В2094",
     "controlHash": "B4D352F7",
     "sourceUrl": "https://register.cacbg.bg/2018/944ED13C-B779-4292-871E-FFF4A182985090839.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет и заместник председател на УС на СФСМВР",
+        "companyName": "Синдикална Федерация на служителите в МВР (СФСМВР)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет и заместник председател на УС на СФСМВР",
+        "companyName": "Синдикална Федерация на служителите в МВР (СФСМВР)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

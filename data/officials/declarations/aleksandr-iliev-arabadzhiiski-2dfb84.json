@@ -92,7 +92,7 @@
   },
   {
     "slug": "aleksandr-iliev-arabadzhiiski-2dfb84",
-    "declarantName": "(unknown)",
+    "declarantName": "Александър Илиев Арабаджийски",
     "institution": "ГД Охрана",
     "positionTitle": "Заместник - директор на ГД Охрана",
     "category": "regional_director",
@@ -103,7 +103,30 @@
     "entryNumber": "В444",
     "controlHash": "53C28F35",
     "sourceUrl": "https://register.cacbg.bg/2025/8E46EC0E-1906-4430-885F-EED90383D948202976.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "ЮЛНЦ Българска федерация по Кендо",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "ЮЛНЦ Клуб по кендо Мусо",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

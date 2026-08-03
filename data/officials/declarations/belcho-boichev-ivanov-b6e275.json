@@ -1201,7 +1201,7 @@
   },
   {
     "slug": "belcho-boichev-ivanov-b6e275",
-    "declarantName": "(unknown)",
+    "declarantName": "Бойчо Белчев Иванов",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -1212,7 +1212,30 @@
     "entryNumber": "В484",
     "controlHash": "B3DBBA1D",
     "sourceUrl": "https://register.cacbg.bg/2018/7F191671-DD41-44B7-B1BF-BC9DC4D8904989031.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Българска федерация по тенис на маса",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изп. директор",
+        "companyName": "Професионален спортен колеж",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

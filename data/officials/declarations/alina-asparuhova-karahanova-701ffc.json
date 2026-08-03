@@ -110,7 +110,7 @@
   },
   {
     "slug": "alina-asparuhova-karahanova-701ffc",
-    "declarantName": "(unknown)",
+    "declarantName": "Алина Аспарухова Караханова",
     "institution": "Национален фонд \"Култура\"",
     "positionTitle": "Член на УС",
     "category": "regional_director",
@@ -121,7 +121,30 @@
     "entryNumber": "В1406",
     "controlHash": "B2091FCA",
     "sourceUrl": "https://register.cacbg.bg/2025/D34329B6-AC68-49BC-86BD-DD3B910B47C0219485.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Аспириус\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "УС на АБК",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

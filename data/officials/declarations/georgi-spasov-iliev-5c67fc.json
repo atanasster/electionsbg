@@ -279,7 +279,7 @@
   },
   {
     "slug": "georgi-spasov-iliev-5c67fc",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Спасов Илиев",
     "institution": "ДСБАЛББ \"Царица Йоанна” ЕООД, гр.Трявна",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -290,42 +290,33 @@
     "entryNumber": "Г2741",
     "controlHash": "B93F2F95",
     "sourceUrl": "https://register.cacbg.bg/2020/5B867B5B-3830-4F0E-9857-4CC314C0EFE3112997.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Управител",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Управител",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ДСБПЛРББ-Царица Йоанна ЕООД гр. Трявна",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ДСБПЛРББ-Царица Йоанна ЕООД гр. Трявна",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ДСБПЛРББ-Царица Йоанна ЕООД гр. Трявна",
-        "detail": null,
-        "location": "Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-spasov-iliev-5c67fc",
@@ -555,7 +546,7 @@
   },
   {
     "slug": "georgi-spasov-iliev-5c67fc",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Спасов Илиев",
     "institution": "ДСБАЛББ \"Царица Йоанна” ЕООД, гр.Трявна",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -566,7 +557,30 @@
     "entryNumber": "В1457",
     "controlHash": "8CE59061",
     "sourceUrl": "https://register.cacbg.bg/2018/5B867B5B-3830-4F0E-9857-4CC314C0EFE390042.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "ДСБПЛРББ \"Царица Йоанна \" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "ДСБПЛРББ \"Царица Йоанна\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

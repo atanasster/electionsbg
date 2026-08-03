@@ -26,7 +26,7 @@
   },
   {
     "slug": "polya-toshkova-todorova-d32232",
-    "declarantName": "(unknown)",
+    "declarantName": "Поля Тошкова Тодорова",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -37,7 +37,19 @@
     "entryNumber": "В823",
     "controlHash": "67E60E7F",
     "sourceUrl": "https://register.cacbg.bg/2024/0940A330-D48B-4093-9115-6367C8A31985180654.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "\"Жар Експрес\" ЕООД - няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1368,7 +1368,7 @@
   },
   {
     "slug": "boris-srebrov-mihailov-76dd1a",
-    "declarantName": "(unknown)",
+    "declarantName": "Борис Сребров Михайлов",
     "institution": "Комисия по досиетата",
     "positionTitle": "Член",
     "category": "agency_head",
@@ -1379,7 +1379,30 @@
     "entryNumber": "В496",
     "controlHash": "A08BFB63",
     "sourceUrl": "https://register.cacbg.bg/2018/2AAE588B-67F6-419E-94F7-DEA101E0032A89043.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор",
+        "companyName": "Сдружение\"Център за интелектуална собственост\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ипълнителен директор",
+        "companyName": "Сдружение \"Цебтър за интелектуална собственост\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

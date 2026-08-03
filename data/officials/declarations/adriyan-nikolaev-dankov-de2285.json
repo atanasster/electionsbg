@@ -468,7 +468,7 @@
   },
   {
     "slug": "adriyan-nikolaev-dankov-de2285",
-    "declarantName": "(unknown)",
+    "declarantName": "АДРИЯН НИКОЛАЕВ ДАНКОВ",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -479,7 +479,30 @@
     "entryNumber": "В228",
     "controlHash": "6321ADFE",
     "sourceUrl": "https://register.cacbg.bg/2018/042F5D9C-E301-4424-AA00-E2210CE7A27D88638.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "\"ВИДИН ВЕТ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "\"ВИДИН ВЕТ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -214,7 +214,7 @@
   },
   {
     "slug": "ivan-todorov-ionchev-004102",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Тодоров Йончев",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -225,7 +225,41 @@
     "entryNumber": "В2240",
     "controlHash": "0C9D64C5",
     "sourceUrl": "https://register.cacbg.bg/2018/9AE4CA5D-DBA8-498C-963A-2544EF804D6E91026.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на съвета на директорите",
+        "companyName": "АЕЦ Козлодуй ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "СНЦ Мелодия",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "СНЦ Мелодия",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

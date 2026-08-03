@@ -721,7 +721,7 @@
   },
   {
     "slug": "verginiya-danchova-tsanova-ivanova-42deab",
-    "declarantName": "(unknown)",
+    "declarantName": "Вергиния Данчова Цанова-Иванова",
     "institution": "СБР \"Стайков и фамилия\" ЕООД, к.к. Слънчев бряг",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -732,7 +732,30 @@
     "entryNumber": "В10",
     "controlHash": "3822C573",
     "sourceUrl": "https://register.cacbg.bg/2022/02132DFB-D4D3-4B58-9167-E42A2B4AD2D8130914.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЦ доктор Стайков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЦ доктор Стайков ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -543,7 +543,7 @@
   },
   {
     "slug": "orlin-mirchev-nikolov-5c9db7",
-    "declarantName": "(unknown)",
+    "declarantName": "Орлин Мирчев Николов",
     "institution": "Българските граждани заемащи длъжности в НАТО",
     "positionTitle": "Представител",
     "category": "international",
@@ -554,7 +554,30 @@
     "entryNumber": "В3142",
     "controlHash": "2696D224",
     "sourceUrl": "https://register.cacbg.bg/2018/58C0574E-29CB-419A-B33B-0C269C796C4793219.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "БУЛСИМ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "БУЛСИМ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

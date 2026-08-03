@@ -386,7 +386,7 @@
   },
   {
     "slug": "ivailo-georgiev-koprev-58ea09",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Георгиев Копрев",
     "institution": "Минно - геоложки университет \"Св. Иван Рилски\" - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -397,23 +397,22 @@
     "entryNumber": "Г8806",
     "controlHash": "AC3C5A05",
     "sourceUrl": "https://register.cacbg.bg/2022/987934DB-0A2E-48D1-AC4E-2B9FCA2CB2D2141696.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Сдружение на Съвета на ректорите на висшите училища в Република България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на Съвета на ректорите на висшите училища в Република България",
-        "detail": null,
-        "location": "член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "ivailo-georgiev-koprev-58ea09",

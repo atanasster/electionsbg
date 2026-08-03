@@ -263,7 +263,7 @@
   },
   {
     "slug": "elena-neicheva-kumbieva-5a7f27",
-    "declarantName": "(unknown)",
+    "declarantName": "Елена Нейчева Кумбиева",
     "institution": "СОБАЛ \"Вижън\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -274,7 +274,52 @@
     "entryNumber": "В1729",
     "controlHash": "7D917E14",
     "sourceUrl": "https://register.cacbg.bg/2018/236C1125-3D57-41AE-BE8B-027B1454C8CA90354.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Очен лазерен център Вижън\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите",
+        "companyName": "\"Вижън корпорейшън\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Очен лазерен център Вижън\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите",
+        "companyName": "\"Вижън корпорейшън\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

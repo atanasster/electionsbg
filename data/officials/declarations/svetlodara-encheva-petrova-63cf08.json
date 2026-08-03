@@ -1,7 +1,7 @@
 [
   {
     "slug": "svetlodara-encheva-petrova-63cf08",
-    "declarantName": "(unknown)",
+    "declarantName": "Светлодара Енчева Петрова",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
@@ -12,42 +12,33 @@
     "entryNumber": "Г10303",
     "controlHash": "24657E2C",
     "sourceUrl": "https://register.cacbg.bg/2025/C020145F-A94A-4DE3-A13C-9017E8A5B954213382.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Филипополис Колодрум АД",
-        "detail": null,
-        "location": "100",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Филипополис Колодрум АД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Филипополис Колодрум АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Филипополис Колодрум АД",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "svetlodara-encheva-petrova-63cf08",

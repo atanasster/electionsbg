@@ -655,7 +655,7 @@
   },
   {
     "slug": "hristo-ivanov-beloev-4bca4a",
-    "declarantName": "(unknown)",
+    "declarantName": "Христо Иванов Белоев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -666,47 +666,44 @@
     "entryNumber": "Г3850",
     "controlHash": "4EAFC810",
     "sourceUrl": "https://register.cacbg.bg/2020/C00E5019-D006-4AE4-8CF4-97ADBBB29D7D114446.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Регионален иновационен център Северозапад към Аутомотив клъстър България, Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Представляващ дружеството",
+        "companyName": "ДЗЗД \"Нов хоризонт 2019\", Дружество",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет, зам.-председател",
+        "companyName": "Съвет на ректорите на висшите училища в Република България, Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Регионален иновационен център Северозапад към Аутомотив клъстър България, Сдружение",
-        "detail": null,
-        "location": "Член на Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "ДЗЗД \"Нов хоризонт 2019\", Дружество",
-        "detail": null,
-        "location": "Представляващ дружеството",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Съвет на ректорите на висшите училища в Република България, Сдружение",
-        "detail": null,
-        "location": "Член на Управителен съвет, зам.-председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "hristo-ivanov-beloev-4bca4a",

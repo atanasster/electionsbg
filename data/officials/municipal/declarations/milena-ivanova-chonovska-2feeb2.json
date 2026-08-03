@@ -236,7 +236,7 @@
   },
   {
     "slug": "milena-ivanova-chonovska-2feeb2",
-    "declarantName": "(unknown)",
+    "declarantName": "Милена Иванова Чоновска",
     "institution": "Брезово",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -246,22 +246,21 @@
     "entryNumber": "Г2656",
     "controlHash": "089A201C",
     "sourceUrl": "https://register.cacbg.bg/2025/6B620DFC-58C2-4648-8278-256A1DDFE95A205340.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Училищно настоятелство СОУ \"Христо Смирненски\" - гр. Брезово",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Училищно настоятелство СОУ \"Христо Смирненски\" - гр. Брезово",
-        "detail": null,
-        "location": "член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

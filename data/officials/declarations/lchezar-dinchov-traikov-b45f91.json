@@ -658,7 +658,7 @@
   },
   {
     "slug": "lchezar-dinchov-traikov-b45f91",
-    "declarantName": "(unknown)",
+    "declarantName": "Лъчезар Динчов Трайков",
     "institution": "Медицински университет - София",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -669,23 +669,22 @@
     "entryNumber": "Г8790",
     "controlHash": "B2E4C56D",
     "sourceUrl": "https://register.cacbg.bg/2022/CA702F36-583E-4F48-AF04-AA84D6E9F2D1141641.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСТАВЛЯВАЩ",
+        "companyName": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ 130307629",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ 130307629",
-        "detail": null,
-        "location": "ПРЕДСТАВЛЯВАЩ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "lchezar-dinchov-traikov-b45f91",

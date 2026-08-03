@@ -308,7 +308,7 @@
   },
   {
     "slug": "svetla-ivanova-brnekova-a74594",
-    "declarantName": "(unknown)",
+    "declarantName": "Светла Иванова Брънекова",
     "institution": "МБАЛ \"Д-р Теодоси Витанов\" ЕООД, гр. Трявна",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -319,7 +319,30 @@
     "entryNumber": "В1454",
     "controlHash": "7C3F2009",
     "sourceUrl": "https://register.cacbg.bg/2018/83A1030F-4175-4BE6-8DBA-7AE6B12E5A1B90039.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "РСБ\"Стара планина\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "РСБ\"Стара планина\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

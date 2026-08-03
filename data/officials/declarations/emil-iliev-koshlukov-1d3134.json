@@ -519,7 +519,7 @@
   },
   {
     "slug": "emil-iliev-koshlukov-1d3134",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Илиев Кошлуков",
     "institution": "БНТ, БНР и БТА",
     "positionTitle": "Генерален директор",
     "category": "media_head",
@@ -530,23 +530,22 @@
     "entryNumber": "Г547",
     "controlHash": "0A88B60B",
     "sourceUrl": "https://register.cacbg.bg/2020/683C5B4D-F793-472A-B860-1C500D2CCFE3110366.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на орган на управление",
+        "companyName": "Фондация \"Стоил Куцев - Даскала\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Стоил Куцев - Даскала\"",
-        "detail": null,
-        "location": "член на орган на управление",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "emil-iliev-koshlukov-1d3134",
@@ -925,7 +924,7 @@
   },
   {
     "slug": "emil-iliev-koshlukov-1d3134",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Илиев Кошлуков",
     "institution": "БНТ, БНР и БТА",
     "positionTitle": "Генерален директор",
     "category": "media_head",

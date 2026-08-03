@@ -661,7 +661,7 @@
   },
   {
     "slug": "dimitr-plamenov-mitev-ce92f4",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Пламенов Митев",
     "institution": "МБАЛ \"ЗДРАВЕТО 2012\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -672,7 +672,74 @@
     "entryNumber": "В621",
     "controlHash": "299CCBF1",
     "sourceUrl": "https://register.cacbg.bg/2018/9D9018B7-FC60-401D-B922-7EBAEB4307E389173.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "17 %",
+        "companyName": "Здраве инвест ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "17%",
+        "companyName": "МБАЛ Здравето 2012 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "Метеосторм ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "съуправител",
+        "companyName": "Метеосторм ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "17%",
+        "companyName": "Здраве инвест ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "17%",
+        "companyName": "МБАЛ Здравето 2012 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

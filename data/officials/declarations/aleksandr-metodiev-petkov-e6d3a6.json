@@ -1426,7 +1426,7 @@
   },
   {
     "slug": "aleksandr-metodiev-petkov-e6d3a6",
-    "declarantName": "(unknown)",
+    "declarantName": "Александър Методиев Петков",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
@@ -1437,60 +1437,44 @@
     "entryNumber": "Г12665",
     "controlHash": "7271E9E5",
     "sourceUrl": "https://register.cacbg.bg/2024/EC9F9574-0F64-4F00-9BF3-FE7E4968C6C9194521.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"Мездра уинд енерджи\" ЕООД - считано от 04.07.2024",
-        "detail": null,
-        "location": "800",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "800",
+        "companyName": "\"Мездра уинд енерджи\" ЕООД - считано от 04.07.2024",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Член на НС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Член на НС",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Мездра уинд енерджи\" ЕООД - считано от 04.07.2024",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на НС",
+        "companyName": "\"Фонд мениджър на финансови инструменти в България\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Мездра уинд енерджи\" ЕООД - считано от 04.07.2024",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "aleksandr-metodiev-petkov-e6d3a6",

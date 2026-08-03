@@ -1670,7 +1670,7 @@
   },
   {
     "slug": "pavlina-dimitrova-micheva-1472ba",
-    "declarantName": "(unknown)",
+    "declarantName": "ПАВЛИНА ДИМИТРОВА МИЧЕВА",
     "institution": "МБАЛ - Кубрат ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1681,9 +1681,79 @@
     "entryNumber": "В1709",
     "controlHash": "3CC0717F",
     "sourceUrl": "https://register.cacbg.bg/2018/7B5EDD13-E894-4CA1-AFFC-4600BD1CE53190333.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР \"СВЕТА ЕКАТЕРИНА\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "АМБУЛАТОРНА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ",
+        "companyName": "ЕТ \"Д-р ПАВЛИНА МИЧЕВА\" АСМП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР \"СВЕТА ЕКАТЕРИНА\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "АМБУЛАТОРНА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ",
+        "companyName": "ЕТ \"Д-р ПАВЛИНА МИЧЕВА\" АСМП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "КРАСИМИР АНГЕЛОВ МАНОЛОВ - СЪПРУГ",
+        "detail": "ТРУДОВ ДОГОВОР В \"МБАЛ - КУБРАТ\" ЕООД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "КРАСИМИР АНГЕЛОВ МАНОЛОВ - СЪПРУГ",
+        "detail": "ЛЕКАР В  \"МБАЛ - КУБРАТ\" ЕООД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

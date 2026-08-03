@@ -501,7 +501,7 @@
   },
   {
     "slug": "sofiya-ivanova-stoimenova-7f8a02",
-    "declarantName": "(unknown)",
+    "declarantName": "София Иванова Стоименова",
     "institution": "Български червен кръст",
     "positionTitle": "Генерален директор",
     "category": "civil_society",
@@ -512,7 +512,30 @@
     "entryNumber": "В404",
     "controlHash": "A1BDF1C0",
     "sourceUrl": "https://register.cacbg.bg/2018/D35AB916-77A2-4E3D-A1FE-CEF912228CA188927.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "безвъзмездно",
+        "companyName": "Българска асоциация за семейно планиране",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "безвъзмездно",
+        "companyName": "Българска асоциация за семейно планиране",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "imren-ismetova-mehmedova-6c065d",
-    "declarantName": "(unknown)",
+    "declarantName": "Имрен Исметова Мехмедова",
     "institution": "МБАЛ - Омуртаг ЕАД",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
@@ -12,10 +12,68 @@
     "entryNumber": "В949",
     "controlHash": "882E5F4E",
     "sourceUrl": "https://register.cacbg.bg/2025/BEFF6FA3-5B05-42E5-8F79-02004DCB7F77216252.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"БИОЕЛИТ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ НА ДРУЖЕСТВОТО",
+        "companyName": "\"АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"БИОЕЛИТ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ НА ДРУЖЕСТВОТО",
+        "companyName": "\"АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "ИСМЕТ МЕХМЕДОВ ШАБАНОВ",
+        "detail": "БИЗНЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "imren-ismetova-mehmedova-6c065d",

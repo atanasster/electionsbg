@@ -669,7 +669,7 @@
   },
   {
     "slug": "lyudmil-zdravkov-tumbev-b133cd",
-    "declarantName": "(unknown)",
+    "declarantName": "Людмил Здравков Тумбев",
     "institution": "ДПБ - Ловеч",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -680,7 +680,63 @@
     "entryNumber": "В194",
     "controlHash": "48B8E4F1",
     "sourceUrl": "https://register.cacbg.bg/2024/FA34E796-F9AC-4B9C-82D1-98E1028F52F8171930.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Юнирел ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Тумбев груп ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "ГПИСПП Свети Мина ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ИПИСПП Д-р Людмил Тумбев ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ЕТ ИПИСПП Д-р Людмил Тумбев",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

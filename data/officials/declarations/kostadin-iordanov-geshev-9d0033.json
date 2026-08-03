@@ -2055,7 +2055,7 @@
   },
   {
     "slug": "kostadin-iordanov-geshev-9d0033",
-    "declarantName": "(unknown)",
+    "declarantName": "Костадин Йорданов Гешев",
     "institution": "РИОСВ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -2066,7 +2066,30 @@
     "entryNumber": "В2930",
     "controlHash": "FD5D42CC",
     "sourceUrl": "https://register.cacbg.bg/2018/DEFA7737-6A5E-45BD-B13C-41A3F500D1C792991.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "49500",
+        "companyName": "\"КВД ЦЗ\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5000",
+        "companyName": "\"ДИКО\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1808,7 +1808,7 @@
   },
   {
     "slug": "krasimir-ognyanov-nikolov-8e1ced",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Огнянов Николов",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1819,7 +1819,19 @@
     "entryNumber": "В1471",
     "controlHash": "13C9CFD1",
     "sourceUrl": "https://register.cacbg.bg/2018/D6CAA780-6BF9-4AA2-8904-420725B9A7EE90061.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение ,,Териториална организация на научно-техническите съюзи\" Търговище",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

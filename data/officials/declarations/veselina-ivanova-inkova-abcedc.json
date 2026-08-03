@@ -336,7 +336,7 @@
   },
   {
     "slug": "veselina-ivanova-inkova-abcedc",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселина Иванова Колева",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -347,7 +347,30 @@
     "entryNumber": "В2157",
     "controlHash": "63E17E15",
     "sourceUrl": "https://register.cacbg.bg/2018/337165AC-A1D6-4381-8242-EDF46DE18D7690917.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Каса вива\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Каса Вива ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

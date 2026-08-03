@@ -310,7 +310,7 @@
   },
   {
     "slug": "yuliyan-georgiev-popov-4dbca7",
-    "declarantName": "(unknown)",
+    "declarantName": "Юлиян Георгиев Попов",
     "institution": "Министерство на околната среда и водите",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -321,27 +321,26 @@
     "entryNumber": "В1337",
     "controlHash": "2DAD1F45",
     "sourceUrl": "https://register.cacbg.bg/2023/3EC8E431-2B98-40E4-90E9-66E64B2D8177156456.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител - заличен, считано от 13.07.2023 т.",
+        "companyName": "Константин Хаджикалчев ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Константин Хаджикалчев ООД",
-        "detail": null,
-        "location": "управител - заличен, считано от 13.07.2023 т.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "yuliyan-georgiev-popov-4dbca7",
-    "declarantName": "(unknown)",
+    "declarantName": "Юлиян Георгиев Попов",
     "institution": "Министерство на околната среда и водите",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -352,7 +351,129 @@
     "entryNumber": "В1082",
     "controlHash": "5A7414BD",
     "sourceUrl": "https://register.cacbg.bg/2023/3EC8E431-2B98-40E4-90E9-66E64B2D8177155916.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител /предприети действия по освобождаване/",
+        "companyName": "Константин Хаджикалчев ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Настоятелство /предприети действия по освобождаване/",
+        "companyName": "Нов Български университет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Консултативен съвет /предприети действия по освобождаване/",
+        "companyName": "Гъливер Клиринг Хаус",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет /предприети действия по освобождаване/",
+        "companyName": "Софийска платформа",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет /предприети действия по освобождаване/",
+        "companyName": "Фондация Елизабет Костова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Константин Хаджикалчев ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Solar  Pro Holding UK",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Настоятелство",
+        "companyName": "Нов Български университет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Консултативен съвет",
+        "companyName": "Гъливер Клиринг Хаус",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Софийска платформа",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "предстедател на Управителен съвет",
+        "companyName": "Фондация Елизабет Костова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "radostina-todorova-blagoeva-3f9fe0",
-    "declarantName": "(unknown)",
+    "declarantName": "Радостина Тодорова Благоева",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -12,7 +12,41 @@
     "entryNumber": "В478",
     "controlHash": "38044258",
     "sourceUrl": "https://register.cacbg.bg/2025/DDDB9CAD-4466-4873-BAE2-7BFE2761D658203191.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Сдружение клуб по спортни танци Акцент",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител с ДУК",
+        "companyName": "Дума ПРЕС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител с ДУК",
+        "companyName": "Дума ПРЕС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -45,7 +45,7 @@
   },
   {
     "slug": "ventsislav-vasilev-atanasov-0ab74e",
-    "declarantName": "(unknown)",
+    "declarantName": "Венцислав Василев Атанасов",
     "institution": "Агенция \"Пътна инфраструктура\"",
     "positionTitle": "Член",
     "category": "agency_head",
@@ -56,7 +56,19 @@
     "entryNumber": "В1551",
     "controlHash": "47D56F6A",
     "sourceUrl": "https://register.cacbg.bg/2024/B6E5E530-4943-42D0-AEBC-BFD9B390347A195448.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "\"ВАСУ 2022\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

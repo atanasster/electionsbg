@@ -73,7 +73,7 @@
   },
   {
     "slug": "dobrin-raichev-raichev-2274df",
-    "declarantName": "(unknown)",
+    "declarantName": "Добрин Райчев Райчев",
     "institution": "Русе",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -83,9 +83,45 @@
     "entryNumber": "В336",
     "controlHash": "38FA611F",
     "sourceUrl": "https://register.cacbg.bg/2025/99521B0F-042A-4EED-8AA8-1F8BF9B0D62F202475.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Рикард ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Рикард ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Общински детски център за култура и изкуство - гр. Русе",
+        "detail": "Трудов договор",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

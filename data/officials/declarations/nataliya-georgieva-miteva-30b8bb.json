@@ -352,7 +352,7 @@
   },
   {
     "slug": "nataliya-georgieva-miteva-30b8bb",
-    "declarantName": "(unknown)",
+    "declarantName": "Наталия Георгиева Митева",
     "institution": "Министерство на образованието и науката",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -363,7 +363,30 @@
     "entryNumber": "В1343",
     "controlHash": "5ED726CB",
     "sourceUrl": "https://register.cacbg.bg/2023/60237BE9-8E93-4C1B-8B7A-CC6EEEF4201F156464.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Уан импакт адвайзърс ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Българска асоциация на софтуерните компании",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

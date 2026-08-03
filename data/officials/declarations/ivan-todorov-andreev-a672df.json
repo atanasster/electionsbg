@@ -718,7 +718,7 @@
   },
   {
     "slug": "ivan-todorov-andreev-a672df",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Тодоров Андреев",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -729,9 +729,56 @@
     "entryNumber": "В2238",
     "controlHash": "AA80BEF0",
     "sourceUrl": "https://register.cacbg.bg/2018/00EA7FB1-2D29-450B-A043-B5DD02CDCB2891024.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Съвета на директорите",
+        "companyName": "АЕЦ Козлодуй - Нови мощности ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Държавно предприятие Радиоактивни отпадъци",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Контролния съвет",
+        "companyName": "ГД Български национален застрахователен ядрен пул",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Дилян Милков Петров - Изп.Директор на ДП РАО споразумение 860000018/2016",
+        "detail": "Отношения по управление на РАО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

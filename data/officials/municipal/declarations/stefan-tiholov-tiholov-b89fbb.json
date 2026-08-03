@@ -110,7 +110,7 @@
   },
   {
     "slug": "stefan-tiholov-tiholov-b89fbb",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Тихолов Тихолов",
     "institution": "Ловеч",
     "positionTitle": "Председател на ОбС",
     "declarationYear": 2025,
@@ -120,22 +120,21 @@
     "entryNumber": "Г3733",
     "controlHash": "F746E653",
     "sourceUrl": "https://register.cacbg.bg/2025/33AAD532-132E-4B02-A907-1107E064D1A6206541.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Контролния съвет",
+        "companyName": "НСОРБ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "НСОРБ",
-        "detail": null,
-        "location": "Член на Контролния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

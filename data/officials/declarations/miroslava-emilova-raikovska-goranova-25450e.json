@@ -946,7 +946,7 @@
   },
   {
     "slug": "miroslava-emilova-raikovska-goranova-25450e",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирослава Емилова Райковска Горанова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -957,42 +957,33 @@
     "entryNumber": "Г534",
     "controlHash": "8BF82965",
     "sourceUrl": "https://register.cacbg.bg/2019/EFE9581A-7773-49A8-BE96-6D34521BABE494839.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "председател на контролния съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "председател на контролния съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на контролния съвет",
+        "companyName": "Сдружение на администрацията в органите на съдебната власт",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на контролния съвет",
+        "companyName": "Сдружение на администрацията в органите на съдебната власт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение на администрацията в органите на съдебната власт",
-        "detail": null,
-        "location": "председател на контролния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "miroslava-emilova-raikovska-goranova-25450e",
@@ -1629,7 +1620,7 @@
   },
   {
     "slug": "miroslava-emilova-raikovska-goranova-25450e",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирослава Емилова Райковска - Горанова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",

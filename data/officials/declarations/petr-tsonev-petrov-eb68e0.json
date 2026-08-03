@@ -1,7 +1,7 @@
 [
   {
     "slug": "petr-tsonev-petrov-eb68e0",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Цонев Петров",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор и член на УС",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1233",
     "controlHash": "817020D0",
     "sourceUrl": "https://register.cacbg.bg/2023/23951500-6D3A-4225-A67D-85CBBB87D267156239.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "\"Форест Консулт Инженеринг\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение \"Асоциация на дърводобивните фирми в България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

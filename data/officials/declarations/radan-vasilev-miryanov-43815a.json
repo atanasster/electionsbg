@@ -380,7 +380,7 @@
   },
   {
     "slug": "radan-vasilev-miryanov-43815a",
-    "declarantName": "(unknown)",
+    "declarantName": "Радан Василев Мирянов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -391,7 +391,30 @@
     "entryNumber": "В415",
     "controlHash": "8B55EFC8",
     "sourceUrl": "https://register.cacbg.bg/2024/2EABF1B3-BCD1-4878-A3C9-A968616D2F5C177172.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Студентски спортен клуб ИУ - Варна",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Студентски спортен клуб ИУ - Варна",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

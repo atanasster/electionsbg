@@ -1148,7 +1148,7 @@
   },
   {
     "slug": "rusi-parashkevov-rusev-ae5fec",
-    "declarantName": "(unknown)",
+    "declarantName": "Руси Парашкевов Русев",
     "institution": "МБАЛ - Варна ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1159,42 +1159,33 @@
     "entryNumber": "Г2444",
     "controlHash": "5654AB58",
     "sourceUrl": "https://register.cacbg.bg/2020/5231DA6E-1B37-40BB-A457-D95E6A58EC06112635.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Управител",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Управител",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "24245.00",
+        "companyName": "МБАЛ ВАРНА ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МБАЛ ВАРНА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "МБАЛ ВАРНА ЕООД",
-        "detail": null,
-        "location": "24245.00",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rusi-parashkevov-rusev-ae5fec",

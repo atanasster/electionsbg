@@ -691,7 +691,7 @@
   },
   {
     "slug": "mladen-dinov-petrov-6ec63c",
-    "declarantName": "(unknown)",
+    "declarantName": "Младен Динов Петров",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -702,7 +702,19 @@
     "entryNumber": "В1784",
     "controlHash": "455A274A",
     "sourceUrl": "https://register.cacbg.bg/2018/B618451E-1910-4457-ABF6-CC79F2851E7590413.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "ККК Актив София, ул. Атанас Кирчев 8Б-13",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

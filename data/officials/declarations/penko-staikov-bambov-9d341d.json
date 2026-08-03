@@ -106,7 +106,7 @@
   },
   {
     "slug": "penko-staikov-bambov-9d341d",
-    "declarantName": "(unknown)",
+    "declarantName": "Пенко Стайков Бамбов",
     "institution": "МБАЛ - Троян ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -117,7 +117,19 @@
     "entryNumber": "В1462",
     "controlHash": "DBB8889B",
     "sourceUrl": "https://register.cacbg.bg/2018/88585511-CDBC-41FC-834E-8807D370E6B590048.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "ЮЛНЦ -Регионален съюз на болниците\"Стара планина\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

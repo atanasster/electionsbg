@@ -165,7 +165,7 @@
   },
   {
     "slug": "iliya-slavov-zhelezarov-462349",
-    "declarantName": "(unknown)",
+    "declarantName": "Илия Славов Железаров",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -176,7 +176,30 @@
     "entryNumber": "В2149",
     "controlHash": "383C6B1A",
     "sourceUrl": "https://register.cacbg.bg/2018/105B4087-A276-4F4A-8942-C83DC0F6CFE390906.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Българо-германски институт по управление на качеството и промишлен мениджмънт БГИК ООД ЕИК: 107062023",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Българо-германски институт по управление на качеството и промишлен мениджмънт БГИК ООД, ЕИК: 107062023",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

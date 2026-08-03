@@ -509,7 +509,7 @@
   },
   {
     "slug": "ivo-ivanov-todorov-1fd2df",
-    "declarantName": "(unknown)",
+    "declarantName": "Иво Иванов Тодоров",
     "institution": "Членовете на управителните и контролните органи на БЕХ",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -520,7 +520,30 @@
     "entryNumber": "В118",
     "controlHash": "B758E763",
     "sourceUrl": "https://register.cacbg.bg/2023/811A2DBB-1E27-4443-9B02-CD4897E90C4C145714.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "БИ АЙ ЕНВАЙЪРМЕНТЪЛ СОЛЮШЪНС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "БИ АЙ ЕНВАЙЪРМЕНТЪЛ СОЛЮШЪНС ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

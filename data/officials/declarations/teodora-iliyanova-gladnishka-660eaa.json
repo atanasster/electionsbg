@@ -26,7 +26,7 @@
   },
   {
     "slug": "teodora-iliyanova-gladnishka-660eaa",
-    "declarantName": "(unknown)",
+    "declarantName": "ТЕОДОРА ИЛИЯНОВА ГЛАДНИШКА",
     "institution": "СБПЛРВБ - Мездра ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -37,7 +37,30 @@
     "entryNumber": "В569",
     "controlHash": "671235D4",
     "sourceUrl": "https://register.cacbg.bg/2024/61688C36-B40A-409E-9F08-2725C9D34BD6178617.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "БЪЛГАРСКА ЛЕЯРНА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "ТИ ДЖИ КОНСУЛТ-22 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

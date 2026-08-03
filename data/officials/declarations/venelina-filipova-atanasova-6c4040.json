@@ -215,7 +215,7 @@
   },
   {
     "slug": "venelina-filipova-atanasova-6c4040",
-    "declarantName": "(unknown)",
+    "declarantName": "Венелина Филипова Атанасова",
     "institution": "АСК УМБАЛ ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -226,7 +226,63 @@
     "entryNumber": "В813",
     "controlHash": "5BF4FB81",
     "sourceUrl": "https://register.cacbg.bg/2018/47205F21-10BB-461F-9768-E2E3395E65D689372.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "16971 акции",
+        "companyName": "Аджъбадем Сити Клиник Б.В.",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Аджибадем Сити клиник ДКЦ Токуда ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Аджибадем Сити клиник ДКЦ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Аджибадем Сити клиник МЦ Варна",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Аджибадем Сити клиник МЦ Варна",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

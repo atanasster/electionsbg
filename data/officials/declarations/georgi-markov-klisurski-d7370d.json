@@ -196,7 +196,7 @@
   },
   {
     "slug": "georgi-markov-klisurski-d7370d",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Марков Клисурски",
     "institution": "Министерство на финансите",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -207,7 +207,19 @@
     "entryNumber": "В1125",
     "controlHash": "D1ABADDD",
     "sourceUrl": "https://register.cacbg.bg/2023/3D4A8E6A-7ED8-45AA-838E-9E651267980A156000.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на директорите",
+        "companyName": "България Хели Мед Сървиз ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

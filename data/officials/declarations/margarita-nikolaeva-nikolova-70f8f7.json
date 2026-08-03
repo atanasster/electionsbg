@@ -1,7 +1,7 @@
 [
   {
     "slug": "margarita-nikolaeva-nikolova-70f8f7",
-    "declarantName": "(unknown)",
+    "declarantName": "Маргарита Николаева Николова",
     "institution": "Сметна палата",
     "positionTitle": "Заместник-председател",
     "category": "audit_court",
@@ -12,7 +12,19 @@
     "entryNumber": "В1081",
     "controlHash": "8A1B2C3D",
     "sourceUrl": "https://register.cacbg.bg/2025/C9FDA747-B207-4E20-A9D7-A32013DA9AA9218156.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 на сто",
+        "companyName": "\"СТИЛКОРД\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

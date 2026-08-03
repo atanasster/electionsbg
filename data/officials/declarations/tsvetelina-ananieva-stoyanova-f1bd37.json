@@ -1437,7 +1437,7 @@
   },
   {
     "slug": "tsvetelina-ananieva-stoyanova-f1bd37",
-    "declarantName": "(unknown)",
+    "declarantName": "Цветелина Ананиева Стоянова",
     "institution": "Държавна агенция \"Национална сигурност\"",
     "positionTitle": "Директор на дирекция",
     "category": "security_service",
@@ -1450,63 +1450,45 @@
     "sourceUrl": "https://register.cacbg.bg/2024/BF757408-1C4C-4F01-B5AA-1F8B60FD2D19192247.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "investment",
-        "description": null,
+        "kind": "related_person",
+        "description": "Анка Николова Стоянова",
         "detail": "счетоводно обслужване",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "счетоводно обслужване",
-        "amount": null,
+        "currency": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       },
       {
-        "category": "investment",
-        "description": null,
+        "kind": "related_person",
+        "description": "Цветан Валентинов Стоянов",
         "detail": "счетоводно обслужване",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "счетоводно обслужване",
-        "amount": null,
+        "currency": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "задължение по банков кредит (главница към 05.01.2024 г.) - лихвен процент 2,4 %",
         "detail": "Цветелина Ананиева Стоянова (съдлъжник - Цветан Валентинов Стоянов)",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "71154",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "Банков кредит от друга банка",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 36380.46251463573,
+        "legalBasis": "Банков кредит от друга банка"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "tsvetelina-ananieva-stoyanova-f1bd37",

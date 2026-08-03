@@ -502,7 +502,7 @@
   },
   {
     "slug": "dobromir-totev-totev-7c3f05",
-    "declarantName": "(unknown)",
+    "declarantName": "Добромир Тотев Тотев",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -513,7 +513,19 @@
     "entryNumber": "В988",
     "controlHash": "470B61AF",
     "sourceUrl": "https://register.cacbg.bg/2023/FE83AAB0-9677-4AEA-A445-38E178D5AC9C155750.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет/подадена молба за напускане",
+        "companyName": "Съюз на офицерите от резерва \"Атлантик\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

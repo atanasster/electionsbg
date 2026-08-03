@@ -587,7 +587,7 @@
   },
   {
     "slug": "plamen-georgiev-tsekov-1d1770",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Георгиев Цеков",
     "institution": "МБАЛ \"Д-р Стойчо Христов\" ЕООД, гр. Севлиево",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -600,27 +600,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/F6523A41-7ADF-47E7-80F2-76EA8ABF86C297753.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "заем",
         "detail": "Пламен Георгиев Цеков",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "62248",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "банка",
-        "isSpouse": true,
-        "legalBasis": "заем от юридическо лице",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 31826.89702070221,
+        "legalBasis": "заем от юридическо лице"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "plamen-georgiev-tsekov-1d1770",
@@ -848,7 +842,7 @@
   },
   {
     "slug": "plamen-georgiev-tsekov-1d1770",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Георгиев Цеков",
     "institution": "МБАЛ \"Д-р Стойчо Христов\" ЕООД, гр. Севлиево",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -859,7 +853,30 @@
     "entryNumber": "В1582",
     "controlHash": "13998638",
     "sourceUrl": "https://register.cacbg.bg/2018/F6523A41-7ADF-47E7-80F2-76EA8ABF86C290179.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "НЯМАМ УЧАСТИЕ-УПРАВИТЕЛ",
+        "companyName": "ЗК НАДЕЖДА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ПЛАГОСА КОМЕРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

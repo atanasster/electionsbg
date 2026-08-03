@@ -477,7 +477,7 @@
   },
   {
     "slug": "kuncho-dimitrov-gaidov-d2a632",
-    "declarantName": "(unknown)",
+    "declarantName": "Кунчо Димитров Гайдов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -490,27 +490,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/409056E2-8835-4D0E-A1BB-5DE494ADD23298003.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Ипотечен банков кредит",
         "detail": "Кунчо Димитров Гайдов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "14000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Райфайзен банк",
-        "isSpouse": true,
-        "legalBasis": "Потребителски банков кредит + спестявания",
-        "fundsOrigin": null
+        "currency": "EUR",
+        "valueEur": 14316.172673494118,
+        "legalBasis": "Потребителски банков кредит + спестявания"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "kuncho-dimitrov-gaidov-d2a632",

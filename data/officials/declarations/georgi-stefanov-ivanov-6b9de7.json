@@ -535,7 +535,7 @@
   },
   {
     "slug": "georgi-stefanov-ivanov-6b9de7",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Стефанов Иванов",
     "institution": "Сметна палата",
     "positionTitle": "Член на Сметната палата",
     "category": "audit_court",
@@ -548,27 +548,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/FE3C3A7E-69A5-4D8F-9949-650666001DB595256.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "ипотечен заем",
         "detail": "Георги Стефанов Иванов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "58000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Уни креди Булбанк",
-        "isSpouse": true,
-        "legalBasis": "спестявания",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 29654.92910938067,
+        "legalBasis": "спестявания"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "georgi-stefanov-ivanov-6b9de7",

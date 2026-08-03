@@ -1,7 +1,7 @@
 [
   {
     "slug": "anzhela-svetlozarova-slavova-7eef0d",
-    "declarantName": "(unknown)",
+    "declarantName": "Анжела Светлозарова Славова",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -12,7 +12,41 @@
     "entryNumber": "В177",
     "controlHash": "2BAE3AE1",
     "sourceUrl": "https://register.cacbg.bg/2022/DEEB4B8F-B1C4-4835-9F50-5077EF315B72131368.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Ин Майнд ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Ин Майнд ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Ин Майнд ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

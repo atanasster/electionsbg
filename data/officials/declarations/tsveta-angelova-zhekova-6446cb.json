@@ -328,7 +328,7 @@
   },
   {
     "slug": "tsveta-angelova-zhekova-6446cb",
-    "declarantName": "(unknown)",
+    "declarantName": "Цвета Ангелова Жекова",
     "institution": "Търговски дружества",
     "positionTitle": "Представител",
     "category": "state_enterprise",
@@ -339,7 +339,52 @@
     "entryNumber": "В713",
     "controlHash": "714CDE8D",
     "sourceUrl": "https://register.cacbg.bg/2024/B6242325-11C7-4E94-A093-33E0E6A48074180141.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АРХ СТУДИО 1 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АРХИСТУДИО 1 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АРХ СТУДИО 1 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АРХИСТУДИО 1 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -129,7 +129,7 @@
   },
   {
     "slug": "karidad-iliana-martines-otero-tsvetanova-c0435c",
-    "declarantName": "(unknown)",
+    "declarantName": "Каридад Илиана Мартинес Отеро-Цветкова",
     "institution": "Държавни предприятия",
     "positionTitle": "Контрольор",
     "category": "state_enterprise",
@@ -140,7 +140,41 @@
     "entryNumber": "В716",
     "controlHash": "A18533D4",
     "sourceUrl": "https://register.cacbg.bg/2024/6CD3FE38-15F4-414E-B003-74DAA7C13548180154.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 %",
+        "companyName": "Кардо Родопа ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "неприложимо",
+        "companyName": "Сдружене КАРИДА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 %",
+        "companyName": "ДАЙНЪСТИ БГ ГРУП ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

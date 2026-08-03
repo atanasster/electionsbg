@@ -1,7 +1,7 @@
 [
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
-    "declarantName": "(unknown)",
+    "declarantName": "Гено Николов Пеев-Карапеев",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,23 +12,22 @@
     "entryNumber": "Г1972",
     "controlHash": "6A464167",
     "sourceUrl": "https://register.cacbg.bg/2020/3E9123F2-08D5-4490-BDD2-FB036FFBEBC5111981.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Родопско настоятелство за възтановяване на параклиси в района на чепинската котлувина - ЮЛ с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Родопско настоятелство за възтановяване на параклиси в района на чепинската котлувина - ЮЛ с нестопанска цел",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
@@ -177,7 +176,7 @@
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕНО НИКОЛОВ ПЕЕВ- КАРАПЕЕВ",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -188,42 +187,33 @@
     "entryNumber": "Г3906",
     "controlHash": "9208F3AD",
     "sourceUrl": "https://register.cacbg.bg/2019/3E9123F2-08D5-4490-BDD2-FB036FFBEBC598561.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "УПРАВИТЕЛ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "УПРАВИТЕЛ",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "СДРУЖЕНИЕ ЦАРСКИ ЛОВЕН КЛУБ",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "СДРУЖЕНИЕ ЦАРСКИ ЛОВЕН КЛУБ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ ЦАРСКИ ЛОВЕН КЛУБ",
-        "detail": null,
-        "location": "ПРЕДСЕДАТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
@@ -252,7 +242,7 @@
   },
   {
     "slug": "geno-nikolov-peev-karapeev-2633ab",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕНО НИКОЛОВ ПЕЕВ-КАРАПЕЕВ",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",

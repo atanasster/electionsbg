@@ -119,7 +119,7 @@
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-a92481",
-    "declarantName": "(unknown)",
+    "declarantName": "Любка Веселинова Александрова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -132,45 +132,33 @@
     "sourceUrl": "https://register.cacbg.bg/2019/C9E76D1B-FAF0-406A-96D6-3510785904DC97399.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "debt",
+        "kind": "interest_contract",
         "description": "\"Златно зърно-Левски\"  ООД",
-        "detail": null,
+        "detail": "наем на общински пътища в земеделски земи",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
         "currency": null,
-        "amount": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "ипотечен кредит",
         "detail": "Любка Веселинова Александрова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "27922",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ",
-        "isSpouse": true,
-        "legalBasis": "заплати и ренти",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 14276.291906760813,
+        "legalBasis": "заплати и ренти"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "lyubka-veselinova-aleksandrova-a92481",

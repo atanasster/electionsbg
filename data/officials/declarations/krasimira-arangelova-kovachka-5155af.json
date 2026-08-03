@@ -1520,7 +1520,7 @@
   },
   {
     "slug": "krasimira-arangelova-kovachka-5155af",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимира Арангелова Ковачка",
     "institution": "МБАЛ - Самоков ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1531,7 +1531,52 @@
     "entryNumber": "В1592",
     "controlHash": "37CBFF0D",
     "sourceUrl": "https://register.cacbg.bg/2018/DD72CA07-5759-4DD5-9835-4AAF490A43E290189.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Хипократ 7 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МБАЛ САМОКОВ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Хипократ 7 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МБАЛ САМОКОВ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

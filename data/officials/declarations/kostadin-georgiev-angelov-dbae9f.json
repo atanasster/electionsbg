@@ -160,7 +160,7 @@
   },
   {
     "slug": "kostadin-georgiev-angelov-dbae9f",
-    "declarantName": "(unknown)",
+    "declarantName": "Костадин Георгиев Ангелов",
     "institution": "УМБАЛ - Александровска” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -171,28 +171,21 @@
     "entryNumber": "Г858",
     "controlHash": "E4CB7911",
     "sourceUrl": "https://register.cacbg.bg/2019/B8E5A0A3-2091-4D45-8F60-A5D0F6A0A2FC95177.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "УМБАЛ АЛЕКСАНДРОВСКА ЕАД",
-        "detail": null,
-        "location": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР  С МАНДАТ ДО 22.05.2022 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР  С МАНДАТ ДО 22.05.2022 г.",
+        "companyName": "УМБАЛ АЛЕКСАНДРОВСКА ЕАД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {
@@ -608,7 +601,7 @@
   },
   {
     "slug": "kostadin-georgiev-angelov-dbae9f",
-    "declarantName": "(unknown)",
+    "declarantName": "Костадин Георгиев Ангелов",
     "institution": "УМБАЛ - Александровска” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -619,7 +612,30 @@
     "entryNumber": "В677",
     "controlHash": "B07C251B",
     "sourceUrl": "https://register.cacbg.bg/2018/B8E5A0A3-2091-4D45-8F60-A5D0F6A0A2FC89232.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН ОРГАН НА УПРАВЛЕНИЕ - ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+        "companyName": "УМБАЛ АЛЕКСАНДРОВСКА БОЛНИЦА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН ОРГАН",
+        "companyName": "ФОНДАЦИЯ НАПРАВИ ДОБРО АЛЕКСАНДРОВСКА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

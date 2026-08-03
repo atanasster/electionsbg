@@ -701,7 +701,7 @@
   },
   {
     "slug": "silviya-velkova-stoyanova-petrova-1c3e34",
-    "declarantName": "(unknown)",
+    "declarantName": "Силвия Велкова Стоянова-Петрова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -712,7 +712,30 @@
     "entryNumber": "В2121",
     "controlHash": "37277BCC",
     "sourceUrl": "https://register.cacbg.bg/2018/06DBD932-EB04-4139-942E-DEC23BC8A9BD90870.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Не развива дейност от 1995 г.",
+        "companyName": "Силвия Велкова - Елан",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Не развива дейност от 1995 г.",
+        "companyName": "Силвия Велкова - Елан",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

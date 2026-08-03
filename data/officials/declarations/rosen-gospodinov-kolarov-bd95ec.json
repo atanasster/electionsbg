@@ -237,7 +237,7 @@
   },
   {
     "slug": "rosen-gospodinov-kolarov-bd95ec",
-    "declarantName": "(unknown)",
+    "declarantName": "Росен Господинов Коларов",
     "institution": "Изпълнителна агенция \"Медицински надзор\"",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
@@ -251,6 +251,19 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "проф. Златимир Господинов Коларов",
+        "detail": "Работи в лечебно заведение Св. Иван Рилски и м. ц. Фокус 5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

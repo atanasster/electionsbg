@@ -50,7 +50,7 @@
   },
   {
     "slug": "shenai-ersin-musa-acbded",
-    "declarantName": "(unknown)",
+    "declarantName": "ШЕНАЙ ЕРСИН МУСА",
     "institution": "Завет",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -62,26 +62,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/1278BFC7-ADAA-45BD-AED2-4C0EEE746491219425.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Предсрочно погасена сума от кредит",
         "detail": "Шенай Ерсин Муса",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "от изтеглен кредит в размер на 38000",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "от изтеглен кредит в размер на 38000"
       }
-    ],
-    "events": []
+    ]
   }
 ]

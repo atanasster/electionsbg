@@ -1,7 +1,7 @@
 [
   {
     "slug": "stefan-aleksandrov-belchev-5125b0",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Александров Белчев",
     "institution": "Министерство на финансите",
     "positionTitle": "Служебен заместник-министър",
     "category": "deputy_minister",
@@ -12,7 +12,19 @@
     "entryNumber": "В1747",
     "controlHash": "500B7B95",
     "sourceUrl": "https://register.cacbg.bg/2024/D596840A-9A18-421C-95FE-EE628B98708D196368.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "член",
+        "companyName": "Институт на вътрешните одитори в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "aglika-stefcheva-videnova-19e71e",
-    "declarantName": "(unknown)",
+    "declarantName": "Аглика Стефчева Виденова",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1095",
     "controlHash": "3CAE03C5",
     "sourceUrl": "https://register.cacbg.bg/2025/7D882C67-F85D-48F1-9CC6-B1A82BAB586E218271.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "член на Национален съвет на БСП",
+        "companyName": "Българска Социалистическа Партия",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Фондация Дума - ЕИК 176936800",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

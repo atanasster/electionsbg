@@ -1,7 +1,7 @@
 [
   {
     "slug": "petr-atanasov-traikov-85b880",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Атанасов Трайков",
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -12,7 +12,19 @@
     "entryNumber": "В872",
     "controlHash": "926EFE2E",
     "sourceUrl": "https://register.cacbg.bg/2025/3FD4FEA3-4082-45D7-A667-05D9955C2F4A210428.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите",
+        "companyName": "Държавна консолидационна компания",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

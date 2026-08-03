@@ -979,7 +979,7 @@
   },
   {
     "slug": "nikolai-lyubenov-boltadzhiev-7ff0d8",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Любенов Болтаджиев",
     "institution": "МБАЛ \"Св. Богородица\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -990,7 +990,63 @@
     "entryNumber": "В659",
     "controlHash": "5EC82D23",
     "sourceUrl": "https://register.cacbg.bg/2018/537E9B9B-A19F-40B5-B000-C940251916CD89211.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "4/5 или 4000 лева",
+        "companyName": "МБАЛ \"Света Богородица\" - управител",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "4/5 или 4000",
+        "companyName": "МБАЛ \"Света Богородица\" - управител",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Национално сдружение на частните болници - председател на УС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "4000",
+        "companyName": "МБАЛ \"Света Богородица\" - управител",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Национално сдружение на частните болници - председател",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

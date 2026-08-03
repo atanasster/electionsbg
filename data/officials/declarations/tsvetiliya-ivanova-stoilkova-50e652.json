@@ -250,7 +250,7 @@
   },
   {
     "slug": "tsvetiliya-ivanova-stoilkova-50e652",
-    "declarantName": "(unknown)",
+    "declarantName": "ЦВЕТИЛИЯ ИВАНОВА СТОИЛКОВА",
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -261,10 +261,80 @@
     "entryNumber": "В152",
     "controlHash": "372DDC53",
     "sourceUrl": "https://register.cacbg.bg/2024/033C25A5-A5AD-4F1C-98D1-D2B6C3CD76D4170597.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ФЕРУЗЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "РЕЗИДЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ФЕРУЗЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "РЕЗИДЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "ГЕОРГИ ЙОРДАНОВ ГВОЗДЕЙКОВ",
+        "detail": "УПРАВЛЯВА И ПРЕДСТАВЛЯВА БЪЛГАРСКИ ПОЩИ ЕАД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "interest_contract",
+        "description": "ЕМИЛИЯ ДИВИТРОВА ФАЧЕВА",
+        "detail": "УПРАВЛЯВА И ПРЕДСТАВЛЯВА БЪЛГАРСКИ ПОЩИ ЕАД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "tsvetiliya-ivanova-stoilkova-50e652",

@@ -203,7 +203,7 @@
   },
   {
     "slug": "nikola-petrov-markovski-283a75",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Петров Марковски",
     "institution": "Областни отдели \"Автомобилна администрация\"",
     "positionTitle": "Началник",
     "category": "regional_director",
@@ -214,23 +214,22 @@
     "entryNumber": "Г7860",
     "controlHash": "464513DF",
     "sourceUrl": "https://register.cacbg.bg/2023/FDAE04EF-F333-4357-BF2E-BC4063E237D0154509.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА НАСТОЯТЕЛСТВО",
+        "companyName": "НАРОДНО ЧИТАЛИЩЕ \"ХРОСТО БОТЕВ - 1871\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "НАРОДНО ЧИТАЛИЩЕ \"ХРОСТО БОТЕВ - 1871\"",
-        "detail": null,
-        "location": "ЧЛЕН НА НАСТОЯТЕЛСТВО",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "nikola-petrov-markovski-283a75",

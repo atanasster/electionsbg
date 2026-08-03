@@ -1,7 +1,7 @@
 [
   {
     "slug": "todor-vlkov-chobanov-a7491d",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Вълков Чобанов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,72 +12,55 @@
     "entryNumber": "Г3185",
     "controlHash": "F0F21825",
     "sourceUrl": "https://register.cacbg.bg/2020/2C09FC85-B459-4D81-8092-26C4B35977B6113595.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на ус от името на СО",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на ус от името на СО",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ус от името на СО",
+        "companyName": "Асоциация за развитие на София",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на ус от името на СО",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на ус от името на СО",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ус от името на СО",
+        "companyName": "Фондация София европейска столица на спорта",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ус от името на СО",
+        "companyName": "Асоциация за развитие на София",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ус от името на СО",
+        "companyName": "Фондация София европейска столица на спорта",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Асоциация за развитие на София",
-        "detail": null,
-        "location": "член на ус от името на СО",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Фондация София европейска столица на спорта",
-        "detail": null,
-        "location": "член на ус от името на СО",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-vlkov-chobanov-a7491d",

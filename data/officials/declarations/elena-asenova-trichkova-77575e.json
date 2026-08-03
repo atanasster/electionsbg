@@ -105,7 +105,7 @@
   },
   {
     "slug": "elena-asenova-trichkova-77575e",
-    "declarantName": "(unknown)",
+    "declarantName": "ЕЛЕНА АСЕНОВА ТРИЧКОВА",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -116,7 +116,30 @@
     "entryNumber": "В2065",
     "controlHash": "09CE1E70",
     "sourceUrl": "https://register.cacbg.bg/2018/BEFCCB84-BD72-4577-8658-38DAAE330DE090807.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Е АВАНГАРД ПРОЕКТ КОНСУЛТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Е АВАНГАРД ПРОЕКТ КОНСУЛТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

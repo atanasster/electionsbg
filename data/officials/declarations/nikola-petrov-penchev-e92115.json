@@ -1422,7 +1422,7 @@
   },
   {
     "slug": "nikola-petrov-penchev-e92115",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Петров Пенчев",
     "institution": "СБАЛПФЗ - Пазарджик",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1433,9 +1433,34 @@
     "entryNumber": "В1693",
     "controlHash": "9EFA4957",
     "sourceUrl": "https://register.cacbg.bg/2018/9ADD4412-459A-4C17-B9AA-A9D22035C39490317.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен оган на управление",
+        "companyName": "Народно читалище \"Хисто Ботев-1897г.\" гр. Пазарджик",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Марийка Янкова Тимева-Пенчева",
+        "detail": "втори трудов дроговор (външно съвместителство) по чл. 111 от КТ - на 1/2 длъжност като специалист по образна диагностика-задължително условие за сключване на договор на лечебното заведение с РЗОК.",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

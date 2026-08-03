@@ -140,7 +140,7 @@
   },
   {
     "slug": "naiden-pavlov-pavlov-ce8fc8",
-    "declarantName": "(unknown)",
+    "declarantName": "НАЙДЕН ПАВЛОВ ПАВЛОВ",
     "institution": "Хисаря",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -150,58 +150,44 @@
     "entryNumber": "Г13041",
     "controlHash": "C89D4BB4",
     "sourceUrl": "https://register.cacbg.bg/2025/EF4AE224-B393-4060-92E9-1CAC8CB4790D216231.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "МОМЕНТ ЕООД",
-        "detail": null,
-        "location": "100% = 100 лв",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100% = 100 лв",
+        "companyName": "МОМЕНТ ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "МОМЕНТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Банков кредит",
         "detail": "Златка Стоянова Павлова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "173000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Уникредит Булбанк АД",
-        "isSpouse": true,
-        "legalBasis": "НОВ банков кредит от БАНКА ДСК ЕАД",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "МОМЕНТ ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 88453.4954469458,
+        "legalBasis": "НОВ банков кредит от БАНКА ДСК ЕАД"
       }
     ]
   }

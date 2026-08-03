@@ -469,7 +469,7 @@
   },
   {
     "slug": "vasil-lazarov-purov-065038",
-    "declarantName": "(unknown)",
+    "declarantName": "ВАСИЛ ЛАЗАРОВ ПУРОВ",
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -480,7 +480,19 @@
     "entryNumber": "В596",
     "controlHash": "D955A604",
     "sourceUrl": "https://register.cacbg.bg/2019/D63D4ED0-3F39-4C96-AA7F-DC19B9C5D2F898685.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "ЧАН АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

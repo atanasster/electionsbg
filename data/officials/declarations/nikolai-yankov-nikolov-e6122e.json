@@ -386,7 +386,7 @@
   },
   {
     "slug": "nikolai-yankov-nikolov-e6122e",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Янков Николов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -397,7 +397,30 @@
     "entryNumber": "В203",
     "controlHash": "E79D58D5",
     "sourceUrl": "https://register.cacbg.bg/2019/B44EE7BE-AA1B-490D-B6F2-779D45C083E694150.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250",
+        "companyName": "Винарска изба Осмар ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250",
+        "companyName": "Винарска изба Осмар ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

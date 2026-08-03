@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikolai-slavev-nikolov-4260c7",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Славев Николов",
     "institution": "Служ. правителство-МВР",
     "positionTitle": "Служебен заместник-министър",
     "category": "deputy_minister",
@@ -12,39 +12,37 @@
     "entryNumber": "В512",
     "controlHash": "6627B5E2",
     "sourceUrl": "https://register.cacbg.bg/2023/D689F1AA-148A-4BF2-B953-693F08C6A4C6149342.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
+    "ownershipStakes": [
       {
-        "kind": "disposal_property",
-        "description": "\"БЪЛГАРСКА ФЕДЕРАЦИЯ ЗА ПОЖАРОПРИЛОЖЕН СПОРТ\" Сдружение",
-        "detail": null,
-        "location": "Подадена оставка на 03.05.2023 г., като Член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Подадена оставка на 03.05.2023 г., като Член на УС",
+        "companyName": "\"БЪЛГАРСКА ФЕДЕРАЦИЯ ЗА ПОЖАРОПРИЛОЖЕН СПОРТ\" Сдружение",
+        "registeredOffice": null,
         "valueEur": null,
-        "legalBasis": null
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
-        "kind": "disposal_property",
-        "description": "\"СДРУЖЕНИЕ \"СПОРТНА АСОЦИАЦИЯ-МВР\"\" Сдружение",
-        "detail": null,
-        "location": "Подадена оставка на 03.05.2023 г., като Член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Подадена оставка на 03.05.2023 г., като Член на УС",
+        "companyName": "\"СДРУЖЕНИЕ \"СПОРТНА АСОЦИАЦИЯ-МВР\"\" Сдружение",
+        "registeredOffice": null,
         "valueEur": null,
-        "legalBasis": null
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-slavev-nikolov-4260c7",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Славев Николов",
     "institution": "Служ. правителство-МВР",
     "positionTitle": "Служебен заместник-министър",
     "category": "deputy_minister",
@@ -55,7 +53,52 @@
     "entryNumber": "В511",
     "controlHash": "A953F168",
     "sourceUrl": "https://register.cacbg.bg/2023/D689F1AA-148A-4BF2-B953-693F08C6A4C6149339.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Сдружение \"Спортна асоциация - МВР\",",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Спортен клуб зя пожаро-приложен спорт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Сдружение \"Спортна асоциация\" - МВР",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Спортен клуб зя пожаро-приложен спорт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

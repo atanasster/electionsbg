@@ -684,7 +684,7 @@
   },
   {
     "slug": "deyan-ognyanov-beninski-bb8c63",
-    "declarantName": "(unknown)",
+    "declarantName": "Деян Огнянов Бенински",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -695,7 +695,63 @@
     "entryNumber": "В1911",
     "controlHash": "DD15FF64",
     "sourceUrl": "https://register.cacbg.bg/2018/3824A62D-A71B-49F8-836F-7FA79CB28FC690576.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "75 %",
+        "companyName": "Корект оод",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "40%",
+        "companyName": "Металстройпроект ТДА Враца 2010",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "Мездра газ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Корект ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Инертни материали ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

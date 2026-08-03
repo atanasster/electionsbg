@@ -565,7 +565,7 @@
   },
   {
     "slug": "rozalina-kostova-georgieva-071f7f",
-    "declarantName": "(unknown)",
+    "declarantName": "Розалина Костова Георгиева",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -576,7 +576,30 @@
     "entryNumber": "В1986",
     "controlHash": "E1929972",
     "sourceUrl": "https://register.cacbg.bg/2018/0233830A-99DA-4FB0-8874-6B2C032A565890720.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СДРУЖЕНИЕ \"МЕСТНА ИНИЦИАТИВНА ГРУПА-КРИВОДОЛ-ХАЙРЕДИН\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СДРУЖЕНИЕ \"МЕСТНА ИНИЦИАТИВНА ГРУПА-КРИВОДОЛ-ХАЙРЕДИН\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

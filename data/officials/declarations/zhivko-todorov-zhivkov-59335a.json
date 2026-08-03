@@ -110,7 +110,7 @@
   },
   {
     "slug": "zhivko-todorov-zhivkov-59335a",
-    "declarantName": "(unknown)",
+    "declarantName": "Живко Тодоров Живков",
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -121,7 +121,41 @@
     "entryNumber": "В1112",
     "controlHash": "8A8FABE7",
     "sourceUrl": "https://register.cacbg.bg/2024/48FAFEEA-8DEB-49C5-BA60-352438E166BA185742.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25000",
+        "companyName": "\"Прайд Джи\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "представляващ",
+        "companyName": "Българска рибарска мрежа",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "Прайд Джи\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

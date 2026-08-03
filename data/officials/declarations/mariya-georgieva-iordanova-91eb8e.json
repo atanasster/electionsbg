@@ -82,7 +82,7 @@
   },
   {
     "slug": "mariya-georgieva-iordanova-91eb8e",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Георгиева Йорданова",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -93,7 +93,41 @@
     "entryNumber": "В1902",
     "controlHash": "75176A24",
     "sourceUrl": "https://register.cacbg.bg/2024/6F3DE13D-C6A8-4172-9B20-03A9D2BA9E8E196811.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Мери 84 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100",
+        "companyName": "Мери 84  ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Мери 84 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

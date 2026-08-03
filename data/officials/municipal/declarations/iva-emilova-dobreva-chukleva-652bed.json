@@ -1,7 +1,7 @@
 [
   {
     "slug": "iva-emilova-dobreva-chukleva-652bed",
-    "declarantName": "(unknown)",
+    "declarantName": "Ива Емилова Добрева",
     "institution": "Драгоман",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -11,23 +11,22 @@
     "entryNumber": "Г10374",
     "controlHash": "C823C3D4",
     "sourceUrl": "https://register.cacbg.bg/2025/31091EE5-9D8C-489F-BC9D-9B466B5AC28E213456.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Център за европейска и атлантическа интеграция\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Център за европейска и атлантическа интеграция\"",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "iva-emilova-dobreva-chukleva-652bed",

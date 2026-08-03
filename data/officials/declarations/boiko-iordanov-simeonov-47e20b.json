@@ -1,7 +1,7 @@
 [
   {
     "slug": "boiko-iordanov-simeonov-47e20b",
-    "declarantName": "(unknown)",
+    "declarantName": "Бойко Йорданов Симеонов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1103",
     "controlHash": "864E2E61",
     "sourceUrl": "https://register.cacbg.bg/2025/F72ACC01-31EB-45A6-8C32-715519D3FA1E218402.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "търговия",
+        "companyName": "ЕТ Чучукови гр. Бобов дол /спряна/",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "търговия",
+        "companyName": "ЕТ Чучукови гр. Бобов дол /спряна/",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

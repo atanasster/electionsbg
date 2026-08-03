@@ -1017,7 +1017,7 @@
   },
   {
     "slug": "ivan-dimov-ivanov-5aae06",
-    "declarantName": "(unknown)",
+    "declarantName": "ИВАН ДИМОВ ИВАНОВ",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митническо бюро",
     "category": "revenue_agency",
@@ -1028,7 +1028,30 @@
     "entryNumber": "В801",
     "controlHash": "1E69722C",
     "sourceUrl": "https://register.cacbg.bg/2018/997E71EF-06C5-4910-89F4-69F8B3790BAC89356.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СНСЦ \"Проф. Андрей Николов\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СНСЦ \"Проф. Андрей Николов\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -94,7 +94,7 @@
   },
   {
     "slug": "lyubomira-ivanova-taneva-e7c9a6",
-    "declarantName": "(unknown)",
+    "declarantName": "Любомира Иванова Танева",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
@@ -105,42 +105,33 @@
     "entryNumber": "В1258",
     "controlHash": "5514F439",
     "sourceUrl": "https://register.cacbg.bg/2024/83CDC703-4731-4760-B6AB-6094C99CB0A5188115.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "съм член на управителния съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "съм член на управителния съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "съм член на управителния съвет",
+        "companyName": "МИГ - Белово-Септември-Велинград",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "съм член на управителния съвет",
+        "companyName": "МИГ - Белово-Септември-Велинград",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "МИГ - Белово-Септември-Велинград",
-        "detail": null,
-        "location": "съм член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "lyubomira-ivanova-taneva-e7c9a6",

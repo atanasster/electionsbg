@@ -723,7 +723,7 @@
   },
   {
     "slug": "todor-georgiev-gyurov-043cd8",
-    "declarantName": "(unknown)",
+    "declarantName": "ТОДОР  ГЕОРГИЕВ  ГЮРОВ",
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -734,7 +734,19 @@
     "entryNumber": "В10213",
     "controlHash": "C9FF1B25",
     "sourceUrl": "https://register.cacbg.bg/2020/54D56818-B7D9-4A8C-A6FD-2C512F044553111930.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100",
+        "companyName": "МАГ-65 ЕООД гр. Гоце Делчев",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

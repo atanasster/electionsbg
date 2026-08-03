@@ -967,7 +967,7 @@
   },
   {
     "slug": "galina-dimitrova-stanimirova-1662fd",
-    "declarantName": "(unknown)",
+    "declarantName": "Галина Димитрова Станимирова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -978,7 +978,19 @@
     "entryNumber": "В1046",
     "controlHash": "C553EB80",
     "sourceUrl": "https://register.cacbg.bg/2018/24200805-1223-4051-85D3-A34F7D88463A89609.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "Училищно настоятелство при СОУ Христо Ботев 2004",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -272,7 +272,7 @@
   },
   {
     "slug": "anton-lyubomirov-ivanov-95c9e1",
-    "declarantName": "(unknown)",
+    "declarantName": "АНТОН ЛЮБОМИРОВ ИВАНОВ",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -283,7 +283,52 @@
     "entryNumber": "В258",
     "controlHash": "606ACFC3",
     "sourceUrl": "https://register.cacbg.bg/2024/3971A1FF-32FB-4E53-B1CB-0294BDA83F4A173580.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "Български енергиен и минен форум",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ПроЕкоенергия ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ПЕЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "ИКюИ България АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

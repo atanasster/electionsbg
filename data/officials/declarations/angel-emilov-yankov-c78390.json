@@ -1,7 +1,7 @@
 [
   {
     "slug": "angel-emilov-yankov-c78390",
-    "declarantName": "(unknown)",
+    "declarantName": "Ангел Емилов Янков",
     "institution": "Членовете на управителните и контролните органи на БЕХ",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,10 +12,58 @@
     "entryNumber": "В519",
     "controlHash": "AE7DACCF",
     "sourceUrl": "https://register.cacbg.bg/2022/382F88DC-2D21-40CB-BF1C-CB47AA6EE457132425.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "\"Ай Си Джи Би\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "\"Български енергиен холдинг\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "OMВ България ООД",
+        "detail": "Трудов договор",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "interest_contract",
+        "description": "Министерство на енергетиката",
+        "detail": "Консултантски услуги",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "angel-emilov-yankov-c78390",

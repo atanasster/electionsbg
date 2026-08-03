@@ -1419,7 +1419,7 @@
   },
   {
     "slug": "iliya-stoyanov-tonev-cf78ef",
-    "declarantName": "(unknown)",
+    "declarantName": "Илия Стоянов Тонев",
     "institution": "МБАЛ \"Югозападна болница\" ООД, гр. Сандански",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1430,7 +1430,30 @@
     "entryNumber": "В1590",
     "controlHash": "C77CF667",
     "sourceUrl": "https://register.cacbg.bg/2018/99CEAFB3-1735-4819-977C-B5D9D4764CBC90187.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Медицински център \"Свети врач Сандански\"ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Медицински център\" Свети врачСандански\" ЕООД_",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

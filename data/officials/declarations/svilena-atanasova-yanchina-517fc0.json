@@ -1032,7 +1032,7 @@
   },
   {
     "slug": "svilena-atanasova-yanchina-517fc0",
-    "declarantName": "(unknown)",
+    "declarantName": "Свилена Атанасова Янчина",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -1043,7 +1043,19 @@
     "entryNumber": "В966",
     "controlHash": "93D40D79",
     "sourceUrl": "https://register.cacbg.bg/2018/281ECA78-6C6C-42F3-8E71-255A9D2CD35189528.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "Областен съвет на Български червен кръст - Кърджали",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

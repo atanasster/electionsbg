@@ -1,7 +1,7 @@
 [
   {
     "slug": "iordan-lyubomirov-bozhilov-f6bbff",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Любомиров Божилов",
     "institution": "Министерство отбраната",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -12,10 +12,57 @@
     "entryNumber": "В569",
     "controlHash": "45866EA5",
     "sourceUrl": "https://register.cacbg.bg/2022/BA73E78C-8D7E-4E4E-BF55-03BEA161305A132925.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Глобал Консълтинг енд Инвестмънт Груп ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Инпрогсо ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Софийски форум за сигурност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Мариана Христова Божилова",
+        "detail": "държавна администрация",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "iordan-lyubomirov-bozhilov-f6bbff",

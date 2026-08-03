@@ -2512,7 +2512,7 @@
   },
   {
     "slug": "sergei-dmitrievich-stanishev-540190",
-    "declarantName": "(unknown)",
+    "declarantName": "Сергей Дмитриевич Станишев",
     "institution": "Европейски парламент",
     "positionTitle": "Член",
     "category": "mep",
@@ -2523,60 +2523,44 @@
     "entryNumber": "Г926",
     "controlHash": "2A200BE6",
     "sourceUrl": "https://register.cacbg.bg/2018/55494C58-5B57-4D00-88FA-C486A11691BD89362.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "учредител и председател на Управителния съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "учредител и председател на Управителния съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Фондация за европейски и прогресивни изследвания",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на Управителния съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на Управителния съвет",
-        "amount": null,
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "учредител и председател на Управителния съвет",
+        "companyName": "Академия за леви европейски политики - 2015 г.",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Фондация за европейски и прогресивни изследвания",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация за европейски и прогресивни изследвания",
-        "detail": null,
-        "location": "член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "sergei-dmitrievich-stanishev-540190",

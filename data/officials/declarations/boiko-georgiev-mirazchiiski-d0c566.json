@@ -2724,7 +2724,7 @@
   },
   {
     "slug": "boiko-georgiev-mirazchiiski-d0c566",
-    "declarantName": "(unknown)",
+    "declarantName": "Бойко Георгиев Миразчийски",
     "institution": "УМБАЛ - Бургас АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -2735,9 +2735,81 @@
     "entryNumber": "В523",
     "controlHash": "DD0C6CEC",
     "sourceUrl": "https://register.cacbg.bg/2018/FFB3D0AF-BA07-4056-9606-CE328CC38BF189070.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Всестранна земеделска кооперация \"Христо Ботев\" град Бургас",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Всестранна земеделска кооперация \"Христо Ботев\" град Бургас",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Пламен Георгиев Миразчийски",
+        "detail": "Трудов договор в \"УМБАЛ Бургас\" АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Ирена Томова Миразчийска",
+        "detail": "\"АПМПИП Чайка д-р Миразчийска\" ЕООД - управител. Здравеопазване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Томислава Бойкова Миразчийска-Лъскова",
+        "detail": "\"АПМПИП Чайка д-р Миразчийска\" ЕООД - служител. Здравеопазване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Георги Бойков Миразчийски",
+        "detail": "Студент - медицина. Здравеопазване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

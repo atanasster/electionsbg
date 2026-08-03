@@ -250,7 +250,7 @@
   },
   {
     "slug": "ivan-bonev-shikov-3a4d95",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Бонев Шиков",
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -261,7 +261,30 @@
     "entryNumber": "В1227",
     "controlHash": "0EDB4567",
     "sourceUrl": "https://register.cacbg.bg/2023/DDB39FC4-A371-41F5-89C8-590C22243E45156222.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "представляващ Сдружение, член на управителния съвет",
+        "companyName": "\"Сейшин Карате До\"Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "\"Българска Шотокан Карате Академия\"Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

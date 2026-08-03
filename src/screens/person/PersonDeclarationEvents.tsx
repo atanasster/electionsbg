@@ -1,12 +1,16 @@
-// Disposals & third-party expenses (audit T3.4) — the four things a declaration RECORDS
-// but that are not part of the estate at filing time: property and vehicles transferred in
-// the prior year, expenses someone else paid for the declarant, and guarantees given in
-// their favour.
+// Disposals, third-party expenses & declared interests (audit T3.4) — the things a
+// declaration RECORDS but that are not part of the estate at filing time: property and
+// vehicles transferred in the prior year, expenses someone else paid for the declarant,
+// guarantees given in their favour, and — off the separate INTERESTS filings — contracts
+// with people the office decides about, declared related persons, and debts settled ahead
+// of term with the origin of the money that settled them.
 //
 // These are the most editorially interesting rows in the filing precisely because they are
-// not wealth. "Sold the car the year before leaving office" and "someone else paid for this
-// trip" are transactions, and the register is the only place they are recorded. The parser
-// threw all 9,127 of them away until audit T1.6.
+// not wealth. "Sold the car the year before leaving office", "someone else paid for this
+// trip" and "repaid a consumer loan out of a gift" are transactions, and the register is
+// the only place they are recorded. The parser threw all 9,127 of them away until audit
+// T1.6, and the interests rows for two years longer than that — the interests forms number
+// their tables differently and were being read against the asset map.
 //
 // Framing: each row is a verbatim register fact with its own source link, shown against
 // the year it was DECLARED. We deliberately do not compute an "event year": the register's
@@ -30,6 +34,13 @@ const KIND_KEY: Record<string, string> = {
   disposal_vehicle: "pp_decl_event_disposal_vehicle",
   third_party_expense: "pp_decl_event_third_party_expense",
   guarantee: "pp_decl_event_guarantee",
+  // The interests-form kinds. A kind with no entry here falls back to its raw
+  // slug rather than an empty chip, but leaving one unmapped would print
+  // "early_repayment" at a reader — so every kind in DeclarationEventKind
+  // belongs here.
+  interest_contract: "pp_decl_event_interest_contract",
+  related_person: "pp_decl_event_related_person",
+  early_repayment: "pp_decl_event_early_repayment",
 };
 
 export const PersonDeclarationEvents: FC<{ slug: string }> = ({ slug }) => {

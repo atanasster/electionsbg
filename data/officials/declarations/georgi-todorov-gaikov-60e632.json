@@ -179,7 +179,7 @@
   },
   {
     "slug": "georgi-todorov-gaikov-60e632",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Тодоров Гайков",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -190,7 +190,30 @@
     "entryNumber": "В1786",
     "controlHash": "37AD78C8",
     "sourceUrl": "https://register.cacbg.bg/2018/D6ACFF78-CE2E-49D0-9334-3E6D330B852690415.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Юридическо лице с нестопанска, обществено полезна цел \"Българска тактическа асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Юридическо лице с нестопанска, обществено полезна цел \"Българска тактическа асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

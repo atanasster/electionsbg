@@ -2386,7 +2386,7 @@
   },
   {
     "slug": "tsvetomila-vasileva-dudevska-vachevska-b6e798",
-    "declarantName": "(unknown)",
+    "declarantName": "Цветомила Василева Дудевска - Вачевска",
     "institution": "СБАЛББ - Троян ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2397,7 +2397,30 @@
     "entryNumber": "В1460",
     "controlHash": "5EA2F023",
     "sourceUrl": "https://register.cacbg.bg/2018/C7068925-A33C-4242-8598-F714803F7BDE90045.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Специализирана болница за активно лечение на белодробни болести - Троян\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Специализирана болница за активно лечение на белодробни болести-Троян\"ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "antoaneta-kirilova-bogdanova-c233f1",
-    "declarantName": "(unknown)",
+    "declarantName": "Антоанета Кирилова Богданова",
     "institution": "Благоевград",
     "positionTitle": "Председател на ОбС",
     "declarationYear": 2025,
@@ -11,23 +11,22 @@
     "entryNumber": "Г7602",
     "controlHash": "2B92336C",
     "sourceUrl": "https://register.cacbg.bg/2025/A70ED2C4-FCA7-4C50-9826-678FBF97981C210599.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Национална асоциация на председателите на общински съвети",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Национална асоциация на председателите на общински съвети",
-        "detail": null,
-        "location": "Член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "antoaneta-kirilova-bogdanova-c233f1",

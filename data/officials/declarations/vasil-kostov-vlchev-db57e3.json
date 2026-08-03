@@ -545,7 +545,7 @@
   },
   {
     "slug": "vasil-kostov-vlchev-db57e3",
-    "declarantName": "(unknown)",
+    "declarantName": "Васил Костов Вълчев",
     "institution": "МБАЛ  - Пазарджик АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -556,7 +556,30 @@
     "entryNumber": "В1695",
     "controlHash": "0731565B",
     "sourceUrl": "https://register.cacbg.bg/2018/E22167BC-AD6A-414E-837B-B8C3F9D69B9A90319.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "ХОСПИС МБАЛ ПАЗАРДЖИК ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "ХОСПИС МБАЛ ПАЗАРДЖИК ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

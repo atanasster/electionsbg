@@ -679,7 +679,7 @@
   },
   {
     "slug": "emil-simeonov-tonev-0dbf0b",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Симеонов Тонев",
     "institution": "Национална служба за охрана ",
     "positionTitle": "Заместник-началник",
     "category": "security_service",
@@ -690,7 +690,19 @@
     "entryNumber": "Г615",
     "controlHash": "864FF3F4",
     "sourceUrl": "https://register.cacbg.bg/2019/0848C771-1333-4CF9-8480-0D067B180C7994927.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение  с нестопанска цел \"Спортен клуб-Национална служба за охрана\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

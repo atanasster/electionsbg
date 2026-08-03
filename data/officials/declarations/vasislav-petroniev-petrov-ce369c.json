@@ -328,7 +328,7 @@
   },
   {
     "slug": "vasislav-petroniev-petrov-ce369c",
-    "declarantName": "(unknown)",
+    "declarantName": "Васислав Петрониев Петров",
     "institution": "МБАЛ \"Д-р Иван Селимински\" - Сливен АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -339,47 +339,35 @@
     "entryNumber": "Г13989",
     "controlHash": "9F163F69",
     "sourceUrl": "https://register.cacbg.bg/2024/DF610BE6-214C-469D-95E2-6C153C333B2B196255.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "НПО - СЗД \"Захари Стоянов\"",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0",
+        "companyName": "НПО - СЗД \"Захари Стоянов\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
-      },
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Заем",
         "detail": "Васислав Петрониев Петров",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "50000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Д Банк",
-        "isSpouse": true,
-        "legalBasis": "заплати",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 25564.594059810923,
+        "legalBasis": "заплати"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "vasislav-petroniev-petrov-ce369c",
@@ -2182,7 +2170,7 @@
   },
   {
     "slug": "vasislav-petroniev-petrov-ce369c",
-    "declarantName": "(unknown)",
+    "declarantName": "Васислав Петрониев Петров",
     "institution": "МБАЛ \"Д-р Иван Селимински\" - Сливен АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",

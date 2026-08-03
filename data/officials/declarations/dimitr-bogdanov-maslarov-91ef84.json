@@ -1001,7 +1001,7 @@
   },
   {
     "slug": "dimitr-bogdanov-maslarov-91ef84",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Богданов Масларов",
     "institution": "МБАЛ \"Национална кардиологична болница” ЕАД, гр.София",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
@@ -1012,7 +1012,30 @@
     "entryNumber": "В1608",
     "controlHash": "7589746B",
     "sourceUrl": "https://register.cacbg.bg/2024/5ECF52DD-D02B-41D2-BCC5-BCC6557AB1A0195788.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Българско дружество по неврология",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "80%",
+        "companyName": "МЦ Амбулатория Масларови АСИБМП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

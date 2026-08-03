@@ -1215,7 +1215,7 @@
   },
   {
     "slug": "decho-petrov-dechev-154400",
-    "declarantName": "(unknown)",
+    "declarantName": "Дечо Петров Дечев",
     "institution": "УМБАЛ “Св.Иван Рилски” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1226,7 +1226,19 @@
     "entryNumber": "В683",
     "controlHash": "3C579BD9",
     "sourceUrl": "https://register.cacbg.bg/2018/60BFBB83-6541-4DAA-8D10-E2189074B88F89238.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "УМБАЛ \"Св. Иван Рилски\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

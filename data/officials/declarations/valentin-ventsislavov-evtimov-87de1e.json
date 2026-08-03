@@ -143,7 +143,7 @@
   },
   {
     "slug": "valentin-ventsislavov-evtimov-87de1e",
-    "declarantName": "(unknown)",
+    "declarantName": "Валентин Венцциславов Евтимов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -154,28 +154,21 @@
     "entryNumber": "Г2402",
     "controlHash": "524D1523",
     "sourceUrl": "https://register.cacbg.bg/2020/99C514FD-553C-4A14-8725-67504E2330E4112553.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Стройпроект ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Стройпроект ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {

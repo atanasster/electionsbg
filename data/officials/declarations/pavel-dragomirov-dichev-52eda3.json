@@ -1,7 +1,7 @@
 [
   {
     "slug": "pavel-dragomirov-dichev-52eda3",
-    "declarantName": "(unknown)",
+    "declarantName": "Павел Драгомиров Дичев",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В888",
     "controlHash": "9267D588",
     "sourceUrl": "https://register.cacbg.bg/2022/2C623830-64AC-4E32-A42D-2C6F7E595F32141665.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Паралди ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "30",
+        "companyName": "Студио Васколов ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

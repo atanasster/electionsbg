@@ -733,7 +733,7 @@
   },
   {
     "slug": "elena-borisova-mihailova-412531",
-    "declarantName": "(unknown)",
+    "declarantName": "Елена Борисова Михайлова",
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
@@ -747,6 +747,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Людмил Христов Михайлов",
+        "detail": "Завеждащ Филиал ЦСМП - Монтана",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Людмил Христов Михайлов",
+        "detail": "Договор с НЗОК за извънболнична медицинска помощ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

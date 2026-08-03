@@ -295,7 +295,7 @@
   },
   {
     "slug": "ilka-georgieva-dimova-mazgaleva-031292",
-    "declarantName": "(unknown)",
+    "declarantName": "Илка Георгиева Димова- Мазгалева",
     "institution": "Агенция за държавна финансова инспекция",
     "positionTitle": "Директор",
     "category": "agency_head",
@@ -306,7 +306,41 @@
     "entryNumber": "В1600",
     "controlHash": "D7459E98",
     "sourceUrl": "https://register.cacbg.bg/2024/E48D5E3E-2E72-4457-8F3D-4B9701B38B6A195760.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Асоциация за управление на вземания",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор и член на Съвета на директорите",
+        "companyName": "ОТП Факторинг България ЕАД (заличен търговец)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Асоциация за управление на вземания",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

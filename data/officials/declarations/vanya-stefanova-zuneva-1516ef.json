@@ -842,7 +842,7 @@
   },
   {
     "slug": "vanya-stefanova-zuneva-1516ef",
-    "declarantName": "(unknown)",
+    "declarantName": "Ваня Стефанова Зунева",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -856,6 +856,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Николай Пенчев Зунев",
+        "detail": "Земеделска дейност",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "\"Алфа Агро\" ООД",
+        "detail": "Земеделска дейност",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

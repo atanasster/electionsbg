@@ -1,7 +1,7 @@
 [
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -12,78 +12,55 @@
     "entryNumber": "Г15467",
     "controlHash": "B0137F1C",
     "sourceUrl": "https://register.cacbg.bg/2025/1375D9BF-492B-4080-B6AB-1B3B63C89E4C219672.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "БАЗА 495 ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "БАЗА 495 ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "100%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100%",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "БАЗА 495 ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "УПРАВИТЕЛ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "УПРАВИТЕЛ",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "БАЗА 495 ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "БАЗА 495 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "БАЗА 495 ЕООД",
-        "detail": null,
-        "location": "УПРАВИТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
@@ -417,7 +394,7 @@
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -428,33 +405,26 @@
     "entryNumber": "Г13794",
     "controlHash": "78ABFA63",
     "sourceUrl": "https://register.cacbg.bg/2024/1375D9BF-492B-4080-B6AB-1B3B63C89E4C195931.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Медико-дентален център МЕДИКА ДЕНТ РУСЕ ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Медико-дентален център МЕДИКА ДЕНТ РУСЕ ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -465,27 +435,26 @@
     "entryNumber": "Г13954",
     "controlHash": "1BFA96EB",
     "sourceUrl": "https://register.cacbg.bg/2024/1375D9BF-492B-4080-B6AB-1B3B63C89E4C196193.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм Управител",
+        "companyName": "ХОСПИС МЕДИКА РУСЕ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ХОСПИС МЕДИКА РУСЕ ЕООД",
-        "detail": null,
-        "location": "не съм Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -496,23 +465,22 @@
     "entryNumber": "Г13951",
     "controlHash": "D4F5FED2",
     "sourceUrl": "https://register.cacbg.bg/2024/1375D9BF-492B-4080-B6AB-1B3B63C89E4C196188.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "АСОЦИАЦИЯ ПО ФИЗИКАЛНА МЕДИЦИНА И РЕХАБИЛИТАЦИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АСОЦИАЦИЯ ПО ФИЗИКАЛНА МЕДИЦИНА И РЕХАБИЛИТАЦИЯ",
-        "detail": null,
-        "location": "ПРЕДСЕДАТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
@@ -789,7 +757,7 @@
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "Кирил Панайотов Панайтов",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -800,23 +768,22 @@
     "entryNumber": "Г8732",
     "controlHash": "6C3F30EE",
     "sourceUrl": "https://register.cacbg.bg/2023/1375D9BF-492B-4080-B6AB-1B3B63C89E4C155920.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "НОВА БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ВДИГАНЕ НА ТЕЖЕСТИ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "НОВА БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ВДИГАНЕ НА ТЕЖЕСТИ",
-        "detail": null,
-        "location": "ПРЕДСЕДАТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
@@ -1950,7 +1917,7 @@
   },
   {
     "slug": "kiril-panaiotov-panaiotov-4b4bc3",
-    "declarantName": "(unknown)",
+    "declarantName": "Кирил Панайотов Панайотов",
     "institution": "СБАЛК \"Медика Кор\" ЕАД, гр. Русе",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1961,7 +1928,239 @@
     "entryNumber": "В1400",
     "controlHash": "F2FC5665",
     "sourceUrl": "https://register.cacbg.bg/2018/1375D9BF-492B-4080-B6AB-1B3B63C89E4C89977.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "3,34%",
+        "companyName": "КОР ТРЕЙД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР МЕДИКА ЕКСПЕРТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МЕДИКА ТУРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "90 %",
+        "companyName": "АСИМПФРМ ГП ЗДРАВНА КЪЩА МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "98 %",
+        "companyName": "СБАЛФРМ МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "КОР ТРЕЙД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР МЕДИКА ЕКСПЕРТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЕДИКА ТУРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ, ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "АСИМПФРМ ГП ЗДРАВНА КЪЩА МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ, ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "СБАЛФРМ МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР, СЪВЕТ ДИРЕКТОРИТЕ",
+        "companyName": "СБАЛК МЕДИКА КОР ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "3,34 %",
+        "companyName": "КОР ТРЕЙД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР МЕДИКА ЕКСПЕРТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МЕДИКА ТУРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "90 %",
+        "companyName": "АСИМПФРМ ГП ЗДРАВНА КЪЩА МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "98 %",
+        "companyName": "СБАЛФРМ МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "КОР ТРЕЙД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР МЕДИКА ЕКСПЕРТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЕДИКА ТУРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ, ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "АСИМПФРМ ГП ЗДРАВНА КЪЩА МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ, ОБЩО СЪБРАНИЕ НА СЪДРУЖНИЦИТЕ",
+        "companyName": "СБАЛФРМ МЕДИКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

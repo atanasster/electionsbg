@@ -2927,7 +2927,7 @@
   },
   {
     "slug": "rumyana-dimitrova-boilova-a2ad1a",
-    "declarantName": "(unknown)",
+    "declarantName": "Румяна Димитрова Бойлова",
     "institution": "МБАЛ - Първомай",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2938,7 +2938,30 @@
     "entryNumber": "В1073",
     "controlHash": "2A22ADB4",
     "sourceUrl": "https://register.cacbg.bg/2018/521C7A28-556E-4DB2-823D-E3E12D38827189636.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"MЦ I - Първомай\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"МЦ I - Първомай\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

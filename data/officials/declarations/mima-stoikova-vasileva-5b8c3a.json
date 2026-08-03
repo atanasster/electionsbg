@@ -718,7 +718,7 @@
   },
   {
     "slug": "mima-stoikova-vasileva-5b8c3a",
-    "declarantName": "(unknown)",
+    "declarantName": "Мима Стойкова Василева",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -729,7 +729,19 @@
     "entryNumber": "В1450",
     "controlHash": "7D94D1E8",
     "sourceUrl": "https://register.cacbg.bg/2018/19833D41-5337-49FC-B7E2-1BC7ABB203EE90035.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "патентна дейност",
+        "companyName": "ЕТ\"Мима Василева - Деси\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

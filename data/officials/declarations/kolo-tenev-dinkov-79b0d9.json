@@ -200,7 +200,7 @@
   },
   {
     "slug": "kolo-tenev-dinkov-79b0d9",
-    "declarantName": "(unknown)",
+    "declarantName": "Кольо Тенев Динков",
     "institution": "Университет по хранителни технологии - Пловдив",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -211,23 +211,22 @@
     "entryNumber": "В271",
     "controlHash": "A04D9816",
     "sourceUrl": "https://register.cacbg.bg/2019/72C1F3A1-A292-4600-9466-332635C3C14194369.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителен съвет",
+        "companyName": "Сдружение \"Бизнес университетска асоциация в хранителната индустрия и туризма\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Бизнес университетска асоциация в хранителната индустрия и туризма\"",
-        "detail": null,
-        "location": "Председател на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "kolo-tenev-dinkov-79b0d9",
@@ -589,7 +588,7 @@
   },
   {
     "slug": "kolo-tenev-dinkov-79b0d9",
-    "declarantName": "(unknown)",
+    "declarantName": "Кольо Тенев Динков",
     "institution": "Университет по хранителни технологии - Пловдив",
     "positionTitle": "Ректор",
     "category": "academic",

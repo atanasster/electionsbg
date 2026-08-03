@@ -93,7 +93,7 @@
   },
   {
     "slug": "tsvetan-petrov-tsirkov-d8f6c4",
-    "declarantName": "(unknown)",
+    "declarantName": "ЦВЕТАН ПЕТРОВ ЦИРКОВ",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -104,7 +104,41 @@
     "entryNumber": "В1197",
     "controlHash": "B4C34C65",
     "sourceUrl": "https://register.cacbg.bg/2024/D0F6DC64-6DF8-4854-A05B-E0B43C90BC27187605.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250",
+        "companyName": "Инвизибъл Протект ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250",
+        "companyName": "Инвизибъл Протект ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "ДП Държавна петролна компания",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

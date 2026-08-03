@@ -113,7 +113,7 @@
   },
   {
     "slug": "ina-kirilova-lazarova-27c4ae",
-    "declarantName": "(unknown)",
+    "declarantName": "Ина Кирилова Лазарова",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -124,7 +124,19 @@
     "entryNumber": "В250",
     "controlHash": "A955BC14",
     "sourceUrl": "https://register.cacbg.bg/2019/8BC6BCDF-DB18-4EA3-AC3F-44299464973C94281.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите",
+        "companyName": "\"Ай Си Джи Би\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -556,7 +556,7 @@
   },
   {
     "slug": "stoyan-filipov-stoyanov-407feb",
-    "declarantName": "(unknown)",
+    "declarantName": "Стоян Филипов Стоянов",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -567,7 +567,30 @@
     "entryNumber": "В637",
     "controlHash": "9362E70A",
     "sourceUrl": "https://register.cacbg.bg/2024/C118884F-6A3D-4C1E-8C8A-6EC43384FA9B179381.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10%",
+        "companyName": "\"ФЕЛИКС-92\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "\"КОНДИЦИЯ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

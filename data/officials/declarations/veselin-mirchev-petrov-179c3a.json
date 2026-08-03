@@ -87,7 +87,7 @@
   },
   {
     "slug": "veselin-mirchev-petrov-179c3a",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Мирчев Петров",
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -98,7 +98,19 @@
     "entryNumber": "В719",
     "controlHash": "ADE05CDA",
     "sourceUrl": "https://register.cacbg.bg/2022/D7F38AFF-8944-4D26-8038-1E5812DCA39E140215.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "Ренесанс АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

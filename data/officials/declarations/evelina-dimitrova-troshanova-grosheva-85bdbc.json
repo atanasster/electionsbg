@@ -408,7 +408,7 @@
   },
   {
     "slug": "evelina-dimitrova-troshanova-grosheva-85bdbc",
-    "declarantName": "(unknown)",
+    "declarantName": "Евелина Димитрова Трошанова - Грошева",
     "institution": "СБАЛПФЗ -Бургас ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -419,7 +419,30 @@
     "entryNumber": "В530",
     "controlHash": "1565C1C5",
     "sourceUrl": "https://register.cacbg.bg/2018/9E7D65C5-94D3-48EA-96C6-A6825770F3B489077.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "ИПСМП",
+        "companyName": "ЕТ ИПСМП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "ИПСМП",
+        "companyName": "ЕТ ИПСМП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

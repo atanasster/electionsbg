@@ -788,7 +788,7 @@
   },
   {
     "slug": "ivan-lakov-ivanov-ae5488",
-    "declarantName": "(unknown)",
+    "declarantName": "ИВАН ЛАКОВ ИВАНОВ",
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -799,7 +799,19 @@
     "entryNumber": "В2673",
     "controlHash": "F7AE3B0C",
     "sourceUrl": "https://register.cacbg.bg/2018/51097C9F-ABA8-4CFB-9CEA-B5F1900EB43592150.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 %",
+        "companyName": "СТАРА РЕКА ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

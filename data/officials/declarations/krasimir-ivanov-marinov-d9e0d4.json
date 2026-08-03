@@ -1,7 +1,7 @@
 [
   {
     "slug": "krasimir-ivanov-marinov-d9e0d4",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Иванов Маринов",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,58 +12,44 @@
     "entryNumber": "Г5469",
     "controlHash": "BAE74691",
     "sourceUrl": "https://register.cacbg.bg/2025/EF17445E-246D-4F2C-80D5-521E481B6225208397.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "управител",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "управител",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "АИПСИМПХ-д-р Красимир Маринов ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "АИПСИМПХ-д-р Красимир Маринов ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "ипотечен кредит",
         "detail": "Женя Петрова Дюлгерова-Маринова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "69866",
         "currency": "BGN",
-        "amount": 7001070875,
-        "valueEur": 3579590698.0668054,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "спестявания",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АИПСИМПХ-д-р Красимир Маринов ЕООД",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 35721.918571655,
+        "legalBasis": "спестявания"
       }
     ]
   },

@@ -1729,7 +1729,7 @@
   },
   {
     "slug": "aleksandr-georgiev-madzhurov-57d71e",
-    "declarantName": "(unknown)",
+    "declarantName": "АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
     "institution": "МБАЛ \"Д-р Маджуров\" ООД, гр. Бургас",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1740,7 +1740,63 @@
     "entryNumber": "В472",
     "controlHash": "1F11A1ED",
     "sourceUrl": "https://register.cacbg.bg/2018/5F7078E7-DEB8-4523-AEFC-3D38C746E34F89019.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "70",
+        "companyName": "МБАЛ Д-Р МАДЖУРОВ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "70",
+        "companyName": "МЦ Д-Р МАДЖУРОВ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "3332",
+        "companyName": "МАДЖУРОВ И СИН ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "35",
+        "companyName": "СХБАЛ  ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "70",
+        "companyName": "МЦ Д-Р МАДЖУРОВ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

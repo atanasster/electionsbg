@@ -307,7 +307,7 @@
   },
   {
     "slug": "krasimir-simeonov-chervilov-3ad23e",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Симеонов Червилов",
     "institution": "Област - Стара Загора",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -318,7 +318,41 @@
     "entryNumber": "В96",
     "controlHash": "9C171ACD",
     "sourceUrl": "https://register.cacbg.bg/2018/D19F00E1-A7B6-41AA-89F0-CB650228489488155.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Собственик",
+        "companyName": "\"Продуцентска къща Делвата\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Собственик",
+        "companyName": "\"Продуцентска къща Делвата\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "СНЦ \"Настоятелство на старозагорска опера\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

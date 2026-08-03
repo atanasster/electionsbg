@@ -2029,7 +2029,7 @@
   },
   {
     "slug": "ivelin-tsankov-iotsov-a568e5",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивелин Цанков Йоцов",
     "institution": "УМБАЛ Медика Русе ООД, гр. Русе",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2040,7 +2040,19 @@
     "entryNumber": "В1393",
     "controlHash": "7C52B2D7",
     "sourceUrl": "https://register.cacbg.bg/2018/BC30A6A2-757E-4E4F-B726-8E273398F70089970.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МЦ- Ловеч ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

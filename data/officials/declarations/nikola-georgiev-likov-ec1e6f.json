@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikola-georgiev-likov-ec1e6f",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Георгиев Ликов",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
@@ -12,7 +12,41 @@
     "entryNumber": "В1735",
     "controlHash": "2B637E5D",
     "sourceUrl": "https://register.cacbg.bg/2024/7796D381-46AA-4ED1-99E3-9182A994EC69196317.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Никълъс Секюрити ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "Сдружение \" НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ СЪЕДИНЕНИЕ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100",
+        "companyName": "Никълъс Секюрити ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

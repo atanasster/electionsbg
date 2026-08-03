@@ -1422,7 +1422,7 @@
   },
   {
     "slug": "vladimir-vasilev-andreev-752c6b",
-    "declarantName": "(unknown)",
+    "declarantName": "ВЛАДИМИР ВАСИЛЕВ АНДРЕЕВ",
     "institution": "МБАЛ  \"Авис-Медика\"  ООД, гр. Плевен",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1433,7 +1433,52 @@
     "entryNumber": "В1133",
     "controlHash": "CBA202A6",
     "sourceUrl": "https://register.cacbg.bg/2018/56659D85-5B2A-483B-B3AA-E1E9B80781E189696.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "МБАЛ \"АВИС МЕДИКА\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "ДКЦ \"АВИС МЕДИКА\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "\"АНДРЕЕВИ\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "\"АВИС БИЛДИНГ\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

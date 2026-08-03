@@ -1,7 +1,7 @@
 [
   {
     "slug": "stanimir-petrov-iordanov-eec596",
-    "declarantName": "(unknown)",
+    "declarantName": "Станимир Петров Йорданов",
     "institution": "Отбрана и въоръжени сили на Република България",
     "positionTitle": "Директор на дирекция „Операции и подготовка\"-ЩО",
     "category": "military_command",
@@ -12,23 +12,22 @@
     "entryNumber": "Г6182",
     "controlHash": "ADD00C9B",
     "sourceUrl": "https://register.cacbg.bg/2025/D5EEB1A1-7608-483C-91CE-D53C5CCADB56209133.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на УС на ВСК \"СпортМО\", считано от 05.05.2025 г.",
+        "companyName": "Военен спортен клуб \"СпортМО\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Военен спортен клуб \"СпортМО\"",
-        "detail": null,
-        "location": "председател на УС на ВСК \"СпортМО\", считано от 05.05.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "stanimir-petrov-iordanov-eec596",

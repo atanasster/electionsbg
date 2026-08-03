@@ -597,7 +597,7 @@
   },
   {
     "slug": "lyubcho-tsvetanov-penev-890da9",
-    "declarantName": "(unknown)",
+    "declarantName": "ЛЮБЧО ЦВЕТАНОВ ПЕНЕВ",
     "institution": "СБАЛ \"Гръбнацен център\" АД, гр. София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -608,7 +608,30 @@
     "entryNumber": "В539",
     "controlHash": "BEC0F3C8",
     "sourceUrl": "https://register.cacbg.bg/2024/3BC3890D-5566-47C3-93FD-757FA05DD1DF178343.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "ДКЦ \"АЛЕКСАНДРОВСКА\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+        "companyName": "МБАЛББ \"СВЕТА СОФИЯ\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

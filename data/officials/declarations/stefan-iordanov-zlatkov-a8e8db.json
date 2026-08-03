@@ -593,7 +593,7 @@
   },
   {
     "slug": "stefan-iordanov-zlatkov-a8e8db",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Йорданов Златков",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митница",
     "category": "revenue_agency",
@@ -604,7 +604,30 @@
     "entryNumber": "В1261",
     "controlHash": "1DF17EC7",
     "sourceUrl": "https://register.cacbg.bg/2018/F17DAD20-6682-4B16-8E6D-4D6DC3044EA789828.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Сдружение \"Колоездачен спортен клуб Русе\" гр. Русе",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Сдружение \"Колоездачен спортен клуб Русе\" гр. Русе",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

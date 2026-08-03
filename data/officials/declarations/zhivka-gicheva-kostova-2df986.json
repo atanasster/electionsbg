@@ -2110,7 +2110,7 @@
   },
   {
     "slug": "zhivka-gicheva-kostova-2df986",
-    "declarantName": "(unknown)",
+    "declarantName": "Живка Гичева Костова",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -2124,7 +2124,56 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Яни Костов Димитров",
+        "detail": "земеделска земя",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "interest_contract",
+        "description": "Елена Христова Димитрова",
+        "detail": "земеделска земя",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Яни Костов Димитров",
+        "detail": "земеделска дейност ДП 2022",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Елена Христова Димитрова",
+        "detail": "земеделска дейност ДП 2022",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "zhivka-gicheva-kostova-2df986",
@@ -3267,7 +3316,7 @@
   },
   {
     "slug": "zhivka-gicheva-kostova-2df986",
-    "declarantName": "(unknown)",
+    "declarantName": "Живка Гичева Костова",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -3281,6 +3330,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Яни Костов Димитров",
+        "detail": "Земеделие",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Елена Христова Димитрова",
+        "detail": "Земеделие",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

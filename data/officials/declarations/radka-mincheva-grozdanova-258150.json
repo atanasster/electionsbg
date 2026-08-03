@@ -362,7 +362,7 @@
   },
   {
     "slug": "radka-mincheva-grozdanova-258150",
-    "declarantName": "(unknown)",
+    "declarantName": "Радка Минчева Грозданова",
     "institution": "МБАЛ - Девин ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -373,7 +373,19 @@
     "entryNumber": "В2709",
     "controlHash": "B7F8DBCB",
     "sourceUrl": "https://register.cacbg.bg/2018/30102A3B-5793-4EDB-8345-673DD3D4F70392284.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МЦ \"медикеар Плюс\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

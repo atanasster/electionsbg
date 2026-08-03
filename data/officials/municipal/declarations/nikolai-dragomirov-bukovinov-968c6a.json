@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikolai-dragomirov-bukovinov-968c6a",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Драгомиров Буковинов",
     "institution": "Поморие",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -11,42 +11,33 @@
     "entryNumber": "В324",
     "controlHash": "DB4AEB8A",
     "sourceUrl": "https://register.cacbg.bg/2025/5B4AC1F0-3471-4775-B99B-238FF9A2EDE8202432.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "НИКИЕМ 25 ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "НИКИЕМ 25 ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "НИКИЕМ 25 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "НИКИЕМ 25 ЕООД",
-        "detail": null,
-        "location": "Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-dragomirov-bukovinov-968c6a",

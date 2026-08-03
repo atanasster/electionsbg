@@ -281,7 +281,7 @@
   },
   {
     "slug": "ivan-valentinov-tserovski-3791ad",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Валентинов Церовски",
     "institution": "Членове на УС и на НС на Българската банка за развитие",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -292,7 +292,41 @@
     "entryNumber": "В88",
     "controlHash": "83CF242F",
     "sourceUrl": "https://register.cacbg.bg/2023/583E26D2-2B01-4E8B-8FA5-516174532C2D145509.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Хай Тауър Кепитъл ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Фондация Церовски-Борба с рака",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Фондация Церовски-Борба с рака",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -123,7 +123,7 @@
   },
   {
     "slug": "georgi-petrov-drakaliev-a1cdf3",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕОРГИ ПЕТРОВ ДРАКАЛИЕВ",
     "institution": "Бургас",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -133,22 +133,21 @@
     "entryNumber": "Г14376",
     "controlHash": "8677DE25",
     "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED217669.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "ФОНДАЦИЯ ВМРО",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ФОНДАЦИЯ ВМРО",
-        "detail": null,
-        "location": "ЧЛЕН",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

@@ -267,7 +267,7 @@
   },
   {
     "slug": "kostadin-nikolov-paunov-76e303",
-    "declarantName": "(unknown)",
+    "declarantName": "Костадин Николов Паунов",
     "institution": "МБАЛ \"Здраве\" - Велинград ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -278,7 +278,19 @@
     "entryNumber": "В1640",
     "controlHash": "303CBEE3",
     "sourceUrl": "https://register.cacbg.bg/2024/3DD7140F-575E-4457-B634-44125E2AA3BF195906.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ДКЦ1-Велинград ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

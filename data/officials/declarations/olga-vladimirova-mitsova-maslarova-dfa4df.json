@@ -160,7 +160,7 @@
   },
   {
     "slug": "olga-vladimirova-mitsova-maslarova-dfa4df",
-    "declarantName": "(unknown)",
+    "declarantName": "Олга Владимирова Мицова - Масларова",
     "institution": "МБАЛ \"Лозенец\"",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -171,7 +171,30 @@
     "entryNumber": "В1592",
     "controlHash": "E970B9C3",
     "sourceUrl": "https://register.cacbg.bg/2024/43E88F94-694F-4929-B248-628F781651CB195640.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "19%",
+        "companyName": "МЦМ АСИБМПН",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "19 %",
+        "companyName": "МЦМ АСИБМПН",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

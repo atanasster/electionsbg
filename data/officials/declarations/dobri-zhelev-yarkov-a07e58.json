@@ -137,7 +137,7 @@
   },
   {
     "slug": "dobri-zhelev-yarkov-a07e58",
-    "declarantName": "(unknown)",
+    "declarantName": "Добри Желев Ярков",
     "institution": "Тракийски университет - Стара Загора",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -148,23 +148,22 @@
     "entryNumber": "Г8796",
     "controlHash": "CE4ABC45",
     "sourceUrl": "https://register.cacbg.bg/2022/BE44104B-CE3F-4BD3-9F68-B9070AB89F91141671.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "“Сдружение на Съвета на ректорите на висшите училища в Република България”",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "“Сдружение на Съвета на ректорите на висшите училища в Република България”",
-        "detail": null,
-        "location": "Член на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "dobri-zhelev-yarkov-a07e58",

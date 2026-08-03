@@ -461,7 +461,7 @@
   },
   {
     "slug": "keti-ditkova-tsenova-sredkova-ee753e",
-    "declarantName": "(unknown)",
+    "declarantName": "Кети Диткова Ценова - Средкова",
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
@@ -472,7 +472,19 @@
     "entryNumber": "В363",
     "controlHash": "0298D3F1",
     "sourceUrl": "https://register.cacbg.bg/2019/8F44BFCC-B584-4618-897C-FC46F996D33C95967.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ЦКВЗ - Враца ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

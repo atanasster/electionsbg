@@ -111,7 +111,7 @@
   },
   {
     "slug": "mitko-georgiev-aleksandrov-dfd647",
-    "declarantName": "(unknown)",
+    "declarantName": "Митко Георгиев Александров",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -122,7 +122,52 @@
     "entryNumber": "В349",
     "controlHash": "E278E92F",
     "sourceUrl": "https://register.cacbg.bg/2019/5981F7DC-D29C-4DFA-A0C2-577AA074EB2695656.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Валис-Инвест ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "консултантски услуги",
+        "companyName": "ЕТ Алекс-Митко Александров",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Валис-Инвест ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "консултантски услуги",
+        "companyName": "ЕТ Алекс-Митко Александров",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

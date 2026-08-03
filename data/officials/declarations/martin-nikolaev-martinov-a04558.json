@@ -1,7 +1,7 @@
 [
   {
     "slug": "martin-nikolaev-martinov-a04558",
-    "declarantName": "(unknown)",
+    "declarantName": "Мартин Николаев Мартинов",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В114",
     "controlHash": "3F3FBCBA",
     "sourceUrl": "https://register.cacbg.bg/2025/4AD966D3-E701-4402-A192-BE2034364389201767.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МИНИМАР ГРУП ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МИНИМАР ГРУП ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -510,7 +510,7 @@
   },
   {
     "slug": "yavor-nikolaev-drenski-d64971",
-    "declarantName": "(unknown)",
+    "declarantName": "Явор Николаев Дренски",
     "institution": "МБАЛ \"Уни Хоспитал\" ООД, гр. Панагюрище",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -521,7 +521,63 @@
     "entryNumber": "В660",
     "controlHash": "0CBBB0CA",
     "sourceUrl": "https://register.cacbg.bg/2022/C4378F11-2364-46DC-9167-5CCFCD64AD22134409.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "\"Асарел Панагюрище Здраве\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"МБАЛ - Уни Хоспитал\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "Сдружение БАПЕМЕД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "\"Асарел Панагюрище Здраве\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "Сдружение БАПЕМЕД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -585,7 +585,7 @@
   },
   {
     "slug": "antoaneta-krsteva-harizanova-c8ca0d",
-    "declarantName": "(unknown)",
+    "declarantName": "Антоанета Кръстева Харизанова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -596,7 +596,19 @@
     "entryNumber": "В2703",
     "controlHash": "85833D0D",
     "sourceUrl": "https://register.cacbg.bg/2018/DC58ECA3-E110-4730-A692-965069E7E4F892263.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СНЦ \"Общински  футболен клуб  Несебър\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

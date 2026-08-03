@@ -576,7 +576,7 @@
   },
   {
     "slug": "iordan-vasilev-sariliev-b52764",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Василев Сарилиев",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -587,42 +587,33 @@
     "entryNumber": "Г2318",
     "controlHash": "F6A76E4E",
     "sourceUrl": "https://register.cacbg.bg/2020/F88D0EF9-8AE4-419C-BB9F-5192162155D3112374.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на управителен съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на управителен съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
-        "detail": null,
-        "location": "член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "iordan-vasilev-sariliev-b52764",
@@ -985,7 +976,7 @@
   },
   {
     "slug": "iordan-vasilev-sariliev-b52764",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Василев Сарилиев",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -996,7 +987,30 @@
     "entryNumber": "В1622",
     "controlHash": "EFE94F48",
     "sourceUrl": "https://register.cacbg.bg/2018/F88D0EF9-8AE4-419C-BB9F-5192162155D390221.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Ловнорибарско дружество \"Филип Тотю\" гр. Русе - ЮЛ с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1503,7 +1503,7 @@
   },
   {
     "slug": "krasimir-velikov-nenov-888b46",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Великов Ненов",
     "institution": "Министерство на енергетиката",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -1514,10 +1514,68 @@
     "entryNumber": "В1177",
     "controlHash": "29AC9498",
     "sourceUrl": "https://register.cacbg.bg/2023/E3639B64-A88C-4330-9366-2BC101A2144D156090.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите и изпълнителен директор",
+        "companyName": "КонтурГлобал Марица Изток 3 АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "КонтурГлобал Оперейшънс България АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "КонтурГлобал Мениджмънт София ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите и изпълнителен директор",
+        "companyName": "КонтурГлобал Девелопмънт България ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Електрохолд Продажби ЕАД",
+        "detail": "Продажба на електрическа енергия, произведена от покривна фотоволтаична инсталация",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimir-velikov-nenov-888b46",

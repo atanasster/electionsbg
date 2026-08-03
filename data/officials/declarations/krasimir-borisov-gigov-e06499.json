@@ -1169,7 +1169,7 @@
   },
   {
     "slug": "krasimir-borisov-gigov-e06499",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Борисов Гигов",
     "institution": "Български червен кръст",
     "positionTitle": "Генерален директор",
     "category": "civil_society",
@@ -1180,42 +1180,33 @@
     "entryNumber": "Г3812",
     "controlHash": "79886DD3",
     "sourceUrl": "https://register.cacbg.bg/2019/0602B4B2-9A06-4CA3-9BDE-DDB7955A368898405.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Упражител",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Упражител",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "УМБАЛ \"Свети Иван Рилски\"ЕАД, София",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Упражител",
+        "companyName": "Медицински център \" Червен кръст\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "УМБАЛ \"Свети Иван Рилски\"ЕАД, София",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-borisov-gigov-e06499",

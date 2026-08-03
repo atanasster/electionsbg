@@ -1,7 +1,7 @@
 [
   {
     "slug": "petr-georgiev-daskalov-daf15c",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Георгиев Даскалов",
     "institution": "Божурище",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -11,40 +11,33 @@
     "entryNumber": "Г14585",
     "controlHash": "B6741B7A",
     "sourceUrl": "https://register.cacbg.bg/2025/9E02B666-093E-48DC-8EE5-19C9E8725718217924.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Ви Ви Ти Сървиз",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Кредит",
         "detail": "Петър Георгиев Даскалов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "80000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ",
-        "isSpouse": true,
-        "legalBasis": "Ипотечен кредит",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Ви Ви Ти Сървиз",
-        "detail": null,
-        "location": "Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 40903.35049569748,
+        "legalBasis": "Ипотечен кредит"
       }
     ]
   },

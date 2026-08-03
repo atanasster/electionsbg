@@ -613,7 +613,7 @@
   },
   {
     "slug": "iordan-kostadinov-georgiev-9fe2a1",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Костадинов Георгиев",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -626,45 +626,33 @@
     "sourceUrl": "https://register.cacbg.bg/2023/BFEEB5AD-A2AC-424D-B3CA-05D634962017155471.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "заем-частично погасен",
         "detail": "Йордан Костадинов Георгиев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "41392",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ДСК",
-        "isSpouse": true,
-        "legalBasis": "дарение в полза на съпруг",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 21163.393546473875,
+        "legalBasis": "дарение в полза на съпруг"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "заем-погасен",
         "detail": "Мария Валериева Георгиева",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "1000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": "работна заплата",
-        "fundsOrigin": null
+        "currency": "EUR",
+        "valueEur": 1000.0869196198033,
+        "legalBasis": "работна заплата"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "iordan-kostadinov-georgiev-9fe2a1",

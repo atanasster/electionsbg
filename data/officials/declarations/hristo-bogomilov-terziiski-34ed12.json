@@ -607,7 +607,7 @@
   },
   {
     "slug": "hristo-bogomilov-terziiski-34ed12",
-    "declarantName": "(unknown)",
+    "declarantName": "Христо Богомилов Терзийски",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -618,23 +618,22 @@
     "entryNumber": "Г1943",
     "controlHash": "571B613B",
     "sourceUrl": "https://register.cacbg.bg/2018/75B0314E-ABBB-46AC-93A5-6D2C74CCD93D92299.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Сдружение \"Спортна асоциация-МВР\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Спортна асоциация-МВР\"",
-        "detail": null,
-        "location": "Член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "hristo-bogomilov-terziiski-34ed12",

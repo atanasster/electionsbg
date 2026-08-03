@@ -657,7 +657,7 @@
   },
   {
     "slug": "zornitsa-veselinova-sotirova-c091a1",
-    "declarantName": "(unknown)",
+    "declarantName": "Зорница Веселинова Сотирова",
     "institution": "МБАЛ \"Св. Св. Козма и Дамян\" ООД, гр. Пловдив",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -668,7 +668,30 @@
     "entryNumber": "В1100",
     "controlHash": "0FCD4D4A",
     "sourceUrl": "https://register.cacbg.bg/2018/B917460E-AB11-453E-9799-FBEE88FC975389663.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "НИЧИ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "НИЧИ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

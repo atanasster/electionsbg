@@ -31,10 +31,16 @@ const ASSET_CATEGORIES = [
 ] as const;
 
 const EVENT_KINDS = [
+  // Asset form (tables 2, 3.5, 13, 14).
   "disposal_property",
   "disposal_vehicle",
   "third_party_expense",
   "guarantee",
+  // The two INTERESTS forms (Dekl2 / Dekl3) — see detectFormKind in
+  // scripts/declarations/parse_declaration.ts.
+  "interest_contract",
+  "related_person",
+  "early_repayment",
 ] as const;
 
 const reachable = async (): Promise<boolean> => {

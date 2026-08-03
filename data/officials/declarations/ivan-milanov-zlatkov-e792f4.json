@@ -877,7 +877,7 @@
   },
   {
     "slug": "ivan-milanov-zlatkov-e792f4",
-    "declarantName": "(unknown)",
+    "declarantName": "ИВАН МИЛАНОВ ЗЛАТКОВ",
     "institution": "МБАЛ \"Тракия\" ЕООД, гр. Стара Загора",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -888,10 +888,47 @@
     "entryNumber": "В1634",
     "controlHash": "17E0CA16",
     "sourceUrl": "https://register.cacbg.bg/2018/FFA74AC1-AA2A-48DB-AA1B-C59450E5118790238.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ ТРАКИЯ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "НЕДКА СТЕФАНОВА ЗЛАТКОВА",
+        "detail": "дентална медицина",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "ПОЛИНА ИВАНОВА ЗЛАТКОВА-СТОЯНОВА",
+        "detail": "зъботехническа дейност",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ivan-milanov-zlatkov-e792f4",

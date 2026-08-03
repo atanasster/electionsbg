@@ -1,7 +1,7 @@
 [
   {
     "slug": "lchezar-ivanov-chotov-c6b333",
-    "declarantName": "(unknown)",
+    "declarantName": "Лъчезар Иванов Чотов",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,7 +12,19 @@
     "entryNumber": "В516",
     "controlHash": "1186542D",
     "sourceUrl": "https://register.cacbg.bg/2025/8C778BBD-59A4-42BB-A561-97825A93F832203393.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заместник - председател на УС",
+        "companyName": "Топлофикация София ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

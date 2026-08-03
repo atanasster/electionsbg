@@ -943,7 +943,7 @@
   },
   {
     "slug": "asen-georgiev-baltov-2fc0b4",
-    "declarantName": "(unknown)",
+    "declarantName": "Асен Георгиев Балтов",
     "institution": "УМБАЛСМ “Н.И.Пирогов” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -954,7 +954,30 @@
     "entryNumber": "В691",
     "controlHash": "5318F48A",
     "sourceUrl": "https://register.cacbg.bg/2018/AA3617E6-1D12-4C57-A5E6-252C975889E989246.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УМБАЛСМ \"Н. И. Пирогов\"",
+        "companyName": "Изпълнителен директор",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УМБАЛСМ \"Н. И. Пирогов\"",
+        "companyName": "Изпълнителен директор",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

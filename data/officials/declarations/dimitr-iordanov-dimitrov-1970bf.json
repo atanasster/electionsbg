@@ -195,7 +195,7 @@
   },
   {
     "slug": "dimitr-iordanov-dimitrov-1970bf",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Йорданов Димитров",
     "institution": "Великотърновски университет \"Св. Св. Кирил и Методий\"",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -206,42 +206,33 @@
     "entryNumber": "Г13967",
     "controlHash": "49CEFFD7",
     "sourceUrl": "https://register.cacbg.bg/2024/38882CD6-7370-4A5D-8570-732CDEC01F10196217.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на управителен съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на управителен съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "ЮЛНЦ “Сдружение на Съвета на ректорите на висшите училища в Република България”",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "ЮЛНЦ “Сдружение на Съвета на ректорите на висшите училища в Република България”",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЮЛНЦ “Сдружение на Съвета на ректорите на висшите училища в Република България”",
-        "detail": null,
-        "location": "член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "dimitr-iordanov-dimitrov-1970bf",

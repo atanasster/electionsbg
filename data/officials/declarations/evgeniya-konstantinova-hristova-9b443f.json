@@ -1535,7 +1535,7 @@
   },
   {
     "slug": "evgeniya-konstantinova-hristova-9b443f",
-    "declarantName": "(unknown)",
+    "declarantName": "ЕВГЕНИЯ КОНСТАНТИНОВА ХРИСТОВА",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1546,7 +1546,19 @@
     "entryNumber": "В1197",
     "controlHash": "0158AF2F",
     "sourceUrl": "https://register.cacbg.bg/2018/E76BBFDF-A654-4EB6-98EA-0B18E2762C5B89764.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "СДРУЖЕНИЕ ЛОВНО-РИБАРСКО ДРУЖЕСТВО\"МЕЗДРА-РОМАН\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

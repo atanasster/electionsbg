@@ -581,7 +581,7 @@
   },
   {
     "slug": "nataliya-petrova-pachemanova-560a04",
-    "declarantName": "(unknown)",
+    "declarantName": "НАТАЛИЯ ПЕТРОВА ПАЧЕМАНОВА",
     "institution": "РИОСВ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -592,94 +592,44 @@
     "entryNumber": "Г2350",
     "controlHash": "B0243E03",
     "sourceUrl": "https://register.cacbg.bg/2022/EB10B0AF-5BE9-48E6-9215-6B597DD443A8134457.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "АНТАЛИ КОНСУЛТИНГ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "МАЛЕГА-М ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "real_estate",
-        "description": "АНТАЛИ КОНСУЛТИНГ ЕООД",
-        "detail": null,
-        "location": "100",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "100",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "100",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "БАНКОВ КРЕДИТ",
         "detail": "АНГЕЛ КОСТАДИНОВ ПАЧЕМАНОВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "5622",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ПИБ",
-        "isSpouse": true,
-        "legalBasis": "АВАНСОВО ПЛАЩАНЕ ОТ ПРОДАЖБА НА ИМОТ",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АНТАЛИ КОНСУЛТИНГ ЕООД",
-        "detail": null,
-        "location": "100",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "currency": "EUR",
+        "valueEur": 5622.6768175148145,
+        "legalBasis": "АВАНСОВО ПЛАЩАНЕ ОТ ПРОДАЖБА НА ИМОТ"
       }
     ]
   },

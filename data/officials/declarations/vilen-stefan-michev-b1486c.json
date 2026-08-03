@@ -398,7 +398,7 @@
   },
   {
     "slug": "vilen-stefan-michev-b1486c",
-    "declarantName": "(unknown)",
+    "declarantName": "Вилен Стефан Мичев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -412,6 +412,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Сийка Николова Хаджиева-Мичева",
+        "detail": "дейност като общопрактикуващ лекар",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Стефан Виленов Мичев",
+        "detail": "съдружник в дружество за онлайн поръчки на храни",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

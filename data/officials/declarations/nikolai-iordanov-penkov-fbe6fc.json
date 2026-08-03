@@ -1266,7 +1266,7 @@
   },
   {
     "slug": "nikolai-iordanov-penkov-fbe6fc",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Йорданов Пенков",
     "institution": "СБАЛК - Варна ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1277,7 +1277,41 @@
     "entryNumber": "В461",
     "controlHash": "49A4CB81",
     "sourceUrl": "https://register.cacbg.bg/2018/EE9E13AF-C5AA-48C1-AA3F-CB4681F5055489008.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съветана директорите, Изпълнителен директор",
+        "companyName": "\"Специализирана Болница за активно лечение по кардиология Варна\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Извънболнична медицинска дейност, диагностика, лечение, рехабилитация и наблюдение на болни, консултации.",
+        "companyName": "ЕТ \"Проф.д-р Николай Пенков - Амбулатория за индивидуална практика за специализирана медицинска помощ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Извънболнична медицинска дейност, диагностика, лечение, рехабилитация и наблюдение на болни, консултации.",
+        "companyName": "ЕТ \"Проф.д-р Николай Пенков - Амбулатория за индивидуална практика за специализирана медицинска помощ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

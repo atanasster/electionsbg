@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivailo-petkov-angelov-2226cb",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Петков Ангелов",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В16",
     "controlHash": "0E487253",
     "sourceUrl": "https://register.cacbg.bg/2022/74BAEE27-F7D4-4848-A395-8A8AC237E1C9130926.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "ЛРД гр. Враца",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "зам.председател",
+        "companyName": "ППМГ \"акад. Иван Ценов\" гр. Враца - училищно настоятелство",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
@@ -1028,7 +1051,7 @@
   },
   {
     "slug": "ivailo-petkov-angelov-2226cb",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Петков Ангелов",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1039,7 +1062,30 @@
     "entryNumber": "В1201",
     "controlHash": "17469A42",
     "sourceUrl": "https://register.cacbg.bg/2018/74BAEE27-F7D4-4848-A395-8A8AC237E1C989768.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "ЛРД гр.Враца",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "зам.председател",
+        "companyName": "ППМГ \"акад. Иван Ценов\"  гр. Враца - училищно настоятелство",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

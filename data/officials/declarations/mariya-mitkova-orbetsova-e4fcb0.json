@@ -220,7 +220,7 @@
   },
   {
     "slug": "mariya-mitkova-orbetsova-e4fcb0",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Миткова Орбецова",
     "institution": "УСБАЛЕ  “Акад.Ив.Пенчев” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -231,7 +231,41 @@
     "entryNumber": "В1933",
     "controlHash": "E736270A",
     "sourceUrl": "https://register.cacbg.bg/2024/31517BC6-5B7F-49E2-B013-58B012792A58196955.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на Директорите",
+        "companyName": "УСБАЛЕ \"Акад. Иван Пенчев\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Асоциация по Ендокринни Хипертонии - Алианс",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Българско Дружество по Ендокринология",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

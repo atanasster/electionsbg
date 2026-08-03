@@ -1,7 +1,7 @@
 [
   {
     "slug": "stanislav-dochev-dochev-0c377d",
-    "declarantName": "(unknown)",
+    "declarantName": "Станислав Дочев Дочев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,7 +12,41 @@
     "entryNumber": "В1236",
     "controlHash": "A6E8D5C7",
     "sourceUrl": "https://register.cacbg.bg/2025/D4016ED8-AD9E-4867-AD4A-EAE78FBDD902219046.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5000",
+        "companyName": "Стантекст ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Стантекст ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5000",
+        "companyName": "Стантекст ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

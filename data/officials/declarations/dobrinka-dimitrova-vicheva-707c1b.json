@@ -1,7 +1,7 @@
 [
   {
     "slug": "dobrinka-dimitrova-vicheva-707c1b",
-    "declarantName": "(unknown)",
+    "declarantName": "Добринка Димитрова Вичева",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -14,27 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/DC34B6D0-F5BC-4580-ACD4-2CA730D532EC183133.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит, л.% 4,6",
         "detail": "Добринка Димитрова Вичева",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "1660",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ЦКБ ЕАД",
-        "isSpouse": true,
-        "legalBasis": "заплати",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 848.7445227857227,
+        "legalBasis": "заплати"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "dobrinka-dimitrova-vicheva-707c1b",
@@ -407,7 +401,7 @@
   },
   {
     "slug": "dobrinka-dimitrova-vicheva-707c1b",
-    "declarantName": "(unknown)",
+    "declarantName": "Добринка Димитрова Вичева",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -418,7 +412,30 @@
     "entryNumber": "В1201",
     "controlHash": "2279D63C",
     "sourceUrl": "https://register.cacbg.bg/2023/DC34B6D0-F5BC-4580-ACD4-2CA730D532EC156154.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на СД",
+        "companyName": "\"Национална компания индустриални зони\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Представляващ",
+        "companyName": "Сдружение \"Регионален център за дигитални решения и иновации НКИЗ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

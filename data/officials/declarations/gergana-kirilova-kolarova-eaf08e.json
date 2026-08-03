@@ -1456,7 +1456,7 @@
   },
   {
     "slug": "gergana-kirilova-kolarova-eaf08e",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕРГАНА КИРИЛОВА КОЛАРОВА",
     "institution": "Първа САГБАЛ \"Света София\" -София ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1467,7 +1467,19 @@
     "entryNumber": "В874",
     "controlHash": "1F8E31AE",
     "sourceUrl": "https://register.cacbg.bg/2018/BFEAE9C5-1604-43EF-A738-F198C4CC17DC89434.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ НА СЪВЕТА НА ДИРЕКТОРИТЕ",
+        "companyName": "ПСАГБАЛ \"СВ СОФИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

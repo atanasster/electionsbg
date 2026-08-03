@@ -99,7 +99,7 @@
   },
   {
     "slug": "hristo-valentinov-stoyanov-96cd3f",
-    "declarantName": "(unknown)",
+    "declarantName": "Христо Валентинов Стоянов",
     "institution": "МБАЛ \"Лозенец\"",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -110,7 +110,19 @@
     "entryNumber": "В107",
     "controlHash": "C1D6D138",
     "sourceUrl": "https://register.cacbg.bg/2022/A35322C5-F388-45B8-BA37-F118ACB92160131131.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор и член на СД",
+        "companyName": "МБАЛ \"ЛОЗЕНЕЦ\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

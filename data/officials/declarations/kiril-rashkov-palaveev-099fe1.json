@@ -692,7 +692,7 @@
   },
   {
     "slug": "kiril-rashkov-palaveev-099fe1",
-    "declarantName": "(unknown)",
+    "declarantName": "КИРИЛ РАШКОВ ПАЛАВЕЕВ",
     "institution": "СБАЛПФЗ - София област ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -703,7 +703,30 @@
     "entryNumber": "В1656",
     "controlHash": "9429FFFF",
     "sourceUrl": "https://register.cacbg.bg/2018/F9C820F9-CF7E-4BF5-96F4-AA1A351A7B8290260.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "СБАЛПФЗ-СОФИЯ-ОБЛАСТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "СБАЛПФЗ-СОФИЯ-ОБЛАСТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

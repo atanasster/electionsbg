@@ -272,7 +272,7 @@
   },
   {
     "slug": "ilko-dimitrov-zhelyazkov-a92b19",
-    "declarantName": "(unknown)",
+    "declarantName": "Илко Димитров Желязков",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -283,7 +283,30 @@
     "entryNumber": "В2342",
     "controlHash": "9EB1C987",
     "sourceUrl": "https://register.cacbg.bg/2018/F9E81B93-0828-43B3-9118-A4CA0EAEFF0891139.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на борда на директорите",
+        "companyName": "ТЕЦ \"Марица Изток\" 2 (9 и 10)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на борда на директорите",
+        "companyName": "ТЕЦ \"Марица Изток\" 2 (9 и 10)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -503,7 +503,7 @@
   },
   {
     "slug": "boryana-ivanova-papazcheva-kamenova-a99f1e",
-    "declarantName": "(unknown)",
+    "declarantName": "Боряна Иванова Папазчева-Каменова",
     "institution": "ФСЕС",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -514,7 +514,30 @@
     "entryNumber": "В2801",
     "controlHash": "48B57F9A",
     "sourceUrl": "https://register.cacbg.bg/2018/7DD2178B-D0E5-4215-B45E-B30ADA70AAD892785.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "алтернативен член на Управителния съвет",
+        "companyName": "Национален доверителен екофонд",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "алтернативен член на Управителния съвет",
+        "companyName": "Национален доверителен екофонд",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

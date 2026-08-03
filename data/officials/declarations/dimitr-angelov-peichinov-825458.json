@@ -128,7 +128,7 @@
   },
   {
     "slug": "dimitr-angelov-peichinov-825458",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИМИТЪР АНГЕЛОВ ПЕЙЧИНОВ",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -139,7 +139,19 @@
     "entryNumber": "В535",
     "controlHash": "4966CE35",
     "sourceUrl": "https://register.cacbg.bg/2022/55482DB9-95B0-4148-9904-CF7CEA2B00FE132605.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Нямам нищо за деклариране.",
+        "companyName": "\"РОДЕЛ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

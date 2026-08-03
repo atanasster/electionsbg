@@ -380,7 +380,7 @@
   },
   {
     "slug": "todor-hristov-gunchev-31bf3f",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Христов Гунчев",
     "institution": "ИА Българска служба за акредитация",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
@@ -391,7 +391,19 @@
     "entryNumber": "В10537",
     "controlHash": "06852DE3",
     "sourceUrl": "https://register.cacbg.bg/2020/C9A821D4-598D-4B51-8F76-526C235FAA8D114148.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Федерация на независимите студентски дружества",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

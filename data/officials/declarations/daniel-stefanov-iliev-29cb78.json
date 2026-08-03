@@ -498,7 +498,7 @@
   },
   {
     "slug": "daniel-stefanov-iliev-29cb78",
-    "declarantName": "(unknown)",
+    "declarantName": "ДАНИЕЛ СТЕФАНОВ ИЛИЕВ",
     "institution": "МБАЛ \"Д-р Стефан Черкезов\" АД - гр.Велико Търново",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -509,10 +509,57 @@
     "entryNumber": "В1064",
     "controlHash": "B63A9153",
     "sourceUrl": "https://register.cacbg.bg/2023/E172FD53-7496-40F3-9918-D2A5BCF911A6155893.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА СЪВЕТА НА ДИРЕКТОРИТЕ; ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+        "companyName": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р СТЕФАН ЧЕРКЕЗОВ\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "630 ЛЕВА",
+        "companyName": "\"САНИФАРМА-М\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1000 ЛЕВА",
+        "companyName": "\"АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА АКУШЕРО-ГИНЕКОЛОГИЧНА ИЗВЪНБОЛНИЧНА ПОМОЩ ХЕРА-2000\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "МАРИАНА ДИМИТРОВА ИЛИЕВА - СЪПРУВА",
+        "detail": "ПРАКТИКУВАЩ ЛЕКАР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "daniel-stefanov-iliev-29cb78",

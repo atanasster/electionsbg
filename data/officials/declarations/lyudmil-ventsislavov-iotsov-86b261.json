@@ -1,7 +1,7 @@
 [
   {
     "slug": "lyudmil-ventsislavov-iotsov-86b261",
-    "declarantName": "(unknown)",
+    "declarantName": "Людмил Венциславов Йоцов",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В165",
     "controlHash": "6A808A80",
     "sourceUrl": "https://register.cacbg.bg/2022/FABC6CBC-074B-4E75-93C6-25FD78DEA524131331.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "ФЕВ 25 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "ФЕВ 25 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

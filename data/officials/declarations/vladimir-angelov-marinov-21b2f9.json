@@ -1,7 +1,7 @@
 [
   {
     "slug": "vladimir-angelov-marinov-21b2f9",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Ангелов Маринов",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -12,33 +12,26 @@
     "entryNumber": "В1487",
     "controlHash": "E85BAC53",
     "sourceUrl": "https://register.cacbg.bg/2025/B8AB86BB-71E7-4DDF-8936-23D520EDCB32219744.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "100",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Бългерия Ренталс ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {
     "slug": "vladimir-angelov-marinov-21b2f9",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Ангелов Маринов",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -49,7 +42,41 @@
     "entryNumber": "В44",
     "controlHash": "CF24E1E6",
     "sourceUrl": "https://register.cacbg.bg/2025/B8AB86BB-71E7-4DDF-8936-23D520EDCB32201606.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Бългерия Ренталс ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Хоум Ренталс ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Адванст Бизнес Консултинг ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

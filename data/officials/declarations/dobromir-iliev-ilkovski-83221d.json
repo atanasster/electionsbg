@@ -880,7 +880,7 @@
   },
   {
     "slug": "dobromir-iliev-ilkovski-83221d",
-    "declarantName": "(unknown)",
+    "declarantName": "Добромир Илиев Илковски",
     "institution": "МБАЛ \"Пулс\" АД, гр. Благоевград",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -891,7 +891,41 @@
     "entryNumber": "В474",
     "controlHash": "015E67CC",
     "sourceUrl": "https://register.cacbg.bg/2018/D5A8A72E-3E46-4FA3-AFB7-CBF86FD295F089021.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изп. Директор и член на Съвета на Директорите",
+        "companyName": "\"МБАЛ ПУЛС\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изп. Директор и член на Съвета на Директорите",
+        "companyName": "\"СБАЛ Гръбначен център\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изп. Директор и член на Съвета на Директорите",
+        "companyName": "\"МБАЛ ПУЛС\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

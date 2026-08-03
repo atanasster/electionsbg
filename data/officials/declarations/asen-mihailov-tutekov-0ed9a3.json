@@ -1774,7 +1774,7 @@
   },
   {
     "slug": "asen-mihailov-tutekov-0ed9a3",
-    "declarantName": "(unknown)",
+    "declarantName": "АСЕН МИХАЙЛОВ ТУТЕКОВ",
     "institution": "Държавна агенция \"Разузнаване\"",
     "positionTitle": "Заместник-председател",
     "category": "security_service",
@@ -1785,7 +1785,30 @@
     "entryNumber": "В1648",
     "controlHash": "9018B230",
     "sourceUrl": "https://register.cacbg.bg/2018/066AB5E0-F4EA-4F18-B992-40968EF0C0AD90252.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член съм на управителния съвет",
+        "companyName": "Дружество с нестопанска цел - \"Спортен клуб Хеиан\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член",
+        "companyName": "Дружество с нестопанска цел \"Японска Карате Асоциация - България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

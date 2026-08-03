@@ -105,7 +105,7 @@
   },
   {
     "slug": "gencho-bozhinov-genchev-317f0a",
-    "declarantName": "(unknown)",
+    "declarantName": "Генчо Божинов Генчев",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -116,90 +116,77 @@
     "entryNumber": "Г3322",
     "controlHash": "695BDFD1",
     "sourceUrl": "https://register.cacbg.bg/2020/1C58B11D-5E98-447F-82D1-F47B6C7FE665113767.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Член на читалищно настоятелство - Напуснал читалищното настоятелство на 09.04.2019г.",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Член на читалищно настоятелство - Напуснал читалищното настоятелство на 09.04.2019г.",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Фондация \"Димитър Хадживасилев\", ЕИК 104079576",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Фондация \"Алеко Константинов\", ЕИК 814222314",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет - Напуснал управителния съвет на сдружението на 11.02.2020г.",
+        "companyName": "Сдръжение \"Общински футболен клуб - Академик Свищов\", ЕИК 104622805",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Сдружение \"Волейболен клуб - Свищов\", ЕИК 104703730",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "Сдружение \"Асоциация на дунавските общини - Дунав\", ЕИК 114107675",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на читалищно настоятелство - Напуснал читалищното настоятелство на 09.04.2019г.",
+        "companyName": "Народно читалище \"Светлина - Царевец 1927\", ЕИК 000125751",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Димитър Хадживасилев\", ЕИК 104079576",
-        "detail": null,
-        "location": "Член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Алеко Константинов\", ЕИК 814222314",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдръжение \"Общински футболен клуб - Академик Свищов\", ЕИК 104622805",
-        "detail": null,
-        "location": "Член на управителен съвет - Напуснал управителния съвет на сдружението на 11.02.2020г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Волейболен клуб - Свищов\", ЕИК 104703730",
-        "detail": null,
-        "location": "Член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Асоциация на дунавските общини - Дунав\", ЕИК 114107675",
-        "detail": null,
-        "location": "Член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "gencho-bozhinov-genchev-317f0a",

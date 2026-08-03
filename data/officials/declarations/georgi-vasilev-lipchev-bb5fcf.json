@@ -1,7 +1,7 @@
 [
   {
     "slug": "georgi-vasilev-lipchev-bb5fcf",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Василев Липчев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,7 +12,30 @@
     "entryNumber": "В718",
     "controlHash": "94971086",
     "sourceUrl": "https://register.cacbg.bg/2024/02C17914-AB78-42D7-86FC-09257C17512D180163.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Сдружение \"Достойнство, отговорност, морал\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Сдружение \"Достойнство, отговорност, морал\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

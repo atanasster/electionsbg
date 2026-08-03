@@ -1,7 +1,7 @@
 [
   {
     "slug": "daniel-maksim-lorer-a17dfa",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниел Максим Лорер",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -12,23 +12,22 @@
     "entryNumber": "Г3201",
     "controlHash": "6BEF1974",
     "sourceUrl": "https://register.cacbg.bg/2022/9B792DEB-2F3D-4749-9B0E-3C961439CE14135359.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен орган-заличен считано от 18.04.2022 г.",
+        "companyName": "Организация на евреите в България - Шалом",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Организация на евреите в България - Шалом",
-        "detail": null,
-        "location": "член на управителен орган-заличен считано от 18.04.2022 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "daniel-maksim-lorer-a17dfa",

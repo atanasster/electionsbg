@@ -666,7 +666,7 @@
   },
   {
     "slug": "ivan-rusev-rusev-100d6a",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Русев Русев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -677,7 +677,19 @@
     "entryNumber": "В2557",
     "controlHash": "8EA94EE7",
     "sourceUrl": "https://register.cacbg.bg/2018/A5C66E43-7452-48C3-9C6B-A454B072E2E191517.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"ТУ - Кампус логистика\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

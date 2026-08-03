@@ -365,7 +365,7 @@
   },
   {
     "slug": "doncho-petrov-barbalov-d48594",
-    "declarantName": "(unknown)",
+    "declarantName": "Дончо Петров Барбалов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -378,27 +378,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/99F6B191-6437-4A52-A8AE-D713A5781B2B140048.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Ипотечен заем",
         "detail": "Дончо Петров Барбалов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "65029",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ",
-        "isSpouse": true,
-        "legalBasis": "Продажба на имот през 2017 и спестявания",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 33248.79974230889,
+        "legalBasis": "Продажба на имот през 2017 и спестявания"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "doncho-petrov-barbalov-d48594",
@@ -688,7 +682,7 @@
   },
   {
     "slug": "doncho-petrov-barbalov-d48594",
-    "declarantName": "(unknown)",
+    "declarantName": "Дончо Петров Барбалов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -701,45 +695,33 @@
     "sourceUrl": "https://register.cacbg.bg/2020/99F6B191-6437-4A52-A8AE-D713A5781B2B113594.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "debt",
+        "kind": "interest_contract",
         "description": "Обединена Българска Банка",
-        "detail": null,
+        "detail": "ипотечен кредит",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
         "currency": null,
-        "amount": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       },
       {
-        "category": "investment",
-        "description": null,
+        "kind": "related_person",
+        "description": "Ваня Цветанова Барбалова",
         "detail": "адвокат, консултантски услуги",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "адвокат, консултантски услуги",
-        "amount": null,
+        "currency": null,
         "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": null
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "doncho-petrov-barbalov-d48594",

@@ -237,7 +237,7 @@
   },
   {
     "slug": "denitsa-spasova-slavkova-2bca60",
-    "declarantName": "(unknown)",
+    "declarantName": "Деница Спасова Славкова",
     "institution": "РИОСВ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -250,27 +250,21 @@
     "sourceUrl": "https://register.cacbg.bg/2022/43AF960A-6925-4BCE-A472-60A50BB5663F133751.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "кредит",
         "detail": "Деница С. Славкова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "14260",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Уникредит",
-        "isSpouse": true,
-        "legalBasis": "кредит",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 7291.022225858075,
+        "legalBasis": "кредит"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "denitsa-spasova-slavkova-2bca60",
@@ -707,7 +701,7 @@
   },
   {
     "slug": "denitsa-spasova-slavkova-2bca60",
-    "declarantName": "(unknown)",
+    "declarantName": "Деница Спасова Славкова",
     "institution": "РИОСВ",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -718,7 +712,30 @@
     "entryNumber": "В2925",
     "controlHash": "19D7DCAD",
     "sourceUrl": "https://register.cacbg.bg/2018/43AF960A-6925-4BCE-A472-60A50BB5663F92986.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"АДАНО - Монтана\", ЕИК:176978240",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "34 дяла, унаследени през април 2017 г.",
+        "companyName": "\"Дълги дел\" ООД, ЕИК:111558840",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

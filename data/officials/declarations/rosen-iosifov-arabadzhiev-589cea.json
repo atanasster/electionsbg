@@ -475,7 +475,7 @@
   },
   {
     "slug": "rosen-iosifov-arabadzhiev-589cea",
-    "declarantName": "(unknown)",
+    "declarantName": "Росен Йосифов Арабаджиев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -486,7 +486,30 @@
     "entryNumber": "В2486",
     "controlHash": "35F5E4AE",
     "sourceUrl": "https://register.cacbg.bg/2018/92C148C2-9361-4944-A05A-3D970F8EDBEC91288.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управител съвет",
+        "companyName": "Военнен спортен клуб Дунав-Белене",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Военнен спортен клуб Дунав-Белене",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

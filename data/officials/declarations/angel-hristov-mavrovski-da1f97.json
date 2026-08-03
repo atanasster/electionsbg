@@ -1,7 +1,7 @@
 [
   {
     "slug": "angel-hristov-mavrovski-da1f97",
-    "declarantName": "(unknown)",
+    "declarantName": "Ангел Христов Мавровски",
     "institution": "Българска агенция по безопасност на храните",
     "positionTitle": "Заместник-изпълнителен директор",
     "category": "agency_head",
@@ -12,10 +12,90 @@
     "entryNumber": "В263",
     "controlHash": "C6801798",
     "sourceUrl": "https://register.cacbg.bg/2022/AEB7D43C-92AB-4322-B2E0-D62B0819FD75131568.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "МАВРОВСКИ ВЕТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МАВРОВСКИ ВЕТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "МАВРОВСКИ ВЕТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МАВРОВСКИ ВЕТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "БАВЛПЖ - асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Сдружение гражданско обединение срещу беззаконието в гр. Плевен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Ина Николаева Стойчева-Мавровска",
+        "detail": "търговска дейност свързана с ветеринарна медицина",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "angel-hristov-mavrovski-da1f97",

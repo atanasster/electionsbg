@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivailo-stefanov-ivanov-ee1a20",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Стефанов Иванов",
     "institution": "СДВР",
     "positionTitle": "Директор",
     "category": "security_service",
@@ -12,40 +12,33 @@
     "entryNumber": "Г1911",
     "controlHash": "36B900B6",
     "sourceUrl": "https://register.cacbg.bg/2018/E6B8F308-4EFF-42F2-822F-7DB1723A3A8892257.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Сдружение \"Спортна асоциация-МВР\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "ипотечен кредит",
         "detail": "Ивайло Стефанов Иванов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "26400",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "Трансформиране на ипотечен кредит в потребителски кредит",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Спортна асоциация-МВР\"",
-        "detail": null,
-        "location": "Член на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 13498.105663580169,
+        "legalBasis": "Трансформиране на ипотечен кредит в потребителски кредит"
       }
     ]
   },

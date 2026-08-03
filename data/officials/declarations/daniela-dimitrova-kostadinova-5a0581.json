@@ -378,7 +378,7 @@
   },
   {
     "slug": "daniela-dimitrova-kostadinova-5a0581",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниела Димитрова Костадинова",
     "institution": "МБАЛ - Силистра АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -389,7 +389,19 @@
     "entryNumber": "В1578",
     "controlHash": "F6CEA558",
     "sourceUrl": "https://register.cacbg.bg/2018/D4ABB21C-09FC-4BFF-8A4C-310A26FC584290175.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1000",
+        "companyName": "\"Ескулап\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

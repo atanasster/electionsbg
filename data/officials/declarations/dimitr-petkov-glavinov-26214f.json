@@ -1,7 +1,7 @@
 [
   {
     "slug": "dimitr-petkov-glavinov-26214f",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Петков Главинов",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В876",
     "controlHash": "F50C614D",
     "sourceUrl": "https://register.cacbg.bg/2025/ED7C0EF0-B3B5-46AA-97EB-CF580733D617210442.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на ОК на ЦГМ",
+        "companyName": "Одитен комитет на ЦГМ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на ОК на ЦГМ",
+        "companyName": "Одитен комитет на ЦГМ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

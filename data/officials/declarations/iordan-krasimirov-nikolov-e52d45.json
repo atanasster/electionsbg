@@ -56,7 +56,7 @@
   },
   {
     "slug": "iordan-krasimirov-nikolov-e52d45",
-    "declarantName": "(unknown)",
+    "declarantName": "Йордан Красимиров Николов",
     "institution": "Социални домове и центрове",
     "positionTitle": "Директор",
     "category": "social_care",
@@ -67,7 +67,30 @@
     "entryNumber": "В1486",
     "controlHash": "56CE2004",
     "sourceUrl": "https://register.cacbg.bg/2025/51B3882F-F368-42B7-9788-7B084A194E84219739.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "СНЦ \"Пртнцори за Лясковец\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на ОС",
+        "companyName": "Сдружение \"Клуб по таеклондо \"Хемус\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

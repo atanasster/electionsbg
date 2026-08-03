@@ -1137,7 +1137,7 @@
   },
   {
     "slug": "petr-todorov-georgiev-7a30c8",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Тодоров Георгиев",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1148,7 +1148,19 @@
     "entryNumber": "В608",
     "controlHash": "EFE7AAA5",
     "sourceUrl": "https://register.cacbg.bg/2019/12C718D0-F53A-4F13-A45F-2E282022699598729.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Дръстърлес ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

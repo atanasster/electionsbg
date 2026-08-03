@@ -253,7 +253,7 @@
   },
   {
     "slug": "olya-evtimova-karadzhova-0a8601",
-    "declarantName": "(unknown)",
+    "declarantName": "Оля Евтимова Караджова",
     "institution": "Българска агенция по безопасност на храните",
     "positionTitle": "Заместник-изпълнителен директор",
     "category": "agency_head",
@@ -264,7 +264,19 @@
     "entryNumber": "В561",
     "controlHash": "D2A868C3",
     "sourceUrl": "https://register.cacbg.bg/2022/5BFE7C76-3B89-43BE-995D-F28948186F55132859.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Балканско дружество по растителна защита",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

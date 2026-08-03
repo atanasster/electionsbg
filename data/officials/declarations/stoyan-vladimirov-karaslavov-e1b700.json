@@ -527,7 +527,7 @@
   },
   {
     "slug": "stoyan-vladimirov-karaslavov-e1b700",
-    "declarantName": "(unknown)",
+    "declarantName": "Стоян Владимиров Караславов",
     "institution": "Държавни предприятия",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -538,7 +538,30 @@
     "entryNumber": "В1038",
     "controlHash": "9748A1DF",
     "sourceUrl": "https://register.cacbg.bg/2024/D2D429C0-B448-4A53-87A8-76FB6D8E4C3B184570.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "500 лв.",
+        "companyName": "Ренова консулт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "500 лв.",
+        "companyName": "Ренова консулт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

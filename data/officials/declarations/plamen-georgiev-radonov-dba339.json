@@ -2458,7 +2458,7 @@
   },
   {
     "slug": "plamen-georgiev-radonov-dba339",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Георгиев Радонов",
     "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
@@ -2469,7 +2469,41 @@
     "entryNumber": "В2364",
     "controlHash": "A987177B",
     "sourceUrl": "https://register.cacbg.bg/2018/ED5BFE7B-5F59-4982-89E2-79C7F210307C91163.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "Вихтун - ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "НАР 8 - ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Вихтун ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -299,7 +299,7 @@
   },
   {
     "slug": "emil-ivanov-dechev-e13a8e",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Иванов Дечев",
     "institution": "Министерство на правосъдието",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -310,7 +310,19 @@
     "entryNumber": "В222",
     "controlHash": "35A40887",
     "sourceUrl": "https://register.cacbg.bg/2022/57CECFB1-8FCA-4EEC-B51E-C4CC50EE4091131464.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Съюз на съдиите в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "krasimir-marinov-konov-6363a0",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Маринов Конов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -14,49 +14,37 @@
     "sourceUrl": "https://register.cacbg.bg/2020/9917F127-46F4-4FB6-8D0C-EF920643DE86113901.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Красимир Маринов Конов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "1525",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да- ДСК АД",
-        "isSpouse": true,
-        "legalBasis": "спестявания от заплати",
-        "fundsOrigin": null
+        "currency": "EUR",
+        "valueEur": 1528.2514328954971,
+        "legalBasis": "спестявания от заплати"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Виолета Лъчезарова Конова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "1241",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да-ДСК- АД",
-        "isSpouse": true,
-        "legalBasis": "спестявания от заплати",
-        "fundsOrigin": null
+        "currency": "EUR",
+        "valueEur": 1243.4618550692035,
+        "legalBasis": "спестявания от заплати"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "krasimir-marinov-konov-6363a0",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Маринов Конов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -70,7 +58,20 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "ДЗЗД \"Валдес, с управител Десислава Иванова Илиева",
+        "detail": "обслужване на граждани",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "krasimir-marinov-konov-6363a0",

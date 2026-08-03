@@ -153,7 +153,7 @@
   },
   {
     "slug": "anton-dinkov-penev-acf420",
-    "declarantName": "(unknown)",
+    "declarantName": "Антон Динков Пенев",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -164,7 +164,30 @@
     "entryNumber": "В768",
     "controlHash": "CFA313AD",
     "sourceUrl": "https://register.cacbg.bg/2024/FC08A0A9-F512-404D-8237-E8D63EE0ADAD180455.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение \"Единен туризъм\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение \"Единен туризъм\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

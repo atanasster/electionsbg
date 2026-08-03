@@ -146,7 +146,7 @@
   },
   {
     "slug": "mitko-naidenov-iotsov-2b6bbe",
-    "declarantName": "(unknown)",
+    "declarantName": "Митко Найденов Йоцов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -157,7 +157,19 @@
     "entryNumber": "В1460",
     "controlHash": "03D9F432",
     "sourceUrl": "https://register.cacbg.bg/2025/6CD3D68C-1E66-4524-A1D5-007C8836A478219643.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Военнородолюбив съюз \"Панайот Волов\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
@@ -461,7 +473,7 @@
   },
   {
     "slug": "mitko-naidenov-iotsov-2b6bbe",
-    "declarantName": "(unknown)",
+    "declarantName": "Митко Найденов Йоцов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -472,7 +484,30 @@
     "entryNumber": "В190",
     "controlHash": "BD6C1950",
     "sourceUrl": "https://register.cacbg.bg/2024/6CD3D68C-1E66-4524-A1D5-007C8836A478171890.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Военно родолюбив съюз \"Панайот Волов\" - Шумен\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Военно родолюбив съюз \"Панайот Волов\" - Шумен\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -213,7 +213,7 @@
   },
   {
     "slug": "veselin-zahariev-varchev-0e214d",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Захариев Варчев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -224,42 +224,33 @@
     "entryNumber": "Г13973",
     "controlHash": "41543A82",
     "sourceUrl": "https://register.cacbg.bg/2024/B89C935A-078A-4F02-8D85-6F0B95E4E004196226.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Мед Кейс Консулт ЕООД, ЕИК 207722441",
-        "detail": null,
-        "location": "100 %",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "Мед Кейс Консулт ЕООД, ЕИК 207722441",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Мед Кейс Консулт ЕООД, ЕИК 207722441",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Мед Кейс Консулт ЕООД, ЕИК 207722441",
-        "detail": null,
-        "location": "Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "veselin-zahariev-varchev-0e214d",

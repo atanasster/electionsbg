@@ -1,7 +1,7 @@
 [
   {
     "slug": "petya-ivanova-dinovska-e03817",
-    "declarantName": "(unknown)",
+    "declarantName": "Петя Иванова Диновска",
     "institution": "МБАЛ \"Сърце и мозък\"\" ЕАД, гр. Плевен",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -12,70 +12,55 @@
     "entryNumber": "Г6677",
     "controlHash": "4DB205B7",
     "sourceUrl": "https://register.cacbg.bg/2025/A96B4FD1-E9BF-466D-92C4-AE3F6A8FF8DA209643.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Вестител Панагюрски ООД",
-        "detail": null,
-        "location": "1 лв",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1 лв",
+        "companyName": "Вестител Панагюрски ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен Директор",
+        "companyName": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "Лизинг",
         "detail": "Петя Иванова Диновска",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "53046",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ интерлойз",
-        "isSpouse": true,
-        "legalBasis": "заплати и спестявания",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
-        "detail": null,
-        "location": "Изпълнителен Директор",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 27121.989129934605,
+        "legalBasis": "заплати и спестявания"
       }
     ]
   },
@@ -455,7 +440,7 @@
   },
   {
     "slug": "petya-ivanova-dinovska-e03817",
-    "declarantName": "(unknown)",
+    "declarantName": "Петя Иванова Диновска",
     "institution": "МБАЛ \"Сърце и мозък\"\" ЕАД, гр. Плевен",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -466,90 +451,77 @@
     "entryNumber": "Г2639",
     "controlHash": "700BE70F",
     "sourceUrl": "https://register.cacbg.bg/2020/A96B4FD1-E9BF-466D-92C4-AE3F6A8FF8DA112862.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Вестител Панагюрски ООД",
-        "detail": null,
-        "location": "1 лв",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1 лв",
+        "companyName": "Вестител Панагюрски ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Български Кардиологичен Институт АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Специализирана болница за активно лечение по кардиология ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Специализирана болница за активно лечение по кардиология Ямбол ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Български Кардиологичен Институт АД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология ЕАД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология Ямбол ЕАД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
-        "detail": null,
-        "location": "Член на съвета на директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "petya-ivanova-dinovska-e03817",

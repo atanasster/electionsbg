@@ -140,7 +140,7 @@
   },
   {
     "slug": "krasimir-toshkov-todorov-a271b5",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Тошков Тодоров",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -151,9 +151,57 @@
     "entryNumber": "В1512",
     "controlHash": "DE7D4477",
     "sourceUrl": "https://register.cacbg.bg/2018/E7F20B76-5BDD-410F-A66C-053487B5375A90109.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1000",
+        "companyName": "\"Ателие Дуо\" ЕООД с  ЕИК 202462274",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Ателие Дуо\" ЕООД с ЕИК 202462274",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "\"Ателие Дуо\" ЕООД с ЕИК 202462274",
+        "detail": "Проектиране в строителството; изработване на устройствени схеми",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Пламена Димитрова Андонова",
+        "detail": "Проектиране в строителството; изработване на устройствени схеми",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

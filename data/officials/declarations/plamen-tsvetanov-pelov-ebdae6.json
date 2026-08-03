@@ -160,7 +160,7 @@
   },
   {
     "slug": "plamen-tsvetanov-pelov-ebdae6",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Цветанов Пелов",
     "institution": "МБАЛ \"Д-р Димитър Павлович\" ЕООД, гр. Свищов",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -171,7 +171,52 @@
     "entryNumber": "В1586",
     "controlHash": "2E29DF82",
     "sourceUrl": "https://register.cacbg.bg/2018/0396639E-F539-4B05-8DB5-A20C40407BA090183.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "НЕВРОМЕД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "19%",
+        "companyName": "ХЕЛИУС 5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33%",
+        "companyName": "НЕВРОМЕД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "19%",
+        "companyName": "ХЕЛИУС 5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

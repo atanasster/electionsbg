@@ -805,7 +805,7 @@
   },
   {
     "slug": "mariya-angelova-hristoskova-yankova-c04f8f",
-    "declarantName": "(unknown)",
+    "declarantName": "МАРИЯ АНГЕЛОВА ХРИСТОСКОВА-ЯНКОВА",
     "institution": "СБПЛР - Костенец ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -816,7 +816,30 @@
     "entryNumber": "В2969",
     "controlHash": "22ADC840",
     "sourceUrl": "https://register.cacbg.bg/2018/582D3BDF-F95D-469C-8388-921F6178DA4393037.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "АМБУЛАТОРИЯ ЗА СПЦИАЛИЗИРАНА ИНДИВИДУАЛНА МЕДИЦИНСКА ПРАКТИКА ПО ЕНДОКРИНОЛОГИЯ И БОЛЕСТИ НА ОБМЯНАТА - Д-Р ХРИСТОСКОВА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "АМБУЛАТОРИЯ ЗА СПЦИАЛИЗИРАНА ИНДИВИДУАЛНА МЕДИЦИНСКА ПРАКТИКА ПО ЕНДОКРИНОЛОГИЯ И БОЛЕСТИ НА ОБМЯНАТА - Д-Р ХРИСТОСКОВА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

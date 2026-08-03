@@ -143,7 +143,7 @@
   },
   {
     "slug": "tsvetana-ivanova-piralkova-50a3c6",
-    "declarantName": "(unknown)",
+    "declarantName": "Цветана Иванова Пиралкова",
     "institution": "Област - Перник",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
@@ -154,23 +154,22 @@
     "entryNumber": "Г464",
     "controlHash": "38AF9D53",
     "sourceUrl": "https://register.cacbg.bg/2018/E0411EE7-D744-46C3-8FEA-E407D5D3652088182.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Сдружение с нестопанска цел \"Форум за европейско развитие\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение с нестопанска цел \"Форум за европейско развитие\"",
-        "detail": null,
-        "location": "член на управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "tsvetana-ivanova-piralkova-50a3c6",

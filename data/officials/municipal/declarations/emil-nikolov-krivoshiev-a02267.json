@@ -1,7 +1,7 @@
 [
   {
     "slug": "emil-nikolov-krivoshiev-a02267",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Николов Кривошиев",
     "institution": "Самоков",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -11,23 +11,22 @@
     "entryNumber": "Г11670",
     "controlHash": "F0C55CE6",
     "sourceUrl": "https://register.cacbg.bg/2025/6886820D-8473-4FD9-A1E9-BE100020A2EF214820.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен Директор, Член на Съвета на Директорите",
+        "companyName": "БЕКАСТРОЙ ЕАД, ЕИК 122072640",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "БЕКАСТРОЙ ЕАД, ЕИК 122072640",
-        "detail": null,
-        "location": "Изпълнителен Директор, Член на Съвета на Директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "emil-nikolov-krivoshiev-a02267",

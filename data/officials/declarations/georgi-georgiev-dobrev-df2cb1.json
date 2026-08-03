@@ -531,7 +531,7 @@
   },
   {
     "slug": "georgi-georgiev-dobrev-df2cb1",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -1827,7 +1827,7 @@
   },
   {
     "slug": "georgi-georgiev-dobrev-df2cb1",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Георгиев Добрев",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -1838,7 +1838,30 @@
     "entryNumber": "В2372",
     "controlHash": "295BED76",
     "sourceUrl": "https://register.cacbg.bg/2018/B1E89FB2-2697-46E8-A0B4-3B225A91A97D91171.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "\"АЕЦ Козлодуй-Нови мощности\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "\"АЕЦ Козлодуй-Нови мощности\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

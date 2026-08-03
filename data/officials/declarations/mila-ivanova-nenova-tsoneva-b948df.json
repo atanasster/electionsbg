@@ -1,7 +1,7 @@
 [
   {
     "slug": "mila-ivanova-nenova-tsoneva-b948df",
-    "declarantName": "(unknown)",
+    "declarantName": "Мила Иванова Ненова Цонева",
     "institution": "Българска агенция за инвестиции",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
@@ -12,23 +12,22 @@
     "entryNumber": "Г13422",
     "controlHash": "A8EDEF7C",
     "sourceUrl": "https://register.cacbg.bg/2024/CDE95B8C-F496-4177-9F13-8032FD478AFC195355.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не участвам",
+        "companyName": "Сдружение \"Европа донна- България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"Европа донна- България\"",
-        "detail": null,
-        "location": "не участвам",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "mila-ivanova-nenova-tsoneva-b948df",

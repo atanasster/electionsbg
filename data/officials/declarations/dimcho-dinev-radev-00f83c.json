@@ -390,7 +390,7 @@
   },
   {
     "slug": "dimcho-dinev-radev-00f83c",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИМЧО ДИНЕВ РАДЕВ",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -401,7 +401,30 @@
     "entryNumber": "В1995",
     "controlHash": "CC1DCC01",
     "sourceUrl": "https://register.cacbg.bg/2018/A188DBB4-3851-438E-BA45-7D399B74400190729.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Спортен клуб за ловна стрелба Стара Загора  2012 СН§Ц",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Спортен клуб за ловна стрелба Стара Загора",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

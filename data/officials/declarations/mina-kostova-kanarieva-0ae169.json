@@ -291,7 +291,7 @@
   },
   {
     "slug": "mina-kostova-kanarieva-0ae169",
-    "declarantName": "(unknown)",
+    "declarantName": "Мина Костова Канариева",
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -302,7 +302,52 @@
     "entryNumber": "В379",
     "controlHash": "FD9487C6",
     "sourceUrl": "https://register.cacbg.bg/2024/53EF7AF7-1523-49E5-BF3B-A4D0EEE0180C176617.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "49/100",
+        "companyName": "ТИ БИ ЕС ХИЛ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "ТИ БИ ЕС ХИЛ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "49/100",
+        "companyName": "ТИ БИ ЕС ХИЛ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "ТИ БИ ЕС ХИЛ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

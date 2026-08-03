@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikolai-kirilov-izov-4596b0",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Кирилов Изов",
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
@@ -12,46 +12,37 @@
     "entryNumber": "В1196",
     "controlHash": "780787B5",
     "sourceUrl": "https://register.cacbg.bg/2025/4D93D8B8-281F-466A-8CEF-8BEF5BF3F807218885.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Член на национален съвет от 30.05.25",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Член на национален съвет от 30.05.25",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на национален съвет от 30.05.25",
+        "companyName": "Български червен кръст",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на национален съвет от 30.05.25",
+        "companyName": "Български червен кръст",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Български червен кръст",
-        "detail": null,
-        "location": "Член на национален съвет от 30.05.25",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-izov-4596b0",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Кирилов Изов",
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
@@ -62,7 +53,52 @@
     "entryNumber": "В1195",
     "controlHash": "A5E85F63",
     "sourceUrl": "https://register.cacbg.bg/2025/4D93D8B8-281F-466A-8CEF-8BEF5BF3F807218884.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник председател",
+        "companyName": "Български олимпийски комитет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник председател",
+        "companyName": "Български футболен съюз",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник председател",
+        "companyName": "Български олимпийски комитет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник председател",
+        "companyName": "Български футболен съюз",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

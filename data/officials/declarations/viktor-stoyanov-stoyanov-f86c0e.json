@@ -255,7 +255,7 @@
   },
   {
     "slug": "viktor-stoyanov-stoyanov-f86c0e",
-    "declarantName": "(unknown)",
+    "declarantName": "Виктор Стоянов Стоянов",
     "institution": "Министерство на културата",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -266,64 +266,48 @@
     "entryNumber": "В1184",
     "controlHash": "8D5A7190",
     "sourceUrl": "https://register.cacbg.bg/2023/8D8109FA-4658-4D53-9E08-C34F3749D546156114.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"Фючър Аудио\" ЕООД, считано от 29 юни 2023 г. заличен като собственик",
-        "detail": null,
-        "location": "едноличен собственик на капитала",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "едноличен собственик на капитала",
+        "companyName": "\"Фючър Аудио\" ЕООД, считано от 29 юни 2023 г. заличен като собственик",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "real_estate",
-        "description": "\"Мюзик Маркс\"ЕООД, считано от 10 юли 2023 г. заличен като съдружник",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "\"Мюзик Маркс\"ЕООД, считано от 10 юли 2023 г. заличен като съдружник",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Фючър Аудио\" ЕООД, считано от 29 юни 2023 г. заличен като управител",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Фючър Аудио\" ЕООД, считано от 29 юни 2023 г. заличен като управител",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "viktor-stoyanov-stoyanov-f86c0e",
-    "declarantName": "(unknown)",
+    "declarantName": "Виктор Стоянов Стоянов",
     "institution": "Министерство на културата",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -334,7 +318,63 @@
     "entryNumber": "В1044",
     "controlHash": "1626D8E7",
     "sourceUrl": "https://register.cacbg.bg/2023/8D8109FA-4658-4D53-9E08-C34F3749D546155868.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Фючър Аудио ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Мюзик Маркс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Фючър Аудио ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Мюзик Маркс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Фючър Аудио ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

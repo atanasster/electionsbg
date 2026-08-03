@@ -478,7 +478,7 @@
   },
   {
     "slug": "miglena-georgieva-goranova-dd1c5b",
-    "declarantName": "(unknown)",
+    "declarantName": "Миглена Георгиева Горанова",
     "institution": "ПП \"Съюз на демократичните сили\"",
     "positionTitle": "Заместник-председател",
     "category": "party_leader",
@@ -489,27 +489,26 @@
     "entryNumber": "В870",
     "controlHash": "C7FC065C",
     "sourceUrl": "https://register.cacbg.bg/2022/1C881536-1B18-48BD-BEC6-6F504620A7DE141590.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "прокурист",
+        "companyName": "ПАРК ЕНЕРГО ПРО ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПАРК ЕНЕРГО ПРО ООД",
-        "detail": null,
-        "location": "прокурист",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "miglena-georgieva-goranova-dd1c5b",
-    "declarantName": "(unknown)",
+    "declarantName": "Миглена Георгиева Горанова",
     "institution": "ПП \"Съюз на демократичните сили\"",
     "positionTitle": "Заместник-председател",
     "category": "party_leader",
@@ -520,7 +519,52 @@
     "entryNumber": "В869",
     "controlHash": "353F3C9A",
     "sourceUrl": "https://register.cacbg.bg/2022/1C881536-1B18-48BD-BEC6-6F504620A7DE141589.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "350",
+        "companyName": "ПАРК ЕНЕРГО ПРО ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на одитен комитет",
+        "companyName": "Метрополитен ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "350",
+        "companyName": "ПАРК ЕНЕРГО ПРО ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на одитен комитет",
+        "companyName": "Метрополитен ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

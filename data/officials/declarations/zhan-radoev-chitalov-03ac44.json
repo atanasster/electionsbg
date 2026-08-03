@@ -2819,7 +2819,7 @@
   },
   {
     "slug": "zhan-radoev-chitalov-03ac44",
-    "declarantName": "(unknown)",
+    "declarantName": "Жан Радоев Читалов",
     "institution": "MБАЛ \"Уро Медикс\" EООД, гр. Пловдив",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -2830,7 +2830,30 @@
     "entryNumber": "В1104",
     "controlHash": "3B3A8837",
     "sourceUrl": "https://register.cacbg.bg/2018/0B8D45D9-AE9F-40B5-8CC1-7A2CC07D914289667.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МБАЛ \"Уро Медикс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "70 %",
+        "companyName": "АГПСУП \"Евромед-Уро\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

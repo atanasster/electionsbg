@@ -290,7 +290,7 @@
   },
   {
     "slug": "krasimir-ivanov-dimitrov-3ebb46",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Иванов Димитров",
     "institution": "Национален фонд \"Култура\"",
     "positionTitle": "Изпълнителен директор",
     "category": "regional_director",
@@ -301,39 +301,37 @@
     "entryNumber": "В1117",
     "controlHash": "8E45C70D",
     "sourceUrl": "https://register.cacbg.bg/2025/9C46A579-E5F3-485A-8A99-33A2ED347D89218523.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
+    "ownershipStakes": [
       {
-        "kind": "disposal_property",
-        "description": "Сдружение Алтернативи за съвременно общество",
-        "detail": null,
-        "location": "не съм в орган на управление",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм в орган на управление",
+        "companyName": "Сдружение Алтернативи за съвременно общество",
+        "registeredOffice": null,
         "valueEur": null,
-        "legalBasis": null
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
-        "kind": "disposal_property",
-        "description": "Национален съюз на психолозите и психотерапевтите",
-        "detail": null,
-        "location": "не съм в орган на управление",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм в орган на управление",
+        "companyName": "Национален съюз на психолозите и психотерапевтите",
+        "registeredOffice": null,
         "valueEur": null,
-        "legalBasis": null
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
-    ]
+    ],
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "krasimir-ivanov-dimitrov-3ebb46",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Иванов Димитров",
     "institution": "Национален фонд \"Култура\"",
     "positionTitle": "Изпълнителен директор",
     "category": "regional_director",
@@ -344,7 +342,52 @@
     "entryNumber": "В441",
     "controlHash": "5B9ECAE3",
     "sourceUrl": "https://register.cacbg.bg/2025/9C46A579-E5F3-485A-8A99-33A2ED347D89202969.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател /в процедура по заличаване/",
+        "companyName": "Сдружение Алтернативи за съвременно общество",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС / в процедура по заличаване/",
+        "companyName": "Национален съюз на психолозите и психотерапевтите",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Сдружение Алтернативи за съвременно общество",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Национален съюз на психолозите и психотерапевтите",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

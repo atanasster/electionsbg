@@ -1826,7 +1826,7 @@
   },
   {
     "slug": "mariya-temelkova-iordanova-1b0b97",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Темелкова Йорданова",
     "institution": "СХБАЛ \"Проф. Темелков\" ЕООД, гр. варна",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1837,7 +1837,30 @@
     "entryNumber": "В459",
     "controlHash": "EB5E44CB",
     "sourceUrl": "https://register.cacbg.bg/2018/EA4FD438-FE6C-4CF7-B17B-72B9903C534289006.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10",
+        "companyName": "СПЕЦИАЛИЗИРАНА ХИРУРГИЧЕСКА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ПРОФ. ТЕМЕЛКОВ\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "СПЕЦИАЛИЗИРАНА ХИРУРГИЧЕСКА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ПРОФ. ТЕМЕЛКОВ\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

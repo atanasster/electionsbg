@@ -1,7 +1,7 @@
 [
   {
     "slug": "atanas-kostov-grunov-9db727",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Костов Грунов",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,42 +12,33 @@
     "entryNumber": "Г10536",
     "controlHash": "9108AB75",
     "sourceUrl": "https://register.cacbg.bg/2025/19177ECE-7801-4621-9591-F7D6DAD71A31213631.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Федерация на културно-просветните дружества на каракачаните в България",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Федерация на културно-просветните дружества на каракачаните в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Федерация на културно-просветните дружества на каракачаните в България",
-        "detail": null,
-        "location": "Председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "atanas-kostov-grunov-9db727",

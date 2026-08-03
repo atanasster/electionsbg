@@ -51,7 +51,7 @@
   },
   {
     "slug": "diyana-georgieva-tomova-704486",
-    "declarantName": "(unknown)",
+    "declarantName": "Дияна Георгиева Томова",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -62,42 +62,33 @@
     "entryNumber": "Г5150",
     "controlHash": "A8ED6895",
     "sourceUrl": "https://register.cacbg.bg/2024/497BBEC5-5182-4A2D-B95C-71A136DDA43C186381.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Дивайн Стайл ЕООД",
-        "detail": null,
-        "location": "нямам участие",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "нямам участие",
+        "companyName": "Дивайн Стайл ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "Инвестиции и мениджмънт България ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Инвестиции и мениджмънт България ЕООД",
-        "detail": null,
-        "location": "не съм управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diyana-georgieva-tomova-704486",

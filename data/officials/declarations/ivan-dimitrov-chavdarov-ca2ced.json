@@ -838,7 +838,7 @@
   },
   {
     "slug": "ivan-dimitrov-chavdarov-ca2ced",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Димитров Чавдаров",
     "institution": "СБПЛДЦП \"Св. София\" -София ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -849,7 +849,74 @@
     "entryNumber": "В830",
     "controlHash": "408B78A5",
     "sourceUrl": "https://register.cacbg.bg/2018/BE7A39E5-A0FF-408D-8655-C6D1AE1186C289389.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1,9333",
+        "companyName": "\"Победа\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Асоциация по Физикална Медицина и Рехабилитация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "свободна професия, лекарски кабинет",
+        "companyName": "АИПСМ-ФРМ-ВСД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1,9333",
+        "companyName": "\"Победа\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Асоциация по Физикална Медицина и Рехабилитация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "свободна професия, лекарски кабинет",
+        "companyName": "АИПСМ-ФМР-ВСД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

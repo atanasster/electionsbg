@@ -715,7 +715,7 @@
   },
   {
     "slug": "tsvetan-dimov-dimanov-250b96",
-    "declarantName": "(unknown)",
+    "declarantName": "Цветан Димов Диманов",
     "institution": "МБАЛ \"Полимед\" ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -726,66 +726,55 @@
     "entryNumber": "Г2379",
     "controlHash": "02DD4D63",
     "sourceUrl": "https://register.cacbg.bg/2022/99843B88-4DC7-4BED-850D-F8C087649AA9134486.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "МБАЛ ПОЛИМЕД ООД",
-        "detail": null,
-        "location": "0.08",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0.08",
+        "companyName": "МБАЛ ПОЛИМЕД ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ ПОЛИМЕД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
+        "companyName": "МЦ ПОЛИМЕД АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
+        "companyName": "МЦ ПОЛИМЕД АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "МБАЛ ПОЛИМЕД ООД",
-        "detail": null,
-        "location": "УПРАВИТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "МЦ ПОЛИМЕД АД",
-        "detail": null,
-        "location": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "МЦ ПОЛИМЕД АД",
-        "detail": null,
-        "location": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "tsvetan-dimov-dimanov-250b96",

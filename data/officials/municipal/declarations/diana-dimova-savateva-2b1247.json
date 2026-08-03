@@ -122,7 +122,7 @@
   },
   {
     "slug": "diana-dimova-savateva-2b1247",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИАНА ДИМОВА САВАТЕВА",
     "institution": "Бургас",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
@@ -132,46 +132,37 @@
     "entryNumber": "Г632",
     "controlHash": "BF4D54BD",
     "sourceUrl": "https://register.cacbg.bg/2025/14E05F61-8A4E-4C56-9231-5C7137303BAD202779.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател на УС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател на УС",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Фондация \"Бургас-2032\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Фондация \"Бургас-2032\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Бургас-2032\"",
-        "detail": null,
-        "location": "Председател на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "diana-dimova-savateva-2b1247",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИАНА ДИМОВА САВАТЕВА",
     "institution": "Бургас",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
@@ -181,28 +172,21 @@
     "entryNumber": "Г5580",
     "controlHash": "32C67D99",
     "sourceUrl": "https://register.cacbg.bg/2025/14E05F61-8A4E-4C56-9231-5C7137303BAD208513.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"Енергийна общност Бургас-Плувен комплекс Славейков\" ДЗЗД",
-        "detail": null,
-        "location": "500- 0.11%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "500- 0.11%",
+        "companyName": "\"Енергийна общност Бургас-Плувен комплекс Славейков\" ДЗЗД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   }
 ]

@@ -406,7 +406,7 @@
   },
   {
     "slug": "daniela-plamenova-asenova-54aa6b",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниела Пламенова Асенова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -417,7 +417,41 @@
     "entryNumber": "В2638",
     "controlHash": "E7CAF37D",
     "sourceUrl": "https://register.cacbg.bg/2018/3296AEDA-A819-4DF4-9266-31A58210249292057.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Прокурист",
+        "companyName": "Емобилити Интернешънъл АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Изпълнителен директор",
+        "companyName": "СмартСити ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Елдрайв Такси ЕOOД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

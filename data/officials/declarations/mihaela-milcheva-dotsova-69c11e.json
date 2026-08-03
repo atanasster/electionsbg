@@ -1,7 +1,7 @@
 [
   {
     "slug": "mihaela-milcheva-dotsova-69c11e",
-    "declarantName": "(unknown)",
+    "declarantName": "Михаела Милчева Доцова",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -12,23 +12,22 @@
     "entryNumber": "Г9906",
     "controlHash": "42F0EE59",
     "sourceUrl": "https://register.cacbg.bg/2025/726A33E5-7878-4BE0-863F-1B4A50935E5A212970.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Освободена от УС със Заповед № РД-121/14.02.2025 г.",
+        "companyName": "ПУДООС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПУДООС",
-        "detail": null,
-        "location": "Освободена от УС със Заповед № РД-121/14.02.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "mihaela-milcheva-dotsova-69c11e",

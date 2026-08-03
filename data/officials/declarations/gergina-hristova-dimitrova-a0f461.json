@@ -545,7 +545,7 @@
   },
   {
     "slug": "gergina-hristova-dimitrova-a0f461",
-    "declarantName": "(unknown)",
+    "declarantName": "ГЕРГИНА ХРИСТОВА ДИМИТРОВА",
     "institution": "СБНАЛ \"Свети Лазар\" ЕООД гр. Казанлък",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -558,27 +558,21 @@
     "sourceUrl": "https://register.cacbg.bg/2019/B8050115-A036-48EE-BDA4-DA39A5FE012D98015.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
         "detail": "ГЕРГИНА ХРИСТОВА ДИМИТРОВА",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "20000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ДА",
-        "isSpouse": true,
-        "legalBasis": "лични доходи",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 10225.83762392437,
+        "legalBasis": "лични доходи"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "gergina-hristova-dimitrova-a0f461",

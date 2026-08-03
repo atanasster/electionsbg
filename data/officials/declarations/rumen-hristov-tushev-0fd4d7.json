@@ -922,7 +922,7 @@
   },
   {
     "slug": "rumen-hristov-tushev-0fd4d7",
-    "declarantName": "(unknown)",
+    "declarantName": "Румен Христов Тушев",
     "institution": "ФСЕС",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -933,7 +933,30 @@
     "entryNumber": "В2402",
     "controlHash": "F2AC2BE4",
     "sourceUrl": "https://register.cacbg.bg/2018/8D27BA96-63CA-492D-8B17-7DBBD0486C7C91201.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Упълномощен представител на Министерство на финансите в Съвета на директорите на  \"Свободна безмитна зона -Бургас\"АД",
+        "companyName": "\"Свободна безмитна зона -Бургас\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Упълномощен представител на Министерство на финансите в Съвете на директорите",
+        "companyName": "\"Свободна безмитна зона - Бургас\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

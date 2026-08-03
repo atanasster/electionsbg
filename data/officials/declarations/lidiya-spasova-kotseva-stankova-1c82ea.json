@@ -1,7 +1,7 @@
 [
   {
     "slug": "lidiya-spasova-kotseva-stankova-1c82ea",
-    "declarantName": "(unknown)",
+    "declarantName": "Лидия Спасова Коцева Станкова",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -12,7 +12,19 @@
     "entryNumber": "В860",
     "controlHash": "93B5A950",
     "sourceUrl": "https://register.cacbg.bg/2025/40375121-DD55-454C-9536-6D5FEE88F375209637.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "Метрополитен ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

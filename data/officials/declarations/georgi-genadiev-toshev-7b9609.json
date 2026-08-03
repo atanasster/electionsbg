@@ -161,7 +161,7 @@
   },
   {
     "slug": "georgi-genadiev-toshev-7b9609",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Генадиев Тошев",
     "institution": "Министерство на земеделието и храните",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -172,10 +172,102 @@
     "entryNumber": "В1214",
     "controlHash": "0E8999EF",
     "sourceUrl": "https://register.cacbg.bg/2023/BC260A41-6808-4704-83E0-8A769DB6E40F156185.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Дамира ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Лозенец инвест ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател (подадена молба за освобождаване)",
+        "companyName": "Ловно-рибарско дружество София-Изток",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Дамира ООД, ЕИК: 200366944",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Лозенец инвест ЕООД, ЕИК: 102845631",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател (подадена молаба за освобождаване)",
+        "companyName": "Ловно-рибарско дружество Сифия-Изток",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Агро Лозенец ООД, ЕИК: 206635713",
+        "detail": "Аренда за трайни насаждения на имот находящ се в с. Лозенец, общ. Царево",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Емилия Георгиева Касабова-Тошева",
+        "detail": "Съдружник на Агро Лозенец ООД по договор за аренда за трайни насаждения",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "georgi-genadiev-toshev-7b9609",

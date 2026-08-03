@@ -411,7 +411,7 @@
   },
   {
     "slug": "lyubomir-vasilev-apostolov-6d6246",
-    "declarantName": "(unknown)",
+    "declarantName": "Любомир Василев Апостолов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -422,7 +422,41 @@
     "entryNumber": "В1944",
     "controlHash": "93A050BE",
     "sourceUrl": "https://register.cacbg.bg/2024/406E8B11-01DC-4FE3-B9A4-9D8C1D6E33B8196991.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ЛВА КОМЕРС ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "МАРВЕС 2000 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "ЧАРДАКА БАЧКОВО ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1407,7 +1407,7 @@
   },
   {
     "slug": "venelin-angelov-tsekov-7b886d",
-    "declarantName": "(unknown)",
+    "declarantName": "ВЕНЕЛИН АНГЕЛОВ ЦЕКОВ",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -1418,7 +1418,19 @@
     "entryNumber": "В1939",
     "controlHash": "730A7D09",
     "sourceUrl": "https://register.cacbg.bg/2018/00923079-C891-48CA-A526-F686A17A37D990630.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "ЮЛНЦ ВОЛЕЙБОЛЕН КЛУБ МАРИЦА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1422,7 +1422,7 @@
   },
   {
     "slug": "simona-petkova-andreeva-52a6cd",
-    "declarantName": "(unknown)",
+    "declarantName": "СИМОНА ПЕТКОВА АНДРЕЕВА",
     "institution": "МБАЛ  \"Авис-Медика\"  ООД, гр. Плевен",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1433,7 +1433,52 @@
     "entryNumber": "В1689",
     "controlHash": "BA63C06E",
     "sourceUrl": "https://register.cacbg.bg/2018/09124973-A9E4-443C-AC46-B87FBE889A6F90313.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "МБАЛ \"АВИС МЕДИКА\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "ДКЦ \"АВИС МЕДИКА\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "\"АНДРЕЕВИ\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "\"АВИС БИЛДИНГ\"ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

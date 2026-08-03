@@ -586,7 +586,7 @@
   },
   {
     "slug": "ivanka-zhekova-vitanova-c7958f",
-    "declarantName": "(unknown)",
+    "declarantName": "Иванка Жекова Витанова",
     "institution": "Комисия по досиетата",
     "positionTitle": "Член",
     "category": "agency_head",
@@ -597,7 +597,30 @@
     "entryNumber": "В611",
     "controlHash": "C0F9DA66",
     "sourceUrl": "https://register.cacbg.bg/2018/E8399773-630F-4AB6-9A35-9A0687ABFE8189163.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50 дяла",
+        "companyName": "Вита Старт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "Вита Старт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

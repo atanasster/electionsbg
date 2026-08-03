@@ -362,7 +362,7 @@
   },
   {
     "slug": "ivan-olegov-stepanov-51f7fe",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Олегов Степанов",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -373,7 +373,19 @@
     "entryNumber": "В2615",
     "controlHash": "21B2C320",
     "sourceUrl": "https://register.cacbg.bg/2018/2C3863D5-5270-4AD8-BC41-DE5B8783F61E91763.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Професионална ловна асоциация в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

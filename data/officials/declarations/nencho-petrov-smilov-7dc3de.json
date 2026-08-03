@@ -927,7 +927,7 @@
   },
   {
     "slug": "nencho-petrov-smilov-7dc3de",
-    "declarantName": "(unknown)",
+    "declarantName": "Ненчо Петров Смилов",
     "institution": "Медицински институт на МВР",
     "positionTitle": "Директор",
     "category": "hospital_head",
@@ -938,7 +938,19 @@
     "entryNumber": "В353",
     "controlHash": "FB7E17A1",
     "sourceUrl": "https://register.cacbg.bg/2019/1FAD2880-F2F9-4810-BCA9-D0C6E2B1D40B95755.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Директор",
+        "companyName": "Фондация в обществена полза \"Мъжко здраве\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

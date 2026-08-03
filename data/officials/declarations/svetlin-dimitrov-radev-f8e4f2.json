@@ -165,7 +165,7 @@
   },
   {
     "slug": "svetlin-dimitrov-radev-f8e4f2",
-    "declarantName": "(unknown)",
+    "declarantName": "Светлин Димитров Радев",
     "institution": "СБРФРМ - Димина ЕООД, с. Вонеща вода",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -176,7 +176,63 @@
     "entryNumber": "В571",
     "controlHash": "4D6A09C1",
     "sourceUrl": "https://register.cacbg.bg/2024/ACE391E8-4172-4BBC-840B-3F652D272C1B178640.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "Ведар ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Полибитум ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "Ведар 00Д",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "50",
+        "companyName": "Ведар ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "Полибитум ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

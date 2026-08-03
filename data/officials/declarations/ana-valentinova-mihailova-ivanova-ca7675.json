@@ -137,7 +137,7 @@
   },
   {
     "slug": "ana-valentinova-mihailova-ivanova-ca7675",
-    "declarantName": "(unknown)",
+    "declarantName": "Ана Валентинова Михайлова-Иванова",
     "institution": "ДФ Земеделие областни дирекции",
     "positionTitle": "Директор",
     "category": "regional_director",
@@ -148,10 +148,92 @@
     "entryNumber": "В467",
     "controlHash": "81ABB9B1",
     "sourceUrl": "https://register.cacbg.bg/2022/1D55D69A-F468-40C8-AF99-6B61E8C8452E132150.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ \"ПЪРВИ ЮНИ КЪМ ОДЗ ПЪРВИ ЮНИ ГР. ИСПЕРИХ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "СНЦ \"УН при ОУ \"Христо Ботев\" гр.Исперих\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ \"ПЪРВИ ЮНИ КЪМ ОДЗ ПЪРВИ ЮНИ ГР. ИСПЕРИХ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "СНЦ \"УН при ОУ \"Христо Ботев\" гр.Исперих\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "\"Био енерджи - вв\" ЕООД",
+        "detail": "земеделски стопанин Булстат  204090207 - бенефициер по ДПП",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Владимир Красимиров Иванов",
+        "detail": "земеделски стопанин Булстат  179073053 - бенефициер по ДПП",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Веселина Димитрова Василева",
+        "detail": "земеделски стопанин Булстат 179084391- бенефициер по ДПП",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "ana-valentinova-mihailova-ivanova-ca7675",

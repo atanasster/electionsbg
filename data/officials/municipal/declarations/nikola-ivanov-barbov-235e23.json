@@ -50,7 +50,7 @@
   },
   {
     "slug": "nikola-ivanov-barbov-235e23",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Иванов Барбов",
     "institution": "Козлодуй",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -60,41 +60,32 @@
     "entryNumber": "Г11385",
     "controlHash": "4CFF5559",
     "sourceUrl": "https://register.cacbg.bg/2025/0E48EFC3-B08F-401C-AB20-B82B3C6050DC214521.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Ритейл  № 8 ООД",
-        "detail": null,
-        "location": "95 %",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "95 %",
+        "companyName": "Ритейл  № 8 ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител - 07.02.2025 г.",
+        "companyName": "Ритейл № 8 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Ритейл № 8 ООД",
-        "detail": null,
-        "location": "Управител - 07.02.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

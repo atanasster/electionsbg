@@ -1,7 +1,7 @@
 [
   {
     "slug": "petr-krasimirov-radev-329fc1",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Красимиров Радев",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В693",
     "controlHash": "8E4C9E40",
     "sourceUrl": "https://register.cacbg.bg/2024/FE47ED56-211F-417F-BC06-B1ACC9E02699179977.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "2 лева",
+        "companyName": "\"ПР КОНСУЛТ ГРУП\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "2 лева",
+        "companyName": "\"ПР КОНСУЛТ ГРУП\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

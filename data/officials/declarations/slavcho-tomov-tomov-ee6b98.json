@@ -1058,7 +1058,7 @@
   },
   {
     "slug": "slavcho-tomov-tomov-ee6b98",
-    "declarantName": "(unknown)",
+    "declarantName": "СЛАВЧО ТОМОВ ТОМОВ",
     "institution": "Медицински университет - Плевен",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -1069,23 +1069,22 @@
     "entryNumber": "Г3956",
     "controlHash": "EB4E34B7",
     "sourceUrl": "https://register.cacbg.bg/2020/D5747DF5-F245-40B5-B24F-AE8A59AD0E38114645.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        "companyName": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ НА СЪВЕТА НА РЕКТОРИТЕ НА ВИСШИТЕ УЧИЛИЩА В РЕПУБЛИКА БЪЛГАРИЯ",
-        "detail": null,
-        "location": "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "slavcho-tomov-tomov-ee6b98",
@@ -2972,7 +2971,7 @@
   },
   {
     "slug": "slavcho-tomov-tomov-ee6b98",
-    "declarantName": "(unknown)",
+    "declarantName": "СЛАВЧО ТОМОВ ТОМОВ",
     "institution": "Медицински университет - Плевен",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -2983,7 +2982,52 @@
     "entryNumber": "В572",
     "controlHash": "B8D06D35",
     "sourceUrl": "https://register.cacbg.bg/2018/D5747DF5-F245-40B5-B24F-AE8A59AD0E3889122.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА ГИНЕКОЛОГИЧНА ХИРУРГИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ ПО ОНКОГИНЕКОЛОГИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА ГИНЕКОЛОГИЧНА ХИРУРГИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на колективен орган на управление",
+        "companyName": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ ПО ОНКОГИНЕКОЛОГИЯ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

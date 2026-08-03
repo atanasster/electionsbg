@@ -347,7 +347,7 @@
   },
   {
     "slug": "plamen-georgiev-yanev-2b05fc",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Георгиев Янев",
     "institution": "Област - Бургас",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -358,72 +358,55 @@
     "entryNumber": "В420",
     "controlHash": "C8CE7860",
     "sourceUrl": "https://register.cacbg.bg/2022/4AD69156-A64E-4E2D-98F1-8714162D0992131956.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС считано от 09.03.2022г.",
+        "companyName": "БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "ОСВОБОДЕН КАТО ЧЛЕН НА УС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "ОСВОБОДЕН КАТО ЧЛЕН НА УС",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОСВОБОДЕН КАТО ЧЛЕН НА УС считано от 09.03.2022г.",
+        "companyName": "СДРУЖЕНИЕ СПОРТЕН КЛУБ БУРГАС",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС",
+        "companyName": "БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОСВОБОДЕН КАТО ЧЛЕН НА УС",
+        "companyName": "СДРУЖЕНИЕ СПОРТЕН КЛУБ БУРГАС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ",
-        "detail": null,
-        "location": "ОСВОБОДЕН КАТО ПРЕДСТАВЛЯВАЩ И ЧЛЕН НА УС считано от 09.03.2022г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ СПОРТЕН КЛУБ БУРГАС",
-        "detail": null,
-        "location": "ОСВОБОДЕН КАТО ЧЛЕН НА УС считано от 09.03.2022г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "plamen-georgiev-yanev-2b05fc",
@@ -568,7 +551,7 @@
   },
   {
     "slug": "plamen-georgiev-yanev-2b05fc",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Георгиев Янев",
     "institution": "Област - Бургас",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -579,7 +562,96 @@
     "entryNumber": "В248",
     "controlHash": "C941693E",
     "sourceUrl": "https://register.cacbg.bg/2022/4AD69156-A64E-4E2D-98F1-8714162D0992131515.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "СДРУЖЕНИЕ \" С МИСЪЛ ЗА ВСЕКИ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "СДРУЖЕНИЕ \"БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ БУРГАС\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УС",
+        "companyName": "СНЦ \" СПОРТЕН КЛУБ \"БУРГАС\"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ И ЧЛЕН НА УС",
+        "companyName": "СНЦ \" БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ\"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "СДРУЖЕНИЕ \" С МИСЪЛ ЗА ВСЕКИ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН",
+        "companyName": "СДРУЖЕНИЕ \"БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ БУРГАС\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УС",
+        "companyName": "СНЦ \" СПОРТЕН КЛУБ \"БУРГАС\"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ И ЧЛЕН НА УС",
+        "companyName": "СНЦ \" БАСКЕТБОЛЕН КЛУБ ЧЕРНОМОРЕЦ\"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

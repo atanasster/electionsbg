@@ -928,7 +928,7 @@
   },
   {
     "slug": "martin-ivanov-georgiev-70024a",
-    "declarantName": "(unknown)",
+    "declarantName": "Мартин Иванов Георгиев",
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -939,42 +939,33 @@
     "entryNumber": "Г13770",
     "controlHash": "1E371287",
     "sourceUrl": "https://register.cacbg.bg/2024/5B16CDC1-2445-4682-AF75-CA8FEFF654E5195898.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"МГ пропърти\" ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"МГ пропърти\" ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"МГ пропърти\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"МГ пропърти\" ЕООД",
-        "detail": null,
-        "location": "Управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "martin-ivanov-georgiev-70024a",
@@ -1268,7 +1259,7 @@
   },
   {
     "slug": "martin-ivanov-georgiev-70024a",
-    "declarantName": "(unknown)",
+    "declarantName": "МАРТИН ИВАНОВ ГЕОРГИЕВ",
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -1279,23 +1270,22 @@
     "entryNumber": "В91",
     "controlHash": "07FC9C8E",
     "sourceUrl": "https://register.cacbg.bg/2023/5B16CDC1-2445-4682-AF75-CA8FEFF654E5145530.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
+        "companyName": "КонтурГлобал Марица Изток 3 АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "КонтурГлобал Марица Изток 3 АД",
-        "detail": null,
-        "location": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "martin-ivanov-georgiev-70024a",

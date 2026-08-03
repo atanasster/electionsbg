@@ -128,7 +128,7 @@
   },
   {
     "slug": "lyubomir-dimitrov-spasov-daf540",
-    "declarantName": "(unknown)",
+    "declarantName": "Любомир Димитров Спасов",
     "institution": "МБАЛ \"Лозенец\" ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -139,7 +139,52 @@
     "entryNumber": "В10153",
     "controlHash": "987A8AE1",
     "sourceUrl": "https://register.cacbg.bg/2020/70de172a-bf1b-4150-9d7b-ee38576b4680.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "СЪВЕТ НА ДИРЕКТОРИТЕ",
+        "companyName": "\"Многопрофилна болница за активно лечение \" Лозенец \"\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОРГАН НА УПРАВЛЕНИЕ",
+        "companyName": "БЪЛГАРСКО ДРУЖЕСТВО ПО ТРАНСПЛАНТОЛОГИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ДИРЕКТОР",
+        "companyName": "\"Болница за активно лечение \" Лозенец \"\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ОРГАН НА УПРАВЛЕНИЕ",
+        "companyName": "БЪЛГАРСКО ДРУЖЕСТВО ПО ТРАНСПЛАНТОЛОГИЯ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

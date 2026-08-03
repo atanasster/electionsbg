@@ -122,3 +122,59 @@ test.skipIf(skip)(
     );
   },
 );
+
+// THE INTERESTS FORMS ARE BEING READ. Two of the three declaration forms the register
+// publishes are интереси filings with their own table numbering, and one of them (Dekl3)
+// numbers its tables 1-9 — colliding with the asset form. Read against the asset map they
+// published phantom holdings (565 filings, 808 fake assets, one €3.58bn "security" that
+// was a loan contract number); the entry form (Dekl2) parsed to nothing at all. This is
+// the corpus-level guard that the fix is still in place after a reload — the parser's own
+// behaviour is pinned in scripts/declarations/parse_declaration.test.ts.
+test.skipIf(skip)("the interests forms reach the corpus", async () => {
+  const rows = await allRows<{ kind: string; n: string; valued: string }>(
+    `SELECT kind, count(*) n, count(value_eur) valued FROM declaration_event
+      WHERE kind IN ('interest_contract', 'related_person', 'early_repayment')
+      GROUP BY kind`,
+  );
+  const byKind = new Map(rows.map((r) => [r.kind, r]));
+  for (const kind of [
+    "interest_contract",
+    "related_person",
+    "early_repayment",
+  ]) {
+    assert.ok(
+      Number(byKind.get(kind)?.n ?? 0) > 0,
+      `no ${kind} events — the interests forms are being dropped again`,
+    );
+  }
+  // The two name-only tables state a relationship, never a sum. A value on one of them
+  // would mean a cell was read as money that is not money — the exact shape of the
+  // €3.58bn artifact.
+  for (const kind of ["interest_contract", "related_person"]) {
+    assert.equal(
+      Number(byKind.get(kind)!.valued),
+      0,
+      `${kind} carries a declared value; that table has no money column`,
+    );
+  }
+});
+
+// The early-repayment amount comes from the declarant's own "Размер на задължението" /
+// "Равностойност в лв." pair, NEVER from the free-text "правно основание" cell beside it.
+// One declarant typed their loan CONTRACT NUMBER there, and reading it as a price is what
+// put €3.58bn on a person's profile.
+test.skipIf(skip)(
+  "no early repayment is valued from a free-text cell",
+  async () => {
+    const [r] = await allRows<{ n: string; largest: string }>(
+      `SELECT count(*) n, COALESCE(round(max(value_eur)), 0) largest
+       FROM declaration_event WHERE kind = 'early_repayment'`,
+    );
+    // A debt an individual settles ahead of term is a mortgage at most. Anything past this
+    // is a mis-read cell, not a repayment.
+    assert.ok(
+      Number(r.largest) < 5_000_000,
+      `the largest early repayment is €${r.largest} across ${r.n} rows — that is a mis-read cell`,
+    );
+  },
+);

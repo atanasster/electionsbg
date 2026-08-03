@@ -435,7 +435,7 @@
   },
   {
     "slug": "yuliyan-stankov-stankov-82a998",
-    "declarantName": "(unknown)",
+    "declarantName": "ЮЛИЯН СТАНКОВ СТАНКОВ",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -446,7 +446,41 @@
     "entryNumber": "В862",
     "controlHash": "6918B5B2",
     "sourceUrl": "https://register.cacbg.bg/2024/C2496CAB-3D0D-4A98-BF51-F89E041AD145180810.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0.00",
+        "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО П.ЯВОРОВ ГР БУРГАС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100.00",
+        "companyName": "СТЕЛМАР КОНСУЛТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0.00",
+        "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО П.ЯВОРОВ ГР БУРГАС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

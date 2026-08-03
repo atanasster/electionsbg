@@ -1,7 +1,7 @@
 [
   {
     "slug": "dimitr-atanasov-dimitrov-77aa0c",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Атанасов Димитров",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В450",
     "controlHash": "2B3EEEA6",
     "sourceUrl": "https://register.cacbg.bg/2025/B1384536-0545-4C10-8231-42FA9670A964203006.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МЦДП ВИВА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МЦДП ВИВА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

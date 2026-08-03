@@ -541,7 +541,7 @@
   },
   {
     "slug": "pavel-evtimov-gerenski-a6ece0",
-    "declarantName": "(unknown)",
+    "declarantName": "Павел Евтимов Геренски",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митница",
     "category": "revenue_agency",
@@ -552,7 +552,30 @@
     "entryNumber": "В1194",
     "controlHash": "C9D819CA",
     "sourceUrl": "https://register.cacbg.bg/2018/3F14DA9A-FC65-49B7-9FDB-3859B07613F889761.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%  (до 10.01.2014)",
+        "companyName": "\"Енпро М\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител (до 10.01.2014)",
+        "companyName": "\"Енпро М\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

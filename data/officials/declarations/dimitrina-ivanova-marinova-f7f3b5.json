@@ -221,7 +221,7 @@
   },
   {
     "slug": "dimitrina-ivanova-marinova-f7f3b5",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИМИТРИНА ИВАНОВА МАРИНОВА",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -232,7 +232,19 @@
     "entryNumber": "В2589",
     "controlHash": "B0A451C7",
     "sourceUrl": "https://register.cacbg.bg/2018/79DAD4CF-6660-4DB3-B4BE-7973A709DC1091552.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА КОНТРОЛЕН СЪВЕТ",
+        "companyName": "МИГ ДЪЛГОПОЛ-СМЯДОВО",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

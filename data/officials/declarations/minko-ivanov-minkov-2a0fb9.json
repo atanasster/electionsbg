@@ -231,7 +231,7 @@
   },
   {
     "slug": "minko-ivanov-minkov-2a0fb9",
-    "declarantName": "(unknown)",
+    "declarantName": "Минко Иванов Минков",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
@@ -242,7 +242,41 @@
     "entryNumber": "В1731",
     "controlHash": "2B93C6C6",
     "sourceUrl": "https://register.cacbg.bg/2024/CBAC7DE6-9B1B-4702-BDA1-10446D0FB741196311.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "20",
+        "companyName": "МБР- ГРАНД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Представляващ",
+        "companyName": "СДРУЖЕНИЕ НА СОБСТВЕНИЦИТЕ НА ОБЕКТИ В ТАЦ ГРАНД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МБР- ГРАНД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "todor-vasilev-vasilev-f95617",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Василев Василев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,46 +12,37 @@
     "entryNumber": "В629",
     "controlHash": "91C80780",
     "sourceUrl": "https://register.cacbg.bg/2025/F868A7C1-0D50-4FF4-9FBE-46B807E628CB204443.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"СОМУРТО ИНВЕСТ\" ЕООД",
-        "detail": null,
-        "location": "нямам дялово участие, вписване в ТРРЮЛНЦ на 13.03.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "нямам дялово участие, вписване в ТРРЮЛНЦ на 13.03.2025 г.",
+        "companyName": "\"СОМУРТО ИНВЕСТ\" ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител, вписване в ТРРЮЛНЦ на 13.03.2025 г.",
+        "companyName": "\"СОМУРТО ИНВЕСТ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"СОМУРТО ИНВЕСТ\" ЕООД",
-        "detail": null,
-        "location": "не съм управител, вписване в ТРРЮЛНЦ на 13.03.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "todor-vasilev-vasilev-f95617",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Василев Василев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -62,7 +53,30 @@
     "entryNumber": "В387",
     "controlHash": "EA188032",
     "sourceUrl": "https://register.cacbg.bg/2025/F868A7C1-0D50-4FF4-9FBE-46B807E628CB202718.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "СОМУРТО ИНВЕСТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "СОМУРТО ИНВЕСТ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

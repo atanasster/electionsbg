@@ -108,7 +108,7 @@
   },
   {
     "slug": "vladimir-valeriev-hadzhiev-520cae",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Валериев Хаджиев",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -119,7 +119,52 @@
     "entryNumber": "В2687",
     "controlHash": "1E4773D5",
     "sourceUrl": "https://register.cacbg.bg/2018/9AA05ACF-02A4-489B-A88C-7FDAE508AE0892165.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Ехолиси ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "24",
+        "companyName": "Форсити ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "24",
+        "companyName": "ГласУоркХаус ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Надзорен съвет",
+        "companyName": "Сдружение БРАВО",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

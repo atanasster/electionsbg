@@ -1,7 +1,7 @@
 [
   {
     "slug": "rumen-nenkov-harizanov-546e39",
-    "declarantName": "(unknown)",
+    "declarantName": "Румен Ненков Харизанов",
     "institution": "Национален център по заразни и паразитни болести",
     "positionTitle": "Заместник-директор",
     "category": "agency_head",
@@ -12,42 +12,33 @@
     "entryNumber": "Г1340",
     "controlHash": "F5E12FD2",
     "sourceUrl": "https://register.cacbg.bg/2025/6AF0C929-C6C4-4C07-B8AF-51806C0DB687203775.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Сдружение \"ИмуноПатоген\" ЕИК208129369, в качеството на представител на НЦЗПБ",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0",
+        "companyName": "Сдружение \"ИмуноПатоген\" ЕИК208129369, в качеството на представител на НЦЗПБ",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Сдружение \"ИмуноПатоген\" в качеството на представител на НЦЗПБ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"ИмуноПатоген\" в качеството на представител на НЦЗПБ",
-        "detail": null,
-        "location": "Председател на Управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "rumen-nenkov-harizanov-546e39",
@@ -487,7 +478,7 @@
   },
   {
     "slug": "rumen-nenkov-harizanov-546e39",
-    "declarantName": "(unknown)",
+    "declarantName": "Румен Ненков Харизанов",
     "institution": "Национален център по заразни и паразитни болести",
     "positionTitle": "Заместник-директор",
     "category": "agency_head",

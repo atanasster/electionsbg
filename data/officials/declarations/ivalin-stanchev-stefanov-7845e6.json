@@ -1179,7 +1179,7 @@
   },
   {
     "slug": "ivalin-stanchev-stefanov-7845e6",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивалин Станчев Стефанов",
     "institution": "Североизточно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1190,7 +1190,30 @@
     "entryNumber": "В745",
     "controlHash": "5ADECB0B",
     "sourceUrl": "https://register.cacbg.bg/2022/E09799B6-1576-4FE1-B158-0A50EE9A4BB0140890.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/1",
+        "companyName": "ЕООД Разсадника",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/1",
+        "companyName": "ЕООД Разсадника",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

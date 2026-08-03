@@ -1,7 +1,7 @@
 [
   {
     "slug": "kostadin-iordanov-kostadinov-02970e",
-    "declarantName": "(unknown)",
+    "declarantName": "Костадин Йорданов Костадинов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,7 +12,30 @@
     "entryNumber": "В18",
     "controlHash": "4244C825",
     "sourceUrl": "https://register.cacbg.bg/2023/7A557456-D032-4038-92FA-048C3CA41242145168.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"МАВАКОС\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"МАВАКОС\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

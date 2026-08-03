@@ -19,7 +19,7 @@
   },
   {
     "slug": "ivan-georgiev-malamov-41b4ca",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Георгиев Маламов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -30,7 +30,30 @@
     "entryNumber": "В2490",
     "controlHash": "0D7B2F88",
     "sourceUrl": "https://register.cacbg.bg/2018/49CCF702-C3E4-42FD-8510-24F94227BE5A91292.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,005%",
+        "companyName": "неврокоп -99 оод",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,005%",
+        "companyName": "неврокоп- 99 оод",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

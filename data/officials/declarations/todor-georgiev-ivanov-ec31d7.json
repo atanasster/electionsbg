@@ -1,7 +1,7 @@
 [
   {
     "slug": "todor-georgiev-ivanov-ec31d7",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Георгиев Иванов",
     "institution": "Област - Бургас",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -12,27 +12,26 @@
     "entryNumber": "В62",
     "controlHash": "02EB094A",
     "sourceUrl": "https://register.cacbg.bg/2022/54689CDC-130F-499E-88AD-4F38B03C1F56131056.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител - Освободен към дата 08.02.2022",
+        "companyName": "Атика Р5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Атика Р5 ООД",
-        "detail": null,
-        "location": "Управител - Освободен към дата 08.02.2022",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "todor-georgiev-ivanov-ec31d7",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Георгиев Иванов",
     "institution": "Област - Бургас",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -43,7 +42,52 @@
     "entryNumber": "В61",
     "controlHash": "C84BAEDE",
     "sourceUrl": "https://register.cacbg.bg/2022/54689CDC-130F-499E-88AD-4F38B03C1F56131055.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10%",
+        "companyName": "Атика Р5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Атика Р5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10%",
+        "companyName": "Атика Р5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Атика Р5 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -74,7 +74,7 @@
   },
   {
     "slug": "oktai-beiti-hyusein-259d07",
-    "declarantName": "(unknown)",
+    "declarantName": "Октай Бейти Хюсеин",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -85,7 +85,30 @@
     "entryNumber": "В1420",
     "controlHash": "CF3810DF",
     "sourceUrl": "https://register.cacbg.bg/2018/673162F2-39F2-449F-A90E-7122839D41C889999.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "АР ПИ ЕМ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "АР ПИ ЕМ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1181,7 +1181,7 @@
   },
   {
     "slug": "hristo-mitev-nachkov-500e4e",
-    "declarantName": "(unknown)",
+    "declarantName": "Христо Митев Начков",
     "institution": "Изпълнителна агенция \"Медицински надзор\"",
     "positionTitle": "Главен секретар",
     "category": "secretary_general",
@@ -1192,9 +1192,34 @@
     "entryNumber": "В538",
     "controlHash": "6B667460",
     "sourceUrl": "https://register.cacbg.bg/2019/70B69BCE-0129-4D2A-A481-228D82827FF498519.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Настоятелството",
+        "companyName": "СНЦ \"Народно читалище\" Просвета - 1862\" гр. Перущица",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Илиана Атанасова Славовска - Начкова",
+        "detail": "съпруга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -834,7 +834,7 @@
   },
   {
     "slug": "borislav-haralambiev-dimitrov-1e8350",
-    "declarantName": "(unknown)",
+    "declarantName": "БОРИСЛАВ ХАРАЛАМБИЕВ ДИМИТРОВ",
     "institution": "СБАЛОЗ - София ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -845,7 +845,30 @@
     "entryNumber": "В849",
     "controlHash": "76C2D2E5",
     "sourceUrl": "https://register.cacbg.bg/2018/90496B19-B83B-4074-82A7-919881C214AD89408.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС,зам. Председател",
+        "companyName": "Българска асоциация по медицинска онкология(БАМО )- сдружение с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС,зам.председател",
+        "companyName": "Българска асоциация по медицинска онкология(БАМО )-сдружение с нестопанска цел",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

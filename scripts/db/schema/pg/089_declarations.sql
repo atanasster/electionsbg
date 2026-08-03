@@ -185,7 +185,10 @@ CREATE TABLE IF NOT EXISTS declaration_event (
   seq            int NOT NULL,
   kind           text NOT NULL CHECK (kind IN (
                    'disposal_property', 'disposal_vehicle',
-                   'third_party_expense', 'guarantee')),
+                   'third_party_expense', 'guarantee',
+                   -- The three INTERESTS-form kinds (Dekl2 / Dekl3). Same rule:
+                   -- recorded by a filing, not a holding, never in a net worth.
+                   'interest_contract', 'related_person', 'early_repayment')),
   description    text,
   detail         text,
   location       text,
@@ -197,5 +200,16 @@ CREATE TABLE IF NOT EXISTS declaration_event (
   legal_basis    text,
   PRIMARY KEY (declaration_id, seq)
 );
+-- CREATE TABLE IF NOT EXISTS above is a no-op on a database that already has the
+-- table, so a widened CHECK never reaches it — and the loader then fails the
+-- whole declarations COPY with a constraint violation on the first interests
+-- row. Restate it explicitly. DROP … IF EXISTS + ADD is the idempotent form;
+-- the ADD re-validates the existing rows, which is cheap at this table's size
+-- and is the point (it proves nothing already stored falls outside the list).
+ALTER TABLE declaration_event DROP CONSTRAINT IF EXISTS declaration_event_kind_check;
+ALTER TABLE declaration_event ADD CONSTRAINT declaration_event_kind_check
+  CHECK (kind IN ('disposal_property', 'disposal_vehicle',
+                  'third_party_expense', 'guarantee',
+                  'interest_contract', 'related_person', 'early_repayment'));
 CREATE INDEX IF NOT EXISTS idx_declaration_event_kind
   ON declaration_event (kind);

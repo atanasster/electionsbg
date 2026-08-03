@@ -1,7 +1,7 @@
 [
   {
     "slug": "dimitr-georgiev-georgiev-925431",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Георгиев Георгиев",
     "institution": "Държавни предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1463",
     "controlHash": "22DA7657",
     "sourceUrl": "https://register.cacbg.bg/2025/0BDE54F8-0595-4419-B951-0E02E7E8F6C8219649.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "\"Делта трейдинг\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение с нестопанса цел \"Социална подкрепа и информация\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

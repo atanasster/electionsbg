@@ -684,7 +684,7 @@
   },
   {
     "slug": "nurten-osmanova-shekerova-d43f87",
-    "declarantName": "(unknown)",
+    "declarantName": "НУРТЕН ОСМАНОВА ШЕКЕРОВА",
     "institution": "САГБАЛ \"ЕВА\" ЕООД, Сливен",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -695,66 +695,55 @@
     "entryNumber": "Г3004",
     "controlHash": "7B6F71E4",
     "sourceUrl": "https://register.cacbg.bg/2019/EF9A2178-23BB-4F0D-9FBA-DEB7558455DB97445.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "receivable",
-        "description": "ЕТ АПМП - Д-Р НУРТЕН ШЕКЕРОВА ЕИК:119607870",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": 0,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "САГБАЛ ЕВА ЕООД ЕИК 119616231 Управител на дружеството от 22.07.2008г.",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МЦ Св.Анна ЕООД ЕИК 119610246 Управител на дружеството от 21.03.2008г.",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МБАЛ Св.Йоан Рилски ООД ЕИК 128619970 Управител на дружеството от 18.05.2018",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "0",
+        "companyName": "ЕТ АПМП - Д-Р НУРТЕН ШЕКЕРОВА ЕИК:119607870",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "САГБАЛ ЕВА ЕООД ЕИК 119616231 Управител на дружеството от 22.07.2008г.",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "МЦ Св.Анна ЕООД ЕИК 119610246 Управител на дружеството от 21.03.2008г.",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "МБАЛ Св.Йоан Рилски ООД ЕИК 128619970 Управител на дружеството от 18.05.2018",
-        "detail": null,
-        "location": "0",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "nurten-osmanova-shekerova-d43f87",
@@ -1182,7 +1171,7 @@
   },
   {
     "slug": "nurten-osmanova-shekerova-d43f87",
-    "declarantName": "(unknown)",
+    "declarantName": "Нуртен Османова Шекерова",
     "institution": "САГБАЛ \"ЕВА\" ЕООД, Сливен",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1193,7 +1182,41 @@
     "entryNumber": "В1568",
     "controlHash": "D127A4FB",
     "sourceUrl": "https://register.cacbg.bg/2018/EF9A2178-23BB-4F0D-9FBA-DEB7558455DB90165.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "САГБАЛ ЕВА ЕООД ЕИК 119616231 Управител на дружеството от 22.07.2008г.",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МЦ Св.Анна ЕООД ЕИК 119610246 Управител на дружеството от 21.03.2008г.",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МБАЛ Св.Йоан Рилски ООД ЕИК 128619970 Управител на дружеството от 18.05.2018",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

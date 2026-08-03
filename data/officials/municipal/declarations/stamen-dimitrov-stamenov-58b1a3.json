@@ -86,7 +86,7 @@
   },
   {
     "slug": "stamen-dimitrov-stamenov-58b1a3",
-    "declarantName": "(unknown)",
+    "declarantName": "Стамен Димитров Стаменов",
     "institution": "Чавдар",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -96,41 +96,32 @@
     "entryNumber": "Г3314",
     "controlHash": "A68623EA",
     "sourceUrl": "https://register.cacbg.bg/2025/286890D0-1798-47E1-90C9-BB8D0DC26E7C206073.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател на ПК\"Възкресение\"",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател на ПК\"Възкресение\"",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на ПК \"Възкресение\"",
+        "companyName": "ПК\"Възкресение\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на ПК\"Възкресение\"",
+        "companyName": "ПК\"Възкресение\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПК\"Възкресение\"",
-        "detail": null,
-        "location": "Председател на ПК \"Възкресение\"",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

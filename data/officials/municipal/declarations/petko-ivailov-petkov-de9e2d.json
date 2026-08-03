@@ -62,7 +62,7 @@
   },
   {
     "slug": "petko-ivailov-petkov-de9e2d",
-    "declarantName": "(unknown)",
+    "declarantName": "Петко Ивайлов Петков",
     "institution": "Червен бряг",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -72,41 +72,32 @@
     "entryNumber": "Г13038",
     "controlHash": "B1463EB7",
     "sourceUrl": "https://register.cacbg.bg/2025/5BA8F172-B076-4DA9-9E28-9831B090DE9E216228.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "ПВСОЛ ООД ЕИК 208115526",
-        "detail": null,
-        "location": "50%- 50лв.-регистрирана 07.01.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%- 50лв.-регистрирана 07.01.2025 г.",
+        "companyName": "ПВСОЛ ООД ЕИК 208115526",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "50%- 50лв.-регистрирана 07.01.2025 г. - управител",
+        "companyName": "ПВСОЛ ООД ЕИК 208115526",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПВСОЛ ООД ЕИК 208115526",
-        "detail": null,
-        "location": "50%- 50лв.-регистрирана 07.01.2025 г. - управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

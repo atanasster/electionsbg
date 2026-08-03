@@ -128,7 +128,7 @@
   },
   {
     "slug": "stefan-veselinov-popov-545ecc",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Веселинов Попов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -139,7 +139,30 @@
     "entryNumber": "В2072",
     "controlHash": "C62DB2C9",
     "sourceUrl": "https://register.cacbg.bg/2018/4C6453F9-4674-496A-8B99-2E27EF1D16FD90814.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "33 %",
+        "companyName": "Екостарт Консулт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на настоятелството",
+        "companyName": "Фондация \"ЕкоОбщност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

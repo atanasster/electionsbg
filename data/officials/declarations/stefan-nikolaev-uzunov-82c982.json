@@ -526,7 +526,7 @@
   },
   {
     "slug": "stefan-nikolaev-uzunov-82c982",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Николаев Узунов",
     "institution": "Втора МБАЛ - София ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -537,7 +537,30 @@
     "entryNumber": "В892",
     "controlHash": "FC6A04A5",
     "sourceUrl": "https://register.cacbg.bg/2018/943BECD9-FFAF-4F05-A7EF-62241461D74A89453.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите и Изпълнителен директор",
+        "companyName": "Втора МБАЛ - София ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвета на директорите и Изпълнителен директор",
+        "companyName": "Втора МБАЛ - София ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

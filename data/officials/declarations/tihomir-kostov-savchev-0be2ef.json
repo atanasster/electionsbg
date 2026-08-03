@@ -1730,7 +1730,7 @@
   },
   {
     "slug": "tihomir-kostov-savchev-0be2ef",
-    "declarantName": "(unknown)",
+    "declarantName": "Тихомир Костов Савчев",
     "institution": "МБАЛ \"ВИТА\" ЕООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1741,7 +1741,52 @@
     "entryNumber": "В653",
     "controlHash": "8C935B2B",
     "sourceUrl": "https://register.cacbg.bg/2018/CC4A141A-1E73-4B2D-924C-0A088901366F89205.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "ДКЦ ВИТА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "търговия и услуги",
+        "companyName": "ЕТ ТИХОМИР САВЧЕВ 91",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "ДКЦ ВИТА ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "търговия и услуги",
+        "companyName": "ЕТ ТИХОМИР САНВЧЕВ 91",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

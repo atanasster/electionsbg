@@ -281,7 +281,7 @@
   },
   {
     "slug": "denis-hyuseinov-shengov-2c4bc8",
-    "declarantName": "(unknown)",
+    "declarantName": "Денислав Йосков Шенгов",
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -292,7 +292,52 @@
     "entryNumber": "В3273",
     "controlHash": "73343A86",
     "sourceUrl": "https://register.cacbg.bg/2018/9992BCFD-BF52-4C77-AFD8-EFC668BADB1C93356.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АВАСАР ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АВАСАР ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "АВАСАР ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "АВАСАР ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

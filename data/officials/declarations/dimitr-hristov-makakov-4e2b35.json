@@ -1,7 +1,7 @@
 [
   {
     "slug": "dimitr-hristov-makakov-4e2b35",
-    "declarantName": "(unknown)",
+    "declarantName": "ДИМИТЪР ХРИСТОВ МАКАКОВ",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В460",
     "controlHash": "2D676BCE",
     "sourceUrl": "https://register.cacbg.bg/2025/B5893E74-83B9-4D76-9C70-F96F4E6105E8203074.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Съвета на настоятелите",
+        "companyName": "Сдружение \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРОБУДА\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "редовен член на сдружението",
+        "companyName": "Сдружение \"РАЙОННА КОЛЕГИЯ НА ЛЕКАРИТЕ- ГР.КЪРДЖАЛИ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

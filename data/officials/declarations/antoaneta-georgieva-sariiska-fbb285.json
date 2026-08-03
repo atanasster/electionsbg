@@ -200,7 +200,7 @@
   },
   {
     "slug": "antoaneta-georgieva-sariiska-fbb285",
-    "declarantName": "(unknown)",
+    "declarantName": "АНТОАНЕТА ГЕОРГИЕВА САРИЙСКА",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -211,7 +211,19 @@
     "entryNumber": "В834",
     "controlHash": "5CAB3443",
     "sourceUrl": "https://register.cacbg.bg/2025/FAE584FD-83C5-418A-AEFF-273F00B31A67208288.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100",
+        "companyName": "МЦ ДЕВИН ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

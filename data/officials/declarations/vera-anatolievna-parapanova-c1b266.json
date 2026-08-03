@@ -381,7 +381,7 @@
   },
   {
     "slug": "vera-anatolievna-parapanova-c1b266",
-    "declarantName": "(unknown)",
+    "declarantName": "Вера Анатолиевна Парапанова",
     "institution": "Българските граждани заемащи длъжности в НАТО",
     "positionTitle": "Представител",
     "category": "international",
@@ -392,7 +392,19 @@
     "entryNumber": "В3078",
     "controlHash": "4069C813",
     "sourceUrl": "https://register.cacbg.bg/2018/F13A2157-8E49-4CC6-991D-0DFE74F236F393153.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Баланс корект ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

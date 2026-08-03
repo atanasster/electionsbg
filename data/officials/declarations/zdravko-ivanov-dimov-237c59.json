@@ -75,7 +75,7 @@
   },
   {
     "slug": "zdravko-ivanov-dimov-237c59",
-    "declarantName": "(unknown)",
+    "declarantName": "Здравко Иванов Димов",
     "institution": "Училища",
     "positionTitle": "Директор",
     "category": "school",
@@ -86,7 +86,30 @@
     "entryNumber": "В1963",
     "controlHash": "3D0D8F91",
     "sourceUrl": "https://register.cacbg.bg/2024/55A84C1A-FD61-49AA-91F8-BEF0B358F00D197434.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "ЕПЦ \"Бъдеще и надежда\" - Камено",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител на клон Айтос",
+        "companyName": "СНЦ \"Верният настойник\" - Бургас",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1043,7 +1043,7 @@
   },
   {
     "slug": "stanislav-ivanov-darachev-e2483c",
-    "declarantName": "(unknown)",
+    "declarantName": "Станислав Иванов Дарачев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -1054,7 +1054,30 @@
     "entryNumber": "В297",
     "controlHash": "110BD7EE",
     "sourceUrl": "https://register.cacbg.bg/2024/7D409936-EEF0-4074-99E2-996DB6B841EA175195.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на професионална секция \"Водно строителство\"",
+        "companyName": "Регионална колегия София -град на КИИП",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Водостроително предприятие ЕООД ЕИК 201116586",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

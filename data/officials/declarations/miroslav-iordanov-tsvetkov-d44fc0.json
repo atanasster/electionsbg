@@ -1687,7 +1687,7 @@
   },
   {
     "slug": "miroslav-iordanov-tsvetkov-d44fc0",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирослав Йорданов Цветков",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -1698,7 +1698,19 @@
     "entryNumber": "В2084",
     "controlHash": "5C744174",
     "sourceUrl": "https://register.cacbg.bg/2018/60CD5D42-7691-4528-ACDB-F3D7AC913B2790829.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член в управителния съвет",
+        "companyName": "ЮЛНЦ \"Център за компетентност ИКТ сигурност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

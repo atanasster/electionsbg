@@ -362,7 +362,7 @@
   },
   {
     "slug": "nikodim-totev-ninov-a07372",
-    "declarantName": "(unknown)",
+    "declarantName": "Никодим Тотев Нинов",
     "institution": "МБАЛ - Червен бряг",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -373,7 +373,52 @@
     "entryNumber": "В1532",
     "controlHash": "BC02725E",
     "sourceUrl": "https://register.cacbg.bg/2018/0E35686D-AB84-464B-BAF4-59CE9F71F3CE90129.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Айф Фарма ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "СТМ Св. Панталеймон ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Айф Фарма ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "СТМ Св. Панталеймон ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

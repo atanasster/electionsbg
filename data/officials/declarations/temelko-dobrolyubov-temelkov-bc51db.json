@@ -4418,7 +4418,7 @@
   },
   {
     "slug": "temelko-dobrolyubov-temelkov-bc51db",
-    "declarantName": "(unknown)",
+    "declarantName": "Темелко Добролюбов Темелков",
     "institution": "СХБАЛ \"Проф. Темелков\" ЕООД, гр. варна",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -4429,7 +4429,41 @@
     "entryNumber": "В457",
     "controlHash": "6013EB01",
     "sourceUrl": "https://register.cacbg.bg/2018/213220E1-23C4-4AB9-B463-E98E85922D2E89004.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "40",
+        "companyName": "СПЕЦИАЛИЗИРАНА ХИРУРГИЧЕСКА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ\"ПРОФ. ТЕМЕЛКОВ\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МЕДИЦИНСКИ ЦЕНТЪР ПРОФЕСОР ТЕМЕЛКОВ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ",
+        "companyName": "СДРУЖЕНИЕ \"АКАДЕМИЧЕН ЦЕНТЪР ЗА ТРАСПЛАНТАЦИЯ НА ТЪКАНИ И ОРГАНИ- ТРАСПЛАНТАНТ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

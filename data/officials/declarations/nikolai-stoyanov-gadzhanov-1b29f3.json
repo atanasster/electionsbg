@@ -565,7 +565,7 @@
   },
   {
     "slug": "nikolai-stoyanov-gadzhanov-1b29f3",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Стоянов Гаджанов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -579,7 +579,32 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Борис Стоянов Гаджанов",
+        "detail": "услуги, търговия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Ружа Николова Гаджанова",
+        "detail": "услуги, търговия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "nikolai-stoyanov-gadzhanov-1b29f3",

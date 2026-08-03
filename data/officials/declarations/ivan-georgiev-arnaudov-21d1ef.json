@@ -2202,7 +2202,7 @@
   },
   {
     "slug": "ivan-georgiev-arnaudov-21d1ef",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Георгиев Арнаудов",
     "institution": "СБПФЗПЛР “Цар Фердинанд І” ЕООД, с.Искрец",
     "positionTitle": "Контрольор",
     "category": "hospital_head",
@@ -2213,7 +2213,30 @@
     "entryNumber": "В1894",
     "controlHash": "E4C945B1",
     "sourceUrl": "https://register.cacbg.bg/2024/B0964718-007F-478C-87C2-6DC73699A21A196783.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Българска национална асоциация по онкология\" - сдружение с нестопанска цел в обществена полза",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Българска национална асоциация по онкология\" - сдружение с нестопанска цел в обществена полза",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

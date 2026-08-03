@@ -571,7 +571,7 @@
   },
   {
     "slug": "stefan-kirilov-anastasov-404656",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Кирилов Анастасов",
     "institution": "СБДПЛ \"Иван Раев\" ЕООД, гр. Сопот",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -582,7 +582,52 @@
     "entryNumber": "В1608",
     "controlHash": "2BDC61D2",
     "sourceUrl": "https://register.cacbg.bg/2018/85DC169E-9232-45F5-9A9D-115F8E4B537C90205.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Д-р Стефан Анастасов- ИПСМП\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Търговия",
+        "companyName": "ЕТ \"ФЪНЦ\" Стефан Анастасов",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Д-р Стефан Анастасов- ИПСМП\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Търговия",
+        "companyName": "ЕТ \" Фънц\" Стефан Анастасов",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

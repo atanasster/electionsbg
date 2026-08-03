@@ -62,7 +62,7 @@
   },
   {
     "slug": "krasimir-simeonov-chervilov-156014",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Симеонов Червилов",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -72,41 +72,32 @@
     "entryNumber": "Г6664",
     "controlHash": "B47C473F",
     "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894209628.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Д.К.С. Инвестмънт ООД",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "Д.К.С. Инвестмънт ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет",
+        "companyName": "Фондация \"Фондация ВМРО\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Фондация ВМРО\"",
-        "detail": null,
-        "location": "Член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

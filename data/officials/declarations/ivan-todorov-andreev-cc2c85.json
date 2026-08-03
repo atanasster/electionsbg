@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivan-todorov-andreev-cc2c85",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Тодоров Андреев",
     "institution": "Членовете на управителните и контролните органи на БЕХ",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,23 +12,22 @@
     "entryNumber": "Г13769",
     "controlHash": "9987A3E9",
     "sourceUrl": "https://register.cacbg.bg/2024/00EA7FB1-2D29-450B-A043-B5DD02CDCB28195897.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на контролен съвет",
+        "companyName": "ДЗЗД \"Български национален застрахователен ядрен пул\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ДЗЗД \"Български национален застрахователен ядрен пул\"",
-        "detail": null,
-        "location": "член на контролен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "ivan-todorov-andreev-cc2c85",

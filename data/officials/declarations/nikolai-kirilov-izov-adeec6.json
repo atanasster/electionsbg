@@ -756,7 +756,7 @@
   },
   {
     "slug": "nikolai-kirilov-izov-adeec6",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Кирилов Изов",
     "institution": "Национална спортна академия \"Васил Левски\"",
     "positionTitle": "Ректор",
     "category": "academic",
@@ -767,23 +767,22 @@
     "entryNumber": "Г8787",
     "controlHash": "648FDFCF",
     "sourceUrl": "https://register.cacbg.bg/2022/4D93D8B8-281F-466A-8CEF-8BEF5BF3F807141637.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет 27.05.2022г.",
+        "companyName": "Сдружение Център за върхови постижения Наследство БГ ЕИК205313741",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение Център за върхови постижения Наследство БГ ЕИК205313741",
-        "detail": null,
-        "location": "Член на управителен съвет 27.05.2022г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "nikolai-kirilov-izov-adeec6",

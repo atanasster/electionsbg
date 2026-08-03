@@ -562,7 +562,7 @@
   },
   {
     "slug": "mariya-todorova-todorova-7dbc47",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Тодорова Тодорова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -573,9 +573,79 @@
     "entryNumber": "В344",
     "controlHash": "C7CE165D",
     "sourceUrl": "https://register.cacbg.bg/2022/9042CAAD-1D39-4BE4-ACEC-239C9F452B3B131752.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1750",
+        "companyName": "Май Консулт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "35%",
+        "companyName": "Май консулт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "35%",
+        "companyName": "Май консулт",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "без финансово участие",
+        "companyName": "Сдружение за Югоизточна Европа",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Асенка Петрова Христова",
+        "detail": "Последваща оценка на въздействието на Стратегия за проф. образование",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "interest_contract",
+        "description": "Радосвета Йончева Дракева",
+        "detail": "Разработване на софтуерен инструмент за национална програма",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

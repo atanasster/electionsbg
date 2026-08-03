@@ -110,7 +110,7 @@
   },
   {
     "slug": "stefan-ivanov-savov-fb9695",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Иванов Савов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -121,7 +121,41 @@
     "entryNumber": "В1704",
     "controlHash": "59392ADF",
     "sourceUrl": "https://register.cacbg.bg/2018/4F75C49C-D0D7-43C7-A40E-4D91F2AF004F90328.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Сдружение \"Регионано движение \"Екоюгозапад\", ЕИК 101031722",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Африт ЕООД, ЕИК 175410295",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителния съвет",
+        "companyName": "Сдружение \"Регионано движение \"Екоюгозапад\", ЕИК 10131722",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

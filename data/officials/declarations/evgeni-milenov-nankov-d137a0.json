@@ -161,7 +161,7 @@
   },
   {
     "slug": "evgeni-milenov-nankov-d137a0",
-    "declarantName": "(unknown)",
+    "declarantName": "Евгени Миленов Нанков",
     "institution": "Национална агенция за приходи",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
@@ -172,7 +172,19 @@
     "entryNumber": "В942",
     "controlHash": "420CC6D3",
     "sourceUrl": "https://register.cacbg.bg/2023/376BAA25-57CA-41C8-9896-DF495442CD55155585.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ Съюз на данъчните служители в България ЕИК 130326633",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

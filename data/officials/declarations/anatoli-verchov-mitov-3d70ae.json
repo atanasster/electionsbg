@@ -522,7 +522,7 @@
   },
   {
     "slug": "anatoli-verchov-mitov-3d70ae",
-    "declarantName": "(unknown)",
+    "declarantName": "Анатоли Верчов Митов",
     "institution": "МБАЛ \"Рахила Ангелова\" АД, гр.Перник",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -533,7 +533,30 @@
     "entryNumber": "В1691",
     "controlHash": "885B1398",
     "sourceUrl": "https://register.cacbg.bg/2018/B1DC935E-6485-4225-BC90-35D8D322954790315.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Амболатория за специализирана извънболнична медицинска помощ по хирургия",
+        "companyName": "ЕТ\"Д-р Анатоли Митов - ИПСМПХ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "Амбулатория за специализирана извънболнична помощ по хирургия",
+        "companyName": "ЕТ \"Д-р Анатоли Митов - ИПСПХ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

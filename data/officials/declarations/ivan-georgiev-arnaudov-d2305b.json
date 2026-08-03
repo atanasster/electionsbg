@@ -1068,7 +1068,7 @@
   },
   {
     "slug": "ivan-georgiev-arnaudov-d2305b",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Георгиев Арнаудов",
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
@@ -1079,7 +1079,30 @@
     "entryNumber": "В2715",
     "controlHash": "9654D5B2",
     "sourceUrl": "https://register.cacbg.bg/2018/B0964718-007F-478C-87C2-6DC73699A21A92387.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Българска национална асоциация по онкология\" Сдружение, ЕИК 130630949",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Българска национална асоциация по онкология\", Сдружение, ЕИК 130630949",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

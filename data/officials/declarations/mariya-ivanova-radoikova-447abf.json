@@ -317,7 +317,7 @@
   },
   {
     "slug": "mariya-ivanova-radoikova-447abf",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Иванова Радойкова",
     "institution": "МБАЛ \"Иван Скендеров\" - Гоце Делчев ЕООД",
     "positionTitle": "Директор",
     "category": "hospital_head",
@@ -328,7 +328,52 @@
     "entryNumber": "В1177",
     "controlHash": "85C0CA70",
     "sourceUrl": "https://register.cacbg.bg/2018/289E34A9-1A36-416D-915D-F390B367DFDE89742.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Многопрофилна болница за активно лечение \"Иван Скендеров\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член Управителен съвет",
+        "companyName": "Сдружение \"Хроника срещу рака\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Многопрофилна болница за активно лечение \"Иван Скендеров\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителен съвет",
+        "companyName": "Сдружение \"Хроника срещу рака\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

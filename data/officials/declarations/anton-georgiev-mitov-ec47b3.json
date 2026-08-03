@@ -1,7 +1,7 @@
 [
   {
     "slug": "anton-georgiev-mitov-ec47b3",
-    "declarantName": "(unknown)",
+    "declarantName": "АНТОН ГЕОРГИЕВ МИТОВ",
     "institution": "ДП \"Фонд затворно дело\"",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -14,27 +14,21 @@
     "sourceUrl": "https://register.cacbg.bg/2025/408FBF0A-5695-40D4-A5C9-62A495917AA6207466.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Кредит",
         "detail": "Антон Георгиев Митов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "70000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Не",
-        "isSpouse": true,
-        "legalBasis": "Продажба на акции, разпределени дивиденти",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 35790.431683735296,
+        "legalBasis": "Продажба на акции, разпределени дивиденти"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "anton-georgiev-mitov-ec47b3",
@@ -252,7 +246,7 @@
   },
   {
     "slug": "anton-georgiev-mitov-ec47b3",
-    "declarantName": "(unknown)",
+    "declarantName": "АНТОН ГЕОРГИЕВ МИТОВ",
     "institution": "ДП \"Фонд затворно дело\"",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -263,7 +257,41 @@
     "entryNumber": "В943",
     "controlHash": "47D12E33",
     "sourceUrl": "https://register.cacbg.bg/2024/408FBF0A-5695-40D4-A5C9-62A495917AA6182125.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "ДЕСИЖЪН ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "ТИТА ЕНД ЙОЙО БЕЙКЪРИ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "ДЕСИЖЪН ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

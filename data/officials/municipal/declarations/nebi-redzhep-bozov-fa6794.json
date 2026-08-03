@@ -44,7 +44,7 @@
   },
   {
     "slug": "nebi-redzhep-bozov-fa6794",
-    "declarantName": "(unknown)",
+    "declarantName": "Неби Реджеп Бозов",
     "institution": "Сърница",
     "positionTitle": "Кмет",
     "declarationYear": 2025,
@@ -54,22 +54,21 @@
     "entryNumber": "Г15462",
     "controlHash": "7F2EBE94",
     "sourceUrl": "https://register.cacbg.bg/2025/25DFF525-883E-444C-8080-D7AE02534FC5219656.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет",
+        "companyName": "Сдружение с нестопанска цел \"ТОЛЕРАНТНОСТ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение с нестопанска цел \"ТОЛЕРАНТНОСТ\"",
-        "detail": null,
-        "location": "Член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

@@ -585,7 +585,7 @@
   },
   {
     "slug": "petr-georgiev-filibev-f6782b",
-    "declarantName": "(unknown)",
+    "declarantName": "Петър Георгиев Филибев",
     "institution": "МБАЛ \"Иван Скендеров\" - Гоце Делчев ЕООД",
     "positionTitle": "Директор",
     "category": "hospital_head",
@@ -596,7 +596,30 @@
     "entryNumber": "В10360",
     "controlHash": "86C1CA44",
     "sourceUrl": "https://register.cacbg.bg/2020/84F12840-0DBC-4EF5-B068-5455AC84A583112896.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "90%",
+        "companyName": "Стоун Филс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "40%",
+        "companyName": "Фемили Филибев - сие ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

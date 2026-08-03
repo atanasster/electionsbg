@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import {
   usePersonDeclarations,
   useDeclarationDetail,
+  type DeclarationDetail,
   type DeclarationListItem,
 } from "./usePersonDeclarations";
 
@@ -281,21 +282,66 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
           ))}
         </div>
       )}
-      {detail.events.length > 0 && (
-        <div className="border-t border-border pt-1">
-          <div className="mb-0.5 font-medium">{t("pp_decl_events")}</div>
-          {detail.events.map((e, i) => (
-            <div key={i} className="flex justify-between gap-2 py-0.5">
-              <span className="truncate">
-                {t(`pp_decl_event_${e.kind}`)}: {e.description}
+      {/* Two groups, because they answer different questions and a shared heading
+          would mislabel one of them: estate events are what left the estate or was
+          paid for by somebody else; interests are the separate интереси filing's
+          contracts, related persons and early-repaid debts. */}
+      <EventGroup
+        title={t("pp_decl_events")}
+        events={detail.events.filter((e) => !INTEREST_EVENT_KINDS.has(e.kind))}
+        locale={locale}
+      />
+      <EventGroup
+        title={t("pp_decl_interests")}
+        events={detail.events.filter((e) => INTEREST_EVENT_KINDS.has(e.kind))}
+        locale={locale}
+      />
+    </div>
+  );
+};
+
+/** The kinds that come off the INTERESTS forms rather than the asset form —
+ *  see DeclarationEventKind (src/data/dataTypes.ts). */
+const INTEREST_EVENT_KINDS = new Set([
+  "interest_contract",
+  "related_person",
+  "early_repayment",
+]);
+
+const EventGroup: FC<{
+  title: string;
+  events: NonNullable<DeclarationDetail>["events"];
+  locale: string;
+}> = ({ title, events, locale }) => {
+  const { t } = useTranslation();
+  if (events.length === 0) return null;
+  return (
+    <div className="border-t border-border pt-1">
+      <div className="mb-0.5 font-medium">{title}</div>
+      {events.map((e, i) => (
+        <div key={i} className="flex justify-between gap-2 py-0.5">
+          <span className="truncate">
+            {t(`pp_decl_event_${e.kind}`)}: {e.description}
+            {/* The counterparty / holder, then how it happened. On an early
+                repayment that basis is the ORIGIN OF THE FUNDS ("дарение") —
+                the single field the whole table exists to record, so dropping
+                it would keep the row as uninformative as the misparse it
+                replaces. */}
+            {e.detail ? ` · ${e.detail}` : ""}
+            {e.legalBasis && (
+              <span className="ml-1 text-muted-foreground">
+                ({e.legalBasis})
               </span>
-              <span className="shrink-0 tabular-nums text-muted-foreground">
-                {e.valueEur != null ? formatEur(e.valueEur, locale) : "—"}
-              </span>
-            </div>
-          ))}
+            )}
+          </span>
+          {/* An interests row states a fact, not a price — only the early-repayment
+              table carries money at all. A dash says "not stated" rather than €0,
+              which would read as a debt settled for nothing. */}
+          <span className="shrink-0 tabular-nums text-muted-foreground">
+            {e.valueEur != null ? formatEur(e.valueEur, locale) : "—"}
+          </span>
         </div>
-      )}
+      ))}
     </div>
   );
 };

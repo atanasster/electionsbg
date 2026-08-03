@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivan-maksimov-peshev-da7212",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Максимов Пешев",
     "institution": "Министерство на младежта и спорта",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -12,60 +12,44 @@
     "entryNumber": "Г8410",
     "controlHash": "DB4A42CC",
     "sourceUrl": "https://register.cacbg.bg/2025/DBC72FEF-4840-4EE5-AA0A-A3CDBC9502C3211429.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "ЕС ПИ ЕНЕРДЖИ ГРУП ЕООД",
-        "detail": null,
-        "location": "едноличен собственик на капитала - заличен, считано от 21.01.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "едноличен собственик на капитала - заличен, считано от 21.01.2025 г.",
+        "companyName": "ЕС ПИ ЕНЕРДЖИ ГРУП ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "real_estate",
-        "description": "МАКСКОНСУЛТ 55",
-        "detail": null,
-        "location": "съдружник - заличен, считано от 21.01.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "съдружник - заличен, считано от 21.01.2025 г.",
+        "companyName": "МАКСКОНСУЛТ 55",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител - заличен, считано от 21.01.2025 г.",
+        "companyName": "ЕС ПИ ЕНЕРДЖИ ГРУП ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЕС ПИ ЕНЕРДЖИ ГРУП ЕООД",
-        "detail": null,
-        "location": "управител - заличен, считано от 21.01.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivan-maksimov-peshev-da7212",

@@ -1339,7 +1339,7 @@
   },
   {
     "slug": "orlin-tsvetanov-dimitrov-fcb760",
-    "declarantName": "(unknown)",
+    "declarantName": "д-р Орлин Цветанов Димитров",
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
@@ -1350,7 +1350,30 @@
     "entryNumber": "В263",
     "controlHash": "09316AEA",
     "sourceUrl": "https://register.cacbg.bg/2018/F07A45CC-3FD4-44DB-B299-9B0DD08ECB8088711.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "НПО Пчеларско сдружение Мраморен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "НПО Пчеларско сдружение Мраморен",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

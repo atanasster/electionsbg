@@ -184,7 +184,7 @@
   },
   {
     "slug": "nadezhda-krsteva-dardova-3355f8",
-    "declarantName": "(unknown)",
+    "declarantName": "Надежда Кръстева Дардова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -195,7 +195,30 @@
     "entryNumber": "В2679",
     "controlHash": "7E4E7958",
     "sourceUrl": "https://register.cacbg.bg/2018/B6A50DCD-9362-46C0-A35D-62C25A0660E292157.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение на и за хора с уврежданея\"Надежда\"-Перущица",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение на и за хора с увреждания \"Надежда\" - Перущица",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

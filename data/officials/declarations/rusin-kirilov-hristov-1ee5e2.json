@@ -125,7 +125,7 @@
   },
   {
     "slug": "rusin-kirilov-hristov-1ee5e2",
-    "declarantName": "(unknown)",
+    "declarantName": "РУСИН КИРИЛОВ ХРИСТОВ",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -136,7 +136,19 @@
     "entryNumber": "В1317",
     "controlHash": "B42BD2C5",
     "sourceUrl": "https://register.cacbg.bg/2018/EC36287A-17C8-4159-BC0F-CDB3A8C1015B89884.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "2500",
+        "companyName": "РУСАТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

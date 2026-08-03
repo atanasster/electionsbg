@@ -140,7 +140,7 @@
   },
   {
     "slug": "mihail-todorov-kumchev-c8f200",
-    "declarantName": "(unknown)",
+    "declarantName": "Михаил Тодоров Кумчев",
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
@@ -151,10 +151,35 @@
     "entryNumber": "В73",
     "controlHash": "33559C72",
     "sourceUrl": "https://register.cacbg.bg/2023/709AD7B2-EA19-4492-BB47-A46935C18E85145442.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "\"Скорпиус-70\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Стела Тодорова Кумчева",
+        "detail": "главен инспектор ТО Пловдив, КПКОНПИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "mihail-todorov-kumchev-c8f200",

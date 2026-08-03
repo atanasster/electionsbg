@@ -1,7 +1,7 @@
 [
   {
     "slug": "aleksandr-rumenov-nenkov-dec9a6",
-    "declarantName": "(unknown)",
+    "declarantName": "Александър Руменов Ненков",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1461",
     "controlHash": "36AFF4EE",
     "sourceUrl": "https://register.cacbg.bg/2025/80EE731F-332A-496F-8062-90CAC90366B5219646.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "Национален комитет на България в световния енергиен съвет",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "30%",
+        "companyName": "Имобилария платиниум ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

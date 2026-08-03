@@ -205,7 +205,7 @@
   },
   {
     "slug": "zhivko-atanasov-vangelov-10b0a1",
-    "declarantName": "(unknown)",
+    "declarantName": "Живко Атанасов Вангелов",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -216,7 +216,19 @@
     "entryNumber": "В488",
     "controlHash": "66012B3C",
     "sourceUrl": "https://register.cacbg.bg/2018/ACB30E84-BBE9-4C57-8923-0E035236E1AE89035.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "БСТ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

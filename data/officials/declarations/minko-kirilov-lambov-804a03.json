@@ -1,7 +1,7 @@
 [
   {
     "slug": "minko-kirilov-lambov-804a03",
-    "declarantName": "(unknown)",
+    "declarantName": "Минко Кирилов Ламбов",
     "institution": "Културни институти и институции",
     "positionTitle": "Директор",
     "category": "cultural_institute",
@@ -12,7 +12,30 @@
     "entryNumber": "В883",
     "controlHash": "F90590AF",
     "sourceUrl": "https://register.cacbg.bg/2025/5AB25585-A394-42A6-981C-936F976633BD211158.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение Еклектика",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Музикаутор",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

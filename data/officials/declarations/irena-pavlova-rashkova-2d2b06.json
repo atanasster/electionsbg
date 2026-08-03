@@ -105,7 +105,7 @@
   },
   {
     "slug": "irena-pavlova-rashkova-2d2b06",
-    "declarantName": "(unknown)",
+    "declarantName": "Ирена Павлова Рашкова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -116,7 +116,30 @@
     "entryNumber": "В2142",
     "controlHash": "9CEDC4FE",
     "sourceUrl": "https://register.cacbg.bg/2018/DB602587-E088-41F3-B561-E87C99610A4E90898.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "СД \"АксимириСофт - Цанов и Рашкова и сие\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "СД \"АксимиСофт - Цанов и Рашкова и сие\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

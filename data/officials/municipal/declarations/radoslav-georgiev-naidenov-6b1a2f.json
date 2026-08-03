@@ -242,7 +242,7 @@
   },
   {
     "slug": "radoslav-georgiev-naidenov-6b1a2f",
-    "declarantName": "(unknown)",
+    "declarantName": "Радослав Георгиев Найденов",
     "institution": "Берковица",
     "positionTitle": "Кмет",
     "declarationYear": 2025,
@@ -254,26 +254,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/B16B0B29-669B-4A17-A9FB-1994DB92E99C210930.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "кредит",
         "detail": "Лидия Йорданова Иванова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "397",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 202.98287683489875,
+        "legalBasis": "заплата"
       }
-    ],
-    "events": []
+    ]
   }
 ]

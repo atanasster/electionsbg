@@ -1190,7 +1190,7 @@
   },
   {
     "slug": "nikola-iordanov-kostadinov-b38652",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Йорданов Костадинов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -1201,7 +1201,30 @@
     "entryNumber": "В2576",
     "controlHash": "D7EB1501",
     "sourceUrl": "https://register.cacbg.bg/2018/88316828-C965-42EC-9467-BE9985B00FD591537.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "Фолклорен ансамбъл \"Търновче\" гр. В. Търново",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "Фолклорен ансамбъл \"Търновче\" гр. В. Търново",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

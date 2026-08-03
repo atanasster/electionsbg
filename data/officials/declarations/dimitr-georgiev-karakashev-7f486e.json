@@ -1,7 +1,7 @@
 [
   {
     "slug": "dimitr-georgiev-karakashev-7f486e",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Георгиев Каракашев",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -12,7 +12,19 @@
     "entryNumber": "В16",
     "controlHash": "645ED411",
     "sourceUrl": "https://register.cacbg.bg/2025/B5638C97-84B5-4F28-A94C-1778D4951BDF201557.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100",
+        "companyName": "\"Каракашев Груп\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

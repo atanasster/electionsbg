@@ -465,7 +465,7 @@
   },
   {
     "slug": "tsvetana-angelova-dinkova-4f4b19",
-    "declarantName": "(unknown)",
+    "declarantName": "ЦВЕТАНА АНГЕЛОВА ДИНКОВА",
     "institution": "СБР - Варна АД ,к.к. Златни пясъци \"",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -476,7 +476,30 @@
     "entryNumber": "В2695",
     "controlHash": "90346000",
     "sourceUrl": "https://register.cacbg.bg/2018/CFB082F2-C772-4B8D-892A-578A27CDA55D92178.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1300",
+        "companyName": "ГПСИМПП ДЕТСКИ СВЯТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1300",
+        "companyName": "ГПСИМПП ДЕТСКИ СВЯТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

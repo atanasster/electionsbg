@@ -1405,7 +1405,7 @@
   },
   {
     "slug": "ivan-iosifov-tombashki-5060d7",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Йосифов Томбашки",
     "institution": "МБАЛ - Раковски ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1416,7 +1416,19 @@
     "entryNumber": "В1411",
     "controlHash": "F2C183D4",
     "sourceUrl": "https://register.cacbg.bg/2018/6AC6E380-CD1E-4EC1-A127-2035B8C9F74189988.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Иван Томбашки ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

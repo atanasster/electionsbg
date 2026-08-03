@@ -566,7 +566,7 @@
   },
   {
     "slug": "iliya-zapryanov-karanikolov-cb77eb",
-    "declarantName": "(unknown)",
+    "declarantName": "Илия Запрянов Караниколов",
     "institution": "Членове на УС и на НС на Българската банка за развитие",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
@@ -577,7 +577,41 @@
     "entryNumber": "В71",
     "controlHash": "66DFE9A2",
     "sourceUrl": "https://register.cacbg.bg/2023/F89B2F00-1CB1-401C-951C-DA5BD3F87F76145440.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "ИнтелАрт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "49",
+        "companyName": "ИнтелАрт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ИнетелАрт ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

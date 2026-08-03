@@ -1706,7 +1706,7 @@
   },
   {
     "slug": "kalin-spasov-kalinov-a93c4c",
-    "declarantName": "(unknown)",
+    "declarantName": "Калин Спасов Калинов",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -1717,7 +1717,52 @@
     "entryNumber": "В2080",
     "controlHash": "987407AA",
     "sourceUrl": "https://register.cacbg.bg/2018/4D62273D-3B61-48FA-85A5-59E756AB5EA490824.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет",
+        "companyName": "ЮЛНЦ \"Център за компетентност ИКТ сигурност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Вицепрезидент",
+        "companyName": "ЮЛНЦ \"Асоциация за наука, образование, изкуство, култура и спорт\" АНОКИС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителния съвет",
+        "companyName": "ЮЛНЦ \"Център за компетентност ИКТ сигурност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Вицепрезидент",
+        "companyName": "ЮЛНЦ \"Асоциация за наука, образование, изкуство, култура и спорт\" АНОКИС",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

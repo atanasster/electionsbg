@@ -104,7 +104,7 @@
   },
   {
     "slug": "tanya-georgieva-stankova-3ed8bb",
-    "declarantName": "(unknown)",
+    "declarantName": "Таня Георгиева Станкова",
     "institution": "Любимец",
     "positionTitle": "Председател на ОбС",
     "declarationYear": 2025,
@@ -114,41 +114,32 @@
     "entryNumber": "Г12112",
     "controlHash": "B483F8A3",
     "sourceUrl": "https://register.cacbg.bg/2025/4AF90F00-FA81-46A2-BCC7-53A7E49D47E7215269.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Комваст ООД",
-        "detail": null,
-        "location": "50% дялово участие - размер на капитала 1000 лв.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50% дялово участие - размер на капитала 1000 лв.",
+        "companyName": "Комваст ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "не съм управител",
+        "companyName": "Комваст ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Комваст ООД",
-        "detail": null,
-        "location": "не съм управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

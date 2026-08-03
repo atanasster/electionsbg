@@ -541,7 +541,7 @@
   },
   {
     "slug": "veselin-ivanov-tanev-bb55a2",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Иванов Танев",
     "institution": "СБАЛ \"Просперитас\" ООД, София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -552,7 +552,30 @@
     "entryNumber": "В1751",
     "controlHash": "88ED5FB3",
     "sourceUrl": "https://register.cacbg.bg/2024/8CEE0D85-DA2A-46CC-9CCE-D22E560CEEDC196376.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/3",
+        "companyName": "АСМП МЦ Зрение ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/3",
+        "companyName": "СБАЛ ОБ Зрение ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

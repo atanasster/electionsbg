@@ -1,7 +1,7 @@
 [
   {
     "slug": "anatoli-georgiev-dimitrov-0b6cf6",
-    "declarantName": "(unknown)",
+    "declarantName": "Анатоли Георгиев Димитров",
     "institution": "Вършец",
     "positionTitle": "Председател на ОбС",
     "declarationYear": 2025,
@@ -11,60 +11,44 @@
     "entryNumber": "Г14381",
     "controlHash": "FF416BA0",
     "sourceUrl": "https://register.cacbg.bg/2025/6C0B973C-4BD9-4A08-B3B0-4C6FAE783E7F217674.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Сдружение Футболен клуб Олимпия Вършец ЕИК 208249541",
-        "detail": null,
-        "location": "Сдружение без дялово участие",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Сдружение без дялово участие",
+        "companyName": "Сдружение Футболен клуб Олимпия Вършец ЕИК 208249541",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Управителен съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Управителен съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "Сдружение Футболен клуб Олимпия Вършец ЕИК 208249541",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет",
+        "companyName": "Сдружение Футболен клуб Олимпия Вършец ЕИК 208249541",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение Футболен клуб Олимпия Вършец ЕИК 208249541",
-        "detail": null,
-        "location": "Управителен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "anatoli-georgiev-dimitrov-0b6cf6",

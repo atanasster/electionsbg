@@ -288,7 +288,7 @@
   },
   {
     "slug": "damyan-georgiev-damyanov-dec31b",
-    "declarantName": "(unknown)",
+    "declarantName": "Дамян Георгиев Дамянов",
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -299,7 +299,19 @@
     "entryNumber": "В482",
     "controlHash": "9115BBA7",
     "sourceUrl": "https://register.cacbg.bg/2018/CC7B9266-1BFF-4C89-AF3C-1251322990DA89029.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Спортен клуб \"Петър Петров\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

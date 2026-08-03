@@ -1,7 +1,7 @@
 [
   {
     "slug": "atanas-vladislavov-slavov-98e331",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Владиславов Славов",
     "institution": "Министерство на правосъдието",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -12,23 +12,22 @@
     "entryNumber": "В1173",
     "controlHash": "E5257784",
     "sourceUrl": "https://register.cacbg.bg/2023/EB2F0FA0-576A-4459-801D-094A4B19A862156081.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "считано от 05.07.2023 г. заличен като едноличен управителен орган (директор)",
+        "companyName": "Фондация \"Българска мечта\", гр. София - едноличен управителен орган (директор)",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Българска мечта\", гр. София - едноличен управителен орган (директор)",
-        "detail": null,
-        "location": "считано от 05.07.2023 г. заличен като едноличен управителен орган (директор)",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "atanas-vladislavov-slavov-98e331",
@@ -225,7 +224,7 @@
   },
   {
     "slug": "atanas-vladislavov-slavov-98e331",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Владиславов Славов",
     "institution": "Министерство на правосъдието",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -236,9 +235,111 @@
     "entryNumber": "В1054",
     "controlHash": "73A9A63B",
     "sourceUrl": "https://register.cacbg.bg/2023/EB2F0FA0-576A-4459-801D-094A4B19A862155880.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "63 дяла",
+        "companyName": "СУСАНИН 64 00Д",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Директор - подадено заявление за освобождаване",
+        "companyName": "Фондация \"Българската мечта\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС - подадено заявление за освобождаване",
+        "companyName": "Сдружение \"Приятели на Света гора Атон, България\"- не осъществява дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС - подадено заявление за освобождаване",
+        "companyName": "Сдружение \"МИРТА\" - не осъществява дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "63 дяла",
+        "companyName": "СУСАНИН 64 00Д",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Директор",
+        "companyName": "Фондация \"Българската мечта\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Сдружение \"Приятели на Света гора Атон, България\"- не осъществява дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Сдружение \"МИРТА\" - не осъществява дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Недялка Колева Касабова-Славова",
+        "detail": "Съпруга",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

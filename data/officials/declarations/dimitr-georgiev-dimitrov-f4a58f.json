@@ -586,7 +586,7 @@
   },
   {
     "slug": "dimitr-georgiev-dimitrov-f4a58f",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Георгиев Димитров",
     "institution": "МБАЛ Благоевград АД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -597,7 +597,19 @@
     "entryNumber": "В405",
     "controlHash": "0E6537AD",
     "sourceUrl": "https://register.cacbg.bg/2024/44229817-F458-4F51-9319-EFCEDA3BD5BD177022.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МЦ Мона Лиза ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

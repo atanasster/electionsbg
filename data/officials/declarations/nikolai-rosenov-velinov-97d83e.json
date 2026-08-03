@@ -1202,7 +1202,7 @@
   },
   {
     "slug": "nikolai-rosenov-velinov-97d83e",
-    "declarantName": "(unknown)",
+    "declarantName": "Николай Росенов Велинов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -1213,7 +1213,30 @@
     "entryNumber": "В2520",
     "controlHash": "1E066AB8",
     "sourceUrl": "https://register.cacbg.bg/2018/E74860D7-0326-4A66-ABB6-355DAF98513D91476.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "333 броя поименни акции",
+        "companyName": "\" Нитекс 96 \" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "333 бр. поименни акции",
+        "companyName": "\" Нитекс 96 \" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

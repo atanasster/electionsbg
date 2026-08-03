@@ -178,7 +178,7 @@
   },
   {
     "slug": "stefan-emilov-stoyanov-e798bb",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Емилов Стоянов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -189,42 +189,33 @@
     "entryNumber": "Г2361",
     "controlHash": "D9D98559",
     "sourceUrl": "https://register.cacbg.bg/2018/D451FF5F-9302-409C-8AF2-6080B4D44B5C92868.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател на УС",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател на УС",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заместник-председател на УС",
+        "companyName": "Общинкса фондация Пловдив 2019",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Общинкса фондация Пловдив 2019",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Общинкса фондация Пловдив 2019",
-        "detail": null,
-        "location": "заместник-председател на УС",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "stefan-emilov-stoyanov-e798bb",

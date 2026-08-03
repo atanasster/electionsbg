@@ -1,7 +1,7 @@
 [
   {
     "slug": "zdravko-simov-karamitev-7ac800",
-    "declarantName": "(unknown)",
+    "declarantName": "Здравко Симов Карамитев",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В454",
     "controlHash": "7BCE103E",
     "sourceUrl": "https://register.cacbg.bg/2025/5D5FCB9D-90C9-40DE-BB51-38C2CDBA8915203036.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Св. Ап. Лука-Настоятелство на лечебно заведение кооперация Хоспис-Кърджали",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник Председател",
+        "companyName": "Национална Асоциация на хосписите в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

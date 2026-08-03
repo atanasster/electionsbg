@@ -1,7 +1,7 @@
 [
   {
     "slug": "valentin-kostadinov-chambov-470ed1",
-    "declarantName": "(unknown)",
+    "declarantName": "Валентин Костадинов Чамбов",
     "institution": "Министерство на земеделието",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -12,7 +12,30 @@
     "entryNumber": "В653",
     "controlHash": "AEDFDFD7",
     "sourceUrl": "https://register.cacbg.bg/2022/FEF1E3E6-6DEB-417D-A8E1-64FAD51BC147134324.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "ЮЛНЦ Съюз на лесовъдите в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Ловно-рибарско дружество Сокол гр. Гоце Делчев",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

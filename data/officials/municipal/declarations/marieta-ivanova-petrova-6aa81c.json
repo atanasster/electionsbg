@@ -415,7 +415,7 @@
   },
   {
     "slug": "marieta-ivanova-petrova-6aa81c",
-    "declarantName": "(unknown)",
+    "declarantName": "Мариета Иванова Петрова",
     "institution": "Две Могили",
     "positionTitle": "Кмет",
     "declarationYear": 2025,
@@ -428,6 +428,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Петя Иванова Лашева",
+        "detail": "търговия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Венцислав Петков Лашев",
+        "detail": "търговия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

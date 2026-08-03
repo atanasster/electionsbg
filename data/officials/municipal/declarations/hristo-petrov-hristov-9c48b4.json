@@ -218,7 +218,7 @@
   },
   {
     "slug": "hristo-petrov-hristov-9c48b4",
-    "declarantName": "(unknown)",
+    "declarantName": "Христо Петров Христов",
     "institution": "Балчик",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -228,58 +228,45 @@
     "entryNumber": "Г13084",
     "controlHash": "E0A8B4A5",
     "sourceUrl": "https://register.cacbg.bg/2025/6B14C51A-5356-4AFA-81A7-0BAB95C00B7A216277.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "security",
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
+        "companyName": "Електроразпределение Север АД, ЕИК 104518621",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Христо Петров Христов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "38274",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "банка ОББ",
-        "isSpouse": true,
-        "legalBasis": "спестявания/погасяване-07.05.25",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 19569.185460904067,
+        "legalBasis": "спестявания/погасяване-07.05.25"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "ипотечен кредит/внесени 07.05.25г.",
         "detail": "Христо Петров Христов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "35000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "банка ОББ",
-        "isSpouse": true,
-        "legalBasis": "спестявания/частично погасяване",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Електроразпределение Север АД, ЕИК 104518621",
-        "detail": null,
-        "location": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 17895.215841867648,
+        "legalBasis": "спестявания/частично погасяване"
       }
     ]
   }

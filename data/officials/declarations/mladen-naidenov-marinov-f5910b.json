@@ -340,7 +340,7 @@
   },
   {
     "slug": "mladen-naidenov-marinov-f5910b",
-    "declarantName": "(unknown)",
+    "declarantName": "Младен Найденов Маринов",
     "institution": "Министерство на вътрешните работи",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -351,23 +351,22 @@
     "entryNumber": "Г1669",
     "controlHash": "C214774F",
     "sourceUrl": "https://register.cacbg.bg/2019/8C0D6B0C-CF90-468C-AC1A-C7C44D55A96996031.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на орган на управление до 11.03.2019",
+        "companyName": "СДРУЖЕНИЕ \"СПОРТНА АСОЦИАЦИЯ-МВР\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "СДРУЖЕНИЕ \"СПОРТНА АСОЦИАЦИЯ-МВР\"",
-        "detail": null,
-        "location": "член на орган на управление до 11.03.2019",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "mladen-naidenov-marinov-f5910b",

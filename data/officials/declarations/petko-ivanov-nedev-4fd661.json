@@ -280,7 +280,7 @@
   },
   {
     "slug": "petko-ivanov-nedev-4fd661",
-    "declarantName": "(unknown)",
+    "declarantName": "Петко Иванов Невед",
     "institution": "МБАЛ \"Св. Пантелеймон\", гр. Пловдив",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -291,7 +291,30 @@
     "entryNumber": "В923",
     "controlHash": "9C8052FA",
     "sourceUrl": "https://register.cacbg.bg/2018/56E0A03F-A265-4DDF-A2B7-FC1BC88DF0C989485.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Активно равновесие\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение \"Активно равновесие\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

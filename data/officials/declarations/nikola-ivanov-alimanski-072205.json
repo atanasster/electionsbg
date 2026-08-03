@@ -339,7 +339,7 @@
   },
   {
     "slug": "nikola-ivanov-alimanski-072205",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Иванов Алимански",
     "institution": "Членовете на управителните и контролните органи на Електроенергийния системен оператор",
     "positionTitle": "Член на Надзорен съвет",
     "category": "state_enterprise",
@@ -350,7 +350,30 @@
     "entryNumber": "В812",
     "controlHash": "25EA8146",
     "sourceUrl": "https://register.cacbg.bg/2023/0B88927C-CE92-473D-A490-EA18587D4EA3154523.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Стани - 2015\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Стани - 2015\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

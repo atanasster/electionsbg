@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivailo-evtimov-sotirov-23f1fa",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивайло Евтимов Сотиров",
     "institution": "Служба “Военна полиция\" към МО",
     "positionTitle": "Директор",
     "category": "security_service",
@@ -12,23 +12,22 @@
     "entryNumber": "Г2934",
     "controlHash": "B2103B2C",
     "sourceUrl": "https://register.cacbg.bg/2025/25F68F24-1EDE-403F-8013-BB4EFE97A257205647.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "С решение на общо събрание на асоциацията през 2024 г. вече не съм член на управителния съвет",
+        "companyName": "Военнополицейска асоциация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Военнополицейска асоциация",
-        "detail": null,
-        "location": "С решение на общо събрание на асоциацията през 2024 г. вече не съм член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "ivailo-evtimov-sotirov-23f1fa",

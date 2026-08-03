@@ -842,7 +842,7 @@
   },
   {
     "slug": "slavcho-sotirov-bliznakov-6761ce",
-    "declarantName": "(unknown)",
+    "declarantName": "Славчо Сотиров Близнаков",
     "institution": "МБАЛ \"Св.Анна\" - София\"  АД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -853,7 +853,30 @@
     "entryNumber": "В665",
     "controlHash": "4EF486E6",
     "sourceUrl": "https://register.cacbg.bg/2018/67CE8F65-67ED-42D0-B2ED-5FCAE7CBB46E89217.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "1/2 - Изпълнителен директор",
+        "companyName": "Център за здравни политики - нефунционираща",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "1/2 - Изпълнителен директор",
+        "companyName": "Център за здравни политики - нефункционираща",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

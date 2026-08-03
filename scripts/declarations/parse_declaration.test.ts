@@ -10,6 +10,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { load } from "cheerio";
 import {
+  detectFormKind,
   detectFormVersion,
   parseDeclarationXml,
   pickEurValue,
@@ -806,5 +807,189 @@ describe("form versions — the pre-2018 table numbering", () => {
     expect(re?.share).toBe("1");
     expect(re?.legalBasis).toBe("покупка");
     expect(re?.holderName).toBe("Дамян Миков Миков");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The INTERESTS forms. Two of the three declaration forms the register
+// publishes are not the asset form, and one of them (Dekl3) numbers its tables
+// 1-9 — the same numbers the asset map uses for real estate, disposals,
+// vehicles, cash, bank, receivables, debts, investments and securities. Read
+// against that map, 565 of 575 Dekl3 filings published phantom holdings, one of
+// them a €3.58bn "security" read out of a loan CONTRACT NUMBER. Dekl2 failed
+// silently the other way: its tables 15-22 exist nowhere in the asset map, so
+// all 4,331 filings parsed to nothing.
+// ---------------------------------------------------------------------------
+describe("parseInterestTables — the two interests forms", () => {
+  const interestsXml = (root: string, tables: string) =>
+    `<?xml version="1.0" encoding="utf-8"?>
+<${root}>
+  <Personal><Name>Гергана Димитрова Орманлиева</Name></Personal>
+  <DeclarationData>
+    <DeclarationType>Other</DeclarationType>
+    <DeclarationDate>07.07.2025</DeclarationDate>
+  </DeclarationData>
+  <Tables>${tables}</Tables>
+</${root}>`;
+
+  const table = (num: string, cells: Record<number, string>) =>
+    `<Table Num="${num}" Description="t" Declared="True"><Row Num="1">${Object.entries(
+      cells,
+    )
+      .map(([n, v]) => `<Cell Num="${n}" Description="c">${v}</Cell>`)
+      .join("")}</Row></Table>`;
+
+  const parse = (xml: string) =>
+    parseDeclarationXml({
+      xml,
+      mpId: 0,
+      institution: "Агенция по заетостта при МТСП",
+      sourceUrl: url("2025"),
+    });
+
+  // The row this whole change exists for: a 7,000 BGN consumer loan repaid out
+  // of a gift, which the asset map published as an unvalued "Ценни книжа" row
+  // tagged as the spouse's.
+  it("reads an early repayment with its amount and the origin of the funds", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("9", {
+          2: "потребителски кредит",
+          3: "7000",
+          4: "BGN",
+          6: "Гергана Димитрова Орманлиева",
+          7: "договор за кредит",
+          8: "да",
+          10: "дарение",
+        }),
+      ),
+    );
+    expect(d.events).toHaveLength(1);
+    const [e] = d.events!;
+    expect(e.kind).toBe("early_repayment");
+    expect(e.description).toBe("потребителски кредит");
+    expect(e.detail).toBe("Гергана Димитрова Орманлиева");
+    expect(e.legalBasis).toBe("дарение");
+    expect(e.currency).toBe("BGN");
+    expect(e.valueEur).toBeCloseTo(7000 / 1.95583, 2);
+    // …and NOT as a holding: an interests filing has no assets at all, so it
+    // must not put a number into any net worth.
+    expect(d.assets).toEqual([]);
+  });
+
+  // The €3.58bn row. Cell 7 is "правно основание за задължението" — free text —
+  // and one declarant typed their loan contract number into it. The asset map
+  // read cell 7 of table 9 as a security's price.
+  it("never reads the legal-basis cell as money", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("9", {
+          2: "ипотечен кредит",
+          3: "69866",
+          4: "BGN",
+          5: "69866",
+          6: "Женя Петрова Дюлгерова-Маринова",
+          7: "7001070875",
+          10: "спестявания",
+        }),
+      ),
+    );
+    const [e] = d.events!;
+    expect(e.valueEur).toBeCloseTo(69866 / 1.95583, 2);
+    expect(e.valueEur!).toBeLessThan(100_000);
+  });
+
+  it("reads company holdings as stakes, marking the ones held before appointment", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("1", { 2: "АЛФА ЕООД", 3: "100%" }) +
+          table("2", { 2: "БЕТА АД", 3: "член на съвет на директорите" }) +
+          table("4", { 2: "ГАМА ООД", 3: "50%" }),
+      ),
+    );
+    expect(d.assets).toEqual([]);
+    expect(d.ownershipStakes.map((s) => [s.table, s.companyName])).toEqual([
+      ["10", "АЛФА ЕООД"],
+      ["10", "БЕТА АД"],
+      ["11", "ГАМА ООД"],
+    ]);
+    // A declared interest states WHETHER, never how much. A 0 would enter the
+    // stake as worth nothing rather than as unpriced.
+    expect(d.ownershipStakes.every((s) => s.valueEur === null)).toBe(true);
+    expect(d.ownershipStakes[1].shareSize).toBe("член на съвет на директорите");
+  });
+
+  it("reads contracts and related persons as events, not as debts and investments", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("7", { 2: "Иван Петров", 3: "консултантски услуги" }) +
+          table("8", { 2: "Мария Петрова", 3: "строителство" }),
+      ),
+    );
+    expect(d.assets).toEqual([]);
+    expect(d.events!.map((e) => [e.kind, e.description, e.detail])).toEqual([
+      ["interest_contract", "Иван Петров", "консултантски услуги"],
+      ["related_person", "Мария Петрова", "строителство"],
+    ]);
+  });
+
+  // Dekl2's tables are 15-22. Under the asset map none of them existed, so the
+  // whole form parsed to nothing — 4,331 filings, 3,176 declared interests, all
+  // dropped with nothing to notice.
+  it("reads the entry form's 15-22 numbering", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl2",
+        table("15", { 2: "ДЕЛТА ЕООД", 3: "100%" }) +
+          table("19", { 2: "ЕПСИЛОН АД", 3: "управител" }) +
+          table("22", { 2: "Петър Иванов", 3: "търговия" }),
+      ),
+    );
+    expect(d.ownershipStakes.map((s) => [s.table, s.companyName])).toEqual([
+      ["10", "ДЕЛТА ЕООД"],
+      ["11", "ЕПСИЛОН АД"],
+    ]);
+    expect(d.events!.map((e) => e.kind)).toEqual(["related_person"]);
+  });
+
+  // The entry form has no early-repayment table. Its slot is null rather than a
+  // number so it cannot fall through to a neighbouring table by accident.
+  it("does not invent an early repayment on the form that has no such table", () => {
+    const d = parse(
+      interestsXml("PublicPersonDekl2", table("9", { 2: "x", 3: "7000" })),
+    );
+    expect(d.events).toEqual([]);
+    expect(d.assets).toEqual([]);
+  });
+
+  // The declarant's own name lives at Personal > Name on every form. The old
+  // `PublicPerson > Personal > Name` selector matched only the asset form, so
+  // all 4,906 interests filings were attributed to "(unknown)".
+  it("reads the declarant name off an interests form", () => {
+    const d = parse(interestsXml("PublicPersonDekl3", ""));
+    expect(d.declarantName).toBe("Гергана Димитрова Орманлиева");
+  });
+
+  it("parses no tables at all on an unrecognised form, and says so", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const d = parse(
+      interestsXml("PublicPersonDekl4", table("1", { 2: "x", 3: "y" })),
+    );
+    expect(d.ownershipStakes).toEqual([]);
+    expect(d.assets).toEqual([]);
+    expect(d.events).toEqual([]);
+    expect(warn).toHaveBeenCalled();
+  });
+
+  it("detects each form from its root element", () => {
+    const kind = (root: string) =>
+      detectFormKind(load(interestsXml(root, ""), { xmlMode: true }));
+    expect(kind("PublicPerson")).toBe("assets");
+    expect(kind("PublicPersonDekl2")).toBe("interests_entry");
+    expect(kind("PublicPersonDekl3")).toBe("interests_change");
   });
 });

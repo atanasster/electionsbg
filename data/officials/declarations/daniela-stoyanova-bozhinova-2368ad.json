@@ -1,7 +1,7 @@
 [
   {
     "slug": "daniela-stoyanova-bozhinova-2368ad",
-    "declarantName": "(unknown)",
+    "declarantName": "Даниела Стоянова Божинова",
     "institution": "ПП \"Зелено движение\"",
     "positionTitle": "Съпредседател",
     "category": "party_leader",
@@ -12,42 +12,33 @@
     "entryNumber": "Г1776",
     "controlHash": "69755F81",
     "sourceUrl": "https://register.cacbg.bg/2024/3E101CD5-4403-4187-83C4-E5A44AE0D5ED188294.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Съпредседател",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Съпредседател",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Съпредседател",
+        "companyName": "ПП \"Зелено движение\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Съпредседател",
+        "companyName": "ПП \"Зелено движение\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПП \"Зелено движение\"",
-        "detail": null,
-        "location": "Съпредседател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "daniela-stoyanova-bozhinova-2368ad",

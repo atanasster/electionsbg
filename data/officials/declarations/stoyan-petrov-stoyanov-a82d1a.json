@@ -1,7 +1,7 @@
 [
   {
     "slug": "stoyan-petrov-stoyanov-a82d1a",
-    "declarantName": "(unknown)",
+    "declarantName": "Стоян Петров Стоянов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,23 +12,22 @@
     "entryNumber": "Г1729",
     "controlHash": "0B6EAF32",
     "sourceUrl": "https://register.cacbg.bg/2020/63BED745-1F8B-4901-9319-7F524233628D111673.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член",
+        "companyName": "Държавна комисия по хазарта",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Държавна комисия по хазарта",
-        "detail": null,
-        "location": "член",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "stoyan-petrov-stoyanov-a82d1a",

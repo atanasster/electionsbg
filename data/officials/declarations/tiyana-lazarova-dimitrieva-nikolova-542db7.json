@@ -1315,7 +1315,7 @@
   },
   {
     "slug": "tiyana-lazarova-dimitrieva-nikolova-542db7",
-    "declarantName": "(unknown)",
+    "declarantName": "Тияна Лазарова Димитриева - Николова",
     "institution": "СБАЛ \"Св. Лазар\"ООД, гр. София",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1326,7 +1326,41 @@
     "entryNumber": "В625",
     "controlHash": "E8CACFCE",
     "sourceUrl": "https://register.cacbg.bg/2018/010D3262-B073-4A13-B177-A06CE9B1AED689177.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "342900 лв.",
+        "companyName": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ЛАЗАР\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ЛАЗАР\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Ликвидатор",
+        "companyName": "\"МЕДИЦИНСКИ ЦЕНТЪР РЕГЕНЕРАТИВНА МЕДИЦИНА\" ЕООД - в ликвидация",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

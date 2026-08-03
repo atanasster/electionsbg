@@ -1,7 +1,7 @@
 [
   {
     "slug": "nikolina-petrova-nikolova-936138",
-    "declarantName": "(unknown)",
+    "declarantName": "НИКОЛИНА ПЕТРОВА НИКОЛОВА",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -12,23 +12,22 @@
     "entryNumber": "Г3305",
     "controlHash": "DE6D2118",
     "sourceUrl": "https://register.cacbg.bg/2019/4D1D1F89-DF71-4528-BBD6-27FD2BF1FA0497756.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ ТРЯВНА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ ТРЯВНА",
-        "detail": null,
-        "location": "ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "nikolina-petrova-nikolova-936138",

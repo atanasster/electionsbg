@@ -124,7 +124,7 @@
   },
   {
     "slug": "petko-georgiev-nikolov-7bb5bf",
-    "declarantName": "(unknown)",
+    "declarantName": "Петко Георгиев Николов",
     "institution": "Министерство на икономиката и индустрията",
     "positionTitle": "Служебен министър",
     "category": "cabinet",
@@ -135,7 +135,19 @@
     "entryNumber": "В991",
     "controlHash": "3134DC93",
     "sourceUrl": "https://register.cacbg.bg/2024/0DA10D0F-FC14-45F3-9D28-3980CB550509183154.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"ЕЛВИ-С\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

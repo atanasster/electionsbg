@@ -724,7 +724,7 @@
   },
   {
     "slug": "tsvetomir-ivanov-dimitrov-fc5f0f",
-    "declarantName": "(unknown)",
+    "declarantName": "Цветомир Иванов Димитров",
     "institution": "Първа МБАЛ - София ЕАД",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -735,7 +735,19 @@
     "entryNumber": "В877",
     "controlHash": "9AD81FD6",
     "sourceUrl": "https://register.cacbg.bg/2018/E7006102-1A67-446D-8C6B-9BAA57F0517689437.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "Тенис клуб към Национална спортна академия",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

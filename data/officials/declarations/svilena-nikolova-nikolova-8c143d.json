@@ -126,7 +126,7 @@
   },
   {
     "slug": "svilena-nikolova-nikolova-8c143d",
-    "declarantName": "(unknown)",
+    "declarantName": "Свилена Николова Николова",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -137,7 +137,19 @@
     "entryNumber": "В101",
     "controlHash": "D774F54C",
     "sourceUrl": "https://register.cacbg.bg/2023/938CB222-F141-4700-864C-F182E7A62AF0145573.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "АСМ ГРУП ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

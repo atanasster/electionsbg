@@ -455,7 +455,7 @@
   },
   {
     "slug": "georgi-borisov-georgiev-8c532c",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Борисов Георгиев",
     "institution": "СБАЛО \"Св. Мина\" - Благоевград\" ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -466,7 +466,30 @@
     "entryNumber": "В544",
     "controlHash": "BEBB7405",
     "sourceUrl": "https://register.cacbg.bg/2018/7A986AB0-FABB-49C7-BF4B-AA02700F4C2989091.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МДЛ \"Цитолаб\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "МДЛ \"Цитолаб\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

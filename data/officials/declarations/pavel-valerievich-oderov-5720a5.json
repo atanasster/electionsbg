@@ -37,7 +37,7 @@
   },
   {
     "slug": "pavel-valerievich-oderov-5720a5",
-    "declarantName": "(unknown)",
+    "declarantName": "Павел Валериевич Одеров",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -48,7 +48,30 @@
     "entryNumber": "В2940",
     "controlHash": "1F31FFBC",
     "sourceUrl": "https://register.cacbg.bg/2018/310BEE7A-7EF5-4943-9C31-4A0075A15F6C93004.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Заместник председател на Съвета на директорите",
+        "companyName": "Южен Поток България АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Съвета на директорите",
+        "companyName": "South Stream Transport B.V",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -141,7 +141,7 @@
   },
   {
     "slug": "mustafa-musa-sirachki-63ae44",
-    "declarantName": "(unknown)",
+    "declarantName": "Мустафа Муса Сирачки",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -152,7 +152,30 @@
     "entryNumber": "В1688",
     "controlHash": "CCF0EFDF",
     "sourceUrl": "https://register.cacbg.bg/2024/D23F194D-CA17-40D8-BF54-EAE13D0ECF29196165.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1",
+        "companyName": "Фондация \"Младежка толерантност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1",
+        "companyName": "Фондация \"Младежка толерантност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

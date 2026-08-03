@@ -213,7 +213,7 @@
   },
   {
     "slug": "vanya-georgieva-velichkova-a3ab7f",
-    "declarantName": "(unknown)",
+    "declarantName": "Ваня Георгиева Величкова",
     "institution": "МБАЛ \"Д-р Братан Шукеров\" АД, гр.Смолян",
     "positionTitle": "Член на СД",
     "category": "hospital_head",
@@ -226,27 +226,21 @@
     "sourceUrl": "https://register.cacbg.bg/2024/92D2D2A6-C01E-431B-A367-C93AD024E555196195.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Ваня Георгиева Величкова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "80000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "х",
-        "isSpouse": true,
-        "legalBasis": "продажба на имот",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "продажба на имот"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "vanya-georgieva-velichkova-a3ab7f",

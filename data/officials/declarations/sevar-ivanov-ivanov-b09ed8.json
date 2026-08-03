@@ -1,7 +1,7 @@
 [
   {
     "slug": "sevar-ivanov-ivanov-b09ed8",
-    "declarantName": "(unknown)",
+    "declarantName": "Севар Иванов Иванов",
     "institution": "Национален фонд \"Култура\"",
     "positionTitle": "Член на УС",
     "category": "regional_director",
@@ -12,10 +12,80 @@
     "entryNumber": "В1410",
     "controlHash": "F0762D52",
     "sourceUrl": "https://register.cacbg.bg/2025/1D88A855-3A44-499C-86E0-858BA17DCAB5219492.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Пърл Ривър Продакшън ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Сдружение \"Съюз на артистите в БЪлгария\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Пърл Ривър Продакшън ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Сдружение \"Съюз на артистите в България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Михаил Илков Байков",
+        "detail": "Граждански договор с Младежки театър \"Николай Бинев\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Стефания Георгиева Георгиева",
+        "detail": "Сценични изкуства",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "sevar-ivanov-ivanov-b09ed8",

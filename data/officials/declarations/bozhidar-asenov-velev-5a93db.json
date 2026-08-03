@@ -1419,7 +1419,7 @@
   },
   {
     "slug": "bozhidar-asenov-velev-5a93db",
-    "declarantName": "(unknown)",
+    "declarantName": "БОЖИДАР АСЕНОВ ВЕЛЕВ",
     "institution": "МБАЛ - Разлог ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1430,7 +1430,30 @@
     "entryNumber": "В1413",
     "controlHash": "089A8C97",
     "sourceUrl": "https://register.cacbg.bg/2018/C6A91345-13A1-4C2B-BB91-5E44180EDBC989990.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "ЛЕЧЕБНА - НЕ РАБОТЯ  ПРЕЗ  ПЕРИОДА НА ДОГОВА ЗА УПРАВЛЕНИЕ",
+        "companyName": "ЕТ Д-Р БОЖИДАР ВЕЛЕВ - АСМП –ИПСМП - КАРДИОЛОГ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "ЛЕЧЕБНА - НЕ РАБОТЯ  ПРЕЗ  ПЕРИОДА НА ДОГОВА ЗА УПРАВЛЕНИЕ",
+        "companyName": "ЕТ Д-Р БОЖИДАР ВЕЛЕВ - АСМП –ИПСМП - КАРДИОЛОГ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1176,7 +1176,7 @@
   },
   {
     "slug": "miroslav-lchezarov-nikolov-3efebd",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирослав Лъчезаров Николов",
     "institution": "Югозападно държавно предприятие ДП Благоевград",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1187,9 +1187,34 @@
     "entryNumber": "В311",
     "controlHash": "8F86269E",
     "sourceUrl": "https://register.cacbg.bg/2022/6288A184-DEF9-412E-9061-62F5D394D3DE131672.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "\"Рубуслес\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Славка Иванова Котларова",
+        "detail": "Земеделски производител, счетоводител",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

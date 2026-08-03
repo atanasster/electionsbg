@@ -1,7 +1,7 @@
 [
   {
     "slug": "panaiot-ivov-filipov-5cc0ec",
-    "declarantName": "(unknown)",
+    "declarantName": "ПАНАЙОТ ИВОВ ФИЛИПОВ",
     "institution": "Членове на УС и на НС на Българската банка за развитие",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -12,10 +12,57 @@
     "entryNumber": "В10320",
     "controlHash": "B3C4350F",
     "sourceUrl": "https://register.cacbg.bg/2020/BBF5C8FE-4222-4907-91AE-ED8C5B8CF940112542.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА СД",
+        "companyName": "ЗАД ОЗК-ЗАСТРАХОВАНЕ АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА СД",
+        "companyName": "ЗАД ОЗК-ЗАСТРАХОВАНЕ АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ИЗПЪЛНИТЕЛЕН ДИРЕКТОР И ПРЕДСЕДАТЕЛ НА УС",
+        "companyName": "БЪЛГАРСКА АГЕНЦИЯ ЗА ЕКСПОРТНО ЗАСТРАХОВАНЕ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "ХРИСТИНА АТАНАСОВА ФИЛИПОВА - МАЙКА",
+        "detail": "ПРОКУРИСТ В ОББ БЪЛГАРИЯ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "panaiot-ivov-filipov-5cc0ec",

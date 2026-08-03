@@ -1,7 +1,7 @@
 [
   {
     "slug": "vasil-hristov-krstev-c54cd2",
-    "declarantName": "(unknown)",
+    "declarantName": "Васил Христов Кръстев",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -12,7 +12,30 @@
     "entryNumber": "В1119",
     "controlHash": "7ECE8E2F",
     "sourceUrl": "https://register.cacbg.bg/2023/2C0C26EE-BC68-44EF-94C5-F18E1556CD51155986.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Национална асоциаия \"Сигурност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителния съвет",
+        "companyName": "Национална асоциаия \"Сигурност\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

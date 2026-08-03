@@ -129,7 +129,7 @@
   },
   {
     "slug": "dimitr-metodiev-benin-aa2de3",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Методиев Бенин",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Контрольор",
     "category": "medical_center",
@@ -140,7 +140,30 @@
     "entryNumber": "В1725",
     "controlHash": "A37058F7",
     "sourceUrl": "https://register.cacbg.bg/2024/F9BAD59A-1222-42DF-BC60-0551CB312A96196303.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на упрвителния съвет",
+        "companyName": "Пловдивско Македонско благотворително дружество \" Гоце Делчев \" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Пловдивско Македонски благотворително дружество \" Гоце Делчев \" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

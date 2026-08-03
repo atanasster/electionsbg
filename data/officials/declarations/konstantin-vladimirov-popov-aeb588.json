@@ -484,7 +484,7 @@
   },
   {
     "slug": "konstantin-vladimirov-popov-aeb588",
-    "declarantName": "(unknown)",
+    "declarantName": "КОНСТАНТИН ВЛАДИМИРОВ ПОПОВ",
     "institution": "МБАЛ - Дулово ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -495,7 +495,19 @@
     "entryNumber": "В2981",
     "controlHash": "B2C5DAD0",
     "sourceUrl": "https://register.cacbg.bg/2018/375AD38D-DED7-4D53-9B2B-BF1254226EA693049.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ ДУЛОВО ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

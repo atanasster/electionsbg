@@ -236,7 +236,7 @@
   },
   {
     "slug": "emil-lyubchov-lazarov-dadef7",
-    "declarantName": "(unknown)",
+    "declarantName": "Емил Любчов Лазаров",
     "institution": "Божурище",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -248,26 +248,20 @@
     "sourceUrl": "https://register.cacbg.bg/2025/DD2C0012-656A-4962-B59E-6D427B271177218840.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "кредит",
         "detail": "Женя Бойчева Стойкова-Лазарова",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "21006",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Юробанк България АД",
-        "isSpouse": true,
-        "legalBasis": "от родител",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 10740.197256407766,
+        "legalBasis": "от родител"
       }
-    ],
-    "events": []
+    ]
   }
 ]

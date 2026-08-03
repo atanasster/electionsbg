@@ -498,7 +498,7 @@
   },
   {
     "slug": "zdravko-simeonov-zdravkov-de9f7e",
-    "declarantName": "(unknown)",
+    "declarantName": "ЗДРАВКО СИМЕОНОВ ЗДРАВКОВ",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -509,7 +509,30 @@
     "entryNumber": "В1057",
     "controlHash": "287A6A6D",
     "sourceUrl": "https://register.cacbg.bg/2018/CBBEE92C-AE2B-424D-8903-49ECC7DF54FB89620.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "КВАДРА 04 ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "ИНФРА КОНСУЛТ ГРУП ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -345,7 +345,7 @@
   },
   {
     "slug": "todor-kaloyanov-kaloyanov-b8f9ba",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Калоянов Калоянов",
     "institution": "ДП \"Фонд затворно дело\"",
     "positionTitle": "Член на УС",
     "category": "state_enterprise",
@@ -356,7 +356,41 @@
     "entryNumber": "В939",
     "controlHash": "4632A174",
     "sourceUrl": "https://register.cacbg.bg/2024/DD7B084B-37BB-4773-B303-05EB1C938FE8182055.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Прокисма Консулт ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "Проксима Консулт ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Проксима Консулт ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

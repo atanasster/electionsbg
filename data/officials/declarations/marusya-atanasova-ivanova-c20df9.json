@@ -1,7 +1,7 @@
 [
   {
     "slug": "marusya-atanasova-ivanova-c20df9",
-    "declarantName": "(unknown)",
+    "declarantName": "Маруся Атанасова Иванова",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В476",
     "controlHash": "CA51CB3B",
     "sourceUrl": "https://register.cacbg.bg/2025/196A3474-4B9B-476E-8119-0CAF137DEEA6203173.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "250 дяла за 28500 лева",
+        "companyName": "МиМ 2023 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "МиМ 2023 ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

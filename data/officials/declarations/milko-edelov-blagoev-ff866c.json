@@ -1,7 +1,7 @@
 [
   {
     "slug": "milko-edelov-blagoev-ff866c",
-    "declarantName": "(unknown)",
+    "declarantName": "Милко Еделов Благоев",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -14,45 +14,33 @@
     "sourceUrl": "https://register.cacbg.bg/2025/B15FED32-395D-4FF2-8402-6C302B9F04B2219383.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "Кредитна карта",
         "detail": "Милко Еделов Благоев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "2100",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ДСК",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 1073.7129505120588,
+        "legalBasis": "заплата"
       },
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "овърдрафт",
         "detail": "Милко Еделов Благоев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "500",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ДСК",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "заплата"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "milko-edelov-blagoev-ff866c",
@@ -849,7 +837,7 @@
   },
   {
     "slug": "milko-edelov-blagoev-ff866c",
-    "declarantName": "(unknown)",
+    "declarantName": "Милко Еделов Благоев",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",

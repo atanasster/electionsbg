@@ -362,7 +362,7 @@
   },
   {
     "slug": "vladimir-krasimirov-dobrev-bafae5",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Красимиров Добрев",
     "institution": "Общински предприятия",
     "positionTitle": "Управител",
     "category": "state_enterprise",
@@ -373,7 +373,19 @@
     "entryNumber": "В740",
     "controlHash": "E40F2524",
     "sourceUrl": "https://register.cacbg.bg/2025/FE6F5ED5-76BA-47DB-8D80-05FA5D421AC2205989.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "ЕКСПРЕС ЛЕНД ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

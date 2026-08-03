@@ -867,7 +867,7 @@
   },
   {
     "slug": "minko-tsvyatkov-mihov-cf73ec",
-    "declarantName": "(unknown)",
+    "declarantName": "Минко Цвятков Михов",
     "institution": "МБАЛ  \"Д-р Тота Венкова\" АД, гр.Габрово",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -878,10 +878,68 @@
     "entryNumber": "В10362",
     "controlHash": "8B99F992",
     "sourceUrl": "https://register.cacbg.bg/2020/0C334B07-C4BB-488E-A18C-76404E8C50D5112905.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1 дял 50 лв",
+        "companyName": "НИМ  Транс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1 дял 50 лв",
+        "companyName": "НИМ Транс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "НИМ транс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "МБАЛ \"Д-р Тота Венкова \"АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Светла Иванова Пашова - Михова",
+        "detail": "Съпруга Началник \" Отделение по Педиатрия\" МБАЛ \"Д-р Тота Венкова \"АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "minko-tsvyatkov-mihov-cf73ec",

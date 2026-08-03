@@ -1,7 +1,7 @@
 [
   {
     "slug": "stanimir-hristov-hristov-8f1fd1",
-    "declarantName": "(unknown)",
+    "declarantName": "Станимир Христов Христов",
     "institution": "Отбрана и въоръжени сили на Република България",
     "positionTitle": "Командващ на Съвместното командване на силите",
     "category": "military_command",
@@ -12,23 +12,22 @@
     "entryNumber": "Г1856",
     "controlHash": "0BDE5E19",
     "sourceUrl": "https://register.cacbg.bg/2025/7969ED76-0FCE-4A3B-9E93-087467526513204417.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на контролен съвет  от 01.04.2025 г.",
+        "companyName": "Фондация \" Деца на Българската армия\" гр. София",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \" Деца на Българската армия\" гр. София",
-        "detail": null,
-        "location": "член на контролен съвет  от 01.04.2025 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "stanimir-hristov-hristov-8f1fd1",

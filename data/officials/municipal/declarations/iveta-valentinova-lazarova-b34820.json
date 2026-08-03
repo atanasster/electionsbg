@@ -62,7 +62,7 @@
   },
   {
     "slug": "iveta-valentinova-lazarova-b34820",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивета Валентинова Лазарова",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -72,41 +72,32 @@
     "entryNumber": "Г13563",
     "controlHash": "32FA6961",
     "sourceUrl": "https://register.cacbg.bg/2025/67133FC2-C311-450D-BA58-1B222BECB62C216790.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
-        "detail": null,
-        "location": "1 дял на номинална стойност 1 лев, 50% от капитала",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1 дял на номинална стойност 1 лев, 50% от капитала",
+        "companyName": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

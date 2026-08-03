@@ -218,7 +218,7 @@
   },
   {
     "slug": "vasilena-chavdarova-kostova-59a8b7",
-    "declarantName": "(unknown)",
+    "declarantName": "Василена Чавдарова Костова",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -229,7 +229,41 @@
     "entryNumber": "В683",
     "controlHash": "A5EA36C2",
     "sourceUrl": "https://register.cacbg.bg/2025/CA0142AF-C860-4F4B-A9A2-0C6192589132205171.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10 дяла",
+        "companyName": "АИПСИМП Физиодар",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "АИПСИМП Физиодар",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "10 дяла",
+        "companyName": "АИПСИМП Физиодар",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

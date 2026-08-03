@@ -250,7 +250,7 @@
   },
   {
     "slug": "georgi-kaloferov-georgiev-584949",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Калоферов Георгиев",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
@@ -261,7 +261,30 @@
     "entryNumber": "В1181",
     "controlHash": "714E8326",
     "sourceUrl": "https://register.cacbg.bg/2023/BB4B9673-05A2-4828-8388-03D0F2E2F977156103.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "225",
+        "companyName": "Полимакс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "225",
+        "companyName": "Полимакс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
@@ -515,7 +538,7 @@
   },
   {
     "slug": "georgi-kaloferov-georgiev-584949",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Калоферов Георгиев",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Директор на дирекция",
     "category": "revenue_agency",
@@ -526,7 +549,19 @@
     "entryNumber": "В2",
     "controlHash": "5941AED0",
     "sourceUrl": "https://register.cacbg.bg/2022/BB4B9673-05A2-4828-8388-03D0F2E2F977130881.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "225 дружествени дялове",
+        "companyName": "Полимакс ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -463,7 +463,7 @@
   },
   {
     "slug": "tsvyatko-georgiev-georgiev-6c44cf",
-    "declarantName": "(unknown)",
+    "declarantName": "ЦВЯТКО ГЕОРГИЕВ ГЕОРГИЕВ",
     "institution": "Държавна комисия по сигурността на информацията",
     "positionTitle": "Председател",
     "category": "agency_head",
@@ -474,7 +474,19 @@
     "entryNumber": "В40",
     "controlHash": "D487ADD3",
     "sourceUrl": "https://register.cacbg.bg/2022/AF416EE9-5D9A-41D4-89BA-F7EF3E982CA6131014.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение \"Българска асоциация по супервизия\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

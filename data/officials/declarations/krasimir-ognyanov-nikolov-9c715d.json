@@ -673,7 +673,7 @@
   },
   {
     "slug": "krasimir-ognyanov-nikolov-9c715d",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Огнянов Николов",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -684,7 +684,19 @@
     "entryNumber": "В1471",
     "controlHash": "13C9CFD1",
     "sourceUrl": "https://register.cacbg.bg/2018/D6CAA780-6BF9-4AA2-8904-420725B9A7EE90061.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на УС",
+        "companyName": "Сдружение ,,Териториална организация на научно-техническите съюзи\" Търговище",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

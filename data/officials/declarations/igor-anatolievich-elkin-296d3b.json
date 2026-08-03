@@ -1060,7 +1060,7 @@
   },
   {
     "slug": "igor-anatolievich-elkin-296d3b",
-    "declarantName": "(unknown)",
+    "declarantName": "Игор Анатолиевич Елкин",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -1071,7 +1071,19 @@
     "entryNumber": "В2370",
     "controlHash": "10E75F98",
     "sourceUrl": "https://register.cacbg.bg/2018/4EF4C0D5-3919-4CBF-B807-166BC665AD6D91169.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор",
+        "companyName": "Южен Поток България АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -92,7 +92,7 @@
   },
   {
     "slug": "diyan-atanasov-ivanov-6bd0e3",
-    "declarantName": "(unknown)",
+    "declarantName": "Диян Атанасов Иванов",
     "institution": "Членовете на управителните и контролните органи на БЕХ",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -103,7 +103,30 @@
     "entryNumber": "В808",
     "controlHash": "001B71E2",
     "sourceUrl": "https://register.cacbg.bg/2025/DBEA0B46-BF09-4171-A521-DD07A2716882207746.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение ИЗБЕРИ ЖИВОТА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "Сдружение ИЗБЕРИ ЖИВОТА",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -202,7 +202,7 @@
   },
   {
     "slug": "ilko-evgeniev-ganev-c95438",
-    "declarantName": "(unknown)",
+    "declarantName": "Илко Евгениев Ганев",
     "institution": "Министерство на културата",
     "positionTitle": "Служебен заместник-министър",
     "category": "deputy_minister",
@@ -213,9 +213,34 @@
     "entryNumber": "В1013",
     "controlHash": "DDDAB2E0",
     "sourceUrl": "https://register.cacbg.bg/2024/A00E1B20-5268-4E35-9D18-89D259D98E98183456.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС (в процес на заличаване)",
+        "companyName": "Сдружение \"Живот за Черно море\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "interest_contract",
+        "description": "Валерий Ангелов Костов - ЕТ ВАИК",
+        "detail": "сценарий и режисура - проект за документален филм",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

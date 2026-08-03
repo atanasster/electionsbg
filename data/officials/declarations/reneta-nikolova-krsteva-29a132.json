@@ -822,7 +822,7 @@
   },
   {
     "slug": "reneta-nikolova-krsteva-29a132",
-    "declarantName": "(unknown)",
+    "declarantName": "РЕНЕТА НИКОЛОВА КРЪСТЕВА",
     "institution": "МБАЛ - Павликени ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -833,7 +833,30 @@
     "entryNumber": "В1154",
     "controlHash": "D108E18B",
     "sourceUrl": "https://register.cacbg.bg/2018/EFAE4327-32EE-4039-96D0-99CFC5FD065089718.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ - ПАВЛИКЕНИ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "УПРАВИТЕЛ",
+        "companyName": "МБАЛ - ПАВЛИКЕНИ ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

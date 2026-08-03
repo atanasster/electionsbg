@@ -2258,7 +2258,7 @@
   },
   {
     "slug": "vladimir-asenov-malinov-9b4e7e",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Асенов Малинов",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -2269,7 +2269,30 @@
     "entryNumber": "В2256",
     "controlHash": "278EB542",
     "sourceUrl": "https://register.cacbg.bg/2018/AFF4BF2F-3181-4313-B163-83C54C0B380791042.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвет на директорите на ДП Български спортен тотализатор",
+        "companyName": "ДП Български спортен тотализатор",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвет на директорите на ДП Български спортен тотализатор",
+        "companyName": "ДП Български спортен тотализатор",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

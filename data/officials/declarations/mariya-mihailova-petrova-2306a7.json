@@ -696,7 +696,7 @@
   },
   {
     "slug": "mariya-mihailova-petrova-2306a7",
-    "declarantName": "(unknown)",
+    "declarantName": "Мария Михайлова Петрова",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -707,7 +707,19 @@
     "entryNumber": "В1095",
     "controlHash": "C2D52182",
     "sourceUrl": "https://register.cacbg.bg/2023/8076124B-37BD-4A8E-8022-E3F1EBDA9A90155934.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Управителен съвет",
+        "companyName": "Сдружение Българска асоциация по криминология, ЕИК:130790313",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "panaiot-zdravkov-trendafilov-6c9a4e",
-    "declarantName": "(unknown)",
+    "declarantName": "Панайот Здравков Трендафилов",
     "institution": "Общински предприятия",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В637",
     "controlHash": "F544D5D5",
     "sourceUrl": "https://register.cacbg.bg/2025/376007E7-156E-4639-8C07-81638D454CFB204508.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100 %",
+        "companyName": "Флора ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Флора ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

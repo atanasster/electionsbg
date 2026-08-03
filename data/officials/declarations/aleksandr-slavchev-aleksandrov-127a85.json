@@ -1,7 +1,7 @@
 [
   {
     "slug": "aleksandr-slavchev-aleksandrov-127a85",
-    "declarantName": "(unknown)",
+    "declarantName": "Александър Славчев Александров",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -12,7 +12,30 @@
     "entryNumber": "В1228",
     "controlHash": "65862CD8",
     "sourceUrl": "https://register.cacbg.bg/2025/947FA78C-34B3-4719-B45F-830AD2D6C8D4219007.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "Булкар Рентал енд Логистик ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "Булкар Рентал енд Логистик ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

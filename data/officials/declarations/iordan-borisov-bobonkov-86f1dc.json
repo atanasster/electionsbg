@@ -666,7 +666,7 @@
   },
   {
     "slug": "iordan-borisov-bobonkov-86f1dc",
-    "declarantName": "(unknown)",
+    "declarantName": "ЙОРДАН БОРИСОВ БОБОНКОВ",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -677,7 +677,30 @@
     "entryNumber": "В1466",
     "controlHash": "87988582",
     "sourceUrl": "https://register.cacbg.bg/2018/699A4029-E125-4B27-947C-C20854B580AC90053.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителен съвет",
+        "companyName": "СЛРД \"Сидер войвода\", гр. Горна Оряховица",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителен съвет",
+        "companyName": "СЛРД \"Сидер войвода\", гр. Горна Оряховица",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

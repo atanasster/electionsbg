@@ -725,7 +725,7 @@
   },
   {
     "slug": "milko-krstev-stanchev-bc16e8",
-    "declarantName": "(unknown)",
+    "declarantName": "Милко Кръстев Станчев",
     "institution": "Северозападно държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -736,7 +736,30 @@
     "entryNumber": "В2045",
     "controlHash": "7F589EBD",
     "sourceUrl": "https://register.cacbg.bg/2018/45DA53B3-7E6E-442E-9843-6FD203D1A9C890785.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "70% или 35 дяла",
+        "companyName": "\"Микс\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"Микс\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

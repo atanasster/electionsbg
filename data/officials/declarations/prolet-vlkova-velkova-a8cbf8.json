@@ -241,7 +241,7 @@
   },
   {
     "slug": "prolet-vlkova-velkova-a8cbf8",
-    "declarantName": "(unknown)",
+    "declarantName": "Пролет Вълкова Велкова",
     "institution": "Съвет за електронни медии",
     "positionTitle": "Член",
     "category": "regulator",
@@ -252,7 +252,30 @@
     "entryNumber": "В739",
     "controlHash": "A79AD7AC",
     "sourceUrl": "https://register.cacbg.bg/2022/6EBF6133-29F4-408E-9DA4-B2C3165C599C140829.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на УС и изпълнителен директор",
+        "companyName": "фондация \"Дарик\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на УС и изпълнителен директор",
+        "companyName": "фондация \"Дарик\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

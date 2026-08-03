@@ -274,7 +274,7 @@
   },
   {
     "slug": "plamen-tsenov-blazhev-d493f6",
-    "declarantName": "(unknown)",
+    "declarantName": "Пламен Ценов Блажев",
     "institution": "Първа Частна МБАЛ Враца ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -285,7 +285,30 @@
     "entryNumber": "В998",
     "controlHash": "F55E4D01",
     "sourceUrl": "https://register.cacbg.bg/2018/126D5154-414A-42B4-93D2-3055BE8F764D89560.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1250",
+        "companyName": "МОРФЕЙ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1250",
+        "companyName": "МОРФЕЙ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

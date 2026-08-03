@@ -866,7 +866,7 @@
   },
   {
     "slug": "veselin-velkov-davidov-6d2142",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Велков Давидов",
     "institution": "Агенция \"Пътна инфраструктура\"",
     "positionTitle": "Член",
     "category": "agency_head",
@@ -877,7 +877,30 @@
     "entryNumber": "В609",
     "controlHash": "76677B07",
     "sourceUrl": "https://register.cacbg.bg/2018/2A6F3DDF-E787-4D1C-9237-CF81E646ED1D89161.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "60%",
+        "companyName": "Векинженеринг ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Научноиследователски строителен институт- НИСИ\" ЕООД към МРРБ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

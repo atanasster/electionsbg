@@ -481,7 +481,7 @@
   },
   {
     "slug": "atanas-apostolov-spasov-e53788",
-    "declarantName": "(unknown)",
+    "declarantName": "Атанас Апостолов Спасов",
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -492,7 +492,52 @@
     "entryNumber": "В2945",
     "controlHash": "97CD22B2",
     "sourceUrl": "https://register.cacbg.bg/2018/F27BC909-7529-425D-ADB5-081534C8F9A493010.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5000-100%",
+        "companyName": "\"Босна-Леспром\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "5000-100%",
+        "companyName": "\"Есджи-корект\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител-1",
+        "companyName": "\"Босна-Леспром\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител-1",
+        "companyName": "\"Есджи-корект\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

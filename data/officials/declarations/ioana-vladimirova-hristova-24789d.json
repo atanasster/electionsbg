@@ -376,7 +376,7 @@
   },
   {
     "slug": "ioana-vladimirova-hristova-24789d",
-    "declarantName": "(unknown)",
+    "declarantName": "Йоана Владирова Христова",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -387,28 +387,21 @@
     "entryNumber": "Г1923",
     "controlHash": "F96B4356",
     "sourceUrl": "https://register.cacbg.bg/2018/FAF69FA7-02E7-40C0-9639-E87FCE59848A92273.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "cash",
-        "description": null,
-        "detail": "100%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100%",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "Ай Ви Проджект Груп",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {

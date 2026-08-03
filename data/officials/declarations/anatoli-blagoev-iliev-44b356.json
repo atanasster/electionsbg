@@ -142,7 +142,7 @@
   },
   {
     "slug": "anatoli-blagoev-iliev-44b356",
-    "declarantName": "(unknown)",
+    "declarantName": "Анатоли Благоев Илиев",
     "institution": "Държавни предприятия",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -153,7 +153,30 @@
     "entryNumber": "В1089",
     "controlHash": "612224B0",
     "sourceUrl": "https://register.cacbg.bg/2024/8EE6C93B-2E80-462F-BE06-4E6D7D5C4A7E185163.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на орган на управление",
+        "companyName": "Сдружение \"Българска спортна федерация за деца и младежи в риск\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на орган на управление",
+        "companyName": "Сдружение \"Българска спортна федерация за деца имладежи в риск\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

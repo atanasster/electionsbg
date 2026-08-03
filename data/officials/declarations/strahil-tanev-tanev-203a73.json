@@ -1,7 +1,7 @@
 [
   {
     "slug": "strahil-tanev-tanev-203a73",
-    "declarantName": "(unknown)",
+    "declarantName": "Страхил Танев Танев",
     "institution": "Агенция по геодезия, картография и фотограметрия",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
@@ -12,10 +12,46 @@
     "entryNumber": "В1289",
     "controlHash": "40BE6ADF",
     "sourceUrl": "https://register.cacbg.bg/2023/2ED891A0-86EB-42E8-8E5E-6866684B0374156345.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "3000лева",
+        "companyName": "НЕОКАД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "60%",
+        "companyName": "НЕОКАД ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Владимира Боянова Луканова",
+        "detail": "кадастър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   },
   {
     "slug": "strahil-tanev-tanev-203a73",

@@ -719,7 +719,7 @@
   },
   {
     "slug": "rosen-georgiev-radev-60693a",
-    "declarantName": "(unknown)",
+    "declarantName": "РОСЕН ГЕОРГИЕВ РАДЕВ",
     "institution": "НЦОКС Спешна медицинска помощ",
     "positionTitle": "Директор",
     "category": "agency_head",
@@ -730,7 +730,19 @@
     "entryNumber": "В499",
     "controlHash": "BFB05750",
     "sourceUrl": "https://register.cacbg.bg/2019/B633116B-0C29-46D3-8F14-E91C9A044F8098396.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на съвета на директорите",
+        "companyName": "УМБАЛ Русе",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

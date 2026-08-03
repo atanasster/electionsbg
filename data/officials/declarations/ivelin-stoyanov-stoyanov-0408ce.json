@@ -1,7 +1,7 @@
 [
   {
     "slug": "ivelin-stoyanov-stoyanov-0408ce",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивелин Стоянов Стоянов",
     "institution": "Област - Габрово",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -12,46 +12,37 @@
     "entryNumber": "В368",
     "controlHash": "B9326F09",
     "sourceUrl": "https://register.cacbg.bg/2022/3791B9B1-E8E7-47D7-A8BD-21C4042962AA131837.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "член на надз.съвет предпр.действия,отсранени несъвместимости",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на надз.съвет предпр.действия,отсранени несъвместимости",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "отписан от състава на надзорния съвет на Центряал газ АД",
+        "companyName": "от 15.02 2022 не съм член на надзорния съвет на Централ Газ АД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на надз.съвет предпр.действия,отсранени несъвместимости",
+        "companyName": "ЦЕНТРАЛ ГАЗ АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "от 15.02 2022 не съм член на надзорния съвет на Централ Газ АД",
-        "detail": null,
-        "location": "отписан от състава на надзорния съвет на Центряал газ АД",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "ivelin-stoyanov-stoyanov-0408ce",
-    "declarantName": "(unknown)",
+    "declarantName": "Ивелин Стоянов Стоянов",
     "institution": "Област - Габрово",
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
@@ -62,7 +53,30 @@
     "entryNumber": "В183",
     "controlHash": "1F7C1FCD",
     "sourceUrl": "https://register.cacbg.bg/2022/3791B9B1-E8E7-47D7-A8BD-21C4042962AA131382.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на надзорен съвет,предприети действия за отстраняване на несъвместимост",
+        "companyName": "ЦЕНТРАЛ ГАЗ АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на надзорен съвет,предприети действия за отстраняване на несъвместимост",
+        "companyName": "ЦЕНТРАЛ ГАЗ АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

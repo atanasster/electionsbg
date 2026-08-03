@@ -864,7 +864,7 @@
   },
   {
     "slug": "boto-malinov-arabadzhiev-5041a9",
-    "declarantName": "(unknown)",
+    "declarantName": "Ботьо Малинов Арабаджиев",
     "institution": "Южноцентрално държавно предприятие",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -875,7 +875,41 @@
     "entryNumber": "В1549",
     "controlHash": "C232F8A9",
     "sourceUrl": "https://register.cacbg.bg/2018/AF48B3EC-7529-4964-A0E3-F81C6B00458390146.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "члес на управителния съвет",
+        "companyName": "Сдружение за регионално развитие и евроинтеграция - гр. Лъки",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "25%",
+        "companyName": "\"Форест старт\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителния съвет",
+        "companyName": "Сдружение за регионално развитие и евроинтеграция - гр. Лъки",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

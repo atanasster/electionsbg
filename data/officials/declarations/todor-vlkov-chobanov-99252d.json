@@ -1,7 +1,7 @@
 [
   {
     "slug": "todor-vlkov-chobanov-99252d",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Вълков Чобанов",
     "institution": "Министерство на културата",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -12,23 +12,22 @@
     "entryNumber": "Г10741",
     "controlHash": "1C22DC7D",
     "sourceUrl": "https://register.cacbg.bg/2025/2C09FC85-B459-4D81-8092-26C4B35977B6219568.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Напуснал на 5.05.2025",
+        "companyName": "Член на УС на БНК на ИКОМ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Член на УС на БНК на ИКОМ",
-        "detail": null,
-        "location": "Напуснал на 5.05.2025",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "todor-vlkov-chobanov-99252d",

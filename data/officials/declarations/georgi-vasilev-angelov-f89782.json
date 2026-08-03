@@ -208,7 +208,7 @@
   },
   {
     "slug": "georgi-vasilev-angelov-f89782",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Василев Ангелов",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -219,58 +219,48 @@
     "entryNumber": "В1328",
     "controlHash": "4A7587DF",
     "sourceUrl": "https://register.cacbg.bg/2023/4CA8460A-1FF1-46E0-BBDE-D4677B956647156445.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "\"Гига Джордж\" ЕООД",
-        "detail": null,
-        "location": "Отчуждени дялове - 04.07.2023 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "Отчуждени дялове - 04.07.2023 г.",
+        "companyName": "\"Гига Джордж\" ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Считано от 25.07.2023 г., не съм  председател и член на управителния съвет",
+        "companyName": "Сдружение \"КЛЪСТЕР МИКРОЕЛЕКТРОНИКА И ИНДУСТРИАЛНИ ЕЛЕКТРОННИ СИСТЕМИ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Считано от 04.07.2023 г., не съм управител",
+        "companyName": "\"Гига Джордж\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Сдружение \"КЛЪСТЕР МИКРОЕЛЕКТРОНИКА И ИНДУСТРИАЛНИ ЕЛЕКТРОННИ СИСТЕМИ\"",
-        "detail": null,
-        "location": "Считано от 25.07.2023 г., не съм  председател и член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "disposal_property",
-        "description": "\"Гига Джордж\" ЕООД",
-        "detail": null,
-        "location": "Считано от 04.07.2023 г., не съм управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "georgi-vasilev-angelov-f89782",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Василев Ангелов",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Заместник-министър",
     "category": "deputy_minister",
@@ -281,7 +271,74 @@
     "entryNumber": "В1115",
     "controlHash": "2DCD72CF",
     "sourceUrl": "https://register.cacbg.bg/2023/4CA8460A-1FF1-46E0-BBDE-D4677B956647155982.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Гига Джордж\" ЕООД, ЕИК 175211770",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "собственик на капитала и управител",
+        "companyName": "\"Гига Джордж\" ЕООД, ЕИК 175211770",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател и член на управителния съвет",
+        "companyName": "Сдружение \"Клъстер по микроелектроника и индустриални електронни системи\", ЕИК 175862910",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"Гига Джордж\" ЕООД, ЕИК 175211770",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "собственик на капитала и управител",
+        "companyName": "\"Гига Джордж\" ЕООД, ЕИК 175211770",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател и член на управителния съвет",
+        "companyName": "Сдружение \"Клъстер по микроелектроника и индустриални електронни системи\", ЕИК 175862910",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

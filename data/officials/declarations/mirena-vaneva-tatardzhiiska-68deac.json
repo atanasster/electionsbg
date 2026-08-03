@@ -327,7 +327,7 @@
   },
   {
     "slug": "mirena-vaneva-tatardzhiiska-68deac",
-    "declarantName": "(unknown)",
+    "declarantName": "Мирена Ванева Татарджийска",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -338,7 +338,30 @@
     "entryNumber": "В2506",
     "controlHash": "A988EB90",
     "sourceUrl": "https://register.cacbg.bg/2018/C80308A6-E67F-43B6-A30C-516827E786E491353.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "Данини цвет ООД \\със спряна дейност\\",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "Данини цвет ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

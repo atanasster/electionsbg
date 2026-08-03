@@ -1,7 +1,7 @@
 [
   {
     "slug": "stefan-marinov-stefanov-ca3548",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Маринов Стефанов",
     "institution": "Служба “Военна информация” към МО",
     "positionTitle": "Заместник-директор",
     "category": "security_service",
@@ -12,47 +12,35 @@
     "entryNumber": "Г15282",
     "controlHash": "8638A26B",
     "sourceUrl": "https://register.cacbg.bg/2025/2D1A93E6-0B93-468D-99F0-8E778D273EEC219085.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "Консултативен съвет към кмета на община Етрополе",
-        "detail": null,
-        "location": "член",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "член",
+        "companyName": "Консултативен съвет към кмета на община Етрополе",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
-      },
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
       {
-        "category": "security",
+        "kind": "early_repayment",
         "description": "потребителски кредит",
         "detail": "Стефан Маринов Стефанов",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "68513",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "от заплата  и от продажба на недв.имот",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "valueEur": 35030.140656396514,
+        "legalBasis": "от заплата  и от продажба на недв.имот"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "stefan-marinov-stefanov-ca3548",
@@ -316,7 +304,7 @@
   },
   {
     "slug": "stefan-marinov-stefanov-ca3548",
-    "declarantName": "(unknown)",
+    "declarantName": "Стефан Маринов Стефанов",
     "institution": "Служба “Военна информация” към МО",
     "positionTitle": "Заместник-директор",
     "category": "security_service",

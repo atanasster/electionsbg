@@ -116,7 +116,7 @@
   },
   {
     "slug": "ivan-todorov-seizov-2f8510",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Тодоров Сеизов",
     "institution": "Чавдар",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
@@ -126,41 +126,32 @@
     "entryNumber": "Г3327",
     "controlHash": "45B2C30B",
     "sourceUrl": "https://register.cacbg.bg/2025/A74E423B-A2F1-4D99-9CB3-C098BAF6F74C206086.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Член на контролен съвет",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Член на контролен съвет",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на контролен съвет",
+        "companyName": "ПК \"Възкресение\"",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на контролен съвет",
+        "companyName": "ПК \"Възкресение\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПК \"Възкресение\"",
-        "detail": null,
-        "location": "Член на контролен съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   }
 ]

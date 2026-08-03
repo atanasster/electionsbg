@@ -12,10 +12,14 @@
  *           ...
  *
  * See docs/plans/mp-financial-connections-slice0-findings.md for the full schema.
+ *
+ * THREE forms share that envelope, and only the root element tells them apart:
+ * see `detectFormKind` below.
  */
 
 import { load, type CheerioAPI } from "cheerio";
 import type {
+  DeclarationEventKind,
   MpAsset,
   MpAssetCategory,
   MpDeclaration,
@@ -70,6 +74,63 @@ const isEmptyRow = ($: CheerioAPI, row: ReturnType<CheerioAPI>): boolean => {
       return ($(c).text() || "").trim() !== "";
     });
   return populated.length === 0;
+};
+
+/** WHICH FORM this filing is — read from the XML root element, which is the
+ *  only thing in the document that says so.
+ *
+ *  Three forms share one envelope (`Personal` / `DeclarationData` / `Tables`)
+ *  and the register publishes all three side by side in the same folder:
+ *
+ *    <PublicPerson>      имущество и интереси — tables 1…14, the asset form
+ *                        every column map below was written for.
+ *    <PublicPersonDekl2> интереси при встъпване — tables 15…22 ONLY.
+ *    <PublicPersonDekl3> интереси при промяна   — tables 1…9, which COLLIDE
+ *                        with the asset numbering while meaning something
+ *                        completely different.
+ *
+ *  That collision is the whole reason this exists. Read through the asset map,
+ *  a Dekl3 filing published garbage: its table 9 ("произхода на средствата при
+ *  предсрочно погасяване на задължения") was filed as table 9 "Ценни книжа",
+ *  its table 2 ("управител или член на орган") as table 2 "Прехвърляне на
+ *  имоти". 565 of the 575 Dekl3 filings on file carried such rows — 808 phantom
+ *  assets and 377 phantom disposals — and one of them read a declarant's LOAN
+ *  CONTRACT NUMBER out of the "правно основание" cell as a price, publishing a
+ *  €3.58bn security. Dekl2 failed the other way and was therefore invisible:
+ *  none of its table numbers exist in the asset map, so all 4,331 filings
+ *  parsed to nothing at all and 3,176 declared interests were silently dropped.
+ *
+ *  Detecting by CONTENT rather than by root element was considered and
+ *  rejected: Dekl3's tables 1-9 are a strict subset of the asset form's
+ *  numbering, so no table number, count or description can separate a Dekl3
+ *  from an asset filing whose declarant left the later tables blank. The root
+ *  element is the only discriminator that cannot be forged by an empty form. */
+export type FormKind =
+  | "assets"
+  | "interests_entry"
+  | "interests_change"
+  | "unknown";
+
+const ROOT_TO_KIND: Record<string, FormKind> = {
+  PublicPerson: "assets",
+  PublicPersonDekl2: "interests_entry",
+  PublicPersonDekl3: "interests_change",
+};
+
+export const detectFormKind = ($: CheerioAPI): FormKind => {
+  const root = $.root().children().first();
+  const tag = (root.get(0) as { name?: string } | undefined)?.name ?? "";
+  const kind = ROOT_TO_KIND[tag];
+  if (kind) return kind;
+  // A form the register has added since. Guessing either map is how the damage
+  // above happened, so guess NEITHER: the filing still publishes (year,
+  // institution, source link) and simply carries no rows until someone writes
+  // its map. A missing row is a gap; a row read against the wrong map is a
+  // false statement about a named person.
+  console.warn(
+    `[parse] unknown declaration root <${tag || "?"}> — parsing no tables`,
+  );
+  return "unknown";
 };
 
 /** The register renumbered its tables.
@@ -1230,6 +1291,193 @@ const parseEventTables = (
   return out;
 };
 
+/** The interests forms, whose numbering the two maps above have nothing to do
+ *  with. Both carry the SAME six-table interests block twice over — once as at
+ *  the date of appointment, once as at twelve months before it — plus contracts
+ *  and related persons. Only Dekl3 has the early-repayment table.
+ *
+ *  Every column layout here is 3 cells wide (ном. по ред + two content cells)
+ *  except the early-repayment table, and it is identical across all 4,906
+ *  filings on file — verified by enumerating every <Cell Num=/Description=>
+ *  tuple in the cache. So unlike the asset form there is no version axis. */
+type InterestTable =
+  | "sharesNow"
+  | "rolesNow"
+  | "soleTraderNow"
+  | "sharesPrior"
+  | "rolesPrior"
+  | "soleTraderPrior"
+  | "contracts"
+  | "relatedPersons"
+  | "earlyRepayment";
+
+const INTEREST_TABLE_NUMS: Record<
+  "interests_entry" | "interests_change",
+  Record<InterestTable, string | null>
+> = {
+  // Dekl3 — "при промяна". Tables 1-9.
+  interests_change: {
+    sharesNow: "1",
+    rolesNow: "2",
+    soleTraderNow: "3",
+    sharesPrior: "4",
+    rolesPrior: "5",
+    soleTraderPrior: "6",
+    contracts: "7",
+    relatedPersons: "8",
+    earlyRepayment: "9",
+  },
+  // Dekl2 — "при встъпване". Tables 15-22; it has no early-repayment table at
+  // all, which is null rather than a number so it cannot fall through to some
+  // neighbouring table by accident.
+  interests_entry: {
+    sharesNow: "15",
+    rolesNow: "16",
+    soleTraderNow: "17",
+    sharesPrior: "18",
+    rolesPrior: "19",
+    soleTraderPrior: "20",
+    contracts: "21",
+    relatedPersons: "22",
+    earlyRepayment: null,
+  },
+};
+
+/** How each interests holding is labelled on the stake row it becomes.
+ *  Verbatim from the form's own table heading, so the label is the register's
+ *  wording rather than ours. */
+const INTEREST_STAKE_LABEL: Record<string, string> = {
+  sharesNow: "Участие в търговско дружество",
+  rolesNow: "Управител или член на орган на управление",
+  soleTraderNow: "Едноличен търговец",
+  sharesPrior: "Участие в търговско дружество",
+  rolesPrior: "Управител или член на орган на управление",
+  soleTraderPrior: "Едноличен търговец",
+};
+
+const interestRows = (
+  $: CheerioAPI,
+  kind: "interests_entry" | "interests_change",
+  logical: InterestTable,
+): ReturnType<CheerioAPI>[] => {
+  const num = INTEREST_TABLE_NUMS[kind][logical];
+  if (num == null) return [];
+  const t = $(`Table[Num="${num}"]`).first();
+  if (t.length === 0 || t.attr("Declared") !== "True") return [];
+  return t
+    .find("Row")
+    .toArray()
+    .map((el) => $(el))
+    .filter((row) => !isEmptyRow($, row));
+};
+
+/** The interests forms, parsed onto the shapes the site already serves.
+ *
+ *  Company holdings become STAKES — the same shape tables 10/11 of the asset
+ *  form produce, so they render in the existing "Дялове в дружества" block and
+ *  feed the declared-stake → EIK → public-contracts resolver (096) without a
+ *  new table. `table` encodes WHEN: "10" = held now, "11" = held in the twelve
+ *  months before appointment and not since, which is the same "no longer held"
+ *  reading table 11 already carries for a transferred share.
+ *
+ *  Contracts, related persons and early repayments become EVENTS — things the
+ *  filing records that are not holdings, which is exactly the line `events`
+ *  already draws. None of them touch net worth. */
+const parseInterestTables = (
+  $: CheerioAPI,
+  kind: "interests_entry" | "interests_change",
+): { stakes: MpOwnershipStake[]; events: MpDeclarationEvent[] } => {
+  const stakes: MpOwnershipStake[] = [];
+  const events: MpDeclarationEvent[] = [];
+
+  for (const logical of [
+    "sharesNow",
+    "rolesNow",
+    "soleTraderNow",
+    "sharesPrior",
+    "rolesPrior",
+    "soleTraderPrior",
+  ] as const) {
+    const held = logical.endsWith("Now");
+    for (const row of interestRows($, kind, logical)) {
+      stakes.push({
+        table: held ? "10" : "11",
+        itemType: INTEREST_STAKE_LABEL[logical],
+        // Cell 3 is "Размер на дяловото участие" / "Участие" / "Предмет на
+        // дейност" depending on the table — all raw text, all the same slot.
+        shareSize: cellByNum(row, 3),
+        companyName: cellByNum(row, 2),
+        registeredOffice: null,
+        // The interests form asks WHETHER, never for how much. A declared
+        // interest with no declared value must stay null: a 0 here would enter
+        // the stake as worth nothing rather than as unpriced.
+        valueEur: null,
+        holderName: null,
+        legalBasis: null,
+        fundsOrigin: null,
+      });
+    }
+  }
+
+  const flat = (
+    logical: InterestTable,
+    eventKind: DeclarationEventKind,
+  ): void => {
+    for (const row of interestRows($, kind, logical)) {
+      events.push({
+        kind: eventKind,
+        // Cell 2 names the counterparty (the person a contract is with, or the
+        // related person); cell 3 says what the connection is about.
+        description: cellByNum(row, 2),
+        detail: cellByNum(row, 3),
+        location: null,
+        municipality: null,
+        areaSqm: null,
+        builtAreaSqm: null,
+        currency: null,
+        valueEur: null,
+        legalBasis: null,
+      });
+    }
+  };
+  flat("contracts", "interest_contract");
+  flat("relatedPersons", "related_person");
+
+  // The early-repayment table is the one interests table that carries money:
+  // a debt settled ahead of term, and — the reason the table exists at all —
+  // where the money to settle it came from.
+  for (const row of interestRows($, kind, "earlyRepayment")) {
+    const amount = toNumber(cellByNum(row, 3));
+    const currency = cellByNum(row, 4);
+    events.push({
+      kind: "early_repayment",
+      description: cellByNum(row, 2), // "потребителски кредит", "ипотечен кредит"
+      detail: cellByNum(row, 6), // титуляр на задължението
+      location: null,
+      municipality: null,
+      areaSqm: null,
+      builtAreaSqm: null,
+      currency,
+      // Cell 5 is the declarant's own "Равностойност в лв." for the same sum,
+      // so pureMoney applies: the two must agree up to the FX rate. Cell 7
+      // ("правно основание") is deliberately NOT read as money — a declarant
+      // typing their loan CONTRACT NUMBER there is what the asset-map misparse
+      // published as a €3.58bn holding.
+      valueEur: pickEurValue(
+        amount,
+        currency,
+        toNumber(cellByNum(row, 5)),
+        true,
+      ),
+      // "дарение", "спестявания", "продажба на имот" — the origin of the funds,
+      // which is the whole point of the table.
+      legalBasis: cellByNum(row, 10),
+    });
+  }
+
+  return { stakes, events };
+};
+
 export type ParseInput = {
   xml: string;
   mpId: number;
@@ -1244,11 +1492,17 @@ export const parseDeclarationXml = ({
   sourceUrl,
 }: ParseInput): MpDeclaration => {
   const $ = load(xml, { xmlMode: true });
-  // Which numbering the filing uses. Every table read below goes through it.
-  const version = detectFormVersion($);
+  // WHICH FORM, then — for the asset form only — which of its two numberings.
+  // detectFormVersion reads asset-form table descriptions, so running it on an
+  // interests filing only produces a spurious warning; skip it there.
+  const formKind = detectFormKind($);
+  const version = formKind === "assets" ? detectFormVersion($) : "v2";
 
-  const declarantName =
-    text($, "PublicPerson > Personal > Name") || "(unknown)";
+  // NOT `PublicPerson > Personal > Name`: that ancestor selector matches only
+  // the asset form, so every one of the 4,906 interests filings parsed to
+  // declarant "(unknown)" — which then differed from every holder name on the
+  // row, tagging the declarant's own holdings as a spouse's.
+  const declarantName = text($, "Personal > Name") || "(unknown)";
   const declType = text($, "DeclarationData > DeclarationType") || "Other";
   const declYearRaw = text($, "DeclarationData > Year");
   const fiscalYear = declYearRaw ? Number(declYearRaw) : null;
@@ -1281,6 +1535,39 @@ export const parseDeclarationXml = ({
       s.registeredOffice ?? "",
       s.valueEur ?? "",
     ].join("|");
+
+  // An interests filing has no asset tables to read — and, crucially, no table
+  // number in common with the asset map even where the numbers coincide. It
+  // returns here rather than falling through: everything below this point is
+  // keyed on the asset numbering.
+  if (formKind !== "assets") {
+    const interests =
+      formKind === "unknown"
+        ? { stakes: [], events: [] }
+        : parseInterestTables($, formKind);
+    for (const stake of interests.stakes) {
+      const k = dedupKey(stake);
+      if (seen.has(k)) continue;
+      seen.add(k);
+      ownershipStakes.push(stake);
+    }
+    return {
+      mpId,
+      declarantName,
+      institution,
+      declarationYear,
+      fiscalYear: believedFiscalYear,
+      declarationType: declType,
+      filedAt,
+      entryNumber,
+      controlHash,
+      sourceUrl,
+      ownershipStakes,
+      income: [],
+      assets: [],
+      events: interests.events,
+    };
+  }
 
   const sharesCol = columnResolver(version, "shares");
   for (const row of rowsOfTable($, version, "shares")) {

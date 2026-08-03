@@ -1076,7 +1076,7 @@
   },
   {
     "slug": "doichin-nikolov-karabulev-19e241",
-    "declarantName": "(unknown)",
+    "declarantName": "ДОЙЧИН НИКОЛОВ КАРАБУЛЕВ",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Началник на митнически пункт",
     "category": "revenue_agency",
@@ -1090,6 +1090,19 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Никола Маринов Карабулев",
+        "detail": "декларатор",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

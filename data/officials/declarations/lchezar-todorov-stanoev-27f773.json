@@ -213,7 +213,7 @@
   },
   {
     "slug": "lchezar-todorov-stanoev-27f773",
-    "declarantName": "(unknown)",
+    "declarantName": "Лъчезар Тодоров Станоев",
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
@@ -224,28 +224,21 @@
     "entryNumber": "Г12",
     "controlHash": "EAB9EB21",
     "sourceUrl": "https://register.cacbg.bg/2020/30FB8F4E-BF1C-4E71-9335-FC2EF2827F6E99491.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "ЛМЛЛ 2020 ООД",
-        "detail": null,
-        "location": "2635644",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "2635644",
+        "companyName": "ЛМЛЛ 2020 ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
+    "income": [],
+    "assets": [],
     "events": []
   },
   {
@@ -944,7 +937,7 @@
   },
   {
     "slug": "lchezar-todorov-stanoev-27f773",
-    "declarantName": "(unknown)",
+    "declarantName": "Лъчезар Тодоров Станоев",
     "institution": "Инспекторати",
     "positionTitle": "Ръководител",
     "category": "inspectorate",
@@ -955,7 +948,19 @@
     "entryNumber": "В117",
     "controlHash": "1B68C4BE",
     "sourceUrl": "https://register.cacbg.bg/2018/30FB8F4E-BF1C-4E71-9335-FC2EF2827F6E88279.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Сдружение Национална изследователска мрежа",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

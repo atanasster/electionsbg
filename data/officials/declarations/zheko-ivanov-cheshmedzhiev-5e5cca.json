@@ -484,7 +484,7 @@
   },
   {
     "slug": "zheko-ivanov-cheshmedzhiev-5e5cca",
-    "declarantName": "(unknown)",
+    "declarantName": "ЖЕКО ИВАНОВ ЧЕШМЕЖИЕВ",
     "institution": "МБАЛ - Велинград ЕООД",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -495,7 +495,30 @@
     "entryNumber": "В1017",
     "controlHash": "A931D14A",
     "sourceUrl": "https://register.cacbg.bg/2018/26E86141-3D0B-4264-87E9-24F01D43E0FA89579.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МБАЛ ВЕЛИНГРАД ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "0",
+        "companyName": "МЦ Гранд хотел-Велинград",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -304,7 +304,7 @@
   },
   {
     "slug": "boris-yanakiev-todorov-1c12b6",
-    "declarantName": "(unknown)",
+    "declarantName": "Борис Янакиев Тодоров",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -315,7 +315,19 @@
     "entryNumber": "В2366",
     "controlHash": "7C7AAA09",
     "sourceUrl": "https://register.cacbg.bg/2018/9C7E3E2A-87D8-4562-ABA9-9D168ACF7C0891165.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "КБ ИНВЕСТМЪНТ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

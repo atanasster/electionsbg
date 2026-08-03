@@ -1054,7 +1054,7 @@
   },
   {
     "slug": "lyuben-petrov-tatarski-2e4f00",
-    "declarantName": "(unknown)",
+    "declarantName": "Любен Петров Татарски",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -1065,9 +1065,112 @@
     "entryNumber": "В451",
     "controlHash": "81ADE5B9",
     "sourceUrl": "https://register.cacbg.bg/2019/462B8A41-679A-45DF-B01A-4FDCB039140B98057.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "445 61 броя дружествени дяла",
+        "companyName": "\"Пирин елит имоти 2019\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "84 броя акции",
+        "companyName": "\"Магнетик хед текнолоджис /България/\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Долината на Места\" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "500 броя дружествени дяла",
+        "companyName": "\"Бизнес център \"Места\"\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "36593 броя акции",
+        "companyName": "\"Пирин елит имоти\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "84 броя акции",
+        "companyName": "\"Магнетик хед технолоджис /България\" АД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Управителния съвет",
+        "companyName": "\"Долината на Места\" Сдружение",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "Валери Любенов Татарски - изпълнителен директор на \"Хамефа\" ЕАД",
+        "detail": "търговия и произвоство на мебели и обзавеждане",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "Татяна Ангелова Татарска - член на СД на \"Хамефа\" ЕАД",
+        "detail": "търговия и произвоство на мебели и обзавеждане",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

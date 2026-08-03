@@ -87,7 +87,7 @@
   },
   {
     "slug": "vladimir-todorov-dosev-8a6e0b",
-    "declarantName": "(unknown)",
+    "declarantName": "Владимир Тодоров Досев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -98,7 +98,19 @@
     "entryNumber": "В937",
     "controlHash": "D9EDE4B9",
     "sourceUrl": "https://register.cacbg.bg/2024/04826013-0120-45C1-9C73-B1C18A371CA4182024.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управителен съвет",
+        "companyName": "Сдружение \"Инициатива за добри практики\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

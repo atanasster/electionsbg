@@ -1225,7 +1225,7 @@
   },
   {
     "slug": "tatyana-petrova-penkova-chervenyakova-079b8d",
-    "declarantName": "(unknown)",
+    "declarantName": "Татяна Петрова Пенкова-Червенякова",
     "institution": "СБАЛИПБ “Проф.Иван Киров” ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -1236,7 +1236,19 @@
     "entryNumber": "В861",
     "controlHash": "3618C3C8",
     "sourceUrl": "https://register.cacbg.bg/2018/B1CA416D-7541-45E9-B46A-99F83C030EB889420.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "представляжащ",
+        "companyName": "Сдружение с нестопанска цел Българско дружество по инфекциозни болести",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

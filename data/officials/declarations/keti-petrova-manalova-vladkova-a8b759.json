@@ -1917,7 +1917,7 @@
   },
   {
     "slug": "keti-petrova-manalova-vladkova-a8b759",
-    "declarantName": "(unknown)",
+    "declarantName": "Кети Петрова Маналова-Владкова",
     "institution": "МБАЛ \"Д-р Христо Стамболски - Казанлък\"",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1928,7 +1928,52 @@
     "entryNumber": "В1707",
     "controlHash": "9A28144F",
     "sourceUrl": "https://register.cacbg.bg/2018/2CE8ACD1-47BB-416D-BFE8-5188CE89FD7390331.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МБАЛ Д-р Хр.Стамболски ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "извънболнична медицинска помощ",
+        "companyName": "ЕТ ИПСМП Д-р Кети Маналова-Владкова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "МБАЛ Д-р Христо Стамболски ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Едноличен търговец",
+        "shareSize": "извънболнична медицинска помощ",
+        "companyName": "ЕТ ИПСМП д-р Кети Маналова- Владкова",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

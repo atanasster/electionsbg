@@ -593,7 +593,7 @@
   },
   {
     "slug": "dimitr-kolev-pomakov-cedd20",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Колев Помаков",
     "institution": "МБАЛ \"Св. Иван Рилски\" ЕООД гр. Елхово",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -604,58 +604,44 @@
     "entryNumber": "Г2674",
     "controlHash": "F76F5390",
     "sourceUrl": "https://register.cacbg.bg/2020/C220AED1-97C6-4EEA-B8E9-1EEF05840C17112907.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "100%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "100%",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "100%",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "кредит, обезпечен с недвижими имоти",
         "detail": "димитър Колев Помаков",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "33600",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "33600",
-        "isSpouse": true,
-        "legalBasis": "заплата и пенсия",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Дипоникс\" ЕООД",
-        "detail": null,
-        "location": "100%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 17179.40720819294,
+        "legalBasis": "заплата и пенсия"
       }
     ]
   },
@@ -1807,7 +1793,7 @@
   },
   {
     "slug": "dimitr-kolev-pomakov-cedd20",
-    "declarantName": "(unknown)",
+    "declarantName": "Димитър Колев Помаков",
     "institution": "МБАЛ \"Св. Иван Рилски\" ЕООД гр. Елхово",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -1818,7 +1804,52 @@
     "entryNumber": "В1165",
     "controlHash": "1450A58C",
     "sourceUrl": "https://register.cacbg.bg/2018/C220AED1-97C6-4EEA-B8E9-1EEF05840C1789730.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "едноличен собственик",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "едноличен собственик",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"Дипоникс\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

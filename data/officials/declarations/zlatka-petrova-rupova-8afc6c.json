@@ -179,7 +179,7 @@
   },
   {
     "slug": "zlatka-petrova-rupova-8afc6c",
-    "declarantName": "(unknown)",
+    "declarantName": "Златка Петрова Рупова",
     "institution": "Финсово управление на средства от ЕС",
     "positionTitle": "Ръководител проект",
     "category": "eu_funds_controller",
@@ -190,7 +190,19 @@
     "entryNumber": "В3129",
     "controlHash": "0A10E61C",
     "sourceUrl": "https://register.cacbg.bg/2018/0128703F-58DA-485A-88F9-A29AD7C8CF4C93205.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на орган на управление",
+        "companyName": "Асоциация \"Бафевро\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -429,7 +429,7 @@
   },
   {
     "slug": "georgi-ivanov-koev-71a733",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Иванов Коев",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -440,23 +440,22 @@
     "entryNumber": "Г1354",
     "controlHash": "28315FCB",
     "sourceUrl": "https://register.cacbg.bg/2020/64A2E0F7-C6FE-4E77-BCE6-8F1F53E52C19111272.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на Съвета на Директорите",
+        "companyName": "\"Мини Марица изток\" ЕАД гр. Раднево",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"Мини Марица изток\" ЕАД гр. Раднево",
-        "detail": null,
-        "location": "Член на Съвета на Директорите",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "georgi-ivanov-koev-71a733",
@@ -1240,7 +1239,7 @@
   },
   {
     "slug": "georgi-ivanov-koev-71a733",
-    "declarantName": "(unknown)",
+    "declarantName": "Георги Иванов Коев",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Член на Съвета на директорите",
     "category": "state_enterprise",
@@ -1251,7 +1250,19 @@
     "entryNumber": "В2312",
     "controlHash": "1E0F9194",
     "sourceUrl": "https://register.cacbg.bg/2018/64A2E0F7-C6FE-4E77-BCE6-8F1F53E52C1991109.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на съвета на директорите",
+        "companyName": "\"Мини Марица изток\" ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

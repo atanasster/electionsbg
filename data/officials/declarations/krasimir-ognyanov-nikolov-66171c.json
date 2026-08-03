@@ -1540,7 +1540,7 @@
   },
   {
     "slug": "krasimir-ognyanov-nikolov-66171c",
-    "declarantName": "(unknown)",
+    "declarantName": "Красимир Огнянов Николов",
     "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -1551,7 +1551,30 @@
     "entryNumber": "В512",
     "controlHash": "5AE037DE",
     "sourceUrl": "https://register.cacbg.bg/2022/D6CAA780-6BF9-4AA2-8904-420725B9A7EE132384.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителен съвет",
+        "companyName": "Териториална организация на Научно-техническите съюзи Търговище",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател на Управителен съвет",
+        "companyName": "Териториална организация на Научно-технически съюзи Търговище",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -160,7 +160,7 @@
   },
   {
     "slug": "nina-angelova-rsina-db210a",
-    "declarantName": "(unknown)",
+    "declarantName": "Нина Ангелова Ръсина",
     "institution": "СБАЛХЗ ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -171,14 +171,59 @@
     "entryNumber": "В834",
     "controlHash": "E9491235",
     "sourceUrl": "https://register.cacbg.bg/2024/B632286C-E095-4FA5-9C3F-E38C71C67AF7180684.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет - подадено заявление в ТР за заличаване",
+        "companyName": "Фондация Общество и здраве",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител - подадено заявление в ТР за заличаване",
+        "companyName": "ЛАЙФ РИСТАРТ ООД  - няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "ЛАЙФ РИСТАРТ ООД  - няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управителен съвет - подадено заявление в ТР за заличаване",
+        "companyName": "Фондация Общество и здраве",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
   },
   {
     "slug": "nina-angelova-rsina-db210a",
-    "declarantName": "(unknown)",
+    "declarantName": "Нина Ангелова Ръсина",
     "institution": "СБАЛХЗ ЕАД, гр.София",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -189,23 +234,22 @@
     "entryNumber": "В835",
     "controlHash": "56559258",
     "sourceUrl": "https://register.cacbg.bg/2024/B632286C-E095-4FA5-9C3F-E38C71C67AF7180685.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител - заличено обстоятелство в ТР на 24.04.2024 г.",
+        "companyName": "ЛАЙФ РИСТАРТ ООД  - няма дейност",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЛАЙФ РИСТАРТ ООД  - няма дейност",
-        "detail": null,
-        "location": "Управител - заличено обстоятелство в ТР на 24.04.2024 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "nina-angelova-rsina-db210a",

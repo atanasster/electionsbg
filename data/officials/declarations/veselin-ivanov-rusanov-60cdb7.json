@@ -725,7 +725,7 @@
   },
   {
     "slug": "veselin-ivanov-rusanov-60cdb7",
-    "declarantName": "(unknown)",
+    "declarantName": "Веселин Иванов Русанов",
     "institution": "Североцентрално държавно предприятие - ДП Габрово",
     "positionTitle": "Директор",
     "category": "state_enterprise",
@@ -736,7 +736,30 @@
     "entryNumber": "В10334",
     "controlHash": "B57080D6",
     "sourceUrl": "https://register.cacbg.bg/2020/C727BFEF-BC12-49D8-B740-64C4A9436680112576.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "6 лв.",
+        "companyName": "\"ТЕПАВА\"ЕООД, ЕИК202326363",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\"ТЕПАВА\"ЕООД,ЕИК202326363",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

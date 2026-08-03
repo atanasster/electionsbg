@@ -218,7 +218,7 @@
   },
   {
     "slug": "nikola-dechkov-hadzhihristev-0e5c9b",
-    "declarantName": "(unknown)",
+    "declarantName": "Никола Дечков Хаджихристев",
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Директор на дирекция",
     "category": "state_enterprise",
@@ -229,7 +229,30 @@
     "entryNumber": "В30",
     "controlHash": "84A33D71",
     "sourceUrl": "https://register.cacbg.bg/2023/BD4A66EF-F049-4DE8-B539-423ED63FE461145216.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "90",
+        "companyName": "А.Д.Н Инженеринг ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50",
+        "companyName": "ТехФлейм ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

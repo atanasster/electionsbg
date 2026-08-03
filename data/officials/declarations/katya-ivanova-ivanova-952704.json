@@ -1,7 +1,7 @@
 [
   {
     "slug": "katya-ivanova-ivanova-952704",
-    "declarantName": "(unknown)",
+    "declarantName": "Катя Иванова Иванова",
     "institution": "Област - Шумен",
     "positionTitle": "Областен управител",
     "category": "regional_governor",
@@ -12,7 +12,30 @@
     "entryNumber": "В174",
     "controlHash": "6B809FD7",
     "sourceUrl": "https://register.cacbg.bg/2025/FD3CAAA9-C777-4585-B338-E174CEEF4D00201991.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на контролния съвет",
+        "companyName": "Църква \"Св.Пророк Илия\" ЕИК 180982892",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Члан на контролния съвет",
+        "companyName": "Църква \"Св.Пророк Илия\" ЕИК 180982892",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

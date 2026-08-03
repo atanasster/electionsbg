@@ -785,7 +785,7 @@
   },
   {
     "slug": "milena-ivanova-stoicheva-f053b9",
-    "declarantName": "(unknown)",
+    "declarantName": "Милена Иванова Стойчева",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -796,14 +796,103 @@
     "entryNumber": "В1016",
     "controlHash": "3E3F9771",
     "sourceUrl": "https://register.cacbg.bg/2023/F1BA0C5C-7FA7-4C01-86C2-456546CB4F6F155811.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"АЙ ЕНД И СОФИЯ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "управител",
+        "companyName": "\" УНИкобатор\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Сдружение \" Българско биологично общество\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор",
+        "companyName": "Фондация \" Джуниър Ачийвмънт България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100%",
+        "companyName": "\"АЙ ЕНД И СОФИЯ\" ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Управител",
+        "companyName": "\"УНИкобатор\" ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на УС",
+        "companyName": "Сдружение \"Българско биологично общество\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор",
+        "companyName": "Фондация \"Джуниър Ачийвмънт България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
   },
   {
     "slug": "milena-ivanova-stoicheva-f053b9",
-    "declarantName": "(unknown)",
+    "declarantName": "Милена Иванова Стойчева",
     "institution": "Министерство на иновациите и растежа",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -814,22 +903,21 @@
     "entryNumber": "В1336",
     "controlHash": "30906A9B",
     "sourceUrl": "https://register.cacbg.bg/2023/F1BA0C5C-7FA7-4C01-86C2-456546CB4F6F156455.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС и изпълнителен директор - заличена, считано от 25.07.2023 г.",
+        "companyName": "Фондация \"Джуниър Ачийвмънт България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Джуниър Ачийвмънт България\"",
-        "detail": null,
-        "location": "член на УС и изпълнителен директор - заличена, считано от 25.07.2023 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

@@ -218,7 +218,7 @@
   },
   {
     "slug": "diana-dimitrova-mladenova-829e84",
-    "declarantName": "(unknown)",
+    "declarantName": "Диана Димитрова Младенова",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -229,7 +229,52 @@
     "entryNumber": "В340",
     "controlHash": "6DA7B730",
     "sourceUrl": "https://register.cacbg.bg/2025/5BF5E8F7-6056-45CF-93E6-E936D048083E202517.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,00001%",
+        "companyName": "\"Седем-осми\" АД, ЕИК 130589840",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "0,00001%",
+        "companyName": "\"Седем-осми\" АД, ЕИК 130589840",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвет на директорите",
+        "companyName": "\"Статис\" АД, ЕИК 833172830",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на Съвет на директорите, изпълнителен директор",
+        "companyName": "\"Призма интерактив\" АД, ЕИК 131070841",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

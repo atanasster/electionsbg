@@ -1,7 +1,7 @@
 [
   {
     "slug": "vladimir-rusev-rusev-652648",
-    "declarantName": "(unknown)",
+    "declarantName": "ВЛАДИМИР РУСЕВ РУСЕВ",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В86",
     "controlHash": "04BD07B4",
     "sourceUrl": "https://register.cacbg.bg/2025/FC2CF1AC-7C83-4BEB-8F34-5974081B3FC1201696.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "Бузлуджа ВГ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "1/2",
+        "companyName": "Бузлуджа ВГ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

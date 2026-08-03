@@ -1,7 +1,7 @@
 [
   {
     "slug": "violeta-antonieva-lorer-72b5e7",
-    "declarantName": "(unknown)",
+    "declarantName": "Виолета Антониева Лорер",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
     "category": "political_cabinet",
@@ -12,23 +12,22 @@
     "entryNumber": "В232",
     "controlHash": "C19BCA24",
     "sourceUrl": "https://register.cacbg.bg/2022/66B6D228-18D3-44CC-9B73-F416A5B0CBB2131485.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "заличена като управител на 25.01.2022 г.",
+        "companyName": "Лоза БГ ООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Лоза БГ ООД",
-        "detail": null,
-        "location": "заличена като управител на 25.01.2022 г.",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "violeta-antonieva-lorer-72b5e7",

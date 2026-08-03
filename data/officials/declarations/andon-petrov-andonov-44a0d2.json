@@ -358,7 +358,7 @@
   },
   {
     "slug": "andon-petrov-andonov-44a0d2",
-    "declarantName": "(unknown)",
+    "declarantName": "Андон Петров Андонов",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -369,23 +369,22 @@
     "entryNumber": "Г1350",
     "controlHash": "76233D0B",
     "sourceUrl": "https://register.cacbg.bg/2020/7E2E9721-1B83-449C-ABBB-C4A3648DB4EC111267.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на СД",
+        "companyName": "член на СД на БЕХ ЕАД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "член на СД на БЕХ ЕАД",
-        "detail": null,
-        "location": "член на СД",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "andon-petrov-andonov-44a0d2",
@@ -718,7 +717,7 @@
   },
   {
     "slug": "andon-petrov-andonov-44a0d2",
-    "declarantName": "(unknown)",
+    "declarantName": "Андон Петров Андонов",
     "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
     "positionTitle": "Изпълнителен директор",
     "category": "state_enterprise",
@@ -729,7 +728,30 @@
     "entryNumber": "В2310",
     "controlHash": "BA297909",
     "sourceUrl": "https://register.cacbg.bg/2018/7E2E9721-1B83-449C-ABBB-C4A3648DB4EC91107.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Научно-технически съюз на енергетиците в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на УС",
+        "companyName": "Научно-технически съюз на енергетиците в България",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -1,7 +1,7 @@
 [
   {
     "slug": "lada-dimitrova-pancheva-angelova-dc52fe",
-    "declarantName": "(unknown)",
+    "declarantName": "Лада Димитрова Панчева-Ангелова",
     "institution": "ДКЦ, МЦ, ЦТХ",
     "positionTitle": "Управител",
     "category": "medical_center",
@@ -12,7 +12,30 @@
     "entryNumber": "В1039",
     "controlHash": "AFDD6493",
     "sourceUrl": "https://register.cacbg.bg/2025/2B998184-5200-4082-AD58-97DE650B63FA217941.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "\"АСМП-Педиатрия-ИП-Д-р Лада Панчева\"ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "100",
+        "companyName": "\"АСМП-Педиатрия-ИП-Д-р Лада Панчева\"ЕООД",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

@@ -177,7 +177,7 @@
   },
   {
     "slug": "ivan-iordanov-kyurkchiev-9d4973",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Йорданов Кюркчиев",
     "institution": "Процедури по ЗОП",
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
@@ -188,58 +188,44 @@
     "entryNumber": "Г1573",
     "controlHash": "9C8A8889",
     "sourceUrl": "https://register.cacbg.bg/2024/A1175B06-4C6B-413C-81A0-5252020A0F1F182504.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател",
-        "amount": null,
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "НЧ Братство-1860",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Председател",
+        "companyName": "НЧ Братство-1860",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "early_repayment",
         "description": "кредит",
         "detail": "Иван Йорданов Кюркчиев",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "31105",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "рефинансиране",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "НЧ Братство-1860",
-        "detail": null,
-        "location": "председател",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 15903.733964608376,
+        "legalBasis": "рефинансиране"
       }
     ]
   },

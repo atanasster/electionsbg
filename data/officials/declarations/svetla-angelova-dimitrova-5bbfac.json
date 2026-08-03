@@ -831,7 +831,7 @@
   },
   {
     "slug": "svetla-angelova-dimitrova-5bbfac",
-    "declarantName": "(unknown)",
+    "declarantName": "СВЕТЛА АНГЕЛОВА ДИМИТРОВА",
     "institution": "РЗИ",
     "positionTitle": "Директор на РЗИ",
     "category": "regional_director",
@@ -842,9 +842,91 @@
     "entryNumber": "В267",
     "controlHash": "6022037F",
     "sourceUrl": "https://register.cacbg.bg/2018/B5042730-94EC-435A-9899-0D4916DAF48C88715.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "ОБЩЕСТВЕНА КОАЛИЦИЯ ЗА ЗДРАВЕ - ДОБРИЧ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "СНЦ ЗДРАВНА ГРИЖА ЗА ВСЕКИ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "ОБЩЕСТВЕНА КОАЛИЦИЯ ЗА ЗДРАВЕ - ДОБРИЧ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+        "companyName": "СНЦ ЗДРАВНА ГРИЖА ЗА ВСЕКИ",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "related_person",
+        "description": "САШО НЕДЯЛКОВ ДИМИТРОВ - СЪПРУГ",
+        "detail": "СОБСТВЕНИК НА САНИСВЕТ ЕООД, ДРУЖЕСТВОТО ИМА СЛУЖБА ПО ТРУДОВА МЕДИЦИНА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "НИКОЛАЙ САШЕВ ДИМИТРОВ - СИН",
+        "detail": "РАБОТИ В САНИСВЕТ ЕООД, СЛУЖБА ПО ТРУДОВА МЕДИЦИНА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      },
+      {
+        "kind": "related_person",
+        "description": "МАРИЯНА АНГЕЛОВА ЛАЗАРОВА, СЕСТРА",
+        "detail": "РАБОТИ КАТО МЕД. СЕСТРА В ОБЩИНСКА ДЕТСКА ГРАДИНА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": null,
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

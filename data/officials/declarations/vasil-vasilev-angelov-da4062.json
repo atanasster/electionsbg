@@ -1,7 +1,7 @@
 [
   {
     "slug": "vasil-vasilev-angelov-da4062",
-    "declarantName": "(unknown)",
+    "declarantName": "Васил Василев Ангелов",
     "institution": "СГЕБАЛ \"Еврохоспитал\" ООД, гр. Пловдив",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -12,78 +12,33 @@
     "entryNumber": "Г2497",
     "controlHash": "61DE6F1C",
     "sourceUrl": "https://register.cacbg.bg/2020/1A68C861-C75D-4912-8449-83C32E3731BF112704.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
+    "ownershipStakes": [
       {
-        "category": "real_estate",
-        "description": "АГПППДМ - ПЕРИОДЕНТ ООД",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
+        "table": "10",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "АГПППДМ - ПЕРИОДЕНТ ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       },
       {
-        "category": "cash",
-        "description": null,
-        "detail": "50%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "50%",
-        "amount": null,
+        "table": "11",
+        "itemType": "Участие в търговско дружество",
+        "shareSize": "50%",
+        "companyName": "АГПППДМ - ПЕРИОДЕНТ ООД",
+        "registeredOffice": null,
         "valueEur": null,
         "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "50%",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "50%",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АГПППДМ - ПЕРИОДЕНТ ООД",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "income": [],
+    "assets": [],
+    "events": []
   },
   {
     "slug": "vasil-vasilev-angelov-da4062",

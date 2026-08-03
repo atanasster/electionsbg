@@ -625,7 +625,7 @@
   },
   {
     "slug": "ivan-dimitrov-ivanov-0e2958",
-    "declarantName": "(unknown)",
+    "declarantName": "Иван Димитров Иванов",
     "institution": "МБАЛ \"Св. Иван Рилски\" ЕООД, гр. Горна Оряховица",
     "positionTitle": "Управител",
     "category": "hospital_head",
@@ -636,7 +636,30 @@
     "entryNumber": "В1181",
     "controlHash": "FF9062DE",
     "sourceUrl": "https://register.cacbg.bg/2018/E3F7CDC5-9BA3-4D5D-8AC8-D45AE56C625089747.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "сдружение Обществен съвет по кръводаряване - Велико Търново",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател",
+        "companyName": "Сдружение Обществен съвет по кръводаряване - Велико Търново",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

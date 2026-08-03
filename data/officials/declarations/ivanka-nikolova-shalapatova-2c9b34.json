@@ -274,7 +274,7 @@
   },
   {
     "slug": "ivanka-nikolova-shalapatova-2c9b34",
-    "declarantName": "(unknown)",
+    "declarantName": "Иванка Николова Шалапатова",
     "institution": "Министерство на труда и социалната политика",
     "positionTitle": "Министър",
     "category": "cabinet",
@@ -285,7 +285,41 @@
     "entryNumber": "В1080",
     "controlHash": "BCBD8A2C",
     "sourceUrl": "https://register.cacbg.bg/2023/AEBC7410-1347-4EC8-A9B5-6732B0397FEE155912.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "изпълнителен директор",
+        "companyName": "Фондация \"За нашите деца\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "председател на журито на фондацията",
+        "companyName": "Фондация \"Обществен борд на ТЕЛУС Интернешънъл в България\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "член на управителен съвет",
+        "companyName": "Международна асоциация \"Стъпка по стъпка\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []

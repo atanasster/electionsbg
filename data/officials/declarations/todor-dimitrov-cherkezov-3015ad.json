@@ -920,7 +920,7 @@
   },
   {
     "slug": "todor-dimitrov-cherkezov-3015ad",
-    "declarantName": "(unknown)",
+    "declarantName": "Тодор Димитров Черкезов",
     "institution": "МБАЛ \"Д-р Атанас Дафовски\" АД, гр. Кърджали",
     "positionTitle": "Изпълнителен директор",
     "category": "hospital_head",
@@ -931,7 +931,41 @@
     "entryNumber": "В1377",
     "controlHash": "26BC1AD1",
     "sourceUrl": "https://register.cacbg.bg/2018/881E02C1-1292-457B-9F35-DACC805C30E189951.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на колективен орган на управление",
+        "companyName": "Български Червен Кръст",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ \"ОБЩЕСТВЕНА КОАЛИЦИЯ ЗА ЗДРАВЕ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "table": "10",
+        "itemType": "Управител или член на орган на управление",
+        "shareSize": "Член на управителен съвет",
+        "companyName": "СДРУЖЕНИЕ \"РАЙОННА КОЛЕГИЯ НА ЛЕКАРИТЕ-КЪРДЖАЛИ\"",
+        "registeredOffice": null,
+        "valueEur": null,
+        "holderName": null,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
     "income": [],
     "assets": [],
     "events": []
