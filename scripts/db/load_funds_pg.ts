@@ -318,7 +318,29 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-export const loadFundsPg = async (): Promise<{
+/**
+ * @param payloadsOnly Skip the beneficiary and project tables and rebuild only
+ *   `fund_payloads`.
+ *
+ *   Those two are reloaded with `TRUNCATE` + insert inside one transaction,
+ *   which holds an AccessExclusiveLock for the whole load. Locally that is
+ *   invisible; on Cloud SQL it is minutes, and both tables are SERVED —
+ *   `fund_contract_detail()` reads fund_projects (the /api/db/fund-contract
+ *   route and the /funds/contract page handler), `fund_beneficiary_detail()`
+ *   reads fund_beneficiaries. The serving pool's 2 s `lock_timeout` turns every
+ *   reader in that window into a 55P03 → 500.
+ *
+ *   So when a change adds only precomputed page payloads — a new
+ *   fund_payloads kind, a re-derived shard — and the corpus itself is
+ *   untouched, this publishes it without taking that outage for data that did
+ *   not change. `fund_payloads` is stage-merged and never blocks a reader.
+ *
+ *   It is NOT a substitute for the full load after an ИСУН re-ingest: those two
+ *   tables would silently keep the previous vintage.
+ */
+export const loadFundsPg = async (
+  payloadsOnly = false,
+): Promise<{
   rows: number;
   projects: number;
   payloads: number;
@@ -333,7 +355,9 @@ export const loadFundsPg = async (): Promise<{
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
 
-  const files = readdirSync(BY_EIK_DIR).filter((f) => f.endsWith(".json"));
+  const files = payloadsOnly
+    ? []
+    : readdirSync(BY_EIK_DIR).filter((f) => f.endsWith(".json"));
   const rows: Beneficiary[] = [];
   for (const f of files) {
     const b = JSON.parse(
@@ -342,30 +366,31 @@ export const loadFundsPg = async (): Promise<{
     if (b?.eik) rows.push(b);
   }
 
-  await withClient(async (c) => {
-    await c.query("BEGIN");
-    await c.query("TRUNCATE fund_beneficiaries");
-    const insertCols = COLS.join(", ");
-    for (let i = 0; i < rows.length; i += BATCH) {
-      const batch = rows.slice(i, i + BATCH);
-      const values = batch
-        .map(
-          (_, r) =>
-            `(${COLS.map((_, col) => `$${r * N + col + 1}`).join(",")})`,
-        )
-        .join(",");
-      await c.query(
-        `INSERT INTO fund_beneficiaries (${insertCols}) VALUES ${values}
+  if (!payloadsOnly)
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("TRUNCATE fund_beneficiaries");
+      const insertCols = COLS.join(", ");
+      for (let i = 0; i < rows.length; i += BATCH) {
+        const batch = rows.slice(i, i + BATCH);
+        const values = batch
+          .map(
+            (_, r) =>
+              `(${COLS.map((_, col) => `$${r * N + col + 1}`).join(",")})`,
+          )
+          .join(",");
+        await c.query(
+          `INSERT INTO fund_beneficiaries (${insertCols}) VALUES ${values}
          ON CONFLICT (eik) DO NOTHING`,
-        batch.flatMap(toRow),
-      );
-    }
-    await c.query("COMMIT");
-  });
+          batch.flatMap(toRow),
+        );
+      }
+      await c.query("COMMIT");
+    });
 
   // Per-project table (by-contract shards — one project per file).
   let projects = 0;
-  if (existsSync(BY_CONTRACT_DIR)) {
+  if (!payloadsOnly && existsSync(BY_CONTRACT_DIR)) {
     const pfiles = readdirSync(BY_CONTRACT_DIR).filter((f) =>
       f.endsWith(".json"),
     );
@@ -453,12 +478,15 @@ export const loadFundsPg = async (): Promise<{
   // reflects the previous beneficiary corpus. Guarded on the matview + the
   // procurement `contracts` relation both existing (a funds-only load against a
   // DB where load_pg never ran has neither).
-  const canRefreshDual = await getPool()
-    .query(
-      `SELECT to_regclass('public.dual_corpus_rankings_cache') AS mv,
+  // Reads fund_projects, which --payloads-only did not touch.
+  const canRefreshDual =
+    !payloadsOnly &&
+    (await getPool()
+      .query(
+        `SELECT to_regclass('public.dual_corpus_rankings_cache') AS mv,
               to_regclass('public.contracts') AS c`,
-    )
-    .then((r) => r.rows[0]?.mv != null && r.rows[0]?.c != null);
+      )
+      .then((r) => r.rows[0]?.mv != null && r.rows[0]?.c != null));
   if (canRefreshDual)
     await exec("REFRESH MATERIALIZED VIEW dual_corpus_rankings_cache");
 
@@ -472,8 +500,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
     );
     process.exit(1);
   }
+  const payloadsOnly = process.argv.includes("--payloads-only");
   const t0 = Date.now();
-  loadFundsPg()
+  loadFundsPg(payloadsOnly)
     .then(async ({ rows, projects, payloads }) => {
       console.log(
         `loaded ${rows} fund beneficiaries + ${projects} projects + ${payloads} payloads → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
