@@ -41,9 +41,17 @@ const reachable = async (): Promise<boolean> => {
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person_role empty";
 
-// Sources whose every role is expected to carry an obshtina place. Both resolve a
+// Sources whose every role is expected to carry a MUNICIPAL place. Both resolve a
 // municipality: `official_muni` from the Court-of-Audit roster, `local` from the
 // local-election shards.
+//
+// `local` accepts 'settlement' as well as 'obshtina' since §T2: a кмет на кметство governs a
+// VILLAGE, so his seat is an EKATTE settlement whose parent obshtina is one join away
+// (place_dim.obshtina_code). Publishing the община instead named a place he does not govern —
+// с. Безмер's mayor read as "Тунджа" — and it is why this list is about being PLACED, not
+// about one namespace. What must never happen is a municipal role with no place at all.
+// See docs/plans/village-mayor-attribution-v1.md §T2.
+const MUNICIPAL_PLACE_KINDS = ["obshtina", "settlement"];
 const OBSHTINA_SOURCES = ["official_muni", "local"];
 
 afterAll(async () => {
@@ -51,25 +59,65 @@ afterAll(async () => {
 });
 
 test.skipIf(skip)(
-  "every municipal role carries a typed obshtina place",
+  "every municipal role carries a typed municipal place",
   async () => {
     for (const source of OBSHTINA_SOURCES) {
       const [row] = await allRows<{ total: string; typed: string }>(
         `SELECT count(*) AS total,
               count(*) FILTER (
-                WHERE place_kind = 'obshtina' AND place_code IS NOT NULL
+                WHERE place_kind = ANY($2::text[]) AND place_code IS NOT NULL
               ) AS typed
          FROM person_role WHERE source = $1`,
-        [source],
+        [source, MUNICIPAL_PLACE_KINDS],
       );
       assert.equal(
         row.typed,
         row.total,
-        `${Number(row.total) - Number(row.typed)} '${source}' role(s) have no typed obshtina place — db:resolve:persons ran against a roster without obshtina codes, or the fill regressed`,
+        `${Number(row.total) - Number(row.typed)} '${source}' role(s) have no typed municipal place — db:resolve:persons ran against a roster without obshtina codes, or the fill regressed`,
       );
     }
   },
 );
+
+// A settlement place is only useful if its parent obshtina resolves: `?obshtina` on /persons
+// and 120's obshtina_code both read it through place_dim. A settlement row with a NULL parent
+// would drop that person out of the filter silently — the failure mode the whole §T2 change
+// was careful to avoid.
+test.skipIf(skip)(
+  "every settlement place resolves to a parent obshtina",
+  async () => {
+    const rows = await allRows<{ ref: string; place_code: string }>(
+      `SELECT r.ref, r.place_code
+         FROM person_role r
+         LEFT JOIN place_dim pd
+           ON pd.kind = 'settlement' AND pd.code = r.place_code
+        WHERE r.place_kind = 'settlement'
+          AND (pd.code IS NULL OR pd.obshtina_code IS NULL)
+        LIMIT 5`,
+    );
+    assert.deepEqual(
+      rows.map((r) => `${r.ref} → ${r.place_code}`),
+      [],
+      `settlement place(s) with no parent obshtina in place_dim — those people vanish from the ?obshtina filter`,
+    );
+  },
+);
+
+// Only village mayors get a settlement. A mayor or councillor with one would mean the walk
+// stamped the wrong helper — their office IS the община, and narrowing it to the seat's
+// village would understate what they govern.
+test.skipIf(skip)("only village mayors carry a settlement place", async () => {
+  const rows = await allRows<{ source: string; role: string; n: string }>(
+    `SELECT source, role, count(*) AS n FROM person_role
+        WHERE place_kind = 'settlement' AND role <> 'village_mayor'
+        GROUP BY 1, 2 LIMIT 5`,
+  );
+  assert.deepEqual(
+    rows.map((r) => `${r.source}/${r.role} ×${r.n}`),
+    [],
+    `non-village-mayor role(s) carry a settlement place`,
+  );
+});
 
 test.skipIf(skip)("place_kind is set exactly when place_code is", async () => {
   // Migration 115 enforces this with a CHECK; assert it anyway so a dropped or

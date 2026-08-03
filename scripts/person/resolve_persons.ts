@@ -56,6 +56,7 @@ import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
 import { mirToOblast } from "../../src/data/parliament/nsFolders";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 import { foldJudicialName } from "../judiciary/judicialBodies";
+import { normPlaceName } from "../parsers_local/oblastNames";
 import {
   type LocalMayorMention,
   pickLocalWinner,
@@ -102,7 +103,7 @@ type Raw = {
   // institution text, kept only when no dictionary can resolve it (43 magistrate rows —
   // source typos, plus "Върховна прокуратура", which could be ВКП or ПРБ). That text
   // exists nowhere else, so dropping it would blank a badge rather than de-duplicate one.
-  placeKind: "mir" | "obshtina" | "judicial" | null;
+  placeKind: "mir" | "obshtina" | "judicial" | "settlement" | null;
   placeCode: string | null;
   placeRaw: string | null;
   // Matching corroborants (kept SEPARATE from `place` display — a magistrate's court
@@ -225,6 +226,75 @@ const obshtinaPlaceFor = (raw: string | null | undefined): TypedPlace => {
   const code = canonicalObshtina(raw);
   if (!code) return NO_PLACE;
   return { placeKind: "obshtina", placeCode: code, placeRaw: null };
+};
+
+// The кметство → settlement index (migration 117, db:load:place-dim:pg), keyed
+// `<obshtina_code>\t<folded settlement name>` because a settlement name is unique only
+// within its община.
+//
+// A value of `null` marks the key AMBIGUOUS — two settlements in one община share a name
+// (7 pairs today: SFO17 "Елин Пелин" the town and the village, VID16 "Орешец",
+// SHU19 "Каспичан", …). Ambiguous keys resolve to nothing, so the caller falls back to the
+// община: a coarse place beats a coin-flip between two villages on a named person's page.
+//
+// Module scope, like judicialPlaceFor, so the decision is reachable from a unit test without
+// a database.
+export const buildSettlementIndex = (
+  rows: readonly { obshtina_code: string; name_bg: string; code: string }[],
+): Map<string, string | null> => {
+  const idx = new Map<string, string | null>();
+  const put = (key: string, code: string) =>
+    idx.set(key, idx.has(key) && idx.get(key) !== code ? null : code);
+  for (const s of rows) {
+    put(`${s.obshtina_code}\t${normPlaceName(s.name_bg)}`, s.code);
+    // Sofia's own settlements are filed under their РАЙОН (Владая → S2317, Бусманци →
+    // S2414), while the local-election bundle for the city is the single `SOF` shard, which
+    // never names a район. Without a second key all 132 Sofia кметства across the cycles
+    // resolve to nothing — the largest single block of misses.
+    //
+    // Safe because it is a lookup, not a guess: the city's 58 settlement names are unique
+    // across all 24 районни (measured), and `put` collapses any future collision to
+    // ambiguous rather than picking one.
+    if (s.obshtina_code.startsWith("S2"))
+      put(`SFO_CITY\t${normPlaceName(s.name_bg)}`, s.code);
+  }
+  return idx;
+};
+
+/** CIK writes a кметство's name either bare ("Церово") or prefixed ("кметство Церово"), and
+ *  the two spellings sit in different cycles of the SAME seat. Left alone, one cycle resolves
+ *  to the settlement and the other falls back to the община — so `PersonProfileScreen`, which
+ *  dedupes offices on (role, placeCode), prints two "Кмет на кметство" rows for one job. It
+ *  did so for 69 people. */
+const stripKmetstvoPrefix = (name: string): string =>
+  name.replace(/^\s*кметство\s+/i, "");
+
+/**
+ * The кметство's own settlement, falling back to its община when the name does not resolve.
+ *
+ * A village mayor's seat is a SETTLEMENT: publishing "Тунджа" on the profile of the кмет на
+ * кметство of с. Безмер names a place he does not govern and an office (кмет на община) that
+ * belongs to somebody else. All 10,721 village-mayor roles read that way before this.
+ *
+ * The fallback is deliberate and is today's behaviour, so nothing regresses where the name
+ * does not resolve. Coverage measured 2026-08-03: 10,538 of 10,721 village-mayor seats
+ * (98.3%). The remaining misses are multiword names the catalogue spells differently
+ * ("Гара Бов", "Хаджи Димитрово") and, until §T0 lands, the nine Бяла-Русе villages filed
+ * under VAR05 — which correctly fail to resolve rather than landing in обл. Варна.
+ */
+export const settlementPlaceFor = (
+  index: ReadonlyMap<string, string | null>,
+  obshtinaCode: string | null | undefined,
+  kmetstvoName: string | null | undefined,
+): TypedPlace => {
+  const obshtina = obshtinaPlaceFor(obshtinaCode);
+  if (!kmetstvoName || obshtina.placeKind !== "obshtina") return obshtina;
+  const code = index.get(
+    `${obshtina.placeCode}\t${normPlaceName(stripKmetstvoPrefix(kmetstvoName))}`,
+  );
+  return code
+    ? { placeKind: "settlement", placeCode: code, placeRaw: null }
+    : obshtina;
 };
 
 // Build a typed judicial place by folding a free-text court name onto a judicial_body.
@@ -469,6 +539,32 @@ async function collect(): Promise<Raw[]> {
 
   const judicialPlace = (court: string | null): TypedPlace =>
     judicialPlaceFor(judicialByAlias, court);
+
+  // The кметство → settlement dictionary (migration 117, db:load:place-dim:pg). A village
+  // mayor's seat is a SETTLEMENT, not the община it sits in: publishing "Тунджа" on the
+  // profile of the кмет на кметство of с. Безмер names a place he does not govern and a job
+  // (кмет на община) that belongs to somebody else. All 10,721 village-mayor roles read that
+  // way before this.
+  //
+  // Keyed (obshtina_code, folded name) because a settlement name is unique only within its
+  // община. Loaded ONCE for the whole walk — 5,366 rows.
+  //
+  // Ambiguity is DROPPED, not guessed: 7 (obshtina, name) pairs are genuinely two settlements
+  // (SFO17 "Елин Пелин" the town and the village, VID16 "Орешец", SHU19 "Каспичан"…). Those
+  // fall back to the obshtina place, which is today's behaviour — a coarse place beats a
+  // coin-flip between two villages on a named person's page.
+  const settlementByObshtinaName = buildSettlementIndex(
+    await allRows<{ obshtina_code: string; name_bg: string; code: string }>(
+      `SELECT obshtina_code, name_bg, code FROM place_dim
+        WHERE kind = 'settlement' AND obshtina_code IS NOT NULL`,
+    ),
+  );
+
+  const settlementPlace = (
+    obshtinaCode: string | null | undefined,
+    kmetstvoName: string | null | undefined,
+  ): TypedPlace =>
+    settlementPlaceFor(settlementByObshtinaName, obshtinaCode, kmetstvoName);
 
   const mags = await allRows<{ name: string; court: string | null }>(
     `SELECT name, court FROM magistrate`,
@@ -942,7 +1038,11 @@ async function collect(): Promise<Raw[]> {
         el.candidateName,
         { id: `local:${ref}`, source: "local", ref, role: "village_mayor" },
         {
-          ...obshtinaPlaceFor(d.obshtinaCode),
+          // The SETTLEMENT, not the община — see settlementPlaceFor. The `ref` deliberately
+          // keeps its array index even when the ekatte is now known: changing it would churn
+          // all 10,721 mentions and their slug locks for no gain, and the index-vs-name key
+          // is what local_person_roles.data.test.ts pins.
+          ...settlementPlace(d.obshtinaCode, k.kmetstvoName),
           cParty: el.primaryCanonicalId ?? null,
           cPlace: place,
         },

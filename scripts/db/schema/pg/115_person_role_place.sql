@@ -84,9 +84,15 @@ END $$;
 -- (28), which is a different rollup and belongs only in the resolver's corroborant.
 -- `obshtina` is the app's own obshtina code (`BLG11`, `S2309`, and the synthetic
 -- city-wide `SFO_CITY`). `judicial` is a judicial_body.body_code (migration 116).
+-- `settlement` is an EKATTE code (place_dim, migration 117): the seat of a кмет на
+-- кметство, who governs a VILLAGE and not the община around it. All 10,721 village-mayor
+-- roles carried their община before this, so the кмет на кметство of с. Безмер published
+-- as "Тунджа" — a place he does not govern, and an office (кмет на община) that belongs to
+-- somebody else. See docs/plans/village-mayor-attribution-v1.md §T2.
 ALTER TABLE person_role DROP CONSTRAINT IF EXISTS person_role_place_kind;
 ALTER TABLE person_role ADD CONSTRAINT person_role_place_kind
-  CHECK (place_kind IS NULL OR place_kind IN ('mir', 'obshtina', 'judicial'));
+  CHECK (place_kind IS NULL
+         OR place_kind IN ('mir', 'obshtina', 'judicial', 'settlement'));
 
 -- Never a kind without a code, never a code without a kind. Consumers get ONE check
 -- instead of two, and the 394 magistrate roles with no court / the 16,124 candidacies

@@ -3307,12 +3307,19 @@ const localPersonRoute = (
   const roleEn = LOCAL_ROLE_EN[c.role] ?? "Local office";
   const placeRaw = c.placeLabel;
   const place = placeRaw ? escapeHtmlMinimal(placeRaw) : null;
+  // A village mayor's place now carries its Bulgarian settlement type ("с. Безмер") so the
+  // page names the village rather than the община around it. The EN half of this route has
+  // always printed the Bulgarian place name — there is no English place in the card — but
+  // "с." is a Bulgarian ABBREVIATION, not part of the name, and leaving it in an English
+  // title reads as a typo. Strip just the marker, keep the name.
+  const placeEnRaw = placeRaw?.replace(/^(?:с|гр)\.\s*/u, "") ?? null;
+  const placeEn = placeEnRaw ? escapeHtmlMinimal(placeEnRaw) : null;
   const inBg = placeRaw ? ` в ${placeRaw}` : "";
   const inBgSafe = place ? ` в ${place}` : "";
   const title = `${c.name} — ${roleBg}${inBg} | electionsbg.com`;
-  const titleEn = `${c.name} — ${roleEn}${place ? ` in ${placeRaw}` : ""} | electionsbg.com`;
+  const titleEn = `${c.name} — ${roleEn}${placeEnRaw ? ` in ${placeEnRaw}` : ""} | electionsbg.com`;
   const description = `Профил на ${c.name}, ${roleBg}${inBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
-  const descriptionEn = `Profile of ${c.name}, ${roleEn}${place ? ` in ${placeRaw}` : ""}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
+  const descriptionEn = `Profile of ${c.name}, ${roleEn}${placeEnRaw ? ` in ${placeEnRaw}` : ""}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
   return {
     path: path_,
     title,
@@ -3334,7 +3341,7 @@ const localPersonRoute = (
       description: descriptionEn,
       bodyHtml: `
 <h1>${name}</h1>
-<p>${roleEn}${place ? ` in ${place}` : ""}.</p>
+<p>${roleEn}${placeEn ? ` in ${placeEn}` : ""}.</p>
 <p>See the <a href="${SITE_URL}/en/local">local elections</a> and the profile for declarations, connections and public procurement.</p>`.trim(),
       jsonLd: [
         buildWebPageLd({

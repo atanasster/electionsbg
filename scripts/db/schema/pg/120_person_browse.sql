@@ -449,7 +449,10 @@ SELECT
   -- tile). A different one here means the browser and the profile print different place
   -- names for the same seat. `name_en` is pd-only ON PURPOSE — judicial_body carries no
   -- English name — so mirror that asymmetry rather than inventing a fallback.
-  COALESCE(pd.name_bg, jb.name, pl.place_raw)        AS place_label,
+  COALESCE(
+    CASE WHEN pd.kind = 'settlement' AND pd.settlement_type IS NOT NULL
+         THEN pd.settlement_type || ' ' || pd.name_bg END,
+    pd.name_bg, jb.name, pl.place_raw)               AS place_label,
   pd.name_en                                         AS place_label_en,
   COALESCE(pd.oblast_code, jpd.oblast_code)          AS oblast_code,
   ob.oblast_codes,
@@ -457,9 +460,16 @@ SELECT
   -- on the 295 obshtina rows themselves (where the code IS the obshtina) and on all 31 mir
   -- rows. Reading it here made this column NULL for every person — a filter that silently
   -- matched nobody. A мир spans several obshtini, so it correctly has none.
+  --
+  -- The 'settlement' arm is the exception, and it is exactly why the column is a CASE: a
+  -- village mayor's place IS a settlement, whose parent obshtina is the thing ?obshtina
+  -- filters on. Without this arm the 10,721 village-mayor roles that gained a settlement
+  -- place in §T2 would silently drop out of that filter — green everywhere, wrong on one
+  -- control.
   CASE
-    WHEN pl.place_kind = 'obshtina' THEN pl.place_code
-    WHEN pl.place_kind = 'judicial' THEN jb.place_code
+    WHEN pl.place_kind = 'obshtina'   THEN pl.place_code
+    WHEN pl.place_kind = 'settlement' THEN pd.obshtina_code
+    WHEN pl.place_kind = 'judicial'   THEN jb.place_code
   END                                                AS obshtina_code,
   COALESCE(i.institution, di.institution)            AS institution,
   i.judicial_kind,

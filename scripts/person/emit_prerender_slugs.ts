@@ -325,8 +325,17 @@ export const computePersonSlugs = async (): Promise<
       // place lives in place_code (resolved via place_dim), NOT place_raw, for these sources —
       // 082_person_api.sql resolves the /person label the same way. A stable tiebreak on
       // (place_code, ref) keeps the DISTINCT ON pick deterministic across runs.
+      // The label expression is COPIED VERBATIM from 082_person_api.sql and
+      // 120_person_browse.sql. This is the THIRD producer of the same string and the only one
+      // that is baked into HTML: it becomes the prerendered <title>, description and JSON-LD.
+      // A bare name here would have the indexed page say "в Безмер" while the live page says
+      // "в с. Безмер" — the same person, two different places, one of them served to crawlers.
       `SELECT DISTINCT ON (p.slug)
-              p.slug, p.display_name AS name, r.role, pd.name_bg AS place_label
+              p.slug, p.display_name AS name, r.role,
+              COALESCE(
+                CASE WHEN pd.kind = 'settlement' AND pd.settlement_type IS NOT NULL
+                     THEN pd.settlement_type || ' ' || pd.name_bg END,
+                pd.name_bg) AS place_label
          FROM person p
          JOIN person_role r ON r.person_id = p.person_id
          LEFT JOIN place_dim pd

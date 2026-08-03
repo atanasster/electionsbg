@@ -11,13 +11,15 @@ export type ProfileRole = {
   role: string;
   ref: string;
   // The TYPED place (migration 115). `placeKind` names the namespace `placeCode` is in
-  // — 'mir' (31 electoral constituencies), 'obshtina' (the app's municipality codes) or
-  // 'judicial' (a judicial_body code) — and both labels are resolved server-side (082 joins
-  // place_dim for mir/obshtina, judicial_body for judicial), so no consumer needs a
-  // code→name dictionary. `placeLabelEn` is null for judicial roles — those bodies have no
-  // English name — so render with a Bulgarian fallback. `judicialKind` is set for magistrate
-  // roles only and drives the Съдия/Прокурор/Следовател heading.
-  placeKind: "mir" | "obshtina" | "judicial" | null;
+  // — 'mir' (31 electoral constituencies), 'obshtina' (the app's municipality codes),
+  // 'settlement' (an EKATTE code: a кмет на кметство governs a VILLAGE, not the община around
+  // it) or 'judicial' (a judicial_body code) — and both labels are resolved server-side (082
+  // joins place_dim for mir/obshtina/settlement, judicial_body for judicial), so no consumer
+  // needs a code→name dictionary. A settlement's label arrives WITH its type ("с. Безмер").
+  // `placeLabelEn` is null for judicial roles — those bodies have no English name — so render
+  // with a Bulgarian fallback. `judicialKind` is set for magistrate roles only and drives the
+  // Съдия/Прокурор/Следовател heading.
+  placeKind: "mir" | "obshtina" | "settlement" | "judicial" | null;
   placeCode: string | null;
   placeLabel: string | null;
   placeLabelEn: string | null;

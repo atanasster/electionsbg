@@ -58,7 +58,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'source', r.source, 'facet', s.facet, 'sourceLabel', s.label_bg,
         'role', r.role, 'ref', r.ref, 'confidence', r.confidence,
         'placeKind', r.place_kind, 'placeCode', r.place_code,
-        'placeLabel', COALESCE(pd.name_bg, jb.name, r.place_raw),
+        -- A settlement is printed WITH its type ("с. Безмер", "гр. Костинброд"): the bare
+        -- name reads as an obshtina on a page that also prints obshtini, and "Безмер" alone
+        -- does not say which kind of place it is. place_dim.name_bg is left alone — the
+        -- procurement surfaces (119/123) join it for their own labels — so the prefix is
+        -- composed here. Kept IDENTICAL in 120_person_browse.sql; the two must not print
+        -- different names for one seat.
+        'placeLabel', COALESCE(
+          CASE WHEN pd.kind = 'settlement' AND pd.settlement_type IS NOT NULL
+               THEN pd.settlement_type || ' ' || pd.name_bg END,
+          pd.name_bg, jb.name, r.place_raw),
         'placeLabelEn', pd.name_en,
         'judicialKind', jb.kind
       ) ORDER BY s.facet, r.role)
