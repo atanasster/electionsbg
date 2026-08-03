@@ -61,6 +61,7 @@ import { getLatestElection } from "./dynamicRoutes";
 import { electionYearSuffix } from "./electionYear";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
+import { readIndexableProcedures } from "../funds/procedures_index";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -4669,6 +4670,86 @@ ${stats ? `<p>${stats}.</p>` : ""}
 ${statsEn ? `<p>${statsEn}.</p>` : ""}
 <p>Top contracts, beneficiaries and municipalities for operational programme ${nameEn}, extracted from the ИСУН 2020 corpus.</p>
 <p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a>, <a href="${SITE_URL}/en/funds/political">political-economy view</a>, or <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
+        },
+      }),
+    );
+  }
+}
+
+// Per-procedure detail pages /funds/procedure/<code> — the ИСУН grain between a
+// programme and a contract, and the one people actually search: every
+// beneficiary of a scheme publishes a mandated-publicity page naming its
+// procedure code, so `BG16RFOP002-2.089` has a tail thousands of pages deep.
+//
+// Enumerated from the catalogue the ingest writes, which already applies the
+// >=3-contract floor — the same set the sitemap emits, so a <loc> can never
+// point at a route with no prerendered HTML.
+//
+// Only 22 of the 985 have a derivable scheme name (ИСУН publishes none and the
+// rest carry per-project titles), so the rest lead with the code and lean on the
+// programme name for meaning.
+/** Cut a label to `max` chars on a word boundary, with an ellipsis. */
+const truncateAtWord = (text: string, max: number): string => {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const sp = cut.lastIndexOf(" ");
+  return `${(sp > max * 0.6 ? cut.slice(0, sp) : cut).replace(/[\s.,;:—–-]+$/, "")}…`;
+};
+
+const PROCEDURES = readIndexableProcedures();
+if (PROCEDURES.length > 0) {
+  const eurFmt = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  });
+  const numFmtBg = new Intl.NumberFormat("bg-BG");
+  const numFmtEn = new Intl.NumberFormat("en-US");
+  for (const p of PROCEDURES) {
+    const code = p.procedureCode.trim();
+    const named = p.procedureName?.trim();
+    const heading = named || code;
+    const statsBg = `${numFmtBg.format(p.contractCount)} ${p.contractCount === 1 ? "договор" : "договора"} · ${numFmtBg.format(p.beneficiaryCount)} ${p.beneficiaryCount === 1 ? "бенефициент" : "бенефициенти"} · ${eurFmt.format(p.totalEur)} договорени · ${eurFmt.format(p.paidEur)} изплатени`;
+    const statsEn = `${numFmtEn.format(p.contractCount)} ${p.contractCount === 1 ? "contract" : "contracts"} · ${numFmtEn.format(p.beneficiaryCount)} ${p.beneficiaryCount === 1 ? "beneficiary" : "beneficiaries"} · ${eurFmt.format(p.totalEur)} contracted · ${eurFmt.format(p.paidEur)} paid`;
+    // `${code} — ${heading}` reads as the code twice on the 963 unnamed ones.
+    // Scheme names run to 300+ chars (the COVID ones spell out the whole
+    // eligibility rule), so the named lead is cut at a word boundary — Google
+    // truncates around 60 anyway, and a 340-char <title> is not a title.
+    const titleLead = named ? `${code} — ${truncateAtWord(named, 90)}` : code;
+    const url = `${SITE_URL}/funds/procedure/${code}`;
+    prerenderRoutes.push(
+      staticPage({
+        path: `funds/procedure/${code}`,
+        title: `${titleLead} | ${p.programName}`,
+        description:
+          `Кой получи парите по процедура ${code} (${p.programName}): ${statsBg}.`.trim(),
+        breadcrumbName: heading,
+        ogImage: "/og/funds.png",
+        bodyHtml: `
+<h1>${heading}</h1>
+<p><strong>${code}</strong> · <a href="${SITE_URL}/funds/programme/${p.programCode}">${p.programName}</a></p>
+<p>${statsBg}.</p>
+<p>Процедурата е изведена от номерата на договорите в регистъра на ИСУН 2020: всеки договор по нея носи номер, който започва с <strong>${code}</strong>.</p>
+<p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
+        english: {
+          title: `${titleLead} | ${p.programName}`,
+          description:
+            `Who received the money under procedure ${code} (${p.programName}): ${statsEn}.`.trim(),
+          breadcrumbName: heading,
+          // Both the scheme name and the programme name are Bulgarian — ИСУН
+          // publishes no English ones — so the English page differs from the
+          // Bulgarian only in boilerplate. It stays navigable for a reader on
+          // the English UI, but points its canonical at the Bulgarian URL and
+          // is left out of the sitemap rather than competing with it as a
+          // near-duplicate. Same failure this plan documents for programmes
+          // (F3), not repeated 987 times here.
+          canonicalUrl: url,
+          bodyHtml: `
+<h1>${heading}</h1>
+<p><strong>${code}</strong> · <a href="${SITE_URL}/en/funds/programme/${p.programCode}">${p.programName}</a></p>
+<p>${statsEn}.</p>
+<p>The procedure is derived from the contract numbers in the ИСУН 2020 register: every contract under it carries a number beginning <strong>${code}</strong>.</p>
+<p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a> or the <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
         },
       }),
     );

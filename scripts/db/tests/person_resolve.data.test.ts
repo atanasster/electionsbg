@@ -249,14 +249,24 @@ test.skipIf(skip)("every review group spans >= 2 persons", async () => {
   assert.equal(Number(r.bad), 0, "found a review group with < 2 persons");
 });
 
-// §6 PRIVACY GATE: the serving functions must NEVER return a non-public person (a
+// §6 PRIVACY GATE: the serving functions must NEVER return a non-servable person (a
 // donor-only individual has no public page). Guards person_by_slug + person_by_name +
 // person_search against leaking a private person by slug, name, or search.
+//
+// The gate is `is_public_figure OR identity_confidence = 'verified'` (082:18), NOT
+// `is_public_figure` alone — a verified identity is servable whether or not it is a
+// public figure, and 53,203 of the 54,486 non-public persons are exactly that. Selecting
+// on the narrower predicate picked a servable person 97.6% of the time, so this passed
+// only because the unordered LIMIT 1 happened to return one of the other 1,283. It was
+// a coin-flip on the physical row order, and adding an unrelated test file elsewhere in
+// the suite was enough to flip it. ORDER BY makes the pick deterministic.
 test.skipIf(skip)("serving functions never leak a private person", async () => {
   const [priv] = await allRows<{ slug: string; name: string }>(
-    `SELECT slug, display_name AS name FROM person WHERE NOT is_public_figure LIMIT 1`,
+    `SELECT slug, display_name AS name FROM person
+      WHERE NOT is_public_figure AND identity_confidence <> 'verified'
+      ORDER BY slug LIMIT 1`,
   );
-  if (!priv) return; // no private persons in this corpus
+  if (!priv) return; // no non-servable persons in this corpus
   const [r] = await allRows<{
     by_slug: unknown;
     by_name: unknown;

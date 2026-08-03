@@ -172,7 +172,11 @@ const writeRoute = (template: string, route: PrerenderRoute) => {
       bodyHtml: route.bodyHtml,
       jsonLd: route.jsonLd,
       selfUrl: bgUrl,
-      altUrl: enUrl,
+      // An English mirror that canonicalises back here is not an alternate —
+      // it is a duplicate we keep navigable. Advertising hreflang="en" at a
+      // page that points its canonical at this one is a contradiction, so the
+      // BG page declares only itself.
+      altUrl: route.english?.canonicalUrl === bgUrl ? undefined : enUrl,
       canonicalUrl: route.canonicalUrl,
     },
     route.path === "" ? "index.html" : path.join(route.path, "index.html"),

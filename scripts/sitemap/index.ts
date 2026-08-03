@@ -7,6 +7,10 @@ import {
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
+import {
+  readIndexableProcedures,
+  PROCEDURES_INDEX_FILE,
+} from "../funds/procedures_index";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
@@ -542,6 +546,26 @@ const enumerateFundsProgrammes = (rootUrl: string, routes: string[]) => {
   }
 };
 
+// /funds/procedure/{code} — one URL per ИСУН procedure worth a page. Read from
+// the catalogue the ingest writes, which already applies the >=3-contract floor:
+// a page for one or two contracts says nothing the contract page doesn't, and
+// 1,152 such pages is crawl budget spent to say it.
+const enumerateFundsProcedures = (rootUrl: string, routes: string[]) => {
+  // Shared with the prerender (readIndexableProcedures) so the two sets cannot
+  // diverge — a <loc> with no prerendered HTML behind it is exactly what the
+  // sitemap-validity rule exists to catch.
+  const file = PROCEDURES_INDEX_FILE;
+  if (!fs.existsSync(file)) return;
+  const lastmod = safeFileMod(file);
+  for (const p of readIndexableProcedures(file)) {
+    // BG only: the English mirror carries the same Bulgarian scheme and
+    // programme names (ИСУН publishes no English ones), so the prerender
+    // canonicalises it at the Bulgarian URL. Listing a canonicalised duplicate
+    // asks Google to index a page that points somewhere else.
+    pushUrl(`${rootUrl}/${routes[0]}${p.procedureCode}`, lastmod);
+  }
+};
+
 const enumerateProcurementSettlements = (rootUrl: string, routes: string[]) => {
   // One URL per settlement that has at least one local-tier contract. Read from
   // Postgres (procurementSeoSettlements, fetched once at startup) — the same
@@ -696,6 +720,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateProducts(rootUrl, routes);
     if (route.file === "funds-programmes-list")
       return enumerateFundsProgrammes(rootUrl, routes);
+    if (route.file === "funds-procedures-list")
+      return enumerateFundsProcedures(rootUrl, routes);
     if (route.file === "procurement-settlements-list")
       return enumerateProcurementSettlements(rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
