@@ -79,8 +79,12 @@ export const buildSiteNav = (
   const base = lang === "en" ? `${SITE_URL}/en` : SITE_URL;
   const heading = lang === "en" ? "Explore the data" : "Разгледайте данните";
   const homeLabel = lang === "en" ? "Home" : "Начало";
+  // The BG home is the bare root, which keeps its slash (hosting never strips
+  // `/`); the EN home is `/en`, which under `trailingSlash: false` must NOT
+  // carry one. `${base}/` was right for BG and a redirect for EN.
+  const homeHref = lang === "en" ? base : `${SITE_URL}/`;
   const items = [
-    `<li><a href="${base}/">${escapeHtml(homeLabel)}</a></li>`,
+    `<li><a href="${homeHref}">${escapeHtml(homeLabel)}</a></li>`,
     ...NAV_HUBS.map((h) => {
       const label = escapeHtml(lang === "en" ? h.en : h.bg);
       // bgOnly hubs have no /en mirror — link EN nav to the BG URL.

@@ -29,6 +29,7 @@
     {
       "target": "main",
       "public": "dist",
+      "trailingSlash": false,
       "ignore": [
         "firebase.json",
         "**/.*",

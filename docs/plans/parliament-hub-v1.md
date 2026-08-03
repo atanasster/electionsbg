@@ -246,6 +246,33 @@ scope** — 248k URLs is too large a blast radius to ride along with a hub rebui
 with `cleanUrls`, and it needs a staging verification. It wants its own work item; recorded here
 because this is where it was found.
 
+**RESOLVED 2026-08-03 — `"trailingSlash": false`.** Taken as its own work item, as this section
+asked. The count that decided it: the no-slash form is used by **350** `href="${SITE_URL}/…"`
+emitters across `routes.ts` / `dynamicRoutes.ts` / `bodyBuilders.ts`, by all **294** router paths
+in `src/routes.tsx` (**zero** end in a slash), by the sitemap, by `functions/spa_page.js` and by
+`scripts/llms/buildIndex.ts`. Firebase's directory-index default was the only component
+disagreeing, so the first fix was never "two generators in lockstep" — it was four generators plus
+350 hand-written links, and it could not reach `src/routes.tsx` at all, which is what puts the
+no-slash URL in the address bar during in-app navigation. Option 1 would have left the address bar
+permanently disagreeing with the canonical.
+
+One code change rode along, because the rule inverts at the roots: `/en/` was the single place the
+code already emitted a slash (`enUrlFor` for the root route, `buildSiteNav`'s home link), so under
+the new rule it would have acquired the very defect being removed. The bare `/` is unaffected —
+hosting never strips it. Function-served routes (`/funds/contract/**`, `/company/**`) are exempt
+from slash normalization, which is observable pre-fix: `/company/831391124` and
+`/company/831391124/` both returned 200 while `/officials/assets` — a rewrite to a **file** — 301'd
+to the slash form.
+
+`tests/seo.spec.ts` asserted the old direction (`/about → /about/`), which is part of why this
+survived so long: the suite checked that the canonical *string* was right, never that the URL it
+named served 200. It now asserts the new direction plus a `canonical/og:url/hreflang do not
+redirect` gate over a hub, a sub-tab and both roots.
+
+**GA discontinuity at the deploy date.** The paired rows in §2.7 collapse — `/parliament` +
+`/parliament/` become one row. Comparisons spanning 2026-08-03 must still sum the pairs on the
+before side and must not on the after side.
+
 ---
 
 ## 3. The hub — seven bands (0–6)

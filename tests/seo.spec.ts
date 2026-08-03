@@ -322,10 +322,10 @@ const ROUTES: RouteCheck[] = [
 // English mirrors that must serve the EN prerender (not the EN home fallback).
 const EN_ROUTES: RouteCheck[] = [
   {
-    path: "/en/",
+    path: "/en",
     titleIncludes: HOME_TITLE_EN_PREFIX,
     minBodyChars: 500,
-    expectedCanonical: "/en/",
+    expectedCanonical: "/en",
   },
   {
     path: "/en/about",
@@ -385,8 +385,9 @@ const fetchOk = async (
   path: string,
 ): Promise<{ status: number; body: string }> => {
   const res = await request.get(path);
-  // Firebase 301-redirects /foo to /foo/ to serve dist/foo/index.html. The
-  // request fixture follows redirects by default; we just need the final body.
+  // With `trailingSlash: false` Firebase serves dist/foo/index.html at /foo
+  // directly and 301s /foo/ back to it. The request fixture follows redirects
+  // by default; we just need the final body.
   return { status: res.status(), body: await res.text() };
 };
 
@@ -443,11 +444,14 @@ const extract = (html: string) => {
     "content",
   );
   const hreflangs: string[] = [];
+  const hreflangHrefs: string[] = [];
   for (const m of html.matchAll(/<link\b[^>]*>/gi)) {
     const rel = readAttr(m[0], "rel");
     if (rel !== "alternate") continue;
     const lang = readAttr(m[0], "hreflang");
     if (lang) hreflangs.push(lang);
+    const href = readAttr(m[0], "href");
+    if (href) hreflangHrefs.push(href);
   }
   const jsonLdBlocks = Array.from(
     html.matchAll(
@@ -464,6 +468,7 @@ const extract = (html: string) => {
     ogUrl,
     description,
     hreflangs,
+    hreflangHrefs,
     jsonLdBlocks,
   };
 };
@@ -572,12 +577,49 @@ test.describe("prerender: cross-cutting", () => {
   // it now, alongside the entry-static-import and chunk-cycle gates that
   // explain why the preload list alone is not sufficient.
 
-  test("trailing-slash redirect: /about → /about/", async ({ request }) => {
+  test("trailing-slash redirect: /about/ → /about", async ({ request }) => {
+    // Hosting runs `trailingSlash: false`, so the SLASH form is the redirect
+    // and the bare form serves the prerender. This used to assert the opposite
+    // direction, which is what let every canonical point at a 301 for so long.
     // maxRedirects: 0 disables follow so we can see the 301 directly.
-    const res = await request.get("/about", { maxRedirects: 0 });
+    const res = await request.get("/about/", { maxRedirects: 0 });
     expect(res.status()).toBe(301);
-    expect(res.headers()["location"]).toMatch(/\/about\/?$/);
+    expect(res.headers()["location"]).toMatch(/\/about$/);
   });
+
+  // The defect this suite missed for the whole life of the prerender step: a
+  // canonical (and og:url, and every hreflang) that is itself a 301. Asserting
+  // the STRING is right is not enough — the URL has to serve 200 on its own.
+  // Covers a static hub, a nested sub-tab, the BG root and the EN root, since
+  // the roots are the two cases the slash rule treats specially.
+  // `routePath`, not `path` — the node path module is imported at the top of
+  // this file and a loop variable named `path` shadows it.
+  for (const routePath of ["/governance", "/parliament/cohesion", "/", "/en"]) {
+    test(`canonical/og:url/hreflang do not redirect: ${routePath}`, async ({
+      request,
+    }) => {
+      const { body } = await fetchOk(request, routePath);
+      const meta = extract(body);
+      const urls = new Set(
+        [meta.canonical, meta.ogUrl, ...meta.hreflangHrefs].filter(
+          (u): u is string => Boolean(u),
+        ),
+      );
+      expect(
+        urls.size,
+        `no self-referential URLs on ${routePath}`,
+      ).toBeGreaterThan(0);
+      for (const url of urls) {
+        const res = await request.get(url.replace(ORIGIN, ""), {
+          maxRedirects: 0,
+        });
+        expect(
+          res.status(),
+          `${url} (declared on ${routePath}) must not redirect`,
+        ).toBe(200);
+      }
+    });
+  }
 
   test("party page emits Dataset JSON-LD with declared distribution links", async ({
     request,

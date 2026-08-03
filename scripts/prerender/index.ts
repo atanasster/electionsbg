@@ -147,9 +147,14 @@ const bgUrlFor = (route: PrerenderRoute): string =>
     ? `${SITE_URL}/`
     : `${SITE_URL}/${encodeUrlPath(route.path)}`;
 
+// No trailing slash — hosting runs `trailingSlash: false`, so `/en/` 301s to
+// `/en`. The bare root is the one exception: `/` is never stripped, so bgUrlFor
+// keeps its slash while the EN root must drop it. Emitting `/en/` here would
+// give the EN homepage the exact redirecting-canonical defect that setting
+// removes everywhere else. See firebase.json (hosting.main.trailingSlash).
 const enUrlFor = (route: PrerenderRoute): string =>
   route.path === ""
-    ? `${SITE_URL}/en/`
+    ? `${SITE_URL}/en`
     : `${SITE_URL}/en/${encodeUrlPath(route.path)}`;
 
 const writeRoute = (template: string, route: PrerenderRoute) => {

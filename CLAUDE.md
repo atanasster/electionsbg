@@ -37,6 +37,19 @@ npm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 3
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
+**Every URL this repo emits is the NO-slash form.** Hosting runs `"trailingSlash": false`
+(`firebase.json`, hosting.main), so `dist/<path>/index.html` serves at `/<path>` and `/<path>/`
+301s back to it. Canonicals, `og:url`, `hreflang`, sitemap `<loc>`, the ~350 `href="${SITE_URL}/…"`
+links in `scripts/prerender/`, `functions/spa_page.js` and `scripts/llms/buildIndex.ts` must all
+follow that. **The two roots invert the rule**: the bare `/` keeps its slash (hosting never strips
+it) while the EN root is `/en`, NOT `/en/` — that asymmetry is the one thing to get right in any
+new URL builder, and emitting `/en/` gives the EN homepage a canonical that 301s. Until 2026-08-03
+hosting used the default (slash-adding) behaviour while the code emitted no-slash, so every
+canonical on ~248k pages named a redirecting URL; see `docs/plans/parliament-hub-v1.md` §2.8.
+`tests/seo.spec.ts` gates both the redirect direction and that no declared canonical / `og:url` /
+`hreflang` redirects — the older test asserted only that the canonical *string* was right, which is
+why this survived unnoticed.
+
 **`npm run deploy` ships hosting only.** When a change spans hosting and the `db` function
 — a new `/api/db` route, a new hosting rewrite pointing at it — deploy in this order:
 
