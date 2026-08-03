@@ -257,6 +257,65 @@ legitimate answers to "how many votes were there" and three to "what is attendan
 draft of this plan picked a different one for each tile by accident. The generator computes one
 declared basis per stat and §6's gate recomputes it.
 
+### 3.1 Layout — the chosen option
+
+Four layouts were mocked (front page · chamber-led · split masthead · session strip). They
+differ only in **what occupies the top third**, which is the sole real decision — bands 3–5 are
+`TileHubGrid` in every one of them.
+
+**Chosen: the session strip as the hero, the front-page structure beneath it.**
+
+```
+band 0   wire line — „НС не заседава от 31 юли (2 дни)"
+HERO     SESSION STRIP — one column per plenary day over ~6 weeks, gaps drawn
+band 1   lead card
+band 2   news rail (3–4)
+band 3   Разгледай (4 tiles)
+band 4   Още (3 tiles)
+band 5   Депутатите извън залата (4 tiles)
+band 6   За теб / Данни и метод
+```
+
+**Why the strip and not the other three.** §3 band 0 establishes that recess is not an edge case
+— 11–32% of every term's days sit inside a >10-day gap, and today is the start of one. The front
+page and the chamber-led layouts both answer that with apologetic copy in the most valuable space
+on the page. The strip answers it with **information**: fourteen columns, four of them empty, and
+the shape of the summer legible at a glance. It is also the only option that promotes the 613
+`/votes/<date>` pages directly — which §2.7 measures as the best-performing half of the whole
+module, and §7 as the half nothing links to.
+
+The split-masthead option was rejected on the mobile collapse: a 60/40 split stacks on phones
+into exactly the front-page layout, so its one advantage evaporates on most traffic, and it forks
+`NewsRail` away from the shared horizontal component the other 18 modules will use.
+
+**The hemicycle survives, one band down.** The chamber-led option had the best identity signal —
+it says *institution*, which is D1's whole problem — but putting it in the hero means the hero
+draws from the roster (`mp_profile`) while every tile below draws from the roll-call corpus: two
+sources, two freshness dates, at the top of a page whose audit was largely about basis mismatches.
+So the hemicycle becomes the **cohesion tile's scene** (§3.5) instead. Same recognition value,
+decorative rather than load-bearing, no second data source.
+
+**One rule stolen from the rejected split-masthead: every rail and strip item carries its own
+date, unconditionally** — not only when `inRecessDays > 10`. Band 0 already softened the recess
+rule from "collapse" to "re-label"; making the date unconditional removes the conditional state
+entirely, and conditional presentation is where this page's audit found most of its defects.
+
+### 3.1.1 What the strip can and cannot show
+
+Measured while speccing it: `RollcallIndexEntry` is `{ date, stenogramId, items, file, ns }` —
+**`index.json` carries no tallies.** Per-day за/против/въздържал exists only inside the session
+files (~470 KB each, 290 MB total), which the hub may never fetch.
+
+So the strip is phased, and the first version is the honest one:
+
+| | Column encodes | Source | Phase |
+|---|---|---|---|
+| v1 | **items voted that day** (bar height), sitting vs gap | `index.json` — already fetched | 0 |
+| v2 | stacked за / против / въздържал | `hub_feed/<ns>.json` | 2 |
+
+v1 still carries the whole point — the calendar shape, the gaps, and 613 deep links. It just
+encodes volume rather than outcome, and must not be captioned as though it encodes outcome.
+
 ### Band 0 — Wire (one line)
 
 `Днес в НС: 5 гласувания · 3 законопроекта на второ четене · 73% присъствие` →
@@ -415,21 +474,66 @@ Note the **Депутати** tile leads with the destination's number and carri
 secondary. Leading with `240` and landing on a 2,120-row page is the "show one window and count
 another" failure CLAUDE.md names for `?pscope`.
 
-### Band 4 — Още (4)
+### Band 4 — Още (3)
 
-Присъствие (`/parliament/attendance`) · Сходство между депутати · Двама депутати един срещу
-друг · Разцепления.
+Присъствие (`/parliament/attendance`) · Сходство между депутати · Двама депутати един срещу друг.
 
-**Two of these have no static destination** (§2.4), and writing `to: "/parliament/similarity/:mpId"`
-would pass the "absolute `to`" gate vacuously while linking nowhere. Both resolve from the blob:
+**Разцепления is CUT as a tile — it has no route.** `grep dissent src/routes.tsx` returns
+nothing: the only surface is `MpDissentsSection` on a candidate page. The draft listed it here
+without checking, which is precisely the orphan-by-assumption the §6 reachability gate exists to
+catch — caught in speccing rather than in review this time. It stays a band-2 news card, where it
+needs no destination of its own, and it returns as a tile if a `/parliament/dissents` page is
+ever built.
+
+**Two of the remaining three have no STATIC destination** (§2.4), and writing
+`to: "/parliament/similarity/:mpId"` would pass the "absolute `to`" gate vacuously while linking
+nowhere. Both resolve from the blob:
 
 - **Сходство** → `hubStats.byNs[ns].seeds.similarity` — `similarity_headline.json` already
   computes a per-NS `seedId` (the MP with the most cross-party twins), so the href is
   `/parliament/similarity/<seedId>`.
 - **Двама депутати** → `hubStats.byNs[ns].seeds.pair` — `party_correlation.json` (17 KB) already
-  carries the most-divergent party pair, so the href is `/votes/between/<pairSlug>`.
+  carries the most-divergent party pair, so the href is `/votes/between/<pairSlug>`. Slug format
+  is fixed by the existing consumer (`ParliamentVotingTile:143`) and must round-trip party names
+  containing hyphens: `` `${encodeURIComponent(a)}--${encodeURIComponent(b)}` `` — a **double**
+  hyphen separator, because `ГЕРБ-СДС` contains a single one.
 
-§6 gates that each stored href matches a routed pattern and that its parameter is non-empty.
+**How the registry represents a seeded tile,** so the gate can check it rather than trust it:
+every entry carries `to: string`; a `to` containing a `:` segment MUST also carry
+`seed: "similarity" | "pair"`, and the screen substitutes. **A tile whose seed is unavailable is
+omitted, not rendered with a broken href** — an absent tile is honest, a dead link is not.
+
+### 3.5 Tile inventory — 11 tiles, 11 accents, 11 bespoke scenes
+
+Every tile gets its own hand-drawn vignette in the `SceneFrame` contract (300×116, ink =
+`currentColor`, accent = `var(--sector)`, `PAPER` for under-ink fills). **None is reused from
+another hub** — `governanceScenes.tsx` already has a connections mark and a persons mark, but
+they carry a different page's meaning; here the question is "what does this destination answer
+about the National Assembly". Dense marks stay on the right half and top band, because phase 1
+overlays a `metric` at the banner's bottom-left.
+
+Accents must be unique **per page** (§6); the palette has 20 tokens, so 11 is comfortable. Reuse
+across hubs is fine — `plum` is also the governance tile's accent for this module, which is a
+deliberate echo, not a collision.
+
+| Band | Tile | `to` | accent | scene |
+|---|---|---|---|---|
+| 3 | Гласувания | `/votes` | plum | roll-call tally — three agenda rows as segmented за/против/въздържал bars. The one mark that shows the *shape* of a vote rather than a metaphor for one |
+| 3 | Карта на гласуването | `/parliament/embedding` | indigo | the UMAP: three loose clusters, one pulled away, plus a hollow stray between two of them — the cross-party voter the map exists to reveal |
+| 3 | Единство на групите | `/parliament/cohesion` | teal | **the hemicycle** (§3.1) — five fanned ranks blocked by group, with ONE seat in the accent block drawn hollow: the member voting against their own. That single mark *is* what cohesion measures |
+| 3 | Депутати | `/persons?role=mp` | clay | four seated figures in a rank, heads + shoulders only so it survives thumbnail size, the accent one forward |
+| 4 | Присъствие | `/parliament/attendance` | amber | the register — a 9×4 grid, filled = present, hollow = absent, absences clustering right the way a thinning sitting actually reads |
+| 4 | Сходство между депутати | `/parliament/similarity/:mpId` | aqua | two voting records side by side with the matching rows bridged; the bridges are the score, drawn rather than stated |
+| 4 | Двама депутати един срещу друг | `/votes/between/:pair` | terracotta | diverging bars either side of a shared axis — same items, two members, opposite sides |
+| 5 | Декларации | `/governance/declarations` | rose | a filed sheet in `PAPER` under ruled ink, accent stamp across the corner |
+| 5 | Имущество | `/mp-assets` | gold | a house in ink beside a coin stack in accent — the two asset classes that dominate the filings |
+| 5 | Фирми | `/mp/companies` | moss | a company block, one storey lit in accent. Deliberately not an org chart: this tile is about ownership, not structure |
+| 5 | Свързани лица | `/connections` | steel | the ego graph — one MP node in accent, company nodes around it, two edges running off-frame to say the graph does not stop here |
+
+Files: `src/screens/parliament/parliamentRegistry.ts` (pure data, no JSX),
+`parliamentScenes.tsx` (the lookup table — needs the `react-refresh/only-export-components`
+disable, as every scenes registry does), `ParliamentHubScreen.tsx`, and the strip as its own
+component so phase 2 can swap its data source without touching the hub.
 
 ### Band 5 — Депутатите извън залата (cross-links, 4)
 
@@ -559,7 +663,7 @@ comparable has already shipped.
 | Gate | Asserts | Precedent |
 |---|---|---|
 | `parliamentHubRegistry.test.ts` | every tile `id` resolves to a scene; ids unique; every `to` absolute | `hubRegistry.test.ts` |
-| — accent uniqueness | no accent used twice on one page (20 tokens available, 12 tiles across bands 3–5) | added for `/governance` this week |
+| — accent uniqueness | no accent used twice on one page (20 tokens available, **11 tiles** across bands 3–5 — §3.5) | added for `/governance` this week |
 | — **reachability** | every routed `/parliament/*` and `/votes*` page is linked from the hub, or from a page the hub links | the 31-orphan reports gap |
 | — **reachability, at every phase** | the assertion runs against the **post-Phase-1 registry**, not only the final one — §8's B4 case is only catchable on the intermediate state | new |
 | — **resolved seeds** | band-4 hrefs from `seeds` match a routed pattern AND carry a non-empty parameter | §3 band 4 |
@@ -638,7 +742,7 @@ it at all. Optimising a page nobody can find is the wrong thing to do first, how
 
 | Phase | Ships | Scope | Gate before merge |
 |---|---|---|---|
-| **0** | 1st | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + scenes + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5, no stats, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here**, before anything is deleted. | registry test: scenes, unique ids, absolute `to`, accent uniqueness, reachability, cross-hub tile |
+| **0** | 1st | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + **11 bespoke scenes** (§3.5) + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5 + the **v1 session strip** (§3.1.1). No `hub_stats`, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here**, before anything is deleted. | registry test: scenes, unique ids, absolute `to`, **seeded-`to` has a `seed`**, accent uniqueness, reachability, cross-hub tile |
 | **3** | **2nd** | `/parliament` body links every sub-page; JSON-LD ladder through `/parliament`; prev/next + back-to-hub on all 613 `/votes/<date>` bodies. **Promoted — §2.7 shows the record pages earn the engagement and ~92% of them are unreached.** | prerender + sitemap gates |
 | **1** | 3rd | `hub_stats.ts` + `useParliamentHubStats` + stock·flow·change on band 3 + the §2.3 three-state coverage. **Drops all six mini-tile fetches from the hub** — 1.65 MB → ≤10 KB. | payload, declared-basis, law-derivation, coverage-honesty, upload-manifest gates; reachability re-run on THIS state (`/votes/between/:pair` loses its only link here — §2.4); measure before/after in the PR |
 | **2** | 4th | Bands 0–2: wire, lead, `NewsRail` + `NewsCard` + `LeadCard` built generic; `hub_feed/<ns>.json` with sessions + bills (**A**), then dissents + absences (**B** slices). | recess-honesty gate; per-shard payload gate |
@@ -646,6 +750,21 @@ it at all. Optimising a page nobody can find is the wrong thing to do first, how
 Phase 0 still goes first — it is the registry every later phase sits on, and it removes the last
 hardcoded hub. Phase 3 is now the one with a plausible traffic effect; phase 1 remains the
 engineering win and is worth doing regardless, just not first.
+
+**Phase 0 is not zero-fetch, and the draft's "no stats" phrasing hid that.** The v1 strip reads
+`index.json`, and the two seeded band-4 tiles read `similarity_headline.json` +
+`party_correlation.json`. The trajectory is still monotone down, which is what matters:
+
+| | fetches | total |
+|---|---|---|
+| today | 6 artifacts | **~1.65 MB** |
+| after phase 0 | `index.json` 303 KB + headline 4.3 KB + correlation 17 KB | **~324 KB** |
+| after phase 1 | `hub_stats.json` (+ `hub_feed/<ns>.json` from phase 2) | **≤ 22 KB** |
+
+So phase 0 is already a 5× cut and phase 1 finishes the job. The §6 payload gate binds from
+phase 1, when `hub_stats.json` exists to measure; until then the gate asserts only that the hub
+imports none of the four artifacts it may never touch (`dissents`, `similarity`, `topic_index`,
+`party_pair_breaks`).
 
 **Re-measure after phase 3 before committing to the band-3 order.** §2.7's distribution is
 endogenous to the current hub's links, so the first honest read of demand is the one taken after
@@ -696,3 +815,12 @@ The audit above was source-only. GA4 + GSC (§2.7, §2.8) then moved four more t
 | „Законопроекти на второ четене" as its own band-3 tile at `to: "/votes"` | **Duplicate React key** — `TileHubGrid` uses `key={tile.to}` and Гласувания already owns `/votes`. Demoted to a flow number |
 | Phases ship 0 → 1 → 2 → 3 | **0 → 3 → 1 → 2.** ~92% of record pages unreached in 7 months by 33 users; the payload phase optimises a page nobody can find |
 | (not stated) | **Every URL on the site canonicalises to a redirect** (§2.8), ~248k pages. Not the cause of the impression gap (`/sofia` has the same shape and ranks) — but it splits every GA row in two, so §2.7's pairs must be summed |
+
+### 10.2 What speccing the UI changed
+
+Two more, found while writing the tile inventory (§3.5) rather than in review:
+
+| Draft position | Finding |
+|---|---|
+| Разцепления is a band-4 tile | **No route exists.** `grep dissent src/routes.tsx` is empty — the only surface is `MpDissentsSection` on a candidate page. Cut to 3 tiles; it stays a band-2 card. This is the orphan-by-assumption the §6 reachability gate is for, caught one step earlier |
+| The session strip shows за/против/въздържал per day | **`index.json` carries no tallies** — `RollcallIndexEntry` is `{date, stenogramId, items, file, ns}`. Outcome lives only in the 290 MB of session files. v1 encodes **items per day**; stacked outcome waits for `hub_feed` (§3.1.1) |
