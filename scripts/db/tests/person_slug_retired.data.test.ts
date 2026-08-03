@@ -103,10 +103,20 @@ test.skipIf(skip)("every redirect target is actually SERVABLE", async () => {
 // Only slugs. mp refs are numeric ids, candidate refs are '{election}:mp-{id}' and
 // magistrate refs are the declarant's Cyrillic name — none was ever a URL, and seeding them
 // put 3,113 names like "Мария Венциславова Милушева" into this table on the first attempt.
+//
+// The trailing hash is BASE36, not hex: `hash6` in resolve_persons.ts is
+// `h.toString(36).slice(0, 6)`. The pattern read `[0-9a-f]{6}` while this table held only
+// officials slugs, whose hashes happen to be hex — but that rejects 42,654 of the 114,983
+// live person slugs, e.g. `rosen-rusev-a0a8lm`. It first bit when the 2007 de-duplication
+// retired 112 name-hash slugs. An optional `-<n>` tail is the resolver's collision suffix
+// (`angel-petrov-11iyk1-2`).
+//
+// Still narrow enough to catch everything the header names: a Cyrillic name has no matching
+// characters, a candidate ref carries a colon, and a bare numeric id has no hash segment.
 test.skipIf(skip)("only slug-shaped keys are stored", async () => {
   const bad = await allRows<{ slug: string }>(
     `SELECT slug FROM person_slug_retired
-      WHERE slug !~ '^[a-z0-9]+(-[a-z0-9]+)*-[0-9a-f]{6}$' LIMIT 5`,
+      WHERE slug !~ '^[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]{6}(-[0-9]+)?$' LIMIT 5`,
   );
   assert.deepEqual(bad, [], "non-slug keys reached the redirect table");
 });

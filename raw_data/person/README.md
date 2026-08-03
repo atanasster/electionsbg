@@ -98,3 +98,38 @@ which both states exist.
 **Adding another.** A future re-parse that moves seats needs its own dated file; do not
 overwrite this one, since it documents which URLs changed in this pass. `--apply` says so when
 it finds an entry the reviewed file has not seen.
+
+## `kmetstvo_flips_2007_2026_08.json` + `kmetstvo_reslug_2007_2026_08.json`
+
+The 2007 de-duplication's pair of artifacts (`docs/plans/village-mayor-attribution-v1.md` §T3).
+The flip file is the same shape as the 2026-08 one above — emitted before the resolve, applied
+before it, 1,574 flips and 2,367 moves — because folding 5,367 duplicate кметство entries into
+2,947 real seats renumbers every index-keyed ref in the cycle.
+
+The re-slug map is the half that only exists AFTER the resolve, and it is why
+`kmetstvo_flips.ts --prune-dead` takes the flip file as input:
+
+`{ "<old person slug>": "<new person slug>" }` — 112 entries.
+
+**What it is.** De-duplication removes PEOPLE as well as rows, and they divide into two kinds
+that look identical from the lock table:
+
+- 112 whose duplicate person record collapsed into its twin — the same man, now under the
+  twin's slug (`angel-petrov-11iyk1-2` → `angel-petrov-11iyk1`). Their old URL must 301.
+- 147 phantom mayors the archive never actually elected: we had published the round-1 leader
+  of a race decided in round 2, or a `decision`-family artifact. Nobody succeeded them, so a
+  404 is the honest answer — and `person_slug_retired.target_slug` is NOT NULL, so a redirect
+  cannot even be written for them.
+
+An earlier `--prune-dead` deleted both, which made `person_slug_retired.data.test.ts` pass by
+removing the rows it reads: that gate exists to catch "a URL that used to resolve now 404s",
+and deleting its input answers the question by erasing it. 112 URLs died silently.
+
+**Who reads it.** Nothing, at runtime — unlike the officials maps above it is a RECORD, not a
+loader input. `person_slug_retired` already holds the redirects; `load_slug_redirects.ts`
+refuses this file by design (it validates officials-slug shape on both sides, and these are
+name-hash slugs). It is committed so the pairing survives the lock rows it was derived from.
+
+**On the cloud side** the same two steps run in order — `--apply` before
+`db:resolve:persons:cloud`, `--prune-dead --file <the same flip file>` after it — and the
+redirects are re-derived there rather than loaded from this file.

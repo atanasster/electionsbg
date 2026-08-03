@@ -41,6 +41,7 @@ import path from "path";
 import { fileURLToPath } from "node:url";
 import { command, run, flag, boolean, option, string } from "cmd-ts";
 import { allRows, withTx, end } from "../db/lib/pg";
+import { collapseSlugRedirectChainsVerbose } from "./collapse_slug_chains";
 import {
   type LocalMayorMention,
   pickLocalWinner,
@@ -55,10 +56,11 @@ import type { LocalMunicipalityBundle } from "../parsers_local/types";
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(__filename), "../..");
-const DEFAULT_OUT = path.join(
-  REPO_ROOT,
-  "raw_data/person/kmetstvo_flips_2026_08.json",
-);
+// NO DEFAULT for `--file`. It used to default to a dated audit path, which meant an --apply
+// run without --file would validate today's diff against LAST run's reviewed artifact — and
+// that containment check is the entire safety story of the apply path. Each re-ingest gets its
+// own dated file, named on the command line.
+const OUT_HINT = "raw_data/person/kmetstvo_flips_<cycle>_<yyyy_mm>.json";
 
 type Seat = {
   ref: string;
@@ -375,6 +377,57 @@ const loadState = async (
   return { held, lockedRefs, fold };
 };
 
+/**
+ * What to do with each lock a re-ingest left behind.
+ *
+ * Two fates hide behind one symptom, and telling them apart is the whole job:
+ *
+ *   redirect — the person still exists under a DIFFERENT slug (their duplicate record
+ *              collapsed into its twin). The audit's `moves` say which seat they went to, and
+ *              whoever holds that seat now IS the successor, so the old URL 301s to them.
+ *   delete   — nobody succeeded them: a phantom mayor the de-duplication removed. A 404 is the
+ *              honest answer and `person_slug_retired.target_slug` is NOT NULL anyway.
+ *
+ * Pure, because an earlier version resolved both fates to "delete" and thereby made
+ * `person_slug_retired.data.test.ts` pass by removing the rows it reads — 112 people's URLs
+ * 404'd and the gate that exists to catch exactly that reported success.
+ */
+export const planDeadLockDisposition = (
+  deadLocks: readonly { mention_id: string; slug: string }[],
+  /** dead slug → the ref its person moved to (from the audit file's `moves`). */
+  movedTo: ReadonlyMap<string, string>,
+  /** ref → the slug of whoever holds it now, after the resolve. */
+  holderOf: (ref: string) => string | undefined,
+): {
+  redirects: { slug: string; target: string }[];
+  deleteMentions: string[];
+} => {
+  const redirects: { slug: string; target: string }[] = [];
+  const seen = new Set<string>();
+  // Every dead slug the audit says moved — including ones whose lock row is already gone,
+  // since the redirect is owed to the URL, not to the lock.
+  for (const slug of new Set([
+    ...deadLocks.map((d) => d.slug),
+    ...movedTo.keys(),
+  ])) {
+    const ref = movedTo.get(slug);
+    if (!ref) continue;
+    const target = holderOf(ref);
+    // A successor that IS the dead slug is not a move; a missing one means the seat itself is
+    // gone, so there is nobody to point at.
+    if (!target || target === slug) continue;
+    if (seen.has(slug)) continue;
+    seen.add(slug);
+    redirects.push({ slug, target });
+  }
+  return {
+    redirects,
+    deleteMentions: deadLocks
+      .filter((d) => !seen.has(d.slug))
+      .map((d) => d.mention_id),
+  };
+};
+
 const summarise = (f: FlipFile): string =>
   `${f.flips.length} flip(s), ${f.moves.length} move(s), ${f.orphans?.length ?? 0} orphan(s)`;
 
@@ -400,11 +453,18 @@ const app = command({
     file: option({
       type: string,
       long: "file",
-      defaultValue: () => DEFAULT_OUT,
-      description: "audit file path",
+      defaultValue: () => "",
+      description: `audit file path (required; e.g. ${OUT_HINT})`,
     }),
   },
   handler: async ({ emit, apply, pruneDead, file }) => {
+    if (!file) {
+      console.error(
+        `[flips] --file is required (e.g. --file ${OUT_HINT}). Each re-ingest gets its own dated audit file: --apply checks the run against the artifact a human reviewed, so pointing it at a stale one silently defeats the check.`,
+      );
+      process.exitCode = 1;
+      return;
+    }
     // A separate, later step: it reads the state the RESOLVE leaves behind, so it cannot be
     // folded into --apply (which runs before it).
     //
@@ -419,6 +479,33 @@ const app = command({
     // Scoped to `local:` mentions that no longer exist AND whose slug is dead, so it can
     // never touch a lock that is doing its job.
     if (pruneDead) {
+      // A re-ingest that removes seats removes PEOPLE, and their /person URLs must not simply
+      // vanish. Two different fates hide behind one symptom (a lock whose slug is neither live
+      // nor retired), and telling them apart is the whole job here:
+      //
+      //   REDIRECT — the person still exists under a DIFFERENT slug. The 2007 de-duplication
+      //     collapsed 112 duplicate person records into their twin, so e.g.
+      //     `angel-petrov-11iyk1-2` became `angel-petrov-11iyk1` — same man, new URL. The
+      //     audit file's `moves` remember which seat that person moved to, and whoever holds
+      //     that seat now IS the successor, so the old slug 301s to them.
+      //   DELETE — nobody succeeded them. These are the phantom mayors the de-duplication
+      //     removed: we had published the round-1 leader of a race decided in round 2, or a
+      //     `decision`-family artifact. There is no successor to point at, a 404 is the honest
+      //     answer, and `person_slug_retired.target_slug` is NOT NULL so a redirect cannot even
+      //     be written.
+      //
+      // An earlier version deleted BOTH, which made `person_slug_retired.data.test.ts` pass by
+      // removing the rows it reads — the gate exists precisely to catch "a URL that used to
+      // resolve now 404s", and deleting its input answers the question by erasing it.
+      const successorFor = new Map<string, string>(); // dead slug → the seat it moved to
+      if (fs.existsSync(file)) {
+        const audit = JSON.parse(fs.readFileSync(file, "utf8")) as FlipFile;
+        for (const m of audit.moves ?? []) successorFor.set(m.slug, m.toRef);
+      } else {
+        console.warn(
+          `[flips] ${file} not found — every dead lock will be DELETED, since nothing records where its person went. Pass --file <the audit used for --apply>.`,
+        );
+      }
       const dead = await allRows<{ mention_id: string; slug: string }>(
         `SELECT l.mention_id, l.slug
            FROM person_slug_lock l
@@ -432,20 +519,106 @@ const app = command({
               SELECT 1 FROM person_slug_retired s WHERE s.slug = l.slug
             )`,
       );
-      console.log(
-        `[flips] ${dead.length} dead lock(s) — mention gone and slug neither live nor retired`,
+      // A slug the audit says moved, whose lock this run has already deleted, still needs its
+      // redirect — so the candidate set is the dead LOCKS plus every moved slug that is dead.
+      const movedDead = await allRows<{ slug: string }>(
+        `SELECT s.slug FROM unnest($1::text[]) AS s(slug)
+          WHERE NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = s.slug)
+            AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = s.slug)`,
+        [[...successorFor.keys()]],
       );
-      for (const d of dead.slice(0, 10))
-        console.log(`   ${d.mention_id} → ${d.slug}`);
-      if (dead.length > 10) console.log(`   … and ${dead.length - 10} more`);
-      if (dead.length)
+      const holderCache = new Map<string, string | undefined>();
+      for (const ref of new Set(successorFor.values())) {
+        const [row] = await allRows<{ slug: string }>(
+          `SELECT p.slug FROM person_role r JOIN person p USING (person_id)
+            WHERE r.source = 'local' AND r.ref = $1 LIMIT 1`,
+          [ref],
+        );
+        holderCache.set(ref, row?.slug);
+      }
+      // Only slugs that are actually dead are candidates — a moved person whose old slug is
+      // still live needs no redirect.
+      const deadMoved = new Set(movedDead.map((m) => m.slug));
+      const plan = planDeadLockDisposition(
+        dead,
+        new Map(
+          [...successorFor].filter(
+            ([slug]) =>
+              deadMoved.has(slug) || dead.some((d) => d.slug === slug),
+          ),
+        ),
+        (ref) => holderCache.get(ref),
+      );
+      const targets = new Map(plan.redirects.map((r) => [r.slug, r.target]));
+      const toDelete = plan.deleteMentions;
+      console.log(
+        `[flips] ${dead.length} dead lock(s); ${targets.size} slug(s) have a successor to 301 to, ${toDelete.length} lock(s) have none`,
+      );
+      for (const [from, to] of [...targets].slice(0, 5))
+        console.log(`   REDIRECT ${from} → ${to}`);
+      await withTx(async (c) => {
+        if (targets.size) {
+          await c.query(
+            `INSERT INTO person_slug_retired (slug, target_slug)
+               SELECT * FROM unnest($1::text[], $2::text[])
+             ON CONFLICT (slug) DO UPDATE SET target_slug = EXCLUDED.target_slug`,
+            [[...targets.keys()], [...targets.values()]],
+          );
+          // The lock rows for redirected slugs go too — their mention is gone, so they can
+          // only ever mis-fire, and the redirect is now the durable record.
+          await c.query(
+            `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
+            [dead.filter((d) => targets.has(d.slug)).map((d) => d.mention_id)],
+          );
+        }
+        if (toDelete.length) {
+          const r = await c.query(
+            `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
+            [toDelete],
+          );
+          console.log(
+            `[flips] pruned ${r.rowCount} unrecoverable dead lock(s)`,
+          );
+        }
+      });
+      // …and the locks whose mention is gone but whose slug is still LIVE. They are not dead —
+      // that person exists via some other mention — but their mention id cannot be reached
+      // again by the walk, so the row can only ever fire if a future re-parse MINTS that id
+      // for somebody else, which is precisely the `staleOnNew` hazard this file warns about.
+      // A renumbering run creates them in bulk: the 2007 de-duplication left 925.
+      //
+      // Ceiling, because a data/ tree that failed to re-parse would look exactly like "every
+      // mention vanished" and this would then delete the whole table. Half the local locks is
+      // far above any real renumber and far below that accident.
+      const stale = await allRows<{ mention_id: string }>(
+        `SELECT l.mention_id FROM person_slug_lock l
+          WHERE l.mention_id LIKE 'local:%'
+            AND NOT EXISTS (
+              SELECT 1 FROM person_role r
+               WHERE r.source = 'local' AND 'local:' || r.ref = l.mention_id
+            )`,
+      );
+      const [{ n: totalLocal }] = await allRows<{ n: string }>(
+        `SELECT count(*) AS n FROM person_slug_lock WHERE mention_id LIKE 'local:%'`,
+      );
+      if (stale.length > Number(totalLocal) / 2)
+        throw new Error(
+          `[flips] ${stale.length} of ${totalLocal} local locks have no mention — that is not a renumber, ` +
+            `it is a data/ tree that did not re-parse. Refusing to prune.`,
+        );
+      if (stale.length)
         await withTx(async (c) => {
           const r = await c.query(
             `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
-            [dead.map((d) => d.mention_id)],
+            [stale.map((x) => x.mention_id)],
           );
-          console.log(`[flips] pruned ${r.rowCount} dead lock(s)`);
+          console.log(
+            `[flips] pruned ${r.rowCount} stale lock(s) whose mention no longer exists (slug still live)`,
+          );
         });
+      // A 301 into a slug that itself later retired is a 301 into a 404 — the resolver
+      // flattens these itself after every rebuild, and so must anything that writes one.
+      if (targets.size) await collapseSlugRedirectChainsVerbose();
       return;
     }
     if (!emit && !apply) {

@@ -6,7 +6,7 @@
 // See docs/plans/village-mayor-attribution-v1.md §T1.
 
 import { describe, it, expect } from "vitest";
-import { diffSeats } from "./kmetstvo_flips";
+import { diffSeats, planDeadLockDisposition } from "./kmetstvo_flips";
 
 type Seat = Parameters<typeof diffSeats>[0][number];
 
@@ -293,5 +293,80 @@ describe("diffSeats", () => {
     );
     expect(flips).toEqual([]);
     expect(moves).toEqual([]);
+  });
+});
+
+describe("planDeadLockDisposition", () => {
+  const lock = (mention: string, slug: string) => ({
+    mention_id: mention,
+    slug,
+  });
+
+  // The case that was got wrong: the 2007 de-duplication collapsed 112 duplicate person
+  // records into their twin, so the SAME man moved from `angel-petrov-11iyk1-2` to
+  // `angel-petrov-11iyk1`. Deleting those locks made person_slug_retired.data.test.ts pass by
+  // removing the rows it reads, while 112 /person URLs 404'd.
+  it("redirects a dead slug whose person moved to another seat", () => {
+    const plan = planDeadLockDisposition(
+      [lock("local:2007_10_28_mi:BGS06:kmetstvo:40", "angel-petrov-11iyk1-2")],
+      new Map([["angel-petrov-11iyk1-2", "2007_10_28_mi:BGS06:kmetstvo:4"]]),
+      (ref) =>
+        ref === "2007_10_28_mi:BGS06:kmetstvo:4"
+          ? "angel-petrov-11iyk1"
+          : undefined,
+    );
+    expect(plan.redirects).toEqual([
+      { slug: "angel-petrov-11iyk1-2", target: "angel-petrov-11iyk1" },
+    ]);
+    expect(plan.deleteMentions).toEqual([]);
+  });
+
+  // A phantom mayor — we published the round-1 leader of a race decided in round 2, and the
+  // de-duplication removed the seat. Nobody succeeded them, so a 404 is the honest answer.
+  it("deletes a dead lock with no successor", () => {
+    const plan = planDeadLockDisposition(
+      [lock("local:2007_10_28_mi:JAM25:kmetstvo:65", "ivan-ivanov-14gmnf")],
+      new Map(),
+      () => undefined,
+    );
+    expect(plan.redirects).toEqual([]);
+    expect(plan.deleteMentions).toEqual([
+      "local:2007_10_28_mi:JAM25:kmetstvo:65",
+    ]);
+  });
+
+  // The audit may name a move whose destination seat itself vanished; there is then nobody to
+  // point at and the lock must not be kept alive on a promise.
+  it("deletes when the successor seat has no holder", () => {
+    const plan = planDeadLockDisposition(
+      [lock("local:x:1", "gone-1")],
+      new Map([["gone-1", "x:2"]]),
+      () => undefined,
+    );
+    expect(plan.redirects).toEqual([]);
+    expect(plan.deleteMentions).toEqual(["local:x:1"]);
+  });
+
+  // A "successor" identical to the dead slug would write a self-redirect — a 301 loop.
+  it("never redirects a slug to itself", () => {
+    const plan = planDeadLockDisposition(
+      [lock("local:x:1", "same-1")],
+      new Map([["same-1", "x:2"]]),
+      () => "same-1",
+    );
+    expect(plan.redirects).toEqual([]);
+    expect(plan.deleteMentions).toEqual(["local:x:1"]);
+  });
+
+  // The redirect is owed to the URL, not to the lock row — a slug whose lock a previous run
+  // already deleted still needs its 301.
+  it("redirects a moved slug whose lock row is already gone", () => {
+    const plan = planDeadLockDisposition(
+      [],
+      new Map([["gone-1", "x:2"]]),
+      () => "live-1",
+    );
+    expect(plan.redirects).toEqual([{ slug: "gone-1", target: "live-1" }]);
+    expect(plan.deleteMentions).toEqual([]);
   });
 });
