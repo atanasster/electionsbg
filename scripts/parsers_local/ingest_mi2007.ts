@@ -36,7 +36,11 @@ import { buildLocalRollups } from "./build_region_json";
 import { buildLocalDemographics } from "./build_local_demographics";
 import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
-import { LocalDistrictMayorResult, LocalMunicipalityBundle } from "./types";
+import {
+  LocalDistrictMayorResult,
+  LocalMayorResult,
+  LocalMunicipalityBundle,
+} from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -127,6 +131,57 @@ const ensureExtracted = async (
   fs.rmSync(zipPath, { force: true });
   console.log(`[mi2007] ${name}: extracted ${written.length} file(s)`);
   return true;
+};
+
+/**
+ * Which of the two 2007 кметство page families a page belongs to.
+ *
+ * The archive publishes EVERY кметство twice, and the ingest used to walk both — which is
+ * where 2,395 duplicate entries and ~1,243 phantom village mayors came from:
+ *
+ *   `decision` — keyed `<oik><sequence>` (`20400002`), headed "Окончателни резултати ПО
+ *                РЕШЕНИЕ НА ОИК", no round tabs. 2,465 pages.
+ *   `results`  — keyed `<oik><EKATTE>` (`20402573`), headed "Окончателни резултати", with
+ *                І тур / ІІ тур. 2,906 pages, each linking its own `dec_kk_*` decision.
+ *
+ * They are NOT two views of one result: they carry different candidate lists and disagree on
+ * the winner in 1,267 of the 2,354 places that have both. `results` is the correct one, and
+ * that is measured rather than assumed — adjudicated against two independent sources:
+ *
+ *   the ОИК's own decision text (`dec_kk_*.html`, which names who was elected or who
+ *     advanced): `results` 883, `decision` 2, over 998 places;
+ *   the round-2 pairing (whoever contested the runoff must be who round 1 flagged as
+ *     advancing): `results` 897, `decision` 1, over 1,007 places.
+ *
+ * See docs/plans/village-mayor-attribution-v1.md §T3.
+ */
+export type KmetstvoPageFamily = "decision" | "results";
+
+/** The marker sits inside markup, so match on the tag-stripped, whitespace-collapsed text —
+ *  `raw.includes()` misses it. */
+export const kmetstvoPageFamily = (rawHtml: string): KmetstvoPageFamily =>
+  rawHtml
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .includes("по решение на ОИК")
+    ? "decision"
+    : "results";
+
+/**
+ * Pick the page that should represent a seat, given one already chosen and a newcomer.
+ *
+ * `results` always wins. `decision` is kept ONLY where it is all there is — 107 of the 3,013
+ * кметства have no `results` page at all, so dropping the family outright would lose them
+ * rather than de-duplicate them.
+ */
+export const preferKmetstvoPage = <T extends { family: KmetstvoPageFamily }>(
+  current: T | undefined,
+  next: T,
+): T => {
+  if (!current) return next;
+  if (current.family === next.family) return current; // first page of a family wins, deterministically
+  return current.family === "results" ? current : next;
 };
 
 // Walk every `<oblast>/<file>.html` under a results dir, skipping index pages.
@@ -236,15 +291,30 @@ export const ingestMi2007 = async (opts: {
   const readPage = (dir: string, rel: string, round: 1 | 2) => {
     const file = path.join(dir, rel);
     if (!fs.existsSync(file)) return null;
-    return parseMi2007Page(fs.readFileSync(file, "utf-8"), {
-      round,
-      canonical,
-    });
+    const raw = fs.readFileSync(file, "utf-8");
+    return { page: parseMi2007Page(raw, { round, canonical }), raw };
   };
 
+  // Every кметство the archive publishes, keyed by (obshtina, folded place) — ONE entry per
+  // seat, chosen by `preferKmetstvoPage`. Collected across the whole walk and emitted after
+  // it, because the two page families for one seat arrive as two unrelated files.
+  const kmetstvaByKey = new Map<
+    string,
+    {
+      obshtinaCode: string;
+      obshtinaName: string;
+      oblastName: string;
+      placeName: string;
+      family: KmetstvoPageFamily;
+      round1: LocalMayorResult[];
+      round2?: LocalMayorResult[];
+    }
+  >();
+
   for (const rel of listPages(r1Dir)) {
-    const p1 = readPage(r1Dir, rel, 1);
-    if (!p1) continue;
+    const r1 = readPage(r1Dir, rel, 1);
+    if (!r1) continue;
+    const p1 = r1.page;
     const bc = p1.breadcrumb;
     if (bc.isTest) {
       testPages++;
@@ -273,7 +343,7 @@ export const ingestMi2007 = async (opts: {
       res.oblastName,
     );
     // Round 2 at the SAME relative path (results_2 mirrors results_1 paths).
-    const p2 = readPage(r2Dir, rel, 2);
+    const p2 = readPage(r2Dir, rel, 2)?.page;
 
     if (p1.obshtinaMayor.length) {
       const round1 = p1.obshtinaMayor;
@@ -282,16 +352,24 @@ export const ingestMi2007 = async (opts: {
     }
     if (p1.council.length) b.council = p1.council;
     if (p1.kmetstvoMayor.length) {
-      // For a kmetstvo that went to a runoff, the round-2 table holds the
-      // final result; otherwise round 1 stands (mirrors legacy-chmi handling).
-      const candidates = p2?.kmetstvoMayor.length
-        ? p2.kmetstvoMayor
-        : p1.kmetstvoMayor;
-      b.kmetstva.push({
-        kmetstvoName: bc.placeName ?? "",
-        ekatte: "",
-        candidates,
-      });
+      // COLLECTED, not pushed: the same seat arrives twice, once per page family, and only
+      // one of them is the real result. Emitted after the walk by preferKmetstvoPage.
+      //
+      // Round 1 and round 2 are kept as SEPARATE tables, the way every other cycle carries
+      // them. The old code replaced `candidates` with the round-2 table when one existed,
+      // which threw the first-round field away and left `elected` unset — so the resolver
+      // had to re-derive a winner from a round-1 table that CIK marks with BOTH finalists.
+      const key = `${res.obshtinaCode}\t${normName(bc.placeName ?? "")}`;
+      const next = {
+        obshtinaCode: res.obshtinaCode,
+        obshtinaName: res.obshtinaName,
+        oblastName: res.oblastName,
+        placeName: bc.placeName ?? "",
+        family: kmetstvoPageFamily(r1.raw),
+        round1: p1.kmetstvoMayor,
+        round2: p2?.kmetstvoMayor.length ? p2.kmetstvoMayor : undefined,
+      };
+      kmetstvaByKey.set(key, preferKmetstvoPage(kmetstvaByKey.get(key), next));
     }
     if (p1.rayonMayor.length) {
       const round1 = p1.rayonMayor;
@@ -306,6 +384,30 @@ export const ingestMi2007 = async (opts: {
       b.districts.push(district);
     }
   }
+
+  // Emit the de-duplicated кметства, one per seat. Insertion order follows the sorted page
+  // walk, so the arrays — and therefore the index-keyed `person_role.ref`s the resolver
+  // mints from them — are deterministic across runs.
+  const familyCount = { decision: 0, results: 0 };
+  for (const k of kmetstvaByKey.values()) {
+    familyCount[k.family]++;
+    ensureBundle(
+      bundles,
+      k.obshtinaCode,
+      k.obshtinaName,
+      k.oblastName,
+    ).kmetstva.push({
+      kmetstvoName: k.placeName,
+      ekatte: "",
+      candidates: k.round1,
+      round2: k.round2,
+      elected: pickElectedMayor(k.round1, k.round2),
+    });
+  }
+  console.log(
+    `[mi2007] ${kmetstvaByKey.size} кметство seat(s) after de-duplication ` +
+      `(${familyCount.results} from the results pages, ${familyCount.decision} from a "по решение на ОИК" page with no results counterpart)`,
+  );
 
   // Sofia fan-out (after all районs are attached to the SOF bundle).
   const sof = bundles.get("SOF");
