@@ -16,6 +16,7 @@ import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonDeclarations } from "./PersonDeclarations";
+import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonProcurementSection } from "./PersonProcurementSection";
 import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
@@ -473,6 +474,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
             here whenever the MP side has nothing, so exactly one block renders. It self-hides
             when the person has no asset-bearing filing. */}
           {!mpAssetRollup && <PersonDeclarations slug={p.slug} />}
+
+          {/* …and when that block finds nothing because the office is not IN the register,
+            say so. Every declarations component above self-hides when empty, which renders
+            "never had to file" and "should have filed and did not" as the same blank page.
+            Role-driven, so it cannot excuse a genuine gap — see the component. */}
+          <PersonNoDeclarationNote roles={p.roles} />
 
           {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
             judiciary counterpart to the officials' assets block. Name-matched, so it self-hides

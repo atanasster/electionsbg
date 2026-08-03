@@ -106,11 +106,18 @@ export const PersonsAnalysisStrip: FC<{
             </span>
           </div>
         </StatCard>
+        {/* NOT a compliance rate, and the hint says so. The denominator is everyone shown,
+          while the register covers only the offices in чл. 6 от ЗПК — a кмет на кметство, a
+          candidate who never took office and a company owner all count as "no declaration"
+          though none was ever required to file. Read as compliance it would accuse ~10.7k
+          village mayors of failing to declare. Phrased about the OFFICE, not the person:
+          161 of the 7,510 village mayors in person_browse_table do have a filing, because
+          they held some other post too. */}
         <StatCard
           label={t("persons_kpi_declared", { defaultValue: "С декларация" })}
           hint={t("persons_kpi_declared_hint", {
             defaultValue:
-              "Дял от показаните лица с подадена декларация пред Сметната палата.",
+              "Дял от показаните лица с подадена декларация пред Сметната палата. Не измерва спазване на закона: регистърът обхваща само длъжностите по чл. 6 от ЗПК, а тук се броят и хора, които никога не са заемали такава длъжност — например кмет на кметство или кандидат без избран мандат.",
           })}
         >
           <div className="flex items-baseline gap-2">
