@@ -14,6 +14,7 @@ const {
 // prerender's marker blocks, which is exactly what must be replaced.
 const SHELL = `<!doctype html>
 <html lang="bg"><head>
+<meta name="robots" content="index, follow" />
 <!-- SEO -->
 <title>Парламентарни избори 2026 | electionsbg.com</title>
 <meta name="description" content="homepage" />
@@ -282,6 +283,25 @@ test("an unknown entity gets the untouched SPA, not an invented head", async () 
   // …but it must not enter the index as a homepage twin, which is the exact
   // duplication this module exists to end.
   assert.ok(res.body.includes('name="robots" content="noindex"'));
+  // …and it must say so ONCE. The shell carries `index, follow` from
+  // index.html, outside the SEO block, so appending shipped two conflicting
+  // directives. Google resolves that our way, but a page whose indexing depends
+  // on a tie-break reads as a defect and is only as safe as the next crawler.
+  const robots = res.body.match(/<meta\b[^>]*\bname="robots"[^>]*>/g) ?? [];
+  assert.equal(robots.length, 1, robots.join(" | "));
+  assert.match(robots[0], /content="noindex"/);
+});
+
+test("an enriched page keeps the shell's single indexable robots tag", () => {
+  // The strip runs only on the noindex path — an entity we CAN name is a real
+  // page and must stay indexable, with the shell's one tag untouched.
+  const html = renderIntoShell(
+    SHELL,
+    contractPage(CONTRACT, "bg", "https://electionsbg.com/funds/contract/x"),
+  );
+  const robots = html.match(/<meta\b[^>]*\bname="robots"[^>]*>/g) ?? [];
+  assert.equal(robots.length, 1, robots.join(" | "));
+  assert.match(robots[0], /content="index, follow"/);
 });
 
 test("a lookup failure serves the SPA instead of 500ing a page URL", async () => {

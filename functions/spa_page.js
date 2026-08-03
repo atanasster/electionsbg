@@ -246,11 +246,23 @@ const companyPage = (co, money, lang, selfUrl) => {
 // which is the HOMEPAGE's. That is the very duplication this module exists to
 // end, so mark it noindex: it is an unknown contract number or a malformed EIK,
 // it is in no sitemap, and it should never enter the index as a homepage twin.
+//
+// The shell already carries `<meta name="robots" content="index, follow" />`
+// from index.html, OUTSIDE the SEO block we replace — so appending a second tag
+// left the page shipping two conflicting directives. Google resolves that our
+// way (the most restrictive wins), but a page that relies on conflict
+// resolution reads as a defect to anyone auditing it and is only as safe as the
+// next crawler's tie-break. Strip every existing robots meta first, then emit
+// exactly one.
+const ROBOTS_META = /<meta\b[^>]*\bname=["']robots["'][^>]*>[ \t]*\n?[ \t]*/gi;
+
 const noindex = (shell) =>
-  shell.replace(
-    /<!-- SEO -->/,
-    () => '<!-- SEO -->\n    <meta name="robots" content="noindex" />',
-  );
+  shell
+    .replace(ROBOTS_META, "")
+    .replace(
+      /<!-- SEO -->/,
+      () => '<!-- SEO -->\n    <meta name="robots" content="noindex" />',
+    );
 
 /** True when a shell carries both blocks renderIntoShell replaces. */
 const hasMarkers = (shell) =>
