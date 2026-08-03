@@ -65,7 +65,10 @@ import { readIndexableProcedures } from "../funds/procedures_index";
 import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
   buildFundsTables,
+  buildFundsDescription,
+  compactEur,
   loadMuniNames,
+  topBeneficiaryNames,
   type FundsTableRows,
 } from "./fundsTables";
 
@@ -4684,9 +4687,17 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
     prerenderRoutes.push(
       staticPage({
         path: `funds/programme/${code}`,
-        title: `${nameBg} (${code}) — европейско финансиране | electionsbg.com`,
-        description:
-          `${nameBg} — оперативна програма от ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${stats}`.trim(),
+        // No "| electionsbg.com": the brand costs 18 of the ~60 characters
+        // Google shows, and the figures are what a reader is deciding on.
+        title: `${nameBg} (${code}) — ${numFmtBg.format(contracts)} ${contracts === 1 ? "договор" : "договора"}, ${compactEur(totalEur, "bg")}`,
+        description: buildFundsDescription("bg", {
+          lead: `${nameBg} (${code})`,
+          contracts,
+          beneficiaries,
+          totalEur,
+          paidEur,
+          names: topBeneficiaryNames(summary, 3),
+        }),
         breadcrumbName: nameBg,
         ogImage: "/og/funds.png",
         bodyHtml: `
@@ -4703,9 +4714,15 @@ ${tablesBg}
           // pairing: the Bulgarian title with an English snippet. It stays
           // navigable for a reader on the English UI but canonicalises at the
           // Bulgarian URL rather than competing with it.
-          title: `${nameEn ?? nameBg} (${code}) — EU funding | electionsbg.com`,
-          description:
-            `${nameEn ?? nameBg} — operational programme from ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${statsEn}`.trim(),
+          title: `${nameEn ?? nameBg} (${code}) — ${numFmtEn.format(contracts)} ${contracts === 1 ? "contract" : "contracts"}, ${compactEur(totalEur, "en")}`,
+          description: buildFundsDescription("en", {
+            lead: `${nameEn ?? nameBg} (${code})`,
+            contracts,
+            beneficiaries,
+            totalEur,
+            paidEur,
+            names: topBeneficiaryNames(summary, 3),
+          }),
           breadcrumbName: nameEn ?? nameBg,
           ...(nameEn
             ? {}
@@ -4805,9 +4822,19 @@ if (PROCEDURES.length > 0) {
     prerenderRoutes.push(
       staticPage({
         path: `funds/procedure/${code}`,
-        title: `${titleLead} | ${p.programName}`,
-        description:
-          `Кой получи парите по процедура ${code} (${p.programName}): ${statsBg}.`.trim(),
+        // With a scheme name the name is the draw and the figures would push
+        // the title past anything Google shows; without one they are all it has.
+        title: named
+          ? titleLead
+          : `${titleLead} — ${numFmtBg.format(p.contractCount)} ${p.contractCount === 1 ? "договор" : "договора"}, ${compactEur(p.totalEur, "bg")}`,
+        description: buildFundsDescription("bg", {
+          lead: `процедура ${code} (${p.programName})`,
+          contracts: p.contractCount,
+          beneficiaries: p.beneficiaryCount,
+          totalEur: p.totalEur,
+          paidEur: p.paidEur,
+          names: topBeneficiaryNames(shard, 3),
+        }),
         breadcrumbName: heading,
         ogImage: "/og/funds.png",
         bodyHtml: `
@@ -4818,9 +4845,17 @@ if (PROCEDURES.length > 0) {
 ${procTablesBg}
 <p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
         english: {
-          title: `${titleLead} | ${p.programName}`,
-          description:
-            `Who received the money under procedure ${code} (${p.programName}): ${statsEn}.`.trim(),
+          title: named
+            ? titleLead
+            : `${titleLead} — ${numFmtEn.format(p.contractCount)} ${p.contractCount === 1 ? "contract" : "contracts"}, ${compactEur(p.totalEur, "en")}`,
+          description: buildFundsDescription("en", {
+            lead: `procedure ${code} (${p.programName})`,
+            contracts: p.contractCount,
+            beneficiaries: p.beneficiaryCount,
+            totalEur: p.totalEur,
+            paidEur: p.paidEur,
+            names: topBeneficiaryNames(shard, 3),
+          }),
           breadcrumbName: heading,
           // Both the scheme name and the programme name are Bulgarian — ИСУН
           // publishes no English ones — so the English page differs from the

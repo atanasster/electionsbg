@@ -4,6 +4,7 @@ import {
   buildFundsTables,
   fundsThemeTableRows,
   loadMuniNames,
+  topBeneficiaryNames,
 } from "./fundsTables";
 import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
 import type {
@@ -870,16 +871,24 @@ export const buildFundsThemeRoutes = (
     }
     const themeRows = fundsThemeTableRows(shard);
     const caps = { beneficiaries: 15, contracts: 10, munis: 15 };
+    const names = topBeneficiaryNames(themeRows, 3);
     const url = `${SITE_URL}/funds/focus/${th.slug}`;
     const enUrl = `${SITE_URL}/en/funds/focus/${th.slug}`;
     const title = `Европейски средства — ${th.labelBg} | electionsbg.com`;
+    // The curated editorial summary stays the lead — it is the one thing a
+    // generated sentence cannot supply — with the names appended, because an
+    // entity in the snippet is what earns the click.
     const description =
-      th.summaryBg ||
-      `Тематичен разрез на европейските средства: ${th.labelBg} — поръчки, бенефициенти и програми по данни от ИСУН 2020.`;
+      th.summaryBg && names.length
+        ? `${th.summaryBg} Най-големи получатели: ${names.join(", ")}.`
+        : th.summaryBg ||
+          `Тематичен разрез на европейските средства: ${th.labelBg} — поръчки, бенефициенти и програми по данни от ИСУН 2020.`;
     const titleEn = `EU funds — ${th.labelEn} | electionsbg.com`;
     const descriptionEn =
-      th.summaryEn ||
-      `A themed lens on EU funds: ${th.labelEn} — contracts, beneficiaries and programmes from the ИСУН 2020 register.`;
+      th.summaryEn && names.length
+        ? `${th.summaryEn} Largest recipients: ${names.join(", ")}.`
+        : th.summaryEn ||
+          `A themed lens on EU funds: ${th.labelEn} — contracts, beneficiaries and programmes from the ИСУН 2020 register.`;
     result.push({
       path: `funds/focus/${th.slug}`,
       title,

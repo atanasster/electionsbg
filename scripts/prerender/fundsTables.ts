@@ -232,3 +232,99 @@ export const fundsThemeTableRows = (shard: {
   topContracts: shard.topContracts,
   topMunis: shard.topMunis,
 });
+
+// ── titles and descriptions ─────────────────────────────────────────────────
+// The old description was a noun pile — "35 332 договора · 30 092 бенефициенти ·
+// €2,228,915,357 договорени" — with no verb and, decisively, no entity names.
+// The one thing that makes a funds snippet clickable is recognising a company or
+// a municipality in it, and it is also what an answer engine quotes.
+
+/** €2.23 млрд. / €2.23bn — a title has ~60 useful characters, not 13 digits. */
+export const compactEur = (n: number, lang: "bg" | "en"): string => {
+  const v = Number(n) || 0;
+  const bg = lang === "bg";
+  // Each rung is chosen AFTER rounding, so 999,600 reads "€1.0 млн." rather
+  // than the "€1000 хил." a round-then-classify order produces.
+  const scale = (div: number, digits: number): number =>
+    Number((v / div).toFixed(digits));
+  if (scale(1e6, 1) >= 1000 || v >= 1e9)
+    return `€${(v / 1e9).toFixed(2)}${bg ? " млрд." : "bn"}`;
+  if (scale(1e3, 0) >= 1000 || v >= 1e6)
+    return `€${(v / 1e6).toFixed(1)}${bg ? " млн." : "m"}`;
+  if (v >= 1e3) return `€${Math.round(v / 1e3)}${bg ? " хил." : "k"}`;
+  return `€${Math.round(v)}`;
+};
+
+/**
+ * The first `n` beneficiary names, for the "Най-големи получатели" clause.
+ *
+ * Returns [] for a FLAT scheme — one where the leaders all received the same
+ * amount. BG16RFOP002-2.089 paid every one of its 4,356 beneficiaries exactly
+ * €25,520, so "largest recipients" is not a fact about them: the ranking is the
+ * alphabetical tie-break, and the snippet read `" Екодин " ООД, "17 Сиракови"
+ * ЕАД ЕАД, „Абсент“ ЕООД` — arbitrary names presented as a finding. Saying
+ * nothing beats saying something that is true of the sort order.
+ */
+export const topBeneficiaryNames = (
+  data: FundsTableRows,
+  n: number,
+): string[] => {
+  const rows = (data.topBeneficiaries ?? []).filter((b) => b?.beneficiaryName);
+  const head = rows.slice(0, n);
+  if (head.length === 0) return [];
+  // Flat when the leaders are indistinguishable from the next one down. The
+  // test is RELATIVE, not exact equality: BG-RRP-1.014's top four span €0.46 on
+  // €1.77M — the same defect as 2.089 one decimal place down, and Math.round
+  // would have called it varied. A tie at a grant cap is suppressed for the
+  // same reason: naming three of four identical recipients reports the sort
+  // order, not a fact about them.
+  const window = rows.slice(0, n + 1);
+  const amounts = window.map((b) => Number(b.totalEur) || 0);
+  const max = Math.max(...amounts);
+  const min = Math.min(...amounts);
+  const FLAT_SPREAD = 0.01; // 1% of the leader
+  if (window.length > 1 && (max <= 0 || (max - min) / max < FLAT_SPREAD))
+    return [];
+  return head
+    .map((b) => b.beneficiaryName.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+};
+
+/**
+ * A meta description that answers the question the searcher asked, and names
+ * somebody — with the names ahead of the figures, so they survive truncation.
+ */
+export const buildFundsDescription = (
+  lang: "bg" | "en",
+  opts: {
+    lead: string;
+    contracts: number;
+    beneficiaries: number;
+    totalEur: number;
+    paidEur: number;
+    names: string[];
+  },
+): string => {
+  const bg = lang === "bg";
+  const int = bg ? fmtInt : fmtIntEn;
+  // Names FIRST. They are the reason this description was rewritten, and behind
+  // the figures they began past character 160 on three quarters of the pages —
+  // below where Google truncates, which is the same as not being there.
+  const parts = [
+    bg
+      ? `Кой получи парите по ${opts.lead}?`
+      : `Who received the money under ${opts.lead}?`,
+  ];
+  if (opts.names.length)
+    parts.push(
+      bg
+        ? `Най-големи получатели: ${opts.names.join(", ")}.`
+        : `Largest recipients: ${opts.names.join(", ")}.`,
+    );
+  parts.push(
+    bg
+      ? `${int(opts.contracts)} ${opts.contracts === 1 ? "договор" : "договора"} на ${int(opts.beneficiaries)} ${opts.beneficiaries === 1 ? "бенефициент" : "бенефициенти"}, ${compactEur(opts.totalEur, lang)} договорени и ${compactEur(opts.paidEur, lang)} изплатени по данни от ИСУН 2020.`
+      : `${int(opts.contracts)} ${opts.contracts === 1 ? "contract" : "contracts"} across ${int(opts.beneficiaries)} ${opts.beneficiaries === 1 ? "beneficiary" : "beneficiaries"}, ${compactEur(opts.totalEur, lang)} contracted and ${compactEur(opts.paidEur, lang)} paid, from the ИСУН 2020 register.`,
+  );
+  return parts.join(" ");
+};
