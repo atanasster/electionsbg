@@ -42,7 +42,7 @@ const SKIP_REASON =
 const SAMPLE_PARTY = "ГЕРБ-СДС";
 const SAMPLE_CANDIDATE = "Бойко Методиев Борисов";
 
-const HOME_TITLE_BG_PREFIX = "Парламентарни избори в България";
+const HOME_TITLE_BG_PREFIX = "Парламентарни избори";
 const HOME_TITLE_EN_PREFIX = "Bulgarian Parliamentary Elections";
 
 type RouteCheck = {
@@ -87,7 +87,7 @@ const ROUTES: RouteCheck[] = [
   },
   {
     path: "/sofia",
-    titleIncludes: "Резултати в София",
+    titleIncludes: "София — резултати от парламентарните избори",
     h1Includes: "София",
     minBodyChars: 500,
     expectedCanonical: "/sofia",
@@ -129,7 +129,7 @@ const ROUTES: RouteCheck[] = [
   // Top-level list pages — previously fell through to home.
   {
     path: "/parties",
-    titleIncludes: "Всички партии",
+    titleIncludes: "Партии на парламентарните избори",
     h1Includes: "Всички партии",
     minBodyChars: 300,
     expectedCanonical: "/parties",
@@ -352,7 +352,7 @@ const EN_ROUTES: RouteCheck[] = [
   },
   {
     path: "/en/parties",
-    titleIncludes: "All Parties",
+    titleIncludes: "Parties — Bulgarian Parliamentary Election",
     h1Includes: "All parties",
     minBodyChars: 200,
     expectedCanonical: "/en/parties",
