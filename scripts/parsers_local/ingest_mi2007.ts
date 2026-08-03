@@ -31,6 +31,7 @@ import { extractZipCp866 } from "./extract_bundle";
 import { parseMi2007Page } from "./parse_mi2007";
 import { resolveByOblastName } from "./ingest_legacy_chmi";
 import { pickElectedMayor } from "./build_municipality_json";
+import { pickLocalWinner } from "./localPersonRefs";
 import { buildIndex } from "./build_index_json";
 import { buildLocalRollups } from "./build_region_json";
 import { buildLocalDemographics } from "./build_local_demographics";
@@ -157,6 +158,35 @@ const ensureExtracted = async (
  */
 export type KmetstvoPageFamily = "decision" | "results";
 
+/**
+ * Fold a 2007 кметство name so the two families' spellings of one seat land on one key.
+ *
+ * They do not name a seat the same way, and a raw-name key therefore leaves duplicates
+ * behind — the exact thing this de-duplication exists to remove. Measured variants:
+ *
+ *   union form   "Бояново и Стройно" (decision) vs "Бояново" (results) — a кметство covering
+ *                several settlements, named by its members on one page and by its centre on
+ *                the other. Also Маломирово и Славейково, Мелница и Малко Кирилово.
+ *   type prefix  "С. Ваксево" vs "Ваксево"; "Гара Бов" vs "Бов"
+ *   separator    "Алеко-Константиново" vs "Алеко Константиново"; "Даскал Атанасово" vs
+ *                "Даскал-Атанасово"; "Злато Поле" vs "Златополе"
+ *
+ * Everything here is a lossless narrowing of ONE name — it never merges two names that are
+ * different words. Genuine misspellings ("Доситиево" / "Доситеево") are out of its reach and
+ * are reported by the residual-duplicate check instead of being guessed at.
+ */
+export const foldKmetstvoName = (name: string): string =>
+  name
+    .toLocaleLowerCase("bg")
+    .replace(/\(.*?\)/g, "")
+    // The кметство's centre is the first member; " и " joins the rest.
+    .split(/\s+и\s+/)[0]
+    // A leading settlement-type marker is a label, not part of the name.
+    .replace(/^\s*(?:с|гр|кв|гара|мах)\.?\s+/u, "")
+    .replace(/-/g, " ")
+    // …and once separators are spaces, close them up too, so "Злато Поле" == "Златополе".
+    .replace(/\s+/g, "");
+
 /** The marker sits inside markup, so match on the tag-stripped, whitespace-collapsed text —
  *  `raw.includes()` misses it. */
 export const kmetstvoPageFamily = (rawHtml: string): KmetstvoPageFamily =>
@@ -171,10 +201,26 @@ export const kmetstvoPageFamily = (rawHtml: string): KmetstvoPageFamily =>
 /**
  * Pick the page that should represent a seat, given one already chosen and a newcomer.
  *
- * `results` always wins. `decision` is kept ONLY where it is all there is — 107 of the 3,013
- * кметства have no `results` page at all, so dropping the family outright would lose them
- * rather than de-duplicate them.
+ * `results` always wins. `decision` is kept ONLY where it is all there is, so dropping the
+ * family outright would lose those seats rather than de-duplicate them. Measured on the
+ * archive with this function's own key — (obshtinaCode, `foldKmetstvoName`) — 2,378 seats
+ * carry both families, 528 only `results`, and 83 only `decision`.
  */
+/** The winning ROW of a кметство contest, resolved through the shared `pickLocalWinner` rule.
+ *
+ *  That helper takes the narrow `LocalMayorMention` shape (the fields the winner rule reads),
+ *  so its return value is re-found in the full row list — the bundle stores whole
+ *  `LocalMayorResult`s. A candidate name appears once per contest, so the match is exact. */
+const electedRow = (
+  round1: LocalMayorResult[],
+  round2?: LocalMayorResult[],
+): LocalMayorResult | null => {
+  const win = pickLocalWinner(round1, round2);
+  if (!win) return null;
+  const pool = round2?.length ? round2 : round1;
+  return pool.find((c) => c.candidateName === win.candidateName) ?? null;
+};
+
 export const preferKmetstvoPage = <T extends { family: KmetstvoPageFamily }>(
   current: T | undefined,
   next: T,
@@ -359,7 +405,7 @@ export const ingestMi2007 = async (opts: {
       // them. The old code replaced `candidates` with the round-2 table when one existed,
       // which threw the first-round field away and left `elected` unset — so the resolver
       // had to re-derive a winner from a round-1 table that CIK marks with BOTH finalists.
-      const key = `${res.obshtinaCode}\t${normName(bc.placeName ?? "")}`;
+      const key = `${res.obshtinaCode}\t${foldKmetstvoName(bc.placeName ?? "")}`;
       const next = {
         obshtinaCode: res.obshtinaCode,
         obshtinaName: res.obshtinaName,
@@ -401,13 +447,29 @@ export const ingestMi2007 = async (opts: {
       ekatte: "",
       candidates: k.round1,
       round2: k.round2,
-      elected: pickElectedMayor(k.round1, k.round2),
+      // `pickLocalWinner`, NOT `pickElectedMayor`. The two differ when a round-1 table flags
+      // BOTH finalists and no round-2 table exists — 25 of the 2007 seats — because
+      // pickElectedMayor takes the first flagged row in document order while the resolver
+      // takes the highest-vote one. The bundle's `elected` renders the name on /local while
+      // the resolver's choice is what gets a /person page, so a divergence shows one man on
+      // the page and publishes another. This is the shared rule both walks already use for
+      // every other cycle.
+      elected: electedRow(k.round1, k.round2),
     });
   }
   console.log(
     `[mi2007] ${kmetstvaByKey.size} кметство seat(s) after de-duplication ` +
       `(${familyCount.results} from the results pages, ${familyCount.decision} from a "по решение на ОИК" page with no results counterpart)`,
   );
+  // A classifier that stops matching fails SILENTLY and in the worst possible direction: every
+  // page reads as `results`, so "first page of a family wins" hands all 2,354 both-family
+  // seats to the decision page (its filename sorts first) — the family adjudicated wrong
+  // 883-to-2. The archive is frozen, so the counts cannot legitimately collapse.
+  if (familyCount.results < 2000)
+    throw new Error(
+      `[mi2007] only ${familyCount.results} seat(s) came from a results page (expected ~2,900) — ` +
+        `kmetstvoPageFamily is no longer matching "по решение на ОИК", so the wrong family would win every seat.`,
+    );
 
   // Sofia fan-out (after all районs are attached to the SOF bundle).
   const sof = bundles.get("SOF");

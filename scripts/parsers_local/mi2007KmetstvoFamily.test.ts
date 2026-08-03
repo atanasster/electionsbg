@@ -10,6 +10,7 @@
 
 import { describe, it, expect } from "vitest";
 import {
+  foldKmetstvoName,
   kmetstvoPageFamily,
   preferKmetstvoPage,
   type KmetstvoPageFamily,
@@ -66,5 +67,38 @@ describe("preferKmetstvoPage", () => {
 
   it("takes the newcomer when there is nothing yet", () => {
     expect(preferKmetstvoPage(undefined, results).tag).toBe("B");
+  });
+});
+
+describe("foldKmetstvoName", () => {
+  // Every pair below is ONE seat the two families spell differently — measured on the
+  // archive. Folding them apart left duplicate entries, which is what the de-duplication is
+  // for; two of them (Гара Бов, Гара Лакатник) additionally published the round-1 leader as
+  // кмет because the decision page's path has no round-2 twin.
+  it.each([
+    ["union form", "Бояново и Стройно", "Бояново"],
+    ["union form", "Маломирово и Славейково", "Маломирово"],
+    ["union form", "Мелница и Малко Кирилово", "Мелница"],
+    ["type prefix", "С. Ваксево", "Ваксево"],
+    ["type prefix", "Гара Бов", "Бов"],
+    ["separator", "Алеко-Константиново", "Алеко Константиново"],
+    ["separator", "Даскал Атанасово", "Даскал-Атанасово"],
+    ["separator", "Злато Поле", "Златополе"],
+  ])("folds a %s variant to one key (%s == %s)", (_kind, a, b) => {
+    expect(foldKmetstvoName(a)).toBe(foldKmetstvoName(b));
+  });
+
+  // …and it must not merge two names that are simply different words, or the de-duplication
+  // would silently drop a real seat.
+  it.each([
+    ["Безмер", "Ботево"],
+    ["Доситиево", "Черешово"],
+    ["Бояново", "Стройно"],
+  ])("keeps unrelated names apart (%s vs %s)", (a, b) => {
+    expect(foldKmetstvoName(a)).not.toBe(foldKmetstvoName(b));
+  });
+
+  it("is case- and whitespace-insensitive", () => {
+    expect(foldKmetstvoName("  БЕЗМЕР ")).toBe(foldKmetstvoName("Безмер"));
   });
 });
