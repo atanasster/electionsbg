@@ -16,14 +16,17 @@ import {
   Coins,
   Hash,
   Layers,
+  ListTree,
   MapPin,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useFundsContract } from "@/data/funds/useFundsContract";
+import { procedureCodeOf } from "@/data/funds/procedureCode";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { orgTypeLabel, orgFormLabel } from "@/data/funds/orgLabels";
+import { StatusChip } from "./summaryTiles";
 
 const eurFull = (v: number): string =>
   `€${Math.round(v).toLocaleString("en-US")}`;
@@ -35,26 +38,6 @@ const compactEur = (v: number): string => {
   return `€${v.toLocaleString("en-US")}`;
 };
 
-const statusChipClass = (status: string): string => {
-  if (status.startsWith("Приключен"))
-    return "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-100";
-  if (status.startsWith("В изпълнение"))
-    return "bg-sky-100 text-sky-900 dark:bg-sky-900/40 dark:text-sky-100";
-  if (status === "Сключен")
-    return "bg-slate-100 text-slate-900 dark:bg-slate-900/40 dark:text-slate-100";
-  if (status.startsWith("Прекратен"))
-    return "bg-rose-100 text-rose-900 dark:bg-rose-900/40 dark:text-rose-100";
-  return "bg-muted text-muted-foreground";
-};
-
-const statusChipI18nKey = (status: string): string => {
-  if (status.startsWith("Приключен")) return "funds_tile_status_completed";
-  if (status.startsWith("В изпълнение")) return "funds_tile_status_in_progress";
-  if (status === "Сключен") return "funds_tile_status_signed";
-  if (status.startsWith("Прекратен")) return "funds_tile_status_terminated";
-  return "funds_tile_status_other";
-};
-
 export const FundsContractScreen: FC = () => {
   const { number } = useParams();
   const { t, i18n } = useTranslation();
@@ -62,6 +45,11 @@ export const FundsContractScreen: FC = () => {
   const { findMunicipality } = useMunicipalities();
   const { findSettlement } = useSettlementsInfo();
   const lang = i18n.language;
+  // The rung between this contract and its programme — derived, since ИСУН
+  // publishes no procedure field. Same rule the ingest groups the corpus by.
+  const procedureCode = data
+    ? procedureCodeOf(data.contractNumber, data.programCode)
+    : null;
 
   if (isLoading) {
     return (
@@ -125,12 +113,7 @@ export const FundsContractScreen: FC = () => {
           <div className="flex items-center gap-2 text-xs text-muted-foreground tabular-nums">
             <Hash className="h-3 w-3" aria-hidden />
             {data.contractNumber}
-            <span
-              className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-medium ${statusChipClass(data.status)}`}
-              title={data.status}
-            >
-              {t(statusChipI18nKey(data.status))}
-            </span>
+            <StatusChip status={data.status} />
           </div>
         </div>
 
@@ -242,6 +225,22 @@ export const FundsContractScreen: FC = () => {
                 </div>
               </div>
             </div>
+            {procedureCode && (
+              <div className="flex items-start gap-3">
+                <ListTree className="h-4 w-4 text-sky-600 mt-0.5" aria-hidden />
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs text-muted-foreground">
+                    {t("funds_contract_procedure")}
+                  </div>
+                  <Link
+                    to={`/funds/procedure/${encodeURIComponent(procedureCode)}`}
+                    className="font-medium hover:underline tabular-nums"
+                  >
+                    {procedureCode}
+                  </Link>
+                </div>
+              </div>
+            )}
             <div className="flex items-start gap-3">
               <MapPin className="h-4 w-4 text-emerald-600 mt-0.5" aria-hidden />
               <div className="flex-1 min-w-0">

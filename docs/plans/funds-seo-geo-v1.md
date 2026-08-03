@@ -52,7 +52,7 @@ BG16RFPR001-2.004   2,273 contracts
 BG-RRP-1.015        2,228 contracts
 ```
 
-The set is small enough to prerender outright: **981 of the 2,137 procedures have ≥3
+The set is small enough to prerender outright: **985 of the 2,137 procedures have ≥3
 contracts.**
 
 ### F2 — 81,910 contract URLs serve the homepage to crawlers
@@ -144,7 +144,7 @@ Ordered by (impact × confidence) / cost. T1 and T2 are the ones that move the n
 ### T1 — Ship `/funds/procedure/:code` (the page the query is actually for)
 
 New route + prerender + sitemap for the 2,137-strong procedure grain, bounded on first
-ship to **procedures with ≥3 contracts (981 pages)**; widen later on measured demand.
+ship to **procedures with ≥3 contracts (985 pages)**; widen later on measured demand.
 
 Page content — the same shape as the programme page, one level down:
 - H1 = procedure name + code; parent programme link.
@@ -256,7 +256,7 @@ ranked list in crawlable HTML.
 
 | item | pages added (BG+EN) | notes |
 |---|---|---|
-| T1 procedures ≥3 contracts | 1,962 | 981 × BG+EN |
+| T1 procedures ≥3 contracts | 1,970 | 985 × BG+EN |
 | T2 richer bodies | 0 | ~4 KB each on 92 existing pages |
 | T3 (a) contracts ≥€200k | 28,184 | mind the 453k-file dist ceiling |
 | T3 (b) function rewrite | 0 | covers all 81,910 |

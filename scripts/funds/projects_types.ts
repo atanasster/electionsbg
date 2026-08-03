@@ -283,6 +283,20 @@ export interface FundsProjectsProceduresIndex {
   }>;
 }
 
+// The procedures under ONE programme, for the tile on /funds/programme/{code}.
+// Split out of the catalogue above because that file is 333 KB and every
+// programme page would otherwise fetch the whole corpus to render one tile.
+//
+// Built to data/funds/projects/by-program-procedures/{programCode}.json; served
+// as fund_payloads(kind='procedure-by-program').
+export interface FundsProjectsProgramProcedures {
+  programCode: string;
+  // Indexable procedures under this programme — can exceed `procedures.length`,
+  // which is capped so the tile stays a tile (417 sit under 2014BG06RDNP001).
+  procedureCount: number;
+  procedures: FundsProjectsProceduresIndex["procedures"];
+}
+
 // Slim "tile-ready" snapshot for a single place (EKATTE or муни). Emitted
 // alongside the full by-ekatte/{ekatte}.json + by-muni/{id}.json so a
 // settlement / muni dashboard can render the EU-funds tile without pulling

@@ -29,6 +29,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { procedureCodeOf } from "@/data/funds/procedureCode";
 import {
   canonicalJson,
   loadOblastByMuni,
@@ -40,6 +41,7 @@ import {
 import type {
   FundsProjectsProcedureSummary,
   FundsProjectsProceduresIndex,
+  FundsProjectsProgramProcedures,
   ProcedureAttributable,
 } from "./projects_types";
 
@@ -49,6 +51,10 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "../..");
 const BY_PROGRAM_DIR = path.join(ROOT, "data/funds/projects/by-program");
 const BY_PROCEDURE_DIR = path.join(ROOT, "data/funds/projects/by-procedure");
+const BY_PROGRAM_PROCEDURES_DIR = path.join(
+  ROOT,
+  "data/funds/projects/by-program-procedures",
+);
 
 const TOP_BENEFICIARIES = 100;
 const TOP_CONTRACTS = 25;
@@ -67,48 +73,9 @@ export const MIN_INDEXABLE_CONTRACTS = 3;
 // and no name can be honestly derived, so the page falls back to the code.
 const MODAL_TITLE_MIN_SHARE = 0.6;
 
-/**
- * Derive the procedure code from a contract number.
- *
- * `BG16RFOP002-2.089-3686-C01` → `BG16RFOP002-2.089`
- * `BG-RRP-1.015-0042`          → `BG-RRP-1.015`
- * `BG16RFOP002-2.073-19464`    → `BG16RFOP002-2.073`
- *
- * The ordinal is `\d{4,}`, not `\d{4}`: the mass COVID schemes ran past 9,999
- * projects, so 2.073 alone numbers up to five digits. Requiring exactly four
- * silently dropped 14,510 rows — 17.7% of the corpus, concentrated in the
- * single most-searched procedure on the site.
- *
- * `programCode` is optional and strips a trailing co-financing programme
- * suffix (`BG05M9OP001-2.018-0024-2014BG05M2OP001`), which 67 ESF rows carry.
- *
- * Returns null when the number carries no project ordinal at all — those rows
- * are left out of the grain rather than being given an invented procedure of
- * their own.
- */
-export const procedureCodeOf = (
-  contractNumber: string,
-  programCode?: string,
-): string | null => {
-  let n = contractNumber.trim();
-  if (programCode && n.endsWith(`-${programCode}`)) {
-    n = n.slice(0, -(programCode.length + 1));
-  }
-  // The `-` before the ordinal is what makes the lazy prefix safe: it can only
-  // cut at a real segment boundary, so a procedure code that itself ends in
-  // digits (`…-2.073`) is never split mid-token.
-  const m = /^(.+?)-(\d{4,})(?:-C\d+)?$/.exec(n);
-  if (!m) return null;
-  // Whitespace inside an ИСУН code is always an export typo, never meaningful:
-  // 17 rows are published as `BGJUSTICE -1.001-0001` for programme `BGJUSTICE`.
-  // Removing it recovers them; dropping them on the charset check below would
-  // lose real contracts to a stray space.
-  const code = m[1].replace(/\s+/g, "");
-  // The code becomes a filename and a URL path segment. ИСУН numbers are
-  // [-.0-9A-Z] by construction (verified at ingest for the by-contract shards),
-  // but a malformed row must never escape into a path.
-  return /^[A-Za-z0-9.-]+$/.test(code) ? code : null;
-};
+// Re-exported so the ingest and its tests have one import site; the rule itself
+// lives in src/ because the contract page derives the same code client-side.
+export { procedureCodeOf };
 
 /** The most common contract title, when it dominates enough to be the scheme's
  *  name. Null otherwise — see MODAL_TITLE_MIN_SHARE. */
@@ -269,7 +236,36 @@ const buildSummary = (
 export interface ProceduresBuild {
   index: FundsProjectsProceduresIndex;
   shards: FundsProjectsProcedureSummary[];
+  // One slim list per programme, for the "procedures under this programme"
+  // tile. Kept out of the corpus-wide index because that index is 333 KB and
+  // every programme page would pay for it to render one tile.
+  byProgram: FundsProjectsProgramProcedures[];
 }
+
+const PROGRAMME_PROCEDURES_TOP = 25;
+
+const buildByProgram = (
+  indexable: FundsProjectsProceduresIndex["procedures"],
+): FundsProjectsProgramProcedures[] => {
+  const byProgram = new Map<
+    string,
+    FundsProjectsProceduresIndex["procedures"]
+  >();
+  for (const p of indexable) {
+    const arr = byProgram.get(p.programCode);
+    if (arr) arr.push(p);
+    else byProgram.set(p.programCode, [p]);
+  }
+  return [...byProgram.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([programCode, rows]) => ({
+      programCode,
+      // 417 procedures sit under 2014BG06RDNP001 alone; the tile shows a
+      // capped list and says how many there are.
+      procedureCount: rows.length,
+      procedures: rows.slice(0, PROGRAMME_PROCEDURES_TOP),
+    }));
+};
 
 /**
  * Group a resolved contract corpus by procedure and summarise each one.
@@ -306,25 +302,23 @@ export const buildProcedures = (
         a.procedureCode.localeCompare(b.procedureCode),
     );
 
-  return {
-    index: {
-      generatedAt,
-      // Every procedure has a shard; only these carry a page in the sitemap.
-      procedureCount: shards.length,
-      minIndexableContracts: MIN_INDEXABLE_CONTRACTS,
-      procedures: indexable.map((s) => ({
-        procedureCode: s.procedureCode,
-        procedureName: s.procedureName,
-        programCode: s.programCode,
-        programName: s.programName,
-        contractCount: s.rollup.contractCount,
-        beneficiaryCount: s.rollup.beneficiaryCount,
-        totalEur: s.rollup.totalEur,
-        paidEur: s.rollup.paidEur,
-      })),
-    },
-    shards,
+  const index: FundsProjectsProceduresIndex = {
+    generatedAt,
+    // Every procedure has a shard; only these carry a page in the sitemap.
+    procedureCount: shards.length,
+    minIndexableContracts: MIN_INDEXABLE_CONTRACTS,
+    procedures: indexable.map((s) => ({
+      procedureCode: s.procedureCode,
+      procedureName: s.procedureName,
+      programCode: s.programCode,
+      programName: s.programName,
+      contractCount: s.rollup.contractCount,
+      beneficiaryCount: s.rollup.beneficiaryCount,
+      totalEur: s.rollup.totalEur,
+      paidEur: s.rollup.paidEur,
+    })),
   };
+  return { index, shards, byProgram: buildByProgram(index.procedures) };
 };
 
 export const writeProcedures = (data: ProceduresBuild): void => {
@@ -359,6 +353,14 @@ export const writeProcedures = (data: ProceduresBuild): void => {
     path.join(BY_PROCEDURE_DIR, "index.json"),
     canonicalJson(data.index),
   );
+
+  resetDir(BY_PROGRAM_PROCEDURES_DIR);
+  for (const p of data.byProgram) {
+    fs.writeFileSync(
+      path.join(BY_PROGRAM_PROCEDURES_DIR, `${p.programCode}.json`),
+      canonicalJson(p),
+    );
+  }
 };
 
 // ── standalone entrypoint ────────────────────────────────────────────────────

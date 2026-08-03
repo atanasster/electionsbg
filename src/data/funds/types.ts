@@ -293,6 +293,27 @@ export interface FundsProjectsProgramSummaryFile {
   }>;
 }
 
+// Slim summary for a single ИСУН procedure — the grain between a programme and
+// a contract (`BG16RFOP002-2.089`). Backs /funds/procedure/{code}, served as
+// fund_payloads(kind='procedure'). See scripts/funds/projects_types.ts for the
+// source of truth.
+export interface FundsProjectsProcedureSummaryFile {
+  procedureCode: string;
+  // Null when the procedure's contracts do not share one title, so no scheme
+  // name can be honestly derived — the page then leads with the code.
+  procedureName: string | null;
+  programCode: string;
+  programName: string;
+  rollup: FundsProjectsRollup;
+  statusBreakdown: Array<{
+    status: string;
+    rollup: FundsProjectsRollup;
+  }>;
+  topBeneficiaries: FundsProjectsProgramSummaryFile["topBeneficiaries"];
+  topContracts: FundsProjectsProgramSummaryFile["topContracts"];
+  topMunis: FundsProjectsProgramSummaryFile["topMunis"];
+}
+
 // Slim "tile-ready" summary for a single place. Backed by
 // funds/projects/by-muni/{obshtina}-summary.json — see
 // scripts/funds/projects_types.ts for the source of truth.

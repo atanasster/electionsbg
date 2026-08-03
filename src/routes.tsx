@@ -586,6 +586,11 @@ const FundsProgramScreen = lazy(() =>
     default: m.FundsProgramScreen,
   })),
 );
+const FundsProcedureScreen = lazy(() =>
+  import("./screens/funds/FundsProcedureScreen").then((m) => ({
+    default: m.FundsProcedureScreen,
+  })),
+);
 const FundsContractScreen = lazy(() =>
   import("./screens/funds/FundsContractScreen").then((m) => ({
     default: m.FundsContractScreen,
@@ -2558,6 +2563,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <FundsProgramScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/procedure/:code"
+            element={
+              <LayoutScreen>
+                <FundsProcedureScreen />
               </LayoutScreen>
             }
           />

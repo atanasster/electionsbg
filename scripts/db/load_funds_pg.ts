@@ -19,6 +19,11 @@ import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { exec, getPool, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+} from "./lib/stage_merge";
 
 const SCHEMA_DIR = path.join(
   PROC_DIR,
@@ -192,6 +197,7 @@ const collectPayloads = (): PayloadRow[] => {
     ["confirmed", path.join(FUNDS_DIR, "confirmed.json")],
     ["rrf-context", path.join(FUNDS_DIR, "rrf_context.json")],
     ["themes-index", path.join(DERIVED_DIR, "themes", "index.json")],
+    ["procedure-index", path.join(PROJECTS_DIR, "by-procedure", "index.json")],
     ["by-eik-index", path.join(DERIVED_DIR, "by-eik", "index.json")],
     ["per-mp-index", path.join(DERIVED_DIR, "per-mp", "index.json")],
     [
@@ -222,6 +228,22 @@ const collectPayloads = (): PayloadRow[] => {
       path.join(PROJECTS_DIR, "by-program"),
       (f) => f.endsWith("-summary.json"),
       (f) => f.slice(0, -"-summary.json".length),
+    ],
+    // One per ИСУН procedure — the grain /funds/procedure/{code} serves. A
+    // shard exists for every procedure (2,137), not just the ~985 indexable
+    // ones, so the route resolves for any code a contract page links to.
+    [
+      "procedure",
+      path.join(PROJECTS_DIR, "by-procedure"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+    // The procedures under one programme, for the tile on the programme page.
+    [
+      "procedure-by-program",
+      path.join(PROJECTS_DIR, "by-program-procedures"),
+      (f) => f.endsWith(".json"),
+      (f) => f.slice(0, -".json".length),
     ],
     [
       "geo",
@@ -389,22 +411,39 @@ export const loadFundsPg = async (): Promise<{
   }
 
   // Precomputed page payloads (verbatim, keyed by kind+key).
+  //
+  // Built into an UNLOGGED stage twin and merged, NOT `TRUNCATE` + insert:
+  // every /funds page reads this table, and TRUNCATE holds an
+  // AccessExclusiveLock for the whole rebuild, so the serving pool's 2 s
+  // `lock_timeout` turns every concurrent reader into a 55P03 → 500. That is
+  // the exact failure documented in scripts/db/lib/stage_merge.ts. The procedure
+  // grain roughly doubled this load (2,181 → 4,318 payloads, 22 → 36 MB), which
+  // doubles a window that should not exist at all.
   const payloadRows = collectPayloads();
   const PLBATCH = 200; // payloads can be tens of KB — keep the query modest
+  const payloadSpec = {
+    table: "fund_payloads",
+    source: "fund_payloads_stage",
+    keys: ["kind", "key"],
+    cols: ["kind", "key", "payload"],
+  };
   await withClient(async (c) => {
     await c.query("BEGIN");
-    await c.query("TRUNCATE fund_payloads");
+    await createStageTable(c, payloadSpec);
     for (let i = 0; i < payloadRows.length; i += PLBATCH) {
       const batch = payloadRows.slice(i, i + PLBATCH);
       const values = batch
         .map((_, r) => `($${r * 3 + 1},$${r * 3 + 2},$${r * 3 + 3}::jsonb)`)
         .join(",");
       await c.query(
-        `INSERT INTO fund_payloads (kind, key, payload) VALUES ${values}
-         ON CONFLICT (kind, key) DO NOTHING`,
+        `INSERT INTO fund_payloads_stage (kind, key, payload) VALUES ${values}
+         ON CONFLICT DO NOTHING`,
         batch.flatMap((p) => [p.kind, p.key, p.text]),
       );
     }
+    await addStagePrimaryKey(c, payloadSpec);
+    await mergeFromStage(c, payloadSpec);
+    await c.query("DROP TABLE IF EXISTS fund_payloads_stage");
     await c.query("COMMIT");
   });
 
