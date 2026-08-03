@@ -66,6 +66,34 @@ Seed examples to copy from, one per layer:
 - the shape of a SQL payload builder's output (given rows in, assert the jsonb
   the serving function emits)
 
+**Config-invariant tests (metadata only — a `node`-project shape worth reusing):**
+
+A test that imports a registry's **declarations** and asserts a rule over them,
+never calling the code that does the I/O. `scripts/watch/cadence.test.ts` is the
+worked example: it imports `SOURCES` and checks every source's probe `cadence`
+against its declared upstream `publishes` frequency — but never invokes
+`fingerprint()`, so it stays hermetic and runs in milliseconds despite covering
+109 network-backed sources.
+
+Reach for this when a config field's wrongness is **invisible at runtime**. The
+watcher case: `eurostat` was declared `cadence: "monthly"` while bundling a
+monthly HICP release, so a July 2026 release sat unseen for a fortnight while
+the daily report happily listed it under "Skipped (off-cadence)". Nothing
+errored, nothing could error — the defect is in the declaration, so only a test
+over declarations can find it. Two habits make these bite:
+
+- **Enumerate the domain explicitly; don't derive it from the map under test.**
+  Iterating `Object.values(SOME_MAP)` can only confirm what is already there, so
+  a forgotten entry is absent from the iteration by construction and the test
+  passes vacuously.
+- **Ratchet optional fields.** When a field is optional only for backwards
+  compatibility, assert the count of declarations never falls — otherwise the
+  next source added re-opens the hole.
+
+If the registry lives in a module that runs work at import scope, extract the
+pure logic first (`scripts/watch/index.ts` calls `main()` on import, which is
+why `cadence.ts` exists as a separate module).
+
 **Component-test (jsdom + Testing Library):**
 
 - a tile/screen renders the right text/structure from props

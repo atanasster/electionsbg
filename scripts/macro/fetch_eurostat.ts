@@ -1652,6 +1652,30 @@ const readPriorSeries = (): Record<string, MacroPoint[]> | null => {
   }
 };
 
+/** The `indicators` entry for one series. ONE source of truth: the healthy
+ *  path and the carried-forward path below both call this, so a field added
+ *  here cannot silently go missing on degraded keys — and the degraded path
+ *  only ever runs during an upstream outage, i.e. the runs nobody watches. */
+const metaFor = (ind: Indicator): IndicatorMeta => ({
+  titleEn: ind.titleEn,
+  titleBg: ind.titleBg,
+  unitLabelEn: ind.unitLabelEn,
+  unitLabelBg: ind.unitLabelBg,
+  cadence: ind.cadence,
+  source: ind.source,
+  ...(ind.source === "eurostat"
+    ? { sourceUrl: ind.sourceUrl, datasetCode: ind.dataset }
+    : {}),
+  ...(ind.source === "worldbank" ? { sourceUrl: ind.sourceUrl } : {}),
+  ...(ind.source === "curated"
+    ? {
+        sourceUrl: ind.sourceUrl,
+        attributionEn: ind.attributionEn,
+        attributionBg: ind.attributionBg,
+      }
+    : {}),
+});
+
 const floorFor = (ind: EurostatIndicator | WorldBankIndicator): number => {
   if (ind.minPoints !== undefined) return ind.minPoints;
   if (ind.cadence === "monthly") return MIN_POINTS_MONTHLY;
@@ -1700,15 +1724,7 @@ const main = async () => {
           );
           degraded.push(ind.key);
           series[ind.key] = carried;
-          meta[ind.key] = {
-            titleEn: ind.titleEn,
-            titleBg: ind.titleBg,
-            unitLabelEn: ind.unitLabelEn,
-            unitLabelBg: ind.unitLabelBg,
-            cadence: ind.cadence,
-            source: ind.source,
-            sourceUrl: ind.sourceUrl,
-          };
+          meta[ind.key] = metaFor(ind);
           console.log(`${carried.length} points (carried forward)`);
           continue;
         }
@@ -1748,25 +1764,7 @@ const main = async () => {
       }
 
       series[ind.key] = data;
-      meta[ind.key] = {
-        titleEn: ind.titleEn,
-        titleBg: ind.titleBg,
-        unitLabelEn: ind.unitLabelEn,
-        unitLabelBg: ind.unitLabelBg,
-        cadence: ind.cadence,
-        source: ind.source,
-        ...(ind.source === "eurostat"
-          ? { sourceUrl: ind.sourceUrl, datasetCode: ind.dataset }
-          : {}),
-        ...(ind.source === "worldbank" ? { sourceUrl: ind.sourceUrl } : {}),
-        ...(ind.source === "curated"
-          ? {
-              sourceUrl: ind.sourceUrl,
-              attributionEn: ind.attributionEn,
-              attributionBg: ind.attributionBg,
-            }
-          : {}),
-      };
+      meta[ind.key] = metaFor(ind);
       const last = data[data.length - 1];
       const tail = last
         ? last.quarter

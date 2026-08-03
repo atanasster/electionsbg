@@ -20,7 +20,7 @@ import {
   cadenceViolation,
   dueForCheck,
 } from "./cadence";
-import type { WatchState } from "./types";
+import type { PublishFrequency, WatchState } from "./types";
 
 describe("cadenceViolation", () => {
   it("rejects sampling a monthly release monthly — the eurostat bug", () => {
@@ -47,12 +47,43 @@ describe("cadenceViolation", () => {
     expect(cadenceViolation("monthly", "monthly")).toMatch(/Use "weekly"/);
   });
 
-  it("covers every declared publication frequency", () => {
-    // A new PublishFrequency band with no PUBLISH_PERIOD_MS entry would make
-    // `probe * 2 <= undefined` false and flag every source using it.
-    for (const period of Object.values(PUBLISH_PERIOD_MS)) {
-      expect(period).toBeGreaterThan(0);
+  it("prices every band except the irregular exemption", () => {
+    // Enumerated explicitly, NOT derived from Object.keys(PUBLISH_PERIOD_MS):
+    // iterating the map's own entries can only ever confirm what is already
+    // there, so a band added to PublishFrequency and forgotten here would slip
+    // through. Listing them makes that a failure rather than a silent pass.
+    const BANDS: PublishFrequency[] = [
+      "daily",
+      "weekly",
+      "monthly",
+      "quarterly",
+      "semiannual",
+      "annual",
+      "irregular",
+    ];
+    for (const band of BANDS) {
+      if (band === "irregular") {
+        expect(cadenceViolation("monthly", band)).toBeNull();
+        continue;
+      }
+      expect(
+        PUBLISH_PERIOD_MS[band],
+        `no period for band "${band}"`,
+      ).toBeGreaterThan(0);
     }
+  });
+
+  it("prices the slower bands, which no source exercises densely", () => {
+    // semiannual is the only period picked by hand (182d) rather than from a
+    // calendar unit, and eurostat_energy_prices depends on it in production.
+    expect(cadenceViolation("monthly", "quarterly")).toBeNull();
+    expect(cadenceViolation("monthly", "semiannual")).toBeNull();
+    expect(cadenceViolation("monthly", "annual")).toBeNull();
+    // A quarterly release still cannot be sampled monthly-and-a-bit: 29d × 2
+    // = 58d fits inside 90d, so monthly is the slowest band that qualifies.
+    expect(PUBLISH_PERIOD_MS.quarterly).toBeGreaterThan(
+      CADENCE_WINDOW_MS.monthly * 2,
+    );
   });
 });
 
@@ -85,6 +116,21 @@ describe("SOURCES cadence vs. upstream publication", () => {
     );
   });
 
+  it("never regresses the number of sources declaring `publishes`", () => {
+    // Ratchet. `publishes` is optional only because 100+ sources predate it,
+    // so nothing stops a NEW source shipping without one — which re-opens the
+    // exact hole this file exists to close. Bump this upward as sources are
+    // annotated; never downward.
+    const DECLARED_FLOOR = 11;
+    const declaredNow = SOURCES.filter((s) => s.publishes).length;
+    expect(
+      declaredNow,
+      `${declaredNow} sources declare 'publishes'; floor is ${DECLARED_FLOOR}. ` +
+        `If you added a source, declare its upstream frequency; if you annotated ` +
+        `more, raise the floor.`,
+    ).toBeGreaterThanOrEqual(DECLARED_FLOOR);
+  });
+
   it("uses unique source ids", () => {
     // Two sources sharing an id would share one state/watch/<id>.json and
     // overwrite each other's fingerprint every run.
@@ -112,7 +158,15 @@ describe("dueForCheck", () => {
     expect(dueForCheck(state(twoDaysAgo), "daily", T0)).toBe(true);
   });
 
-  it("allows a daily source to fire on a ~24h routine (5% grace)", () => {
+  it("honours the hourly band", () => {
+    // The only cadence no source currently uses, so nothing else covers it.
+    const fifty = new Date(T0 - 50 * 60_000).toISOString();
+    const fiftySix = new Date(T0 - 56 * 60_000).toISOString();
+    expect(dueForCheck(state(fifty), "hourly", T0)).toBe(false);
+    expect(dueForCheck(state(fiftySix), "hourly", T0)).toBe(true);
+  });
+
+  it("allows a daily source to fire on a ~24h routine (grace)", () => {
     // The grace exists so a run that starts a few minutes late doesn't push a
     // daily source to every OTHER day. 23h55m must still be due.
     const almost = new Date(T0 - (23 * 3600_000 + 55 * 60_000)).toISOString();

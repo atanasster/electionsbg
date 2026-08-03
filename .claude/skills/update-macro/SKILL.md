@@ -70,7 +70,7 @@ the same data — but it IS last run's. **Re-run the step once the World Bank AP
 recovers**, and check `degraded` is gone:
 
 ```bash
-python3 -c "import json;print(json.load(open('data/macro.json')).get('degraded'))"
+node -e "for(const f of ['./data/macro.json','./data/macro_peers.json'])console.log(f,require(f).degraded??'clean')"
 ```
 
 A `degraded` that persists across several runs means the outage is not transient

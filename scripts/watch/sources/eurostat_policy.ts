@@ -69,6 +69,10 @@ export const eurostatPolicy: WatchSource = {
   label: "Eurostat policy-baseline (BG): consumption + tax aggregates",
   url: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table",
   cadence: "monthly",
+  // nama_10_co3_p3 / nama_10_gdp / gov_10a_taxag / educ_uoe_perp01 are annual
+  // tables (freq=A); earn_ses_hourly is a 4-yearly SES wave. Annual is the
+  // floor, so the monthly probe satisfies the invariant with room to spare.
+  publishes: "annual",
 
   async fingerprint(): Promise<Fingerprint> {
     const entries: Record<string, string> = {};

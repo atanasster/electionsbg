@@ -1,6 +1,6 @@
 // /indicators/economy — Economy headline, Inflation breakdown, Sentiment.
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
@@ -76,18 +76,34 @@ export const IndicatorsEconomyScreen = () => {
     [governments],
   );
 
-  // Fresher-than-quarterly headline for unemployment: the newest monthly SA
-  // reading (une_rt_m), rendered as a callout under the quarterly line.
-  const unemploymentMonthly = useMemo(() => {
-    const m = macro?.latestMonthly?.unemployment;
-    if (!m) return null;
-    const label = new Date(m.year, m.month - 1, 1).toLocaleDateString(
-      lang === "bg" ? "bg-BG" : "en-GB",
-      { month: "long", year: "numeric" },
-    );
-    const value = m.value.toFixed(1).replace(".", lang === "bg" ? "," : ".");
-    return { label, value, sourceUrl: m.sourceUrl };
-  }, [macro, lang]);
+  // Fresher-than-quarterly headline for a series whose chart line is a
+  // quarterly aggregate: the newest monthly reading, rendered as a callout
+  // under the line. Parameterised by key because two series need it —
+  // unemployment (une_rt_m) and inflation (prc_hicp_minr) — and the quarterly
+  // lag is the whole point: `inflation` is the MEAN of its three months, so
+  // the line cannot move until a quarter completes.
+  const monthlyCallout = useCallback(
+    (key: MacroIndicatorKey) => {
+      const m = macro?.latestMonthly?.[key];
+      if (!m) return null;
+      const label = new Date(m.year, m.month - 1, 1).toLocaleDateString(
+        lang === "bg" ? "bg-BG" : "en-GB",
+        { month: "long", year: "numeric" },
+      );
+      const value = m.value.toFixed(1).replace(".", lang === "bg" ? "," : ".");
+      return { label, value, sourceUrl: m.sourceUrl, code: m.datasetCode };
+    },
+    [macro, lang],
+  );
+
+  const unemploymentMonthly = useMemo(
+    () => monthlyCallout("unemployment"),
+    [monthlyCallout],
+  );
+  const inflationMonthly = useMemo(
+    () => monthlyCallout("inflation"),
+    [monthlyCallout],
+  );
 
   // Labour-market slack: the broad "true unemployment" measure (annual),
   // rendered as a contextual callout below the unemployment panel. Computation
@@ -157,7 +173,7 @@ export const IndicatorsEconomyScreen = () => {
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
               label:
-                "Eurostat prc_hicp_minr (HICP inflation, monthly→quarterly mean)",
+                "Eurostat prc_hicp_minr (HICP inflation, monthly→quarterly mean; latest month called out below)",
             },
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
@@ -193,6 +209,22 @@ export const IndicatorsEconomyScreen = () => {
           peerOverlay={peerOverlay}
           peerCompareEnabled={compare}
         />
+        {inflationMonthly && economyEnabled.inflation ? (
+          <p className="mt-2 text-xs text-muted-foreground max-w-3xl">
+            {t("indicators_inflation_monthly_latest", {
+              label: inflationMonthly.label,
+              value: inflationMonthly.value,
+            })}{" "}
+            <a
+              href={inflationMonthly.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-foreground"
+            >
+              {inflationMonthly.code}
+            </a>
+          </p>
+        ) : null}
       </section>
 
       <section className="mb-10">

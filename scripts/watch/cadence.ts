@@ -24,9 +24,19 @@ import type { Cadence, PublishFrequency, WatchState } from "./types";
 // Minimum gap between successive successful fingerprints, per cadence. Sources
 // not yet at their next due time are reported as "skipped" and their state is
 // left untouched — so a "weekly" source actually gets probed once a week even
-// when the watcher itself runs daily. ~5% grace prevents clock drift / runtime
-// variation from pushing the next check past one full period (e.g. a daily run
-// taking 5 min wouldn't compound to "23h 59m" skipping the next day).
+// when the watcher itself runs daily.
+//
+// Each window is its nominal period minus some slack, so clock drift or a slow
+// run cannot push the next check past a full period and halve the effective
+// rate (a daily run taking 5 min must not compound to "23h 59m" and skip a
+// day). The slack is a round number per band, not a fixed percentage — it is
+// 8% hourly, 4% daily, 14% weekly, 3% monthly. Weekly is the loosest because
+// its nominal period is the one most often missed by a routine that runs at a
+// slightly different hour each day; monthly is the tightest because 29 vs 30
+// days is already a full probe of headroom.
+//
+// These values decide WHEN a source fires. Changing one changes scheduling —
+// it is not a comment-level edit.
 export const CADENCE_WINDOW_MS: Record<Cadence, number> = {
   hourly: 55 * 60 * 1000,
   daily: 23 * 60 * 60 * 1000,

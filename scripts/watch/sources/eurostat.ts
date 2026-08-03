@@ -257,9 +257,20 @@ export const eurostat: WatchSource = {
         released.push(`${code} ${currDatasets[code]}`);
       }
     }
+    // And the mirror case: a code REMOVED from DATASETS still flips the
+    // fingerprint (the serialisation lost a member), so the run is reported as
+    // changed. Without this the loop above — which only walks the CURRENT keys
+    // — leaves both lists empty and the report falls through to curr.detail,
+    // i.e. a change with no stated cause.
+    const dropped = Object.keys(prevDatasets)
+      .filter((code) => !(code in currDatasets))
+      .sort();
+
     const parts: string[] = [];
     if (released.length) parts.push(`new release · ${released.join(", ")}`);
     if (added.length) parts.push(`now watching · ${added.join(", ")}`);
+    if (dropped.length)
+      parts.push(`no longer watching · ${dropped.join(", ")}`);
     return parts.length ? parts.join(" | ") : curr.detail;
   },
 };
