@@ -10,25 +10,32 @@ const enc = (p: string): string =>
     .join("/");
 
 // The prerender step in `npm run build` reads generated JSON under
-// public/<YYYY_MM_DD>/ — most notably national_summary.json — to fill in
+// data/<YYYY_MM_DD>/ — most notably national_summary.json — to fill in
 // titles, h1s, and the hidden ssg-content body. Those files are produced by
-// `npm run data` and are gitignored (see commit 3aafa6e7), so on a fresh
-// checkout with no data run the prerender silently emits empty bodies.
-// Asserting on empty content would just produce hundreds of confusing
-// failures, so we skip the SEO suite in that case. CI surfaces the skip in
-// the run summary, which is the signal that the data pipeline needs to run.
+// `npm run data` and are gitignored (`/data/2*/*`), so on a fresh checkout
+// with no data run the prerender silently emits empty bodies. Asserting on
+// empty content would just produce hundreds of confusing failures, so we skip
+// the SEO suite in that case. CI surfaces the skip in the run summary, which
+// is the signal that the data pipeline needs to run.
+//
+// THE DIRECTORY IS THE WHOLE GUARD, so it has to track the prerender's.
+// This read `public/<date>/` until 2026-08-03. The election folders moved to
+// data/ during the GCS migration — to keep them out of the Firebase deploy;
+// see the note at scripts/prerender/dynamicRoutes.ts:3683 and the data/ mount
+// in vite.config.ts — and this guard was not moved with them. It was therefore
+// false on every machine and in CI from that migration onward, and all 46 SEO
+// tests skipped, reported as the ordinary "run the data pipeline" skip. If the
+// data root moves again, move this with it.
+const DATA_DIR = path.resolve(process.cwd(), "data");
 const PREREQ_DATA_PRESENT = (() => {
-  const publicDir = path.resolve(process.cwd(), "public");
-  if (!fs.existsSync(publicDir)) return false;
+  if (!fs.existsSync(DATA_DIR)) return false;
   return fs
-    .readdirSync(publicDir)
+    .readdirSync(DATA_DIR)
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
-    .some((d) =>
-      fs.existsSync(path.join(publicDir, d, "national_summary.json")),
-    );
+    .some((d) => fs.existsSync(path.join(DATA_DIR, d, "national_summary.json")));
 })();
 const SKIP_REASON =
-  "prerender data not generated (no public/<date>/national_summary.json) — run `npm run data` first";
+  "prerender data not generated (no data/<date>/national_summary.json) — run `npm run data` first";
 
 // Sample dynamic identifiers that exist in every recent election dataset.
 // If these change, update here — the failure message will point to this file.
