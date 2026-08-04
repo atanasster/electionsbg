@@ -463,22 +463,29 @@ describe("renderPlaceCard", () => {
 });
 
 describe("safeColor", () => {
-  it("repairs the three-component rgba() that cik_parties.json ships", () => {
-    // Canvas keeps the PREVIOUS fill on an invalid colour string, so МЕЧ's
-    // "rgba(190, 0, 52)" would paint in whatever colour was set last — a wrong
-    // party colour that looks deliberate.
-    expect(safeColor("rgba(190, 0, 52)", "#fff")).toBe("rgb(190, 0, 52)");
+  it("falls back on junk and on absence — the hazard it actually guards", () => {
+    // Canvas keeps the PREVIOUS fillStyle on a string it cannot parse: it does
+    // not throw and does not default to black. So an unresolved colour paints
+    // the bar in whatever was set last, which reads as a real (wrong) party
+    // colour. Verified against the parser: "not a colour!" leaves fillStyle
+    // untouched, while every form below is accepted.
+    expect(safeColor(undefined, "#fff")).toBe("#fff");
+    expect(safeColor("not a colour!", "#fff")).toBe("#fff");
   });
 
-  it("passes through the forms that are already valid", () => {
+  it("passes through every form cik_parties.json actually ships", () => {
     expect(safeColor("rgb(12, 69, 135)", "#fff")).toBe("rgb(12, 69, 135)");
     expect(safeColor("#034a3f", "#fff")).toBe("#034a3f");
     expect(safeColor("lightslategrey", "#fff")).toBe("lightslategrey");
     expect(safeColor("rgba(1, 2, 3, 0.5)", "#fff")).toBe("rgba(1, 2, 3, 0.5)");
   });
 
-  it("falls back on junk and on absence", () => {
-    expect(safeColor(undefined, "#fff")).toBe("#fff");
-    expect(safeColor("not a colour!", "#fff")).toBe("#fff");
+  it("normalises three-component rgba(), which is valid and needs no repair", () => {
+    // МЕЧ ships "rgba(190, 0, 52)". It LOOKS malformed — three components in a
+    // four-component function — but CSS Color 4 made rgba() an alias of rgb()
+    // with optional alpha, and the canvas parser accepts it as-is. The rewrite
+    // is defensive for older parsers; it is not fixing a live defect, and no
+    // data change is needed in data/*/cik_parties.json.
+    expect(safeColor("rgba(190, 0, 52)", "#fff")).toBe("rgb(190, 0, 52)");
   });
 });

@@ -263,11 +263,14 @@ Spec shape — every zone optional, `place` and `source` required:
 
 Notes that are load-bearing:
 
-- **Party colours come from `data/<latest>/cik_parties.json` verbatim.** That
-  file ships `rgba(190, 0, 52)` — three components in a four-component function,
-  which is invalid CSS. Canvas keeps the PREVIOUS fill on a bad colour rather
-  than throwing, so an unsanitised value paints a bar in some other party's
-  colour and looks deliberate. `safeColor()` repairs it; pass the raw value.
+- **Party colours come from `data/<latest>/cik_parties.json` verbatim** — pass
+  the raw value, `safeColor()` resolves it. The file mixes `rgb(…)`, hex,
+  three-component `rgba(…)` (valid: CSS Color 4 aliases rgba to rgb with
+  optional alpha) and bare CSS names like `lightslategrey`; all four are
+  accepted as-is. What `safeColor()` is really for is the ABSENT or unparseable
+  case: canvas keeps the previous fillStyle rather than throwing, so an
+  unresolved colour paints a bar in the last party's colour and looks
+  deliberate. Never pass a colour field straight to `fillStyle`.
 - **`focus` is the zone that varies.** Matura when the settlement has a school
   (12%), EU funds otherwise. It is the fourth zone, and the one the post is about.
 - **The renderer refuses rather than garbles**: no zones at all throws, and so

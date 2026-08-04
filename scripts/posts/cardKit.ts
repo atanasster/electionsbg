@@ -1420,11 +1420,19 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
 // lays out whichever zones are present rather than reserving holes for the rest.
 // ---------------------------------------------------------------------------
 
-/** A party/《category》colour straight out of cik_parties.json, made safe to use.
- *  That file carries `rgba(190, 0, 52)` — three components in a four-component
- *  function, which is not valid CSS. Canvas silently keeps the PREVIOUS fill on
- *  a bad colour string, so an unsanitised value paints a bar in whatever colour
- *  happened to be set last, which reads as a real (wrong) party colour. */
+/** A party/category colour straight out of cik_parties.json, made safe to use.
+ *
+ *  The hazard this guards is real but narrower than it looks. Canvas silently
+ *  keeps the PREVIOUS fillStyle when handed a string it cannot parse — it does
+ *  not throw and does not fall back to black — so an unparseable or absent
+ *  colour paints a bar in whatever colour was set last, which reads as a real
+ *  (wrong) party colour rather than as a fault. Hence: always resolve to
+ *  SOMETHING, never pass a raw field through.
+ *
+ *  What it does NOT guard: `rgba(190, 0, 52)` (МЕЧ's colour, and the shape that
+ *  looks malformed) is VALID — CSS Color 4 made rgba() an alias of rgb() with
+ *  optional alpha, and @napi-rs/canvas accepts it, verified against the parser.
+ *  The rewrite below is belt-and-braces for older parsers, not a bug fix. */
 export const safeColor = (c: string | undefined, fallback: string): string => {
   if (!c) return fallback;
   const s = c.trim();
