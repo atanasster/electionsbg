@@ -5,6 +5,7 @@ allowed-tools:
   - Read
   - Grep
   - Glob
+  - AskUserQuestion
   - Bash
   - Write
   - WebSearch
@@ -186,7 +187,10 @@ Settlement grain, 2×2:
 | the fourth | matura, or EU funds when there is no school |
 
 Then a full-width **municipality band** with its own rule, label and population
-(`ОБЩИНА X · N ЖИТЕЛИ`): education+employment, EU funds, procurement.
+(`ОБЩИНА X · N ЖИТЕЛИ`): three cells — EU funds, procurement, and a first cell
+that is **education+employment or ethnic composition, whichever the operator
+picked in Step 7**. Ask before you build the band; do not fill that cell on your
+own judgement.
 **The band header is what makes mixing two grains honest** — the reader must
 never be in doubt which grain they are reading.
 
@@ -222,17 +226,39 @@ that skill requires.
 
 ## Step 7 — Editorial guardrails
 
-**Ethnic composition is available and is usually the wrong block.** It exists for
-all 265 municipalities (`ethnic`: bulgarian / turkish / roma / other / unknown).
-Putting a Roma share in the same frame as a failing school, a low turnout or a
-crime figure makes an ethnic causal claim without writing a word of it — the
-layout supplies the framing the caption avoids. Наясно's own rule is to let the
-number be the point with no framing.
+### Ethnic composition — ALWAYS ASK, never decide silently
 
-Use ethnic composition when it **is** the subject of the post. As ambient
-context beside another finding, use **education + employment instead**: it comes
-from the same census table, carries more explanatory weight (Ружинци: 44,2%
-unemployment, 7,4% tertiary), and makes a claim the data actually supports.
+`data/census/municipalities/<CODE>.json` carries `ethnic` (bulgarian / turkish /
+roma / other / unknown) and `religion` for all 265 municipalities, so the data is
+always there and the choice is always live. **It is the operator's call, not
+yours.** Do not include it on your own judgement, and do not quietly drop it
+either — both are decisions the operator owns.
+
+Ask once, with `AskUserQuestion`, before composing — as soon as the municipality
+band has facts in it:
+
+> **header** `Ethnic data`
+> **question** Include the municipality's ethnic composition on this card?
+>
+> 1. **Education + employment** *(Recommended)* — swap in the same census
+>    table's education and unemployment figures instead. Carries more
+>    explanatory weight for a school or turnout story and makes no ethnic claim.
+> 2. **Include ethnic composition** — show ethnic shares beside the other
+>    finding. Be aware the layout implies a link the data does not support.
+> 3. **Ethnic composition is the subject** — the post is *about* the ethnic
+>    picture, not about another finding that happens to sit next to it.
+
+**Give the operator the reason with the question, not instead of it.** The
+concern is the juxtaposition, not the data: a Roma share in the same frame as a
+failing school, a low turnout or a crime figure makes an ethnic causal claim
+without a word being written, because the layout supplies the framing the caption
+avoids. Наясно's rule is to let the number be the point with no framing. On the
+merits, education + employment usually explains more (Ружинци: 44,2%
+unemployment, 7,4% tertiary) and claims only what the data supports.
+
+If they choose 2 or 3, build it — that is a legitimate editorial choice and the
+figures are sound. Then still apply the rest of this step: no causal caption, and
+show the `без отговор` segment rather than normalising it away (trap 5).
 
 Also:
 - **No causal claims across zones.** Age structure beside a vote result, or SES
