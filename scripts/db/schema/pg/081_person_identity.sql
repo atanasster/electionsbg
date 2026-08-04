@@ -150,6 +150,17 @@ CREATE TABLE IF NOT EXISTS person_role (
 -- The leading `source` column also serves facet filtering; person-scoped lookups
 -- ("everything for person N") ride the PK's leading person_id.
 CREATE INDEX IF NOT EXISTS idx_person_role_source_ref ON person_role (source, ref);
+-- …and `ref` ALONE, because a great many callers do not know the source. `(source, ref)` cannot
+-- serve `WHERE ref = $1`: with no leading-column predicate Postgres falls back to scanning the
+-- whole index per probe. Measured 2026-08-04 on `officials_person_slug()`'s retired-slug
+-- anti-join — 23,916 probes × 3.1 ms = **74 s and 62.1M buffers** for one query, which is what
+-- kept officials_redirect.data.test.ts pressed against its 120 s timeout. With this index the
+-- same query is ~1 s.
+--
+-- This is the "index BOTH sides of the join key" rule (docs: the PG query-performance playbook).
+-- `person_role.ref` is a join target from several directions — the officials redirect, the
+-- slug-retirement collapse, the declarations resolver — and only some of them can name a source.
+CREATE INDEX IF NOT EXISTS idx_person_role_ref ON person_role (ref);
 
 -- ---------------------------------------------------------------------------
 -- person_link_override — human adjudication, audited. Replaces the scattered

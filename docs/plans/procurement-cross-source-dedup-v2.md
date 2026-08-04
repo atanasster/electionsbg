@@ -641,17 +641,46 @@ Resource measurements during a full run (2 s sampling of `pg_stat_activity`):
 
 ### 8.2 Triage — three different defects, not one race
 
-**(a) `search` and `officials_redirect` are a duration-budget problem, not a race.** They consume
-112% and 74% of the per-test timeout *with the machine otherwise idle*. Any contention pushes them
-over. The failing assertions are `recent_updates(1, 100000000)` and `recent_updates(3650, 100000000)`
-— two full materialisations of a multi-table union with the limit effectively disabled — and
-`officials_person_slug()` over `person_slug_retired` anti-joined against `person_role`.
+**(a) `search` and `officials_redirect` were a duration-budget problem, not a race — and both
+turned out to be real query defects.** They consumed 112% and 74% of the per-test timeout *with the
+machine otherwise idle*, so any contention pushed them over. **FIXED at source; no timeout was
+raised.**
 
-Fix, in order: `EXPLAIN (ANALYZE, BUFFERS)` both first. `recent_updates` is a **live serving
-function**, so a genuinely slow plan there is a production finding, not a test-tuning problem, and
-must not be papered over with a longer timeout. Only if the queries are proven near-optimal does
-the per-test timeout get raised — and then explicitly, on those tests, with the measured duration in
-the comment.
+| | before | after |
+| --- | ---: | ---: |
+| `search.data.test.ts` | 134.9 s | **16.0 s** |
+| `officials_redirect.data.test.ts` | 88.6 s | **1.1 s** |
+
+Two defects, both on live serving paths:
+
+1. **`recent_updates()` (007) took 13–14.7 s** — over Cloud Run's 10 s `statement_timeout`, on a
+   function served by `functions/db_routes.js`. Two causes, found by `EXPLAIN (ANALYZE, BUFFERS)`:
+   its five UNION branches had no per-branch limit, so 1,688,150 rows were materialised to
+   top-N-sort 5,000; and the `ingest_first_seen` branch joined `changelog_days` on
+   `first_seen_at::date`, an expression no index serves, so the planner drove *from*
+   `changelog_days` and probed once per day (212 loops × ~60 ms, 16.8M buffers). Pushing
+   `ORDER BY … LIMIT lim` into each branch and turning the changelog join into an `EXISTS` (it
+   contributes no output column) gives 14.7 s → **4.8 s** at (3650, 5000) and **0.12 s** at the
+   realistic serving shape (1, 100). Row counts identical.
+2. **`person_role` had no index on `ref` alone** — only `(source, ref)`, which cannot serve
+   `WHERE ref = $1`. `officials_person_slug()`'s retired-slug anti-join therefore scanned the whole
+   index per probe: 23,916 probes × 3.1 ms = **74 s and 62.1M buffers**. `idx_person_role_ref`
+   takes the same query to **104 ms** — a 725× improvement, and the plain "index both sides of the
+   join key" rule.
+
+**Reaching production, corrected.** An earlier draft of this line said "nothing ships to Cloud SQL
+automatically"; that is wrong in both halves. `007_query_builders.sql` **does** ride
+`db:load:tr:pg:cloud` (`load_tr_pg.ts` applies it), so the `recent_updates` fix reaches prod on the
+next TR load. `081_person_identity.sql` is applied by `db:resolve:persons:cloud`, a multi-hour
+rebuild. Neither should be waited on — both files are idempotent (`CREATE OR REPLACE` /
+`CREATE INDEX IF NOT EXISTS`, no destructive DDL), so ship them directly:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql
+```
+
+Until that runs, prod keeps serving the 13.6 s `recent_updates` body at its default parameters.
 
 **(b) `person_connections` fails in its CONTROL half only.** The failure is:
 
