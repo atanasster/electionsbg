@@ -9,10 +9,16 @@
 // A second, divergent notion of "this contract's annexes" would be worse than
 // none (docs/plans/procurement-risk-v2.md §0b) — hence one module, two callers.
 //
-// Identity join, strongest first (precision over recall; a wrong current value
-// is worse than none):
-//   K1  buyerEik + normalized contractNumber   (most specific)
-//   K2  proper УНП + supplierEik               (lot-agnostic, collision-safe)
+// Identity join — K2 first, but K2 refuses ambiguity (precision over recall; a
+// wrong current value is worse than none):
+//   K2  proper УНП + supplierEik               (lot-agnostic; REFUSES when its
+//       annexes span >1 distinct contract number — see resolveAnnexKey)
+//   K1  buyerEik + normalized contractNumber   (contract-precise fallback)
+// K2 is NOT collision-free on its own: one supplier can hold several contracts
+// under one procedure (Дансон трейдинг held two under 00536-2023-0049), and the
+// merged accumulator then anchors on contract A's earliest annex while serving
+// contract B's latest value — every guard passes and the fold flips A to B's
+// value (−€193,352.65 on that contract). Hence the ambiguity refusal.
 
 import fs from "fs";
 import path from "path";
@@ -60,6 +66,18 @@ export interface AnnexAcc {
   lastEurFull: number; // value before the earliest annex (≈ signing, FULL)
   lastSupplierCount: number;
   lastPub: string;
+  // Distinct identities merged into this accumulator, for the ambiguity refusal:
+  // normalized non-empty contract numbers (checked by K2 — >1 means this
+  // УНП+supplier key mixed annexes of different contracts) and proper УНП
+  // (checked by K1 — >1 means this buyer reused a contract number across
+  // procedures). Empty/unpublished values are not collected: only a PROVEN
+  // second contract refuses the key. Storage-side note: both maps materialize
+  // both sets, but per map only one is informative — a K1 accumulator's
+  // contractNos is always the singleton of its own key component, and a K2
+  // accumulator's unps likewise; the unified put() keeps that cost for
+  // simplicity.
+  contractNos: Set<string>;
+  unps: Set<string>;
 }
 
 // One stored annex modification row (only built when retainRecords is set).
@@ -92,6 +110,8 @@ interface AnnexObs {
   lastEurFull: number | undefined;
   suppliers: string[];
   pub: string;
+  contractNo: string; // normalized; "" when the annex published none
+  unp: string; // proper УНП; "" when absent/ЦАИС "T…" id
 }
 
 // Fold one annex observation into a key's accumulator: latest pub wins for the
@@ -113,9 +133,13 @@ const put = (m: Map<string, AnnexAcc>, key: string, o: AnnexObs): void => {
       lastEurFull: o.lastEurFull ?? o.curEurFull,
       lastSupplierCount: supplierCount,
       lastPub: o.pub,
+      contractNos: new Set(o.contractNo ? [o.contractNo] : []),
+      unps: new Set(o.unp ? [o.unp] : []),
     });
     return;
   }
+  if (o.contractNo) prev.contractNos.add(o.contractNo);
+  if (o.unp) prev.unps.add(o.unp);
   if (o.pub > prev.curPub) {
     prev.curEurFull = o.curEurFull;
     prev.curSupplierCount = supplierCount;
@@ -137,6 +161,83 @@ const pushRecord = (
   const list = m.get(key);
   if (list) list.push(row);
   else m.set(key, [row]);
+};
+
+// Fold one day-file's raw annex records into the index. Extracted from
+// buildAnnexIndex so the record→accumulator wiring (incl. the ambiguity sets)
+// is unit-testable without a disk cache; returns how many records carried a
+// usable value (a keyless record still counts — it enters neither map, but the
+// callers' coverage log and `records === 0` bail-out predate the extraction).
+// Callers must preserve the sorted-file / within-file source order (see put()).
+export const indexAnnexRows = (
+  idx: AnnexIndex,
+  rows: EopAnnexRecord[],
+  opts: { retainRecords?: boolean } = {},
+): number => {
+  let records = 0;
+  for (const r of rows) {
+    const ccy = String(r.contractCurrency ?? "").trim() || undefined;
+    const curEurFull = toEur(parseBgNumber(r.currentContractValue), ccy);
+    if (curEurFull == null || !Number.isFinite(curEurFull) || curEurFull <= 0)
+      continue;
+    const lastEurFull =
+      toEur(parseBgNumber(r.lastContractValue), ccy) ?? undefined;
+    records++;
+    const suppliers = String(r.supplierRegisterNumber ?? "")
+      .split(";")
+      .map((x) => normEik(x.trim()))
+      .filter(Boolean);
+    const pub = String(r.publicationDate ?? r.contractDate ?? "");
+    const buyer = normEik(r.buyerRegistryNumber);
+    const cn = normContractNo(r.contractNumber);
+    const unp = String(r.uniqueProcurementNumber ?? "").trim();
+    const o: AnnexObs = {
+      curEurFull,
+      lastEurFull,
+      suppliers,
+      pub,
+      contractNo: cn,
+      unp: UNP_RE.test(unp) ? unp : "",
+    };
+
+    // The stored row carries the full published (not per-supplier) values —
+    // it is the raw modification, itemised; the per-contract Δ already lives on
+    // the contract row (signing vs current).
+    const diffEur = toEur(parseBgNumber(r.contractValueDifference), ccy);
+    const row: AnnexRecordRow | null = opts.retainRecords
+      ? {
+          noticeId: typeof r.noticeId === "number" ? r.noticeId : null,
+          lotIdentifier: r.lotIdentifier ? String(r.lotIdentifier) : null,
+          publicationDate: r.publicationDate ?? null,
+          contractDate: r.contractDate ?? null,
+          currency: ccy ?? null,
+          lastValueEur: lastEurFull ?? null,
+          currentValueEur: curEurFull,
+          valueDiffEur: diffEur ?? null,
+          changeReason: r.changeReason ?? null,
+          changeReasonDescription: r.changeReasonDescription ?? null,
+          changeDescription: r.changeDescription ?? null,
+          directAwardJustification: r.directAwardJustification ?? null,
+        }
+      : null;
+
+    // Key lot-agnostic on (buyer, contractNumber): contractNumber already
+    // distinguishes lots in practice, and our contract rows don't retain the
+    // annex lotIdentifier. Latest publicationDate wins.
+    if (buyer && cn) {
+      put(idx.byContractNo, `${buyer}|${cn}`, o);
+      if (row && idx.recordsByContractNo)
+        pushRecord(idx.recordsByContractNo, `${buyer}|${cn}`, row);
+    }
+    if (o.unp) {
+      for (const s of suppliers) {
+        put(idx.byUnpSupplier, `${o.unp}|${s}`, o);
+        if (row && idx.recordsByUnpSupplier)
+          pushRecord(idx.recordsByUnpSupplier, `${o.unp}|${s}`, row);
+      }
+    }
+  }
+  return records;
 };
 
 // Build the annex index from the cached ЦАИС ЕОП feed. `retainRecords` also
@@ -172,61 +273,7 @@ export const buildAnnexIndex = (
     }
     if (!Array.isArray(rows) || rows.length === 0) continue;
     days++;
-    for (const r of rows) {
-      const ccy = String(r.contractCurrency ?? "").trim() || undefined;
-      const curEurFull = toEur(parseBgNumber(r.currentContractValue), ccy);
-      if (curEurFull == null || !Number.isFinite(curEurFull) || curEurFull <= 0)
-        continue;
-      const lastEurFull =
-        toEur(parseBgNumber(r.lastContractValue), ccy) ?? undefined;
-      records++;
-      const suppliers = String(r.supplierRegisterNumber ?? "")
-        .split(";")
-        .map((x) => normEik(x.trim()))
-        .filter(Boolean);
-      const pub = String(r.publicationDate ?? r.contractDate ?? "");
-      const o: AnnexObs = { curEurFull, lastEurFull, suppliers, pub };
-      const buyer = normEik(r.buyerRegistryNumber);
-      const cn = normContractNo(r.contractNumber);
-      const unp = String(r.uniqueProcurementNumber ?? "").trim();
-
-      // The stored row carries the full published (not per-supplier) values —
-      // it is the raw modification, itemised; the per-contract Δ already lives on
-      // the contract row (signing vs current).
-      const diffEur = toEur(parseBgNumber(r.contractValueDifference), ccy);
-      const row: AnnexRecordRow | null = opts.retainRecords
-        ? {
-            noticeId: typeof r.noticeId === "number" ? r.noticeId : null,
-            lotIdentifier: r.lotIdentifier ? String(r.lotIdentifier) : null,
-            publicationDate: r.publicationDate ?? null,
-            contractDate: r.contractDate ?? null,
-            currency: ccy ?? null,
-            lastValueEur: lastEurFull ?? null,
-            currentValueEur: curEurFull,
-            valueDiffEur: diffEur ?? null,
-            changeReason: r.changeReason ?? null,
-            changeReasonDescription: r.changeReasonDescription ?? null,
-            changeDescription: r.changeDescription ?? null,
-            directAwardJustification: r.directAwardJustification ?? null,
-          }
-        : null;
-
-      // Key lot-agnostic on (buyer, contractNumber): contractNumber already
-      // distinguishes lots in practice, and our contract rows don't retain the
-      // annex lotIdentifier. Latest publicationDate wins.
-      if (buyer && cn) {
-        put(idx.byContractNo, `${buyer}|${cn}`, o);
-        if (row && idx.recordsByContractNo)
-          pushRecord(idx.recordsByContractNo, `${buyer}|${cn}`, row);
-      }
-      if (UNP_RE.test(unp)) {
-        for (const s of suppliers) {
-          put(idx.byUnpSupplier, `${unp}|${s}`, o);
-          if (row && idx.recordsByUnpSupplier)
-            pushRecord(idx.recordsByUnpSupplier, `${unp}|${s}`, row);
-        }
-      }
-    }
+    records += indexAnnexRows(idx, rows, opts);
   }
   return { idx, records, days };
 };
@@ -262,9 +309,31 @@ const perSupplier = (
 };
 
 // Resolve one contract to the annex key it matches (and the current value),
-// trying the collision-safe УНП+supplier key FIRST then (buyer, contractNumber).
-// Returns the matched KEY so the annexes loader can emit exactly that key's raw
-// rows; `lookup` below is the value-only wrapper the fold uses.
+// trying the УНП+supplier key FIRST then (buyer, contractNumber). Returns the
+// matched KEY so the annexes loader can emit exactly that key's raw rows;
+// `lookup` below is the value-only wrapper the fold uses.
+//
+// AMBIGUITY REFUSAL. Each key is skipped — not resolved — when its accumulator
+// provably merged annexes of more than one contract: >1 distinct contract
+// number under a K2 key (one supplier, several contracts in one procedure), or
+// >1 distinct УНП under a K1 key (a buyer reusing a contract number across
+// procedures). A merged accumulator can anchor on contract A's earliest annex
+// and serve contract B's latest value, passing every perSupplier guard with a
+// perfect continuity match — the K2 fallthrough then lets the contract-precise
+// K1 answer instead.
+//
+// DELIBERATELY NOT REFUSED: a K2 key whose SINGLE collected contract number
+// differs from the querying contract's own contractId. That looks like proof of
+// a sibling-contract match, but measured on the 2026-08-04 corpus it would
+// refuse 972 currently-resolved rows and lose 968 of them outright (no K1
+// fallback), forfeiting €46.8M of tracked value change — because the contract
+// feed's contractId and the annex feed's contractNumber routinely name the SAME
+// contract in different identifier spaces ("ДОГ-35" vs the ЦАИС numeric id,
+// "Договор № 20ДГ157" vs "20дг157"). A mismatch is therefore NOT evidence of a
+// different contract; only a second distinct number within the annex feed
+// itself is. The residual sibling-variant exposure (only contract B's annexes
+// in the feed, sibling signings within ±12%) is accepted and left to guards
+// 1–3; the characterization test in annexResolve.test.ts pins this.
 export const resolveAnnexKey = (
   idx: AnnexIndex,
   c: Contract,
@@ -274,16 +343,20 @@ export const resolveAnnexKey = (
   if (c.unp && UNP_RE.test(c.unp) && c.contractorEik) {
     const key = `${c.unp}|${normEik(c.contractorEik)}`;
     const hit = idx.byUnpSupplier.get(key);
-    const v = hit && perSupplier(hit, c, signed);
-    if (v != null) return { key, via: "unp", value: v };
+    if (hit && hit.contractNos.size <= 1) {
+      const v = perSupplier(hit, c, signed);
+      if (v != null) return { key, via: "unp", value: v };
+    }
   }
   const buyer = normEik(c.awarderEik);
   const cn = normContractNo(c.contractId);
   if (buyer && cn) {
     const key = `${buyer}|${cn}`;
     const hit = idx.byContractNo.get(key);
-    const v = hit && perSupplier(hit, c, signed);
-    if (v != null) return { key, via: "contract_no", value: v };
+    if (hit && hit.unps.size <= 1) {
+      const v = perSupplier(hit, c, signed);
+      if (v != null) return { key, via: "contract_no", value: v };
+    }
   }
   return undefined;
 };

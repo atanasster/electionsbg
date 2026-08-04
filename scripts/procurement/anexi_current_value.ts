@@ -17,10 +17,14 @@
 // signing. Idempotent: the signing baseline is always `signingAmountEur ??
 // amountEur`, so re-running recomputes from the true signed value.
 //
-// Identity join, strongest first (mirrors ingest_eop.ts::contentKeys — precision
-// over recall; a wrong current value is worse than none):
-//   K1  buyerEik + normalized contractNumber + lotIdentifier   (most specific)
-//   K2  proper УНП + supplierEik                                (lot-agnostic)
+// Identity join (lib/annexResolve.ts — precision over recall; a wrong current
+// value is worse than none):
+//   K2  proper УНП + supplierEik               (tried first; REFUSED when the
+//       key's annexes span >1 distinct contract number — one supplier holding
+//       several contracts under one procedure would otherwise get contract B's
+//       value folded onto contract A)
+//   K1  buyerEik + normalized contractNumber   (contract-precise fallback;
+//       refused symmetrically when the key spans >1 УНП)
 // A value/date fuzzy fallback is deliberately omitted: the annex value is the
 // thing that changed, so it can't safely key the match.
 //
