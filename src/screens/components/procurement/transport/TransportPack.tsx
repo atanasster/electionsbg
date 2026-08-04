@@ -42,6 +42,7 @@ import {
 } from "@/lib/transportReferenceData";
 import { VikContractorHhiTile } from "../vik/VikContractorHhiTile";
 import { TransportProjectMap } from "./TransportProjectMap";
+import { TransportFacilityMap } from "./TransportFacilityMap";
 import { TransportModeSplitTile } from "./TransportModeSplitTile";
 import { TransportEuPeerTile } from "./TransportEuPeerTile";
 import { TransportBudgetTile } from "./TransportBudgetTile";
@@ -286,6 +287,14 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           is a bare rule + anchor (no doubled heading). */}
       <PackSection id="transport-map">
         <TransportProjectMap
+          eik={eik}
+          scopeWindow={scopeWindow}
+          periodLabel={periodLabel}
+        />
+      </PackSection>
+
+      <PackSection id="transport-facilities">
+        <TransportFacilityMap
           eik={eik}
           scopeWindow={scopeWindow}
           periodLabel={periodLabel}

@@ -291,6 +291,15 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
+`transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
+crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water
+and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility
+override for the two maritime bodies. First cloud deploy needs
+`npm run db:load:transport-facility-map:pg:cloud` (after `db:load:awarder-seats:pg:cloud`)
+**before** the `deploy:db` that ships the `/api/db/transport-facility-map` route — the route
+degrades a missing migration to an empty map, so ordering is cosmetic, not breaking. Re-run it
+whenever `TRANSPORT_ENTITIES` changes; `transport_facility_map.data.test.ts` fails on drift.
+
 `nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
 behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
 the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by

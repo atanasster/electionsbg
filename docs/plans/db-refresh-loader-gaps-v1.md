@@ -1,6 +1,6 @@
 # db:refresh loader gaps — v1
 
-**Status:** T0 done 2026-08-04; T1–T5 not started · **Date:** 2026-08-03 · **Context:** `docs/plans/data-hub-lateral-edges-v1.md` §6.4a
+**Status:** IMPLEMENTED — all tiers T0–T5 done 2026-08-04 (local; cloud publication is the operator runbook in CLAUDE.md) · **Date:** 2026-08-03 · **Context:** `docs/plans/data-hub-lateral-edges-v1.md` §6.4a
 
 `npm run db:refresh` is documented in CLAUDE.md as *"Full reload: schema + every loader + resolve +
 test:data"*. It calls **26 of the 38** local `db:load:*` / `db:resolve:*` scripts in `package.json`.
