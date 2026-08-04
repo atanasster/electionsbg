@@ -516,10 +516,56 @@ npx tsc -b
 proc:rebuild-derived → db:load:pg → db:load:annexes:pg`, so the wiring needs no change — verify
 that, do not assume it.
 
-Expected: 405,711 → 405,637 rows; €99,244,771,522.10 → €99,208,429,422.38; `single_source_*` green
-with an 11-entry allowlist.
+Expected: 405,711 → 405,637 rows; €99,244,771,522.10 → €99,208,429,422.38.
 
 **Do not proceed to T6 if any per-contract total stops reconciling.**
+
+### T5 — DONE (2026-08-04)
+
+Applied. 74 rows evicted from 188 shards, €36,342,099.72, verification green.
+
+| | before | after |
+| --- | ---: | ---: |
+| shard rows | 405,711 | **405,637** |
+| Postgres rows | 408,357 | **408,282** |
+| Postgres € | 99,244,771,522.10 | **99,208,429,422.38** |
+| `index.json` `totals.totalEur` | 93,296,698,129.89 | **93,260,356,030.17** |
+
+The committed `index.json` headline fell by **exactly €36,342,099.72** — the eviction total to the
+cent, which is the reconciliation the plan asked for. Postgres dropped **75** rows, not 74: the
+74 evicted plus one synthetic `obed-` carrier (2,646 → 2,645), because 087 rebuilt a consortium
+whose member set changed. That is the predicted 087 interaction, not a discrepancy.
+
+Chain run: `proc:rebuild-derived` (405,637 contracts) → `db:load:pg` (419 s) →
+`db:load:annexes:pg` (18,785 contracts matched, 31,743 annex rows — the 16 orphaned links
+re-resolved) → `db:load:procurement-scopes:pg` (6/6 matviews) → `persons-browse` → `person-search`
+→ `graph`.
+
+**Steady state confirmed on the served corpus**: re-measuring finds **0 eligible evictions**, with
+only the 5 permanently-blocked side-pairs and 7 ambiguous groups outstanding — so the pass is
+idempotent against its own output, as `cross_source.test.ts` requires.
+
+Verification: **550 data gates pass** (8 skipped), 3,009 unit tests pass, `tsc -b` clean.
+`pg_roundtrip.data.test.ts` (the lossless-capture invariant) and `invariants_pg.data.test.ts` (the
+consortium carrier/member invariant) both green.
+
+**Three committed artifacts the rebuild chain did not cover**, found by review, all corpus-derived
+and all invisible to those 550 gates:
+
+- `derived/cpv_competition.json` was written only by `ingest.ts` and the two dedup passes — never
+  by `rebuild_from_cache.ts`. So any pass that changes the shards without re-ingesting left it
+  stale; after the eviction it was off by 64 contracts across 17 CPV divisions. **Fixed
+  structurally**: `rebuild_from_cache.ts` now builds it, so "rebuild the derived tree" means all
+  of it.
+- `derived/hub_stats.json` and `derived/sector_stats.json` are Postgres-derived and
+  bucket-deployed, and have no generator in this chain or in `db:refresh`. Regenerated here via
+  `db:gen-hub-stats` / `db:gen-sector-stats`; wiring them into `db:refresh` is §T7.
+
+**One behavioural note worth recording.** The month rollups key on the release `date`, while
+identity E keys on `date_signed`. The two differ for retro-published contracts, so evicting a row
+can move money between rollup YEARS even though the corpus total falls by exactly the eviction sum.
+That is correct — the surviving row's own dates are authoritative — but it means a year-over-year
+rollup comparison across this change will not net to zero per year, only overall.
 
 ### T6 — production
 
@@ -747,11 +793,20 @@ parallelism (it would hide the contention and cost ~3 min per run).
 | **T1** identity in `content_key.ts` | T0 | pure addition, inert until T2 |
 | **T2** pass stage 2 on identity E | T1 | dry-run only until T5 |
 | **T3** validation protocol | T2 | same commit as T2 |
-| **T4** gate: full matrix + identity E | T1 | **must be one commit** (§2.2) |
-| **T5** local run | T2–T4 | writes shards |
-| **T6** production | T5 green | ~68 min + dependents |
+| **T8a** the two slow tests | — | independent; lands before T5 |
+| **T5** local run | T2, T3 | writes shards |
+| **T4** gate: full matrix + identity E | T5 | **must be one commit** (§2.2) |
 | **T7** wiring / CLAUDE.md | T5 | docs |
-| **T8** flaky tests (§8) | — | independent; can run in parallel with T0–T5 |
+| **T6** production | T4 green | ~68 min + dependents |
+| **T8b/c** remaining flaky work (§8) | — | independent |
+
+**T4 runs AFTER T5, not before.** The widened gate asserts the post-reconcile state, so it is red
+until T5 applies the pass. Applying first and then widening keeps every commit green and loses
+nothing: the gate's job is to lock the achieved state and catch regressions, which it does either
+way. (An earlier draft of this note also claimed T5 would break the existing gate's
+minimal-allowlist assertion by resolving some of its 6 entries. It did not — all 6 are still live
+against the post-T5 database and that gate passes untouched. The reordering stands on the first
+reason alone.)
 
 §8 is deliberately independent: it gates nothing here, and blocking a €38m correctness fix behind a
 test-infrastructure investigation would be the wrong trade. But T5's `npx vitest run

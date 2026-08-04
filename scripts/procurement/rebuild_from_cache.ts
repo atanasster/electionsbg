@@ -26,6 +26,7 @@ import {
   writeDerived,
 } from "./derived";
 import { buildPepConnected, writePepConnected } from "./pep_connected";
+import { buildCpvCompetition, writeCpvCompetition } from "./cpv_competition";
 import { writeByIdContracts } from "./by_id";
 import { writeByIdShards } from "./by_id_shards";
 import { writeContractorContracts } from "./contractor_contracts";
@@ -191,6 +192,18 @@ const main = async (): Promise<void> => {
     const byIdShards = writeByIdShards(PROCUREMENT_DIR, CONTRACTS_DIR);
     console.log(
       `  by-id shards: ${byIdShards.contracts.toLocaleString()} contract(s) → ${byIdShards.shards} shard(s)`,
+    );
+
+    // cpv_competition.json is corpus-derived and COMMITTED, but until now only `ingest.ts` and
+    // the two dedup passes wrote it — never this rebuild. So any pass that changes the shards
+    // WITHOUT re-ingesting left it silently stale, which is exactly what the cross-source
+    // reconcile does: after evicting 74 rows it was off by 64 contracts across 17 CPV divisions,
+    // and no gate saw it. Rebuilt here so "rebuild the derived tree from the shards" means all
+    // of it.
+    const cpvCompetition = buildCpvCompetition(CONTRACTS_DIR);
+    writeCpvCompetition(DERIVED_DIR, cpvCompetition);
+    console.log(
+      `  cpv_competition.json: ${cpvCompetition.divisions.length} division(s)`,
     );
 
     let totalEur = 0;
