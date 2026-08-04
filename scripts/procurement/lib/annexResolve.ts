@@ -60,7 +60,7 @@ export const UNP_RE = /^\d{5}-\d{4}-\d{4}$/;
 // full value to each of N rows (an N× overcount).
 export interface AnnexAcc {
   curEurFull: number;
-  curSupplierCount: number;
+  curSupplierCount: number; // informational only — perSupplier divides by lastSupplierCount
   curSuppliers: string[]; // suppliers on the latest annex — disambiguates key collisions
   curPub: string;
   lastEurFull: number; // value before the earliest annex (≈ signing, FULL)
@@ -291,6 +291,21 @@ export const MAX_MULTIPLE = 15;
 // Per-supplier current value for one annex hit, or undefined when a guard rejects
 // the match. Three guards, all must pass: (1) supplier appears on the latest
 // annex, (2) continuity anchor ≈ signing, (3) ratio within MAX_MULTIPLE×.
+//
+// ONE divisor for both anchor and current — the anchor's (lastSupplierCount),
+// because that is the only divisor the continuity guard validates against the
+// contract's actual signing value. Dividing the current value by the LATEST
+// annex's list length instead silently rescales the result whenever the
+// published supplier list grows or shrinks between annexes: a list that grew
+// 1→2 halved a €195k contract to €97.6k, and a list that shrank 8→1 inflated a
+// €317k contract to €2.54M — eight rows / ~€5.7M measured on the 2026-08-04
+// corpus, all inside the 15× ratio cap. If the list length changed because the
+// supplier set changed BEFORE the earliest annex, the anchor mismatch against
+// signing makes guard (2) refuse. A set change BETWEEN annexes is invisible to
+// the anchor; the row then keeps the full current value, which is the right
+// corpus total whenever the added supplier has no contract row of its own (the
+// usual annex-substitution shape) — the residual per-company overstatement is
+// accepted.
 const perSupplier = (
   hit: AnnexAcc,
   c: Contract,
@@ -299,10 +314,11 @@ const perSupplier = (
   const me = normEik(c.contractorEik);
   if (me && hit.curSuppliers.length > 0 && !hit.curSuppliers.includes(me))
     return undefined; // (1)
-  const anchor = hit.lastEurFull / Math.max(1, hit.lastSupplierCount);
+  const n = Math.max(1, hit.lastSupplierCount);
+  const anchor = hit.lastEurFull / n;
   if (!Number.isFinite(anchor) || anchor <= 0) return undefined;
   if (Math.abs(anchor - signed) / signed > CONTINUITY_TOL) return undefined; // (2)
-  const cur = hit.curEurFull / Math.max(1, hit.curSupplierCount);
+  const cur = hit.curEurFull / n;
   if (cur / signed > MAX_MULTIPLE || cur / signed < 1 / MAX_MULTIPLE)
     return undefined; // (3)
   return Math.round(cur * 100) / 100; // cents — stable across re-runs

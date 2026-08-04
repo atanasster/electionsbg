@@ -233,6 +233,57 @@ describe("consortium — per-supplier split", () => {
     // signing (per-supplier) 100 ≈ anchor 200/2=100; current 300/2 = 150
     expect(resolveAnnexKey(idx, contract(), 100)?.value).toBe(150);
   });
+
+  it("uses the anchor's divisor even when the published list GREW", () => {
+    // Real shape (ЕСО Инженеринг, contract 31836): earliest annex listed 1
+    // supplier (anchor = signing = the full value), latest listed 2. Dividing
+    // the current value by the latest list's length halved a €195k contract to
+    // €97.6k; the anchor-validated divisor (1) keeps the full value.
+    //
+    // The same input also characterizes a DELIBERATE acceptance: a supplier
+    // genuinely ADDED between annexes is indistinguishable from publication
+    // noise (the anchor predates the addition, so guard 2 cannot see it), and
+    // the row keeps the full current value. That is the right corpus total
+    // whenever the added supplier has no contract row of its own — the usual
+    // annex-substitution shape; the per-company overstatement is accepted (see
+    // the divisor comment on perSupplier).
+    const idx = index({
+      byUnpSupplier: new Map([
+        [
+          "00123-2024-0001|222",
+          acc({
+            lastEurFull: 100,
+            lastSupplierCount: 1,
+            curEurFull: 150,
+            curSupplierCount: 2,
+            curSuppliers: ["222", "333"],
+          }),
+        ],
+      ]),
+    });
+    expect(resolveAnnexKey(idx, contract(), 100)?.value).toBe(150);
+  });
+
+  it("uses the anchor's divisor even when the published list SHRANK", () => {
+    // The mirror shape inflates: anchor full/8 ≈ signing (a split row), but a
+    // latest annex listing 1 supplier would credit the row the FULL current
+    // value — an ~8× inflation inside the ratio cap. Same divisor: cur/8.
+    const idx = index({
+      byUnpSupplier: new Map([
+        [
+          "00123-2024-0001|222",
+          acc({
+            lastEurFull: 800,
+            lastSupplierCount: 8,
+            curEurFull: 960,
+            curSupplierCount: 1,
+            curSuppliers: ["222"],
+          }),
+        ],
+      ]),
+    });
+    expect(resolveAnnexKey(idx, contract(), 100)?.value).toBe(120);
+  });
 });
 
 describe("indexAnnexRows — raw records to accumulator, end to end", () => {

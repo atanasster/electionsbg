@@ -84,25 +84,21 @@ interface MixedRow {
 // resolve is resolved there, and this list is asserted to be exhaustive AND minimal below, so a
 // stale entry fails as loudly as a new mix.
 //
-// The 12 fall into exactly the two shapes the pass refuses (plan §5.3b / §5.4):
+// The entries fall into exactly the two shapes the pass refuses (plan §5.3b / §5.4):
 //   AMBIGUOUS — a feed contributed more than one row to the identity-E group, so the two sides
 //     cannot be paired 1:1. Acting anyway would collapse N rows onto M survivors and guess.
 //   BLOCKED — the sides pair, but a §5.2 precondition fails: the supplier sets differ, or some
 //     row on one side has no twin. Evicting a side on a partial match is what orphaned rows in
 //     earlier attempts.
+// Four entries were RETIRED on 2026-08-04 by the annex-fold divisor/ambiguity
+// fix (annexResolve.ts): the misfold had rescaled one side's amountEur, which
+// either welded distinct call-offs into one identity-E group or held true twins
+// apart. With values corrected, the reconcile paired and evicted the twins
+// (01071-2020-0009/311254, 05568-2021-0001/5364, 00339-2025-0039/9494) or the
+// sides stopped sharing an identity E at all (02023-2023-0001/4136628 — that
+// pair is still a latent cross-feed dupe, but at differing €s identity E cannot
+// see it; it is the §5 unpairable residue, not an accepted conflict).
 const ACCEPTED_CONFLICTS = new Map<string, string>([
-  [
-    "01071-2020-0009/177441542/311254/2021-04-20",
-    // AMBIGUOUS, and the clearest example of why the rule exists: ЦАИС published four call-offs
-    // ("Договор № 878/879/880/881") at the same procedure, supplier, amount and date, against
-    // two aop rows. Nothing in the data says which corresponds to which, and 4 against 2 means
-    // two of them correspond to nothing at all.
-    "eop×4 (Договор № 878..881) vs aop×2 — no 1:1 correspondence exists",
-  ],
-  [
-    "05568-2021-0001/107544354/5364/2021-02-25",
-    "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
-  ],
   [
     "00589-2022-0052/103318710/4090/2022-11-01",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
@@ -110,10 +106,6 @@ const ACCEPTED_CONFLICTS = new Map<string, string>([
   [
     "02378-2023-0001/203540174/665/2023-06-02",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
-  ],
-  [
-    "00339-2025-0039/128591001/9494/2025-11-05",
-    "eop×2 vs ocds×1 — the eop side carries two rows with one identity E",
   ],
   [
     "00053-2026-0001/204293638/0/2026-05-07",
@@ -126,15 +118,8 @@ const ACCEPTED_CONFLICTS = new Map<string, string>([
     "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
   ],
   [
-    "02023-2023-0001/113580690/4136628/2023-10-30",
-    // BLOCKED. aop:118779 holds one row; eop:118827 holds two, and the supplier sets differ.
-    // This is the pair the parse-time `f:` net once orphaned (see content_key.ts) — €4.14m that
-    // simply vanished when a bogus survivor was accepted.
-    "supplier sets differ: aop:118779 (1 row) vs eop:118827 (2 rows)",
-  ],
-  [
     "00303-2020-0018/837068124/105837/2020-12-08",
-    // BLOCKED, and the most instructive of the five: identical supplier sets, totals agreeing to
+    // BLOCKED, and the most instructive of the BLOCKED entries: identical supplier sets, totals agreeing to
     // €1.19 — and still refused, because only one of aop:317's two rows has a twin. Evicting a
     // side on a partial match is exactly the shape that destroyed rows before.
     "same supplier set and totals to €1.19, but only 1 of aop:317's 2 rows is matched",
