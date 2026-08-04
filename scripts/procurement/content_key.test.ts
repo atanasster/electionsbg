@@ -116,6 +116,64 @@ test("eviction: an arriving EOP row never supersedes a content-identical on-disk
   assert.equal(kept.length, 1);
 });
 
+test("eviction: an EOP row with NO twin is still evicted when OCDS covers the contract", () => {
+  // The gap the foreign-member fix opened. The EOP parse now emits a supplier the OCDS parse
+  // dropped, so that row content-matches nothing on the OCDS side, survives the row-level
+  // nets, and lands ON TOP of the unchanged OCDS rows for the same contract — while the two
+  // feeds also disagree on the split denominator (OCDS value/4 vs EOP value/5). Measured on
+  // a real 2024–2026 re-ingest: 55 orphan rows / +€33.76m, e.g. 00044-2025-0148 (АПИ/Kapsch)
+  // reading €78,264,000 against a €65,220,000 award.
+  const ocdsA = row({
+    key: "o1",
+    releaseId: "ocds-1",
+    unp: "00044-2025-0148",
+    contractId: "232300",
+    contractorEik: "111111111",
+    amountEur: 16_305_000,
+  });
+  // Same contract, a supplier OCDS never emitted (a foreign consortium member), and a
+  // DIFFERENT per-row amount because the EOP side splits by one more member.
+  const eopOrphan = row({
+    key: "e1",
+    releaseId: "eop-00044-2025-0148-232300",
+    unp: "00044-2025-0148",
+    contractId: "232300",
+    contractorEik: "78107349",
+    amountEur: 13_044_000,
+  });
+  const { kept, evicted } = evictSupersededEopTwins([eopOrphan], [ocdsA]);
+  assert.equal(
+    evicted,
+    1,
+    "the orphan must be evicted on contract-level precedence",
+  );
+  assert.equal(kept.length, 0);
+});
+
+test("eviction: an EOP row for a contract OCDS does NOT cover survives", () => {
+  // The other half — the feed is a documented superset, so an EOP-only contract must be kept.
+  // Real example: 00119-2026-0034 (Щрабаг ЕАД, €2,556,450) exists only in the flat feed.
+  const ocdsOther = row({
+    key: "o1",
+    releaseId: "ocds-1",
+    unp: "00044-2025-0148",
+    contractId: "232300",
+    contractorEik: "111111111",
+    amountEur: 100,
+  });
+  const eopOnly = row({
+    key: "e1",
+    releaseId: "eop-00119-2026-0034-255644",
+    unp: "00119-2026-0034",
+    contractId: "255644",
+    contractorEik: "831643582",
+    amountEur: 2_556_450,
+  });
+  const { kept, evicted } = evictSupersededEopTwins([eopOnly], [ocdsOther]);
+  assert.equal(evicted, 0);
+  assert.equal(kept.length, 1);
+});
+
 test("isEopSourced only flags the eop- namespace", () => {
   assert.equal(isEopSourced(row({ releaseId: "eop-1" })), true);
   assert.equal(isEopSourced(row({ releaseId: "aop-1" })), false);
