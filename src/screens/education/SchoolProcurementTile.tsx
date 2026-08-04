@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   useAwarderProcurement,
   awarderYearSpan,
+  awarderYearSpanLabel,
   latestAwarderYear,
 } from "@/data/procurement/useAwarderProcurement";
 import { formatEur, formatEurCompact } from "@/lib/currency";
@@ -94,8 +95,8 @@ export const SchoolProcurementTile: FC<{ eik?: string | null }> = ({ eik }) => {
         <p className="text-xs text-muted-foreground">
           {span
             ? bg
-              ? `Всички договори в регистъра на обществените поръчки, ${span.from}–${span.to} г.`
-              : `All contracts in the public-procurement register, ${span.from}–${span.to}.`
+              ? `Всички договори в регистъра на обществените поръчки, ${awarderYearSpanLabel(span)} г.`
+              : `All contracts in the public-procurement register, ${awarderYearSpanLabel(span)}.`
             : bg
               ? "Всички договори в регистъра на обществените поръчки."
               : "All contracts in the public-procurement register."}

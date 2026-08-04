@@ -4,6 +4,7 @@
 import { describe, it, expect } from "vitest";
 import {
   awarderYearSpan,
+  awarderYearSpanLabel,
   latestAwarderYear,
   type AwarderYear,
 } from "./useAwarderProcurement";
@@ -47,6 +48,22 @@ describe("awarderYearSpan", () => {
         ...BY_YEAR,
       ]),
     ).toEqual({ from: 2014, to: 2026 });
+  });
+});
+
+describe("awarderYearSpanLabel", () => {
+  it("prints a one-year span as one year, not '2024–2024'", () => {
+    // The common case for a school: one framework purchase, one year.
+    expect(awarderYearSpanLabel({ from: 2024, to: 2024 })).toBe("2024");
+  });
+
+  it("prints a real span as a range", () => {
+    expect(awarderYearSpanLabel({ from: 2014, to: 2026 })).toBe("2014–2026");
+  });
+
+  it("is null when there is no span to label", () => {
+    expect(awarderYearSpanLabel(null)).toBeNull();
+    expect(awarderYearSpanLabel(undefined)).toBeNull();
   });
 });
 

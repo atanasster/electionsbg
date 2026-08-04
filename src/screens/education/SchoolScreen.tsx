@@ -18,6 +18,7 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MaturaTrendChart } from "./MaturaTrendChart";
 import { mathsCaveat, mathsCaveatText } from "./mathsCaveat";
+import { maturaLevelNote, maturaLevelNoteText } from "./maturaLevelNote";
 import { SchoolProcurementTile } from "./SchoolProcurementTile";
 import {
   useSchoolDirectory,
@@ -101,6 +102,9 @@ export const SchoolScreen: FC = () => {
     school.latestScore != null && ranked
       ? dir.percentileOf(school.latestScore)
       : null;
+  const level = maturaLevelNote(school.latestScore, school.latestN, pct);
+  const floorText = maturaLevelNoteText(level.floor, bg);
+  const rankText = maturaLevelNoteText(level.rank, bg);
   const first = school.series[0];
   const last = school.series[school.series.length - 1];
   const delta = first && last ? last.score - first.score : null;
@@ -178,21 +182,18 @@ export const SchoolScreen: FC = () => {
                       : ""}
                   </span>
                 </div>
-                {ranked && pct != null ? (
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {pct >= 99
-                      ? bg
-                        ? "Сред най-добрите в страната по успех на матурата по БЕЛ."
-                        : "Among the country's top schools on the Bulgarian-language matura."
-                      : bg
-                        ? `По-добре от ${pct}% от училищата с матура по БЕЛ.`
-                        : `Above ${pct}% of schools with a Bulgarian-language matura.`}
+                {floorText && (
+                  <p className="mt-2 rounded-md border border-rose-500/30 bg-rose-500/5 p-2 text-sm text-rose-700">
+                    {floorText}
+                  </p>
+                )}
+                {level.rank?.kind === "smallCohort" ? (
+                  <p className="mt-2 rounded-md border border-amber-500/30 bg-amber-500/5 p-2 text-xs text-muted-foreground">
+                    {rankText}
                   </p>
                 ) : (
-                  <p className="mt-2 rounded-md border border-amber-500/30 bg-amber-500/5 p-2 text-xs text-muted-foreground">
-                    {bg
-                      ? `Малка група (${school.latestN ?? "?"} зрелостници) — средният успех е несигурен и училището не се класира.`
-                      : `Small cohort (${school.latestN ?? "?"} graduates) — the average is noisy, so the school is not ranked.`}
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {rankText}
                   </p>
                 )}
               </>

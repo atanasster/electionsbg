@@ -53,6 +53,19 @@ export const awarderYearSpan = (
   return { from: years[0], to: years[years.length - 1] };
 };
 
+/**
+ * The span as a label. Most schools (and most small awarders) appear in the ЗОП
+ * register in ONE year only — a single framework purchase — and a naive
+ * `${from}–${to}` printed that as "2024–2024 г.", which reads as a truncated or
+ * broken range rather than as the single year it is.
+ */
+export const awarderYearSpanLabel = (
+  span: { from: number; to: number } | null | undefined,
+): string | null => {
+  if (!span) return null;
+  return span.from === span.to ? `${span.from}` : `${span.from}–${span.to}`;
+};
+
 /** The most recent year present, for the "latest year" line under the total. */
 export const latestAwarderYear = (
   rows: AwarderYear[] | null | undefined,
