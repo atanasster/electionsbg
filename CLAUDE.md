@@ -117,6 +117,39 @@ against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so 
 vs ал.3 labeling on the contract page) goes stale on prod while local is current. `db:refresh`
 runs the local equivalent automatically (after `db:load:pg`); nothing runs it on the cloud side.
 
+**It is also mandatory after the cross-source reconcile, for a second reason** — evicting a
+duplicate row orphans that row's `procurement_annexes` entries (16 across 9 contract keys on the
+2026-08-04 run), and only this loader re-resolves them against the reloaded corpus.
+
+### Cross-source reconciliation — the pass that must run between backfill and load
+
+The contracts corpus is built from FOUR feeds distinguished by `release_id` prefix — `aop-legacy-`
+(АОП annual CSV), `eop-` (ЦАИС ЕОП flat договори), `ocds-` (АОП OCDS export), `rop-` (РОП). Each
+splits a contract's value across its OWN view of the supplier set, so when one contract arrives
+from two feeds the rows **cannot be summed** and the corpus over-states.
+`scripts/procurement/reconcile_cross_source.ts` removes those duplicates on the SHARDS (not in
+SQL — `pg_roundtrip.data.test.ts` asserts Postgres is a lossless capture of them):
+
+```
+ingest → anexi_current_value --apply → backfill_unp --apply → reconcile_cross_source --apply
+       → rebuild_from_cache → db:load:pg → db:load:annexes:pg
+```
+
+Both predecessors are mandatory and the pass enforces the second with a УНП-coverage preflight:
+the identity it reconciles on needs the УНП, which **does not exist at parse time** (the OCDS
+export carries none, and `backfill_unp` writes it onto the shards afterwards). Run out of order it
+is a silent no-op.
+
+**Cloud needs no separate command** — the pass rewrites shards, so `db:load:pg:cloud` carries it.
+What the cloud DOES need is `db:load:annexes:pg:cloud` after it, per the note above.
+
+The pass is idempotent and dry-run by default. It permanently refuses two shapes and prints both
+in full — groups where a feed contributed more than one row (no 1:1 twin exists) and side-pairs
+failing a supplier-set/completeness precondition. Those are expected output, not failures;
+`single_source_per_contract.data.test.ts` allowlists exactly them, and
+`scripts/procurement/measure_cross_source.ts` re-derives every figure read-only against either the
+shards or a database. Plan: `docs/plans/procurement-cross-source-dedup-v2.md`.
+
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 
 ### Person layer — the one step `db:refresh` cannot infer
@@ -626,10 +659,11 @@ committed manifest predated the cloud catch-up) is not established.
 from the stale side — warn and skip instead. Nothing else regenerates it: this command is
 the only way the manifest moves.
 
-### Person SQL functions — applied, never loaded
+### SQL functions and indexes — applied, never loaded
 
-The person serving functions (082/083/084/085/106 …) carry no data, so no `db:load:*` ships
-them. The only cloud path that applies them is `db:resolve:persons:cloud`, which is a
+A serving FUNCTION or an INDEX carries no data, so no `db:load:*` ships it. The person functions
+(082/083/084/085/106 …) are the largest family, but the rule is general — 007's query builders and
+081's indexes are in exactly the same position. The only cloud path that applies them is `db:resolve:persons:cloud`, which is a
 multi-hour rebuild — far too heavy for a one-function fix, and it re-resolves the whole
 identity layer as a side effect. Ship a function-body change on its own:
 
@@ -642,6 +676,26 @@ function-only change is invisible to every row count and every loader**: local i
 keeps running the previous body indefinitely, and nothing reports a difference. `deploy:db`
 does NOT carry it — that ships function *code* in `functions/`, which is a different thing
 from a Postgres function.
+
+**Two more of these are outstanding as of 2026-08-04**, both found because two data tests kept
+timing out under load — the tests were the symptom, the serving path was the defect:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql
+```
+
+- **`recent_updates()` (007)** was **13.61 s at the route's default `(days=1, limit=200)`** — the
+  route clamps `limit` to 1–1000, so the endpoint was over Cloud Run's 10 s `statement_timeout` at
+  its most common shape, not merely under load. (The SQL function's own default is `lim=1000`;
+  the route's is 200.) Its five UNION branches had no per-branch limit
+  (1,688,150 rows materialised to top-N a few hundred) and one branch joined `changelog_days` on
+  `first_seen_at::date`, an expression no index serves. Now 0.15 s. Note 007 also rides
+  `db:load:tr:pg:cloud`, so a TR load carries it — but do not wait for one.
+- **`idx_person_role_ref` (081)** — `person_role` had only `(source, ref)`, which cannot serve
+  `WHERE ref = $1`, so `officials_person_slug()`'s anti-join scanned the whole index per probe:
+  23,916 probes × 3.1 ms = **74 s**. With the index, 104 ms. Otherwise 081 is applied only by
+  `db:resolve:persons:cloud` (a multi-hour rebuild) and `scripts/person/add_override.ts`.
 
 `084_person_connections.sql` is the worked example: `/api/db/person-connections` reached
 8.2–10.1 s on prod (one request over the 10 s `statement_timeout`) because

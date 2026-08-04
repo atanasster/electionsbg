@@ -159,9 +159,29 @@ npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-cont
 ```bash
 npx tsx scripts/procurement/ingest_anexi.ts                    # fetch+cache annex feed (~30d incremental by default; --backfill --from 2020-01-01 once for full history; no --apply flag)
 npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
+npx tsx scripts/procurement/backfill_unp.ts --apply            # УНП onto the shards — the OCDS export carries none at parse time
+npx tsx scripts/procurement/reconcile_cross_source.ts --apply  # cross-source dedup; MUST follow backfill_unp (see below)
 npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
 npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
 ```
+
+- **THE RECONCILE IS NOT OPTIONAL AFTER AN INGEST, and its position is fixed.** The corpus is built
+  from four feeds (`aop-legacy-` / `eop-` / `ocds-` / `rop-`), each of which splits a contract's
+  value across its OWN view of the supplier set — so when one contract arrives from two feeds the
+  rows cannot be summed and the corpus over-states. An ingest re-introduces those mixes; only
+  `reconcile_cross_source.ts` removes them. Skipping it is invisible to row counts: it shows up as
+  a slowly inflating headline. `db:refresh` already sequences it; this manual path is the one that
+  used to miss it.
+- It must run **AFTER `backfill_unp.ts`** and it refuses to run otherwise (a УНП-coverage
+  preflight). The identity it reconciles on needs the УНП, which does not exist at parse time —
+  `normalize.ts` never sets it, because the АОП OCDS export carries none. Run before the backfill
+  and the pass is a silent no-op on a corpus it has no keys for.
+- It is idempotent and dry-run by default. A second run over its own output finds nothing; the
+  permanently-unresolvable groups it prints (7 ambiguous + 5 blocked today) are expected output,
+  not failures. See `docs/plans/procurement-cross-source-dedup-v2.md`.
+- Then **`db:load:annexes:pg` must follow the contracts reload**: an eviction orphans the evicted
+  row's `procurement_annexes` rows (16 across 9 keys on the last run), and only that loader
+  re-resolves them.
 
 - Every builder that writes `derived/mp_connected.json` goes through `buildNamesakeFilteredLinkageMap` (`cross_reference.ts`), which is the ONLY sanctioned way to construct the linkage map — it bundles the TR-namesake counts with `buildEikLinkageMap`. `rebuild_from_cache.ts` used to call `buildEikLinkageMap` bare and published the inflated 134 MPs / €2,964M instead of the correct 54 / €1,958M whenever it ran last. `cross_reference.test.ts` now fails on any builder that reaches past the helper.
 
