@@ -27,7 +27,11 @@ export type DocKind =
 /** Normalise for matching: lowercase, collapse separators. Bulgarian filenames mix
  *  `_`, `-` and spaces freely, and the same buyer is inconsistent between files. */
 const norm = (s: string): string =>
-  s.toLowerCase().replace(/[_\-.]+/g, " ").replace(/\s+/g, " ").trim();
+  s
+    .toLowerCase()
+    .replace(/[_\-.]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
 /** Ordered: first match wins. Order matters — "Приложение № 1 Техническа
  *  спецификация" must classify as `spec`, not as `form`, so `spec` precedes the
@@ -35,12 +39,21 @@ const norm = (s: string): string =>
 const RULES: { kind: DocKind; re: RegExp }[] = [
   // "техническа спецификация", "тех. спец.", bare "спецификация"
   { kind: "spec", re: /(техн\w*\s*спец|тех\s*спец|спецификаци)/ },
-  { kind: "boq", re: /(количествен\w*\s*(стойностн\w*\s*)?сметк|\bкс{1,2}\b|остойност)/ },
-  { kind: "methodology", re: /(методик|критери\w*\s*за\s*оценк|показател\w*\s*за\s*оценк)/ },
+  {
+    kind: "boq",
+    re: /(количествен\w*\s*(стойностн\w*\s*)?сметк|\bкс{1,2}\b|остойност)/,
+  },
+  {
+    kind: "methodology",
+    re: /(методик|критери\w*\s*за\s*оценк|показател\w*\s*за\s*оценк)/,
+  },
   { kind: "espd", re: /(еедоп|espd)/ },
   { kind: "contract_draft", re: /(проект\w*\s*на\s*договор|договор)/ },
   { kind: "decision", re: /(решение|обявление)/ },
-  { kind: "project_docs", re: /(проектн\w*\s*документаци|чертеж|архитектурн|конструктивн)/ },
+  {
+    kind: "project_docs",
+    re: /(проектн\w*\s*документаци|чертеж|архитектурн|конструктивн)/,
+  },
   { kind: "documentation", re: /(документаци|указани)/ },
   { kind: "form", re: /(образец|образци|приложение|предложение|деклараци)/ },
 ];

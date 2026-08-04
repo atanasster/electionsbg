@@ -374,7 +374,9 @@ export class EopDossierStore {
       failures: one("SELECT count(*) AS n FROM eop_dossier_failed"),
       byKind,
       docText: one("SELECT count(*) AS n FROM eop_doc_text"),
-      docTextEmpty: one("SELECT count(*) AS n FROM eop_doc_text WHERE chars = 0"),
+      docTextEmpty: one(
+        "SELECT count(*) AS n FROM eop_doc_text WHERE chars = 0",
+      ),
       docTextFailed: one("SELECT count(*) AS n FROM eop_doc_text_failed"),
     };
   }

@@ -36,10 +36,7 @@ import {
   mapPool,
   type EopResult,
 } from "./eop_api";
-import {
-  EopDossierStore,
-  type DossierKind,
-} from "./eop_dossier_store";
+import { EopDossierStore, type DossierKind } from "./eop_dossier_store";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const STORE_FILE = path.resolve(
@@ -192,7 +189,9 @@ const main = async (args: {
 
   // Fan-out 1: one call per announcement for its document manifest. This is where
   // the протокол file names/sizes/md5 come from — we link to them, never fetch them.
-  console.log(`→ announcement documents: ${annIds.length.toLocaleString()} announcement(s)`);
+  console.log(
+    `→ announcement documents: ${annIds.length.toLocaleString()} announcement(s)`,
+  );
   await mapPool(annIds, CONCURRENCY, async (annId) => {
     if (!args.refresh && store?.has("announcement_docs", annId)) {
       c.skipped++;
@@ -208,22 +207,29 @@ const main = async (args: {
   // this is nearly free — and it carries the address that the flat ЦАИС feed omits,
   // which is why those awarders never resolve to an EKATTE today.
   const orgList = [...orgIds];
-  console.log(`→ buyer profiles: ${orgList.length.toLocaleString()} organisation(s)`);
+  console.log(
+    `→ buyer profiles: ${orgList.length.toLocaleString()} organisation(s)`,
+  );
   await mapPool(orgList, CONCURRENCY, async (orgId) => {
     if (!args.refresh && store?.has("buyer_profile", orgId)) {
       c.skipped++;
       return;
     }
-    const { res, raw } = await callRaw("GetPublicBuyerProfileBasicInformation", {
-      organizationId: orgId,
-    });
+    const { res, raw } = await callRaw(
+      "GetPublicBuyerProfileBasicInformation",
+      {
+        organizationId: orgId,
+      },
+    );
     record(store, c, "buyer_profile", orgId, res, raw);
   });
 
   console.log(
     `\n✓ ${c.answers.toLocaleString()} answer(s) (${c.empty.toLocaleString()} empty), ` +
       `${c.failures.toLocaleString()} failure(s)` +
-      (c.denied ? ` (${c.denied} DENIED — a method left the anonymous surface!)` : "") +
+      (c.denied
+        ? ` (${c.denied} DENIED — a method left the anonymous surface!)`
+        : "") +
       `, ${c.skipped.toLocaleString()} already cached`,
   );
   if (c.denied)
@@ -247,7 +253,8 @@ const cli = command({
     probe: flag({
       type: optional(boolean),
       long: "probe",
-      description: "200 most recent tenders only — surface check before a full crawl.",
+      description:
+        "200 most recent tenders only — surface check before a full crawl.",
       defaultValue: () => false,
     }),
     apply: flag({

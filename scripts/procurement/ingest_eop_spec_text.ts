@@ -117,9 +117,7 @@ const main = async (args: {
     const doc = pickSpec(body.TenderDescriptionDocuments ?? []);
     if (doc?.Id) specs.push({ tenderId: subjectId, doc: doc as SpecDoc });
   }
-  const totalTenders = [
-    ...store.answeredIds("details"),
-  ].length;
+  const totalTenders = [...store.answeredIds("details")].length;
   const explicit = args.limit ? parseInt(args.limit, 10) : null;
   const cap =
     explicit && Number.isFinite(explicit) ? explicit : args.probe ? 200 : null;
@@ -187,7 +185,12 @@ const main = async (args: {
       const res = await fetch(signed.body.Url);
       if (!res.ok) {
         c.failed++;
-        store.putDocTextFailure(doc.Id, md5 || null, "http", String(res.status));
+        store.putDocTextFailure(
+          doc.Id,
+          md5 || null,
+          "http",
+          String(res.status),
+        );
         return;
       }
       const buf = Buffer.from(await res.arrayBuffer());

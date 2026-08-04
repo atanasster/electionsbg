@@ -204,8 +204,9 @@ export const mapPool = async <T, R>(
     }
   };
   await Promise.all(
-    Array.from({ length: Math.max(1, Math.min(concurrency, items.length)) }, () =>
-      worker(),
+    Array.from(
+      { length: Math.max(1, Math.min(concurrency, items.length)) },
+      () => worker(),
     ),
   );
   return out;
