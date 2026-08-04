@@ -392,3 +392,38 @@ regression rather than noise in a permanently-red check.
   hole). Tightening it reduces evictions and could increase double-counting — a separate,
   measured change.
 - **No SQL-side deletion.** It breaks the lossless-capture invariant.
+
+### 10.8 Implemented — and one larger defect the pass exposed
+
+Built and applied: `scripts/procurement/reconcile_cross_source.ts`, the 18-entry curated bridge
+`data/procurement/person_eik_bridge.json`, and two gates. Cross-source mixed contracts fell
+**34 → 5**, all five genuine source conflicts, all allowlisted with a reason. Corpus 405,732 →
+405,711. 4,086 unit + 542 data tests green.
+
+Review found three criticals in the first draft, all fixed and all instructive:
+
+- **The legacy-CSV key formula, wrong for the third time.** 4 of 45 bridged rows are
+  `aop-legacy-…` yet hash under the ЦАИС 4-part form, because an earlier in-place fix already
+  re-keyed them that way — so the formula cannot be inferred from `releaseId` either. `rekey()`
+  now tries each candidate against the row's EXISTING key and reuses whichever reproduces it.
+- **A dead assertion.** The orphan check filtered `evictions` for `survivors.length === 0`, a case
+  `continue`d before the push — provably empty, so it could never fail. It now asserts over the
+  WRITTEN corpus instead.
+- **`db:refresh` invoked the pass without its prerequisites.** Run before `backfill_unp`, the pass
+  does not fail, it destroys: 26 evictions / €184,136,811.83, all against different procedures,
+  with verification green. Now guarded by a УНП-coverage preflight (71.3% actual, 40% floor) AND
+  `db:refresh` runs `backfill_unp` → reconcile → `rebuild_from_cache` in order.
+
+**The larger defect — NOT fixed, and bigger than what was.** The pass's survivor check keys on
+(УНП, contract number, tag), and **the two feeds number the same contract differently**:
+`00966-2020-0008` is contract "28" in ЦАИС and "231291" in OCDS, same procedure, same supplier
+EIK, same €2,175,440.60 on both sides. So 13 of the 29 blocked candidates are genuine twins
+(€2,503,573.48), and corpus-wide that population is **160 rows / €145,196,823.63** — invisible to
+the pass AND to the Tier C detector, which shares the key.
+
+That is an order of magnitude more than everything reconciled so far, and it is not fixable by
+loosening this key: dropping the contract number gives (УНП, tag), which matches every lot of a
+procedure and is exactly the over-reach that destroyed 46 rows. It needs a contract-identity
+notion that survives renumbering — most likely (УНП, supplier, rounded €) — designed and measured
+on its own, with the §10.3 protocol. Recorded here rather than attempted at the end of a long
+session, because every failure in this area came from improvising a key.

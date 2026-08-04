@@ -1,0 +1,112 @@
+{
+  "_README": [
+    "Curated np- -> real БУЛСТАТ bridge for natural-person contractors.",
+    "One feed publishes a person ЕГН (encoded np-<hash of their name> so the ЕГН is never",
+    "stored - see scripts/procurement/supplier_identity.ts); the other publishes their real",
+    "БУЛСТАТ. Same person, keys that can never match, so the two feeds look like different",
+    "suppliers and their contracts double-count.",
+    "",
+    "CURATED, NOT DERIVED. 18 entries out of 104 np- keys. A wrong bridge merges two people",
+    "public-money totals, so this set is enumerated and reviewed rather than computed from a",
+    "threshold at runtime - the same convention as amount_overrides.ts and the officials",
+    "re-slug maps. Candidates came from an exact match on the normalised contractor name,",
+    "with placeholder EIKs (^0{6,}[0-9]{1,3}$ - 000000001 alone carries 9 unrelated names",
+    "including \"Elsevier B. V.\") excluded. Note tr_companies is NOT a usable filter here:",
+    "sole-trader БУЛСТАТ registrations are absent from the commercial-register feed.",
+    "",
+    "Applied by scripts/procurement/reconcile_cross_source.ts. Guarded by",
+    "scripts/db/tests/person_eik_bridge.data.test.ts."
+  ],
+  "bridges": {
+    "np-2fcc9a862985": {
+      "eik": "179031780",
+      "name": "Билял Хюсеин ахмед",
+      "why": "ЦАИС published the ЕГН (encoded np-2fcc9a862985); the other feed published БУЛСТАТ 179031780 as \"Билял Хюсеин ахмед\""
+    },
+    "np-41a1462240b5": {
+      "eik": "178691424",
+      "name": "Петромир Михайлов Петров",
+      "why": "ЦАИС published the ЕГН (encoded np-41a1462240b5); the other feed published БУЛСТАТ 178691424 as \"Петромир Михайлов Петров\""
+    },
+    "np-42b6eeeb0307": {
+      "eik": "178003931",
+      "name": "Първан Иванов Първанов",
+      "why": "ЦАИС published the ЕГН (encoded np-42b6eeeb0307); the other feed published БУЛСТАТ 178003931 as \"Първан Иванов Първанов\""
+    },
+    "np-4579aeab09c5": {
+      "eik": "180204254",
+      "name": "Маджиде ахмед сюлейман",
+      "why": "ЦАИС published the ЕГН (encoded np-4579aeab09c5); the other feed published БУЛСТАТ 180204254 as \"Маджиде ахмед сюлейман\""
+    },
+    "np-56b09858fcc2": {
+      "eik": "179318459",
+      "name": "Атанаска Иванова Андонова",
+      "why": "ЦАИС published the ЕГН (encoded np-56b09858fcc2); the other feed published БУЛСТАТ 179318459 as \"АТАНАСКА ИВАНОВА АНДОНОВА\""
+    },
+    "np-5f0a08639be6": {
+      "eik": "178746625",
+      "name": "Венцислав Стефанов Георгиев",
+      "why": "ЦАИС published the ЕГН (encoded np-5f0a08639be6); the other feed published БУЛСТАТ 178746625 as \"Венцислав Стефанов Георгиев\""
+    },
+    "np-65c421c0121f": {
+      "eik": "179418089",
+      "name": "Милко Златков Михайлов",
+      "why": "ЦАИС published the ЕГН (encoded np-65c421c0121f); the other feed published БУЛСТАТ 179418089 as \"Милко Златков Михайлов\""
+    },
+    "np-6b111c3eb35d": {
+      "eik": "178125262",
+      "name": "ZP Angel Asenov Hristov",
+      "why": "ЦАИС published the ЕГН (encoded np-6b111c3eb35d); the other feed published БУЛСТАТ 178125262 as \"ZP Angel Asenov Hristov\""
+    },
+    "np-7f08382bd743": {
+      "eik": "178957437",
+      "name": "Петър Атанасов Андонов",
+      "why": "ЦАИС published the ЕГН (encoded np-7f08382bd743); the other feed published БУЛСТАТ 178957437 as \"Петър Атанасов Андонов\""
+    },
+    "np-84e638380af1": {
+      "eik": "179842434",
+      "name": "Иван Славейков Тодоров",
+      "why": "ЦАИС published the ЕГН (encoded np-84e638380af1); the other feed published БУЛСТАТ 179842434 as \"Иван Славейков Тодоров\""
+    },
+    "np-869104e24a08": {
+      "eik": "180521468",
+      "name": "Айгюн Ибишев Ахмедов",
+      "why": "ЦАИС published the ЕГН (encoded np-869104e24a08); the other feed published БУЛСТАТ 180521468 as \"Айгюн Ибишев Ахмедов\""
+    },
+    "np-8abb68af05bb": {
+      "eik": "179100014",
+      "name": "Свилен Димитров резашки",
+      "why": "ЦАИС published the ЕГН (encoded np-8abb68af05bb); the other feed published БУЛСТАТ 179100014 as \"Свилен Димитров резашки\""
+    },
+    "np-9ca38126f076": {
+      "eik": "180055903",
+      "name": "Здравко Георгиев Иванов",
+      "why": "ЦАИС published the ЕГН (encoded np-9ca38126f076); the other feed published БУЛСТАТ 180055903 as \"Здравко Георгиев Иванов\""
+    },
+    "np-b628e35c4051": {
+      "eik": "178039094",
+      "name": "Стоян Крумов Манчев",
+      "why": "ЦАИС published the ЕГН (encoded np-b628e35c4051); the other feed published БУЛСТАТ 178039094 as \"СТОЯН КРУМОВ МАНЧЕВ\""
+    },
+    "np-ddb0fe084d7a": {
+      "eik": "179171729",
+      "name": "Кристиян Йорданов Николов",
+      "why": "ЦАИС published the ЕГН (encoded np-ddb0fe084d7a); the other feed published БУЛСТАТ 179171729 as \"Кристиян Йорданов Николов\""
+    },
+    "np-e0401ef9b99d": {
+      "eik": "177854364",
+      "name": "Мария Николова Велчева",
+      "why": "ЦАИС published the ЕГН (encoded np-e0401ef9b99d); the other feed published БУЛСТАТ 177854364 as \"Мария Николова Велчева\""
+    },
+    "np-eecec02a0889": {
+      "eik": "179859832",
+      "name": "Антоанета Николаева Генева",
+      "why": "ЦАИС published the ЕГН (encoded np-eecec02a0889); the other feed published БУЛСТАТ 179859832 as \"Антоанета Николаева Генева\""
+    },
+    "np-f1c825a0c878": {
+      "eik": "180209155",
+      "name": "Николай Атанасов Андонов",
+      "why": "ЦАИС published the ЕГН (encoded np-f1c825a0c878); the other feed published БУЛСТАТ 180209155 as \"Николай Атанасов Андонов\""
+    }
+  }
+}
