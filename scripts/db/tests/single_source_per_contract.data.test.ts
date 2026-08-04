@@ -1,39 +1,35 @@
-// Tier 3 (Postgres-native) — no single contract may carry rows from BOTH procurement feeds.
+// Tier 3 (Postgres-native) — the cross-source duplication gate for the contracts corpus.
 //
-// WHY THIS IS A GATE AND NOT A FIX. Each feed splits a contract's value across its OWN view
-// of the supplier set, so summing rows from both always over-states. The obvious remedy —
-// "OCDS is authoritative, delete the EOP rows" — was implemented, measured, and abandoned:
-// across the 25 key-divergent contracts NEITHER feed's supplier set is a superset of the
-// other (0 supersets in either direction), so deletion loses real counterparties.
-// `00031-2022-0002`/53831 carries "Консорциум „Малко Тъ…"" ONLY on the EOP side. Two
-// deletion attempts destroyed legitimate rows before being reverted — one pooled six
-// distinct procedures that shared the contract number "1" and removed 46 rows / €5.15m.
-// See docs/plans/procurement-foreign-consortium-members-v1.md §9.
+// FOUR feeds, distinguished by `release_id` prefix: `ocds-` (АОП OCDS export), `aop-legacy-`
+// (АОП annual CSV), `eop-` (ЦАИС ЕОП flat договори), `rop-` (РОП). Each splits a contract's
+// value across its OWN view of the supplier set, so rows from two feeds can never be summed —
+// the corpus over-states whenever one contract appears in both.
 //
-// So this file only DETECTS. A genuine disagreement between two public sources is not
-// something a script should silently resolve.
+// ── WHAT CHANGED, AND WHY BOTH HALVES HAD TO MOVE TOGETHER ─────────────────────────────────
 //
-// WHAT THE 47 PRODUCTION CASES ACTUALLY ARE (measured 2026-08-04, €9,273,007.58 total):
+// This file used to classify rows as `eop-` vs `NOT LIKE 'eop-%'` and group them on
+// (УНП, contract_id, tag). Both halves were wrong, and fixing either alone makes things worse:
 //
-//   22  identical supplier sets — the row-level content eviction should have caught these,
-//       but its keys embed the rounded amount (9 contracts differ, because the feeds split
-//       by different denominators) and `date_signed` (9 differ). Only 6 had both equal and
-//       still escaped. Addressed by the amount-free content net (Tier B).
-//   20  the SAME suppliers under DIFFERENT keys: one feed published a natural person's ЕГН
-//       (now encoded `np-<name-hash>`), the other their real BULSTAT — e.g.
-//       00373-2022-0009/48251 is `np-9ca38126f076`/"Здравко Георгиев Иванов" from EOP and
-//       `180055903`/"ЗДРАВКО ГЕОРГИЕВ ИВАНОВ" from OCDS. Addressed by the identity bridge
-//       (Tier A).
-//    5  genuinely different supplier sets — a real source conflict, for a human.
+//   - The TWO-FEED model cannot express `aop`↔`rop` or `aop`↔`ocds` at all, since neither side
+//     is `eop-`. Measured before the fix: the gate saw 5 of 129 groups on its own key.
+//   - The KEY is the reason it saw so few. `contract_id` differs across feeds on ~99% of real
+//     twins (0/46 on aop↔eop, 0/26 on eop↔ocds, 0/6 on aop↔ocds), because the feeds use
+//     different numbering systems — `aop:32038` vs `eop:СОА21-ДГ55-32` is one contract.
 //
-// The key is (УНП, contract_id, tag). Verified complete on the affected population: of the
-// 95 rows across all 47 contracts, ZERO lack either field. The УНП is mandatory — dropping
-// it for (buyer, contract_id) is what pooled the six "1" procedures.
+// Widening the FEED model while keeping the old key would have turned this gate permanently red
+// with ~124 `aop`+`rop` groups that are NOT duplicates: aop and rop are the one pair that shares
+// contract numbering, and a buyer reusing a number across many framework call-offs looks
+// identical to a duplicate under that key. Only 4 of the 124 share both a total and a signing
+// date. See docs/plans/procurement-cross-source-dedup-v2.md §2.2.
+//
+// So the gating test below keys on IDENTITY E — (УНП, contractor, rounded €, signing date, tag)
+// — the same identity `scripts/procurement/cross_source.ts` reconciles on, and identity A is
+// kept as a separate BOUNDED test that reports rather than demands zero.
 //
 //   npm run test:data
 //
-// Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts
-// table is absent, like invariants_pg.data.test.ts.
+// Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts table is
+// absent, like invariants_pg.data.test.ts.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -58,182 +54,301 @@ afterAll(async () => {
   await end();
 });
 
+// The four-way feed classification, matching `feedOf()` in scripts/procurement/content_key.ts.
+// `aop` is the fallback rather than a prefix test, for the same reason it is there: the legacy
+// CSV is the only generator that has changed its prefix shape, and an unrecognised row belongs
+// with the legacy pile rather than in a silent fifth bucket.
+const FEED_SQL = `CASE WHEN release_id LIKE 'ocds-%' THEN 'ocds'
+                       WHEN release_id LIKE 'eop-%'  THEN 'eop'
+                       WHEN release_id LIKE 'rop-%'  THEN 'rop'
+                       ELSE 'aop' END`;
+
 interface MixedRow {
   unp: string;
-  contract_id: string;
-  eop_rows: number;
-  ocds_rows: number;
+  contractor_eik: string;
+  amt: string;
+  ds: string;
+  feeds: string;
+  rows: number;
+  contract_ids: string;
   eur: number;
-  relation: string;
 }
 
-// TRIAGED GENUINE CONFLICTS — `${unp}/${contract_id}`.
+// TRIAGED, PERMANENTLY UNRESOLVABLE GROUPS — `${unp}/${contractor_eik}`.
 //
-// An entry here means a human looked at the two feeds, found they name genuinely different
-// counterparties, and accepted that neither can be mechanically preferred. It is NOT a
-// suppression for "we haven't got round to it": everything resolvable by the amount-free
-// content net or the identity bridge must be resolved there, not listed here. The list is
-// asserted to be exhaustive AND minimal below, so a stale entry fails just as loudly as a new
-// conflict.
+// An entry means a human looked at both feeds and found no 1:1 correspondence a script may act
+// on. It is NOT a suppression for "not got round to it": anything the reconciliation pass CAN
+// resolve is resolved there, and this list is asserted to be exhaustive AND minimal below, so a
+// stale entry fails as loudly as a new mix.
+//
+// The 12 fall into exactly the two shapes the pass refuses (plan §5.3b / §5.4):
+//   AMBIGUOUS — a feed contributed more than one row to the identity-E group, so the two sides
+//     cannot be paired 1:1. Acting anyway would collapse N rows onto M survivors and guess.
+//   BLOCKED — the sides pair, but a §5.2 precondition fails: the supplier sets differ, or some
+//     row on one side has no twin. Evicting a side on a partial match is what orphaned rows in
+//     earlier attempts.
 const ACCEPTED_CONFLICTS = new Map<string, string>([
   [
-    "05962-2026-0001/240319",
-    // Corrected: this is NOT "different entities". Same contract number, same signing date, and
-    // €14,050.00 is exactly half of €28,100.00 — the multi-supplier value-split signature. ЦАИС
-    // saw two suppliers (Aleksandar Mladenov plus a second, identity-less party) where OCDS saw
-    // one (Lion Helicopters srl) taking the whole award.
-    //
-    // Unfixable for a STRUCTURAL reason, which is why it is accepted rather than resolved: the
-    // ЦАИС row's `contractor_eik` is empty, and all four content nets require a contractor id, so
-    // no key can ever pair it. 620 identity-less EOP rows exist corpus-wide; exactly one has a
-    // cross-source twin, and this is it.
-    "ЦАИС row has an empty contractor_eik, so no content net can pair it with the OCDS row",
+    "01071-2020-0009/177441542",
+    // AMBIGUOUS, and the clearest example of why the rule exists: ЦАИС published four call-offs
+    // ("Договор № 878/879/880/881") at the same procedure, supplier, amount and date, against
+    // two aop rows. Nothing in the data says which corresponds to which, and 4 against 2 means
+    // two of them correspond to nothing at all.
+    "eop×4 (Договор № 878..881) vs aop×2 — no 1:1 correspondence exists",
   ],
   [
-    "05397-2020-0009/81",
-    // Same procedure, lot 81. ЦАИС says „Сикюрити глобъл“ ЕООД at €1,400,390; OCDS says
-    // Контракс АД at €1,345,464. Both are real companies on this procedure — see lot 82,
-    // where the two feeds swap them round. The feeds disagree about which supplier won which
-    // lot, which no key can reconcile.
-    "feeds disagree which supplier won lot 81 (Сикюрити глобъл vs Контракс)",
+    "05568-2021-0001/107544354",
+    "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "05397-2020-0009/82",
-    // The mirror of lot 81: ЦАИС says „АСО Панема“ ООД at €711,485, OCDS says
-    // „СИКЮРИТИ ГЛОБЪЛ“ ЕООД at €684,273. Cross-assigned lots within one procedure.
-    "feeds cross-assign lots 81/82 between АСО Панема and Сикюрити глобъл",
+    "00589-2022-0052/103318710",
+    "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00031-2022-0002/53831",
-    // A feed-MODELLING difference rather than a data conflict, and the reason it cannot be
-    // auto-resolved: ЦАИС emits two rows — "Иван Станков Калудов" (€0) and
-    // "Консорциум „Малко Търново“" (€240,233) — while OCDS emits ONE row whose contractor_name
-    // concatenates both parties ("ИВАН СТАНКОВ КАЛУДОВ; Конс…") at the same €240,233. The money
-    // agrees; the party model does not, so there is no supplier-level correspondence to match.
-    // The two feeds also give the consortium DIFFERENT EIKs (177509406 vs 177834150), so even the
-    // named ДЗЗД cannot be matched across them.
-    "OCDS collapses the consortium into one row whose name concatenates both members",
+    "02378-2023-0001/203540174",
+    "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00267-2020-0066/20ДГ890",
-    // Identical amount (€10,194) under different suppliers: ЦАИС "Д & д ООД" vs OCDS
-    // ЕТ "МОНИ-8 - МЕТОДИ ГЕОРГИЕВ". Not a casing or trade-descriptor variant of each other.
-    "same €10,194 attributed to Д & д ООД (ЦАИС) vs ЕТ МОНИ-8 (OCDS)",
+    "00339-2025-0039/128591001",
+    "eop×2 vs ocds×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00060-2020-0013/486",
-    // Different supplier AND different amount by three orders of magnitude: ЦАИС
-    // "Гранд енерджи дистрибюшън" at €24, OCDS "Енерджи Маркет Глобал ООД" at €90,045. Both are
-    // real electricity traders. Nothing here indicates which feed is wrong.
-    "Гранд енерджи €24 (ЦАИС) vs Енерджи Маркет Глобал €90,045 (OCDS)",
+    "00053-2026-0001/204293638",
+    // Both rows sit at €0.00 in Postgres: 087 moved the joint award's value onto the carrier and
+    // zeroed the members. €0 is a real amount for identity E (a member row), not a missing one.
+    "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
+  ],
+  [
+    "00053-2026-0001/181527965",
+    "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
+  ],
+  [
+    "02023-2023-0001/113580690",
+    // BLOCKED. aop:118779 holds one row; eop:118827 holds two, and the supplier sets differ.
+    // This is the pair the parse-time `f:` net once orphaned (see content_key.ts) — €4.14m that
+    // simply vanished when a bogus survivor was accepted.
+    "supplier sets differ: aop:118779 (1 row) vs eop:118827 (2 rows)",
+  ],
+  [
+    "00303-2020-0018/837068124",
+    // BLOCKED, and the most instructive of the five: identical supplier sets, totals agreeing to
+    // €1.19 — and still refused, because only one of aop:317's two rows has a twin. Evicting a
+    // side on a partial match is exactly the shape that destroyed rows before.
+    "same supplier set and totals to €1.19, but only 1 of aop:317's 2 rows is matched",
+  ],
+  [
+    "00994-2016-0001/102227154",
+    "aop:2 (2 rows) vs rop:2 (1 row) — aop holds two call-offs under one number",
+  ],
+  [
+    "00994-2016-0001/121578346",
+    "supplier sets differ: aop:3 (2 suppliers) vs rop:3 (1)",
+  ],
+  [
+    "00640-2015-0014/121814067",
+    "supplier sets differ: aop:80-09-73 (2 suppliers) vs rop:80-09-73 (1)",
   ],
 ]);
 
-const idOf = (r: MixedRow): string => `${r.unp}/${r.contract_id}`;
+const idOf = (r: MixedRow): string => `${r.unp}/${r.contractor_eik}`;
 
-// Synthetic `obed-` consortium carriers are excluded: 087 mints them inside Postgres from
-// whichever feed's rows are present, so they inherit a mix rather than cause one.
+// IDENTITY E — the gating key. Synthetic `obed-` consortium carriers are excluded: 087 mints
+// them inside Postgres from whichever feed's rows are present, so they inherit a mix rather than
+// cause one. Rows missing any component of the identity are excluded too, because a row with no
+// amount or no signing date must never be grouped with one that has them — Postgres GROUP BY
+// treats NULLs as equal, which silently counts two unknowns as a match.
 const MIXED_SQL = `
-  WITH g AS (
-    SELECT unp, contract_id, tag,
-           count(*) FILTER (WHERE release_id LIKE 'eop-%')     AS eop_rows,
-           count(*) FILTER (WHERE release_id NOT LIKE 'eop-%') AS ocds_rows,
-           sum(CASE WHEN release_id LIKE 'eop-%' THEN amount_eur ELSE 0 END) AS eur,
-           array_agg(DISTINCT contractor_eik) FILTER (WHERE release_id LIKE 'eop-%')     AS e,
-           array_agg(DISTINCT contractor_eik) FILTER (WHERE release_id NOT LIKE 'eop-%') AS o
+  WITH b AS (
+    SELECT ${FEED_SQL} AS feed, unp, contract_id, tag, contractor_eik, amount_eur,
+           round(amount_eur::numeric, 0) AS amt,
+           substring(date_signed FROM 1 FOR 10) AS ds
       FROM contracts
      WHERE contractor_eik NOT LIKE 'obed-%'
-       AND COALESCE(unp, '') <> '' AND COALESCE(contract_id, '') <> ''
-     GROUP BY 1, 2, 3
-    HAVING count(*) FILTER (WHERE release_id LIKE 'eop-%') > 0
-       AND count(*) FILTER (WHERE release_id NOT LIKE 'eop-%') > 0
+       AND COALESCE(unp, '') <> '' AND COALESCE(contractor_eik, '') <> ''
+       AND amount_eur IS NOT NULL AND COALESCE(date_signed, '') <> ''
   )
-  SELECT unp, contract_id, eop_rows::int, ocds_rows::int, COALESCE(eur, 0)::float8 AS eur,
-         CASE WHEN e <@ o AND o <@ e THEN 'identical-suppliers'
-              WHEN e <@ o            THEN 'ocds-superset'
-              WHEN o <@ e            THEN 'eop-superset'
-              ELSE 'divergent-suppliers' END AS relation
-    FROM g
-   ORDER BY eur DESC NULLS LAST`;
+  SELECT unp, contractor_eik, amt::text AS amt, ds,
+         array_to_string(array_agg(DISTINCT feed ORDER BY feed), '+') AS feeds,
+         count(*)::int AS rows,
+         array_to_string(array_agg(DISTINCT contract_id), ' | ') AS contract_ids,
+         COALESCE(sum(amount_eur), 0)::float8 AS eur
+    FROM b
+   GROUP BY unp, contractor_eik, amt, ds, tag
+  HAVING count(DISTINCT feed) > 1
+   ORDER BY amt DESC`;
 
-test.skipIf(skip)("no contract carries rows from both feeds", async () => {
-  const all = await allRows<MixedRow>(MIXED_SQL);
-  const rows = all.filter((r) => !ACCEPTED_CONFLICTS.has(idOf(r)));
-  const total = rows.reduce((s, r) => s + Number(r.eur ?? 0), 0);
-  const byRelation = rows.reduce<Record<string, number>>((a, r) => {
-    a[r.relation] = (a[r.relation] ?? 0) + 1;
-    return a;
-  }, {});
-  assert.equal(
-    rows.length,
-    0,
-    `${rows.length} contract(s) mix the ЦАИС ЕОП and OCDS feeds, over-stating by ` +
-      `€${total.toLocaleString("en-US", { maximumFractionDigits: 2 })}. Each feed splits the ` +
-      `contract value across its own supplier set, so the two can never be summed.\n` +
-      `  by supplier-set relation: ${JSON.stringify(byRelation)}\n` +
-      `  worst: ${rows
-        .slice(0, 5)
-        .map(
-          (r) =>
-            `${r.unp}/${r.contract_id} (${r.eop_rows} eop + ${r.ocds_rows} ocds, ${r.relation})`,
-        )
-        .join(", ")}\n` +
-      `  'identical-suppliers' should be resolved by the amount-free content net; ` +
-      `'divergent-suppliers' needs the identity bridge, or is a genuine source conflict to ` +
-      `triage by hand. Do NOT resolve this by deleting rows — see ` +
-      `docs/plans/procurement-foreign-consortium-members-v1.md §9.`,
-  );
-});
+test.skipIf(skip)(
+  "no contract is carried by two feeds at once (identity E)",
+  async () => {
+    const all = await allRows<MixedRow>(MIXED_SQL);
+    const rows = all.filter((r) => !ACCEPTED_CONFLICTS.has(idOf(r)));
+    const total = rows.reduce((s, r) => s + Number(r.eur ?? 0), 0);
+    assert.equal(
+      rows.length,
+      0,
+      `${rows.length} identity-E group(s) span more than one feed, over-stating by ` +
+        `€${total.toLocaleString("en-US", { maximumFractionDigits: 2 })}. Each feed splits the ` +
+        `contract value across its own supplier set, so the two can never be summed.\n` +
+        rows
+          .slice(0, 8)
+          .map(
+            (r) =>
+              `  ${r.unp} eik=${r.contractor_eik} €${r.amt} signed=${r.ds} ` +
+              `[${r.feeds}] ${r.rows} rows — contract ids: ${r.contract_ids}`,
+          )
+          .join("\n") +
+        `\n  Resolve with \`npm run proc:reconcile\` (dry run first). If the pass refuses them, ` +
+        `it prints why — a genuinely unpairable group belongs in ACCEPTED_CONFLICTS with its ` +
+        `reason, never deleted by hand. See docs/plans/procurement-cross-source-dedup-v2.md §5.`,
+    );
+  },
+);
 
 test.skipIf(skip)("every accepted conflict still exists", async () => {
-  // Keeps the allowlist minimal. Once a conflict is resolved upstream — the identity bridge
-  // reconciles the keys, or a feed corrects itself — its entry must go, or it silently
-  // licenses a future regression on the same contract.
+  // Keeps the allowlist minimal. Once a conflict is resolved upstream, its entry must go, or it
+  // silently licenses a future regression on that contract.
   //
-  // This deliberately ties the allowlist to the CURRENT corpus, which means it also fires on a
-  // database whose corpus predates the entry. That is the intended trade (an exhaustive list
-  // beats a permissive one), but it makes the failure easy to misread, so the message says so:
-  // on a lagging database the fix is to load the corpus, not to edit this list.
+  // This ties the list to the CURRENT corpus, so it also fires on a database whose corpus
+  // predates the entries. That is the intended trade — an exhaustive list beats a permissive one
+  // — but it makes the failure easy to misread, so the message says so.
   const live = new Set((await allRows<MixedRow>(MIXED_SQL)).map(idOf));
   const stale = [...ACCEPTED_CONFLICTS.keys()].filter((k) => !live.has(k));
   assert.deepEqual(
     stale,
     [],
-    `ACCEPTED_CONFLICTS lists ${stale.length} contract(s) that do not mix feeds in THIS ` +
+    `ACCEPTED_CONFLICTS lists ${stale.length} group(s) that do not span two feeds in THIS ` +
       `database: ${stale.join(", ")}.\n` +
       `  If this database is behind (its corpus predates the entry), load the current corpus — ` +
       `do not edit the list.\n` +
       `  If it is current, the conflict is resolved: remove the entry, because a stale one ` +
-      `licenses a future regression on that contract.`,
+      `licenses a future regression on that group.`,
   );
 });
 
+// ── Identity A — kept, bounded, NOT gated on zero ────────────────────────────────────────────
+
+// The population that shares a contract NUMBER across feeds. It is dominated by `aop`+`rop`,
+// which is the one pair whose numbering genuinely agrees — and it is overwhelmingly NOT
+// duplication: a buyer reusing a contract number across framework call-offs, with the two feeds
+// capturing different call-offs. `02724-2017-0021 / ПО-03-4` is the worked case: aop 7 rows /
+// €4,149,034 against rop 5 rows / €103,571, spread over 12 distinct signing dates.
+//
+// So this is a CEILING, not a zero. Demanding zero would need a ~126-entry allowlist of
+// non-duplicates and would destroy the "exhaustive AND minimal" property that makes the gate
+// above meaningful. A ceiling still catches the thing worth catching: a NEW feed overlap, or an
+// ingest that starts minting colliding numbers.
+const IDENTITY_A_CEILING = 130; // measured 126 on 2026-08-04, post-reconcile
+
 test.skipIf(skip)(
-  "the detector's key is complete on the affected population",
+  "contract-number collisions across feeds stay within their known bound",
   async () => {
-    // Guards the gate itself. The key requires a non-empty УНП and contract_id, so a row
-    // missing either is invisible to it. That is safe only while no such row participates in
-    // a cross-source pair — assert it rather than assume it, since a future ingest that stops
-    // populating `unp` would silently blind this gate instead of failing it.
-    const [r] = await allRows<{ blind: string }>(
-      `SELECT count(*)::text AS blind
+    const [r] = await allRows<{ n: string; detail: string }>(
+      `WITH b AS (
+         SELECT ${FEED_SQL} AS feed, unp, contract_id, tag
+           FROM contracts
+          WHERE contractor_eik NOT LIKE 'obed-%'
+            AND COALESCE(unp, '') <> '' AND COALESCE(contract_id, '') <> ''
+       ), g AS (
+         SELECT unp, contract_id,
+                array_to_string(array_agg(DISTINCT feed ORDER BY feed), '+') AS pair
+           FROM b GROUP BY unp, contract_id, tag
+         HAVING count(DISTINCT feed) > 1
+       )
+       SELECT count(*)::text AS n,
+              (SELECT string_agg(pair || '=' || c, ', ' ORDER BY c DESC)
+                 FROM (SELECT pair, count(*) c FROM g GROUP BY pair) x) AS detail
+         FROM g`,
+    );
+    const n = Number(r.n);
+    assert.ok(
+      n <= IDENTITY_A_CEILING,
+      `${n} (unp, contract_id) group(s) span more than one feed, above the ${IDENTITY_A_CEILING} ` +
+        `ceiling — by pair: ${r.detail}.\n` +
+        `  This population is mostly contract-number REUSE inside frameworks, not duplication, ` +
+        `so it is bounded rather than driven to zero. A rise means either a new feed overlap or ` +
+        `an ingest minting colliding numbers — investigate before raising the ceiling.`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the feed classification covers the whole corpus, all four feeds",
+  async () => {
+    // The gate is only as wide as its CASE expression. If a new generator ships a fifth prefix,
+    // its rows silently join the `aop` bucket and every cross-source pair involving it becomes
+    // invisible — the same failure as the two-feed model, one level down. So assert that each of
+    // the four feeds is present and non-trivial, and that the classification partitions the
+    // whole table (no row is unaccounted for).
+    const rows = await allRows<{ feed: string; n: string }>(
+      `SELECT ${FEED_SQL} AS feed, count(*)::text AS n FROM contracts GROUP BY 1 ORDER BY 1`,
+    );
+    const byFeed = new Map(rows.map((r) => [r.feed, Number(r.n)]));
+    for (const f of ["ocds", "aop", "eop", "rop"])
+      assert.ok(
+        (byFeed.get(f) ?? 0) > 0,
+        `feed '${f}' has no rows — either the corpus lost it, or its release_id prefix changed ` +
+          `and its rows are now silently classified as 'aop'`,
+      );
+    const [t] = await allRows<{ n: string }>(
+      "SELECT count(*)::text AS n FROM contracts",
+    );
+    assert.equal(
+      [...byFeed.values()].reduce((s, n) => s + n, 0),
+      Number(t.n),
+      "the feed classification does not partition the contracts table",
+    );
+    // A prefix nobody models yet. `aop` is the deliberate fallback, so this cannot be caught by
+    // the CASE — it has to be asked directly.
+    const [u] = await allRows<{ n: string; sample: string | null }>(
+      `SELECT count(*)::text AS n, min(release_id) AS sample FROM contracts
+        WHERE release_id NOT LIKE 'ocds-%' AND release_id NOT LIKE 'eop-%'
+          AND release_id NOT LIKE 'rop-%'  AND release_id NOT LIKE 'aop-%'`,
+    );
+    assert.equal(
+      Number(u.n),
+      0,
+      `${u.n} row(s) carry an unmodelled release_id prefix (e.g. ${u.sample}) and are being ` +
+        `classified as legacy 'aop'. Add the feed to feedOf() in content_key.ts, to FEED_RANK, ` +
+        `and to this file's FEED_SQL — a feed the precedence order does not know cannot be ` +
+        `reconciled.`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the gate's key is complete on the affected population",
+  async () => {
+    // Guards the gate itself. Identity E needs a УНП, a contractor, an amount and a signing
+    // date, so a row missing any of them is invisible to it. That is safe only while no such row
+    // participates in a cross-source pair — assert it rather than assume it, since an ingest
+    // that stopped populating `date_signed` would silently blind this file instead of failing it.
+    //
+    // ONE known exception, allowlisted by contract: 05962-2026-0001/240319, where the ЦАИС row
+    // carries an EMPTY contractor_eik. No content net can pair an identity-less row, which is
+    // precisely why it cannot be resolved — it is a permanent, structural blind spot, not drift.
+    const [r] = await allRows<{ blind: string; sample: string | null }>(
+      `SELECT count(*)::text AS blind,
+              string_agg(DISTINCT a.unp || '/' || COALESCE(a.contract_id, '-'), ', ') AS sample
          FROM contracts a
         WHERE a.contractor_eik NOT LIKE 'obed-%'
-          AND (COALESCE(a.unp, '') = '' OR COALESCE(a.contract_id, '') = '')
+          AND (COALESCE(a.unp, '') = '' OR COALESCE(a.contractor_eik, '') = ''
+               OR a.amount_eur IS NULL OR COALESCE(a.date_signed, '') = '')
+          AND COALESCE(a.unp, '') <> '05962-2026-0001'
           AND EXISTS (
             SELECT 1 FROM contracts b
-             WHERE b.ocid = a.ocid
+             WHERE b.unp = a.unp
                AND COALESCE(b.contract_id, '') = COALESCE(a.contract_id, '')
                AND b.tag = a.tag
-               AND (b.release_id LIKE 'eop-%') <> (a.release_id LIKE 'eop-%')
+               AND (${FEED_SQL.replace(/release_id/g, "b.release_id")})
+                   <> (${FEED_SQL.replace(/release_id/g, "a.release_id")})
           )`,
     );
     assert.equal(
       Number(r.blind),
       0,
-      `${r.blind} cross-source row(s) lack a УНП or contract_id and are therefore invisible ` +
-        `to the mixed-feed detector. Run scripts/procurement/backfill_unp.ts --apply, or widen ` +
-        `the detector's key.`,
+      `${r.blind} cross-source row(s) lack a УНП, contractor, amount or signing date and are ` +
+        `therefore invisible to the identity-E gate: ${r.sample}. Run ` +
+        `scripts/procurement/backfill_unp.ts --apply, or widen the gate's key.`,
     );
   },
 );

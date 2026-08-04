@@ -15,8 +15,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   useCompanyIndex,
   type CompanyIndexStake,
+  type CompanyMpRole,
 } from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { TrCompanyOfficer } from "@/data/dataTypes";
 import { formatEur } from "@/lib/currency";
@@ -97,6 +99,76 @@ const OfficerRow: FC<{ officer: TrCompanyOfficer }> = ({ officer }) => {
   );
 };
 
+/** One MP, all the TR roles they hold at this company. `mpRoles` carries one
+ * row per (mpId, role) — a manager who is also the sole owner arrives as two —
+ * so the page groups them the way the candidate page groups by company. */
+type MpRoleGroup = {
+  mpId: number;
+  mpName: string;
+  roles: string[];
+  /** Any role still open. Only `false` when every one of them was erased. */
+  isCurrent: boolean;
+  confidence: "high" | "medium";
+};
+
+const groupRolesByMp = (roles: CompanyMpRole[]): MpRoleGroup[] => {
+  const map = new Map<number, MpRoleGroup>();
+  for (const r of roles) {
+    const existing = map.get(r.mpId);
+    if (!existing) {
+      map.set(r.mpId, {
+        mpId: r.mpId,
+        mpName: r.mpName,
+        roles: [r.role],
+        isCurrent: r.isCurrent,
+        confidence: r.confidence,
+      });
+      continue;
+    }
+    if (!existing.roles.includes(r.role)) existing.roles.push(r.role);
+    if (r.isCurrent) existing.isCurrent = true;
+    if (r.confidence === "high") existing.confidence = "high";
+  }
+  // Current roles first, then by name — a former manager shouldn't outrank a
+  // sitting one just because their file was read first.
+  return Array.from(map.values()).sort((a, b) => {
+    if (a.isCurrent !== b.isCurrent) return a.isCurrent ? -1 : 1;
+    return a.mpName.localeCompare(b.mpName, "bg", { sensitivity: "base" });
+  });
+};
+
+const MpRoleRow: FC<{ group: MpRoleGroup }> = ({ group }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="grid grid-cols-[1fr_auto] gap-3 items-center py-2 border-b last:border-b-0">
+      <div className="min-w-0">
+        <div className="text-sm font-medium truncate flex items-center gap-1.5">
+          <MpAvatar mpId={group.mpId} name={group.mpName} />
+          <Link
+            to={candidateUrlForMp(group.mpId)}
+            className="hover:underline truncate"
+          >
+            {group.mpName}
+          </Link>
+          <span className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium bg-primary/10 text-primary shrink-0">
+            <ShieldCheck className="h-2.5 w-2.5" />
+            {t("tr_is_mp") || "MP"}
+          </span>
+        </div>
+        <div className="text-xs text-muted-foreground truncate">
+          {group.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+          {!group.isCurrent && (
+            <> {` · ${t("company_conn_former") || "former"}`}</>
+          )}
+        </div>
+      </div>
+      <div className="shrink-0">
+        <ConfidenceBadge confidence={group.confidence} />
+      </div>
+    </div>
+  );
+};
+
 export const MpCompanyScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { slug: rawSlug } = useParams();
@@ -106,6 +178,10 @@ export const MpCompanyScreen: FC = () => {
   const company = useMemo(
     () => (slug ? bySlug.get(slug) : undefined),
     [bySlug, slug],
+  );
+  const mpRoleGroups = useMemo(
+    () => groupRolesByMp(company?.mpRoles ?? []),
+    [company],
   );
 
   if (isLoading) {
@@ -191,8 +267,39 @@ export const MpCompanyScreen: FC = () => {
               </div>
             )}
 
+            {/* MP↔company roles matched out of the Commerce Registry. Most
+             * entries on this page have ONLY these: the per-officer TR rows
+             * above are absent for ~71% of companies (see the officer-coverage
+             * ceiling), so without this block the page reads "nobody here"
+             * while the tile that linked to it names an MP and their role. */}
+            {mpRoleGroups.length > 0 && (
+              <div
+                className={
+                  tr.currentOfficers.length > 0 || tr.currentOwners.length > 0
+                    ? "mt-4"
+                    : undefined
+                }
+              >
+                <div className="text-sm font-semibold mb-1 flex items-center gap-1.5">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  {t("company_mps_via_tr") || "MPs in the Commerce Registry"}
+                  <span className="text-xs text-muted-foreground font-normal">
+                    ({mpRoleGroups.length})
+                  </span>
+                </div>
+                {mpRoleGroups.map((g) => (
+                  <MpRoleRow key={g.mpId} group={g} />
+                ))}
+                <div className="text-xs text-muted-foreground mt-2">
+                  {t("company_mps_via_tr_note") ||
+                    "Matched by name against Commerce Registry officer and owner records — a shared name is not proof of the same person. Both currently held and historical roles are listed."}
+                </div>
+              </div>
+            )}
+
             {tr.currentOfficers.length === 0 &&
-              tr.currentOwners.length === 0 && (
+              tr.currentOwners.length === 0 &&
+              mpRoleGroups.length === 0 && (
                 <div className="text-sm text-muted-foreground italic">
                   {t("tr_no_current_records") ||
                     "No currently-active officers or owners on file."}
@@ -209,93 +316,98 @@ export const MpCompanyScreen: FC = () => {
         </Card>
       )}
 
-      <Card className="my-4">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Briefcase className="h-4 w-4" />
-            {t("company_stakes_held_by_mps") || "Stakes declared by MPs"} (
-            {company.stakes.length})
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {company.registeredOffices.length > 0 && (
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4">
-              <MapPin className="h-3.5 w-3.5" />
-              <span>{company.registeredOffices.join(" · ")}</span>
-            </div>
-          )}
+      {/* Declared stakes. Suppressed when there are none AND the TR card is
+       * carrying the seat — an empty "(0)" card whose only content is a
+       * footnote about a list that isn't there reads as missing data. */}
+      {(company.stakes.length > 0 || !tr) && (
+        <Card className="my-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Briefcase className="h-4 w-4" />
+              {t("company_stakes_held_by_mps") || "Stakes declared by MPs"} (
+              {company.stakes.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {company.registeredOffices.length > 0 && (
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4">
+                <MapPin className="h-3.5 w-3.5" />
+                <span>{company.registeredOffices.join(" · ")}</span>
+              </div>
+            )}
 
-          <div>
-            {company.stakes.map((entry, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center py-3 border-b last:border-b-0"
-              >
-                <StakeIcon stake={entry.stake} />
-                <MpAvatar name={entry.declarantName} mpId={entry.mpId} />
-                <div className="min-w-0">
-                  <Link
-                    to={
-                      entry.mpId != null
-                        ? candidateUrlForMp(entry.mpId)
-                        : `/candidate/${encodeURIComponent(entry.declarantName)}`
-                    }
-                    className="text-sm font-medium hover:underline truncate block"
-                  >
-                    {entry.declarantName}
-                  </Link>
-                  <div className="text-xs text-muted-foreground">
-                    {entry.institution}
-                    {" · "}
-                    {t("declaration_year") || "Declaration"}{" "}
-                    {entry.declarationYear}
-                    {entry.stake.table === "11" && (
-                      <>
-                        {" · "}
-                        {t("stake_transferred") || "transferred"}
-                      </>
+            <div>
+              {company.stakes.map((entry, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center py-3 border-b last:border-b-0"
+                >
+                  <StakeIcon stake={entry.stake} />
+                  <MpAvatar name={entry.declarantName} mpId={entry.mpId} />
+                  <div className="min-w-0">
+                    <Link
+                      to={
+                        entry.mpId != null
+                          ? candidateUrlForMp(entry.mpId)
+                          : `/candidate/${encodeURIComponent(entry.declarantName)}`
+                      }
+                      className="text-sm font-medium hover:underline truncate block"
+                    >
+                      {entry.declarantName}
+                    </Link>
+                    <div className="text-xs text-muted-foreground">
+                      {entry.institution}
+                      {" · "}
+                      {t("declaration_year") || "Declaration"}{" "}
+                      {entry.declarationYear}
+                      {entry.stake.table === "11" && (
+                        <>
+                          {" · "}
+                          {t("stake_transferred") || "transferred"}
+                        </>
+                      )}
+                    </div>
+                    {entry.stake.legalBasis && (
+                      <div className="text-xs text-muted-foreground">
+                        {entry.stake.legalBasis}
+                        {entry.stake.fundsOrigin
+                          ? ` · ${entry.stake.fundsOrigin}`
+                          : ""}
+                      </div>
                     )}
                   </div>
-                  {entry.stake.legalBasis && (
-                    <div className="text-xs text-muted-foreground">
-                      {entry.stake.legalBasis}
-                      {entry.stake.fundsOrigin
-                        ? ` · ${entry.stake.fundsOrigin}`
-                        : ""}
-                    </div>
-                  )}
+                  <div className="text-right text-sm">
+                    {entry.stake.shareSize && (
+                      <div className="font-mono text-xs">
+                        {entry.stake.shareSize}
+                      </div>
+                    )}
+                    {entry.stake.valueEur != null && (
+                      <div className="text-xs text-muted-foreground">
+                        {formatEur(entry.stake.valueEur, i18n.language)}
+                      </div>
+                    )}
+                    <a
+                      href={entry.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
+                    >
+                      {t("source") || "source"}
+                      <ExternalLink className="h-2.5 w-2.5" />
+                    </a>
+                  </div>
                 </div>
-                <div className="text-right text-sm">
-                  {entry.stake.shareSize && (
-                    <div className="font-mono text-xs">
-                      {entry.stake.shareSize}
-                    </div>
-                  )}
-                  {entry.stake.valueEur != null && (
-                    <div className="text-xs text-muted-foreground">
-                      {formatEur(entry.stake.valueEur, i18n.language)}
-                    </div>
-                  )}
-                  <a
-                    href={entry.sourceUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
-                  >
-                    {t("source") || "source"}
-                    <ExternalLink className="h-2.5 w-2.5" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
-            {t("source_declarations") ||
-              "Source: property and interest declarations filed with the Bulgarian Court of Audit (Сметна палата). Sitting MPs cannot legally hold management roles, so this list covers ownership stakes only."}
-          </div>
-        </CardContent>
-      </Card>
+            <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
+              {t("source_declarations") ||
+                "Source: property and interest declarations filed with the Bulgarian Court of Audit (Сметна палата). Sitting MPs cannot legally hold management roles, so this list covers ownership stakes only."}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };

@@ -9,6 +9,11 @@
  * see the build effect.
  *
  *   npx tsx scripts/declarations/rebuild_all_from_cache.ts
+ *   npx tsx scripts/declarations/rebuild_all_from_cache.ts --skip-reparse
+ *
+ * `--skip-reparse` drops phase 1 (the whole-corpus XML re-parse), which nothing
+ * downstream of the TR integration depends on — use it when the edit is to
+ * tr/integrate.ts or augment_mp_roles.ts rather than to the declaration parser.
  */
 
 import fs from "fs";
@@ -18,7 +23,10 @@ import { parseDeclarationXml } from "./parse_declaration";
 import {
   buildCompanyIndex,
   annotatePerMpDeclarationsWithSlugs,
+  reEnrichCompaniesIndex,
 } from "./build_company_index";
+import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
+import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
 import { integrateTr } from "./tr/integrate";
 import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
@@ -92,8 +100,13 @@ const reparseAll = () => {
 };
 
 const main = () => {
-  console.log("[rebuild-all] phase 1 — re-parse cached XML");
-  reparseAll();
+  const skipReparse = process.argv.includes("--skip-reparse");
+  if (skipReparse) {
+    console.log("[rebuild-all] phase 1 — SKIPPED (--skip-reparse)");
+  } else {
+    console.log("[rebuild-all] phase 1 — re-parse cached XML");
+    reparseAll();
+  }
 
   console.log("[rebuild-all] phase 2 — buildCompanyIndex");
   buildCompanyIndex({ publicFolder: DATA, stringify });
@@ -106,6 +119,20 @@ const main = () => {
 
   console.log("[rebuild-all] phase 5 — augmentCompaniesIndexWithMpRoles");
   augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
+
+  // Phases 5a–5c mirror the tail of the real pipeline (declarations/index.ts).
+  // Without them a change to integrateTr / augment_mp_roles lands in
+  // companies-index.json while the per-place shards behind the "companies
+  // HQ'd here" tile keep serving the PREVIOUS MP↔company set — the file this
+  // script exists to keep in sync is only half of what those edits move.
+  console.log("[rebuild-all] phase 5a — reEnrichCompaniesIndex");
+  reEnrichCompaniesIndex({ publicFolder: DATA, stringify });
+
+  console.log("[rebuild-all] phase 5b — buildCompaniesBySettlement");
+  buildCompaniesBySettlement({ publicFolder: DATA, stringify });
+
+  console.log("[rebuild-all] phase 5c — buildCompaniesByObshtina");
+  buildCompaniesByObshtina({ publicFolder: DATA, stringify });
 
   console.log("[rebuild-all] phase 6 — buildAssetsRankings");
   buildAssetsRankings({ publicFolder: DATA, stringify });

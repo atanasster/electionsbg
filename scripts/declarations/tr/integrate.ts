@@ -39,6 +39,22 @@ import type {
   TrCompanyOfficer,
 } from "../../../src/data/dataTypes";
 
+/** Threshold for "this name is too common in TR for a bare name match to stand
+ * on its own". 11+ officer/owner rows ≈ the top 0.5% of the name-frequency
+ * distribution (~68% of names appear exactly once). */
+export const COMMON_NAME_TR_ROWS = 11;
+
+/** Phase-2a name-frequency guard, as a pure decision so it can be tested
+ * without the SQLite. For a common name, a role survives only on its OWN
+ * corroboration — corroboration never transfers from one company to another.
+ * A rare name keeps everything, medium included. */
+export const applyNameFrequencyGuard = <T extends { confidence: string }>(
+  roles: T[],
+  nameRows: number,
+  threshold: number = COMMON_NAME_TR_ROWS,
+): T[] =>
+  nameRows >= threshold ? roles.filter((r) => r.confidence === "high") : roles;
+
 // ---- Inputs ----------------------------------------------------------------
 
 type MpIndexEntry = {
@@ -476,10 +492,6 @@ export const integrateTr = ({
     .iterate() as IterableIterator<{ name_norm: string; n: number }>) {
     nameFrequency.set(row.name_norm, row.n);
   }
-  // Threshold for "this name is too common for a bare name match to stand on
-  // its own". 11+ TR rows ≈ top 0.5% of the name-frequency distribution.
-  const COMMON_NAME_TR_ROWS = 11;
-
   type RoleRow = PersonRow & {
     company_name: string | null;
     legal_form: string | null;
@@ -615,24 +627,36 @@ export const integrateTr = ({
     }
 
     // Phase 2a — name-frequency guard. If the MP's normalized name is common
-    // in TR (COMMON_NAME_TR_ROWS+ officer rows across unrelated companies) AND
-    // not a single one of their TR roles earned a high-confidence
-    // corroboration (region overlap / self-declared stake / same-party
-    // witness), there is no evidence this profile is a distinct person rather
-    // than a namesake — drop the whole medium-only set. An MP who declared
-    // even one company anywhere keeps every row: the declaration anchors the
-    // identity, and selfMatch would already have promoted at least one role to
-    // high, so this branch wouldn't fire.
+    // in TR (COMMON_NAME_TR_ROWS+ officer rows across unrelated companies),
+    // a bare name match is not evidence of identity — keep ONLY the roles that
+    // earned a high-confidence corroboration of their own (region overlap /
+    // self-declared stake / same-party witness) and drop the rest.
+    //
+    // Corroboration does NOT transfer between companies, and assuming it did
+    // was this guard's original defect: it dropped the medium set only when
+    // NOT ONE role was corroborated, so a single high-confidence hit certified
+    // every namesake behind it. Measured on "Георги Иванов Георгиев" (mpId
+    // 5113) — 320 TR roles, exactly 1 high — the site attributed 319 unrelated
+    // companies across the whole country to him, e.g. Агроинвест-24 in
+    // с. Динково (Видин), which he never declared. Those rows fed the
+    // "companies HQ'd here" tile, /mp/company/{slug} and the MP-tied
+    // procurement/funds cross-reference, all of which read as fact.
+    //
+    // This is the same conclusion the PG person layer reaches independently:
+    // Tier-V only mints an identity for a ≤5-company owner fold, so it refuses
+    // this fold outright and /company/208117541 correctly shows 0 political
+    // links. An MP with a rare name is untouched — the guard never fires.
     const nameRows = nameFrequency.get(mp.normalizedName) ?? 0;
-    const hasHighRole = roles.some((r) => r.confidence === "high");
-    if (nameRows >= COMMON_NAME_TR_ROWS && !hasHighRole && roles.length > 0) {
-      mpRolesFreqSuppressed += roles.length;
-      mpMediumConfidence -= roles.length;
-      continue;
+    const keptRoles = applyNameFrequencyGuard(roles, nameRows);
+    const dropped = roles.length - keptRoles.length;
+    if (dropped > 0) {
+      mpRolesFreqSuppressed += dropped;
+      mpMediumConfidence -= dropped;
     }
+    if (keptRoles.length === 0) continue;
 
     // Currently-active first, then most-recent erasures.
-    roles.sort((a, b) => {
+    keptRoles.sort((a, b) => {
       if ((a.erasedAt === null) !== (b.erasedAt === null)) {
         return a.erasedAt === null ? -1 : 1;
       }
@@ -643,8 +667,8 @@ export const integrateTr = ({
       mpId: mp.id,
       mpName: mp.name,
       generatedAt: new Date().toISOString(),
-      total: roles.length,
-      roles,
+      total: keptRoles.length,
+      roles: keptRoles,
     };
     fs.writeFileSync(
       path.join(mpManagementDir, `${mp.id}.json`),
