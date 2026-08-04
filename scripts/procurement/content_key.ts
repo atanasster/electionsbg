@@ -76,6 +76,20 @@ export const contentKeys = (r: Contract): string[] => {
       `p:${r.awarderEik}:${r.unp}:${r.contractId}:${r.contractorEik}:${r.tag}`,
     );
   }
+  // THERE IS DELIBERATELY NO IDENTITY-E NET HERE, and it is not an oversight.
+  //
+  // Identity E — (unp, contractor, rounded €, signing date, tag) — is the key the cross-source
+  // reconciliation pass runs on (cross_source.ts). Adding it here would be DEAD CODE: `u:` above
+  // is (unp, contractor, rounded €), so identity E is `u:` plus a date, i.e. strictly NARROWER.
+  // Two rows agreeing on identity E necessarily agree on `u:` already, and these nets are a
+  // union ("the same contract when ANY key collides") — so a narrower net can never add a match.
+  // `content_key.test.ts` asserts that containment as a property, so if `u:` is ever tightened
+  // the claim fails loudly instead of quietly becoming false.
+  //
+  // The two live at different layers for a reason. THIS function is the permissive PARSE-TIME
+  // matcher, where the OCDS export has no УНП at all; identity E is the strict POST-BACKFILL
+  // one used to decide deletions. Permissive matching and safe removal are different jobs — see
+  // the survivor precondition below, which exists precisely because they are.
   return keys;
 };
 

@@ -60,28 +60,8 @@ const row = (o: {
   } as Contract;
 };
 
-describe("feed classification and precedence", () => {
-  test("each release_id prefix maps to its feed; anything else is legacy aop", () => {
-    expect(feedOf(row({ feed: "ocds" }))).toBe("ocds");
-    expect(feedOf(row({ feed: "aop" }))).toBe("aop");
-    expect(feedOf(row({ feed: "eop" }))).toBe("eop");
-    expect(feedOf(row({ feed: "rop" }))).toBe("rop");
-    // An unrecognised generator must land in the legacy pile, never a silent fifth bucket.
-    expect(feedOf({ ...row({ feed: "aop" }), releaseId: "mystery-1" })).toBe(
-      "aop",
-    );
-  });
-
-  test("precedence is ocds > aop > eop > rop", () => {
-    const rank = (f: "ocds" | "aop" | "eop" | "rop"): number =>
-      feedRank(row({ feed: f }));
-    expect(rank("ocds")).toBeLessThan(rank("aop"));
-    // The one that is easy to get backwards: corpus-wide averages say eop is the richer feed,
-    // but on the pairs this ordering decides, aop carries the annex links and eu_funded.
-    expect(rank("aop")).toBeLessThan(rank("eop"));
-    expect(rank("eop")).toBeLessThan(rank("rop"));
-  });
-});
+// `feedOf` / `feedRank` are covered where they live, in content_key.test.ts — this file only
+// relies on them, and a second near-verbatim copy of those assertions would drift.
 
 describe("identity E", () => {
   test("is null whenever any component is missing", () => {

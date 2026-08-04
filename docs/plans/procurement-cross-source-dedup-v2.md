@@ -414,15 +414,26 @@ reconciliation pass proposes, so the two can never disagree silently.
 
 ### T1 — widen the identity in `content_key.ts`
 
-Add a fifth content net keyed on identity E and a feed-rank function. Both are pure additions:
+Add a feed-rank function. Pure addition:
 
 - `feedOf(r): 'ocds' | 'aop' | 'eop' | 'rop'` and `feedRank()`, replacing `isEopSourced` at its call
   sites. `isEopSourced` stays exported (other callers) but stops being the precedence primitive.
-- an `e:` net — `e:${unp}:${contractorEik}:${roundedAmount}:${dateSigned}:${tag}`. Emitted only when
-  all five are present.
 - `evictSupersededEopTwins` is **not** modified and **not** widened. It runs at parse time, where the
-  УНП does not exist (v1 §10.1 — the law of this pipeline), so an E-keyed net is inert there. It
-  keeps doing its narrower parse-time job. The generalisation lives in the pass.
+  УНП does not exist (v1 §10.1 — the law of this pipeline). It keeps doing its narrower parse-time
+  job. The generalisation lives in the pass.
+
+**The `e:` content net this tier originally specified is NOT added — it would be dead code.**
+`contentKeys()` already emits `u:` = `(unp, contractor, rounded €)`, which is identity **C**.
+Identity E is that plus a signing date, i.e. strictly *narrower*, and the nets are a union ("the
+same contract when ANY key collides") — so two rows agreeing on E necessarily already collide on
+`u:`, and an `e:` net can never add a match. Rather than write the net and rely on the reasoning,
+`content_key.test.ts` asserts the containment as a property, so tightening `u:` fails loudly
+instead of silently making the "no `e:` net" comment false.
+
+The two identities live at different layers on purpose: `contentKeys()` is the permissive
+**parse-time** matcher (where the OCDS export has no УНП at all), identity E is the strict
+**post-backfill** one used to decide deletions. Permissive matching and safe removal are different
+jobs — which is exactly why the parse-time eviction carries a separate survivor precondition.
 
 Unit tests: six pairs × {should match, should not match}, plus the negative cases that killed
 earlier designs — two contracts of one procedure to one supplier at the same amount on *different*

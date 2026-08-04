@@ -15,7 +15,10 @@ import {
   normContractNo,
   isEopSourced,
   evictSupersededEopTwins,
+  feedOf,
+  feedRank,
 } from "./content_key";
+import { identityE } from "./cross_source";
 import type { Contract } from "./types";
 
 const row = (over: Partial<Contract>): Contract =>
@@ -30,6 +33,73 @@ const row = (over: Partial<Contract>): Contract =>
     amountEur: 1000,
     ...over,
   }) as Contract;
+
+test("feedOf splits the four feeds; anything unrecognised is legacy aop", () => {
+  assert.equal(feedOf(row({ releaseId: "ocds-e82gsb-1" })), "ocds");
+  assert.equal(feedOf(row({ releaseId: "eop-1" })), "eop");
+  assert.equal(feedOf(row({ releaseId: "rop-1" })), "rop");
+  assert.equal(feedOf(row({ releaseId: "aop-legacy-2019-1-2" })), "aop");
+  // Never a silent fifth bucket: an unknown generator belongs with the legacy pile.
+  assert.equal(feedOf(row({ releaseId: "mystery-1" })), "aop");
+  // isEopSourced stays the parse-time primitive and must agree with feedOf.
+  for (const id of ["ocds-e1", "eop-1", "rop-1", "aop-legacy-1"])
+    assert.equal(
+      isEopSourced(row({ releaseId: id })),
+      feedOf(row({ releaseId: id })) === "eop",
+    );
+});
+
+test("feedRank orders ocds > aop > eop > rop", () => {
+  const r = (id: string): number => feedRank(row({ releaseId: id }));
+  assert.ok(r("ocds-e1") < r("aop-legacy-1"));
+  // Easy to get backwards — corpus-wide averages say eop is richer, but on the pairs this
+  // ordering decides, aop carries the annex links and eu_funded. See the FEED_RANK comment.
+  assert.ok(r("aop-legacy-1") < r("eop-1"));
+  assert.ok(r("eop-1") < r("rop-1"));
+});
+
+test("identity E is CONTAINED in the u: net, which is why there is no e: net here", () => {
+  // The property that makes an identity-E content net dead code: identity E is
+  // (unp, contractor, rounded €, date, tag) and `u:` is (unp, contractor, rounded €), so any
+  // two rows agreeing on E already collide on `u:`. These nets are a union, so a strictly
+  // narrower one can never add a match.
+  //
+  // Asserted rather than argued. The way this claim goes false is `u:` being given a component
+  // identity E does NOT carry — the buyer, the contract number, the release — so the fixture
+  // rows agree on EXACTLY the identity-E fields and differ on every other one. Adding
+  // `awarderEik` to `u:`, or requiring it in `u:`'s guard, then fails here. (Adding the DATE to
+  // `u:` cannot break containment, since E already fixes it; dropping the amount is a widening.
+  // An earlier version of this comment named those two and was wrong on both.)
+  const shape = {
+    unp: "00001-2020-0001",
+    contractorEik: "111111111",
+    dateSigned: "2020-01-01",
+    tag: "contract" as const,
+  };
+  const a = row({
+    ...shape,
+    releaseId: "aop-legacy-1",
+    awarderEik: "111111111",
+    contractId: "32038",
+    amountEur: 1000,
+  });
+  const b = row({
+    ...shape,
+    releaseId: "eop-1",
+    awarderEik: "999999999",
+    contractId: "СОА21-ДГ55-32",
+    amountEur: 1000.4, // rounds equal
+  });
+  // Non-null first: `assert.equal(null, null)` would pass vacuously if the fixture ever stopped
+  // carrying a full identity, and the containment assertion below would then prove nothing.
+  assert.ok(identityE(a), "fixture row a must carry an identity E");
+  assert.equal(identityE(a), identityE(b), "fixture must agree on identity E");
+  const shared = contentKeys(a).filter((k) => contentKeys(b).includes(k));
+  assert.ok(
+    shared.some((k) => k.startsWith("u:")),
+    `rows agreeing on identity E must already collide on the u: net; shared keys were ${JSON.stringify(shared)}`,
+  );
+});
 
 test("normContractNo strips the punctuation the two feeds format differently", () => {
   assert.equal(normContractNo("Д-1/2021"), normContractNo("д 1 2021"));
