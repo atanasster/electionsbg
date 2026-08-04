@@ -32,18 +32,24 @@ people disappear entirely — Мариян Георгиев (lost Босилко
 Копривец 242–251) — because we had published each as кмет on the strength of a round-1 lead
 they lost. Their `/person` URLs 404; a redirect would name a different human.
 
-T4a landed as `8edb344c6b`. **T3 is diagnosed AND adjudicated, not yet implemented** — the
-2007 archive publishes two page families that disagree on the winner in 54% of кметства, and
-the ОИК's own decision pages settle it 883 to 2 in favour of the EKATTE-keyed one. The merge
-rule is now specified (see §T3); the re-ingest has not been run.
+**T4a** landed as `8edb344c6b`.
 
-**T5 is answered**: ЕРИК does expose МИ 2023, at `electionId=76` — 2,067+ participants
-including 104 инициативни комитета, the vehicle Русев was elected under. It is a config
-addition, not new plumbing (see §T5). **T4b was not run** — the one municipal site probe was
-declined, so its sizing is still an estimate.
+**T3 is DONE** (`f9abf7c403` code, `d9558cae9c` data). The 2007 archive publishes two page
+families that disagree on the winner in 54% of кметства; the ОИК's own decision pages settle it
+883 to 2 for the EKATTE-keyed one, and the round-2 pairing agrees 897 to 1. 5,367 entries folded
+to **2,947** seats — 2,420 phantom roles gone, 1,243 runoffs ingested, 0 duplicates. 112 people
+whose duplicate record collapsed now 301 to their surviving slug.
 
-Still open: **T3's re-ingest** (rule specified, ~2,300 phantom roles to drop), **T4b's
-go-ahead**, building **T5**, and v2's **A3**.
+**T5 is PART-DONE** (`6e1767ae2a`): `electionId 76` is in `ERIK_ELECTIONS`, flags verified
+against the live register. The INGEST is not built and is bigger than first estimated — 30,177
+ОИК-level registrations, and a per-ОИК reconciliation key the parliamentary scraper does not
+have (see §T5).
+
+**T4b is RUN, and the answer is don't build it**: no open-data shortcut (0 municipal ЗПК
+datasets on data.egov.bg against 7 central ones), and three probed municipalities have three
+different register shapes with the values locked in per-person PDFs (see §T4b).
+
+Still open: **T5's ingest**, the optional council-register link table (§T4b), and v2's **A3**.
 
 ## 0. Findings, mapped to tiers
 
@@ -434,11 +440,49 @@ no register API, no `data.egov.bg` dataset, values often in scanned PDFs. Probe 
 coverage and whether values are machine-readable **before** committing to anything. Do not start a
 crawler on the strength of one site.
 
-**NOT RUN.** A fetch of `tundzha.bg/zpkonpi/registri-i-deklaratsii-po-zpkonpi/` was declined
-when this plan was being written, so no municipal site has been probed and the sizing above
-remains an estimate. T4a makes the gap honest on the page in the meantime, which is what makes
-this a research task rather than a blocker. Needs a go-ahead on fetching the municipal sites
-before it can start.
+### Spike result (2026-08-03) — RUN. Recommendation: do not build the corpus
+
+Addressable set, for scale: **3,029 village mayors** of the current 2023-2027 mandate, across
+**252 общини**. (The 10,721 `village_mayor` roles span five cycles; only the sitting mandate
+has a live filing duty.)
+
+**There is no open-data shortcut.** The obvious hope was чл. 56's publication requirement
+landing on `data.egov.bg`, which would turn 252 scrapes into one API loop. It does not:
+sweeping `listDatasets` over org ids 1–300 finds ЗПК/anti-corruption datasets at exactly
+**seven central bodies** (orgs 33, 50, 67, 69, 82, 98, 99 — e.g. "Регистър на декларациите по
+ЗПК") and, across the 80 publishers in the municipal range 121–300, **zero**.
+
+**And the registers do not share a shape.** Three municipalities, three different structures:
+
+| | platform | shape | village mayors? |
+|---|---|---|---|
+| **Русе** (`obs.ruse-bg.eu`) | WordPress, ОБЩИНСКИ СЪВЕТ site | HTML table: name + settlement as text, one PDF per person | yes — 14, mandate 2023-2027 |
+| **Кюстендил** (`kyustendil.bg`) | Joomla | the register is itself a DOWNLOADABLE FILE, not a page | yes — "ПР на Кметове на кметства … чл. 49, ал. 1, т. 1" |
+| **Златица** (`zlatitsa.egov.bg`) | egov.bg portal | ZIP / 7z / RAR archives plus loose PDF / DOCX, 2018–2026 | not on that page |
+
+Note the first column: Русе publishes on the **общински съвет's** site, not the община's, which
+is the legally correct place (чл. 49 → постоянната комисия на съвета) and means a crawler
+keyed on `<obshtina>.bg` would miss it.
+
+**Two tiers, and only one of them is cheap.**
+
+- **Who filed** — name + settlement + filing date. Русе's table is exactly this, and its
+  (name, settlement) pair joins straight onto the settlement places §T2 just gave every
+  village mayor. But Кюстендил's is a file and Златица's is an archive, so it is still a
+  bespoke parser per município, not one parser × 252.
+- **What they declared** — the values live inside the per-person PDFs, and nowhere as text on
+  any of the three pages. That is the НЗОК-scan problem at 252× with no shared template, and
+  it is what a "declarations corpus" would actually mean.
+
+**Recommendation: do not build it.** The cost is ~252 bespoke parsers for tier one and an OCR
+programme for tier two, against 3,029 people whose filings are already public where they sit.
+§T4a already stops the page from reading as an accusation, which was the actual harm.
+
+**The cheap thing that IS worth doing** (not in this plan's scope, sized here so the option is
+on record): a curated `<obshtina> → council register URL` table — one hand-checked link per
+município, no parsing, nothing to go stale except the URL — so a village mayor's profile can
+say "declarations are filed with Общински съвет Русе" and link there. 252 links, and the
+reader lands on the authoritative source instead of on our copy of it.
 
 ---
 
