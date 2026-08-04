@@ -66,42 +66,17 @@ export const isEopSourced = (r: Contract): boolean =>
 // keys, it would content-match the identical on-disk EOP row and evict it (silent
 // row loss). The current writer only passes OCDS rows, so this guard is a
 // belt-and-braces on a shared, exported primitive.
-// Contract-level identity: which signed contract a row belongs to, independent of WHICH
-// supplier it names. `unp` falls back to `ocid` because the flat feed omits a УНП on some
-// records; `tag` keeps a contract and its amendment apart.
-const contractGroupKey = (r: Contract): string =>
-  `${r.unp || r.ocid || ""}::${r.contractId ?? ""}::${r.tag}`;
-
 export const evictSupersededEopTwins = (
   rows: Contract[],
   arriving: Contract[],
 ): { kept: Contract[]; evicted: number } => {
   const arrivingKeys = new Set<string>();
-  // CONTRACT-LEVEL precedence, not just row-level content match. The row-level nets key on
-  // (supplier, amount) and therefore only catch an EOP row whose supplier ALSO exists on the
-  // OCDS side. They miss the case the foreign-member fix creates: the EOP parse now emits a
-  // supplier the OCDS parse dropped, so that row has no twin, survives, and lands ON TOP of
-  // the unchanged OCDS rows for the same contract — the two feeds also disagreeing on the
-  // split denominator (OCDS value/4 vs EOP value/5). Measured after a 2024–2026 re-ingest:
-  // 55 orphan rows across 54 contracts, **+€33.76m** of pure inflation, e.g.
-  // 00044-2025-0148 (АПИ/Kapsch) reading €78,264,000 against a €65,220,000 award. Nothing
-  // fails — the corpus simply over-states.
-  //
-  // So once ANY non-EOP row is present for a contract, that contract is OCDS-covered and no
-  // EOP row for it may survive. Mixing sources within one contract is never right: each feed
-  // splits the value across its OWN view of the supplier set.
-  const arrivingGroups = new Set<string>();
   for (const r of arriving)
-    if (!isEopSourced(r)) {
-      for (const k of contentKeys(r)) arrivingKeys.add(k);
-      arrivingGroups.add(contractGroupKey(r));
-    }
+    if (!isEopSourced(r)) for (const k of contentKeys(r)) arrivingKeys.add(k);
   let evicted = 0;
   const kept = rows.filter((r) => {
     if (!isEopSourced(r)) return true;
-    const superseded =
-      arrivingGroups.has(contractGroupKey(r)) ||
-      contentKeys(r).some((k) => arrivingKeys.has(k));
+    const superseded = contentKeys(r).some((k) => arrivingKeys.has(k));
     if (superseded) evicted++;
     return !superseded;
   });
