@@ -14,14 +14,14 @@ lists, and proposing one shared search component + per-sector search criteria.
 
 A sector dashboard today is a stack of **top-N tiles**. Measured caps in the НЗОК pack alone:
 
-| Tile | Shows | Universe |
-|---|---|---|
-| `NzokHospitalPaymentsTile` | `slice(0, TOP_N)` | **258** hospital EIKs (381 facility rows) |
-| `NzokDrugReimbursementTile` | `data.top.slice(0, TOP_N)` | **610** INN molecules |
-| `NzokDrugUnitPriceTile` | `data.overpay.slice(0, 12)` | **3,333** pack rows / 221 trade names / 135 INNs |
-| `NzokActivityTile` | `topProcedures.slice(0, 12)` | **427** named procedures (571 codes in `nzok_activities`) |
-| `NzokPathwayTreeTile` | `data.hospitals.slice(0, 25)` | 258 |
-| `NzokHospitalRiskTile` | `slice(0, 15)` | 258 |
+| Tile                        | Shows                         | Universe                                                  |
+| --------------------------- | ----------------------------- | --------------------------------------------------------- |
+| `NzokHospitalPaymentsTile`  | `slice(0, TOP_N)`             | **258** hospital EIKs (381 facility rows)                 |
+| `NzokDrugReimbursementTile` | `data.top.slice(0, TOP_N)`    | **610** INN molecules                                     |
+| `NzokDrugUnitPriceTile`     | `data.overpay.slice(0, 12)`   | **3,333** pack rows / 221 trade names / 135 INNs          |
+| `NzokActivityTile`          | `topProcedures.slice(0, 12)`  | **427** named procedures (571 codes in `nzok_activities`) |
+| `NzokPathwayTreeTile`       | `data.hospitals.slice(0, 25)` | 258                                                       |
+| `NzokHospitalRiskTile`      | `slice(0, 15)`                | 258                                                       |
 
 So a reader who wants **their** hospital, **their** medicine, or **their** clinical pathway has no
 route to it — unless it happens to be in the national top 12. The destination pages already exist
@@ -66,14 +66,14 @@ confirmed present locally.
 Every cmdk mount in the app uses `<CommandPrimitive shouldFilter={false}>` and hand-rolls its own
 filter — so there is **no** single wrapper-level fix. Audited, all 9 mounts:
 
-| Picker | Filter | Folds? |
-|---|---|---|
-| `CpvFilterCombobox.tsx:120` | `skeletonMatches(name, q)` | ✅ the reference |
-| `NzokHospitalCompareTile.tsx:47` | `decodeEntities(o.name).toLocaleLowerCase().includes(q)` over 256 options | ❌ |
-| `NzokDrugQuarterlyTrendTile.tsx:78` | `o.toLocaleLowerCase().includes(q)` over 610 INNs | ❌ |
-| `NzokRevenueTrendTile.tsx:157` | `.includes(query.toLocaleLowerCase())` | ❌ |
-| `CandidatePicker.tsx:36` | `haystack.toLocaleLowerCase().includes(needle…)` | ❌ |
-| `Search.tsx` / `SearchItems.tsx` / `AreaSniperButton.tsx` / `MyAreaEntryScreen.tsx` | Fuse index (`SEARCH_FUSE_OPTIONS`) | n/a — separate path |
+| Picker                                                                              | Filter                                                                    | Folds?              |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------- |
+| `CpvFilterCombobox.tsx:120`                                                         | `skeletonMatches(name, q)`                                                | ✅ the reference    |
+| `NzokHospitalCompareTile.tsx:47`                                                    | `decodeEntities(o.name).toLocaleLowerCase().includes(q)` over 256 options | ❌                  |
+| `NzokDrugQuarterlyTrendTile.tsx:78`                                                 | `o.toLocaleLowerCase().includes(q)` over 610 INNs                         | ❌                  |
+| `NzokRevenueTrendTile.tsx:157`                                                      | `.includes(query.toLocaleLowerCase())`                                    | ❌                  |
+| `CandidatePicker.tsx:36`                                                            | `haystack.toLocaleLowerCase().includes(needle…)`                          | ❌                  |
+| `Search.tsx` / `SearchItems.tsx` / `AreaSniperButton.tsx` / `MyAreaEntryScreen.tsx` | Fuse index (`SEARCH_FUSE_OPTIONS`)                                        | n/a — separate path |
 
 The four ❌ rows are one-line fixes to `searchMatches`, and the two НЗОК ones additionally re-derive
 their display string per row per keystroke (256 `decodeEntities()` calls on every character typed) —
@@ -107,9 +107,9 @@ export interface EntitySearchGroup {
 
 export interface EntityRow {
   id: string;
-  label: string;          // primary display text (already decoded / language-resolved)
-  sub?: string;           // secondary line: place, EIK, ATC, year, money
-  href: string;           // EVERY result navigates — see the decision in §9
+  label: string; // primary display text (already decoded / language-resolved)
+  sub?: string; // secondary line: place, EIK, ATC, year, money
+  href: string; // EVERY result navigates — see the decision in §9
 }
 ```
 
@@ -130,7 +130,7 @@ export interface EntityIndex {
 
 export const buildEntityIndex = (
   rows: EntityRow[],
-  keysOf: (r: EntityRow) => string[],   // name + code + place + aliases…
+  keysOf: (r: EntityRow) => string[], // name + code + place + aliases…
 ): EntityIndex => ({
   rows,
   // latinSkeleton, NOT latinSkeletonCached — see the perf contract R2 below.
@@ -145,7 +145,7 @@ targets at query time at all.
 
 The index is built **sorted by the sector's own money/size measure descending** (НЗОК spend, subsidy
 total, contract value, examinee count). A linear scan that stops at the cap therefore returns the
-*largest* matches first — meaningful truncation instead of arbitrary truncation, and O(cap) work
+_largest_ matches first — meaningful truncation instead of arbitrary truncation, and O(cap) work
 instead of O(n) for the common broad query on a 16k-row list.
 
 Prefix hits still outrank contains-hits: collect into two buckets (`startsWith` / `includes`) in one
@@ -156,37 +156,43 @@ pass, stop when the prefix bucket alone fills the cap.
 ## 4. Shliokavitsa: what folds today, what does not
 
 `latinSkeleton` handles the **Cyrillic → Latin** direction fully, plus the ч/х collapse. What it
-does **not** handle is the *other* half of real shliokavitsa — the Latin-side spelling variants a
+does **not** handle is the _other_ half of real shliokavitsa — the Latin-side spelling variants a
 Bulgarian actually types:
 
-| Typed | Means | Folds today to | Target folds to | Match? |
-|---|---|---|---|---|
-| `6umen` | Шумен | `6umen` | `shumen` | ✗ |
-| `4erven` | Червен | `4erven` | `herven` | ✗ |
-| `jelezopyten` | железопътен | `jelezopyten` | `zhelezopaten` | ✗ |
-| `plowdiw` | Пловдив | `plowdiw` | `plovdiv` | ✗ |
-| `sofiq` | София | `sofiq` | `sofiya` | ✗ |
-| `arh` / `arch` / `арх` | арх… | `arh` | `arh` | ✓ (already) |
+| Typed                  | Means       | Folds today to | Target folds to | Match?      |
+| ---------------------- | ----------- | -------------- | --------------- | ----------- |
+| `6umen`                | Шумен       | `6umen`        | `shumen`        | ✗           |
+| `4erven`               | Червен      | `4erven`       | `herven`        | ✗           |
+| `jelezopyten`          | железопътен | `jelezopyten`  | `zhelezopaten`  | ✗           |
+| `plowdiw`              | Пловдив     | `plowdiw`      | `plovdiv`       | ✗           |
+| `sofiq`                | София       | `sofiq`        | `sofiya`        | ✗           |
+| `arh` / `arch` / `арх` | арх…        | `arh`          | `arh`           | ✓ (already) |
 
 **Proposed fix — strictly additive, zero regression risk.** Do **not** change `latinSkeleton`.
-Add a query-side normaliser and OR the two needles against the *same* pre-folded haystack:
+Add a query-side normaliser and OR the two needles against the _same_ pre-folded haystack:
 
 ```ts
 // src/lib/translitSearch.ts (new export)
 const SHLYO: [RegExp, string][] = [
-  [/6t/g, "sht"], [/6/g, "sh"], [/4/g, "h"],   // 4 → ч → h (the ч/х collapse)
-  [/9/g, "ya"],  [/q/g, "ya"], [/j/g, "zh"],
-  [/w/g, "v"],   [/x/g, "h"],  [/y(?![aeiou])/g, "a"], // ъ typed as y
+  [/6t/g, "sht"],
+  [/6/g, "sh"],
+  [/4/g, "h"], // 4 → ч → h (the ч/х collapse)
+  [/9/g, "ya"],
+  [/q/g, "ya"],
+  [/j/g, "zh"],
+  [/w/g, "v"],
+  [/x/g, "h"],
+  [/y(?![aeiou])/g, "a"], // ъ typed as y
 ];
 export const shlyoSkeleton = (s: string): string => {
   let out = latinSkeleton(s);
   for (const [re, to] of SHLYO) out = out.replace(re, to);
-  return out === latinSkeleton(s) ? "" : out;   // "" ⇒ no second needle needed
+  return out === latinSkeleton(s) ? "" : out; // "" ⇒ no second needle needed
 };
 ```
 
 Match becomes `fold.includes(n1) || (n2 && fold.includes(n2))`. Because the second needle is only
-ever *added*, no query that matches today can stop matching. Cost: one extra `String.includes` per
+ever _added_, no query that matches today can stop matching. Cost: one extra `String.includes` per
 row, and only when the query actually contains an ambiguous character.
 
 **Deliberately excluded:** `c → ts` (ц). It would fold every Latin trade name containing `c`
@@ -223,17 +229,17 @@ the screen's render path, so a reader who never searches pays nothing.
 
 ### Measured budgets
 
-| Sector | Client-side rows | Fold keys | One-off build | Per keystroke |
-|---|---|---|---|---|
-| Здравна каса | 258 + 610 + 3,333 + 427 = **4,628** | ~9,300 | ~15 ms, on focus | ≤8 rows scanned per group after R4 |
-| Култура | 944 + 26 = **970** | ~2,900 | ~4 ms | — |
-| Училища | **994** | ~3,000 | ~4 ms | — |
-| Съдебна власт | **178** | ~530 | <1 ms | — |
-| Митници | 563 + 354 = **917** | ~2,300 | ~4 ms | — |
-| Води | **38** | ~150 | <1 ms | — |
-| Сигурност (МВР) | **73** | ~290 | <1 ms | — |
-| Субсидии | 16,702 → **server** | — | — | 200 ms debounce |
-| Администрация | 2,669 → **server** (already a `DbDataTable` resource) | — | — | 200 ms debounce |
+| Sector          | Client-side rows                                      | Fold keys | One-off build    | Per keystroke                      |
+| --------------- | ----------------------------------------------------- | --------- | ---------------- | ---------------------------------- |
+| Здравна каса    | 258 + 610 + 3,333 + 427 = **4,628**                   | ~9,300    | ~15 ms, on focus | ≤8 rows scanned per group after R4 |
+| Култура         | 944 + 26 = **970**                                    | ~2,900    | ~4 ms            | —                                  |
+| Училища         | **994**                                               | ~3,000    | ~4 ms            | —                                  |
+| Съдебна власт   | **178**                                               | ~530      | <1 ms            | —                                  |
+| Митници         | 563 + 354 = **917**                                   | ~2,300    | ~4 ms            | —                                  |
+| Води            | **38**                                                | ~150      | <1 ms            | —                                  |
+| Сигурност (МВР) | **73**                                                | ~290      | <1 ms            | —                                  |
+| Субсидии        | 16,702 → **server**                                   | —         | —                | 200 ms debounce                    |
+| Администрация   | 2,669 → **server** (already a `DbDataTable` resource) | —         | —                | 200 ms debounce                    |
 
 The heaviest client index (health, 4.6k rows) is ~200 KB of retained folded strings — built lazily
 under R6, and only after the reader has signalled intent by focusing the box.
@@ -243,31 +249,32 @@ under R6, and only after the reader has signalled intent by focusing the box.
 ## 6. Per-sector search criteria — the proposal
 
 "Search criteria" = the fields folded into each row's haystack. Order within a row does not matter
-(they are joined into one fold); order of *groups* is the display order.
+(they are joined into one fold); order of _groups_ is the display order.
 
 ### Tier 1 — the four the operator named
 
 #### `/sector/health` — Здравна каса (4 groups)
 
-| Group | N | Criteria | Source (already loaded) | Destination | Servable? |
-|---|---|---|---|---|---|
-| **Болници** | 381 rows / **266** with EIK | facility name **decoded** (`decodeEntities` — the raw rows carry HTML entities), EIK, РЗОК name, settlement, `regNo` | `/api/db/nzok-hospital-payments` + `hospital_eik.json` (settlement) | `/company/:eik` | ⚠ **115 rows carry no EIK** — §10.1 |
-| **Молекули (INN)** | 610 | INN, ATC code (`L01FF02` — prefix-matchable), ATC group label bg/en, trade names of its packs | `/api/db/nzok-drug-quarterly` (`allInns`) + `drug_unit_prices` | `/molecule/:inn` | ❌ **only 30 of 610 serve** — §10.1 |
-| **Лекарства (опаковки)** | 3,333 | trade name, INN, НЗОК code (`LH399`), national number (`15839`), pharmaceutical form | `/api/db/nzok-drug-unit-prices` (`packStats`) | `/molecule/:inn/pack/:nationalNo/:nzokCode` | ✅ all 3,333 (no row has both id sides blank) |
-| **Клинични пътеки** | 427 named / **571** codes | procedure code (`A01.1`), name, `procType` (КП / АПр / КПр) | `/budget/nzok/procedures.json` (75 KB, via `useNzokProcedureNames`) | `/procedure/:code` | ⚠ **80 named codes have no activity row** — §10.1 |
+| Group                    | N                           | Criteria                                                                                                             | Source (already loaded)                                             | Destination                                 | Servable?                                          |
+| ------------------------ | --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------- |
+| **Болници**              | 381 rows / **266** with EIK | facility name **decoded** (`decodeEntities` — the raw rows carry HTML entities), EIK, РЗОК name, settlement, `regNo` | `/api/db/nzok-hospital-payments` + `hospital_eik.json` (settlement) | `/company/:eik`                             | ⚠ **115 rows carry no EIK** — §10.1               |
+| **Молекули (INN)**       | 610                         | INN, ATC code (`L01FF02` — prefix-matchable), ATC group label bg/en, trade names of its packs                        | `/api/db/nzok-drug-quarterly` (`allInns`) + `drug_unit_prices`      | `/molecule/:inn`                            | ❌ **only 30 of 610 serve** — §10.1                |
+| **Лекарства (опаковки)** | 3,333                       | trade name, INN, НЗОК code (`LH399`), national number (`15839`), pharmaceutical form                                 | `/api/db/nzok-drug-unit-prices` (`packStats`)                       | `/molecule/:inn/pack/:nationalNo/:nzokCode` | ✅ all 3,333 (no row has both id sides blank)      |
+| **Клинични пътеки**      | 427 named / **571** codes   | procedure code (`A01.1`), name, `procType` (КП / АПр / КПр)                                                          | `/budget/nzok/procedures.json` (75 KB, via `useNzokProcedureNames`) | `/procedure/:code`                          | ⚠ **80 named codes have no activity row** — §10.1 |
 
 Two criteria details that will otherwise bite:
+
 - The hospital fold **must** be built from the decoded name. Folding the raw `&quot;`-bearing string
   injects `quot` into every haystack and makes "quo" match 258 hospitals.
 - Procedure names are stored **UPPERCASE Cyrillic** (`ХРОНИОХЕМОДИАЛИЗА`). `latinSkeleton`
-  lowercases, so this is already handled — but the *display* label needs sentence-casing, not the
+  lowercases, so this is already handled — but the _display_ label needs sentence-casing, not the
   fold.
 
 #### `/water` — Води (1 group)
 
-| Group | N | Criteria | Source | Destination |
-|---|---|---|---|---|
-| **ВиК оператори** | 38 | operator name, EIK, oblast, type label (холдинг / концесия / напоителни) | `WATER_OPERATORS` (`src/lib/vikReferenceData.ts`, static module — zero fetch) | `/company/:eik` (money) with a secondary `/awarder/:eik` chip |
+| Group             | N   | Criteria                                                                 | Source                                                                        | Destination                                                   |
+| ----------------- | --- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **ВиК оператори** | 38  | operator name, EIK, oblast, type label (холдинг / концесия / напоителни) | `WATER_OPERATORS` (`src/lib/vikReferenceData.ts`, static module — zero fetch) | `/company/:eik` (money) with a secondary `/awarder/:eik` chip |
 
 #### `/education` — Училища (upgrade, 1 group)
 
@@ -277,8 +284,8 @@ unsearchable), oblast name, **school id** (`105201`, the НЕИСПУО number p
 
 #### `/sector/administration` — Администрация (1 group, server)
 
-| Group | N | Criteria | Source | Destination |
-|---|---|---|---|---|
+| Group                      | N     | Criteria                                             | Source                                                   | Destination                                |
+| -------------------------- | ----- | ---------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------ |
 | **Административни услуги** | 2,669 | service name, service id, tier (central / municipal) | `admin_services` via the existing `DbDataTable` resource | `/sector/administration/services?q=<term>` |
 
 **Cheapest honest v1 here:** the box on the dashboard forwards to
@@ -292,19 +299,19 @@ which is why the URL contract lists `?q` for those three only. Add
 
 ### Tier 2 — sectors where the entity list is genuinely long
 
-| Sector | Group | N | Criteria | Destination |
-|---|---|---|---|---|
-| `/judiciary` | **Съдилища и прокуратури** | **283** (186 courts + 70 prosecutions + 27 investigation) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** | **`/court/:bodyCode`** (new — §7/T5) |
-| `/culture` | **Филми** | 944 | title, producer, `regNo`, year, discipline label | `/culture/film/${filmId(f)}` — the id is **derived** (`@/data/culture/filmId`); `regNo` is a search key but **not** an identity, the register's рег.№ is not unique |
-| | **Културни институти** | 26 (5 bodies + 21 institutes) | name, EIK, acronym alias | `/awarder/:eik` |
-| `/sector/security` | **Структури на МВР** | 73 | name, EIK, universe label, oblast (ОДМВР rows carry it in the name) | `/awarder/:eik` |
-| `/sector/regional` | **Областни администрации + АГКК/ДНСК** | 30 | name, EIK, oblast, universe label | `/awarder/:eik` |
-| `/sector/environment` | **РИОСВ / БД / паркове** | 27 | name, EIK, universe label, oblast | `/awarder/:eik` |
-| `/defense` | **Структури на МО** | 24 | name, EIK, universe label, **acronym alias** (ВМА, ТЕРЕМ, БА) | `/awarder/:eik` |
-| `/sector/customs` | **Акцизни оператори** | 563 | name, EIK, category (energy / alcohol / tobacco), **+ the towns of its 354 warehouses** | `/company/:eik` |
-| `/pensions` | **Пенсионни фондове** | 31 | fund name, management company (bg + en), pillar label (УПФ / ППФ / ДПФ) | **`/pension-fund/:slug`** (new — §7/T5) |
-| `/subsidies` | **Земеделски стопани** | 16,702 | name, EIK, settlement, obshtina | `/farm/:eik` — **server typeahead** (R5) |
-| `/sector/transport` | **Структури** | 11 | name, EIK, universe, acronym alias (НКЖИ, БДЖ, ИАЖА, ГД ГВА, ДАБДП) | `/awarder/:eik` |
+| Sector                | Group                                  | N                                                         | Criteria                                                                                                                                                                                             | Destination                                                                                                                                                         |
+| --------------------- | -------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/judiciary`          | **Съдилища и прокуратури**             | **283** (186 courts + 70 prosecutions + 27 investigation) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** | **`/court/:bodyCode`** (new — §7/T5)                                                                                                                                |
+| `/culture`            | **Филми**                              | 944                                                       | title, producer, `regNo`, year, discipline label                                                                                                                                                     | `/culture/film/${filmId(f)}` — the id is **derived** (`@/data/culture/filmId`); `regNo` is a search key but **not** an identity, the register's рег.№ is not unique |
+|                       | **Културни институти**                 | 26 (5 bodies + 21 institutes)                             | name, EIK, acronym alias                                                                                                                                                                             | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/security`    | **Структури на МВР**                   | 73                                                        | name, EIK, universe label, oblast (ОДМВР rows carry it in the name)                                                                                                                                  | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/regional`    | **Областни администрации + АГКК/ДНСК** | 30                                                        | name, EIK, oblast, universe label                                                                                                                                                                    | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/environment` | **РИОСВ / БД / паркове**               | 27                                                        | name, EIK, universe label, oblast                                                                                                                                                                    | `/awarder/:eik`                                                                                                                                                     |
+| `/defense`            | **Структури на МО**                    | 24                                                        | name, EIK, universe label, **acronym alias** (ВМА, ТЕРЕМ, БА)                                                                                                                                        | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/customs`     | **Акцизни оператори**                  | 563                                                       | name, EIK, category (energy / alcohol / tobacco), **+ the towns of its 354 warehouses**                                                                                                              | `/company/:eik`                                                                                                                                                     |
+| `/pensions`           | **Пенсионни фондове**                  | 31                                                        | fund name, management company (bg + en), pillar label (УПФ / ППФ / ДПФ)                                                                                                                              | **`/pension-fund/:slug`** (new — §7/T5)                                                                                                                             |
+| `/subsidies`          | **Земеделски стопани**                 | 16,702                                                    | name, EIK, settlement, obshtina                                                                                                                                                                      | `/farm/:eik` — **server typeahead** (R5)                                                                                                                            |
+| `/sector/transport`   | **Структури**                          | 11                                                        | name, EIK, universe, acronym alias (НКЖИ, БДЖ, ИАЖА, ГД ГВА, ДАБДП)                                                                                                                                  | `/awarder/:eik`                                                                                                                                                     |
 
 ### Tier 3 — explicitly NOT worth a search box
 
@@ -327,6 +334,7 @@ absent from the name. Add an optional `aliases?: string[]` to `SectorMember` /
 ## 7. Build order
 
 **T0 — primitives (no UI change).**
+
 1. `shlyoSkeleton` + tests in `src/lib/translitSearch.test.ts` (§4), including the regression
    assertion that every existing match still matches.
 2. `src/lib/entitySearchIndex.ts` — `buildEntityIndex` + `searchIndex` (§3.2, §3.3) + tests.
@@ -374,6 +382,7 @@ contents; keep it anyway (short, guessable, and "съд" is what a reader types)
 title carry the real `kind`.
 
 What the page carries, all from data already ingested:
+
 - **Workload trend** — judges, `personMonths`, filed / considered / resolved per month, 2018–2025
   (`court_load.json`).
 - **The magistrates seated there** — drill to `/persons?court=<name>`. **Trap:** that filter carries
@@ -399,7 +408,7 @@ destroys the previous quarter. `parseKfnZip` itself is fine — it already retur
 
 **The retained series must live in the committed JSON, not in the ZIP cache.** `raw_data/budget/` is
 gitignored (`.gitignore:182`) and the ZIPs are untracked, so "re-parse every ZIP on disk" makes the
-history a property of *this machine* — a fresh clone would silently restart from one quarter.
+history a property of _this machine_ — a fresh clone would silently restart from one quarter.
 `data/budget/kfn/funds.json` IS tracked, so it is the durable store.
 
 Shape change — from one period to a keyed set:
@@ -435,11 +444,9 @@ other funds, and — post-T5a — the quarterly trend in insured and net assets.
 
 #### Both families are URL-contract work, not just routes
 
-New `/court/**` and `/pension-fund/**` URLs mean: the **no-slash** form everywhere
-(canonical / `og:url` / `hreflang` / sitemap `<loc>`); a real `dist/<path>/index.html` per URL or a
-`functions/spa_page.js` handler; and sitemap entries. 314 pages total is far below the
-Firebase file-count ceiling, so **prerender both** — no `spa_page.js` route needed, unlike
-`/funds/contract/**` and `/company/**`.
+New `/court/**` and `/pension-fund/**` URLs mean the **no-slash** form everywhere, a real
+`dist/<path>/index.html` per URL, sitemap entries, and the AIO surfaces. Full implementation in
+**§11** — it is the larger half of T5.
 
 ---
 
@@ -487,8 +494,8 @@ every sector page except the two that are explicitly server-backed (subsidies, a
 `/api/db/procurement-search` stays reachable from the header search and `AwarderSearch`; revisit for
 v2 only if readers are observed searching contract subjects from a sector page.
 
-**9.4 — `/court/**` covers all 283 bodies**, not just the 186 courts. The 70 prosecutions and 27
-investigation services get pages too. They have no `court_load` row and often no coordinates, so
+**9.4 — `/court/**`covers all 283 bodies**, not just the 186 courts. The 70 prosecutions and 27
+investigation services get pages too. They have no`court_load` row and often no coordinates, so
 the page must **name the absence** ("няма публикувана натовареност за този орган") rather than draw
 an empty chart — see §7/T5. They still carry magistrates, place, tier and kind, and they are exactly
 what a reader types.
@@ -519,15 +526,15 @@ Decision §9.1 ("every result goes to a full page") is only as good as the desti
 and the plan never checked it. It should have: this is the exact failure mode the decision was meant
 to prevent, arriving through the back door.
 
-| Group | Search finds | Destination actually serves | Gap |
-|---|---|---|---|
-| **Молекули** | **610** INNs (`nzok_drug_quarterly`) | **30** — `nzok_drug_molecule_detail()` returns `NULL` unless the INN has a row in `nzok_drug_overpay_by_inn` (30 rows, year 2025) | **580 / 610 = 95%** land on `MoleculeDetailScreen`'s `!data` branch |
-| **Клинични пътеки** | 427 named codes | 571 codes have activity rows, but **80 of the 427 names are not among them** (`A01`, `A01.2`, `A10`, `A38.1`, `A43` — parent/rollup codes) | **80 / 427 = 19%** not-found. Inverse also true: **144** activity codes have no name, so they are findable only by code and render as a bare `A17.2` |
-| **Болници** | 381 facility rows | **266** have an EIK; `FacilityLink` already renders the other 115 as plain text precisely because they have nowhere to go | **115 / 381 = 30%** have no `/company/:eik` |
+| Group               | Search finds                         | Destination actually serves                                                                                                                | Gap                                                                                                                                                  |
+| ------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Молекули**        | **610** INNs (`nzok_drug_quarterly`) | **30** — `nzok_drug_molecule_detail()` returns `NULL` unless the INN has a row in `nzok_drug_overpay_by_inn` (30 rows, year 2025)          | **580 / 610 = 95%** land on `MoleculeDetailScreen`'s `!data` branch                                                                                  |
+| **Клинични пътеки** | 427 named codes                      | 571 codes have activity rows, but **80 of the 427 names are not among them** (`A01`, `A01.2`, `A10`, `A38.1`, `A43` — parent/rollup codes) | **80 / 427 = 19%** not-found. Inverse also true: **144** activity codes have no name, so they are findable only by code and render as a bare `A17.2` |
+| **Болници**         | 381 facility rows                    | **266** have an EIK; `FacilityLink` already renders the other 115 as plain text precisely because they have nowhere to go                  | **115 / 381 = 30%** have no `/company/:eik`                                                                                                          |
 
 **The molecule one is not a data problem — it is a function-scope problem.** The spend data for all
 610 INNs is present (`nzok_drug_quarterly`), and 135 have pack rows; the detail function simply
-keys on the *overpay* aggregate, which is a top-30 leaderboard. So the fix is to widen
+keys on the _overpay_ aggregate, which is a top-30 leaderboard. So the fix is to widen
 `nzok_drug_molecule_detail()` to fall back to quarterly spend + pack rows when no overpay row
 exists, i.e. **the molecule page is thin by accident, not by design**. That is a `CREATE OR REPLACE`
 on the owning migration, applied to Cloud SQL by hand per CLAUDE.md's "applied, never loaded" rule —
@@ -546,7 +553,7 @@ footnote, not a feature.
 The original T4 proposed adding a filter box **inside** `AwarderListSection`, which would put a
 second search input on six sector pages — directly against §9.2 ("one box at the top"). Fixed in
 §7/T4: those sectors get a `members` group in the top box instead, and `AwarderListSection` is not
-touched. Flagging it here because the contradiction was introduced *by* the 9.2 decision and would
+touched. Flagging it here because the contradiction was introduced _by_ the 9.2 decision and would
 otherwise have been discovered mid-build.
 
 ### 10.3 Four cross-cutting behaviours the plan never states
@@ -559,7 +566,7 @@ None are hard; all are the kind of omission that gets decided badly under time p
   hospital has no contracts in this window". State it, or someone will "fix" it later. The
   destination page keeps its own scope handling; the search does not filter on scope.
 - **Language.** `SectorMember.name` carries `{bg, en}`, but `judicial_body.name`, `WATER_OPERATORS`,
-  procedure names and film titles are **Bulgarian only**. Folding makes them *findable* from a Latin
+  procedure names and film titles are **Bulgarian only**. Folding makes them _findable_ from a Latin
   query either way, so v1 renders the BG label on the EN site rather than blocking on translation —
   but the label, not the fold, is what needs saying out loud.
 - **Prerendered HTML.** `scripts/prerender/dynamicRoutes.ts` emits a static shell; the search box is
@@ -569,17 +576,14 @@ None are hard; all are the kind of omission that gets decided badly under time p
 
 ### 10.4 The existing destinations are not prerendered either
 
-`dynamicRoutes.ts` prerenders `/school/:id` (gated on `hasCrawlableId` + a latest БЕЛ score) and
-`/awarder/:eik` for packed institutions. It does **not** prerender `/molecule/**`, `/procedure/**`,
-`/farm/**`, `/company/**` or `/culture/film/**`. So §7's "prerender both new families" is a *new*
-builder for these route shapes, not an extension of an existing one — the school builder is the
-template to copy.
+`dynamicRoutes.ts` prerenders `/school/:id` (gated on `hasCrawlableId` + a latest БЕЛ score),
+`/awarder/:eik` for packed institutions, `/person/:slug`, `/procurement/settlement/:ekatte` and the
+funds families. It does **not** prerender `/molecule/**`, `/procedure/**`, `/farm/**`, `/company/**`
+or `/culture/film/**`.
 
-Worth naming the second-order effect, though it is out of scope here: search is precisely what makes
-these pages reachable, and reachable-but-unprerendered is the shape of
-`project_seo_discovery_gap`. Adding `/court/**` + `/pension-fund/**` (314 pages) is trivially under
-the Firebase file-count ceiling; whether `/molecule` and `/procedure` should follow is a separate
-decision, not one to smuggle in here.
+Search is precisely what makes those pages reachable, and reachable-but-unprerendered is the shape
+of `project_seo_discovery_gap`. Sized and sequenced in **§11.5**; the two new families are
+implemented in §11.1–11.4.
 
 ### 10.5 Two earlier claims already corrected in place
 
@@ -598,3 +602,182 @@ filter to fix (all 9 cmdk mounts pass `shouldFilter={false}` and hand-roll — �
 - `nzok_drug_pack_stats` has **zero** rows with both `national_no` and `nzok_code` blank, so the
   `PACK_BLANK` sentinel never has to encode a doubly-blank identity — all 3,333 packs are
   addressable.
+
+---
+
+## 11. Prerender + SEO/AIO implementation
+
+Folds the static-generation half of T5 into the plan. Every file path below is real and was read;
+the two new families follow **two different existing templates**, because their sources differ.
+
+### 11.1 Prerender — two new builders in `scripts/prerender/dynamicRoutes.ts`
+
+Both emit `PrerenderRoute` (`scripts/prerender/routes.ts:7`):
+
+```ts
+{ path, title, description, ogImage?, jsonLd?, bodyHtml?, canonicalUrl?, english? }
+```
+
+`path` carries **no leading or trailing slash** (`school/105201`, not `/school/105201/`); the
+emitter derives `/{path}` and `/en/{path}` from it, which is what keeps the family on the no-slash
+contract for free. Register both in `buildDynamicRoutes()` (`dynamicRoutes.ts:3687`) alongside
+`...buildSchoolRoutes(projectRoot)`.
+
+#### `/court/**` — PG-backed, template = `buildProcurementSettlementRoutes`
+
+`judicial_body` lives **only in Postgres**, so this cannot be a file-reading builder. The pattern
+already exists: `scripts/db/lib/seo_settlements.ts` is a build-time PG reader shared by the
+prerender builder _and_ the sitemap enumerator, returning `[]` on any failure (Postgres unreachable,
+function absent) so a build without Docker degrades to "no such pages" instead of crashing.
+
+Add **`scripts/db/lib/seo_courts.ts`** in exactly that shape — one query over `judicial_body` left
+-joined to the latest `court_load` year, returning `{ bodyCode, name, kind, tier, place, placeCode,
+judges?, filedPerMonth?, resolvedPerMonth? }[]`.
+
+**Why the graceful `[]` matters here specifically:** the sitemap enumerator reads the _same_
+function, so a Postgres-less build emits neither the pages nor their `<loc>` entries. That is what
+makes this pattern safe against the sitemap-validity rule (every `<loc>` needs a real
+`dist/<path>/index.html`) — the two cannot drift, because there is one source, not two.
+
+**No committed manifest is needed** — unlike `/person/**`, which mints
+`data/person/prerender_slugs.json` from the _serving_ database because `person_slug_lock` accumulates
+per database and two databases hand the same people different slugs. `judicial_body.body_code` is
+deterministically derived by `db:load:judicial-bodies:pg` from `magistrate.court ∪ court_load.name`,
+so local and cloud agree and a local mint is safe. Say so in the builder's header, or someone will
+copy the person machinery here for no reason.
+
+#### `/pension-fund/**` — file-backed, template = `buildSchoolRoutes`
+
+Its source `data/budget/kfn/funds.json` is a **committed** file (§9.5 makes it the durable series
+store), so this is a plain `fs.existsSync` → parse builder, exactly like schools. Reads
+`latestPeriod` for the headline figures and the full `periods[]` for the trend sentence.
+
+#### Both builders
+
+- **BG + EN**, via the `english: { title, description, bodyHtml, jsonLd }` field. Court and fund
+  names are Bulgarian-only (§10.3), so the EN page carries the BG proper noun inside English
+  sentence furniture — the same thing `buildSchoolRoutes` does with school names.
+- **`escapeHtmlMinimal()`** on every interpolated name. Court names carry `—` and quotes; fund names
+  carry `"` (`УПФ "ДОВЕРИЕ"`).
+- **A gate function exported once and used by both the builder and the sitemap** — the precedent is
+  `isCrawlableSchool` / `hasCrawlableId` in `@/data/schools/schoolBel`, imported by
+  `dynamicRoutes.ts` and `sitemap/index.ts` alike. For courts the gate is trivially `true` (all 283
+  `body_code`s are URL-safe — verified), but it must still exist as a named export, because a gate
+  that lives in two copies is how a sitemap grows `<loc>`s with no file behind them.
+- **`ogImage`**: omit → `DEFAULT_OG_IMAGE`. `tests/seo.spec.ts:503` only asserts `og:image` matches
+  `^https?://`, so the default passes. A generated card per court (`scripts/og/cardRenderer.ts`) is a
+  later nicety, not a launch requirement.
+
+### 11.2 Sitemap — `scripts/sitemap/index.ts`
+
+Add two enumerators next to the per-school block (`sitemap/index.ts:796`):
+
+```ts
+pushUrl(`/court/${bodyCode}`, lastmod);
+pushUrl(`/en/court/${bodyCode}`, lastmod);
+```
+
+`scripts/sitemap/route_defs.ts` gets **no** entries — schools are enumerated directly in `index.ts`
+and its comment says so explicitly (`route_defs.ts:165`); these two follow suit. Courts read
+`seo_courts.ts` (same call the prerender makes); funds read `funds.json`'s mtime for `lastmod`.
+
+**File-count budget:** 283 × 2 + 31 × 2 = **628** files added to a dist already holding ~248k. The
+observed Firebase failure was at 453k files, so this is not close — which is exactly why these two
+families get prerendered while `/funds/contract/**` and `/company/**` (~256k more) had to go through
+`functions/spa_page.js` instead.
+
+### 11.3 SEO contract for the new families
+
+- **No-slash form** in canonical, `og:url`, `hreflang` and sitemap `<loc>`. The `path`-without-slash
+  convention above gives this automatically; the trap is only ever hand-written URLs in `bodyHtml`.
+- **`/en` is not `/en/`** — the one asymmetry CLAUDE.md calls out. Only matters if a `bodyHtml`
+  hard-codes the EN root.
+- **hreflang** bg + en + x-default, bidirectional, emitted by the `english:` field.
+  `tests/seo.spec.ts:511` requires bg + x-default on every route, en when an EN variant exists.
+- **Canonical must not redirect** — the newer half of the seo spec, and the reason the 2026-08-03
+  trailing-slash inversion went unnoticed for so long.
+- **JSON-LD** via `scripts/prerender/jsonLd.ts`: `buildWebPageLd` + `buildBreadcrumbLd` on both
+  families (the settlement builder's exact pairing). Courts additionally deserve a
+  `GovernmentOrganization` node — `jsonLd.ts` has no builder for it yet (it exports Organization,
+  WebSite, WebPage, Dataset, DataCatalog, Person, FAQ, Breadcrumb, Article), so add
+  `buildGovernmentOrganizationLd({ name, url, areaServed, parentOrganization })`. Funds map to
+  `Organization` with the management company as `parentOrganization`.
+- **Breadcrumb**: `Начало → Управление → Съдебна власт → <court>` and
+  `Начало → Пенсии → <fund>`, matching the in-app `SectorBreadcrumb`.
+
+### 11.4 AIO — the four surfaces, in order of leverage
+
+**1. `bodyHtml` is the AIO surface, and it already exists.** Per the `PrerenderRoute` doc comment,
+it renders into a hidden `#ssg-content` element that humans never see and non-JS crawlers — "most
+AI/LLM bots" — do. This is where the answer lives, so write it as **prose containing the numbers**,
+not as a nav stub:
+
+> „Административен съд — Пловдив разгледа X дела на месец при Y съдии през 2025 г. …"
+
+with internal links out to `/persons?court=<name>` and `/judiciary`. The settlement and school
+builders are the tone reference. This single field does more for AI answerability than the other
+three combined.
+
+**2. `buildFaqLd`** (`jsonLd.ts:207`) — two or three Q/A pairs per page, phrased as the questions
+people actually ask ("Колко съдии има в Софийски районен съд?", "Кой управлява УПФ „Доверие"?").
+Answer engines lift these directly.
+
+**3. `scripts/llms/buildFull.ts` → `/llms-full.txt` + `/llms-full.en.txt`.** Add one compact
+**table block per family** — courts (name · tier · place · judges · filed/resolved per month) and
+funds (fund · pillar · company · insured · net assets). Both are small (283 and 31 rows) and
+tabular, which is the shape an LLM answers from most reliably. This is the highest-value AIO
+addition after `bodyHtml`, and it is a pure append to an existing corpus builder.
+
+**4. `scripts/llms/buildIndex.ts` → `/llms.txt`.** This is the short **overview** an AI crawler
+fetches first — 283 courts do not belong in it. Add two `KEY_URLS` entries only: `/judiciary`
+("съдилища и прокуратури — натовареност, бюджет, магистрати") and `/pensions`, each pointing at the
+corpus in `llms-full.txt` for the detail.
+
+**One AIO caveat to state, because it is easy to over-claim:** the search box itself contributes
+nothing here. It is client-only, so the prerendered page ships an inert input (§10.3). Discovery
+comes from the prerendered pages, the sitemap and the corpora — the box is what makes the site
+usable for a human once they arrive.
+
+### 11.5 The unprerendered existing destinations (§10.4) — sized, not scheduled
+
+Search makes these reachable, which is when their invisibility starts to cost. Sized here so the
+decision is a decision and not a surprise:
+
+| Family              | Pages (BG+EN)           | Source                                                | Verdict                                                                                                                                                                               |
+| ------------------- | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/procedure/:code`  | 571 × 2 = **1,142**     | `nzok_activities` (PG → a `seo_procedures.ts` reader) | **Do it** — highest value per page: named medical procedures with national case counts are exactly what people search, and the corpus is already aggregated                           |
+| `/molecule/:inn`    | 610 × 2 = **1,220**     | `nzok_drug_quarterly` (PG)                            | **Do it, after T2a** — pointless before the function widening in §10.1, since 580 of them render not-found                                                                            |
+| `/culture/film/:id` | 944 × 2 = **1,888**     | `films.json` (file)                                   | **Do it** — cheapest of the lot (committed file, `filmId()` already exists)                                                                                                           |
+| `/farm/:eik`        | 16,702 × 2 = **33,404** | `agri_subsidies` (PG)                                 | **Defer** — 33k files for thin per-recipient pages is the `/company/**` shape, and `route_defs.ts:397` already records the deliberate choice to leave `/farm/:eik` out of the sitemap |
+| `/company/:eik`     | ~256k                   | —                                                     | **Never static** — already served by `functions/spa_page.js` for exactly this reason                                                                                                  |
+
+The first three total **4,250** files — trivial against the ceiling, and each is a same-shaped
+builder. Recommend them as a **T6**, after the search itself ships, so the search's own value is not
+gated on an SEO backlog.
+
+### 11.6 Sequencing and the deploy order
+
+Prerender and sitemap are **build-time** steps, so they ride `npm run build` + `npm run deploy` with
+no separate migration — with one exception that follows CLAUDE.md's standing rule: `seo_courts.ts`
+reads `judicial_body`, so **`npm run db:load:judicial-bodies:pg:cloud` must have run against the
+target database before a build that expects court pages**. It will not fail if it hasn't — it will
+silently emit zero court pages and a sitemap with no court `<loc>`s, which is the good failure but
+an invisible one. Add the loader to the release checklist next to the existing
+"`db:load:judicial-bodies:pg:cloud` before `db:resolve:persons:cloud`" note.
+
+Order within T5: `seo_courts.ts` → prerender builders → sitemap enumerators → llms corpora → the
+search groups that point at them. The search group is last in every case, because §9.1 means a group
+whose pages do not exist yet is a group that 404s.
+
+### 11.7 Tests
+
+- `tests/seo.spec.ts` — add one court **and one prosecution** (`kind='prosecution'`, no `court_load`
+  row) plus one fund to the sampled route list. §9.4's whole risk is the degraded body, and a sample
+  of `as-plovdiv` alone would never see it.
+- A sitemap↔dist parity assertion for both families: every emitted `<loc>` has a
+  `dist/<path>/index.html`. The shared gate function of §11.1 is what makes this pass; the test is
+  what proves the gate did not get forked.
+- `seo_courts.test.ts` — the reader returns `[]` (not a throw) when Postgres is unreachable, which is
+  the property the whole degrade-gracefully design rests on.
+- A `bodyHtml` non-emptiness assertion per family. An empty `#ssg-content` is invisible in every
+  human check and is the entire AIO surface.
