@@ -27,6 +27,15 @@ export type Corroborants = {
    * millions share, so it qualifies the party evidence — see `samePartyOffice`.
    */
   partyOffice?: boolean;
+  /**
+   * For `local` mentions: WHICH SEAT this term is a term of — `<role>\t<placeKind>:<placeCode>`.
+   * A village has one кмет на кметство, a община one кмет; holding the same seat is
+   * therefore near-identifying in a way "same party" never is. See `sameLocalSeat`.
+   */
+  localSeat?: string | null;
+  /** The election cycle the term belongs to (`2023_10_29_mi`). Two terms of one seat in
+   *  DIFFERENT cycles are re-election; in the SAME cycle they are two different people. */
+  localCycle?: string | null;
 };
 
 export type Mention = {
@@ -83,8 +92,58 @@ const shareCorroborant = (a: Mention, b: Mention): boolean => {
   const strong = shareUic || (!!ca.birthDate && ca.birthDate === cb.birthDate);
   const weakBoth =
     !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
-  return strong || weakBoth || samePartyOffice(a, b);
+  return strong || weakBoth || samePartyOffice(a, b) || sameLocalSeat(a, b);
 };
+
+// The LOCAL-CONTINUITY rule: the same seat, held under the same name, in two different
+// election cycles.
+//
+// Why it was needed. `weakBoth` above wants party AND place, and a local officeholder
+// routinely has no party at all — an инициативен комитет carries `primaryCanonicalId: null`,
+// which is exactly how a village mayor without a party gets on the ballot. So a re-elected
+// officeholder merged only if Tier 2 saved them (a globally unique name), and otherwise
+// became one person record per term: 640 (name, obshtina, role) groups spanning 1,402 person
+// records, five-term mayors split into five pages. 498 of those groups are people sitting
+// today. docs/plans/local-person-links-v2.md §A3.
+//
+// Why the seat is good evidence where party is not. A село has ONE кмет на кметство and a
+// община ONE кмет, so "the Х who was mayor of this place in 2015 is the Х who was mayor of
+// it in 2019" needs only that no two same-named people held that one seat in different
+// cycles. Party evidence carries no such exclusivity — thousands share a party.
+//
+// The key is NOT equally exclusive for every role, and it is worth being plain about that.
+// `councillor` keys on the ОБЩИНА, because a list position is not a seat — so it means "on
+// this council", which seats dozens rather than one. The claim there is the weaker "the same
+// three-part name on the same council in two different cycles is one person re-elected",
+// which is what the §A3 measurement actually found across all roles.
+//
+// DIFFERENT CYCLES IS REQUIRED, and is the guard rather than a detail — it is what keeps the
+// weaker keys honest. Within ONE cycle two mentions of a seat-key are two DIFFERENT people:
+// for a mayor because the seat is held by one person, and for a councillor because one
+// council does not seat the same person twice. Since §T2 a village mayor's place is the
+// SETTLEMENT, so a same-cycle collision there means two same-named people in one village —
+// precisely the case that must go to review, not merge. Measured: 637 of the 640 split
+// groups span cycles, 3 do not, and those 3 surface as `identical_fullname` candidates.
+//
+// The remaining guards mirror `samePartyOffice`: a full three-part name, matching patronymic,
+// nothing ambiguous, and a namesake cap — because on a mass name ("Георги Иванов Георгиев",
+// risk 198) the exclusivity argument stops carrying the weight the merge puts on it.
+const LOCAL_SEAT_NAMESAKE_CAP = 12;
+
+const sameLocalSeat = (a: Mention, b: Mention): boolean =>
+  !!a.corroborants.localSeat &&
+  a.corroborants.localSeat === b.corroborants.localSeat &&
+  !!a.corroborants.localCycle &&
+  !!b.corroborants.localCycle &&
+  a.corroborants.localCycle !== b.corroborants.localCycle &&
+  a.nameParts === 3 &&
+  b.nameParts === 3 &&
+  !a.ambiguous &&
+  !b.ambiguous &&
+  !!a.patronymicFold &&
+  a.patronymicFold === b.patronymicFold &&
+  a.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP &&
+  b.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP;
 
 // The party-office rule. A national party office is held by a handful of people per party,
 // so "same party" seen from that seat is far stronger than the ordinary affiliation weak

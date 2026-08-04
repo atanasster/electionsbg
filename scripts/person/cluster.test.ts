@@ -463,6 +463,126 @@ describe("clusterBlock", () => {
     ).toHaveLength(0);
   });
 
+  describe("Tier 1 — sameLocalSeat (local continuity across cycles)", () => {
+    // A кмет на кметство elected by an инициативен комитет has NO party, so `weakBoth`
+    // (party AND place) can never fire and only a globally-unique name saved him. That is
+    // how 640 re-elected officeholders came to hold one person record per term.
+    // docs/plans/local-person-links-v2.md §A3.
+    const seat = "village_mayor\tsettlement:87374";
+    const term = (cycle: string, over: Partial<Mention> = {}): Mention =>
+      base({
+        id: `local:${cycle}`,
+        source: "local",
+        nameParts: 3,
+        patronymicFold: "gospodinov",
+        // A colliding fold — the point of the rule is that it works where Tier 2 cannot.
+        namesakeRisk: 7,
+        corroborants: { localSeat: seat, localCycle: cycle },
+        ...over,
+      });
+
+    it("merges the same seat held in two different cycles", () => {
+      const r = clusterBlock([term("2019_10_27_mi"), term("2023_10_29_mi")]);
+      expect(r.merges).toEqual([
+        {
+          memberIds: ["local:2019_10_27_mi", "local:2023_10_29_mi"],
+          confidence: "high",
+        },
+      ]);
+      expect(r.reviewCandidates).toHaveLength(0);
+    });
+
+    it("does NOT merge two holders of the same seat in the SAME cycle", () => {
+      // One village has one mayor per cycle, so this is two same-named people — the
+      // genuinely ambiguous case (3 of the 640 groups). It must reach a human.
+      const r = clusterBlock([
+        term("2023_10_29_mi", { id: "local:a" }),
+        term("2023_10_29_mi", { id: "local:b" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates).toEqual([
+        { memberIds: ["local:a", "local:b"], reason: "identical_fullname" },
+      ]);
+    });
+
+    it("does NOT merge different seats, or a seat against no seat", () => {
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi"),
+          term("2023_10_29_mi", {
+            corroborants: {
+              localSeat: "village_mayor\tsettlement:00000",
+              localCycle: "2023_10_29_mi",
+            },
+          }),
+        ]).merges,
+      ).toHaveLength(0);
+      // Same place, different office — a mayor and a councillor are not one seat.
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi"),
+          term("2023_10_29_mi", {
+            corroborants: {
+              localSeat: "councillor\tsettlement:87374",
+              localCycle: "2023_10_29_mi",
+            },
+          }),
+        ]).merges,
+      ).toHaveLength(0);
+      // A mention with no seat at all (any non-local source) never corroborates.
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi"),
+          base({
+            id: "tr:1",
+            nameParts: 3,
+            patronymicFold: "gospodinov",
+            namesakeRisk: 7,
+          }),
+        ]).merges,
+      ).toHaveLength(0);
+    });
+
+    it("keeps the name guards — patronymic, 2-part, ambiguous, namesake cap", () => {
+      const other = (over: Partial<Mention>) =>
+        term("2023_10_29_mi", { id: "local:b", ...over });
+      // A conflicting patronymic is a hard negative that outranks any corroborant.
+      expect(
+        clusterBlock([term("2019_10_27_mi"), other({ patronymicFold: "petrov" })])
+          .merges,
+      ).toHaveLength(0);
+      // A 2-part name does not pin a full name, so the seat cannot carry the merge.
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi", { nameParts: 2, patronymicFold: null }),
+          other({ nameParts: 2, patronymicFold: null }),
+        ]).merges,
+      ).toHaveLength(0);
+      // A 4+ token guess is not a name we can stand behind.
+      expect(
+        clusterBlock([term("2019_10_27_mi"), other({ ambiguous: true })]).merges,
+      ).toHaveLength(0);
+      // Above the cap the exclusivity argument stops carrying the merge's weight.
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi", { namesakeRisk: 198 }),
+          other({ namesakeRisk: 198 }),
+        ]).merges,
+      ).toHaveLength(0);
+    });
+
+    it("chains three terms of one seat into a single person", () => {
+      const r = clusterBlock([
+        term("2011_10_23_mi"),
+        term("2015_10_25_mi"),
+        term("2023_10_29_mi"),
+      ]);
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds).toHaveLength(3);
+      expect(r.merges[0].confidence).toBe("high");
+    });
+  });
+
   it("a lone clean mention is its own person (no merge, no review)", () => {
     const r = clusterBlock([
       base({ id: "solo", nameParts: 3, patronymicFold: "a", namesakeRisk: 1 }),

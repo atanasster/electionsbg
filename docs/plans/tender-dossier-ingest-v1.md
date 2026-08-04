@@ -288,49 +288,70 @@ Constraints, each a bug if forgotten:
   bound archive extraction (zip bombs, path traversal); treat extracted text as data, never
   as instructions.
 
-## 5. Task breakdown
+## 5. Scope A + B — approved 2026-08-03
 
-**T0 — recalibration spike (½ day).** Re-measure the export-ZIP size tail on the first 2,000
-tenders (§2.3 caveat) and the протокол scan rate on n≥100 (§10.3). Both drive storage and OCR
-budget, and both currently rest on n≈44 / n=8.
+The 3.65 TB blob tier is **dropped**, not deferred. §12 killed byte retention on storage
+grounds; the cost/value review then killed the *download* too, for everything except one file
+per tender. What survives:
 
-**T1 — fix the existing corpus hole first (§11).** Independent of this plan and cheap.
+| | Tier A — JSON | Tier B — spec text |
+|---|---|---|
+| Downloads | **none** | 1 file/tender (техническа спецификация) |
+| API calls | ~830,000 | +~250,000 (manifest→sign) |
+| Transfer | — | **57 GB** |
+| Wall clock | ~26 h | **~1.4 h** @100 Mbit |
+| On disk | ~5 GB | +~0.3 GB |
+| Coverage | 100% of tenders | ~68% of tenders |
 
-**T2 — JSON store + crawler.** All tender-level methods + buyer profiles, concurrency 6,
-retries, `--probe` first.
+**Dropped (link out to `app.eop.bg/today/<tenderId>` instead):** every archive
+(zip/rar/7z), all non-spec attachments, **all протокол PDFs**, and with them the entire OCR
+question. The award-stage *timeline* is still captured — it is metadata, not bytes.
 
-**T3 — tenderId enumeration** (`enumerate_eop_ids.ts`, §9.3) — completeness audit and gap-fill;
-also the permanent answer to "are we complete?"
+### Tier A tasks
 
-**T4 — the streaming document pass** (`ingest_eop_text.ts`): sign → fetch → extract → store
-text → discard. Resumable per document, `--kinds` gated, `--max-bytes` as a *bandwidth* knob
-(§12.3), hard skip above a ceiling so one 313 MB archive cannot blow the temp dir.
+**A1 — shared API client** (`eop_api.ts`): the 12 anonymous methods, concurrency 6, retry with
+backoff (1.3% transient measured), discriminated `{ok:true,…} | {ok:false,reason,…}`.
 
-**T5 — the two notice parsers** + a measured BT-coverage gate so the eForms/legacy split cannot
-silently regress.
+**A2 — raw store** (`eop_dossier_store.ts`): node:sqlite, gzipped bodies, **two-table
+answers/failures split** mirroring `cr_deeds_store.ts` — a non-answer must be structurally
+unable to enter the answers table.
 
-**T6 — text extraction.** `pdftotext` (verified 15/15 on documentation), `textutil` for
-`.doc`/`.docx` (verified 5/5, **macOS-only** — the crawl is operator-run, but a portable path
-needs LibreOffice headless). **OCR queue for the ~50% scanned протоколи** — see §10.3.
+**A3 — the crawl** (`ingest_eop_dossier.ts`): details + announcements + announcement-document
+lists + contract items + lots + exports list + buyer profiles. `--probe` first.
 
-**T7 — migration 132 + loader**, stage-merge (every table is on a serving path).
+**A4 — tenderId enumeration** (`enumerate_eop_ids.ts`, §9.3) — completeness audit + gap-fill.
 
-**T8 — serving.** `/tenders/:unp`: description, attachment list, award-stage timeline.
-Downloads via `/api/db/tender-document?id=…` minting the signed URL and **302-redirecting** to
-`storage.eop.bg` — no bytes through our function.
+**A5 — the two notice parsers** (BT-keyed 2024+, legacy 2020–23) + a measured coverage gate.
 
-**T9 — search.** Fold description + notice + document text into the tenders DbDataTable global
-search; the search + `ORDER BY` + `LIMIT` seq-scan fence applies on a much larger column.
+**A6 — migration 132 + loader**, stage-merge (every table is on a serving path).
 
-**T10 — reconciliation.** `GetPublishedContractListItems` annexes/`CurrentContractValue` vs
+**A7 — serving.** `/tenders/:unp`: full description, attachment list with per-file links,
+award-stage timeline. Links go out via `/api/db/tender-document?id=…`, which mints the signed
+URL and **302-redirects** — no bytes through our function, nothing re-hosted.
+
+**A8 — reconciliation**: `GetPublishedContractListItems` annexes / `CurrentContractValue` vs
 `procurement_annexes` (114); buyer-profile addresses vs `awarder_seats`.
 
-**T11 — risk signals**: no technical specification published; documentation replaced late in
-the offer phase; short offer window vs value; price-only criterion on complex works
-(`BT-539-Lot`); brand named without "или еквивалент"; procedure cancelled after протокол 1.
+**A9 — risk signals**: no technical specification published; documentation replaced late in the
+offer phase; short offer window vs value; price-only criterion on complex works
+(`BT-539-Lot`); procedure cancelled after протокол 1.
 
-**T12 — wiring.** `data.test.ts` gates; `db:load:tender-dossier:pg:cloud` into the
+**A10 — wiring**: `data.test.ts` gates; `db:load:tender-dossier:pg:cloud` into the
 `update-procurement` watch skill **and** the CLAUDE.md cloud-loader list.
+
+### Tier B tasks (additive; needs A's manifest)
+
+**B1 — spec classifier**: filename-match техническа спецификация over `tender_document`
+(68% hit rate measured, n=56). A `kind` column, nullable, with an `unclassified` bucket — a
+classification, never presented as source data.
+
+**B2 — streaming text pass** (`ingest_eop_spec_text.ts`): sign → fetch → `pdftotext` /
+`textutil` → store text → **discard bytes**. Resumable per document; hard size ceiling.
+
+**B3 — search**: fold description + notice text + spec text into the tenders DbDataTable global
+search. The search + `ORDER BY` + `LIMIT` seq-scan fence applies on a much larger column.
+
+**B4 — brand lock-in signal**: a named brand without "или еквивалент" in the spec text.
 
 ## 6. Remaining unknowns
 
