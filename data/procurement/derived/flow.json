@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T12:34:09.200Z",
+  "generatedAt": "2026-08-04T04:03:53.181Z",
   "nodes": [
     {
       "id": "contractor:122055819",
@@ -1654,16 +1654,6 @@
       "valueEur": 11248421.38
     },
     {
-      "source": "contractor:130158384",
-      "target": "mp:3674",
-      "valueEur": 11132314.03
-    },
-    {
-      "source": "awarder:831913661",
-      "target": "contractor:130158384",
-      "valueEur": 10995580.78
-    },
-    {
       "source": "contractor:109513731",
       "target": "official:valeri-stoyanov-manov-3f6d6f",
       "valueEur": 10886751.52
@@ -1671,7 +1661,7 @@
     {
       "source": "contractor:126720807",
       "target": "official:bogdana-vladimirova-panaiotova-f7456e",
-      "valueEur": 10864547.97
+      "valueEur": 10871026.03
     },
     {
       "source": "contractor:201134919",
@@ -1684,6 +1674,11 @@
       "valueEur": 10402907.52
     },
     {
+      "source": "contractor:130158384",
+      "target": "mp:3674",
+      "valueEur": 10143020.48
+    },
+    {
       "source": "awarder:000817778",
       "target": "contractor:833066624",
       "valueEur": 10100840.89
@@ -1692,6 +1687,11 @@
       "source": "contractor:833066624",
       "target": "official:nikolai-nikolaev-stoinov-fbc472",
       "valueEur": 10100840.89
+    },
+    {
+      "source": "awarder:831913661",
+      "target": "contractor:130158384",
+      "valueEur": 10006287.23
     },
     {
       "source": "awarder:000133673",

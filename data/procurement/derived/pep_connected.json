@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T12:34:01.106Z",
+  "generatedAt": "2026-08-04T04:03:44.345Z",
   "total": 454,
   "officialCount": 445,
   "entries": [
@@ -9446,9 +9446,9 @@
       "role": "chief_architect",
       "contractorEik": "126720807",
       "contractorName": "ЕН АР Консулт ЕООД",
-      "totalEur": 10864547.97,
+      "totalEur": 10871026.03,
       "totalOther": {},
-      "contractCount": 220,
+      "contractCount": 224,
       "awardCount": 0,
       "relations": [
         {
@@ -9548,8 +9548,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 34,
-          "totalEur": 299910.3,
+          "contractCount": 38,
+          "totalEur": 306388.36,
           "totalOther": {}
         }
       ],
@@ -9564,8 +9564,8 @@
         {
           "eik": "000056814",
           "name": "Община Бургас",
-          "contractCount": 43,
-          "totalEur": 2536308.02,
+          "contractCount": 47,
+          "totalEur": 2542786.08,
           "totalOther": {}
         },
         {
@@ -11785,61 +11785,6 @@
       ]
     },
     {
-      "slug": "rumen-andonov-porozhanov-63cc25",
-      "name": "Румен Андонов Порожанов",
-      "tier": "executive",
-      "role": "cabinet",
-      "contractorEik": "204654259",
-      "contractorName": "ВиТиПи Груп ЕООД",
-      "totalEur": 5882183.53,
-      "totalOther": {},
-      "contractCount": 7,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "stake",
-          "confidence": "high",
-          "shareSize": "100%",
-          "valueEur": 2556.46
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2022",
-          "contractCount": 2,
-          "totalEur": 3343685.8,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 3,
-          "totalEur": 1451022.85,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 1,
-          "totalEur": 852037.24,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 235437.64,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000695324",
-          "name": "Министерство на отбраната",
-          "contractCount": 7,
-          "totalEur": 5882183.53,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
       "slug": "margarita-lyubomirova-tomova-099da6",
       "name": "Маргарита Любомирова Томова",
       "tier": "executive",
@@ -12264,6 +12209,61 @@
           "name": "ЧЕЗ Разпределение българия АД",
           "contractCount": 2,
           "totalEur": 86919.62,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "rumen-andonov-porozhanov-63cc25",
+      "name": "Румен Андонов Порожанов",
+      "tier": "executive",
+      "role": "cabinet",
+      "contractorEik": "204654259",
+      "contractorName": "ВиТиПи Груп ЕООД",
+      "totalEur": 5454382.03,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 2556.46
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 3343685.8,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 1023221.35,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 852037.24,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 235437.64,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695324",
+          "name": "Министерство на отбраната",
+          "contractCount": 6,
+          "totalEur": 5454382.03,
           "totalOther": {}
         }
       ]

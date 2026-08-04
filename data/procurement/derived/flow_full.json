@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T12:34:09.200Z",
+  "generatedAt": "2026-08-04T04:03:53.181Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -4677,11 +4677,6 @@
       "label": "Мария Донова Генова"
     },
     {
-      "id": "official:rumen-andonov-porozhanov-63cc25",
-      "type": "official",
-      "label": "Румен Андонов Порожанов"
-    },
-    {
       "id": "official:margarita-lyubomirova-tomova-099da6",
       "type": "official",
       "label": "Маргарита Любомирова Томова"
@@ -4695,6 +4690,11 @@
       "id": "official:kliment-hristov-todorov-b9eb33",
       "type": "official",
       "label": "Климент Христов Тодоров"
+    },
+    {
+      "id": "official:rumen-andonov-porozhanov-63cc25",
+      "type": "official",
+      "label": "Румен Андонов Порожанов"
     },
     {
       "id": "official:yuliyan-zhivkov-efendiiski-ad8654",
@@ -8351,7 +8351,7 @@
     {
       "source": "awarder:000695324",
       "target": "contractor:204654259",
-      "valueEur": 5882183.53
+      "valueEur": 5454382.03
     },
     {
       "source": "awarder:000695324",
@@ -8647,11 +8647,6 @@
       "source": "awarder:000875557",
       "target": "contractor:117695162",
       "valueEur": 58162.52
-    },
-    {
-      "source": "awarder:000875557",
-      "target": "contractor:831654365",
-      "valueEur": 22541.33
     },
     {
       "source": "awarder:000893200",
@@ -11041,7 +11036,7 @@
     {
       "source": "awarder:831913661",
       "target": "contractor:130158384",
-      "valueEur": 10995580.78
+      "valueEur": 10006287.23
     },
     {
       "source": "awarder:831917834",
@@ -11156,7 +11151,7 @@
     {
       "source": "contractor:130158384",
       "target": "mp:3674",
-      "valueEur": 11132314.03
+      "valueEur": 10143020.48
     },
     {
       "source": "contractor:175392783",
@@ -11836,7 +11831,7 @@
     {
       "source": "contractor:126720807",
       "target": "official:bogdana-vladimirova-panaiotova-f7456e",
-      "valueEur": 10864547.97
+      "valueEur": 10871026.03
     },
     {
       "source": "contractor:201134919",
@@ -11949,11 +11944,6 @@
       "valueEur": 6214272.94
     },
     {
-      "source": "contractor:204654259",
-      "target": "official:rumen-andonov-porozhanov-63cc25",
-      "valueEur": 5882183.53
-    },
-    {
       "source": "contractor:130175896",
       "target": "official:margarita-lyubomirova-tomova-099da6",
       "valueEur": 5788492.47
@@ -11967,6 +11957,11 @@
       "source": "contractor:824106518",
       "target": "official:kliment-hristov-todorov-b9eb33",
       "valueEur": 5771135.36
+    },
+    {
+      "source": "contractor:204654259",
+      "target": "official:rumen-andonov-porozhanov-63cc25",
+      "valueEur": 5454382.03
     },
     {
       "source": "contractor:000694329",

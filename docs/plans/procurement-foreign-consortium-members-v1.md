@@ -211,3 +211,66 @@ lookalike implementation, and a committed scanner that imports the real thing ca
 - **No special case for the Alstom contract.** The fix is the resolver and its two call sites.
 - **No re-crawl.** Everything needed is in the raw cache — this is a re-parse.
 - **No nuts-code namespacing.** Proven unreliable in §2(b).
+
+## 8. Outcome of the OCDS re-parse (2026-08-04)
+
+**Done.** `ingest.ts --renormalize` re-parsed all 11 cached OCDS bundles offline (the bundle
+cache is keyed by `resourceUuid`, not `datasetUuid` — an earlier note here wrongly concluded
+nothing was cached). Then `anexi_current_value.ts --apply` and `backfill_unp.ts --apply`
+(18,750 rows), because a re-parse reverts annex current values and the OCDS export carries no
+УНП. Corpus: **405,701 rows / €99,246,767,063.14**, all 535 data gates green.
+
+What it fixed, beyond adding the foreign members:
+
+- **The OCDS split denominator was under-counting.** It counted supplier REFS, not distinct
+  resolved keys, and its self-deal predicate disagreed with its own emit loop. Rows sharing a
+  contractorEik collapse at the month-shard merge, so the surplus merged away. Measured on the
+  canary bundle alone: 38 contracts short, **€338,027.15 lost**. Post-fix, 1,332 of 1,334 EUR
+  contracts in that bundle sum exactly to their published value; the 2 exceptions are the
+  deliberate `amount_overrides`.
+- `00044-2025-0148` (АПИ/Kapsch) now holds all 5 suppliers at €13,044,000 = **€65,220,000**,
+  the published value, down from an inflated €78,264,000.
+
+**The canary fixture was stale before any of this.** It predated two `amount_overrides` (÷100
+publisher-error corrections, `546101::242653` and `540811::242345`, −€12.15m combined), so
+regenerating it also absorbed that pre-existing drift. Worth knowing that the fixture only
+guards drift _since its last reseed_, and nothing reseeds it automatically.
+
+## 9. The "−€9.27m" was production over-stating, not local losing
+
+Local sat €9,273,007.58 below the cloud baseline across 48 pre-2024 rows, in years never
+re-ingested. The sign was the other way round: **cloud carries a cross-source double-count that
+local does not.** Measured on Cloud SQL: **47 contracts, 48 rows, €9.27m.** Two examples:
+
+- `00233-2023-0103` / 236349 — the same supplier (Вартекс ООД) at the same €903,145.98 present
+  as BOTH an `eop-` and an `ocds-` row.
+- `05397-2020-0009` / 80, 81, 82 — three `eop-` rows AND three `ocds-` rows, the feeds naming
+  different suppliers at different amounts (eop: Сикюрити глобъл €1,400,389.58; ocds: Контракс
+  €1,345,464.18), so no row-level content key could ever match.
+
+Each feed splits a contract's value across its OWN view of the supplier set, so the two can
+never be summed. This has been latent since well before this work and every existing gate stayed
+green throughout.
+
+### The durable fix is NOT in place — deliberately
+
+A contract-level precedence rule ("once any non-EOP row exists for a contract, no EOP row for it
+may survive") was implemented, committed, and **reverted** (`a4d6233043` → `b1a3fd982e`). Three
+keying attempts, each wrong in a different way:
+
+| Key                                        | Failure                                                                                                                                                                   |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `unp \|\| ocid` + contractId + tag         | The feeds mint different ocids for one contract and OCDS has no `unp` at parse time, so the same contract hashed differently per feed. Order-dependent on `backfill_unp`. |
+| `awarderEik` + contractId + tag            | Far too coarse — buyers reuse trivial contract numbers. Destroyed **46 legitimate rows / €5.15m**; buyer 000133634 alone had six procedures numbered "1".                 |
+| `unp` + `normContractNo(contractId)` + tag | Still evicted a contract's ONLY row (`01585-2021-0007`/26109), and its behaviour could not be reconciled with a direct group-key check.                                   |
+
+Requirements for a correct implementation, learned the hard way:
+
+1. Identity must be **feed-independent** and must not depend on a later backfill step.
+2. It must not pool distinct procedures that share a contract number — the УНП (or an equally
+   precise procedure id) is mandatory, and `normContractNo` normalisation is NOT safe here.
+3. It must be validated by enumerating every row it would evict and confirming each has a
+   surviving twin, on the real corpus, before being applied. A dry-run count is not enough:
+   both bad versions reported plausible counts.
+4. A `.data.test.ts` gate over the loaded database is the right home for the invariant, since
+   the ingest cannot be trusted to achieve it in one pass.
