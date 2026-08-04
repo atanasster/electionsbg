@@ -101,6 +101,109 @@ test("resolveSupplierEik: keeps a genuine foreign vendor keyed by its id", () =>
   assert.equal(resolveSupplierEik("HRB 12345").foreign, true);
 });
 
+// ── Mixed-consortium members are KEPT. Regression for the defect that started
+// docs/plans/procurement-foreign-consortium-members-v1.md: a non-BG member of a mixed
+// consortium was dropped (foreign suppliers survived only when a contract had NO BG
+// supplier), so УНП 00042-2024-0005 — МТС, €451.5m, 35 electric multiple units — kept 2
+// of its 4 suppliers and both Alstom entities vanished. The field values below are
+// verbatim from raw_data/procurement/eop/2025-05-02.json.gz, noticeId 686114.
+test("normalizeEopDay: keeps every member of a mixed BG+foreign consortium", () => {
+  const { rows, stats } = normalizeEopDay(
+    [
+      {
+        contractNumber: "194447",
+        uniqueProcurementNumber: "00042-2024-0005",
+        buyerRegistryNumber: "000695388",
+        buyerName: "МИНИСТЕРСТВО НА ТРАНСПОРТА И СЪОБЩЕНИЯТА",
+        contractValue: "883057245,00",
+        contractCurrency: "BGN",
+        contractDate: "25.04.2025",
+        supplierRegisterNumber:
+          "181339162; RO6640696; IT02791070044; 207661045",
+        supplierName:
+          "КОНСОРЦИУМ БУЛЕМУ; ALSTOM TRANSPORT SA; Alstom Ferroviaria SpA; РВП ИНВЕСТ ЕООД",
+      },
+    ],
+    "2025-05-02",
+    "http://x",
+  );
+
+  // All four suppliers emit a row, with four distinct keys.
+  assert.equal(rows.length, 4, "expected one row per supplier");
+  assert.equal(
+    new Set(rows.map((r) => r.key)).size,
+    4,
+    "keys must be distinct",
+  );
+  assert.equal(stats.rowsForeignKept, 2, "both Alstom entities kept");
+
+  // Both Alstom entities are present and identifiable by name.
+  const names = rows.map((r) => r.contractorName.toLowerCase());
+  assert.ok(
+    names.some((n) => n.includes("alstom transport")),
+    `ALSTOM TRANSPORT missing from ${JSON.stringify(names)}`,
+  );
+  assert.ok(
+    names.some((n) => n.includes("ferroviaria")),
+    `Alstom Ferroviaria missing from ${JSON.stringify(names)}`,
+  );
+
+  // The equal-split signature 087's rebuild_consortium() keys on: every row carries the
+  // SAME amount and they sum back to the awarded total. Without this the group is not
+  // recognised as joint and the value stays fabricated across the members.
+  const amounts = rows.map((r) => Math.round((r.amountEur ?? 0) * 100) / 100);
+  assert.equal(
+    new Set(amounts).size,
+    1,
+    "all member rows must share one amount",
+  );
+  const total = amounts.reduce((s, a) => s + a, 0);
+  // 883,057,245 BGN at the 1.95583 peg.
+  assert.ok(
+    Math.abs(total - 883057245 / 1.95583) < 0.05,
+    `split must sum back to the awarded total, got ${total}`,
+  );
+});
+
+// An identity-less token beside real firms must NOT become a member. If it does, 087's
+// `_named_carrier` picks it as CARRIER whenever any row in the group is ДЗЗД-named
+// (`ORDER BY contractor_eik`, and `'' < '203250840'`), so the whole award value lands on
+// `contractor_eik = ''` — which every contractor-side aggregate filters out. Corpus totals
+// still reconcile, so nothing fails; the money just stops being attributed to anyone.
+// 54 awards / €100.2m. Record verbatim from raw_data/procurement/eop/2021-07-01.json.gz,
+// УНП 00024-2021-0005 — note the ДЗЗД name sits beside the withheld id, because an
+// unincorporated ДЗЗД has no ЕИК.
+test("normalizeEopDay: an identity-less supplier never joins a mixed group", () => {
+  const { rows } = normalizeEopDay(
+    [
+      {
+        contractNumber: "1",
+        uniqueProcurementNumber: "00024-2021-0005",
+        buyerRegistryNumber: "000695089",
+        contractValue: "300",
+        contractCurrency: "EUR",
+        supplierRegisterNumber: "203250840; 205650534; не е наличен",
+        supplierName: "МИРО ТРАНС - 86 ЕООД; БГ ЛЕНД КО АД; ДЗЗД „ТРАНС БГ“",
+      },
+    ],
+    "2021-07-01",
+    "http://x",
+  );
+  assert.equal(rows.length, 2, "only the two identified firms should emit");
+  assert.ok(
+    rows.every((r) => r.contractorEik !== ""),
+    `no row may carry an empty contractor id, got ${JSON.stringify(
+      rows.map((r) => r.contractorEik),
+    )}`,
+  );
+  // And the split is over 2, not 3 — the dropped row must not take a slot.
+  assert.equal(rows[0].amountEur, 150);
+  assert.equal(
+    rows.reduce((s, r) => s + (r.amountEur ?? 0), 0),
+    300,
+  );
+});
+
 // ── FINDING-001 regression: a multi-supplier award whose suppliers ALL resolve
 // to an empty contractor id must not lose value at the month-shard rowKey merge.
 // normalizeEopDay emits one row per supplier (both identity-less → identical

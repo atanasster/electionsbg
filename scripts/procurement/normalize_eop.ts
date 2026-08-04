@@ -202,7 +202,12 @@ export interface EopNormalizeStats {
   rowsEmitted: number;
   rowsDroppedNoSupplierEik: number;
   rowsDroppedSelfDeal: number;
+  // Split by resolved kind, so the log distinguishes "kept a foreign vendor" from
+  // "encoded a natural person" from "kept an identity-less row". Before this the three
+  // shared one drop counter, which is how the mixed-consortium drop stayed invisible.
   rowsForeignKept: number;
+  rowsPersonEncoded: number;
+  rowsAnonymous: number;
   rowsPlaceholderEstimate: number;
   rowsJointToPrimary: number;
 }
@@ -215,6 +220,8 @@ const emptyStats = (): EopNormalizeStats => ({
   rowsDroppedNoSupplierEik: 0,
   rowsDroppedSelfDeal: 0,
   rowsForeignKept: 0,
+  rowsPersonEncoded: 0,
+  rowsAnonymous: 0,
   rowsPlaceholderEstimate: 0,
   rowsJointToPrimary: 0,
 });
@@ -328,43 +335,74 @@ export const normalizeEopDay = (
     // would read as €7.8bn). Split it across the suppliers so the rows sum back
     // to the awarded total — the way SIGMA reports framework totals.
     //
-    // Resolve each supplier: a clean BG EIK, a BG EIK recovered from a messy id,
-    // or a kept foreign vendor. A contract whose BG suppliers were ALREADY clean
-    // EIKs keeps its historical split/attribution unchanged (split across those
-    // BG suppliers; non-BG members dropped), so a --cross-source-dedup re-ingest
-    // content-matches it against the existing corpus. Embedded-BG ids (BG-VAT,
-    // "ЕИК …", space-grouped) are now ADDITIONALLY recovered as BG suppliers —
-    // the old isValidEik gate dropped them, so recovering them shifts that
-    // contract's per-row split (and transiently its content-key amount) until a
-    // rowKey re-ingest restores the corpus total. Only a contract with NO BG
-    // supplier at all — previously dropped wholesale (Stadler, WARTSILA,
-    // "не се публикува" sole awards) — is recovered whole, split across its
-    // foreign/anonymous suppliers.
-    // The aligned name is passed in because a natural-person supplier is keyed by
-    // their NAME, not by the ЕГН the feed puts in the id field (supplier_identity.ts).
+    // Resolve each supplier: a clean BG EIK, a BG EIK recovered from a messy id, a
+    // name-keyed natural person, or a foreign vendor keyed by its registration id.
+    //
+    // EVERY resolved supplier is now kept. Previously a non-BG member of a MIXED
+    // consortium was dropped and foreign suppliers survived only when a contract had no
+    // BG supplier at all (`recoverForeign = bgCount === 0`). That deleted the real
+    // counterparty from the record: on УНП 00042-2024-0005 (МТС, €451.5m, 35 EMUs) the
+    // source names four suppliers — КОНСОРЦИУМ БУЛЕМУ, ALSTOM TRANSPORT SA,
+    // Alstom Ferroviaria SpA, РВП ИНВЕСТ ЕООД — and the corpus held two, so searching it
+    // for "Alstom" returned nothing on the contract that bought Alstom trains.
+    // Corpus-wide: 211 awards / €987m carried a dropped foreign member.
+    //
+    // It also silently dropped natural PERSONS once they became name-keyed (a person is
+    // `foreign: true` because the key is synthetic, not a validated EIK), which would
+    // have removed them from 7 mixed groups.
+    //
+    // Keeping everyone does NOT inflate the corpus: `rebuild_consortium()` (087) moves the
+    // full value onto one carrier row and zeroes the members, so a joint award totals the
+    // same at any member count. Where a group has a named ДЗЗД/Консорциум member the value
+    // stays on it and this only ADDS zero-value participation rows (90 awards, €1,320m,
+    // including the Alstom contract). Where it does not, 087 mints a synthetic `obed-`
+    // carrier and the BG members that carry the money today drop to €0 — 47 awards, €493m,
+    // a deliberate attribution change (plan §4, decision D1): we do not know each member's
+    // share, so crediting one member the whole value is the less honest option.
+    //
+    // The aligned name is passed in because a natural-person supplier is keyed by their
+    // NAME, not by the ЕГН the feed puts in the id field (supplier_identity.ts).
     // `names[i] ?? names[0]` mirrors the supplierName fallback used below.
     const resolved = eiks.map((e, i) =>
       classifySupplierId(e, names[i] ?? names[0]),
     );
-    const bgCount = resolved.filter((r) => !r.foreign).length;
-    const recoverForeign = bgCount === 0;
+    // "Keep everyone" means everyone with an IDENTITY. An identity-less token — a withheld
+    // marker ("не се публикува", 732 in the raw corpus) or Cyrillic junk that leaves nothing
+    // after the ASCII strip ("неприложимо", "БЕЗ ЕИК", "хххх", 70 more) — resolves to
+    // `eik: ""` and must NOT become a member, for a reason that is invisible until it bites:
+    //
+    // 087's `_named_carrier` picks the ДЗЗД-named row with `ORDER BY contractor_eik`, and
+    // `'' < '203250840'`. The feed routinely publishes the ДЗЗД name BESIDE a withheld id,
+    // because an unincorporated ДЗЗД has no ЕИК — e.g. УНП 00024-2021-0005,
+    // "…; не е наличен" / "…; ДЗЗД „ТРАНС БГ“". So the empty-eik row wins the carrier slot
+    // over a real firm, the whole award value lands on `contractor_eik = ''`, and every
+    // contractor-side aggregate (018/025/026/027/028/029/031/033/038/122/127,
+    // contractor_search) filters it out. Corpus totals still reconcile and invariants_pg
+    // stays green, so nothing fails — the money simply stops being attributed to anyone.
+    // Measured: 54 awards / €100.2m, 38 of them inside the T2 re-ingest window.
+    //
+    // Pre-T1 these were dropped in any MIXED record (they carried `foreign: true` and only
+    // survived when `bgCount === 0`). That behaviour is restored exactly: identity-less rows
+    // are kept only when NO supplier in the record has an identity, which is the documented
+    // all-anonymous case where the value legitimately lands on the buyer with no contractor
+    // (see the all-anonymous test in normalize_eop.test.ts).
+    const anyIdentified = resolved.some((r) => r.eik !== "");
+    const keep = (r: { eik: string }): boolean =>
+      r.eik !== "" || !anyIdentified;
     // Split by the number of rows that will actually SURVIVE the month-shard
     // rowKey merge (releaseId::contractId::contractorEik::tag), not the raw
     // supplier count: rows sharing a contractorEik collapse to one, so
     // identity-less anonymous suppliers (eik "") — and any duplicated EIK —
     // count ONCE. Using the raw count here divides the value by phantom rows
     // that then merge away, silently losing (N-1)/N of the contract.
-    const keptKeys = new Set(
-      resolved.filter((r) => !r.foreign || recoverForeign).map((r) => r.eik),
-    );
+    const keptKeys = new Set(resolved.filter(keep).map((r) => r.eik));
     const denom = keptKeys.size || 1;
     const amountPer = amount != null ? amount / denom : amount;
     const amountEurPer = amountEur != null ? amountEur / denom : amountEur;
     resolved.forEach((res, i) => {
       const rawEik = eiks[i];
       const supplierEik = res.eik;
-      if (res.foreign && !recoverForeign) {
-        // Non-BG member of a mixed consortium — historical behaviour: dropped.
+      if (!keep(res)) {
         stats.rowsDroppedNoSupplierEik++;
         return;
       }
@@ -380,7 +418,9 @@ export const normalizeEopDay = (
         stats.rowsDroppedSelfDeal++;
         return;
       }
-      if (res.foreign) stats.rowsForeignKept++;
+      if (res.kind === "foreign") stats.rowsForeignKept++;
+      else if (res.kind === "person") stats.rowsPersonEncoded++;
+      else if (res.kind === "anonymous") stats.rowsAnonymous++;
       rows.push({
         key: contractKey(releaseId, contractNumber, supplierEik, tag),
         ocid,

@@ -152,6 +152,32 @@ describe("classifySupplierId", () => {
     }
   });
 
+  test("the four suppliers of УНП 00042-2024-0005 all resolve to a key", () => {
+    // The award that started this: МТС, €451.5m, 35 electric multiple units. The raw
+    // ЦАИС release (raw_data/procurement/eop/2025-05-02.json.gz, noticeId 686114) names
+    // four suppliers; the corpus held two, because a non-BG member of a MIXED consortium
+    // was dropped. Verbatim from `supplierRegisterNumber` / `supplierName`:
+    const suppliers: [string, string][] = [
+      ["181339162", "КОНСОРЦИУМ БУЛЕМУ"],
+      ["RO6640696", "ALSTOM TRANSPORT SA"],
+      ["IT02791070044", "Alstom Ferroviaria SpA"],
+      ["207661045", "РВП ИНВЕСТ ЕООД"],
+    ];
+    const resolved = suppliers.map(([id, name]) =>
+      classifySupplierId(id, name),
+    );
+    // Every one keyed, and four DISTINCT keys — the split denominator is the distinct
+    // key count, so a collision here would silently multiply the award's value.
+    expect(resolved.every((r) => r.eik !== "")).toBe(true);
+    expect(new Set(resolved.map((r) => r.eik)).size).toBe(4);
+    expect(resolved.map((r) => r.kind)).toEqual([
+      "bg",
+      "foreign",
+      "foreign",
+      "bg",
+    ]);
+  });
+
   test("withheld identities carry no key", () => {
     for (const id of ["не се публикува", "—", "n/a", "", undefined]) {
       const r = classifySupplierId(id, "Някой");

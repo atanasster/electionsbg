@@ -135,12 +135,36 @@ same resolver. Extend the ingest stats so the log distinguishes foreign-kept fro
 personal-id-encoded from junk, rather than one undifferentiated drop count
 ([ingest.ts:374](../../scripts/procurement/ingest.ts:374)).
 
-**T2 — re-ingest and verify attribution.**
-`rebuild_consortium()` should need no change for the SAFE bucket — the equal-split signature
-(`count(DISTINCT round(amount_eur::numeric,2)) = 1`) still holds at value/4 and the named carrier
-still absorbs the total. Verify on a real local reload rather than assuming. Then in order:
-`load_pg` → `db:load:procurement-scopes:pg` → `contractor_search` → `contractor_rank` →
+**T2 — re-ingest and verify attribution.** Code done and VERIFIED on real data for one day
+(`00042-2024-0005`): the normalizer emits 4 rows at €112,875,000 each summing to €451,500,000,
+and `rebuild_consortium()` needed no change — it collapses to the named carrier at
+`consortium_size = 4` with all three members at €0 and the month total byte-identical before
+and after. The corpus-wide re-ingest is NOT done; it is an operator step.
+
+Two traps found while verifying, both of which silently corrupt money:
+
+- **`--cross-source-dedup` is the WRONG flag for a re-parse.** It drops a fresh row that
+  content-matches one already on disk, and `contentKeys()` includes an amount-FREE key
+  (`buyer:contractor:contractNo:dateSigned`). So the two BG rows matched and were dropped
+  while the two Alstom rows were added at the new value/4 — €225.75m + €225.75m + €112.875m +
+  €112.875m = **€677m against a €451.5m award**. Use `--include-existing-buyers` alone, whose
+  `rowKey` upsert (`releaseId::contractId::contractorEik::tag`, amount excluded) overwrites the
+  existing members at the new split. That flag warns it is only for windows with no OCDS
+  (2024–2025); outside that window it double-counts, so the pre-2024 range needs the OCDS path
+  re-run instead, not this one.
+- **A re-parse REVERTS annex current values.** `amountEur` is the post-annex CURRENT value
+  (`anexi_current_value.ts` flips it in place); re-parsing from raw writes the at-signing value
+  back, which moved one month by −€83,583. `npx tsx scripts/procurement/anexi_current_value.ts
+--apply` is idempotent and restores it exactly — the month returned to its byte-identical
+  total. It MUST follow every re-ingest.
+
+Order: `ingest_eop --backfill --include-existing-buyers --apply` (2024–2025 range) →
+`anexi_current_value.ts --apply` → `rebuild_from_cache.ts` → `load_pg` →
+`db:load:procurement-scopes:pg` → `contractor_search` → `contractor_rank` →
 127 `company_public_money` → `db:load:graph:pg` → `db:load:person-search:pg`.
+
+Expect the 47 no-named-carrier awards (€493m) to move onto synthetic `obed-` entities at that
+point — decision D1, and the reason this is a deliberate operator run rather than a side effect.
 
 **T3 — gates.**
 

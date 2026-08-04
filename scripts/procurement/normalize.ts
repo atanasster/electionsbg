@@ -15,13 +15,21 @@
 //
 // Suppliers and buyers reference `parties[].id` (local to the release). EIK
 // lives on `parties[].identifier` when scheme === "BG-EIK". 99%+ of records
-// in the fortnight bundles we sampled carry an EIK; rows without an EIK on
-// the contractor side are dropped (they can't be cross-referenced and they're
-// almost always non-BG suppliers / placeholder rows).
+// in the fortnight bundles we sampled carry an EIK.
+//
+// Non-BG contractors are NO LONGER dropped. The old rule ("rows without an EIK on the
+// contractor side are dropped — they can't be cross-referenced and they're almost always
+// non-BG suppliers / placeholder rows") conflated two very different things: a placeholder
+// with no identity, and a real foreign company with a perfectly good foreign registry id.
+// It deleted the actual counterparty from joint awards — both Alstom entities on the
+// €451.5m rolling-stock contract among them. Supplier identity now goes through the one
+// shared classifier (supplier_identity.ts), which keeps foreign vendors, encodes natural
+// persons by name so no ЕГН is stored, and yields no key only for a genuinely
+// identity-less ref.
 
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
-import { isEgn, personSupplierKey } from "./supplier_identity";
+import { classifySupplierId } from "./supplier_identity";
 import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
@@ -186,17 +194,57 @@ const buyerFields = (
   };
 };
 
+// The DISTINCT contractor keys a supplier list will actually emit — the split denominator.
+//
+// Two bugs lived in the previous inline version, both of which quietly lost money:
+//
+//   1. It counted REFS, not distinct keys (`suppliers.filter(...).length`). Rows sharing a
+//      contractorEik collapse at the month-shard rowKey merge, so a duplicated supplier
+//      inflated the denominator and (N-1)/N of the contract merged away — 477 OCDS groups,
+//      €7.9m. The flat feed already deduped via a Set; this restores the symmetry, which
+//      matters because `contentKeys()` matches the two feeds on (eik, rounded amount) and a
+//      denominator difference breaks cross-source dedup.
+//   2. Its self-deal predicate differed from the emit loop's. The count dropped a
+//      buyer-EIK supplier only when the NAMES differed; the emit loop drops it
+//      unconditionally. So a same-name self-deal was counted but never emitted, again
+//      leaving the surviving rows short.
+//
+// One helper, used for both, so they cannot drift again.
+const emittedSupplierKeys = (
+  release: OcdsRelease,
+  suppliers: Array<{ id: string; name?: string }>,
+  buyerEik: string,
+): Set<string> => {
+  const keys = new Set<string>();
+  for (const ref of suppliers) {
+    const s = contractorFields(release, ref);
+    // Same drop rules as the emit loop: unresolvable ref, or the self-deal placeholder.
+    if (!s || s.eik === buyerEik) continue;
+    keys.add(s.eik);
+  }
+  return keys;
+};
+
 // Returns the canonical contractor fields for a supplier ref.
 //
-// The ЕГН guard applies here too, and for the same reason as on the flat feed: an ЕГН
-// is 10 digits, `isValidEik` accepts 9–13, so an EIK-first test stores a personal
-// identity number as a contractor key. A person is keyed by their name instead
-// (supplier_identity.ts) and `eikFull` is left undefined so the raw ЕГН is not
-// preserved in the "source id" field either.
+// Shares the ONE resolver with the flat feed (`classifySupplierId`). That is not tidiness
+// — the two paths MUST agree on both the key and the supplier count. `contentKeys()` in
+// content_key.ts matches a logical contract across the two feeds on
+// (contractorEik, rounded amountEur); if OCDS emitted 2 rows at value/2 while the flat
+// feed emitted 4 at value/4, no content key would collide, cross-source dedup would stop
+// matching, and the same contract would survive from both feeds — double-counted. So
+// changing one path without the other is worse than changing neither.
 //
-// Non-BG suppliers still return null here — the OCDS path has no foreign-vendor
-// recovery, which is defect D-2 and a separate tier. Only the personal-id hole is
-// closed at this step.
+// Two behaviours arrive here together for that reason:
+//   - an ЕГН never becomes a key (it is 10 digits and `isValidEik` accepts 9–13, so an
+//     EIK-first test stored it); the person is keyed by name and `eikFull` is left unset
+//     so the raw number is not preserved in the "source id" field either;
+//   - a foreign vendor is KEPT rather than dropped. This path previously returned null
+//     for every non-BG id with no recovery at all, which is why the corpus lost both
+//     Alstom entities on the €451.5m rolling-stock award.
+//
+// Returns null only for a genuinely unusable ref — no id at all, or a withheld identity
+// with no name to key on.
 const contractorFields = (
   release: OcdsRelease,
   ref: { id: string; name?: string },
@@ -204,15 +252,16 @@ const contractorFields = (
   const party = resolveParty(release, ref);
   const rawEik = party?.identifier?.id;
   const rawName = party?.identifier?.legalName ?? party?.name ?? ref.name ?? "";
-  if (isEgn(rawEik)) {
-    const eik = personSupplierKey(rawName);
-    return eik ? { eik, name: normaliseOrgName(rawName) } : null;
-  }
-  const canon = canonicalEik(rawEik);
-  if (!isValidEik(canon)) return null;
+  const res = classifySupplierId(rawEik, rawName);
+  if (!res.eik) return null;
   return {
-    eik: canon,
-    eikFull: rawEik && rawEik !== canon ? rawEik : undefined,
+    eik: res.eik,
+    // Never for a person: the key is a name hash so the raw token always differs, and
+    // this field would re-publish the ЕГН that was just removed.
+    eikFull:
+      res.kind !== "person" && rawEik && rawEik !== res.eik
+        ? rawEik
+        : undefined,
     name: normaliseOrgName(rawName),
   };
 };
@@ -326,17 +375,7 @@ export const normalizeBundle = (
         // it across the suppliers that actually emit a row (the rows then sum
         // back to the contract total — the way SIGMA reports it).
         const emittedSupplierCount =
-          suppliers.filter((ref) => {
-            const s = contractorFields(release, ref);
-            if (!s) return false;
-            if (
-              s.eik === buyer.eik &&
-              normaliseOrgName(s.name).toLocaleLowerCase("bg") !==
-                normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
-            )
-              return false;
-            return true;
-          }).length || 1;
+          emittedSupplierKeys(release, suppliers, buyer.eik).size || 1;
         // Correct publisher-side amount errors on the FULL contract value, before
         // the split — the OCDS bundles republish the same corrupted figures as the
         // legacy CSV and the ЕОП flat feed. See amount_overrides.ts. OCDS releases
@@ -418,17 +457,8 @@ export const normalizeBundle = (
         // Split a multi-supplier award's value across its suppliers (see the
         // contract path above for why).
         const emittedSupplierCount =
-          (award.suppliers ?? []).filter((ref) => {
-            const s = contractorFields(release, ref);
-            if (!s) return false;
-            if (
-              s.eik === buyer.eik &&
-              normaliseOrgName(s.name).toLocaleLowerCase("bg") !==
-                normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
-            )
-              return false;
-            return true;
-          }).length || 1;
+          emittedSupplierKeys(release, award.suppliers ?? [], buyer.eik).size ||
+          1;
         const perAwardAmount =
           award.value?.amount != null
             ? award.value.amount / emittedSupplierCount
