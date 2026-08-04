@@ -558,6 +558,26 @@ surprise at the end of it.
 > rolled-back tx and assert it exceeds the 200-buffer ceiling) now reads only 78 buffers, so the
 > test asserts it "has stopped measuring anything". Data drift, not a regression from this plan;
 > every later "green" gate in §7 means *no NEW failures relative to this baseline*.
+>
+> **RESOLVED 2026-08-04, and it was NOT data drift.** The buffer parser only counted
+> `shared hit=`: EXPLAIN prints the group once (`Buffers: shared hit=3684 read=7545`), so a bare
+> `read=` was dropped and the score measured *how much was already cached* rather than how many
+> buffers were touched. The control body reads 11,229 buffers either way — scored 3,684 on a warm
+> cache (passes) and 11 once the other 87 files have churned `shared_buffers` (fails), which is
+> exactly why it failed only in a full run. Both ceilings held: the current body is **81** (ceiling
+> 200) and the private path **464** (ceiling 2000). Fixed in `sumExecutionBuffers`, plus a pure
+> non-skipping test on the parser itself. The 200 ceiling is now cache-state-independent — and so
+> is the forward assertion, which the same bug had made *too lenient*: a genuine regression reading
+> thousands of buffers off disk would have scored double digits and passed.
+>
+> **What is left is flakiness under parallel load, and it is not this plan's either.** Five full
+> runs after the fix gave 1, 2, 2, 3 and **0** failures — a different cast each time
+> (`search.data.test.ts` › recent_updates, `person_slug_retired.data.test.ts`,
+> `officials_redirect.data.test.ts` › retired-slug redirect), every one of them green in isolation,
+> and one run clean at 88/88. Mostly 120 s timeouts on tests that already burn 87–117 s alone, so
+> parallel contention tips them over. `person_connections` was green in all five. Treat a single
+> red run as unproven until the file is re-run alone; the honest fix is a cheaper query (or a
+> raised timeout) on those three, which nothing here touches.
 
 **Deliberate deviation from the brief:** this goes in `test:unit` as a plain `.test.ts`, **not** in
 `scripts/db/tests/*.data.test.ts` with the Postgres auto-skip. The assertion is pure JSON over

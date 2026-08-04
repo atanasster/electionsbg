@@ -18,6 +18,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import type { PoolClient } from "pg";
 import { allRows, withClient, end } from "../lib/pg";
+import { sumExecutionBuffers } from "../lib/explain_buffers";
 
 type Edge = {
   slug: string;
@@ -394,40 +395,13 @@ test.skipIf(skip)(
 // version replaces that with a precomputed guard column (an O(1) PK lookup), so a subject with NO
 // companies costs almost nothing.
 //
-// CALIBRATED WITH bufferCost BELOW, read through the pool: the graph body measures ~71 buffers for the
-// no-companies case; the pre-fix control (restored in a rolled-back tx) reads ~6,760. 200 sits ~2.8×
-// above the measured cost and ~34× below the control — comfortably discriminating a regression back to
-// a whole-corpus scan.
+// CALIBRATED WITH bufferCost BELOW, read through the pool: the graph body measures 81 buffers for the
+// no-companies case; the pre-fix control (restored in a rolled-back tx) reads 11,229. 200 sits ~2.5×
+// above the measured cost and ~56× below the control — comfortably discriminating a regression back to
+// a whole-corpus scan. Both figures are total buffer ACCESSES and so do not move with cache state;
+// scoring cache hits alone put the control at 11 under load, which is how this gate came to fail as
+// "the ceiling no longer discriminates" (scripts/db/lib/explain_buffers.ts).
 const BUFFER_CEILING = 200;
-
-/** Sum the EXECUTION buffers of an EXPLAIN (ANALYZE, BUFFERS) plan.
- *
- * EXECUTION only. EXPLAIN ends with a `Planning:` section carrying its own `Buffers:` line,
- * and that one counts catalog reads for BUILDING the plan — hundreds of buffers that scale
- * with the schema, not with the function under test. The warm-up in each caller exists to
- * drive it to ~0, but that only holds while the warm-up and the EXPLAIN run on the SAME
- * backend: in a full `test:data` run the pool hands out a different client, the plan is built
- * afresh, and ~458 planning buffers land on top of an execution cost of ~73 — failing a
- * 200-buffer ceiling the function is nowhere near. Counting only the execution section
- * measures the thing the ceiling is about, in isolation and under load alike.
- */
-const sumExecutionBuffers = (rows: { "QUERY PLAN": string }[]): number => {
-  const all = rows
-    .map((r) => r["QUERY PLAN"])
-    .join("\n")
-    .split("\n");
-  const planningAt = all.findIndex((l) => /^\s*Planning:/.test(l));
-  const lines = (planningAt === -1 ? all : all.slice(0, planningAt)).filter(
-    (l) => l.includes("Buffers:"),
-  );
-  assert.ok(
-    lines.length,
-    "EXPLAIN reported no execution Buffers: line — parser needs updating",
-  );
-  return lines
-    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
-    .reduce((n, m) => n + Number(m[1]), 0);
-};
 
 const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
   // Warm this backend's catalog/syscache first — the first call on a fresh connection carries
@@ -462,7 +436,7 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
 
   // Control: restore the expensive pre-fix body (the whole-corpus `co` CTE) as a 2-arg overload and
   // confirm this assertion would have caught it. NOT the whole old body — it keeps `co` + subj_co and
-  // drops the rest, a LOWER BOUND (~6,760 buffers) on what the ceiling must reject.
+  // drops the rest, a LOWER BOUND (11,229 buffers) on what the ceiling must reject.
   const regressed = await withClient(async (c) => {
     await c.query("BEGIN");
     try {
@@ -504,9 +478,9 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
 
 // The DEFAULT ceiling above never exercises the TOGGLE path (bufferCost binds p_include_private=false).
 // The private view admits verified co-owners, so it costs more — but the coowner_count≤6 guard bounds
-// the fan-out, so it stays FINITE. Measured ~379 on the highest-verified-degree small-company subject;
+// the fan-out, so it stays FINITE. Measured 464 on the highest-verified-degree small-company subject;
 // a regression that dropped the guard (fanning to scores of private co-owners, then indirect over their
-// companies) would blow well past this. 2000 sits ~5× above the measurement.
+// companies) would blow well past this. 2000 sits ~4× above the measurement.
 const PRIVATE_BUFFER_CEILING = 2000;
 
 const bufferCostPrivate = async (

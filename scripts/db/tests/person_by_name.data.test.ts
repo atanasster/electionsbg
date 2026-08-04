@@ -19,6 +19,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import type { PoolClient } from "pg";
 import { allRows, withClient, end } from "../lib/pg";
+import { sumExecutionBuffers } from "../lib/explain_buffers";
 
 const byName = (name: string): Promise<{ slug?: string } | null> =>
   allRows<{ r: { slug?: string } | null }>("SELECT person_by_name($1) AS r", [
@@ -215,8 +216,8 @@ test.skipIf(skip)(
 // that no longer measures anything — and note the second-order property, that raising the
 // ceiling to silence a flaky `current` makes the `regressed` assertion fail instead.
 //
-// Measured on a WARMED connection (see bufferCost): new ~23, old ~3,848. The ceiling sits an
-// order of magnitude above the new cost and ~19× below the old, so neither edge is close.
+// Total buffer ACCESSES, so the figures do not move with cache state: new 22, old 51,852. The
+// ceiling sits ~9× above the new cost and ~259× below the old, so neither edge is close.
 const BUFFER_CEILING = 200;
 
 const bufferCost = async (c: PoolClient, name: string): Promise<number> => {
@@ -224,29 +225,14 @@ const bufferCost = async (c: PoolClient, name: string): Promise<number> => {
   // connection costs ~1,050 buffers of one-time planning warm-up that scales with
   // person_by_slug's size, not with how this function plans — enough to swing the measurement
   // 47× with test-execution order, and enough that future schema growth could fail this test
-  // for a reason wholly unrelated to the regression it guards.
+  // for a reason wholly unrelated to the regression it guards. sumExecutionBuffers drops the
+  // planning section outright, so this is belt-and-braces rather than the only defence.
   await c.query("SELECT person_by_name($1)", [name]);
   const { rows } = await c.query<{ "QUERY PLAN": string }>(
     "EXPLAIN (ANALYZE, BUFFERS) SELECT person_by_name($1)",
     [name],
   );
-  const lines = rows
-    .map((r) => r["QUERY PLAN"])
-    .join("\n")
-    .split("\n")
-    .filter((l) => l.includes("Buffers:"));
-  // Fail loudly rather than scoring 0 if EXPLAIN's format ever changes — a silent 0 would sail
-  // under the ceiling, which is the dangerous direction.
-  assert.ok(
-    lines.length,
-    "EXPLAIN reported no Buffers: line — parser needs updating",
-  );
-  // Each counter parsed on its own: Postgres OMITS zero-valued counters, so a plan read
-  // entirely from disk prints "Buffers: shared read=4461" with no hit= at all. A regex
-  // anchored on `hit=` scores that as 0.
-  return lines
-    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
-    .reduce((n, m) => n + Number(m[1]), 0);
+  return sumExecutionBuffers(rows);
 };
 
 test.skipIf(skip)("resolves as an index lookup, not a table scan", async () => {
