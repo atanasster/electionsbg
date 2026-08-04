@@ -100,7 +100,8 @@ const ALLOWED = new Map<string, "debt" | "accepted">([
   ["scripts/db/load_mp_roster_pg.ts: mp_car", "debt"],
   ["scripts/db/load_funds_pg.ts: fund_beneficiaries", "debt"],
   ["scripts/db/load_funds_pg.ts: fund_projects", "debt"],
-  ["scripts/agri/ingest.ts: agri_subsidies", "debt"],
+  // agri_subsidies was PAID OFF 2026-08-04 (gaps plan T2): the TRUNCATE became
+  // an UNLOGGED stage build + one-transaction DELETE+INSERT publish.
   // ~5.7k rows, fingerprinted and usually skipped outright — see the call site.
   ["scripts/db/load_place_dim_pg.ts: place_dim", "accepted"],
   // One row per cabinet (~30) and per court (~200): both well under a second.
