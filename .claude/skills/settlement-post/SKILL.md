@@ -293,12 +293,42 @@ and Novinite (both report 17).
 
 ---
 
+## The national matura average has two values — use ours, and say what it is
+
+**Both are right; they are different statistics.** Resolved 2026-08-04.
+
+| | statistic | 2024 | 2025 | 2026 |
+|---|---|---|---|---|
+| ours | examinee-weighted mean of individual **GRADES** | 4,3008 | 4,2115 | **4,3268** |
+| МОН headline | the grade attached to the national mean **POINTS** | 4,32 | 4,27 | **4,39** |
+| gap | | +0,019 | +0,059 | +0,063 |
+
+МОН leads with points and quotes the grade as its counterpart — 2026: "60 т. …
+Добър 4,39"; 2025: "57,53 точки … 4,27". Ours aggregates the per-school
+open-data table, which publishes `(Бр. БЕЛ, Ср.усп. БЕЛ)` and **no points
+column at all** — so МОН's figure is not derivable from the dataset we ingest,
+and ours is not derivable from their headline. `mean(grade) ≠ grade(mean points)`
+for any nonlinear points→grade scale, and the ДЗИ scale is a band table.
+
+Not a pipeline fault and not a population mismatch: `scripts/db/load_schools_pg.ts`
+weights correctly (`sum += s * c`), reproduced independently from
+`raw_data/indicators/mon/2026.csv` at 4,3268 over **49,034** examinees / 974
+schools, against МОН's own ~50,000 — and the fetcher takes the май–юни resource
+only, skipping the retakes and the "по желание" exams.
+
+**The rule.** Quote **4,33** and name the basis — "средно за страната по данни
+на МОН по училища". Never print 4,39 beside a school figure from this table:
+the school numbers are grades, so a points-derived national grade is a different
+scale on the same axis. Both support "far below the national average", so no
+post is blocked by the choice.
+
 ## Known unresolved
 
-**The national matura average has two values.** Our raw МОН file gives **4,33**
-examinee-weighted over 49,034 examinees, and `/education` displays 4,33. МОН's
-own press line and the outlets repeating it say **4,39**. The gap is not
-explained — possibly a different session or examinee filter. `naiasno-post`
-rule 2 requires confirming the headline against the primary source, so **resolve
-this before any post that uses the national average as a reference**, and prefer
-naming our figure and its basis over quoting a number we cannot reproduce.
+- **974 vs 783 schools.** Our 2026 file lists 974 schools with a БЕЛ figure;
+  one outlet reports 783 schools sitting the exam. Probably a different counting
+  basis, not established. It does not move the average (examinee counts agree to
+  ~2%), but do not quote a school COUNT from this table as "schools in Bulgaria".
+- **The exact ДЗИ points→grade scale.** `mon.bg`'s scale page 403s and the
+  published tables are images. Without it the gap cannot be decomposed into
+  scale nonlinearity vs a residual population difference — only bounded, which
+  the three-year table above does.
