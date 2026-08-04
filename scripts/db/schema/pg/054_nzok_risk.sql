@@ -208,52 +208,88 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
 $$;
 
 -- ==========================================================================
--- One molecule's (INN) full detail → the /molecule/:inn page. The pre-aggregated
--- per-INN headline + nested packs (from nzok_drug_overpay_by_inn), joined to the
--- FULL per-facility overpay rows for that molecule (nzok_drug_overpay is capped
--- only in the overview payload, never per-INN). Comparison stays at pack identity:
--- both `packs` and `rows` carry (nationalNo, nzokCode). NULL when the INN has no
--- above-median rows in the latest full year.
+-- One molecule's (INN) full detail → the /molecule/:inn page.
+--
+-- TWO TIERS, and the split is the point. This function used to key entirely on
+-- nzok_drug_overpay_by_inn, which is a TOP-30 leaderboard — so it returned NULL
+-- for 580 of the 610 reimbursed INNs and /molecule/:inn rendered its not-found
+-- branch for 95% of the molecules the site knows about. That was invisible while
+-- nothing linked to those pages; a search box that finds all 610 makes it the
+-- most-hit path on the page.
+--
+--   `spend`   — ALWAYS present for a reimbursed INN (nzok_drug_quarterly, all
+--               610): ATC, total, and the quarterly series. This is what makes
+--               the page servable.
+--   `overpay` — ONLY for the ~30 with above-median rows in the latest full year:
+--               the pre-aggregated per-INN headline + nested packs, joined to
+--               this molecule's per-facility rows. NOTE `nzok_drug_overpay` is a
+--               GLOBAL top-100 table, so `rows` is a subset of `facilityCount`
+--               and is legitimately EMPTY for molecules whose rows fell outside
+--               that 100 (7 of the 30 today) — hence the COALESCE to '[]'.
+--               Comparison stays at pack identity: both `packs` and `rows`
+--               carry (nationalNo, nzokCode).
+--
+-- NULL only when the INN is in neither source, i.e. genuinely not a molecule
+-- this corpus knows — which is the one case the not-found branch is for.
 -- ==========================================================================
 CREATE OR REPLACE FUNCTION nzok_drug_molecule_detail(p_inn text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH y AS (SELECT max(year) AS yr FROM nzok_drug_overpay_by_inn),
+  -- Same Cyrillic-lookalike fold nzok_drug_quarterly_by_inn applies, so a URL
+  -- carrying Cyrillic А/В/Е/… resolves to the Latin INN either tier stores.
+  WITH key AS (
+    SELECT regexp_replace(
+             btrim(translate(upper(p_inn), 'АВЕКМНОРСТУХ', 'ABEKMHOPCTYX')),
+             '\s+', ' ', 'g') AS k
+  ),
+  spend AS (SELECT nzok_drug_quarterly_by_inn((SELECT k FROM key)) AS s),
+  y AS (SELECT max(year) AS yr FROM nzok_drug_overpay_by_inn),
   agg AS (
     SELECT * FROM nzok_drug_overpay_by_inn
-    WHERE year = (SELECT yr FROM y) AND inn = p_inn
+    WHERE year = (SELECT yr FROM y) AND inn = (SELECT k FROM key)
     LIMIT 1
   )
-  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM agg) THEN NULL ELSE jsonb_build_object(
-    'inn',           p_inn,
-    'year',          (SELECT yr FROM y),
-    'overpayEur',    (SELECT ROUND(overpay_eur)::bigint FROM agg),
-    'facilityCount', (SELECT facility_count FROM agg),
-    'packCount',     (SELECT pack_count FROM agg),
-    'maxRatio',      (SELECT max_ratio FROM agg),
-    'packs',         (SELECT packs FROM agg),
-    'rows', (
-      SELECT jsonb_agg(jsonb_build_object(
-               'nationalNo',    national_no,
-               'nzokCode',      nzok_code,
-               'tradeName',     trade_name,
-               'form',          form,
-               'facility',      facility,
-               'regNo',         reg_no,
-               'eik',           eik,
-               'unitEur',       unit_eur,
-               'medianUnitEur', median_unit_eur,
-               'ratio',         ratio,
-               'units',         units,
-               'overpayEur',    ROUND(overpay_eur)::bigint)
-             ORDER BY ROUND(overpay_eur) DESC,
-                      reg_no COLLATE "C", national_no COLLATE "C",
-                      nzok_code COLLATE "C", id)
-      FROM nzok_drug_overpay
-      -- period IS NULL = the annual (latest-full-year) ranking, the only rows this
-      -- table holds today; the guard keeps `rows` on one year if a future monthly
-      -- ranking ever shares the table (the headline `agg` is already max(year)).
-      WHERE inn = p_inn AND period IS NULL)
-  ) END;
+  SELECT CASE
+    WHEN NOT EXISTS (SELECT 1 FROM agg) AND (SELECT s FROM spend) IS NULL
+      THEN NULL
+    ELSE jsonb_build_object(
+      'inn',   (SELECT k FROM key),
+      'spend', (SELECT s FROM spend),
+      'overpay', CASE WHEN NOT EXISTS (SELECT 1 FROM agg) THEN NULL
+        ELSE jsonb_build_object(
+          'year',          (SELECT yr FROM y),
+          'overpayEur',    (SELECT ROUND(overpay_eur)::bigint FROM agg),
+          'facilityCount', (SELECT facility_count FROM agg),
+          'packCount',     (SELECT pack_count FROM agg),
+          'maxRatio',      (SELECT max_ratio FROM agg),
+          'packs',         (SELECT packs FROM agg),
+          -- COALESCE wraps the whole SUBQUERY: jsonb_agg over no rows yields
+          -- JSON null, not [], and 7 of the 30 overpay molecules have no rows
+          -- inside the global top-100 table. The client maps over this.
+          'rows', COALESCE((
+            SELECT jsonb_agg(jsonb_build_object(
+                     'nationalNo',    national_no,
+                     'nzokCode',      nzok_code,
+                     'tradeName',     trade_name,
+                     'form',          form,
+                     'facility',      facility,
+                     'regNo',         reg_no,
+                     'eik',           eik,
+                     'unitEur',       unit_eur,
+                     'medianUnitEur', median_unit_eur,
+                     'ratio',         ratio,
+                     'units',         units,
+                     'overpayEur',    ROUND(overpay_eur)::bigint)
+                   ORDER BY ROUND(overpay_eur) DESC,
+                            reg_no COLLATE "C", national_no COLLATE "C",
+                            nzok_code COLLATE "C", id)
+            FROM nzok_drug_overpay
+            -- period IS NULL = the annual (latest-full-year) ranking, the only
+            -- rows this table holds today; the guard keeps `rows` on one year if
+            -- a future monthly ranking ever shares the table (the headline `agg`
+            -- is already max(year)).
+            WHERE inn = (SELECT k FROM key) AND period IS NULL), '[]'::jsonb)
+        ) END
+    ) END;
 $$;
 
 RESET check_function_bodies;

@@ -638,14 +638,21 @@ type NzokDrugMoleculeRowLite = {
   ratio: number;
   overpayEur: number;
 };
+// Mirrors the two-tier payload of nzok_drug_molecule_detail(): `spend` is
+// present for every reimbursed INN, `overpay` (the above-median analysis) for a
+// minority. This tool answers an above-median question, so it reads `overpay`
+// and says so when there is none — it must NOT read the old flat shape, which
+// would be a TypeError on the success path.
 type NzokDrugMoleculeLite = {
   inn: string;
-  year: number;
-  overpayEur: number;
-  facilityCount: number;
-  packCount: number;
-  maxRatio: number | null;
-  rows: NzokDrugMoleculeRowLite[];
+  overpay: {
+    year: number;
+    overpayEur: number;
+    facilityCount: number;
+    packCount: number;
+    maxRatio: number | null;
+    rows: NzokDrugMoleculeRowLite[] | null;
+  } | null;
 } | null;
 
 // Resolve a molecule from free text against the known INN universe: an exact
@@ -697,8 +704,11 @@ export const nzokDrugMolecule = async (
     const detail = await fetchDb<NzokDrugMoleculeLite>("nzok-drug-molecule", {
       inn,
     });
-    if (detail && detail.rows.length) {
-      const top = detail.rows.slice(0, 12);
+    const over = detail?.overpay ?? null;
+    // `rows` is a jsonb_agg, which yields JSON null (not []) when the molecule
+    // has no per-facility rows in the global top-100 table.
+    if (over && over.rows && over.rows.length) {
+      const top = over.rows.slice(0, 12);
       const rows: Row[] = top.map((r) => ({
         hospital: r.facility,
         pack: r.tradeName || "—",
@@ -719,8 +729,8 @@ export const nzokDrugMolecule = async (
         domain: "fiscal",
         kind: "table",
         title: bg
-          ? `Кои болници плащат над медианата за ${inn} (${detail.year})`
-          : `Which hospitals pay above median for ${inn} (${detail.year})`,
+          ? `Кои болници плащат над медианата за ${inn} (${over.year})`
+          : `Which hospitals pay above median for ${inn} (${over.year})`,
         subtitle: bg
           ? "Единична цена спрямо медианата за същата опаковка (Национален №). Разликата не е нередност — може да отразява обем, срок на доставка или условия по договора."
           : "Unit price vs the median for the same pack (Национален №). A gap is not an irregularity — it can reflect volume, delivery period or contract terms.",
@@ -740,12 +750,11 @@ export const nzokDrugMolecule = async (
         viz: "bar",
         facts: {
           inn,
-          year: String(detail.year),
-          hospitals: fmtInt(detail.facilityCount, ctx.lang),
-          packs: fmtInt(detail.packCount, ctx.lang),
-          total_overpay: fmtEurCompact(detail.overpayEur, ctx.lang),
-          max_ratio:
-            detail.maxRatio != null ? `${round2(detail.maxRatio)}×` : "—",
+          year: String(over.year),
+          hospitals: fmtInt(over.facilityCount, ctx.lang),
+          packs: fmtInt(over.packCount, ctx.lang),
+          total_overpay: fmtEurCompact(over.overpayEur, ctx.lang),
+          max_ratio: over.maxRatio != null ? `${round2(over.maxRatio)}×` : "—",
           top_hospital: worst?.facility ?? "—",
           top_overpay: worst ? fmtEurCompact(worst.overpayEur, ctx.lang) : "—",
           // hidden → /molecule/:inn deep link (see links.ts).

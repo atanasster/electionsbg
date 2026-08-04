@@ -3257,11 +3257,11 @@ export interface NzokDrugDetailRow {
   overpayEur: number;
 }
 
-/** /api/db/nzok-drug-molecule — one molecule's (INN) detail: the /molecule/:inn
- *  page. Headline + its packs (pack-identity breakdown) + the per-facility
- *  above-median rows for the molecule. NULL when the INN has no such rows. */
-export interface NzokDrugMoleculeFile {
-  inn: string;
+/** The above-median (overpay) analysis for one molecule — present only for the
+ *  ~30 INNs with above-median rows in the latest full year. Its absence is the
+ *  NORMAL case, not an error: most molecules simply have no dispersion to
+ *  report. */
+export interface NzokDrugMoleculeOverpay {
   year: number;
   overpayEur: number;
   facilityCount: number;
@@ -3269,6 +3269,20 @@ export interface NzokDrugMoleculeFile {
   maxRatio: number | null;
   packs: NzokDrugRiskPack[];
   rows: NzokDrugDetailRow[];
+}
+
+/** /api/db/nzok-drug-molecule — one molecule's (INN) detail: the /molecule/:inn
+ *  page.
+ *
+ *  TWO TIERS. `spend` is present for every reimbursed INN (all 610) and is what
+ *  makes the page servable; `overpay` is the above-median analysis and exists
+ *  for ~30. The whole payload is NULL only when the INN is in neither source.
+ *  Keying the page on `overpay` alone — which it did until this split — rendered
+ *  not-found for 95% of the molecules the site knows about. */
+export interface NzokDrugMoleculeFile {
+  inn: string;
+  spend: NzokDrugQuarterlySeries | null;
+  overpay: NzokDrugMoleculeOverpay | null;
 }
 
 /** One month of a pack's dispersion band — the "is the gap widening?" series. */

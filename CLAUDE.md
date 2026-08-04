@@ -753,13 +753,26 @@ keeps running the previous body indefinitely, and nothing reports a difference. 
 does NOT carry it — that ships function *code* in `functions/`, which is a different thing
 from a Postgres function.
 
-**Two more of these are outstanding as of 2026-08-04**, both found because two data tests kept
-timing out under load — the tests were the symptom, the serving path was the defect:
+**Three more of these are outstanding as of 2026-08-04.** Two were found because data tests kept
+timing out under load — the tests were the symptom, the serving path was the defect; the third is
+the molecule-page widening below.
 
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
-  npx tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql
+  npx tsx scripts/db/apply_functions.ts 007_query_builders.sql 081_person_identity.sql \
+  066_nzok_drug_quarterly.sql 054_nzok_risk.sql
 ```
+
+- **`nzok_drug_molecule_detail()` (054)** keyed entirely on `nzok_drug_overpay_by_inn`, which is a
+  **top-30 leaderboard** — so `/molecule/:inn` returned NULL and rendered its not-found branch for
+  **580 of the 610** reimbursed INNs. It now returns two tiers: `spend` (from
+  `nzok_drug_quarterly`, present for all 610) and `overpay` (the above-median analysis, ~30). NULL
+  is reserved for an INN in neither source. **066 MUST be in the same command and BEFORE it** — 054
+  calls `nzok_drug_quarterly_by_inn()` from 066, and because 054 sets `check_function_bodies =
+  false` the missing dependency does not fail the apply: it fails on the first CALL with 42883,
+  which `missingMigrationEmpty` degrades to `[]` — a truthy value that skips the not-found branch
+  and renders "no above-median prices, the normal case" on every molecule page at a 200.
+  `sector_search_landing.data.test.ts` fails if any findable INN is unservable.
 
 - **`recent_updates()` (007)** was **13.61 s at the route's default `(days=1, limit=200)`** — the
   route clamps `limit` to 1–1000, so the endpoint was over Cloud Run's 10 s `statement_timeout` at
