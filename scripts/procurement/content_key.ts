@@ -82,8 +82,54 @@ export const contentKeys = (r: Contract): string[] => {
 // True when a row was sourced from the ЦАИС ЕОП flat договори feed (as opposed
 // to the АОП OCDS export or the legacy annual CSVs). The flat feed namespaces
 // its synthetic release ids under `eop-` (see normalize_eop.ts).
+//
+// STILL THE PARSE-TIME PRIMITIVE, no longer the precedence one. `evictSupersededEopTwins`
+// below runs inside the ingest and needs exactly this binary question ("may I drop this
+// row?"); everything that has to RANK the feeds against each other uses `feedOf`/`feedRank`.
+// Conflating the two is what made the corpus blind to `aop`↔`rop` and `aop`↔`ocds` pairs,
+// where neither side is `eop-` — see docs/plans/procurement-cross-source-dedup-v2.md §2.
 export const isEopSourced = (r: Contract): boolean =>
   typeof r.releaseId === "string" && r.releaseId.startsWith("eop-");
+
+// The FOUR feeds the corpus is built from, distinguished by `releaseId` prefix. `aop` is the
+// fallback rather than a prefix test because the legacy CSV is the only generator that has
+// ever changed its prefix shape (`aop-legacy-…`), and an unrecognised row belongs with the
+// legacy pile rather than in a silent fifth bucket.
+export type Feed = "ocds" | "aop" | "eop" | "rop";
+
+export const feedOf = (r: Contract): Feed => {
+  const id = typeof r.releaseId === "string" ? r.releaseId : "";
+  if (id.startsWith("ocds-")) return "ocds";
+  if (id.startsWith("eop-")) return "eop";
+  if (id.startsWith("rop-")) return "rop";
+  return "aop";
+};
+
+// Precedence for cross-source reconciliation: LOWER rank wins, and the loser is the side that
+// gets evicted. Order: ocds > aop > eop > rop.
+//
+// MEASURED ON THE AFFECTED POPULATION, not on corpus-wide averages, and the two disagree.
+// Corpus-wide, `eop` looks like the richer feed (100% `procurement_method` against aop's 54%,
+// mean title 170 chars against 125, `lot_name` on 40% against 17%) — which argues for
+// `eop > aop`. On the 46 `aop`↔`eop` twin pairs this ordering actually decides, `aop` is the
+// richer side on every axis that differs (measured 2026-08-04 by measure_cross_source.ts §5.1,
+// counting one pair per identity-E group):
+//
+//   linked procurement_annexes row   aop-only 2    eop-only 0
+//   eu_funded populated              aop-only 13   eop-only 0
+//   lot_name populated               aop-only 11   eop-only 1
+//   longer title                     aop 22        eop 9
+//   procurement_method / cpv         tie (both populated on all 46)
+//
+// So `eop > aop` would break 2 annex links and drop EU-funding attribution on 13 contracts to
+// gain nothing. Ranking `aop` above `eop` also keeps the shipped invariant that an `aop`↔`eop`
+// pair resolves by dropping the `eop` row, so this is purely additive to existing behaviour.
+//
+// No `eop`↔`rop` pair exists in the corpus, so that one ordering is unconstrained by evidence;
+// it follows the feeds' coverage windows (rop ends 2018-12-31, eop begins 2020-01-07).
+const FEED_RANK: Record<Feed, number> = { ocds: 1, aop: 2, eop: 3, rop: 4 };
+
+export const feedRank = (r: Contract): number => FEED_RANK[feedOf(r)];
 
 // Evict EOP-sourced rows superseded by an arriving OCDS row. OCDS is
 // authoritative: when the OCDS export finally publishes a contract the flat feed
