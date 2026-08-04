@@ -1,7 +1,7 @@
 # Cross-source duplication in the contracts corpus — v2
 
-**Status:** T0, T1, T2+T3, T4, T5, T7 and T8a are **implemented and committed**; the corpus is
-reconciled and every gate is green. **T6 (production) is the only tier outstanding.**
+**Status:** **COMPLETE.** Every tier is implemented, committed and verified — T0, T1, T2+T3, T4,
+T5, T6, T7 and T8. The corpus is reconciled locally and on production, and every gate is green.
 **Supersedes:** the reconciliation half of
 [procurement-foreign-consortium-members-v1.md](procurement-foreign-consortium-members-v1.md) §9–§11.
 v1's supplier-identity tiers (T0 ЕГН encoding, T1/T2 foreign consortium members) are **shipped and
@@ -666,6 +666,46 @@ Ordering notes that are load-bearing, from CLAUDE.md:
 **Abort criterion, stated in advance.** If the cloud measurement proposes evictions materially
 beyond what the shard state predicts, stop and re-measure — that is exactly the signal that saved
 38 rows last time.
+
+### T6 — DONE (2026-08-04)
+
+Read-only measurement first, as specified. Prod carried **77 eligible side-pairs / 78 rows /
+€36,160,319.62** — close to local's 73/74/€36.34m and well inside the abort criterion. Its
+ambiguous set held one group local did not: `00233-2023-0103` (€903,145.98), the exact contract v1
+§9 named as a prod-only double-count.
+
+| | before | after |
+| --- | ---: | ---: |
+| prod rows | 408,227 | **408,282** |
+| prod € | 99,239,146,255.71 | **99,208,429,422.38** |
+
+Matching the local corpus of the same vintage to the cent. Post-load verification: **0 eligible
+evictions**, **0 orphaned annex rows**, and the same 7 ambiguous + 5 blocked as local.
+
+**The first attempt failed and it is worth recording why it was a non-event.** After ~18 minutes
+the connection dropped mid-merge (`Connection terminated unexpectedly`). Prod was untouched —
+`contracts_stage` held all 405,637 rows, the merge transaction rolled back, and the served corpus
+stayed at 408,227. Diagnosis before retrying rather than a blind retry: the Cloud SQL proxy had
+been up 6 days, the instance 4 days, and `statement_timeout` /
+`idle_in_transaction_session_timeout` / `tcp_keepalives_idle` were all `0` — so no server-side
+timeout could have caused it and it was not deterministic. The retry succeeded in 5,380 s (~90 min).
+
+The staging design is what made a mid-flight drop survivable: the COPY lands in an UNLOGGED stage
+table that nothing serves, and only the final merge is transactional against `contracts`. A
+TRUNCATE-and-reload would have left prod empty for those 18 minutes and broken there.
+
+Chain run after the load: `db:load:annexes:pg:cloud` (18,580 contracts / 24,106 annex rows —
+0 orphans left), `persons-browse` (118,668), `person-search` (531,340), `graph` (162,567 edges).
+The two T8a serving-path fixes were applied separately and are live: `recent_updates(1, 200)` is
+**0.59 s warm** on prod (a first call right after the reload reads 9.3 s on a cold buffer cache),
+and `idx_person_role_ref` is present.
+
+**Prod is now one vintage behind local, and deliberately not chased.** While T6 ran, a separate
+change landed two annex-fold divisor fixes (`8bcb6fa112`, `dc8fcb678d`) that repaired `amountEur`
+on the shards and moved local to 405,720 shard rows — retiring 4 of the 12 accepted conflicts,
+because corrected values let the reconcile pair three of them. Prod carries the pre-fix vintage:
+coherent, strictly better than what it had, and ~3 duplicate rows behind local. Publishing that is
+another ~90-minute reload and a separate decision, not a silent follow-on.
 
 ### T7 — wiring
 
