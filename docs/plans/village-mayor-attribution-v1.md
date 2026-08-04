@@ -570,6 +570,24 @@ npm run db:load:graph:pg:cloud                # ← DO NOT SKIP: see below
 npm run person:slugs:cloud                    # re-mint the committed prerender manifest
 ```
 
+**DEPLOYED 2026-08-04, database only — the hosting half is deliberately still pending.**
+Cloud SQL matches local exactly and the layer is verified against prod (88 `.data.test.ts`
+assertions, `graph_person_node` 0 mismatched, `/api/db/person-profile` returning "с. Безмер"
+for `rosen-rusev-a0a8lm`). What is NOT done is `npm run deploy`, and the manifest only takes
+effect on that rebuild — so until someone runs it:
+
+- **249 newly-minted `/person` slugs serve the SPA shell**, i.e. a crawler sees the HOMEPAGE
+  `<title>` and canonical. This is the same defect class `CLAUDE.md` describes for
+  `/funds/contract/**` and `/company/**`.
+- **2,200 removed slugs still serve stale prerendered pages** that canonicalise to themselves
+  — ghost pages for people who no longer exist as separate records.
+
+Neither is user-visible: the SPA fetches live data, which is already correct. Both are SEO
+only, and both persist until the next hosting deploy. Note that deploy ships ALL of `main`,
+not just the person layer, and `dist/` is near the Firebase file-COUNT ceiling
+(`docs/plans/…` / `CLAUDE.md`: a 453k-file dist has failed; current ~248k), so it wants to be
+a deliberate step rather than a tail-end of this one.
+
 **`db:load:graph:pg` is the one this plan originally left out, and it is the most damaging
 omission of the set.** The three `graph_*` tables persist a `person_id`, which
 `resolve_persons` re-mints on every run (v2 §A1's class), so a resolve without it leaves the
