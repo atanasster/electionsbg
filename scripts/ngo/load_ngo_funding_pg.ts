@@ -5,13 +5,26 @@
 //
 //   npm run db:load:ngo-funding:pg
 //
-// Sources on disk:
-//   raw_data/ngo_funding/fts/*.xlsx           — EU FTS per-year datasets
+// FOUR inputs, in three tiers of absence-handling (gaps plan T4.2 — the tier is
+// "does git carry the file", the same axis refresh_coverage.ts uses):
+//   raw_data/ngo_funding/fts/*.xlsx  — EU FTS per-year datasets, GITIGNORED
 //     (download: https://ec.europa.eu/budget/financial-transparency-system/
-//      download/{YEAR}_FTS_dataset_en.xlsx)
-//   data/ngo/budget_subsidies.json            — curated State-Budget subsidies
-//   data/ngo/foreign_grants.json              — curated ABF/NED grantee rows
-// See docs/plans/ngo-final-implementation-plan.md (Phases 5a + 6).
+//      download/{YEAR}_FTS_dataset_en.xlsx). Absent on a fresh clone → the
+//     eu_fts leg (65% of the corpus) is SKIPPED WITH A LOUD WARNING.
+//   data/ngo/budget_subsidies.json + data/ngo/abf/projects.json (+
+//     abf_aliases.json) — TRACKED. A tracked file cannot legitimately vanish,
+//     so absence THROWS.
+//   data/ngo/foreign_grants.json — CURATED, HAND-AUTHORED, AND NEVER YET
+//     WRITTEN: prod's corpus has zero 'ned' rows (measured 2026-08-03 — the
+//     breakdown is eu_fts 2,071 / abf 1,105 / budget_subsidy 3). It was scoped
+//     in ngo-final-implementation-plan.md Phase 6 and no watcher or skill
+//     produces it. Schema, when someone writes it:
+//     {name, source?, funder?, year?, amountEur?, programme?, eik?}[].
+//     Absence is a quiet logged skip.
+// The loader prints a one-line manifest per input (found/absent + rows), so a
+// silently-halved corpus is distinguishable from a healthy one.
+// (The "ngo-final-implementation-plan.md" several ngo files cite never existed
+// in git; the committed plan is docs/plans/ngo-risk-signals-v1.md.)
 
 import * as fs from "node:fs";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
@@ -98,8 +111,25 @@ const parseFts = (): RawRow[] => {
   return out;
 };
 
-const parseCurated = (path: string, defaultSource: string): RawRow[] => {
-  if (!existsSync(path)) return [];
+// Tracked inputs cannot legitimately be absent — a vanished tracked file is a
+// checkout defect, not a fresh-clone state, and must throw (T4.2). Exported
+// for the tier unit test.
+export const assertTracked = (path: string): void => {
+  if (!existsSync(path))
+    throw new Error(
+      `${path} is git-tracked but missing — broken checkout, refusing to load a halved corpus`,
+    );
+};
+
+export const parseCurated = (
+  path: string,
+  defaultSource: string,
+  tracked = false,
+): RawRow[] => {
+  if (!existsSync(path)) {
+    if (tracked) assertTracked(path);
+    return [];
+  }
   const arr = JSON.parse(readFileSync(path, "utf8")) as Array<{
     name: string;
     // Per-row `source` (e.g. 'abf' vs 'ned') — falls back to the file's default
@@ -207,15 +237,50 @@ export const loadNgoFundingPg = async (): Promise<{
     return { rows: 0, matched: 0 };
   }
 
-  const rows = [
-    ...parseFts(),
-    ...parseCurated(BUDGET_JSON, "budget_subsidy"),
-    // ABF now has its own scraped path (parseAbf); the curated foreign-grants file
-    // is for OTHER funders (e.g. NED), so it must NOT default to 'abf' — two 'abf'
-    // sources over the same grantees would double-count into foreign_eur.
-    ...parseCurated(FOREIGN_JSON, "ned"),
-    ...parseAbf(),
+  // Fail-fast on the tracked ABF inputs before any parsing work: parseAbf has
+  // its own reader (not parseCurated), and a missing alias map would load all
+  // ~1.1k ABF rows unmatched with nothing tripping — ABF rows are barred from
+  // fuzzy matching and carry no VAT, so the alias map is their ONLY match path.
+  assertTracked(ABF_PROJECTS);
+  assertTracked(ABF_ALIASES);
+
+  const fts = parseFts();
+  const budget = parseCurated(BUDGET_JSON, "budget_subsidy", true);
+  // ABF now has its own scraped path (parseAbf); the curated foreign-grants file
+  // is for OTHER funders (e.g. NED), so it must NOT default to 'abf' — two 'abf'
+  // sources over the same grantees would double-count into foreign_eur.
+  const foreign = parseCurated(FOREIGN_JSON, "ned");
+  const abf = parseAbf();
+
+  // Input manifest (T4.1): one line per source, so "this load ran without the
+  // FTS corpus" is a printed fact rather than an inference from a row count.
+  const manifest: [string, string, boolean, number][] = [
+    [
+      "eu_fts",
+      `${FTS_DIR}/*.xlsx (gitignored)`,
+      existsSync(FTS_DIR),
+      fts.length,
+    ],
+    ["budget_subsidy", `${BUDGET_JSON} (tracked)`, true, budget.length],
+    [
+      "ned",
+      `${FOREIGN_JSON} (curated, optional)`,
+      existsSync(FOREIGN_JSON),
+      foreign.length,
+    ],
+    ["abf", `${ABF_PROJECTS} (tracked)`, true, abf.length],
   ];
+  for (const [source, where, found, n] of manifest)
+    console.log(
+      `[ngo-funding] ${source.padEnd(14)} ${found ? "found " : "ABSENT"} ${String(n).padStart(6)} rows  ${where}`,
+    );
+  if (fts.length === 0)
+    console.warn(
+      "[ngo-funding] WARNING: the eu_fts leg is EMPTY — that is ~65% of the corpus. " +
+        "On a fresh clone download the FTS xlsx files into raw_data/ngo_funding/fts/ (see header).",
+    );
+
+  const rows = [...fts, ...budget, ...foreign, ...abf];
   if (!rows.length) {
     console.warn("[ngo-funding] no source rows found — nothing to load.");
     return { rows: 0, matched: 0 };
