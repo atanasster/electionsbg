@@ -41,7 +41,8 @@ through unchanged. A foreign registry number therefore becomes a syntactically v
 
 **336 rows / 176 distinct fabricated EIKs.** Only ids containing letters or punctuation
 (`RO6640696`, `IT02791070044`, `FN278233T`) actually fail `isValidEik` and get dropped — that is
-the Alstom class, **311 rows / 199 distinct**. The first draft measured "foreign" with a
+the Alstom class — **86 awards / €994.2m** by the faithful classifier (an earlier count of 211
+over-counted by treating the padded-numeric D-3 class as dropped, which it is not). The first draft measured "foreign" with a
 plain 9-or-13-digit test and so counted the padded ones as dropped. Anything reasoning about this
 corpus must run ids through the real `canonicalEik`, not a lookalike.
 
@@ -143,6 +144,16 @@ and after. The corpus-wide re-ingest is NOT done; it is an operator step.
 
 Two traps found while verifying, both of which silently corrupt money:
 
+- **The safe window is 2024-01-01…2025-12-31 ONLY — NOT 2026.** `--include-existing-buyers`
+  warns it is for "windows with no OCDS (2024–2025)", and the header of
+  [normalize.ts](../../scripts/procurement/normalize.ts) states АОП began publishing OCDS
+  fortnight bundles in **Jan 2026**. Running the range to 2026-12-31 wrote 17,010 `eop-`
+  twins alongside the authoritative OCDS rows — **+€6,298.2m of double-count**, all of it in 2026. Confirmed by the same run evicting **zero** twins in 2024 and 2025, i.e. those two
+  years genuinely have no OCDS to collide with. Recovery is the pipeline's own primitive,
+  `evictSupersededEopTwins(eopRows, ocdsRows)` from content_key.ts (OCDS is authoritative),
+  applied to the affected month shards; it is idempotent. Everything from 2026 onward, and
+  everything before 2024, must go through `ingest.ts` (the OCDS path), which performs that
+  eviction itself.
 - **`--cross-source-dedup` is the WRONG flag for a re-parse.** It drops a fresh row that
   content-matches one already on disk, and `contentKeys()` includes an amount-FREE key
   (`buyer:contractor:contractNo:dateSigned`). So the two BG rows matched and were dropped
