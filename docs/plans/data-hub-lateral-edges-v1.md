@@ -289,6 +289,11 @@ real, populated datasets on Cloud SQL; the local database simply has not loaded 
 prod ever lagged**, and hides them on every developer's machine today — the exact
 green-locally / wrong-on-prod class this repo keeps getting bitten by.
 
+> *(Corrected 2026-08-03: these "empty" readings were themselves `n_live_tup` artifacts —
+> nearly all of the named relations are populated locally by `count(*)`; see §6.4a. The
+> conclusion is unchanged and strengthened: an estimate-based "hide empty" rule would have
+> hidden POPULATED tables.)*
+
 **Filter by curated classification, never by row count.**
 
 ### 4.3 Design
@@ -487,16 +492,28 @@ differed by set comparison), so this is a stability fix, not a correctness one.
 `_pwy_before` = 33,026 rows, `tmp_all_slugs` = 20,887, `tmp_rank_slugs` = 14,496,
 `ingest_first_seen` = 17,199,204. `_pwy_before` is the first entry a visitor sees.
 
-**The row-count trap is confirmed on both sides.** 26 relations are empty on local and
-25 on prod — but *different ones*. Views report `reltuples = -1` → rendered as `0` today,
+**The row-count trap is confirmed on both sides.** 26 relations *read* 0 (`n_live_tup`) on
+local and 25 on prod — but *different ones*, and most of the local "0"s are estimate
+artifacts over populated tables (§6.4a). Views report `reltuples = -1` → rendered as `0` today,
 indistinguishable from empty. **Classify by curated rule, never by row count** (§4.2) — and
 see §6.4a, which shows the trap is worse than "local hasn't loaded them yet".
 
-### 6.4a Why 26 relations are empty locally — it is `db:refresh`, not missing data
+### 6.4a The `db:refresh` defect is real — but the "26 empty relations" number was an artifact
 
-The first framing of this ("the local database simply has not loaded them") was too soft. The
-real cause is a repo defect: **`db:refresh` — the documented "full reload: schema + every
-loader" — omits 12 of the 38 local loaders.**
+> **CORRECTED 2026-08-03** — see `docs/plans/db-refresh-loader-gaps-v1.md` §0, which supersedes
+> this section's classification table. The original table classified relations by
+> `pg_stat_user_tables.n_live_tup`, the exact column consequence 1 below warns is stale. Re-read
+> with `count(*)`, every relation the table attributed to a **missing load** is populated locally
+> except `nzok_pathway_tariffs` (0 on both databases) — the four empty-by-design staging tables
+> remain empty, as designed: `agri_subsidies` = 2,481,857 (= prod exactly),
+> `agri_payloads` = 16,711 (= prod), `ngo_funding` = 3,179 (= prod), and the whole `nzok_*` family
+> is loaded. `transport_facility_geo` holds 11 rows locally vs 0 on prod — the reverse of the
+> original claim. The rule that survives: **a relation's population is `count(*)`; `n_live_tup`
+> reads 0 until autovacuum analyzes, and no audit may classify on it.**
+
+The repo defect itself stands, verified from `package.json` rather than row counts:
+**`db:refresh` — the documented "full reload: schema + every loader" — omits 12 of the 38 local
+loaders.**
 
 ```
 db:load:nzok-activities:pg      db:load:nzok-drug-prices:pg     db:load:nzok-drug-quarterly:pg
@@ -505,43 +522,27 @@ db:load:nzok-tariffs:pg         db:load:ngo-funding:pg          db:load:tr:pg
 db:load:cr-founding:pg          db:load:company-founded:pg      db:load:ngo-board-links
 ```
 
-**Proven, not inferred.** `db:load:nzok-hospital:pg` was run against local Postgres during this
-audit: it completed in seconds off committed inputs and populated
-`nzok_hospital_payments` = **17,391** rows and `nzok_hospital_geo` = **258** rows, both of which
-had been 0. Nothing was missing — the loader simply is never called.
+So the honest framing is not "26 datasets are missing locally" — it is: **the refresh command does
+not do what it says, local↔prod parity is maintained by hand, and nothing detects when it lapses.**
+Also verified (code facts, unaffected by the correction): agri has no `db:load:agri:pg` /
+`:cloud` (`agri:ingest` combines fetch+load); `nzok_pathway_tariffs` was never ingested anywhere;
+`data/ngo/foreign_grants.json` is absent and its `ned` source has never produced a row on prod
+either; `transport_facility_geo` has zero code references.
 
-Classification of all 26 local empties by actual cause:
+Consequences that survive the correction:
 
-| # | Cause | Relations |
-|---:|---|---|
-| 12 | **Loader exists, inputs present on disk, omitted from `db:refresh`** | the `nzok_*` family (`activities`, `activity_facility_periods`, `activity_monthly`, `drug_overpay{,_by_hospital,_by_inn}`, `drug_pack_stats`, `drug_quarterly`, `eeof_nzok_parity`, `hospital_financials`, `hospital_geo`, `hospital_payments`) |
-| 2 | **No `db:load:*` at all** — `agri:ingest` combines fetch+load, has no `:cloud` wrapper and is not in `db:refresh` | `agri_subsidies`, `agri_payloads` |
-| 1 | **Input missing locally *and* never ingested anywhere** (empty on prod too) | `nzok_pathway_tariffs` — `data/budget/nzok/pathway_tariffs.json` absent; the tariffs live in the НРД PDF and have not been parsed |
-| 1 | **Partial input** — 2 of 3 sources present, `data/ngo/foreign_grants.json` missing | `ngo_funding` |
-| 4 | **Empty by design** — curated override / staging tables, empty until someone writes a row | `person_link_evidence`, `person_link_override`, `price_product_overrides`, `price_stage` |
-| 1 | 🔴 **Orphan** — zero references anywhere in the repo: no DDL in `scripts/db/schema/pg/`, no writer, no reader in `scripts/`, `functions/` or `src/` — yet present on **both** local and prod | `transport_facility_geo` |
-| 3 | Scratch (0 locally, populated on prod) | `_pwy_before`, `tmp_all_slugs`, `tmp_rank_slugs` |
-| 16 | Views (`reltuples = -1`, rendered as `0`) | `contracts_list`, `tenders_list`, the six `risk_*`, … |
-
-**`data/budget/nzok/` holds 18 files / 17MB locally and `raw_data/agri/` holds 739MB** — every
-declared agri year (2015, 2016, 2017, 2021, 2022, 2023) plus both СЕУ CSVs (2024, 2025). The
-2.49M `agri_subsidies` rows that prod serves are one uncalled command away on this machine.
-
-Three consequences for this plan:
-
-1. **The row-count trap is worse than §6.4 states.** A "hide empty tables" rule would hide 12
-   nzok relations whose source data is sitting on the same disk, plus agri. It hides a
-   `db:refresh` bug rather than exposing it. Curated rule, definitely.
-2. **`/db` row counts are `n_live_tup` and go stale immediately.** After loading 258 rows into
+1. **`/db` row counts are `n_live_tup` and go stale immediately.** After loading 258 rows into
    `nzok_hospital_geo`, `pg_stat_user_tables.n_live_tup` still read **0** while `count(*)` read
    **258**. So "0" in the console means *nothing* until autovacuum catches up. Either render a
    real `count(*)` for small relations, or label the number as an estimate and never let the UI
-   act on it.
-3. **Two repo fixes fall out, independent of everything else here.** Add the omitted loaders to
-   `db:refresh` (or document why each is excluded — `db:load:tr:pg` is a multi-hour load and is
-   plausibly deliberate, the nzok ones are not), and give agri a `db:load:agri:pg` +
-   `:cloud` pair so it stops being the one dataset that cannot be reloaded the way every other
-   one is. Note this is also why CLAUDE.md's cloud-loader runbook has no agri entry.
+   act on it. (A "hide empty tables" rule keyed on `n_live_tup` would hide populated tables —
+   curated rule, definitely.)
+2. **The repo fixes are planned and tracked in `db-refresh-loader-gaps-v1.md`**: the omitted
+   loaders join `db:refresh` or an explicit documented exclusion list (with a regression gate),
+   and agri gets a `db:load:agri:pg` + `:cloud` pair so it stops being the one dataset that
+   cannot be reloaded the way every other one is. One trap that plan documents: several of the
+   omitted loaders read **gitignored** inputs and throw on absence, so adding them to the
+   `&&`-chained refresh naively would abort a cold clone — present-on-this-machine ≠ committed.
 
 > The local database was left with the nzok hospital tables populated — that moves local
 > *toward* prod parity, so it was not reverted.

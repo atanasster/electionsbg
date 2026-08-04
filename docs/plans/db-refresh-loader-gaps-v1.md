@@ -1,6 +1,6 @@
 # db:refresh loader gaps — v1
 
-**Status:** plan, not started · **Date:** 2026-08-03 · **Context:** `docs/plans/data-hub-lateral-edges-v1.md` §6.4a
+**Status:** T0 done 2026-08-04; T1–T5 not started · **Date:** 2026-08-03 · **Context:** `docs/plans/data-hub-lateral-edges-v1.md` §6.4a
 
 `npm run db:refresh` is documented in CLAUDE.md as *"Full reload: schema + every loader + resolve +
 test:data"*. It calls **26 of the 38** local `db:load:*` / `db:resolve:*` scripts in `package.json`.
@@ -15,7 +15,9 @@ itself flags that column as stale ("after loading 258 rows into `nzok_hospital_g
 still read 0 while `count(*)` read 258") and then classifies the other relations by that same
 number anyway.
 
-Re-measured with `count(*)` against local Postgres, 2026-08-03:
+Re-measured with `count(*)` against local Postgres, 2026-08-03 (the "populated locally" claim
+covers the relations §6.4a attributed to a *missing load*; its four empty-by-design staging
+tables remain empty, as designed):
 
 | relation | `count(*)` local | `n_live_tup` local | prod |
 |---|---:|---:|---:|
@@ -528,9 +530,18 @@ touches) rather than attempting general static analysis.
 **T6.2a — measure the `test:data` blast radius before wiring anything.** `db:refresh` ends with
 `npm run test:data`, and ~20 `*.data.test.ts` gates auto-skip on an empty table. Populating those
 relations flips skips into runs — `agri_scope_years`, `nzok_activity_entity`, `ngo_foreign_link` and
-`cr_deeds_founding` are the direct ones. The plan's §7 gate says "green after"; that is an assertion
-nobody has checked. Capture the skip/pass baseline **before** T1's wiring, and treat any newly-run
-test that fails as in-scope work for this plan, not a surprise at the end of it.
+`cr_deeds_founding` are the direct ones. The plan's §7 gate says "green after"; without a baseline
+that is an assertion nobody has checked. The skip/pass capture is done (below); what remains is the
+post-wiring comparison — treat any newly-run test that fails as in-scope work for this plan, not a
+surprise at the end of it.
+
+> **BASELINE, captured 2026-08-04 before any wiring:** `npm run test:data` →
+> **84 test files passed / 8 skipped / 1 failed** (541 / 19 / 1 tests, 97.9s). The one failure is
+> **pre-existing and out of this plan's scope**: `person_connections.data.test.ts` › "costs nothing
+> for a subject with no companies" — its discriminator leg (restore the pre-fix function body in a
+> rolled-back tx and assert it exceeds the 200-buffer ceiling) now reads only 78 buffers, so the
+> test asserts it "has stopped measuring anything". Data drift, not a regression from this plan;
+> every later "green" gate in §7 means *no NEW failures relative to this baseline*.
 
 **Deliberate deviation from the brief:** this goes in `test:unit` as a plain `.test.ts`, **not** in
 `scripts/db/tests/*.data.test.ts` with the Postgres auto-skip. The assertion is pure JSON over

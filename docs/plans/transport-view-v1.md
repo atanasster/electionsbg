@@ -587,7 +587,21 @@ Buildable immediately off cached law HTML + one Eurostat fetch:
 
 ---
 
-## Marker map SHIPPED (facility map, 2026-07-16)
+## Marker map — NOT SHIPPED (written 2026-07-16, never committed; corrected 2026-08-03)
+
+> **CORRECTION.** This section originally read "SHIPPED", and everything below was written as
+> finished work. In fact **none of it was ever committed**: `git log --all --
+> scripts/db/load_transport_facility_map_pg.ts` is empty, the only matches for
+> `transport_facility_geo` in all of git history are plan documents (this one and the
+> 2026-08-03 audit plans) — no code has ever referenced it — and migration slot **076 was
+> subsequently taken by `076_transport_project_map.sql`** (a different table). The code was
+> written, run against local Postgres — which is why local carries the table with its 11 rows
+> while prod has it empty (schema arrived via dump/restore) — and then discarded from the
+> working tree. The "Verified live" figures below were real measurements of that uncommitted
+> state, kept as the spec for the rebuild. **The rebuild is planned and tracked in
+> `docs/plans/db-refresh-loader-gaps-v1.md` §5 (T5.2–T5.9)**, with a new migration number.
+
+The original section, now a build spec rather than a record:
 
 `TransportFacilityMap` — one marker per city where transport entities are based, coloured by
 ЗОП spend / single-bid share, badged with contract count, each linking to `/awarder/:eik`. Mounted
