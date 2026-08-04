@@ -67,7 +67,9 @@ const OWNERSHIP_FILE = path.join(
   REPO,
   "data/budget/nzok/hospital_ownership.json",
 );
-const BASE = "https://www.nhif.bg";
+// Overridable so the --tolerate-offline path can be exercised deterministically
+// (point it at an unroutable address); production never sets it.
+const BASE = process.env.NZOK_BASE_URL ?? "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
 
 // Years whose monthly files we attempt. 2023-2026 use the "Заплатени
@@ -103,6 +105,23 @@ interface Row {
   ownership: string | null;
 }
 
+// A transport/HTTP failure against nhif.bg. Distinct from parse errors so the
+// `--tolerate-offline` path (the db:refresh chain) can skip THIS class only:
+// "the source is unreachable" is the absent-input case, "the source parsed
+// wrong" stays a hard failure everywhere.
+class NhifNetworkError extends Error {}
+
+const fetchNhif = async (url: string): Promise<Response> => {
+  let res: Response;
+  try {
+    res = await fetch(url, { headers: { "User-Agent": UA } });
+  } catch (e) {
+    throw new NhifNetworkError(`GET ${url} → ${(e as Error).message}`);
+  }
+  if (!res.ok) throw new NhifNetworkError(`GET ${url} → ${res.status}`);
+  return res;
+};
+
 const fetchToCache = async (link: string): Promise<string> => {
   // Key the cache on a hash of the FULL link, not a positional path segment:
   // the source URL format shifts by era, so `/upload/<id>/file.pdf` is not a
@@ -110,8 +129,7 @@ const fetchToCache = async (link: string): Promise<string> => {
   const id = createHash("sha256").update(link).digest("hex").slice(0, 16);
   const p = path.join(RAW_DIR, `clean_${id}.pdf`);
   if (!fs.existsSync(p)) {
-    const res = await fetch(BASE + link, { headers: { "User-Agent": UA } });
-    if (!res.ok) throw new Error(`GET ${link} → ${res.status}`);
+    const res = await fetchNhif(BASE + link);
     fs.mkdirSync(RAW_DIR, { recursive: true });
     fs.writeFileSync(p, Buffer.from(await res.arrayBuffer()));
   }
@@ -162,8 +180,7 @@ const collectRows = async (): Promise<{
   let monthsOk = 0;
   for (const year of YEARS) {
     const pageUrl = `${BASE}/bg/hospitals/bmp/${year}`;
-    const pageRes = await fetch(pageUrl, { headers: { "User-Agent": UA } });
-    if (!pageRes.ok) throw new Error(`GET ${pageUrl} → ${pageRes.status}`);
+    const pageRes = await fetchNhif(pageUrl);
     const html = await pageRes.text();
     for (const { stream, links } of STREAMS)
       for (const link of links(html)) {
@@ -234,7 +251,33 @@ const main = async (): Promise<void> => {
   // 065 adds the ownership column + the byOwnership split (supersedes 050's fns).
   await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
 
-  const { rows, monthsOk, monthsSkipped } = await collectRows();
+  // Unlike its nzok siblings this loader has no committed corpus file — it
+  // re-derives the corpus from the nhif.bg listing pages every run (the PDF
+  // cache under raw_data/nzok/ only spares the per-file downloads). That makes
+  // it the one db:refresh step with a hard network dependency, so the chain
+  // passes --tolerate-offline: an nhif.bg outage (or an offline machine) then
+  // SKIPS the load before any write — schemas stay applied, the table keeps its
+  // previous vintage intact — instead of aborting the whole `&&`-chain. A
+  // standalone/skill run keeps today's throw, and a PARSE failure throws
+  // everywhere: unreachable is the absent-input case, malformed is a defect.
+  let collected: Awaited<ReturnType<typeof collectRows>>;
+  try {
+    collected = await collectRows();
+  } catch (e) {
+    if (
+      e instanceof NhifNetworkError &&
+      process.argv.includes("--tolerate-offline")
+    ) {
+      console.warn(
+        `[nzok-hospital] nhif.bg unreachable (${e.message}) — --tolerate-offline set, ` +
+          "skipping the load; nzok_hospital_payments keeps its previous contents.",
+      );
+      await end();
+      return;
+    }
+    throw e;
+  }
+  const { rows, monthsOk, monthsSkipped } = collected;
   if (rows.length === 0)
     throw new Error("no НЗОК hospital-payment rows collected");
 

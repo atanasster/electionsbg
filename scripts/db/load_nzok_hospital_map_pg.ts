@@ -6,9 +6,11 @@
 //   EIK  ->  awarder_seats (buyer seat: ekatte · settlement · município · oblast)
 //        ->  data/settlements.json centroid  ->  [lng, lat]
 //
-// The hospital universe is the set of EIKs present in nzok_hospital_payments (the same
-// facilities the pack's payments tile ranks). The display name is the latest-period
-// top-paid facility per EIK. Hospitals whose seat did not geo-resolve (many private
+// The hospital universe is the set of EIKs in the latest БМП period of
+// nzok_hospital_payments (the same facilities the pack's payments tile ranks) — БМП
+// only, because the streams publish on different schedules and an unscoped latest
+// period can be a drugs-only month. The display name is the latest-period top-paid
+// facility per EIK. Hospitals whose seat did not geo-resolve (many private
 // clinics are not public buyers, so they carry no awarder_seats row) are stored with
 // NULL lng/lat and omitted from the map by nzok_hospital_map(). Sofia (ekatte 68134)
 // is pinned here — it has no settlements.json row — exactly as
@@ -73,13 +75,18 @@ const run = async (): Promise<void> => {
   locByEkatte.set(SOFIA_EKATTE, SOFIA_LOC);
 
   // Hospital universe + display name: one row per EIK, labelled by the latest-period
-  // top-paid facility (deterministic tiebreak on reg_no).
+  // top-paid facility (deterministic tiebreak on reg_no). The universe is the БМП
+  // stream ONLY: the streams land on different schedules, so an unscoped
+  // max(period) can catch a month where just `drugs` has published and collapse
+  // the map from the ~258-hospital БМП universe to the ~45 drug-dispensing ones
+  // (observed 2026-08: max(period)=2026-06 was drugs-only while bmp ended 2026-05).
   const hospitals = await allRows<Hospital>(
-    `WITH lp AS (SELECT max(period) AS p FROM nzok_hospital_payments)
+    `WITH lp AS (SELECT max(period) AS p FROM nzok_hospital_payments
+                  WHERE stream = 'bmp')
      SELECT eik,
             (array_agg(name ORDER BY cumulative_eur DESC, reg_no))[1] AS name
        FROM nzok_hospital_payments
-      WHERE period = (SELECT p FROM lp) AND eik IS NOT NULL
+      WHERE period = (SELECT p FROM lp) AND stream = 'bmp' AND eik IS NOT NULL
       GROUP BY eik`,
     [],
   );

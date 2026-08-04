@@ -274,6 +274,7 @@ functions/.secret.local
 /data/budget/nzok/hospital_financials.json
 /data/budget/nzok/drug_unit_prices.json
 /data/budget/nzok/activities.json
+/data/budget/nzok/pathway_tariffs.json
 
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can
