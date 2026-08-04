@@ -45,53 +45,27 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "same gitignored cr_deeds.sqlite cache; also writes the http_status/attempts columns gated on migration 033",
   },
-
-  // ── INTERIM (gaps plan §1c) — these four join db:refresh in tier T1b, once
-  // they skip-and-warn on their gitignored input instead of throwing. Until
-  // then wiring them would abort a cold-clone refresh mid-chain, which is
-  // worse than the omission. Remove each entry in the commit that wires it.
-  "db:load:nzok-activities:pg": {
-    axes: ["uncommitted-input"],
-    ranBy: "update-nzok skill after the activities fetch",
-    reason:
-      "throws on the gitignored data/budget/nzok/activities.json — pending absent-tolerance (T1b)",
-  },
-  "db:load:nzok-drug-prices:pg": {
-    axes: ["uncommitted-input"],
-    ranBy: "update-nzok skill after the Справка 5 fetch",
-    reason:
-      "throws on the gitignored data/budget/nzok/drug_unit_prices.json — pending absent-tolerance (T1b)",
-  },
-  "db:load:nzok-financials:pg": {
-    axes: ["uncommitted-input"],
-    ranBy: "update-nzok skill after the ЕЕОФ fetch",
-    reason:
-      "throws on the gitignored data/budget/nzok/hospital_financials.json — pending absent-tolerance (T1b)",
-  },
-  "db:load:ngo-funding:pg": {
-    axes: ["uncommitted-input"],
-    ranBy: "the NGO funding ingest, by hand",
-    reason:
-      "unguarded CREATE INDEX on tr_companies (42P01 on a TR-less database) + gitignored FTS dir — pending T1b's guard",
-  },
 };
 
 /**
- * Gitignored inputs read by loaders that are in `db:refresh` — or pending T1b
- * wiring (the interim exclusions above) — declared so the coverage test can
- * hold the second invariant (gaps plan T6.1a): every such input must be
- * handled by an absent-tolerant branch — the loader skips and warns on a
- * missing file instead of aborting the `&&`-chained refresh on a fresh clone.
- * For the interim-excluded four, the entry states the CONTRACT their T1b
- * change must satisfy before they may join the chain. Tracked inputs are
- * deliberately NOT listed: a tracked file cannot legitimately be absent, and
- * vanishing is a real defect that SHOULD throw. Scope is the loaders the gaps
- * plan touched, not general static analysis.
+ * Gitignored inputs read by loaders that ARE in `db:refresh`, declared so the
+ * coverage test can hold the second invariant (gaps plan T6.1a): every such
+ * input must be handled by an absent-tolerant branch — the loader skips and
+ * warns on a missing file instead of aborting the `&&`-chained refresh on a
+ * fresh clone. The test shape-matches each loader's guard on the declared
+ * path (`if (!existsSync(CONST)) … return`, no throw), so both dropping the
+ * branch AND reverting it to a throw go red here rather than resurfacing as a
+ * cold-clone abort. Tracked inputs
+ * are deliberately NOT listed: a tracked file cannot legitimately be absent,
+ * and vanishing is a real defect that SHOULD throw. Scope is the loaders the
+ * gaps plan touched, not general static analysis.
  *
  * `db:load:nzok-hospital:pg` is the special case with no input file at all: it
  * re-derives its corpus from nhif.bg on every run, so its absent-input case is
  * "network unreachable" — handled by the `--tolerate-offline` flag the
  * db:refresh chain passes (skip-before-write), not by a path listed here.
+ * `db:load:ngo-funding:pg` additionally skips-before-write when `tr_companies`
+ * is absent (its EIK match joins that table, and db:load:tr:pg is excluded).
  */
 export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
   "db:load:nzok-tariffs:pg": ["data/budget/nzok/pathway_tariffs.json"],

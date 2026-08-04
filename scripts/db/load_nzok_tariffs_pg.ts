@@ -33,8 +33,8 @@ const main = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
 
   if (!existsSync(JSON_FILE)) {
-    console.log(
-      `No ${JSON_FILE} — migration 059 applied, table left empty (run --pathway-tariffs from BG egress to populate).`,
+    console.warn(
+      `[nzok-tariffs] no ${JSON_FILE} — migration 059 applied, table left empty (run --pathway-tariffs to populate).`,
     );
     await end();
     return;

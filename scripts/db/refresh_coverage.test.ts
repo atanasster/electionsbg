@@ -126,3 +126,57 @@ test("TOLERATED_GITIGNORED_INPUTS names real loaders and genuinely untracked pat
     }
   }
 });
+
+// The behavioral half of T6.1a: the declaration promises an absent-tolerant
+// branch; this keeps that promise checkable at the source level. For each
+// tolerated loader, resolve its entry file from the package.json script, find
+// the path constant carrying the declared input, and assert the guard on that
+// constant is SKIP-shaped: `if (!existsSync(CONST))` whose block reaches a
+// `return` without a `throw`. That is exactly the revert-to-throw regression
+// that produced the T1b interim exclusions — a file-level `includes()` grep
+// false-passed on it (the throwing versions also contain "existsSync" and the
+// basename), which is why this is shape-matched rather than substring-matched.
+test("every tolerated gitignored input has a skip-shaped existsSync guard in its loader", () => {
+  for (const [loader, inputs] of Object.entries(TOLERATED_GITIGNORED_INPUTS)) {
+    const script = pkg.scripts[loader];
+    const entry = /(?:^|\s)tsx (\S+\.ts)/.exec(script)?.[1];
+    assert.ok(
+      entry,
+      `${loader}: cannot resolve a tsx entry file from "${script}"`,
+    );
+    const src = readFileSync(path.join(ROOT, entry!), "utf8");
+    for (const input of inputs) {
+      // Directory inputs have uselessly short basenames ("fts") — pin the last
+      // two segments instead so the staleness check stays meaningful.
+      const needle = /\.[a-z0-9]+$/.test(input)
+        ? path.basename(input)
+        : input.split("/").slice(-2).join("/");
+      assert.ok(
+        src.includes(needle),
+        `${loader}: ${entry} never references its declared input ${needle} — the TOLERATED_GITIGNORED_INPUTS entry is stale`,
+      );
+      // The constant the path is bound to, e.g. `const JSON_FILE = …"activities.json"…`.
+      const constName = new RegExp(
+        `const (\\w+) = [^;]*${needle.replace(/[./]/g, "\\$&")}`,
+      ).exec(src)?.[1];
+      assert.ok(
+        constName,
+        `${loader}: no path constant in ${entry} carries ${needle}`,
+      );
+      // The guard block on that constant, up to its terminating return. For the
+      // nzok loaders this is the main() skip branch (`return;`); for the
+      // ngo-funding FTS directory it is parseFts's `return [];`.
+      const guard = new RegExp(
+        `if \\(!existsSync\\(${constName}\\)\\)[\\s\\S]{0,900}?return`,
+      ).exec(src)?.[0];
+      assert.ok(
+        guard,
+        `${loader}: ${entry} has no \`if (!existsSync(${constName})) … return\` guard — the absent-input branch is gone`,
+      );
+      assert.ok(
+        !/throw /.test(guard),
+        `${loader}: the absent branch for ${constName} in ${entry} throws — that aborts the &&-chained db:refresh on a fresh clone (gaps plan T1.0)`,
+      );
+    }
+  }
+});

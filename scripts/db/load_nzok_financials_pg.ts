@@ -164,11 +164,28 @@ const num = (v: unknown): number | null =>
     ? null
     : Number(v);
 
+// One schema list for both the skip branch and the normal path — two hand-kept
+// copies would drift exactly on the cold-clone path nobody exercises.
+const applySchemas = async (): Promise<void> => {
+  await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(DISTRIBUTION_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(COVERAGE_SCHEMA_FILE, "utf8"));
+};
+
 const main = async (): Promise<void> => {
-  if (!existsSync(DATA_FILE))
-    throw new Error(
-      `${DATA_FILE} missing — regenerate with:  npm run data:nzok -- --eeof`,
+  // Absent vs malformed (gaps plan T1.0): hospital_financials.json is
+  // GITIGNORED, so on a fresh clone it is legitimately missing — apply the
+  // schemas and skip, so the &&-chained db:refresh survives. A PRESENT but
+  // wrong-shaped file is a real defect and still throws below.
+  if (!existsSync(DATA_FILE)) {
+    await applySchemas();
+    console.warn(
+      `[nzok-financials] no ${DATA_FILE} — schemas applied, load skipped ` +
+        "(regenerate with:  npm run data:nzok -- --eeof).",
     );
+    await end();
+    return;
+  }
 
   const j = JSON.parse(readFileSync(DATA_FILE, "utf8"));
 
@@ -314,9 +331,7 @@ const main = async (): Promise<void> => {
   }
   const parityRows = [...parityAgg.values()];
 
-  await exec(readFileSync(SCHEMA_FILE, "utf8"));
-  await exec(readFileSync(DISTRIBUTION_SCHEMA_FILE, "utf8"));
-  await exec(readFileSync(COVERAGE_SCHEMA_FILE, "utf8"));
+  await applySchemas();
 
   // Rows are the typed FinRow/ParityRow structs — accepted as `object[]` so the
   // call sites need no cast (the old code laundered them through

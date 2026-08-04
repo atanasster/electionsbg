@@ -187,6 +187,26 @@ export const loadNgoFundingPg = async (): Promise<{
   await exec(readFileSync(SCHEMA_SQL, "utf8"));
   await exec(readFileSync(TRACKING_SQL, "utf8"));
 
+  // The EIK match is a join against the NGO surface of tr_companies — the
+  // partial GIN index below, the uniq_fold CTE and both match legs all read
+  // that table, so on a database without the TR load (a fresh clone;
+  // db:load:tr:pg is a documented db:refresh exclusion) the load cannot
+  // produce anything but an all-unmatched corpus via a 42P01 abort halfway.
+  // Skip BEFORE any write instead: the table keeps its previous contents and
+  // the &&-chained db:refresh survives (gaps plan T1.1).
+  const hasTr = await withClient((c) =>
+    c
+      .query("SELECT to_regclass('public.tr_companies') AS t")
+      .then((r) => r.rows[0]?.t != null),
+  );
+  if (!hasTr) {
+    console.warn(
+      "[ngo-funding] tr_companies not present — run db:load:tr:pg first; " +
+        "skipping the load (ngo_funding keeps its previous contents).",
+    );
+    return { rows: 0, matched: 0 };
+  }
+
   const rows = [
     ...parseFts(),
     ...parseCurated(BUDGET_JSON, "budget_subsidy"),

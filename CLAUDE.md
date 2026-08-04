@@ -29,6 +29,15 @@ npm run sitemap      # Generate sitemap
 # Postgres (local Docker; db:refresh runs the whole load in order)
 npm run db:pg:up     # Start local Postgres (port 5433)
 npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
+                     # "Every loader" is enforced: refresh_coverage.test.ts fails
+                     # unless each local db:load:*/db:resolve:* script is in the
+                     # chain or in REFRESH_EXCLUSIONS (scripts/db/refresh_coverage.ts
+                     # — currently tr, cr-founding, company-founded, all keyed to
+                     # gitignored caches). The nzok family + both ngo legs are IN
+                     # the chain; the gitignored-input loaders skip-and-warn when
+                     # their file is absent (fresh clone), and nzok-hospital runs
+                     # with --tolerate-offline so an nhif.bg outage cannot abort
+                     # the chain. A PRESENT-but-malformed input still throws.
 
 # Deployment
 npm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY

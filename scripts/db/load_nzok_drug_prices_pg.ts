@@ -229,11 +229,30 @@ const batchInsert = async (
   }
 };
 
+// One schema list for both the skip branch and the normal path — two hand-kept
+// copies would drift exactly on the cold-clone path nobody exercises. 065 must
+// come LAST: its ownership-aware risk ranking supersedes 054's plain version.
+const applySchemas = async (): Promise<void> => {
+  await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(RISK_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(SAVINGS_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
+};
+
 const main = async (): Promise<void> => {
-  if (!existsSync(JSON_FILE))
-    throw new Error(
-      `${JSON_FILE} missing — regenerate with:  npm run data:nzok -- --drug-prices`,
+  // Absent vs malformed (gaps plan T1.0): drug_unit_prices.json is GITIGNORED,
+  // so on a fresh clone it is legitimately missing — apply the schemas and
+  // skip, so the &&-chained db:refresh survives. A PRESENT but wrong-shaped
+  // file is a real defect and still throws below.
+  if (!existsSync(JSON_FILE)) {
+    await applySchemas();
+    console.warn(
+      `[nzok-drug-prices] no ${JSON_FILE} — schemas applied, load skipped ` +
+        "(regenerate with:  npm run data:nzok -- --drug-prices).",
     );
+    await end();
+    return;
+  }
 
   const data = JSON.parse(readFileSync(JSON_FILE, "utf8")) as DrugPricesFile;
   if (!Array.isArray(data.packStats) || data.packStats.length === 0)
@@ -299,11 +318,7 @@ const main = async (): Promise<void> => {
     JSON.stringify(d.packs),
   ]);
 
-  await exec(readFileSync(SCHEMA_FILE, "utf8"));
-  await exec(readFileSync(RISK_SCHEMA_FILE, "utf8"));
-  await exec(readFileSync(SAVINGS_SCHEMA_FILE, "utf8"));
-  // Ownership-aware risk ranking (must win over 054's plain version above).
-  await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
+  await applySchemas();
 
   const packEurSum = Math.round(packRows.reduce((a, r) => a + r[12], 0));
   const overpayEurSum = Math.round(overpayRows.reduce((a, r) => a + r[13], 0));

@@ -188,11 +188,28 @@ const periodRank = (p: string): number => {
   return m ? Number(m[2]) * 12 + Number(m[1]) : 0;
 };
 
+// One schema list for both the skip branch and the normal path — two hand-kept
+// copies would drift exactly on the cold-clone path nobody exercises. 053 must
+// precede 059: the pathway-spend functions read nzok_activities.
+const applySchemas = async (): Promise<void> => {
+  await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(PATHWAY_SPEND_SCHEMA_FILE, "utf8"));
+};
+
 const main = async (): Promise<void> => {
-  if (!existsSync(JSON_FILE))
-    throw new Error(
-      `${JSON_FILE} missing — regenerate with:  npm run data:nzok -- --activities`,
+  // Absent vs malformed (gaps plan T1.0): activities.json is GITIGNORED, so on
+  // a fresh clone it is legitimately missing — apply the schemas and skip, so
+  // the &&-chained db:refresh survives. A PRESENT but wrong-shaped file is a
+  // real defect and still throws below.
+  if (!existsSync(JSON_FILE)) {
+    await applySchemas();
+    console.warn(
+      `[nzok-activities] no ${JSON_FILE} — schemas 053+059 applied, load skipped ` +
+        "(regenerate with:  npm run data:nzok -- --activities).",
     );
+    await end();
+    return;
+  }
   const data = JSON.parse(readFileSync(JSON_FILE, "utf8")) as ActivitiesFile;
   if (
     !Array.isArray(data.facilityProcedures) ||
@@ -559,8 +576,7 @@ const main = async (): Promise<void> => {
         `for the unmapped chains printed above.`,
     );
 
-  await exec(readFileSync(SCHEMA_FILE, "utf8"));
-  await exec(readFileSync(PATHWAY_SPEND_SCHEMA_FILE, "utf8"));
+  await applySchemas();
 
   const casesSum = actRows.reduce((a, r) => a + (r[8] as number), 0);
   const matched = actRows.filter((r) => r[4]).length;
