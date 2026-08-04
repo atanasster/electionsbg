@@ -246,3 +246,45 @@ export const searchMatches = (haystack: string, needle: string): boolean => {
   const alt = shlyoOf(n);
   return alt !== "" && hay.includes(alt);
 };
+
+/**
+ * Filter `items` to at most `limit`, ranking LITERAL substring hits above
+ * fold-only ones.
+ *
+ * WHY THE RANK IS NOT OPTIONAL. `searchMatches` is additive as a PREDICATE — it
+ * can only add matches. A positional cap breaks that at the display level: once
+ * the predicate loosens, fold-matches early in source order consume the whole
+ * budget before the loop reaches the literal ones. Measured on the 4,755-name
+ * candidate roster, a plain one-pass filter capped at 200 made the query "въл"
+ * show 200 rows of Иванов/Василев and pushed 17 real Вълчев/Вълчева entries out
+ * of view entirely — with no "show more" to reach them. (`latinSkeleton` maps
+ * ъ→"a", so "въ" folds to "va" and matches half the roster.)
+ *
+ * Ranking restores additivity where the user can see it: every literal match
+ * that fitted before still fits, and fold matches fill only the remainder.
+ *
+ * @param keyOf the text to match on. Called per item per keystroke, so hand it
+ *              a cheap accessor — decode/normalise upstream, not in here.
+ */
+export const rankedFilter = <T>(
+  items: readonly T[],
+  query: string,
+  keyOf: (item: T) => string,
+  limit: number,
+): T[] => {
+  if (limit <= 0) return [];
+  if (!query) return items.slice(0, limit);
+  const lower = query.toLowerCase();
+  const literal: T[] = [];
+  const folded: T[] = [];
+  for (const item of items) {
+    const key = keyOf(item);
+    if (key.toLowerCase().includes(lower)) literal.push(item);
+    else if (folded.length < limit && searchMatches(key, query))
+      folded.push(item);
+    // Break ONLY on the literal count. Breaking on the combined count would
+    // reintroduce the eviction this function exists to prevent.
+    if (literal.length >= limit) break;
+  }
+  return literal.concat(folded).slice(0, limit);
+};

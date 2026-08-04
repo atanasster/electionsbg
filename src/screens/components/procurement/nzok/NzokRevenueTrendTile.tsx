@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/popover";
 import { formatEurCompact } from "@/lib/currency";
 import { ownershipColor } from "@/lib/nzokOwnership";
+import { rankedFilter } from "@/lib/translitSearch";
 import { useNzokPublicPrivate } from "@/data/budget/useBudget";
 
 const YEARS = [2019, 2020, 2021, 2022, 2023, 2024];
@@ -148,29 +149,23 @@ export const NzokRevenueTrendTile: FC = () => {
               />
               <CommandList>
                 <CommandEmpty>{t("no_results")}</CommandEmpty>
-                {options
-                  .filter(
-                    (o) =>
-                      !query ||
-                      o.name
-                        .toLocaleLowerCase()
-                        .includes(query.toLocaleLowerCase()),
-                  )
-                  .slice(0, 200)
-                  .map((o) => (
-                    <CommandPrimitive.Item
-                      key={o.eik}
-                      value={o.eik}
-                      onSelect={() => {
-                        setPicked(o.eik);
-                        setOpen(false);
-                        setQuery("");
-                      }}
-                      className="cursor-pointer px-2 py-1.5 text-xs aria-selected:bg-accent aria-selected:text-accent-foreground"
-                    >
-                      <span className="block min-w-0 truncate">{o.name}</span>
-                    </CommandPrimitive.Item>
-                  ))}
+                {/* rankedFilter, not a bare predicate + slice — the cap does
+                    not bind on today's ~132 options, but a fold-only match
+                    must not evict a literal one if the corpus outgrows it. */}
+                {rankedFilter(options, query, (o) => o.name, 200).map((o) => (
+                  <CommandPrimitive.Item
+                    key={o.eik}
+                    value={o.eik}
+                    onSelect={() => {
+                      setPicked(o.eik);
+                      setOpen(false);
+                      setQuery("");
+                    }}
+                    className="cursor-pointer px-2 py-1.5 text-xs aria-selected:bg-accent aria-selected:text-accent-foreground"
+                  >
+                    <span className="block min-w-0 truncate">{o.name}</span>
+                  </CommandPrimitive.Item>
+                ))}
               </CommandList>
             </CommandPrimitive>
           </PopoverContent>

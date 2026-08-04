@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { rankedFilter } from "@/lib/translitSearch";
 import { useTranslation } from "react-i18next";
 
 export type CandidateOption = {
@@ -31,10 +32,11 @@ type Props = {
   onChange: (name: string) => void;
 };
 
-const matches = (haystack: string, needle: string) => {
-  if (!needle) return true;
-  return haystack.toLocaleLowerCase().includes(needle.toLocaleLowerCase());
-};
+// The roster is the largest of the app's pickers (4,755 names on 2026_04_19),
+// so it is also the one where the 200-cap actually binds — hence rankedFilter
+// rather than a bare predicate. See its header: a fold-only match must never
+// evict a literal one out of a capped list.
+const LIMIT = 200;
 
 const Row: FC<{ opt: CandidateOption }> = ({ opt }) => (
   <span className="flex items-center gap-2 min-w-0">
@@ -69,14 +71,10 @@ export const CandidatePicker: FC<Props> = ({
 
   // Filter + cap to keep the list responsive on elections with thousands of
   // candidates. cmdk's own filter is fine but we cap to avoid rendering all.
-  const filtered = useMemo(() => {
-    const out: CandidateOption[] = [];
-    for (const o of options) {
-      if (matches(o.name, query)) out.push(o);
-      if (out.length >= 200) break;
-    }
-    return out;
-  }, [options, query]);
+  const filtered = useMemo(
+    () => rankedFilter(options, query, (o) => o.name, LIMIT),
+    [options, query],
+  );
 
   return (
     <div className="flex flex-col gap-1 min-w-0 flex-1">

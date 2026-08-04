@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 import {
   latinSkeleton,
   latinSkeletonCached,
+  rankedFilter,
   searchMatches,
   shlyoComputeCount,
   shlyoSkeleton,
@@ -212,6 +213,79 @@ describe("shlyoSkeleton", () => {
     // НЗОК molecule/pack groups are majority-Latin, so this must NOT change.
     expect(shlyoSkeleton("abemaciclib")).toBe("");
     expect(searchMatches("Abemaciclib", "abemacic")).toBe(true);
+  });
+});
+
+describe("rankedFilter", () => {
+  // ъ folds to "a", so a Cyrillic query starting "въ" also folds-matches every
+  // Иванов/Василев. With a plain one-pass filter + cap those alphabetically
+  // earlier fold-matches ate the whole budget and pushed the real Вълчев rows
+  // out of view — measured at 17 lost on the 4,755-name roster for "въл".
+  const ROSTER = [
+    "Атанас Иванов",
+    "Ваня Василева",
+    "Веселин Атанасов",
+    "Михаил Вълчев",
+    "Недялка Вълчева",
+  ];
+
+  it("keeps literal matches when the cap binds", () => {
+    const got = rankedFilter(ROSTER, "въ", (s) => s, 3);
+    expect(got).toContain("Михаил Вълчев");
+    expect(got).toContain("Недялка Вълчева");
+  });
+
+  it("ranks every literal match above every fold-only match", () => {
+    const got = rankedFilter(ROSTER, "въ", (s) => s, 5);
+    expect(got.slice(0, 2)).toEqual(["Михаил Вълчев", "Недялка Вълчева"]);
+  });
+
+  it("still returns the fold-only matches once the literals fit", () => {
+    // The shliokavitsa win must survive the ranking — these are additions, they
+    // just sort last. ъ→"a" makes "въ" fold to "va", which reaches Иванов and
+    // Василева but not Атанасов (no "va" in "veselinatanasov").
+    expect(rankedFilter(ROSTER, "въ", (s) => s, 5)).toEqual([
+      "Михаил Вълчев",
+      "Недялка Вълчева",
+      "Атанас Иванов",
+      "Ваня Василева",
+    ]);
+  });
+
+  it("finds a Latin-typed query with no literal matches at all", () => {
+    expect(rankedFilter(ROSTER, "valchev", (s) => s, 5)).toContain(
+      "Михаил Вълчев",
+    );
+  });
+
+  it("returns the first `limit` items for an empty query", () => {
+    expect(rankedFilter(ROSTER, "", (s) => s, 2)).toEqual(ROSTER.slice(0, 2));
+  });
+
+  it("never returns more than the limit, and nothing at limit 0", () => {
+    expect(rankedFilter(ROSTER, "в", (s) => s, 2)).toHaveLength(2);
+    expect(rankedFilter(ROSTER, "в", (s) => s, 0)).toEqual([]);
+  });
+
+  it("preserves source order within a tier", () => {
+    expect(rankedFilter(ROSTER, "а", (s) => s, 10)[0]).toBe("Атанас Иванов");
+  });
+
+  it("stops scanning once the literal tier fills the cap", () => {
+    // The break must be on the LITERAL count. Breaking on the combined count
+    // would let fold matches end the scan early and re-introduce the eviction.
+    let reads = 0;
+    const many = Array.from({ length: 1000 }, (_, i) => `Вълчев ${i}`);
+    rankedFilter(
+      many,
+      "вълчев",
+      (s) => {
+        reads++;
+        return s;
+      },
+      10,
+    );
+    expect(reads).toBe(10);
   });
 });
 

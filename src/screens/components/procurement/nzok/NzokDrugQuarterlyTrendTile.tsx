@@ -40,6 +40,7 @@ import {
 } from "@/components/ui/popover";
 import { formatEurCompact } from "@/lib/currency";
 import { spendDeltaClass } from "@/lib/spendDelta";
+import { rankedFilter } from "@/lib/translitSearch";
 import {
   useNzokDrugQuarterly,
   useNzokDrugQuarterlyByInn,
@@ -75,15 +76,16 @@ const MoleculePicker: FC<{
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const filtered = useMemo(() => {
-    const q = query.toLocaleLowerCase();
-    const out: string[] = [];
-    for (const o of options) {
-      if (!q || o.toLocaleLowerCase().includes(q)) out.push(o);
-      if (out.length >= 200) break;
-    }
-    return out;
-  }, [options, query]);
+  // INNs are Latin while the reader is often on a Bulgarian keyboard, so the
+  // filter folds. Note the fold does NOT reach every INN from Cyrillic: ц is
+  // written "ts" but INNs spell it "c" (цетуксимаб → CETUXIMAB), and
+  // translitSearch deliberately omits `c → ts` because it would refold every
+  // Latin drug name. ~130 of the 610 INNs are unreachable that way; they are
+  // still reachable by typing the Latin name.
+  const filtered = useMemo(
+    () => rankedFilter(options, query, (o) => o, 200),
+    [options, query],
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

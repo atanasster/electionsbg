@@ -25,6 +25,7 @@ import {
 import { formatEurCompact } from "@/lib/currency";
 import { spendDeltaClass } from "@/lib/spendDelta";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { rankedFilter } from "@/lib/translitSearch";
 import { ownershipChipClass, ownershipLabel } from "@/lib/nzokOwnership";
 import { useNzokHospitalMomentumByEik } from "@/data/budget/useBudget";
 import type { NzokHospitalPaymentsFile } from "@/data/budget/types";
@@ -44,16 +45,20 @@ const HospitalPicker: FC<{
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const selected = options.find((o) => o.eik === value);
-  const filtered = useMemo(() => {
-    const q = query.toLocaleLowerCase();
-    const out: HospitalOption[] = [];
-    for (const o of options) {
-      if (!q || decodeEntities(o.name).toLocaleLowerCase().includes(q))
-        out.push(o);
-      if (out.length >= 200) break;
-    }
-    return out;
-  }, [options, query]);
+  // Decode once per option list rather than once per option per keystroke.
+  // `decodeEntities` is defensive here — the current payload carries no
+  // entities in any of its 381 facility names — but the display path decodes
+  // anyway, and the filter has to match what the reader can see.
+  const decoded = useMemo(
+    () => options.map((o) => ({ o, name: decodeEntities(o.name) })),
+    [options],
+  );
+  // rankedFilter, not a bare predicate: the cap is 200 against 256 options, so
+  // a fold-only match could evict a literal one. See its header.
+  const filtered = useMemo(
+    () => rankedFilter(decoded, query, (d) => d.name, 200).map((d) => d.o),
+    [decoded, query],
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
