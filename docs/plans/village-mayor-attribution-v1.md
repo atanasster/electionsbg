@@ -49,7 +49,7 @@ have (see §T5).
 datasets on data.egov.bg against 7 central ones), and three probed municipalities have three
 different register shapes with the values locked in per-person PDFs (see §T4b).
 
-Still open: **T5's ingest**, the optional council-register link table (§T4b), and v2's **A3**.
+**T4b is closed** — no follow-on. Still open: **T5's ingest** and v2's **A3**.
 
 ## 0. Findings, mapped to tiers
 
@@ -474,15 +474,15 @@ keyed on `<obshtina>.bg` would miss it.
   any of the three pages. That is the НЗОК-scan problem at 252× with no shared template, and
   it is what a "declarations corpus" would actually mean.
 
-**Recommendation: do not build it.** The cost is ~252 bespoke parsers for tier one and an OCR
-programme for tier two, against 3,029 people whose filings are already public where they sit.
-§T4a already stops the page from reading as an accusation, which was the actual harm.
+**Recommendation: do not build it, and nothing replaces it.** The cost is ~252 bespoke parsers
+for tier one and an OCR programme for tier two, against 3,029 people whose filings are already
+public where they sit. §T4a already stops the page from reading as an accusation, which was the
+actual harm — so T4b closes here rather than turning into a smaller version of itself.
 
-**The cheap thing that IS worth doing** (not in this plan's scope, sized here so the option is
-on record): a curated `<obshtina> → council register URL` table — one hand-checked link per
-município, no parsing, nothing to go stale except the URL — so a village mayor's profile can
-say "declarations are filed with Общински съвет Русе" and link there. 252 links, and the
-reader lands on the authoritative source instead of on our copy of it.
+(A curated `<obshtina> → council register URL` link table was considered as a cheap substitute
+and **declined**. Recorded so it is not re-proposed as an obvious win: it still needs 252
+hand-checked links, and Русе's register living on the ОБЩИНСКИ СЪВЕТ's domain rather than the
+община's means the URLs cannot be derived from the obshtina list either.)
 
 ---
 
