@@ -1,6 +1,7 @@
 # Cross-source duplication in the contracts corpus — v2
 
-**Status:** plan only, nothing implemented.
+**Status:** T0, T1, T2+T3, T4, T5, T7 and T8a are **implemented and committed**; the corpus is
+reconciled and every gate is green. **T6 (production) is the only tier outstanding.**
 **Supersedes:** the reconciliation half of
 [procurement-foreign-consortium-members-v1.md](procurement-foreign-consortium-members-v1.md) §9–§11.
 v1's supplier-identity tiers (T0 ЕГН encoding, T1/T2 foreign consortium members) are **shipped and
@@ -43,8 +44,10 @@ Five things this measurement pass changed relative to §11:
    46 affected pairs `aop` is the richer side (annex links 2–0, `eu_funded` 13–0, longer title
    22–9). Correct order: **ocds > aop > eop > rop**.
 
-And the flaky-test brief needs re-triage: of the two files named, one did not reproduce in 2/2 full
-runs, and two *other* files fail more often than either. See §8.
+And the flaky-test brief needed re-triage — **all four items are now closed** (§8). Of the two
+files named, one never reproduced across four full runs; two *other* files also failed, and both
+turned out to be serving-path defects rather than test flakiness. The full node
+suite now runs clean in 67.4 s, down from 179.7 s with 3 failures.
 
 ---
 
@@ -300,8 +303,8 @@ ambiguous *group*. §5.3b adds the precondition that closes that, and it is appl
 structurally cannot touch**, because neither side is `eop-`.
 
 Row counts are identical whether measured on the shards or on Postgres. **The euro totals are
-not, and both are right** — the table above is the Postgres figure. Measured with the same
-harness on both sources:
+not, and both are right** — the per-direction table above is the SHARD figure, which is what the
+pass removes. Measured with the same harness on both sources:
 
 | | Rows evicted | € evicted | Corpus |
 | --- | ---: | ---: | --- |
@@ -382,7 +385,7 @@ agree on the supplier set *and* on the total to within €2, and it is still blo
 one of aop:317's two rows has a twin, and evicting a side on a partial match is the shape that
 orphaned rows in v1.
 
-### 5.5 Consequence the design must carry: 41 orphaned annex rows
+### 5.5 Consequence the design must carry: 16 orphaned annex rows
 
 `procurement_annexes.contract_key` references `contracts.key`. The 74 evicted rows carry **16**
 `procurement_annexes` rows across 9 contract keys between them. `db:load:annexes:pg` re-resolves against `contracts`, so
@@ -590,7 +593,8 @@ have carried a fix was **deliberately aborted mid-flight** when it was found to 
 38 legitimate rows. Nothing was lost; nothing has been fixed there either.
 
 **Measure Cloud SQL before writing to it.** Prod's corpus vintage differs from local's, so §5.3's
-91/94/€38.36m is a local number and must not be assumed to transfer:
+**73 side-pairs / 74 rows / €36,342,099.72 (shards) — €35,830,807.84 as served** is a LOCAL number
+and must not be assumed to transfer:
 
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
@@ -653,10 +657,11 @@ beyond what the shard state predicts, stop and re-measure — that is exactly th
 
 - **The >3-month tail (97 groups / €85.8m).** §4. Identity E excludes it by construction.
 - **The 1–3 month band (26 groups / €16.0m).** Revisit only after E has settled.
-- **The 8–31 day band (18 groups / €6.0m).** Identity E excludes these too — they are defensible
-  duplicates by v1 §11.5's reading, but they need a date-tolerance parameter, which is a new degree
-  of freedom and therefore a separate, measured change. Recording the omission rather than
-  smuggling it in: this plan leaves ~€6.7m of probable duplicates on the table, deliberately.
+- **The 1–7 day (5 groups / €0.68m) and 8–31 day (18 groups / €6.04m) bands.** Identity E excludes
+  both — they are defensible duplicates by v1 §11.5's reading, but reaching them needs a
+  date-tolerance parameter, which is a new degree of freedom and therefore a separate, measured
+  change. Recording the omission rather than smuggling it in: this plan leaves **23 groups /
+  €6.71m** of probable duplicates on the table, deliberately.
 
 ### 7.3 Backlog, dated
 
@@ -668,11 +673,23 @@ beyond what the shard state predicts, stop and re-measure — that is exactly th
 
 ---
 
-## 8. Defect 4 — the flaky data tests
+## 8. Defect 4 — the flaky data tests — CLOSED
 
 The brief names `company_public_money.data.test.ts` and `person_connections.data.test.ts` and
-suspects parallel-Postgres races. **Two full `npx vitest run --project node` runs and four
-isolation runs say the picture is different**, and the difference changes the fix.
+suspects parallel-Postgres races. **Four full `npx vitest run --project node` runs and several
+isolation runs say the picture is different**, and the difference changed the fix in every case.
+
+**Outcome: not one of the four was a race.** Two were production defects on serving paths, one was
+a broken measuring instrument, and one never reproduced. The suite now runs clean in 67.4 s with
+zero lock waiters.
+
+| Item | Verdict |
+| --- | --- |
+| `search.data.test.ts` | `recent_updates()` over the 10 s prod timeout at default params — fixed (§8.2a) |
+| `officials_redirect.data.test.ts` | missing `person_role(ref)` index, 74 s anti-join — fixed (§8.2a) |
+| `person_connections.data.test.ts` | buffer parser scored cache hits only — fixed (§8.2b) |
+| `company_public_money.data.test.ts` | did not reproduce in 4 runs — no change (§8.2c) |
+| lock contention (12 waiters) | 0 after the above, but cause NOT established — deferred (§8.3) |
 
 ### 8.1 What actually happened
 
@@ -722,8 +739,9 @@ Two defects, both on live serving paths:
    `first_seen_at::date`, an expression no index serves, so the planner drove *from*
    `changelog_days` and probed once per day (212 loops × ~60 ms, 16.8M buffers). Pushing
    `ORDER BY … LIMIT lim` into each branch and turning the changelog join into an `EXISTS` (it
-   contributes no output column) gives 14.7 s → **4.8 s** at (3650, 5000) and **0.12 s** at the
-   realistic serving shape (1, 100). Row counts identical.
+   contributes no output column) gives **13.61 s → 0.15 s at the route's default (days=1,
+   limit=200)** and **14.05 s → 1.34 s at its ceiling (3650, 1000)** — `db_routes.js` clamps
+   `limit` to 1–1000, so those are the shapes that actually matter. Row counts identical.
 2. **`person_role` had no index on `ref` alone** — only `(source, ref)`, which cannot serve
    `WHERE ref = $1`. `officials_person_slug()`'s retired-slug anti-join therefore scanned the whole
    index per probe: 23,916 probes × 3.1 ms = **74 s and 62.1M buffers**. `idx_person_role_ref`
@@ -744,60 +762,76 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
 
 Until that runs, prod keeps serving the 13.6 s `recent_updates` body at its default parameters.
 
-**(b) `person_connections` fails in its CONTROL half only.** The failure is:
+**(b) `person_connections` — SOLVED, and it was not a race.** The control body's collapse to 29
+buffers had one cause: the buffer parser. `EXPLAIN` prints the pool keyword once per group —
+`Buffers: shared hit=3684 read=7545` — and the regex was `/shared (?:hit|read)=(\d+)/`, which
+matches `shared hit=` but not the bare `read=` that follows. So it scored only what was **already
+cached**, which is exactly why it was load-dependent: the same body read 3,684 on a warm cache and
+a handful once other tests had churned `shared_buffers`, passing alone and failing in a full run.
+Two further traps in the same parser: zero-valued counters are omitted entirely (a fully-cached
+plan prints no `read=`, a cold one no `hit=`), and planning buffers are not execution.
 
-```
-AssertionError: the ceiling no longer discriminates: the pre-fix body read only 29 buffers,
-under the 200 ceiling. This test has stopped measuring anything.
-```
+Fixed by extracting `sumExecutionBuffers` into `scripts/db/lib/explain_buffers.ts` with its own
+test, shared by both buffer-ceiling gates that had carried the same copy-pasted defect. The
+assertion that fired was correct and doing its job — it caught a broken measuring instrument, which
+is what a discriminator check is for.
 
-The subject assertion (`current < 200`) has never failed. The self-check did: the deliberately
-expensive pre-fix body, restored inside a rolled-back transaction, measured 29 buffers instead of
-the expected thousands. Measured in isolation just now, that control body costs **11,229 buffers**
-(`shared hit=5109 read=6120`), so the ceiling does discriminate — under load, something makes the
-control cheap.
+**(c) `company_public_money` — did not reproduce, no change made.** Four full runs, zero failures.
+The concurrent-`REFRESH` story was a hypothesis, never evidence, and a fix for a defect that cannot
+be reproduced is a change with no test.
 
-Ruled out by measurement, not by reasoning:
+### 8.3 The lock contention no longer reproduces — DEFERRED, not explained
 
-- a `person_connections` overload shadowing the control — `pg_proc` holds exactly one, 2-arg
-  (`p_slug text, p_include_private boolean`), `pronargdefaults=1`;
-- committed mutations of `person` / `person_role` by other files — all six writers wrap in
-  `BEGIN … ROLLBACK`;
-- connection exhaustion (§8.1).
+The measured symptom was **12 concurrent sessions blocked on a Lock** at only 19 connections, and
+§8.3 originally proposed serialising the two tests that hold `CREATE OR REPLACE FUNCTION` inside an
+open transaction. Re-measured after T8a:
 
-**Not yet established**, and the plan must not guess it: the mechanism by which the control's CTEs
-stop executing. The `co` CTE is only skipped when `subj` returns no rows, which MVCC should prevent.
+| | before | after |
+| --- | ---: | ---: |
+| peak lock waiters | 12 | **0** |
+| peak connections | 19 | **9** |
+| full `--project node` run | 179.7 s | **67.4 s** |
+| failures across runs | 3, then 1 | **0, twice** |
 
-Diagnostic, bounded: on failure, have the test dump (i) the `prosrc` actually in `pg_proc` at
-EXPLAIN time, (ii) the raw EXPLAIN text, (iii) whether `subj` resolves for that slug in the same
-transaction. Run the full suite until it reproduces (1 in 2 so far). Do not change the ceiling or
-the assertion before that output exists — the assertion is correct and is doing its job.
+**No change was made, and the cause is NOT established.** A first draft of this section claimed the
+cause was run duration — that `search` and `officials_redirect` held the run open for ~3 minutes and
+a long run is a long window for two files to overlap — and concluded the DDL pattern was therefore
+never the cause. That argument does not hold, and it is worth recording why, because it is the same
+mistake this whole plan is about:
 
-**(c) `company_public_money` — capture before fixing.** It did not reproduce in 2/2. Its third test
-FULL-JOINs the matview against a live re-derivation over `contracts ∪ agri_subsidies ∪
-fund_beneficiaries`, so a plausible story is a concurrent `REFRESH`. That is a story, not evidence.
-Add run-level capture (`--reporter=json`, retained artifacts) and collect ≥5 full runs before
-proposing a change.
+- **It confuses necessary with sufficient.** Contention needs a held lock *and* a concurrent waiter.
+  "The DDL pattern is unchanged, so it was never the cause" proves only that the pattern is not
+  sufficient alone — exactly as true of duration.
+- **The magnitude is unexplained.** A 2.7× shorter run does not predict 12 → 0 on any
+  overlap-probability model. If the real mechanism was a lock convoy, the DDL pattern *is* causally
+  essential and the remedy will be needed again the next time anything is slow.
+- **§8.1 never recorded WHICH object the 12 were waiting on.** The two DDL-holding tests replace
+  *different* functions, so they cannot block each other — meaning the DDL pattern may not have been
+  the source at all. The other candidate, recorded in §8.1 and worth keeping: four more files hold
+  rolled-back `UPDATE person` row locks.
+- And §8.2c, fifteen lines up, refuses the concurrent-`REFRESH` hypothesis as "a story, not
+  evidence". Accepting a duration story on one post-hoc negative applies a weaker standard to the
+  conclusion that suits.
 
-### 8.3 What is worth fixing regardless
+So the honest state is: **it no longer reproduces, and nothing was changed to make that true.**
+Deferred with a named revisit trigger — **if any data test creeps back over ~30 s, re-measure lock
+waiters AND capture the blocked object (`pg_locks.locktype`, `relation`, `objid`) before drawing a
+conclusion.** That is the datum §8.1 lacked, and without it neither hypothesis can be settled.
 
-**12 concurrent lock waiters at 19 connections** is a high contention ratio whatever the individual
-failures turn out to be, and it is self-inflicted: `person_connections.data.test.ts` and
-`person_by_name.data.test.ts` each hold `CREATE OR REPLACE FUNCTION` inside an open transaction
-while running `EXPLAIN (ANALYZE, BUFFERS)` — an `AccessExclusiveLock` on the function, held for the
-duration, blocking every concurrent caller of it. Four more files hold rolled-back `UPDATE person`
-row locks.
+--- | ---: | ---: |
+| peak lock waiters | 12 | **0** (79 samples, none non-zero) |
+| peak connections | 19 | **9** |
+| full `--project node` run | 179.7 s | **67.4 s** |
+| failures across runs | 3, then 1 | **0, twice** |
 
-Two candidate remedies, to be chosen on measurement:
+The DDL-in-an-open-transaction pattern is unchanged — so it was never the cause on its own. The
+cause was **duration**: `search` and `officials_redirect` held the run open for ~3 minutes, and a
+long run is a long window for two unrelated files to overlap on the same function. Cutting them to
+16.0 s and 1.1 s collapsed the window, and with it the contention.
 
-1. **Serialise the function-replacing tests** — a vitest `sequential` group, or a file-level lock so
-   no two DDL-holding transactions overlap. Cheapest, and it targets the measured contention
-   directly.
-2. **Give the DDL-holding tests their own connection outside the shared pool**, so a blocked DDL
-   cannot starve unrelated files' checkouts.
-
-Not proposed: raising `max_connections` (the pool is nowhere near it) or reducing vitest
-parallelism (it would hide the contention and cost ~3 min per run).
+Worth stating plainly because the instinct was to serialise the tests: the fix for lock contention
+here was to make the *unrelated* queries fast, not to add coordination. Serialising would have hidden
+the two production defects that were actually generating the load.
 
 ---
 
