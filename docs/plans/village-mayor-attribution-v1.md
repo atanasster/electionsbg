@@ -560,6 +560,7 @@ ones first.
 npm run person:kmetstvo-flips:cloud -- --emit   # review the diff BEFORE the resolve…
 npm run person:kmetstvo-flips:cloud -- --apply  # …then rekey/purge the locks
 npm run db:resolve:persons:cloud              # applies 115 (widened CHECK) + 082, rebuilds person_role
+npm run person:kmetstvo-flips:cloud -- --prune-dead   # ← AFTER the resolve. See below.
 npm run db:load:declarations:pg:cloud -- --resolve
 npm run db:load:official-candidate-links:pg:cloud
 npm run db:load:person-elections:pg:cloud     # person_id is re-minted every resolve (v2 A1)
@@ -579,6 +580,22 @@ catches it; nothing else does.
 
 The flips step is FIRST on purpose. It compares the fresh bundles against the still-old
 `person_role`, which only exists in the window between the re-parse and the resolve.
+
+**`--prune-dead` runs AFTER the resolve, and it was missing from this list until the deploy
+of 2026-08-04 — where its absence would have been a prod-only defect.** `--apply` leaves
+behind every lock whose MOVE was skipped because the destination was already held (1,019 of
+2,379 on Cloud SQL), and the resolve cannot pair those: their mention id no longer exists, so
+the lock diff has nothing to diff. The resolve reported **147 dead `/person` slugs with no
+redirect** while local had zero — the exact "green locally, broken on prod" shape this repo
+documents elsewhere, and invisible to every row count. `--prune-dead` closes it by splitting
+them: 112 had a successor in the audit and got a 301, 35 were phantom mayors the
+de-duplication removed and were deleted (a 404 is the honest answer there — there is no
+successor, and `target_slug` is NOT NULL so a redirect cannot even be written). It also swept
+925 stale locks whose mention is gone but whose slug is still live.
+
+Pass the SAME `--file` used for `--apply`: the successor pairing is read from that audit's
+`moves`, and without it every dead lock is DELETED rather than redirected — which is how this
+once made `person_slug_retired.data.test.ts` pass by erasing the rows it reads.
 
 The 082 label change alone can ship without a resolve:
 ```bash
