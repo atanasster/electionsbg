@@ -19,6 +19,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   REFRESH_EXCLUSIONS,
+  REFRESH_GENERATORS,
   TOLERATED_GITIGNORED_INPUTS,
 } from "./refresh_coverage";
 
@@ -35,6 +36,17 @@ const pkg = JSON.parse(
 const localLoaders = Object.keys(pkg.scripts).filter(
   (k) => /^db:(load|resolve):/.test(k) && !k.endsWith(":cloud"),
 );
+const genScripts = Object.keys(pkg.scripts).filter((k) => /^db:gen-/.test(k));
+// The tolerated-input contract applies to anything db:refresh runs, loader or
+// generator — so the two maps' key spaces are checked against this union.
+const coverable = [...localLoaders, ...Object.keys(REFRESH_GENERATORS)];
+
+const readEntrySource = (script: string): { entry: string; src: string } => {
+  const cmd = pkg.scripts[script];
+  const entry = /(?:^|\s)tsx (\S+\.ts)/.exec(cmd)?.[1];
+  assert.ok(entry, `${script}: cannot resolve a tsx entry file from "${cmd}"`);
+  return { entry: entry!, src: readFileSync(path.join(ROOT, entry!), "utf8") };
+};
 
 // Tokenize the chain — extract exact `npm run <name>` script names rather than
 // substring-matching. `includes()` passes today but is one loader name away
@@ -107,8 +119,8 @@ test("TOLERATED_GITIGNORED_INPUTS names real loaders and genuinely untracked pat
   );
   for (const [loader, inputs] of Object.entries(TOLERATED_GITIGNORED_INPUTS)) {
     assert.ok(
-      localLoaders.includes(loader),
-      `${loader} declared in TOLERATED_GITIGNORED_INPUTS but is not a local loader script`,
+      coverable.includes(loader),
+      `${loader} declared in TOLERATED_GITIGNORED_INPUTS but is neither a local loader script nor a registered db:gen-* generator`,
     );
     for (const input of inputs) {
       // A path listed as gitignored-and-tolerated must not be tracked: if it
@@ -138,13 +150,7 @@ test("TOLERATED_GITIGNORED_INPUTS names real loaders and genuinely untracked pat
 // basename), which is why this is shape-matched rather than substring-matched.
 test("every tolerated gitignored input has a skip-shaped existsSync guard in its loader", () => {
   for (const [loader, inputs] of Object.entries(TOLERATED_GITIGNORED_INPUTS)) {
-    const script = pkg.scripts[loader];
-    const entry = /(?:^|\s)tsx (\S+\.ts)/.exec(script)?.[1];
-    assert.ok(
-      entry,
-      `${loader}: cannot resolve a tsx entry file from "${script}"`,
-    );
-    const src = readFileSync(path.join(ROOT, entry!), "utf8");
+    const { entry, src } = readEntrySource(loader);
     for (const input of inputs) {
       // Directory inputs have uselessly short basenames ("fts") — pin the last
       // two segments instead so the staleness check stays meaningful.
@@ -183,4 +189,81 @@ test("every tolerated gitignored input has a skip-shaped existsSync guard in its
       );
     }
   }
+});
+
+// ── db:gen-* coverage (cross-source-dedup-v2 §T5) ───────────────────────────
+// The loader tests above cannot see these: hub_stats.json and sector_stats.json
+// are committed, bucket-synced artifacts regenerated from Postgres by a
+// `db:gen-*` script, and drifted from the corpus for weeks because nothing ran
+// them. See REFRESH_GENERATORS for why the axis is "writes a committed artifact"
+// rather than the whole `db:gen-*` prefix.
+
+test("every registered db:gen-* generator is run by db:refresh", () => {
+  const uncovered = Object.keys(REFRESH_GENERATORS).filter(
+    (k) => !referenced.has(k),
+  );
+  assert.deepEqual(
+    uncovered,
+    [],
+    `generators that write a committed artifact but are not in db:refresh: ${uncovered.join(
+      ", ",
+    )} — their output silently drifts from the corpus on every reload`,
+  );
+});
+
+test("REFRESH_GENERATORS names real scripts writing real committed artifacts", () => {
+  for (const [gen, spec] of Object.entries(REFRESH_GENERATORS)) {
+    assert.ok(
+      pkg.scripts[gen],
+      `${gen} is registered in REFRESH_GENERATORS but is not a package.json script`,
+    );
+    // The whole reason these need chain membership is that their output is
+    // COMMITTED — an untracked artifact is regenerated per-machine and cannot go
+    // stale in the repo, so the entry would be describing something else.
+    const tracked = execFileSync("git", ["ls-files", "--", spec.artifact], {
+      cwd: ROOT,
+      encoding: "utf8",
+    }).trim();
+    assert.ok(
+      tracked,
+      `${gen}: declared artifact ${spec.artifact} is not tracked by git — REFRESH_GENERATORS is for committed artifacts only`,
+    );
+    const { entry, src } = readEntrySource(gen);
+    assert.ok(
+      src.includes(spec.artifact),
+      `${gen}: ${entry} never references its declared artifact ${spec.artifact} — the REFRESH_GENERATORS entry is stale`,
+    );
+  }
+});
+
+// The hole-closer: a NEW generator dropped into gen_procurement/ must land on one
+// side or the other, mechanically. `process.argv.includes("--write")` is the exact
+// idiom all seven sql-migration-v1 parity verifiers use to stay read-only by
+// default; anything without it writes on every run and therefore belongs in the
+// chain.
+test("every db:gen-* script is either registered or a --write-gated verifier", () => {
+  const WRITE_GATE = 'process.argv.includes("--write")';
+  const stray: string[] = [];
+  for (const gen of genScripts) {
+    const { src } = readEntrySource(gen);
+    const gated = src.includes(WRITE_GATE);
+    if (gen in REFRESH_GENERATORS) {
+      // Symmetric check: adding a --write gate to a registered generator would
+      // turn its db:refresh step into a silent no-op, which looks exactly like
+      // success in an &&-chain.
+      assert.ok(
+        !gated,
+        `${gen} is in REFRESH_GENERATORS but gates its write behind --write — its db:refresh step would write nothing`,
+      );
+      continue;
+    }
+    if (!gated) stray.push(gen);
+  }
+  assert.deepEqual(
+    stray,
+    [],
+    `db:gen-* scripts that write unconditionally but are not in REFRESH_GENERATORS: ${stray.join(
+      ", ",
+    )} — register them (and add them to db:refresh) or gate their write behind --write like the parity verifiers`,
+  );
 });

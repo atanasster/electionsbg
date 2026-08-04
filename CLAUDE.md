@@ -28,7 +28,8 @@ npm run sitemap      # Generate sitemap
 
 # Postgres (local Docker; db:refresh runs the whole load in order)
 npm run db:pg:up     # Start local Postgres (port 5433)
-npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
+npm run db:refresh   # Full reload: schema + every loader + resolve + generators
+                     # + test:data
                      # "Every loader" is enforced: refresh_coverage.test.ts fails
                      # unless each local db:load:*/db:resolve:* script is in the
                      # chain or in REFRESH_EXCLUSIONS (scripts/db/refresh_coverage.ts
@@ -38,6 +39,9 @@ npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
                      # their file is absent (fresh clone), and nzok-hospital runs
                      # with --tolerate-offline so an nhif.bg outage cannot abort
                      # the chain. A PRESENT-but-malformed input still throws.
+                     # The same gate covers the two db:gen-* GENERATORS that write
+                     # a committed artifact from PG (REFRESH_GENERATORS) — see
+                     # "The two committed artifacts db:refresh regenerates" below.
 
 # Deployment
 npm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
@@ -149,6 +153,54 @@ failing a supplier-set/completeness precondition. Those are expected output, not
 `single_source_per_contract.data.test.ts` allowlists exactly them, and
 `scripts/procurement/measure_cross_source.ts` re-derives every figure read-only against either the
 shards or a database. Plan: `docs/plans/procurement-cross-source-dedup-v2.md`.
+
+### The two committed artifacts `db:refresh` regenerates
+
+`data/procurement/derived/hub_stats.json` (the nine `/procurement` hub stat-tile numbers) and
+`sector_stats.json` (the `/governance/sectors` headline per sector) are **committed and
+bucket-synced**, but derived from Postgres — so unlike the rest of the PG-served procurement
+tree they go stale in the repo whenever the corpus reloads. From 2026-06 until 2026-08-04 nothing
+regenerated them at all; a contracts/tenders/agri/ngo reload moved the corpus underneath two files
+that kept serving the old numbers at a 200. They are now in `db:refresh`:
+
+```
+… → db:load:ngo-funding:pg → db:gen-hub-stats → db:gen-sector-stats → db:load:judiciary-payloads:pg → …
+```
+
+**That slot is load-bearing, not cosmetic.** Five of `hub_stats`' nine fields come from tables
+loaded across the whole chain (`tenders`/`kzk_appeals` at the tenders step, `awarder_seats` after
+agri, `ngo_funding` last), and `sector_stats`' ДФЗ payout reads `agri_payloads`. Moving them
+earlier — next to `db:load:annexes:pg`, where they visually belong — regenerates those fields from
+the PREVIOUS vintage and commits it, which is the drift the wiring exists to end. After
+`db:load:ngo-funding:pg` is the earliest safe position. `refresh_coverage.test.ts` holds chain
+membership; nothing yet holds the ORDER, so check the dependency list in each file's header before
+moving either.
+
+Three things about them differ from every `db:load:*` in the chain:
+
+- **`hub_stats.ts` is the only applier of `062_procurement_hub_counts.sql`.** No `db:load:*` ships
+  it, and nothing did before 2026-08-04, so `procurement_hub_counts()` existed only on databases
+  where it had been applied by hand. Its `GRANT` is role-guarded (117/130 shape) because
+  `roles_readonly.sql` is a one-time manual step — unguarded, it raises 42704 on a cold bootstrap
+  and rolls the whole file back, leaving no function at all.
+- **Both skip-and-warn rather than degrade.** A missing relation, function, empty `contracts`, or
+  absent `data/budget/ministries/` (gitignored — `sector_stats` reads eight ПРБ nodes from it)
+  logs and exits **0** without writing. Returning before the write is the point: a partial artifact
+  would overwrite a good served file with a worse one and reconcile against nothing.
+- **`company_politicians` / `tr_companies` can be legitimately ABSENT**, not merely stale — their
+  only loader is `db:load:tr:pg`, a `REFRESH_EXCLUSIONS` member. `procurement_risk_feed` reads
+  both, which is why `hub_stats` probes relations instead of assuming the chain implies them.
+
+**There is no `:cloud` half.** These are committed FILES, not tables — they ship via
+`bucket:sync` (`scripts/bucket_sync_paths.ts`), so a cloud reload does not touch them and a local
+`db:refresh` is what makes them current.
+
+The other seven `gen_procurement/` entries (`db:gen-rollups`, `-lists`, `-shards`, `-derived`,
+`-xref`, `-index`, `-byns`) are sql-migration-v1 **parity verifiers**: they re-derive the JSON
+pipeline from Postgres and write nothing unless `--write` is passed. They are correctly outside
+`db:refresh`. That `process.argv.includes("--write")` idiom is what `refresh_coverage.test.ts`
+uses to tell the two kinds apart, so a NEW generator dropped into `gen_procurement/` must either
+join `REFRESH_GENERATORS` (and the chain) or carry the gate — it cannot quietly land outside.
 
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 

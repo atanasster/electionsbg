@@ -580,6 +580,42 @@ and all invisible to those 550 gates:
   Wiring them needs (1) the later position, (2) an applier for 062, and (3) skip-and-warn on a
   missing dependency. That is its own change, not a line in this one.
 
+  **DONE (2026-08-04), as that separate change.** Both are now in `db:refresh`, inserted directly
+  after `db:load:ngo-funding:pg` — the earliest safe slot per (1). Re-running each against the
+  post-reconcile database reproduces the hand-generated artifacts **byte-for-byte**, so the wiring
+  is behaviour-preserving and the two files are now maintained by the chain rather than by memory.
+
+  On (2): `062_procurement_hub_counts.sql` is applied by `hub_stats.ts` itself, which is its only
+  caller. Its `GRANT … TO app_readonly` had to be **role-guarded** first (the 117/130 shape) —
+  `roles_readonly.sql` is a one-time manual step no loader runs, so on a cold bootstrap the
+  unguarded GRANT raises 42704, and since `exec()` sends a migration as ONE implicit transaction
+  that rolls the whole file back, leaving no function at all. An unguarded applier would have
+  *introduced* the fresh-clone abort it was added to prevent.
+
+  On (3), a **third blocker** surfaced that the T7 review had not found, and it was the worst-shaped
+  of the three: `sector_stats.ts` reads eight ПРБ node files from `data/budget/ministries/`, which
+  is **gitignored** (`.gitignore:263`) — and it read them at MODULE level, so on a fresh clone the
+  ENOENT fired at IMPORT time, before `main()` could preflight anything. No amount of in-`main`
+  skip-and-warn would have caught it. Those reads are now behind a skip-shaped guard.
+
+  Both generators now preflight relations, functions and row-population, and **return before
+  writing** rather than degrading the payload — a partial artifact (all-zero counts from an empty
+  corpus, or a `sector_stats.json` missing its eight budget-basis sectors) would overwrite a good
+  served file with a worse one and reconcile against nothing. Verified against a scratch database
+  across five states: no relations, TR-tables-only missing, present-but-empty `contracts`, absent
+  ministries tree, and fully loaded. Every skip exits **0** and leaves the committed file untouched.
+
+  **The gate question, answered.** `db:gen-*` targets were NOT in `refresh_coverage.test.ts`'s
+  scope, and widening its regex to the whole prefix would be the wrong fix: seven of the nine
+  `gen_procurement/` entries are sql-migration-v1 **parity verifiers** that write nothing unless
+  `--write` is passed, and they are correctly outside the chain. The honest axis is "writes a
+  committed artifact from Postgres", now `REFRESH_GENERATORS` in `scripts/db/refresh_coverage.ts`.
+  Three new assertions: every registered generator is in `db:refresh`; its declared artifact is
+  git-tracked and referenced by its source; and — the hole-closer — **every** `db:gen-*` script is
+  either registered or carries the verifiers' exact `process.argv.includes("--write")` gate, so a
+  new generator cannot quietly land outside the chain the way these two did. Both new invariants
+  were confirmed to go red when violated.
+
 **One behavioural note worth recording.** The month rollups key on the release `date`, while
 identity E keys on `date_signed`. The two differ for retro-published contracts, so evicting a row
 can move money between rollup YEARS even though the corpus total falls by exactly the eviction sum.

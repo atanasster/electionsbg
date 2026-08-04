@@ -16,6 +16,18 @@
 -- Sargable COALESCE bounds (NOT `p_from IS NULL OR …`) — same rule as
 -- procurement_overview (025). Depends on tenders (009), kzk_appeals (042),
 -- ngo_funding (040). EXECUTE → app_readonly.
+--
+-- ⚠️ APPLIED BY scripts/db/gen_procurement/hub_stats.ts (`npm run db:gen-hub-stats`),
+-- which is the ONLY caller of this function. Until 2026-08-04 no script in the repo
+-- applied this file at all, so the function existed only where it had been applied by
+-- hand — and hub_stats.ts exits non-zero on a missing function, which would have
+-- aborted the &&-chained db:refresh on a fresh clone.
+--
+-- The GRANT is guarded on the role existing so this still applies on a cold bootstrap
+-- where roles_readonly.sql has never run (same reason + same shape as 117_place_dim.sql
+-- and 130_kzk_decisions.sql). Unguarded it raises 42704, and since a migration is sent
+-- as ONE implicit transaction that rolls the whole file back — leaving no function at
+-- all, which is the exact fresh-clone abort this applier exists to prevent.
 
 SET check_function_bodies = off;
 DROP FUNCTION IF EXISTS procurement_hub_counts(text, text);
@@ -40,4 +52,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     )
   );
 $$;
-GRANT EXECUTE ON FUNCTION procurement_hub_counts(text, text) TO app_readonly;
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION procurement_hub_counts(text, text) TO app_readonly;
+  END IF;
+END $$;

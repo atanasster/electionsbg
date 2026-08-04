@@ -54,9 +54,17 @@
 // the source's latest year), and show the latest year for ns/all — a parliament
 // window spans several fiscal years, so "current scale" is the honest read.
 
+// ⚠️ IN `db:refresh`, immediately after db:load:ngo-funding:pg — alongside
+// hub_stats, whose header explains why that is the earliest safe slot. This file's
+// own binding constraint is agri_payloads (db:load:agri:pg): the ДФЗ payout read in
+// main() is one of the sector headlines, so an earlier slot emits it from the
+// previous vintage. refresh_coverage.test.ts holds the chain membership.
+
 import fs from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
-import { allRows } from "../lib/pg";
+import { allRows, end } from "../lib/pg";
+import { missingRelations, isEmpty, warnSkip } from "./preflight";
 import {
   newestFirst,
   parliamentWindow,
@@ -185,15 +193,41 @@ const budgetSeries = (m: BudgetFile): Record<number, number> => {
   }
   return byYear;
 };
+// ⚠️ data/budget/ministries/ is GITIGNORED (.gitignore:263) — the update-budget
+// ingest writes those 55 node files and a fresh clone has NONE of them. The eight
+// reads below therefore have to be absent-tolerant now that this generator runs
+// inside the &&-chained db:refresh. They used to sit at MODULE level, which made
+// the failure worse than a normal missing input: the ENOENT fired at IMPORT time,
+// before main() could decide anything, so no preflight of any kind could have
+// caught it. (The agency files, data/indicators.json, personnel.json,
+// noi/funds.json and nzok/execution_history.json are all TRACKED, so those stay
+// module-level and SHOULD throw if they vanish — a tracked file going missing is a
+// real defect, per the refresh_coverage.ts convention.)
+const MINISTRIES_DIR = path.join(ROOT, "data/budget/ministries");
+
 const budgetByYear: Record<string, Record<number, number>> = {};
-for (const [sector, node] of Object.entries(BUDGET_SECTOR_NODE))
-  budgetByYear[sector] = budgetSeries(
-    readJson<BudgetFile>(`data/budget/ministries/${node}.json`),
-  );
-for (const [sector, file] of Object.entries(AGENCY_BUDGET_FILE))
-  budgetByYear[sector] = budgetSeries(
-    readJson<BudgetFile>(`data/budget/agencies/${file}.json`),
-  );
+/** Absent budget inputs, repo-relative; empty ⇒ budgetByYear is fully populated. */
+const loadBudgetSeries = (): string[] => {
+  if (!existsSync(MINISTRIES_DIR))
+    return [path.relative(ROOT, MINISTRIES_DIR) + "/"];
+  // A present-but-partial tree is the half-finished-ingest case: emitting it
+  // would silently drop whole sectors from the committed artifact, so report the
+  // gap and let main() skip rather than write eight zeroed tiles.
+  const missing = Object.values(BUDGET_SECTOR_NODE)
+    .map((node) => `data/budget/ministries/${node}.json`)
+    .filter((rel) => !existsSync(path.join(ROOT, rel)));
+  if (missing.length) return missing;
+
+  for (const [sector, node] of Object.entries(BUDGET_SECTOR_NODE))
+    budgetByYear[sector] = budgetSeries(
+      readJson<BudgetFile>(`data/budget/ministries/${node}.json`),
+    );
+  for (const [sector, file] of Object.entries(AGENCY_BUDGET_FILE))
+    budgetByYear[sector] = budgetSeries(
+      readJson<BudgetFile>(`data/budget/agencies/${file}.json`),
+    );
+  return [];
+};
 
 // Pension: ДОО fund pension outlay per fiscal year.
 const funds = readJson<{
@@ -348,6 +382,46 @@ const scopeStats = async (
 
 const main = async (): Promise<void> => {
   const t0 = Date.now();
+
+  // Skip-and-warn preflight — db:refresh is &&-chained, so a missing dependency
+  // must not abort it (refresh_coverage.ts). Order matters only in that the
+  // cheapest check goes first.
+  const budgetGaps = loadBudgetSeries();
+  if (budgetGaps.length) {
+    warnSkip(
+      "sector_stats",
+      `missing budget input(s): ${budgetGaps.join(", ")}`,
+      "Run the update-budget ingest — data/budget/ministries/ is gitignored, so a fresh clone has none of it.",
+    );
+    await end();
+    return;
+  }
+
+  const relGaps = await missingRelations(["contracts", "agri_payloads"]);
+  if (relGaps.length) {
+    warnSkip(
+      "sector_stats",
+      `missing relation(s): ${relGaps.join(", ")}`,
+      "Run `npm run db:refresh` — db:load:pg and db:load:agri:pg fill these.",
+    );
+    await end();
+    return;
+  }
+
+  // Present-but-empty `contracts` is the fresh-clone shape (migrations applied,
+  // no shards to load). It would zero every procurement-basis sector on top of a
+  // good committed artifact. agri_payloads is deliberately NOT checked the same
+  // way: db:load:agri:pg legitimately skips its gitignored cache and leaves the
+  // table empty, and the existing per-source warning below already names that.
+  if (await isEmpty("contracts")) {
+    warnSkip(
+      "sector_stats",
+      "the contracts table is empty",
+      "Run the procurement ingest, then `npm run db:load:pg`.",
+    );
+    await end();
+    return;
+  }
 
   // ДФЗ CAP paid, per financial year, from the precomputed overview payloads.
   const agriRows = (await allRows(
