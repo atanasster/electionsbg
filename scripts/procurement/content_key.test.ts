@@ -244,6 +244,102 @@ test("eviction: the p: net evicts a twin the other nets miss", () => {
   assert.equal(kept.length, 0);
 });
 
+test("the p: net is INERT at parse time — it needs a backfilled УНП on both sides", () => {
+  // Load-bearing limitation, pinned so it cannot be forgotten again. `normalize.ts` never sets
+  // `unp` (the OCDS export carries none; backfill_unp.ts writes it onto the shards afterwards),
+  // and `ingest.ts` passes freshly-parsed OCDS rows as `arriving`. So at parse time the
+  // arriving side has no `unp`, emits no `p:` key, and this net cannot fire — measured over the
+  // whole corpus in that shape: 8 evictions become 0.
+  //
+  // Which means cross-source reconciliation that depends on the УНП belongs in a POST-BACKFILL
+  // pass, not in the parse-time eviction. Three earlier attempts at a precedence rule failed on
+  // this same constraint before it was named. See plan §9.
+  const ocdsNoUnp = row({
+    releaseId: "aop-1",
+    unp: "", // ← the real parse-time shape
+    contractId: "91883",
+    awarderEik: "000695089",
+    contractorEik: "831183118",
+    dateSigned: "2023-05-10",
+    amountEur: 494_646.78,
+  });
+  const eopTwin = row({
+    releaseId: "eop-1",
+    unp: "00055-2022-0040",
+    contractId: "91883",
+    awarderEik: "000695089",
+    contractorEik: "831183118",
+    dateSigned: "2023-06-01",
+    amountEur: 989_293.55,
+  });
+  assert.equal(
+    contentKeys(ocdsNoUnp).filter((k) => k.startsWith("p:")).length,
+    0,
+    "an unbackfilled OCDS row cannot emit a p: key",
+  );
+  const { evicted } = evictSupersededEopTwins([eopTwin], [ocdsNoUnp]);
+  assert.equal(evicted, 0, "so the twin survives parse-time eviction");
+});
+
+test("the survivor precondition is computable WITHOUT a УНП", () => {
+  // The precondition must not repeat the mistake above. Keyed on (buyer, contract number, tag)
+  // it is satisfiable by an unbackfilled OCDS row, so it narrows evictions without disabling
+  // them. A first draft keyed it on the УНП and silently made 109,043 EOP rows unevictable.
+  const ocdsNoUnp = row({
+    releaseId: "aop-1",
+    unp: "",
+    contractId: "77",
+    awarderEik: "000695089",
+    contractorEik: "222",
+    dateSigned: "2023-05-10",
+    amountEur: 500,
+  });
+  // Same buyer/contract/supplier/date/amount → the f: net matches, and the precondition is
+  // satisfied because buyer+contract+tag agree.
+  const eopTwin = row({
+    releaseId: "eop-1",
+    unp: "00055-2022-0040",
+    contractId: "77",
+    awarderEik: "000695089",
+    contractorEik: "222",
+    dateSigned: "2023-05-10",
+    amountEur: 500,
+  });
+  const { evicted } = evictSupersededEopTwins([eopTwin], [ocdsNoUnp]);
+  assert.equal(evicted, 1, "a genuine parse-time twin must still be evictable");
+});
+
+test("the survivor precondition blocks an eviction that would orphan the contract", () => {
+  // The f: net carries no contract number, so within one procedure it matches ACROSS
+  // contracts — a buyer signing several contracts with one supplier on the same day for the
+  // same amount. Measured: 6 such evictions left their contract with no row at all, including
+  // 02023-2023-0001/118827 (Нивел строй, €4,136,627.87) matched to contract 118779.
+  const ocdsOtherContract = row({
+    releaseId: "aop-1",
+    unp: "",
+    contractId: "118779",
+    awarderEik: "831160078",
+    contractorEik: "222",
+    dateSigned: "2023-12-01",
+    amountEur: 4_136_627.87,
+  });
+  const eopThisContract = row({
+    releaseId: "eop-1",
+    unp: "02023-2023-0001",
+    contractId: "118827",
+    awarderEik: "831160078",
+    contractorEik: "222",
+    dateSigned: "2023-12-01",
+    amountEur: 4_136_627.87,
+  });
+  const { kept, evicted } = evictSupersededEopTwins(
+    [eopThisContract],
+    [ocdsOtherContract],
+  );
+  assert.equal(evicted, 0, "no survivor for contract 118827 → must not evict");
+  assert.equal(kept.length, 1);
+});
+
 test("eviction: an arriving EOP row never supersedes a content-identical on-disk EOP row", () => {
   // Guards the "OCDS authoritative" contract: only non-EOP arrivals may evict.
   const onDisk = row({

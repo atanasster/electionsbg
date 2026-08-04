@@ -64,8 +64,17 @@ export const contentKeys = (r: Contract): string[] => {
   // BOTH the УНП and the contract number are required. Dropping either widens this to
   // "any row from this buyer to this supplier", which would match unrelated awards — the
   // same over-reach that, applied as a deletion rule, destroyed 46 legitimate rows.
-  if (r.unp && cn && r.awarderEik && r.contractorEik) {
-    keys.push(`p:${r.awarderEik}:${r.unp}:${cn}:${r.contractorEik}:${r.tag}`);
+  //
+  // The contract number is used RAW here, not normalised. `normContractNo` strips exactly the
+  // characters publishers use to disambiguate framework call-offs — `РД-07-9`, `РД-07--9` and
+  // `РД-07-9.` all collapse to `рд079` — and because this net carries neither a date nor an
+  // amount it has nothing left to tell them apart. Measured: normalising here false-matches
+  // 561 groups / 1,044 rows / €70.8m, amounts from €19 to €291,705 under one key. The other
+  // three nets keep the normalised form, where an amount or a date still discriminates.
+  if (r.unp && r.contractId && r.awarderEik && r.contractorEik) {
+    keys.push(
+      `p:${r.awarderEik}:${r.unp}:${r.contractId}:${r.contractorEik}:${r.tag}`,
+    );
   }
   return keys;
 };
@@ -104,9 +113,22 @@ export const isEopSourced = (r: Contract): boolean =>
 // This is the check whose absence made three earlier attempts at a precedence rule
 // destructive: each reported a plausible eviction count while orphaning contracts. A count is
 // not evidence; a named survivor is.
+//
+// KEYED WITHOUT THE УНП, and that is the whole point. `normalize.ts` never sets `unp` — the
+// OCDS export carries none, and backfill_unp.ts writes it onto the shards only afterwards. The
+// production caller (`ingest.ts`) passes freshly-parsed OCDS rows as `arriving`, so a
+// УНП-keyed precondition is empty for every one of them and silently makes 109,043 EOP rows
+// permanently unevictable — €1.475bn of 2026 rows would sit forever waiting for a twin that
+// can no longer supersede them. A first draft did exactly that; it looked correct only because
+// the validation harness fed it on-disk rows, which HAVE been backfilled.
+//
+// (buyer, contract number, tag) is computable from an unbackfilled OCDS row and still blocks
+// every one of the 6 orphaning evictions this guard exists for. `normContractNo` is used here
+// — unlike in the `p:` net — because the two feeds format the number inconsistently and this
+// side only needs to confirm the contract EXISTS, not to distinguish call-offs.
 const contractIdentity = (r: Contract): string | null =>
-  r.unp && r.contractId
-    ? `${r.unp}::${normContractNo(r.contractId)}::${r.tag}`
+  r.awarderEik && r.contractId
+    ? `${r.awarderEik}::${normContractNo(r.contractId)}::${r.tag}`
     : null;
 
 export const evictSupersededEopTwins = (
