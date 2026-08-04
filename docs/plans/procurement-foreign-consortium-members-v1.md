@@ -274,3 +274,121 @@ Requirements for a correct implementation, learned the hard way:
    both bad versions reported plausible counts.
 4. A `.data.test.ts` gate over the loaded database is the right home for the invariant, since
    the ingest cannot be trusted to achieve it in one pass.
+
+## 10. Spec — the post-backfill reconciliation pass (and Tier A inside it)
+
+### 10.1 Why a new pass, not another key
+
+Four separate attempts to reconcile the two feeds inside the ingest have failed on the SAME
+constraint, which is worth stating once as a law of this pipeline:
+
+> **The УНП does not exist at parse time.** `normalize.ts` never sets `unp` — the АОП OCDS
+> export carries none — and `backfill_unp.ts` writes it onto the shards afterwards, resolving
+> the ocid through the tender shards.
+
+Everything that identifies a _contract_ across the two feeds needs the УНП, because the ocid is
+feed-namespaced (`eop-…` vs `ocds-e82gsb-…`) and the contract number alone is reused by buyers
+across procedures. So any cross-source rule placed in the parse-time eviction is either inert or
+wrong:
+
+| Attempt                                    | Outcome                                                |
+| ------------------------------------------ | ------------------------------------------------------ |
+| precedence keyed `unp \|\| ocid`           | inert — feeds mint different ocids                     |
+| precedence keyed `awarderEik + contractId` | too coarse — destroyed 46 rows / €5.15m                |
+| precedence keyed `unp + normContractNo`    | orphaned a contract's only row                         |
+| survivor precondition keyed on `unp`       | inert — made 109,043 rows unevictable                  |
+| the `p:` content net (Tier B)              | **correct, but inert at parse time** (8 evictions → 0) |
+
+Tier B's net is right and is committed; it simply has no place to run. That place is a new pass.
+
+### 10.2 Where it sits
+
+```
+ingest (parse, row-level eviction)      ← unchanged
+  → anexi_current_value.ts --apply      ← a re-parse reverts annex current values
+  → backfill_unp.ts --apply             ← УНП becomes available HERE
+  → reconcile_cross_source.ts  ★ NEW    ← the pass
+  → rebuild_from_cache.ts
+  → db:load:pg  → scopes → persons-browse → person-search → graph
+```
+
+The two steps before it are not optional and are the reason it cannot move earlier. It must run
+on the SHARDS, not in SQL: `pg_roundtrip.data.test.ts` asserts Postgres is a lossless capture of
+the shards, so deleting rows in PG that exist on disk fails that gate (the same reasoning
+`backfill_unp.ts` records for resolving УНП on the shards rather than at load time).
+
+### 10.3 What the pass does — three stages
+
+**Stage 1 — apply the identity bridge (Tier A).** Rewrite `contractorEik` from an `np-…`
+name-hash to the natural person's real БУЛСТАТ, using a COMMITTED map (§10.4). Nothing is
+deleted. This is what turns "the feeds name different suppliers" into "the feeds name the same
+supplier", which is a precondition for stage 2 doing anything useful.
+
+**Stage 2 — cross-source eviction.** Run `evictSupersededEopTwins` over each month shard with
+the non-EOP rows as `arriving`. Post-backfill both sides carry a УНП, so the `p:` net fires and
+the survivor precondition is satisfiable. Measured on the corpus in this shape: 8 evictions,
+€4,033,793.05, zero orphans, every pair a named twin.
+
+**Stage 3 — verify, and fail loudly.** Non-negotiable, because every failure in this area
+reported a plausible count while corrupting data:
+
+1. Emit every eviction as an **evicted → survivor pair**, never a bare count.
+2. Assert no contract is left with zero rows.
+3. Assert the corpus delta equals Σ evicted rows exactly.
+4. Assert per-contract totals still reconcile to the published value where known.
+5. Exit non-zero on any violation, before writing.
+
+### 10.4 Tier A — the identity bridge
+
+**Shape of the problem.** One feed publishes a natural person's ЕГН (encoded `np-<name-hash>`
+by the privacy fix), the other their real БУЛСТАТ. Same person, keys that can never match:
+
+```
+00373-2022-0009/48251   eop  np-9ca38126f076  Здравко Георгиев Иванов
+                        ocds 180055903        ЗДРАВКО ГЕОРГИЕВ ИВАНОВ
+```
+
+**Measured scope.** 104 `np-` keys; 18 have a real 9-digit EIK sharing their normalised name;
+16 unambiguous, 2 ambiguous. Applying the 18 converts **11 of the 26** divergent-supplier mixed
+contracts into identical-supplier ones, which stage 2 then resolves. 15 remain genuinely
+divergent.
+
+**A CURATED MAP, not a runtime heuristic.** `data/procurement/person_eik_bridge.json` —
+`np-<hash>` → `{ eik, name, why }`, committed and reviewed, in the same spirit as
+`amount_overrides.ts` and the officials re-slug maps. The set is 18 entries; it is enumerable,
+so it should be enumerated. A wrong bridge merges two different people's public-money totals,
+which is exactly the class of error that must not be produced by a threshold.
+
+**Both ambiguities are placeholders, not real ambiguity.** `np-7f08382bd743` (Петър Атанасов
+Андонов) offers `000000001` and `178957437`; `np-f1c825a0c878` offers `000000002` and
+`180209155`. `000000001` carries **9 distinct contractor names across 16 rows** — a shared
+placeholder — while the genuine БУЛСТАТ carries 1–2 (casing only). Note `tr_companies` is NOT a
+usable filter here: none of these EIKs appear in it, because БУЛСТАТ sole-trader registrations
+are absent from the commercial-register feed. So candidate rejection must key on the
+many-names-one-EIK signal, and each surviving pair must be eyeballed before entering the map.
+
+**Guard.** A `.data.test.ts` asserting no bridge target is shared by two different `np-` keys,
+and no bridged EIK carries more than a casing-difference set of names.
+
+### 10.5 Wiring
+
+- `db:refresh` — insert between `backfill_unp` and `db:load:pg`.
+- Cloud — no separate command; the pass rewrites shards, so `db:load:pg:cloud` carries it.
+- Watch skills — `update-procurement` must run it after any ingest, or the corpus regains mixes.
+
+### 10.6 Expected end state
+
+Cross-source mixed contracts fall 27 → ~15, all `divergent-suppliers`, all genuine source
+conflicts. Those 15 go into `ACCEPTED_CONFLICTS` in
+`scripts/db/tests/single_source_per_contract.data.test.ts` (Tier C) with a one-line reason each,
+and that gate turns green and stays green — which is the point: after this, a NEW mix is a real
+regression rather than noise in a permanently-red check.
+
+### 10.7 Explicit non-goals
+
+- **No auto-resolution of genuine conflicts.** Two public sources naming different counterparties
+  is not a scripting problem.
+- **No change to `c:`/`f:`.** The `c:` net spans a contract and its amendment (pinned as a known
+  hole). Tightening it reduces evictions and could increase double-counting — a separate,
+  measured change.
+- **No SQL-side deletion.** It breaks the lossless-capture invariant.
