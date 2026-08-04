@@ -427,3 +427,86 @@ procedure and is exactly the over-reach that destroyed 46 rows. It needs a contr
 notion that survives renumbering — most likely (УНП, supplier, rounded €) — designed and measured
 on its own, with the §10.3 protocol. Recorded here rather than attempted at the end of a long
 session, because every failure in this area came from improvising a key.
+
+## 11. Fresh measurement pass (2026-08-04)
+
+Done because §10.8's headline was arrived at late and by inference. It is **wrong**, and this
+section replaces it. Method: measure the same population under an identity lattice instead of
+defending one key, across all four feed namespaces, then grade the result by an independent field.
+
+All groups below are within one `tag`, require a УНП and a contractor EIK, exclude synthetic
+`obed-` carriers, and count the "lesser side" — the rows and € that would go if one feed were
+dropped.
+
+### 11.1 The identity lattice
+
+| Identity                                                       | Groups | Rows  | €            |
+| -------------------------------------------------------------- | ------ | ----- | ------------ |
+| **A** `unp + contract_id` — what the shipped gate and pass use | 129    | 147   | €5,994,650   |
+| **B** `unp + contractor`                                       | 1,192  | 2,371 | €461,594,510 |
+| **C** `unp + contractor + rounded €`                           | 225    | 249   | €147,807,238 |
+| **D** `unp + contractor + date_signed`                         | 165    | 186   | €46,146,247  |
+
+B is plainly too loose — it matches every lot of a procedure, which is the over-reach that
+destroyed 46 rows when used as a deletion rule. C is the §10.8 population.
+
+**`contract_id` differs in ~99% of C's groups** (89/89 eop+ocds, 83/83 aop+eop, 42/46 aop+rop,
+7/7 aop+ocds). Identity A is therefore structurally blind to the whole class, not merely
+imperfect.
+
+### 11.2 The feed matrix — and a pair never examined
+
+| Pair        | Groups | € (lesser)       |
+| ----------- | ------ | ---------------- |
+| **aop+eop** | 83     | **€123,214,481** |
+| eop+ocds    | 89     | €14,755,019      |
+| aop+rop     | 46     | €7,213,595       |
+| aop+ocds    | 7      | €2,624,143       |
+
+Everything in §§1–10 was about `eop` vs OCDS. **`aop+eop` — legacy CSV against the ЦАИС flat
+feed — is 8× larger by money and had never been looked at.** That is the single most useful thing
+this pass found, and it is a direct consequence of the two-feed model criticised in §2(b):
+`NOT LIKE 'eop-%'` lumps aop, ocds and rop together, so an aop↔eop pair never even enters the
+detector's HAVING clause.
+
+### 11.3 Grading by date agreement
+
+| Date gap   | Groups | €           | Reading                                                         |
+| ---------- | ------ | ----------- | --------------------------------------------------------------- |
+| same date  | 79     | €39,331,728 | duplicate — the two feeds' numbering differs, nothing else does |
+| 1–7 days   | 5      | €678,245    | duplicate; publication lag                                      |
+| 8–31 days  | 18     | €6,036,395  | probably duplicate                                              |
+| 1–3 months | 26     | €15,979,196 | uncertain                                                       |
+| >3 months  | 97     | €85,781,674 | probably DISTINCT contracts                                     |
+
+Worked examples that make the top row concrete — same procedure, supplier, amount and date, with
+only the contract number differing:
+
+- `00087-2020-0065` — `aop:32038` vs `eop:СОА21-ДГ55-32`. ЦАИС's internal id against Sofia
+  municipality's own reference. One contract, two numbering systems.
+- `00752-2017-0030` — `aop:12491оп352` vs `rop:УРИ 12491оп - 352`. Literally the same number
+  modulo a "УРИ" prefix and punctuation.
+- `02023-2023-0001` — `aop:118779` vs `eop:118827`, same day: adjacent ЦАИС sequence ids.
+
+### 11.4 §10.8 overstated the problem
+
+**Claimed there: 160 rows / €145,196,824 of invisible duplicates. That was identity C in full,
+ungraded.** The defensible duplicate set is same-date through 31 days: **102 groups /
+€46,046,368**. The €85.8m sitting >3 months apart is most likely distinct contracts.
+
+And frameworks do NOT explain that tail — only **22%** of those 97 groups carry any `рамк`
+signal in title, method or category (against 5% in the same-date bucket). So the tail is neither
+dismissible nor actionable as a class; it needs case-by-case judgement.
+
+### 11.5 What this implies
+
+1. **Widen the detector to the full feed matrix.** A two-feed `eop` vs everything-else model hides
+   the largest exposure. This is a cheap change to
+   `single_source_per_contract.data.test.ts` and is the highest-value next step.
+2. **Adopt `unp + contractor + rounded € + date_signed` as the reconciliation identity** — 79
+   groups, and by construction it cannot pool contracts signed on different days, which is what
+   every failed key did.
+3. **Do not touch the >3-month tail programmatically.** 97 groups / €85.8m, 78% unexplained.
+4. Only then revisit the 1–3 month band (26 groups / €16.0m).
+
+Numbers reproduce from local Postgres at 405,711 shard rows / €99,244,771,522.10.
