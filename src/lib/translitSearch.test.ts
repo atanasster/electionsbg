@@ -9,6 +9,8 @@ import {
   latinSkeleton,
   latinSkeletonCached,
   searchMatches,
+  shlyoComputeCount,
+  shlyoSkeleton,
   skeletonCacheSize,
   skeletonMatches,
 } from "./translitSearch";
@@ -123,5 +125,118 @@ describe("searchMatches", () => {
     const before = skeletonCacheSize();
     expect(searchMatches("Пловдив-център", "plovdiv")).toBe(true);
     expect(skeletonCacheSize()).toBeGreaterThan(before);
+  });
+
+  it("matches the Latin-side shliokavitsa spellings", () => {
+    expect(searchMatches("Шумен", "6umen")).toBe(true);
+    expect(searchMatches("Червен бряг", "4erven")).toBe(true);
+    expect(searchMatches("Пловдив", "plowdiw")).toBe(true);
+    expect(searchMatches("София", "sofiq")).toBe(true);
+    expect(searchMatches("железопътен транспорт", "jelezopyten")).toBe(true);
+    expect(searchMatches("Търново", "tyrnovo")).toBe(true);
+  });
+
+  it("does not let the shlyo needle match something unrelated", () => {
+    expect(searchMatches("Пловдив", "6umen")).toBe(false);
+    expect(searchMatches("Стара Загора", "4erven")).toBe(false);
+  });
+
+  it("keeps the single-character rules from matching across unrelated words", () => {
+    // j/w/x/y are the noisy rules — they rewrite ordinary Latin letters, not
+    // digits, so their blast radius is worth pinning. The widening they DO
+    // cause is intended (that is what shliokavitsa means) and is gated behind a
+    // literal-and-fold miss; this fences it so a future rule cannot widen it
+    // materially with a green suite.
+    expect(searchMatches("Alpha Research", "6umen")).toBe(false);
+    expect(searchMatches("Стара Загора", "plowdiw")).toBe(false);
+    expect(searchMatches("Abemaciclib", "jelezo")).toBe(false);
+  });
+
+  it("keeps the fast exit for a needle whose shlyo rewrite is a no-op", () => {
+    // The middle case, and the expensive one: "sofiya" / "yordanov" carry a `y`,
+    // but it is followed by a vowel — a real й/ю/я, not ъ — so there is no
+    // second needle to try. The guard has to SEE that. If it only asked "does
+    // the needle contain a y", every Latin-typed Bulgarian name (sofiya, mariya,
+    // boyan, zhelyazkov) would fold the entire table for a rewrite that cannot
+    // exist — measured at 3.2x a filter pass.
+    expect(shlyoSkeleton("sofiya")).toBe("");
+    expect(shlyoSkeleton("yordanov")).toBe("");
+    const before = skeletonCacheSize();
+    expect(searchMatches("987654321", "sofiya")).toBe(false);
+    expect(searchMatches("987654322", "yordanov")).toBe(false);
+    expect(skeletonCacheSize()).toBe(before);
+  });
+
+  it("computes the alternate needle once per pass, not once per cell", () => {
+    // searchMatches runs per CELL (~178k times on a 12.7k-row table), and the
+    // alternate needle is constant across the pass. Without the memo this ran
+    // nine global replaces per cell to rebuild the same string. A call counter
+    // is deterministic where a wall-clock assertion would be flaky.
+    searchMatches("Пловдив", "6umen"); // prime the memo for this needle
+    const before = shlyoComputeCount();
+    for (let i = 0; i < 500; i++) searchMatches(`Ред №${i} Пловдив`, "6umen");
+    expect(shlyoComputeCount()).toBe(before);
+  });
+});
+
+describe("shlyoSkeleton", () => {
+  it("rewrites the Latin-side spellings onto the canonical fold", () => {
+    expect(shlyoSkeleton("6umen")).toBe(latinSkeleton("Шумен"));
+    expect(shlyoSkeleton("4erven")).toBe(latinSkeleton("Червен"));
+    expect(shlyoSkeleton("plowdiw")).toBe(latinSkeleton("Пловдив"));
+    expect(shlyoSkeleton("sofiq")).toBe(latinSkeleton("София"));
+    expect(shlyoSkeleton("jelezopyten")).toBe(latinSkeleton("железопътен"));
+  });
+
+  it("applies 6t before 6 so 'ще' survives", () => {
+    expect(shlyoSkeleton("6te")).toBe(latinSkeleton("ще"));
+  });
+
+  it("keeps a real й/ю/я vowel rather than reading its y as ъ", () => {
+    // "y" only becomes ъ when NOT followed by a vowel, so "Йордан" and "София"
+    // must round-trip unchanged.
+    expect(shlyoSkeleton("yordan")).toBe("");
+    expect(shlyoSkeleton("sofiya")).toBe("");
+  });
+
+  it("returns '' when the rewrite would be a no-op", () => {
+    // "" is the callers' signal that no second needle is needed — a rewrite
+    // equal to the plain fold would just cost a redundant includes().
+    expect(shlyoSkeleton("plovdiv")).toBe("");
+    expect(shlyoSkeleton("Иван")).toBe("");
+    expect(shlyoSkeleton("")).toBe("");
+  });
+
+  it("leaves ц alone — the deliberate omission", () => {
+    // c→ts would refold every Latin drug name away from what was typed. The
+    // НЗОК molecule/pack groups are majority-Latin, so this must NOT change.
+    expect(shlyoSkeleton("abemaciclib")).toBe("");
+    expect(searchMatches("Abemaciclib", "abemacic")).toBe(true);
+  });
+});
+
+describe("shlyo is strictly additive", () => {
+  it("never removes a match that worked before the rules existed", () => {
+    // The property the whole design rests on: the shlyo needle is only ever
+    // tried AFTER the plain one misses, so every pre-existing pair still
+    // matches. These are the cases from the suites above, re-asserted as one
+    // regression fence.
+    const pairs: [string, string][] = [
+      ["Иван Георгиев Иванов", "iv"],
+      ["Дарин Величков Матов", "da"],
+      ["Златомира Карагеоргиева-Мострова", "karageorg"],
+      ["Иван Георгиев", "георги"],
+      ["ИНФОРМАЦИОННО ОБСЛУЖВАНЕ", "обслужв"],
+      ["Alpha Research", "research"],
+      ["Иван Георгиев", "ivange"],
+      ["Ivanov-Petrov", "ivanovpetrov"],
+      ["Church Street", "hur"],
+      ["Архитектурни услуги", "arh"],
+      ["Архитектурни услуги", "arch"],
+    ];
+    for (const [hay, needle] of pairs) {
+      expect(searchMatches(hay, needle), `${needle} in ${hay}`).toBe(true);
+      expect(skeletonMatches(hay, needle), `${needle} in ${hay}`).toBe(true);
+    }
   });
 });

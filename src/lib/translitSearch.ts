@@ -4,6 +4,19 @@
 // the same Latin skeleton: Streamlined-System transliteration, then the ч/х
 // ambiguity (both often written "h" or "ch" in Latin chat) collapsed to `h`, so
 // search is script- and spelling-forgiving.
+//
+// On top of that skeleton the matchers run a SECOND, alternate needle covering
+// the Latin-side spellings the skeleton alone cannot reach ("6umen", "4erven",
+// "plowdiw", "sofiq") — see SHLYO_RULES below. Two properties of that pass are
+// contracts, not implementation details:
+//   - It is QUERY-SIDE ONLY and strictly ADDITIVE. The alternate needle is
+//     tried only after the plain one misses, so it can add matches and never
+//     remove one. Applying these rules to the DATA side would be wrong.
+//   - It is CLIENT-SIDE ONLY. The server fold (`translit_bg_latin()` in
+//     pg/000_search_fns.sql, used by the DbDataTable resources) implements the
+//     Cyrillic→Latin half alone — it has neither these rules nor the ч/х
+//     collapse — so a server-filtered browser answers the same query
+//     differently. Closing that gap is a separate, deliberate decision.
 
 const CYR_TO_LATIN: Record<string, string> = {
   а: "a",
@@ -47,13 +60,104 @@ export const latinSkeleton = (s: string): string => {
   return out.replace(/ch/g, "h").replace(/[^a-z0-9]/g, "");
 };
 
+// SHLIOKAVITSA, the other half. `latinSkeleton` handles Cyrillic→Latin, so
+// "арх" and "arh" already meet. What it does NOT handle is the Latin-side
+// spelling a Bulgarian actually types: "6umen" (Шумен), "4erven" (Червен),
+// "jelezopyten" (железопътен), "plowdiw" (Пловдив), "sofiq" (София). Those fold
+// to themselves and miss.
+//
+// The rules below rewrite the QUERY into a SECOND needle, tried only after the
+// plain one misses — so this can only ever ADD matches, never remove one. That
+// additive property is the whole design: it is why no existing caller of
+// `searchMatches` / `skeletonMatches` can regress.
+//
+// Order matters: "6t"→"sht" must precede "6"→"sh", and the two "ya" producers
+// must precede the `y` rule (their `y` is followed by `a`, so the negative
+// lookahead then protects it).
+//
+// `c → ts` (ц) is DELIBERATELY ABSENT. It would refold every Latin trade name
+// carrying a "c" — Keytruda, Abemaciclib, "concentrate for solution" — away from
+// what the reader typed, and the НЗОК molecule/pack universes are majority
+// Latin. Bulgarians type "ts" for ц anyway. Do not "complete" this table.
+const SHLYO_RULES: [RegExp, string][] = [
+  [/6t/g, "sht"], // ще
+  [/6/g, "sh"], // ш
+  [/4/g, "h"], // ч — via the ч/х collapse latinSkeleton already applies
+  [/9/g, "ya"], // я
+  [/q/g, "ya"], // я
+  [/j/g, "zh"], // ж
+  [/w/g, "v"], // в
+  [/x/g, "h"], // х
+  [/y(?![aeiou])/g, "a"], // ъ typed as "y"; a real й/ю/я keeps its vowel
+];
+
+/** What `shlyoOf` can actually rewrite — the union of SHLYO_RULES' left-hand
+ *  SIDES, not merely of the characters they mention. The distinction carries
+ *  the fast exit in `searchMatches`: `y` rewrites only when NOT followed by a
+ *  vowel, so "sofiya" / "yordanov" / "mariya" — a real й/ю/я, and the way every
+ *  Latin-typed Bulgarian name is spelled — must test FALSE here. A plain
+ *  `[…y]` character class costs a measured 3.2x on a filter pass, folding the
+ *  whole table for a rewrite that provably cannot exist.
+ *
+ *  Sound as a pre-test because no rule can CREATE a trigger a rule-free string
+ *  lacked: the only rules that emit `y` are 9→"ya" and q→"ya", whose `y` is
+ *  always immediately followed by `a`. Non-global, so `.test()` is stateless. */
+const SHLYO_TRIGGER = /[469qjwx]|y(?![aeiou])/;
+
+// The alternate needle is a pure function of the folded needle, which is
+// CONSTANT across a filter pass — but `searchMatches` runs per CELL (~178k
+// times on a 12.7k-row report table; see DataTable.tsx), so recomputing it
+// there ran nine global replaces per cell to rebuild the same string. ONE entry
+// is enough: unlike the fold memo below there is no working set, because a pass
+// only ever asks about one needle.
+let lastShlyoIn: string | null = null;
+let lastShlyoOut = "";
+let shlyoComputes = 0;
+
+/** Apply the shlyo rules to an ALREADY-FOLDED string. Returns "" when the
+ *  rewrite is a no-op, which the callers read as "no second needle needed". */
+const shlyoOf = (base: string): string => {
+  if (base === lastShlyoIn) return lastShlyoOut;
+  shlyoComputes++;
+  let res = "";
+  if (SHLYO_TRIGGER.test(base)) {
+    let out = base;
+    for (const [re, to] of SHLYO_RULES) out = out.replace(re, to);
+    if (out !== base) res = out;
+  }
+  lastShlyoIn = base;
+  lastShlyoOut = res;
+  return res;
+};
+
+/** How many times the rules were actually run. Exported as a test seam only —
+ *  the memo above is otherwise invisible from the outside, exactly like
+ *  `skeletonCacheSize()` for the fold memo. */
+export const shlyoComputeCount = (): number => shlyoComputes;
+
+/** Fold `s`, then normalise the Latin-side shliokavitsa spellings.
+ *
+ *  QUERY SIDE ONLY — this is a precondition, not a preference. Applied to the
+ *  data side it is simply wrong: a Latin company name "Wow Ltd" folds to
+ *  `wowltd` and would be stored as `vovltd`, and the ""-means-no-op return
+ *  would index an empty string for the majority of names.
+ *
+ *  @returns the alternate needle, or "" when the rules change nothing — which
+ *  callers must read as "no second needle to try", never as "matches nothing".
+ *  Prefer `searchMatches` / `skeletonMatches`, which own that distinction. */
+export const shlyoSkeleton = (s: string): string => shlyoOf(latinSkeleton(s));
+
 /** True when `needle` (folded) is a substring of `haystack` (folded). Folds
  *  unconditionally. See also `searchMatches`, which differs ONLY in the
  *  empty-needle case (match-none there, match-all here) and tries a literal
  *  check first. */
 export const skeletonMatches = (haystack: string, needle: string): boolean => {
   const n = latinSkeleton(needle);
-  return n === "" || latinSkeleton(haystack).includes(n);
+  if (n === "") return true;
+  const hay = latinSkeleton(haystack);
+  if (hay.includes(n)) return true;
+  const alt = shlyoOf(n);
+  return alt !== "" && hay.includes(alt);
 };
 
 // Folding is ~9x the cost of a plain lowercase `includes` on a table filter, and
@@ -117,7 +221,28 @@ export const searchMatches = (haystack: string, needle: string): boolean => {
   const lowerHaystack = haystack.toLowerCase();
   const lowerNeedle = needle.toLowerCase();
   if (lowerHaystack.includes(lowerNeedle)) return true;
-  if (isSkeletal(lowerHaystack) && isSkeletal(lowerNeedle)) return false;
+  // The skeletal guard claims "folding cannot change the answer". With the
+  // shlyo rules that is no longer true of a needle the rules can rewrite —
+  // "6umen" is all-[a-z0-9] and still rewrites — so such a needle must take the
+  // folded path even between two otherwise-skeletal strings. Needles the rules
+  // leave alone ("iv", "plovdiv", and every y-before-a-vowel name) keep the
+  // original fast exit.
+  //
+  // Testing the RAW needle against a trigger that `shlyoOf` later applies to
+  // the FOLDED one is safe ONLY under `isSkeletal(lowerNeedle)` above: that
+  // makes folding the identity, so raw and folded are the same string. Folding
+  // can otherwise introduce a `y` (й/ь→"y", ю→"yu", я→"ya"). Do not reorder
+  // these conjuncts.
+  if (
+    isSkeletal(lowerHaystack) &&
+    isSkeletal(lowerNeedle) &&
+    !SHLYO_TRIGGER.test(lowerNeedle)
+  )
+    return false;
   const n = latinSkeletonCached(needle);
-  return n !== "" && latinSkeletonCached(haystack).includes(n);
+  if (n === "") return false;
+  const hay = latinSkeletonCached(haystack);
+  if (hay.includes(n)) return true;
+  const alt = shlyoOf(n);
+  return alt !== "" && hay.includes(alt);
 };
