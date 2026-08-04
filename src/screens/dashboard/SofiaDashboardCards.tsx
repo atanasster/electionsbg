@@ -18,7 +18,7 @@ import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
-import { CompaniesHqTile } from "./CompaniesHqTile";
+import { PlaceCompaniesTile } from "./PlaceCompaniesTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
@@ -170,7 +170,7 @@ export const SofiaDashboardCards: FC = () => {
           <div className="grid gap-3 grid-cols-1">
             <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
           </div>
-          <CompaniesHqTile ekatte="68134" />
+          <PlaceCompaniesTile ekatte="68134" />
           <MpAssetsTile regionCodes={SOFIA_REGIONS} />
         </DashboardSection>
       )}

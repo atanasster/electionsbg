@@ -44,7 +44,7 @@ import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
-import { CompaniesHqTile } from "@/screens/dashboard/CompaniesHqTile";
+import { PlaceCompaniesTile } from "@/screens/dashboard/PlaceCompaniesTile";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
@@ -307,7 +307,7 @@ export const MyAreaScreen: FC = () => {
             tiles above. */}
         <MunicipalCapitalProjectsTiles obshtinaCode={area.obshtina} />
         <IpopExecutionTile obshtinaCode={area.obshtina} />
-        <CompaniesHqTile kind="muni" obshtina={area.obshtina} />
+        <PlaceCompaniesTile kind="muni" obshtina={area.obshtina} />
 
         {/* Band F — Quality of life. A 4-up strip summarising
             crime / air / schools / services with one headline number

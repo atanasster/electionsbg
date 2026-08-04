@@ -333,6 +333,30 @@ override for the two maritime bodies. First cloud deploy needs
 degrades a missing migration to an empty map, so ordering is cosmetic, not breaking. Re-run it
 whenever `TRANSPORT_ENTITIES` changes; `transport_facility_map.data.test.ts` fails on drift.
 
+`tr_company_place` (migration 133, `db:load:tr-company-place:pg`) is the company↔settlement
+crosswalk behind the "фирми, регистрирани тук" tile on every governance dashboard and
+`/api/db/place-companies`. It resolves the free-text `tr_companies.seat` to an EKATTE code
+offline through the shared `EkatteResolver` (99.6% of seated companies; an ambiguous name
+stays unresolved rather than guessing a village). In `db:refresh`; on the cloud side:
+
+```bash
+npm run db:load:tr-company-place:pg:cloud
+```
+
+**Its two ranking columns are DENORMALIZED, which makes its re-run trigger wider than its
+input.** `money_eur` / `political_n` are copied from `company_public_money` (127) and
+`company_politicians` (008) so the tile's top-N is an index scan — measured on Sofia's
+110,474 companies, the live-join form of `place_companies()` ran **979 ms**, the stored form
+**57 ms**, and prod is a db-g1-small. So re-run it after `db:load:tr:pg` (which rebuilds BOTH
+tr_companies and company_politicians) **and after any contracts / agri / funds reload**.
+Skipping it is the usual silent shape: the tile keeps ranking and counting the previous
+vintage at a 200. `tr_company_place.data.test.ts` fails on an empty/stale table, on either
+denormalized column drifting from its source, and on the Sofia call exceeding 400 ms.
+
+The route degrades a missing migration to an empty place, so first-deploy ordering is
+cosmetic. The tile self-suppresses on `count === 0`, so a cloud database that never ran the
+loader simply shows no tile rather than an empty one.
+
 `nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
 behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
 the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by

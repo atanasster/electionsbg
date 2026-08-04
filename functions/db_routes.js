@@ -2694,6 +2694,32 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? { facilities: [] } };
   },
+  // Companies REGISTERED at a place → the "фирми, регистрирани тук" tile on the
+  // settlement / municipality governance pages (schema 133). Takes exactly one
+  // of ?ekatte= (settlement) or ?obshtina= (municipality code); passing both
+  // would OR them inside the function, which is a place nobody asked about.
+  //
+  // The officers it returns are registry NAMES, not resolved identities — the
+  // tile renders them as such. That distinction is the whole point of the
+  // route: its predecessor showed a place's companies only when an MP name
+  // matched one, which published 319 namesake companies as one MP's.
+  "place-companies": async (dbRows, q) => {
+    const ekatte = s(q, "ekatte");
+    const obshtina = s(q, "obshtina");
+    const empty = { count: 0, moneyCount: 0, politicalCount: 0, companies: [] };
+    if (!/^\d{5}$/.test(ekatte) && !/^[A-Z]{3}\d{2}$/.test(obshtina))
+      return { status: 400, body: { error: "missing ekatte or obshtina" } };
+    const rows = await dbRows(
+      "SELECT place_companies($1, $2, $3) AS r",
+      // ekatte wins when both are sent, so the answer is always one place.
+      [
+        /^\d{5}$/.test(ekatte) ? ekatte : null,
+        /^\d{5}$/.test(ekatte) ? null : obshtina,
+        clampInt(q.limit, 5, 1, 50),
+      ],
+    ).catch(missingMigration(empty));
+    return { body: rows[0]?.r ?? empty };
+  },
   // Geolocated active excise warehouses → the /customs/warehouses count map
   // (schema 072). One point per warehouse; the client groups them per city.
   "excise-warehouses": async (dbRows) => {
@@ -3096,9 +3122,9 @@ const DB_ROUTES = {
     const slug = s(q, "slug");
     if (!slug) return { body: { byCompany: [], bySettlement: [] } };
     const [byCompany, bySettlement] = await Promise.all([
-      dbRows("SELECT person_procurement_by_company_slug($1) AS r", [slug]).catch(
-        missingMigrationEmpty,
-      ),
+      dbRows("SELECT person_procurement_by_company_slug($1) AS r", [
+        slug,
+      ]).catch(missingMigrationEmpty),
       dbRows("SELECT person_procurement_by_settlement_slug($1) AS r", [
         slug,
       ]).catch(missingMigrationEmpty),
