@@ -28,9 +28,10 @@ export type Corroborants = {
    */
   partyOffice?: boolean;
   /**
-   * For `local` mentions: WHICH SEAT this term is a term of — `<role>\t<placeKind>:<placeCode>`.
-   * A village has one кмет на кметство, a община one кмет; holding the same seat is
-   * therefore near-identifying in a way "same party" never is. See `sameLocalSeat`.
+   * For `local` mentions: WHICH SEAT this term is a term of, as minted by `localSeatKey`
+   * (scripts/parsers_local/localPersonRefs.ts) — which is also where the per-role reasons
+   * for the key's shape live. NULL means "this repo cannot name the seat stably", not
+   * "no seat", and the rule must then not fire at all. See `sameLocalSeat`.
    */
   localSeat?: string | null;
   /** The election cycle the term belongs to (`2023_10_29_mi`). Two terms of one seat in
@@ -82,7 +83,11 @@ export type ClusterResult = {
 // share "Димитър Георгиев Димитров"). Full-name identity is handled by the
 // namesake-gated Tier 2 below, which merges identical full names ONLY when they are
 // globally unique — never on a common name.
-const shareCorroborant = (a: Mention, b: Mention): boolean => {
+const shareCorroborant = (
+  a: Mention,
+  b: Mention,
+  contestedTerms: ReadonlySet<string>,
+): boolean => {
   const ca = a.corroborants;
   const cb = b.corroborants;
   const shareUic =
@@ -92,7 +97,31 @@ const shareCorroborant = (a: Mention, b: Mention): boolean => {
   const strong = shareUic || (!!ca.birthDate && ca.birthDate === cb.birthDate);
   const weakBoth =
     !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
-  return strong || weakBoth || samePartyOffice(a, b) || sameLocalSeat(a, b);
+  return (
+    strong ||
+    weakBoth ||
+    samePartyOffice(a, b) ||
+    sameLocalSeat(a, b, contestedTerms)
+  );
+};
+
+/** `<seat>\t<cycle>` — one TERM of one seat, the unit `contestedTerms` counts. */
+const seatTerm = (m: Mention): string | null =>
+  m.corroborants.localSeat && m.corroborants.localCycle
+    ? `${m.corroborants.localSeat}\t${m.corroborants.localCycle}`
+    : null;
+
+/**
+ * The seat-terms in a block that MORE THAN ONE mention claims — the mentions
+ * `sameLocalSeat` must refuse to touch. Read its comment for why.
+ */
+const contestedSeatTerms = (mentions: Mention[]): Set<string> => {
+  const seen = new Map<string, number>();
+  for (const m of mentions) {
+    const k = seatTerm(m);
+    if (k) seen.set(k, (seen.get(k) ?? 0) + 1);
+  }
+  return new Set([...seen].filter(([, n]) => n > 1).map(([k]) => k));
 };
 
 // The LOCAL-CONTINUITY rule: the same seat, held under the same name, in two different
@@ -121,29 +150,72 @@ const shareCorroborant = (a: Mention, b: Mention): boolean => {
 // weaker keys honest. Within ONE cycle two mentions of a seat-key are two DIFFERENT people:
 // for a mayor because the seat is held by one person, and for a councillor because one
 // council does not seat the same person twice. Since §T2 a village mayor's place is the
-// SETTLEMENT, so a same-cycle collision there means two same-named people in one village —
+// SETTLEMENT, a same-cycle collision there means two same-named people in one village —
 // precisely the case that must go to review, not merge. Measured: 637 of the 640 split
-// groups span cycles, 3 do not, and those 3 surface as `identical_fullname` candidates.
+// groups span cycles, 3 do not, and those 3 must surface as `identical_fullname` candidates.
+//
+// THE SAME-CYCLE GUARD CANNOT BE A PAIRWISE CONDITION, and this is the one thing about the
+// rule that is easy to get wrong — it was wrong in the first draft. Every other Tier-1
+// corroborant is an EQUALITY, so transitive closure preserves it; "different cycle" is an
+// ANTI-condition, and union-find closes over edges regardless. Three mentions of one seat,
+// two of them in 2023, still fuse: 2019–2023a and 2019–2023b are each legal pairs, and the
+// two 2023 rows arrive in one component through the 2019 row without ever being compared.
+// The damage is not merely a bad merge — `reviewCandidates` is computed from the FINAL
+// components, so a single root also DELETES the `identical_fullname` flag that was supposed
+// to carry the case to a human. (Live instance: Валери Иванов Василев, VID09, elected from
+// two different lists on the same council in 2023 plus a 2019 term.)
+//
+// So the guard is applied at BLOCK level instead: any seat-term claimed by more than one
+// mention is "contested", and every mention claiming a contested term is excluded from this
+// rule entirely — including against a third, uncontested cycle. That last part is deliberate.
+// If two people held seat S in 2023, we cannot say WHICH of them is the S of 2019, so
+// merging the 2019 term into either is a coin flip. All three stay separate and Tier 3
+// flags them, which is the outcome the measurement asked for.
+//
+// Note the exclusion can only ever cost a merge, never create one: a same-cycle duplicate
+// that is genuinely one person (a councillor listed under two coalition party numbers) is
+// left split for review rather than joined. That is the correct direction to fail.
+//
+// THE NAMESAKE CAP IS ALL BUT INERT HERE, and is kept for parity rather than for protection.
+// `namesakeRisk` is `officer_name_counts.company_count` — a count of COMPANIES, which
+// `resolve_persons` already calls a flawed proxy elsewhere. Measured over the 18,935 people
+// holding a local role: 10,766 score 0 and only 657 (3.5%) exceed 12, so a mass name like
+// "Георги Иванов Георгиев" is filtered only if that particular man also sits on many boards.
+// What actually carries this rule is the seat key plus the same-cycle exclusion below — do
+// not read the cap as the reason a common name is safe here, because it mostly is not.
 //
 // The remaining guards mirror `samePartyOffice`: a full three-part name, matching patronymic,
-// nothing ambiguous, and a namesake cap — because on a mass name ("Георги Иванов Георгиев",
-// risk 198) the exclusivity argument stops carrying the weight the merge puts on it.
+// nothing ambiguous, and a namesake cap.
 const LOCAL_SEAT_NAMESAKE_CAP = 12;
 
-const sameLocalSeat = (a: Mention, b: Mention): boolean =>
-  !!a.corroborants.localSeat &&
-  a.corroborants.localSeat === b.corroborants.localSeat &&
-  !!a.corroborants.localCycle &&
-  !!b.corroborants.localCycle &&
-  a.corroborants.localCycle !== b.corroborants.localCycle &&
-  a.nameParts === 3 &&
-  b.nameParts === 3 &&
-  !a.ambiguous &&
-  !b.ambiguous &&
-  !!a.patronymicFold &&
-  a.patronymicFold === b.patronymicFold &&
-  a.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP &&
-  b.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP;
+const sameLocalSeat = (
+  a: Mention,
+  b: Mention,
+  contestedTerms: ReadonlySet<string>,
+): boolean => {
+  const ta = seatTerm(a);
+  const tb = seatTerm(b);
+  return (
+    !!ta &&
+    !!tb &&
+    !contestedTerms.has(ta) &&
+    !contestedTerms.has(tb) &&
+    a.corroborants.localSeat === b.corroborants.localSeat &&
+    a.corroborants.localCycle !== b.corroborants.localCycle &&
+    a.nameParts === 3 &&
+    b.nameParts === 3 &&
+    !a.ambiguous &&
+    !b.ambiguous &&
+    !!a.patronymicFold &&
+    b.nameParts === 3 &&
+    !a.ambiguous &&
+    !b.ambiguous &&
+    !!a.patronymicFold &&
+    a.patronymicFold === b.patronymicFold &&
+    a.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP &&
+    b.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP
+  );
+};
 
 // The party-office rule. A national party office is held by a handful of people per party,
 // so "same party" seen from that seat is far stronger than the ordinary affiliation weak
@@ -230,12 +302,15 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
   });
 
   // Tier 1 — a shared corroborant (pairwise; a block is small), UNLESS a present-on-both
-  // patronymic conflicts (a hard negative that overrides any corroboration).
+  // patronymic conflicts (a hard negative that overrides any corroboration). The contested
+  // seat-terms are computed over the WHOLE block first because one of the corroborants
+  // (`sameLocalSeat`) rests on a condition transitive closure does not preserve.
+  const contested = contestedSeatTerms(mentions);
   for (let i = 0; i < n; i++)
     for (let j = i + 1; j < n; j++)
       if (
         !patronymicConflict(mentions[i], mentions[j]) &&
-        shareCorroborant(mentions[i], mentions[j])
+        shareCorroborant(mentions[i], mentions[j], contested)
       )
         union(i, j);
 

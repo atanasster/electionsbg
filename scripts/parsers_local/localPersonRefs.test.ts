@@ -9,6 +9,7 @@ import {
   kmetstvoRef,
   districtRef,
   districtsAreShardedElsewhere,
+  localSeatKey,
 } from "./localPersonRefs";
 
 describe("pickLocalWinner", () => {
@@ -94,5 +95,104 @@ describe("ref keys", () => {
     expect(districtsAreShardedElsewhere("SOF")).toBe(true);
     expect(districtsAreShardedElsewhere("PDV22")).toBe(false);
     expect(districtsAreShardedElsewhere("VAR06")).toBe(false);
+  });
+});
+
+describe("localSeatKey — the cross-cycle identity of a seat", () => {
+  it("reads a mayor's seat off the ref, район shards included", () => {
+    expect(
+      localSeatKey("mayor", "2023_10_29_mi:BGS01:mayor", "obshtina", "BGS01"),
+    ).toBe("mayor\tBGS01:mayor");
+    // Sofia's районни кметове arrive as role 'mayor' on their own S2*** shard, so each
+    // район is its own seat rather than 24 seats sharing the city's key.
+    expect(
+      localSeatKey("mayor", "2019_10_27_mi:S2301:mayor", "obshtina", "S2301"),
+    ).toBe("mayor\tS2301:mayor");
+    expect(localSeatKey("mayor", "2023_10_29_mi:BGS01:mayor", null, null)).toBe(
+      "mayor\tBGS01:mayor",
+    );
+  });
+
+  it("keys a councillor on the COUNCIL, never the ballot position", () => {
+    // A re-elected councillor is usually at another list position and often on another
+    // list, so partyNum:listPos must not reach the key.
+    expect(
+      localSeatKey(
+        "councillor",
+        "2023_10_29_mi:VID09:12:4",
+        "obshtina",
+        "VID09",
+      ),
+    ).toBe("councillor\tVID09");
+    expect(
+      localSeatKey(
+        "councillor",
+        "2019_10_27_mi:VID09:3:11",
+        "obshtina",
+        "VID09",
+      ),
+    ).toBe("councillor\tVID09");
+  });
+
+  it("keys a village mayor on the §T2 settlement — and refuses the ref's index", () => {
+    // The whole reason the ref is not consulted here: `ekatte` is empty in every bundle
+    // today, so the ref falls back to a per-cycle ARRAY INDEX. Both refs below are index 4
+    // of their cycle and are different villages; both must key off the resolved EKATTE.
+    expect(
+      localSeatKey(
+        "village_mayor",
+        "2023_10_29_mi:JAM04:kmetstvo:4",
+        "settlement",
+        "87374",
+      ),
+    ).toBe("village_mayor\tsettlement:87374");
+    expect(
+      localSeatKey(
+        "village_mayor",
+        "2019_10_27_mi:JAM04:kmetstvo:4",
+        "settlement",
+        "87374",
+      ),
+    ).toBe("village_mayor\tsettlement:87374");
+    // Degraded to the ОБЩИНА (§T2 could not resolve the name) — one община holds many
+    // кметства, so there is no seat to name and the rule must not fire at all.
+    expect(
+      localSeatKey(
+        "village_mayor",
+        "2023_10_29_mi:JAM04:kmetstvo:4",
+        "obshtina",
+        "JAM04",
+      ),
+    ).toBeNull();
+    expect(
+      localSeatKey(
+        "village_mayor",
+        "2023_10_29_mi:JAM04:kmetstvo:4",
+        "settlement",
+        null,
+      ),
+    ).toBeNull();
+  });
+
+  it("gives a район mayor no seat — neither half of the row is stable", () => {
+    // Plovdiv/Varna районни (46 roles): an index-based ref, and a typed place that is the
+    // PARENT община, so 5-6 simultaneous holders would otherwise share one key.
+    expect(
+      localSeatKey(
+        "rayon_mayor",
+        "2023_10_29_mi:PDV22:district:2",
+        "obshtina",
+        "PDV22",
+      ),
+    ).toBeNull();
+  });
+
+  it("returns null for a malformed ref rather than a truncated key", () => {
+    expect(
+      localSeatKey("mayor", "2023_10_29_mi", "obshtina", "BGS01"),
+    ).toBeNull();
+    expect(
+      localSeatKey("mayor", "2023_10_29_mi::mayor", "obshtina", "BGS01"),
+    ).toBeNull();
   });
 });

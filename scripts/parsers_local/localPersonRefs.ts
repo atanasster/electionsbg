@@ -63,6 +63,56 @@ export const districtRef = (
 ): string =>
   `${cycle}:${obshtinaCode}:district:${districtCode || String(index)}`;
 
+/**
+ * The CROSS-CYCLE identity of the seat a local term is a term of — or `null` when this repo
+ * cannot name that seat stably. Feeds the resolver's `sameLocalSeat` merge rule
+ * (scripts/person/cluster.ts), which is what re-unites an officeholder re-elected across
+ * cycles; read that rule's comment for why the seat is evidence at all.
+ *
+ * Not derivable from the `ref` alone, which is the trap this function exists to close. The
+ * refs above fall back to the ARRAY INDEX whenever `ekatte`/`districtCode` is empty — and
+ * measured against today's `person_role`, that fallback is not the exception but the whole
+ * population: 0 of 8,301 kmetstvo refs and 0 of 46 district refs carry a real code. An index
+ * is a position in one cycle's bundle, so village #7 in 2019 is a different village in 2023.
+ * Keying on it would both miss real continuations and fuse two unrelated villages.
+ *
+ * So the seat is read per role, from whichever of ref / typed place is actually stable:
+ *
+ *  - `mayor` — the REF. `<obshtina>:mayor` is exact, exclusive and cycle-stable, and it is
+ *    also how Sofia's районни кметове arrive (role 'mayor' on the per-район `S2***` shard),
+ *    so each район is its own seat rather than 24 seats sharing one key.
+ *  - `village_mayor` — the TYPED PLACE, and only when §T2 actually resolved it to a
+ *    settlement. That place code is the EKATTE the кметство's NAME resolves to, which is
+ *    stable across cycles precisely where the index is not. When it degraded to the
+ *    ОБЩИНА (121 of 8,301) there is no seat: одна община holds many кметства, and the
+ *    degradation happens exactly when two settlements collide by name.
+ *  - `councillor` — the ОБЩИНА, i.e. the COUNCIL. `partyNum:listPos` is a ballot position,
+ *    not a seat: a re-elected councillor is usually at another position and often on
+ *    another list. A council is NOT exclusive (it seats dozens), so this key rests on the
+ *    caller's same-cycle guard rather than on exclusivity.
+ *  - `rayon_mayor` — NONE. Plovdiv's and Varna's район mayors (46 roles) have an
+ *    index-based ref AND a typed place that is the parent община, so 5–6 simultaneous
+ *    holders would share one key. Neither half is stable; the population is too small to
+ *    be worth a third source.
+ */
+export const localSeatKey = (
+  role: string,
+  ref: string,
+  placeKind: string | null,
+  placeCode: string | null,
+): string | null => {
+  const parts = ref.split(":");
+  if (parts.length < 2 || !parts[1]) return null;
+  const obshtina = parts[1];
+  if (role === "mayor") return `mayor\t${parts.slice(1).join(":")}`;
+  if (role === "councillor") return `councillor\t${obshtina}`;
+  if (role === "village_mayor")
+    return placeKind === "settlement" && placeCode
+      ? `village_mayor\tsettlement:${placeCode}`
+      : null;
+  return null;
+};
+
 /** Sofia (`SOF`) районни кметове are materialized as role 'mayor' from the per-район `S2***`
  *  shards' `mayor.elected`, so the SOF parent bundle's `districts[]` must be SKIPPED to avoid a
  *  24-per-cycle double-count. Plovdiv/Varna районни have no shards and come from districts[]. */

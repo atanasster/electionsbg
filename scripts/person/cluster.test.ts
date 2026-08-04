@@ -505,6 +505,47 @@ describe("clusterBlock", () => {
       ]);
     });
 
+    it("a contested term is not laundered through a third cycle", () => {
+      // The transitivity trap: 2019–2023a and 2019–2023b are each legal pairs, so a
+      // PAIRWISE same-cycle veto lets union-find fuse all three without ever comparing the
+      // two 2023 rows — and because reviewCandidates reads the FINAL components, the one
+      // root would also erase the flag meant to carry the case to a human. Both halves are
+      // asserted here. Live shape: Валери Иванов Василев, VID09.
+      const r = clusterBlock([
+        term("2019_10_27_mi", { id: "local:old" }),
+        term("2023_10_29_mi", { id: "local:a" }),
+        term("2023_10_29_mi", { id: "local:b" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates).toEqual([
+        {
+          memberIds: ["local:old", "local:a", "local:b"],
+          reason: "identical_fullname",
+        },
+      ]);
+    });
+
+    it("a contest in one cycle does not block an unrelated seat in the block", () => {
+      // The exclusion is per seat-TERM, not per block: two same-named councillors on one
+      // 2023 council must not also cost the village mayor down the road his continuity.
+      const other = "village_mayor\tsettlement:00123";
+      const r = clusterBlock([
+        term("2023_10_29_mi", { id: "local:a" }),
+        term("2023_10_29_mi", { id: "local:b" }),
+        term("2019_10_27_mi", {
+          id: "local:v19",
+          corroborants: { localSeat: other, localCycle: "2019_10_27_mi" },
+        }),
+        term("2023_10_29_mi", {
+          id: "local:v23",
+          corroborants: { localSeat: other, localCycle: "2023_10_29_mi" },
+        }),
+      ]);
+      expect(r.merges).toEqual([
+        { memberIds: ["local:v19", "local:v23"], confidence: "high" },
+      ]);
+    });
+
     it("does NOT merge different seats, or a seat against no seat", () => {
       expect(
         clusterBlock([
@@ -548,8 +589,10 @@ describe("clusterBlock", () => {
         term("2023_10_29_mi", { id: "local:b", ...over });
       // A conflicting patronymic is a hard negative that outranks any corroborant.
       expect(
-        clusterBlock([term("2019_10_27_mi"), other({ patronymicFold: "petrov" })])
-          .merges,
+        clusterBlock([
+          term("2019_10_27_mi"),
+          other({ patronymicFold: "petrov" }),
+        ]).merges,
       ).toHaveLength(0);
       // A 2-part name does not pin a full name, so the seat cannot carry the merge.
       expect(
@@ -560,7 +603,8 @@ describe("clusterBlock", () => {
       ).toHaveLength(0);
       // A 4+ token guess is not a name we can stand behind.
       expect(
-        clusterBlock([term("2019_10_27_mi"), other({ ambiguous: true })]).merges,
+        clusterBlock([term("2019_10_27_mi"), other({ ambiguous: true })])
+          .merges,
       ).toHaveLength(0);
       // Above the cap the exclusivity argument stops carrying the merge's weight.
       expect(

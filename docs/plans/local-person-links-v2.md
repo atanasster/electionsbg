@@ -106,6 +106,46 @@ ambiguous case (two different people, same name, same município — flag as
 of those is a slug retirement, so it needs a `person_slug_retired` map (`raw_data/person/` +
 `person:slug-redirects:cloud`) — see `raw_data/person/README.md`.
 
+#### A3 — as built
+
+**Root cause, confirmed in code.** Not a blocking-key detail. `shareCorroborant`'s `weakBoth`
+branch needs party AND place, and a local officeholder routinely has NO party — an инициативен
+комитет carries `primaryCanonicalId: null`, which is exactly how a village mayor without a party
+gets on the ballot. So the only path open to these people was Tier 2, which requires a globally
+unique name (`namesakeRisk <= 1`). That is why Георгиев's merge looked "inconsistent": nothing was
+deciding per-cycle, some names simply cleared the uniqueness bar and others did not.
+
+**Re-measured after T0–T3 landed: 640 groups / 1,402 person records** (~762 surplus pages), 498 of
+them touching the sitting mandate. **637 of the 640 span cycles**; only **3** are within-cycle.
+
+**Shipped as a new Tier-1 corroborant, `sameLocalSeat`** (`scripts/person/cluster.ts`), not as a
+separate `(name_fold, obshtina_code, role)` pass — it belongs beside the other corroborants so the
+patronymic-conflict veto and the review-candidate machinery apply to it unchanged. Two departures
+from the proposal above, both forced by what the data turned out to be:
+
+- **The seat key is per-role, and is NOT `obshtina_code`** (`localSeatKey`, in
+  `scripts/parsers_local/localPersonRefs.ts` — beside the ref builders, because which half of a row
+  names the seat is a fact about the ref shapes). A mayor keys on the ref; a **village mayor keys
+  on the §T2 SETTLEMENT**, which is finer than the proposal and is what stops two same-named
+  village mayors in one община being one key. The ref cannot serve there: `ekatte` is empty in
+  every bundle, so kmetstvo/district refs fall back to a per-cycle ARRAY INDEX (0 of 8,301 and 0 of
+  46 carry a real code), and an index names a different village each cycle. A **район mayor gets no
+  key at all** — index-based ref, parent-община place, 46 roles; neither half is stable.
+- **The same-cycle guard is a BLOCK-level exclusion, not a pairwise condition.** "Different cycle"
+  is an anti-condition and union-find closes transitively over edges, so a pairwise check does not
+  survive to the group: three terms of one seat with two in 2023 still fuse through the 2019 row,
+  and because review candidates are computed from the FINAL components, the single root also
+  DELETES the `identical_fullname` flag meant to carry the case to a human. So any seat-term
+  claimed by more than one mention is "contested" and every mention claiming it is excluded from
+  the rule — including against a third, uncontested cycle, since if two people held seat S in 2023
+  we cannot say which is the S of 2019. This was wrong in the first draft and caught in review;
+  live instance is Валери Иванов Василев, VID09, elected from two lists on one council in 2023.
+
+The namesake cap is carried over from `samePartyOffice` for parity but is **near-inert here** and
+must not be read as the protection: `namesakeRisk` counts COMPANIES, and of the 18,935 people
+holding a local role 10,766 score 0 while only 657 (3.5%) exceed 12. The seat key plus the
+same-cycle exclusion are what carry the rule.
+
 ---
 
 ## Tier B — the actual enhancements

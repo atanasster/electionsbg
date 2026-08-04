@@ -66,6 +66,7 @@ import {
   districtRef,
   districtsAreShardedElsewhere,
   councilShardReplicatesSofia,
+  localSeatKey,
 } from "../parsers_local/localPersonRefs";
 
 // Re-exported for resolve_persons_sofia_council.test.ts, which imports it from here.
@@ -1274,17 +1275,15 @@ async function main(): Promise<void> {
       birthDate: r.cBirth,
       uics: r.uics,
       partyOffice: r.cPartyOffice,
-      // DERIVED here rather than plumbed through every `add()` call: the seat and the cycle
-      // are already on the row, so no source can forget to set them and none can set them
-      // inconsistently. Local refs are `<cycle>:<obshtinaCode>:…` by construction
-      // (localPersonRefs.ts), which is what makes the cycle readable off the ref.
-      //
-      // Keyed on the TYPED place, so a village mayor's seat is his SETTLEMENT (§T2) and not
-      // his община — two same-named village mayors in one община are then two seats, as they
-      // should be, instead of one colliding key.
+      // DERIVED here rather than plumbed through every `add()` call: everything needed is
+      // already on the row, so no source can forget to set it and none can set it
+      // inconsistently. `localSeatKey` lives beside the ref BUILDERS (localPersonRefs.ts)
+      // because which half of the row names the seat is a fact about the ref shapes — and
+      // for кметства and райони the ref is NOT the answer. Local refs are
+      // `<cycle>:<obshtinaCode>:…` by construction, which is what makes the cycle readable.
       localSeat:
-        r.source === "local" && r.placeCode
-          ? `${r.role}\t${r.placeKind}:${r.placeCode}`
+        r.source === "local"
+          ? localSeatKey(r.role, r.ref, r.placeKind, r.placeCode)
           : null,
       localCycle: r.source === "local" ? r.ref.split(":")[0] : null,
     },
