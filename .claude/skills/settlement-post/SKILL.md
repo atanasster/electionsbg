@@ -213,14 +213,67 @@ derivable *only* because the mean sits on the floor of the scale (Слаб 2). F
 school at 4,33 we have no idea how many failed, so a pass/fail bar is honest on
 ~16 schools a year and fabricated on the other 978.
 
-### What exists today
+### The renderer — `renderPlaceCard`, and NOTHING ELSE
 
-`scripts/posts/cardKit.ts` has `renderStatCard`, `renderBarCard`,
-`renderLineCard`, `renderTableCard`, `renderAnnounceCard`, `renderMapCard`.
-**There is no composite `renderPlaceCard` yet.** Until there is, build a
-settlement post from `renderBarCard` (age bands, party shares, council) plus
-`renderStatCard`, per `naiasno-post`'s card rules — and prefer the bar card, as
-that skill requires.
+`scripts/posts/cardKit.ts` exports `renderPlaceCard`. A card spec carrying a
+**`place`** key routes to it (`post_tool.ts` checks `place` FIRST, before
+`bars`). That discriminator is the whole contract.
+
+**Never build a settlement post out of `renderBarCard` / `renderStatCard`.**
+An earlier version of this skill said to, as a stopgap, and the result was a
+post about с. Ружинци that published a national ranking of schools — a correct
+chart, an entirely different card from the one this skill specifies. If a zone's
+data is missing, DROP THE ZONE; the grid lays out whatever is present (see
+below). Falling back to a different renderer is never the fix.
+
+Spec shape — every zone optional, `place` and `source` required:
+
+```jsonc
+"card": {
+  "place":  { "name": "с. Ружинци", "context": "община Ружинци · област Видин" },
+  "people": { "total": "721", "totalLabel": "жители\nпреброяване 2021",
+              "ageBands": [{ "label": "0–14", "value": 152 }, …],
+              "sex": { "male": 357, "female": 364,
+                       "maleLabel": "357 мъже", "femaleLabel": "364 жени" } },
+  "vote":   { "title": "Парламентарен вот 2026", "turnoutPct": 58.7,
+              "turnoutNote": "369 от 629 избиратели",
+              "parties": [{ "label": "ГЕРБ-СДС", "value": 37.2,
+                            "color": "rgb(12, 69, 135)" }, …],   // ≤4
+              "note": "347 валидни гласа · 24% с машина" },
+  "government": { "mayors": [{ "role": "…", "name": "…", "note": "ГЕРБ · първи тур",
+                               "pct": 85.5, "color": "…" }],      // ≤2, see Step 5
+                  "council": { "label": "общински съвет · 11 мандата",
+                               "seats": [{ "label": "ГЕРБ", "value": 8 }, …],
+                               "majorityLabel": "мнозинство 6" } },
+  "focus":  { "title": "Матурата по БЕЛ", "value": "2,00",
+              "valueNote": "среден успех · 12 зрелостници",
+              "scale": { "min": 2, "max": 6, "value": 2, "reference": 4.33,
+                         "valueLabel": "2,00", "referenceLabel": "4,33 страната" },
+              "caption": "…", "captionNote": "сесия май-юни 2026" },
+  "municipality": { "label": "община Ружинци · 3 299 жители",
+                    "cells": [ { "label": "безработица", "value": "44,2%",
+                                 "note": "заетост 22,9%" },
+                               { "label": "етнически състав",
+                                 "split": [{ "label": "българи", "value": 81.4, "color": "…" }, …],
+                                 "splitCaption": ["българи 81,4%", "роми 15,3%"] } ] },  // ≤3
+  "source": "Източник: МОН, ЦИК, НСИ, ИСУН",
+  "cta": "виж училището"
+}
+```
+
+Notes that are load-bearing:
+
+- **Party colours come from `data/<latest>/cik_parties.json` verbatim.** That
+  file ships `rgba(190, 0, 52)` — three components in a four-component function,
+  which is invalid CSS. Canvas keeps the PREVIOUS fill on a bad colour rather
+  than throwing, so an unsanitised value paints a bar in some other party's
+  colour and looks deliberate. `safeColor()` repairs it; pass the raw value.
+- **`focus` is the zone that varies.** Matura when the settlement has a school
+  (12%), EU funds otherwise. It is the fourth zone, and the one the post is about.
+- **The renderer refuses rather than garbles**: no zones at all throws, and so
+  does a grid squeezed below 190px a zone. Drop a zone or shorten the band.
+- Always `Read` the rendered PNG before showing the operator — check for
+  overlapping rows as well as tofu boxes.
 
 ---
 
@@ -275,12 +328,17 @@ Also:
 
 Invoke the `naiasno-post` skill with the assembled facts. It owns: the duplicate
 check (`post_tool.ts check`), public-source confirmation (rule 2), BG/EN copy,
-the card spec shape, `post_tool.ts save`, and the review step. Deep link is
-`/governance/<ekatte>` for the place, `/school/<id>` when the post is about the
-school.
+`post_tool.ts save`, and the review step. Deep link is `/governance/<ekatte>`
+for the place, `/school/<id>` when the post is about the school.
 
-Pass it: every figure with its dataset path, the traps you resolved, and the
-grain of each number.
+**The card spec is the ONE thing that does not transfer.** `naiasno-post` says
+"default to the infographic (bar) card" — that instruction is for its own posts
+and does NOT apply here. A settlement post always renders `renderPlaceCard` via
+a `place` key, per Step 6. Say so explicitly when handing off, or the bar-card
+default wins and you publish a chart instead of a profile.
+
+Pass it: every figure with its dataset path, the traps you resolved, the grain
+of each number, and the finished `place` card spec.
 
 ---
 

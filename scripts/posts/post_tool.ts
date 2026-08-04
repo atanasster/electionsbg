@@ -30,6 +30,7 @@ import {
   renderLineCard,
   renderMapCard,
   renderTableCard,
+  renderPlaceCard,
   loadBulgariaGeo,
   type StatCardSpec,
   type AnnounceCardSpec,
@@ -37,6 +38,7 @@ import {
   type LineCardSpec,
   type MapCardSpec,
   type TableCardSpec,
+  type PlaceCardSpec,
 } from "./cardKit";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -197,20 +199,25 @@ const cmdSave = (specPath: string, force: boolean): void => {
     // than carried in the spec JSON — the polygons are ~2.8MB.
     const isMap = "points" in spec.card || "regionTones" in spec.card;
     const buf =
-      "bars" in spec.card
-        ? renderBarCard(spec.card as BarCardSpec)
-        : "series" in spec.card
-          ? renderLineCard(spec.card as LineCardSpec)
-          : "rows" in spec.card
-            ? renderTableCard(spec.card as TableCardSpec)
-            : isMap
-              ? renderMapCard({
-                  ...(spec.card as MapCardSpec),
-                  geo: loadBulgariaGeo(ROOT),
-                })
-              : kind === "data"
-                ? renderStatCard(spec.card as StatCardSpec)
-                : renderAnnounceCard(spec.card as AnnounceCardSpec);
+      // `place` first: a settlement profile carries zones that themselves hold
+      // bars/shares, so it must not fall through to the bar renderer — that is
+      // exactly the mix-up that published a school ranking as a place profile.
+      "place" in spec.card
+        ? renderPlaceCard(spec.card as PlaceCardSpec)
+        : "bars" in spec.card
+          ? renderBarCard(spec.card as BarCardSpec)
+          : "series" in spec.card
+            ? renderLineCard(spec.card as LineCardSpec)
+            : "rows" in spec.card
+              ? renderTableCard(spec.card as TableCardSpec)
+              : isMap
+                ? renderMapCard({
+                    ...(spec.card as MapCardSpec),
+                    geo: loadBulgariaGeo(ROOT),
+                  })
+                : kind === "data"
+                  ? renderStatCard(spec.card as StatCardSpec)
+                  : renderAnnounceCard(spec.card as AnnounceCardSpec);
     writeFileSync(resolve(ROOT, image), buf);
   } else {
     image = null;

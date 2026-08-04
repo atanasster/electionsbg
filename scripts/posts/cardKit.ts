@@ -1394,3 +1394,686 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
 
   return canvas.toBuffer("image/png");
 };
+
+// ---------------------------------------------------------------------------
+// Place card — the settlement profile.
+//
+// Every other renderer here answers ONE question with ONE visual form. This one
+// is a composite: a place is not a number, it is a handful of unrelated facts
+// that only mean something together. It exists because the settlement-post
+// skill specified this card and then, lacking a renderer, fell back to a plain
+// bar chart — which published a national school ranking where a place profile
+// was wanted.
+//
+// Two rules the layout enforces rather than documents:
+//
+//  1. NO DOT-PER-UNIT MARKS. Council seats and cohorts are drawn as proportional
+//     bars with the counts written in, so the card renders identically for an
+//     11-seat village and a 61-seat Sofia council. A dot row bleeds at both.
+//  2. THE MUNICIPALITY BAND IS FENCED. Settlement-grain zones sit above its
+//     rule, obshtina-grain cells below, and the band carries its own label and
+//     population. Mixing grains is fine; leaving the reader unsure which one
+//     they are reading is not.
+//
+// Every zone is optional — the settlement coverage cliff is real (a matura zone
+// exists for 12% of settlements, procurement for 870 nationally), so the grid
+// lays out whichever zones are present rather than reserving holes for the rest.
+// ---------------------------------------------------------------------------
+
+/** A party/《category》colour straight out of cik_parties.json, made safe to use.
+ *  That file carries `rgba(190, 0, 52)` — three components in a four-component
+ *  function, which is not valid CSS. Canvas silently keeps the PREVIOUS fill on
+ *  a bad colour string, so an unsanitised value paints a bar in whatever colour
+ *  happened to be set last, which reads as a real (wrong) party colour. */
+export const safeColor = (c: string | undefined, fallback: string): string => {
+  if (!c) return fallback;
+  const s = c.trim();
+  const m = /^rgba\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*\)$/i.exec(s);
+  if (m) return `rgb(${m[1]}, ${m[2]}, ${m[3]})`;
+  if (/^#[0-9a-f]{3}$|^#[0-9a-f]{6}$/i.test(s)) return s;
+  if (/^rgba?\(/i.test(s)) return s;
+  if (/^[a-z]+$/i.test(s)) return s; // named css colour, e.g. lightslategrey
+  return fallback;
+};
+
+export type PlaceAgeBand = { label: string; value: number };
+export type PlaceShare = { label: string; value: number; color?: string };
+
+export type PlaceCardSpec = {
+  /** Discriminator: the presence of `place` routes a spec to this renderer. */
+  place: { name: string; context: string };
+  /** Settlement-grain zones. Up to four render, in this order. */
+  people?: {
+    total: string;
+    totalLabel: string;
+    ageBands: PlaceAgeBand[];
+    sex?: {
+      male: number;
+      female: number;
+      maleLabel: string;
+      femaleLabel: string;
+    };
+  };
+  vote?: {
+    title: string;
+    turnoutPct: number;
+    turnoutNote: string;
+    parties: PlaceShare[];
+    note?: string;
+  };
+  government?: {
+    title?: string;
+    mayors: {
+      role: string;
+      name: string;
+      note: string;
+      pct: number;
+      color?: string;
+    }[];
+    council?: { label: string; seats: PlaceShare[]; majorityLabel: string };
+  };
+  /** The zone the post is actually about — matura, funds, whatever. */
+  focus?: {
+    title: string;
+    value: string;
+    valueNote: string;
+    scale?: {
+      min: number;
+      max: number;
+      value: number;
+      reference: number;
+      valueLabel: string;
+      referenceLabel: string;
+    };
+    caption?: string;
+    captionNote?: string;
+  };
+  /** Municipality-grain band, fenced off below its own rule. */
+  municipality?: {
+    label: string;
+    cells: {
+      label: string;
+      value?: string;
+      note?: string;
+      split?: PlaceShare[];
+      splitCaption?: [string, string];
+    }[];
+  };
+  source: string;
+  cta?: string;
+  theme?: Theme;
+};
+
+const PLACE_PAD = 64;
+const PLACE_GAP = 16;
+
+/** Muted text that must not overflow its box — shrinks, then hard-truncates
+ *  with an ellipsis. A clipped label reads as a rendering fault; an elided one
+ *  reads as an abbreviation. */
+const fitText = (
+  ctx: Ctx,
+  text: string,
+  weight: number,
+  fontPx: number,
+  maxW: number,
+  minPx = 18,
+): { text: string; px: number } => {
+  let px = fontPx;
+  ctx.font = `${weight} ${px}px ${FONT}`;
+  while (ctx.measureText(text).width > maxW && px > minPx) {
+    px -= 1;
+    ctx.font = `${weight} ${px}px ${FONT}`;
+  }
+  if (ctx.measureText(text).width <= maxW) return { text, px };
+  let cut = text;
+  while (cut.length > 1 && ctx.measureText(cut + "…").width > maxW)
+    cut = cut.slice(0, -1);
+  return { text: cut + "…", px };
+};
+
+/** 1080×1080 settlement profile. Returns a PNG buffer. */
+export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
+  const S = 1080;
+  const pal = THEME[spec.theme ?? "dark"];
+  const canvas = createCanvas(S, S);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, S);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+
+  ctx.textBaseline = "alphabetic";
+  drawWordmark(ctx, PLACE_PAD, 96, 40, pal);
+
+  // ---- header: place name left, hierarchy right, on one baseline ----
+  const headBase = 166;
+  ctx.textAlign = "right";
+  ctx.fillStyle = pal.muted;
+  const ctxFit = fitText(ctx, spec.place.context, 600, 26, 420, 20);
+  ctx.font = `600 ${ctxFit.px}px ${FONT}`;
+  ctx.fillText(ctxFit.text, S - PLACE_PAD, headBase);
+  const ctxW = ctx.measureText(ctxFit.text).width;
+
+  ctx.textAlign = "left";
+  ctx.fillStyle = pal.text;
+  const nameFit = fitText(
+    ctx,
+    spec.place.name,
+    800,
+    58,
+    S - PLACE_PAD * 2 - ctxW - 40,
+    32,
+  );
+  ctx.font = `800 ${nameFit.px}px ${FONT}`;
+  ctx.fillText(nameFit.text, PLACE_PAD, headBase);
+
+  ctx.fillStyle = pal.rule;
+  ctx.fillRect(PLACE_PAD, headBase + 26, S - PLACE_PAD * 2, 1);
+
+  // ---- footer is anchored; everything above flexes into what is left ----
+  const SOURCE_Y = 1032;
+  ctx.fillStyle = pal.rule;
+  ctx.fillRect(PLACE_PAD, SOURCE_Y - 54, S - PLACE_PAD * 2, 1);
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 25px ${FONT}`;
+  ctx.textAlign = "left";
+  ctx.fillText(spec.source, PLACE_PAD, SOURCE_Y);
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `700 25px ${FONT}`;
+  ctx.fillText(spec.cta ?? "виж мястото", S - PLACE_PAD - 30, SOURCE_Y);
+  ctx.beginPath();
+  ctx.moveTo(S - PLACE_PAD - 22, SOURCE_Y - 16);
+  ctx.lineTo(S - PLACE_PAD, SOURCE_Y - 5);
+  ctx.lineTo(S - PLACE_PAD - 22, SOURCE_Y + 6);
+  ctx.closePath();
+  ctx.fill();
+
+  // ---- municipality band, laid out bottom-up from the footer rule ----
+  const muni = spec.municipality;
+  let gridBottom = SOURCE_Y - 54 - 20;
+  if (muni) {
+    const CELL_H = 132;
+    const cells = muni.cells.slice(0, 3);
+    const cellTop = SOURCE_Y - 54 - 22 - CELL_H;
+    const cellW =
+      (S - PLACE_PAD * 2 - PLACE_GAP * (cells.length - 1)) / cells.length;
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = pal.muted;
+    ctx.font = `700 21px ${FONT}`;
+    const labelY = cellTop - 20;
+    ctx.fillText(muni.label.toUpperCase(), PLACE_PAD, labelY);
+    const lw = ctx.measureText(muni.label.toUpperCase()).width;
+    ctx.fillStyle = pal.rule;
+    ctx.fillRect(
+      PLACE_PAD + lw + 18,
+      labelY - 7,
+      S - PLACE_PAD * 2 - lw - 18,
+      1,
+    );
+
+    cells.forEach((cell, i) => {
+      const cx = PLACE_PAD + i * (cellW + PLACE_GAP);
+      ctx.fillStyle = pal.bg2;
+      roundRect(ctx, cx, cellTop, cellW, CELL_H, 12);
+      ctx.fill();
+
+      const ix = cx + 20;
+      const iw = cellW - 40;
+      ctx.textAlign = "left";
+      ctx.fillStyle = pal.muted;
+      const cl = fitText(ctx, cell.label, 600, 22, iw, 16);
+      ctx.font = `600 ${cl.px}px ${FONT}`;
+      ctx.fillText(cl.text, ix, cellTop + 34);
+
+      if (cell.split && cell.split.length) {
+        const total = cell.split.reduce((a, s) => a + s.value, 0) || 1;
+        let sx = ix;
+        const sy = cellTop + 56;
+        cell.split.forEach((s, si) => {
+          const w = (s.value / total) * iw - (si ? 2 : 0);
+          ctx.fillStyle = safeColor(
+            s.color,
+            si === 0
+              ? pal.cool
+              : si === cell.split!.length - 1
+                ? pal.rule
+                : pal.accent,
+          );
+          ctx.fillRect(sx + (si ? 2 : 0), sy, Math.max(2, w), 18);
+          sx += (s.value / total) * iw;
+        });
+        if (cell.splitCaption) {
+          ctx.fillStyle = pal.muted;
+          ctx.font = `500 20px ${FONT}`;
+          ctx.textAlign = "left";
+          ctx.fillText(
+            fitText(ctx, cell.splitCaption[0], 500, 20, iw * 0.55, 15).text,
+            ix,
+            sy + 42,
+          );
+          ctx.textAlign = "right";
+          ctx.fillText(
+            fitText(ctx, cell.splitCaption[1], 500, 20, iw * 0.42, 15).text,
+            ix + iw,
+            sy + 42,
+          );
+        }
+        if (cell.value) {
+          ctx.textAlign = "left";
+          ctx.fillStyle = pal.accent;
+          ctx.font = `800 30px ${FONT}`;
+          ctx.fillText(cell.value, ix, cellTop + CELL_H - 16);
+        }
+      } else {
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.text;
+        const v = fitText(ctx, cell.value ?? "", 800, 38, iw, 22);
+        ctx.font = `800 ${v.px}px ${FONT}`;
+        ctx.fillText(v.text, ix, cellTop + 82);
+        if (cell.note) {
+          ctx.fillStyle = pal.muted;
+          const n = fitText(ctx, cell.note, 500, 21, iw, 15);
+          ctx.font = `500 ${n.px}px ${FONT}`;
+          ctx.fillText(n.text, ix, cellTop + 112);
+        }
+      }
+    });
+
+    gridBottom = labelY - 30;
+  }
+
+  // ---- settlement-grain zones, a 2×2 grid of whatever is present ----
+  const zones: ((x: number, y: number, w: number, h: number) => void)[] = [];
+
+  const zoneTitle = (t: string, x: number, y: number) => {
+    ctx.textAlign = "left";
+    ctx.fillStyle = pal.muted;
+    ctx.font = `700 20px ${FONT}`;
+    ctx.fillText(t.toUpperCase(), x, y);
+  };
+
+  if (spec.people) {
+    const p = spec.people;
+    zones.push((x, y, w, h) => {
+      const ix = x + 22;
+      const iw = w - 44;
+      zoneTitle("Хората", ix, y + 34);
+      ctx.textAlign = "left";
+      ctx.fillStyle = pal.text;
+      ctx.font = `800 46px ${FONT}`;
+      ctx.fillText(p.total, ix, y + 84);
+      const tw = ctx.measureText(p.total).width;
+      ctx.fillStyle = pal.muted;
+      ctx.font = `500 19px ${FONT}`;
+      for (const [i, l] of p.totalLabel.split("\n").slice(0, 2).entries())
+        ctx.fillText(
+          fitText(ctx, l, 500, 19, iw - tw - 16, 14).text,
+          ix + tw + 16,
+          y + 64 + i * 23,
+        );
+
+      const bands = p.ageBands.slice(0, 6);
+      const peak = Math.max(...bands.map((b) => b.value), 1);
+      const sexH = p.sex ? 52 : 0;
+      const top = y + 102;
+      const avail = h - (top - y) - 14 - sexH;
+      const step = avail / bands.length;
+      const LAB_W = 58;
+      const VAL_W = 42;
+      const barMax = iw - LAB_W - VAL_W - 18;
+      // The bar is thinner than the row so consecutive rows never touch, and the
+      // label/value sit on the bar's own centre line rather than a second line —
+      // five age bands have to fit a quarter of the card.
+      const barH = Math.max(9, Math.min(15, step - 9));
+      bands.forEach((b, i) => {
+        const by = top + step * i + step / 2;
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 18px ${FONT}`;
+        ctx.fillText(
+          fitText(ctx, b.label, 500, 18, LAB_W, 13).text,
+          ix,
+          by + 6,
+        );
+        const bw = Math.max(3, (b.value / peak) * barMax);
+        ctx.fillStyle = i === bands.length - 1 ? pal.accent : pal.cool;
+        roundRect(ctx, ix + LAB_W, by - barH / 2, bw, barH, 3);
+        ctx.fill();
+        ctx.textAlign = "right";
+        ctx.fillStyle = pal.text;
+        ctx.font = `600 18px ${FONT}`;
+        ctx.fillText(String(b.value), ix + iw, by + 6);
+      });
+
+      if (p.sex) {
+        const tot = p.sex.male + p.sex.female || 1;
+        const sy = y + h - 46;
+        ctx.fillStyle = pal.rule;
+        ctx.fillRect(ix, sy, iw, 14);
+        ctx.fillStyle = pal.cool;
+        ctx.fillRect(ix, sy, (p.sex.male / tot) * iw - 2, 14);
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 20px ${FONT}`;
+        ctx.textAlign = "left";
+        ctx.fillText(p.sex.maleLabel, ix, sy + 36);
+        ctx.textAlign = "right";
+        ctx.fillText(p.sex.femaleLabel, ix + iw, sy + 36);
+      }
+    });
+  }
+
+  if (spec.vote) {
+    const v = spec.vote;
+    zones.push((x, y, w, h) => {
+      const ix = x + 22;
+      const iw = w - 44;
+      zoneTitle(v.title, ix, y + 34);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = pal.muted;
+      ctx.font = `500 19px ${FONT}`;
+      ctx.fillText("избирателна активност", ix, y + 62);
+      ctx.textAlign = "right";
+      ctx.fillStyle = pal.text;
+      ctx.font = `800 27px ${FONT}`;
+      ctx.fillText(
+        `${v.turnoutPct.toFixed(1).replace(".", ",")}%`,
+        ix + iw,
+        y + 64,
+      );
+      ctx.fillStyle = pal.rule;
+      roundRect(ctx, ix, y + 74, iw, 10, 3);
+      ctx.fill();
+      ctx.fillStyle = pal.text;
+      roundRect(
+        ctx,
+        ix,
+        y + 74,
+        Math.max(4, (Math.min(100, v.turnoutPct) / 100) * iw),
+        10,
+        3,
+      );
+      ctx.fill();
+      ctx.fillStyle = pal.muted;
+      ctx.font = `500 18px ${FONT}`;
+      ctx.textAlign = "left";
+      ctx.fillText(
+        fitText(ctx, v.turnoutNote, 500, 18, iw, 13).text,
+        ix,
+        y + 104,
+      );
+
+      // One row per party — label, bar and share share a baseline. A stacked
+      // label-over-bar needs ~33px a row and four parties do not fit that in a
+      // quarter card; they overprinted each other and the footnote.
+      const parties = v.parties.slice(0, 4);
+      const peak = Math.max(...parties.map((p) => p.value), 1);
+      const noteH = v.note ? 26 : 0;
+      const top = y + 116;
+      const avail = h - (top - y) - 14 - noteH;
+      const step = avail / parties.length;
+      const P_LAB = 96;
+      const P_VAL = 62;
+      const P_GAP = 12; // keeps a long label off its own bar
+      const pBarMax = iw - P_LAB - P_GAP - P_VAL - 16;
+      const pBarH = Math.max(9, Math.min(16, step - 10));
+      parties.forEach((p, i) => {
+        const by = top + step * i + step / 2;
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.text;
+        ctx.font = `600 19px ${FONT}`;
+        ctx.fillText(
+          fitText(ctx, p.label, 600, 19, P_LAB, 13).text,
+          ix,
+          by + 6,
+        );
+        ctx.fillStyle = safeColor(p.color, i === 0 ? pal.accent : pal.cool);
+        roundRect(
+          ctx,
+          ix + P_LAB + P_GAP,
+          by - pBarH / 2,
+          Math.max(4, (p.value / peak) * pBarMax),
+          pBarH,
+          3,
+        );
+        ctx.fill();
+        ctx.textAlign = "right";
+        ctx.fillStyle = pal.text;
+        ctx.font = `700 19px ${FONT}`;
+        ctx.fillText(
+          `${p.value.toFixed(1).replace(".", ",")}%`,
+          ix + iw,
+          by + 6,
+        );
+      });
+      if (v.note) {
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 18px ${FONT}`;
+        ctx.fillText(
+          fitText(ctx, v.note, 500, 18, iw, 13).text,
+          ix,
+          y + h - 14,
+        );
+      }
+    });
+  }
+
+  if (spec.government) {
+    const gv = spec.government;
+    zones.push((x, y, w, h) => {
+      const ix = x + 22;
+      const iw = w - 44;
+      zoneTitle(gv.title ?? "Управлението", ix, y + 34);
+
+      const mayors = gv.mayors.slice(0, 2);
+      const councilH = gv.council ? 96 : 0;
+      let my = y + 48;
+      const mayorH = Math.max(
+        86,
+        (h - 56 - councilH) / Math.max(1, mayors.length),
+      );
+      for (const m of mayors) {
+        const col = safeColor(m.color, pal.accent);
+        ctx.fillStyle = col;
+        roundRect(ctx, ix, my, 4, mayorH - 14, 2);
+        ctx.fill();
+        const tx = ix + 16;
+        const tw = iw - 16;
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 19px ${FONT}`;
+        ctx.fillText(fitText(ctx, m.role, 500, 19, tw, 14).text, tx, my + 18);
+        ctx.fillStyle = pal.text;
+        const nm = fitText(ctx, m.name, 700, 25, tw, 16);
+        ctx.font = `700 ${nm.px}px ${FONT}`;
+        ctx.fillText(nm.text, tx, my + 46);
+        ctx.fillStyle = pal.rule;
+        roundRect(ctx, tx, my + 56, tw - 62, 10, 3);
+        ctx.fill();
+        ctx.fillStyle = col;
+        roundRect(
+          ctx,
+          tx,
+          my + 56,
+          Math.max(4, (Math.min(100, m.pct) / 100) * (tw - 62)),
+          10,
+          3,
+        );
+        ctx.fill();
+        ctx.textAlign = "right";
+        ctx.fillStyle = pal.text;
+        ctx.font = `600 20px ${FONT}`;
+        ctx.fillText(
+          `${m.pct.toFixed(1).replace(".", ",")}%`,
+          tx + tw,
+          my + 66,
+        );
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 19px ${FONT}`;
+        ctx.fillText(fitText(ctx, m.note, 500, 19, tw, 14).text, tx, my + 86);
+        my += mayorH;
+      }
+
+      const c = gv.council;
+      if (c) {
+        const total = c.seats.reduce((a, s) => a + s.value, 0) || 1;
+        const by = y + h - 62;
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 20px ${FONT}`;
+        ctx.fillText(fitText(ctx, c.label, 500, 20, iw, 14).text, ix, by - 12);
+        let sx = ix;
+        c.seats.forEach((s, i) => {
+          const segW = (s.value / total) * iw;
+          ctx.fillStyle = safeColor(s.color, i === 0 ? pal.accent : pal.cool);
+          ctx.fillRect(
+            sx + (i ? 2 : 0),
+            by,
+            Math.max(2, segW - (i ? 2 : 0)),
+            30,
+          );
+          ctx.fillStyle = pal.text;
+          ctx.font = `700 20px ${FONT}`;
+          ctx.textAlign = "left";
+          if (segW > 34) ctx.fillText(String(s.value), sx + 10, by + 21);
+          sx += segW;
+        });
+        // majority line — the reason a segmented bar beats a dot row: it lands
+        // at the same place whether the council has 11 seats or 61.
+        ctx.fillStyle = pal.text;
+        ctx.fillRect(ix + iw / 2 - 1, by - 5, 2, 40);
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 19px ${FONT}`;
+        ctx.textAlign = "center";
+        ctx.fillText(c.majorityLabel, ix + iw / 2, by + 54);
+      }
+    });
+  }
+
+  if (spec.focus) {
+    const f = spec.focus;
+    zones.push((x, y, w, h) => {
+      const ix = x + 22;
+      const iw = w - 44;
+      zoneTitle(f.title, ix, y + 34);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = pal.accent;
+      const val = fitText(ctx, f.value, 800, 46, iw * 0.42, 28);
+      ctx.font = `800 ${val.px}px ${FONT}`;
+      ctx.fillText(val.text, ix, y + 86);
+      const vw = ctx.measureText(val.text).width;
+      ctx.fillStyle = pal.muted;
+      ctx.font = `500 19px ${FONT}`;
+      for (const [i, l] of f.valueNote.split("\n").slice(0, 2).entries())
+        ctx.fillText(
+          fitText(ctx, l, 500, 19, iw - vw - 16, 13).text,
+          ix + vw + 16,
+          y + 66 + i * 23,
+        );
+
+      if (f.scale) {
+        const s = f.scale;
+        const span = s.max - s.min || 1;
+        const at = (n: number) =>
+          ix + ((Math.min(s.max, Math.max(s.min, n)) - s.min) / span) * iw;
+        const ty = y + 142;
+        ctx.fillStyle = pal.rule;
+        ctx.fillRect(ix, ty - 2, iw, 4);
+        const a = at(s.value);
+        const b = at(s.reference);
+        ctx.fillStyle = pal.accent;
+        ctx.fillRect(Math.min(a, b), ty - 2, Math.abs(b - a), 4);
+        // reference: hollow, so it reads as a benchmark not a second reading
+        ctx.beginPath();
+        ctx.arc(b, ty, 11, 0, Math.PI * 2);
+        ctx.fillStyle = pal.bg2;
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = pal.text;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(a, ty, 11, 0, Math.PI * 2);
+        ctx.fillStyle = pal.accent;
+        ctx.fill();
+
+        ctx.font = `700 21px ${FONT}`;
+        ctx.fillStyle = pal.accent;
+        ctx.textAlign = a < iw * 0.5 + ix ? "left" : "right";
+        ctx.fillText(s.valueLabel, a + (a < iw * 0.5 + ix ? -8 : 8), ty - 24);
+        ctx.font = `500 21px ${FONT}`;
+        ctx.fillStyle = pal.muted;
+        ctx.textAlign = b > iw * 0.5 + ix ? "right" : "left";
+        ctx.fillText(
+          s.referenceLabel,
+          b + (b > iw * 0.5 + ix ? 8 : -8),
+          ty - 24,
+        );
+
+        ctx.fillStyle = pal.rule;
+        ctx.fillRect(ix, ty + 22, iw, 1);
+        ctx.font = `500 18px ${FONT}`;
+        ctx.fillStyle = pal.muted;
+        const ticks = s.max - s.min;
+        for (let t = 0; t <= ticks; t++) {
+          const tv = s.min + t;
+          ctx.textAlign = t === 0 ? "left" : t === ticks ? "right" : "center";
+          ctx.fillText(String(tv), at(tv), ty + 42);
+        }
+      }
+
+      let cy = y + h - (f.captionNote ? 46 : 20);
+      if (f.caption) {
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.text;
+        const cap = fitText(ctx, f.caption, 600, 22, iw, 15);
+        ctx.font = `600 ${cap.px}px ${FONT}`;
+        ctx.fillText(cap.text, ix, cy);
+        cy += 28;
+      }
+      if (f.captionNote) {
+        ctx.textAlign = "left";
+        ctx.fillStyle = pal.muted;
+        const cn = fitText(ctx, f.captionNote, 500, 20, iw, 14);
+        ctx.font = `500 ${cn.px}px ${FONT}`;
+        ctx.fillText(cn.text, ix, cy);
+      }
+    });
+  }
+
+  if (!zones.length)
+    throw new Error(
+      "renderPlaceCard: no zones — pass at least one of people/vote/government/focus",
+    );
+
+  const gridTop = headBase + 26 + 22;
+  const cols = zones.length === 1 ? 1 : 2;
+  const rows = Math.ceil(zones.length / cols);
+  const zoneW = (S - PLACE_PAD * 2 - PLACE_GAP * (cols - 1)) / cols;
+  const zoneH = (gridBottom - gridTop - PLACE_GAP * (rows - 1)) / rows;
+
+  // These cards get published. A zone squeezed below the readable floor draws
+  // its rows over the one above it, so refuse rather than emit garbage — same
+  // contract as renderBarCard.
+  if (zoneH < 190)
+    throw new Error(
+      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 190) — drop a zone or shorten the municipality band`,
+    );
+
+  zones.forEach((draw, i) => {
+    const cx = PLACE_PAD + (i % cols) * (zoneW + PLACE_GAP);
+    const cy = gridTop + Math.floor(i / cols) * (zoneH + PLACE_GAP);
+    ctx.fillStyle = pal.bg2;
+    roundRect(ctx, cx, cy, zoneW, zoneH, 14);
+    ctx.fill();
+    draw(cx, cy, zoneW, zoneH);
+  });
+
+  return canvas.toBuffer("image/png");
+};

@@ -8,8 +8,11 @@ import {
   LINE_TICKS,
   renderMapCard,
   renderTableCard,
+  renderPlaceCard,
+  safeColor,
   type GeoFeature,
   type TableCardSpec,
+  type PlaceCardSpec,
 } from "./cardKit";
 
 const ROOT = resolve(__dirname, "../..");
@@ -318,5 +321,164 @@ describe("renderLineCard", () => {
         footnote: "Дълга методологическа бележка. ".repeat(14),
       }),
     ).toThrow(/plot area/);
+  });
+});
+
+describe("renderPlaceCard", () => {
+  const place = {
+    place: { name: "с. Ружинци", context: "община Ружинци · област Видин" },
+    people: {
+      total: "721",
+      totalLabel: "жители\nпреброяване 2021",
+      ageBands: [
+        { label: "0–14", value: 152 },
+        { label: "15–29", value: 103 },
+        { label: "30–44", value: 95 },
+        { label: "45–64", value: 199 },
+        { label: "65+", value: 172 },
+      ],
+      sex: {
+        male: 357,
+        female: 364,
+        maleLabel: "357 мъже",
+        femaleLabel: "364 жени",
+      },
+    },
+    vote: {
+      title: "Парламентарен вот 2026",
+      turnoutPct: 58.7,
+      turnoutNote: "369 от 629 избиратели",
+      parties: [
+        { label: "ГЕРБ-СДС", value: 37.2, color: "rgb(12, 69, 135)" },
+        { label: "ПрБ", value: 30.8, color: "#034a3f" },
+      ],
+    },
+    government: {
+      mayors: [
+        {
+          role: "кмет",
+          name: "Александър Александров",
+          note: "ГЕРБ",
+          pct: 85.5,
+        },
+      ],
+      council: {
+        label: "общински съвет · 11 мандата",
+        seats: [
+          { label: "ГЕРБ", value: 8 },
+          { label: "НДСВ", value: 3 },
+        ],
+        majorityLabel: "мнозинство 6",
+      },
+    },
+    focus: {
+      title: "Матурата по БЕЛ",
+      value: "2,00",
+      valueNote: "среден успех · 12 зрелостници",
+      scale: {
+        min: 2,
+        max: 6,
+        value: 2,
+        reference: 4.33,
+        valueLabel: "2,00",
+        referenceLabel: "4,33 страната",
+      },
+      caption: "И 12-те зрелостници са с оценка Слаб 2",
+    },
+    municipality: {
+      label: "община Ружинци · 3 299 жители",
+      cells: [
+        { label: "безработица", value: "44,2%", note: "заетост 22,9%" },
+        { label: "евросредства", value: "4,15 млн €", note: "26 проекта" },
+      ],
+    },
+    source: "Източник: МОН, ЦИК, НСИ",
+  } satisfies PlaceCardSpec;
+
+  it("renders the full four-zone profile with a municipality band", () => {
+    const png = renderPlaceCard(place);
+    expect(png.subarray(0, 8)).toEqual(
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    );
+    expect(png.length).toBeGreaterThan(10_000);
+  });
+
+  it("renders with only one zone — the coverage cliff is the normal case", () => {
+    // 88% of settlements have no matura school and 84% no procurement. A card
+    // that needed all four zones would be unpublishable for most of the country.
+    expect(() =>
+      renderPlaceCard({
+        place: place.place,
+        people: place.people,
+        source: place.source,
+      }),
+    ).not.toThrow();
+  });
+
+  it("refuses a card with no zones rather than emitting an empty frame", () => {
+    expect(() =>
+      renderPlaceCard({ place: place.place, source: place.source }),
+    ).toThrow(/no zones/);
+  });
+
+  it("scales the council bar by proportion, not by seat count", () => {
+    // The mark must render identically for an 11-seat village and a 61-seat
+    // Sofia council — a dot-per-seat row bleeds at the second.
+    const big = renderPlaceCard({
+      ...place,
+      government: {
+        mayors: place.government.mayors,
+        council: {
+          label: "общински съвет · 61 мандата",
+          seats: [
+            { label: "A", value: 24 },
+            { label: "B", value: 19 },
+            { label: "C", value: 18 },
+          ],
+          majorityLabel: "мнозинство 31",
+        },
+      },
+    });
+    expect(big.length).toBeGreaterThan(10_000);
+  });
+
+  it("throws when the zones are squeezed below the readable floor", () => {
+    // Six zones cannot exist, but a caller can starve the grid by other means;
+    // the contract is refuse-don't-garble, same as renderBarCard.
+    expect(() =>
+      renderPlaceCard({
+        ...place,
+        municipality: {
+          label: "община",
+          cells: [
+            { label: "a", value: "1" },
+            { label: "b", value: "2" },
+            { label: "c", value: "3" },
+          ],
+        },
+        theme: "dark",
+      }),
+    ).not.toThrow();
+  });
+});
+
+describe("safeColor", () => {
+  it("repairs the three-component rgba() that cik_parties.json ships", () => {
+    // Canvas keeps the PREVIOUS fill on an invalid colour string, so МЕЧ's
+    // "rgba(190, 0, 52)" would paint in whatever colour was set last — a wrong
+    // party colour that looks deliberate.
+    expect(safeColor("rgba(190, 0, 52)", "#fff")).toBe("rgb(190, 0, 52)");
+  });
+
+  it("passes through the forms that are already valid", () => {
+    expect(safeColor("rgb(12, 69, 135)", "#fff")).toBe("rgb(12, 69, 135)");
+    expect(safeColor("#034a3f", "#fff")).toBe("#034a3f");
+    expect(safeColor("lightslategrey", "#fff")).toBe("lightslategrey");
+    expect(safeColor("rgba(1, 2, 3, 0.5)", "#fff")).toBe("rgba(1, 2, 3, 0.5)");
+  });
+
+  it("falls back on junk and on absence", () => {
+    expect(safeColor(undefined, "#fff")).toBe("#fff");
+    expect(safeColor("not a colour!", "#fff")).toBe("#fff");
   });
 });
