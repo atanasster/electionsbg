@@ -47,6 +47,7 @@
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik } from "./eik";
+import { isEgn, personSupplierKey } from "./supplier_identity";
 import { isUnp, UNP_HEADER_PATTERNS } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import type { Contract } from "./types";
@@ -460,8 +461,17 @@ export const parseLegacyCsv = (
       stats.droppedNoBuyer++;
       continue;
     }
-    const contractorEik = canonicalEik(contractorEikRaw);
-    if (!isValidEik(contractorEik)) {
+    // An ЕГН passes isValidEik (10 digits), so it must be excluded BEFORE the EIK
+    // test or a personal identity number becomes the contractor key. This feed
+    // currently contributes no such rows, but the hole is the same one that put 98
+    // ЕГН into the corpus via the other three paths. See supplier_identity.ts.
+    const contractorEik = isEgn(contractorEikRaw)
+      ? personSupplierKey(contractorName)
+      : canonicalEik(contractorEikRaw);
+    if (
+      !contractorEik ||
+      (!isEgn(contractorEikRaw) && !isValidEik(contractorEik))
+    ) {
       stats.droppedNoContractor++;
       continue;
     }

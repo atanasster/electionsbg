@@ -23,6 +23,7 @@ import fs from "fs";
 import path from "path";
 import { load } from "cheerio";
 import { isValidEik } from "./eik";
+import { isEgn } from "./supplier_identity";
 import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { parseBgNumber } from "./normalize_eop";
@@ -202,9 +203,14 @@ export const buildResolutionMaps = (contractsDir: string): ResolutionMaps => {
             if (r.awarderName)
               bump(awarderNm, normOrgName(r.awarderName), r.awarderEik);
           }
+          // An ЕГН is 10 digits and so passes isValidEik. Excluded here as well as at
+          // the emit site, because this map is what LATER rows resolve their
+          // contractor id from — one leaked personal number would be copied onto
+          // every same-named row. See supplier_identity.ts.
           if (
             r.contractorEik &&
             isValidEik(r.contractorEik) &&
+            !isEgn(r.contractorEik) &&
             r.contractorName
           )
             bump(contractorNm, normOrgName(r.contractorName), r.contractorEik);

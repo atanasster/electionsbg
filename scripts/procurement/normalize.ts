@@ -21,6 +21,7 @@
 
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
+import { isEgn, personSupplierKey } from "./supplier_identity";
 import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
@@ -186,15 +187,29 @@ const buyerFields = (
 };
 
 // Returns the canonical contractor fields for a supplier ref.
+//
+// The ЕГН guard applies here too, and for the same reason as on the flat feed: an ЕГН
+// is 10 digits, `isValidEik` accepts 9–13, so an EIK-first test stores a personal
+// identity number as a contractor key. A person is keyed by their name instead
+// (supplier_identity.ts) and `eikFull` is left undefined so the raw ЕГН is not
+// preserved in the "source id" field either.
+//
+// Non-BG suppliers still return null here — the OCDS path has no foreign-vendor
+// recovery, which is defect D-2 and a separate tier. Only the personal-id hole is
+// closed at this step.
 const contractorFields = (
   release: OcdsRelease,
   ref: { id: string; name?: string },
 ): { eik: string; eikFull?: string; name: string } | null => {
   const party = resolveParty(release, ref);
   const rawEik = party?.identifier?.id;
+  const rawName = party?.identifier?.legalName ?? party?.name ?? ref.name ?? "";
+  if (isEgn(rawEik)) {
+    const eik = personSupplierKey(rawName);
+    return eik ? { eik, name: normaliseOrgName(rawName) } : null;
+  }
   const canon = canonicalEik(rawEik);
   if (!isValidEik(canon)) return null;
-  const rawName = party?.identifier?.legalName ?? party?.name ?? ref.name ?? "";
   return {
     eik: canon,
     eikFull: rawEik && rawEik !== canon ? rawEik : undefined,

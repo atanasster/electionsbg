@@ -18,6 +18,7 @@
 
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
+import { classifySupplierId } from "./supplier_identity";
 import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
@@ -117,43 +118,22 @@ const splitMulti = (v: string | undefined): string[] =>
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
 
-// Unpublished / anonymised supplier markers — the source hides some suppliers
-// (protected natural persons). Keep the row (its value lands on the buyer) but
-// with no contractor identity.
-const UNPUBLISHED_SUPPLIER =
-  /^(—+|-+|не се публикува|няма( данни)?|неизвестен|н\/?д|n\.?\/?a\.?)$/i;
-
-// Resolve a supplier token to a contractor key. A clean BG EIK passes through.
-// Otherwise recover a BG EIK embedded in a messy id (BG-VAT "BG104529087",
-// "ЕИК 205994492", space-grouped "827 184 123"); failing that, KEEP it as a
-// FOREIGN vendor instead of dropping the contract — the flat feed (and the OCDS
-// path) used to drop every non-BG-EIK supplier, silently losing clean
-// foreign-vendor contracts (Stadler, WARTSILA, Dinghan…). Foreign vendors are
-// keyed by a normalized form of their registration id — the same way the corpus
-// already carries numeric-regnum foreign vendors (Leonardo, Škoda). `foreign` is
-// true whenever the id is not a validated BG EIK.
+// Resolve a supplier token to a contractor key. Thin wrapper over the shared
+// classifier in supplier_identity.ts, which owns the full rule set — a clean BG EIK
+// passes through, a messy one is recovered, an ЕГН is replaced by a name-derived
+// `np-…` key so a personal identity number is never stored, and a genuine foreign
+// vendor is kept keyed by its registration id rather than dropped.
+//
+// The `{eik, foreign}` shape is deliberately preserved: call sites branch on
+// `.foreign`, and the existing tests deepEqual against exactly these two fields.
+// Callers that need to distinguish a person from a foreign vendor should use
+// `classifySupplierId` directly and read `.kind`.
 export const resolveSupplierEik = (
   raw: string | undefined,
+  name?: string,
 ): { eik: string; foreign: boolean } => {
-  const canon = canonicalEik(raw);
-  if (isValidEik(canon)) return { eik: canon, foreign: false };
-  const s = (raw ?? "").trim();
-  if (!s || UNPUBLISHED_SUPPLIER.test(s)) return { eik: "", foreign: true };
-  // Embedded BG EIK: a standalone 9- or 13-digit run, after removing spaces and
-  // a leading BG-EIK marker ("ЕИК", "BG", "EIK"). Requiring an exact 9/13 length
-  // avoids mis-reading a foreign id that only looks numeric once separators are
-  // stripped (e.g. "821-24-77-136" → 10 digits → NOT treated as BG).
-  const stripped = s.replace(/\s+/g, "").replace(/^(ЕИК|BG|EIK)/i, "");
-  if (/^(\d{9}|\d{13})$/.test(stripped)) {
-    const c = canonicalEik(stripped);
-    if (isValidEik(c)) return { eik: c, foreign: false };
-  }
-  // Genuine foreign vendor — key by a normalized registration id.
-  const norm = s
-    .replace(/[^A-Za-z0-9]/g, "")
-    .toUpperCase()
-    .slice(0, 24);
-  return { eik: norm, foreign: true };
+  const { eik, foreign } = classifySupplierId(raw, name);
+  return { eik, foreign };
 };
 
 // Resolve the contracting authority from `buyerRegistryNumber`, which is
@@ -360,7 +340,12 @@ export const normalizeEopDay = (
     // supplier at all — previously dropped wholesale (Stadler, WARTSILA,
     // "не се публикува" sole awards) — is recovered whole, split across its
     // foreign/anonymous suppliers.
-    const resolved = eiks.map((e) => resolveSupplierEik(e));
+    // The aligned name is passed in because a natural-person supplier is keyed by
+    // their NAME, not by the ЕГН the feed puts in the id field (supplier_identity.ts).
+    // `names[i] ?? names[0]` mirrors the supplierName fallback used below.
+    const resolved = eiks.map((e, i) =>
+      classifySupplierId(e, names[i] ?? names[0]),
+    );
     const bgCount = resolved.filter((r) => !r.foreign).length;
     const recoverForeign = bgCount === 0;
     // Split by the number of rows that will actually SURVIVE the month-shard
@@ -418,8 +403,15 @@ export const normalizeEopDay = (
         contractorEik: supplierEik,
         // Preserve the raw source id when it differs from the canonical key
         // (13-digit branch form, or a foreign / messy-BG id we normalized).
+        //
+        // NEVER for a natural person: the key is a name hash, so the raw token ALWAYS
+        // differs and this field would faithfully re-publish the ЕГН that
+        // `classifySupplierId` just removed — into `contracts.contractor_eik_full`,
+        // the sibling of the very column the privacy gate guards.
         contractorEikFull:
-          supplierEik && rawEik !== supplierEik ? rawEik : undefined,
+          res.kind !== "person" && supplierEik && rawEik !== supplierEik
+            ? rawEik
+            : undefined,
         contractorName: supplierName,
         amount: amountPer,
         currency,

@@ -22,9 +22,16 @@ export const PROC_DIR = path.join(DATA_DIR, "procurement");
  *  EIKs are not numeric-only: ~124 foreign suppliers carry a letter-bearing
  *  VAT/registration id (ATU14715405, 5210084655NTRPL000005852, 140639Y), so a
  *  \d+ filter silently drops their rollups. Neither dir holds an index.json —
- *  every file in them is an EIK rollup. */
+ *  every file in them is an EIK rollup.
+ *
+ *  The `np-<12 hex>` namespace is a contractor key too: a natural-person supplier
+ *  is keyed by a hash of their name so their ЕГН is never stored
+ *  (scripts/procurement/supplier_identity.ts). It is hyphenated, so an
+ *  alphanumeric-only pattern excluded it — which both broke the
+ *  files-vs-distinct-EIKs invariant and made those rollups invisible to the
+ *  stale-file prune in gen_procurement/rollups.ts, leaving them to accumulate. */
 export const isEikRollupFile = (f: string): boolean =>
-  /^[A-Za-z0-9]+\.json$/.test(f);
+  /^(np-)?[A-Za-z0-9]+\.json$/.test(f);
 
 /** Postgres pg_dump snapshot artifact (custom format). Lives under raw_data/ —
  *  gitignored, a regenerable cache distributed via GCS with a committed lockfile
