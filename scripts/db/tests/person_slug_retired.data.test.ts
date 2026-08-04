@@ -111,15 +111,50 @@ test.skipIf(skip)("every redirect target is actually SERVABLE", async () => {
 // retired 112 name-hash slugs. An optional `-<n>` tail is the resolver's collision suffix
 // (`angel-petrov-11iyk1-2`).
 //
+// Two more live shapes the hash pattern alone does not describe, both found by asking the
+// `person` table what it actually serves rather than by reasoning about the slug builder —
+// the same way the base36 fix above was found, and the reason this test now derives its
+// alternation from that question instead of a guess:
+//
+//   - `mp-<id>` is the ANCHOR slug a person keyed to a parliament seat keeps
+//     (resolve_persons.ts ~1446). 2,193 live persons carry it, e.g. `/person/mp-10`
+//     (Ангел Вълчев Тюркеджиев) — there is no name-hash segment at all. Retiring one is
+//     therefore correct and must not read as corruption; §A3's continuity merge retired 13.
+//   - The collision suffix can STACK (`…-1c2334-2-3`, `…-18v2cg-2-2`) when a slug that
+//     already carried one collides again. 11 live persons are on such a slug, so the tail
+//     repeats rather than appearing at most once.
+//
 // Still narrow enough to catch everything the header names: a Cyrillic name has no matching
-// characters, a candidate ref carries a colon, and a bare numeric id has no hash segment.
+// characters, a candidate ref carries a colon, and a bare numeric id matches neither branch
+// (the `mp-` one requires the literal prefix).
+const SLUG_SHAPE = String.raw`^([a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]{6}|mp-[0-9]+)(-[0-9]+)*$`;
+
 test.skipIf(skip)("only slug-shaped keys are stored", async () => {
   const bad = await allRows<{ slug: string }>(
-    `SELECT slug FROM person_slug_retired
-      WHERE slug !~ '^[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]{6}(-[0-9]+)?$' LIMIT 5`,
+    `SELECT slug FROM person_slug_retired WHERE slug !~ $1 LIMIT 5`,
+    [SLUG_SHAPE],
   );
   assert.deepEqual(bad, [], "non-slug keys reached the redirect table");
 });
+
+// The pattern above is only trustworthy while it still describes what `person` serves. A
+// slug shape invented later (or a builder change) would otherwise be caught here as
+// "corruption" on its first retirement, exactly as `mp-*` was — a failure that points at the
+// test rather than at the data, which is the most expensive kind to debug.
+test.skipIf(skip)(
+  "the slug-shape pattern still matches every live person slug",
+  async () => {
+    const bad = await allRows<{ slug: string }>(
+      `SELECT slug FROM person WHERE slug !~ $1 LIMIT 5`,
+      [SLUG_SHAPE],
+    );
+    assert.deepEqual(
+      bad,
+      [],
+      "live /person slugs do not match SLUG_SHAPE — widen it (and check the redirect assertion above still means what it says)",
+    );
+  },
+);
 
 // Migration 103 must actually be applied. With PG proven up, a missing table is a failure,
 // not a reason to skip.

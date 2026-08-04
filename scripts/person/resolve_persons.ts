@@ -1532,27 +1532,12 @@ async function main(): Promise<void> {
   // ref (measured: 0 of 20,057). The thing that knows both sides is whatever renamed the
   // shards — migrate_slug_normalisation.ts --redirects — and
   // scripts/person/load_slug_redirects.ts loads that map. So: count them, name the fix,
-  // and never let the number sit at "unknown" again.
-  //
-  // LIVENESS COMES FROM `liveSlugs`, NOT FROM `person`. The person table is not rebuilt
-  // until the transaction ~150 lines below, so it still holds the PREVIOUS run's rows —
-  // including the very slug this run just orphaned. Testing against it masks the fresh
-  // orphan behind its own stale row and reports it a full run late, i.e. never on the run
-  // an operator is actually watching. `person_slug_retired.data.test.ts` asks the same
-  // question against `person`, correctly: by the time it runs, the rebuild has happened.
+  // and never let the number sit at "unknown" again. The probe itself sits AFTER the write
+  // below — see the comment there for why its position is load-bearing.
   //
   // The `live` CTE is not cosmetic either: `l.slug <> ALL($1)` over a 58k array rescans
   // that array for each of the 132k lock rows (measured 10.3 s, on every resolve, purely
   // to emit a warning). As a hash anti-join it is 55 ms.
-  const orphanedDeadSlugs = await allRows<{ slug: string }>(
-    `WITH live(slug) AS (SELECT unnest($1::text[]))
-     SELECT DISTINCT l.slug
-       FROM person_slug_lock l
-      WHERE NOT EXISTS (SELECT 1 FROM live s WHERE s.slug = l.slug)
-        AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)`,
-    [[...liveSlugs]],
-  );
-
   await withTx(async (c) => {
     await c.query(
       `INSERT INTO person_slug_lock (mention_id, slug)
@@ -1576,6 +1561,36 @@ async function main(): Promise<void> {
     );
   });
   if (retired.size) retiredSlugCount = retired.size;
+
+  // RUN THE PROBE AFTER THE WRITE ABOVE, NOT BEFORE IT. Both clauses depend on it:
+  //
+  //   - `person_slug_retired` must already hold THIS run's retirements, or every slug the
+  //     run just redirected is reported as having no redirect. That is not a small skew —
+  //     on the §A3 continuity merge it made the two counters read "624 slug(s) retired to a
+  //     redirect; 624 dead slug(s) with no redirect" off one set of 624, when the true
+  //     orphan count was 0, and pointed the operator at a --redirects rebuild that is both
+  //     unnecessary and wrong for those slugs. A loud false alarm on the exact runs that
+  //     retire the most slugs is worse than no alarm: it trains the reader to skip the line.
+  //   - `person_slug_lock` must already be upserted, which is what makes the remaining rows
+  //     EXACTLY the orphans. Every mention in `built` has just had its row rewritten to a
+  //     live slug; a row still naming a dead one is therefore a mention that no longer
+  //     exists — precisely the population this warning is about, rather than a superset of
+  //     it that happens to include the healthy ones.
+  //
+  // Liveness still comes from `liveSlugs`, NOT from `person`: the person table is not
+  // rebuilt until the transaction ~150 lines below, so it would still answer from the
+  // PREVIOUS run's rows and mask a fresh orphan behind its own stale row, reporting it a
+  // run late — i.e. never on the run an operator is watching.
+  // `person_slug_retired.data.test.ts` asks the same question against `person`, correctly:
+  // by the time it runs, the rebuild has happened.
+  const orphanedDeadSlugs = await allRows<{ slug: string }>(
+    `WITH live(slug) AS (SELECT unnest($1::text[]))
+     SELECT DISTINCT l.slug
+       FROM person_slug_lock l
+      WHERE NOT EXISTS (SELECT 1 FROM live s WHERE s.slug = l.slug)
+        AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)`,
+    [[...liveSlugs]],
+  );
   if (orphanedDeadSlugs.length) {
     console.warn(
       `  ⚠ ${orphanedDeadSlugs.length} /person slug(s) are dead with no redirect — their ` +
