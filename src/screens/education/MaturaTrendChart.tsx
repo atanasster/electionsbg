@@ -28,7 +28,6 @@ import { FC, useMemo } from "react";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { ChartCabinetStrip } from "@/screens/components/governments/ChartCabinetStrip";
 import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTooltip } from "@/ux/useTooltip";
 import {
   buildMaturaRows,
@@ -45,6 +44,13 @@ const H = 210;
 // the bottom, with a gap between so a bar never sits behind a dot.
 const SCORE_BAND = 0.7;
 const COHORT_BAND = 0.26;
+// Room reserved INSIDE the cohort band for the per-year count above each bar.
+// Kept out of the bar heights rather than taken from the gap: the tallest bar
+// would otherwise push its own label into the score band, on top of the line.
+const COHORT_LABEL_H = 12;
+// SVG exposes no text metrics, so the collision guard estimates instead: the
+// 10px tabular digits these labels use run ~5.6px per character.
+const LABEL_CH_W = 5.6;
 // The strip is h-7 (28px) plus its label line and margin. Reserve the height:
 // ChartCabinetStrip renders null until governments.json resolves, and this tile
 // sits above everything else on the route.
@@ -82,7 +88,6 @@ export const MaturaTrendChart: FC<{
 }) => {
   const bg = lang === "bg";
   const locale = bg ? "bg-BG" : "en-US";
-  const isSmall = useMediaQueryMatch("sm");
   const [setPlotEl, plotWidth] = useMeasuredWidth();
   const { data: governments } = useGovernments();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip({
@@ -116,7 +121,10 @@ export const MaturaTrendChart: FC<{
   // SVG wide: the guess latches instead of correcting. An empty host always
   // measures the true column width, so the first measurement is right.
   const W = plotWidth;
-  const PAD = { l: 40, r: isSmall ? 14 : 46, t: 12, b: 26 };
+  // The right gutter used to be 46 on wide screens purely to park the single
+  // peak-cohort number outside the plot. The counts now sit on their own bars,
+  // so the plot gets that width back.
+  const PAD = { l: 40, r: 14, t: 12, b: 26 };
   const plotH = H - PAD.t - PAD.b;
   const scoreH = plotH * SCORE_BAND;
   const cohortH = plotH * COHORT_BAND;
@@ -139,8 +147,32 @@ export const MaturaTrendChart: FC<{
   const px = (t: number) =>
     PAD.l + ((t - t0) / (t1 - t0)) * (W - PAD.l - PAD.r);
   const py = (v: number) => PAD.t + scoreH - ((v - yLo) / (yHi - yLo)) * scoreH;
-  const pyN = (n: number) => baseline - (n / nMax) * cohortH;
+  const barsH = Math.max(1, cohortH - COHORT_LABEL_H);
+  const pyN = (n: number) => baseline - (n / nMax) * barsH;
   const barW = Math.min(24, Math.max(6, (W - PAD.l - PAD.r) * 0.05));
+
+  // Cohort size, printed above its own bar. Compact keeps the national series
+  // ("49 хил.") from being three times the width of a school's ("12").
+  const cohortLabel = (n: number) =>
+    n.toLocaleString(locale, { notation: "compact", maximumFractionDigits: 0 });
+  // The x axis is linear in TIME, so consecutive points are NOT evenly spaced —
+  // the national series runs 2016, 2017, then a five-year hole to 2022. Where
+  // the tightest pair cannot fit its two labels side by side, drop the labels
+  // entirely rather than overprint them; the exact count is in the tooltip
+  // either way, and a smudge of overlapping digits reads as a rendering bug.
+  const cohortLabelW = Math.max(
+    ...rows.map((r) => cohortLabel(r.examinees).length * LABEL_CH_W),
+  );
+  const minPointGap = Math.min(
+    ...rows.slice(1).map((r, i) => px(r.t) - px(rows[i].t)),
+  );
+  const showCohortLabels = nPeak > 0 && minPointGap >= cohortLabelW + 6;
+  // The first and last bars sit within X_PAD (0.1yr) of the plot edge, so a
+  // centred label on them can overhang the SVG and get clipped.
+  const clampLabelX = (x: number, text: string) => {
+    const half = (text.length * LABEL_CH_W) / 2;
+    return Math.min(Math.max(x, half + 1), W - half - 1);
+  };
 
   const fmtScore = (v: number, digits = 2) =>
     v.toLocaleString(locale, {
@@ -264,18 +296,25 @@ export const MaturaTrendChart: FC<{
               className="text-border"
               strokeWidth={0.5}
             />
-            {!isSmall && nPeak > 0 && (
-              <text
-                x={W - PAD.r + 6}
-                y={pyN(nPeak) + 4}
-                className="fill-muted-foreground text-[10px]"
-              >
-                {nPeak.toLocaleString(locale, {
-                  notation: "compact",
-                  maximumFractionDigits: 0,
-                })}
-              </text>
-            )}
+            {/* the count for EVERY year, on its own bar. A single number parked
+                in the right gutter at the peak's height read as a label for the
+                LAST year rather than as the scale's top — on Ружинци it printed
+                "13" (2022's cohort) beside a 2026 bar of 12. */}
+            {showCohortLabels &&
+              rows.map((r) => {
+                const text = cohortLabel(r.examinees);
+                return (
+                  <text
+                    key={`nl-${r.year}`}
+                    x={clampLabelX(px(r.t), text)}
+                    y={pyN(r.examinees) - 3}
+                    textAnchor="middle"
+                    className="fill-muted-foreground text-[10px] tabular-nums"
+                  >
+                    {text}
+                  </text>
+                );
+              })}
 
             {/* the benchmark, drawn first so the subject sits on top of it */}
             {refInWindow.length >= 2 && (
