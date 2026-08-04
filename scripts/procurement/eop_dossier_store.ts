@@ -277,6 +277,21 @@ export class EopDossierStore {
     return r !== undefined;
   }
 
+  /**
+   * Store extracted text.
+   *
+   * ⚠️ WHITESPACE-ONLY EXTRACTION IS NORMALISED TO EMPTY HERE, at the write
+   * boundary, so `chars = 0` is exactly "no extractable content" for every caller.
+   * A scanned PDF yields one newline per page, so `pdftotext` returns "\n\n\n" for a
+   * 3-page scan — which stored verbatim gives `chars = 3` and reads as a successful
+   * extraction. Measured on the first 142 specs: 12 of them (8.5%) were exactly this,
+   * and the run's own counters disagreed with the store's (12 vs 0) because the
+   * counter trimmed and the column did not.
+   *
+   * `pages` is kept so downstream can apply a chars-per-page test — a 51-page
+   * document with 522 characters is a scan with a cover stamp, which this
+   * normalisation alone does not catch and must not pretend to.
+   */
   putDocText(rec: {
     md5: string;
     documentId: number;
@@ -287,6 +302,7 @@ export class EopDossierStore {
     pages: number | null;
     extractor: string;
   }): void {
+    if (rec.text.trim().length === 0) rec = { ...rec, text: "" };
     this.db
       .prepare(
         `INSERT INTO eop_doc_text
