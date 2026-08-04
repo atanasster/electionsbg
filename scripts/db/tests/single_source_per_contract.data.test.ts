@@ -34,6 +34,9 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { feedOf } from "../../procurement/content_key";
+import { identityE } from "../../procurement/cross_source";
+import type { Contract } from "../../procurement/types";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -89,7 +92,7 @@ interface MixedRow {
 //     earlier attempts.
 const ACCEPTED_CONFLICTS = new Map<string, string>([
   [
-    "01071-2020-0009/177441542",
+    "01071-2020-0009/177441542/311254/2021-04-20",
     // AMBIGUOUS, and the clearest example of why the rule exists: ЦАИС published four call-offs
     // ("Договор № 878/879/880/881") at the same procedure, supplier, amount and date, against
     // two aop rows. Nothing in the data says which corresponds to which, and 4 against 2 means
@@ -97,60 +100,64 @@ const ACCEPTED_CONFLICTS = new Map<string, string>([
     "eop×4 (Договор № 878..881) vs aop×2 — no 1:1 correspondence exists",
   ],
   [
-    "05568-2021-0001/107544354",
+    "05568-2021-0001/107544354/5364/2021-02-25",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00589-2022-0052/103318710",
+    "00589-2022-0052/103318710/4090/2022-11-01",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "02378-2023-0001/203540174",
+    "02378-2023-0001/203540174/665/2023-06-02",
     "eop×2 vs aop×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00339-2025-0039/128591001",
+    "00339-2025-0039/128591001/9494/2025-11-05",
     "eop×2 vs ocds×1 — the eop side carries two rows with one identity E",
   ],
   [
-    "00053-2026-0001/204293638",
+    "00053-2026-0001/204293638/0/2026-05-07",
     // Both rows sit at €0.00 in Postgres: 087 moved the joint award's value onto the carrier and
     // zeroed the members. €0 is a real amount for identity E (a member row), not a missing one.
     "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
   ],
   [
-    "00053-2026-0001/181527965",
+    "00053-2026-0001/181527965/0/2026-05-07",
     "eop×2 vs ocds×1, both consortium members zeroed by 087 — no 1:1 correspondence",
   ],
   [
-    "02023-2023-0001/113580690",
+    "02023-2023-0001/113580690/4136628/2023-10-30",
     // BLOCKED. aop:118779 holds one row; eop:118827 holds two, and the supplier sets differ.
     // This is the pair the parse-time `f:` net once orphaned (see content_key.ts) — €4.14m that
     // simply vanished when a bogus survivor was accepted.
     "supplier sets differ: aop:118779 (1 row) vs eop:118827 (2 rows)",
   ],
   [
-    "00303-2020-0018/837068124",
+    "00303-2020-0018/837068124/105837/2020-12-08",
     // BLOCKED, and the most instructive of the five: identical supplier sets, totals agreeing to
     // €1.19 — and still refused, because only one of aop:317's two rows has a twin. Evicting a
     // side on a partial match is exactly the shape that destroyed rows before.
     "same supplier set and totals to €1.19, but only 1 of aop:317's 2 rows is matched",
   ],
   [
-    "00994-2016-0001/102227154",
+    "00994-2016-0001/102227154/63911/2018-01-10",
     "aop:2 (2 rows) vs rop:2 (1 row) — aop holds two call-offs under one number",
   ],
   [
-    "00994-2016-0001/121578346",
+    "00994-2016-0001/121578346/25565/2018-01-11",
     "supplier sets differ: aop:3 (2 suppliers) vs rop:3 (1)",
   ],
   [
-    "00640-2015-0014/121814067",
+    "00640-2015-0014/121814067/6607/2017-06-08",
     "supplier sets differ: aop:80-09-73 (2 suppliers) vs rop:80-09-73 (1)",
   ],
 ]);
 
-const idOf = (r: MixedRow): string => `${r.unp}/${r.contractor_eik}`;
+// The allowlist key is the FULL group key, not a prefix of it. Keyed on (unp, eik) alone, one
+// entry would silently cover every group that pair ever forms — up to 32 of them today — so a
+// NEW duplicate between an already-allowlisted buyer and supplier would be waved through.
+const idOf = (r: MixedRow): string =>
+  `${r.unp}/${r.contractor_eik}/${r.amt}/${r.ds}`;
 
 // IDENTITY E — the gating key. Synthetic `obed-` consortium carriers are excluded: 087 mints
 // them inside Postgres from whichever feed's rows are present, so they inherit a mix rather than
@@ -171,8 +178,13 @@ const MIXED_SQL = `
          array_to_string(array_agg(DISTINCT feed ORDER BY feed), '+') AS feeds,
          count(*)::int AS rows,
          array_to_string(array_agg(DISTINCT contract_id), ' | ') AS contract_ids,
-         COALESCE(sum(amount_eur), 0)::float8 AS eur
-    FROM b
+         -- The OVER-STATEMENT is the lesser side — what would go if the group collapsed to one
+         -- feed — not the group total. Summing the whole group double-counts the very duplicate
+         -- being reported (it read €8.27m for a €4.14m over-statement).
+         (COALESCE(sum(amount_eur), 0)
+          - COALESCE(max(feed_eur), 0))::float8 AS eur
+    FROM (SELECT *, sum(amount_eur) OVER (
+            PARTITION BY unp, contractor_eik, amt, ds, tag, feed) AS feed_eur FROM b) b
    GROUP BY unp, contractor_eik, amt, ds, tag
   HAVING count(DISTINCT feed) > 1
    ORDER BY amt DESC`;
@@ -237,12 +249,20 @@ test.skipIf(skip)("every accepted conflict still exists", async () => {
 // non-duplicates and would destroy the "exhaustive AND minimal" property that makes the gate
 // above meaningful. A ceiling still catches the thing worth catching: a NEW feed overlap, or an
 // ingest that starts minting colliding numbers.
-const IDENTITY_A_CEILING = 130; // measured 126 on 2026-08-04, post-reconcile
+// PER-PAIR ceilings, not one global number. A single bound is one-sided: losing the entire
+// `rop` overlap — 95% of this population — still passes at 6 <= 130, so the check would go quiet
+// on exactly the disappearance it should shout about. Measured 2026-08-04, post-reconcile.
+const IDENTITY_A_CEILINGS: Record<string, [number, number]> = {
+  // pair: [floor, ceiling]. The floor is what makes a vanished feed overlap fail.
+  "aop+rop": [100, 130],
+  "aop+eop": [3, 10],
+  "eop+ocds": [0, 5],
+};
 
 test.skipIf(skip)(
   "contract-number collisions across feeds stay within their known bound",
   async () => {
-    const [r] = await allRows<{ n: string; detail: string }>(
+    const rows = await allRows<{ pair: string; n: string }>(
       `WITH b AS (
          SELECT ${FEED_SQL} AS feed, unp, contract_id, tag
            FROM contracts
@@ -254,19 +274,107 @@ test.skipIf(skip)(
            FROM b GROUP BY unp, contract_id, tag
          HAVING count(DISTINCT feed) > 1
        )
-       SELECT count(*)::text AS n,
-              (SELECT string_agg(pair || '=' || c, ', ' ORDER BY c DESC)
-                 FROM (SELECT pair, count(*) c FROM g GROUP BY pair) x) AS detail
-         FROM g`,
+       SELECT pair, count(*)::text AS n FROM g GROUP BY pair ORDER BY pair`,
     );
-    const n = Number(r.n);
-    assert.ok(
-      n <= IDENTITY_A_CEILING,
-      `${n} (unp, contract_id) group(s) span more than one feed, above the ${IDENTITY_A_CEILING} ` +
-        `ceiling — by pair: ${r.detail}.\n` +
+    const seen = new Map(rows.map((r) => [r.pair, Number(r.n)]));
+    const detail = [...seen].map(([p, n]) => `${p}=${n}`).join(", ") || "none";
+    const problems: string[] = [];
+    for (const [pair, [lo, hi]] of Object.entries(IDENTITY_A_CEILINGS)) {
+      const n = seen.get(pair) ?? 0;
+      if (n < lo)
+        problems.push(
+          `${pair} fell to ${n} (floor ${lo}) — a feed overlap has DISAPPEARED, which usually ` +
+            `means an ingest stopped loading one of them`,
+        );
+      if (n > hi)
+        problems.push(
+          `${pair} rose to ${n} (ceiling ${hi}) — a new overlap, or an ingest minting ` +
+            `colliding contract numbers`,
+        );
+    }
+    for (const pair of seen.keys())
+      if (!(pair in IDENTITY_A_CEILINGS))
+        problems.push(
+          `${pair} is a feed overlap nobody has bounded — triage it, then add a range`,
+        );
+    assert.deepEqual(
+      problems,
+      [],
+      `contract-number collisions across feeds moved outside their known bounds ` +
+        `(observed: ${detail}).\n  ${problems.join("\n  ")}\n` +
         `  This population is mostly contract-number REUSE inside frameworks, not duplication, ` +
-        `so it is bounded rather than driven to zero. A rise means either a new feed overlap or ` +
-        `an ingest minting colliding numbers — investigate before raising the ceiling.`,
+        `so it is bounded rather than driven to zero — but both directions matter.`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the SQL identity agrees with the TypeScript one it is guarding",
+  async () => {
+    // The SQL above is a SECOND implementation of `identityE` + `feedOf`. cross_source.ts opens
+    // by warning that two copies of this logic is the failure that produced wrong numbers before,
+    // and a gate keyed differently from the pass is not guarding the pass — it would go green
+    // while the pass left duplicates behind, or red on groups the pass correctly refuses.
+    //
+    // The two cannot be merged (one is SQL, one is TS), so they are cross-checked instead: run
+    // the REAL TypeScript functions over the same rows and require the same set of cross-feed
+    // groups, key for key.
+    const rows = await allRows<{
+      release_id: string;
+      unp: string | null;
+      contract_id: string | null;
+      tag: string;
+      contractor_eik: string;
+      amount_eur: number | null;
+      date_signed: string | null;
+    }>(
+      `SELECT release_id, unp, contract_id, tag, contractor_eik, amount_eur, date_signed
+         FROM contracts WHERE contractor_eik NOT LIKE 'obed-%'`,
+    );
+    // identityE's separator is internal, so the display key is rebuilt from the row's own
+    // fields rather than parsed back out of it.
+    const byId = new Map<string, { feeds: Set<string>; key: string }>();
+    for (const r of rows) {
+      const c = {
+        releaseId: r.release_id,
+        unp: r.unp ?? undefined,
+        contractId: r.contract_id ?? undefined,
+        tag: r.tag,
+        contractorEik: r.contractor_eik,
+        amountEur: r.amount_eur ?? undefined,
+        dateSigned: r.date_signed ?? undefined,
+      } as Contract;
+      const id = identityE(c);
+      if (!id) continue;
+      let e = byId.get(id);
+      if (!e) {
+        e = {
+          feeds: new Set<string>(),
+          key:
+            `${c.unp}/${c.contractorEik}/` +
+            `${Math.round(c.amountEur as number)}/` +
+            `${(c.dateSigned as string).slice(0, 10)}`,
+        };
+        byId.set(id, e);
+      }
+      e.feeds.add(feedOf(c));
+    }
+    const fromTs = new Set(
+      [...byId.values()].filter((v) => v.feeds.size > 1).map((v) => v.key),
+    );
+    const fromSql = new Set(
+      (await allRows<MixedRow>(MIXED_SQL)).map(
+        (r) => `${r.unp}/${r.contractor_eik}/${r.amt}/${r.ds}`,
+      ),
+    );
+    const onlySql = [...fromSql].filter((k) => !fromTs.has(k));
+    const onlyTs = [...fromTs].filter((k) => !fromSql.has(k));
+    assert.deepEqual(
+      { onlySql, onlyTs },
+      { onlySql: [], onlyTs: [] },
+      `the gate's SQL identity and scripts/procurement/cross_source.ts disagree about which ` +
+        `groups span two feeds. Whichever moved, they must be brought back into step — a gate ` +
+        `keyed differently from the pass is not guarding the pass.`,
     );
   },
 );
@@ -315,40 +423,90 @@ test.skipIf(skip)(
   },
 );
 
+// Rows that WOULD be identity-E twins but for a missing component, so the gate above cannot see
+// them. Keyed `${unp}/${contractor_eik}`.
+//
+// Both carry a NULL `amount_eur` on at least one side, which is why they are invisible: identity
+// E requires an amount, and two unknowns must never be treated as a match (Postgres GROUP BY
+// treats NULLs as equal — the trap that made an earlier draft of this plan over-count).
+//
+// Their financial exposure is **€0**: a NULL amount contributes nothing to any total, so these
+// duplicate a ROW without over-stating money. That is the only reason they are tolerable.
+const ACCEPTED_BLIND = new Map<string, string>([
+  [
+    "00533-2017-0019/121265113",
+    // aop:100-Д-287 and rop:0610000752, same signing date, BOTH amounts NULL. A genuine
+    // cross-feed duplicate that no amount-bearing key can reach.
+    "aop + rop, same date, both amount_eur NULL — no amount to key on, €0 exposure",
+  ],
+  [
+    "00164-2021-0015/15030004652",
+    // The eop row carries no amount; its aop counterpart holds €2,701,617.51. Not an identity-E
+    // twin even in principle (the amounts cannot agree), but it is the same procedure and
+    // supplier, so it is recorded rather than left to look like a clean corpus.
+    "eop row has NULL amount against aop's €2,701,617.51 — cannot be an identity-E match",
+  ],
+]);
+
 test.skipIf(skip)(
-  "the gate's key is complete on the affected population",
+  "no cross-source pair hides from identity E behind a missing field",
   async () => {
-    // Guards the gate itself. Identity E needs a УНП, a contractor, an amount and a signing
-    // date, so a row missing any of them is invisible to it. That is safe only while no such row
-    // participates in a cross-source pair — assert it rather than assume it, since an ingest
-    // that stopped populating `date_signed` would silently blind this file instead of failing it.
+    // GUARDS THE GATE ITSELF, and the previous version did not. It required the two rows to
+    // share a `contract_id` — the exact field this file's header documents as differing on ~99%
+    // of real twins — so it reported 0 while genuine blind pairs existed. Keyed correctly, on
+    // (УНП, contractor, tag), it finds them.
     //
-    // ONE known exception, allowlisted by contract: 05962-2026-0001/240319, where the ЦАИС row
-    // carries an EMPTY contractor_eik. No content net can pair an identity-less row, which is
-    // precisely why it cannot be resolved — it is a permanent, structural blind spot, not drift.
-    const [r] = await allRows<{ blind: string; sample: string | null }>(
-      `SELECT count(*)::text AS blind,
-              string_agg(DISTINCT a.unp || '/' || COALESCE(a.contract_id, '-'), ', ') AS sample
-         FROM contracts a
-        WHERE a.contractor_eik NOT LIKE 'obed-%'
-          AND (COALESCE(a.unp, '') = '' OR COALESCE(a.contractor_eik, '') = ''
-               OR a.amount_eur IS NULL OR COALESCE(a.date_signed, '') = '')
-          AND COALESCE(a.unp, '') <> '05962-2026-0001'
+    // This is the failure mode the whole plan is about, one level up: a check that cannot fire
+    // reads exactly like a check that passes.
+    const rows = await allRows<{
+      unp: string;
+      contractor_eik: string;
+      feed: string;
+      contract_id: string | null;
+      missing: string;
+    }>(
+      `WITH b AS (
+         SELECT ${FEED_SQL} AS feed, unp, contract_id, tag, contractor_eik, amount_eur, date_signed
+           FROM contracts
+          WHERE contractor_eik NOT LIKE 'obed-%'
+            AND COALESCE(unp, '') <> '' AND COALESCE(contractor_eik, '') <> ''
+       )
+       SELECT a.unp, a.contractor_eik, a.feed, a.contract_id,
+              CASE WHEN a.amount_eur IS NULL THEN 'amount' ELSE 'date_signed' END AS missing
+         FROM b a
+        WHERE (a.amount_eur IS NULL OR COALESCE(a.date_signed, '') = '')
           AND EXISTS (
-            SELECT 1 FROM contracts b
-             WHERE b.unp = a.unp
-               AND COALESCE(b.contract_id, '') = COALESCE(a.contract_id, '')
-               AND b.tag = a.tag
-               AND (${FEED_SQL.replace(/release_id/g, "b.release_id")})
-                   <> (${FEED_SQL.replace(/release_id/g, "a.release_id")})
-          )`,
+            SELECT 1 FROM b c
+             WHERE c.unp = a.unp AND c.contractor_eik = a.contractor_eik
+               AND c.tag = a.tag AND c.feed <> a.feed)
+        ORDER BY a.unp`,
+    );
+    const unknown = rows.filter(
+      (r) => !ACCEPTED_BLIND.has(`${r.unp}/${r.contractor_eik}`),
     );
     assert.equal(
-      Number(r.blind),
+      unknown.length,
       0,
-      `${r.blind} cross-source row(s) lack a УНП, contractor, amount or signing date and are ` +
-        `therefore invisible to the identity-E gate: ${r.sample}. Run ` +
-        `scripts/procurement/backfill_unp.ts --apply, or widen the gate's key.`,
+      `${unknown.length} cross-source row(s) lack an amount or a signing date and are therefore ` +
+        `invisible to the identity-E gate:\n` +
+        unknown
+          .slice(0, 8)
+          .map(
+            (r) =>
+              `  ${r.unp} eik=${r.contractor_eik} ${r.feed}:${r.contract_id} — no ${r.missing}`,
+          )
+          .join("\n") +
+        `\n  Run scripts/procurement/backfill_unp.ts --apply, fix the ingest that dropped the ` +
+        `field, or — if the row genuinely has no amount — add it to ACCEPTED_BLIND with the ` +
+        `reason and confirm its € exposure is zero.`,
+    );
+    // Minimal, like the other allowlist: a resolved entry must be removed, not left to license
+    // a future regression on the same pair.
+    const live = new Set(rows.map((r) => `${r.unp}/${r.contractor_eik}`));
+    assert.deepEqual(
+      [...ACCEPTED_BLIND.keys()].filter((k) => !live.has(k)),
+      [],
+      "ACCEPTED_BLIND lists pair(s) that are no longer blind — remove them",
     );
   },
 );
