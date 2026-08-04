@@ -176,17 +176,45 @@ const contestedSeatTerms = (mentions: Mention[]): Set<string> => {
 // that is genuinely one person (a councillor listed under two coalition party numbers) is
 // left split for review rather than joined. That is the correct direction to fail.
 //
-// THE NAMESAKE CAP IS ALL BUT INERT HERE, and is kept for parity rather than for protection.
-// `namesakeRisk` is `officer_name_counts.company_count` — a count of COMPANIES, which
-// `resolve_persons` already calls a flawed proxy elsewhere. Measured over the 18,935 people
-// holding a local role: 10,766 score 0 and only 657 (3.5%) exceed 12, so a mass name like
-// "Георги Иванов Георгиев" is filtered only if that particular man also sits on many boards.
-// What actually carries this rule is the seat key plus the same-cycle exclusion below — do
-// not read the cap as the reason a common name is safe here, because it mostly is not.
+// THE NAMESAKE CAP APPLIES ONLY WHERE THE SEAT IS NOT EXCLUSIVE — i.e. to `councillor`.
 //
-// The remaining guards mirror `samePartyOffice`: a full three-part name, matching patronymic,
-// nothing ambiguous, and a namesake cap.
+// It is inherited from `samePartyOffice`, and it turned out to be both the wrong instrument
+// here and the only thing still blocking the rule's headline cases. `namesakeRisk` is
+// `officer_name_counts.company_count` — a count of COMPANIES an officer-name appears in,
+// which `resolve_persons` already calls a flawed proxy elsewhere. It says nothing about how
+// many people of that name hold office, so on an exclusive seat it filters a man only if he
+// happens to sit on many boards. Measured over the 18,935 people with a local role: 10,766
+// score 0 and just 657 (3.5%) exceed 12.
+//
+// Those 657 are not a random tail. After the §A3 resolve, 53 groups (121 person records) on
+// an EXCLUSIVE seat were still split, and the cap was the sole blocker for all 53 — among
+// them the plan's own symptom #3, Георги Стоянов Георгиев, кмет на община Тунджа across
+// 2007–2019 on four person records at `namesakeRisk` 39, and кмет на BGS09 on all five
+// cycles as five records.
+//
+// Dropping it there is not a loosening so much as deleting a guard that was never doing this
+// job: one община has one кмет and one село one кмет на кметство, so on those seats the SEAT
+// identifies and the name only has to agree. The same-cycle contest exclusion above is what
+// covers the ambiguous case, and it is unaffected.
+//
+// Adjacency was considered as a replacement and REJECTED as undeliverable against this
+// corpus: 2011 and 2015 carry zero village-mayor rows, so the recurring "2007, 2019, 2023"
+// shape is a DATA GAP, not a career gap, and requiring consecutive terms would refuse a man
+// who served continuously.
+//
+// The residue this accepts, stated plainly: 4 of the 43 village groups bridge a 16-year gap
+// on a mass name (e.g. "Димитър Иванов Димитров", risk 178) with no intervening term. A
+// grandson sharing his grandfather's full name is possible in a name-concentrated village —
+// the patronymic guard excludes father/son but not that. Judged acceptable against leaving
+// 121 records split; revisit if a wrong merge is ever reported.
+//
+// `councillor` KEEPS the cap because its key is the ОБЩИНА — a council seats dozens, so the
+// exclusivity argument above does not hold and the name is doing more of the work.
 const LOCAL_SEAT_NAMESAKE_CAP = 12;
+
+/** Seats held by exactly ONE person per cycle — see `LOCAL_SEAT_NAMESAKE_CAP`. Keyed off the
+ *  role prefix `localSeatKey` writes, so it cannot drift from the key itself. */
+const EXCLUSIVE_SEAT = /^(mayor|village_mayor)\t/;
 
 const sameLocalSeat = (
   a: Mention,
@@ -195,23 +223,19 @@ const sameLocalSeat = (
 ): boolean => {
   const ta = seatTerm(a);
   const tb = seatTerm(b);
+  if (!ta || !tb) return false;
+  if (contestedTerms.has(ta) || contestedTerms.has(tb)) return false;
+  const seat = a.corroborants.localSeat!;
+  if (
+    seat !== b.corroborants.localSeat ||
+    a.corroborants.localCycle === b.corroborants.localCycle
+  )
+    return false;
+  if (a.nameParts !== 3 || b.nameParts !== 3) return false;
+  if (a.ambiguous || b.ambiguous) return false;
+  if (!a.patronymicFold || a.patronymicFold !== b.patronymicFold) return false;
+  if (EXCLUSIVE_SEAT.test(seat)) return true;
   return (
-    !!ta &&
-    !!tb &&
-    !contestedTerms.has(ta) &&
-    !contestedTerms.has(tb) &&
-    a.corroborants.localSeat === b.corroborants.localSeat &&
-    a.corroborants.localCycle !== b.corroborants.localCycle &&
-    a.nameParts === 3 &&
-    b.nameParts === 3 &&
-    !a.ambiguous &&
-    !b.ambiguous &&
-    !!a.patronymicFold &&
-    b.nameParts === 3 &&
-    !a.ambiguous &&
-    !b.ambiguous &&
-    !!a.patronymicFold &&
-    a.patronymicFold === b.patronymicFold &&
     a.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP &&
     b.namesakeRisk <= LOCAL_SEAT_NAMESAKE_CAP
   );

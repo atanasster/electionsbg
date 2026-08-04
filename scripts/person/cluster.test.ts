@@ -606,11 +606,85 @@ describe("clusterBlock", () => {
         clusterBlock([term("2019_10_27_mi"), other({ ambiguous: true })])
           .merges,
       ).toHaveLength(0);
-      // Above the cap the exclusivity argument stops carrying the merge's weight.
+    });
+
+    it("ignores the namesake cap on an EXCLUSIVE seat, honours it on a council", () => {
+      // One село has one кмет на кметство, so the SEAT identifies and a mass name does not
+      // matter — this is the plan's symptom #3 (Георги Стоянов Георгиев, кмет на Тунджа
+      // 2007-2019 on four records at namesakeRisk 39, blocked by nothing but the cap).
       expect(
         clusterBlock([
           term("2019_10_27_mi", { namesakeRisk: 198 }),
-          other({ namesakeRisk: 198 }),
+          term("2023_10_29_mi", { id: "local:b", namesakeRisk: 198 }),
+        ]).merges,
+      ).toHaveLength(1);
+      // Same for a кмет на община, whose seat key is built off the ref.
+      const mayorSeat = "mayor\tJAM25:mayor";
+      expect(
+        clusterBlock([
+          term("2007_10_28_mi", {
+            namesakeRisk: 39,
+            corroborants: { localSeat: mayorSeat, localCycle: "2007_10_28_mi" },
+          }),
+          term("2011_10_23_mi", {
+            id: "local:b",
+            namesakeRisk: 39,
+            corroborants: { localSeat: mayorSeat, localCycle: "2011_10_23_mi" },
+          }),
+        ]).merges,
+      ).toHaveLength(1);
+      // A COUNCIL is not exclusive — it seats dozens — so the cap still applies there.
+      const council = "councillor\tVID09";
+      const councillor = (cycle: string, id: string) =>
+        term(cycle, {
+          id,
+          namesakeRisk: 198,
+          corroborants: { localSeat: council, localCycle: cycle },
+        });
+      expect(
+        clusterBlock([
+          councillor("2019_10_27_mi", "local:a"),
+          councillor("2023_10_29_mi", "local:b"),
+        ]).merges,
+      ).toHaveLength(0);
+      // ...and under the cap it merges, so the guard above is the cap and not the key.
+      expect(
+        clusterBlock([
+          { ...councillor("2019_10_27_mi", "local:a"), namesakeRisk: 4 },
+          { ...councillor("2023_10_29_mi", "local:b"), namesakeRisk: 4 },
+        ]).merges,
+      ).toHaveLength(1);
+    });
+
+    it("keeps every other guard on an exclusive seat, cap or no cap", () => {
+      // Dropping the cap must not turn the exclusive seat into a free pass: a conflicting
+      // patronymic, a 2-part name and a same-cycle contest all still refuse.
+      const hi = { namesakeRisk: 198 };
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi", hi),
+          term("2023_10_29_mi", {
+            id: "local:b",
+            ...hi,
+            patronymicFold: "petrov",
+          }),
+        ]).merges,
+      ).toHaveLength(0);
+      expect(
+        clusterBlock([
+          term("2019_10_27_mi", { ...hi, nameParts: 2, patronymicFold: null }),
+          term("2023_10_29_mi", {
+            id: "local:b",
+            ...hi,
+            nameParts: 2,
+            patronymicFold: null,
+          }),
+        ]).merges,
+      ).toHaveLength(0);
+      expect(
+        clusterBlock([
+          term("2023_10_29_mi", { id: "local:a", ...hi }),
+          term("2023_10_29_mi", { id: "local:b", ...hi }),
         ]).merges,
       ).toHaveLength(0);
     });

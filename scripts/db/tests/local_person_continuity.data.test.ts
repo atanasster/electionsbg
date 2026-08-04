@@ -9,9 +9,9 @@
 // role) groups spanning 1,402 person records — five-term mayors on five separate /person
 // pages, 498 of the groups touching the sitting mandate.
 //
-// The two assertions below are the two ways this can go wrong, and they pull in OPPOSITE
-// directions on purpose — one fails if the rule stops merging, the other if it starts
-// over-merging. A single-sided gate on either would be satisfied by disabling the rule.
+// The assertions below pull in OPPOSITE directions on purpose: the first fails if the rule
+// starts over-merging, the next two if it stops merging, and the last if a merge left a URL
+// behind. A gate in only one of those directions would be satisfied by disabling the rule.
 //
 // Auto-skips when Postgres is down or the local walk has not run, like the other
 // *.data.test.ts gates.
@@ -105,13 +105,14 @@ test.skipIf(skip)(
 // the suite notices: every role still exists, every page still serves, the officeholder
 // simply has several of them again. So pin the collapse itself.
 //
-// Measured immediately after the §A3 resolve: 112 groups over 247 person records, down from
-// 640 / 1,402. The residue is real and expected — a two-part name, an ambiguous 4+ token
-// name, a patronymic that differs between cycles, a village mayor whose кметство name §T2
-// could not resolve to a settlement, or a namesake above the cap. The ceiling is set with
-// room above the measurement so ordinary source churn does not trip it, while still being
-// far below the 640 that would mean the rule stopped firing.
-const SPLIT_GROUPS_MAX = 200;
+// Measured after the §A3 resolve with the exclusive-seat carve-out: 59 groups over 126
+// person records, down from 640 / 1,402. The residue is real and expected — a two-part name,
+// an ambiguous 4+ token name, a patronymic that differs between cycles, a village mayor
+// whose кметство name §T2 could not resolve to a settlement, or a COUNCILLOR above the
+// namesake cap (councils keep the cap because their seat is not exclusive). The ceiling has
+// room above the measurement so ordinary source churn does not trip it, while staying far
+// below the 640 that would mean the rule stopped firing.
+const SPLIT_GROUPS_MAX = 110;
 
 test.skipIf(skip)(
   "A3 — the cross-cycle continuity merge actually collapsed the split officeholders",
@@ -133,6 +134,61 @@ test.skipIf(skip)(
         `to the pre-fix level: sameLocalSeat has probably stopped firing — check that ` +
         `localSeatKey still returns a key for mayor/councillor/village_mayor and that ` +
         `resolve_persons still passes localSeat/localCycle into the corroborants.`,
+    );
+  },
+);
+
+// The exclusive-seat carve-out, asserted as a ZERO rather than a bound — because on a seat
+// held by one person per cycle there is no honest reason for the same full name to sit on
+// two person records. `sameLocalSeat` drops the namesake cap there precisely so this can be
+// zero; before the carve-out it was 53 groups over 121 person records, every one of them
+// blocked by the cap alone and nothing else.
+//
+// The qualifiers mirror the rule's own guards, so a group EXCLUDED here is one the rule is
+// entitled to refuse: a 3-part name with a patronymic (`name_parts`/`patronymic_fold`), and
+// one term per cycle (`count(DISTINCT cycle) = count(*)`) — a same-cycle contest must stay
+// split, so counting it would assert the opposite of what the rule promises.
+test.skipIf(skip)(
+  "A3 — nobody is still split across cycles on a seat only one person can hold",
+  async () => {
+    const rows = await allRows<{
+      display_name: string;
+      seat: string;
+      records: number;
+      cycles: string;
+    }>(
+      `WITH k AS (
+         SELECT r.person_id, p.display_name, p.name_fold, p.patronymic_fold, p.name_parts,
+                split_part(r.ref, ':', 1) AS cycle,
+                CASE WHEN r.role = 'mayor'
+                       THEN 'mayor|' || split_part(r.ref, ':', 2)
+                     WHEN r.role = 'village_mayor' AND r.place_kind = 'settlement'
+                       THEN 'village_mayor|' || r.place_code END AS seat
+           FROM person_role r JOIN person p USING (person_id)
+          WHERE r.source = 'local'
+       )
+       SELECT max(display_name) AS display_name, seat,
+              count(DISTINCT person_id)::int AS records,
+              string_agg(DISTINCT cycle, ',' ORDER BY cycle) AS cycles
+         FROM k
+        WHERE seat IS NOT NULL AND name_parts = 3 AND patronymic_fold IS NOT NULL
+        GROUP BY seat, name_fold, patronymic_fold
+       HAVING count(DISTINCT person_id) > 1 AND count(DISTINCT cycle) = count(*)
+        ORDER BY records DESC LIMIT 5`,
+    );
+    assert.deepEqual(
+      rows,
+      [],
+      `an exclusive seat (кмет на община / кмет на кметство) holds one person per cycle, yet ` +
+        `the same full name sits on several person records across cycles: ` +
+        rows
+          .map(
+            (r) =>
+              `${r.display_name} ${r.seat} ${r.records} records (${r.cycles})`,
+          )
+          .join("; ") +
+        `. sameLocalSeat should have merged these — check EXCLUSIVE_SEAT still matches the ` +
+        `role prefixes localSeatKey writes.`,
     );
   },
 );

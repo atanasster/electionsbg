@@ -141,10 +141,31 @@ from the proposal above, both forced by what the data turned out to be:
   we cannot say which is the S of 2019. This was wrong in the first draft and caught in review;
   live instance is Валери Иванов Василев, VID09, elected from two lists on one council in 2023.
 
-The namesake cap is carried over from `samePartyOffice` for parity but is **near-inert here** and
-must not be read as the protection: `namesakeRisk` counts COMPANIES, and of the 18,935 people
-holding a local role 10,766 score 0 while only 657 (3.5%) exceed 12. The seat key plus the
-same-cycle exclusion are what carry the rule.
+**The namesake cap applies only to `councillor`.** It came over from `samePartyOffice`, and the
+first data run showed it was both the wrong instrument and the only thing still blocking the
+rule's headline cases. `namesakeRisk` counts COMPANIES an officer-name appears in — it says
+nothing about how many people of that name hold office — so on an exclusive seat it filters a man
+only if he happens to sit on many boards. Of the 18,935 people with a local role, 10,766 score 0
+and 657 (3.5%) exceed 12.
+
+Those 657 were not a random tail: after the first resolve, **53 groups (121 person records) on an
+exclusive seat were still split, and the cap was the sole blocker for all 53** — among them this
+plan's own symptom #3, Георги Стоянов Георгиев, кмет на Тунджа 2007–2019 on four records at risk
+39, and the кмет of BGS09 on all five cycles as five records. One община has one кмет and one село
+one кмет на кметство, so on those seats the SEAT identifies and the name only has to agree; the
+same-cycle contest exclusion covers the ambiguous case and is unaffected. A council is not
+exclusive, so `councillor` keeps the cap.
+
+**Adjacency was considered as a replacement and rejected as undeliverable against this corpus**:
+2011 and 2015 carry zero village-mayor rows, so the recurring "2007, 2019, 2023" shape is a DATA
+GAP rather than a career gap, and requiring consecutive terms would refuse a man who served
+continuously.
+
+Accepted residue, stated so nobody has to re-derive it: 4 of the 43 village groups bridge a
+16-year gap on a mass name (e.g. "Димитър Иванов Димитров", risk 178) with no intervening term.
+The patronymic guard excludes a father/son pair but not a grandson sharing his grandfather's full
+name, which is possible in a name-concentrated village. Judged acceptable against leaving 121
+records split; revisit if a wrong merge is ever reported.
 
 ---
 
