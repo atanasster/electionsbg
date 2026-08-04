@@ -311,6 +311,146 @@ export const analyzeCrossSource = (
   };
 };
 
+/**
+ * THE VALIDATION PROTOCOL. Pure, so it is unit-testable — "the pass may not write without it"
+ * only means something if the checks themselves are proven to fire.
+ *
+ * Returns a list of problems. Non-empty means: abort, write nothing, exit non-zero.
+ *
+ * Every check here exists because its absence shipped. The two that are easiest to get subtly
+ * wrong, and were:
+ *
+ *   - the orphan check must key on the PROCEDURE (УНП, tag), never on (УНП, contract number,
+ *     tag). Identity E exists precisely because the feeds number the same contract differently,
+ *     so a correct eviction always empties the losing side's contract NUMBER. A number-keyed
+ *     check reads every correct eviction as an orphan and blocks all of them;
+ *   - the survivor check must run against the WRITTEN corpus. v1 §10.8 shipped one that filtered
+ *     a candidate list emptied earlier in the same function — provably empty, so it could never
+ *     fail, which is indistinguishable from passing.
+ */
+export const verifyEviction = (input: {
+  before: Contract[];
+  after: Contract[];
+  analysis: CrossSourceAnalysis;
+}): string[] => {
+  const { before, after, analysis } = input;
+  const { evictions } = analysis;
+  const problems: string[] = [];
+  const sum = (rows: Contract[]): number =>
+    rows.reduce((s, r) => s + (r.amountEur ?? 0), 0);
+  const evictedEur = sum(evictions.map((e) => e.row));
+
+  // DEFENCE IN DEPTH — the next two checks are UNREACHABLE from `analyzeCrossSource` as it
+  // stands (it dedups by row and pairs only within an identity-E group). They are kept, and
+  // unit-tested against hand-built analyses, because they are cheap and because both describe
+  // failures that shipped once from a producer that also "could not" produce them. Being
+  // unreachable is only safe while the producer is the one that made them so.
+
+  // Each row may be evicted only once. `evictions` is built from a Map keyed by row, so a repeat
+  // means that invariant broke upstream — and a repeated row makes every total below wrong.
+  const distinct = new Set(evictions.map((e) => e.row));
+  if (distinct.size !== evictions.length)
+    problems.push(
+      `evictions lists ${evictions.length} entries for ${distinct.size} distinct rows — ` +
+        `every € and count below is inflated`,
+    );
+
+  // A named survivor that is itself on the way out is not a survivor.
+  const written = new Set(after);
+  const lost = evictions.filter((e) => !written.has(e.survivor));
+  if (lost.length)
+    problems.push(
+      `${lost.length} eviction(s) name a survivor that is ITSELF evicted: ` +
+        lost
+          .slice(0, 3)
+          .map((e) => `${describeRow(e.row)} → ${describeRow(e.survivor)}`)
+          .join(" | "),
+    );
+
+  // …and the survivor must be the same contract, not merely some surviving row.
+  const mismatched = evictions.filter(
+    (e) => identityE(e.survivor) !== identityE(e.row),
+  );
+  if (mismatched.length)
+    problems.push(
+      `${mismatched.length} eviction(s) name a survivor with a DIFFERENT identity E: ` +
+        mismatched
+          .slice(0, 3)
+          .map((e) => describeRow(e.row))
+          .join(" | "),
+    );
+
+  // NO PROCEDURE MAY DISAPPEAR — checked over the WHOLE corpus, not just the evicted rows.
+  //
+  // Scoping it to evicted rows would make it unreachable, and unreachable is how the last dead
+  // assertion got shipped: an evicted row's survivor carries the same identity E, hence the same
+  // УНП, so if the survivor is present the procedure is present — the check could only fire in
+  // cases the survivor check above already catches. Comparing the full before/after procedure
+  // sets instead catches over-deletion from ANY cause, including a shard-write bug dropping rows
+  // this pass never selected.
+  //
+  // Keyed (УНП, tag), NEVER (УНП, contract number, tag). Identity E exists precisely because the
+  // feeds number the same contract differently, so a correct eviction always empties the losing
+  // side's contract NUMBER; a number-keyed check reads every correct eviction as an orphan and
+  // would block all 74 of them.
+  const procedureKey = (r: Contract): string => `${r.unp ?? ""}${SEP}${r.tag}`;
+  const after_ = new Set(after.map(procedureKey));
+  const vanished = [...new Set(before.map(procedureKey))].filter(
+    (k) => !after_.has(k),
+  );
+  if (vanished.length)
+    problems.push(
+      `${vanished.length} procedure(s) present before are GONE after: ` +
+        vanished
+          .slice(0, 5)
+          .map((k) => k.replace(SEP, "/"))
+          .join(", "),
+    );
+
+  if (after.length !== before.length - evictions.length)
+    problems.push(
+      `row count moved by ${after.length - before.length}, expected ${-evictions.length}`,
+    );
+
+  // € delta == Σ evicted. Tolerance scales with the corpus rather than sitting at a flat cent:
+  // this is a naive left-to-right sum of ~406k doubles totalling ~€99.24bn, where measured float
+  // drift is already ~€0.007 — a flat €0.01 leaves ~30% headroom and would start failing on a
+  // correct run as the corpus grows. One millionth of the total is far below any real
+  // mis-attribution (the smallest evictable row here is €12.58) and far above summation noise.
+  const delta = sum(before) - sum(after);
+  const tolerance = Math.max(0.01, Math.abs(sum(before)) * 1e-9);
+  if (Math.abs(delta - evictedEur) > tolerance)
+    problems.push(
+      `€ delta ${delta.toFixed(2)} ≠ Σ evicted ${evictedEur.toFixed(2)} ` +
+        `(tolerance ${tolerance.toFixed(4)})`,
+    );
+
+  // ELIGIBLE WORK MUST ACTUALLY HAPPEN. An eligible side-pair has passed every precondition, so
+  // producing none of its evictions means the two halves of this module disagree.
+  //
+  // KEYED ON `eligible`, NOT on "any candidate". A first version counted blocked + ambiguous
+  // pairs too, which breaks the STEADY STATE: those 12 items (5 blocked, 7 ambiguous) are
+  // permanent by design, so the second run — over the corpus the first run wrote — found 0
+  // evictions against 12 standing candidates and exited 1. `db:refresh` chains this with `&&`,
+  // so every subsequent refresh would have halted at step 3 of ~40. A pass that cannot be run
+  // twice is not idempotent, and this one is meant to run on every ingest.
+  const eligible = analysis.sidePairs.filter((p) => p.eligible).length;
+  if (eligible > 0 && evictions.length === 0)
+    problems.push(
+      `${eligible} eligible side-pair(s) produced ZERO evictions — the analysis and the ` +
+        `eviction set disagree`,
+    );
+
+  // WHAT THIS CANNOT SEE, stated so nobody mistakes a green run for proof. The original defect
+  // was "29 candidates found, 29 blocked, 0 evicted, ✓ verification passed". Its successor —
+  // identity E silently stopping matching — produces ZERO candidates, and no self-check inside
+  // this function can distinguish that from a clean corpus: both look like "nothing to do".
+  // Detecting it needs an INDEPENDENT view of the loaded corpus, which is
+  // single_source_per_contract.data.test.ts. That gate, not this one, is the blindness alarm.
+
+  return problems;
+};
+
 /** One-line, fully-identified description of a row. Used everywhere a row is reported, because
  *  every failure in this area reported a plausible COUNT while corrupting data — a count is not
  *  evidence, a named row is. */

@@ -28,7 +28,13 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { hashKey } from "./contract_key";
-import { evictSupersededEopTwins, isEopSourced } from "./content_key";
+import { feedOf } from "./content_key";
+import {
+  analyzeCrossSource,
+  describeRow,
+  signingDay,
+  verifyEviction,
+} from "./cross_source";
 import type { Contract } from "./types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -66,9 +72,36 @@ const loadBridge = (): Map<string, BridgeEntry> => {
   return m;
 };
 
-// Contract identity for the verification stage — post-backfill both feeds carry a УНП.
-const contractOf = (r: Contract): string =>
-  `${r.unp ?? ""}::${r.contractId ?? ""}::${r.tag}`;
+/** Report how many `procurement_annexes` ROWS the eviction set orphans. Counts annex rows, not
+ *  evictions: one contract amended several times carries several, and it is the rows that lose
+ *  their target. Best-effort — a missing database reports "could not check", never "zero". */
+const reportAnnexImpact = async (evictedKeys: string[]): Promise<void> => {
+  if (!evictedKeys.length) return;
+  try {
+    const { allRows, end } = await import("../db/lib/pg");
+    const [r] = await allRows<{ n: string; k: string }>(
+      `SELECT count(*)::text AS n, count(DISTINCT contract_key)::text AS k
+         FROM procurement_annexes WHERE contract_key = ANY($1)`,
+      [evictedKeys],
+    );
+    await end();
+    const n = Number(r?.n ?? 0);
+    if (n)
+      console.log(
+        `annexes — ${n} procurement_annexes row(s) across ${r.k} contract key(s) lose their ` +
+          `target. Re-resolve them:  npm run db:load:annexes:pg   (…:cloud on the served side)`,
+      );
+    else
+      console.log(
+        "annexes — no procurement_annexes row targets an evicted row",
+      );
+  } catch {
+    console.log(
+      "annexes — could not check (no database reachable). Run `npm run db:load:annexes:pg` " +
+        "after the reload regardless; it re-resolves against contracts.",
+    );
+  }
+};
 
 // Re-mint a row's key for a new contractor id, using the formula that ACTUALLY produced its
 // current key rather than assuming one.
@@ -103,11 +136,15 @@ const isYearDir = (n: string): boolean => /^\d{4}$/.test(n);
 
 // PREFLIGHT — refuse to run before backfill_unp.ts.
 //
-// Out of order this pass does not fail, it destroys: with `unp` absent, `contractOf` degrades to
-// (contractId, tag), which is effectively the (buyer, contract number, tag) key that removed 46
-// legitimate rows / €5.15m in an earlier attempt. Simulated on this corpus: 26 evictions,
-// €184,136,811.83, all 26 against a DIFFERENT procedure — and stage 3 stayed green, because its
-// checks cannot see a wrong-but-consistent eviction.
+// The DESTRUCTIVE failure this originally guarded is gone: identity E requires a `unp`, so an
+// unbackfilled corpus now yields 0 groups and 0 evictions rather than the 26 wrong evictions
+// (€184,136,811.83, all against a DIFFERENT procedure) the old contract-number-keyed identity
+// produced. Re-measured after the identity change, not assumed.
+//
+// It is still load-bearing, for the opposite reason: a pre-backfill run is a SILENT no-op. It
+// evicts nothing, proposes nothing, and every check in stage 3 passes — so without this
+// preflight the pass would report success on a corpus it never had the keys to reconcile, and
+// the operator would move on believing the step had run.
 //
 // Empirically the corpus sits at ~71% УНП coverage after backfill_unp (289,449 of 405,711); the
 // floor is set well below that but far above the near-zero of an unbackfilled tree.
@@ -129,7 +166,7 @@ const preflight = (rows: Contract[]): void => {
   );
 };
 
-const main = (): void => {
+const main = async (): Promise<void> => {
   const bridge = loadBridge();
   const shards = new Map<string, Contract[]>();
   for (const y of fs.readdirSync(MONTH_DIR).filter(isYearDir)) {
@@ -174,56 +211,59 @@ const main = (): void => {
     }
   }
 
-  // ── STAGE 2 — cross-source eviction, now that both sides share a supplier identity.
+  // ── STAGE 2 — cross-source eviction on identity E, now that both sides share a supplier
+  // identity AND (post-backfill) a УНП.
   //
-  // CORPUS-WIDE, not per shard. Shard placement is driven by `date`, and the two feeds date the
-  // same contract differently — `date_signed` differed on 9 of 9 identical-supplier pairs — so a
-  // twin pair routinely straddles two month files. 05397-2020-0006/103 is the worked example:
-  // the OCDS row sits in 2020-11.json (2020-11-20) and its EOP twin in 2020-12.json
-  // (2020-12-18), same supplier EIK 130545438 and same buyer. A per-shard pass silently cannot
-  // pair them, which looks identical to "no duplicate found".
+  // WHAT CHANGED, AND WHY THE OLD SHAPE FOUND NOTHING. This stage used to run
+  // `evictSupersededEopTwins` over an eop-vs-everything-else split and then check for a survivor
+  // on (УНП, contract number, tag). Both halves were wrong:
+  //
+  //   - The two-feed split cannot express `aop`↔`rop` or `aop`↔`ocds` at all, because neither
+  //     side is `eop-`. That is 11 of the 73 resolvable side-pairs.
+  //   - `contract_id` DIFFERS across feeds on ~99% of real twins, so the survivor check blocked
+  //     essentially everything: measured 29 candidates, 29 blocked, 0 evicted — and it printed
+  //     "✓ verification passed" over the no-op, because the checks could not tell "nothing to do"
+  //     from "everything blocked". The non-zero-work assertion in stage 3 now closes that.
+  //
+  // The analysis itself lives in cross_source.ts, shared with the read-only harness so the two
+  // can never report different populations. CORPUS-WIDE, not per shard: shard placement is driven
+  // by `date`, and the feeds date the same contract differently, so a twin pair routinely
+  // straddles two month files — a per-shard pass silently cannot pair them, which looks identical
+  // to "no duplicate found".
   const allRows = [...shards.values()].flat();
-  const eop = allRows.filter(isEopSourced);
-  const auth = allRows.filter((r) => !isEopSourced(r));
-  const { kept } = evictSupersededEopTwins(eop, auth);
-  const keptSet = new Set(kept);
-  const evictions: Array<{ row: Contract; survivors: Contract[] }> = [];
-  // Survivors are looked up by contract identity across the whole corpus, for the same reason.
-  const authByContract = new Map<string, Contract[]>();
-  for (const a of auth) {
-    const c = contractOf(a);
-    const arr = authByContract.get(c);
-    if (arr) arr.push(a);
-    else authByContract.set(c, [a]);
-  }
-  // A STRICTER survivor check than the library's, and this is the right place for it. The
-  // precondition inside evictSupersededEopTwins is deliberately УНП-free so it stays computable
-  // at parse time, where the OCDS export has no УНП. Corpus-wide that is too permissive: buyers
-  // reuse contract numbers across procedures, so (buyer, contract number, tag) finds a
-  // "survivor" belonging to a different award, and the `f:` net — buyer + supplier + date +
-  // amount, no contract number — then supplies a bogus match. Measured: 29 evictions whose own
-  // contract had no row left, including 01379-2020-0146/0032-МЕР at €7.66m.
-  //
-  // Here, post-backfill, both feeds carry the УНП, so the full contract identity is available
-  // and is used. Candidates without a same-contract survivor are simply not evicted rather than
-  // aborting the run — a permissive matcher proposing a bad candidate is expected; acting on it
-  // is what must not happen.
-  const blockedRows: Contract[] = [];
-  for (const r of eop) {
-    if (keptSet.has(r)) continue;
-    const survivors = authByContract.get(contractOf(r)) ?? [];
-    if (!survivors.length) {
-      blockedRows.push(r);
-      continue;
-    }
-    evictions.push({ row: r, survivors });
-  }
-  const blocked = blockedRows.length;
-  if (blocked) {
+  const analysis = analyzeCrossSource(allRows);
+  const { evictions } = analysis;
+
+  // BLOCKED WORK IS PRINTED IN FULL, ALWAYS — never summarised to a count. Each of these is a
+  // human-triage item, and a count tells nobody which.
+  if (analysis.ambiguous.length) {
     console.log(
-      `stage 2 — ${blocked} candidate(s) BLOCKED: matched a row from another contract`,
+      `stage 2 — ${analysis.ambiguous.length} AMBIGUOUS group(s): a feed contributed >1 row, so ` +
+        `no 1:1 twin exists. Left in place.`,
     );
+    for (const g of analysis.ambiguous) {
+      const shape = [...new Set(g.rows.map(feedOf))]
+        .map((f) => `${f}×${g.rows.filter((r) => feedOf(r) === f).length}`)
+        .join(" ");
+      console.log(
+        `   ${g.rows[0].unp}  ${shape}  eik=${g.rows[0].contractorEik} ` +
+          `€${(g.rows[0].amountEur ?? 0).toFixed(2)} signed=${signingDay(g.rows[0])}`,
+      );
+    }
   }
+  if (analysis.blocked.length) {
+    console.log(
+      `stage 2 — ${analysis.blocked.length} side-pair(s) BLOCKED by a precondition:`,
+    );
+    for (const p of analysis.blocked)
+      console.log(
+        `   ${p.winner.unp}  keep ${p.winner.feed}:${p.winner.contractId} ` +
+          `(${p.winner.rows.length} row(s), €${p.winner.eur.toFixed(2)})  vs  ` +
+          `${p.loser.feed}:${p.loser.contractId} (${p.loser.rows.length} row(s), ` +
+          `€${p.loser.eur.toFixed(2)})  matched=${p.matched} — ${p.blockedReason}`,
+      );
+  }
+
   if (evictions.length) {
     const dropped = new Set(evictions.map((e) => e.row));
     for (const [p, rows] of shards) {
@@ -236,56 +276,40 @@ const main = (): void => {
   }
 
   // ── STAGE 3 — verify BEFORE writing. Every failure in this area reported a plausible count
-  // while corrupting data, so the checks are on pairs and totals, and any violation aborts.
-  const orphans = evictions.filter((e) => e.survivors.length === 0);
-  const afterRows = [...shards.values()].reduce((s, r) => s + r.length, 0);
-  const afterEur = [...shards.values()]
-    .flat()
-    .reduce((s, r) => s + (r.amountEur ?? 0), 0);
+  // while corrupting data, so the checks are on named pairs and totals, and any violation aborts.
+  const afterAll = [...shards.values()].flat();
+  const afterRows = afterAll.length;
+  const afterEur = afterAll.reduce((s, r) => s + (r.amountEur ?? 0), 0);
   const evictedEur = evictions.reduce((s, e) => s + (e.row.amountEur ?? 0), 0);
 
   console.log(`stage 1 — bridged ${bridged} row(s) via ${bridge.size} entries`);
   console.log(
-    `stage 2 — evicted ${evictions.length} row(s), €${evictedEur.toFixed(2)}`,
+    `stage 2 — evicted ${evictions.length} row(s), €${evictedEur.toFixed(2)} ` +
+      `from ${analysis.sidePairs.filter((p) => p.eligible).length} eligible side-pair(s)`,
   );
-  for (const e of evictions.slice(0, 20)) {
-    console.log(
-      `   ${e.row.unp}/${e.row.contractId} ${(e.row.contractorName ?? "").slice(0, 24)} ` +
-        `€${(e.row.amountEur ?? 0).toFixed(2)} → survivor: ` +
-        `${(e.survivors[0]?.contractorName ?? "NONE").slice(0, 24)}`,
-    );
-  }
+  // (1) PAIRS, NEVER COUNTS. Both sides fully identified, so an eviction can be checked against
+  // the source by hand rather than taken on trust.
+  for (const e of evictions.slice(0, 20))
+    console.log(`   ${describeRow(e.row)}\n     → ${describeRow(e.survivor)}`);
   if (evictions.length > 20) console.log(`   … ${evictions.length - 20} more`);
 
-  const problems: string[] = [];
-  // NOT the `orphans` filter over `evictions` — that is provably empty, because a candidate
-  // without a survivor is `continue`d above and never pushed. A first draft asserted exactly
-  // that and was therefore a dead check that could never fail. The real post-condition is over
-  // the WRITTEN corpus: every contract that lost a row must still have one.
-  if (orphans.length)
-    problems.push(
-      `internal: ${orphans.length} eviction(s) recorded with no survivor — unreachable, ` +
-        `the candidate filter should have blocked them`,
-    );
-  const survivingContracts = new Set(
-    [...shards.values()].flat().map(contractOf),
-  );
-  const emptied = [...new Set(evictions.map((e) => contractOf(e.row)))].filter(
-    (c) => !survivingContracts.has(c),
-  );
-  if (emptied.length)
-    problems.push(
-      `${emptied.length} contract(s) have NO row left after eviction: ` +
-        `${emptied.slice(0, 5).join(", ")}`,
-    );
-  if (afterRows !== beforeRows - evictions.length)
-    problems.push(
-      `row count moved by ${afterRows - beforeRows}, expected ${-evictions.length}`,
-    );
-  if (Math.abs(beforeEur - afterEur - evictedEur) > 0.01)
-    problems.push(
-      `€ delta ${(beforeEur - afterEur).toFixed(2)} ≠ Σ evicted ${evictedEur.toFixed(2)}`,
-    );
+  // THE VALIDATION PROTOCOL, extracted to cross_source.ts so the checks themselves are
+  // unit-tested. "The pass may not write without it" only means something if each check is
+  // proven to fire — see cross_source.test.ts, which restores each defect and asserts the
+  // corresponding problem is reported.
+  //
+  // It covers plan §T3 items 1-5 and 7 (pairs not counts, named surviving twin, no procedure
+  // lost, € delta, row-count delta, eligible-work-actually-done) plus the annex report (8)
+  // below. Item 6 — reconciling per-contract totals against the PUBLISHED contract value — is
+  // NOT implemented here and is the one external cross-check missing: everything above is an
+  // internal consistency check on the analysis, so a mis-attribution both halves agree on would
+  // pass. The published value lives in the tender corpus, which this pass does not load;
+  // `invariants_pg.data.test.ts` and the amount_overrides canary cover it post-load instead.
+  const problems = verifyEviction({
+    before: allRows,
+    after: afterAll,
+    analysis,
+  });
 
   console.log(
     `stage 3 — rows ${beforeRows} → ${afterRows}; € ${beforeEur.toFixed(2)} → ${afterEur.toFixed(2)}`,
@@ -298,6 +322,16 @@ const main = (): void => {
   }
   console.log("✓ verification passed");
 
+  // (8) ANNEX ACCOUNTING — a required, visible consequence rather than a failure.
+  // `procurement_annexes.contract_key` points at `contracts.key`, so an evicted row orphans its
+  // annexes until `db:load:annexes:pg` re-resolves them against the reloaded corpus. Nothing
+  // runs that automatically on the cloud side, and a skipped reload silently drops those annexes
+  // from the per-annex breakdown and the чл.116 ал.2/ал.3 labelling on the contract page.
+  //
+  // Postgres-only and best-effort: on a machine with no database this reports that it could not
+  // check, which is different from reporting zero.
+  await reportAnnexImpact(evictions.map((e) => e.row.key));
+
   if (!APPLY) {
     console.log("\nDRY RUN — pass --apply to write");
     return;
@@ -307,8 +341,11 @@ const main = (): void => {
   }
   console.log(`applied — wrote ${shards.size} shard(s)`);
   console.log(
-    "Next: npx tsx scripts/procurement/rebuild_from_cache.ts && npm run db:load:pg",
+    "Next: npm run proc:rebuild-derived && npm run db:load:pg && npm run db:load:annexes:pg",
   );
 };
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
+});

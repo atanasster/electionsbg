@@ -18,6 +18,7 @@ import {
   isSyntheticCarrier,
   sideKey,
   signingDay,
+  verifyEviction,
 } from "./cross_source";
 import type { Contract } from "./types";
 
@@ -330,6 +331,181 @@ describe("the transitivity guard", () => {
     // Whatever survives, no eviction may name a survivor that is itself evicted.
     const gone = new Set(r.evictions.map((e) => e.row));
     expect(r.evictions.every((e) => !gone.has(e.survivor))).toBe(true);
+  });
+});
+
+describe("the validation protocol fires on each defect it exists for", () => {
+  // Each case RESTORES a specific defect and asserts the corresponding problem is reported.
+  // A protocol whose checks are never seen to fail is indistinguishable from no protocol —
+  // which is exactly what shipped: an assertion filtering a provably-empty list, printing
+  // "✓ verification passed" over a corpus it never examined.
+  const corpus = (): Contract[] => [
+    row({ feed: "aop", unp: "A-1", contractId: "1", eur: 100 }),
+    row({ feed: "eop", unp: "A-1", contractId: "X", eur: 100 }),
+  ];
+
+  test("a correct eviction reports no problems", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    const gone = new Set(a.evictions.map((e) => e.row));
+    const after = before.filter((r) => !gone.has(r));
+    expect(verifyEviction({ before, after, analysis: a })).toEqual([]);
+  });
+
+  test("catches a row-count delta that disagrees with the eviction count", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    // Nothing actually removed, but an eviction claimed.
+    const problems = verifyEviction({ before, after: before, analysis: a });
+    expect(problems.join(" ")).toMatch(/row count moved by 0, expected -1/);
+  });
+
+  test("catches a € delta that disagrees with Σ evicted", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    const gone = new Set(a.evictions.map((e) => e.row));
+    // Right number of rows removed — but the wrong one, so the € cannot reconcile.
+    const wrong = before.filter((r) => !gone.has(r));
+    const after = [{ ...wrong[0], amountEur: 999 } as Contract];
+    expect(verifyEviction({ before, after, analysis: a }).join(" ")).toMatch(
+      /€ delta .* ≠ Σ evicted/,
+    );
+  });
+
+  test("catches a survivor that is itself evicted", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    // Remove BOTH — the survivor no longer survives.
+    expect(
+      verifyEviction({ before, after: [], analysis: a }).join(" "),
+    ).toMatch(/name a survivor that is ITSELF evicted/);
+  });
+
+  test("catches a procedure that vanished — even one this pass never selected", () => {
+    // Over-deletion from a cause OUTSIDE the eviction set: a shard-write bug removing an
+    // unrelated procedure. Scoping this check to evicted rows would make it unreachable (an
+    // evicted row's survivor carries the same УНП, so the survivor check already covers that
+    // case) — which is precisely the dead-assertion defect v1 §10.8 shipped.
+    const before = [...corpus(), row({ feed: "aop", unp: "Z-9", eur: 42 })];
+    const a = analyzeCrossSource(before);
+    const gone = new Set(a.evictions.map((e) => e.row));
+    const after = before.filter((r) => !gone.has(r) && r.unp !== "Z-9");
+    const problems = verifyEviction({ before, after, analysis: a }).join(" ");
+    expect(problems).toMatch(
+      /procedure\(s\) present before are GONE after: Z-9/,
+    );
+  });
+
+  test("catches an eviction whose survivor was also removed", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    const after = before.filter((r) => r !== a.evictions[0].survivor);
+    expect(verifyEviction({ before, after, analysis: a }).join(" ")).toMatch(
+      /name a survivor that is ITSELF evicted/,
+    );
+  });
+
+  test("the orphan check keys on the PROCEDURE, not the contract number", () => {
+    // The regression that would silently re-blind the pass: a correct eviction always empties
+    // the LOSING side's contract number, because the feeds number the same contract differently.
+    // Keying the orphan check on the number therefore flags every correct eviction.
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    const gone = new Set(a.evictions.map((e) => e.row));
+    const after = before.filter((r) => !gone.has(r));
+    // The evicted row's contract_id ("X") is now absent from the corpus entirely...
+    expect(after.some((r) => r.contractId === "X")).toBe(false);
+    // ...and that must NOT be reported as an orphan.
+    expect(verifyEviction({ before, after, analysis: a })).toEqual([]);
+  });
+
+  test("catches eligible side-pairs that produced no evictions", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    expect(a.sidePairs.filter((p) => p.eligible).length).toBeGreaterThan(0);
+    // Same analysis, but the eviction set emptied — the two halves disagreeing.
+    const empty = { ...a, evictions: [] };
+    expect(
+      verifyEviction({ before, after: before, analysis: empty }).join(" "),
+    ).toMatch(/eligible side-pair\(s\) produced ZERO evictions/);
+  });
+
+  // THE STEADY STATE. This pass runs on every ingest and is chained into db:refresh with `&&`,
+  // so it must be idempotent: a second run over the corpus the first run wrote must be a clean
+  // no-op. A first version of the eligible-work check counted BLOCKED and AMBIGUOUS items as
+  // outstanding candidates — they are permanent by design — so run 2 saw 12 standing candidates
+  // against 0 evictions and exited 1, which would have halted every subsequent db:refresh at
+  // step 3 of ~40.
+  test("is idempotent — a second run over its own output is a clean no-op", () => {
+    const before = [
+      row({ feed: "aop", unp: "A-1", contractId: "1", eur: 100 }),
+      row({ feed: "eop", unp: "A-1", contractId: "X", eur: 100 }),
+      // permanently blocked (supplier sets differ)
+      row({ feed: "aop", unp: "B-1", contractId: "A", eik: "111111111" }),
+      row({
+        feed: "aop",
+        unp: "B-1",
+        contractId: "A",
+        eik: "999999999",
+        eur: 5,
+      }),
+      row({ feed: "eop", unp: "B-1", contractId: "B", eik: "111111111" }),
+      // permanently ambiguous (one feed contributes two rows)
+      row({ feed: "aop", unp: "C-1", contractId: "P", eur: 7 }),
+      row({ feed: "eop", unp: "C-1", contractId: "Q", eur: 7 }),
+      row({ feed: "eop", unp: "C-1", contractId: "R", eur: 7 }),
+    ];
+    const run1 = analyzeCrossSource(before);
+    expect(run1.evictions.length).toBeGreaterThan(0);
+    const gone = new Set(run1.evictions.map((e) => e.row));
+    const after = before.filter((r) => !gone.has(r));
+    expect(verifyEviction({ before, after, analysis: run1 })).toEqual([]);
+
+    const run2 = analyzeCrossSource(after);
+    expect(run2.evictions).toHaveLength(0);
+    // The permanent items are STILL there — that is the point.
+    expect(run2.blocked.length + run2.ambiguous.length).toBeGreaterThan(0);
+    expect(
+      verifyEviction({ before: after, after, analysis: run2 }),
+      "run 2 must be a clean no-op, or db:refresh halts on every subsequent run",
+    ).toEqual([]);
+  });
+
+  test("an untouched corpus with no candidates is NOT flagged", () => {
+    const before = [row({ feed: "aop", unp: "C-1" })];
+    const a = analyzeCrossSource(before);
+    expect(verifyEviction({ before, after: before, analysis: a })).toEqual([]);
+  });
+
+  // The two defence-in-depth checks: unreachable from analyzeCrossSource today, so they are
+  // exercised against hand-built analyses. An untested unreachable check is indistinguishable
+  // from one that does not work.
+  test("catches a row listed for eviction twice", () => {
+    const before = corpus();
+    const a = analyzeCrossSource(before);
+    const dup = { ...a, evictions: [a.evictions[0], a.evictions[0]] };
+    const gone = new Set(dup.evictions.map((e) => e.row));
+    const after = before.filter((r) => !gone.has(r));
+    expect(verifyEviction({ before, after, analysis: dup }).join(" ")).toMatch(
+      /entries for 1 distinct rows/,
+    );
+  });
+
+  test("catches a survivor whose identity E differs from the evicted row's", () => {
+    const before = corpus();
+    const unrelated = row({ feed: "aop", unp: "Q-9", eur: 55 });
+    const a = analyzeCrossSource(before);
+    const bogus = {
+      ...a,
+      evictions: [{ ...a.evictions[0], survivor: unrelated }],
+    };
+    const after = [
+      ...before.filter((r) => r !== a.evictions[0].row),
+      unrelated,
+    ];
+    expect(
+      verifyEviction({ before, after, analysis: bogus }).join(" "),
+    ).toMatch(/survivor with a DIFFERENT identity E/);
   });
 });
 
