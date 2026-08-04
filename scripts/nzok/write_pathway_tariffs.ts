@@ -2,30 +2,40 @@
 // price factor that turns the volume-only activity corpus into a spend reading and
 // unlocks the case-mix expected-vs-actual signal (migration 059).
 //
-// Source = the НРД (Национален рамков договор) appendix that lists the price per
-// клинична пътека / амбулаторна процедура / клинична процедура. On the НРД medical
-// page (e.g. https://nhif.bg/bg/nrd/2025/medical) this is the "цени"/price annex,
-// distinct from the Приложение 17/18/19 NAME specs that write_procedure_names.ts
-// parses. Each row is essentially "<TYPE> № <code> … <price>".
+// Source = the НРД (Национален рамков договор) CONTRACT BODY, not an annex: the
+// per-pathway prices are the tables of чл. 368/369/370 (КП / КПр / АПр), and in
+// the multi-year НРД era each amendment agreement re-tables them as чл. 368б/
+// 369б/370б etc. — e.g. the 2025 prices live in Договор № РД-НС-01-2-3 от 22 май
+// 2025 г. on https://www.nhif.bg/bg/nrd/2023-2025/medical. This script hunted a
+// "цени" price annex for months and found nothing because NO SUCH ANNEX EXISTS
+// (Приложение 17/18/19 are the NAME specs write_procedure_names.ts parses);
+// see reference_nzok_pathway_tariffs / gaps plan T4.
 //
-// SAME OPERATIONAL CONSTRAINTS AS write_procedure_names.ts:
-//   * nhif.bg is IP-gated to Bulgarian egress — this 403s elsewhere. RUN FROM BG.
-//   * The annex is a spec/table PDF with glyph-level letter-spacing; the price
-//     regex WILL need iterating against the real text. Use --dump then --from-dump
-//     to iterate offline against the saved raw text (no re-fetch), exactly like the
-//     names script.
+// OPERATIONAL NOTES:
+//   * nhif.bg is NOT IP-gated (verified 200 from non-BG egress, 2026-08-04) —
+//     this header used to claim the opposite; the 403s were a different era or a
+//     transient block.
+//   * The table layout is `Код | Номенклатура | Обем (бр.) | Цена (лв.)` with
+//     wrapped names; parseTariffs sections the text by the чл. 368/369/370
+//     markers and reads the code + trailing (обем, цена) rows. Iterate against a
+//     --dump with --from-dump (no re-fetch) if a future document shifts layout.
 //   * Money: 2026+ НРД is EUR-native; pre-2026 is BGN — pass --bgn to convert at
 //     1 EUR = 1.95583 BGN (the euro-adoption rate used across the repo).
+//   * For a specific year pass the SPECIFIC document with --annex (the base
+//     contract carries the launch-year prices, each amendment its own year's);
+//     --page discovery pulls every НРД/amendment PDF on the page and first-wins
+//     merges them in page order (newest amendment first), which approximates
+//     "latest effective" but is fragile — prefer --annex.
 //
 // USAGE — value-carrying flags (--page/--annex/--nrd-year) require DIRECT
 // invocation; the `npm run data:nzok --` wrapper only forwards the valueless
 // passthrough flags (--dump/--from-dump/--bgn) and rejects unknown flags:
-//   tsx scripts/nzok/write_pathway_tariffs.ts --page https://nhif.bg/bg/nrd/2025/medical --dump --nrd-year 2025
-//   tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025
-//   tsx scripts/nzok/write_pathway_tariffs.ts --annex <direct-annex-url> --nrd-year 2026
+//   tsx scripts/nzok/write_pathway_tariffs.ts --annex "https://www.nhif.bg/upload/28002/….pdf" --dump --nrd-year 2025 --bgn
+//   tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025 --bgn
+//   tsx scripts/nzok/write_pathway_tariffs.ts --page https://www.nhif.bg/bg/nrd/2023-2025/medical --dump --nrd-year 2025 --bgn
 //   npm run data:nzok -- --pathway-tariffs --from-dump   # wrapper OK (no value flags)
 //
-// Requires the `pdftotext` binary (poppler-utils) for PDF annexes.
+// Requires the `pdftotext` binary (poppler-utils) for the PDFs.
 
 import fs from "fs";
 import path from "path";
@@ -52,12 +62,6 @@ const PREFIX: Record<ProcType, "P" | "A" | "K"> = {
   КПр: "K",
 };
 const PAD: Record<ProcType, number> = { КП: 3, АПр: 2, КПр: 2 };
-// The token that opens a priced row, per type — same markers as the names annex.
-const TOKEN: { type: ProcType; re: RegExp }[] = [
-  { type: "КП", re: /КП/ },
-  { type: "АПр", re: /АМБУЛАТОРНА\s+ПРОЦЕДУРА|АПр/ },
-  { type: "КПр", re: /КЛИНИЧНА\s+ПРОЦЕДУРА|КПр/ },
-];
 
 const arg = (flag: string): string | null => {
   const i = process.argv.indexOf(flag);
@@ -67,8 +71,7 @@ const has = (flag: string): boolean => process.argv.includes(flag);
 
 const fetchBuf = async (url: string): Promise<Buffer> => {
   const r = await fetch(url, { headers: { "User-Agent": UA } });
-  if (!r.ok)
-    throw new Error(`GET ${url} → ${r.status} (nhif.bg needs BG egress)`);
+  if (!r.ok) throw new Error(`GET ${url} → ${r.status}`);
   return Buffer.from(await r.arrayBuffer());
 };
 
@@ -116,51 +119,79 @@ const parsePrice = (raw: string): number | null => {
   return Number.isFinite(n) && n > 0 ? n : null;
 };
 
-/** Best-effort extraction of (code → price) from one annex's text. The annex lists
- *  a priced row per pathway; the exact column layout varies, so this matches a type
- *  marker + code near the line start and takes the LAST money-shaped token on the
- *  line as the price. ITERATE this against a --dump when the counts look wrong. */
+/** Extraction of (code → price) from the НРД contract text. The prices are the
+ *  чл. 368/369/370 tables (…б/в variants in amendments): section the text at
+ *  those article markers, read each section's type from its opening sentence
+ *  ("дейностите по КП/КПр/АПр" — checked in КПр→АПр→КП order because "КПр"
+ *  contains "КП", and \b is useless on Cyrillic), then match table rows of the
+ *  shape `код … обем цена`. Special billing rows (ВР050.2, BONK03, ЕА06…) start
+ *  with letters and fall out of the code pattern by design. First occurrence of
+ *  a code wins. ITERATE against a --dump when the counts look wrong. */
 const parseTariffs = (
   text: string,
   toEur: (v: number) => number,
 ): Record<string, number> => {
   const out: Record<string, number> = {};
-  for (const line of text.split(/\r?\n/)) {
-    const t = line.trim();
-    if (!t) continue;
-    // Which type does this row open with?
-    const typed = TOKEN.find((x) =>
-      // Non-capturing group so a multi-alternative source (e.g. "…ПРОЦЕДУРА|АПр")
-      // stays fully anchored — without it, `|` splits the whole pattern and the
-      // trailing code-digit requirement binds to only the last alternative.
-      new RegExp(`^\\s*(?:${x.re.source})\\s*№?\\s*\\d`, "i").test(t),
-    );
-    if (!typed) continue;
-    const codeM = t.match(/№?\s*(\d{1,3}(?:\.\d+)?)/);
-    if (!codeM) continue;
-    const code = normalizeCode(typed.type, codeM[1]);
-    if (!code) continue;
-    // The price is the last money-shaped token on the row.
-    const money = t.match(/\d[\d\s]*[.,]\d{2}/g);
-    if (!money || !money.length) continue;
-    const price = parsePrice(money[money.length - 1]);
-    if (price == null) continue;
-    // First occurrence wins (a code should be listed once).
-    if (out[code] == null) out[code] = Math.round(toEur(price) * 100) / 100;
+  const markerRe = /„?Чл\.\s*3(?:68|69|70)[а-я]?\.\s*\(1\)/g;
+  const markers: number[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = markerRe.exec(text))) markers.push(m.index);
+  const typeOf = (head: string): ProcType | null =>
+    /по\s+КПр/.test(head)
+      ? "КПр"
+      : /по\s+АПр/.test(head)
+        ? "АПр"
+        : /по\s+КП/.test(head)
+          ? "КП"
+          : null;
+  // A table row: leading code (digits, optional .N sub-code), optional wrapped
+  // name, then the two trailing numeric columns (обем, цена). Wrapped-name rows
+  // put the numbers on the code's line with the name on neighbouring lines, so
+  // the name group is optional.
+  // Обем accepts [\d\s.,]: two real КП rows (187.1/187.2) carry comma-formatted
+  // volumes ("494,000") and were silently dropped by a digits+spaces group.
+  // Price accepts both comma and dot decimals — the 2026+ НРД is EUR-native and
+  // may switch separator; parsePrice disambiguates by whichever appears last.
+  const rowRe =
+    /^\s{0,10}(\d{1,3}(?:\.\d+)?)(?:\s{2,}(?:\S.*?))?\s{2,}(?:\d[\d\s.,]{0,10}?)\s{2,}(\d[\d\s]*[.,]\d{2})\s*$/;
+  for (let i = 0; i < markers.length; i++) {
+    const sec = text.slice(markers[i], markers[i + 1] ?? text.length);
+    const type = typeOf(sec.slice(0, 400));
+    if (!type) continue;
+    for (const line of sec.split(/\r?\n/)) {
+      const r = rowRe.exec(line);
+      if (!r) continue;
+      const code = normalizeCode(type, r[1]);
+      if (!code) continue;
+      const price = parsePrice(r[2]);
+      if (price == null) continue;
+      if (out[code] == null) out[code] = Math.round(toEur(price) * 100) / 100;
+    }
   }
   return out;
 };
 
-/** Find the price-annex link(s) on the НРД medical page. */
+/** Find the НРД contract / amendment PDF link(s) on the НРД medical page. The
+ *  prices live in the contract body (чл. 368/369/370), so the documents to pull
+ *  are the рамков договор + its изменение и допълнение agreements — page order
+ *  lists the newest amendment first, which is what first-wins merging wants. */
 const findAnnexHrefs = (html: string): string[] => {
   const hrefs: string[] = [];
   const re = /<a[^>]+href="([^"]+)"[^>]*>([^<]*)<\/a>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html))) {
-    const [, href, label] = m;
+    const [, href] = m;
+    // Guarded: a malformed %-sequence in a scraped href must not kill the run
+    // (the same hazard mh_eeof_quarterly.ts documents).
+    let name = href;
+    try {
+      name = decodeURIComponent(href);
+    } catch {
+      /* keep the raw href */
+    }
     if (
-      /цени|стойност|тарифа|остойност/i.test(label) &&
-      /\.(pdf|xlsx?|docx?)/i.test(href)
+      /\.pdf$/i.test(name) &&
+      /рамков\s+договор|изменение\s+и\s+допълнение\s+на\s+Н/i.test(name)
     )
       hrefs.push(href.startsWith("http") ? href : BASE + href);
   }
@@ -178,7 +209,14 @@ const main = async (): Promise<void> => {
   //    discovering the price annex on the --page.
   const texts: string[] = [];
   if (fromDump) {
-    const files = fs.existsSync(DUMP_DIR) ? fs.readdirSync(DUMP_DIR) : [];
+    // Numeric sort on the annex_N index — readdirSync's alphabetical order
+    // diverges from fetch order past 9 dumps, and merge order is first-wins.
+    const files = (
+      fs.existsSync(DUMP_DIR) ? fs.readdirSync(DUMP_DIR) : []
+    ).sort(
+      (a, b) =>
+        Number(/\d+/.exec(a)?.[0] ?? 0) - Number(/\d+/.exec(b)?.[0] ?? 0),
+    );
     if (!files.length)
       throw new Error(`No dumps in ${DUMP_DIR} — run --dump first.`);
     for (const f of files)
@@ -212,9 +250,14 @@ const main = async (): Promise<void> => {
     }
   }
 
-  // 2) Parse.
+  // 2) Parse. FIRST-wins across documents: --page discovery lists the newest
+  // amendment first, so an earlier document may not overwrite a code the newer
+  // one already priced (Object.assign here would be last-wins and publish the
+  // 2023 base prices under the current label).
   const names: Record<string, number> = {};
-  for (const text of texts) Object.assign(names, parseTariffs(text, toEur));
+  for (const text of texts)
+    for (const [code, price] of Object.entries(parseTariffs(text, toEur)))
+      if (names[code] == null) names[code] = price;
 
   const payload = {
     meta: {
@@ -222,7 +265,7 @@ const main = async (): Promise<void> => {
       nrdYear,
       currency: "EUR",
       source:
-        "НЗОК НРД за медицинските дейности — приложение с цените на клиничните пътеки / амбулаторни и клинични процедури, nhif.bg",
+        "НЗОК НРД за медицинските дейности — цените по чл. 368/369/370 (КП/КПр/АПр) от тялото на договора и измененията му, nhif.bg",
       count: Object.keys(names).length,
     },
     tariffs: Object.fromEntries(
@@ -233,7 +276,7 @@ const main = async (): Promise<void> => {
   console.log(`Wrote ${payload.meta.count} pathway tariffs → ${OUT_FILE}`);
   if (payload.meta.count < 300)
     console.warn(
-      "! Fewer tariffs than expected (~550). Iterate parseTariffs against a --dump — the annex layout varies.",
+      "! Fewer tariffs than expected (~410: ~352 КП + ~51 АПр + ~7 КПр in the 2025 tables). Iterate parseTariffs against a --dump — the layout varies per document.",
     );
 };
 

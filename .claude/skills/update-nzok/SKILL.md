@@ -1,6 +1,6 @@
 ---
 name: update-nzok
-description: Refresh the НЗОК (National Health Insurance Fund) health-pack data (data/budget/nzok/) — the per-hospital БМП payments, gross drug-reimbursement by INN, and monthly B1 cash-execution that feed the health sector pack on /awarder/121858220. Each generator fetches the latest file from nhif.bg directly (no manual download). Also covers the per-hospital drug UNIT prices (НЗОК Справка 5 / ПЛС2), the МЗ quarterly hospital financial indicators (ЕЕОФ), the clinical-activity corpus (cases + ЗОЛ per clinical pathway per hospital — the case-mix denominator), and — via the opt-in `--revenue` step — private-hospital annual revenue recovered from the filed ГФО in the Търговски регистър (portal.registryagency.bg) plus the public-vs-private comparison band. Use when the daily watch report flags `nzok_hospital_bmp`, `nzok_drug_quarterly`, `nzok_drug_unit_prices`, `nzok_execution_b1`, `mh_eeof_quarterly`, or `nzok_activities` as changed, when the user asks to refresh НЗОК / NHIF / health-fund / hospital-financials / private-hospital-revenue data, periodically (e.g. after the Sept ГФО filing season) to fill new private-hospital revenue via `--revenue`, or after a fresh git clone if data/budget/nzok/*.json is missing.
+description: Refresh the НЗОК (National Health Insurance Fund) health-pack data (data/budget/nzok/) — the per-hospital БМП payments, gross drug-reimbursement by INN, and monthly B1 cash-execution that feed the health sector pack on /awarder/121858220. Each generator fetches the latest file from nhif.bg directly (no manual download). Also covers the per-hospital drug UNIT prices (НЗОК Справка 5 / ПЛС2), the МЗ quarterly hospital financial indicators (ЕЕОФ), the clinical-activity corpus (cases + ЗОЛ per clinical pathway per hospital — the case-mix denominator), and — via the opt-in `--revenue` step — private-hospital annual revenue recovered from the filed ГФО in the Търговски регистър (portal.registryagency.bg) plus the public-vs-private comparison band. Use when the daily watch report flags `nzok_hospital_bmp`, `nzok_drug_quarterly`, `nzok_drug_unit_prices`, `nzok_execution_b1`, `mh_eeof_quarterly`, `nzok_activities`, or `nzok_nrd_tariffs` (a new НРД/amendment may re-set the КП/АПр/КПр prices) as changed, when the user asks to refresh НЗОК / NHIF / health-fund / hospital-financials / private-hospital-revenue data, periodically (e.g. after the Sept ГФО filing season) to fill new private-hospital revenue via `--revenue`, or after a fresh git clone if data/budget/nzok/*.json is missing.
 allowed-tools:
   - Read
   - Bash
@@ -200,32 +200,35 @@ replaces it wholesale on each run.
 populated). The loader attaches EIK and bed counts by a strong name fold against the
 payments + ЕЕОФ crosswalks (private hospitals included via payments); unmatched → NULL.
 
-### Clinical-pathway tariffs — `npm run data:nzok -- --pathway-tariffs` (opt-in, BG egress)
+### Clinical-pathway tariffs — `npm run data:nzok -- --pathway-tariffs` (INGESTED 2026-08-04)
 The price factor that turns the volume-only activity corpus into a **spend** reading
 and unlocks the **case-mix expected-vs-actual** signal (the STAR-PU / MSPB idea:
-Σ list-tariff × cases vs actual БМП paid). Source = the НРД (Национален рамков
-договор) appendix listing the price per КП/АПр/КПр — distinct from the Приложение
-17/18/19 *name* specs `--procedure-names` parses. Like `--procedure-names` and
-`--crosswalk`, this is **opt-in** (not in the default set) and **must run from BG
-egress** (nhif.bg is IP-gated); the price parser in `write_pathway_tariffs.ts` is
-best-effort and **will need iterating** against the real annex text, so use `--dump`
-then `--from-dump` to iterate offline (mirrors the names script exactly):
+Σ list-tariff × cases vs actual БМП paid). **Source = the НРД CONTRACT BODY, not an
+annex**: the prices are the чл. 368/369/370 tables (КП/КПр/АПр), re-tabled as
+чл. 368б/369б/370б by each amendment — the 2025 prices live in Договор
+№ РД-НС-01-2-3 от 22 май 2025 г. on nhif.bg/bg/nrd/2023-2025/medical. (This section
+used to claim a price annex and BG-egress IP-gating; both were wrong — no such
+annex exists and nhif.bg serves 200 from non-BG egress, verified 2026-08-04.)
+The parser sections the contract text at the чл. 368/369/370 markers; iterate with
+`--dump` / `--from-dump` if a future document shifts layout:
 
 ```
 # value flags (--page/--annex/--nrd-year) need DIRECT invocation — the npm wrapper
 # only forwards --dump/--from-dump/--bgn and rejects unknown flags:
-tsx scripts/nzok/write_pathway_tariffs.ts --page https://nhif.bg/bg/nrd/2025/medical --dump --nrd-year 2025
-tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025   # iterate the parser
+tsx scripts/nzok/write_pathway_tariffs.ts --annex "<contract-or-amendment-pdf-url>" --dump --nrd-year 2025 --bgn
+tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025 --bgn   # iterate the parser
 npm run db:load:nzok-tariffs:pg          # (+ :cloud) applies migration 059, loads tariffs
 ```
 
-Writes `data/budget/nzok/pathway_tariffs.json` (`{ code: priceEur }`). The loader is
-empty-safe — migration 059 is **also applied by the activities loader** so its serving
-fns exist on a fresh DB even before tariffs land; the pathway tree + report-card
-case-mix line stay volume-only / hidden until this ingest runs. The НРД changes
-annually, so this is a rare manual refresh — there is **no daily watcher** for it (a
-flip would only notify, and the parse needs a human pass), same as `--crosswalk`.
-Money: 2026+ НРД is EUR-native; pass `--bgn` for pre-2026 annexes (÷ 1.95583).
+Writes `data/budget/nzok/pathway_tariffs.json` (`{ code: priceEur }`, gitignored).
+The loader is empty-safe — migration 059 is **also applied by the activities loader**
+so its serving fns exist on a fresh DB even before tariffs land. First load
+(НРД 2025, 410 codes: 352 КП + 51 АПр + 7 КПр) resolved 059's scope caveat by
+measurement: national expected (КП+АПр+КПр) €2,137M vs actual БМП €2,108M — the
+БМП stream covers all three types, so the case-mix pairing is correct as written.
+The `nzok_nrd_tariffs` watcher flags a new НРД/amendment PDF on the era page (the
+parse still needs a human pass — prices may be re-tabled under new чл. numbers).
+Money: 2026+ НРД is EUR-native; pass `--bgn` for pre-2026 documents (÷ 1.95583).
 
 The **cases-per-bed outlier** is pathway-internal and same-type-grouped (УМБАЛ vs
 УМБАЛ, one procedure), with floors (≥50 cases, ≥20 beds, ≥4 peers). It is a

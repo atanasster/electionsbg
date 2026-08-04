@@ -291,6 +291,20 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
+`nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
+behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
+the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by
+`scripts/nzok/write_pathway_tariffs.ts` into the gitignored `pathway_tariffs.json`. Publish:
+
+```bash
+npm run db:load:nzok-tariffs:pg:cloud
+```
+
+Re-run writer + loader when the `nzok_nrd_tariffs` watcher flags a new НРД/amendment PDF
+(the parse needs a human pass). The loader is absent-safe (applies 059 and exits when the
+JSON is missing), so it sits in `db:refresh` — but only this manual flow ever *fills* the
+table.
+
 `agri_subsidies` + `agri_payloads` (migration 046, `db:load:agri:pg`) are the ДФ „Земеделие"
 farm-subsidy corpus behind `/subsidies` and `/farm/:eik`. The loader is the pure-LOAD half of
 the fetch/load split: it reads only the **gitignored** `raw_data/agri/` cache (egov year sheets

@@ -3,10 +3,11 @@
 // (migration 059) — the price factor behind the pathway spend tree and the
 // case-mix expected-vs-actual signal.
 //
-// The JSON — and therefore this table — is EMPTY on any machine where the fetch
-// hasn't run from Bulgarian egress (nhif.bg is IP-gated). Migration 059's
-// functions all LEFT JOIN / return NULL when empty, so the site degrades to
-// volume-only until the tariffs land; this loader is a no-op-safe idempotent
+// The JSON is gitignored and the ingest is a manual per-НРД/amendment pass (the
+// prices live in the CONTRACT BODY, чл. 368/369/370 — see the writer's header),
+// so the JSON — and therefore this table — is EMPTY on a fresh clone. Migration
+// 059's functions all LEFT JOIN / return NULL when empty, so the site degrades
+// to volume-only until the tariffs land; this loader is a no-op-safe idempotent
 // upsert of whatever the writer produced.
 
 import { readFileSync, existsSync } from "node:fs";

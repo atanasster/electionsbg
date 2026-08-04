@@ -1,13 +1,17 @@
--- НЗОК clinical-pathway TARIFFS — the missing price factor that turns the
--- volume-only activity corpus (migration 053, cases with no лв/€) into a SPEND
--- reading, and unlocks the case-mix "expected vs actual" signal (OpenPrescribing
--- STAR-PU / CMS MSPB idea). Source = the НРД (Национален рамков договор) appendix
--- listing the price per КП/АПр/КПр, fetched by scripts/nzok/write_pathway_tariffs.ts
--- into data/budget/nzok/pathway_tariffs.json and loaded here.
+-- НЗОК clinical-pathway TARIFFS — the price factor that turns the volume-only
+-- activity corpus (migration 053, cases with no лв/€) into a SPEND reading, and
+-- unlocks the case-mix "expected vs actual" signal (OpenPrescribing STAR-PU /
+-- CMS MSPB idea). Source = the НРД (Национален рамков договор) CONTRACT BODY —
+-- the чл. 368/369/370 tables (…б in amendments), NOT an annex — parsed by
+-- scripts/nzok/write_pathway_tariffs.ts into
+-- data/budget/nzok/pathway_tariffs.json and loaded here. First loaded
+-- 2026-08-04 (НРД 2025, 410 codes).
 --
--- DATA STATUS: the fetch is IP-gated to Bulgarian egress (nhif.bg 403s elsewhere,
--- exactly like the procedure-names fetch), so on most machines this table is EMPTY
--- until the operator runs the ingest from BG egress. Every function below is a
+-- DATA STATUS: the JSON is gitignored and the ingest is a manual pass per
+-- НРД/amendment (the nzok_nrd_tariffs watcher flags new documents), so a fresh
+-- clone has this table EMPTY until the operator runs the ingest. (An earlier
+-- version of this header claimed nhif.bg is IP-gated to BG egress — it is not;
+-- verified 200 from non-BG egress 2026-08-04.) Every function below is a
 -- LEFT JOIN / returns NULL when empty, so the pathway tree and report card keep
 -- working (volume-only) until the tariffs land.
 --
@@ -103,16 +107,14 @@ $$;
 -- hospital's cases that had a tariff, so a thin match is visible and not silently
 -- trusted.
 --
--- SCOPE CAVEAT (confirm before the ratio is presented as a live signal): EXPECTED
--- spans the hospital's ENTIRE activity mix — КП **and** АПр **and** КПр — while
--- ACTUAL is the total 'bmp' stream. If АПр/КПр are reimbursed OUTSIDE the per-
--- hospital БМП figure we parse, the numerator excludes spend the denominator
--- includes, biasing every ratio DOWNWARD by the hospital's АПр/КПр share (~40% of
--- cases nationally). Whether the parsed БМП total already covers АПр/КПр is
--- unconfirmed from the dev box — validate it when the tariffs are ingested from BG
--- egress, and if they land outside 'bmp' either restrict EXPECTED to КП-only or
--- widen ACTUAL to the matching streams. The feature stays dormant (NULL) until
--- then, so this is a note for whoever loads the tariffs, not a live defect.
+-- SCOPE CAVEAT — RESOLVED BY MEASUREMENT (2026-08-04, first tariff load, НРД
+-- 2025): the parsed per-hospital БМП figure DOES cover АПр and КПр. National
+-- 2025 expected at list price = КП €1,784M + АПр €229M + КПр €124M = €2,137M
+-- vs actual 'bmp' paid €2,108M — a 1.4% gap (unpriced codes + the 80%-rate
+-- billing modifiers), whereas a КП-only basis would leave an 18% shortfall.
+-- EXPECTED spanning the full mix against the 'bmp' ACTUAL is therefore the
+-- correct pairing as written below; no restriction or widening needed. Re-check
+-- if the НРД ever moves АПр/КПр reimbursement out of БМП.
 -- --------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION nzok_casemix_expected_vs_actual(p_eik text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$

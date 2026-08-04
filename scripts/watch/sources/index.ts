@@ -93,6 +93,7 @@ import { mhEeofQuarterly } from "./mh_eeof_quarterly";
 import { nzokDrugQuarterly } from "./nzok_drug_quarterly";
 import { nzokExecutionB1 } from "./nzok_execution_b1";
 import { nzokActivities } from "./nzok_activities";
+import { nzokNrdTariffs } from "./nzok_nrd_tariffs";
 import { nfcFilmRegister } from "./nfc_film_register";
 import { ncfGrantResults } from "./ncf_grant_results";
 import { nfcCommissions } from "./nfc_commissions";
@@ -221,6 +222,7 @@ export const SOURCES: WatchSource[] = [
   nzokDrugQuarterly,
   nzokExecutionB1,
   nzokActivities,
+  nzokNrdTariffs,
   natoDefexp,
   modDefenseReport,
   moeArmsExports,

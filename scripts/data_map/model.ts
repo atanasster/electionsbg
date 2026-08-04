@@ -499,6 +499,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "nzok_drug_unit_prices",
       "nzok_execution_b1",
       "nzok_activities",
+      "nzok_nrd_tariffs",
       "mh_eeof_quarterly",
       "policy_baseline_local",
       "ipop_mrrb",
