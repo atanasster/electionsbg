@@ -166,8 +166,12 @@ test("every tolerated gitignored input has a skip-shaped existsSync guard in its
       // The guard block on that constant, up to its terminating return. For the
       // nzok loaders this is the main() skip branch (`return;`); for the
       // ngo-funding FTS directory it is parseFts's `return [];`.
+      // Boundary anchor rather than a full `))`: the guard may be compound
+      // (`!existsSync(X) || readdirSync(X).length === 0`), but the identifier
+      // must still end there — a longer constant sharing the prefix must not
+      // satisfy the assertion.
       const guard = new RegExp(
-        `if \\(!existsSync\\(${constName}\\)\\)[\\s\\S]{0,900}?return`,
+        `if \\(!existsSync\\(${constName}(?:\\)| ?\\|\\|)[\\s\\S]{0,900}?return`,
       ).exec(src)?.[0];
       assert.ok(
         guard,

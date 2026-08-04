@@ -37,13 +37,13 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
    ```bash
    npm run agri:ingest
    ```
-   Reads the egov org-56 CSVs (cached, else re-fetched from the API) + the СЕУ CSVs, normalises + converts BGN→EUR, name-matches СЕУ→egov for EIK, and `TRUNCATE`-reloads `agri_subsidies` + rebuilds `agri_payloads` in one transaction. It applies migration `046_agri_subsidies.sql` idempotently. Prints per-year row counts + `€` totals + the СЕУ EIK-match rate.
+   Reads the egov org-56 CSVs (cached, else re-fetched from the API) + the СЕУ CSVs, normalises + converts BGN→EUR, name-matches СЕУ→egov for EIK, and publishes `agri_subsidies` via an UNLOGGED stage twin + one-transaction DELETE+INSERT (RowExclusiveLock only, readers never blocked; a <5%-shrink guard refuses a half-parsed source — NOT a rename swap: two matviews depend on the table's OID) and `agri_payloads` via the shared stage merge. It applies migration `046_agri_subsidies.sql` idempotently. Prints per-year row counts + `€` totals + the СЕУ EIK-match rate. The pure-LOAD half is `npm run db:load:agri:pg` — cache-only, throws on a partial cache, part of `db:refresh`.
 3. **Publish to Cloud SQL** so the live tiles update (the pack is DB-served, so this — not a bucket sync — is what ships it).
 
-   **There is no `db:load:agri:pg:cloud` wrapper, and `db:dump:cloud` does NOT publish** — `scripts/db/dump.ts` is a snapshotter that `pg_dump`s whatever `DATABASE_URL` points at and uploads the dump to GCS for `db:restore`; aimed at the proxy it dumps Cloud SQL **outward** and leaves `/subsidies` on the old data. Because `agri:ingest` writes Postgres directly (it applies `046_agri_subsidies.sql` itself, then `TRUNCATE`-reloads `agri_subsidies` + rebuilds `agri_payloads`), publishing means **re-running the ingest against the proxy**:
+   Publishing is the cloud LOAD wrapper (it reads the local raw_data/agri/ cache and writes over the proxy — no re-fetch; `db:dump:cloud` does NOT publish, it snapshots cloud outward to GCS):
 
    ```bash
-   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run agri:ingest
+   npm run db:load:agri:pg:cloud
    ```
 
    Needs the Cloud SQL proxy on `127.0.0.1:5434` with the `.pgpass` line present — the password-less URL is correct here, and must never leak into a later *local* command (it would fail `28P01`; `unset DATABASE_URL` after).
@@ -60,4 +60,4 @@ Refreshes the data behind the **farm-subsidy pack** on `/subsidies` (dashboard, 
 - **СЕУ freshness isn't daily-watched.** The `dfz_subsidies` watcher only fingerprints the egov org-56 datasets (cheap plain-HTTP). The СЕУ register updates continuously as payments are made, but fingerprinting it needs a full Playwright download — too heavy for the daily watcher. So the rolling years refresh whenever this skill runs; schedule a monthly `update-agri` if the current-year figures need to stay live between egov publications.
 - **Playwright:** `scripts/agri/seu_fetch.ts` uses the repo's bundled `playwright` (headless Chromium). The СЕУ export is decoded with `TextDecoder("windows-1251")`; fields split on the `";"` boundary (intervention names contain bare `;`).
 - **Raw caches** live under `raw_data/agri/` (gitignored) — safe to delete; they re-download on the next run.
-- **No JSON, no bucket:** unlike funds/nzok, this pack serves entirely from Postgres, so there is nothing to `bucket:sync`. The deploy is **re-running `agri:ingest` against the Cloud SQL proxy** (Step 3), *not* `db:dump:cloud` — that command only snapshots cloud outward to GCS. Agri and КЗК are the two PG-backed datasets with no `db:load:*:cloud` wrapper, because in both the ingest itself is the loader.
+- **No JSON, no bucket:** unlike funds/nzok, this pack serves entirely from Postgres, so there is nothing to `bucket:sync`. The deploy is `npm run db:load:agri:pg:cloud` (Step 3), *not* `db:dump:cloud` — that command only snapshots cloud outward to GCS. КЗК (`kzk_appeals`) is now the one PG-backed dataset with no `db:load:*:cloud` wrapper — its intake is a crawl, so publishing it means re-crawling against the cloud URL.

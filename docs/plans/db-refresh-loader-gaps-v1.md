@@ -208,6 +208,22 @@ DbDataTable browse (`functions/db_table.js:619`), `/farm/:eik` and the company-p
 `ingest.ts:620` does the same to `agri_payloads`, which `functions/db_routes.js:577,2074` serve.
 That is precisely `reference_contracts_reload_lock` / `reference_stage_merge_reload`.
 
+> **CORRECTED during T2 implementation (2026-08-04): the rename swap specified below is ILLEGAL
+> for `agri_subsidies` — the first real run proved it.** `person_browse_table` (migration 120)
+> and `company_public_money` (127) are **materialized views over `agri_subsidies`**, and a
+> matview tracks its base table by OID, following it through a rename: after the swap both
+> matviews pointed at `agri_subsidies_old` and the drop refused with 2BP01 (and CASCADE would
+> have destroyed them; leaving the old table would have frozen them on a stale corpus with
+> nothing red). This is precisely the "the live table keeps its identity" condition
+> `stage_merge.ts`'s header names for `price_product_days` — the plan checked FKs and grants but
+> not `pg_depend`/`pg_rewrite`. The shipped shape is an UNLOGGED stage build + **one-transaction
+> `DELETE FROM agri_subsidies; INSERT … SELECT FROM stage`**: both take only RowExclusiveLock,
+> MVCC keeps readers on the pre-delete snapshot (never blocked, never a half-table), and the
+> live indexes absorb the 2.5M inserts as incremental maintenance — not the parallel index
+> BUILD 046's `/dev/shm` warning is about. Cost: one full-table churn of dead tuples per reload
+> (a few reloads/year; autovacuum absorbs it). T2.3a's index-rename mechanics are therefore
+> moot; the shrink guard and the parity check both stand.
+
 The two tables need **different** shapes, and the reason is the one `scripts/db/lib/stage_merge.ts`
 states in its own docstring:
 

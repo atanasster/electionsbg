@@ -27,6 +27,12 @@ import { AGRI_SEU_YEARS, parseSeuYear } from "./seu_fetch";
 import { parseAmount } from "./parse_amount";
 import { exec, getPool, withClient, end } from "../db/lib/pg";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+  type StageMergeSpec,
+} from "../db/lib/stage_merge";
 
 const BGN_PER_EUR = 1.95583; // locked euro-adoption rate
 
@@ -118,6 +124,10 @@ const rowParams = (r: AgriRow) => [
   r.totalEur,
 ];
 
+// Rows land in the UNLOGGED stage twin, never the served table — the 2.5M-row
+// build under a TRUNCATE held an AccessExclusiveLock for the whole load, which
+// is the documented 55P03 / 500s-on-prod failure mode for served tables
+// (reference_stage_merge_reload, reference_contracts_reload_lock).
 const insertRows = async (c: PoolClient, rows: AgriRow[]): Promise<void> => {
   const insertCols = COLS.join(", ");
   for (let i = 0; i < rows.length; i += BATCH) {
@@ -128,7 +138,7 @@ const insertRows = async (c: PoolClient, rows: AgriRow[]): Promise<void> => {
       )
       .join(",");
     await c.query(
-      `INSERT INTO agri_subsidies (${insertCols}) VALUES ${values}`,
+      `INSERT INTO agri_subsidies_stage (${insertCols}) VALUES ${values}`,
       batch.flatMap(rowParams),
     );
   }
@@ -144,11 +154,12 @@ const insertPayloads = async (
     const values = batch
       .map((_, r) => `($${r * 3 + 1},$${r * 3 + 2},$${r * 3 + 3}::jsonb)`)
       .join(",");
-    // No ON CONFLICT: the table is TRUNCATEd immediately before this runs, so a
-    // (kind,key) collision can only mean a real bug (e.g. a duplicate overview
-    // key) — let it error loudly rather than silently drop the second row.
+    // No ON CONFLICT: the stage twin is created empty immediately before this
+    // runs, so a (kind,key) collision can only mean a real bug (e.g. a
+    // duplicate overview key) — it fails loudly at addStagePrimaryKey, before
+    // the merge, rather than silently dropping the second row.
     await c.query(
-      `INSERT INTO agri_payloads (kind, key, payload) VALUES ${values}`,
+      `INSERT INTO agri_payloads_stage (kind, key, payload) VALUES ${values}`,
       batch.flatMap((p) => [p.kind, p.key, p.text]),
     );
   }
@@ -166,11 +177,23 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-const main = async () => {
+/**
+ * The whole agri build: parse (egov cache + СЕУ CSVs) → stage → publish.
+ * `offline: true` is the pure-load path (`npm run db:load:agri:pg`): every
+ * source must already be in raw_data/agri/, and a PARTIAL cache throws — a
+ * missing egov year or СЕУ CSV silently dropping FY rows is exactly the
+ * shrunken-corpus failure the guards below exist for. `offline: false` is the
+ * fetch+load path (`npm run agri:ingest`, the update-agri skill).
+ */
+export const runAgriIngest = async ({
+  offline = false,
+}: { offline?: boolean } = {}) => {
   await waitForPg();
-  await exec(
-    readFileSync(path.join(SCHEMA_DIR, "046_agri_subsidies.sql"), "utf8"),
+  const schemaSql = readFileSync(
+    path.join(SCHEMA_DIR, "046_agri_subsidies.sql"),
+    "utf8",
   );
+  await exec(schemaSql);
   await exec(
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
   );
@@ -313,16 +336,25 @@ const main = async () => {
   const normName = (s: string): string =>
     s.toUpperCase().replace(/\s+/g, " ").trim();
 
-  // One transaction: TRUNCATE + stream every year's rows in + changelog, so a
-  // failed run never leaves a half-loaded corpus. Sheets come from the raw cache
-  // (fast disk reads), so the held transaction does no network I/O on re-runs.
+  // Build every year's rows into an UNLOGGED stage twin — no lock is ever
+  // taken on the served table during the (long) build. A failed run leaves the
+  // stage behind for postmortem (the live table untouched; the next run's
+  // DROP IF EXISTS clears it) and only the short DELETE+INSERT publish below
+  // touches the served table, under RowExclusiveLock.
+  await exec("DROP TABLE IF EXISTS agri_subsidies_stage");
+  await exec(
+    "CREATE UNLOGGED TABLE agri_subsidies_stage (LIKE agri_subsidies INCLUDING DEFAULTS)",
+  );
   await withClient(async (c) => {
     await c.query("BEGIN");
-    await c.query("TRUNCATE agri_subsidies");
 
     for (const year of AGRI_YEARS) {
-      const sheet = await loadYearSheet(year);
+      const sheet = await loadYearSheet(year, offline);
       if (!sheet.length || !Array.isArray(sheet[0])) {
+        // Malformed ≠ absent: offline this is a defect in the cache and must
+        // not quietly shrink the corpus by a whole financial year.
+        if (offline)
+          throw new Error(`FY${year}: unexpected cached sheet shape`);
         console.warn(`FY${year}: unexpected sheet shape — skipped`);
         continue;
       }
@@ -375,6 +407,11 @@ const main = async () => {
           totalEur,
         });
       }
+      // A header-only cached sheet parses "cleanly" to zero rows — offline
+      // that is a whole financial year silently absent, which the corpus-level
+      // shrink guard cannot catch on a first load into an empty database.
+      if (offline && yearRows.length === 0)
+        throw new Error(`FY${year}: cached sheet has no data rows`);
       await processYear(c, year, yearRows);
     }
 
@@ -393,6 +430,12 @@ const main = async () => {
     for (const year of AGRI_SEU_YEARS) {
       const groups = parseSeuYear(year);
       if (!groups.length) {
+        // Offline, a missing СЕУ CSV means the cache is PARTIAL — throwing
+        // beats silently publishing a corpus without FY2024/2025 (T2.1).
+        if (offline)
+          throw new Error(
+            `SEU FY${year}: no cached CSV in raw_data/agri/ — run \`npm run agri:seu\``,
+          );
         console.warn(`SEU FY${year}: no cached CSV — run \`npm run agri:seu\``);
         continue;
       }
@@ -421,8 +464,59 @@ const main = async () => {
       );
     }
 
-    // "What changed" — atomic with the load. A yearly bulk load always exceeds
-    // the 500-row threshold → one coalesced summary line in recent_updates.
+    await c.query("COMMIT");
+  });
+
+  await exec("ANALYZE agri_subsidies_stage");
+
+  // Shrink guard (same shape as sync_cloud's): a half-parsed source must not
+  // replace a full corpus. Growth is fine; an empty or sharply smaller stage
+  // is a build defect.
+  const counts = await getPool().query<{ live: string; staged: string }>(
+    `SELECT (SELECT count(*) FROM agri_subsidies) AS live,
+            (SELECT count(*) FROM agri_subsidies_stage) AS staged`,
+  );
+  const live = Number(counts.rows[0].live);
+  const staged = Number(counts.rows[0].staged);
+  if (staged === 0)
+    throw new Error("agri stage is empty — refusing to publish");
+  if (live > 0 && staged < live * 0.95)
+    throw new Error(
+      `agri stage would shrink the corpus ${live} → ${staged} (>5%) — refusing to publish`,
+    );
+
+  // Publish: DELETE + INSERT…SELECT in ONE transaction. Both take only
+  // RowExclusiveLock, which does not conflict with readers' AccessShare —
+  // MVCC keeps every concurrent SELECT on the pre-delete snapshot, so the
+  // browse never sees an empty or half-loaded table and is never blocked
+  // (the TRUNCATE this replaces held AccessExclusive for the whole load: the
+  // documented 55P03 / 500s-on-prod shape, reference_stage_merge_reload).
+  //
+  // NOT a rename swap, deliberately: person_browse_table (120) and
+  // company_public_money (127) are MATERIALIZED VIEWS over this table, and a
+  // matview follows the table's OID through a rename — the first attempt left
+  // both matviews pointing at agri_subsidies_old and the drop refused with
+  // 2BP01. Same reason stage_merge.ts's header gives for price_product_days:
+  // the live table must keep its identity. The cost is one full-table churn of
+  // dead tuples per reload (a few reloads a year; autovacuum absorbs it), and
+  // the live indexes absorbing 2.5M incremental inserts — maintenance, not the
+  // parallel index BUILD 046's /dev/shm warning is about.
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("DELETE FROM agri_subsidies");
+    await c.query(
+      `INSERT INTO agri_subsidies (id, ${COLS.join(", ")})
+       SELECT id, ${COLS.join(", ")} FROM agri_subsidies_stage`,
+    );
+    const { rows: par } = await c.query<{ n: string }>(
+      "SELECT count(*) AS n FROM agri_subsidies",
+    );
+    if (Number(par[0].n) !== staged)
+      throw new Error(
+        `agri publish parity failed: live ${par[0].n} vs staged ${staged}`,
+      );
+    // "What changed" — atomic with the publish. A yearly bulk load always
+    // exceeds the 500-row threshold → one coalesced summary line.
     await recordIngestBatch(c, {
       source: "agri_subsidy",
       table: "agri_subsidies",
@@ -435,6 +529,7 @@ const main = async () => {
     });
     await c.query("COMMIT");
   });
+  await exec("DROP TABLE IF EXISTS agri_subsidies_stage");
 
   // ── precomputed payloads → agri_payloads (jsonb in PG, not on disk) ──────────
   const payloadRows: { kind: string; key: string; text: string }[] = [];
@@ -615,11 +710,23 @@ const main = async () => {
       ),
     });
 
+  // agri_payloads has a natural PK (kind, key), so it takes the standard
+  // stage-merge shape: build the twin, merge under RowExclusiveLock, readers
+  // never blocked (scripts/db/lib/stage_merge.ts).
+  const payloadSpec: StageMergeSpec = {
+    table: "agri_payloads",
+    source: "agri_payloads_stage",
+    keys: ["kind", "key"],
+    cols: ["kind", "key", "payload"],
+  };
   await withClient(async (c) => {
-    await c.query("BEGIN");
-    await c.query("TRUNCATE agri_payloads");
+    await createStageTable(c, payloadSpec);
     await insertPayloads(c, payloadRows);
+    await addStagePrimaryKey(c, payloadSpec);
+    await c.query("BEGIN");
+    await mergeFromStage(c, payloadSpec);
     await c.query("COMMIT");
+    await c.query("DROP TABLE IF EXISTS agri_payloads_stage");
   });
 
   console.log(
@@ -629,7 +736,7 @@ const main = async () => {
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
-  main().catch(async (e) => {
+  runAgriIngest({ offline: false }).catch(async (e) => {
     console.error(e);
     await end();
     process.exit(1);

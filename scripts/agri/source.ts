@@ -47,8 +47,14 @@ const CACHE_DIR = path.resolve(
 );
 
 /** The raw 2D sheet for one financial year, from the on-disk cache when present,
- *  else fetched from data.egov.bg and cached. */
-export const loadYearSheet = async (year: number): Promise<unknown[][]> => {
+ *  else fetched from data.egov.bg and cached. In `offline` mode (the
+ *  db:load:agri:pg pure-load path) a cache miss THROWS instead of fetching —
+ *  a load that quietly dropped a declared year would ship a shrunken corpus
+ *  with nothing red (gaps plan T2.1). */
+export const loadYearSheet = async (
+  year: number,
+  offline = false,
+): Promise<unknown[][]> => {
   const uri = AGRI_YEAR_RESOURCES[year];
   if (!uri) throw new Error(`No egov resource for financial year ${year}`);
   if (!existsSync(CACHE_DIR)) mkdirSync(CACHE_DIR, { recursive: true });
@@ -56,6 +62,11 @@ export const loadYearSheet = async (year: number): Promise<unknown[][]> => {
   if (existsSync(cacheFile)) {
     return JSON.parse(readFileSync(cacheFile, "utf8")) as unknown[][];
   }
+  if (offline)
+    throw new Error(
+      `offline load: no cached sheet for FY${year} (${cacheFile}) — the cache is PARTIAL. ` +
+        "Run `npm run agri:ingest` (fetch+load) to fill it.",
+    );
   const rows = await getResourceData(uri);
   // Don't cache a transient empty/failed pull — a 0-byte cache would masquerade
   // as "no data" on every later run.

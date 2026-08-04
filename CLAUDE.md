@@ -291,6 +291,32 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
+`agri_subsidies` + `agri_payloads` (migration 046, `db:load:agri:pg`) are the ДФ „Земеделие"
+farm-subsidy corpus behind `/subsidies` and `/farm/:eik`. The loader is the pure-LOAD half of
+the fetch/load split: it reads only the **gitignored** `raw_data/agri/` cache (egov year sheets
++ СЕУ CSVs) — on a fresh clone it skips-and-warns; on a PARTIAL cache it throws rather than
+publish a corpus missing a financial year. Publishing to prod:
+
+```bash
+npm run db:load:agri:pg:cloud
+```
+
+Run it after any `raw_data/agri/` refresh (a new egov financial year, or a fresh
+`npm run agri:seu` pull); the fetch+load path stays `npm run agri:ingest` (the update-agri
+skill). Nothing on the cloud side is automatic. The subsidies table publishes via an UNLOGGED
+stage + one-transaction DELETE+INSERT (RowExclusiveLock only — readers stay on the MVCC
+snapshot, never blocked; <5%-shrink guard), `agri_payloads` via the shared stage merge — so the
+~2.5M-row reload cannot 55P03 the served browse. **Not a rename swap**: `person_browse_table`
+(120) and `company_public_money` (127) are matviews over `agri_subsidies` and follow its OID
+through a rename, so the table must keep its identity. Those two are also why a cloud agri
+reload does not end at the loader — `agri_subsidies` is part of 127's money basis and of the
+`/persons` money column, so after `db:load:agri:pg:cloud` re-run
+`db:load:persons-browse:pg:cloud`, `db:load:person-search:pg:cloud` and
+`db:load:graph:pg:cloud` (their sections above name any contracts/agri/funds reload as their
+trigger). `agri_subsidies` is in
+`sync_cloud.ts`'s `CRITICAL_TABLES`: its source cache is gitignored host state, so a dropped
+table is only re-derivable from a machine that still holds the cache.
+
 `kzk_decisions` (migration 130, `db:load:kzk-decisions:pg`) is the КЗК merits-outcome corpus —
 the tier-2 half of the appeals pack, and the loader whose absence let that arm freeze for five
 weeks unnoticed. It has **no automatic cloud path**:

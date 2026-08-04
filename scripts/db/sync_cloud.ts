@@ -47,6 +47,11 @@ const CRITICAL_TABLES = [
   // committed generator and its source file is gitignored, so losing it in a
   // restore is unrecoverable and would look like a green sync.
   "kzk_decisions",
+  // Qualifies on BOTH axes: 2.48M rows, and its source (raw_data/agri/ — the
+  // egov year sheets plus the scraped СЕУ CSVs) is gitignored host state, so a
+  // dropped table is only re-derivable from a machine that still holds the
+  // cache (gaps plan T2.5b).
+  "agri_subsidies",
 ];
 
 export interface TableCount {

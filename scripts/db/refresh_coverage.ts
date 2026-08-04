@@ -68,6 +68,7 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
  * is absent (its EIK match joins that table, and db:load:tr:pg is excluded).
  */
 export const TOLERATED_GITIGNORED_INPUTS: Record<string, string[]> = {
+  "db:load:agri:pg": ["raw_data/agri"],
   "db:load:nzok-tariffs:pg": ["data/budget/nzok/pathway_tariffs.json"],
   "db:load:nzok-activities:pg": ["data/budget/nzok/activities.json"],
   "db:load:nzok-drug-prices:pg": ["data/budget/nzok/drug_unit_prices.json"],
