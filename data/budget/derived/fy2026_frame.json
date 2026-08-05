@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-07-29T19:36:39.462Z",
+  "generatedAt": "2026-08-05T14:44:33.927Z",
   "fiscalYear": 2026,
-  "throughMonth": 5,
+  "throughMonth": 6,
   "revenue": {
     "series": "revenue",
-    "throughMonth": 5,
-    "ytdEur": 9904664542,
-    "shareMean": 0.3666492566275286,
-    "shareStdDev": 0.01140270807632665,
-    "annualisedEur": 27014004155.098953,
-    "lowEur": 26379084528.747574,
-    "highEur": 28300072294.082813,
+    "throughMonth": 6,
+    "ytdEur": 12796331646,
+    "shareMean": 0.46772024216865715,
+    "shareStdDev": 0.004958531481738725,
+    "annualisedEur": 27358943428.80657,
+    "lowEur": 27052279449.811054,
+    "highEur": 27753883171.22906,
     "referenceYears": [
       2022,
       2023,
@@ -20,13 +20,13 @@
   },
   "expenditure": {
     "series": "expenditure",
-    "throughMonth": 5,
-    "ytdEur": 11894563000,
-    "shareMean": 0.36519002802598133,
-    "shareStdDev": 0.0161112360308795,
-    "annualisedEur": 32570886626.602425,
-    "lowEur": 30764317944.895134,
-    "highEur": 34216470133.39439,
+    "throughMonth": 6,
+    "ytdEur": 14150474073,
+    "shareMean": 0.44294494687867986,
+    "shareStdDev": 0.029658405500026117,
+    "annualisedEur": 31946349479.12779,
+    "lowEur": 29577990981.718555,
+    "highEur": 34252739363.30214,
     "referenceYears": [
       2022,
       2023,
@@ -34,7 +34,7 @@
       2025
     ]
   },
-  "balanceEur": -5556882471.503471,
+  "balanceEur": -4587406050.32122,
   "hasPlan": false,
   "statutory": {
     "basis": "law",
