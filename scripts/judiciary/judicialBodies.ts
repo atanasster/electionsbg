@@ -16,6 +16,12 @@
 // The parser is deliberately RULE-BASED and total: anything it cannot classify returns
 // null rather than a guess, and the loader reports those instead of inventing a body.
 // A wrong court on a magistrate's public profile is a misstatement about a named person.
+//
+// It is also TYPO-TOLERANT, within a closed lexicon — see "Typo tolerance" below. The
+// form is typed by hand, so most of what the dictionary could not classify was a single
+// slip (`прокуратра`, `Хаскопво`, `Роайонен`), where the institution is not in doubt and
+// only its spelling is. Every correction is reported through `onFix`, so a slip the
+// parser papered over is visible to the operator rather than silently folded away.
 
 export type JudicialKind =
   | "court"
@@ -313,8 +319,11 @@ const SEATED: {
     name: (p) => `Военен съд — ${p}`,
   },
   // ---- courts ---------------------------------------------------------------------
+  // The misspellings these patterns used to spell out (АДМИНИСТРИТИВЕН, РЙОНЕН,
+  // РАЙНОННА) are corrected by the typo layer before a rule is ever tried, so listing
+  // them here again would be unreachable. judicialBodies.test.ts keeps them covered.
   {
-    match: /^(?:АДМИНИСТРАТИВЕН СЪД|АДМС|АДМИНИСТРИТИВЕН СЪД)\s+(.+)$/,
+    match: /^(?:АДМИНИСТРАТИВЕН СЪД|АДМС)\s+(.+)$/,
     kind: "court",
     tier: "административен",
     prefix: "as",
@@ -335,7 +344,7 @@ const SEATED: {
     name: (p) => `Окръжен съд — ${p}`,
   },
   {
-    match: /^(?:РАЙОНЕН СЪД|РЙОНЕН СЪД|РС)\s+(.+)$/,
+    match: /^(?:РАЙОНЕН СЪД|РС)\s+(.+)$/,
     kind: "court",
     tier: "районен",
     prefix: "rs",
@@ -357,7 +366,7 @@ const SEATED: {
     name: (p) => `Окръжна прокуратура — ${p}`,
   },
   {
-    match: /^(?:РАЙОННА ПРОКУРАТУРА|РАЙНОННА ПРОКУРАТУРА|РП)\s+(.+)$/,
+    match: /^(?:РАЙОННА ПРОКУРАТУРА|РП)\s+(.+)$/,
     kind: "prosecution",
     tier: "районен",
     prefix: "rp",
@@ -387,15 +396,164 @@ const FIXED_MILITARY: { match: RegExp; body: Omit<JudicialBody, "place"> }[] = [
   },
 ];
 
+// ── Typo tolerance ───────────────────────────────────────────────────────────────────
+// "Looks close" is not a rule, so the correction is BOUNDED and CLOSED: a token is
+// rewritten only when it is within a small edit distance of exactly ONE entry of a fixed
+// lexicon — the institution words below, or the settlement vocabulary. Two candidates at
+// the same distance is an ambiguity, and an ambiguity keeps the old answer: no body,
+// reported. That is what stops the tolerance from becoming the guessing this module
+// exists to refuse.
+
+/** Optimal string alignment distance: Levenshtein plus ADJACENT TRANSPOSITION, which is
+ *  what a keyboard slip actually looks like — `КЮСТНЕДИЛ` is ONE transposition from
+ *  `КЮСТЕНДИЛ` but two substitutions without it. Gives up as soon as no alignment can
+ *  come in at or under `max`, so scanning the whole settlement vocabulary stays cheap. */
+const editDistance = (a: string, b: string, max: number): number => {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let two: number[] = [];
+  let one = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let rowMin = i;
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      let v = Math.min(cur[j - 1] + 1, one[j] + 1, one[j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1])
+        v = Math.min(v, two[j - 2] + 1);
+      cur[j] = v;
+      if (v < rowMin) rowMin = v;
+    }
+    if (rowMin > max) return max + 1;
+    two = one;
+    one = cur;
+  }
+  return one[b.length];
+};
+
+/**
+ * The one lexicon entry within `max` edits of `token` — or null when nothing is close
+ * enough, or when two entries are equally close. A tie is the whole point: `БРЕЖОВО` is
+ * one slip from both Брегово and Брезово, and picking either would put a magistrate in
+ * a court 200km from the one they sit in.
+ *
+ * `sameInitial` narrows the settlement scan: a slip that changes the first letter of a
+ * town is not a slip we can tell apart from a different town. Institution words are
+ * matched WITHOUT it, because a dropped leading letter is exactly what `рокуратура` is.
+ */
+const uniqueNearest = (
+  token: string,
+  lexicon: Iterable<string>,
+  max: number,
+  sameInitial: boolean,
+): string | null => {
+  if (max <= 0) return null;
+  let best: string | null = null;
+  let bestD = max + 1;
+  let tied = false;
+  for (const w of lexicon) {
+    if (sameInitial && w[0] !== token[0]) continue;
+    const d = editDistance(token, w, max);
+    if (d > max) continue;
+    if (d < bestD) {
+      best = w;
+      bestD = d;
+      tied = false;
+    } else if (d === bestD) tied = true;
+  }
+  return tied ? null : best;
+};
+
+/** Slips allowed in a SETTLEMENT name. Tight, because the vocabulary is 295 names and
+ *  some are genuinely one edit apart (Брегово/Брезово): the radius is what decides how
+ *  often the tie above fires instead of a match. Every misspelling in the register today
+ *  is a single slip; the wider radius for long names is headroom for the next harvest,
+ *  and no two settlement names of 10+ characters are within 2 of each other. */
+const placeSlips = (len: number): number => (len >= 10 ? 2 : len >= 5 ? 1 : 0);
+
+/** Slips allowed in an institution word — looser, because the lexicon is 30 words rather
+ *  than 295 names and they are far apart. */
+const wordSlips = (len: number): number => (len >= 8 ? 2 : len >= 4 ? 1 : 0);
+
+/**
+ * Every word that appears in a Bulgarian judicial institution's name, and nothing else.
+ * The list being CLOSED is what makes the correction safe: a token more than a slip from
+ * all of them is left exactly as typed, which is how settlement names pass through
+ * untouched. judicialBodies.test.ts asserts no settlement name is within wordSlips() of
+ * any entry here — that invariant, not a case list, is what keeps a seat from being
+ * "corrected" into an institution word.
+ *
+ * The city adjectives (СОФИЙСКИ/СОФИЙСКА and friends) are deliberately NOT here: their
+ * masculine and feminine forms are one edit apart, so every slip on one ties against the
+ * other and corrects to neither. ADJECTIVE_CITY carries the misspellings that occur.
+ */
+const INSTITUTION_WORDS = [
+  "АДМИНИСТРАТИВЕН",
+  "АДМИНИСТРАТИВНА",
+  "АПЕЛАТИВЕН",
+  "АПЕЛАТИВНА",
+  "ВИСШ",
+  "ВОЕНЕН",
+  "ВОЕННА",
+  "ВОЕННО",
+  "ВЪРХОВЕН",
+  "ВЪРХОВНА",
+  "ГРАДСКА",
+  "ГРАДСКИ",
+  "ИНСПЕКТОРАТ",
+  "КАСАЦИОНЕН",
+  "КАСАЦИОННА",
+  "НАЦИОНАЛЕН",
+  "НАЦИОНАЛНА",
+  "ОКРЪЖЕН",
+  "ОКРЪЖНА",
+  "ОТДЕЛ",
+  "ПРОКУРАТУРА",
+  "ПРОКУРОР",
+  "РАЙОНЕН",
+  "РАЙОННА",
+  "СЛЕДОВАТЕЛ",
+  "СЛЕДСТВЕН",
+  "СЛЕДСТВЕНА",
+  "СЛУЖБА",
+  "СПЕЦИАЛИЗИРАН",
+  "СЪВЕТ",
+  "СЪД",
+  "СЪДЕБЕН",
+  "СЪДИЯ",
+] as const;
+
+/** The declarant's own ROLE, which the form invites into the institution field
+ *  ("съдия в СРС", "Прокурор в РП - Варна"). Dropped only when something else remains:
+ *  a bare "Прокурор" names no institution and must stay unresolved. */
+const ROLE_WORDS = new Set(["СЪДИЯ", "СЪДИЯТА", "ПРОКУРОР", "СЛЕДОВАТЕЛ"]);
+
+/** Composite office abbreviations the register uses without expanding them. ВТОП is the
+ *  Великотърновска окръжна прокуратура — a documented abbreviation, expanded here rather
+ *  than pattern-matched so the ОСлО attached to it resolves through the ordinary rules.
+ *  NOT a place to put anything colliding with an existing rule: ВОП is военно-окръжна. */
+const COMPOSITE_ABBREV: Record<string, string> = {
+  ВТОП: "ОП ВЕЛИКО ТЪРНОВО",
+};
+
+/** One spelling slip the parser corrected, reported so the operator can audit it. */
+export type NameFix = { from: string; to: string };
+
 /**
  * Fold a raw institution string to a comparison key: uppercase, dashes and punctuation
  * to spaces, whitespace collapsed. Also rewrites the city ADJECTIVE forms
  * ("Софийски районен съд" → "СОФИЯ РАЙОНЕН СЪД") so the adjectival and seat-suffixed
  * spellings of one institution land on the same key.
+ *
+ * The output is the alias key (`judicial_body_alias.alias_norm`), so it must be
+ * REPRODUCIBLE from a raw string alone: everything it does is vocabulary-independent
+ * except the glued-abbreviation split, which is why resolve_persons.ts can fold without
+ * one. Settlement spellings are NOT corrected here — that happens in restorePlace, after
+ * the seat has been identified.
  */
 export const foldJudicialName = (
   raw: string,
   vocab?: PlaceVocabulary,
+  onFix?: (fix: NameFix) => void,
 ): string => {
   let s = raw
     .toUpperCase()
@@ -419,8 +577,23 @@ export const foldJudicialName = (
     )
     .join(" ");
   // Connectors carry no meaning here and appear in every combination
-  // ("ОСлО при ОП-Видин", "ОСлО в Окръжна прокуратура - Бургас", "ОСлО към ОП Пловдив").
-  s = s.replace(/\s+(?:ПРИ|КЪМ|НА|В)\s+/g, " ");
+  // ("ОСлО при ОП-Видин", "ОСлО в Окръжна прокуратура - Бургас", "ОСлО към ОП Пловдив",
+  // "Окръжен следствен отдел във ВТОП").
+  s = s.replace(/\s+(?:ПРИ|КЪМ|НА|В|ВЪВ)\s+/g, " ");
+  // A spaced-out abbreviation — "Следствен отдел при О П София", "ОКРЪЖЕН СЪ Д- МОНТАНА".
+  // A stray single letter can only belong to the stub before it, and only when that stub
+  // is itself too short to be a word. Runs AFTER the connectors, so the standalone "в" is
+  // already gone and cannot be glued onto anything.
+  s = s
+    .split(" ")
+    .reduce<string[]>((acc, tok) => {
+      const prev = acc[acc.length - 1];
+      if (acc.length && tok.length === 1 && prev.length <= 2)
+        acc[acc.length - 1] = prev + tok;
+      else acc.push(tok);
+      return acc;
+    }, [])
+    .join(" ");
   // Glued abbreviations ("РПКюстендил"). A bare `(?=[А-Я]{3})` lookahead cannot tell a
   // run-together seat from the continuation of a spelled-out word, and split every
   // АПЕЛАТИВЕН into АП + ЕЛАТИВЕН — minting fabricated prosecution offices for all 45
@@ -432,6 +605,31 @@ export const foldJudicialName = (
       (whole, abbr: string, tail: string) =>
         vocab.has(placeKey(tail)) ? `${abbr} ${tail}` : whole,
     );
+  s = s
+    .split(" ")
+    .map((tok) => COMPOSITE_ABBREV[tok] ?? tok)
+    .join(" ");
+  // Correct the hand-typed slips in the institution words themselves ("прокуратра",
+  // "Роайонен", "съдз"). Settlement tokens survive this untouched — see INSTITUTION_WORDS.
+  s = s
+    .split(" ")
+    .map((tok) => {
+      const hit = uniqueNearest(
+        tok,
+        INSTITUTION_WORDS,
+        wordSlips(tok.length),
+        false,
+      );
+      if (!hit || hit === tok) return tok;
+      onFix?.({ from: tok, to: hit });
+      return hit;
+    })
+    .join(" ");
+  // The declarant's own role and the country they serve are not the institution.
+  const tokens = s.split(" ").filter(Boolean);
+  while (tokens.length > 1 && ROLE_WORDS.has(tokens[0])) tokens.shift();
+  if (tokens.length > 1 && tokens[tokens.length - 1] === "РБ") tokens.pop();
+  s = tokens.join(" ");
   const [head, ...rest] = s.split(" ");
   // Rewrite the adjectival form into the seat-suffixed order every other institution
   // uses: "Бургаски районен съд" → "РАЙОНЕН СЪД БУРГАС". Sofia's institutions land on
@@ -456,12 +654,16 @@ const SO_SGP: JudicialBody = {
   place: "София",
 };
 
+// Not anchored to the head: the register also writes the department as a TRAILING
+// qualifier on its parent office ("Окръжна прокуратура Враца - ОСлО"), which read as a
+// plain окръжна прокуратура and put an investigator in the prosecution office.
 const INVESTIGATION_HEAD =
-  /^(ОКРЪЖЕН СЛЕДСТВЕН ОТДЕЛ|ОКРЪЖНА СЛЕДСТВЕНА СЛУЖБА|СЛЕДСТВЕНА СЛУЖБА|СЛЕДСТВЕН ОТДЕЛ|ОСЛО|ОСО|СЛО)(?=\s|$)/;
+  /(?:^|\s)(ОКРЪЖЕН СЛЕДСТВЕН ОТДЕЛ|ОКРЪЖНА СЛЕДСТВЕНА СЛУЖБА|СЛЕДСТВЕНА СЛУЖБА|СЛЕДСТВЕН ОТДЕЛ|ОСЛО|ОСО|СЛО)(?=\s|$)/;
 
 const resolveInvestigation = (
   folded: string,
   vocab?: PlaceVocabulary,
+  onFix?: (fix: NameFix) => void,
 ): JudicialBody | null => {
   // The department is usually the head token, but the Sofia city office also writes it
   // as a SUFFIX ("Софийска градска прокуратура - СО").
@@ -475,7 +677,7 @@ const resolveInvestigation = (
   )
     return SO_SGP;
   if (!INVESTIGATION_HEAD.test(folded)) return null;
-  let rest = folded.replace(INVESTIGATION_HEAD, "").trim();
+  let rest = folded.replace(INVESTIGATION_HEAD, " ").trim();
   // A department of the Sofia CITY prosecution is its own body, not an окръжен one.
   if (/(?:^|\s)(?:СГП|ГРАДСКА ПРОКУРАТУРА)(?=\s|$)/.test(rest)) return SO_SGP;
   // The Sofia OKRAG prosecution's department is seated in Sofia.
@@ -494,7 +696,7 @@ const resolveInvestigation = (
     .trim();
   const seat = [...new Set(rest.split(/\s+/).filter(Boolean))].join(" ");
   if (!seat) return null;
-  const place = restorePlace(seat, vocab);
+  const place = restorePlace(seat, vocab, onFix);
   if (!place) return null;
   return {
     bodyCode: `oslo-${slug(place)}`,
@@ -512,15 +714,27 @@ const resolveInvestigation = (
  * пазар", "Червен бряг"). WITHOUT one it falls back to title-casing, which is why
  * production callers must always pass a vocabulary.
  */
-const restorePlace = (p: string, vocab?: PlaceVocabulary): string | null => {
+const restorePlace = (
+  p: string,
+  vocab?: PlaceVocabulary,
+  onFix?: (fix: NameFix) => void,
+): string | null => {
   if (vocab) {
-    const hit = vocab.get(placeKey(p));
+    const key = placeKey(p);
+    const hit = vocab.get(key);
     if (hit) return hit;
     // Sofia's two administrative-court seats are qualifiers on the capital, not
     // settlements of their own, so they are never in a municipality vocabulary.
-    if (/^СОФИЯ (ГРАД|ОБЛАСТ)$/.test(placeKey(p)))
-      return placeKey(p) === "СОФИЯ ГРАД" ? "София-град" : "София-област";
-    return null;
+    if (/^СОФИЯ (ГРАД|ОБЛАСТ)$/.test(key))
+      return key === "СОФИЯ ГРАД" ? "София-град" : "София-област";
+    // A misspelling one slip from exactly ONE settlement IS that settlement: "Хаскопво"
+    // is Хасково, and refusing it strands a real magistrate at a real court. Anything
+    // further out, or close to two towns at once, still mints nothing.
+    const near = uniqueNearest(key, vocab.keys(), placeSlips(key.length), true);
+    if (!near) return null;
+    const canonical = vocab.get(near) ?? null;
+    if (canonical) onFix?.({ from: key, to: near });
+    return canonical;
   }
   return titleCasePlace(p);
 };
@@ -553,14 +767,30 @@ export type ResolveOptions = {
    *  collide across families: `АС` is Апелативен съд there but Административен съд in
    *  the ИВСС register, and `ВС` is Военен съд. Never guessed from the string. */
   tier?: JudicialTier;
+  /** Called for every spelling slip corrected on the way to the answer. The loader
+   *  prints them: a correction the operator cannot see is indistinguishable from the
+   *  guessing this module refuses to do. */
+  onFix?: (fix: NameFix) => void;
 };
+
+/** Generic words a national institution is written WITH, none of which narrow it —
+ *  "Прокуратура - СРП" is the Софийска районна прокуратура, not a fourth thing. */
+const FILLER = new Set([
+  "ПРОКУРАТУРА",
+  "СЪД",
+  "СЛУЖБА",
+  "ОТДЕЛ",
+  "РЕПУБЛИКА",
+  "БЪЛГАРИЯ",
+  "РБ",
+]);
 
 export function resolveJudicialBody(
   raw: string,
   opts: ResolveOptions = {},
 ): JudicialBody | null {
-  const { vocab, tier: tierHint } = opts;
-  const folded = foldJudicialName(raw, vocab);
+  const { vocab, tier: tierHint, onFix } = opts;
+  const folded = foldJudicialName(raw, vocab, onFix);
   if (!folded) return null;
 
   // National bodies sometimes carry their seat ("ВКП - София"); it adds nothing, since
@@ -597,7 +827,7 @@ export function resolveJudicialBody(
   // it; the caller's tier can, and court_load is the only caller that has one.
   const hinted = /^(АС|ВС)\s+(.+)$/.exec(folded);
   if (hinted && tierHint) {
-    const place = restorePlace(hinted[2].trim(), vocab);
+    const place = restorePlace(hinted[2].trim(), vocab, onFix);
     const spec =
       hinted[1] === "ВС"
         ? { tier: "военен" as const, prefix: "vs", label: "Военен съд" }
@@ -616,13 +846,13 @@ export function resolveJudicialBody(
 
   // Before the prosecution rules: "ОСлО при ОП-Видин" contains "ОП" and would otherwise
   // be read as an окръжна прокуратура.
-  const inv = resolveInvestigation(folded, vocab);
+  const inv = resolveInvestigation(folded, vocab, onFix);
   if (inv) return inv;
 
   for (const rule of SEATED) {
     const m = rule.match.exec(folded);
     if (!m) continue;
-    const place = restorePlace(m[1].trim(), vocab);
+    const place = restorePlace(m[1].trim(), vocab, onFix);
     if (!place) continue;
     return {
       bodyCode: `${rule.prefix}-${slug(place)}`,
@@ -632,5 +862,18 @@ export function resolveJudicialBody(
       place,
     };
   }
+
+  // A national institution written as its abbreviation plus a generic word the form
+  // invited in ("Прокуратура - СРП"). Drop the filler and re-test the national table,
+  // so the abbreviation speaks for itself. LAST of all, so this can never shadow a rule
+  // that reads the whole string — a bare "Прокуратура" strips to nothing and stays null.
+  const stripped = folded
+    .split(" ")
+    .filter((t) => !FILLER.has(t))
+    .join(" ");
+  if (stripped && stripped !== folded)
+    for (const { match, body } of NATIONAL)
+      if (match.test(stripped)) return { ...body, place: "София" };
+
   return null;
 }

@@ -308,7 +308,12 @@ export const judicialPlaceFor = (
   court: string | null,
 ): TypedPlace => {
   if (!court) return NO_PLACE;
-  const body = byAlias.get(foldJudicialName(court));
+  // The RAW string first, the fold second. The loader keys judicial_body_alias with the
+  // vocabulary-ful fold and there is no vocabulary here, so the one construct that needs
+  // it — a glued abbreviation, "РПКюстендил" — folds to a DIFFERENT key on this side and
+  // misses a body that was resolved perfectly well at load time. judicial_body_source_name
+  // holds the un-folded string, which needs no vocabulary to match.
+  const body = byAlias.get(court) ?? byAlias.get(foldJudicialName(court));
   // An institution the dictionary cannot classify (~43 magistrates: source typos, and
   // "Върховна прокуратура", which could be ВКП or ПРБ) gets NO code — a guessed court on a
   // named person's profile is a misstatement. But it keeps the declaration's OWN text in
@@ -530,7 +535,10 @@ async function collect(): Promise<Raw[]> {
     kind: string;
   }>(
     `SELECT a.alias_norm, a.body_code, b.name, b.kind
-       FROM judicial_body_alias a JOIN judicial_body b USING (body_code)`,
+       FROM judicial_body_alias a JOIN judicial_body b USING (body_code)
+     UNION ALL
+     SELECT s.source_name, s.body_code, b.name, b.kind
+       FROM judicial_body_source_name s JOIN judicial_body b USING (body_code)`,
   ))
     judicialByAlias.set(b.alias_norm, {
       code: b.body_code,

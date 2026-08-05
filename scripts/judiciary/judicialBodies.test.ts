@@ -6,6 +6,7 @@ import {
   resolveJudicialBody,
   foldJudicialName,
   placeVocabulary,
+  placeKey,
 } from "./judicialBodies";
 
 // The real vocabulary, so the tests exercise the production path rather than a fixture
@@ -191,13 +192,113 @@ describe("resolveJudicialBody, with the settlement vocabulary", () => {
   });
 
   it("refuses a seat that is not a settlement", () => {
-    // Misspelt towns used to mint their own body, splitting the real court in two.
+    // Misspelt towns used to mint their own body, splitting the real court in two — so
+    // the seat must come from the vocabulary. Too far out to be a slip, and no body.
     for (const s of [
-      "Районен съд - Плевн",
-      "Административен съд — Варнта",
-      "Районна прокуратура - Кюстендл",
+      "Районен съд - Кукуряк",
+      "Административен съд — Заешка поляна",
     ])
       expect(body(s), s).toBeNull();
+  });
+
+  it("corrects a seat that is one slip from exactly one settlement", () => {
+    // The register is typed by hand. The institution is not in doubt in any of these —
+    // refusing them strands a real magistrate at a real court.
+    expect(body("Районен съд - Плевн")?.bodyCode).toBe("rs-pleven");
+    expect(body("Административен съд — Варнта")?.bodyCode).toBe("as-varna");
+    expect(body("Районна прокуратура - Кюстендл")?.bodyCode).toBe(
+      "rp-kyustendil",
+    );
+    // A transposition is ONE slip, which is why the distance counts them as one.
+    expect(body("Районна прокуратура Кюстнедил")?.bodyCode).toBe(
+      "rp-kyustendil",
+    );
+    expect(body("ОСлО при ОП-Благоеевград")?.bodyCode).toBe("oslo-blagoevgrad");
+  });
+
+  it("refuses a slip that is equally close to two settlements", () => {
+    // Брегово and Брезово differ in one letter, so `Брежово` is one slip from both and
+    // 200km from at least one of them. A tie keeps the old answer: no body.
+    expect(body("Районен съд - Брежово")).toBeNull();
+  });
+
+  it("reports every correction it makes", () => {
+    const fixes: string[] = [];
+    resolveJudicialBody("Окръжна прократура Кюстендл", {
+      vocab,
+      onFix: (f) => fixes.push(`${f.from}→${f.to}`),
+    });
+    expect(fixes).toEqual(["ПРОКРАТУРА→ПРОКУРАТУРА", "КЮСТЕНДЛ→КЮСТЕНДИЛ"]);
+    // A name that needed no correction reports none.
+    const clean: string[] = [];
+    resolveJudicialBody("Районен съд - Плевен", {
+      vocab,
+      onFix: (f) => clean.push(f.from),
+    });
+    expect(clean).toEqual([]);
+  });
+
+  it("corrects a misspelt institution word, and keeps the two families apart", () => {
+    expect(body("Върховен адинистративен съд")?.bodyCode).toBe("vas");
+    expect(body("Върховен административен съдз")?.bodyCode).toBe("vas");
+    expect(body("Апелативна прокуратра София")?.bodyCode).toBe("ap-sofiya");
+    expect(body("Окръжна рокуратура - Бургас")?.bodyCode).toBe("op-burgas");
+    expect(body("Роайонен съд - Пловдив")?.bodyCode).toBe("rs-plovdiv");
+    expect(body("Раойнна прокуратура - София")?.bodyCode).toBe("srp");
+    expect(body("СОФИЙСКА РАЙОННА ПРОКУРТУРА")?.bodyCode).toBe("srp");
+    // РАЙОНЕН and РАЙОННА are two edits apart; a slip on one must not reach the other.
+    expect(body("Районвн съд Самоков")?.kind).toBe("court");
+    expect(body("Районвн съд Самоков")?.bodyCode).toBe("rs-samokov");
+    // The three spellings the SEATED patterns used to carry as literal alternatives.
+    expect(body("Администритивен съд Монтана")?.bodyCode).toBe("as-montana");
+    expect(body("РЙОНЕН СЪД-ТЕТЕВЕН")?.bodyCode).toBe("rs-teteven");
+    expect(body("Райнонна прокуратура-Плевен")?.bodyCode).toBe("rp-pleven");
+  });
+
+  it("never rewrites a settlement into an institution word", () => {
+    // The invariant behind INSTITUTION_WORDS being a CLOSED list: if a real seat were
+    // within the correction radius of one of them, the fold would destroy it before the
+    // seat was ever looked up. Asserted over the whole vocabulary rather than a case
+    // list, so a word added to the lexicon later cannot quietly break it.
+    // Compared against placeKey, NOT the fold — folding both sides would let a
+    // correction that fires on the bare name pass unnoticed.
+    for (const name of vocab.values())
+      for (const token of placeKey(name).split(" "))
+        expect(
+          foldJudicialName(`Районен съд ${name}`).split(" "),
+          name,
+        ).toContain(token);
+  });
+
+  it("reads a spaced-out abbreviation as one token", () => {
+    expect(body("Следствен Отдел при О П София")?.bodyCode).toBe("oslo-sofiya");
+    expect(body("ОКРЪЖЕН СЪ Д- МОНТАНА")?.bodyCode).toBe("os-montana");
+  });
+
+  it("drops the declarant's own role and the country they serve", () => {
+    expect(body("съдия в СРС")?.bodyCode).toBe("srs");
+    expect(body("ВКС на РБ")?.bodyCode).toBe("vks");
+    expect(body("Прокуратура - СРП")?.bodyCode).toBe("srp");
+    // …but a role with no institution behind it still names nothing.
+    expect(body("Прокурор")).toBeNull();
+    expect(body("Съдия")).toBeNull();
+  });
+
+  it("reads a trailing department qualifier as the department", () => {
+    // "Окръжна прокуратура Враца - ОСлО" is the investigation department, not the
+    // prosecution office it hangs off; it used to resolve to the office.
+    const b = body("Окръжна прокуратура Враца - ОСлО");
+    expect(b?.kind).toBe("investigation");
+    expect(b?.bodyCode).toBe("oslo-vratsa");
+    expect(body("Окръжна прокуратура - Враца")?.kind).toBe("prosecution");
+  });
+
+  it("expands a documented composite office abbreviation", () => {
+    expect(body("Окръжен следствен отдел във ВТОП")?.bodyCode).toBe(
+      "oslo-veliko-tarnovo",
+    );
+    // ВОП stays военно-окръжна, and carries no seat of its own here — no body.
+    expect(body("ОКРЪЖЕН СЛЕДСТВЕН ВЪВ ВОП")).toBeNull();
   });
 
   it("uses the register's own spelling, not a title-caser's guess", () => {

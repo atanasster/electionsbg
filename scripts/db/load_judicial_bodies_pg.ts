@@ -16,6 +16,11 @@
 // body. A wrong court on a named magistrate's public profile is a misstatement about a
 // real person, so an absent badge is the correct failure.
 //
+// It DOES correct hand-typed spelling slips, within a closed lexicon and only when the
+// intended word is unambiguous (scripts/judiciary/judicialBodies.ts, "Typo tolerance").
+// Every correction is printed below alongside the name it produced, because a correction
+// the operator cannot see is indistinguishable from a guess.
+//
 // Run: `npm run db:load:judicial-bodies:pg` (local) / `:cloud` (Cloud SQL proxy).
 
 import { readFileSync, existsSync } from "node:fs";
@@ -119,6 +124,8 @@ const main = async (): Promise<void> => {
   // Reported per SOURCE, because "the register misspelt it" and "the dictionary does not
   // speak court_load's abbreviations" are different problems with different fixes.
   const unresolved = { magistrate: [] as string[], court_load: [] as string[] };
+  // Every name that only resolved because a spelling slip was corrected, with the slip.
+  const corrected: { raw: string; name: string; fixes: string[] }[] = [];
 
   const take = (
     raw: string,
@@ -129,11 +136,17 @@ const main = async (): Promise<void> => {
       lat?: number | null;
     } = {},
   ) => {
-    const body = resolveJudicialBody(raw, { vocab, tier: opts.tier });
+    const fixes: string[] = [];
+    const body = resolveJudicialBody(raw, {
+      vocab,
+      tier: opts.tier,
+      onFix: (f) => fixes.push(`${f.from} → ${f.to}`),
+    });
     if (!body) {
       unresolved[source].push(raw);
       return;
     }
+    if (fixes.length) corrected.push({ raw, name: body.name, fixes });
     if (!bodies.has(body.bodyCode)) bodies.set(body.bodyCode, body);
     aliases.set(foldJudicialName(raw, vocab), body.bodyCode);
     sourceNames.set(raw, body.bodyCode);
@@ -220,6 +233,19 @@ const main = async (): Promise<void> => {
       .join(", ")}); ${seated}/${bodies.size} seats resolved to an obshtina; ` +
       `${aliases.size} alias(es)`,
   );
+  if (corrected.length) {
+    // The audit trail for the typo layer. Printed in full and BEFORE the unresolved
+    // block, because this is the list where a wrong answer hides — an unresolved name is
+    // merely absent, a mis-corrected one is a named person put in the wrong institution.
+    const uniq = [...new Map(corrected.map((c) => [c.raw, c])).values()].sort(
+      (a, b) => a.raw.localeCompare(b.raw, "bg"),
+    );
+    console.log(
+      `  ${uniq.length} name(s) resolved through a spelling correction — check them:`,
+    );
+    for (const c of uniq)
+      console.log(`    ${c.raw}  →  ${c.name}   [${c.fixes.join(", ")}]`);
+  }
   for (const [source, names] of Object.entries(unresolved)) {
     if (!names.length) continue;
     const uniq = [...new Set(names)].sort();
