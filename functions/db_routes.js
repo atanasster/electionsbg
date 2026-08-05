@@ -2445,6 +2445,17 @@ const DB_ROUTES = {
   // activities overview for the same reason as the pack index: bolting 571 rows
   // onto a payload every reader of two pages fetches, to serve one group that
   // only needs it after arm, is the pattern this pair exists to avoid.
+  // One judicial body's page (/court/:bodyCode). Covers all 283 bodies — the
+  // ~97 prosecution/investigation ones return load: null, which the page NAMES
+  // rather than rendering an empty chart.
+  "court": async (dbRows, q) => {
+    const code = s(q, "code");
+    if (!code) return { status: 400, body: { error: "missing code" } };
+    const rows = await dbRows("SELECT judicial_body_detail($1) AS r", [
+      code,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
   "nzok-procedure-index": async (dbRows) => {
     const rows = await dbRows("SELECT nzok_procedure_index() AS r", []).catch(
       missingMigrationEmpty,

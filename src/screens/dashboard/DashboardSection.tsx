@@ -55,6 +55,7 @@ type Props = {
     | "subsidies-distribution"
     | "subsidies-recipients"
     | "subsidies-data"
+    | "court-load"
     | "molecule-spend"
     | "molecule-packs"
     | "molecule-hospitals"

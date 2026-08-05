@@ -281,6 +281,16 @@ resolve simply finds an empty alias table and ~2,700 magistrate roles publish wi
 court, green locally and blank on prod. See
 `docs/plans/person-role-place-consolidation-v1.md` (T2).
 
+**It is now ALSO what makes `/court/:bodyCode` truthful.** `judicial_body_source_name` is the
+un-folded bridge `judicial_body_detail()` joins `court_load` through — the raw-name→body fold lives
+in TypeScript, so SQL cannot do it. Applying 116 with `apply_functions.ts` (the normal way a
+function change ships) CREATEs that table EMPTY, and an empty bridge returns `load: null` for every
+body: shape-identical to a real prosecution office, so all 283 pages would assert at a 200 that the
+ВСС publishes no workload for them — including Софийски районен съд. The payload therefore carries
+`sourcesBuilt`, and the page says "not loaded yet" rather than "nothing published" when it is
+false; the fix is to run this loader. `judicial_body_detail.data.test.ts` fails if the flag stops
+discriminating.
+
 Same shape again, and also **BEFORE** `db:resolve:persons:cloud`: the canonical place
 dimension (migration 117) is the code→name dictionary `082_person_api.sql` JOINs for the
 `mir` / `obshtina` label on every `/person` role, and `/procurement/by-settlement` joins

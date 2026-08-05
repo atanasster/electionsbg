@@ -43,7 +43,102 @@ CREATE TABLE IF NOT EXISTS judicial_body_alias (
 
 CREATE INDEX IF NOT EXISTS idx_judicial_body_alias_body
   ON judicial_body_alias (body_code);
+
+-- The RAW source strings, keyed as they appear in their own table. `alias_norm`
+-- above is the FOLDED form, and the fold lives in TypeScript (foldJudicialName)
+-- — so SQL cannot join court_load.name to a body without it. This table carries
+-- the un-folded name the loader already resolved, which is what lets
+-- judicial_body_detail() join the workload series without re-implementing the
+-- fold in plpgsql (three copies of a name normaliser is how they drift).
+CREATE TABLE IF NOT EXISTS judicial_body_source_name (
+  source_name text PRIMARY KEY,
+  body_code   text NOT NULL REFERENCES judicial_body (body_code) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_judicial_body_source_body
+  ON judicial_body_source_name (body_code);
 -- "every prosecution office", "every court in X" — the two ways the dimension is sliced.
 CREATE INDEX IF NOT EXISTS idx_judicial_body_kind ON judicial_body (kind, tier);
 CREATE INDEX IF NOT EXISTS idx_judicial_body_place ON judicial_body (place_code)
   WHERE place_code IS NOT NULL;
+
+-- ==========================================================================
+-- One judicial body's page payload → /court/:bodyCode.
+--
+-- COVERS ALL 283 BODIES, not just the 186 courts (plan §9.4). The 70
+-- prosecution offices and 27 investigation services get pages too — they are
+-- exactly what a reader types — but three of the four blocks below DEGRADE for
+-- them, and the page must NAME that rather than draw an empty chart:
+--   * `load`  — court_load has rows for 180 bodies only. NULL for the rest.
+--   * `lng`/`lat` — court_load's geo, so NULL wherever `load` is.
+--   * magistrate counts — present for any body the ИВСС register names.
+-- What every body carries is its name, kind, tier and place.
+--
+-- The workload join goes through judicial_body_source_name because the fold
+-- that maps a raw name to a body lives in TypeScript; see that table's comment.
+-- ==========================================================================
+-- court_load (069) and magistrate (070) are loaded by their own operator-run
+-- loaders and are NOT in resolve_persons.ts's SCHEMA_FILES, so this file must
+-- still apply on a database where neither exists. LANGUAGE sql bodies are
+-- validated at CREATE time, and exec() sends the file as ONE transaction — so
+-- an unvalidatable body here would roll the whole migration back and abort
+-- db:resolve:persons on a cold bootstrap.
+SET check_function_bodies = false;
+
+CREATE OR REPLACE FUNCTION judicial_body_detail(p_code text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH b AS (SELECT * FROM judicial_body WHERE body_code = p_code),
+  src AS (
+    SELECT source_name FROM judicial_body_source_name
+    WHERE body_code = (SELECT body_code FROM b)
+  ),
+  -- ONE row per year. 28 administrative courts fold two court_load spellings
+  -- onto one body; their year ranges are disjoint today, so the duplicate is
+  -- latent rather than live — but a single overlapping year would emit two rows
+  -- with the same React key and double the series. Prefer the better-staffed
+  -- spelling, which is the fuller filing.
+  load AS (
+    SELECT DISTINCT ON (c.year) c.*
+    FROM court_load c
+    WHERE c.name IN (SELECT source_name FROM src)
+    ORDER BY c.year, c.judges DESC NULLS LAST, c.name COLLATE "C"
+  ),
+  mags AS (
+    SELECT count(*)::int AS n
+    FROM magistrate m
+    WHERE m.court IN (SELECT source_name FROM src)
+  )
+  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM b) THEN NULL
+    ELSE jsonb_build_object(
+      'bodyCode',   (SELECT body_code FROM b),
+      'name',       (SELECT name FROM b),
+      'kind',       (SELECT kind FROM b),
+      'tier',       (SELECT tier FROM b),
+      'place',      (SELECT place FROM b),
+      'placeCode',  (SELECT place_code FROM b),
+      'lng',        (SELECT lng FROM b),
+      'lat',        (SELECT lat FROM b),
+      'magistrates',(SELECT n FROM mags),
+      -- Distinguishes "this body has no published workload" from "the bridge
+      -- table was never loaded". Without it an empty judicial_body_source_name
+      -- returns load:null for ALL 283 bodies, shape-identical to a real
+      -- prosecution office — so every court page would assert, at a 200, that
+      -- the ВСС publishes no workload for it. Applying this file with
+      -- apply_functions.ts creates the table empty, which is the normal way a
+      -- function change ships. Mirrors the psp:not-built / pp:not-built pattern.
+      'sourcesBuilt', (SELECT EXISTS (SELECT 1 FROM judicial_body_source_name)),
+      -- NULL, not [], when the body has no published workload: the page branches
+      -- on it to say so, and an empty array would render an empty chart instead.
+      'load', (
+        SELECT jsonb_agg(jsonb_build_object(
+                 'year',             year,
+                 'judges',           judges,
+                 'personMonths',     person_months,
+                 'filedPerMonth',    filed_per_month,
+                 'considerPerMonth', consider_per_month,
+                 'resolvedPerMonth', resolved_per_month)
+               ORDER BY year)
+        FROM load)
+    ) END;
+$$;
+
+RESET check_function_bodies;

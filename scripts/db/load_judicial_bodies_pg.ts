@@ -111,6 +111,10 @@ const main = async (): Promise<void> => {
 
   const bodies = new Map<string, JudicialBody>();
   const aliases = new Map<string, string>();
+  // The RAW strings, un-folded — see judicial_body_source_name in 116. SQL has
+  // no access to foldJudicialName, so this is how the serving function joins
+  // court_load.name (and magistrate.court) to a body.
+  const sourceNames = new Map<string, string>();
   const geo = new Map<string, { lng: number; lat: number }>();
   // Reported per SOURCE, because "the register misspelt it" and "the dictionary does not
   // speak court_load's abbreviations" are different problems with different fixes.
@@ -132,6 +136,7 @@ const main = async (): Promise<void> => {
     }
     if (!bodies.has(body.bodyCode)) bodies.set(body.bodyCode, body);
     aliases.set(foldJudicialName(raw, vocab), body.bodyCode);
+    sourceNames.set(raw, body.bodyCode);
     // Geo only ever comes from court_load, and only for courts. BOTH coordinates or
     // neither — half a pair puts a court in the Gulf of Guinea.
     if (opts.lat != null && opts.lng != null && !geo.has(body.bodyCode))
@@ -160,6 +165,7 @@ const main = async (): Promise<void> => {
     ];
   });
   const aliasRows = [...aliases].map(([norm, code]) => [norm, code]);
+  const sourceRows = [...sourceNames].map(([name, code]) => [name, code]);
 
   // withTx rolls back on throw; the hand-rolled BEGIN/COMMIT this replaced would have
   // left both tables truncated if the second COPY failed.
@@ -171,7 +177,9 @@ const main = async (): Promise<void> => {
     // Acceptable ONLY because the table is ~283 rows — the reload is far under the
     // serving pool's 2 s lock_timeout — and this loader is operator-run, never in
     // a request. If it grows, switch to a stage merge (scripts/db/lib/stage_merge.ts).
-    await c.query("TRUNCATE judicial_body_alias, judicial_body");
+    await c.query(
+      "TRUNCATE judicial_body_source_name, judicial_body_alias, judicial_body",
+    );
     await copyRows(
       c,
       "judicial_body",
@@ -192,6 +200,12 @@ const main = async (): Promise<void> => {
       "judicial_body_alias",
       ["alias_norm", "body_code"],
       aliasRows,
+    );
+    await copyRows(
+      c,
+      "judicial_body_source_name",
+      ["source_name", "body_code"],
+      sourceRows,
     );
   });
 

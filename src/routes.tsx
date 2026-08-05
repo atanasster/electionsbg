@@ -216,6 +216,11 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const CourtScreen = lazy(() =>
+  import("./screens/judiciary/CourtScreen").then((m) => ({
+    default: m.CourtScreen,
+  })),
+);
 const MagistrateHoldingsBrowseScreen = lazy(() =>
   import("./screens/judiciary/MagistrateHoldingsBrowseScreen").then((m) => ({
     default: m.MagistrateHoldingsBrowseScreen,
@@ -1649,6 +1654,19 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <MagistrateHoldingsBrowseScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          {/* One judicial body — all 283, not just the 186 courts. The slug
+              says "court" because that is what a reader guesses; the page
+              names the real kind. */}
+          <Route
+            path="court/:bodyCode"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CourtScreen />
                 </Suspense>
               </LayoutScreen>
             }
