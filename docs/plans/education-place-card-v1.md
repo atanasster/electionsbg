@@ -106,6 +106,16 @@ declarations block.
   carries, so the two pages cannot read as contradicting each other) and a link
   to `/education`.
 
+**Shipped in step 2 vs deferred.** The trend, the spread line, the по-общини
+table (with a labelled header, and its change column naming its baseline) and
+both footers are in. Two §3.1 details are deferred to phase 2 rather than
+dropped: the cohort CHANGE beside the counts, and a schools column in the
+по-общини table — four numeric columns is already the most a tile-width table
+carries, and both numbers are in the payload when a wider surface wants them.
+The scroll body is a local `max-h-64` box around the table, not `StatCard`'s
+`bodyMaxHeight`, so the footnote and the methodology line stay outside the
+scroll where a reader will actually see them.
+
 ### 3.2 Tile B — "Над очакваното" (in scope, operator decision 2026-08-05)
 
 - **Verdict line**: the oblast's mean SES residual — "училищата в областта
