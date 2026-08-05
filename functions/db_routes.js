@@ -2436,6 +2436,27 @@ const DB_ROUTES = {
   },
   // The monthly median/p25/p75 series for ONE pack — "is the gap widening or
   // closing?", the question a single-year corpus structurally cannot answer.
+  // The slim pack index behind the medicines group of the /sector/health search
+  // box. Separate from the overview because that one's `topPacks` is LIMIT 20 —
+  // a search group built on it would be a top-20. Requested only when the reader
+  // focuses the box, so it costs a non-searching reader nothing.
+  // The slim procedure index behind the clinical-pathway group of the
+  // /sector/health search box — the SERVABLE code set. Separate from the
+  // activities overview for the same reason as the pack index: bolting 571 rows
+  // onto a payload every reader of two pages fetches, to serve one group that
+  // only needs it after arm, is the pattern this pair exists to avoid.
+  "nzok-procedure-index": async (dbRows) => {
+    const rows = await dbRows("SELECT nzok_procedure_index() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  "nzok-drug-pack-index": async (dbRows) => {
+    const rows = await dbRows("SELECT nzok_drug_pack_index() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   "nzok-drug-pack-trend": async (dbRows, q) => {
     const nationalNo = s(q, "nationalNo");
     const nzokCode = s(q, "nzokCode");

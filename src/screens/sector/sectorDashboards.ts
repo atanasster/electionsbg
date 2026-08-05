@@ -77,6 +77,12 @@ export interface SectorDashboardConfig {
    *  awarders tile (curated, sector-specific data). None of the graduating
    *  sectors ship one yet. */
   ThematicTiles?: ComponentType;
+  /** Optional entity-search box, rendered directly under the scope control and
+   *  above the first tile — ONE per page (see SectorEntitySearch's header). The
+   *  sector supplies it because only the sector knows what its entities are and
+   *  which payloads they come from. Lazy so this config module, which is pulled
+   *  in wherever sectorPacks is imported, does not eager-load them. */
+  SearchBox?: ComponentType;
 }
 
 // Awarder EIKs given as literals where no reference-data export exists yet.
@@ -126,6 +132,11 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "НЗОК",
     leadEik: NZOK_EIK,
     browsePackId: "nzok",
+    SearchBox: lazy(() =>
+      import("@/screens/components/procurement/nzok/NzokSearchBox").then(
+        (m) => ({ default: m.NzokSearchBox }),
+      ),
+    ),
     members: [
       {
         eik: NZOK_EIK,

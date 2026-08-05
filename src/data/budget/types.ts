@@ -2922,6 +2922,24 @@ export interface NzokDrugOverpayByEik {
   rows: NzokDrugOverpayRow[];
 }
 
+/** One searchable pack — the slim projection behind the medicines search group
+ *  (nzok_drug_pack_index). Deliberately NOT the full stats row: this is fetched
+ *  on demand and only needs what a reader types plus the pack identity the
+ *  /molecule/:inn/pack route takes. */
+export interface NzokDrugPackIndexRow {
+  nationalNo: string;
+  nzokCode: string;
+  inn: string;
+  tradeName: string;
+  form: string | null;
+  totalEur: number;
+}
+
+export interface NzokDrugPackIndexFile {
+  period: string;
+  packs: NzokDrugPackIndexRow[];
+}
+
 export interface NzokDrugUnitPricesFile {
   latestPeriod: string;
   volumeFloorPacks: number;
@@ -2998,6 +3016,22 @@ export interface NzokActivitiesFile {
   monthly: { period: string; cases: number; zol: number }[];
   topProcedures: NzokActivityProcedure[];
   caseBedOutliers: NzokActivityOutlier[];
+}
+
+/** One servable procedure code — enough to search, rank and label. */
+export interface NzokActivityCode {
+  procedure: string;
+  procType: string;
+  cases: number;
+}
+
+/** /api/db/nzok-procedure-index — EVERY code with activity rows, i.e. the
+ *  SERVABLE set behind /procedure/:code. Its own request rather than a field on
+ *  the activities overview: it serves one search group on one page and is
+ *  fetched only after the reader focuses the box. */
+export interface NzokProcedureIndexFile {
+  period: string;
+  procedures: NzokActivityCode[];
 }
 
 /** Procedure code → official НРД name reference — data/budget/nzok/procedures.json,

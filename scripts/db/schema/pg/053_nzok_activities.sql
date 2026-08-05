@@ -201,6 +201,42 @@ $$;
 -- Determinism ([[reference_pg_payload_determinism]]): ROUND-ed sort keys, every
 -- ORDER BY carries COLLATE "C" tiebreaks, empty table → NULL.
 -- --------------------------------------------------------------------------
+-- ==========================================================================
+-- The SLIM procedure index behind the clinical-pathway group of the
+-- /sector/health search box — every code with activity rows, which is exactly
+-- the SERVABLE set behind /procedure/:code.
+--
+-- A SEPARATE function, for the same reason nzok_drug_pack_index() is: bolting
+-- these 571 rows onto nzok_activities_overview() took that payload from 12.8 kB
+-- to 46.6 kB for EVERY reader of /sector/health and /awarder/121858220, to
+-- serve one group on one page that only needs it after the reader focuses the
+-- box. Requested on arm, so a non-searching reader pays nothing.
+--
+-- The search group must build from THIS, not from procedures.json: the name
+-- dictionary carries ~80 parent/rollup codes (A01, A10, A43) with no activity
+-- rows, and offering those would produce results that cannot land.
+-- ==========================================================================
+CREATE OR REPLACE FUNCTION nzok_procedure_index()
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH y AS (SELECT max(period) AS p FROM nzok_activities),
+  cur AS (SELECT * FROM nzok_activities WHERE period = (SELECT p FROM y))
+  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM cur) THEN NULL
+    ELSE jsonb_build_object(
+      'period', (SELECT p FROM y),
+      'procedures', COALESCE((
+        SELECT jsonb_agg(jsonb_build_object(
+                  'procedure', procedure,
+                  'procType',  proc_type,
+                  'cases',     cases)
+                ORDER BY cases DESC, procedure COLLATE "C")
+        FROM (
+          SELECT procedure, min(proc_type COLLATE "C") AS proc_type,
+                 sum(cases)::bigint AS cases
+          FROM cur GROUP BY procedure
+        ) p), '[]'::jsonb))
+  END;
+$$;
+
 CREATE OR REPLACE FUNCTION nzok_activities_overview()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH y AS (SELECT max(period) AS p FROM nzok_activities),

@@ -68,6 +68,17 @@ export const SectorEntitySearch: FC<{
   const bg = i18n.language === "bg";
   const [query, setQuery] = useState("");
   const armed = useRef(false);
+  // Arm on focus OR on the first keystroke. Focus alone is the natural trigger
+  // but not a reliable one: a browser that is not the frontmost window may
+  // never deliver a focus event, and a reader arriving with the box already
+  // focused (autofill, back-navigation, a screen reader moving the caret) can
+  // type without one. Missing the arm leaves every index null and the box
+  // silently answers "no matches" — so take whichever signal comes first.
+  const arm = () => {
+    if (armed.current) return;
+    armed.current = true;
+    onArm?.();
+  };
   // The query the RESULTS reflect: typing stays responsive while a large index
   // is scanned, because React renders the input with the new value first and
   // re-renders the (expensive) list afterwards at lower priority.
@@ -123,12 +134,11 @@ export const SectorEntitySearch: FC<{
       }
       lang={i18n.language}
       value={query}
-      onChange={setQuery}
-      onFocus={() => {
-        if (armed.current) return;
-        armed.current = true;
-        onArm?.();
+      onChange={(v) => {
+        arm();
+        setQuery(v);
       }}
+      onFocus={arm}
       loading={loading}
       groups={searchGroups}
     />

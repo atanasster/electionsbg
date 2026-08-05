@@ -35,6 +35,8 @@ import type {
   NzokHospitalFinancialsFile,
   NzokFinancialsByEik,
   NzokDrugUnitPricesFile,
+  NzokDrugPackIndexFile,
+  NzokProcedureIndexFile,
   NzokDrugOverpayByEik,
   NzokActivitiesFile,
   NzokActivityByEik,
@@ -468,6 +470,29 @@ export const useNzokDrugUnitPrices = () =>
 // One hospital's overpay-vs-median drug rows. Dispersion for the same pack has
 // legitimate causes (volume discount, delivery period, contract terms) — these
 // are pointers for a closer look, never an accusation.
+/** The slim procedure index for the /sector/health search box — the servable
+ *  /procedure/:code set. GATED on `enabled`, like the pack index. */
+export const useNzokProcedureIndex = (enabled: boolean) =>
+  useQuery({
+    queryKey: ["nzok", "procedure-index"] as const,
+    queryFn: () =>
+      fetchDb<NzokProcedureIndexFile>("/api/db/nzok-procedure-index"),
+    enabled,
+    staleTime: Infinity,
+  });
+
+/** The slim pack index for the /sector/health search box. GATED on `enabled`
+ *  so it is fetched only once the reader focuses the box — a reader who never
+ *  searches never pays for it. */
+export const useNzokDrugPackIndex = (enabled: boolean) =>
+  useQuery({
+    queryKey: ["nzok", "drug-pack-index"] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugPackIndexFile>("/api/db/nzok-drug-pack-index"),
+    enabled,
+    staleTime: Infinity,
+  });
+
 export const useNzokDrugOverpayByEik = (eik?: string | null) =>
   useQuery({
     queryKey: ["nzok", "drug-overpay-by-eik", eik ?? ""] as const,

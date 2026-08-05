@@ -127,6 +127,7 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
     ? `/company/${top.eik}`
     : undefined;
   const ThematicTiles = config.ThematicTiles;
+  const SearchBox = config.SearchBox;
   // Mirror each chart tile's own render condition so a lone survivor (e.g.
   // spend-by-year needs ≥2 years, absent on a narrow scope) spans full width
   // instead of leaving an empty grid half.
@@ -143,6 +144,20 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
       <div className="mb-3">
         <ScopeControl mode="toggle" />
       </div>
+
+      {/* The sector's entity finder, above the first tile. Deliberately OUTSIDE
+          the Pack/KPI branch below: the box is how a reader reaches a specific
+          hospital or pathway, and it must not disappear when a narrow scope
+          leaves the dashboard with no contracts to show. */}
+      {SearchBox && (
+        <Suspense
+          fallback={
+            <div className="h-24 animate-pulse rounded-xl border bg-card" />
+          }
+        >
+          <SearchBox />
+        </Suspense>
+      )}
 
       {Pack ? (
         // Pack-backed sector: the disbursement/delivery pack is the content.

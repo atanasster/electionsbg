@@ -9,7 +9,7 @@
 //   4. `onArm` fires once, on first focus, so a caller can defer building a
 //      large index until the reader has signalled intent.
 
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
@@ -158,5 +158,22 @@ describe("SectorEntitySearch", () => {
     const onArm = vi.fn();
     setup({ onArm });
     expect(onArm).not.toHaveBeenCalled();
+  });
+
+  it("arms on the first keystroke even if no focus event ever arrives", () => {
+    // fireEvent.change, NOT userEvent.type: the latter clicks first, so it
+    // focuses, so it arms through the onFocus path and would pass with this
+    // fix reverted. Only a bare change event isolates the keystroke trigger.
+    //
+    // Why the trigger exists: focus is the natural signal but not a reliable
+    // one — a non-frontmost window may never deliver one, and a reader can
+    // arrive with the box already focused. Without it every index stays null
+    // and the box answers "no matches" for every query. Reproduced in the
+    // browser on a fresh /sector/health mount: clicked, typed, and the lazy
+    // index was never requested.
+    const onArm = vi.fn();
+    const { input } = setup({ onArm });
+    fireEvent.change(input, { target: { value: "ум" } });
+    expect(onArm).toHaveBeenCalledTimes(1);
   });
 });

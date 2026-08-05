@@ -94,6 +94,51 @@ CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_eik
 -- The overpay leaderboard (overview): biggest gaps first.
 CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_period_eur
   ON nzok_drug_overpay (period DESC, overpay_eur DESC);
+-- ==========================================================================
+-- The SLIM pack index behind the medicines group of the /sector/health search
+-- box — every pack in the latest period, with only what is needed to search,
+-- rank and link.
+--
+-- A SEPARATE function on purpose. The overview's `topPacks` is LIMIT 20, so the
+-- search group cannot be built from it without being a top-20 itself — which is
+-- precisely the truncation the box exists to undo. And the full stats row is far
+-- too fat to bolt onto the overview, which every reader of /sector/health
+-- fetches: this is requested only when the reader FOCUSES the search box, so
+-- somebody who never searches pays nothing for it.
+--
+-- Five fields, no dispersion band: trade name and INN are what a reader types,
+-- (nationalNo, nzokCode) is the pack identity the /molecule/:inn/pack route
+-- needs, and total_eur is the rank that makes a capped result list meaningful.
+-- ==========================================================================
+CREATE OR REPLACE FUNCTION nzok_drug_pack_index()
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH p AS (SELECT max(period) AS per FROM nzok_drug_pack_stats),
+  -- EVERY period, not just the latest: a pack that stopped being dispensed
+  -- still has a /molecule/:inn/pack page, and 67 of the 284 addressable packs
+  -- appear only in an earlier month. DISTINCT ON keeps the most recent row per
+  -- pack identity, so the label and the rank are the freshest known.
+  cur AS (
+    SELECT DISTINCT ON (national_no, nzok_code)
+           national_no, nzok_code, inn, trade_name, form, total_eur
+    FROM nzok_drug_pack_stats
+    ORDER BY national_no, nzok_code, period DESC
+  )
+  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM cur) THEN NULL
+    ELSE jsonb_build_object(
+    'period', (SELECT per FROM p),
+    'packs', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+                'nationalNo', national_no,
+                'nzokCode',   nzok_code,
+                'inn',        inn,
+                'tradeName',  trade_name,
+                'form',       form,
+                'totalEur',   ROUND(total_eur)::bigint)
+              ORDER BY ROUND(total_eur) DESC,
+                       national_no COLLATE "C", nzok_code COLLATE "C")
+      FROM cur), '[]'::jsonb)) END;
+$$;
+
 -- One molecule's rows (nzok_drug_molecule_detail → /molecule/:inn) and one
 -- pack's rows (nzok_drug_pack_detail → the pack page). Both filter this table.
 CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_inn
