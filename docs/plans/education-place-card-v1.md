@@ -83,8 +83,10 @@ cannot: the gap *inside* София is wider than the gap *between* any two obla
 ## 3. What the card shows
 
 Two tiles in one new `Образование / Education` `DashboardSection`
-(icon `GraduationCap`), placed after "Програми и финансиране" and before the
-declarations block.
+(icon `GraduationCap`), placed after "Цени" and **before** "Програми и
+финансиране" — education is a "what is this place like" reading, not a funding
+programme, which is the same reason §9 refuses to fold it *into* the money
+section.
 
 ### 3.1 Tile A — "Матура в областта"
 

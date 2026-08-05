@@ -167,26 +167,34 @@ export const EducationPlaceTile: FC<Props> = ({ place, aliasNote }) => {
           {/* The full list, not a top-N: these are the region → município
               links the node exists to provide. Scrolls past ~8 rows rather
               than towering over the tile beside it; tabIndex makes the box
-              keyboard-scrollable, since it can hold 19 rows. */}
-          <div className="max-h-64 overflow-y-auto" tabIndex={0}>
+              keyboard-scrollable, since it can hold 19 rows, and the label is
+              what a screen reader announces when focus lands in it. */}
+          <div
+            className="max-h-64 overflow-y-auto"
+            tabIndex={0}
+            role="group"
+            aria-label={t("education_place_by_muni")}
+          >
             <table className="w-full text-sm">
               {/* Three of these four columns are bare numbers; without headers
                   a reader has to guess which is the average, which the change
-                  (and against what) and which the cohort. */}
-              <thead className="text-xs font-normal text-muted-foreground">
+                  (and against what) and which the cohort. Sticky, because up to
+                  19 rows scroll under it. Padding mirrors the body cells —
+                  without it the last two butt together ("от 2022Зрелостници"). */}
+              <thead className="sticky top-0 bg-card text-xs font-normal text-muted-foreground">
                 <tr>
-                  <th scope="col" className="text-left font-normal">
+                  <th scope="col" className="pr-2 text-left font-normal">
                     {t("education_place_col_muni")}
                   </th>
-                  <th scope="col" className="text-right font-normal">
+                  <th scope="col" className="pr-2 text-right font-normal">
                     {place.latestYear ?? t("education_place_col_avg")}
                   </th>
-                  <th scope="col" className="text-right font-normal">
+                  <th scope="col" className="pr-2 text-right font-normal">
                     {first
                       ? t("education_place_col_since", { year: first.year })
                       : t("education_place_col_change")}
                   </th>
-                  <th scope="col" className="text-right font-normal">
+                  <th scope="col" className="pr-1 text-right font-normal">
                     {t("education_place_col_examinees")}
                   </th>
                 </tr>
@@ -208,7 +216,8 @@ export const EducationPlaceTile: FC<Props> = ({ place, aliasNote }) => {
                     <td className="w-14 py-1 pr-2 text-right text-xs tabular-nums text-muted-foreground">
                       {m.delta != null ? fmtSigned(m.delta, lang) : "—"}
                     </td>
-                    <td className="w-16 py-1 text-right text-xs tabular-nums text-muted-foreground">
+                    {/* pr-1 keeps the last column clear of the scrollbar. */}
+                    <td className="w-16 py-1 pr-1 text-right text-xs tabular-nums text-muted-foreground">
                       {fmtCount(m.examinees, lang)}
                     </td>
                   </tr>

@@ -3,8 +3,9 @@
 // none of the município node's mayor/council/kmetstvo/LISI/local-tax tiles
 // have an equivalent here; what remains is:
 //   - Representation: the oblast's MPs + their declarations
-//   - Programmes & funding: Чл.53 transfers, registered-unemployment / matura
-//     indicators, census, and the per-oblast property/land-use composition
+//   - Education: the oblast's matura result, its schools and its municipalities
+//   - Programmes & funding: Чл.53 transfers, regional indicators (Eurostat/НСИ),
+//     census, and the per-oblast property/land-use composition
 //
 // All tiles are oblast-keyed and self-hide without data. МИР 32 (abroad) has
 // no municipalities/census/property, so those tiles drop out for it.
@@ -24,6 +25,7 @@ import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { RegionalIndicatorsTile } from "./RegionalIndicatorsTile";
 import { MunicipalTransfersTile } from "./MunicipalTransfersTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
+import { EducationPlaceSection } from "./EducationPlaceSection";
 import { MyAreaPropertyStockTile } from "@/screens/myarea/MyAreaPropertyStockTile";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 
@@ -60,6 +62,11 @@ export const RegionGovernanceCards: FC<Props> = ({ regionCode }) => {
           <GovernancePricesTile oblast={regionCode} showConsumptionLink />
         </DashboardSection>
       )}
+
+      {/* Education follows the prices block and precedes the money block: it is
+          a "what is this place like" reading, not a programme. Self-hides for
+          МИР 32 and anywhere the corpus has no current cohort. */}
+      {diaspora ? null : <EducationPlaceSection code={regionCode} />}
 
       {diaspora ? null : (
         <DashboardSection

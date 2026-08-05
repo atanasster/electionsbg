@@ -7,9 +7,7 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, beforeAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import bg from "@/locales/bg/translation.json";
+import { initTestI18n } from "./testI18n";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { EducationPlaceTile } from "./EducationPlaceTile";
 import { EducationExpectedTile } from "./EducationExpectedTile";
@@ -22,15 +20,7 @@ import type {
 // The SHIPPED bg bundle, not a stub: the coverage label and the two verdict
 // strings carry placeholders, and a renamed one there would leave "{{covered}}"
 // on screen while a key-only assertion still passed.
-beforeAll(async () => {
-  await i18n.use(initReactI18next).init({
-    lng: "bg",
-    fallbackLng: "bg",
-    resources: { bg: { translation: bg } },
-    interpolation: { escapeValue: false },
-    react: { useSuspense: false },
-  });
-});
+beforeAll(() => initTestI18n());
 
 const school = (
   over: Partial<EducationPlaceSchool> & { id: string },
@@ -271,13 +261,11 @@ describe("EducationExpectedTile", () => {
 });
 
 describe("resolveEducationPlaceKey", () => {
-  it("sends every Sofia МИР to the city aggregate, flagged", () => {
-    expect(resolveEducationPlaceKey("S23")).toEqual({
-      key: "S23",
-      aliased: false,
-      reason: null,
-    });
-    for (const mir of ["S24", "S25"]) {
+  it("flags all THREE Sofia МИР, including the one whose code is the key", () => {
+    // S23 is both a МИР code and the key the corpus stores the whole city
+    // under. Deriving the disclosure from `key !== code` gave the page headed
+    // "София 23 МИР" the entire city's average with nothing said.
+    for (const mir of ["S23", "S24", "S25"]) {
       expect(resolveEducationPlaceKey(mir)).toEqual({
         key: "S23",
         aliased: true,

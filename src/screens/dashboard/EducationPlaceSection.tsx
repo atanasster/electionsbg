@@ -1,0 +1,70 @@
+// The education block of a Governance place node — one place code in, the two
+// tiles out, or nothing at all.
+//
+// It exists so the aliasing lives in ONE place: three of the 28 region pages
+// (Sofia's МИР trio) and one more (Пловдив-град) read another place's blob,
+// because МОН publishes those places as single aggregates. The disclosure that
+// they are doing so is not optional — showing Sofia city's numbers on the S24
+// page without a word would state МИР-grain data we do not have.
+//
+// Self-hides for a diaspora МИР, a place with no matura school, and a database
+// where the loader has not run yet. That last case is why an error hides too
+// rather than rendering a broken card: a cloud database mid-rollout should look
+// like a page without an education section, not like a page with a wound.
+
+import { FC, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { GraduationCap } from "lucide-react";
+import { useEducationPlace } from "@/data/schools/useEducationPlace";
+import { DashboardSection } from "./DashboardSection";
+import { EducationPlaceTile } from "./EducationPlaceTile";
+import { EducationExpectedTile } from "./EducationExpectedTile";
+
+type Props = {
+  /** Oblast code (`SML`, `S23`) or obshtina code (`SML10`, `SOF00`). */
+  code: string;
+};
+
+/** Warned-about codes, so a re-render or a second visit doesn't re-log. */
+const warned = new Set<string>();
+
+export const EducationPlaceSection: FC<Props> = ({ code }) => {
+  const { t } = useTranslation();
+  const { place, aliasReason, isError } = useEducationPlace(code);
+
+  // An absent blob is a legitimate empty and stays silent; a FAILED read is
+  // not. Without this, a cloud database where db:load:schools:pg:cloud never
+  // ran serves all 28 region pages at a 200 with the section simply missing —
+  // identical to the site before this shipped, and nothing red anywhere. Same
+  // discipline as the `psp:` / `pp:` one-shot logs in the db routes.
+  useEffect(() => {
+    if (isError && !warned.has(code)) {
+      warned.add(code);
+      console.warn(`education:place-read-failed ${code}`);
+    }
+  }, [isError, code]);
+
+  if (!place) return null;
+
+  const aliasNote =
+    aliasReason === "sofia-city"
+      ? t("education_place_sofia_note")
+      : aliasReason === "plovdiv-province"
+        ? t("education_place_plovdiv_note")
+        : null;
+
+  return (
+    <DashboardSection
+      id="education"
+      title={t("governance_section_education") || "Education"}
+      icon={GraduationCap}
+    >
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
+        <EducationPlaceTile place={place} aliasNote={aliasNote} />
+        {/* Renders null when the place has no residual to speak from, and the
+            grid then gives the headline the full width. */}
+        <EducationExpectedTile place={place} />
+      </div>
+    </DashboardSection>
+  );
+};

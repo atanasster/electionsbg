@@ -79,7 +79,8 @@ type Props = {
     | "person-events"
     | "person-stakes"
     | "person-cohort"
-    | "person-watchlist";
+    | "person-watchlist"
+    | "education";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;
