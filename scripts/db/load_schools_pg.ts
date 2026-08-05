@@ -29,7 +29,12 @@ import {
   r2,
   type Verdict,
 } from "./lib/school_stats";
-import { buildPlacePayloads } from "./lib/school_places";
+import {
+  buildPlacePayloads,
+  dziSeriesOf,
+  latestYearOf,
+  oblastOfObshtina,
+} from "./lib/school_places";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -111,7 +116,7 @@ const buildDirectory = () => {
     ).map((m) => [m.obshtina, m.name]),
   );
   const resolveMuni = (code: string): { name: string; oblast: string } => {
-    const oblast = code === "SOF00" ? "S23" : code.slice(0, 3);
+    const oblast = oblastOfObshtina(code);
     const nm = muni.get(code);
     if (nm) return { name: nm, oblast };
     if (code === "SOF00") return { name: "Столична община", oblast };
@@ -124,19 +129,7 @@ const buildDirectory = () => {
   )) {
     const mn = resolveMuni(obshtina);
     for (const rec of recs) {
-      const series = Object.keys(rec.scoresByYear)
-        .map(Number)
-        .sort((a, b) => a - b)
-        .flatMap((y) => {
-          const s = rec.scoresByYear[String(y)]?.dzi_bel;
-          if (typeof s !== "number") return [];
-          const n = rec.countsByYear?.[String(y)]?.dzi_bel;
-          return [
-            typeof n === "number"
-              ? { year: y, score: s, n }
-              : { year: y, score: s },
-          ];
-        });
+      const series = dziSeriesOf(rec.scoresByYear, rec.countsByYear);
       const last = series[series.length - 1] ?? null;
       const latestN =
         last != null
@@ -225,8 +218,12 @@ const buildDirectory = () => {
       examinees: a.n,
     }))
     .sort((a, b) => a.year - b.year);
-  const latestYear: number | null =
-    (idx.latestYear as number) ?? nationalByYear.at(-1)?.year ?? null;
+  // Shared with the prerender, which derives the same headline year from the
+  // same committed index — see latestYearOf's note on why they must not drift.
+  const latestYear: number | null = latestYearOf(
+    idx.latestYear as number | null | undefined,
+    schools,
+  );
 
   // Per-oblast series. Note the rule differs from byOblast below, which only
   // counts schools whose OWN latest year is the national latest year: here each

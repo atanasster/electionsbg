@@ -5,7 +5,11 @@
 // by scripts/db/lib/school_places.ts; see docs/plans/education-place-card-v1.md.
 
 import { useQuery } from "@tanstack/react-query";
-import { SOFIA_REGIONS } from "@/data/dataTypes";
+// The alias rule lives in a plain .ts module because the PRERENDER imports it
+// too and must not pull React Query into a build script. Import it from THERE,
+// not through this file — re-exporting a non-component from a .tsx costs fast
+// refresh on every consumer.
+import { resolveEducationPlaceKey } from "./educationPlaceKey";
 
 /** Verdict banding shared with the directory payload. */
 export type PlaceVerdict = "above" | "expected" | "under";
@@ -62,48 +66,6 @@ export interface EducationPlace {
     rows: EducationPlaceSchool[];
   };
 }
-
-/** МОН publishes Столична община as ONE aggregate, so the corpus knows Sofia
- *  city as oblast `S23` / obshtina `SOF00` (`load_schools_pg.ts` maps `SOF00 →
- *  S23`). Parliament splits the city into three МИР (`SOFIA_REGIONS`), each
- *  with its own region page, and all three read that one city-wide blob.
- *
- *  `S23` therefore needs the disclosure just as much as `S24` and `S25` do: the
- *  key matching the requested code is a COLLISION between the МИР code and the
- *  city aggregate's key, not evidence that the numbers are that МИР's. Deriving
- *  the note from `key !== code` gave the page headed "София 23 МИР" the whole
- *  city's matura average with nothing said. */
-const SOFIA_CITY_KEY = SOFIA_REGIONS[0];
-
-/** Plovdiv's МИР split is the same shape: `PDV-00` is the city constituency,
- *  while the education cut folds the city into the `PDV` oblast. */
-const PLOVDIV_CITY_MIR = "PDV-00";
-const PLOVDIV_OBLAST = "PDV";
-
-/** Why a place reads a BROADER aggregate than itself — the caller needs the
- *  REASON, not just the fact, because the two get different sentences ("МОН
- *  publishes Sofia city as one aggregate" vs "…Plovdiv province as one").
- *  Returning it here is what keeps the МИР lists from being re-derived at every
- *  call site. */
-export type PlaceAliasReason = "sofia-city" | "plovdiv-province" | null;
-
-export interface PlaceKey {
-  /** The code actually fetched. */
-  key: string;
-  /** True when the numbers are a broader aggregate's, whether or not `key`
-   *  differs from the requested code — see the Sofia note above. */
-  aliased: boolean;
-  reason: PlaceAliasReason;
-}
-
-/** Resolve a place code onto the code the education corpus is keyed by. */
-export const resolveEducationPlaceKey = (code: string): PlaceKey => {
-  if (SOFIA_REGIONS.includes(code))
-    return { key: SOFIA_CITY_KEY, aliased: true, reason: "sofia-city" };
-  if (code === PLOVDIV_CITY_MIR)
-    return { key: PLOVDIV_OBLAST, aliased: true, reason: "plovdiv-province" };
-  return { key: code, aliased: false, reason: null };
-};
 
 /**
  * The education blob for one place (oblast or obshtina code).

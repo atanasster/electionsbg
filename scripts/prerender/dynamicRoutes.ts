@@ -76,6 +76,11 @@ import {
   type DiasporaCountry,
   type GovernanceRegionMuni,
 } from "./bodyBuilders";
+import {
+  educationBodyFor,
+  readEducationPlaces,
+  readMuniNamesEn,
+} from "./educationPlaces";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
@@ -733,6 +738,10 @@ export const buildGovernanceRegionRoutes = (
   projectRoot: string,
   regions: RegionInfo[],
 ): PrerenderRoute[] => {
+  // Parsed ONCE for all 28 regions × 2 languages — the schools index is 1.3 MB,
+  // and re-reading it per region would be 56 parses of it.
+  const education = readEducationPlaces(projectRoot);
+  const muniNamesEn = readMuniNamesEn(projectRoot);
   const munisByOblast = new Map<string, GovernanceRegionMuni[]>();
   for (const m of readMunicipalities(projectRoot)) {
     if (!m.oblast) continue;
@@ -757,7 +766,12 @@ export const buildGovernanceRegionRoutes = (
         title,
         description,
         ogImage: `/og/region/${r.oblast}.png`,
-        bodyHtml: buildGovernanceRegionBody(r, munis, "bg"),
+        bodyHtml: buildGovernanceRegionBody(
+          r,
+          munis,
+          "bg",
+          educationBodyFor(education, muniNamesEn, r.oblast),
+        ),
         jsonLd: [
           buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd([
@@ -769,7 +783,12 @@ export const buildGovernanceRegionRoutes = (
         english: {
           title: titleEn,
           description: descriptionEn,
-          bodyHtml: buildGovernanceRegionBody(r, munis, "en"),
+          bodyHtml: buildGovernanceRegionBody(
+            r,
+            munis,
+            "en",
+            educationBodyFor(education, muniNamesEn, r.oblast),
+          ),
           jsonLd: [
             buildWebPageLd({
               title: titleEn,

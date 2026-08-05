@@ -1,0 +1,148 @@
+// Build-time education rollups for the prerendered region bodies.
+//
+// The crawler-facing HTML for /governance/region/{oblast} promised matura data
+// long before any tile rendered it (the old copy attributed it to the regional
+// indicators tile, which is Eurostat/НСИ only). This is what makes the promise
+// true in the static HTML as well as in the SPA.
+//
+// It reads the COMMITTED data/schools/index.json, so `npm run build` produces
+// the education section on any checkout — deliberately unlike the /court family,
+// where seo_courts.ts needs a local Postgres and silently emits nothing without
+// one. The aggregation itself is the same `buildPlacePayloads` the Postgres
+// loader uses, over the same committed index and the same shared rules
+// (`oblastOfObshtina`, `dziSeriesOf`, `latestYearOf`), so the two agree as long
+// as the index a build reads is the index the last load read. They CAN drift
+// the day a deploy ships a rebuilt `dist/` against a database loaded from an
+// older index — the same staleness every other `db:load:*:cloud` carries.
+//
+// The one thing it CANNOT carry is the "над очакваното" cut: the SES residuals
+// are fitted in the loader, not stored in the index. The static body therefore
+// states the level and the spread and leaves the context-adjusted reading to
+// the page — which is the right split anyway, since a crawler wants the facts
+// and the residual needs its explanation next to it.
+
+import fs from "fs";
+import path from "path";
+import {
+  buildPlacePayloads,
+  dziSeriesOf,
+  latestYearOf,
+  oblastOfObshtina,
+  type PlaceBlob,
+  type PlaceInputSchool,
+} from "../db/lib/school_places";
+import {
+  resolveEducationPlaceKey,
+  type PlaceAliasReason,
+} from "@/data/schools/educationPlaceKey";
+
+type RawSchool = {
+  id: string;
+  name: string;
+  scoresByYear: Record<string, Record<string, number>>;
+  countsByYear?: Record<string, Record<string, number>>;
+};
+
+type SchoolsIndex = {
+  latestYear?: number | null;
+  schoolsByObshtina: Record<string, RawSchool[]>;
+};
+
+/** A place's blob plus the English municipality names and the disclosure the
+ *  static body needs — the blob itself carries only Bulgarian names, and only
+ *  the requested place knows whether it is reading a broader aggregate. */
+export type EducationPlaceBody = {
+  blob: PlaceBlob;
+  /** obshtina code → English name, for the EN body. */
+  namesEn: Map<string, string>;
+  /** Set when these numbers are a broader place's — the EN/BG bodies must say
+   *  so, exactly as the live tile does. */
+  aliasReason: PlaceAliasReason;
+};
+
+/** Reads the two committed files and returns one blob per place, or an empty
+ *  map when either is absent or unreadable — a checkout without them still
+ *  builds, minus the education section, which is the same degrade the sibling
+ *  builders take rather than failing the whole prerender. */
+export const readEducationPlaces = (
+  projectRoot: string,
+): Map<string, PlaceBlob> => {
+  const indexFile = path.join(projectRoot, "data/schools/index.json");
+  const muniFile = path.join(projectRoot, "data/municipalities.json");
+  if (!fs.existsSync(indexFile) || !fs.existsSync(muniFile)) return new Map();
+
+  let idx: SchoolsIndex;
+  let munis: { obshtina: string; name: string; name_en?: string }[];
+  try {
+    idx = JSON.parse(fs.readFileSync(indexFile, "utf-8"));
+    munis = JSON.parse(fs.readFileSync(muniFile, "utf-8"));
+  } catch (e) {
+    console.warn(
+      `education prerender: unreadable source, section omitted (${e})`,
+    );
+    return new Map();
+  }
+  const muniNames = new Map(munis.map((m) => [m.obshtina, m.name]));
+
+  const schools: PlaceInputSchool[] = [];
+  const years = new Set<number>();
+  for (const [obshtina, recs] of Object.entries(idx.schoolsByObshtina ?? {})) {
+    for (const rec of recs) {
+      const series = dziSeriesOf(rec.scoresByYear, rec.countsByYear);
+      const last = series[series.length - 1] ?? null;
+      if (last) years.add(last.year);
+      schools.push({
+        id: rec.id,
+        name: rec.name,
+        obshtina,
+        obshtinaName:
+          muniNames.get(obshtina) ??
+          (obshtina === "SOF00" ? "Столична община" : obshtina),
+        oblast: oblastOfObshtina(obshtina),
+        latestYear: last?.year ?? null,
+        latestScore: last?.score ?? null,
+        latestN: last?.n ?? null,
+        series,
+        // No regression fields: they are the loader's, and a static body
+        // states the level and the spread, never a residual it did not fit.
+      });
+    }
+  }
+
+  // The national series is only needed for the tick the tiles draw; the static
+  // body quotes the place's own numbers, so an empty one is correct here.
+  // Município blobs come along for free and go unused here; the region bodies
+  // are the only consumer today, and filtering them out would fork the builder.
+  return buildPlacePayloads(schools, latestYearOf(idx.latestYear, schools), []);
+};
+
+/** Everything a region body needs for one place code, alias resolved the same
+ *  way the live page resolves it — so `/governance/region/S24` and
+ *  `/governance/region/S23` both carry Столична община's numbers AND say so,
+ *  in the static HTML as well as in the SPA. Undefined when the place has no
+ *  blob (a diaspora МИР, or a checkout without the index). */
+export const educationBodyFor = (
+  places: Map<string, PlaceBlob>,
+  namesEn: Map<string, string>,
+  code: string,
+): EducationPlaceBody | undefined => {
+  const { key, reason } = resolveEducationPlaceKey(code);
+  const blob = places.get(key);
+  return blob ? { blob, namesEn, aliasReason: reason } : undefined;
+};
+
+/** obshtina code → English name, read from the same committed file. */
+export const readMuniNamesEn = (projectRoot: string): Map<string, string> => {
+  const muniFile = path.join(projectRoot, "data/municipalities.json");
+  if (!fs.existsSync(muniFile)) return new Map();
+  try {
+    const munis = JSON.parse(fs.readFileSync(muniFile, "utf-8")) as {
+      obshtina: string;
+      name: string;
+      name_en?: string;
+    }[];
+    return new Map(munis.map((m) => [m.obshtina, m.name_en || m.name]));
+  } catch {
+    return new Map();
+  }
+};

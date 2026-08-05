@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
+import { hasCrawlableId } from "@/data/schools/schoolBel";
+import type { EducationPlaceBody } from "./educationPlaces";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
 import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
@@ -1145,6 +1147,102 @@ export type GovernanceRegionMuni = {
   name_en?: string;
 };
 
+/** The education section of a region body — level, spread, and the schools a
+ *  reader would look for, in the static HTML as well as in the SPA. Omitted
+ *  entirely when the place has no blob (МИР 32, or a checkout without
+ *  data/schools/index.json), which is why every caller passes it optionally.
+ *
+ *  Link rule, same as the function below: only `/school/:id` has an EN mirror,
+ *  so only that one takes the `/en` prefix. `/governance/:obshtina` does not —
+ *  an `/en/governance/SML10` would serve the EN homepage shell. */
+const governanceRegionEducation = (
+  edu: EducationPlaceBody | undefined,
+  displayName: string,
+  lang: "bg" | "en",
+): string[] => {
+  if (!edu?.blob.latestYear) return [];
+  const { blob, namesEn, aliasReason } = edu;
+  const en = lang === "en";
+  const parts: string[] = [];
+  const n2 = (v: number) =>
+    en ? v.toFixed(2) : v.toFixed(2).replace(".", ",");
+  const muniName = (code: string, bgName: string) =>
+    en ? (namesEn.get(code) ?? bgName) : bgName;
+  const rank =
+    blob.rank != null && blob.rankOf != null
+      ? en
+        ? ` — №${blob.rank} of ${blob.rankOf} provinces`
+        : ` — №${blob.rank} от ${blob.rankOf} области`
+      : "";
+  // The same disclosure the live tile carries: three Sofia МИР pages and
+  // Пловдив-град publish a broader place's numbers, because МОН publishes
+  // those places as single aggregates.
+  const alias =
+    aliasReason === "sofia-city"
+      ? en
+        ? " МОН publishes Sofia city as one aggregate, so these are city-wide figures rather than this constituency's."
+        : " МОН публикува Столична община общо — числата са за целия град, не за този МИР."
+      : aliasReason === "plovdiv-province"
+        ? en
+          ? " МОН publishes Plovdiv province as one aggregate, so these figures include the city."
+          : " МОН публикува област Пловдив общо — числата включват и града."
+        : "";
+
+  parts.push(
+    en
+      ? `<h2>Matura in ${escapeHtml(displayName)} province</h2>`
+      : `<h2>Матура в област ${escapeHtml(displayName)}</h2>`,
+  );
+  parts.push(
+    en
+      ? `<p>On the ${blob.latestYear} state matura in Bulgarian language and literature, schools in ${escapeHtml(displayName)} province averaged ${n2(blob.avg)}${rank}, across ${fmtIntEn(blob.schools)} schools and ${fmtIntEn(blob.examinees)} graduates.${alias} Averages are weighted by cohort; every failing graduate enters as a flat 2.00, so this differs from the ministry's own announced figure.</p>`
+      : `<p>На държавния зрелостен изпит по български език и литература през ${blob.latestYear} г. училищата в област ${escapeHtml(displayName)} постигат среден успех ${n2(blob.avg)}${rank}, в ${fmtInt(blob.schools)} училища с ${fmtInt(blob.examinees)} зрелостници.${alias} Успехът е претеглен по броя зрелостници; всеки скъсан зрелостник влиза с 2,00 независимо от точките си, затова числото се различава от обявеното от министерството.</p>`,
+  );
+
+  // Third emitter of /school/:id links after buildSchoolRoutes and the sitemap
+  // — gate it on the same rule, or a fallback-id school in a region's top five
+  // links at a page the prerender deliberately did not write.
+  const top = blob.top.filter((s) => hasCrawlableId(s));
+  if (top.length) {
+    parts.push(
+      en
+        ? `<h3>Highest matura results in ${escapeHtml(displayName)} province</h3>`
+        : `<h3>Най-висок успех на матурата в област ${escapeHtml(displayName)}</h3>`,
+    );
+    parts.push(
+      `<ul>${top
+        .map(
+          (s) =>
+            `<li><a href="${SITE_URL}${en ? "/en" : ""}/school/${encodeURIComponent(s.id)}">${escapeHtml(
+              s.name,
+            )}</a> — ${n2(s.score)} (${escapeHtml(muniName(s.obshtina, s.obshtinaName))})</li>`,
+        )
+        .join("")}</ul>`,
+    );
+  }
+
+  if (blob.byObshtina.length > 1) {
+    parts.push(
+      en ? `<h3>Matura by municipality</h3>` : `<h3>Матура по общини</h3>`,
+    );
+    parts.push(
+      `<ul>${blob.byObshtina
+        .map(
+          (m) =>
+            `<li><a href="${SITE_URL}/governance/${m.obshtina}">${escapeHtml(
+              muniName(m.obshtina, m.name),
+            )}</a> — ${n2(m.avg)}${
+              en
+                ? ` (${fmtIntEn(m.examinees)} graduates)`
+                : ` (${fmtInt(m.examinees)} зрелостници)`
+            }</li>`,
+        )
+        .join("")}</ul>`,
+    );
+  }
+  return parts;
+};
+
 // Region (oblast) node body. The EN variant only /en-prefixes links whose
 // target actually has an EN mirror — i.e. the country node (/en/governance).
 // The oblast election-results page and the município/settlement place pages
@@ -1154,6 +1252,7 @@ export const buildGovernanceRegionBody = (
   region: RegionInfo,
   munis: GovernanceRegionMuni[],
   lang: "bg" | "en" = "bg",
+  education?: EducationPlaceBody,
 ): string => {
   const en = lang === "en";
   const displayName = en
@@ -1163,7 +1262,7 @@ export const buildGovernanceRegionBody = (
   if (en) {
     parts.push(`<h1>Governance — ${escapeHtml(displayName)} province</h1>`);
     parts.push(
-      `<p>A regional cut of governance for ${escapeHtml(displayName)} province: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), regional indicators (registered unemployment, matura scores), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
+      `<p>A regional cut of governance for ${escapeHtml(displayName)} province: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), the state matura result of its schools, regional indicators (GDP per head, migration, registered unemployment), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
     );
     parts.push(
       `<p><a href="${SITE_URL}/en/governance">Governance (country)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Election results in ${escapeHtml(displayName)}</a></p>`,
@@ -1171,12 +1270,16 @@ export const buildGovernanceRegionBody = (
   } else {
     parts.push(`<h1>Управление — област ${escapeHtml(displayName)}</h1>`);
     parts.push(
-      `<p>Регионален разрез на управлението за област ${escapeHtml(displayName)}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), регионални индикатори (регистрирана безработица, матури), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
+      `<p>Регионален разрез на управлението за област ${escapeHtml(displayName)}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), успехът на матурата в училищата, регионални индикатори (БВП на човек, миграция, регистрирана безработица), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
     );
     parts.push(
       `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в обл. ${escapeHtml(displayName)}</a></p>`,
     );
   }
+  // Education before the municipality list: it is the substance of the page,
+  // while the list below is navigation. Both link to the same place nodes.
+  parts.push(...governanceRegionEducation(education, displayName, lang));
+
   if (munis.length) {
     const muniLabel = (m: GovernanceRegionMuni) =>
       en ? m.name_en || m.name : m.name;

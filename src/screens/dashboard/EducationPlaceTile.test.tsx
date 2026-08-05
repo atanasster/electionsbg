@@ -11,7 +11,7 @@ import { initTestI18n } from "./testI18n";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { EducationPlaceTile } from "./EducationPlaceTile";
 import { EducationExpectedTile } from "./EducationExpectedTile";
-import { resolveEducationPlaceKey } from "@/data/schools/useEducationPlace";
+import { resolveEducationPlaceKey } from "@/data/schools/educationPlaceKey";
 import type {
   EducationPlace,
   EducationPlaceSchool,

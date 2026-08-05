@@ -65,7 +65,7 @@ export type PlaceBlob = {
   byObshtina: PlaceMuniRow[];
   top: PlaceSchoolRow[];
   /** Empty when the place has too few rankable schools for a head and a tail
-   *  that don't overlap — see `blobFor`. */
+   *  that don't overlap — see the cap check in `blobFor`. */
   bottom: PlaceSchoolRow[];
   /** Best by SES residual — the "над очакваното" list. */
   above: PlaceSchoolRow[];
@@ -94,11 +94,65 @@ export type PlaceInputSchool = {
   latestScore: number | null;
   latestN: number | null;
   series: { year: number; score: number; n?: number }[];
-  predicted: number | null;
-  residual: number | null;
-  verdict: Verdict | null;
-  vaResidual: number | null;
-  vaVerdict: Verdict | null;
+  /** The regression outputs, all optional: only the loader fits them. The
+   *  build-time reader supplies none, and the blobs it produces carry no
+   *  residual — a static body states the level and the spread, never a
+   *  context-adjusted reading nobody computed. */
+  predicted?: number | null;
+  residual?: number | null;
+  verdict?: Verdict | null;
+  vaResidual?: number | null;
+  vaVerdict?: Verdict | null;
+};
+
+/** The oblast a município belongs to, as the education corpus keys it.
+ *
+ *  Two consumers now depend on this being ONE rule: the Postgres loader that
+ *  builds the served blobs, and the prerender that writes the crawler-facing
+ *  region bodies at build time. The Sofia case is the whole reason it is worth
+ *  extracting — МОН publishes Столична община as one aggregate, so the city's
+ *  schools are keyed to the `S23` МИР rather than to a `SOF` oblast that does
+ *  not exist in this corpus. */
+export const oblastOfObshtina = (obshtina: string): string =>
+  obshtina === "SOF00" ? "S23" : obshtina.slice(0, 3);
+
+/** A school's ascending ДЗИ БЕЛ series from the raw index, carrying each
+ *  year's cohort where the index has one. Shared for the same reason as
+ *  `oblastOfObshtina`: the rollups on both sides must agree year for year. */
+export const dziSeriesOf = (
+  scoresByYear: Record<string, Record<string, number>>,
+  countsByYear?: Record<string, Record<string, number>>,
+): { year: number; score: number; n?: number }[] =>
+  Object.keys(scoresByYear)
+    .map(Number)
+    .sort((a, b) => a - b)
+    .flatMap((y) => {
+      const s = scoresByYear[String(y)]?.dzi_bel;
+      if (typeof s !== "number") return [];
+      const n = countsByYear?.[String(y)]?.dzi_bel;
+      return [
+        typeof n === "number"
+          ? { year: y, score: s, n }
+          : { year: y, score: s },
+      ];
+    });
+
+/** The headline year — the membership rule every place figure is computed on,
+ *  so the loader and the prerender must derive it identically. A one-year
+ *  disagreement would change the average, both counts, the top five and the
+ *  rank on every region page, silently. The index's own `latestYear` wins; the
+ *  fallback is the latest year any school reports a scored, counted cohort. */
+export const latestYearOf = (
+  declared: number | null | undefined,
+  schools: { series: { year: number; n?: number }[] }[],
+): number | null => {
+  if (typeof declared === "number") return declared;
+  let latest: number | null = null;
+  for (const s of schools)
+    for (const p of s.series)
+      if (typeof p.n === "number" && (latest == null || p.year > latest))
+        latest = p.year;
+  return latest;
 };
 
 const TOP_N = 5;
@@ -133,11 +187,11 @@ const rowOf = (s: RankableSchool): PlaceSchoolRow => ({
   obshtinaName: s.obshtinaName,
   score: s.latestScore,
   n: s.latestN,
-  predicted: s.predicted,
-  residual: s.residual,
-  verdict: s.verdict,
-  vaResidual: s.vaResidual,
-  vaVerdict: s.vaVerdict,
+  predicted: s.predicted ?? null,
+  residual: s.residual ?? null,
+  verdict: s.verdict ?? null,
+  vaResidual: s.vaResidual ?? null,
+  vaVerdict: s.vaVerdict ?? null,
 });
 
 /** Descending by `value`, ties broken on id — the blob is stored verbatim, so
