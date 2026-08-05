@@ -465,7 +465,7 @@ A naive count reports ~750 „приети закони" for a parliament that p
 **What is NOT derivable, and is cut from v1:** the pass/fail split. "Last item of the stem" does
 not give adoption — the largest stem ends on `yes:38 no:4 abstain:135`, a rejected amendment. So
 the tile is **„Законопроекти на второ четене" = 33**, band 0 says *„N законопроекта на второ
-четене"*, and **„N окончателно приети · N отхвърлени" is dropped** until §6.3's `bill.final_item`
+четене"*, and **„N окончателно приети · N отхвърлени" is dropped** until §6.1's `bill.final_item`
 has a marker to fill it.
 
 **Band 2 — news rail (3–4 `NewsCard`s).**
@@ -728,7 +728,31 @@ CREATE INDEX ON vote_cast (ns, mp_id) INCLUDE (vote, party_id);
 CREATE INDEX ON vote_cast (mp_id, item_id) INCLUDE (vote);
 ```
 
-**Three decisions worth defending:**
+**Which item set does `vote_item` hold? The DEDUPED one, 15,096 rows — not the raw 16,741.**
+This is the grain question the two source plans never had to answer together, and getting it
+wrong breaks §11's own correctness gate. `dedupeRevotes` collapses an item and its
+„прегласуване" (and verbatim same-day repeats) so a decision voted N times counts once; every
+derived JSON artifact is computed **after** it:
+
+| NS | raw items | after dedupe | collapsed |
+|---|---|---|---|
+| 44 | 1,050 | 1,036 | 14 |
+| 47 | 2,116 | 1,933 | 183 |
+| 48 | 1,690 | 1,435 | 255 |
+| 49 | 4,308 | 3,855 | 453 |
+| 51 | 4,687 | 4,187 | 500 |
+| 52 | 1,263 | 1,198 | 65 |
+| **all** | **16,741** | **15,096** | **1,645 = 9.8%** |
+
+So: the loader applies `dedupeRevotes` **before** assigning `item_id`, `vote_item` holds 15,096
+rows, and a `superseded_by integer REFERENCES vote_item` column keeps the collapsed casts
+reachable rather than discarded — the raw roll is evidence, and `/votes/<date>` should still be
+able to show that an item was re-voted. Loading the raw set instead would make
+`mp_attendance` disagree with `attendance.json` by ~10% on every NS, and §11's **matview
+agreement** gate — the migration's correctness proof — would fail by construction rather than
+by defect.
+
+**Three more decisions worth defending:**
 
 - **`vote "char"`, not an enum or text.** 1 byte, no TOAST, no enum-ordering trap. `party_id` is a
   `smallint` into a **71-row** `party_dim(ns, short)` rather than the party short-name repeated
@@ -738,6 +762,15 @@ CREATE INDEX ON vote_cast (mp_id, item_id) INCLUDE (vote);
   With it, 77 ms / **3,124 buffers**. The column packs into existing alignment padding beside
   `vote` and is immutable per item, so it cannot drift.
 - **The `(ns, mp_id)` composite FK** (§3.2) — the constraint that makes the 26 recycled ids safe.
+- **`party_id` lives on `vote_cast`, and `mp_seat.party_id` is a LABEL, not a join key.**
+  Measured: **179 of 2,366 seats (8%) change party mid-term** — mostly to `НЕЗ` when a member
+  leaves their group (`44:1564 ГЕРБ → НЕЗ`, `45:3537 БСП → ДБ`, `47:3993 ИТН → НЕЗ`). A single
+  `party_id` per seat is therefore undefined for one seat in twelve. `vote_cast.party_id` is the
+  affiliation **at the moment of the cast**, which the session files record per day, and it is the
+  only one any derivation may join. In particular `mp_dissent` — "voted against their group's
+  plurality" — **must** group on `vote_cast.party_id`; joining `mp_seat.party_id` would compare
+  179 members against a group they had already left, and would do it silently. `mp_seat.party_id`
+  is the last-seen affiliation, for display only, and the column comment must say so.
 
 Measured size, clean build with both indexes: `vote_item` **6.3 MB**, `vote_cast` **498 MB**
 (170 MB heap + 328 MB index), `party_dim` 71 rows. **~505 MB against a 15 GB database — 3%.**
@@ -1027,6 +1060,39 @@ invisible one.
    evaluative ones. The derived characterisations (twins, dissenters, outliers) stay on pages that
    carry their methodology.
 
+### 9.1.1 `/votes/:date/:slug` — the family the plan never addressed
+
+**The single best-engaging page in the module is an item page, and item pages are neither
+prerendered nor in the sitemap.** §2.7 cites `/votes/2020-11-06/item-5-zid-na-zakona-za-merkite…`
+at **3m 22s** as the evidence that records beat dashboards — without noticing it belongs to a URL
+family this plan does not cover. Verified live:
+
+```
+/votes/2020-11-06/item-5-zid-…   <title>Парламентарни избори 2026 …</title>   canonical -> https://electionsbg.com/
+```
+
+`buildVotesRoutes` emits `/votes` and `/votes/<date>` only; the sitemap enumerates the same two.
+So every item page serves the SPA shell — the same homepage-duplicate defect as §4.4's seeded
+routes, on the URLs with the module's **highest measured engagement**. GA shows at least two
+item pages reached in the sample (`…/item-4`, `…/item-11-zakon-za-darzhavniya-byudzhet…`).
+
+**This is a decision, not an oversight to fix by default,** because the family is large: 15,096
+deduped items × 2 languages ≈ **30k more files** against a `dist/` already at ~248k, and
+`project_firebase_deploy_ceiling` records a 453k-file `dist` failing to deploy. Three options,
+in order of preference:
+
+1. **Prerender a scored subset** — the items already carrying an `important_votes` entry (135) plus
+   any item above a score threshold. Hundreds of pages, not thousands, and they are by construction
+   the ones worth landing on. Cheapest, and it composes with §9.1's date-page facts.
+2. **Prerender all 15,096** and accept ~278k files. Defensible on the traffic evidence, but it
+   spends most of the remaining deploy headroom on one family.
+3. **Prerender none, and stop citing item-page engagement as evidence** — the honest version of
+   the status quo. Also acceptable, but then §2.7's headline example must be re-labelled.
+
+Option 1 unless someone argues otherwise. Whichever is chosen, the `/votes/<date>` body should
+link its own items by name (§9.1 already puts them there), so the item pages are reachable even
+when they are not indexed.
+
 ### 9.2 JSON-LD — `/parliament` is the thinnest page in the module
 
 | Page | Emits |
@@ -1099,7 +1165,7 @@ cta · metric · metricCaption` — there is **no `blurb`, `stats` or `delta`**,
 grammar) to land first, and **H2 builds** the generic rail components. That reverses
 module-front-pages §9, which designates `/procurement` as the template-prover; taken deliberately,
 since `/parliament` is the cleaner test of the *template* (no `feed_payloads` dependency). The cost
-is that the DB degrade path in that plan's §8.2 goes unexercised until `/procurement` follows —
+is that the DB degrade path in module-front-pages-v1 §8.2 goes unexercised until `/procurement` follows —
 which must therefore follow, not be skipped.
 
 | # | Phase | Scope | Retires |
@@ -1165,7 +1231,8 @@ already shipped.
 
 | Gate | Asserts |
 |---|---|
-| row reconciliation | `count(vote_cast)` matches the session files ± the known 84 dupes; per-NS item counts match `index.json` |
+| row reconciliation | `count(vote_cast)` matches the session files ± the known 84 dupes; **`count(vote_item)` = 15,096, the post-`dedupeRevotes` total** — matching `index.json` raw counts would mean the dedupe was skipped |
+| party at cast time | `mp_dissent` groups on `vote_cast.party_id`, never `mp_seat.party_id`; the **179 switching seats** are enumerated as data, so a 180th fails |
 | id recycling | every `(ns, mp_id)` resolves to exactly one `mp_seat.name`; the **26 recycled ids** are enumerated as data, so a 27th fails |
 | no orphan casts | no `item_id` absent from `vote_item`, no `(ns, mp_id)` absent from `mp_seat` |
 | matview freshness | each matview's max `date` matches `vote_item`'s |
@@ -1188,6 +1255,7 @@ already shipped.
 | JSON-LD depth | `/parliament` emits `Dataset` + `ItemList` + `FAQPage` (§9.2) |
 | **`llms.txt` truth** | every `KEY_URLS` entry resolves to a routed path, AND every prerendered `NAV_HUBS` entry appears in `KEY_URLS` (§9.3) |
 | OG capture | the `parliament` entry selects on `[data-og="parliament-hub"]`, and the screen carries it (§9.4) |
+| item-page policy | whichever §9.1.1 option is chosen is asserted: if (1) or (2), every prerendered item URL has a `dist/<path>/index.html` and a `<loc>`; if (3), no `<loc>` names an item page and §2.7's example is labelled as unindexed |
 
 ---
 
@@ -1258,6 +1326,15 @@ Kept so the corrections are not silently absorbed. Three passes ran before imple
 | (not stated) | The OG image is a 13 May crop whose capture selector targets a tile H1 deletes |
 | (not stated) | **Every URL on the site canonicalised to a redirect** — fixed same day, `0adc97b6dd` (§2.8) |
 | §10: "`ParliamentVotingTile` is the ONLY link to `/votes/between/:pair`" | **Wrong.** It renders on three screens; two survive H1, so the route is not orphaned |
+
+### 13.4 Post-consolidation audit (2026-08-03)
+
+| Position | Finding |
+|---|---|
+| `vote_item` holds the raw item set | **It must hold the DEDUPED set — 15,096, not 16,741.** `dedupeRevotes` collapses 1,645 re-votes (9.8%), and every JSON artifact is computed after it. Loading raw would make `mp_attendance` disagree with `attendance.json` by ~10% per NS, so §11's matview-agreement gate — the correctness proof — would fail by construction (§6.1) |
+| `mp_seat(ns, mp_id, party_id)` | **179 of 2,366 seats (8%) change party mid-term**, mostly to `НЕЗ`. A single `party_id` per seat is undefined for them. `vote_cast.party_id` is the only join key any derivation may use — `mp_dissent` joining `mp_seat.party_id` would compare 179 members against a group they had left, silently (§6.1) |
+| §2.7 cites a 3m 22s item page as the headline evidence | **Item pages are neither prerendered nor in the sitemap** — they serve the SPA shell with `canonical=/`. The module's best-engaging URL family is one the plan never addressed (§9.1.1) |
+| (merge artefact) | Two cross-references — `§6.3`, `§8.2` — pointed at the retired plan's numbering. Repaired |
 
 ### 13.3 Consolidation pass (2026-08-03)
 
