@@ -31,14 +31,14 @@
 // when it is wholly redundant, which needs all three preconditions in `analyzeCrossSource`.
 
 import { feedOf, feedRank, type Feed } from "./content_key";
-import type { Contract } from "./types";
+import type { Contract, ContractTag } from "./types";
 
 /** Field separator for the composite keys below. A control character rather than a space or a
  *  colon, because `contract_id` is free text that genuinely contains both — `УРИ 12491оп - 352`
  *  is a real one — so a printable separator lets two different field splits produce the same key.
  *  Written as an escape, never as a literal byte: a raw NUL in the source makes git treat the
  *  file as binary, which costs diffs, blame and review on the one module that deletes rows. */
-const SEP = "\u001f";
+export const SEP = "\u001f";
 
 /** A signing date normalised to `YYYY-MM-DD`. The shards carry ISO dates, but Postgres stores
  *  `date_signed` as text and some feeds append a time, so both sources are truncated the same
@@ -449,6 +449,71 @@ export const verifyEviction = (input: {
   // single_source_per_contract.data.test.ts. That gate, not this one, is the blindness alarm.
 
   return problems;
+};
+
+// ── SAME-feed duplication ────────────────────────────────────────────────────────────────────
+//
+// A different class from everything above, and one nothing above can see: `analyzeCrossSource`
+// keeps only groups spanning >1 feed, by construction. Measured here so the harness reports it
+// with the same helpers the pass reconciles on. Nothing acts on this — it is measurement only.
+
+export interface SameFeedRow {
+  feed: Feed;
+  tag: ContractTag;
+  groups: number;
+  surplusRows: number;
+  surplusEur: number;
+}
+
+/** Same-feed duplicates on identity E's fields, SPLIT BY TAG.
+ *
+ *  The tag split is the point of this function, not a formatting choice. Measured 2026-08-04 the
+ *  two arms are disjoint on `tag` — ocds is 100% `contractAmendment`, aop is 100% `contract` —
+ *  and they are different phenomena with opposite remedies, so a total that hides `tag` reads as
+ *  one €594m defect when it is a €591m non-defect plus a €2.9m real one. Worse, a tag-BLIND fold
+ *  on these fields pairs a `contract` row with its own `contractAmendment` and would delete the
+ *  base contract. See docs/plans/procurement-same-feed-dedup-v1.md §2.
+ *
+ *  `contract_id` is in the key to narrow to the same contract NUMBER, which is what makes this
+ *  reproduce that plan's §1 table exactly. That narrowing is not free: together with identity E's
+ *  УНП requirement it is why the aop arm reads ~4× low (plan §3.1 — 42.2% of `aop-legacy-` rows
+ *  carry no УНП at all, so `identityE` returns null and never sees them). The printed aop figure
+ *  is a FLOOR, not the exposure.
+ *
+ *  "Surplus" = the € beyond one row's share of its group, i.e. what a collapse-to-one would drop. */
+export const sameFeed = (rows: Contract[]): SameFeedRow[] => {
+  const g = new Map<string, Contract[]>();
+  for (const r of rows) {
+    const id = identityE(r);
+    if (id == null) continue;
+    // SEP, not bare concatenation: `contract_id` is free text and `identityE` opens with the raw
+    // УНП, so an unseparated join can split in two places and merge two unrelated rows into a
+    // "duplicate" group — silently inflating the very figures this exists to report.
+    const k = `${feedOf(r)}${SEP}${r.contractId ?? ""}${SEP}${id}`;
+    const a = g.get(k);
+    if (a) a.push(r);
+    else g.set(k, [r]);
+  }
+  const acc = new Map<string, SameFeedRow>();
+  for (const rs of g.values()) {
+    if (rs.length < 2) continue;
+    const feed = feedOf(rs[0]);
+    const tag = rs[0].tag;
+    const arm = `${feed}${SEP}${tag}`;
+    const e = acc.get(arm) ?? {
+      feed,
+      tag,
+      groups: 0,
+      surplusRows: 0,
+      surplusEur: 0,
+    };
+    const total = rs.reduce((s, r) => s + (r.amountEur ?? 0), 0);
+    e.groups += 1;
+    e.surplusRows += rs.length - 1;
+    e.surplusEur += total - total / rs.length;
+    acc.set(arm, e);
+  }
+  return [...acc.values()].sort((a, b) => b.surplusEur - a.surplusEur);
 };
 
 /** One-line, fully-identified description of a row. Used everywhere a row is reported, because

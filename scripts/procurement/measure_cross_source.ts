@@ -1,9 +1,14 @@
 // READ-ONLY measurement of cross-source duplication in the contracts corpus.
 //
 // There is no `--apply` and no write path anywhere in this file. It exists so that every number
-// in docs/plans/procurement-cross-source-dedup-v2.md can be re-derived by running one command,
-// against either the shards or a database, with THE SAME CODE the reconciliation pass acts on
-// (`cross_source.ts`) rather than a re-implementation.
+// in docs/plans/procurement-cross-source-dedup-v2.md (§1.1–§5.5), and the §1 table of
+// docs/plans/procurement-same-feed-dedup-v1.md (§6 below), can be re-derived by running one
+// command, against either the shards or a database, with THE SAME CODE the reconciliation pass
+// acts on (`cross_source.ts`) rather than a re-implementation.
+//
+// The same-feed plan's §3–§3.4 figures are NOT re-derivable here, and that is deliberate rather
+// than a gap: they key on full CONTENT identity with no УНП requirement, which is a different
+// measurement, not a wider one. §6 prints that plan's §1 reproduction, whose aop arm is a FLOOR.
 //
 // That is the whole point. v1 §6 records that the first draft's measurements were wrong because
 // a lookalike `canonicalEik` was measured instead of the real one, and §11 exists because §10.8's
@@ -43,6 +48,8 @@ import {
   describeRow,
   identityE,
   isSyntheticCarrier,
+  sameFeed,
+  SEP,
   signingDay,
 } from "./cross_source";
 import type { Contract, ContractTag } from "./types";
@@ -278,21 +285,21 @@ const main = async (): Promise<void> => {
   say(`\n§1.1 identity lattice (groups spanning >1 feed)`);
   const L = [
     lattice(rows, "A unp+contract_id", (r) =>
-      r.contractId ? `${r.unp} ${r.contractId} ${r.tag}` : null,
+      r.contractId ? `${r.unp}${SEP}${r.contractId}${SEP}${r.tag}` : null,
     ),
     lattice(
       rows,
       "B unp+contractor",
-      (r) => `${r.unp} ${r.contractorEik} ${r.tag}`,
+      (r) => `${r.unp}${SEP}${r.contractorEik}${SEP}${r.tag}`,
     ),
     lattice(rows, "C unp+contractor+amt", (r) =>
       r.amountEur == null
         ? null
-        : `${r.unp} ${r.contractorEik} ${amt(r)} ${r.tag}`,
+        : `${r.unp}${SEP}${r.contractorEik}${SEP}${amt(r)}${SEP}${r.tag}`,
     ),
     lattice(rows, "D unp+contractor+date", (r) =>
       signingDay(r)
-        ? `${r.unp} ${r.contractorEik} ${signingDay(r)} ${r.tag}`
+        ? `${r.unp}${SEP}${r.contractorEik}${SEP}${signingDay(r)}${SEP}${r.tag}`
         : null,
     ),
     lattice(rows, "E unp+contractor+amt+date", identityE),
@@ -311,7 +318,7 @@ const main = async (): Promise<void> => {
   const aGroups = new Map<string, Contract[]>();
   for (const r of rows) {
     if (!r.contractId) continue;
-    const k = `${r.unp} ${r.contractId} ${r.tag}`;
+    const k = `${r.unp}${SEP}${r.contractId}${SEP}${r.tag}`;
     const a = aGroups.get(k);
     if (a) a.push(r);
     else aGroups.set(k, [r]);
@@ -414,7 +421,7 @@ const main = async (): Promise<void> => {
   const inGroups = analysis.groups.flatMap((g) => g.rows);
   const byContract = new Map<string, Set<Feed>>();
   for (const r of rows) {
-    const k = `${r.unp} ${r.contractId ?? ""} ${r.tag}`;
+    const k = `${r.unp}${SEP}${r.contractId ?? ""}${SEP}${r.tag}`;
     const s = byContract.get(k) ?? new Set<Feed>();
     s.add(feedOf(r));
     byContract.set(k, s);
@@ -425,7 +432,8 @@ const main = async (): Promise<void> => {
     const e = blindByFeed.get(f) ?? { n: 0, blind: 0 };
     e.n += 1;
     const feeds =
-      byContract.get(`${r.unp} ${r.contractId ?? ""} ${r.tag}`) ?? new Set();
+      byContract.get(`${r.unp}${SEP}${r.contractId ?? ""}${SEP}${r.tag}`) ??
+      new Set();
     if (![...feeds].some((x) => x !== f)) e.blind += 1;
     blindByFeed.set(f, e);
   }
@@ -446,7 +454,7 @@ const main = async (): Promise<void> => {
   const cGroups = new Map<string, Contract[]>();
   for (const r of rows) {
     if (r.amountEur == null) continue;
-    const k = `${r.unp} ${r.contractorEik} ${amt(r)} ${r.tag}`;
+    const k = `${r.unp}${SEP}${r.contractorEik}${SEP}${amt(r)}${SEP}${r.tag}`;
     const a = cGroups.get(k);
     if (a) a.push(r);
     else cGroups.set(k, [r]);
@@ -662,6 +670,54 @@ const main = async (): Promise<void> => {
     if (analysis.evictions.length > 5)
       say(`  … ${analysis.evictions.length - 5} more`);
   }
+
+  // ── §6 SAME-feed duplication — a different class, and one nothing above can see
+  //
+  // Blind to it, and each for its own structural reason: `evictSupersededEopTwins` only ever
+  // removes `eop-` rows; `analyzeCrossSource` and `single_source_per_contract.data.test.ts` both
+  // require >1 feed by construction; `dropSyntheticLegacyTwins` keys on the `…-x` ocid fallback
+  // only; and `dedup_contract_keys.ts` re-keys by STORED key, so a row already carrying a stale
+  // key forms a singleton group and is skipped — which is exactly the aop A1 population, and the
+  // one the plan calls the defect (§4).
+  say(
+    `\n§6 same-feed duplication on identity E's fields (feed + contract_id + E) — BY TAG`,
+  );
+  const sf = sameFeed(rows);
+  if (!sf.length) {
+    say(`  none`);
+  } else {
+    for (const s of sf)
+      say(
+        `  ${`${s.feed} ${s.tag}`.padEnd(26)} groups=${String(s.groups).padStart(5)}  ` +
+          `surplus rows=${String(s.surplusRows).padStart(5)}  surplus €=${eur(s.surplusEur)}`,
+      );
+    say(
+      `  → the arms are disjoint on tag and are NOT one phenomenon. ` +
+        `contractAmendment rows are distinct annexes\n` +
+        `    (verified 1:1 against procurement_annexes.notice_id) and are excluded from every ` +
+        `money rollup\n    (rollups.ts) and every serving SUM (tag = 'contract'), so they carry ` +
+        `no € weight. Do not evict them.\n` +
+        `    The aop arm is a FLOOR, not the exposure: identity E requires a УНП and 42.2% of ` +
+        `aop-legacy-\n    rows have none. On full content identity it is 133 groups / ` +
+        `€11,769,554.54 (plan §3.1), of\n    which 30 groups / €2,068,182.74 are provable ` +
+        `stale-key orphans (A1); the rest needs triage (A2).\n` +
+        `    See docs/plans/procurement-same-feed-dedup-v1.md.`,
+    );
+  }
+  // `--json` suppresses every caption above, and §6 is the one section whose numbers are actively
+  // dangerous read bare — this plan exists because a brief reported the two arms as one €594m
+  // defect. So the verdict travels ON the row, not only in the prose.
+  out.sameFeed = sf.map((s) => ({
+    ...s,
+    verdict: s.tag === "contractAmendment" ? "not-duplication" : "floor",
+    note:
+      s.tag === "contractAmendment"
+        ? "Distinct amendment events, verified 1:1 against procurement_annexes.notice_id. " +
+          "Excluded from every money rollup and every serving SUM (tag = 'contract'), so they " +
+          "carry no € weight. Do NOT evict: a tag-blind fold would delete the base contract."
+        : "FLOOR, not the exposure — identity E requires a УНП that 42.2% of aop-legacy- rows " +
+          "lack. Full content identity: 133 groups / €11,769,554.54 (plan §3.1).",
+  }));
 
   if (JSON_OUT) console.log(JSON.stringify(out, null, 2));
 

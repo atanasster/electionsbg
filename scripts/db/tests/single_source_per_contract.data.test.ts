@@ -30,6 +30,26 @@
 //
 // Requires the Postgres store; auto-skips when Postgres is unreachable or the contracts table is
 // absent, like invariants_pg.data.test.ts.
+//
+// ── WHAT THIS GATE DOES NOT COVER: SAME-feed duplication ───────────────────────────────────
+//
+// Every grouping here requires `count(DISTINCT feed) > 1` by construction, so a contract
+// duplicated WITHIN one feed is invisible to it — permanently, not accidentally. That class is
+// measured by `measure_cross_source.ts` §6 and analysed in
+// docs/plans/procurement-same-feed-dedup-v1.md. Two things about it are worth knowing here,
+// because both are easy to get wrong from this file's vantage point:
+//
+//   - ALWAYS SPLIT IT BY `tag`. The two arms are disjoint on it — `ocds` is 100%
+//     `contractAmendment`, `aop` is 100% `contract` — and they are different phenomena. A total
+//     that hides `tag` reads as one €594m defect when it is a €591m non-defect plus a €2.9m
+//     real one.
+//   - The `ocds` arm is NOT duplication and must not be evicted. Those rows are distinct
+//     amendment events (verified 1:1 against `procurement_annexes.notice_id`, an independent
+//     ЦАИС source), they render the `/contract/:key` amendment timeline, and they already carry
+//     zero € weight — `rollups.ts` excludes amendments from every money rollup and every
+//     serving SUM filters `tag = 'contract'`. Note the trap: a tag-BLIND eviction on those
+//     fields would pair a `contract` row with its own `contractAmendment` and delete the base
+//     contract.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";

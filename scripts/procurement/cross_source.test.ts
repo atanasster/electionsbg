@@ -16,6 +16,7 @@ import {
   analyzeCrossSource,
   identityE,
   isSyntheticCarrier,
+  sameFeed,
   sideKey,
   signingDay,
   verifyEviction,
@@ -575,5 +576,76 @@ describe("global invariants over every analysis", () => {
     expect(r.sidePairs).toHaveLength(0);
     expect(r.evictions).toHaveLength(0);
     expect(r.blocked).toHaveLength(0);
+  });
+});
+
+// `sameFeed` measures a class every other net here is blind to, so nothing downstream would
+// notice it going wrong. It is measurement only — it evicts nothing — but a wrong figure is what
+// this whole plan family exists to prevent, so its grouping is pinned here rather than verified
+// by running the harness against a populated database.
+describe("sameFeed", () => {
+  test("groups two identical same-feed rows and reports n-1 surplus rows", () => {
+    const [r] = sameFeed([row({ feed: "aop" }), row({ feed: "aop" })]);
+    expect({
+      feed: r.feed,
+      tag: r.tag,
+      groups: r.groups,
+      surplusRows: r.surplusRows,
+    }).toEqual({ feed: "aop", tag: "contract", groups: 1, surplusRows: 1 });
+    // total 2000 − 2000/2: the € beyond one row's share of the group.
+    expect(r.surplusEur).toBe(1000);
+  });
+
+  test("never groups rows from DIFFERENT feeds — that is the cross-source class", () => {
+    expect(sameFeed([row({ feed: "aop" }), row({ feed: "eop" })])).toEqual([]);
+  });
+
+  test("keeps the tags apart — a tag-blind fold would pair a contract with its own amendment", () => {
+    expect(
+      sameFeed([
+        row({ feed: "ocds" }),
+        row({ feed: "ocds", tag: "contractAmendment" }),
+      ]),
+    ).toEqual([]);
+  });
+
+  test("splits one feed's arms by tag rather than totalling them", () => {
+    const out = sameFeed([
+      row({ feed: "ocds", tag: "contractAmendment", eur: 500 }),
+      row({ feed: "ocds", tag: "contractAmendment", eur: 500 }),
+      row({ feed: "ocds", contractId: "C2", eur: 100 }),
+      row({ feed: "ocds", contractId: "C2", eur: 100 }),
+    ]);
+    expect(out.map((r) => [r.tag, r.groups, r.surplusEur])).toEqual([
+      ["contractAmendment", 1, 500],
+      ["contract", 1, 100],
+    ]);
+  });
+
+  test("does not merge distinct (contract_id, unp) pairs whose concatenation coincides", () => {
+    // The separator case. Without SEP the two keys are both "…C1100073-2020-0012…" and these
+    // unrelated rows fold into one "duplicate" group, silently inflating every figure §6 prints.
+    expect(
+      sameFeed([
+        row({ feed: "aop", contractId: "", unp: "C1100073-2020-0012" }),
+        row({ feed: "aop", contractId: "C1", unp: "100073-2020-0012" }),
+      ]),
+    ).toEqual([]);
+  });
+
+  test("drops rows identity E cannot key, rather than grouping them on a shared blank", () => {
+    // Postgres GROUP BY treats NULLs as equal — the bug that made an earlier draft over-count.
+    // identityE returns null instead, so two amount-less rows are never each other's duplicate.
+    const noAmount = (): Contract => ({
+      ...row({ feed: "aop" }),
+      amountEur: undefined,
+    });
+    expect(sameFeed([noAmount(), noAmount()])).toEqual([]);
+    expect(
+      sameFeed([
+        row({ feed: "aop", signed: "" }),
+        row({ feed: "aop", signed: "" }),
+      ]),
+    ).toEqual([]);
   });
 });

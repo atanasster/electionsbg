@@ -154,6 +154,26 @@ failing a supplier-set/completeness precondition. Those are expected output, not
 `scripts/procurement/measure_cross_source.ts` re-derives every figure read-only against either the
 shards or a database. Plan: `docs/plans/procurement-cross-source-dedup-v2.md`.
 
+**SAME-feed duplication is a separate class, and the pass above is blind to it by construction** —
+every grouping it does requires `count(DISTINCT feed) > 1`. The harness measures it as **§6**, and
+the one rule to remember is **always read that section split by `tag`**, because the two arms are
+disjoint on it and only one is a defect (plan:
+`docs/plans/procurement-same-feed-dedup-v1.md`):
+
+- **`ocds` (238 groups / €591.1m) is 100% `contractAmendment` and is NOT duplication — never evict
+  it.** Those rows are distinct amendment events, verified 1:1 against
+  `procurement_annexes.notice_id` (an independent ЦАИС source); they render the `/contract/:key`
+  amendment timeline; and they already carry **zero € weight**, since `rollups.ts` excludes
+  amendments from every money rollup and every serving SUM filters `tag = 'contract'`. The trap is
+  specific: a tag-BLIND fold on identity E's fields pairs a `contract` row with its own
+  `contractAmendment` and deletes the base contract.
+- **`aop` is 100% `contract` and IS real, but the printed €2.94m is a FLOOR** — identity E requires
+  a УНП that 42.2% of `aop-legacy-` rows lack. On full content identity it is €11.77m, of which
+  30 groups / €2,068,182.74 are provable stale-key orphans (rows minted before
+  `disambiguateContractKeys` shipped, which the key-merge in `writeMonthShards` never evicted).
+  That sweep is **open work, not done**; `dedup_contract_keys.ts` cannot find them because it
+  groups by the STORED key, so a stale-keyed row is a singleton group and is skipped.
+
 ### The two committed artifacts `db:refresh` regenerates
 
 `data/procurement/derived/hub_stats.json` (the nine `/procurement` hub stat-tile numbers) and
