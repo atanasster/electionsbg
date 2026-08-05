@@ -204,20 +204,47 @@ npm run db:load:judicial-bodies:pg:cloud
 #   select count(*) from place_dim;            -- must be non-zero (~5,700)
 #   select count(*) from judicial_body_alias;  -- must be non-zero (~530)
 npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
+# ~5 min on Cloud SQL, measured 2026-08-05 (~124k persons) — NOT the "multi-hour" CLAUDE.md
+# claims. Worth knowing: the multi-hour belief is why this resolve gets left out of chains
+# it belongs in.
 # MANDATORY after the resolve: 115 drops person_role.place, which forces the municipal
-# roster matview to be dropped with it. Only this command re-applies 102 and rebuilds it.
+# roster matview to be dropped with it. Only `--resolve` re-applies 102 and rebuilds it.
+# BOTH phases, phase 1 FIRST. Phase 1 rewrites declaration.subject_ref (the officials slug
+# for the exec/muni tiers); --resolve only JOINs person_role.ref = subject_ref and fills
+# person_id — it NEVER rewrites the ref. After a roster re-slug, running only --resolve
+# leaves the stale ref joining to nothing: that filing keeps a NULL person_id and the person
+# drops off /person and out of the "с декларация" facet while every row count reconciles.
+# --resolve prints `N/total still NULL`; a single-digit N against ~48k reads as ordinary
+# residue, which is how 1 of 47,983 was missed on 2026-07-31.
+npm run db:load:declarations:pg:cloud               # phase 1 — rewrites subject_ref
 npm run db:load:declarations:pg:cloud -- --resolve
 npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
 npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
 # LAST — it folds everything above (plus place_dim + contracts) into the /persons browser
 # matview (120). Run it after any of them changes; see the two-trigger note below.
 npm run db:load:persons-browse:pg:cloud
+# The combined-search ranked index (126). Standalone — nothing on the cloud side runs it.
+# Its route degrades a MISSING table to empty tiers, so a first deploy never 500s, but a
+# STALE table serves the previous vintage at a 200.
+npm run db:load:person-search:pg:cloud
 # THE CONNECTIONS GRAPH reads person_browse facets (above) + the tr / persons / procurement
 # layers, so it re-derives LAST. It applies 127/128/129 and rebuilds graph_* + graph_payloads
 # behind /connections + person_connections(). Stale ⇒ /connections + the /person "Свързани
 # лица" tile serve the previous vintage. Same SECOND-trigger note as persons-browse: a
 # procurement reload also moves company money on the graph's company nodes.
 npm run db:load:graph:pg:cloud
+# The officials re-slug maps, then the prerender manifest. The maps UPSERT, so each dated
+# map composes; add a line here whenever a new one lands. They must precede person:slugs —
+# the continuity half of the selection calls officials_person_slug(), which falls through to
+# person_slug_retired, so with the maps unloaded a re-slugged official resolves to nothing
+# and silently drops out of the prerender set.
+npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json
+npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_29.json
+# data/person/prerender_slugs.json — the ONE artifact that must be minted from the SERVING
+# database, never local docker (emit_prerender_slugs.ts refuses local unless --local).
+# person_slug_lock accumulates per database, so the two sides hand the same people different
+# slugs; a locally-minted manifest names people prod cannot serve. COMMIT the result.
+npm run person:slugs:cloud
 ```
 
 ALL of these are required. The resolver rebuilds the identity/roles/connections layer;
