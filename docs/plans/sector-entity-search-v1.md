@@ -872,3 +872,86 @@ Then spot-check one of each on prod: a tail molecule (`/molecule/ABROCITINIB` �
 quarterly series, not "no data"), a prosecution office (`/court/rp-yambol` — should NAME the
 absent workload, not show an empty chart), and a fund (`/pension-fund/upf-doverie` — should show
 more than one quarter).
+
+---
+
+## 13. Handoff — state at 2026-08-05, §11 outstanding
+
+**13 of 15 steps are committed.** Every search group ships; both new page families
+exist. What remains is §11 alone: prerender, sitemap, SEO/AIO, and their tests.
+
+```
+847ee60310 T0.1  shlyoSkeleton              8b07587bf4 T3   water/education/administration
+0cb9d6075b T0.2  entitySearchIndex          46eb952d3a T4   group-sector members
+b206ee4848 T0.3  four cmdk pickers          924fa5f66a T5a  KFN quarter retention
+c0edfc8bd4 T1    SectorEntitySearch         fb91202ee5 T5b  /court/:bodyCode
+07b18ef9e2 T2a   /molecule serves 610       64e4c6247d T5c  /pension-fund/:slug
+c531ab75f0 T2    health, four groups        10ced5d742 T5d  judiciary/pensions/subsidies
+a2f89b09c3 deploy runbook (§12)
+```
+
+### Start here
+
+§11 is **build-verified, not browser-verified** — `npm run build`, then inspect `dist/`
+and the sitemap. It does not need a dev server, which is what made it the right thing to
+defer (this session's died five times).
+
+Two local prerequisites, or the builders enumerate nothing and the run looks fine:
+
+```bash
+npm run db:load:judicial-bodies:pg   # judicial_body + the source-name bridge
+npm run db:load:agri:pg              # also REFRESHes agri_beneficiary (T5d)
+```
+
+### What §11 must not re-derive
+
+Everything below was established and measured in this session:
+
+- **`scripts/db/lib/seo_settlements.ts` is the template for `/court/**`**, not a committed
+manifest. It is a build-time PG reader shared by the prerender builder AND the sitemap
+enumerator, returning `[]`on any failure — so a Postgres-less build emits neither the
+pages nor their`<loc>`s and the two cannot drift. Copy it as `seo_courts.ts`.
+- **`/pension-fund/**`is file-backed** off the committed`data/budget/kfn/funds.json`, so
+it copies `buildSchoolRoutes` instead.
+- **No manifest is needed for courts.** `/person/**` mints one because `person_slug_lock`
+  accumulates per database; `judicial_body.body_code` is deterministically derived, so a
+  local mint is safe. Say so in the builder header or someone will copy the person
+  machinery.
+- **`PrerenderRoute.path` carries no leading or trailing slash** (`school/105201`), which
+  is what keeps the family on the no-slash contract for free. The only trap is a
+  hand-written URL inside `bodyHtml`.
+- **Fund slugs come from `kfnFundSlug(pillar, companyEn)`** — already shared, already
+  tested. `fundName` matches 0 of 31 rows across the two archived quarters.
+- **File budget**: 283×2 + 31×2 = **628** files onto a ~248k dist. The observed Firebase
+  failure was at 453k, so this is not close.
+- **`bodyHtml` is the AIO surface** and the highest-leverage item in §11.4 — prose
+  carrying the numbers, not a nav stub. `llms.txt` is an overview: two `KEY_URLS` entries,
+  not 283 courts.
+
+### Gotchas this session already paid for
+
+- `judicial_body_detail()` returns `load: null` for the ~103 non-court bodies. The
+  payload's `sourcesBuilt` flag is what separates that from "the bridge was never
+  loaded" — any prerendered `bodyHtml` must respect the same distinction, or 283 static
+  pages will assert the ВСС publishes no workload for Софийски районен съд.
+- The soft-404 branches on both new screens deliberately do NOT reflect the raw slug into
+  the title. A prerender builder must not reintroduce that.
+- `jsonb_agg` yields JSON `null`, not `[]`, and `COALESCE` does not catch it. Bit this
+  twice (054's `rows`, and a test's `jsonb_array_elements`).
+
+### Still open, unchanged
+
+**Server-side shliokavitsa.** `translit_bg_latin()` has neither the shlyo rules nor the
+ч/х collapse, so the client boxes accept Latin input and the server-backed ones do not —
+verified live: `/sector/administration/services?q=лиценз` returns 184 rows, `?q=licenz`
+returns none. `/subsidies` closes it locally with a stored `name_fold` (16.7k rows makes
+that affordable); the large corpora do not. The administration box's copy says "in
+Cyrillic" rather than promising what it cannot do. Closing it properly means a SQL-side
+rule table and an extra predicate on the hottest search path — a decision, not an
+oversight.
+
+### And before any of it ships
+
+The **§12 runbook is un-run**. Nothing committed here is deployable without it, and
+`db:load:agri:pg:cloud` now joins that list, since the subsidies typeahead reads a
+matview that does not exist on Cloud SQL yet.
