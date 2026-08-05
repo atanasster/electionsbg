@@ -6,12 +6,8 @@ import {
   readProcurementSeoSettlements,
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
-import {
-  isCrawlableCourt,
-  readSeoCourts,
-  type SeoCourt,
-} from "../db/lib/seo_courts";
-import { KFN_FUNDS_FILE, readSeoPensionFunds } from "../prerender/kfnFunds";
+import { readSeoCourts } from "../db/lib/seo_courts";
+import { kfnFundsFile, readSeoPensionFunds } from "../prerender/kfnFunds";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import {
   readIndexableProcedures,
@@ -89,10 +85,29 @@ const urlEntry = (url: string, lastmod: string): string => {
   return `<url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;
 };
 
+// NOTE the floor: this returns max(mtime, today), so for a committed file — whose
+// mtime is by definition not in the future — it is `today` with extra steps. That
+// is the behaviour 21 call sites here were written against, so it is left alone;
+// use fileMod() below when a family's lastmod should be the source's real date.
 const safeFileMod = (file: string): string => {
   try {
     const m = fs.statSync(file).mtime.toISOString().slice(0, 10);
     return m > today ? m : today;
+  } catch {
+    return today;
+  }
+};
+
+/** The file's own modification date, clamped to today for clock skew.
+ *
+ *  For a source that moves on its OWN cadence — the КФН archive is quarterly —
+ *  a `lastmod` of `today` on every regeneration tells a crawler that pages which
+ *  did not move are worth re-fetching. Falls back to today when the file is
+ *  absent, since "unknown" is not a date. */
+const fileMod = (file: string): string => {
+  try {
+    const m = fs.statSync(file).mtime.toISOString().slice(0, 10);
+    return m > today ? today : m;
   } catch {
     return today;
   }
@@ -123,15 +138,37 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/budget/ministry/")) return "budget";
   if (p.startsWith("/funds/")) return "funds";
   if (p === "/funds") return "funds";
+  // Their own shards rather than the `static` catch-all. `static` is dominated
+  // by ~50k /person URLs and its 49,000 boundary sits inside them, so any
+  // movement there reshuffles which file every court and fund lands in, on
+  // every regeneration — pure diff noise in a committed artifact.
+  if (p.startsWith("/court/")) return "judiciary";
+  if (p.startsWith("/pension-fund/")) return "pensions";
   return "static";
 };
 
 const buckets = new Map<string, string[]>();
+// One <loc> per URL, whoever pushes it. Two enumerators reaching the same page
+// is not an error worth failing on, but a duplicate <loc> is a (mild) sitemap
+// defect and the second lastmod would silently win. /en/articles was reaching
+// here twice — the only duplicate in ~72k URLs.
+const seenUrls = new Set<string>();
 const pushUrl = (urlPath: string, lastmod: string) => {
+  if (seenUrls.has(urlPath)) return;
+  seenUrls.add(urlPath);
   const b = bucketFor(urlPath);
   const arr = buckets.get(b) ?? [];
   arr.push(urlEntry(urlPath, lastmod));
   buckets.set(b, arr);
+};
+
+/** Push a page and its EN mirror. Every prerendered family with an `english:`
+ *  field writes both `dist/<path>/index.html` and `dist/en/<path>/index.html`,
+ *  so the two URLs always travel together — and pairing them here removes the
+ *  class of typo where only one language gets emitted. */
+const pushBoth = (urlPath: string, lastmod: string) => {
+  pushUrl(urlPath, lastmod);
+  pushUrl(`/en${urlPath}`, lastmod);
 };
 const pushXml = (urlPath: string, xml: string) => {
   const b = bucketFor(urlPath);
@@ -785,10 +822,6 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
 const procurementSeoSettlements: SeoProcurementSettlement[] =
   await readProcurementSeoSettlements();
 
-// Same shape, one query up front: the /court enumeration the prerender also
-// reads. [] when Postgres is unreachable, so the family is simply absent.
-const seoCourts: SeoCourt[] = await readSeoCourts();
-
 routeDefs(election).forEach((r) => getRoute(r, ""));
 enumerateVotes("");
 
@@ -836,21 +869,22 @@ for (const inst of INSTITUTION_PACKS) {
 // Postgres-less build gets [] from both and emits neither. BG + EN, since both
 // languages are prerendered. route_defs.ts intentionally carries no entry —
 // schools set that precedent and its comment says so.
-for (const b of seoCourts) {
-  if (!isCrawlableCourt(b)) continue;
-  pushUrl(`/court/${b.bodyCode}`, today);
-  pushUrl(`/en/court/${b.bodyCode}`, today);
+// readSeoCourts has already applied isCrawlableCourt (and a name check) and
+// warned about anything it dropped, so every row here is servable — re-gating
+// would only re-apply half its predicate and bypass that warning.
+for (const b of await readSeoCourts()) {
+  pushBoth(`/court/${b.bodyCode}`, today);
 }
 
 // Per-pension-fund pages (/pension-fund/:slug) — the 31 КФН pillar-2/3 funds.
-// File-backed, so `lastmod` is the archive's own mtime rather than today: the
-// register moves quarterly, and claiming a daily change wastes crawl budget on
-// pages that did not move. Same reader + gate as buildPensionFundRoutes.
+// File-backed, so `lastmod` is the archive's own mtime rather than today (see
+// fileMod, which is NOT safeFileMod's floored variant): the register moves
+// quarterly, and claiming a daily change wastes crawl budget on pages that did
+// not move. Same reader + gate as buildPensionFundRoutes.
 {
-  const lastmod = safeFileMod(`${projectPath}/${KFN_FUNDS_FILE}`);
+  const lastmod = fileMod(kfnFundsFile(projectPath));
   for (const f of readSeoPensionFunds(projectPath)) {
-    pushUrl(`/pension-fund/${f.slug}`, lastmod);
-    pushUrl(`/en/pension-fund/${f.slug}`, lastmod);
+    pushBoth(`/pension-fund/${f.slug}`, lastmod);
   }
 }
 

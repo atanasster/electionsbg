@@ -19,6 +19,13 @@ import { byKfnPeriod } from "@/lib/kfnPeriod";
 
 export const KFN_FUNDS_FILE = "data/budget/kfn/funds.json";
 
+/** Where the archive lives, resolved by the module that owns the constant — so
+ *  the sitemap (which stats it for `lastmod`) and the reader cannot resolve it
+ *  differently. `safeFileMod`/`fileMod` swallow ENOENT and fall back to today,
+ *  which would make a divergence invisible. */
+export const kfnFundsFile = (projectRoot: string): string =>
+  path.join(projectRoot, KFN_FUNDS_FILE);
+
 type KfnFundRow = {
   pillar: string;
   pillarLabelBg: string;
@@ -76,7 +83,7 @@ export type SeoPensionFund = {
  * matching the PG-backed readers' contract.
  */
 export const readSeoPensionFunds = (projectRoot: string): SeoPensionFund[] => {
-  const file = path.join(projectRoot, KFN_FUNDS_FILE);
+  const file = kfnFundsFile(projectRoot);
   if (!fs.existsSync(file)) return [];
   let payload: { latestPeriod?: string; periods?: KfnPeriod[] };
   try {
