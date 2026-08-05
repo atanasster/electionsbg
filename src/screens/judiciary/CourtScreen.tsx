@@ -1,8 +1,8 @@
 // /court/:bodyCode — one judicial body: a court, a prosecution office or an
 // investigation service.
 //
-// THE ROUTE NAME IS NARROWER THAN ITS CONTENTS, deliberately. It covers all 283
-// bodies (186 courts + 70 prosecution + 27 investigation), because those are
+// THE ROUTE NAME IS NARROWER THAN ITS CONTENTS, deliberately. It covers all 284
+// bodies (186 courts + 70 prosecution + 28 investigation), because those are
 // exactly what a reader types — but "съд" is the guessable word, so the slug
 // stays /court and the page title carries the real kind.
 //
@@ -178,7 +178,7 @@ export const CourtScreen: FC = () => {
                 : "Workload data is not loaded on this server yet."}
             </p>
           ) : (
-            // NOT an empty chart: 103 of the 283 bodies publish no workload, and
+            // NOT an empty chart: 104 of the 284 bodies publish no workload, and
             // rendering zeros for them would assert something the source does
             // not say.
             <p className="my-6 rounded-lg border bg-muted/20 p-3 text-sm text-muted-foreground">

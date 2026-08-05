@@ -221,7 +221,7 @@ party_fold AS (
 --
 -- The judicial arm is a TWO-HOP: a judicial place_code is a judicial_body.body_code, not
 -- a place, so a single join to place_dim leaves oblast NULL for all 2,676 magistrates.
--- All 283 bodies carry their own place_code resolving to an obshtina with an oblast.
+-- All 284 bodies carry their own place_code resolving to an obshtina with an oblast.
 role_oblast AS (
   SELECT r.person_id,
          COALESCE(pd.oblast_code, jpd.oblast_code) AS oblast_code

@@ -301,7 +301,7 @@ which is why the URL contract lists `?q` for those three only. Add
 
 | Sector                | Group                                  | N                                                         | Criteria                                                                                                                                                                                             | Destination                                                                                                                                                         |
 | --------------------- | -------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/judiciary`          | **Съдилища и прокуратури**             | **283** (186 courts + 70 prosecutions + 27 investigation) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** | **`/court/:bodyCode`** (new — §7/T5)                                                                                                                                |
+| `/judiciary`          | **Съдилища и прокуратури**             | **284** (186 courts + 70 prosecutions + 28 investigation) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** | **`/court/:bodyCode`** (new — §7/T5)                                                                                                                                |
 | `/culture`            | **Филми**                              | 944                                                       | title, producer, `regNo`, year, discipline label                                                                                                                                                     | `/culture/film/${filmId(f)}` — the id is **derived** (`@/data/culture/filmId`); `regNo` is a search key but **not** an identity, the register's рег.№ is not unique |
 |                       | **Културни институти**                 | 26 (5 bodies + 21 institutes)                             | name, EIK, acronym alias                                                                                                                                                                             | `/awarder/:eik`                                                                                                                                                     |
 | `/sector/security`    | **Структури на МВР**                   | 73                                                        | name, EIK, universe label, oblast (ОДМВР rows carry it in the name)                                                                                                                                  | `/awarder/:eik`                                                                                                                                                     |
@@ -369,7 +369,7 @@ page.
 **T5 — Субсидии (server typeahead)** plus the two new page families the §9.1 decision requires.
 These are the only tier that adds routes, and both **gate** their search group: no page, no group.
 
-#### `/court/:bodyCode` — all 283 bodies (§9.4)
+#### `/court/:bodyCode` — all 284 bodies (§9.4)
 
 **The slug already exists.** `judicial_body.body_code` is a stable, readable key (`as-plovdiv`,
 `rp-yambol`, `vop-sliven`) — no new slug scheme, no `person_slug_retired`-style redirect table.
@@ -482,7 +482,7 @@ New `/court/**` and `/pension-fund/**` URLs mean the **no-slash** form everywher
 ## 9. Decisions (settled 2026-08-04)
 
 **9.1 — Every search result goes to a full page.** No anchor / scroll-highlight mode. Courts and
-pension funds therefore need real destinations: **`/court/:bodyCode`** (283) and
+pension funds therefore need real destinations: **`/court/:bodyCode`** (284) and
 **`/pension-fund/:slug`** (31), specified in §7/T5. Consequence to hold onto: those two groups are
 **blocked on their page family** — do not ship a search group whose results have nowhere to land.
 
@@ -494,7 +494,7 @@ every sector page except the two that are explicitly server-backed (subsidies, a
 `/api/db/procurement-search` stays reachable from the header search and `AwarderSearch`; revisit for
 v2 only if readers are observed searching contract subjects from a sector page.
 
-**9.4 — `/court/**`covers all 283 bodies**, not just the 186 courts. The 70 prosecutions and 27
+**9.4 — `/court/**`covers all 284 bodies**, not just the 186 courts. The 70 prosecutions and 28
 investigation services get pages too. They have no`court_load` row and often no coordinates, so
 the page must **name the absence** ("няма публикувана натовареност за този орган") rather than draw
 an empty chart — see §7/T5. They still carry magistrates, place, tier and kind, and they are exactly
@@ -608,7 +608,7 @@ filter to fix (all 9 cmdk mounts pass `shouldFilter={false}` and hand-roll — �
   that fetch it: `useNzokActivities`, `useNzokDrugQuarterly`, `useNzokDrugUnitPrices`,
   `useNzokHospitalFinancials` and `useNzokProcedureNames` are all already mounted by the НЗОК pack,
   so no health group adds a request.
-- `judicial_body.body_code` is genuinely unique and URL-safe across all 283 rows.
+- `judicial_body.body_code` is genuinely unique and URL-safe across all 284 rows.
 - `nzok_drug_pack_stats` has **zero** rows with both `national_no` and `nzok_code` blank, so the
   `PACK_BLANK` sentinel never has to encode a doubly-blank identity — all 3,333 packs are
   addressable.
@@ -671,7 +671,7 @@ store), so this is a plain `fs.existsSync` → parse builder, exactly like schoo
   carry `"` (`УПФ "ДОВЕРИЕ"`).
 - **A gate function exported once and used by both the builder and the sitemap** — the precedent is
   `isCrawlableSchool` / `hasCrawlableId` in `@/data/schools/schoolBel`, imported by
-  `dynamicRoutes.ts` and `sitemap/index.ts` alike. For courts the gate is trivially `true` (all 283
+  `dynamicRoutes.ts` and `sitemap/index.ts` alike. For courts the gate is trivially `true` (all 284
   `body_code`s are URL-safe — verified), but it must still exist as a named export, because a gate
   that lives in two copies is how a sitemap grows `<loc>`s with no file behind them.
 - **`ogImage`**: omit → `DEFAULT_OG_IMAGE`. `tests/seo.spec.ts:503` only asserts `og:image` matches
@@ -691,7 +691,7 @@ pushUrl(`/en/court/${bodyCode}`, lastmod);
 and its comment says so explicitly (`route_defs.ts:165`); these two follow suit. Courts read
 `seo_courts.ts` (same call the prerender makes); funds read `funds.json`'s mtime for `lastmod`.
 
-**File-count budget:** 283 × 2 + 31 × 2 = **628** files added to a dist already holding ~248k. The
+**File-count budget:** 284 × 2 + 31 × 2 = **630** files added to a dist already holding ~245k. The
 observed Firebase failure was at 453k files, so this is not close — which is exactly why these two
 families get prerendered while `/funds/contract/**` and `/company/**` (~256k more) had to go through
 `functions/spa_page.js` instead.
@@ -734,12 +734,12 @@ Answer engines lift these directly.
 
 **3. `scripts/llms/buildFull.ts` → `/llms-full.txt` + `/llms-full.en.txt`.** Add one compact
 **table block per family** — courts (name · tier · place · judges · filed/resolved per month) and
-funds (fund · pillar · company · insured · net assets). Both are small (283 and 31 rows) and
+funds (fund · pillar · company · insured · net assets). Both are small (284 and 31 rows) and
 tabular, which is the shape an LLM answers from most reliably. This is the highest-value AIO
 addition after `bodyHtml`, and it is a pure append to an existing corpus builder.
 
 **4. `scripts/llms/buildIndex.ts` → `/llms.txt`.** This is the short **overview** an AI crawler
-fetches first — 283 courts do not belong in it. Add two `KEY_URLS` entries only: `/judiciary`
+fetches first — 284 bodies do not belong in it. Add two `KEY_URLS` entries only: `/judiciary`
 ("съдилища и прокуратури — натовареност, бюджет, магистрати") and `/pensions`, each pointing at the
 corpus in `llms-full.txt` for the detail.
 
@@ -749,6 +749,10 @@ comes from the prerendered pages, the sitemap and the corpora — the box is wha
 usable for a human once they arrive.
 
 ### 11.5 The unprerendered existing destinations (§10.4) — sized, not scheduled
+
+> **Status:** §11.1–11.4 and §11.7 are implemented (commits `a92455c659` → `abebff3912`);
+> see §13. This subsection alone remains a proposal — it is the T6 follow-on, and the search
+> itself was deliberately not gated on it.
 
 Search makes these reachable, which is when their invisibility starts to cost. Sized here so the
 decision is a decision and not a surprise:
@@ -768,12 +772,21 @@ gated on an SEO backlog.
 ### 11.6 Sequencing and the deploy order
 
 Prerender and sitemap are **build-time** steps, so they ride `npm run build` + `npm run deploy` with
-no separate migration — with one exception that follows CLAUDE.md's standing rule: `seo_courts.ts`
-reads `judicial_body`, so **`npm run db:load:judicial-bodies:pg:cloud` must have run against the
-target database before a build that expects court pages**. It will not fail if it hasn't — it will
-silently emit zero court pages and a sitemap with no court `<loc>`s, which is the good failure but
-an invisible one. Add the loader to the release checklist next to the existing
-"`db:load:judicial-bodies:pg:cloud` before `db:resolve:persons:cloud`" note.
+no separate migration — with one exception, and the exception is NOT the `:cloud` shape the rest of
+this repo's ordering rules take. `seo_courts.ts` reads `judicial_body` from whatever Postgres the
+BUILD process can reach, so what has to be loaded is the **local** database of the machine running
+`npm run build`:
+
+```bash
+npm run db:load:judicial-bodies:pg   # local — the build's prerequisite
+```
+
+(`db:load:judicial-bodies:pg:cloud` is still required, for the reason it always was: the SPA's
+`/api/db/court` route reads the serving database. The two are independent.)
+
+It will not fail if the local half has not run — it will silently emit zero court pages, a sitemap
+with no court `<loc>`s and an `llms-full.txt` missing its judiciary table, which is the good failure
+but an invisible one. Both loaders are now recorded in CLAUDE.md's judicial-bodies section.
 
 Order within T5: `seo_courts.ts` → prerender builders → sitemap enumerators → llms corpora → the
 search groups that point at them. The search group is last in every case, because §9.1 means a group
@@ -818,7 +831,7 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
 #    judicial_body_source_name, so it is both the migration and the data.
 #    Skipping it does not 500: judicial_body_detail() returns load: null for
 #    every body, which is shape-identical to a real prosecution office — so all
-#    283 /court pages assert at a 200 that the ВСС publishes no workload for
+#    284 /court pages assert at a 200 that the ВСС publishes no workload for
 #    them, including Софийски районен съд. `sourcesBuilt` is what keeps the page
 #    honest in the interim, but the fix is this command.
 npm run db:load:judicial-bodies:pg:cloud
@@ -829,8 +842,21 @@ npm run db:load:judicial-bodies:pg:cloud
 #    exist yet.
 npm run deploy:db
 
-# 4. Hosting — the new /court and /pension-fund SPA routes, and the bundle that
-#    reads the new КФН shape.
+# 4. Hosting — the new /court and /pension-fund SPA routes, the 630 prerendered
+#    pages, the two new sitemap shards and the bundle that reads the new КФН
+#    shape.
+#
+#    THE BUILD MACHINE NEEDS THE DIMENSION TOO, not just the deploy target:
+#    seo_courts.ts reads `judicial_body` from LOCAL Postgres at build time and
+#    returns [] on any failure, so a build without it emits zero court pages, no
+#    <loc>s and a corpus missing its judiciary table — at exit 0. Step 2's local
+#    twin is therefore a prerequisite of THIS step, not of step 2:
+#      npm run db:load:judicial-bodies:pg
+#    Build explicitly first so the check can run BEFORE anything ships —
+#    `npm run deploy` builds via its predeploy hook, which is too late to look.
+npm run db:load:judicial-bodies:pg
+npm run build
+ls dist/court | wc -l    # 284, not 0
 npm run deploy
 
 # 5. The КФН archive. LAST, and the order is load-bearing in one direction only.
@@ -848,96 +874,103 @@ npm run bucket:sync:paths -- budget
 | ------------ | ----------------------------------------------------------------------------------------------------------- |
 | 1 (054+066)  | `/molecule/:inn` serves 30 of 610 INNs; the other 580 render not-found                                      |
 | 1 (052, 053) | the medicines and pathways search groups are absent from `/sector/health` (they degrade, they do not crash) |
-| 2            | all 283 `/court` pages claim no published workload — **wrong, not empty**                                   |
+| 2            | all 284 `/court` pages claim no published workload — **wrong, not empty**                                   |
 | 3            | `/court/**` and both new search groups have no endpoint                                                     |
-| 4            | the new routes 404 through the SPA fallback                                                                 |
+| 4            | the new routes 404 through the SPA fallback, and a crawler sees the homepage's meta for all 315 of them     |
 | 5            | `/pension-fund/**` shows one quarter and no trend                                                           |
 
-### Not yet deployable, and deliberately so
+### Deployable as of §11
 
-`/court/**` and `/pension-fund/**` are in **neither the prerender nor the sitemap**, and
-`/judiciary` does not link its courts — that is T5d (the search groups) and §11.1–11.2. Both
-families are reachable by URL and, for pension funds, from the `/pensions` tile. Shipping them
-before §11 is safe but leaves them undiscoverable, which is the SEO-gap shape §11.4 exists to
-close. Prefer to deploy once §11 lands.
+The gap this section closed: `/court/**` and `/pension-fund/**` were in neither the prerender
+nor the sitemap, so both families were reachable only by typing the URL. They are now 630
+prerendered pages (BG + EN), two sitemap shards, and a table each in `llms-full.txt` — all
+enumerated by the same readers, so no `<loc>` can outlive its page.
 
 ### Verification after deploy
 
 ```bash
-# every findable entity resolves to a servable page
-npm run test:data -- sector_search_landing judicial_body_detail
+# every findable entity resolves to a servable page, and every emitted <loc>
+# has a file behind it
+npm run test:data -- sector_search_landing judicial_body_detail seo_courts \
+  court_prerender families corpus
+npm test -- tests/seo.spec.ts
 ```
 
 Then spot-check one of each on prod: a tail molecule (`/molecule/ABROCITINIB` — should show a
 quarterly series, not "no data"), a prosecution office (`/court/rp-yambol` — should NAME the
-absent workload, not show an empty chart), and a fund (`/pension-fund/upf-doverie` — should show
-more than one quarter).
+absent workload, not show an empty chart), the two Supreme Courts (`/court/vks`, `/court/vas` —
+courts with no published workload, so they must say "ВСС не публикува натовареност за този съд"
+and NOT the prosecution-office clause), and a fund (`/pension-fund/upf-doverie` — should show
+more than one quarter). Finally `curl -s https://electionsbg.com/llms-full.txt | grep -c
+"electionsbg.com/court/"` — 284 rows (the intro line names the pattern, not a URL).
 
 ---
 
-## 13. Handoff — state at 2026-08-05, §11 outstanding
+## 13. State at 2026-08-05 — §11 complete
 
-**13 of 15 steps are committed.** Every search group ships; both new page families
-exist. What remains is §11 alone: prerender, sitemap, SEO/AIO, and their tests.
+**All 15 steps plus §11 are committed.** Every search group ships, both new page
+families exist, and both are now discoverable: prerendered, in the sitemap, and in
+the LLM corpora.
 
 ```
-847ee60310 T0.1  shlyoSkeleton              8b07587bf4 T3   water/education/administration
-0cb9d6075b T0.2  entitySearchIndex          46eb952d3a T4   group-sector members
-b206ee4848 T0.3  four cmdk pickers          924fa5f66a T5a  KFN quarter retention
-c0edfc8bd4 T1    SectorEntitySearch         fb91202ee5 T5b  /court/:bodyCode
-07b18ef9e2 T2a   /molecule serves 610       64e4c6247d T5c  /pension-fund/:slug
-c531ab75f0 T2    health, four groups        10ced5d742 T5d  judiciary/pensions/subsidies
-a2f89b09c3 deploy runbook (§12)
+847ee60310 T0.1  shlyoSkeleton              10ced5d742 T5d  judiciary/pensions/subsidies
+0cb9d6075b T0.2  entitySearchIndex          a2f89b09c3 deploy runbook (§12)
+b206ee4848 T0.3  four cmdk pickers          a92455c659 §11.1a seo_courts.ts
+c0edfc8bd4 T1    SectorEntitySearch         7dd35ce910 §11.1b/11.3 prerender
+07b18ef9e2 T2a   /molecule serves 610       303e4f808f §11.2  sitemap
+c531ab75f0 T2    health, four groups        a8e22c47ae §11.4  llms corpora
+8b07587bf4 T3    water/education/admin      abebff3912 §11.7  seo.spec samples
+46eb952d3a T4    group-sector members
+924fa5f66a T5a   KFN quarter retention
+fb91202ee5 T5b   /court/:bodyCode
+64e4c6247d T5c   /pension-fund/:slug
 ```
 
-### Start here
+### What §11 shipped
 
-§11 is **build-verified, not browser-verified** — `npm run build`, then inspect `dist/`
-and the sitemap. It does not need a dev server, which is what made it the right thing to
-defer (this session's died five times).
+630 prerendered pages (284 courts + 31 funds, BG and EN), `sitemap_judiciary.xml` +
+`sitemap_pensions.xml`, a table per family in `llms-full.txt` / `.en.txt`, and two
+`/llms.txt` overview entries. Enumeration is ONE reader per family, shared by the
+prerender, the sitemap and the corpus — `scripts/db/lib/seo_courts.ts` (Postgres) and
+`scripts/prerender/kfnFunds.ts` (the committed КФН archive) — so a `<loc>` cannot
+outlive its page.
 
-Two local prerequisites, or the builders enumerate nothing and the run looks fine:
+### The one deploy prerequisite that is not a `:cloud` command
+
+`seo_courts.ts` reads `judicial_body` from **local** Postgres at build time and returns
+`[]` on any failure, so the machine running `npm run build` needs the dimension too:
 
 ```bash
-npm run db:load:judicial-bodies:pg   # judicial_body + the source-name bridge
-npm run db:load:agri:pg              # also REFRESHes agri_beneficiary (T5d)
+npm run db:load:judicial-bodies:pg   # before `npm run build`
 ```
 
-### What §11 must not re-derive
+Without it the build emits zero court pages, no `<loc>`s for them and a corpus missing
+its judiciary table — all at exit 0. Recorded in CLAUDE.md next to the `:cloud` loader.
 
-Everything below was established and measured in this session:
+### Gates that hold this in place
 
-- **`scripts/db/lib/seo_settlements.ts` is the template for `/court/**`**, not a committed
-manifest. It is a build-time PG reader shared by the prerender builder AND the sitemap
-enumerator, returning `[]`on any failure — so a Postgres-less build emits neither the
-pages nor their`<loc>`s and the two cannot drift. Copy it as `seo_courts.ts`.
-- **`/pension-fund/**`is file-backed** off the committed`data/budget/kfn/funds.json`, so
-it copies `buildSchoolRoutes` instead.
-- **No manifest is needed for courts.** `/person/**` mints one because `person_slug_lock`
-  accumulates per database; `judicial_body.body_code` is deterministically derived, so a
-  local mint is safe. Say so in the builder header or someone will copy the person
-  machinery.
-- **`PrerenderRoute.path` carries no leading or trailing slash** (`school/105201`), which
-  is what keeps the family on the no-slash contract for free. The only trap is a
-  hand-written URL inside `bodyHtml`.
-- **Fund slugs come from `kfnFundSlug(pillar, companyEn)`** — already shared, already
-  tested. `fundName` matches 0 of 31 rows across the two archived quarters.
-- **File budget**: 283×2 + 31×2 = **628** files onto a ~248k dist. The observed Firebase
-  failure was at 453k, so this is not close.
-- **`bodyHtml` is the AIO surface** and the highest-leverage item in §11.4 — prose
-  carrying the numbers, not a nav stub. `llms.txt` is an overview: two `KEY_URLS` entries,
-  not 283 courts.
+| Gate                           | What it catches                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `seo_courts.data.test.ts`      | a SQL regression, which the `[]` contract makes look like "no database"                           |
+| `court_prerender.data.test.ts` | the emitted PROSE of all 284 pages — false absences, count/noun disagreement, double-escaped meta |
+| `families.data.test.ts`        | every sitemap `<loc>` has a `dist/<path>/index.html`                                              |
+| `corpus.data.test.ts`          | the llms tables, and a Postgres-less run rewriting them shorter                                   |
+| `kfnFunds.test.ts`             | the fund edge cases the real 31 do not exhibit                                                    |
+| `tests/seo.spec.ts`            | three court shapes + the fund, served                                                             |
 
-### Gotchas this session already paid for
+### Three claims the pages must never make again
 
-- `judicial_body_detail()` returns `load: null` for the ~103 non-court bodies. The
-  payload's `sourcesBuilt` flag is what separates that from "the bridge was never
-  loaded" — any prerendered `bodyHtml` must respect the same distinction, or 283 static
-  pages will assert the ВСС publishes no workload for Софийски районен съд.
-- The soft-404 branches on both new screens deliberately do NOT reflect the raw slug into
-  the title. A prerender builder must not reintroduce that.
-- `jsonb_agg` yields JSON `null`, not `[]`, and `COALESCE` does not catch it. Bit this
-  twice (054's `rows`, and a test's `jsonb_array_elements`).
+Each of these shipped once during §11 and is now pinned by a test. (A FOURTH is live and
+unclosed — see "Duplicate judicial bodies" below.)
+
+- **"ВСС не публикува натовареност … статистиката обхваща съдилищата" on a COURT.** Six
+  courts carry no `court_load` row, ВКС and ВАС among them, so the prosecution-office
+  explanation is self-contradicting on exactly the highest-traffic pages in the family.
+- **"1 магистрати" / "1 съдии".** 33 sites across 32 bodies, in the body text, the meta description AND
+  the `FAQPage` JSON-LD an answer engine quotes verbatim.
+- **"Дял в стълба".** The value is a share of the fund TYPE (УПФ/ППФ/ДПФ/ДПФПС); pillar 2
+  is УПФ + ППФ, so the sole ДПФПС published 100.0% where its real pillar-3 share is 1.2%.
+  The number was right and the label was wrong — on the page, the prerender and the corpus.
 
 ### Still open, unchanged
 
@@ -950,8 +983,40 @@ Cyrillic" rather than promising what it cannot do. Closing it properly means a S
 rule table and an extra predicate on the hottest search path — a decision, not an
 oversight.
 
+**Duplicate judicial bodies — and this one is publishing a FALSE claim today.**
+`judicial_body` carries four unmerged same-institution pairs, because the fold in
+`scripts/judiciary/judicialBodies.ts` does not collapse `Административен съд София-град`
+onto `Административен съд — София-град`. In three of the four, the magistrates sit on one
+half and the workload on the other:
+
+| magistrates, no workload      | workload, no magistrates     |
+| ----------------------------- | ---------------------------- |
+| `as-sofia-grad` (62)          | `as-sofiya-grad` (8 years)   |
+| `as-sofia-oblast` (12)        | `as-sofiya-oblast` (8 years) |
+| `sos` (17)                    | `os-sofiya` (8 years)        |
+| `srs` (149, and the workload) | `rs-sofiya` (1)              |
+
+So `/court/as-sofia-grad` states that the ВСС publishes no workload for it while the ВСС
+publishes eight years of it under the twin — a false absence on a real court, reaching the
+page, its `FAQPage` JSON-LD and both LLM corpora. That is the same class as the three claims
+above, and it is NOT closed: the pinned gate only asserts that a court never carries the
+_prosecution-office_ clause, which this passes.
+
+It also corrects a figure this plan and `seo.spec.ts` both rest on: of the six courts with no
+`court_load` row, only **four** are genuinely load-less (ВКС, ВАС, СОС, РС София). The two
+АдмС are load-less only because their series is filed under a twin.
+
+Merging is a decision, not a repair — it picks which `body_code` keeps its URL and which
+`/person` magistrate roles re-attach — which is why §11 stopped at recording it. Found in the
+§11.1b review, sized in the §11.6 one.
+
+**§11.5 (T6) is sized but unscheduled.** `/procedure/:code` (1,142 pages),
+`/molecule/:inn` (1,220) and `/culture/film/:id` (1,888) are the same builder shape and
+total 4,250 files against a ~245k dist — trivial against the ceiling. `/farm/:eik`
+(33,404) and `/company/:eik` (~256k) stay out, deliberately.
+
 ### And before any of it ships
 
-The **§12 runbook is un-run**. Nothing committed here is deployable without it, and
-`db:load:agri:pg:cloud` now joins that list, since the subsidies typeahead reads a
+The **§12 runbook is un-run.** Nothing in this plan is deployable without it, and
+`db:load:agri:pg:cloud` is on that list too, since the subsidies typeahead reads a
 matview that does not exist on Cloud SQL yet.

@@ -285,11 +285,54 @@ court, green locally and blank on prod. See
 un-folded bridge `judicial_body_detail()` joins `court_load` through — the raw-name→body fold lives
 in TypeScript, so SQL cannot do it. Applying 116 with `apply_functions.ts` (the normal way a
 function change ships) CREATEs that table EMPTY, and an empty bridge returns `load: null` for every
-body: shape-identical to a real prosecution office, so all 283 pages would assert at a 200 that the
+body: shape-identical to a real prosecution office, so all 284 pages would assert at a 200 that the
 ВСС publishes no workload for them — including Софийски районен съд. The payload therefore carries
 `sourcesBuilt`, and the page says "not loaded yet" rather than "nothing published" when it is
 false; the fix is to run this loader. `judicial_body_detail.data.test.ts` fails if the flag stops
 discriminating.
+
+**And it is now a BUILD-TIME dependency, which is the one requirement on this page that is
+not a `:cloud` command at all.** `/court/**` is prerendered — 284 static pages plus 284 EN
+mirrors, a `sitemap_judiciary.xml` shard and a table in `llms-full.txt` — and all four are
+enumerated by `scripts/db/lib/seo_courts.ts`, a build-time reader over `judicial_body`. That
+reader returns `[]` on any failure by design, so **the machine running `npm run build` needs
+the dimension in its LOCAL Postgres**, not merely the deploy target:
+
+```bash
+npm run db:load:judicial-bodies:pg        # local — before `npm run build`
+npm run db:load:judicial-bodies:pg:cloud  # the serving database, as above
+```
+
+Building without it does not fail — it emits zero court pages, no `<loc>`s for them and a
+corpus missing that section, all at exit 0, which is the good failure but an invisible one.
+Two gates make it visible instead: `scripts/sitemap/families.data.test.ts` asserts every
+`/court` and `/pension-fund` `<loc>` has a `dist/<path>/index.html` (the sitemap is COMMITTED
+while `dist/` is not, so a sitemap minted with Postgres survives a build without it — but the
+gate only sees a `dist/` that exists, so run it AFTER `npm run build`), and `buildFull.ts`
+refuses to rewrite `llms-full.txt` when the judiciary section would disappear from it. The
+`tests/seo.spec.ts` court samples skip rather than fail on a database-less checkout.
+
+`/pension-fund/**` is the same page-family shape with none of this exposure: its source
+`data/budget/kfn/funds.json` is committed, so it builds anywhere.
+
+**`judicial_body` carries four unmerged duplicate pairs, and three of them split a real
+court's data across both halves.** The fold in `scripts/judiciary/judicialBodies.ts` does not
+collapse `Административен съд София-град` onto `Административен съд — София-град`, so:
+
+| magistrates, no workload      | workload, no magistrates          |
+| ----------------------------- | --------------------------------- |
+| `as-sofia-grad` (62)          | `as-sofiya-grad` (8 years)        |
+| `as-sofia-oblast` (12)        | `as-sofiya-oblast` (8 years)      |
+| `sos` (17)                    | `os-sofiya` (8 years)             |
+| `srs` (149, and the workload) | `rs-sofiya` (1)                   |
+
+This is why `/court/as-sofia-grad` says the ВСС publishes no workload for it when the ВСС
+publishes eight years of it under the twin — a FALSE absence on a real court, not a missing
+one, and it reaches the `FAQPage` JSON-LD and both LLM corpora. It also means only **four** of
+the six load-less courts are genuinely load-less (ВКС and ВАС are; the two АдмС are not).
+Merging is not a mechanical fix — it decides which `body_code` keeps its URL and which
+`/person` magistrate roles re-attach — so it is an open decision, recorded in
+`docs/plans/sector-entity-search-v1.md` §13.
 
 Same shape again, and also **BEFORE** `db:resolve:persons:cloud`: the canonical place
 dimension (migration 117) is the code→name dictionary `082_person_api.sql` JOINs for the

@@ -1,12 +1,12 @@
-// The body finder on /judiciary — all 283 courts, prosecution offices and
+// The body finder on /judiciary — all 284 courts, prosecution offices and
 // investigation services.
 //
 // This is the page SectorEntitySearch's own header cites as its motivating
-// case: it maps 283 bodies and, until /court/:bodyCode landed, had no way to
+// case: it maps 284 bodies and, until /court/:bodyCode landed, had no way to
 // reach any one of them. The map stays; this is the jump.
 //
 // Server-indexed rather than static (the dimension is a PG table, not a curated
-// array) but NOT a typeahead: 283 rows is one small request on arm, after which
+// array) but NOT a typeahead: 284 rows is one small request on arm, after which
 // every keystroke is local. Only /subsidies, at 16,702, needs a query per
 // keystroke.
 
