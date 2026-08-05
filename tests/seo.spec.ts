@@ -43,6 +43,35 @@ const SKIP_REASON =
 // If these change, update here — the failure message will point to this file.
 const SAMPLE_PARTY = "ГЕРБ-СДС";
 const SAMPLE_CANDIDATE = "Бойко Методиев Борисов";
+// Judicial bodies — from the `judicial_body` table (db:load:judicial-bodies:pg),
+// NOT from an election dataset, so these do not change when a new election
+// lands. A court WITH a published workload, a prosecution office (which never
+// has one), and a COURT that has none: the three shapes /court/:bodyCode has to
+// keep apart.
+const SAMPLE_COURT = "sgs";
+// Structurally load-less — the ВСС report covers courts, so all 70 prosecution
+// offices and all 28 investigation services are. This one will never flip.
+const SAMPLE_PROSECUTION = "ap-burgas";
+// Load-less by accident of the source: 1 of only 6 such COURTS out of 186. If
+// the ВСС ever publishes ВКС's workload, or the loader folds a new court_load
+// spelling onto it, the load-less assertion below fails — that is a data change,
+// not a bug. `vas` (the other Supreme Court) is the drop-in replacement.
+const SAMPLE_LOADLESS_COURT = "vks";
+
+// Pension fund — from the committed КФН archive data/budget/kfn/funds.json. The
+// slug is kfnFundSlug(pillar, companyEn), so a company RENAME moves it.
+const SAMPLE_FUND = "upf-doverie";
+
+// /court/** is enumerated from Postgres at BUILD time (readSeoCourts degrades to
+// [] when the database is down or migration 116 is unapplied), so a checkout
+// that built without one has the election data but none of these pages. Skip
+// rather than emit seven failures that all mean "run `npm run db:pg:up`". The
+// pension family needs no guard — its archive is committed.
+const PREREQ_COURTS_PRESENT = fs.existsSync(
+  path.resolve(process.cwd(), "dist", "court", "sgs", "index.html"),
+);
+const SKIP_COURTS =
+  "judicial-body prerender absent (no dist/court/**) — Postgres was down at build time, run `npm run db:pg:up` and rebuild";
 
 const HOME_TITLE_BG_PREFIX = "Парламентарни избори";
 const HOME_TITLE_EN_PREFIX = "Bulgarian Parliamentary Elections";
@@ -57,11 +86,19 @@ type RouteCheck = {
   // Minimum visible text length inside the hidden <div id="ssg-content">.
   // 0 = body content not asserted (a few sub-tabs intentionally inherit a
   // shorter body). Sub-tabs that should reuse the parent body have non-zero.
+  //
+  // MIND THE FLOOR: every page's #ssg-content ends with the shared site-index
+  // <nav>, which is ~540-560 chars on its own. A value below that cannot fail —
+  // it would pass on a completely empty bodyHtml. Set it above the nav (800+)
+  // whenever the point is that the page has PROSE.
   minBodyChars?: number;
   // Expected canonical path (after stripping the origin).
   expectedCanonical?: string;
   // Set when this route has a prerendered EN mirror.
   hasEnglishMirror?: boolean;
+  // Set when the route's pages only exist if Postgres was up at build time.
+  // Skipped rather than failed on a database-less checkout.
+  requiresCourts?: boolean;
 };
 
 // Routes that previously fell through to /index.html and now have unique
@@ -317,6 +354,54 @@ const ROUTES: RouteCheck[] = [
     expectedCanonical: "/customs/warehouses",
     hasEnglishMirror: true,
   },
+
+  // Judicial bodies (/court/:bodyCode) — THREE samples, not one, because the
+  // family's whole risk is in the DEGRADED page and one sample would never see
+  // it. `court_load` covers 180 of 284 bodies, so:
+  //   * SAMPLE_COURT      — a court WITH a workload series (the happy path);
+  //   * SAMPLE_PROSECUTION — kind='prosecution', no court_load row at all;
+  //   * SAMPLE_LOADLESS_COURT — a COURT with no court_load row, which is the
+  //     case that shipped a self-contradicting sentence ("the statistics cover
+  //     the courts") onto both Supreme Courts.
+  {
+    path: `/court/${SAMPLE_COURT}`,
+    titleIncludes: "Софийски градски съд — натовареност",
+    h1Includes: "Софийски градски съд — натовареност",
+    minBodyChars: 800,
+    expectedCanonical: `/court/${SAMPLE_COURT}`,
+    hasEnglishMirror: true,
+    requiresCourts: true,
+  },
+  {
+    path: `/court/${SAMPLE_PROSECUTION}`,
+    titleIncludes: "Апелативна прокуратура — Бургас",
+    h1Includes: "Апелативна прокуратура — Бургас",
+    minBodyChars: 800,
+    expectedCanonical: `/court/${SAMPLE_PROSECUTION}`,
+    hasEnglishMirror: true,
+    requiresCourts: true,
+  },
+  {
+    path: `/court/${SAMPLE_LOADLESS_COURT}`,
+    titleIncludes: "Върховен касационен съд",
+    h1Includes: "Върховен касационен съд",
+    minBodyChars: 800,
+    expectedCanonical: `/court/${SAMPLE_LOADLESS_COURT}`,
+    hasEnglishMirror: true,
+    requiresCourts: true,
+  },
+
+  // Private pension funds (/pension-fund/:slug) — file-backed off the committed
+  // КФН archive rather than Postgres, so this is the one of the two new
+  // families a database-less checkout still builds.
+  {
+    path: `/pension-fund/${SAMPLE_FUND}`,
+    titleIncludes: "УПФ „Доверие“ — нетни активи",
+    h1Includes: "УПФ „Доверие“ — нетни активи",
+    minBodyChars: 800,
+    expectedCanonical: `/pension-fund/${SAMPLE_FUND}`,
+    hasEnglishMirror: true,
+  },
 ];
 
 // English mirrors that must serve the EN prerender (not the EN home fallback).
@@ -375,6 +460,25 @@ const EN_ROUTES: RouteCheck[] = [
     minBodyChars: 500,
     expectedCanonical: `/en/party/${enc(SAMPLE_PARTY)}/regions`,
   },
+  // The EN mirrors of the two new families. Body and court names stay Cyrillic
+  // — there is no official English register for either — so the title assertion
+  // is on the proper noun and the ENGLISH furniture around it is what proves
+  // this is not the EN homepage fallback.
+  {
+    path: `/en/court/${SAMPLE_PROSECUTION}`,
+    titleIncludes: "Апелативна прокуратура — Бургас — caseload",
+    h1Includes: "Апелативна прокуратура — Бургас — caseload",
+    minBodyChars: 800,
+    expectedCanonical: `/en/court/${SAMPLE_PROSECUTION}`,
+    requiresCourts: true,
+  },
+  {
+    path: `/en/pension-fund/${SAMPLE_FUND}`,
+    titleIncludes: 'UPF "Doverie" — net assets',
+    h1Includes: 'UPF "Doverie" — net assets',
+    minBodyChars: 800,
+    expectedCanonical: `/en/pension-fund/${SAMPLE_FUND}`,
+  },
 ];
 
 // Match the canonical the prerender step writes — origin + percent-encoded path.
@@ -415,8 +519,24 @@ const findTag = (
   return "";
 };
 
+// The emitter HTML-escapes <title> and every meta content, so the raw source
+// carries `&quot;` where the reader sees `"`. Decode the handful of entities it
+// can produce, so an expectation is written the way the page reads rather than
+// the way it is serialised. (`UPF "Doverie"` is the case that forced this — a
+// straight-quoted proper noun in a title.)
+const decodeEntities = (v: string): string =>
+  v
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+
 const extract = (html: string) => {
-  const title = /<title>([\s\S]*?)<\/title>/i.exec(html)?.[1]?.trim() ?? "";
+  const title = decodeEntities(
+    /<title>([\s\S]*?)<\/title>/i.exec(html)?.[1]?.trim() ?? "",
+  );
   const h1Match = /<h1[^>]*>([\s\S]*?)<\/h1>/i.exec(html);
   const h1 = h1Match ? h1Match[1].replace(/<[^>]+>/g, "").trim() : "";
   const ssg =
@@ -439,9 +559,8 @@ const extract = (html: string) => {
     findTag(html, "meta", "property", "og:url"),
     "content",
   );
-  const description = readAttr(
-    findTag(html, "meta", "name", "description"),
-    "content",
+  const description = decodeEntities(
+    readAttr(findTag(html, "meta", "name", "description"), "content"),
   );
   const hreflangs: string[] = [];
   const hreflangHrefs: string[] = [];
@@ -473,8 +592,18 @@ const extract = (html: string) => {
   };
 };
 
+/** The `@type` of every JSON-LD block on a page. */
+const jsonLdTypes = (body: string): unknown[] =>
+  extract(body).jsonLdBlocks.map(
+    (b) => (JSON.parse(b) as Record<string, unknown>)["@type"],
+  );
+
 const runRouteCheck = (route: RouteCheck) => {
   test(`prerender: ${route.path}`, async ({ request }) => {
+    test.skip(
+      route.requiresCourts === true && !PREREQ_COURTS_PRESENT,
+      SKIP_COURTS,
+    );
     const { status, body } = await fetchOk(request, route.path);
     expect(status, `non-200 status from ${route.path}`).toBe(200);
 
@@ -594,7 +723,17 @@ test.describe("prerender: cross-cutting", () => {
   // the roots are the two cases the slash rule treats specially.
   // `routePath`, not `path` — the node path module is imported at the top of
   // this file and a loop variable named `path` shadows it.
-  for (const routePath of ["/governance", "/parliament/cohesion", "/", "/en"]) {
+  // Two hubs, the BG and EN roots (the slash rule's two special cases), and one
+  // member of each family §11 added — the two newest URL builders in the repo,
+  // and the ones with no other no-slash gate.
+  for (const routePath of [
+    "/governance",
+    "/parliament/cohesion",
+    "/",
+    "/en",
+    `/court/${SAMPLE_COURT}`,
+    `/pension-fund/${SAMPLE_FUND}`,
+  ]) {
     test(`canonical/og:url/hreflang do not redirect: ${routePath}`, async ({
       request,
     }) => {
@@ -651,6 +790,97 @@ test.describe("prerender: cross-cutting", () => {
     expect(xml).toContain("<sitemapindex");
     expect(xml).toMatch(/sitemap_static\.xml/);
     expect(xml).toMatch(/sitemap_parties\.xml/);
+    // The two families §11 added get their own shards rather than the `static`
+    // catch-all, so an absent shard here is the whole family missing.
+    expect(xml).toMatch(/sitemap_judiciary\.xml/);
+    expect(xml).toMatch(/sitemap_pensions\.xml/);
+  });
+
+  // The degraded /court body is the reason three courts are sampled above
+  // rather than one. The two absences below are shape-identical in the payload
+  // and must NOT share copy: one is a fact about the ВСС's statistic, the other
+  // would be a false claim about a court that has a workload series.
+  test("a prosecution office names the exclusion; a load-less COURT does not", async ({
+    request,
+  }) => {
+    const prosecution = await fetchOk(request, `/court/${SAMPLE_PROSECUTION}`);
+    expect(extract(prosecution.body).ssgText).toContain(
+      "статистиката обхваща съдилищата",
+    );
+
+    // ВКС is a court with no court_load row. Telling it the statistic covers
+    // the courts is self-contradicting — and it shipped that way once.
+    const court = await fetchOk(request, `/court/${SAMPLE_LOADLESS_COURT}`);
+    const text = extract(court.body).ssgText;
+    expect(text).not.toContain("статистиката обхваща съдилищата");
+    expect(text).toContain("ВСС не публикува натовареност за този съд");
+  });
+
+  test("a court WITH a workload series states its figures, not an absence", async ({
+    request,
+  }) => {
+    const { body } = await fetchOk(request, `/court/${SAMPLE_COURT}`);
+    const text = extract(body).ssgText;
+    expect(text).not.toContain("не публикува натовареност");
+    // The prose is the AIO surface, so it has to carry the NUMBERS rather than
+    // be a nav stub — a rate per judge per month and the year it is from.
+    expect(text).toMatch(/дела на месец/);
+    expect(text).toMatch(/\d{4} г\./);
+  });
+
+  test("the new families emit GovernmentOrganization / Organization JSON-LD", async ({
+    request,
+  }) => {
+    const court = await fetchOk(request, `/court/${SAMPLE_COURT}`);
+    // GovernmentOrganization, not plain Organization: it is what lets an answer
+    // engine tell a court from a company of the same name.
+    expect(jsonLdTypes(court.body)).toContain("GovernmentOrganization");
+    expect(jsonLdTypes(court.body)).toContain("FAQPage");
+
+    const fund = await fetchOk(request, `/pension-fund/${SAMPLE_FUND}`);
+    expect(jsonLdTypes(fund.body)).toContain("Organization");
+    expect(jsonLdTypes(fund.body)).toContain("FAQPage");
+  });
+
+  test("an unknown body or fund mints no page and falls through to the shell", async ({
+    request,
+  }) => {
+    for (const p of ["/court/not-a-real-body", "/pension-fund/upf-nonesuch"]) {
+      // The real invariant: both builders map over their source, so no dist
+      // file may exist for a slug the source does not contain. Asserting on the
+      // served TITLE instead would be unfalsifiable — hosting's `**` rewrite
+      // serves the SPA shell, whose title is baked in and cannot echo a path.
+      expect(
+        fs.existsSync(
+          path.resolve(process.cwd(), "dist", p.slice(1), "index.html"),
+        ),
+        `a page was prerendered for the unknown slug ${p}`,
+      ).toBe(false);
+
+      // And what hosting serves is that shell, proved by its own canonical —
+      // so a future rewrite that synthesised a per-path page would fail here.
+      const { status, body } = await fetchOk(request, p);
+      expect(status, `unknown path ${p}`).toBe(200);
+      expect(
+        extract(body).canonical,
+        `${p} must fall through to the shell`,
+      ).toBe(`${ORIGIN}/`);
+    }
+  });
+
+  // TEST-002: the fund family's own degraded/edge sentence. The share is
+  // computed within the fund TYPE (УПФ/ППФ/ДПФ/ДПФПС), and pillar 2 is
+  // УПФ + ППФ together — wording it as a pillar share put the sole ДПФПС at
+  // 100% of a pillar it holds 1.2% of.
+  test("a fund's share sentence is scoped to its TYPE, not its pillar", async ({
+    request,
+  }) => {
+    const { body } = await fetchOk(request, `/pension-fund/${SAMPLE_FUND}`);
+    const text = extract(body).ssgText;
+    expect(text).toMatch(/от активите на фондовете от вид/);
+    expect(text).not.toContain("от активите на стълба");
+    // The largest УПФ is nowhere near its whole type, let alone its pillar.
+    expect(text).not.toMatch(/Това е 100[.,]0%/);
   });
 
   test("robots.txt references the sitemap", async ({ request }) => {
