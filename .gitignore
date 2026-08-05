@@ -349,3 +349,6 @@ cloud-sql-proxy
 /data/procurement/by_settlement/
 /raw_data/nzok/
 /raw_data/culture/
+
+# One-shot shard backup taken by dedup_stale_base_keys.ts --apply (993MB).
+data/procurement/.contracts_backup_*
