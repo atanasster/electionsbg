@@ -862,7 +862,7 @@ for (const inst of INSTITUTION_PACKS) {
   }
 }
 
-// Per-judicial-body pages (/court/:bodyCode) — 284 courts, prosecution offices
+// Per-judicial-body pages (/court/:bodyCode) — 279 courts, prosecution offices
 // and investigation services. Read from Postgres through the SAME seo_courts.ts
 // reader buildCourtRoutes uses, and gated by the SAME isCrawlableCourt, so the
 // sitemap and the prerendered files cannot disagree about which pages exist. A

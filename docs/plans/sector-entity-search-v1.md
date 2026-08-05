@@ -305,19 +305,19 @@ which is why the URL contract lists `?q` for those three only. Add
 
 ### Tier 2 — sectors where the entity list is genuinely long
 
-| Sector                | Group                                  | N                                                         | Criteria                                                                                                                                                                                             | Destination                                                                                                                                                         |
-| --------------------- | -------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/judiciary`          | **Съдилища и прокуратури**             | **284** (186 courts + 70 prosecutions + 28 investigation) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** | **`/court/:bodyCode`** (new — §7/T5)                                                                                                                                |
-| `/culture`            | **Филми**                              | 944                                                       | title, producer, `regNo`, year, discipline label                                                                                                                                                     | `/culture/film/${filmId(f)}` — the id is **derived** (`@/data/culture/filmId`); `regNo` is a search key but **not** an identity, the register's рег.№ is not unique |
-|                       | **Културни институти**                 | 26 (5 bodies + 21 institutes)                             | name, EIK, acronym alias                                                                                                                                                                             | `/awarder/:eik`                                                                                                                                                     |
-| `/sector/security`    | **Структури на МВР**                   | 73                                                        | name, EIK, universe label, oblast (ОДМВР rows carry it in the name)                                                                                                                                  | `/awarder/:eik`                                                                                                                                                     |
-| `/sector/regional`    | **Областни администрации + АГКК/ДНСК** | 30                                                        | name, EIK, oblast, universe label                                                                                                                                                                    | `/awarder/:eik`                                                                                                                                                     |
-| `/sector/environment` | **РИОСВ / БД / паркове**               | 27                                                        | name, EIK, universe label, oblast                                                                                                                                                                    | `/awarder/:eik`                                                                                                                                                     |
-| `/defense`            | **Структури на МО**                    | 24                                                        | name, EIK, universe label, **acronym alias** (ВМА, ТЕРЕМ, БА)                                                                                                                                        | `/awarder/:eik`                                                                                                                                                     |
-| `/sector/customs`     | **Акцизни оператори**                  | 563                                                       | name, EIK, category (energy / alcohol / tobacco), **+ the towns of its 354 warehouses**                                                                                                              | `/company/:eik`                                                                                                                                                     |
-| `/pensions`           | **Пенсионни фондове**                  | 31                                                        | fund name, management company (bg + en), pillar label (УПФ / ППФ / ДПФ)                                                                                                                              | **`/pension-fund/:slug`** (new — §7/T5)                                                                                                                             |
-| `/subsidies`          | **Земеделски стопани**                 | 16,702                                                    | name, EIK, settlement, obshtina                                                                                                                                                                      | `/farm/:eik` — **server typeahead** (R5)                                                                                                                            |
-| `/sector/transport`   | **Структури**                          | 11                                                        | name, EIK, universe, acronym alias (НКЖИ, БДЖ, ИАЖА, ГД ГВА, ДАБДП)                                                                                                                                  | `/awarder/:eik`                                                                                                                                                     |
+| Sector                | Group                                  | N                                                                                                                                                               | Criteria                                                                                                                                                                                                                                 | Destination                                                                                                                                                         |
+| --------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/judiciary`          | **Съдилища и прокуратури**             | **284** (186 courts + 70 prosecutions + 28 investigation) — measured 2026-08-05 after the duplicate-fold fix: **279** = 182 + 69 + 28, 347 alias rows (see §13) | body name (`Административен съд — Пловдив`), `body_code`, tier (районен / окръжен / апелативен / административен / военен / специализиран), place, place_code, **532 rows of `judicial_body_alias`** (347 after the 2026-08-05 fold fix) | **`/court/:bodyCode`** (new — §7/T5)                                                                                                                                |
+| `/culture`            | **Филми**                              | 944                                                                                                                                                             | title, producer, `regNo`, year, discipline label                                                                                                                                                                                         | `/culture/film/${filmId(f)}` — the id is **derived** (`@/data/culture/filmId`); `regNo` is a search key but **not** an identity, the register's рег.№ is not unique |
+|                       | **Културни институти**                 | 26 (5 bodies + 21 institutes)                                                                                                                                   | name, EIK, acronym alias                                                                                                                                                                                                                 | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/security`    | **Структури на МВР**                   | 73                                                                                                                                                              | name, EIK, universe label, oblast (ОДМВР rows carry it in the name)                                                                                                                                                                      | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/regional`    | **Областни администрации + АГКК/ДНСК** | 30                                                                                                                                                              | name, EIK, oblast, universe label                                                                                                                                                                                                        | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/environment` | **РИОСВ / БД / паркове**               | 27                                                                                                                                                              | name, EIK, universe label, oblast                                                                                                                                                                                                        | `/awarder/:eik`                                                                                                                                                     |
+| `/defense`            | **Структури на МО**                    | 24                                                                                                                                                              | name, EIK, universe label, **acronym alias** (ВМА, ТЕРЕМ, БА)                                                                                                                                                                            | `/awarder/:eik`                                                                                                                                                     |
+| `/sector/customs`     | **Акцизни оператори**                  | 563                                                                                                                                                             | name, EIK, category (energy / alcohol / tobacco), **+ the towns of its 354 warehouses**                                                                                                                                                  | `/company/:eik`                                                                                                                                                     |
+| `/pensions`           | **Пенсионни фондове**                  | 31                                                                                                                                                              | fund name, management company (bg + en), pillar label (УПФ / ППФ / ДПФ)                                                                                                                                                                  | **`/pension-fund/:slug`** (new — §7/T5)                                                                                                                             |
+| `/subsidies`          | **Земеделски стопани**                 | 16,702                                                                                                                                                          | name, EIK, settlement, obshtina                                                                                                                                                                                                          | `/farm/:eik` — **server typeahead** (R5)                                                                                                                            |
+| `/sector/transport`   | **Структури**                          | 11                                                                                                                                                              | name, EIK, universe, acronym alias (НКЖИ, БДЖ, ИАЖА, ГД ГВА, ДАБДП)                                                                                                                                                                      | `/awarder/:eik`                                                                                                                                                     |
 
 ### Tier 3 — explicitly NOT worth a search box
 
@@ -382,7 +382,7 @@ These are the only tier that adds routes, and both **gate** their search group: 
 `judicial_body` is the spine (and it is what the person layer already resolves roles against);
 `court_load.json` (178 courts × 8 years) joins in where present.
 
-**The route covers every body, not just the courts** — 186 courts + 70 prosecutions + 27
+**The route covers every body, not just the courts** — 186 courts + 70 prosecutions + 28
 investigation services (measured). The name `/court/**` is therefore slightly narrower than its
 contents; keep it anyway (short, guessable, and "съд" is what a reader types) but make the page
 title carry the real `kind`.
@@ -393,7 +393,7 @@ What the page carries, all from data already ingested:
   (`court_load.json`).
 - **The magistrates seated there** — drill to `/persons?court=<name>`. **Trap:** that filter carries
   the institution **NAME**, not `body_code` (CLAUDE.md, URL contract). Link off `judicial_body.name`,
-  and let `judicial_body_alias` (532 rows) absorb the spelling variants.
+  and let `judicial_body_alias` (532 rows; 347 after the 2026-08-05 fold fix) absorb the spelling variants.
 - **Place + map pin** — `place`, `place_code`, `lng`/`lat` are already on the row.
 - **Cost per case** — the `/judiciary` `CostPerCaseTile` basis, sliced to this body.
 
@@ -500,7 +500,7 @@ every sector page except the two that are explicitly server-backed (subsidies, a
 `/api/db/procurement-search` stays reachable from the header search and `AwarderSearch`; revisit for
 v2 only if readers are observed searching contract subjects from a sector page.
 
-**9.4 — `/court/**`covers all 284 bodies**, not just the 186 courts. The 70 prosecutions and 28
+**9.4 — `/court/**`covers all bodies** (284 when this was written; **279** after the 2026-08-05 duplicate-fold fix — see §13), not just the 186 courts. The 70 prosecutions and 28
 investigation services get pages too. They have no`court_load` row and often no coordinates, so
 the page must **name the absence** ("няма публикувана натовареност за този орган") rather than draw
 an empty chart — see §7/T5. They still carry magistrates, place, tier and kind, and they are exactly
@@ -697,7 +697,7 @@ pushUrl(`/en/court/${bodyCode}`, lastmod);
 and its comment says so explicitly (`route_defs.ts:165`); these two follow suit. Courts read
 `seo_courts.ts` (same call the prerender makes); funds read `funds.json`'s mtime for `lastmod`.
 
-**File-count budget:** 284 × 2 + 31 × 2 = **630** files added to a dist already holding ~245k. The
+**File-count budget:** 279 × 2 + 31 × 2 = **620** files added to a dist already holding ~245k. The
 observed Firebase failure was at 453k files, so this is not close — which is exactly why these two
 families get prerendered while `/funds/contract/**` and `/company/**` (~256k more) had to go through
 `functions/spa_page.js` instead.
@@ -740,7 +740,7 @@ Answer engines lift these directly.
 
 **3. `scripts/llms/buildFull.ts` → `/llms-full.txt` + `/llms-full.en.txt`.** Add one compact
 **table block per family** — courts (name · tier · place · judges · filed/resolved per month) and
-funds (fund · pillar · company · insured · net assets). Both are small (284 and 31 rows) and
+funds (fund · pillar · company · insured · net assets). Both are small (279 and 31 rows) and
 tabular, which is the shape an LLM answers from most reliably. This is the highest-value AIO
 addition after `bodyHtml`, and it is a pure append to an existing corpus builder.
 
@@ -862,7 +862,7 @@ npm run deploy:db
 #    `npm run deploy` builds via its predeploy hook, which is too late to look.
 npm run db:load:judicial-bodies:pg
 npm run build
-ls dist/court | wc -l    # 284, not 0
+ls dist/court | wc -l    # 279, not 0
 npm run deploy
 
 # 5. The КФН archive. LAST, and the order is load-bearing in one direction only.
@@ -908,7 +908,7 @@ absent workload, not show an empty chart), the two Supreme Courts (`/court/vks`,
 courts with no published workload, so they must say "ВСС не публикува натовареност за този съд"
 and NOT the prosecution-office clause), and a fund (`/pension-fund/upf-doverie` — should show
 more than one quarter). Finally `curl -s https://electionsbg.com/llms-full.txt | grep -c
-"electionsbg.com/court/"` — 284 rows (the intro line names the pattern, not a URL).
+"electionsbg.com/court/"` — 279 rows (the intro line names the pattern, not a URL).
 
 ---
 
@@ -934,7 +934,7 @@ fb91202ee5 T5b   /court/:bodyCode
 
 ### What §11 shipped
 
-630 prerendered pages (284 courts + 31 funds, BG and EN), `sitemap_judiciary.xml` +
+620 prerendered pages (279 courts + 31 funds, BG and EN), `sitemap_judiciary.xml` +
 `sitemap_pensions.xml`, a table per family in `llms-full.txt` / `.en.txt`, and two
 `/llms.txt` overview entries. Enumeration is ONE reader per family, shared by the
 prerender, the sitemap and the corpus — `scripts/db/lib/seo_courts.ts` (Postgres) and
@@ -955,28 +955,38 @@ its judiciary table — all at exit 0. Recorded in CLAUDE.md next to the `:cloud
 
 ### Gates that hold this in place
 
-| Gate                           | What it catches                                                                                   |
-| ------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `seo_courts.data.test.ts`      | a SQL regression, which the `[]` contract makes look like "no database"                           |
-| `court_prerender.data.test.ts` | the emitted PROSE of all 284 pages — false absences, count/noun disagreement, double-escaped meta |
-| `families.data.test.ts`        | every sitemap `<loc>` has a `dist/<path>/index.html`                                              |
-| `corpus.data.test.ts`          | the llms tables, and a Postgres-less run rewriting them shorter                                   |
-| `kfnFunds.test.ts`             | the fund edge cases the real 31 do not exhibit                                                    |
-| `tests/seo.spec.ts`            | three court shapes + the fund, served                                                             |
+| Gate                                | What it catches                                                                                    |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `seo_courts.data.test.ts`           | a SQL regression, which the `[]` contract makes look like "no database"                            |
+| `court_prerender.data.test.ts`      | the emitted PROSE of all 279 routes — false absences, count/noun disagreement, double-escaped meta |
+| `families.data.test.ts`             | every `/court` + `/pension-fund` `<loc>` has a `dist/<path>/index.html` (needs a built `dist/`)    |
+| `judicial_body_detail.data.test.ts` | one row per INSTITUTION — no body split across two codes                                           |
+| `corpus.data.test.ts`               | the llms tables, and a Postgres-less run rewriting them shorter                                    |
+| `kfnFunds.test.ts`                  | the fund edge cases the real 31 do not exhibit                                                     |
+| `tests/seo.spec.ts`                 | three court shapes + the fund, served                                                              |
 
-### Three claims the pages must never make again
+### Four claims the pages must never make again
 
-Each of these shipped once during §11 and is now pinned by a test. (A FOURTH is live and
-unclosed — see "Duplicate judicial bodies" below.)
+Each of these shipped once during §11 and is now pinned by a test.
 
-- **"ВСС не публикува натовареност … статистиката обхваща съдилищата" on a COURT.** Six
-  courts carry no `court_load` row, ВКС and ВАС among them, so the prosecution-office
-  explanation is self-contradicting on exactly the highest-traffic pages in the family.
+- **"ВСС не публикува натовареност … статистиката обхваща съдилищата" on a COURT.** ВКС
+  and ВАС carry no `court_load` row, so the prosecution-office explanation is
+  self-contradicting on exactly the highest-traffic pages in the family. (Six courts
+  matched this at the time; the duplicate-fold fix below took it down to the true two.)
 - **"1 магистрати" / "1 съдии".** 33 sites across 32 bodies, in the body text, the meta description AND
   the `FAQPage` JSON-LD an answer engine quotes verbatim.
 - **"Дял в стълба".** The value is a share of the fund TYPE (УПФ/ППФ/ДПФ/ДПФПС); pillar 2
   is УПФ + ППФ, so the sole ДПФПС published 100.0% where its real pillar-3 share is 1.2%.
   The number was right and the label was wrong — on the page, the prerender and the corpus.
+- **"ВСС не публикува натовареност" on a court whose workload the ВСС publishes.** Five
+  Sofia institutions existed TWICE in `judicial_body`, with the magistrates on one row and
+  the workload on the other, because the curated `NATIONAL` rules that keep `Софийски
+районен съд` off the generic seated path only matched the spelled-out spelling — and
+  `court_load` writes the abbreviated one (`РС-София`, `ОС - София`, `АдмС - София-град`).
+  `foldJudicialName` now spells out a leading institution abbreviation, so both forms are
+  one key; `rs-sofiya`, `os-sofiya`, `op-sofiya`, `as-sofiya-grad` and `as-sofiya-oblast`
+  no longer exist, and the dimension went 284 → **279** bodies. Only ВКС and ВАС are now
+  load-less courts, which is the true state.
 
 ### Still open, unchanged
 
@@ -988,33 +998,6 @@ that affordable); the large corpora do not. The administration box's copy says "
 Cyrillic" rather than promising what it cannot do. Closing it properly means a SQL-side
 rule table and an extra predicate on the hottest search path — a decision, not an
 oversight.
-
-**Duplicate judicial bodies — and this one is publishing a FALSE claim today.**
-`judicial_body` carries four unmerged same-institution pairs, because the fold in
-`scripts/judiciary/judicialBodies.ts` does not collapse `Административен съд София-град`
-onto `Административен съд — София-град`. In three of the four, the magistrates sit on one
-half and the workload on the other:
-
-| magistrates, no workload      | workload, no magistrates     |
-| ----------------------------- | ---------------------------- |
-| `as-sofia-grad` (62)          | `as-sofiya-grad` (8 years)   |
-| `as-sofia-oblast` (12)        | `as-sofiya-oblast` (8 years) |
-| `sos` (17)                    | `os-sofiya` (8 years)        |
-| `srs` (149, and the workload) | `rs-sofiya` (1)              |
-
-So `/court/as-sofia-grad` states that the ВСС publishes no workload for it while the ВСС
-publishes eight years of it under the twin — a false absence on a real court, reaching the
-page, its `FAQPage` JSON-LD and both LLM corpora. That is the same class as the three claims
-above, and it is NOT closed: the pinned gate only asserts that a court never carries the
-_prosecution-office_ clause, which this passes.
-
-It also corrects a figure this plan and `seo.spec.ts` both rest on: of the six courts with no
-`court_load` row, only **four** are genuinely load-less (ВКС, ВАС, СОС, РС София). The two
-АдмС are load-less only because their series is filed under a twin.
-
-Merging is a decision, not a repair — it picks which `body_code` keeps its URL and which
-`/person` magistrate roles re-attach — which is why §11 stopped at recording it. Found in the
-§11.1b review, sized in the §11.6 one.
 
 **§11.5 (T6) is sized but unscheduled.** `/procedure/:code` (1,142 pages),
 `/molecule/:inn` (1,220) and `/culture/film/:id` (1,888) are the same builder shape and

@@ -1,7 +1,7 @@
 // What KIND of judicial body /court/:bodyCode is showing.
 //
-// The route name is narrower than its contents on purpose — it covers all 284
-// bodies (186 courts + 70 prosecution offices + 28 investigation services),
+// The route name is narrower than its contents on purpose — it covers all 279
+// bodies (182 courts + 69 prosecution offices + 28 investigation services),
 // because "съд" is the word a reader types, so the page itself has to carry the
 // real kind instead.
 //
@@ -80,7 +80,7 @@ export const judicialTierAdjective = (
   return kind === "prosecution" ? (TIER_FEMININE[tier] ?? tier) : tier;
 };
 
-/** `в` → `във` before a В-/Ф-initial word. 11 of the 284 bodies start with В
+/** `в` → `във` before a В-/Ф-initial word. 11 of the 279 bodies start with В
  *  (both Supreme Courts among them), so "магистратите в Върховен касационен съд"
  *  is not a rare edge — it is the highest-traffic page in the family. */
 export const bgIn = (name: string): string =>

@@ -8,7 +8,7 @@
 // command whose output is committed, while `dist/court/**` is written by
 // postbuild on whatever machine builds. So the dangerous state — a sitemap
 // minted with Postgres, then a build without it — is not covered by the shared
-// degrade-to-[] contract at all. It ships 568 <loc>s with no file behind them.
+// degrade-to-[] contract at all. It ships 558 <loc>s with no file behind them.
 //
 // The dist half auto-skips when there is no dist/ (a checkout that has not
 // built); the reader half auto-skips when Postgres is down.

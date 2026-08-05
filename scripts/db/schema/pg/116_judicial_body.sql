@@ -64,7 +64,7 @@ CREATE INDEX IF NOT EXISTS idx_judicial_body_place ON judicial_body (place_code)
 -- ==========================================================================
 -- One judicial body's page payload → /court/:bodyCode.
 --
--- COVERS ALL 284 BODIES, not just the 186 courts (plan §9.4). The 70
+-- COVERS ALL 279 BODIES, not just the 182 courts (plan §9.4). The 69
 -- prosecution offices and 28 investigation services get pages too — they are
 -- exactly what a reader types — but three of the four blocks below DEGRADE for
 -- them, and the page must NAME that rather than draw an empty chart:
@@ -120,7 +120,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'magistrates',(SELECT n FROM mags),
       -- Distinguishes "this body has no published workload" from "the bridge
       -- table was never loaded". Without it an empty judicial_body_source_name
-      -- returns load:null for ALL 284 bodies, shape-identical to a real
+      -- returns load:null for ALL 279 bodies, shape-identical to a real
       -- prosecution office — so every court page would assert, at a 200, that
       -- the ВСС publishes no workload for it. Applying this file with
       -- apply_functions.ts creates the table empty, which is the normal way a
@@ -142,7 +142,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
 $$;
 
 -- ==========================================================================
--- The slim body index behind the /judiciary search group — all 284, with just
+-- The slim body index behind the /judiciary search group — all 279, with just
 -- enough to search, rank and link. ~30 kB, requested only when the reader
 -- focuses the box (same lazy shape as nzok_procedure_index / _pack_index).
 --

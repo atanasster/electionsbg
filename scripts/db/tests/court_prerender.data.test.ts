@@ -1,4 +1,4 @@
-// The 284 static /court pages, checked as PUBLISHED CLAIMS rather than as code.
+// The 279 static /court pages, checked as PUBLISHED CLAIMS rather than as code.
 //
 // A prerendered page is not a render that can be fixed on the next request — a
 // crawler reads it once and caches it, and an answer engine may quote its FAQ

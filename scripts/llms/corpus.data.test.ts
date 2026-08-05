@@ -1,6 +1,6 @@
 // The committed /llms-full.txt corpora, checked as PUBLISHED CLAIMS.
 //
-// These files are what an answer engine reads instead of crawling 315 pages, so
+// These files are what an answer engine reads instead of crawling 310 pages, so
 // a wrong cell is quoted verbatim and a missing section is simply an entity the
 // model has never heard of. Two failure modes have already happened once each
 // and are pinned here:
@@ -22,7 +22,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { dbReachable, end } from "../db/lib/pg";
+import { allRows, dbReachable, end } from "../db/lib/pg";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "../prerender/kfnFunds";
 
@@ -146,6 +146,33 @@ for (const f of CORPORA) {
     );
   });
 }
+
+test("the judiciary intro's claim about load-less courts matches the table", async (t) => {
+  if (!haveDb) return t.skip();
+  // The intro is HAND-WRITTEN above a GENERATED table, so the two drift
+  // independently — and did: after the duplicate-fold fix took the load-less
+  // courts from six to two, both corpora still told an answer engine that some
+  // courts' series sit under "a second, duplicate entry for the same court".
+  const [row] = await allRows<{ n: string }>(`
+    SELECT count(*) AS n FROM judicial_body b
+     WHERE b.kind = 'court'
+       AND NOT EXISTS (SELECT 1 FROM judicial_body_source_name s
+                         JOIN court_load c ON c.name = s.source_name
+                        WHERE s.body_code = b.body_code)`);
+  const loadless = Number(row?.n ?? 0);
+  assert.equal(
+    loadless,
+    2,
+    "the number of load-less courts moved — the hand-written judiciary intro in buildFull.ts names ВКС and ВАС explicitly and must be re-checked",
+  );
+  for (const f of CORPORA) {
+    const corpus = read(f);
+    assert.ok(
+      !/дублиращо се вписване|duplicate entry for the same court/.test(corpus),
+      `${f}: the intro still describes the dimension as double-counted`,
+    );
+  }
+});
 
 test("the corpus lists exactly the enumerable courts and funds", async (t) => {
   if (!haveDb) return t.skip();

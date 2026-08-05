@@ -162,8 +162,8 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
     label: "Party financing",
     description: "declared campaign income and expenditures from Сметна палата",
   },
-  // These two are OVERVIEWS by design. The per-body and per-fund detail — 284
-  // courts, 31 funds — lives as a table in llms-full.txt; 284 rows do not
+  // These two are OVERVIEWS by design. The per-body and per-fund detail — 279
+  // bodies, 31 funds — lives as a table in llms-full.txt; 279 rows do not
   // belong in the short index an AI crawler fetches first.
   {
     url: "/judiciary",

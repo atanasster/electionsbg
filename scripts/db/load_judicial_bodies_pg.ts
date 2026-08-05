@@ -193,7 +193,7 @@ const main = async (): Promise<void> => {
     //
     // TRUNCATE takes an AccessExclusiveLock held to COMMIT, and `judicial_body` is
     // on the /person serving path (082 joins it for a magistrate's court).
-    // Acceptable ONLY because the table is ~284 rows — the reload is far under the
+    // Acceptable ONLY because the table is ~279 rows — the reload is far under the
     // serving pool's 2 s lock_timeout — and this loader is operator-run, never in
     // a request. If it grows, switch to a stage merge (scripts/db/lib/stage_merge.ts).
     await c.query(

@@ -46,12 +46,42 @@ describe("foldJudicialName", () => {
   });
 
   it("drops a territorial sub-office suffix", () => {
-    // A ТО is a desk of the районна прокуратура, not a separate institution. The fold
-    // keeps the abbreviation as written — expanding РП → РАЙОННА ПРОКУРАТУРА is the
-    // resolver's job, not the fold's — so this asserts only that the ТО tail is gone.
+    // A ТО is a desk of the районна прокуратура, not a separate institution.
     expect(foldJudicialName("РП Стара Загора - ТО Казанлък")).toBe(
       foldJudicialName("РП - Стара Загора"),
     );
+  });
+
+  it("spells out a leading institution abbreviation, so both spellings are one key", () => {
+    // The fold's job: `РС София` and `Районен съд София` are the same institution
+    // written two ways, and until this landed they were two alias keys.
+    for (const [abbr, full] of [
+      ["РС Варна", "Районен съд - Варна"],
+      ["ОС Варна", "Окръжен съд - Варна"],
+      ["ОП Варна", "Окръжна прокуратура - Варна"],
+      ["РП Варна", "Районна прокуратура - Варна"],
+      ["АП Варна", "Апелативна прокуратура - Варна"],
+      ["АдмС Варна", "Административен съд - Варна"],
+      ["АпС Варна", "Апелативен съд - Варна"],
+    ] as const) {
+      expect(foldJudicialName(abbr), abbr).toBe(foldJudicialName(full));
+    }
+  });
+
+  it("leaves the AMBIGUOUS abbreviations alone", () => {
+    // `АС` is Апелативен съд in court_load and Административен съд in the ИВСС
+    // register; `ВС` is Военен съд. The string cannot settle it, so the fold must
+    // not pretend it can — resolveJudicialBody's tier hint does.
+    expect(foldJudicialName("АС - Бургас")).toBe("АС БУРГАС");
+    expect(foldJudicialName("ВС - Сливен")).toBe("ВС СЛИВЕН");
+  });
+
+  it("expands only a LEADING abbreviation, leaving the investigation family intact", () => {
+    // "ОСлО при ОП-Видин" must keep its parent-office abbreviation where
+    // resolveInvestigation expects it — the head is ОСЛО, not ОП.
+    expect(foldJudicialName("ОСлО при ОП-Видин")).toContain("ОП ВИДИН");
+    // And a bare abbreviation with no seat is an unresolvable stub, not a body.
+    expect(foldJudicialName("ОС")).toBe("ОС");
   });
 
   it("routes both spellings of a sub-office to the parent BODY", () => {
@@ -391,5 +421,47 @@ describe("resolveJudicialBody, with the settlement vocabulary", () => {
     ).toBe("vs-sliven");
     expect(body("СНС")?.tier).toBe("специализиран");
     expect(body("АСНС")?.tier).toBe("специализиран");
+  });
+
+  // Sofia's own courts have ADJECTIVAL names and therefore curated NATIONAL entries,
+  // checked before the generic seated rules precisely so "Софийски районен съд" cannot
+  // mint `rs-sofiya`. That defence only ever covered the SPELLED-OUT spelling, while
+  // court_load — the ВСС's own workload series — writes the abbreviated one. So five
+  // bodies existed twice, with the magistrates on one and the workload on the other:
+  // /court/as-sofia-grad stated the ВСС publishes no workload for it while publishing
+  // eight years of it under `as-sofiya-grad`.
+  it("routes BOTH spellings of a Sofia institution to its curated body", () => {
+    for (const [abbr, canonical] of [
+      ["РС-София", "srs"],
+      ["Районен съд София", "srs"],
+      ["Софийски районен съд", "srs"],
+      ["ОС - София", "sos"],
+      ["Окръжен съд - София", "sos"],
+      ["Софийски окръжен съд", "sos"],
+      ["ОП - София", "sop"],
+      ["Софийска окръжна прокуратура", "sop"],
+      ["АдмС - София-град", "as-sofia-grad"],
+      ["Административен съд София-град", "as-sofia-grad"],
+      ["АССГ", "as-sofia-grad"],
+      ["АдмС - София-област", "as-sofia-oblast"],
+      ["Административен съд София-област", "as-sofia-oblast"],
+      ["СГС", "sgs"],
+      ["Софийски градски съд", "sgs"],
+    ] as const) {
+      expect(resolveJudicialBody(abbr, { vocab })?.bodyCode, abbr).toBe(
+        canonical,
+      );
+    }
+  });
+
+  it("still gives a NON-Sofia seat its own seated body", () => {
+    // The fix must not collapse the generic rules it routes through: only the
+    // institutions with a curated national entry change.
+    expect(resolveJudicialBody("РС - Варна", { vocab })?.bodyCode).toBe(
+      "rs-varna",
+    );
+    expect(resolveJudicialBody("ОС - Варна", { vocab })?.bodyCode).toBe(
+      "os-varna",
+    );
   });
 });

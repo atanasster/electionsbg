@@ -3220,15 +3220,15 @@ export const buildSchoolRoutes = (projectRoot: string): PrerenderRoute[] => {
 // /court/{bodyCode} — one judicial body: a court, a prosecution office or an
 // investigation service. Real SPA route (CourtScreen) with no prerendered HTML
 // before this, so a no-JS crawler hit the SPA rewrite and read the HOMEPAGE's
-// meta for all 284 of them. Enumerated from Postgres via seo_courts.ts — the
+// meta for all 279 of them. Enumerated from Postgres via seo_courts.ts — the
 // same reader the sitemap calls, so the two cannot disagree about which pages
 // exist.
 //
-// THE DEGRADED CASE IS THE POINT, exactly as on the screen. 104 of the 284
+// THE DEGRADED CASE IS THE POINT, exactly as on the screen. 99 of the 279
 // bodies publish no workload, and `sourcesBuilt` is what separates that from a
 // database where the bridge was never loaded. Get it wrong here and the claim is
 // worse than on the screen, because it is baked into static HTML that a crawler
-// reads once and caches: 284 pages asserting the ВСС publishes no workload for
+// reads once and caches: 279 pages asserting the ВСС publishes no workload for
 // Софийски градски съд.
 export const buildCourtRoutes = async (): Promise<PrerenderRoute[]> => {
   const bodies = await readSeoCourts();

@@ -79,7 +79,7 @@ test("sourcesBuilt is true on a loaded database, and the workload split is real"
   if (!bodies) return t.skip();
   const rows = await readSeoCourts();
   // False here means the prerender must NOT write "the ВСС publishes no
-  // workload for this body" onto 284 static pages. On a db:refresh'd database
+  // workload for this body" onto 279 static pages. On a db:refresh'd database
   // it is true, so a false is the signal that db:load:judicial-bodies:pg has
   // not run — the same distinction judicial_body_detail() carries.
   assert.ok(

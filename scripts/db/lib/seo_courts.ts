@@ -32,7 +32,7 @@ export type SeoCourt = {
   tier: string | null;
   place: string | null;
   /** The seat in English, for the EN page. Null only if `place_dim` has no row
-   *  for this obshtina — all 284 resolve today. */
+   *  for this obshtina — all 279 resolve today. */
   placeEn: string | null;
   placeCode: string | null;
   /** Magistrates declaring to the ИВСС from this body. */
@@ -48,7 +48,7 @@ export type SeoCourt = {
   /**
    * Mirrors judicial_body_detail()'s flag of the same name, and carries the
    * same warning: it separates "the ВСС publishes no workload for this body"
-   * (true, `year` null — 104 of the 284 bodies) from "the workload bridge was
+   * (true, `year` null — 99 of the 279 bodies) from "the workload bridge was
    * never loaded on this database" (false). The two are shape-identical in the
    * rows, so prerendered prose that ignores it would assert, in static HTML on
    * every page, that the ВСС publishes no workload for Софийски градски съд.
@@ -63,7 +63,7 @@ export type SeoCourt = {
 
 /**
  * The crawlable gate — exported once and used by BOTH the prerender builder and
- * the sitemap enumerator. It is trivially true today (all 284 body_codes are
+ * the sitemap enumerator. It is trivially true today (all 279 body_codes are
  * lowercase ASCII slugs, verified), but a gate that lives in two copies is how a
  * sitemap grows <loc>s with no file behind them, so it exists as one named
  * export rather than as an inline regex on each side.
@@ -121,10 +121,10 @@ const QUERY = `
   SELECT b.body_code, b.name, b.kind, b.tier, b.place, b.place_code,
          -- The trailing qualifier is stripped because judicial_body.place is the
          -- seat SETTLEMENT ("София") while place_dim is the OBSHTINA ("Столична
-         -- община" / "Sofia (capital municipality)"). The two names coincide for
-         -- 283 of 284 bodies; without this, the one that does not would put a
-         -- court "seated in Sofia (capital municipality)" on the EN page against
-         -- "със седалище в София" on the BG one.
+         -- община" / "Sofia (capital municipality)"). The two coincide for every
+         -- seat but one: without this, the 23 Sofia-seated bodies would read
+         -- "seated in Sofia (capital municipality)" on the EN page against "със
+         -- седалище в София" on the BG one.
          regexp_replace(pd.name_en, '\\s*\\([^)]*\\)$', '') AS place_en,
          COALESCE(m.n, 0) AS magistrates,
          y.first_year, y.last_year,
@@ -137,7 +137,7 @@ const QUERY = `
   -- The English seat name for the EN page. \`place_dim.code\` is UNIQUE ONLY
   -- WITHIN A KIND (VAR is both an oblast and an obshtina), so the kind
   -- predicate is what keeps this a 1:1 join instead of doubling 28 rows.
-  -- judicial_body.place_code is an obshtina code for all 284.
+  -- judicial_body.place_code is an obshtina code for all 279.
   LEFT JOIN place_dim pd ON pd.code = b.place_code AND pd.kind = 'obshtina'
   -- COLLATE "C" so the enumeration order is the same on every server regardless
   -- of its default collation (which ignores the hyphen at the primary level and
@@ -149,8 +149,8 @@ const QUERY = `
  * Every judicial body that has a servable `/court/:bodyCode` page, ordered by
  * `body_code`.
  *
- * @returns One entry per crawlable row in `judicial_body` (284 today; 180 carry
- *   a `court_load` year, 104 do not). **Never throws** — returns `[]` and warns
+ * @returns One entry per crawlable row in `judicial_body` (279 today; 180 carry
+ *   a `court_load` year, 99 do not). **Never throws** — returns `[]` and warns
  *   on any failure, so a build without Postgres omits the family instead of
  *   aborting. An empty result therefore means *either* no database *or* a failed
  *   query; `scripts/db/tests/seo_courts.data.test.ts` is the gate that tells
@@ -160,7 +160,7 @@ export const readSeoCourts = async (): Promise<SeoCourt[]> => {
   const rows = await readSeoRows<Row>("/court/*", QUERY);
   const kept = rows.filter(isCrawlableRow);
   if (kept.length !== rows.length) {
-    // The gate drops 0 of 284 today, which means it only ever DOES anything on
+    // The gate drops 0 of 279 today, which means it only ever DOES anything on
     // the day something upstream changes — exactly the day to be told. A body
     // silently missing from both the prerender and the sitemap is invisible in a
     // green build; the count difference is not something anyone reads.

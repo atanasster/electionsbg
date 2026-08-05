@@ -2,7 +2,7 @@
 // your medicine, your school, your court".
 //
 // It exists because a sector dashboard is a stack of TOP-N tiles: /sector/health
-// renders 12 of 3,333 drug packs and 12 of 427 procedures, /judiciary maps 283
+// renders 12 of 3,333 drug packs and 12 of 427 procedures, /judiciary maps 279
 // judicial bodies with no finder. The destination pages already exist and are
 // already served; they were simply unreachable from the page that is about them.
 //

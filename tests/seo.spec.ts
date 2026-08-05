@@ -49,13 +49,14 @@ const SAMPLE_CANDIDATE = "Бойко Методиев Борисов";
 // has one), and a COURT that has none: the three shapes /court/:bodyCode has to
 // keep apart.
 const SAMPLE_COURT = "sgs";
-// Structurally load-less — the ВСС report covers courts, so all 70 prosecution
+// Structurally load-less — the ВСС report covers courts, so all 69 prosecution
 // offices and all 28 investigation services are. This one will never flip.
 const SAMPLE_PROSECUTION = "ap-burgas";
-// Load-less by accident of the source: 1 of only 6 such COURTS out of 186. If
-// the ВСС ever publishes ВКС's workload, or the loader folds a new court_load
-// spelling onto it, the load-less assertion below fails — that is a data change,
-// not a bug. `vas` (the other Supreme Court) is the drop-in replacement.
+// One of only 2 load-less COURTS out of 182 — ВКС and ВАС. Four more looked
+// load-less until the 2026-08-05 duplicate-fold fix, whose series turned out to
+// be filed under a twin; these two are the real ones. If the ВСС ever publishes
+// ВКС's workload the assertion below fails — a data change, not a bug, and
+// `vas` is the drop-in replacement.
 const SAMPLE_LOADLESS_COURT = "vks";
 
 // Pension fund — from the committed КФН archive data/budget/kfn/funds.json. The
@@ -357,7 +358,7 @@ const ROUTES: RouteCheck[] = [
 
   // Judicial bodies (/court/:bodyCode) — THREE samples, not one, because the
   // family's whole risk is in the DEGRADED page and one sample would never see
-  // it. `court_load` covers 180 of 284 bodies, so:
+  // it. `court_load` covers 180 of 279 bodies, so:
   //   * SAMPLE_COURT      — a court WITH a workload series (the happy path);
   //   * SAMPLE_PROSECUTION — kind='prosecution', no court_load row at all;
   //   * SAMPLE_LOADLESS_COURT — a COURT with no court_load row, which is the

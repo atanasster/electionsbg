@@ -322,6 +322,14 @@ const SEATED: {
   // The misspellings these patterns used to spell out (АДМИНИСТРИТИВЕН, РЙОНЕН,
   // РАЙНОННА) are corrected by the typo layer before a rule is ever tried, so listing
   // them here again would be unreachable. judicialBodies.test.ts keeps them covered.
+  //
+  // The ABBREVIATION alternations below (`|АДМС`, `|АПС`, `|ОС`, `|РС`, `|АП`, `|ОП`,
+  // `|РП`, and the standalone ВОП rule above) are in the same position and are KEPT
+  // anyway: expandInstitutionAbbrev spells every one of them out during the fold, so
+  // nothing reaches here abbreviated today. They are the fallback for the day someone
+  // reorders the fold — a parser whose failure mode is attributing a court's caseload
+  // to the wrong institution is the wrong place to remove a redundant branch. Do not
+  // read them as evidence that both spellings still arrive.
   {
     match: /^(?:АДМИНИСТРАТИВЕН СЪД|АДМС)\s+(.+)$/,
     kind: "court",
@@ -641,7 +649,65 @@ export const foldJudicialName = (
   // "GRADSKI SAD SOFIA"-shaped keys, which is what the NATIONAL patterns match.
   if (ADJECTIVE_CITY[head] && rest.length)
     s = [...rest, ADJECTIVE_CITY[head].toUpperCase()].join(" ");
+  s = expandInstitutionAbbrev(s);
   return s.replace(/\s+/g, " ").trim();
+};
+
+/** Institution-type abbreviations, spelled out. `АС` and `ВС` are deliberately
+ *  ABSENT: they collide across families (`АС` is Апелативен съд in court_load
+ *  and Административен съд in the ИВСС register, `ВС` is Военен съд), and the
+ *  string cannot settle it — resolveJudicialBody's `tier` hint does. */
+const INSTITUTION_ABBREV: Record<string, string> = {
+  АДМС: "АДМИНИСТРАТИВЕН СЪД",
+  АПС: "АПЕЛАТИВЕН СЪД",
+  РС: "РАЙОНЕН СЪД",
+  ОС: "ОКРЪЖЕН СЪД",
+  АП: "АПЕЛАТИВНА ПРОКУРАТУРА",
+  ОП: "ОКРЪЖНА ПРОКУРАТУРА",
+  РП: "РАЙОННА ПРОКУРАТУРА",
+  ВОП: "ВОЕННО ОКРЪЖНА ПРОКУРАТУРА",
+};
+
+/**
+ * Spell out a LEADING institution-type abbreviation, so `РС София` and
+ * `Районен съд София` are one key rather than two.
+ *
+ * WHY THIS IS IN THE FOLD AND NOT IN THE RULES. Every SEATED rule already
+ * accepts both spellings (`/^(?:РАЙОНЕН СЪД|РС)\s+(.+)$/`), so for an ordinary
+ * court either form resolves the same way and this changes nothing. It matters
+ * for the institutions that have a CURATED entry in NATIONAL, which is checked
+ * first precisely so `Софийски районен съд` cannot fall through to the generic
+ * районен-съд rule and mint `rs-sofiya`. That defence only ever covered the
+ * spelled-out spelling — and court_load, the ВСС's own workload series, writes
+ * the abbreviated one (`РС-София`, `ОС - София`, `АдмС - София-град`). So the
+ * abbreviated form sailed past the national rule into the seated one and minted
+ * exactly the codes the national rule exists to prevent: five bodies
+ * (`rs-sofiya`, `os-sofiya`, `op-sofiya`, `as-sofiya-grad`, `as-sofiya-oblast`)
+ * that are the SAME institutions as `srs`, `sos`, `sop`, `as-sofia-grad` and
+ * `as-sofia-oblast`, splitting each court's magistrates onto one page and its
+ * workload onto another. `/court/as-sofia-grad` then stated that the ВСС
+ * publishes no workload for it while publishing eight years of it next door.
+ *
+ * Folding here rather than widening the five national regexes closes the class
+ * for these eight: a national entry added later is matched by both spellings
+ * automatically. `АС` and `ВС` are NOT in the list and cannot be — they collide
+ * across registers — so they reach a body through resolveJudicialBody's
+ * tier-hinted branch instead, which re-tests NATIONAL itself for the same
+ * reason. Between them the two paths cover every abbreviation the SEATED rules
+ * accept.
+ *
+ * LEADING TOKEN ONLY, which is what keeps the investigation family intact —
+ * `ОСлО при ОП-Видин` folds to `ОСЛО ОП ВИДИН`, whose head is `ОСЛО`, so its
+ * parent-office abbreviation is untouched and resolveInvestigation still sees
+ * the shape it expects.
+ */
+const expandInstitutionAbbrev = (s: string): string => {
+  const [head, ...rest] = s.split(" ");
+  const full = INSTITUTION_ABBREV[head];
+  // Only with a seat after it: a bare `ОС` is not an окръжен съд, it is an
+  // unresolvable stub, and inventing a body from it is the guessing this module
+  // refuses to do.
+  return full && rest.length ? [full, ...rest].join(" ") : s;
 };
 
 // The investigation family (следствени отдели) is the messiest: the department, its
@@ -842,7 +908,18 @@ export function resolveJudicialBody(
         : tierHint === "апелативен"
           ? { tier: tierHint, prefix: "aps", label: "Апелативен съд" }
           : { tier: tierHint, prefix: "as", label: "Административен съд" };
-    if (place)
+    if (place) {
+      // Re-test NATIONAL on the spelled-out form before minting a seated code.
+      // This branch is the one path that reaches a body WITHOUT consulting the
+      // curated list, so without this it re-creates the defect the fold just
+      // closed: `АС - София` would bypass a curated `Софийски апелативен съд`
+      // entry and mint `aps-sofiya` alongside it, splitting the court's
+      // magistrates from its ВСС workload exactly as the five Sofia twins did.
+      // Nothing matches today — there is no curated appellate/military Sofia
+      // entry — so this is a guard on the next one, not a live redirect.
+      const spelled = foldJudicialName(`${spec.label} ${place}`, vocab);
+      for (const { match, body } of NATIONAL)
+        if (match.test(spelled)) return { ...body, place: "София" };
       return {
         bodyCode: `${spec.prefix}-${slug(place)}`,
         name: `${spec.label} — ${place}`,
@@ -850,6 +927,7 @@ export function resolveJudicialBody(
         tier: spec.tier,
         place,
       };
+    }
   }
 
   // Before the prosecution rules: "ОСлО при ОП-Видин" contains "ОП" and would otherwise

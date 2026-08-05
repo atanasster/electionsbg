@@ -4033,7 +4033,7 @@ The "Governance" view is a place ladder: https://electionsbg.com/governance (cou
 
 ## The judiciary — bodies, caseload and magistrates
 
-Every court, prosecution office and investigation service has its own page at https://electionsbg.com/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means no workload is attached to that body: that covers every prosecution office and investigation service, and among the courts the two Supreme Courts and a few others — for some of which the series is filed under a second, duplicate entry for the same court. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: https://electionsbg.com/en/judiciary.
+Every court, prosecution office and investigation service has its own page at https://electionsbg.com/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means the Supreme Judicial Council publishes no workload for that body: that covers every prosecution office and investigation service, and among the courts only the two Supreme Courts. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: https://electionsbg.com/en/judiciary.
 
 | Body | Kind | Seat | Judges | Magistrates | Filed/judge/mo. | Resolved/judge/mo. | Year | URL |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
@@ -4066,10 +4066,8 @@ Every court, prosecution office and investigation service has its own page at ht
 | Административен съд — Силистра | Court | Silistra | 4 | 4 | 9.07 | 9.24 | 2025 | https://electionsbg.com/en/court/as-silistra |
 | Административен съд — Сливен | Court | Sliven | 6 | 3 | 12.11 | 11.68 | 2025 | https://electionsbg.com/en/court/as-sliven |
 | Административен съд — Смолян | Court | Smolyan | 5 | 2 | 7.62 | 5.78 | 2025 | https://electionsbg.com/en/court/as-smolyan |
-| Административен съд София-град | Court | Sofia | — | 62 | — | — | — | https://electionsbg.com/en/court/as-sofia-grad |
-| Административен съд София-област | Court | Sofia | — | 12 | — | — | — | https://electionsbg.com/en/court/as-sofia-oblast |
-| Административен съд — София-град | Court | Sofia | 87 | 0 | 13.44 | 13.80 | 2025 | https://electionsbg.com/en/court/as-sofiya-grad |
-| Административен съд — София-област | Court | Sofia | 15 | 0 | 7.79 | 8.51 | 2025 | https://electionsbg.com/en/court/as-sofiya-oblast |
+| Административен съд София-град | Court | Sofia | 87 | 62 | 13.44 | 13.80 | 2025 | https://electionsbg.com/en/court/as-sofia-grad |
+| Административен съд София-област | Court | Sofia | 15 | 12 | 7.79 | 8.51 | 2025 | https://electionsbg.com/en/court/as-sofia-oblast |
 | Административен съд — Стара Загора | Court | Stara Zagora | 8 | 6 | 14.28 | 13.33 | 2025 | https://electionsbg.com/en/court/as-stara-zagora |
 | Административен съд — Търговище | Court | Targovishte | 4 | 4 | 14.50 | 11.36 | 2025 | https://electionsbg.com/en/court/as-targovishte |
 | Административен съд — Варна | Court | Varna | 24 | 18 | 11.19 | 11.31 | 2025 | https://electionsbg.com/en/court/as-varna |
@@ -4097,7 +4095,6 @@ Every court, prosecution office and investigation service has its own page at ht
 | Окръжна прокуратура — Шумен | Prosecution office | Shumen | — | 4 | — | — | — | https://electionsbg.com/en/court/op-shumen |
 | Окръжна прокуратура — Силистра | Prosecution office | Silistra | — | 4 | — | — | — | https://electionsbg.com/en/court/op-silistra |
 | Окръжна прокуратура — Сливен | Prosecution office | Sliven | — | 10 | — | — | — | https://electionsbg.com/en/court/op-sliven |
-| Окръжна прокуратура — София | Prosecution office | Sofia | — | 1 | — | — | — | https://electionsbg.com/en/court/op-sofiya |
 | Окръжна прокуратура — Стара Загора | Prosecution office | Stara Zagora | — | 9 | — | — | — | https://electionsbg.com/en/court/op-stara-zagora |
 | Окръжна прокуратура — Търговище | Prosecution office | Targovishte | — | 7 | — | — | — | https://electionsbg.com/en/court/op-targovishte |
 | Окръжна прокуратура — Варна | Prosecution office | Varna | — | 20 | — | — | — | https://electionsbg.com/en/court/op-varna |
@@ -4124,7 +4121,6 @@ Every court, prosecution office and investigation service has its own page at ht
 | Окръжен съд — Силистра | Court | Silistra | 11 | 7 | 10.50 | 10.49 | 2025 | https://electionsbg.com/en/court/os-silistra |
 | Окръжен съд — Сливен | Court | Sliven | 16 | 5 | 9.24 | 9.11 | 2025 | https://electionsbg.com/en/court/os-sliven |
 | Окръжен съд — Смолян | Court | Smolyan | 12 | 6 | 7.80 | 7.52 | 2025 | https://electionsbg.com/en/court/os-smolyan |
-| Окръжен съд — София | Court | Sofia | 22 | 0 | 11.72 | 12.28 | 2025 | https://electionsbg.com/en/court/os-sofiya |
 | Окръжен съд — Стара Загора | Court | Stara Zagora | 24 | 11 | 10.56 | 10.49 | 2025 | https://electionsbg.com/en/court/os-stara-zagora |
 | Окръжен съд — Търговище | Court | Targovishte | 11 | 6 | 8.31 | 8.32 | 2025 | https://electionsbg.com/en/court/os-targovishte |
 | Окръжен съд — Варна | Court | Varna | 65 | 37 | 9.34 | 9.37 | 2025 | https://electionsbg.com/en/court/os-varna |
@@ -4279,7 +4275,6 @@ Every court, prosecution office and investigation service has its own page at ht
 | Районен съд — Сливен | Court | Sliven | 17 | 9 | 44.29 | 43.13 | 2025 | https://electionsbg.com/en/court/rs-sliven |
 | Районен съд — Сливница | Court | Slivnitsa | 5 | 4 | 34.44 | 36.85 | 2025 | https://electionsbg.com/en/court/rs-slivnitsa |
 | Районен съд — Смолян | Court | Smolyan | 5 | 1 | 39.08 | 39.07 | 2025 | https://electionsbg.com/en/court/rs-smolyan |
-| Районен съд — София | Court | Sofia | — | 1 | — | — | — | https://electionsbg.com/en/court/rs-sofiya |
 | Районен съд — Средец | Court | Sredets | 2 | 1 | 39.42 | 39.50 | 2025 | https://electionsbg.com/en/court/rs-sredets |
 | Районен съд — Стара Загора | Court | Stara Zagora | 21 | 12 | 41.93 | 41.41 | 2025 | https://electionsbg.com/en/court/rs-stara-zagora |
 | Районен съд — Свиленград | Court | Svilengrad | 4 | 4 | 40.04 | 40.42 | 2025 | https://electionsbg.com/en/court/rs-svilengrad |
@@ -4306,10 +4301,10 @@ Every court, prosecution office and investigation service has its own page at ht
 | Софийски градски съд | Court | Sofia | 196 | 97 | 13.85 | 13.99 | 2025 | https://electionsbg.com/en/court/sgs |
 | Специализиран наказателен съд | Court | Sofia | 25 | 0 | 19.70 | 19.64 | 2021 | https://electionsbg.com/en/court/sns |
 | Следствен отдел при Софийска градска прокуратура | Investigation service | Sofia | — | 45 | — | — | — | https://electionsbg.com/en/court/so-sgp |
-| Софийска окръжна прокуратура | Prosecution office | Sofia | — | 15 | — | — | — | https://electionsbg.com/en/court/sop |
-| Софийски окръжен съд | Court | Sofia | — | 17 | — | — | — | https://electionsbg.com/en/court/sos |
+| Софийска окръжна прокуратура | Prosecution office | Sofia | — | 16 | — | — | — | https://electionsbg.com/en/court/sop |
+| Софийски окръжен съд | Court | Sofia | 22 | 17 | 11.72 | 12.28 | 2025 | https://electionsbg.com/en/court/sos |
 | Софийска районна прокуратура | Prosecution office | Sofia | — | 149 | — | — | — | https://electionsbg.com/en/court/srp |
-| Софийски районен съд | Court | Sofia | 219 | 149 | 34.73 | 36.24 | 2025 | https://electionsbg.com/en/court/srs |
+| Софийски районен съд | Court | Sofia | 219 | 150 | 34.73 | 36.24 | 2025 | https://electionsbg.com/en/court/srs |
 | Военно-апелативна прокуратура | Prosecution office | Sofia | — | 10 | — | — | — | https://electionsbg.com/en/court/vap-mil |
 | Военно-апелативен съд | Court | Sofia | 6 | 2 | 0.53 | 0.57 | 2025 | https://electionsbg.com/en/court/vaps-mil |
 | Върховен административен съд | Court | Sofia | — | 61 | — | — | — | https://electionsbg.com/en/court/vas |

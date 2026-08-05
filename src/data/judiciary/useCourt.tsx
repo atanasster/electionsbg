@@ -1,6 +1,6 @@
 // One judicial body's page payload (/court/:bodyCode), from judicial_body_detail().
 //
-// COVERS ALL 284 BODIES — 186 courts, 70 prosecution offices, 28 investigation
+// COVERS ALL 279 BODIES — 182 courts, 69 prosecution offices, 28 investigation
 // services. The last two categories carry no workload series (court_load has
 // rows for 180 bodies) and usually no coordinates, so `load` is NULLABLE by
 // design: the page branches on it to say "no published workload for this body"
@@ -63,7 +63,7 @@ export interface JudicialBodyIndexRow {
   magistrates: number;
 }
 
-/** All 284 bodies, for the /judiciary search group. GATED on `enabled` so it is
+/** All 279 bodies, for the /judiciary search group. GATED on `enabled` so it is
  *  fetched only once the reader focuses the box. */
 export const useJudicialBodyIndex = (enabled: boolean) =>
   useQuery({

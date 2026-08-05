@@ -193,8 +193,16 @@ agri, `ngo_funding` last), and `sector_stats`' ДФЗ payout reads `agri_payload
 earlier — next to `db:load:annexes:pg`, where they visually belong — regenerates those fields from
 the PREVIOUS vintage and commits it, which is the drift the wiring exists to end. After
 `db:load:ngo-funding:pg` is the earliest safe position. `refresh_coverage.test.ts` holds chain
-membership; nothing yet holds the ORDER, so check the dependency list in each file's header before
-moving either.
+membership, and — since 2026-08-05 — a declared subset of the ORDER via its `ORDER_PAIRS` table
+(each entry is "this loader must follow the step that rebuilds its input"). `hub_stats` /
+`sector_stats` are NOT in that table yet, so for those two still check the dependency list in each
+file's header before moving either; add a pair there when you do.
+
+That table exists because the gap shipped a defect: `db:load:tr-company-place:pg` sat at step 25,
+twenty steps ahead of the `db:load:graph:pg` that applies and rebuilds `company_public_money` (127)
+— the money basis it denormalizes — so every contracts reload published the previous vintage to the
+governance "фирми, регистрирани тук" tile with every row count reconciling. It now runs after
+`graph`. Membership alone could never have caught that.
 
 Three things about them differ from every `db:load:*` in the chain:
 
@@ -305,14 +313,14 @@ court, green locally and blank on prod. See
 un-folded bridge `judicial_body_detail()` joins `court_load` through — the raw-name→body fold lives
 in TypeScript, so SQL cannot do it. Applying 116 with `apply_functions.ts` (the normal way a
 function change ships) CREATEs that table EMPTY, and an empty bridge returns `load: null` for every
-body: shape-identical to a real prosecution office, so all 284 pages would assert at a 200 that the
+body: shape-identical to a real prosecution office, so all 279 pages would assert at a 200 that the
 ВСС publishes no workload for them — including Софийски районен съд. The payload therefore carries
 `sourcesBuilt`, and the page says "not loaded yet" rather than "nothing published" when it is
 false; the fix is to run this loader. `judicial_body_detail.data.test.ts` fails if the flag stops
 discriminating.
 
 **And it is now a BUILD-TIME dependency, which is the one requirement on this page that is
-not a `:cloud` command at all.** `/court/**` is prerendered — 284 static pages plus 284 EN
+not a `:cloud` command at all.** `/court/**` is prerendered — 279 static pages plus 279 EN
 mirrors, a `sitemap_judiciary.xml` shard and a table in `llms-full.txt` — and all four are
 enumerated by `scripts/db/lib/seo_courts.ts`, a build-time reader over `judicial_body`. That
 reader returns `[]` on any failure by design, so **the machine running `npm run build` needs
@@ -335,24 +343,24 @@ refuses to rewrite `llms-full.txt` when the judiciary section would disappear fr
 `/pension-fund/**` is the same page-family shape with none of this exposure: its source
 `data/budget/kfn/funds.json` is committed, so it builds anywhere.
 
-**`judicial_body` carries four unmerged duplicate pairs, and three of them split a real
-court's data across both halves.** The fold in `scripts/judiciary/judicialBodies.ts` does not
-collapse `Административен съд София-град` onto `Административен съд — София-град`, so:
+**Sofia's courts had FIVE duplicate bodies until 2026-08-05, and the shape is worth
+knowing because it can come back.** Sofia's institutions have adjectival names
+(`Софийски районен съд`), so they get curated entries in `judicialBodies.ts`'s `NATIONAL`
+list, which is checked BEFORE the generic seated rules — precisely so `Софийски районен
+съд` cannot fall through and mint `rs-sofiya`. That defence only ever covered the
+spelled-out spelling, while `court_load` — the ВСС's own workload series — writes the
+abbreviated one (`РС-София`, `ОС - София`, `АдмС - София-град`). So the abbreviated form
+sailed past the national rule into the seated one and minted exactly the five codes the
+national rule exists to prevent, each splitting one court's magistrates onto one page and
+its workload onto another: `/court/as-sofia-grad` stated the ВСС publishes no workload for
+it while publishing eight years of it under `as-sofiya-grad`.
 
-| magistrates, no workload      | workload, no magistrates          |
-| ----------------------------- | --------------------------------- |
-| `as-sofia-grad` (62)          | `as-sofiya-grad` (8 years)        |
-| `as-sofia-oblast` (12)        | `as-sofiya-oblast` (8 years)      |
-| `sos` (17)                    | `os-sofiya` (8 years)             |
-| `srs` (149, and the workload) | `rs-sofiya` (1)                   |
-
-This is why `/court/as-sofia-grad` says the ВСС publishes no workload for it when the ВСС
-publishes eight years of it under the twin — a FALSE absence on a real court, not a missing
-one, and it reaches the `FAQPage` JSON-LD and both LLM corpora. It also means only **four** of
-the six load-less courts are genuinely load-less (ВКС and ВАС are; the two АдмС are not).
-Merging is not a mechanical fix — it decides which `body_code` keeps its URL and which
-`/person` magistrate roles re-attach — so it is an open decision, recorded in
-`docs/plans/sector-entity-search-v1.md` §13.
+`foldJudicialName` now spells out a LEADING institution abbreviation (`РС` → `РАЙОНЕН СЪД`
+…), so both spellings reach the national rule as one key. `АС` and `ВС` are deliberately
+excluded — they collide across families and only `resolveJudicialBody`'s `tier` hint can
+settle them. Two gates in `judicial_body_detail.data.test.ts` hold it: no two bodies share
+a (kind, tier, seat) outside a named allowlist, and no court has its magistrates on one
+row and its workload on another.
 
 Same shape again, and also **BEFORE** `db:resolve:persons:cloud`: the canonical place
 dimension (migration 117) is the code→name dictionary `082_person_api.sql` JOINs for the

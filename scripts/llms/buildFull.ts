@@ -186,7 +186,7 @@ const COPY = {
       "Управление — местна йерархия (страна → област → община → населено място)",
     judiciaryHeading: "Съдебна власт — органи, натовареност и магистрати",
     judiciaryIntro: (siteUrl: string) =>
-      `Всеки съд, прокуратура и следствен отдел има собствена страница на ${siteUrl}/court/{код}. „Постъпили" и „свършени" са ДЕЙСТВИТЕЛНА натовареност — брой дела на съдия на месец за последната публикувана от ВСС година. Тире значи, че към този орган не е прикачена натовареност: така е за всички прокуратури и следствени отдели, а от съдилищата — за ВКС, ВАС и още няколко, като при част от тях серията е заведена под второ, дублиращо се вписване на същия съд. Тирето не бива да се чете като нула. „Магистрати" са лицата с имуществени декларации в ИВСС от този орган. Обзор: ${siteUrl}/judiciary.`,
+      `Всеки съд, прокуратура и следствен отдел има собствена страница на ${siteUrl}/court/{код}. „Постъпили" и „свършени" са ДЕЙСТВИТЕЛНА натовареност — брой дела на съдия на месец за последната публикувана от ВСС година. Тире значи, че ВСС не публикува натовареност за този орган: така е за всички прокуратури и следствени отдели, а от съдилищата — само за ВКС и ВАС. Тирето не бива да се чете като нула. „Магистрати" са лицата с имуществени декларации в ИВСС от този орган. Обзор: ${siteUrl}/judiciary.`,
     judiciaryTable:
       "| Орган | Вид | Ниво | Седалище | Съдии | Магистрати | Постъпили/съдия/мес. | Свършени/съдия/мес. | Година | URL |",
     pensionsHeading:
@@ -242,7 +242,7 @@ const COPY = {
       "Governance — place ladder (country → region → município → settlement)",
     judiciaryHeading: "The judiciary — bodies, caseload and magistrates",
     judiciaryIntro: (siteUrl: string) =>
-      `Every court, prosecution office and investigation service has its own page at ${siteUrl}/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means no workload is attached to that body: that covers every prosecution office and investigation service, and among the courts the two Supreme Courts and a few others — for some of which the series is filed under a second, duplicate entry for the same court. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: ${siteUrl}/en/judiciary.`,
+      `Every court, prosecution office and investigation service has its own page at ${siteUrl}/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means the Supreme Judicial Council publishes no workload for that body: that covers every prosecution office and investigation service, and among the courts only the two Supreme Courts. A dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: ${siteUrl}/en/judiciary.`,
     judiciaryTable:
       "| Body | Kind | Seat | Judges | Magistrates | Filed/judge/mo. | Resolved/judge/mo. | Year | URL |",
     pensionsHeading:

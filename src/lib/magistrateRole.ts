@@ -4,7 +4,7 @@
 // This used to sniff the role out of the institution STRING with a stack of Cyrillic
 // regexes, because the explicit `position` field is filled for only ~1.6% of magistrates
 // and the raw institution name was all there was. Migration 116 turned those 975 free-text
-// spellings into 283 canonical bodies each carrying a `kind`, so the inference is now a
+// spellings into 279 canonical bodies each carrying a `kind`, so the inference is now a
 // lookup: person_by_slug hands back `judicialKind` alongside the place, and the only thing
 // left to decide here is a label.
 //

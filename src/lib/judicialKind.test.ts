@@ -52,7 +52,7 @@ describe("judicialTierAdjective", () => {
 
 describe("bgIn", () => {
   it("uses във before a В-/Ф-initial name", () => {
-    // 11 of the 284 bodies start with В — both Supreme Courts among them.
+    // 11 of the 279 bodies start with В — both Supreme Courts among them.
     expect(bgIn("Върховен касационен съд")).toBe("във");
     expect(bgIn("Военен съд — София")).toBe("във");
     expect(bgIn("Фондова борса")).toBe("във");
