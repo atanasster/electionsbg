@@ -18,6 +18,7 @@ import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
 import { useMunicipalContacts } from "@/data/officials/useMunicipalContacts";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
+import { canonicalObshtina } from "@/lib/obshtinaPlace";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { buildCouncilSegments, type CouncilSegment } from "./councilSegments";
@@ -49,11 +50,15 @@ type Props = {
 export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
-  // Sofia city aggregate keys officials/contacts as SOF00 but its local
-  // bundle (mayor + council) lives under the synthetic SOF code.
+  // Sofia city is three codes for one body: the dashboard routes on SOF00, the
+  // local bundle (mayor + council) lives under the synthetic SOF, and the
+  // officials roster under SFO_CITY. Contacts genuinely key on SOF00 (iisda's
+  // own index — see useMunicipalContacts), so only the roster is canonicalised;
+  // querying it with SOF00 matched zero rows and rendered "no declared mayor"
+  // over Sofia's actual roster of 75 listings.
   const sofiaCity = isSofiaCityObshtina(obshtina);
   const localCode = sofiaCity ? "SOF" : obshtina;
-  const { roster } = useMunicipalOfficials(obshtina);
+  const { roster } = useMunicipalOfficials(canonicalObshtina(obshtina));
   const { emailForName } = useMunicipalContacts(obshtina);
   const { municipality: localBundle, cycle: localCycle } =
     useLocalMunicipality(localCode);

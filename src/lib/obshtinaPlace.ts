@@ -1,11 +1,17 @@
-// The app's obshtina namespace has exactly ONE synonym pair, and it is Sofia.
+// The app's obshtina namespace has exactly ONE set of synonyms, and it is Sofia.
+// There are THREE codes for the one Столична община:
 //
-// The city-wide Столична община is `SFO_CITY` in the Court-of-Audit officials roster
-// (scripts/officials/municipality_join.ts mints it as a SYNTHETIC code — it is not an
-// EKATTE obshtina and does not appear in data/municipalities.json) and `SOF` in the
-// local-elections shards (data/2023_10_29_mi/municipalities/SOF.json). They are the
-// same body, so a person holding one seat shows up under both codes and any join or
-// dedupe across the two sources silently fails.
+//   `SFO_CITY` — the Court-of-Audit officials roster (scripts/officials/municipality_join.ts
+//                mints it as a SYNTHETIC code — it is not an EKATTE obshtina and does not
+//                appear in data/municipalities.json)
+//   `SOF`      — the local-elections shards (data/2023_10_29_mi/municipalities/SOF.json)
+//   `SOF00`    — the place-view id the governance / consumption dashboards route on
+//                (SOFIA_CITY_GOVERNANCE_ID in src/data/local/placeViews.ts)
+//
+// They are the same body, so a person holding one seat shows up under all three codes and
+// any join or dedupe across the sources silently fails. `SOF00` was the one that bit:
+// MyAreaGovernmentCard queried municipal_officials_table with the URL's code, matched zero
+// rows and told /governance/SOF00 that the capital has no declared mayor.
 //
 // `SFO_CITY` is the survivor, not `SOF`: it is the code the FRONTEND already speaks —
 // municipal_officials_table is queried with it (src/data/officials/useMunicipalOfficials),
@@ -26,7 +32,8 @@
 // doing, but it is a behaviour-bearing change to four shard trees, not a T1 cleanup.
 export const canonicalObshtina = (
   code: string | null | undefined,
-): string | null => (code ? (code === "SOF" ? "SFO_CITY" : code) : null);
+): string | null =>
+  code ? (code === "SOF" || code === "SOF00" ? "SFO_CITY" : code) : null;
 
 /** Display names for obshtina codes that data/municipalities.json cannot supply
  *  because they are synthetic rather than real EKATTE municipalities. */

@@ -10,6 +10,14 @@ describe("canonicalObshtina", () => {
     expect(canonicalObshtina("SOF")).toBe("SFO_CITY");
   });
 
+  it("folds the governance-route Sofia code onto the frontend code", () => {
+    // SOF00 is SOFIA_CITY_GOVERNANCE_ID — the id /governance/:obshtina and
+    // /consumption/:obshtina route on. Unfolded, MyAreaGovernmentCard queried
+    // municipal_officials_table with it, matched none of the 75 SFO_CITY listings and
+    // rendered "Няма деклариран кмет" over a sitting mayor.
+    expect(canonicalObshtina("SOF00")).toBe("SFO_CITY");
+  });
+
   it("is idempotent on the canonical code", () => {
     expect(canonicalObshtina("SFO_CITY")).toBe("SFO_CITY");
   });
