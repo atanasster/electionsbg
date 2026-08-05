@@ -15,7 +15,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact, formatInt } from "@/lib/currency";
 import { PillToggle } from "@/components/ui/PillToggle";
+import { Link } from "react-router-dom";
 import { useKfnLatest } from "@/data/budget/useBudget";
+import { kfnFundSlug } from "@/lib/kfnFundSlug";
 import type { KfnFundRow, KfnPillar } from "@/data/budget/types";
 
 type Metric = "assets" | "insured";
@@ -123,7 +125,14 @@ export const KfnFundsTile: FC = () => {
             </div>
             <div className="space-y-1">
               {g.rows.map((r) => (
-                <div key={r.fundName}>
+                // Linked, not a bare div: this tile is the only place the 31
+                // funds are listed, so without it /pension-fund/:slug is
+                // unreachable from anywhere in the app.
+                <Link
+                  key={r.fundName}
+                  to={`/pension-fund/${kfnFundSlug(r.pillar, r.companyEn)}`}
+                  className="block hover:opacity-80"
+                >
                   <div className="flex items-baseline justify-between gap-2 text-sm">
                     <span className="truncate">
                       {bg ? r.companyBg : r.companyEn}
@@ -140,7 +149,7 @@ export const KfnFundsTile: FC = () => {
                       }}
                     />
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

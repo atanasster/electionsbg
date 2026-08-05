@@ -56,6 +56,8 @@ type Props = {
     | "subsidies-recipients"
     | "subsidies-data"
     | "court-load"
+    | "pension-fund-trend"
+    | "pension-fund-siblings"
     | "molecule-spend"
     | "molecule-packs"
     | "molecule-hospitals"

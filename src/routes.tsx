@@ -280,6 +280,11 @@ const CultureFilmRecordScreen = lazy(() =>
     default: m.CultureFilmRecordScreen,
   })),
 );
+const PensionFundScreen = lazy(() =>
+  import("./screens/pensions/PensionFundScreen").then((m) => ({
+    default: m.PensionFundScreen,
+  })),
+);
 const PensionsScreen = lazy(() =>
   import("./screens/pensions/PensionsScreen").then((m) => ({
     default: m.PensionsScreen,
@@ -1748,6 +1753,18 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CultureFilmRecordScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* One private pension fund. The trend exists because the КФН ingest
+              retains quarters; before that the served file was a snapshot. */}
+          <Route
+            path="pension-fund/:slug"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <PensionFundScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

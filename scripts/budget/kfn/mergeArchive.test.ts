@@ -10,6 +10,7 @@ import {
   mergeKfnArchive,
   KfnShrinkError,
   KfnPillarGapError,
+  KfnSlugError,
 } from "./mergeArchive";
 import type { KfnFundRow, KfnFundsFile, KfnFundsArchive } from "./parse_kfn";
 
@@ -137,11 +138,25 @@ describe("mergeKfnArchive", () => {
       archive([{ period: "2026-03-31", periodLabel: "2026 Q1" }]),
       parsed("2026-03-31", "2026 Q1", [
         ...allPillars(),
-        fund("extra", 10, "UPF"),
+        { ...fund("extra", 10, "UPF"), companyEn: "Second" },
       ]),
     );
     expect(out.periods).toHaveLength(1);
     expect(out.periods[0].funds).toHaveLength(5);
+  });
+
+  it("REFUSES a quarter whose funds collide on one slug", () => {
+    // Two funds of the SAME pillar and company cannot both own the URL. In the
+    // real register that only happens when companyOf() failed to map a name.
+    expect(() =>
+      mergeKfnArchive(
+        null,
+        parsed("2026-03-31", "2026 Q1", [
+          ...allPillars(),
+          fund("dupe", 10, "UPF"),
+        ]),
+      ),
+    ).toThrow(KfnSlugError);
   });
 
   it("REFUSES a quarter that is missing a pillar", () => {

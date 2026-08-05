@@ -15,6 +15,7 @@
 // Pure, so the shrink guard and the idempotency are testable without a ZIP.
 
 import type { KfnFundsFile, KfnFundsArchive, KfnPeriod } from "./parse_kfn";
+import { kfnFundSlug, isDegenerateFundSlug } from "@/lib/kfnFundSlug";
 
 export interface MergeResult {
   archive: KfnFundsArchive;
@@ -31,6 +32,7 @@ const sameFunds = (a: KfnPeriod, b: KfnPeriod): boolean =>
 
 export class KfnShrinkError extends Error {}
 export class KfnPillarGapError extends Error {}
+export class KfnSlugError extends Error {}
 
 /** Every pillar a complete quarter carries. VPFOS is a single fund and has been
  *  present in every archive seen; the other three are ten funds each. */
@@ -85,6 +87,35 @@ export const mergeKfnArchive = (
         `(${next.funds.length} funds). That is a PARSE failure, not a source ` +
         `gap — a partial quarter reads as growth against its neighbours. ` +
         `Check the workbook filename patterns in parse_kfn.ts (WORKBOOKS).`,
+    );
+
+  // The /pension-fund/:slug identity must be derivable and unique, and it can
+  // fail SILENTLY: companyOf() falls back to the raw (Cyrillic) fund name for a
+  // company it cannot map, which the slugger strips to just the pillar. Two
+  // such funds collide onto one URL and blend into one trend. Catch it here,
+  // where the workbook is still on disk and the mapping can be added.
+  const slugs = next.funds.map((f) => ({
+    slug: kfnFundSlug(f.pillar, f.companyEn),
+    pillar: f.pillar,
+    name: f.fundName,
+  }));
+  const degenerate = slugs.filter((s) =>
+    isDegenerateFundSlug(s.slug, s.pillar),
+  );
+  const dupes = slugs
+    .map((s) => s.slug)
+    .filter((s, i, a) => a.indexOf(s) !== i);
+  if (!allowShrink && (degenerate.length > 0 || dupes.length > 0))
+    throw new KfnSlugError(
+      `${incoming.periodLabel}: ` +
+        (degenerate.length
+          ? `${degenerate.length} fund(s) slug to their pillar alone ` +
+            `(${degenerate.map((d) => d.name).join(", ")}) — add them to ` +
+            `COMPANIES in parse_kfn.ts. `
+          : "") +
+        (dupes.length
+          ? `duplicate slug(s): ${[...new Set(dupes)].join(", ")}.`
+          : ""),
     );
 
   if (!allowShrink && merged.length < periodsBefore)

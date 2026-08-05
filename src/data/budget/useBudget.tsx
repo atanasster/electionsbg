@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { rayonFromObshtina } from "./sofiaRayons";
+import { kfnFundSlug } from "@/lib/kfnFundSlug";
 import type {
   BudgetIndex,
   BudgetDocumentsFile,
@@ -25,6 +26,7 @@ import type {
   DobrichCapitalProgramFile,
   NoiFundsFile,
   NoiPensionsFile,
+  KfnFundRow,
   KfnFundsFile,
   KfnPeriod,
   NzokBudgetFile,
@@ -333,6 +335,59 @@ export const useKfnFunds = () =>
     queryFn: () => fetchJson<KfnFundsFile>("/budget/kfn/funds.json"),
     staleTime: Infinity,
   });
+
+/** One fund's whole history, assembled across the archive's quarters.
+ *
+ *  Joins on pillar + companyEn (via the slug), NEVER on fundName — the register
+ *  writes the name in each archive's own language, so fundName joins 0 of 21
+ *  rows across a BG/EN boundary. Returns null for an unknown slug, which is the
+ *  page's not-found branch.
+ *
+ *  `series` is ascending and carries only the quarters this fund appears in: a
+ *  fund that launched mid-series has a shorter one, and padding it with zeros
+ *  would draw a fund that existed at zero assets rather than one that did not
+ *  exist. */
+export const useKfnFund = (slug: string | null | undefined) => {
+  const { data, isLoading } = useKfnFunds();
+  const fund = useMemo(() => {
+    if (!slug || !data?.periods?.length) return null;
+    const series: {
+      period: string;
+      periodLabel: string;
+      row: KfnFundRow;
+    }[] = [];
+    for (const p of data.periods) {
+      const row = p.funds.find(
+        (f) => kfnFundSlug(f.pillar, f.companyEn) === slug,
+      );
+      if (row)
+        series.push({ period: p.period, periodLabel: p.periodLabel, row });
+    }
+    if (series.length === 0) return null;
+    const latest = series[series.length - 1];
+    // The rest of this company's funds in the SAME quarter — "Доверие also runs
+    // a professional and a voluntary fund" is the obvious next question.
+    const siblings = (
+      data.periods.find((p) => p.period === latest.period)?.funds ?? []
+    ).filter(
+      (f) =>
+        f.companyEn === latest.row.companyEn && f.pillar !== latest.row.pillar,
+    );
+    // Share of its own pillar in the latest quarter — a fund is big or small
+    // relative to its pillar, not to the whole market.
+    const pillarTotal = (
+      data.periods.find((p) => p.period === latest.period)?.funds ?? []
+    )
+      .filter((f) => f.pillar === latest.row.pillar)
+      .reduce((sum, f) => sum + (f.netAssetsEur ?? 0), 0);
+    return { slug, latest, series, siblings, pillarTotal };
+  }, [slug, data]);
+  // isLoading is returned separately because a null `fund` is ambiguous — it is
+  // both "still fetching" and "unknown slug", and rendering the not-found page
+  // while loading gives every valid fund a "no such fund" flash AND a
+  // <title>Непознат фонд</title> for as long as the payload takes.
+  return { fund, isLoading };
+};
 
 /** The newest quarter alone — what a snapshot tile wants. Returns null while
  *  loading or if the archive is empty, so callers keep one guard. */
