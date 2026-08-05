@@ -2,7 +2,12 @@
 // breaks every existing /pension-fund link and every sitemap <loc>.
 
 import { describe, expect, it } from "vitest";
-import { kfnFundSlug, kfnFundName, isDegenerateFundSlug } from "./kfnFundSlug";
+import {
+  kfnFundSlug,
+  kfnFundName,
+  isDegenerateFundSlug,
+  isCrawlableFund,
+} from "./kfnFundSlug";
 
 describe("kfnFundSlug", () => {
   it("mints the expected slug for the register's real companies", () => {
@@ -46,8 +51,11 @@ describe("kfnFundName", () => {
     expect(kfnFundName("UPF", "Доверие", "Doverie", true)).toBe(
       "УПФ „Доверие“",
     );
+    // Straight quotes on the English page — the name is a <title> and a
+    // JSON-LD `name` on 31 prerendered EN pages, so the quote pair follows the
+    // reader rather than the source.
     expect(kfnFundName("UPF", "Доверие", "Doverie", false)).toBe(
-      "UPF „Doverie“",
+      'UPF "Doverie"',
     );
   });
 
@@ -76,5 +84,26 @@ describe("isDegenerateFundSlug", () => {
     expect(isDegenerateFundSlug(kfnFundSlug("UPF", "Doverie"), "UPF")).toBe(
       false,
     );
+  });
+});
+
+describe("isCrawlableFund", () => {
+  it("accepts a real fund slug", () => {
+    expect(isCrawlableFund("upf-doverie", "UPF")).toBe(true);
+    expect(isCrawlableFund("vpfos-dsk-rodina", "VPFOS")).toBe(true);
+  });
+
+  it("rejects the pillar-only degenerate slug", () => {
+    // Two unmapped funds in one pillar would collide onto this URL and blend
+    // into a single trend — the reason the prerender skips them.
+    expect(isCrawlableFund(kfnFundSlug("UPF", 'УПФ "НОВ ФОНД"'), "UPF")).toBe(
+      false,
+    );
+  });
+
+  it("rejects a slug that is not path-safe", () => {
+    expect(isCrawlableFund("", "UPF")).toBe(false);
+    expect(isCrawlableFund("-upf-doverie", "UPF")).toBe(false);
+    expect(isCrawlableFund("UPF-Doverie", "UPF")).toBe(false);
   });
 });

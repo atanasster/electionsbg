@@ -14,6 +14,8 @@
 // and the sitemap enumerator, so the three cannot mint different URLs for the
 // same fund — the drift that gives a sitemap <loc> with no page behind it.
 
+import { isCrawlableSlug } from "./urlSlug";
+
 /** Lowercase, ASCII-fold the few accents the register uses, hyphenate. */
 export const kfnFundSlug = (pillar: string, companyEn: string): string =>
   `${pillar}-${companyEn}`
@@ -51,7 +53,12 @@ export const kfnFundName = (
 ): string => {
   const abbr = PILLAR_ABBR[pillar];
   const company = bg ? companyBg : companyEn;
-  return abbr ? `${bg ? abbr.bg : abbr.en} „${company}“` : company;
+  if (!abbr) return company;
+  // Bulgarian low-9/high-6 quotes on a Bulgarian page, straight quotes on an
+  // English one. The name now lands in 31 English <title>s, <h1>s and JSON-LD
+  // `name` fields via the prerender, so the quote pair has to follow the reader
+  // rather than the source.
+  return bg ? `${abbr.bg} „${company}“` : `${abbr.en} "${company}"`;
 };
 
 /** True when a slug carries nothing but its pillar — the degenerate case.
@@ -64,3 +71,15 @@ export const kfnFundName = (
  *  BG/EN flip. Cheap to detect, invisible otherwise. */
 export const isDegenerateFundSlug = (slug: string, pillar: string): boolean =>
   slug === pillar.toLowerCase();
+
+/** The crawlable gate — one named export used by BOTH the prerender builder and
+ *  the sitemap enumerator, so the two cannot disagree about which funds have a
+ *  page. A gate that lives in two copies is how a sitemap grows <loc>s with no
+ *  `dist/<path>/index.html` behind them.
+ *
+ *  Rejects the degenerate slug above (two unmapped funds would collide onto one
+ *  URL and blend into a single trend) and anything that is not a plain ASCII
+ *  slug — the slugger strips Cyrillic to nothing, so a fully unmapped company
+ *  yields an empty or pillar-only string rather than a percent-encoded one. */
+export const isCrawlableFund = (slug: string, pillar: string): boolean =>
+  isCrawlableSlug(slug) && !isDegenerateFundSlug(slug, pillar);

@@ -33,6 +33,11 @@ export type PrerenderRoute = {
 };
 
 export const SITE_URL = "https://electionsbg.com";
+// The EN root is `/en`, NOT `/en/` — the one place the no-slash contract
+// inverts (the bare `/` keeps its slash; hosting 301s `/en/` to `/en`). Named
+// because it was hand-written as EN_HOME in 21 JSON-LD nodes, each of
+// which declared a URL that redirects.
+export const EN_HOME = `${SITE_URL}/en`;
 // Per-election data JSON ships from the GCS bucket (post-migration), not
 // from the site origin. JSON-LD Dataset distribution URLs need to point at
 // the bucket so Google Dataset Search can actually fetch the data — pointing
@@ -485,7 +490,7 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
                 url: enUrl,
               }),
               buildBreadcrumbLd([
-                { name: "Home", url: `${SITE_URL}/en/` },
+                { name: "Home", url: EN_HOME },
                 ...(opts.breadcrumbParent
                   ? [
                       {
@@ -1224,7 +1229,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
         buildDatasetLd({
           name: "Bulgarian parliamentary elections — full results since 2005",
           description: HOME_DESCRIPTION_EN,
-          url: `${SITE_URL}/en/`,
+          url: EN_HOME,
           spatialCoverage: "Bulgaria",
           keywords: [
             "Bulgarian elections",

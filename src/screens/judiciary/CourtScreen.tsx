@@ -20,21 +20,9 @@ import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useCourt } from "@/data/judiciary/useCourt";
-
-const KIND_LABEL: Record<string, { bg: string; en: string }> = {
-  court: { bg: "Съд", en: "Court" },
-  prosecution: { bg: "Прокуратура", en: "Prosecution office" },
-  investigation: { bg: "Следствен отдел", en: "Investigation service" },
-  council: { bg: "Съвет", en: "Council" },
-};
-
-const num = (v: number | null | undefined, lang: string, digits = 2): string =>
-  v == null
-    ? "—"
-    : v.toLocaleString(lang, {
-        minimumFractionDigits: digits,
-        maximumFractionDigits: digits,
-      });
+// Shared with the prerender builder, so the static HTML a crawler reads and this
+// page cannot call the same body two different things.
+import { judicialKindLabel, judicialNum } from "@/lib/judicialKind";
 
 export const CourtScreen: FC = () => {
   const { bodyCode } = useParams<{ bodyCode: string }>();
@@ -43,7 +31,7 @@ export const CourtScreen: FC = () => {
   const L = i18n.language;
   const { data, isLoading } = useCourt(bodyCode);
 
-  const kind = data ? (KIND_LABEL[data.kind] ?? KIND_LABEL.court) : null;
+  const kind = data ? judicialKindLabel(data.kind) : null;
   const latest = data?.load?.[data.load.length - 1] ?? null;
 
   return (
@@ -113,7 +101,7 @@ export const CourtScreen: FC = () => {
                 <div className="flex items-baseline gap-2">
                   <TrendingUp className="h-5 w-5 shrink-0 text-muted-foreground" />
                   <span className="text-2xl font-bold tabular-nums">
-                    {num(latest.filedPerMonth, L)}
+                    {judicialNum(latest.filedPerMonth, L)}
                   </span>
                 </div>
                 <span className="mt-1 block text-xs text-muted-foreground">
@@ -159,13 +147,13 @@ export const CourtScreen: FC = () => {
                             {r.judges ?? "—"}
                           </td>
                           <td className="py-1.5 pr-2 text-right tabular-nums">
-                            {num(r.filedPerMonth, L)}
+                            {judicialNum(r.filedPerMonth, L)}
                           </td>
                           <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
-                            {num(r.considerPerMonth, L)}
+                            {judicialNum(r.considerPerMonth, L)}
                           </td>
                           <td className="py-1.5 text-right tabular-nums">
-                            {num(r.resolvedPerMonth, L)}
+                            {judicialNum(r.resolvedPerMonth, L)}
                           </td>
                         </tr>
                       ))}

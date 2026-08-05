@@ -21,7 +21,7 @@
 
 import fs from "fs";
 import path from "path";
-import { PrerenderRoute, SITE_URL } from "./routes";
+import { EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
 import { escapeHtml } from "./html";
 import { buildArticleLd, buildBreadcrumbLd } from "./jsonLd";
 import {
@@ -234,7 +234,7 @@ export const buildArticleRoutes = async (
       bodyHtml: buildIndexBody(listedArticles, "en"),
       jsonLd: [
         buildBreadcrumbLd([
-          { name: "Home", url: `${SITE_URL}/en/` },
+          { name: "Home", url: EN_HOME },
           { name: "Analyses", url: indexEnUrl },
         ]),
       ],
@@ -318,7 +318,7 @@ export const buildArticleRoutes = async (
             schemaType: enSchemaType,
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Analyses", url: `${SITE_URL}/en/articles` },
             { name: enTitle, url: enUrl },
           ]),

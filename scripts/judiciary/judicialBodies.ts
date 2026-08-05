@@ -23,11 +23,11 @@
 // only its spelling is. Every correction is reported through `onFix`, so a slip the
 // parser papered over is visible to the operator rather than silently folded away.
 
-export type JudicialKind =
-  | "court"
-  | "prosecution"
-  | "investigation"
-  | "council";
+// One definition, shared with the screen and the prerender builder that render
+// this vocabulary (src/lib/judicialKind.ts), so a fifth kind cannot exist in the
+// loader while the pages still show four.
+export type { JudicialKind } from "@/lib/judicialKind";
+import type { JudicialKind } from "@/lib/judicialKind";
 
 export type JudicialTier =
   | "районен"

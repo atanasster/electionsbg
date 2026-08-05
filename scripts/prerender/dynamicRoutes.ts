@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import {
   buildFundsTables,
+  compactEur,
   fundsThemeTableRows,
   loadMuniNames,
   topBeneficiaryNames,
@@ -28,13 +29,24 @@ import {
   type ReportGrain,
 } from "@/screens/reports/common/reportsMatrix";
 import { electionYearSuffix } from "./electionYear";
-import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
+import { DATA_URL, EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
 import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
+import { readSeoCourts } from "../db/lib/seo_courts";
+import { readSeoPensionFunds } from "./kfnFunds";
+import {
+  bgIn,
+  judicialKindPhrase,
+  judicialNum,
+  judicialTierAdjective,
+} from "@/lib/judicialKind";
+import { kfnFundName } from "@/lib/kfnFundSlug";
 import {
   buildBreadcrumbLd,
   buildDatasetLd,
   buildFaqLd,
+  buildGovernmentOrganizationLd,
+  buildOrganizationEntityLd,
   buildPersonLd,
   buildWebPageLd,
 } from "./jsonLd";
@@ -257,7 +269,7 @@ export const buildPartyRoutes = (
             distribution: distributionEn,
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: label, url: enUrl },
           ]),
         ],
@@ -384,7 +396,7 @@ export const buildDiasporaRoutes = (
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Voting abroad", url: enUrl },
           ]),
           buildFaqLd(faqEn),
@@ -765,7 +777,7 @@ export const buildGovernanceRegionRoutes = (
               inLanguage: "en",
             }),
             buildBreadcrumbLd([
-              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Home", url: EN_HOME },
               { name: "Governance", url: `${SITE_URL}/en/governance` },
               { name: `${displayNameEn} province`, url: enUrl },
             ]),
@@ -922,7 +934,7 @@ export const buildFundsThemeRoutes = (
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "EU funds", url: `${SITE_URL}/en/funds` },
             { name: th.labelEn, url: enUrl },
           ]),
@@ -987,7 +999,7 @@ export const buildProductRoutes = (projectRoot: string): PrerenderRoute[] => {
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Consumption", url: `${SITE_URL}/en/consumption` },
             { name: "Products", url: `${SITE_URL}/en/consumption/products` },
             { name: p.title, url: enUrl },
@@ -1938,7 +1950,7 @@ export const buildCandidateRoutes = (
     const jsonLdEn: object[] = [
       personLdEn,
       buildBreadcrumbLd([
-        { name: "Home", url: `${SITE_URL}/en/` },
+        { name: "Home", url: EN_HOME },
         { name: nameEn, url: enUrl },
       ]),
     ];
@@ -2334,7 +2346,7 @@ const buildPartySubTabRoutes = (
           bodyHtml: parent.bodyHtml,
           jsonLd: [
             buildBreadcrumbLd([
-              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Home", url: EN_HOME },
               { name: label, url: `${SITE_URL}/en/party/${p.nickName}` },
               { name: tab.en, url: enUrl },
             ]),
@@ -2470,7 +2482,7 @@ export const buildElectionLandingRoutes = (
               distribution: distributionEn,
             }),
             buildBreadcrumbLd([
-              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Home", url: EN_HOME },
               { name: `Elections ${dateLabelEn}`, url: enUrl },
             ]),
           ],
@@ -2941,7 +2953,7 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
 <p>Data is extracted from the parliament.bg stenographic records.</p>`.trim(),
         jsonLd: [
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Roll-call votes", url: `${SITE_URL}/en/votes` },
           ]),
         ],
@@ -3067,7 +3079,7 @@ export const buildBudgetMinistryRoutes = (
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "State budget", url: `${SITE_URL}/en/budget` },
             { name: nameEn, url: enUrl },
           ]),
@@ -3192,7 +3204,7 @@ export const buildSchoolRoutes = (projectRoot: string): PrerenderRoute[] => {
               inLanguage: "en",
             }),
             buildBreadcrumbLd([
-              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Home", url: EN_HOME },
               { name: "Schools & matura", url: `${SITE_URL}/en/education` },
               { name: rec.name, url: enUrl },
             ]),
@@ -3202,6 +3214,427 @@ export const buildSchoolRoutes = (projectRoot: string): PrerenderRoute[] => {
     }
   }
   return routes;
+};
+
+// /court/{bodyCode} — one judicial body: a court, a prosecution office or an
+// investigation service. Real SPA route (CourtScreen) with no prerendered HTML
+// before this, so a no-JS crawler hit the SPA rewrite and read the HOMEPAGE's
+// meta for all 284 of them. Enumerated from Postgres via seo_courts.ts — the
+// same reader the sitemap calls, so the two cannot disagree about which pages
+// exist.
+//
+// THE DEGRADED CASE IS THE POINT, exactly as on the screen. 104 of the 284
+// bodies publish no workload, and `sourcesBuilt` is what separates that from a
+// database where the bridge was never loaded. Get it wrong here and the claim is
+// worse than on the screen, because it is baked into static HTML that a crawler
+// reads once and caches: 284 pages asserting the ВСС publishes no workload for
+// Софийски градски съд.
+export const buildCourtRoutes = async (): Promise<PrerenderRoute[]> => {
+  const bodies = await readSeoCourts();
+  // Same formatter as the screen, so the figure a crawler indexes and the one a
+  // reader sees after hydration are not "13.85" and "13,85".
+  const numBg = (v: number | null | undefined) => judicialNum(v, "bg");
+  const numEn = (v: number | null | undefined) => judicialNum(v, "en");
+  // A count and its noun/verb. Bulgarian and English both only need the n === 1
+  // case; "2 магистрати" is correct with a digit.
+  const pl = (n: number, one: string, many: string) => (n === 1 ? one : many);
+
+  return bodies.map((b) => {
+    // RAW forms feed <title>/<meta> and JSON-LD, which the emitter and
+    // JSON.stringify escape themselves; the escaped ones are for bodyHtml only.
+    // Escaping twice ships "&amp;amp;" into a description, and an HTML entity
+    // inside a JSON-LD string is simply wrong text. Same split the pension
+    // builder below documents.
+    const placeRaw = b.place ?? "";
+    const placeEnRaw = b.placeEn ?? b.place ?? "";
+    const nm = escapeHtmlMinimal(b.name);
+    const kindPhrase = judicialKindPhrase(b.kind);
+    const path_ = `court/${b.bodyCode}`;
+    const url = `${SITE_URL}/${path_}`;
+    const enUrl = `${SITE_URL}/en/${path_}`;
+
+    // "районен съд" / "апелативна прокуратура" — the tier is an adjective and
+    // has to agree with the noun, which the stored masculine form does not do
+    // for прокуратура.
+    const tierAdjRaw = judicialTierAdjective(b.tier, b.kind);
+    const kindBgRaw = tierAdjRaw
+      ? `${tierAdjRaw} ${kindPhrase.bg}`
+      : kindPhrase.bg;
+    // EN carries no tier: it exists only in Bulgarian, and "a court (градски)"
+    // is worse than "a court" in an English sentence whose subject is already
+    // the Bulgarian proper noun.
+    const kindEnRaw = kindPhrase.en;
+    const seatBgRaw = placeRaw ? ` със седалище в ${placeRaw}` : "";
+    // The seat — unlike the body's NAME, which has no official English form —
+    // localises through place_dim.
+    const seatEnRaw = placeEnRaw ? ` seated in ${placeEnRaw}` : "";
+
+    const hasLoad = b.sourcesBuilt && b.year != null;
+    // The ВСС workload report covers the COURTS, so its absence has two
+    // different explanations and only one of them mentions прокуратури. Six
+    // courts — including both Supreme Courts — carry no court_load row, and
+    // telling ВКС that "the statistics cover the courts, not the prosecution
+    // offices" is a self-contradiction, not a degraded fallback.
+    const noLoadBg =
+      b.kind === "prosecution" || b.kind === "investigation"
+        ? ` ВСС не публикува натовареност за този орган — статистиката обхваща съдилищата, не прокуратурите и следствените отдели.`
+        : ` ВСС не публикува натовареност за този съд в годишния си доклад.`;
+    const noLoadEn =
+      b.kind === "prosecution" || b.kind === "investigation"
+        ? ` The Supreme Judicial Council publishes no workload for this body — the statistics cover the courts, not the prosecution offices or investigation services.`
+        : ` The Supreme Judicial Council publishes no workload figures for this court.`;
+
+    const judgesN = b.judges ?? 0;
+    const loadBg = hasLoad
+      ? ` През ${b.year} г. в него ${pl(judgesN, "е работил", "са работили")} ${b.judges ?? "—"} ${pl(judgesN, "съдия", "съдии")}, като на всеки от тях са постъпвали по ${numBg(b.filedPerMonth)} дела на месец и са свършвали по ${numBg(b.resolvedPerMonth)}.${
+          b.firstYear != null && b.firstYear !== b.lastYear
+            ? ` ВСС публикува натовареността му за периода ${b.firstYear}–${b.lastYear} г.`
+            : ""
+        }`
+      : b.sourcesBuilt
+        ? noLoadBg
+        : // The bridge is not loaded on the database this build read. Say
+          // nothing about workload at all rather than assert an absence.
+          "";
+    const loadEn = hasLoad
+      ? ` In ${b.year} it had ${b.judges ?? "—"} ${pl(judgesN, "judge", "judges")}, each receiving ${numEn(b.filedPerMonth)} cases per month and resolving ${numEn(b.resolvedPerMonth)}.${
+          b.firstYear != null && b.firstYear !== b.lastYear
+            ? ` The Supreme Judicial Council publishes its workload for ${b.firstYear}–${b.lastYear}.`
+            : ""
+        }`
+      : b.sourcesBuilt
+        ? noLoadEn
+        : "";
+
+    // Suppressed on an unloaded bridge. `sourcesBuilt` here means "court_load
+    // AND the bridge are both loaded", so a database carrying the bridge but no
+    // court_load has real magistrate counts and still suppresses them —
+    // deliberately, since a build in that state cannot tell a real zero from an
+    // unloaded one.
+    const hasMags = b.sourcesBuilt && b.magistrates > 0;
+    const magsBg = hasMags
+      ? ` В регистъра на ИВСС ${pl(b.magistrates, "е вписан", "са вписани")} ${b.magistrates} ${pl(b.magistrates, "магистрат", "магистрати")} с декларации от този орган.`
+      : "";
+    const magsEn = hasMags
+      ? ` ${b.magistrates} ${pl(b.magistrates, "magistrate files their declarations", "magistrates file their declarations")} with the Judicial Inspectorate from this body.`
+      : "";
+
+    const titleBg = `${b.name} — натовареност и магистрати | electionsbg.com`;
+    const titleEn = `${b.name} — caseload and magistrates | electionsbg.com`;
+    const magsPhraseBg = hasMags
+      ? `${b.magistrates} ${pl(b.magistrates, "магистрат", "магистрати")} с декларации`
+      : "";
+    const magsPhraseEn = hasMags
+      ? `${b.magistrates} ${pl(b.magistrates, "declaring magistrate", "declaring magistrates")}`
+      : "";
+    const descBg = hasLoad
+      ? `${b.name}: ${numBg(b.filedPerMonth)} постъпили дела на съдия на месец през ${b.year} г. при ${b.judges ?? "—"} ${pl(judgesN, "съдия", "съдии")}${
+          magsPhraseBg ? ` и ${magsPhraseBg}` : ""
+        }. По данни на ВСС и ИВСС.`
+      : `${b.name} — ${kindBgRaw}${seatBgRaw}${
+          magsPhraseBg ? `, ${magsPhraseBg} в ИВСС` : ""
+        }. Натовареност, магистрати и седалище по данни на ВСС и ИВСС.`;
+    const descEn = hasLoad
+      ? `${b.name}: ${numEn(b.filedPerMonth)} cases filed per judge per month in ${b.year} across ${b.judges ?? "—"} ${pl(judgesN, "judge", "judges")}${
+          magsPhraseEn ? ` and ${magsPhraseEn}` : ""
+        }. From the Supreme Judicial Council and the Judicial Inspectorate.`
+      : `${b.name} — a ${kindEnRaw}${seatEnRaw}${
+          magsPhraseEn ? `, ${magsPhraseEn} to the Judicial Inspectorate` : ""
+        }. Caseload, magistrates and seat from the Supreme Judicial Council.`;
+
+    // The magistrate roster filters on the institution NAME, not the body_code
+    // — see the URL contract in CLAUDE.md. Emitted only when there IS a roster:
+    // 13 bodies have no magistrate, and pointing a crawler at an empty filtered
+    // list is a thin page it will hold against the linking one.
+    const rosterHref = `${SITE_URL}/persons?court=${encodeURIComponent(b.name)}`;
+    const rosterHrefEn = `${SITE_URL}/en/persons?court=${encodeURIComponent(b.name)}`;
+    const rosterLinkBg = hasMags
+      ? `<a href="${rosterHref}">магистратите ${bgIn(b.name)} ${nm}</a>, `
+      : "";
+    const rosterLinkEn = hasMags
+      ? `<a href="${rosterHrefEn}">the magistrates here</a>, `
+      : "";
+
+    const faqBg: Array<{ question: string; answer: string }> = [];
+    if (hasLoad) {
+      faqBg.push({
+        question: `Колко дела на съдия разглежда ${b.name}?`,
+        answer: `През ${b.year} г. на всеки съдия ${bgIn(b.name)} ${b.name} са постъпвали средно по ${numBg(b.filedPerMonth)} дела на месец, а свършените са ${numBg(b.resolvedPerMonth)} на месец, при ${b.judges ?? "—"} ${pl(judgesN, "съдия", "съдии")}. Данните са на ВСС.`,
+      });
+    }
+    if (hasMags) {
+      faqBg.push({
+        question: `Колко магистрати има ${bgIn(b.name)} ${b.name}?`,
+        answer: `${b.magistrates} ${pl(b.magistrates, "магистрат подава", "магистрати подават")} имуществени декларации в ИВСС от ${b.name}.`,
+      });
+    }
+    if (placeRaw) {
+      faqBg.push({
+        question: `Къде се намира ${b.name}?`,
+        answer: `${b.name} е ${kindBgRaw} със седалище в ${placeRaw}.`,
+      });
+    }
+
+    const faqEn: Array<{ question: string; answer: string }> = [];
+    if (hasLoad) {
+      faqEn.push({
+        question: `What is the caseload of ${b.name}?`,
+        answer: `In ${b.year} each judge at ${b.name} received an average of ${numEn(b.filedPerMonth)} cases per month and resolved ${numEn(b.resolvedPerMonth)}, across ${b.judges ?? "—"} ${pl(judgesN, "judge", "judges")}. Source: the Supreme Judicial Council.`,
+      });
+    }
+    if (hasMags) {
+      faqEn.push({
+        question: `How many magistrates work at ${b.name}?`,
+        answer: `${b.magistrates} ${pl(b.magistrates, "magistrate files asset declarations", "magistrates file asset declarations")} with the Judicial Inspectorate from ${b.name}.`,
+      });
+    }
+    if (placeEnRaw) {
+      faqEn.push({
+        question: `Where is ${b.name} located?`,
+        answer: `${b.name} is a ${kindEnRaw} seated in ${placeEnRaw}.`,
+      });
+    }
+
+    const govLd = (lang: "bg" | "en", pageUrl: string) =>
+      buildGovernmentOrganizationLd({
+        name: b.name,
+        url: pageUrl,
+        areaServed: lang === "bg" ? placeRaw || null : placeEnRaw || null,
+        parentOrganization: {
+          name: lang === "bg" ? "Съдебна власт" : "The judiciary of Bulgaria",
+          url: `${SITE_URL}${lang === "bg" ? "" : "/en"}/judiciary`,
+        },
+        numberOfEmployees: b.sourcesBuilt ? b.magistrates : null,
+        inLanguage: lang,
+      });
+
+    return {
+      path: path_,
+      title: titleBg,
+      description: descBg,
+      bodyHtml:
+        `<h1>${nm} — натовареност и магистрати</h1>` +
+        `<p>${nm} е ${escapeHtmlMinimal(kindBgRaw)}${escapeHtmlMinimal(seatBgRaw)}.${escapeHtmlMinimal(loadBg)}${escapeHtmlMinimal(magsBg)}</p>` +
+        `<p>Виж ${rosterLinkBg}` +
+        `<a href="${SITE_URL}/judiciary">съдебната власт — бюджет, натовареност и магистрати</a> ` +
+        `и <a href="${SITE_URL}/persons">указателя на публичните лица</a>.</p>`,
+      jsonLd: [
+        buildWebPageLd({ title: titleBg, description: descBg, url }),
+        govLd("bg", url),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Управление", url: `${SITE_URL}/governance` },
+          { name: "Съдебна власт", url: `${SITE_URL}/judiciary` },
+          { name: b.name, url },
+        ]),
+        ...(faqBg.length ? [buildFaqLd(faqBg)] : []),
+      ],
+      english: {
+        title: titleEn,
+        description: descEn,
+        // Court names are Bulgarian-only (there is no official English
+        // register), so the EN page carries the BG proper noun inside English
+        // sentence furniture — what buildSchoolRoutes does with school names.
+        bodyHtml:
+          `<h1>${nm} — caseload and magistrates</h1>` +
+          `<p>${nm} is a ${escapeHtmlMinimal(kindEnRaw)}${escapeHtmlMinimal(seatEnRaw)}.${escapeHtmlMinimal(loadEn)}${escapeHtmlMinimal(magsEn)}</p>` +
+          `<p>See ${rosterLinkEn}` +
+          `<a href="${SITE_URL}/en/judiciary">the judiciary — budget, caseload and magistrates</a> ` +
+          `and <a href="${SITE_URL}/en/persons">the public-figure directory</a>.</p>`,
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          govLd("en", enUrl),
+          buildBreadcrumbLd([
+            { name: "Home", url: EN_HOME },
+            { name: "Governance", url: `${SITE_URL}/en/governance` },
+            { name: "The judiciary", url: `${SITE_URL}/en/judiciary` },
+            { name: b.name, url: enUrl },
+          ]),
+          ...(faqEn.length ? [buildFaqLd(faqEn)] : []),
+        ],
+      },
+    };
+  });
+};
+
+// /pension-fund/{slug} — one private pension fund (КФН pillars 2 & 3). Real SPA
+// route (PensionFundScreen) with no prerendered HTML before this. FILE-backed
+// off the committed data/budget/kfn/funds.json, so this follows buildSchoolRoutes
+// rather than the Postgres readers — the enumeration and the gate live in
+// scripts/prerender/kfnFunds.ts, shared with the sitemap.
+export const buildPensionFundRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const funds = readSeoPensionFunds(projectRoot);
+  return funds.map((f) => {
+    const nameBg = escapeHtmlMinimal(
+      kfnFundName(f.pillar, f.companyBg, f.companyEn, true),
+    );
+    const nameEn = escapeHtmlMinimal(
+      kfnFundName(f.pillar, f.companyBg, f.companyEn, false),
+    );
+    // Raw (unescaped) forms for <title>/<meta>, which the emitter escapes itself
+    // — escaping twice would ship "&amp;amp;" into a title.
+    const rawBg = kfnFundName(f.pillar, f.companyBg, f.companyEn, true);
+    const rawEn = kfnFundName(f.pillar, f.companyBg, f.companyEn, false);
+    const path_ = `pension-fund/${f.slug}`;
+    const url = `${SITE_URL}/${path_}`;
+    const enUrl = `${SITE_URL}/en/${path_}`;
+    // NOT `?? 0`. A filing that omits the figure is a gap in the source, and
+    // "управлява €0 нетни активи на 0 осигурени лица" publishes that gap as a
+    // fact — the same class of false claim `sourcesBuilt` exists to prevent on
+    // the court pages. readSeoPensionFunds already drops a fund with no assets
+    // figure, so this only ever fires for a missing insured count.
+    const assetsBg = compactEur(f.netAssetsEur ?? 0, "bg");
+    const assetsEn = compactEur(f.netAssetsEur ?? 0, "en");
+    const insuredBg = f.insured == null ? null : f.insured.toLocaleString("bg");
+    const insuredEn = f.insured == null ? null : f.insured.toLocaleString("en");
+    const holdsBg = insuredBg
+      ? `управлява ${assetsBg} нетни активи на ${insuredBg} осигурени лица`
+      : `управлява ${assetsBg} нетни активи`;
+    const holdsEn = insuredEn
+      ? `holds ${assetsEn} in net assets for ${insuredEn} insured persons`
+      : `holds ${assetsEn} in net assets`;
+    // "Универсален (УПФ)" → "универсален". The parenthetical abbreviation is a
+    // column header, not prose, and lowercasing the whole label mangles it into
+    // "универсален (упф)".
+    const pillarWord = (label: string): string =>
+      escapeHtmlMinimal(label.replace(/\s*\([^)]*\)\s*$/, "").toLowerCase());
+    const shareBg =
+      f.pillarSharePct != null
+        ? ` Това е ${f.pillarSharePct.toFixed(1)}% от активите на стълба „${escapeHtmlMinimal(f.pillarLabelBg)}“.`
+        : "";
+    const shareEn =
+      f.pillarSharePct != null
+        ? ` That is ${f.pillarSharePct.toFixed(1)}% of the ${escapeHtmlMinimal(f.pillarLabelEn)} pillar's assets.`
+        : "";
+    // growthPct is null for TWO reasons, and only one of them is "the archive
+    // has one quarter". `firstPeriodLabel == null` is the discriminator; a
+    // multi-quarter fund that started at zero assets gets NO sentence, which is
+    // what the live page does rather than explain an absence it cannot name.
+    const trendBg =
+      f.growthPct != null && f.firstPeriodLabel
+        ? ` От ${escapeHtmlMinimal(f.firstPeriodLabel)} насам активите му са се променили с ${f.growthPct > 0 ? "+" : ""}${f.growthPct.toFixed(1)}%.`
+        : f.firstPeriodLabel == null
+          ? ` В архива има само едно тримесечие за този фонд — по-старите се добавят при следващо зареждане.`
+          : "";
+    const trendEn =
+      f.growthPct != null && f.firstPeriodLabel
+        ? ` Since ${escapeHtmlMinimal(f.firstPeriodLabel)} its assets have changed by ${f.growthPct > 0 ? "+" : ""}${f.growthPct.toFixed(1)}%.`
+        : f.firstPeriodLabel == null
+          ? ` The archive holds a single quarter for this fund; older ones are added as they are ingested.`
+          : "";
+
+    const titleBg = `${rawBg} — нетни активи и осигурени лица | electionsbg.com`;
+    const titleEn = `${rawEn} — net assets and insured persons | electionsbg.com`;
+    const descBg = insuredBg
+      ? `${rawBg}: ${assetsBg} нетни активи и ${insuredBg} осигурени лица към ${f.latestPeriodLabel}, по тримесечни данни на КФН.`
+      : `${rawBg}: ${assetsBg} нетни активи към ${f.latestPeriodLabel}, по тримесечни данни на КФН.`;
+    const descEn = insuredEn
+      ? `${rawEn}: ${assetsEn} in net assets and ${insuredEn} insured persons as of ${f.latestPeriodLabel}, from the FSC's quarterly register.`
+      : `${rawEn}: ${assetsEn} in net assets as of ${f.latestPeriodLabel}, from the FSC's quarterly register.`;
+
+    const siblingsBg = f.siblings.length
+      ? `<p>${escapeHtmlMinimal(f.companyBg)} управлява и ${f.siblings
+          .map(
+            (s) =>
+              `<a href="${SITE_URL}/pension-fund/${s.slug}">${escapeHtmlMinimal(
+                kfnFundName(s.pillar, f.companyBg, f.companyEn, true),
+              )}</a>`,
+          )
+          .join(", ")}.</p>`
+      : "";
+    const siblingsEn = f.siblings.length
+      ? `<p>${escapeHtmlMinimal(f.companyEn)} also runs ${f.siblings
+          .map(
+            (s) =>
+              `<a href="${SITE_URL}/en/pension-fund/${s.slug}">${escapeHtmlMinimal(
+                kfnFundName(s.pillar, f.companyBg, f.companyEn, false),
+              )}</a>`,
+          )
+          .join(", ")}.</p>`
+      : "";
+
+    return {
+      path: path_,
+      title: titleBg,
+      description: descBg,
+      bodyHtml:
+        `<h1>${nameBg} — нетни активи и осигурени лица</h1>` +
+        `<p>${nameBg} е ${pillarWord(f.pillarLabelBg)} пенсионен фонд, управляван от ${escapeHtmlMinimal(f.companyBg)}. ` +
+        `Към ${escapeHtmlMinimal(f.latestPeriodLabel)} той ${holdsBg}.${shareBg}${trendBg}</p>` +
+        siblingsBg +
+        `<p>Виж <a href="${SITE_URL}/pensions">пенсиите в България — НОИ, частни фондове и размер на пенсията</a>.</p>`,
+      jsonLd: [
+        buildWebPageLd({ title: titleBg, description: descBg, url }),
+        buildOrganizationEntityLd({
+          name: rawBg,
+          url,
+          parentOrganization: { name: `ПОД ${f.companyBg}` },
+          inLanguage: "bg",
+        }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Пенсии", url: `${SITE_URL}/pensions` },
+          { name: rawBg, url },
+        ]),
+        buildFaqLd([
+          {
+            question: `Колко активи управлява ${rawBg}?`,
+            answer: `Към ${f.latestPeriodLabel} ${rawBg} ${holdsBg}, по данни на КФН.`,
+          },
+          {
+            question: `Кой управлява ${rawBg}?`,
+            answer: `Фондът се управлява от пенсионноосигурителното дружество ${f.companyBg}.`,
+          },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descEn,
+        bodyHtml:
+          `<h1>${nameEn} — net assets and insured persons</h1>` +
+          `<p>${nameEn} is a ${pillarWord(f.pillarLabelEn)} pension fund managed by ${escapeHtmlMinimal(f.companyEn)}. ` +
+          `As of ${escapeHtmlMinimal(f.latestPeriodLabel)} it ${holdsEn}.${shareEn}${trendEn}</p>` +
+          siblingsEn +
+          `<p>See <a href="${SITE_URL}/en/pensions">pensions in Bulgaria — the state fund, private funds and pension levels</a>.</p>`,
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildOrganizationEntityLd({
+            name: rawEn,
+            url: enUrl,
+            parentOrganization: { name: `${f.companyEn} Pension Insurance` },
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: EN_HOME },
+            { name: "Pensions", url: `${SITE_URL}/en/pensions` },
+            { name: rawEn, url: enUrl },
+          ]),
+          buildFaqLd([
+            {
+              question: `How much does ${rawEn} manage?`,
+              answer: `As of ${f.latestPeriodLabel} ${rawEn} ${holdsEn}, per the Financial Supervision Commission.`,
+            },
+            {
+              question: `Who manages ${rawEn}?`,
+              answer: `The fund is managed by the pension insurance company ${f.companyEn}.`,
+            },
+          ]),
+        ],
+      },
+    };
+  });
 };
 
 // One prerendered HTML page per packed institution awarder (/awarder/:eik).
@@ -3245,7 +3678,7 @@ export const buildInstitutionAwarderRoutes = (): PrerenderRoute[] => {
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Public procurement", url: `${SITE_URL}/en/procurement` },
             { name: inst.nameEn, url: enUrl },
           ]),
@@ -3351,7 +3784,7 @@ const localPersonRoute = (
           inLanguage: "en",
         }),
         buildBreadcrumbLd([
-          { name: "Home", url: `${SITE_URL}/en/` },
+          { name: "Home", url: EN_HOME },
           { name: "Local elections", url: `${SITE_URL}/en/local` },
           { name: c.name, url: enUrl },
         ]),
@@ -3454,7 +3887,7 @@ ${netLineEn}
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Officials", url: `${SITE_URL}/en/officials/assets` },
             { name: c.name, url: enUrl },
           ]),
@@ -3755,6 +4188,8 @@ export const buildDynamicRoutes = async (
     ...buildSchoolRoutes(projectRoot),
     ...buildPersonRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
+    ...(await buildCourtRoutes()),
+    ...buildPensionFundRoutes(projectRoot),
     ...buildFundsThemeRoutes(projectRoot),
     ...buildCuratedProjectRoutes(projectRoot),
     ...buildProductRoutes(projectRoot),

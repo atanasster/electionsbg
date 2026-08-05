@@ -204,6 +204,81 @@ export const buildPersonLd = (params: {
     : {}),
 });
 
+/** The entity a page is ABOUT, when that entity is an organization in its own
+ *  right rather than the site's own Organization node (`buildOrganizationLd`,
+ *  which describes the publisher and takes no arguments).
+ *
+ *  `publisher` is deliberately absent: the WebPage node already says who
+ *  published the PAGE, and repeating it here would claim electionsbg.com
+ *  publishes the court. */
+type OrgNodeParams = {
+  name: string;
+  url: string;
+  /** Free-text seat/jurisdiction ("София"). */
+  areaServed?: string | null;
+  /** The umbrella body or managing company, when there is one worth naming. */
+  parentOrganization?: { name: string; url?: string; type?: string } | null;
+  /** Headcount — `numberOfEmployees` is the only quantitative field schema.org
+   *  gives an organization, and magistrates are what we have for a court. */
+  numberOfEmployees?: number | null;
+  inLanguage?: "bg" | "en";
+};
+
+const orgNodeLd = (type: string, params: OrgNodeParams) => ({
+  "@context": "https://schema.org",
+  "@type": type,
+  name: params.name,
+  url: params.url,
+  ...(params.areaServed
+    ? { areaServed: { "@type": "Place", name: params.areaServed } }
+    : {}),
+  ...(params.parentOrganization
+    ? {
+        parentOrganization: {
+          "@type": params.parentOrganization.type ?? "Organization",
+          name: params.parentOrganization.name,
+          ...(params.parentOrganization.url
+            ? { url: params.parentOrganization.url }
+            : {}),
+        },
+      }
+    : {}),
+  ...(typeof params.numberOfEmployees === "number" &&
+  params.numberOfEmployees > 0
+    ? {
+        numberOfEmployees: {
+          "@type": "QuantitativeValue",
+          value: params.numberOfEmployees,
+        },
+      }
+    : {}),
+  ...(params.inLanguage ? { inLanguage: params.inLanguage } : {}),
+});
+
+/**
+ * A public body the site has a page for — a court, a prosecution office, an
+ * investigation service.
+ *
+ * NOT plain `Organization`: schema.org's `GovernmentOrganization` is what lets
+ * an answer engine tell "Софийски градски съд" (an institution of the state)
+ * from a company of the same name, which is the whole point of emitting a node
+ * for a page that is otherwise just a WebPage about a table of numbers.
+ */
+export const buildGovernmentOrganizationLd = (params: OrgNodeParams) =>
+  orgNodeLd("GovernmentOrganization", {
+    ...params,
+    parentOrganization: params.parentOrganization
+      ? { type: "GovernmentOrganization", ...params.parentOrganization }
+      : null,
+  });
+
+/**
+ * A private organization the site has a page for — today a pension fund, whose
+ * `parentOrganization` is the pension-insurance company that manages it.
+ */
+export const buildOrganizationEntityLd = (params: OrgNodeParams) =>
+  orgNodeLd("Organization", params);
+
 export const buildFaqLd = (
   items: Array<{ question: string; answer: string }>,
 ) => ({

@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { rayonFromObshtina } from "./sofiaRayons";
 import { kfnFundSlug } from "@/lib/kfnFundSlug";
+import { byKfnPeriod } from "@/lib/kfnPeriod";
 import type {
   BudgetIndex,
   BudgetDocumentsFile,
@@ -356,7 +357,10 @@ export const useKfnFund = (slug: string | null | undefined) => {
       periodLabel: string;
       row: KfnFundRow;
     }[] = [];
-    for (const p of data.periods) {
+    // Explicitly ordered, not "as written": the prerendered page for this same
+    // fund derives its headline quarter the same way, and an ingest that ever
+    // appends an older quarter would otherwise make the two disagree.
+    for (const p of [...data.periods].sort(byKfnPeriod)) {
       const row = p.funds.find(
         (f) => kfnFundSlug(f.pillar, f.companyEn) === slug,
       );

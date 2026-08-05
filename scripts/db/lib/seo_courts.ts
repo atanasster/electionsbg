@@ -22,6 +22,7 @@
 // local and cloud agree and a local mint is safe. Do not copy the person
 // machinery here.
 
+import { isCrawlableSlug } from "@/lib/urlSlug";
 import { readSeoRows } from "./seo_read";
 
 export type SeoCourt = {
@@ -30,6 +31,9 @@ export type SeoCourt = {
   kind: string;
   tier: string | null;
   place: string | null;
+  /** The seat in English, for the EN page. Null only if `place_dim` has no row
+   *  for this obshtina — all 284 resolve today. */
+  placeEn: string | null;
   placeCode: string | null;
   /** Magistrates declaring to the ИВСС from this body. */
   magistrates: number;
@@ -65,7 +69,7 @@ export type SeoCourt = {
  * export rather than as an inline regex on each side.
  */
 export const isCrawlableCourt = (b: { bodyCode?: string | null }): boolean =>
-  typeof b.bodyCode === "string" && /^[a-z0-9][a-z0-9-]*$/.test(b.bodyCode);
+  isCrawlableSlug(b.bodyCode);
 
 type Row = {
   body_code: string;
@@ -73,6 +77,7 @@ type Row = {
   kind: string;
   tier: string | null;
   place: string | null;
+  place_en: string | null;
   place_code: string | null;
   magistrates: number;
   first_year: number | null;
@@ -114,6 +119,13 @@ const QUERY = `
     ORDER BY s.body_code, c.year DESC, c.judges DESC NULLS LAST, c.name COLLATE "C"
   )
   SELECT b.body_code, b.name, b.kind, b.tier, b.place, b.place_code,
+         -- The trailing qualifier is stripped because judicial_body.place is the
+         -- seat SETTLEMENT ("София") while place_dim is the OBSHTINA ("Столична
+         -- община" / "Sofia (capital municipality)"). The two names coincide for
+         -- 283 of 284 bodies; without this, the one that does not would put a
+         -- court "seated in Sofia (capital municipality)" on the EN page against
+         -- "със седалище в София" on the BG one.
+         regexp_replace(pd.name_en, '\\s*\\([^)]*\\)$', '') AS place_en,
          COALESCE(m.n, 0) AS magistrates,
          y.first_year, y.last_year,
          l.year, l.judges, l.filed_per_month, l.resolved_per_month,
@@ -122,6 +134,11 @@ const QUERY = `
   LEFT JOIN mags   m ON m.body_code = b.body_code
   LEFT JOIN yrs    y ON y.body_code = b.body_code
   LEFT JOIN latest l ON l.body_code = b.body_code
+  -- The English seat name for the EN page. \`place_dim.code\` is UNIQUE ONLY
+  -- WITHIN A KIND (VAR is both an oblast and an obshtina), so the kind
+  -- predicate is what keeps this a 1:1 join instead of doubling 28 rows.
+  -- judicial_body.place_code is an obshtina code for all 284.
+  LEFT JOIN place_dim pd ON pd.code = b.place_code AND pd.kind = 'obshtina'
   -- COLLATE "C" so the enumeration order is the same on every server regardless
   -- of its default collation (which ignores the hyphen at the primary level and
   -- interleaves \`aps-burgas\` between \`ap-plovdiv\` and \`ap-sofiya\`).
@@ -161,6 +178,7 @@ export const readSeoCourts = async (): Promise<SeoCourt[]> => {
     kind: r.kind,
     tier: r.tier,
     place: r.place,
+    placeEn: r.place_en,
     placeCode: r.place_code,
     magistrates: r.magistrates ?? 0,
     year: r.year,

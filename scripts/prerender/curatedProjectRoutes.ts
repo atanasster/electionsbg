@@ -5,7 +5,7 @@
 // is unit-testable.
 import fs from "fs";
 import path from "path";
-import { PrerenderRoute, SITE_URL } from "./routes";
+import { EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
 import { escapeHtml } from "./html";
 import { buildWebPageLd, buildBreadcrumbLd } from "./jsonLd";
 
@@ -86,7 +86,7 @@ export const buildCuratedProjectRoutes = (
             inLanguage: "en",
           }),
           buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Home", url: EN_HOME },
             { name: "Public procurement", url: `${SITE_URL}/en/procurement` },
             { name: nameEn, url: enUrl },
           ]),
