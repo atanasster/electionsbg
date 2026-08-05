@@ -6,6 +6,12 @@ import {
   readProcurementSeoSettlements,
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
+import {
+  isCrawlableCourt,
+  readSeoCourts,
+  type SeoCourt,
+} from "../db/lib/seo_courts";
+import { KFN_FUNDS_FILE, readSeoPensionFunds } from "../prerender/kfnFunds";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import {
   readIndexableProcedures,
@@ -779,6 +785,10 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
 const procurementSeoSettlements: SeoProcurementSettlement[] =
   await readProcurementSeoSettlements();
 
+// Same shape, one query up front: the /court enumeration the prerender also
+// reads. [] when Postgres is unreachable, so the family is simply absent.
+const seoCourts: SeoCourt[] = await readSeoCourts();
+
 routeDefs(election).forEach((r) => getRoute(r, ""));
 enumerateVotes("");
 
@@ -816,6 +826,31 @@ for (const inst of INSTITUTION_PACKS) {
         pushUrl(`/en/school/${rec.id}`, lastmod);
       }
     }
+  }
+}
+
+// Per-judicial-body pages (/court/:bodyCode) — 284 courts, prosecution offices
+// and investigation services. Read from Postgres through the SAME seo_courts.ts
+// reader buildCourtRoutes uses, and gated by the SAME isCrawlableCourt, so the
+// sitemap and the prerendered files cannot disagree about which pages exist. A
+// Postgres-less build gets [] from both and emits neither. BG + EN, since both
+// languages are prerendered. route_defs.ts intentionally carries no entry —
+// schools set that precedent and its comment says so.
+for (const b of seoCourts) {
+  if (!isCrawlableCourt(b)) continue;
+  pushUrl(`/court/${b.bodyCode}`, today);
+  pushUrl(`/en/court/${b.bodyCode}`, today);
+}
+
+// Per-pension-fund pages (/pension-fund/:slug) — the 31 КФН pillar-2/3 funds.
+// File-backed, so `lastmod` is the archive's own mtime rather than today: the
+// register moves quarterly, and claiming a daily change wastes crawl budget on
+// pages that did not move. Same reader + gate as buildPensionFundRoutes.
+{
+  const lastmod = safeFileMod(`${projectPath}/${KFN_FUNDS_FILE}`);
+  for (const f of readSeoPensionFunds(projectPath)) {
+    pushUrl(`/pension-fund/${f.slug}`, lastmod);
+    pushUrl(`/en/pension-fund/${f.slug}`, lastmod);
   }
 }
 
