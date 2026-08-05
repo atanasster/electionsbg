@@ -56,6 +56,7 @@
     "proc:reconcile": "tsx scripts/procurement/reconcile_cross_source.ts",
     "proc:reconcile:apply": "tsx scripts/procurement/reconcile_cross_source.ts --apply",
     "proc:backfill-unp:apply": "tsx scripts/procurement/backfill_unp.ts --apply",
+    "proc:dedup-stale-keys": "tsx scripts/procurement/dedup_stale_base_keys.ts",
     "proc:rebuild-derived": "tsx scripts/procurement/rebuild_from_cache.ts",
     "db:load:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:pg",
     "db:load:tr:pg": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/db/load_tr_pg.ts",

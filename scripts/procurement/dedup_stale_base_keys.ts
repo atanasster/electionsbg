@@ -2,8 +2,14 @@
 // the operator at the standard rebuild. No network calls — works purely from data/procurement/ on
 // disk.
 //
-//   npx tsx scripts/procurement/dedup_stale_base_keys.ts            # dry run (default)
-//   npx tsx scripts/procurement/dedup_stale_base_keys.ts --apply    # write onto the shards
+//   npm run proc:dedup-stale-keys              # dry run (default)
+//   npm run proc:dedup-stale-keys -- --apply   # write onto the shards
+//
+// There is deliberately NO `proc:dedup-stale-keys:apply` twin, unlike `proc:reconcile:apply`. That
+// asymmetry is the point: `proc:reconcile:apply` is in `db:refresh` because it is idempotent and
+// re-runs on every ingest, whereas this is a one-shot against a backlog that should end at zero. A
+// `:apply` script is one edit away from being chained into `db:refresh`, where it would delete from
+// a gitignored tree on every refresh with nobody reading the pairs it prints. Type the flag.
 //
 // The DETECTION lives in `stale_base_keys.ts` and is unit-tested there (`stale_base_keys.test.ts`);
 // this file is the runner — I/O, verification, backup, write. Splitting them is what lets the
