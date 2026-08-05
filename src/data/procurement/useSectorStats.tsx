@@ -17,6 +17,7 @@
 import type { TFunction } from "i18next";
 import { useQuery } from "@tanstack/react-query";
 import { formatEurCompact } from "@/lib/currency";
+import { dataUrl } from "@/data/dataUrl";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export type SectorBasis =
@@ -135,7 +136,7 @@ export const useSectorStats = (): Record<string, SectorStat> | undefined => {
   const { data } = useQuery({
     queryKey: ["procurement", "sector-stats"] as const,
     queryFn: async (): Promise<SectorStatsFile> => {
-      const r = await fetch("/procurement/derived/sector_stats.json");
+      const r = await fetch(dataUrl("/procurement/derived/sector_stats.json"));
       if (!r.ok) throw new Error(`sector-stats fetch failed: ${r.status}`);
       return r.json();
     },

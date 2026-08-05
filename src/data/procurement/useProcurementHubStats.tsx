@@ -5,6 +5,7 @@
 // scope key the window hook derives, so it stays scope-responsive.
 
 import { useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export interface HubStat {
@@ -29,7 +30,7 @@ export const useProcurementHubStats = (): HubStat | undefined => {
   const { data } = useQuery({
     queryKey: ["procurement", "hub-stats"] as const,
     queryFn: async (): Promise<HubStatsFile> => {
-      const r = await fetch("/procurement/derived/hub_stats.json");
+      const r = await fetch(dataUrl("/procurement/derived/hub_stats.json"));
       if (!r.ok) throw new Error(`hub-stats fetch failed: ${r.status}`);
       return r.json();
     },
