@@ -274,11 +274,13 @@ and fix anything over budget before declaring done.
 - *Step 2* — the prerendered município body, so the 265×2 crawler pages carry
   what the SPA renders.
 
-**Phase 3 — the settlement node.**
+**Phase 3 — the settlement node.** ✅ `87b18321ce` (blobs), `c783fbe3f2` (node).
 
-- *Step 1* — settlement-grain blobs keyed by EKATTE.
-- *Step 2* — the settlement page reads its own blob, falling back to its
-  município with a disclosure; the prerendered settlement body carries it too.
+- *Step 1* — 290 settlement-grain blobs keyed by EKATTE, resolved by the exact
+  `loc` centroid join, cross-checked against each school's own address.
+- *Step 2* — the settlement page reads its own blob and falls back to its
+  município with a disclosure that NAMES the place; the ~5,000 prerendered
+  settlement bodies carry the same section and the same fallback.
 
 ---
 
