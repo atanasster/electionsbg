@@ -50,9 +50,15 @@
 //   ingest → fix_amount_overrides → THIS → anexi_current_value → backfill_unp
 //          → reconcile_cross_source → rebuild_from_cache → db:load:pg → db:load:annexes:pg
 //
-// It must precede nothing in particular, but it must FOLLOW `fix_amount_overrides.ts` — that pass
-// rewrites `amount`, which the survivor key is derived from. `preflightOrder()` refuses rather than
-// reporting a green zero when the corpus looks like the inputs have already moved.
+// BOTH neighbours are load-bearing, and only one of them is guarded:
+//
+//   - it must FOLLOW `fix_amount_overrides.ts`, which rewrites `amount` — the input the survivor
+//     key derives from. `preflightOrder()` refuses rather than reporting a green zero here.
+//   - it must PRECEDE `anexi_current_value.ts --apply`, which flips `amountEur` — part of
+//     `identityOf`. The two members of a stale pair need not flip alike (`signingAmountEur` is one
+//     of the fields `conflictsOf` reports them disagreeing on), so a late run can see the identity
+//     diverge, find no pairs, and exit 0 saying the corpus is clean. NOTHING CATCHES THAT:
+//     `preflightOrder` guards the `amount` inputs, which the annex fold does not touch.
 //
 // Measured 2026-08-04: 30 evictions, €2,068,182.74, against a 405,720-row / €99.26bn shard corpus.
 //
@@ -64,6 +70,7 @@ import { fileURLToPath } from "url";
 import { canonicalJson, findDuplicateKeys } from "./validate";
 import { describeRow } from "./cross_source";
 import { analyzeStaleBaseKeys, preflightOrder } from "./stale_base_keys";
+import { stripOneTimeBlock } from "./lib/retire_one_time";
 import type { Contract } from "./types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -73,6 +80,77 @@ const BACKUP_DIR = path.join(
   ROOT,
   "data/procurement/.contracts_backup_stale_base_keys",
 );
+const SKILL_FILE = path.join(
+  ROOT,
+  ".claude/skills/update-procurement/SKILL.md",
+);
+const STATE_FILE = path.join(ROOT, "state/ingest/proc-stale-base-keys.json");
+const ONE_TIME_ID = "stale-base-keys";
+
+/** RETIRE THE STEP. A one-shot against a finite backlog must stop being an instruction once the
+ *  backlog is gone, or every future reader of the runbook pays to work out that it no longer
+ *  applies — which is precisely why `dedup_legacy_twins.ts` still carries a "re-run normally
+ *  unnecessary" caveat nobody has removed.
+ *
+ *  Two things are deliberately NOT auto-removed. `KNOWN_STALE` in the data gate stays, because
+ *  that gate failing is the forcing function that gets it deleted in a reviewed commit — silently
+ *  editing a test to make it pass is the one edit a script must never make. And this file stays,
+ *  because the dry run remains the way to audit the class. */
+/** Strip the block, writing via `.tmp` + rename for the same reason the shard backup does: a
+ *  truncate-then-write on a committed runbook can leave it half-written if the process dies. */
+const retireSkillBlock = (): boolean => {
+  if (!fs.existsSync(SKILL_FILE)) return false;
+  const out = stripOneTimeBlock(
+    fs.readFileSync(SKILL_FILE, "utf8"),
+    ONE_TIME_ID,
+  );
+  if (!out.removed) return false;
+  const tmp = `${SKILL_FILE}.tmp`;
+  fs.writeFileSync(tmp, out.text);
+  fs.renameSync(tmp, SKILL_FILE);
+  return true;
+};
+
+const FOLLOW_UPS = [
+  "npm run db:load:annexes:pg (+ :cloud) — mandatory; evicted rows orphan their annexes and only this loader re-resolves them",
+  "delete KNOWN_STALE from scripts/db/tests/stale_base_keys.data.test.ts",
+];
+
+const retire = (evicted: number, eur: number): void => {
+  // The marker lands FIRST. Retirement is otherwise a one-way door: the clean-corpus path returns
+  // before `retire()`, so a run interrupted between the write and the strip could never be
+  // completed by a later one. With the marker on disk, the no-op path below finishes the job.
+  //
+  // It also carries the follow-ups, because removing the block deletes the only durable copy of
+  // them at the moment they become mandatory — console output does not survive the terminal.
+  fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
+  fs.writeFileSync(
+    STATE_FILE,
+    `${JSON.stringify(
+      {
+        completedAt: new Date().toISOString(),
+        script: "scripts/procurement/dedup_stale_base_keys.ts",
+        summary: `cleared ${evicted} stale-base-key row(s), €${eur.toFixed(2)}`,
+        plan: "docs/plans/procurement-same-feed-dedup-v1.md",
+        followUps: FOLLOW_UPS,
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  const removed = retireSkillBlock();
+  console.log(
+    `\n── RETIRED ──\n` +
+      `  ${removed ? "removed" : "did NOT find (already retired, or the markers moved)"} ` +
+      `the ONE-TIME block in ${path.relative(ROOT, SKILL_FILE)}\n` +
+      `  wrote ${path.relative(ROOT, STATE_FILE)} — it carries the follow-ups below\n` +
+      `  STILL YOURS TO DO, in this session:\n` +
+      FOLLOW_UPS.map((f, i) => `    ${i + 1}. ${f}`).join("\n") +
+      `\n       (that gate is skipIf-gated on Postgres, so it only turns red once\n` +
+      `        \`db:load:pg\` has reloaded the corpus — not immediately)\n` +
+      `    ${FOLLOW_UPS.length + 1}. commit this file, the skill and the state marker together`,
+  );
+};
 
 const APPLY = process.argv.includes("--apply");
 
@@ -293,6 +371,14 @@ const main = async (): Promise<void> => {
 
   if (!pairs.length) {
     console.log("nothing to do — corpus is already clean");
+    // Finish an interrupted retirement. The marker means a previous run DID clear the backlog, so
+    // a block still sitting in the runbook is leftover, not an instruction. Without this the
+    // retirement is a one-way door — this path returns before `retire()` ever runs again.
+    if (fs.existsSync(STATE_FILE) && retireSkillBlock())
+      console.log(
+        `  (removed the leftover ONE-TIME block from ${path.relative(ROOT, SKILL_FILE)} — ` +
+          `a previous --apply cleared the backlog but did not finish retiring)`,
+      );
     return;
   }
   if (!APPLY) {
@@ -327,6 +413,9 @@ const main = async (): Promise<void> => {
   console.log(
     "Next: npm run proc:rebuild-derived && npm run db:load:pg && npm run db:load:annexes:pg",
   );
+  // Only after the write LANDED. Retiring on a run that verified but failed to write would remove
+  // the instruction while leaving the backlog in place — the one ordering that must not invert.
+  retire(pairs.length, evictedEur);
 };
 
 main().catch((e) => {

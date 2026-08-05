@@ -165,6 +165,45 @@ npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups
 npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
 ```
 
+<!-- ONE-TIME:stale-base-keys:START -->
+### ONE-TIME — clear the stale-base-key backlog (30 rows / €2,068,182.74)
+
+**Run this once, inside the same session as the ingest above, AFTER the ingest and
+`fix_amount_overrides`, and BEFORE `anexi_current_value --apply`.** It removes itself from this
+file when it succeeds — if you are reading this, it has not run yet.
+
+The position is not cosmetic and the pass cannot detect being run late. `anexi_current_value`
+flips `amountEur`, which is part of the row identity this matches on, and the two members of a
+stale pair need not be flipped alike (`signingAmountEur` is one of the fields `conflictsOf`
+reports them disagreeing on). When the identity diverges, the pair stops being a pair and the run
+exits `nothing to do — corpus is already clean` at exit 0. `preflightOrder()` does not catch it:
+it guards the `amount` inputs, which the annex fold leaves alone. Run it early.
+
+```bash
+npm run proc:dedup-stale-keys              # dry run first — prints all 30 evicted → survivor pairs
+npm run proc:dedup-stale-keys -- --apply   # backs up the shard tree, verifies, then writes
+```
+
+`disambiguateContractKeys` re-keyed colliding legacy rows; `writeMonthShards` merges on
+`Contract.key`, so the rows carrying the OLD key were never evicted and have been double-counting
+since. The eviction is now wired into both shard-merge paths, but that only stops the class
+RECURRING — it cannot clear these 30: `ingest.ts` emits no `aop-legacy-` rows and no month shard
+holds both feeds (0 of 188, measured 2026-08-05), and `ingest_legacy.ts` skips already-ingested
+years. Nothing clears this on a schedule; this step is the only thing that does.
+
+Afterwards, in the same session:
+
+- `npm run db:load:annexes:pg` (+ `:cloud`) — **mandatory**, not cleanup. Evicting a row orphans
+  its `procurement_annexes` rows and only this loader re-resolves them. 3 rows affected, confirmed
+  on both databases.
+- Delete `KNOWN_STALE` from `scripts/db/tests/stale_base_keys.data.test.ts`. That gate fails until
+  you do, deliberately — it is the forcing function that stops the allowlist rotting into a
+  suppression.
+
+Plan: `docs/plans/procurement-same-feed-dedup-v1.md` §5.2.
+
+<!-- ONE-TIME:stale-base-keys:END -->
+
 - **THE RECONCILE IS NOT OPTIONAL AFTER AN INGEST, and its position is fixed.** The corpus is built
   from four feeds (`aop-legacy-` / `eop-` / `ocds-` / `rop-`), each of which splits a contract's
   value across its OWN view of the supplier set — so when one contract arrives from two feeds the
