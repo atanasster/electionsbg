@@ -8,6 +8,7 @@
 // attempts in this family destroyed real data while reporting plausible counts — so every way the
 // rule could over-select is pinned here.
 
+import { readFileSync } from "node:fs";
 import { describe, expect, test } from "vitest";
 import { hashKey } from "./contract_key";
 import {
@@ -16,6 +17,7 @@ import {
   conflictsOf,
   currentKeyOf,
   documentId,
+  evictStaleBaseKeys,
   identityOf,
   mintTimeEik,
   preflightOrder,
@@ -239,6 +241,107 @@ describe("analyzeStaleBaseKeys", () => {
     const eop = { ...row({}), ocid: "eop-1", releaseId: "eop-1-203283623" };
     expect(analyzeStaleBaseKeys([eop, { ...eop, key: "x" }]).pairs).toEqual([]);
   });
+});
+
+describe("evictStaleBaseKeys (the writeMonthShards self-heal)", () => {
+  test("removes the stale row and keeps the survivor", () => {
+    const [stale, live] = pairRows();
+    const r = evictStaleBaseKeys([stale, live], []);
+    expect(r.rows.map((x) => x.key)).toEqual([live.key]);
+    expect(r.evicted).toHaveLength(1);
+    expect(r.evicted[0].evicted.key).toBe(stale.key);
+    expect(r.evicted[0].survivor.key).toBe(live.key);
+  });
+
+  test("NEVER evicts a row the current ingest is writing (the de-collision inversion)", () => {
+    // The bug this signature exists for. `disambiguateContractKeys` leaves a base key BARE when
+    // it is unique in the batch, so a republished CSV that DE-COLLIDES a group arrives as the
+    // bare-key member while the stale row holds the disambiguated key — the pair inverts. Without
+    // the guard the pass evicts the ROW IT JUST INGESTED and reverts numberOfTenderers to the
+    // superseded value, re-firing on every subsequent re-ingest.
+    const probe = row({});
+    const base = baseKeyOf(probe)!;
+    const arrivingBare = row({ key: base, extra: { numberOfTenderers: 2 } });
+    const staleDisamb = row({
+      key: currentKeyOf(probe, base),
+      extra: { numberOfTenderers: 1 },
+    });
+    const merged = [staleDisamb, arrivingBare];
+    // Unguarded, this pair is evictable in the wrong direction…
+    expect(analyzeStaleBaseKeys(merged).pairs[0].evicted.key).toBe(base);
+    // …and the guard refuses it, leaving BOTH rows in place rather than reverting the new one.
+    const r = evictStaleBaseKeys(merged, [arrivingBare]);
+    expect(r.evicted).toEqual([]);
+    expect(r.rows).toHaveLength(2);
+  });
+
+  test("still evicts a stale row when a DIFFERENT row is the arriving one", () => {
+    const [stale, live] = pairRows();
+    const unrelated = row({ doc: "99999", key: "cccccccccccc" });
+    const r = evictStaleBaseKeys([stale, live, unrelated], [unrelated]);
+    expect(r.evicted).toHaveLength(1);
+    expect(r.evicted[0].evicted.key).toBe(stale.key);
+  });
+
+  test("is idempotent — the second pass is a no-op", () => {
+    const [stale, live] = pairRows();
+    const once = evictStaleBaseKeys([stale, live], []);
+    const twice = evictStaleBaseKeys(once.rows, []);
+    expect(twice.evicted).toEqual([]);
+    expect(twice.rows).toBe(once.rows); // same reference: nothing rebuilt
+  });
+
+  test("returns the input untouched when there is nothing to heal", () => {
+    const rows = [row({ key: "aaaaaaaaaaaa" }), row({ key: "bbbbbbbbbbbb" })];
+    const r = evictStaleBaseKeys(rows, []);
+    expect(r.rows).toBe(rows);
+    expect(r.evicted).toEqual([]);
+  });
+
+  test("never touches a non-legacy feed", () => {
+    const eop = { ...row({}), ocid: "eop-1", releaseId: "eop-1-203283623" };
+    const rows = [eop, { ...eop, key: "x" }];
+    expect(evictStaleBaseKeys(rows, []).evicted).toEqual([]);
+  });
+
+  test("a stale row and its survivor always share a month shard", () => {
+    // What makes per-shard eviction sufficient. `identityOf` includes `date` and writeMonthShards
+    // shards on date.slice(0, 7), so the two can never be split across files — by construction,
+    // not by measurement. If identityOf ever drops `date`, this fails.
+    const [stale, live] = pairRows();
+    expect(stale.date.slice(0, 7)).toBe(live.date.slice(0, 7));
+    expect(identityOf({ ...stale, date: "1999-01-01" })).not.toBe(
+      identityOf(stale),
+    );
+  });
+});
+
+describe("the self-heal is wired into every shard-merge path", () => {
+  // Source-level, like cross_reference.test.ts's guard on buildNamesakeFilteredLinkageMap. The
+  // `-x` class needed one bespoke one-shot because its guard was missing from a merge path; this
+  // fails if either path stops calling the eviction, rather than waiting for the corpus to drift.
+  const paths = ["ingest.ts", "ingest_legacy.ts"];
+  for (const f of paths)
+    test(`${f} calls evictStaleBaseKeys inside writeMonthShards`, () => {
+      const src = readFileSync(
+        new URL(`./${f}`, import.meta.url).pathname,
+        "utf8",
+      );
+      const start = src.indexOf("const writeMonthShards");
+      expect(start).toBeGreaterThan(-1);
+      const body = src.slice(start, src.indexOf("\n};", start));
+      expect(body).toContain("evictStaleBaseKeys");
+      // …on the MERGED set (existing ∪ fresh), not on freshRows: a stale row lives in `existing`,
+      // so evicting only among the arriving rows would never see it.
+      expect(body.indexOf("evictStaleBaseKeys")).toBeGreaterThan(
+        body.indexOf("byKey.set(r.key, r)"),
+      );
+      // …and `freshRows` MUST be the second argument. Without it a de-colliding re-ingest evicts
+      // the row it just wrote and reverts numberOfTenderers — see the inversion test above. A
+      // caller that drops the argument still compiles against `readonly Contract[]` if someone
+      // later gives it a default, so pin the call shape here.
+      expect(body).toMatch(/evictStaleBaseKeys\(\s*\w+,\s*freshRows\s*\)/);
+    });
 });
 
 describe("preflightOrder", () => {

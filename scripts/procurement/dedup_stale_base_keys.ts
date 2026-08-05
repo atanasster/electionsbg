@@ -13,8 +13,24 @@
 //
 // The DETECTION lives in `stale_base_keys.ts` and is unit-tested there (`stale_base_keys.test.ts`);
 // this file is the runner — I/O, verification, backup, write. Splitting them is what lets the
-// standing corpus gate import the SAME detection rather than a lookalike, so the gate fails on
-// exactly the population this removes.
+// standing corpus gate and the ingest self-heal import the SAME detection rather than a lookalike.
+//
+// ── THIS IS STILL THE ONLY THING THAT CLEARS THE BACKLOG ────────────────────────────────────
+//
+// `evictStaleBaseKeys` is now also wired into both `writeMonthShards` paths, so a future ingest
+// cannot re-introduce this class — the same treatment `dropSyntheticLegacyTwins` got for `…-x`.
+// But that wiring does NOT clear the 30 rows already on disk, and it is important not to read it
+// as if it did:
+//
+//   - `ingest.ts` is the OCDS ingest and emits no `aop-legacy-` rows at all. It only ever sees a
+//     legacy row when a month shard it opens happens to hold both feeds. Measured 2026-08-05:
+//     0 of 188 shards do — `ocds-` spans 2026-01…06, all 30 stale rows are 2020-08…12. So on
+//     today's corpus that path can never fire on the backlog.
+//   - `ingest_legacy.ts` WOULD heal it, but only for a year it actually re-parses, and
+//     `legacy_ingested.json` suppresses already-ingested years by default.
+//
+// So the backlog is cleared by running this script with `--apply`, or by a deliberate
+// `ingest_legacy --year 2020 --rediscover`. Nothing clears it on a schedule.
 //
 // ── WHY NO EXISTING PASS FINDS THEM ─────────────────────────────────────────────────────────
 //

@@ -19,6 +19,7 @@ import { fetchBundlesIndex } from "./fetch_dataset_index";
 import { fetchBundle } from "./fetch_bundle";
 import { normalizeBundle } from "./normalize";
 import { evictSupersededEopTwins } from "./content_key";
+import { evictStaleBaseKeys, type StalePair } from "./stale_base_keys";
 import {
   assertUniqueKeys,
   checkDiffSize,
@@ -122,9 +123,14 @@ const writeBundlesIndex = (idx: BundlesIndex): void => {
 // rows that once shared a base tuple now carry distinct keys and both survive.
 const writeMonthShards = (
   rows: Contract[],
-): { newFiles: number; modifiedFiles: number; eopEvicted: number } => {
+): {
+  newFiles: number;
+  modifiedFiles: number;
+  eopEvicted: number;
+  staleEvicted: StalePair[];
+} => {
   if (rows.length === 0)
-    return { newFiles: 0, modifiedFiles: 0, eopEvicted: 0 };
+    return { newFiles: 0, modifiedFiles: 0, eopEvicted: 0, staleEvicted: [] };
   const byMonth = new Map<string, Contract[]>();
   for (const r of rows) {
     const month = r.date.slice(0, 7);
@@ -135,6 +141,7 @@ const writeMonthShards = (
   let newFiles = 0;
   let modifiedFiles = 0;
   let eopEvicted = 0;
+  const staleEvicted: StalePair[] = [];
   for (const [month, freshRows] of byMonth) {
     const year = month.slice(0, 4);
     const dir = path.join(CONTRACTS_DIR, year);
@@ -171,7 +178,26 @@ const writeMonthShards = (
     // shard (see dropSyntheticLegacyTwins). Self-heals shards polluted by an
     // earlier ingest and prevents a re-introduced blank-document-id row from
     // double-counting against its real twin.
-    const merged = dropSyntheticLegacyTwins(deduped).rows.sort(rowSort);
+    const twinned = dropSyntheticLegacyTwins(deduped).rows;
+    // Drop legacy rows still carrying a key from a SUPERSEDED formula. Same mechanism as the
+    // `-x` guard above, one key-formula change later: `disambiguateContractKeys` re-keyed
+    // colliding rows, this merge is keyed on `Contract.key`, so the old-keyed row matched
+    // nothing on re-ingest and has been double-counting ever since. Self-heals here rather than
+    // needing another bespoke one-shot. Pairs, not a count — see the log below.
+    const stale = evictStaleBaseKeys(twinned, freshRows);
+    // LOG BEFORE THE WRITE, not after writeMonthShards returns. `assertUniqueKeys` throws INSIDE
+    // this loop, so a mid-loop throw would otherwise leave earlier shards already written with
+    // rows deleted and the pair log never printed — deletion with no record, which is the exact
+    // failure "pairs, never a count" exists to prevent.
+    for (const p of stale.evicted)
+      console.log(
+        `   self-healed stale base key ${p.evicted.key} → ${p.survivor.key}  ` +
+          `${p.evicted.ocid} ${p.evicted.contractId ?? "-"} ` +
+          `€${(p.evicted.amountEur ?? 0).toFixed(2)}` +
+          (p.conflicts.length ? `  [conflict: ${p.conflicts.join("; ")}]` : ""),
+      );
+    staleEvicted.push(...stale.evicted);
+    const merged = stale.rows.sort(rowSort);
     assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     // Month shards keep FULL-precision amountEur (rawJson), NOT the cents
@@ -187,7 +213,7 @@ const writeMonthShards = (
     if (prev == null) newFiles++;
     else modifiedFiles++;
   }
-  return { newFiles, modifiedFiles, eopEvicted };
+  return { newFiles, modifiedFiles, eopEvicted, staleEvicted };
 };
 
 const writeIndexJson = (
@@ -384,13 +410,28 @@ const main = async (args: {
   }
 
   // 4. Write month-shards.
-  const { newFiles, modifiedFiles, eopEvicted } = writeMonthShards(allRows);
+  const { newFiles, modifiedFiles, eopEvicted, staleEvicted } =
+    writeMonthShards(allRows);
   console.log(
     `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)` +
       (eopEvicted > 0
         ? `; evicted ${eopEvicted} EOP twin(s) superseded by the arriving OCDS rows`
         : ""),
   );
+  // Summary only — every pair was already named inside writeMonthShards, before its shard was
+  // written. NOTE this ingest is the OCDS one and emits no `aop-legacy-` rows, so it fires only
+  // on a shard whose month holds BOTH feeds. Measured 2026-08-05: 0 of 188 shards do, so on
+  // today's corpus this is a guard against recurrence, NOT the thing that clears the backlog.
+  // That is `ingest_legacy` (or the audit runner) — see docs/plans/procurement-same-feed-dedup-v1.md §5.2.
+  if (staleEvicted.length) {
+    const eur = staleEvicted.reduce(
+      (s, p) => s + (p.evicted.amountEur ?? 0),
+      0,
+    );
+    console.log(
+      `→ self-healed ${staleEvicted.length} stale-base-key row(s), €${eur.toFixed(2)}`,
+    );
+  }
 
   // 5. Diff cap. Skipped on --renormalize: re-processing every bundle
   // intentionally rewrites a large share of the month-shards.

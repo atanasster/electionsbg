@@ -1,6 +1,7 @@
 // Detection of legacy-CSV rows still carrying a key from a SUPERSEDED keying scheme — the pure
-// half, shared by the one-shot sweep (`dedup_stale_base_keys.ts`) and the standing gate
-// (`scripts/db/tests/stale_base_keys.data.test.ts`).
+// half, shared by THREE callers: the `writeMonthShards` self-heal (`evictStaleBaseKeys`, wired
+// into `ingest.ts` + `ingest_legacy.ts`), the one-shot sweep (`dedup_stale_base_keys.ts`) and the
+// standing gate (`scripts/db/tests/stale_base_keys.data.test.ts`).
 //
 // Shared deliberately, for the reason `cross_source.ts` says at the top of its own file: a
 // lookalike re-implementation is how this plan family's numbers went wrong before. The gate must
@@ -185,6 +186,47 @@ export const preflightOrder = (all: Contract[]): string | null => {
     `key form — the key inputs have been rewritten since minting (fix_amount_overrides.ts ` +
     `rewrites \`amount\`). Detection here would be a silent no-op; run this BEFORE that pass.`
   );
+};
+
+/** The SELF-HEAL, wired into both `writeMonthShards` paths (`ingest.ts`, `ingest_legacy.ts`).
+ *
+ *  Same shape and same reasoning as `dropSyntheticLegacyTwins` (`validate.ts`), which fixed the
+ *  previous occurrence of this mechanism — the `…-x` blank-document-id class, ~34k pairs / ~€11bn.
+ *
+ *  PER-SHARD EVICTION IS SUFFICIENT, and by construction rather than by luck: `identityOf`
+ *  includes `date`, and `writeMonthShards` shards on `date.slice(0, 7)` — so a stale row and the
+ *  twin that supersedes it always land in the same month file, and a partial ingest sees both
+ *  members or neither (the shard is loaded whole). An untouched month is under-cleaned, never
+ *  mis-cleaned.
+ *
+ *  ── `arriving` IS NOT OPTIONAL, AND THE REASON IS A REAL BUG THIS SHIPPED WITH ──────────────
+ *
+ *  A first version argued it could never evict a row the ingest just wrote, because "a fresh row
+ *  carries the disambiguated key, so it is never the bare-key member". THAT IS FALSE:
+ *  `disambiguateContractKeys` leaves a base key BARE when it is unique in the batch. So when a
+ *  republished CSV DE-COLLIDES a group — АОП restates the dump, a lot is dropped, an amount is
+ *  corrected — the arriving row is the bare-key member and the STALE row carries the
+ *  disambiguated key. The pair inverts, and the pass evicts the new row in favour of the old one,
+ *  silently reverting `numberOfTenderers` (the published single-bidder red flag) to its
+ *  superseded value. It also never converges: it re-fires on every subsequent re-ingest.
+ *
+ *  So an arriving row is never evictable, exactly as `evictSupersededEopTwins(rows, arriving)`
+ *  already requires one line above in the same merge. Passing an empty `arriving` is legitimate
+ *  only for a caller that is not ingesting (the audit runner).
+ *
+ *  Returns the pairs, not a count — the caller logs them BEFORE writing, because a count is what
+ *  every earlier failure in this area reported while corrupting data. */
+export const evictStaleBaseKeys = (
+  rows: Contract[],
+  arriving: readonly Contract[],
+): { rows: Contract[]; evicted: StalePair[] } => {
+  const { pairs } = analyzeStaleBaseKeys(rows);
+  if (!pairs.length) return { rows, evicted: [] };
+  const fresh = new Set(arriving);
+  const safe = pairs.filter((p) => !fresh.has(p.evicted));
+  if (!safe.length) return { rows, evicted: [] };
+  const gone = new Set(safe.map((p) => p.evicted));
+  return { rows: rows.filter((r) => !gone.has(r)), evicted: safe };
 };
 
 export const analyzeStaleBaseKeys = (all: Contract[]): StaleAnalysis => {

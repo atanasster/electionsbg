@@ -21,11 +21,12 @@
 //
 // ── WHY THERE IS AN ALLOWLIST ───────────────────────────────────────────────────────────────
 //
-// The sweep is written and verified but NOT YET APPLIED — it deletes from a gitignored tree that is
-// not recoverable from git and needs a corpus reload behind it, so running it is an operator action
-// (`npm run proc:dedup-stale-keys`, then the same command with `-- --apply`). Until then the corpus
-// legitimately carries the 30 known orphans, and a gate demanding zero would ship red and be
-// ignored, which is worse than no gate.
+// The corpus carries 30 known orphans and NOTHING clears them on a schedule. The eviction is wired
+// into both `writeMonthShards` paths, but that only stops the class RECURRING: `ingest.ts` emits no
+// `aop-legacy-` rows and no shard holds both feeds (0 of 188, measured 2026-08-05), and
+// `ingest_legacy.ts` skips already-ingested years. Clearing the backlog is a deliberate act —
+// `npm run proc:dedup-stale-keys -- --apply`. A gate demanding zero before that would ship red and
+// be ignored, which is worse than no gate.
 //
 // So BOTH allowlists are asserted EXHAUSTIVE **and** MINIMAL, the same contract
 // `single_source_per_contract.data.test.ts` uses: a NEW orphan fails immediately, and once the
@@ -275,10 +276,19 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "every allowlisted orphan still exists (KNOWN_STALE stays minimal)",
   async () => {
-    // Once the sweep runs, these rows are gone and their entries must go with them — otherwise the
-    // list silently licenses a future regression on those exact keys. Same exhaustive-AND-minimal
-    // contract as single_source_per_contract's ACCEPTED_CONFLICTS, and it fires in the good
-    // direction: the fix makes it red.
+    // Entries must not outlive the rows they describe, or the list silently licenses a future
+    // regression on those exact keys — the exhaustive-AND-minimal contract
+    // `single_source_per_contract.data.test.ts`'s ACCEPTED_CONFLICTS carries.
+    //
+    // A draft exempted the all-clean case (warn, don't fail) on the theory that the ingest
+    // self-heal would clear the backlog on its own and the assertion would go red on the very run
+    // that fixed things. It would NOT: `ingest.ts` emits no legacy rows and no shard holds both
+    // feeds, so that path cannot fire on this backlog at all. The exemption bought nothing and
+    // cost the forcing function — `KNOWN_STALE` also filters the "no NEW orphan" test above, so
+    // with a rotting list BOTH tests pass if these same 30 keys ever reappear.
+    //
+    // Shrinking the list to zero is the only thing that closes that window, so failing here is
+    // the point. When the backlog is genuinely cleared, delete the entries in the same commit.
     const { analysis } = await analyzed();
     const live = new Set(analysis.pairs.map((p) => p.evicted.key));
     const gone = [...KNOWN_STALE].filter((k) => !live.has(k));
@@ -286,8 +296,9 @@ test.skipIf(skip)(
       gone,
       [],
       `KNOWN_STALE lists ${gone.length} orphan(s) absent from THIS database: ${gone.join(", ")}.\n` +
-        `  If the sweep has been applied and the corpus reloaded — good, that is the intended ` +
-        `end state: delete those entries.\n` +
+        `  If the backlog has been cleared (\`npm run proc:dedup-stale-keys -- --apply\`, or an ` +
+        `\`ingest_legacy\` re-parse) and the corpus reloaded — good, that is the intended end ` +
+        `state: delete those entries, in this commit.\n` +
         `  If this database simply predates them, load the current corpus; do not edit the list.`,
     );
   },

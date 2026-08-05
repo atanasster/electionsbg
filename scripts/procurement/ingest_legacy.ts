@@ -26,6 +26,7 @@ import {
   dropSyntheticLegacyTwins,
   validateContract,
 } from "./validate";
+import { evictStaleBaseKeys, type StalePair } from "./stale_base_keys";
 import { readLegacyManifest, recordLegacyIngest } from "./legacy_manifest";
 import type { Contract } from "./types";
 
@@ -69,8 +70,13 @@ const rowSort = (a: Contract, b: Contract): number => {
 // to the OCDS ingest internals.
 const writeMonthShards = (
   rows: Contract[],
-): { newFiles: number; modifiedFiles: number } => {
-  if (rows.length === 0) return { newFiles: 0, modifiedFiles: 0 };
+): {
+  newFiles: number;
+  modifiedFiles: number;
+  staleEvicted: StalePair[];
+} => {
+  if (rows.length === 0)
+    return { newFiles: 0, modifiedFiles: 0, staleEvicted: [] };
   const byMonth = new Map<string, Contract[]>();
   for (const r of rows) {
     const month = r.date.slice(0, 7);
@@ -80,6 +86,7 @@ const writeMonthShards = (
   }
   let newFiles = 0;
   let modifiedFiles = 0;
+  const staleEvicted: StalePair[] = [];
   for (const [month, freshRows] of byMonth) {
     const year = month.slice(0, 4);
     const dir = path.join(CONTRACTS_DIR, year);
@@ -94,9 +101,19 @@ const writeMonthShards = (
     // Drop synthetic legacy `-x` twins that duplicate a real row in the same
     // shard (see dropSyntheticLegacyTwins) — a blank-document-id row gets the
     // "-x" ocid fallback and would otherwise double-count its real twin.
-    const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
-      rowSort,
-    );
+    const twinned = dropSyntheticLegacyTwins([...byKey.values()]).rows;
+    // …and drop legacy rows still carrying a key from a SUPERSEDED formula. Same mechanism as
+    // the `-x` guard above, one key-formula change later — see stale_base_keys.ts.
+    const stale = evictStaleBaseKeys(twinned, freshRows);
+    // Named BEFORE the write — assertUniqueKeys throws inside this loop. See ingest.ts.
+    for (const p of stale.evicted)
+      console.log(
+        `    → self-healed stale base key ${p.evicted.key} → ${p.survivor.key}  ` +
+          `${p.evicted.ocid} €${(p.evicted.amountEur ?? 0).toFixed(2)}` +
+          (p.conflicts.length ? `  [conflict: ${p.conflicts.join("; ")}]` : ""),
+      );
+    staleEvicted.push(...stale.evicted);
+    const merged = stale.rows.sort(rowSort);
     assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
@@ -105,7 +122,7 @@ const writeMonthShards = (
     if (prev == null) newFiles++;
     else modifiedFiles++;
   }
-  return { newFiles, modifiedFiles };
+  return { newFiles, modifiedFiles, staleEvicted };
 };
 
 const main = async (args: {
@@ -191,12 +208,16 @@ const main = async (args: {
     }
     totalRows += rows.length;
     if (!args.dryRun) {
-      const { newFiles, modifiedFiles } = writeMonthShards(rows);
+      const { newFiles, modifiedFiles, staleEvicted } = writeMonthShards(rows);
       totalNewFiles += newFiles;
       totalModifiedFiles += modifiedFiles;
       console.log(
         `    → wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
       );
+      if (staleEvicted.length)
+        console.log(
+          `    → self-healed ${staleEvicted.length} stale-base-key row(s) (named above)`,
+        );
       // Record AFTER the shards land, so a run that throws mid-write does not
       // mark the year ingested and silently skip it forever.
       recordLegacyIngest(
