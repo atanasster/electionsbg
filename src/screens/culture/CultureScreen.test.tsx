@@ -121,7 +121,11 @@ const at = (url: string) =>
   });
 
 /** The years picker's rendered text — what the reader reads as "the scope". */
-const picker = () => screen.getByRole("combobox");
+// The scope control's year picker specifically. The page now also mounts the
+// institution finder, whose input is a combobox too, so a bare
+// getByRole("combobox") is ambiguous — and would silently start asserting
+// against the wrong control if the disambiguation were by index.
+const picker = () => screen.getByRole("combobox", { name: /years|години/i });
 const nsPill = () => screen.getByRole("button", { name: "All years" });
 /** The hero's span line, printed from the AGGREGATED overview (`scoped`) — the
  *  cheapest witness of which window the numbers actually cover. */

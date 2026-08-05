@@ -36,6 +36,7 @@ import { DefenseSustainmentTile } from "./DefenseSustainmentTile";
 import { DefenseExportsTile } from "./DefenseExportsTile";
 import { DefenseReadinessTile } from "./DefenseReadinessTile";
 import { DefenseAwardersTile } from "./DefenseAwardersTile";
+import { DefenseSearchBox } from "./DefenseSearchBox";
 
 export const DefenseScreen = () => {
   const { i18n } = useTranslation();
@@ -130,6 +131,9 @@ export const DefenseScreen = () => {
               nsLabelOverride={bg ? "Последна година" : "Latest year"}
             />
           </div>
+
+          {/* The roster finder, above the tiles. */}
+          <DefenseSearchBox />
 
           {/* KPI row — re-anchored to the picked year */}
           <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">

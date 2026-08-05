@@ -36,6 +36,8 @@ import {
   type SectorDashboardConfig,
 } from "./sectorDashboards";
 import { SectorAwardersTile } from "./SectorAwardersTile";
+import { SectorMembersSearch } from "./SectorMembersSearch";
+import { MEMBER_SEARCH_MIN } from "./membersIndex";
 import {
   SectorSpendByYearTile,
   SectorTopContractorsTile,
@@ -149,7 +151,7 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
           the Pack/KPI branch below: the box is how a reader reaches a specific
           hospital or pathway, and it must not disappear when a narrow scope
           leaves the dashboard with no contracts to show. */}
-      {SearchBox && (
+      {SearchBox ? (
         <Suspense
           fallback={
             <div className="h-24 animate-pulse rounded-xl border bg-card" />
@@ -157,6 +159,14 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
         >
           <SearchBox />
         </Suspense>
+      ) : (
+        // No bespoke box, but a roster long enough to be a wall of chips: give
+        // the members their own finder. Auto-enabled rather than per-sector
+        // config, so a sector that grows past the floor gets one for free —
+        // which is the case this exists for (МВР went from a handful to 73).
+        config.members.length >= MEMBER_SEARCH_MIN && (
+          <SectorMembersSearch config={config} bg={bg} />
+        )
       )}
 
       {Pack ? (

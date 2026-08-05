@@ -30,6 +30,7 @@ import { CultureGrantsTile } from "./CultureGrantsTile";
 import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
+import { CultureSearchBox } from "./CultureSearchBox";
 
 export const CultureScreen = () => {
   const { i18n } = useTranslation();
@@ -101,6 +102,11 @@ export const CultureScreen = () => {
         nsLabelOverride={bg ? "Всички години" : "All years"}
         allowAll={false}
       />
+
+      {/* The institution finder. Independent of the scope pill and of the data
+          fetch: the roster is static, so it works even while the payload is in
+          flight or has failed. */}
+      <CultureSearchBox />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
