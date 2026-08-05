@@ -664,10 +664,13 @@ test.skipIf(skip)("no place blob grows into a second directory", async () => {
   // P2 in the plan's performance contract, as a hard gate rather than a
   // measurement: the whole point of this kind is that a place dashboard fetches
   // a few KB. A list cap removed by accident is how it would stop being true.
+  // octet_length, not length: these blobs are mostly Cyrillic, so `length`
+  // counts characters and would let a 14 KB payload through a ceiling whose
+  // message says 12 KB.
   const [r] = await allRows<{ n: number; max: number; over: number }>(
     `SELECT count(*)::int AS n,
-            max(length(payload::text))::int AS max,
-            count(*) FILTER (WHERE length(payload::text) > 12288)::int AS over
+            max(octet_length(payload::text))::int AS max,
+            count(*) FILTER (WHERE octet_length(payload::text) > 12288)::int AS over
      FROM school_payloads WHERE kind = 'place'`,
   );
   assert.ok(r.n > 0, "no place blobs at all");

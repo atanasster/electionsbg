@@ -4,8 +4,10 @@ Put the matura picture on the Governance place nodes, starting with the oblast
 (`/governance/region/:oblast`), including the context-adjusted "над очакваното"
 cut — the part of the education dataset nobody else publishes.
 
-Status: planned 2026-08-05. Supersedes nothing; extends `education-mon-v1.md`
-(the /education explorer) with its place-grain half.
+Status: **shipped 2026-08-05**, all five steps — `bb1b054319` (loader),
+`9963d116a4` (tiles + hook), `02a55c3481` (region node), `a69ba771bf`
+(prerendered body), and this measurement pass. Supersedes nothing; extends
+`education-mon-v1.md` (the /education explorer) with its place-grain half.
 
 ---
 
@@ -28,8 +30,8 @@ Two things make this look worse than an absence:
 - The prerendered region body ([bodyBuilders.ts:1166](../../scripts/prerender/bodyBuilders.ts))
   makes the same claim to crawlers, in both languages.
 
-So the copy promises a matura number on 28 region pages × 2 languages that no
-tile has ever rendered. This plan makes the promise true.
+So the copy promises a matura number on 31 prerendered region pages × 2
+languages that no tile has ever rendered. This plan makes the promise true.
 
 ---
 
@@ -90,7 +92,8 @@ section.
 
 ### 3.1 Tile A — "Матура в областта"
 
-- **Headline**: latest ДЗИ БЕЛ average, rank /28, delta vs the national average.
+- **Headline**: latest ДЗИ БЕЛ average, rank among the 28 oblasts, delta vs
+  the national average.
 - **Trend**: first→latest change with the national tick (the dumbbell idiom
   already in [OblastTrendTable.tsx](../../src/screens/education/OblastTrendTable.tsx),
   one row instead of 28).
@@ -241,22 +244,22 @@ Notes that will otherwise waste a measurement cycle:
 
 Each step is independently shippable and ends green.
 
-**Step 1 — loader emits `kind='place'`.** Region + município blobs in the
+**Step 1 — loader emits `kind='place'`.** ✅ `bb1b054319`. Region + município blobs in the
 existing pass; extend [schools_pg.data.test.ts](../../scripts/db/tests/schools_pg.data.test.ts)
 with the reconciliation and size gates (§8).
 
-**Step 2 — data hook + tiles.** `useEducationPlace`, `EducationPlaceTile`
+**Step 2 — data hook + tiles.** ✅ `9963d116a4`. `useEducationPlace`, `EducationPlaceTile`
 (Tile A) and `EducationExpectedTile` (Tile B), i18n keys in bg + en, co-located
 component tests.
 
-**Step 3 — wire into the region node.** New `DashboardSection`, the Sofia /
+**Step 3 — wire into the region node.** ✅ `02a55c3481`. New `DashboardSection`, the Sofia /
 `PDV-00` aliasing and footnote, self-hide behaviour.
 
-**Step 4 — prerendered body.** Education section in `buildGovernanceRegionBody`
+**Step 4 — prerendered body.** ✅ `a69ba771bf`. Education section in `buildGovernanceRegionBody`
 (bg + en) from the committed index, parsed once; fix the stale "matura
 indicators" claim in the same pass; prerender unit test.
 
-**Step 5 — performance pass.** Run P1–P6, record the numbers in `## Measured`,
+**Step 5 — performance pass.** ✅ — see `## Measured`. Run P1–P6, record the numbers in `## Measured`,
 and fix anything over budget before declaring done.
 
 **Phase 2 (not v1)**: the município node (`/governance/{obshtina}`, 265 pages —
@@ -316,4 +319,51 @@ Open (do not block the build):
 
 ## Measured
 
-_Filled in at the end of Step 5._
+Local Postgres (docker, :5433), 994 schools / 271 place blobs, 2026-08-05.
+Every figure below was measured, not estimated.
+
+All sizes are **bytes** (`octet_length`), not characters: these blobs are mostly
+Cyrillic, so `length()` under-reports them by ~14% and would have let a 14 kB
+payload through a ceiling labelled 12 kB. The committed gate was measuring
+characters until this pass; it now measures bytes.
+
+| # | Budget | Measured | |
+|---|---|---|---|
+| **P1** | serving read < 5 ms, < 50 buffers | **0.04–0.06 ms**, `shared hit=2`, `Index Scan using school_payloads_pkey` — on `SFO`, the largest blob, and on `S23`, the largest school set | ✅ |
+| **P2** | ≤ 12 kB max, ≤ 8 kB p95 | **9,413 B max** (`SFO`), **7,849 B p95**, 2,327 B mean | ✅ |
+| **P3** | `school_payloads` ≤ 4 MB | **672 KiB** on disk (`pg_total_relation_size` = 688,128 B) | ✅ |
+| **P4** | ≤ +3 s on `db:load:schools:pg` | **+0.00 s** — median 0.68 s before (bb1b054319^) and 0.68 s after, three runs each | ✅ |
+| **P5** | directory blob never fetched; ≤ 12 kB on the wire | **one** request, `kind=place&key=S23`, **7,795 B**, 20 ms; `kind=directory` never requested | ✅ |
+| **P6** | index parsed once, ≤ +1 s on the prerender | **1 read** of `data/schools/index.json` for the whole 31-region × 2-language build (counted by instrumenting `fs.readFileSync`); 11.8 ms for `readEducationPlaces`, 11 ms median for the whole route build | ✅ |
+
+Notes on what the numbers mean, and what they don't:
+
+- **P1's plan shape held after all** — the planning note anticipated a seq scan on
+  a ~300-row table and asked for the assertion to be on buffers and time. Postgres
+  chose the primary-key index anyway (2 buffers). The gate in
+  `schools_pg.data.test.ts` still asserts size, not plan, for the reason the plan
+  gives: a plan-shape assertion on a table this small would be flaky for a correct
+  reason.
+- **The largest blob is `SFO`, not `S23`** — §5 guessed the latter. Size follows
+  the uncapped по-общини list (Софийска област has 19 municipalities), not the
+  school count (Sofia city has 155 schools inside one município). Both were
+  measured; both give the same plan and the same 2 buffers.
+- **P2's p95 clears its budget by 4%, not comfortably.** 7,849 B against 8,192.
+  The list caps (5/5/8/5) and the по-общини row shape are what hold it there, and
+  the 12 kB hard gate is the backstop if a cap is ever loosened.
+- **P4's loader gained no measurable time.** The 271 blobs ship in one batched
+  INSERT (a step-1 review finding), so the added work is an in-memory fold, below
+  the loader's own run-to-run variance. Cloud SQL is unmeasured; the batching is
+  what keeps it one round-trip rather than 271.
+- **P5 is the whole point of the `place` kind.** 7,795 B on the wire against a
+  718,009 B directory blob — 92× — and the request COUNT (one, not two) is what
+  proves the page never falls back to the full corpus.
+- **P6's evidence is the read count, not the timing.** Timing can suggest a single
+  parse; counting the reads establishes it. `readEducationPlaces` runs inside
+  `buildGovernanceRegionRoutes`, so its 11.8 ms is part of that build's 11 ms
+  median, not additional to it — the two figures come from separate runs with a
+  warm page cache.
+- **All 31 region routes carry the section in both languages** — including the
+  three Sofia МИР and `PDV-00`, which reach it through the alias rule rather than
+  through a blob of their own. (32 regions exist; МИР 32, abroad, is not
+  prerendered.)
