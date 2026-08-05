@@ -19,6 +19,15 @@
 // ranking note in 133). Both are therefore staleness inputs, not just the
 // registry itself.
 //
+// WITHIN db:refresh that means AFTER `db:load:graph:pg`, which is what APPLIES
+// and rebuilds company_public_money (127) — not next to db:load:place-dim:pg,
+// where this step used to sit. Placed there it read the PREVIOUS vintage of the
+// money basis on every contracts reload, so money_eur shipped stale by
+// construction while every row count reconciled. Caught 2026-08-05 by
+// tr_company_place.data.test.ts ("money_eur has drifted from
+// company_public_money"), 30 companies adrift. place_dim only needs to precede
+// it, and it still does.
+//
 // Reload shape: UNLOGGED stage + MERGE (reference_stage_merge_reload), because
 // the table is on a serving path — a TRUNCATE+rebuild would hold an
 // AccessExclusiveLock for the whole load and 500 the tile at the pool's

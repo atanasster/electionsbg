@@ -69,6 +69,63 @@ test("db:refresh exists and still chains npm run steps", () => {
   );
 });
 
+// ORDER, not just membership. Every test around this one asks "is the loader in
+// the chain?" — none asks "is it in the right PLACE?", and that gap shipped a
+// real defect: db:load:tr-company-place:pg sat next to db:load:place-dim:pg,
+// twenty steps ahead of the db:load:graph:pg that APPLIES and rebuilds
+// company_public_money (127), the money basis it denormalizes. So on every
+// contracts reload it copied the PREVIOUS vintage — the governance
+// "фирми, регистрирани тук" tile ranked and counted a stale corpus at a 200,
+// with every row count reconciling. Caught 2026-08-05 only because
+// tr_company_place.data.test.ts compares the copy against its source.
+//
+// Each pair below is "consumer must follow the step that rebuilds its input".
+// Add a pair whenever a loader denormalizes or reads something another chain
+// step (re)builds; membership alone cannot express that.
+const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
+  {
+    after: "db:load:tr-company-place:pg",
+    before: "db:load:graph:pg",
+    why: "denormalizes company_public_money (127), which db:load:graph:pg applies and rebuilds",
+  },
+  {
+    after: "db:load:tr-company-place:pg",
+    before: "db:load:place-dim:pg",
+    why: "resolves company seats against the place dimension",
+  },
+  {
+    after: "db:load:persons-browse:pg",
+    before: "db:resolve:persons",
+    why: "folds person/person_role, which the resolver builds",
+  },
+  {
+    after: "db:load:graph:pg",
+    before: "db:load:persons-browse:pg",
+    why: "reads person_browse_table facets for its person nodes",
+  },
+];
+
+test("db:refresh orders each loader after the step that rebuilds its input", () => {
+  const steps = (refreshChain ?? "")
+    .split("&&")
+    .map((s) => s.match(/npm run ([a-z0-9:_-]+)/)?.[1])
+    .filter((s): s is string => Boolean(s));
+  const at = (name: string) => steps.indexOf(name);
+
+  for (const { after, before, why } of ORDER_PAIRS) {
+    const a = at(after);
+    const b = at(before);
+    // Membership is another test's job; skip rather than double-report it.
+    if (a === -1 || b === -1) continue;
+    assert.ok(
+      a > b,
+      `db:refresh runs ${after} at step ${a + 1} but ${before} at step ${b + 1} — ` +
+        `${after} ${why}, so it must come AFTER. Running it earlier publishes the ` +
+        `previous vintage with nothing failing.`,
+    );
+  }
+});
+
 test("every local db:load/db:resolve script is in db:refresh or REFRESH_EXCLUSIONS", () => {
   const uncovered = localLoaders.filter(
     (k) => !referenced.has(k) && !(k in REFRESH_EXCLUSIONS),
