@@ -343,12 +343,14 @@ the exact shape that produced the `procurement-overview` and `procurement-flow` 
 
 ## 8. Open questions
 
-1. **Do we ingest open calls after all?** Everything in §3 follows from the fact that we do
-   not. `2020.eufunds.bg` publishes an opportunities register; ЦАИС ЕОП and ДФЗ publish
-   theirs; a group member has already built a monitor over 13 such sites. Ingesting calls
-   would let `/funds` answer ~68% of the questions *literally* rather than adjacently — a
-   materially bigger product, and a materially bigger commitment (a wrong deadline is worse
-   than no deadline). Out of scope for this plan; it is the obvious v2 question.
+1. ~~**Do we ingest open calls after all?**~~ **Resolved 2026-08-05 — yes.** Sources
+   researched and verified in
+   [funds-open-calls-sources-v1.md](funds-open-calls-sources-v1.md): ИСУН 2020
+   `/bg/s/Procedure/Active` is the canonical register (55 open procedures, server-rendered,
+   no auth, exact deadlines) and the ДФЗ/Стратегически план XLSX carries the money and
+   eligibility fields ИСУН omits. This does **not** retire §3 — the awarded corpus still
+   supplies the base rates that make an open call worth reading, so `open_calls` is Band 1's
+   companion, not its replacement.
 2. **Does the resolver key on free text or on a curated activity taxonomy?** `themes.json`
    and `taxonomy.json` already exist in `data/funds/`. Free text ships sooner; a taxonomy
    gives stable URLs — and stable URLs are what earn the long-tail impressions
