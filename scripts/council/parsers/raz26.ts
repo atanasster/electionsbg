@@ -33,7 +33,7 @@
 // rejected), equivalent to HKV09 / DOB28 / HKV34 / SZR / RSE / Pleven.
 
 import { fetchToFile } from "../lib/fetch";
-import { extractDocxText } from "../lib/docx";
+import { extractDocxText, extractOdtText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
@@ -83,9 +83,17 @@ const INDEX_LINK_RE =
 //   /2023-2027/{YYYY}/OS-{date}/OS-Protokol_{N}-{date}/Protokol_{N}.docx  (doubled OS-)
 //   /Protokoli/2023-2027/OS-Protokol_{N}-{date}/Protokol_{N}.docx (different parent)
 //   /2023-2027/{YYYY}/OS-{date}/Protokol_{N}/Protokol_{N}.pdf      (PDF instead of DOCX)
+//   /2023-2027/{YYYY}/OS-{date}/Protokol%20{N}.odt                 (.odt, SPACE separator)
 // We anchor on the final filename + the OBS_doc parent + a date
-// anywhere in the path. Extension may be .docx OR .pdf.
-const PROTOKOL_FILENAME_RE = /\/Protokol_(\d+)(?:[-_][\d.-]+)?\.(docx|pdf)$/i;
+// anywhere in the path. Extension may be .docx, .pdf OR .odt.
+//
+// The separator after "Protokol" is NOT always an underscore: the .odt drop
+// (session 22, May 2025) uses a literal space, which arrives here URL-encoded
+// as "%20" because we match the raw href. Requiring "_" silently skipped that
+// session — the parser reported "no .docx link found on session page" while
+// the document was sitting right there.
+const PROTOKOL_FILENAME_RE =
+  /\/Protokol(?:_|%20|\s)+(\d+)(?:[-_][\d.-]+)?\.(docx|pdf|odt)$/i;
 const URL_DATE_RE = /(\d{1,2})[.-](\d{1,2})[.-](\d{4})/;
 
 const parseSessionsFromIndex = (
@@ -423,15 +431,12 @@ export const scrapeRAZ = async (
         const yyyy = parseInt(ref.date.slice(0, 4), 10);
         if (yyyy < startYear || yyyy > currentYear) continue;
 
-        const isPdf = /\.pdf$/i.test(ref.docxUrl);
-        const localPath = join(
-          dir,
-          `pr_${ref.session}.${isPdf ? "pdf" : "docx"}`,
-        );
+        const ext = /\.(pdf|odt|docx)$/i.exec(ref.docxUrl)?.[1].toLowerCase();
+        const localPath = join(dir, `pr_${ref.session}.${ext ?? "docx"}`);
         await fetchToFile(ref.docxUrl, localPath);
         const buf = await readFile(localPath);
         let text: string;
-        if (isPdf) {
+        if (ext === "pdf") {
           text = await extractPdfText(buf);
           if (looksLikeScannedPdf(text)) {
             errors.push({
@@ -440,6 +445,8 @@ export const scrapeRAZ = async (
             });
             continue;
           }
+        } else if (ext === "odt") {
+          text = await extractOdtText(buf);
         } else {
           text = await extractDocxText(buf);
         }

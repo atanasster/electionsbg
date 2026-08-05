@@ -1,10 +1,16 @@
-// Димитровград (HKV09) — full-session protokol .doc parser.
+// Димитровград (HKV09) — full-session protokol parser (.doc / .docx / .pdf).
 //
 // Source surface:
 //   - Index: https://www.dimitrovgrad.bg/bg/protokoli-ot-zasedaniyata-na-obshtinskiya-savet
 //     (static, paginated /page/N — 220+ pages of sessions back to 2009)
-//   - Session pages link a single .doc (Word 97-2003 binary) under
-//     /uploads/posts/{YYYY}/{DDMMYYYY}-za-publ.doc
+//   - Session pages link a single document under
+//     /uploads/posts/{YYYY}/{DDMMYYYY}-za-publ.{doc,docx,pdf}
+//
+// FORMAT HISTORY — this município has changed format twice, and each change
+// was silent: the parser reported "no link found" while the document sat on
+// the page. .doc through session 32, .docx from 33, .pdf from 38
+// (2026-07-30). Assume it will change again; findDocUrl below prefers Word
+// and falls back to PDF rather than pinning one extension.
 //   - Per-decision .docx files (r-{N}-{slug}.docx) also published on the
 //     companion /bg/resheniya-na-obs page — but those contain ONLY the
 //     decision body, no tally. The tally lives in the chair-narrated
@@ -39,6 +45,7 @@
 
 import { fetchToFile } from "../lib/fetch";
 import { extractDocxText } from "../lib/docx";
+import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
   CouncilResolution,
@@ -156,21 +163,32 @@ const collectIndexPages = async (
   return out;
 };
 
-// Session-page → protokol file URL. The protokol is the single .doc or
-// .docx link under /uploads/posts/ — most sessions ship .doc (Word 97-
-// 2003 binary), recent sessions (33+) started using .docx. Per-decision
-// .docx files live on the companion /bg/resheniya-na-obs pages, not
-// here.
+// Session-page → protokol file URL. The protokol is the single document
+// link under /uploads/posts/. The format has now shifted TWICE across the
+// archive: most sessions ship .doc (Word 97-2003 binary), sessions 33+
+// moved to .docx, and session 38 (2026-07-30) moved again to .pdf. Per-
+// decision .docx files live on the companion /bg/resheniya-na-obs pages,
+// not here.
+//
+// PREFERENCE ORDER, not first-match: .doc/.docx win when present, and .pdf
+// is the fallback. Every already-ingested session therefore keeps parsing
+// through exactly the path it did before — the PDF branch only engages for
+// sessions that ship nothing else, so this widening cannot silently re-route
+// (and re-parse) settled history.
+const DOC_EXT_RE = /uploads\/posts\/.+\.(docx?|pdf)$/i;
+
 const findDocUrl = (sessionHtml: string): string | null => {
   const hrefs = Array.from(
     sessionHtml.matchAll(/href=["']([^"']+)["']/g),
     (m) => m[1],
   );
-  for (const h of hrefs) {
-    if (!/uploads\/posts\/.+\.docx?$/i.test(h)) continue;
-    return h.startsWith("http") ? h : `${BASE}/${h.replace(/^\/+/, "")}`;
-  }
-  return null;
+  const candidates = hrefs.filter((h) => DOC_EXT_RE.test(h));
+  const word = candidates.find((h) => /\.docx?$/i.test(h));
+  const chosen = word ?? candidates.find((h) => /\.pdf$/i.test(h));
+  if (!chosen) return null;
+  return chosen.startsWith("http")
+    ? chosen
+    : `${BASE}/${chosen.replace(/^\/+/, "")}`;
 };
 
 // Convert a .doc buffer → UTF-8 text via macOS `textutil`. Throws if the
@@ -394,17 +412,29 @@ export const scrapeHKV09 = async (
         if (!docUrl) {
           errors.push({
             url: p.pageUrl,
-            message: "no .doc link found on session page",
+            message: "no .doc/.docx/.pdf link found on session page",
           });
           continue;
         }
-        const isDocx = /\.docx$/i.test(docUrl);
-        const docPath = join(dir, `pr_${p.session}.${isDocx ? "docx" : "doc"}`);
+        const ext = /\.(docx|doc|pdf)$/i.exec(docUrl)?.[1].toLowerCase();
+        const docPath = join(dir, `pr_${p.session}.${ext ?? "doc"}`);
         await fetchToFile(docUrl, docPath);
         const buf = await readFile(docPath);
-        const text = isDocx
-          ? await extractDocxText(buf)
-          : await convertDocToText(buf);
+        let text: string;
+        if (ext === "docx") {
+          text = await extractDocxText(buf);
+        } else if (ext === "pdf") {
+          text = await extractPdfText(buf);
+          if (looksLikeScannedPdf(text)) {
+            errors.push({
+              url: docUrl,
+              message: "scanned PDF — route to Phase 3 OCR",
+            });
+            continue;
+          }
+        } else {
+          text = await convertDocToText(buf);
+        }
         const recs = parseProtokolText(text, {
           ...p,
           docUrl,
