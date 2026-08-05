@@ -2,12 +2,17 @@
 // sitemap, read straight from Postgres.
 //
 // `judicial_body` lives ONLY in Postgres — there is no committed shard behind it
-// — so this follows seo_settlements.ts exactly: one build-time query, shared by
-// the prerender builder AND the sitemap enumerator, returning [] on ANY failure
-// (Postgres unreachable, migration 116 not applied, court_load/magistrate
-// absent). A Postgres-less build then emits neither the pages nor their <loc>
-// entries, which is what keeps the sitemap-validity rule (every <loc> needs a
-// real dist/<path>/index.html) true by construction: one source, not two.
+// — so this follows seo_settlements.ts exactly: one query, shared by the
+// prerender builder AND the sitemap enumerator, degrading to [] on any failure
+// via the common readSeoRows() envelope.
+//
+// WHAT SHARING THE READER DOES AND DOES NOT BUY. One query in one place means
+// the two callers cannot drift in what they select or how they filter it. They
+// still RUN it independently, in separate processes at separate times (`npm run
+// sitemap` vs the build), so a database that is up for one and down for the
+// other can still leave the sitemap naming pages the prerender never wrote. The
+// shared degrade-to-[] contract narrows that window — both callers fail the same
+// way — it does not close it.
 //
 // NO COMMITTED MANIFEST, deliberately. /person/** mints
 // data/person/prerender_slugs.json from the SERVING database because
@@ -17,26 +22,25 @@
 // local and cloud agree and a local mint is safe. Do not copy the person
 // machinery here.
 
-import { Pool } from "pg";
-import { DATABASE_URL } from "./pg";
+import { readSeoRows } from "./seo_read";
 
 export type SeoCourt = {
   bodyCode: string;
   name: string;
   kind: string;
-  tier?: string | null;
-  place?: string | null;
-  placeCode?: string | null;
+  tier: string | null;
+  place: string | null;
+  placeCode: string | null;
   /** Magistrates declaring to the ИВСС from this body. */
   magistrates: number;
   /** Latest published court_load year, when the ВСС publishes one for it. */
-  year?: number | null;
-  judges?: number | null;
-  filedPerMonth?: number | null;
-  resolvedPerMonth?: number | null;
+  year: number | null;
+  judges: number | null;
+  filedPerMonth: number | null;
+  resolvedPerMonth: number | null;
   /** Span of the published workload series — the "since X" in the prose. */
-  firstYear?: number | null;
-  lastYear?: number | null;
+  firstYear: number | null;
+  lastYear: number | null;
   /**
    * Mirrors judicial_body_detail()'s flag of the same name, and carries the
    * same warning: it separates "the ВСС publishes no workload for this body"
@@ -97,6 +101,10 @@ const QUERY = `
   ),
   -- Same tie-break as judicial_body_detail(): 28 administrative courts fold two
   -- court_load spellings onto one body, so prefer the better-staffed filing.
+  -- KEEP THIS ORDER YEAR-FIRST. \`year\` below is this row's vintage and
+  -- \`last_year\` is max(year) over the same set; they are equal only because of
+  -- the leading \`c.year DESC\`. Re-ordering to prefer, say, the fuller filing
+  -- across years desynchronises the two in a payload where nothing checks.
   latest AS (
     SELECT DISTINCT ON (s.body_code)
            s.body_code, c.year, c.judges,
@@ -114,39 +122,55 @@ const QUERY = `
   LEFT JOIN mags   m ON m.body_code = b.body_code
   LEFT JOIN yrs    y ON y.body_code = b.body_code
   LEFT JOIN latest l ON l.body_code = b.body_code
-  ORDER BY b.body_code
+  -- COLLATE "C" so the enumeration order is the same on every server regardless
+  -- of its default collation (which ignores the hyphen at the primary level and
+  -- interleaves \`aps-burgas\` between \`ap-plovdiv\` and \`ap-sofiya\`).
+  ORDER BY b.body_code COLLATE "C"
 `;
 
+/**
+ * Every judicial body that has a servable `/court/:bodyCode` page, ordered by
+ * `body_code`.
+ *
+ * @returns One entry per crawlable row in `judicial_body` (284 today; 180 carry
+ *   a `court_load` year, 104 do not). **Never throws** — returns `[]` and warns
+ *   on any failure, so a build without Postgres omits the family instead of
+ *   aborting. An empty result therefore means *either* no database *or* a failed
+ *   query; `scripts/db/tests/seo_courts.data.test.ts` is the gate that tells
+ *   them apart on a machine that has one.
+ */
 export const readSeoCourts = async (): Promise<SeoCourt[]> => {
-  const pool = new Pool({ connectionString: DATABASE_URL, max: 2 });
-  try {
-    const { rows } = await pool.query<Row>(QUERY);
-    return rows.filter(isCrawlableRow).map((r) => ({
-      bodyCode: r.body_code,
-      name: r.name,
-      kind: r.kind,
-      tier: r.tier,
-      place: r.place,
-      placeCode: r.place_code,
-      magistrates: r.magistrates ?? 0,
-      year: r.year,
-      judges: r.judges,
-      filedPerMonth: r.filed_per_month,
-      resolvedPerMonth: r.resolved_per_month,
-      firstYear: r.first_year,
-      lastYear: r.last_year,
-      sourcesBuilt: r.sources_built === true,
-    }));
-  } catch (err) {
+  const rows = await readSeoRows<Row>("/court/*", QUERY);
+  const kept = rows.filter(isCrawlableRow);
+  if (kept.length !== rows.length) {
+    // The gate drops 0 of 284 today, which means it only ever DOES anything on
+    // the day something upstream changes — exactly the day to be told. A body
+    // silently missing from both the prerender and the sitemap is invisible in a
+    // green build; the count difference is not something anyone reads.
+    const dropped = rows
+      .filter((r) => !isCrawlableRow(r))
+      .map((r) => r.body_code);
     console.warn(
-      `[seo] judicial bodies: Postgres unavailable, skipping /court/* pages (${
-        (err as Error)?.message ?? String(err)
-      })`,
+      `[seo] judicial bodies: ${rows.length - kept.length} of ${rows.length} row(s) ` +
+        `have no URL-safe body_code and were skipped: ${dropped.slice(0, 10).join(", ")}`,
     );
-    return [];
-  } finally {
-    await pool.end().catch(() => {});
   }
+  return kept.map((r) => ({
+    bodyCode: r.body_code,
+    name: r.name,
+    kind: r.kind,
+    tier: r.tier,
+    place: r.place,
+    placeCode: r.place_code,
+    magistrates: r.magistrates ?? 0,
+    year: r.year,
+    judges: r.judges,
+    filedPerMonth: r.filed_per_month,
+    resolvedPerMonth: r.resolved_per_month,
+    firstYear: r.first_year,
+    lastYear: r.last_year,
+    sourcesBuilt: r.sources_built === true,
+  }));
 };
 
 const isCrawlableRow = (r: Row): boolean =>

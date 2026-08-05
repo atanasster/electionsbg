@@ -11,9 +11,10 @@
 // Returns [] on ANY failure (Postgres unreachable, function absent) so a build
 // without the Docker/Cloud Postgres degrades gracefully to "no per-settlement
 // pages" — exactly the previous `if (!fs.existsSync(index)) return []` behaviour.
+// That envelope is shared with the other build-time SEO readers (seo_read.ts),
+// so a robustness fix lands once for all of them rather than per family.
 
-import { Pool } from "pg";
-import { DATABASE_URL } from "./pg";
+import { readSeoRows } from "./seo_read";
 
 export type SeoProcurementSettlement = {
   ekatte: string;
@@ -28,21 +29,12 @@ export type SeoProcurementSettlement = {
 export const readProcurementSeoSettlements = async (): Promise<
   SeoProcurementSettlement[]
 > => {
-  const pool = new Pool({ connectionString: DATABASE_URL, max: 2 });
-  try {
-    const { rows } = await pool.query<{
-      r: { settlements?: SeoProcurementSettlement[] };
-    }>(`SELECT procurement_by_settlement(NULL, NULL) AS r`);
-    const list = rows[0]?.r?.settlements ?? [];
-    return list.filter((s) => s && s.ekatte);
-  } catch (err) {
-    console.warn(
-      `[seo] procurement settlements: Postgres unavailable, skipping /procurement/settlement/* pages (${
-        (err as Error)?.message ?? String(err)
-      })`,
-    );
-    return [];
-  } finally {
-    await pool.end().catch(() => {});
-  }
+  const rows = await readSeoRows<{
+    r: { settlements?: SeoProcurementSettlement[] } | null;
+  }>(
+    "/procurement/settlement/*",
+    `SELECT procurement_by_settlement(NULL, NULL) AS r`,
+  );
+  const list = rows[0]?.r?.settlements ?? [];
+  return list.filter((s) => s && s.ekatte);
 };
