@@ -13,6 +13,24 @@ export const NVO_LAG_YEARS = 5;
 
 export type Verdict = "above" | "expected" | "under";
 
+/** Two-decimal rounding, shared by every producer of a stored figure. One
+ *  definition rather than one per module: the payload reconciliation gates
+ *  compare rounded output across the directory and the place blobs, so two
+ *  copies drifting would surface as a data mismatch, not as a lint. */
+export const r2 = (v: number): number => Math.round(v * 100) / 100;
+/** One-decimal rounding — percentage shares. */
+export const r1 = (v: number): number => Math.round(v * 10) / 10;
+
+/** A school carries a firm enough result to be RANKED against others.
+ *  Score present and cohort at or above the floor. Callers that rank inside a
+ *  single year must additionally require the school reported THAT year — see
+ *  `isCurrentRankable` in school_places.ts; the regression fits deliberately do
+ *  not, since a fit wants every point it can get. */
+export const isRankable = (s: {
+  latestScore: number | null;
+  latestN: number | null;
+}): boolean => s.latestScore != null && (s.latestN ?? 0) >= MIN_RANK_COHORT;
+
 export interface Regression {
   slope: number;
   intercept: number;

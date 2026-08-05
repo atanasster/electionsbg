@@ -51,10 +51,12 @@ npx tsx scripts/education/gen_school_context.ts
 npx tsx scripts/education/gen_textbook_market.ts
 
 # 5. Load the schools serving layer into LOCAL Postgres (schools/school_scores/
-#    school_context + two precomputed school_payloads blobs: 'directory' — the
-#    whole dataset /education and /school/:id fetch — and 'risk' — the slim
+#    school_context + three precomputed school_payloads kinds: 'directory' — the
+#    whole dataset /education and /school/:id fetch — 'risk' — the slim
 #    top-under-performers list the МОН pack's SchoolRiskTile fetches instead of
-#    the ~600 KB directory). The SES + value-added regressions are computed HERE
+#    the ~650 KB directory — and 'place' (key = oblast or obshtina code), the
+#    per-place blobs the /governance/region/:oblast education section reads for
+#    the same reason. The SES + value-added regressions are computed HERE
 #    now — keep scripts/db/load_schools_pg.ts behaviourally identical to
 #    src/data/schools/useSchoolDirectory (same thresholds/banding).
 npm run db:load:schools:pg
@@ -89,10 +91,12 @@ Emit these in the Next-steps output (do NOT auto-run them; Cloud SQL is prod):
 > `scripts/db/tests/schools_pg.data.test.ts` (`npm run test:data`).
 
 ```bash
-# Cloud SQL (proxy on :5434) — publishes the schools tables + the 'directory'
-# AND 'risk' school_payloads blobs (same loader writes both). Until this runs,
-# the МОН pack's SchoolRiskTile self-hides in prod (education-payload?kind=risk
-# returns null).
+# Cloud SQL (proxy on :5434) — publishes the schools tables + the 'directory',
+# 'risk' AND 'place' school_payloads blobs (same loader writes all three). Until
+# this runs, the МОН pack's SchoolRiskTile self-hides in prod
+# (education-payload?kind=risk returns null) and the /governance/region/:oblast
+# education section serves the previous matura vintage — or self-hides before
+# the first load. Nothing goes red either way.
 npm run db:load:schools:pg:cloud
 # functions redeploy only if the /api/db route set changed (education-payload):
 #   firebase deploy --only functions:db -P default

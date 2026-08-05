@@ -4,7 +4,9 @@
 //   • school_context — per-obshtina SES index
 //   • school_payloads — the 'directory' blob: the whole /education dataset with
 //     the SES + value-added regressions ALREADY COMPUTED here, so the client
-//     fetches one small blob instead of the 1.25 MB raw index + a client memo.
+//     fetches one small blob instead of the 1.25 MB raw index + a client memo;
+//     plus the slim 'risk' blob (МОН pack) and one 'place' blob per oblast /
+//     obshtina (the Governance place-node education tiles).
 //
 // SERVING loader — reads data/schools/index.json + data/education/school_context.json
 // (written by the update-schools ingest); never writes JSON back. The regression
@@ -22,9 +24,12 @@ import {
   MIN_RANK_COHORT,
   ols,
   bandVerdict,
+  isRankable,
   nvoPriorOf,
+  r2,
   type Verdict,
 } from "./lib/school_stats";
+import { buildPlacePayloads } from "./lib/school_places";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -39,8 +44,6 @@ const INGEST_TRACKING = path.join(
 const INDEX_FILE = path.join(ROOT, "data/schools/index.json");
 const CONTEXT_FILE = path.join(ROOT, "data/education/school_context.json");
 const MUNI_FILE = path.join(ROOT, "data/municipalities.json");
-
-const r2 = (v: number) => Math.round(v * 100) / 100;
 
 type RawSchool = {
   id: string;
@@ -245,9 +248,11 @@ const buildDirectory = () => {
     }))
     .sort((a, b) => a.oblast.localeCompare(b.oblast));
 
-  const rankable = schools.filter(
-    (s) => s.latestScore != null && (s.latestN ?? 0) >= MIN_RANK_COHORT,
-  );
+  // The fits take every school with a firm result, whatever year it last
+  // reported — a regression wants all the points it can get, and each school's
+  // residual is computed against its own score. The place blobs additionally
+  // require the headline year before RANKING a school (school_places.ts).
+  const rankable = schools.filter(isRankable);
 
   // SES regression (score ~ community context) + verdict banding.
   const regression = ols(
@@ -341,14 +346,24 @@ const buildDirectory = () => {
         vaVerdict: s.vaVerdict,
       })),
   };
-  return { directory, risk, ctxByObshtina: ctx.byObshtina, idx };
+
+  // Per-place blobs for the Governance place nodes ('place' kind, key = oblast
+  // or obshtina code). Same argument as `risk` one grain down: /governance/
+  // region/:oblast renders two tiles and must not fetch the 647 KB directory to
+  // do it. See docs/plans/education-place-card-v1.md §4.
+  const places = buildPlacePayloads(
+    directory.schools,
+    latestYear,
+    nationalByYear,
+  );
+  return { directory, risk, places, ctxByObshtina: ctx.byObshtina, idx };
 };
 
 const main = async () => {
   await exec(readFileSync(SCHEMA, "utf8"));
   await exec(readFileSync(INGEST_TRACKING, "utf8"));
 
-  const { directory, risk, ctxByObshtina, idx } = buildDirectory();
+  const { directory, risk, places, ctxByObshtina, idx } = buildDirectory();
 
   await withClient(async (c) => {
     await c.query("BEGIN");
@@ -471,6 +486,20 @@ const main = async () => {
       "INSERT INTO school_payloads (kind,key,payload) VALUES ('risk','',$1::jsonb) ON CONFLICT (kind,key) DO NOTHING",
       [JSON.stringify(risk)],
     );
+    // 'place' blobs — 271 rows today (28 oblasts + 243 municípios), ≤8.3 KB
+    // each. One statement, like every other insert here: 271 round-trips cost
+    // little locally but are paid at proxy RTT by db:load:schools:pg:cloud.
+    const placeRows = [...places].sort(([a], [b]) => a.localeCompare(b));
+    if (placeRows.length) {
+      const vals = placeRows
+        .map((_, i) => `('place',$${i * 2 + 1},$${i * 2 + 2}::jsonb)`)
+        .join(",");
+      await c.query(
+        `INSERT INTO school_payloads (kind,key,payload) VALUES ${vals}
+         ON CONFLICT (kind,key) DO NOTHING`,
+        placeRows.flatMap(([k, b]) => [k, JSON.stringify(b)]),
+      );
+    }
 
     // recent_updates changelog (per school-year-subject).
     await recordIngestBatch(c, {
@@ -485,7 +514,7 @@ const main = async () => {
 
     await c.query("COMMIT");
     console.log(
-      `schools→PG: ${dim.length} schools, ${fact.length} score-rows, ${ctxRows.length} context rows, directory + ${risk.schools.length}-row risk payload`,
+      `schools→PG: ${dim.length} schools, ${fact.length} score-rows, ${ctxRows.length} context rows, directory + ${risk.schools.length}-row risk payload + ${places.size} place payloads`,
     );
   });
   await end();

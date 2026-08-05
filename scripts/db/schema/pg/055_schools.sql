@@ -14,8 +14,10 @@
 --     reads, no date windowing), so the client fetches one small blob instead of
 --     the 1.25 MB raw index + a client-side regression; /school/:id reads its row
 --     out of that same blob. Stored verbatim → local↔cloud parity is byte-exact
---     by construction. The (kind, key) shape leaves room for future per-school
---     blobs, but only 'directory' is emitted today.
+--     by construction. Three kinds are emitted: 'directory' (key ''), the slim
+--     'risk' blob for the МОН pack, and 'place' (key = oblast or obshtina code)
+--     for the Governance place nodes — a place dashboard renders two education
+--     tiles and must never pull the ~650 KB directory to do it.
 
 -- 1. Dimension: one row per school -----------------------------------------------
 CREATE TABLE IF NOT EXISTS schools (
@@ -59,8 +61,8 @@ CREATE TABLE IF NOT EXISTS school_context (
 
 -- 4. Precomputed page payloads (verbatim jsonb) ---------------------------------
 CREATE TABLE IF NOT EXISTS school_payloads (
-  kind    text NOT NULL,               -- 'directory' (only kind emitted today)
-  key     text NOT NULL DEFAULT '',    -- '' for the directory singleton
+  kind    text NOT NULL,               -- 'directory' | 'risk' | 'place'
+  key     text NOT NULL DEFAULT '',    -- '' for singletons; place code for 'place'
   payload jsonb NOT NULL,
   PRIMARY KEY (kind, key)
 );
