@@ -42,8 +42,8 @@ import { searchIndex } from "@/lib/entitySearchIndex";
 import type { EntitySearchGroup } from "./entityGroups";
 
 /** Below this the dropdown stays closed — a one-character query matches most of
- *  a corpus, so it is noise rather than a result set. Mirrors searchSchools and
- *  the other EntitySearchTile adapters. */
+ *  a corpus, so it is noise rather than a result set. Same floor the other
+ *  EntitySearchTile adapters use. */
 const MIN_QUERY = 2;
 const DEFAULT_LIMIT = 8;
 

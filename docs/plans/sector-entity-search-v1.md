@@ -457,7 +457,7 @@ New `/court/**` and `/pension-fund/**` URLs mean the **no-slash** form everywher
 - `entitySearchIndex.test.ts` — fold-once contract (assert `latinSkeletonCached` is **not** called
   during index build, via the exported `skeletonCacheSize()` seam); scan-and-stop returns the
   money-largest matches; prefix hits outrank contains hits.
-- Per-sector pure-filter tests mirroring `searchSchools.test.ts` — one per group, no screen mount.
+- Per-sector tests over the group's `keysOf` — one per group, no screen mount. (`searchSchools.test.ts` was the model; it is deleted in T3, its page having moved onto the shared component.)
 - One component test per screen asserting the box is present and a shliokavitsa query
   (`6umen`, `4erven`, `plowdiw`) reaches the right href.
 - A `sector_search_coverage` test: every sector in `SECTOR_CLUSTERS` either declares a search group
@@ -507,6 +507,16 @@ page**, and seeded from the two ZIPs already on disk so `/pension-fund/:slug` sh
 two-point trend. Full shape, guard and downstream edits in §7/T5a.
 
 ### Still open
+
+**Server-side shliokavitsa (from the T0.1 review, re-confirmed live in T3).** The client fold
+accepts Latin input; `translit_bg_latin()` does not — it implements the Cyrillic→Latin half alone,
+with neither the shlyo rules nor the ч/х collapse. Verified on `/sector/administration/services`:
+`?q=лиценз` returns rows, `?q=licenz` returns none (ц folds to "ts"). Every server-backed browser
+is affected — `/procurement/contracts?q=`, `/persons?q=` — i.e. the corpora that carry the most
+traffic. The administration search box therefore does NOT promise Latin input, while the
+client-indexed boxes do. Closing it means a SQL-side rule table (a fourth copy) plus an extra
+predicate on the hottest search path, unbenchmarked; leaving it means the same query behaves
+differently on two pages. Still a decision, not an oversight.
 
 Nothing blocking. The remaining judgement calls are inside T5a's implementation (shrink-guard
 threshold, whether the page shows insured or net assets as its headline series) and are better made

@@ -28,6 +28,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { PackSection } from "@/screens/components/procurement/PackSection";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { ScopeControl } from "@/screens/components/ScopeControl";
+import { AdminServicesSearchBox } from "./AdminServicesSearchBox";
 import { useScope, scopeYear } from "@/data/scope/useScope";
 import {
   useAdminContext,
@@ -801,6 +802,10 @@ export const AdministrationScreen: FC = () => {
           allowAll={false}
         />
       </div>
+
+      {/* The service finder, above the tiles. Forwards to the register — the
+          2,669 rows are a server-side resource, not a client index. */}
+      <AdminServicesSearchBox />
 
       {/* Tile 2 — the institution KPI strip */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

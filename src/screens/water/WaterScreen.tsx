@@ -24,6 +24,7 @@ import { VikContractorHhiTile } from "@/screens/components/procurement/vik/VikCo
 import { VikCompetitionTile } from "@/screens/components/procurement/vik/VikCompetitionTile";
 import { WaterFloodTile } from "./WaterFloodTile";
 import { WaterStatsTile } from "./WaterStatsTile";
+import { WaterSearchBox } from "./WaterSearchBox";
 
 export const WaterScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -59,6 +60,10 @@ export const WaterScreen: FC = () => {
       <div className="mb-3">
         <ScopeControl mode="toggle" />
       </div>
+
+      {/* The operator finder, above the map. The 38 operators otherwise appear
+          only as map pins and inside the subsidiary tile. */}
+      <WaterSearchBox />
 
       {/* The regional operator map — the sector's signature visual, above the
           consolidated-group tiles. Renders nothing until the operators geo-resolve. */}

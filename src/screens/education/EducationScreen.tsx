@@ -6,12 +6,11 @@
 // The textbook-publisher concentration lives on the МОН pack (/awarder) and is
 // linked from here rather than duplicated.
 
-import { FC, useMemo, useState, useDeferredValue, lazy, Suspense } from "react";
+import { FC, useMemo, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   GraduationCap,
-  Search,
   TrendingUp,
   Library,
   MapPin,
@@ -19,7 +18,6 @@ import {
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { Input } from "@/components/ui/input";
 import { useRegions } from "@/data/regions/useRegions";
 import {
   useSchoolDirectory,
@@ -32,7 +30,7 @@ import { MON_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
 import { MaturaTrendChart } from "./MaturaTrendChart";
 import { OblastTrendTable } from "./OblastTrendTable";
 import { buildOblastRows } from "./oblastRows";
-import { searchSchools } from "./searchSchools";
+import { EducationSearchBox } from "./EducationSearchBox";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
 // the map actually renders.
@@ -74,8 +72,6 @@ export const EducationScreen: FC = () => {
   // copy can't drift from the market it links to (it read "€51 млн / 74%" for a
   // year while the corpus grew past €59M).
   const { data: textbooks } = useTextbookMarket();
-  const [q, setQ] = useState("");
-  const dq = useDeferredValue(q);
 
   const regionName = useMemo(() => {
     // regions.json uniquely prefixes Пловдив with "обл./prov."; strip it so the
@@ -88,11 +84,6 @@ export const EducationScreen: FC = () => {
     m.set("S23", bg ? "София (град)" : "Sofia (city)");
     return (code: string) => m.get(code) ?? code;
   }, [regions, bg]);
-
-  const results = useMemo(
-    () => (dir ? searchSchools(dir.schools, dq) : []),
-    [dir, dq],
-  );
 
   const oblastRows = useMemo(
     () =>
@@ -154,6 +145,12 @@ export const EducationScreen: FC = () => {
           {bg ? "Училища и матури" : "Schools & matura"}
         </span>
       </Title>
+
+      {/* The finder, at the top — it was previously a card most of the way down
+          the page, below the map and the scatter. */}
+      <div className="mt-4">
+        <EducationSearchBox />
+      </div>
 
       {/* Cross-link to the textbook market on the МОН pack. A slim strip rather
           than a column beside the trend: it's a signpost, not a finding, and the
@@ -345,55 +342,6 @@ export const EducationScreen: FC = () => {
           </Card>
         </div>
       )}
-
-      {/* Finder */}
-      <Card className="mt-4">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Search className="h-5 w-5 text-muted-foreground" />
-            {bg ? "Намери своето училище" : "Find your school"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder={
-              bg ? "Име на училище или община…" : "School or municipality name…"
-            }
-            aria-label={bg ? "Търсене на училище" : "Search school"}
-          />
-          {dq.trim().length >= 2 && (
-            <ul className="mt-3 divide-y">
-              {results.length === 0 && (
-                <li className="py-2 text-sm text-muted-foreground">
-                  {bg ? "Няма съвпадения." : "No matches."}
-                </li>
-              )}
-              {results.map((s) => (
-                <li key={s.id}>
-                  <Link
-                    to={`/school/${s.id}`}
-                    className="flex items-center justify-between gap-3 py-2 hover:text-primary"
-                  >
-                    <span className="min-w-0 truncate">
-                      {s.name}
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        {s.obshtinaName}
-                      </span>
-                    </span>
-                    {s.latestScore != null && (
-                      <span className="shrink-0 tabular-nums text-sm text-muted-foreground">
-                        {fmt(s.latestScore, lang)}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </CardContent>
-      </Card>
 
       {/* Best / worst schools */}
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">

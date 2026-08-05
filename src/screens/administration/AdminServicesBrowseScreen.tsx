@@ -8,6 +8,7 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ListChecks } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { useSearchParams } from "react-router-dom";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
@@ -41,6 +42,7 @@ interface ServiceRow {
 export const AdminServicesBrowseScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  const [params] = useSearchParams();
   const [tier, setTier] = useState<string>(ALL);
 
   const extraFilters = useMemo<DbColumnFilter[]>(
@@ -108,6 +110,11 @@ export const AdminServicesBrowseScreen: FC = () => {
         defaultSort={[{ id: "name", desc: false }]}
         pageSize={25}
         searchPlaceholder={bg ? "Търси услуга…" : "Search service…"}
+        // Seeds the box from ?q=, which is how /sector/administration's search
+        // forwards a query here. Without it that forward lands on an unfiltered
+        // table — the contracts/tenders/persons browsers already do this, which
+        // is why the URL contract lists ?q for those three only.
+        initialSearch={params.get("q") ?? undefined}
         renderAggregates={(_agg, total, exact) => (
           <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <ListChecks className="h-4 w-4" aria-hidden />
