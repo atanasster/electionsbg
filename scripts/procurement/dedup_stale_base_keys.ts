@@ -116,6 +116,12 @@ const FOLLOW_UPS = [
   "delete KNOWN_STALE from scripts/db/tests/stale_base_keys.data.test.ts",
 ];
 
+// Both follow-ups are now gated, so forgetting one fails a test rather than degrading a page:
+// annex_fold_identity.data.test.ts fails on any orphaned annex, and stale_base_keys.data.test.ts
+// fails while KNOWN_STALE names rows the corpus no longer has. Neither fires until `db:load:pg`
+// has reloaded the corpus — they read Postgres, and this pass writes shards.
+const GATES = "npm run test:data (after db:load:pg) fails if either is skipped";
+
 const retire = (evicted: number, eur: number): void => {
   // The marker lands FIRST. Retirement is otherwise a one-way door: the clean-corpus path returns
   // before `retire()`, so a run interrupted between the write and the strip could never be
@@ -146,8 +152,7 @@ const retire = (evicted: number, eur: number): void => {
       `  wrote ${path.relative(ROOT, STATE_FILE)} — it carries the follow-ups below\n` +
       `  STILL YOURS TO DO, in this session:\n` +
       FOLLOW_UPS.map((f, i) => `    ${i + 1}. ${f}`).join("\n") +
-      `\n       (that gate is skipIf-gated on Postgres, so it only turns red once\n` +
-      `        \`db:load:pg\` has reloaded the corpus — not immediately)\n` +
+      `\n       ${GATES}\n` +
       `    ${FOLLOW_UPS.length + 1}. commit this file, the skill and the state marker together`,
   );
 };

@@ -1,3 +1,10 @@
+// The annex linkage must be trustworthy in two independent ways: an annex must carry the RIGHT
+// contract's value (the fold identity, below), and it must still be ATTACHED to a contract at all
+// (the orphan gate). The second is the cheaper failure and the one that recurs — every eviction
+// pass orphans the annexes of the rows it removes, and only `db:load:annexes:pg` re-resolves them.
+//
+// ── THE FOLD IDENTITY ───────────────────────────────────────────────────────────────────────
+//
 // The annex fold must never assign a contract another contract's value.
 //
 // WHY: the УНП+supplier (K2) join key is lot-agnostic, so one supplier holding
@@ -91,6 +98,23 @@ interface ViolationRow {
   own_annex: string;
 }
 
+// The orphan query, hoisted so the gate and the discrimination proof below run the SAME SQL —
+// a proof against a lookalike query proves nothing about the gate.
+const ORPHAN_SQL = `
+  SELECT a.contract_key, count(*)::text AS n,
+         string_agg(DISTINCT a.notice_id::text, ',' ORDER BY a.notice_id::text) AS notice_ids
+    FROM procurement_annexes a
+   WHERE NOT EXISTS (SELECT 1 FROM contracts c WHERE c.key = a.contract_key)
+   GROUP BY a.contract_key
+   ORDER BY count(*) DESC
+`;
+
+interface OrphanRow {
+  contract_key: string;
+  n: string;
+  notice_ids: string;
+}
+
 const formatViolations = (rows: ViolationRow[]): string[] =>
   rows.map(
     (r) =>
@@ -119,6 +143,102 @@ test.skipIf(skip)(
         "invariant below is vacuously green. Run `npm run db:load:annexes:pg` " +
         "(needs the raw_data/procurement/anexi cache).",
     );
+  },
+);
+
+test.skipIf(skip)(
+  "every annex still points at a live contract (re-resolution was not skipped)",
+  async () => {
+    // REFERENTIAL half of this file's job: the fold above asks whether an annex carries the RIGHT
+    // value, this asks whether it is attached to anything at all.
+    //
+    // `contract_key` is copied straight off `contracts.key` by `load_annexes_pg.ts`, which
+    // TRUNCATEs and rebuilds — so immediately after a load orphans are zero BY CONSTRUCTION. A
+    // non-zero count therefore has exactly one meaning: contract rows were removed after the last
+    // annexes load and the loader was not re-run.
+    //
+    // Which happens on a schedule. Every eviction pass orphans the annexes of the rows it removes
+    // — `reconcile_cross_source` did it to 16 rows across 9 contract keys on the 2026-08-04 run,
+    // and `dedup_stale_base_keys` will do it to 3 more — and CLAUDE.md has long said
+    // `db:load:annexes:pg` is mandatory afterwards. Nothing enforced it until now: the orphaned
+    // rows simply stopped appearing in the per-annex breakdown and the чл.116 ал.2/ал.3 labelling
+    // on `/contract/:key`, with every row count still reconciling and no error anywhere.
+    //
+    // Zero is the only correct answer, so there is no allowlist. Measured 2026-08-05: 0 of 24,063
+    // on local and 0 of 24,063 on Cloud SQL.
+    const orphans = await allRows<OrphanRow>(ORPHAN_SQL);
+    const rows = orphans.reduce((s, o) => s + Number(o.n), 0);
+    assert.equal(
+      orphans.length,
+      0,
+      `${rows} procurement_annexes row(s) across ${orphans.length} contract key(s) reference a ` +
+        `contract that no longer exists.\n` +
+        `  HOW BAD depends on why the row went. A RE-KEY eviction (a superseded key formula) ` +
+        `loses nothing — the surviving twin carries the same annexes under its own key, which is ` +
+        `the measured case for both evictions that produce orphans today.\n` +
+        `  A row removed WITHOUT a twin does lose them: \`contract_annexes(p_key)\` is the only ` +
+        `consumer, so they vanish from the per-annex breakdown and the чл.116 ал.2 vs ал.3 ` +
+        `labelling on /contract/:key with nothing failing.\n` +
+        `  CAUSE: a pass removed contract rows and \`db:load:annexes:pg\` was not re-run. It ` +
+        `re-resolves against the reloaded corpus and is the only thing that does.\n` +
+        `  FIX: \`npm run db:load:annexes:pg\` here, and \`npm run db:load:annexes:pg:cloud\` on ` +
+        `prod — the cloud side has no automatic path.\n` +
+        orphans
+          .slice(0, 8)
+          .map(
+            (o) =>
+              `    ${o.contract_key} — ${o.n} annex row(s), notice ${o.notice_ids}`,
+          )
+          .join("\n"),
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the orphan query still discriminates — an evicted contract is caught",
+  async () => {
+    // Prove the red path (the person_connections.data.test.ts precedent). A gate whose expected
+    // answer is zero is also green when it has stopped looking, and this one runs against a
+    // table that is zero by construction after every load — so "0 orphans" on its own is no
+    // evidence at all. Delete a contract that HAS annexes, inside a rolled-back transaction, and
+    // assert its annexes surface.
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        const { rows: victim } = await c.query<{
+          contract_key: string;
+          n: string;
+        }>(
+          `SELECT a.contract_key, count(*)::text AS n
+             FROM procurement_annexes a
+             JOIN contracts c ON c.key = a.contract_key
+            GROUP BY a.contract_key
+            ORDER BY count(*) DESC
+            LIMIT 1`,
+        );
+        assert.equal(
+          victim.length,
+          1,
+          "no contract carries an annex — the orphan gate is vacuous, not green",
+        );
+        const { contract_key: key, n } = victim[0];
+        await c.query("DELETE FROM contracts WHERE key = $1", [key]);
+        const { rows } = await c.query<OrphanRow>(ORPHAN_SQL);
+        const hit = rows.find((r) => r.contract_key === key);
+        assert.ok(
+          hit,
+          `deleting contract ${key} orphaned ${n} annex row(s) and the query did NOT flag it — ` +
+            "the orphan gate is decorative",
+        );
+        assert.equal(
+          hit.n,
+          n,
+          "the orphan row count disagrees with the annexes deleted",
+        );
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
   },
 );
 

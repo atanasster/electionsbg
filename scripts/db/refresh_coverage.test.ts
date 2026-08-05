@@ -103,6 +103,15 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     before: "db:load:persons-browse:pg",
     why: "reads person_browse_table facets for its person nodes",
   },
+  {
+    after: "db:load:annexes:pg",
+    before: "db:load:pg",
+    why:
+      "re-resolves procurement_annexes.contract_key against the contracts table IN POSTGRES, " +
+      "so running it before the corpus lands re-attaches every annex to the vintage " +
+      "db:load:pg is about to replace — and every eviction pass (the cross-source reconcile, " +
+      "the stale-base-key sweep) orphans annexes that only this loader repairs",
+  },
 ];
 
 test("db:refresh orders each loader after the step that rebuilds its input", () => {

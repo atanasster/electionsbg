@@ -193,12 +193,19 @@ years. Nothing clears this on a schedule; this step is the only thing that does.
 
 Afterwards, in the same session:
 
-- `npm run db:load:annexes:pg` (+ `:cloud`) — **mandatory**, not cleanup. Evicting a row orphans
-  its `procurement_annexes` rows and only this loader re-resolves them. 3 rows affected, confirmed
-  on both databases.
-- Delete `KNOWN_STALE` from `scripts/db/tests/stale_base_keys.data.test.ts`. That gate fails until
-  you do, deliberately — it is the forcing function that stops the allowlist rotting into a
-  suppression.
+- `npm run db:load:annexes:pg` (+ `:cloud`) — **mandatory**, not cleanup, and it must run **after
+  `db:load:pg`**, not straight after this step. The loader re-resolves `contract_key` against the
+  contracts table *in Postgres*; run it while Postgres still holds the un-swept corpus and it
+  cheerfully re-attaches every annex to the very rows the next `db:load:pg` evicts. 3 rows
+  affected, confirmed on both databases.
+- Delete `KNOWN_STALE` from `scripts/db/tests/stale_base_keys.data.test.ts` — the forcing function
+  that stops the allowlist rotting into a suppression.
+
+Both are gated, so forgetting one fails a test rather than quietly degrading a page:
+`annex_fold_identity.data.test.ts` fails on any orphaned annex, `stale_base_keys.data.test.ts`
+fails while `KNOWN_STALE` names rows the corpus no longer has. **Neither fires until
+`db:load:pg` has reloaded** — they read Postgres and this pass writes shards, so run
+`npm run test:data` after the load, not before.
 
 Plan: `docs/plans/procurement-same-feed-dedup-v1.md` §5.2.
 
