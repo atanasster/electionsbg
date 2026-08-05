@@ -1,8 +1,14 @@
 # Sector entity search — v1 plan
 
-Status: **PLAN ONLY — nothing built.** Research pass over all 19 sectors in `SECTOR_CLUSTERS`
+Status: **BUILT AND SHIPPED.** T0.1–T5d and §11 are implemented and committed; the search
+half is deployed to production (2026-08-05), §11's prerender/sitemap/corpora half is committed
+and awaiting the next `npm run deploy`. See §13 for the per-step commit list and what is live.
+
+Originally a research pass over all 19 sectors in `SECTOR_CLUSTERS`
 (`src/screens/governance/sectorRegistry.ts`), measuring every entity universe a sector dashboard
-lists, and proposing one shared search component + per-sector search criteria.
+lists, and proposing one shared search component + per-sector search criteria. Everything below
+is retained as the design record — the measured counts are what the implementation was built
+against, not a forecast.
 
 > Every count below is **MEASURED** — from local Postgres (`postgres://…@localhost:5433/electionsbg`,
 > probed 2026-08-04), from the committed `data/**` payloads, or by counting the curated
