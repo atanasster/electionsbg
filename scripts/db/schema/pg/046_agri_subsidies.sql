@@ -68,3 +68,87 @@ CREATE TABLE IF NOT EXISTS agri_payloads (
   payload jsonb NOT NULL,
   PRIMARY KEY (kind, key)
 );
+
+-- ==========================================================================
+-- Beneficiary DIMENSION + typeahead for the /subsidies search box.
+--
+-- SERVER-SIDE, unlike every other sector group, because 16,702 distinct EIKs is
+-- past the ~5k point where shipping a client index stops being free.
+--
+-- THE DIMENSION IS THE POINT. The obvious form — GROUP BY eik over
+-- agri_subsidies with an ILIKE — measured **2,152 ms** for "агро" on the local
+-- corpus, because it aggregates every matching row of ~2M before it can rank.
+-- That is a per-KEYSTROKE query. Rolled up once into 16.7k rows it is an index
+-- scan over a table that fits in cache.
+--
+-- Only EIK-bearing rows: /farm/:eik is the destination, so a beneficiary
+-- without one (a natural person — `eik` is NULL for those) cannot be a result.
+-- Same per-row landing rule the НЗОК hospital group applies.
+-- ==========================================================================
+CREATE MATERIALIZED VIEW IF NOT EXISTS agri_beneficiary AS
+  SELECT eik,
+         -- The LONGEST spelling, matching what the ingest stores on the
+         -- /farm page. min() picked a different one for 1,379 of 16,702
+         -- beneficiaries (8.3%), so the row said one name and the page it
+         -- opened said another.
+         (array_agg(name ORDER BY length(name) DESC, name COLLATE "C"))[1]
+           AS name,
+         min(oblast COLLATE "C") AS oblast,
+         sum(total_eur)          AS total_eur,
+         -- The Latin fold, STORED. This is the one server-backed search group
+         -- that can afford it: 16.7k rows, so the fold costs a column rather
+         -- than a per-request expression. Without it "zlatiya" returns nothing
+         -- against "Златия Агро" — the same gap /sector/administration has to
+         -- state in its copy, closed here instead.
+         translit_bg_latin(
+           (array_agg(name ORDER BY length(name) DESC, name COLLATE "C"))[1]
+         ) AS name_fold
+  FROM agri_subsidies
+  WHERE eik IS NOT NULL
+    -- ДФ „Земеделие" itself. It appears in the corpus as a counterparty, is #2
+    -- by money, and has NO /farm page — so without this it is the first result
+    -- for "земеделие" and the single row in 16,702 that cannot land. Kept in
+    -- sync with PAYER_EIKS in scripts/agri/ingest.ts.
+    AND eik <> '121100421'
+  GROUP BY eik;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_agri_beneficiary_eik
+  ON agri_beneficiary (eik);
+CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_name_trgm
+  ON agri_beneficiary USING gin (name gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_fold_trgm
+  ON agri_beneficiary USING gin (name_fold gin_trgm_ops);
+-- The ranking the typeahead orders by, so a broad term stops at the cap.
+CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_total
+  ON agri_beneficiary (total_eur DESC);
+
+CREATE OR REPLACE FUNCTION agri_beneficiary_search(p_term text, p_limit int DEFAULT 8)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  -- LIKE metacharacters are STRIPPED, not escaped. Escaping them through this
+  -- many quoting layers is easy to get subtly wrong, and a search term
+  -- containing a literal % or _ is not a real query — whereas an UNescaped '%'
+  -- matches everything and returns the global top-8, which the client then
+  -- filters away, so the box silently says "no matches" while the server sent
+  -- eight rows. A term that is nothing BUT metacharacters yields [].
+  WITH t AS (SELECT btrim(regexp_replace(p_term, '[%_\\]', '', 'g')) AS q)
+  SELECT COALESCE(jsonb_agg(jsonb_build_object(
+           'eik',      eik,
+           'name',     name,
+           'oblast',   oblast,
+           'totalEur', ROUND(total_eur)::bigint)
+         ORDER BY total_eur DESC, eik), '[]'::jsonb)
+  FROM (
+    SELECT b.eik, b.name, b.oblast, b.total_eur
+    FROM agri_beneficiary b, t
+    WHERE t.q <> ''
+      AND (b.name ILIKE '%' || t.q || '%'
+           -- The fold arm: a Latin-typed query against a Cyrillic register.
+           OR b.name_fold ILIKE '%' || translit_bg_latin(t.q) || '%'
+           -- The oblast arm the hint promises. Without it "Кърджали" found 4
+           -- of its 139 beneficiaries — the four carrying it in their NAME.
+           OR b.oblast ILIKE '%' || t.q || '%'
+           OR b.eik LIKE t.q || '%')
+    ORDER BY b.total_eur DESC, b.eik
+    LIMIT greatest(p_limit, 1)
+  ) h;
+$$;

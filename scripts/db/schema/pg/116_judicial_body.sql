@@ -141,4 +141,31 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ) END;
 $$;
 
+-- ==========================================================================
+-- The slim body index behind the /judiciary search group — all 283, with just
+-- enough to search, rank and link. ~30 kB, requested only when the reader
+-- focuses the box (same lazy shape as nzok_procedure_index / _pack_index).
+--
+-- Ranked by magistrate count: a reader typing "софия" wants Софийски районен
+-- съд, not the smallest office that happens to sit there.
+-- ==========================================================================
+CREATE OR REPLACE FUNCTION judicial_body_index()
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH m AS (
+    SELECT s.body_code, count(*)::int AS n
+    FROM judicial_body_source_name s
+    JOIN magistrate g ON g.court = s.source_name
+    GROUP BY s.body_code
+  )
+  SELECT COALESCE(jsonb_agg(jsonb_build_object(
+           'bodyCode',    b.body_code,
+           'name',        b.name,
+           'kind',        b.kind,
+           'tier',        b.tier,
+           'place',       b.place,
+           'magistrates', COALESCE(m.n, 0))
+         ORDER BY COALESCE(m.n, 0) DESC, b.name COLLATE "C"), '[]'::jsonb)
+  FROM judicial_body b LEFT JOIN m ON m.body_code = b.body_code;
+$$;
+
 RESET check_function_bodies;

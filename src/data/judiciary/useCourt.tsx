@@ -52,3 +52,24 @@ export const useCourt = (bodyCode: string | null | undefined) =>
     enabled: !!bodyCode,
     staleTime: Infinity,
   });
+
+/** One row of the body index — enough to search, rank and link. */
+export interface JudicialBodyIndexRow {
+  bodyCode: string;
+  name: string;
+  kind: string;
+  tier: string | null;
+  place: string | null;
+  magistrates: number;
+}
+
+/** All 283 bodies, for the /judiciary search group. GATED on `enabled` so it is
+ *  fetched only once the reader focuses the box. */
+export const useJudicialBodyIndex = (enabled: boolean) =>
+  useQuery({
+    queryKey: ["judiciary", "body-index"] as const,
+    queryFn: () =>
+      fetchJson<JudicialBodyIndexRow[] | null>("/api/db/judicial-body-index"),
+    enabled,
+    staleTime: Infinity,
+  });

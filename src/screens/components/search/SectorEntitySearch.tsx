@@ -63,7 +63,11 @@ export const SectorEntitySearch: FC<{
    *  until the reader has signalled intent — a reader who never searches then
    *  pays nothing. Callers with cheap indexes can omit it. */
   onArm?: () => void;
-}> = ({ groups, title, placeholder, hint, idPrefix, onArm }) => {
+  /** Fired on every keystroke with the raw query. For a SERVER-backed group,
+   *  which has to go and fetch its rows rather than scan a client index — the
+   *  caller debounces. Client-indexed callers ignore it. */
+  onQueryChange?: (q: string) => void;
+}> = ({ groups, title, placeholder, hint, idPrefix, onArm, onQueryChange }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const [query, setQuery] = useState("");
@@ -110,6 +114,22 @@ export const SectorEntitySearch: FC<{
   // hold the whole box in a loading state for ever.
   const loading = groups.some((g) => g.loading);
 
+  // Name what was searched — a bare "no results" leaves the reader unsure
+  // whether the box even covers the entity they wanted. Groups with no index
+  // are omitted: they were not searched, so claiming they were is a false
+  // negative. When NONE has an index the sentence would trail off after the
+  // colon, so fall back to the plain form.
+  const searched = groups
+    .filter((g) => g.index)
+    .map((g) => (bg ? g.label.bg : g.label.en).toLowerCase());
+  const noResultsLabel = searched.length
+    ? bg
+      ? `Няма съвпадения в: ${searched.join(", ")}`
+      : `No matches in: ${searched.join(", ")}`
+    : bg
+      ? "Няма съвпадения."
+      : "No matches.";
+
   return (
     <EntitySearchTile
       idPrefix={idPrefix}
@@ -121,22 +141,13 @@ export const SectorEntitySearch: FC<{
       // whether the box even covers the entity they wanted. Groups with no
       // index are omitted: they were not searched, so claiming they were is a
       // false negative.
-      noResultsLabel={
-        bg
-          ? `Няма съвпадения в: ${groups
-              .filter((g) => g.index)
-              .map((g) => g.label.bg.toLowerCase())
-              .join(", ")}`
-          : `No matches in: ${groups
-              .filter((g) => g.index)
-              .map((g) => g.label.en.toLowerCase())
-              .join(", ")}`
-      }
+      noResultsLabel={noResultsLabel}
       lang={i18n.language}
       value={query}
       onChange={(v) => {
         arm();
         setQuery(v);
+        onQueryChange?.(v);
       }}
       onFocus={arm}
       loading={loading}

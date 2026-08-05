@@ -33,6 +33,7 @@ import { DeclarationsTile } from "./DeclarationsTile";
 import { IntegrityListsTile } from "./IntegrityListsTile";
 import { MagistrateHoldingsTile } from "./MagistrateHoldingsTile";
 import { JudicialAwardersTile } from "./JudicialAwardersTile";
+import { JudiciarySearchBox } from "./JudiciarySearchBox";
 
 export const JudiciaryScreen = () => {
   const { i18n } = useTranslation();
@@ -94,6 +95,9 @@ export const JudiciaryScreen = () => {
       {/* Title emits the <SEO> tags itself when given a string child. */}
       <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="judiciary_nav" />
+
+      {/* The finder, above the tiles. */}
+      <JudiciarySearchBox />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />

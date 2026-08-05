@@ -26,6 +26,7 @@ import { KfnFundsTile } from "./KfnFundsTile";
 import { PensionReformTile } from "./PensionReformTile";
 import { PensionReplacementTile } from "./PensionReplacementTile";
 import { PensionProjectionTile } from "./PensionProjectionTile";
+import { PensionsSearchBox } from "./PensionsSearchBox";
 
 export const PensionsScreen = () => {
   const { i18n } = useTranslation();
@@ -62,6 +63,9 @@ export const PensionsScreen = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+
+      {/* The finder, above the tiles. */}
+      <PensionsSearchBox />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />

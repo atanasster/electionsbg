@@ -31,6 +31,10 @@ const drugsLoaded =
   haveDb && (await count("SELECT count(*) n FROM nzok_drug_quarterly")) > 0;
 const activitiesLoaded =
   haveDb && (await count("SELECT count(*) n FROM nzok_activities")) > 0;
+const agriLoaded =
+  haveDb && (await count("SELECT count(*) n FROM agri_subsidies")) > 0;
+const bodiesLoaded =
+  haveDb && (await count("SELECT count(*) n FROM judicial_body")) > 0;
 
 afterAll(async () => {
   if (haveDb) await end();
@@ -138,4 +142,62 @@ test("every procedure the search can offer has activity rows behind it", async (
       SELECT DISTINCT procedure FROM nzok_activities
     ) a WHERE a.procedure IS NULL OR btrim(a.procedure) = ''`);
   assert.equal(orphan.n, "0", "nzok_activities carries a blank procedure code");
+});
+
+test("the agri beneficiary dimension is BUILT, not just created", async (t) => {
+  if (!agriLoaded) return t.skip();
+  // The sharp one. 046 creates agri_beneficiary with CREATE MATERIALIZED VIEW
+  // IF NOT EXISTS at the TOP of runAgriIngest — three statements before the
+  // stage build — so on a cold database it is derived from an EMPTY
+  // agri_subsidies and IF NOT EXISTS guarantees no later apply repairs it. The
+  // typeahead would then answer "no matches" for all 16.7k beneficiaries with
+  // nothing failing. The ingest now REFRESHes it after the corpus commits.
+  const [row] = await allRows<{ n: string; src: string }>(`
+    SELECT (SELECT count(*) FROM agri_beneficiary)::text AS n,
+           (SELECT count(DISTINCT eik) FROM agri_subsidies
+             WHERE eik IS NOT NULL AND eik <> '121100421')::text AS src`);
+  assert.ok(
+    Number(row.n) > 0,
+    "agri_beneficiary is EMPTY — the ingest never refreshed it",
+  );
+  assert.equal(
+    row.n,
+    row.src,
+    `agri_beneficiary is stale: ${row.n} rows against ${row.src} distinct EIKs`,
+  );
+});
+
+test("the agri typeahead never offers a row with no /farm page", async (t) => {
+  if (!agriLoaded) return t.skip();
+  // ДФ „Земеделие" itself is in the corpus as a counterparty and is #2 by
+  // money, so before it was excluded it was the FIRST result for "земеделие"
+  // and the only row in 16,702 that could not land.
+  const [row] = await allRows<{ n: string }>(
+    "SELECT count(*)::text AS n FROM agri_beneficiary WHERE eik = '121100421'",
+  );
+  assert.equal(row.n, "0", "the payer is in the beneficiary dimension");
+});
+
+test("the agri typeahead is not a per-keystroke table scan", async (t) => {
+  if (!agriLoaded) return t.skip();
+  // The GROUP BY form over ~2M agri_subsidies rows measured 2,152 ms for
+  // "агро" — a per-keystroke query. The rollup measures single-digit ms. A
+  // generous ceiling: this is a guard against the shape regressing, not a
+  // benchmark.
+  const t0 = Date.now();
+  await allRows("SELECT agri_beneficiary_search('агро', 8)");
+  const ms = Date.now() - t0;
+  assert.ok(
+    ms < 400,
+    `agri typeahead took ${ms} ms — is it scanning agri_subsidies again?`,
+  );
+});
+
+test("every judicial body the search offers has a /court page", async (t) => {
+  if (!bodiesLoaded) return t.skip();
+  const [row] = await allRows<{ total: string; servable: string }>(`
+    SELECT jsonb_array_length(judicial_body_index())::text AS total,
+           (SELECT count(*) FROM judicial_body
+             WHERE judicial_body_detail(body_code) IS NOT NULL)::text AS servable`);
+  assert.equal(row.servable, row.total);
 });

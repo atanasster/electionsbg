@@ -2456,6 +2456,28 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // The slim judicial-body index behind the /judiciary search group — all 283,
+  // requested on arm like the two НЗОК indexes.
+  "judicial-body-index": async (dbRows) => {
+    const rows = await dbRows("SELECT judicial_body_index() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // Beneficiary typeahead for /subsidies. The ONLY per-keystroke query in the
+  // search feature — 16,702 distinct EIKs is past the point where a client
+  // index is free. Reads the agri_beneficiary rollup, not agri_subsidies: the
+  // GROUP-BY form measured 2,152 ms.
+  "agri-search": async (dbRows, q) => {
+    const term = s(q, "q");
+    if (!term) return { status: 400, body: { error: "missing q" } };
+    const lim = clampInt(q.limit, 8, 1, 20);
+    const rows = await dbRows("SELECT agri_beneficiary_search($1, $2) AS r", [
+      term,
+      lim,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   "nzok-procedure-index": async (dbRows) => {
     const rows = await dbRows("SELECT nzok_procedure_index() AS r", []).catch(
       missingMigrationEmpty,
