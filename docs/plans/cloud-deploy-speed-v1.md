@@ -74,6 +74,138 @@ Total derived-cache output for the contracts path: **~7 MB**, recomputed from
 
 ---
 
+## Measured deploy profile (2026-08-05) — first per-step timing
+
+Phase 0 has **not** shipped (`scripts/db/lib/step.ts` does not exist), so the
+admission above — "every claim about *where* the hour goes is inference" — was
+still true. This is the first measured profile. It is **chain-granular, not
+phase-granular**: each row is one `db:load:*:cloud`, timed by an external
+wrapper, so it does not replace Phase 0's in-loader instrumentation. It does
+settle which loaders are worth instrumenting first.
+
+Real publish of one `/process-watch-report` run (procurement + ИСУН + КЗК +
+budget + macro + council), `db-g1-small`, proxy on `127.0.0.1:5434`:
+
+| # | step | seconds | | note |
+|--:|---|--:|---|---|
+| 1 | `contracts` | **3878** | 64.6 min | ships **+106 rows** |
+| 2 | `annexes` | 41 | | |
+| 3 | `tenders` | **1049** | 17.5 min | |
+| 4 | `awarder-seats` | **776** | 12.9 min | 3,845-row / 736 kB table |
+| 5 | `funds --full` | 230 | 3.8 min | 2 routes 500 for the window |
+| 6 | `transport-project` | 247 | | |
+| 7 | `water-operator` | 4 | | |
+| 8 | `mvr-directorate` | 17 | | |
+| 9 | `procurement-scopes` | **945** | 15.75 min | **entirely duplicate — see F1** |
+| 10 | `persons-browse` | 362 | 6.0 min | |
+| 11 | `person-search` | 421 | 7.0 min | |
+| 12 | `graph` | 167 | | |
+| 13 | `tr-company-place` | 61 | | |
+| | **total** | **8198** | **136.6 min** | |
+
+Verified afterwards: cloud `contracts` = local to the cent (408,483 rows,
+€99,293,064,763.34, latest 2026-08-04), `/api/db/procurement-overview` and
+`/api/db/fund-beneficiary` both 200 in ~1 s.
+
+### F1 — the scoped-matview refresh runs up to three times per deploy (945 s, 11.5%)
+
+The single largest *removable* cost measured. The six matviews in
+`SCOPED_MATVIEWS` are refreshed by:
+
+- `db:load:pg` — logs `scoped precomputes: refreshing 6/6`
+- `db:load:awarder-seats:pg` — logs `refreshing 4/4 (changed: awarder_seats)`
+- `db:load:procurement-scopes:pg` — refreshes 6/6 **again**
+
+Step 9 therefore recomputed what steps 1 and 4 had already produced, for
+**945 s of a 8198 s deploy**. Nothing is wrong per loader — each is correct
+standalone, which is exactly why this is invisible: the waste only exists in
+the *composition*, and no loader can see it.
+
+This is RC1/RC3 confirmed at chain level, and it suggests a cheap pre-Phase-2
+win: a per-run "already refreshed this generation" guard (a refresh ledger
+keyed by matview + input digest), so the Nth caller in one deploy is a no-op.
+That is strictly smaller than Phase 2 and would have cut this run by ~16 min.
+
+### F2 — cost is decoupled from data volume, in both directions
+
+`contracts` spent 64.6 min to ship **106 new rows** (0.026% of the table) —
+the 2026-07-24 thesis, re-measured on a fuller corpus. But the sharper
+evidence is the small tables:
+
+- `awarder-seats` — 3,845 rows, 736 kB — **776 s**, because it fans out to
+  matviews 119+123+124.
+- `water-operator` — same crosswalk family — **4 s**.
+- `transport-project` — same family again — **247 s**, a **60×** spread
+  against its sibling.
+
+So "ship less data" (Phase 3) does not by itself fix steps 4/6/9; those are
+paying for dependent recompute, not transfer. Phase 2/F1 is the lever there.
+Worth splitting the Phase 3 win estimate accordingly.
+
+### F3 — the GCS half is already fast; the hour is entirely Cloud SQL
+
+The same publish's bucket half: **94 s** for **1,085 objects / 7.9 MiB**
+across 12 scoped paths (`myarea`, `budget`, `council`, `macro*.json`,
+`officials/derived`, the two procurement allowlist files, `data_map.json`,
+`data-changes.json`). Against the whole-tree `bucket:sync`'s ~30 min fixed
+enumeration cost, the scoped form is ~19× faster and was 0.6% of total deploy
+time. No further work needed on that half — it is not where the hour goes.
+
+### F4 — `db:load:funds:pg:cloud` already implements the Phase 4 pattern
+
+It refuses to run against Cloud SQL without an explicit scope, printing:
+
+```
+Refusing to guess the scope of a Cloud SQL load.
+  --payloads-only   rebuild fund_payloads only (stage-merged, seconds, never blocks a reader)
+  --full            also reload fund_beneficiaries + fund_projects. ~4.5 minutes
+                    during which /api/db/fund-contract and /api/db/fund-beneficiary return 500
+```
+
+Measured `--full` at **230 s**, close to its own estimate. This is the exact
+shape Phase 4 wants for `tenders` (RC4/RC6): a fast non-blocking default plus
+an opt-in heavy path that *states its own availability cost*. Copy it rather
+than designing a new one — and note the guard is what makes the fast path
+safe to default to, since it forces the caller to have decided.
+
+### F5 — deploy automation must not pipe, and must not assume a 1-hour cap
+
+Two operational traps hit during this run:
+
+- `npm run <chain> | tail` returns **`tail`'s** exit status, not the chain's.
+  Earlier the same day a `db:refresh` halted at step 44 of 51 and reported
+  **exit 0** for precisely this reason. Any wrapper this plan adds must run the
+  command unpiped and check `$?` per step (the profile above does).
+- `contracts` alone (64.6 min) exceeds a 1-hour watcher timeout, so a naive
+  monitor expires mid-step and reports nothing. Progress watching has to be
+  persistent or re-armed.
+
+### F6 — count comparisons need a stated basis (relevant to Phase 3 / G3)
+
+A pre-deploy sanity check compared `index.json`'s `totals.contracts` (402,338)
+against cloud `count(*) FROM contracts` (408,377) and read as "cloud is fuller
+than local — this deploy would delete 2,551 rows". It was an artefact:
+`totals.contracts` **excludes** the 3,488 `contractAmendment` rows and the
+`award`-tag rows, while `count(*)` includes them. Like-for-like, local was a
+strict superset (+106 `eop` rows).
+
+Phase 3's delta/verify and G3's row hash must therefore pin the basis
+explicitly — same tag filter, same table — or the verifier will produce
+confident false alarms of exactly this shape. A cheap guard: have the verifier
+report `count(*) GROUP BY tag`, never a single scalar.
+
+### F7 — one dataset cannot join any automated deploy chain
+
+`kzk_appeals` (intake) has **no `db:load:*:cloud`** — the crawl *is* the
+loader, so publishing means re-running a **headed Playwright** crawl with
+`DATABASE_URL` pointed at the proxy (plus `apply_functions.ts
+042_kzk_appeals.sql`, which is idempotent). It took ~1 min here (incremental,
+33 rows), but it needs a display and Bulgarian egress, so it can never run
+unattended in the Phase 5 orchestration. Either it stays a documented manual
+tail step, or the intake arm gains a real loader. Phase 5 should say which.
+
+---
+
 ## Root causes
 
 ### RC1 — Five caches are built twice per load, the first time against stale data
