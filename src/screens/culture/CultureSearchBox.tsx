@@ -1,8 +1,16 @@
-// The institution finder on /culture — the five culture bodies plus the 21 state
-// institutes (НДК, Народен театър, Софийска опера…).
+// The institution finder on /culture — the culture bodies plus the state
+// institutes (НДК, Народен театър, Софийска опера…), 22 rows after de-duping
+// the one entity that appears in both lists (НДК).
 //
-// CultureAwardersTile hides the institutes behind a "show all" toggle, so 21 of
-// the 26 are one click away from invisible. The toggle stays; this is the jump.
+// CultureAwardersTile hides the institutes behind a "show all" toggle, so most
+// of them are one click away from invisible. The toggle stays; this is the jump.
+//
+// НФЦ IS EXCLUDED. It is a Bulstat entity with a zero procurement footprint —
+// no tr_companies row, no contracts either side — so /awarder/000695833 renders
+// "Няма фирма с ЕИК … в базата." The plan's rule is that a group whose rows
+// cannot land does not ship them, and that applies per ROW, not only per group.
+// It stays in CULTURE_BODIES (the awarders tile labels it deliberately); it
+// just is not a search destination.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +21,7 @@ import { buildMembersIndex } from "@/screens/sector/membersIndex";
 import {
   CULTURE_BODIES,
   STATE_CULTURE_INSTITUTES,
+  NFC_EIK,
 } from "@/lib/kulturaReferenceData";
 
 export const CultureSearchBox: FC = () => {
@@ -25,7 +34,7 @@ export const CultureSearchBox: FC = () => {
     const seen = new Set(CULTURE_BODIES.map((b) => b.eik));
     return buildMembersIndex(
       [
-        ...CULTURE_BODIES.map((b) => ({
+        ...CULTURE_BODIES.filter((b) => b.eik !== NFC_EIK).map((b) => ({
           eik: b.eik,
           name: { bg: b.bg, en: b.en },
         })),

@@ -104,6 +104,13 @@ export const DefenseScreen = () => {
       <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="procurement_defense_nav" />
 
+      {/* OUTSIDE the gdp.data gate. MO_ENTITIES is static, so the finder has no
+          data dependency — mounting it inside made it absent while the GDP
+          series loaded and PERMANENTLY absent on a fetch failure, which is
+          exactly when a reader most wants a way to reach a specific body.
+          /culture does this correctly right next door. */}
+      <DefenseSearchBox />
+
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
       )}

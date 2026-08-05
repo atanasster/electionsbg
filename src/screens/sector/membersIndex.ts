@@ -4,9 +4,19 @@
 import { buildEntityIndex } from "@/lib/entitySearchIndex";
 import type { SectorDashboardConfig } from "./sectorDashboards";
 
-/** Below this a sector's roster fits on screen and a box is noise. Ten rather
- *  than twenty so МТС (11) is covered: its members are the ones with acronyms a
- *  reader types (НКЖИ, БДЖ, ИАЖА) and the least guessable full names. */
+/** Below this a sector's roster fits on screen and a box is noise.
+ *
+ *  Ten rather than twenty so МТС (11) is covered: its members carry the
+ *  acronyms a reader actually types (НКЖИ, БДЖ, ИАЖА) behind the least
+ *  guessable full names.
+ *
+ *  NOT knife-edge: the member counts are 74 / 30 / 27 / 11 / 9 / 6 / 1×8, so
+ *  ANY value in [10, 11] selects the same four sectors. Energy at 9 is one
+ *  member below the floor — if it grows, it gets a box for free, which is the
+ *  case this auto-mount exists for (МВР went from a handful to 74).
+ *
+ *  It cannot reach /judiciary: that is a bespoke screen whose 283 bodies are a
+ *  PG dimension, not a `members` array. Its finder is T5d. */
 export const MEMBER_SEARCH_MIN = 10;
 
 /** The members of one sector as a search group. Exported so a bespoke screen
