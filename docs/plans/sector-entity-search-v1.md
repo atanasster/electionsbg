@@ -781,3 +781,84 @@ whose pages do not exist yet is a group that 404s.
   the property the whole degrade-gracefully design rests on.
 - A `bodyHtml` non-emptiness assertion per family. An empty `#ssg-content` is invisible in every
   human check and is the entire AIO surface.
+
+---
+
+## 12. Deploy runbook for what has shipped so far
+
+As of commit `64e4c6247d` (T0.1 → T5c). **Nothing here is safe to deploy piecemeal** — three
+of the five steps carry changes no loader ships, and two of them are silently wrong rather than
+broken if skipped. Run in this order.
+
+### The order, and why each step is where it is
+
+```bash
+# 1. PG function bodies. No db:load:* carries these — "applied, never loaded".
+#    066 MUST precede 054: 054 calls nzok_drug_quarterly_by_inn() and sets
+#    check_function_bodies = false, so a missing 066 does not fail the apply —
+#    it fails on the first CALL with 42883, which missingMigrationEmpty turns
+#    into a truthy [], and every molecule page then renders "no above-median
+#    prices, the normal case" at a 200.
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/db/apply_functions.ts \
+  066_nzok_drug_quarterly.sql 054_nzok_risk.sql \
+  052_nzok_drug_unit_prices.sql 053_nzok_activities.sql
+
+# 2. The judicial dimension. This loader APPLIES 116 itself and populates
+#    judicial_body_source_name, so it is both the migration and the data.
+#    Skipping it does not 500: judicial_body_detail() returns load: null for
+#    every body, which is shape-identical to a real prosecution office — so all
+#    283 /court pages assert at a 200 that the ВСС publishes no workload for
+#    them, including Софийски районен съд. `sourcesBuilt` is what keeps the page
+#    honest in the interim, but the fix is this command.
+npm run db:load:judicial-bodies:pg:cloud
+
+# 3. The Cloud Function — three new routes (/api/db/court,
+#    nzok-procedure-index, nzok-drug-pack-index). Before hosting, per the
+#    standing rule: hosting first would ship a bundle calling routes that do not
+#    exist yet.
+npm run deploy:db
+
+# 4. Hosting — the new /court and /pension-fund SPA routes, and the bundle that
+#    reads the new КФН shape.
+npm run deploy
+
+# 5. The КФН archive. LAST, and the order is load-bearing in one direction only.
+#    data/budget/kfn/funds.json changed shape (single period → {latestPeriod,
+#    periods[]}). New bundle + old JSON degrades cleanly — useKfnLatest returns
+#    null and the tile self-suppresses. Old bundle + new JSON iterates
+#    data.funds on undefined, and with no ErrorBoundary anywhere in src/ that
+#    blanks the whole of /pensions.
+npm run bucket:sync:paths -- budget
+```
+
+### What each step makes true
+
+| Step         | Without it                                                                                                  |
+| ------------ | ----------------------------------------------------------------------------------------------------------- |
+| 1 (054+066)  | `/molecule/:inn` serves 30 of 610 INNs; the other 580 render not-found                                      |
+| 1 (052, 053) | the medicines and pathways search groups are absent from `/sector/health` (they degrade, they do not crash) |
+| 2            | all 283 `/court` pages claim no published workload — **wrong, not empty**                                   |
+| 3            | `/court/**` and both new search groups have no endpoint                                                     |
+| 4            | the new routes 404 through the SPA fallback                                                                 |
+| 5            | `/pension-fund/**` shows one quarter and no trend                                                           |
+
+### Not yet deployable, and deliberately so
+
+`/court/**` and `/pension-fund/**` are in **neither the prerender nor the sitemap**, and
+`/judiciary` does not link its courts — that is T5d (the search groups) and §11.1–11.2. Both
+families are reachable by URL and, for pension funds, from the `/pensions` tile. Shipping them
+before §11 is safe but leaves them undiscoverable, which is the SEO-gap shape §11.4 exists to
+close. Prefer to deploy once §11 lands.
+
+### Verification after deploy
+
+```bash
+# every findable entity resolves to a servable page
+npm run test:data -- sector_search_landing judicial_body_detail
+```
+
+Then spot-check one of each on prod: a tail molecule (`/molecule/ABROCITINIB` — should show a
+quarterly series, not "no data"), a prosecution office (`/court/rp-yambol` — should NAME the
+absent workload, not show an empty chart), and a fund (`/pension-fund/upf-doverie` — should show
+more than one quarter).
