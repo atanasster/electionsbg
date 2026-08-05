@@ -9,6 +9,7 @@
 
 import { describe, it, expect } from "vitest";
 import path from "path";
+import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import {
   educationBodyFor,
@@ -16,6 +17,7 @@ import {
   readMuniNamesEn,
 } from "./educationPlaces";
 import { buildGovernanceRegionBody } from "./bodyBuilders";
+import { resolveEducationPlaceKey as resolveEducationPlaceKeySync } from "@/data/schools/educationPlaceKey";
 import type { RegionInfo } from "@/data/dataTypes";
 
 const ROOT = path.resolve(
@@ -171,6 +173,42 @@ describe("buildGovernanceRegionBody with education", () => {
     const ids = [...body.matchAll(/\/school\/([^"]+)"/g)].map((m) => m[1]);
     expect(ids.length).toBeGreaterThan(0);
     for (const id of ids) expect(id).toMatch(/^\d+$/);
+  });
+});
+
+describe("every sub-city place resolves onto a parent that has data", () => {
+  // The invariant, pinned against the real roster rather than three hand-picked
+  // codes: Sofia's 24 районы and the 11 Пловдив/Варна районы are obshtina-shaped
+  // ids with their own prerendered place pages, and МОН publishes none of them.
+  // Each must alias to a parent the corpus actually carries — the Пловдив/Варна
+  // family was missed on the first pass and 11 live pages lost their section.
+  it("aliases every Sofia район and city район onto a parent blob", async () => {
+    const { resolveEducationPlaceKey } = await import(
+      "@/data/schools/educationPlaceKey"
+    );
+    const { CITY_RAYONS } = await import("@/data/local/cityRayonCatalog");
+    const munis = JSON.parse(
+      readFileSync(path.join(ROOT, "data/municipalities.json"), "utf-8"),
+    ) as { obshtina: string }[];
+
+    const subCity = [
+      ...munis.map((m) => m.obshtina).filter((c) => /^S2[3-5]\d{2}$/.test(c)),
+      ...CITY_RAYONS.map((r) => r.id),
+    ];
+    expect(subCity.length).toBeGreaterThanOrEqual(24 + 11);
+
+    const unresolved = subCity.filter((code) => {
+      const { key, aliased, reason } = resolveEducationPlaceKey(code);
+      return !aliased || !reason || !places.has(key);
+    });
+    expect(unresolved).toEqual([]);
+  });
+
+  it("leaves an ordinary município to stand or fall on its own data", () => {
+    // Not every place has schools, and that is a legitimate empty — the alias
+    // must not paper over it by borrowing a neighbour's numbers.
+    expect(resolveEducationPlaceKeySync("SML10").aliased).toBe(false);
+    expect(resolveEducationPlaceKeySync("SML10").key).toBe("SML10");
   });
 });
 

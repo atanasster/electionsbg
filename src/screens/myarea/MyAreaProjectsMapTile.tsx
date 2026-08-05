@@ -18,6 +18,7 @@ import {
   type FundsGeoPin,
 } from "@/data/funds/useFundsGeoPins";
 import { useFundsForMuni } from "@/data/funds/useFundsForPlace";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 type Props = {
   obshtina: string;
@@ -172,8 +173,6 @@ const LeafletMap: FC<{ pins: FundsGeoPin[] }> = ({ pins }) => {
 // when a район has its own contracts we render them; otherwise we fall
 // back to the citywide S22 list and label the tile accordingly.
 const SOFIA_CITY_KEY = "S22";
-const isSofiaDistrict = (obshtina: string): boolean =>
-  /^S2[3-5]\d{2}$/i.test(obshtina);
 
 export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
@@ -182,13 +181,13 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   // Only triggers a fetch for Sofia районы — `useFundsGeoPins` is
   // disabled when its arg is null, so non-Sofia dashboards pay nothing.
   const cityFallback = useFundsGeoPins(
-    isSofiaDistrict(obshtina) ? SOFIA_CITY_KEY : null,
+    isSofiaRayonObshtina(obshtina) ? SOFIA_CITY_KEY : null,
   );
   // True when the район itself has zero EU-funded contracts and we're
   // showing the citywide rollup instead. Drives the header label and the
   // per-capita summary lookup.
   const usingCityFallback =
-    isSofiaDistrict(obshtina) &&
+    isSofiaRayonObshtina(obshtina) &&
     (!primary || primary.contracts.length === 0) &&
     !!cityFallback &&
     cityFallback.contracts.length > 0;

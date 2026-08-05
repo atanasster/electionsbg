@@ -6,6 +6,7 @@
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeAll } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
+import { readFileSync } from "node:fs";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { initTestI18n } from "./testI18n";
@@ -40,7 +41,11 @@ const blob = (over: Partial<EducationPlace> = {}): EducationPlace => ({
   ...over,
 });
 
-const renderSection = (code: string, body: EducationPlace | null) => {
+const renderSection = (
+  code: string,
+  body: EducationPlace | null,
+  chrome?: "section" | "none",
+) => {
   vi.spyOn(globalThis, "fetch").mockResolvedValue({
     ok: true,
     json: async () => body,
@@ -52,12 +57,33 @@ const renderSection = (code: string, body: EducationPlace | null) => {
     <MemoryRouter>
       <QueryClientProvider client={client}>
         <TooltipProvider>
-          <EducationPlaceSection code={code} />
+          <EducationPlaceSection code={code} chrome={chrome} />
         </TooltipProvider>
       </QueryClientProvider>
     </MemoryRouter>,
   );
 };
+
+describe("the section is actually mounted on the place nodes", () => {
+  // Source-level, like the shard-merge guard in stale_base_keys.test.ts: a full
+  // MyAreaScreen mount would need stubs for ~25 sibling tiles, and what can
+  // silently regress here is the wiring, not the rendering. Both call sites are
+  // pinned — including the props, since passing the wrong code or dropping
+  // `chrome` would look right in a diff.
+  const read = (p: string) => readFileSync(new URL(p, import.meta.url), "utf8");
+
+  it("is on the município node, obshtina-scoped and un-chromed", () => {
+    const src = read("../myarea/MyAreaScreen.tsx");
+    expect(src).toMatch(
+      /<EducationPlaceSection\s+code=\{area\.obshtina\}\s+chrome="none"\s*\/>/,
+    );
+  });
+
+  it("is on the region node, oblast-scoped and inside its section", () => {
+    const src = read("./RegionGovernanceCards.tsx");
+    expect(src).toMatch(/<EducationPlaceSection code=\{regionCode\} \/>/);
+  });
+});
 
 describe("EducationPlaceSection", () => {
   it("renders the education block for an ordinary oblast, with no alias note", async () => {
@@ -87,6 +113,46 @@ describe("EducationPlaceSection", () => {
     await waitFor(() =>
       expect(screen.getByText(/област Пловдив общо/)).toBeInTheDocument(),
     );
+  });
+
+  it("drops the section kicker where the page has none", async () => {
+    // The município node is a flat run of cards; an "ОБРАЗОВАНИЕ" header would
+    // be the only one on the page.
+    renderSection("SML10", blob({ grain: "muni" }), "none");
+    await waitFor(() => expect(screen.getByText("4,55")).toBeInTheDocument());
+    expect(screen.queryByText("Образование")).not.toBeInTheDocument();
+  });
+
+  it("reads Столична община on a Sofia район page, and says so", async () => {
+    // The 24 районы are obshtina codes with their own place pages, and МОН
+    // publishes none of them separately.
+    renderSection("S2309", blob({ grain: "muni", code: "SOF00" }), "none");
+    await waitFor(() =>
+      expect(screen.getByText(/не за този район/)).toBeInTheDocument(),
+    );
+    // The МИР wording belongs to the region pages, not here.
+    expect(screen.queryByText(/не за този МИР/)).not.toBeInTheDocument();
+  });
+
+  it("fetches the city aggregate for a Sofia район, not the район code", async () => {
+    const spy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => blob({ grain: "muni", code: "SOF00" }),
+    } as Response);
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    render(
+      <MemoryRouter>
+        <QueryClientProvider client={client}>
+          <TooltipProvider>
+            <EducationPlaceSection code="S2317" chrome="none" />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </MemoryRouter>,
+    );
+    await waitFor(() => expect(spy).toHaveBeenCalled());
+    expect(String(spy.mock.calls[0][0])).toContain("key=SOF00");
   });
 
   it("renders nothing when the place has no blob", async () => {

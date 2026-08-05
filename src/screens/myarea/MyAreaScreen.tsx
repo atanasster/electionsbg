@@ -45,6 +45,7 @@ import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
 import { PlaceCompaniesTile } from "@/screens/dashboard/PlaceCompaniesTile";
+import { EducationPlaceSection } from "@/screens/dashboard/EducationPlaceSection";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
@@ -316,6 +317,15 @@ export const MyAreaScreen: FC = () => {
             have data. The full per-tile detail still ships on the
             canonical /settlement and /municipality routes. */}
         <MyAreaQualityStrip obshtina={area.obshtina} />
+
+        {/* The schools column of the strip above, opened up: the município's
+            matura result against the country, its best and weakest schools,
+            and the context-adjusted cut. Obshtina-scoped, so a settlement view
+            shows its parent município's figures — the same convention as the
+            money tiles. Sofia районы read Столична община and say so; a place
+            with no matura school renders nothing. Bare, because this page is a
+            flat run of cards with no section kickers. */}
+        <EducationPlaceSection code={area.obshtina} chrome="none" />
 
         {/* Community funnel — the dashboard's final tile invites the user
             into the Наясно Facebook group for discussion and alerts about

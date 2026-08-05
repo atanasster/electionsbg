@@ -271,6 +271,16 @@ export const SOFIA_REGIONS = ["S23", "S24", "S25"];
 export const isSofiaMir = (oblast?: string | null): boolean =>
   !!oblast && SOFIA_REGIONS.includes(oblast);
 
+// True when an OBSHTINA code is one of Sofia's 24 административни районы
+// (`S2309` Лозенец, `S2417` Витоша …) rather than a self-standing община.
+//
+// Every dataset МОН, НСИ, АЗ and the rest publish keys Столична община as a
+// single `SOF00` row, so a район page has to fall back to the city's figures —
+// which is why seven modules had each written this regex out and the comment
+// above already named a helper that did not exist. One definition now.
+export const isSofiaRayonObshtina = (obshtina?: string | null): boolean =>
+  !!obshtina && /^S2[3-5]\d{2}$/i.test(obshtina);
+
 // The localized display name of a settlement prefixed with its type marker
 // (гр./с./кв.) — the form used in page <h1>s and SEO titles ("кв. Лозенец",
 // "гр. София", "с. Иваново"). The 21 central Sofia районы are stored with the

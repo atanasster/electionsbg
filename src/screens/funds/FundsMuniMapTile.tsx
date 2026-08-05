@@ -21,13 +21,13 @@ import { FeatureMap } from "../components/maps/FeatureMap";
 import { getDataProjection } from "../components/maps/d3_utils";
 import { MapLayout, type MapCoordinates } from "@/layout/dataview/MapLayout";
 import { sequentialColor } from "../components/demographics/censusMetrics";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 import type {
   FundsProjectsMuniMapFile,
   FundsProjectsMuniMapRow,
 } from "@/data/funds/types";
 
 const SOFIA_SYNTH = "SOF00";
-const isSofiaDistrict = (code: string): boolean => /^S2[3-5]\d{2}$/i.test(code);
 
 type Metric = "total" | "perCapita" | "disbursement";
 
@@ -48,7 +48,7 @@ const resolveRow = (
 ): { row: FundsProjectsMuniMapRow; sofiaFallback: boolean } | null => {
   const direct = byMuni.get(code);
   if (direct) return { row: direct, sofiaFallback: false };
-  if (isSofiaDistrict(code)) {
+  if (isSofiaRayonObshtina(code)) {
     const sof = byMuni.get(SOFIA_SYNTH);
     if (sof) return { row: sof, sofiaFallback: true };
   }

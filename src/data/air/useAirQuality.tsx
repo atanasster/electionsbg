@@ -3,6 +3,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 export type Pollutant = "pm10" | "pm25" | "no2" | "o3" | "so2";
 
@@ -37,8 +38,6 @@ const fetchAir = async (): Promise<AirFile> => {
 // useIndicators / useSchools / useMunicipalContacts fallback so every
 // район dashboard sees the 6+ Sofia stations.
 const SOFIA_CITY_KEY = "SOF00";
-const isSofiaDistrict = (obshtina: string): boolean =>
-  /^S2[3-5]\d{2}$/i.test(obshtina);
 
 export const useAirQuality = (obshtina?: string | null) => {
   const { data } = useQuery({
@@ -48,7 +47,7 @@ export const useAirQuality = (obshtina?: string | null) => {
   });
   if (!obshtina) return { data, stations: [] as AirStation[] };
   let stations = data?.stations.filter((s) => s.obshtina === obshtina) ?? [];
-  if (stations.length === 0 && isSofiaDistrict(obshtina)) {
+  if (stations.length === 0 && isSofiaRayonObshtina(obshtina)) {
     stations =
       data?.stations.filter((s) => s.obshtina === SOFIA_CITY_KEY) ?? [];
   }

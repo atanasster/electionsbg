@@ -262,9 +262,20 @@ indicators" claim in the same pass; prerender unit test.
 **Step 5 — performance pass.** ✅ — see `## Measured`. Run P1–P6, record the numbers in `## Measured`,
 and fix anything over budget before declaring done.
 
-**Phase 2 (not v1)**: the município node (`/governance/{obshtina}`, 265 pages —
-UI only, the blobs already exist) and then the settlement node, where schools
-carry `loc`.
+**Phase 2 — the município node** (`/governance/{obshtina}`, 265 pages + Sofia's
+24 районы + the 11 Пловдив/Варна районы; UI only, the blobs already exist).
+
+- *Step 1* — the section on `MyAreaScreen`, `chrome="none"` because that page is
+  a flat run of cards. Sub-city places alias to their parent (Sofia районы →
+  `SOF00`, `PDV22-01` → `PDV22`) and say so. The quality strip's schools column
+  names its own basis, because it and the new card show two different numbers
+  for the same place (Столична община 4.37 vs 4.69) and unlabelled they read as
+  a contradiction.
+- *Step 2* — the prerendered município body, so the 265×2 crawler pages carry
+  what the SPA renders.
+
+**Phase 3**: the settlement node, where schools carry `loc` — see §9's open
+question about whether it aggregates by `loc` or by school coordinates.
 
 ---
 

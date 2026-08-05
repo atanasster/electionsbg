@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 // Indicator identifiers. Adding a new annual indicator (DZI, EU funds,
 // healthcare, ...) means:
@@ -161,9 +162,6 @@ export type IndicatorLatest = {
 // public AZ data, so we store the city aggregate once and fall back here.
 const SOFIA_CITY_KEY = "SOF00";
 
-const isSofiaDistrict = (obshtinaCode: string): boolean =>
-  /^S2[3-5]\d{2}$/i.test(obshtinaCode);
-
 /**
  * Resolve all indicators for the given obshtina code. Falls back to the
  * Sofia city aggregate for any Sofia-district code that doesn't have a
@@ -178,7 +176,10 @@ export const selectIndicatorsForMuni = (
   for (const id of Object.keys(payload.series) as IndicatorId[]) {
     let series = payload.series[id]?.[obshtinaCode];
     let fallback: IndicatorFallback | undefined;
-    if ((!series || series.length === 0) && isSofiaDistrict(obshtinaCode)) {
+    if (
+      (!series || series.length === 0) &&
+      isSofiaRayonObshtina(obshtinaCode)
+    ) {
       series = payload.series[id]?.[SOFIA_CITY_KEY];
       if (series && series.length > 0) fallback = "sofia-city";
     }
@@ -216,7 +217,7 @@ export const selectIndicatorSeries = (
   if (!payload || !obshtinaCode) return { points: [] };
   let series = payload.series[id]?.[obshtinaCode];
   let fallback: IndicatorFallback | undefined;
-  if ((!series || series.length === 0) && isSofiaDistrict(obshtinaCode)) {
+  if ((!series || series.length === 0) && isSofiaRayonObshtina(obshtinaCode)) {
     series = payload.series[id]?.[SOFIA_CITY_KEY];
     if (series && series.length > 0) fallback = "sofia-city";
   }

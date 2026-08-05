@@ -18,10 +18,9 @@ import { FeatureMap } from "../maps/FeatureMap";
 import { getDataProjection } from "../maps/d3_utils";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { sequentialColor } from "../demographics/censusMetrics";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 const SOFIA_CITY_KEY = "SOF00";
-
-const isSofiaDistrict = (code: string): boolean => /^S2[3-5]\d{2}$/i.test(code);
 
 const resolveValue = (
   payload: IndicatorsPayload,
@@ -31,7 +30,7 @@ const resolveValue = (
   const series = payload.series[id]?.[muniCode];
   if (series && series.length > 0)
     return { value: series[series.length - 1].value };
-  if (isSofiaDistrict(muniCode)) {
+  if (isSofiaRayonObshtina(muniCode)) {
     const city = payload.series[id]?.[SOFIA_CITY_KEY];
     if (city && city.length > 0)
       return { value: city[city.length - 1].value, fallback: "sofia-city" };

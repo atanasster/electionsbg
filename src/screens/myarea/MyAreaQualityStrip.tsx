@@ -19,6 +19,7 @@ import { GraduationCap, Wind, Stethoscope } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { useSchools } from "@/data/schools/useSchools";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 import { useServices } from "@/data/services/useServices";
 import { useAirQuality } from "@/data/air/useAirQuality";
 
@@ -96,6 +97,12 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina }) => {
   // All three data hooks fire in parallel; React Query dedupes them
   // across other consumers (the full tiles on the canonical pages).
   const { data: schoolsFile, schools } = useSchools(obshtina);
+  // True when the schools above are the CITY's, not this place's — the район
+  // fallback inside useSchools fired.
+  const sofiaCityFallback =
+    isSofiaRayonObshtina(obshtina) &&
+    !schoolsFile?.schoolsByObshtina[obshtina]?.length &&
+    schools.length > 0;
   const { services } = useServices(obshtina);
   const { data: airFile, stations } = useAirQuality(obshtina);
 
@@ -148,8 +155,9 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina }) => {
       }
     }
 
-    // Schools — average ДЗИ + НВО composite across all schools in the
-    // município (latest year). Same composite the per-school tile shows.
+    // Schools — the average across the município's schools of each school's
+    // ДЗИ subjects for the latest year (БЕЛ, plus maths where the school has
+    // it). Unweighted by cohort, unlike the education card below.
     if (schoolsFile?.latestYear && schools.length > 0) {
       const yr = schoolsFile.latestYear;
       const composites: number[] = [];
@@ -169,10 +177,24 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina }) => {
           icon: GraduationCap,
           label: lang === "bg" ? "Училища" : "Schools",
           value: avg.toFixed(2),
-          caption:
-            lang === "bg"
-              ? `среден успех · ${composites.length} ${composites.length === 1 ? "училище" : "училища"}`
-              : `avg grade · ${composites.length} ${composites.length === 1 ? "school" : "schools"}`,
+          // Names its basis, because the education card on this same page
+          // shows a DIFFERENT number: this is an unweighted mean over schools
+          // of each school's ДЗИ subjects, that one is the cohort-weighted ДЗИ
+          // БЕЛ average. They differ by 0.3–0.6 in a big município (Столична
+          // 4.37 here vs 4.69 there), and an unlabelled "среден успех" beside
+          // an unlabelled "Матура" reads as a contradiction rather than as two
+          // measures.
+          // On a Sofia район page these are Столична община's schools —
+          // `useSchools` falls back to the city, since МОН publishes no район
+          // separately. Saying so is not optional: the education card directly
+          // below discloses it, and a strip that doesn't reads as район-grain
+          // data sitting next to city-grain data.
+          caption: t(
+            sofiaCityFallback
+              ? "my_area_quality_schools_caption_sofia"
+              : "my_area_quality_schools_caption",
+            { count: composites.length },
+          ),
           comparison:
             buildComparison(
               avg,
@@ -215,6 +237,11 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina }) => {
     schools,
     services,
     lang,
+    sofiaCityFallback,
+    // `t` is stable per language, and `lang` above already re-runs this on a
+    // language switch — but the rule wants it named now that the schools
+    // caption is translated rather than inlined.
+    t,
     obshtina,
     nationalSchoolAvg,
   ]);

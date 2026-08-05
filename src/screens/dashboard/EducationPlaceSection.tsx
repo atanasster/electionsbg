@@ -16,6 +16,7 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap } from "lucide-react";
 import { useEducationPlace } from "@/data/schools/useEducationPlace";
+import type { PlaceAliasReason } from "@/data/schools/educationPlaceKey";
 import { DashboardSection } from "./DashboardSection";
 import { EducationPlaceTile } from "./EducationPlaceTile";
 import { EducationExpectedTile } from "./EducationExpectedTile";
@@ -23,12 +24,37 @@ import { EducationExpectedTile } from "./EducationExpectedTile";
 type Props = {
   /** Oblast code (`SML`, `S23`) or obshtina code (`SML10`, `SOF00`). */
   code: string;
+  /** Which wrapper the two tiles come in. The wrapper cannot move to the
+   *  caller: this component owns the self-hide, and a caller composing
+   *  `<DashboardSection><Tiles/></DashboardSection>` would render an empty
+   *  header on every place with no matura school — 52 of them today. So the
+   *  choice comes in as a prop instead: `"section"` for pages built from
+   *  section kickers (the region node), `"none"` for a flat run of cards
+   *  (the município node). */
+  chrome?: "section" | "none";
 };
 
 /** Warned-about codes, so a re-render or a second visit doesn't re-log. */
 const warned = new Set<string>();
 
-export const EducationPlaceSection: FC<Props> = ({ code }) => {
+/** One sentence per reason a place shows a broader aggregate's numbers. A
+ *  lookup rather than a ternary ladder: the list grew to four the moment the
+ *  Пловдив/Варна районы joined, and each entry is a claim a reader will hold
+ *  us to. */
+const ALIAS_NOTE_KEY: Record<
+  NonNullable<PlaceAliasReason>,
+  `education_place_${string}`
+> = {
+  "sofia-city": "education_place_sofia_note",
+  "sofia-city-raion": "education_place_sofia_raion_note",
+  "city-raion": "education_place_city_raion_note",
+  "plovdiv-province": "education_place_plovdiv_note",
+};
+
+export const EducationPlaceSection: FC<Props> = ({
+  code,
+  chrome = "section",
+}) => {
   const { t } = useTranslation();
   const { place, aliasReason, isError } = useEducationPlace(code);
 
@@ -46,12 +72,21 @@ export const EducationPlaceSection: FC<Props> = ({ code }) => {
 
   if (!place) return null;
 
-  const aliasNote =
-    aliasReason === "sofia-city"
-      ? t("education_place_sofia_note")
-      : aliasReason === "plovdiv-province"
-        ? t("education_place_plovdiv_note")
-        : null;
+  const aliasNote = aliasReason ? t(ALIAS_NOTE_KEY[aliasReason]) : null;
+
+  const tiles = (
+    <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
+      <EducationPlaceTile place={place} aliasNote={aliasNote} />
+      {/* Renders null when the place has no residual to speak from, and the
+          grid then gives the headline the full width. */}
+      <EducationExpectedTile place={place} />
+    </div>
+  );
+
+  // `id` rather than nothing: DashboardSection gives the section-chromed
+  // variant an #education anchor, and the bare one is linked to from the same
+  // places.
+  if (chrome === "none") return <div id="education">{tiles}</div>;
 
   return (
     <DashboardSection
@@ -59,12 +94,7 @@ export const EducationPlaceSection: FC<Props> = ({ code }) => {
       title={t("governance_section_education") || "Education"}
       icon={GraduationCap}
     >
-      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
-        <EducationPlaceTile place={place} aliasNote={aliasNote} />
-        {/* Renders null when the place has no residual to speak from, and the
-            grid then gives the headline the full width. */}
-        <EducationExpectedTile place={place} />
-      </div>
+      {tiles}
     </DashboardSection>
   );
 };

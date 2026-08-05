@@ -30,6 +30,10 @@ type Props = {
   aliasNote?: string | null;
 };
 
+/** Under half a hundredth the difference rounds to 0,00 on screen, so calling
+ *  it a direction would colour a tie green. */
+const TIE_BAND = 0.005;
+
 /** One school row, used by both the best and the worst list. */
 const SchoolRow: FC<{ s: EducationPlaceSchool; lang: string }> = ({
   s,
@@ -84,17 +88,24 @@ export const EducationPlaceTile: FC<Props> = ({ place, aliasNote }) => {
             {place.latestYear}
           </span>
         )}
-        {delta != null && (
-          <span
-            className={`text-sm tabular-nums ${
-              delta >= 0
-                ? "text-emerald-600 dark:text-emerald-400"
-                : "text-rose-600 dark:text-rose-400"
-            }`}
-          >
-            {fmtSigned(delta, lang)} {t("education_place_vs_national")}
-          </span>
-        )}
+        {/* An exact tie is not a direction: "0,00 спрямо страната" in green
+            reads as a (tiny) win. Say it plainly and drop the colour. */}
+        {delta != null &&
+          (Math.abs(delta) < TIE_BAND ? (
+            <span className="text-sm text-muted-foreground">
+              {t("education_place_same_as_national")}
+            </span>
+          ) : (
+            <span
+              className={`text-sm tabular-nums ${
+                delta > 0
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-rose-600 dark:text-rose-400"
+              }`}
+            >
+              {fmtSigned(delta, lang)} {t("education_place_vs_national")}
+            </span>
+          ))}
       </div>
 
       {trend != null && first && (
@@ -115,9 +126,16 @@ export const EducationPlaceTile: FC<Props> = ({ place, aliasNote }) => {
             rank: place.rank,
             of: place.rankOf,
           })} · `}
-        {t("education_place_counts", {
-          schools: fmtCount(place.schools, lang),
-          examinees: fmtCount(place.examinees, lang),
+        {/* `count` selects the plural form, `formatted` carries the grouped
+            number — "1 училища" is what a single-school município got before. */}
+        {t("education_place_schools", {
+          count: place.schools,
+          formatted: fmtCount(place.schools, lang),
+        })}{" "}
+        ·{" "}
+        {t("education_place_graduates", {
+          count: place.examinees,
+          formatted: fmtCount(place.examinees, lang),
         })}
       </div>
 

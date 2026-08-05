@@ -13,6 +13,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 export type MunicipalOfficialContact = {
   role: "mayor" | "deputy_mayor" | "other";
@@ -56,8 +57,6 @@ const fetchContacts = async (): Promise<MunicipalContactsFile> => {
 // (S23xx/S24xx/S25xx) share that contact. Mirrors the useIndicators /
 // useSchools fallback pattern.
 const SOFIA_CITY_KEY = "SOF00";
-const isSofiaDistrict = (obshtina: string): boolean =>
-  /^S2[3-5]\d{2}$/i.test(obshtina);
 
 // Loose name match: uppercase + collapse whitespace. The CACBG roster
 // and iisda spell the same person identically in ~all cases; this is
@@ -86,7 +85,7 @@ export const useMunicipalContacts = (obshtina?: string | null) => {
   const contact = useMemo(() => {
     if (!obshtina) return undefined;
     let c = data?.contactsByObshtina[obshtina];
-    if (!c && isSofiaDistrict(obshtina)) {
+    if (!c && isSofiaRayonObshtina(obshtina)) {
       c = data?.contactsByObshtina[SOFIA_CITY_KEY];
     }
     return c;

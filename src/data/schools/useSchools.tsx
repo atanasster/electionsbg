@@ -4,6 +4,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 export type SchoolSubjectKey = "nvo_bel" | "nvo_math" | "dzi_bel" | "dzi_math";
 
@@ -46,9 +47,11 @@ const fetchSchools = async (): Promise<SchoolsFile> => {
 // dataset — МОН publishes Столична община as a single SOF00 aggregate.
 // Fall back from район code to SOF00 so Sofia районы see all Столична
 // schools instead of an empty tile. Same pattern as useIndicators.
+//
+// The район test itself lives in educationPlaceKey, where the place card's
+// alias rule needs the identical predicate — one definition, so the two
+// surfaces on the same page cannot disagree about what a Sofia район is.
 const SOFIA_CITY_KEY = "SOF00";
-const isSofiaDistrict = (obshtina: string): boolean =>
-  /^S2[3-5]\d{2}$/i.test(obshtina);
 
 export const useSchools = (obshtina?: string | null) => {
   const { data } = useQuery({
@@ -58,7 +61,7 @@ export const useSchools = (obshtina?: string | null) => {
   });
   if (!obshtina) return { data, schools: [] as SchoolRecord[] };
   let schools = data?.schoolsByObshtina[obshtina] ?? [];
-  if (schools.length === 0 && isSofiaDistrict(obshtina)) {
+  if (schools.length === 0 && isSofiaRayonObshtina(obshtina)) {
     schools = data?.schoolsByObshtina[SOFIA_CITY_KEY] ?? [];
   }
   return { data, schools };

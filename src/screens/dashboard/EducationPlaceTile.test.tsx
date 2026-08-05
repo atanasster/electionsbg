@@ -181,6 +181,23 @@ describe("EducationPlaceTile", () => {
     expect(screen.queryByText(/от 28 области/)).not.toBeInTheDocument();
     expect(screen.getByText(/22 училища/)).toBeInTheDocument();
   });
+
+  it("gets Bulgarian plurals right for a one-school place", () => {
+    // "1 училища" is what the interpolated-count version printed.
+    renderTile(
+      place({ schools: 1, examinees: 34, byObshtina: [], bottom: [] }),
+    );
+    expect(screen.getByText(/1 училище ·/)).toBeInTheDocument();
+    expect(screen.queryByText(/1 училища/)).not.toBeInTheDocument();
+  });
+
+  it("calls an exact tie with the country a tie, not a gain", () => {
+    renderTile(place({ avg: 4.33, nationalAvg: 4.33 }));
+    expect(
+      screen.getByText(/колкото средното за страната/),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/0,00 спрямо/)).not.toBeInTheDocument();
+  });
 });
 
 const renderExpected = (p: EducationPlace) =>
@@ -285,6 +302,19 @@ describe("resolveEducationPlaceKey", () => {
       aliased: false,
       reason: null,
     });
+  });
+
+  it("sends every Sofia район to the city's município aggregate", () => {
+    // МОН publishes no район separately; each of the 24 has its own place page.
+    for (const raion of ["S2309", "S2417", "S2523"]) {
+      expect(resolveEducationPlaceKey(raion)).toEqual({
+        key: "SOF00",
+        aliased: true,
+        reason: "sofia-city-raion",
+      });
+    }
+    // A município that merely starts with S2 is not a Sofia район.
+    expect(resolveEducationPlaceKey("SLS10").reason).toBeNull();
   });
 
   it("passes an ordinary code through untouched", () => {

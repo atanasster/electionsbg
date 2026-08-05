@@ -8,11 +8,19 @@
 // broader place's numbers. Whichever surface forgets that shows a city-wide
 // matura average under a constituency's name with nothing said.
 
-import { SOFIA_REGIONS } from "@/data/dataTypes";
+import { isSofiaRayonObshtina, SOFIA_REGIONS } from "@/data/dataTypes";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 
 /** Why a place reads a BROADER aggregate than itself. The caller needs the
- *  REASON, not just the fact: the two get different sentences. */
-export type PlaceAliasReason = "sofia-city" | "plovdiv-province" | null;
+ *  REASON, not just the fact: each gets a different sentence, and "the whole
+ *  city, not this МИР" and "the whole city, not this район" are different
+ *  claims to a reader standing on one page or the other. */
+export type PlaceAliasReason =
+  | "sofia-city"
+  | "sofia-city-raion"
+  | "city-raion"
+  | "plovdiv-province"
+  | null;
 
 export interface PlaceKey {
   /** The code actually fetched. */
@@ -30,6 +38,11 @@ export interface PlaceKey {
  *  numbers are that МИР's. */
 const SOFIA_CITY_KEY = SOFIA_REGIONS[0];
 
+/** At município grain the same aggregate is keyed `SOF00`. Sofia's 24 районы
+ *  are obshtina codes in their own right (`S2309` Лозенец …) and each has a
+ *  place page, but МОН publishes none of them separately. */
+const SOFIA_CITY_OBSHTINA = "SOF00";
+
 /** Plovdiv's МИР split is the same shape: `PDV-00` is the city constituency,
  *  while the education cut folds the city into the `PDV` oblast. */
 const PLOVDIV_CITY_MIR = "PDV-00";
@@ -39,6 +52,20 @@ const PLOVDIV_OBLAST = "PDV";
 export const resolveEducationPlaceKey = (code: string): PlaceKey => {
   if (SOFIA_REGIONS.includes(code))
     return { key: SOFIA_CITY_KEY, aliased: true, reason: "sofia-city" };
+  if (isSofiaRayonObshtina(code))
+    return {
+      key: SOFIA_CITY_OBSHTINA,
+      aliased: true,
+      reason: "sofia-city-raion",
+    };
+  // Пловдив's and Варна's административни районы ("PDV22-01", "VAR06-05") are
+  // the OTHER family of sub-city place ids `/governance/:id` serves, and МОН
+  // splits neither city by район either. Without this they fall through to a
+  // fetch that cannot succeed, and 11 prerendered pages quietly lose a section
+  // their structurally identical Sofia counterparts show.
+  const rayon = findCityRayon(code);
+  if (rayon)
+    return { key: rayon.obshtina, aliased: true, reason: "city-raion" };
   if (code === PLOVDIV_CITY_MIR)
     return { key: PLOVDIV_OBLAST, aliased: true, reason: "plovdiv-province" };
   return { key: code, aliased: false, reason: null };
