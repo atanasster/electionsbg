@@ -187,8 +187,10 @@ describe("readSeoPensionFunds", () => {
     expect(upf.siblings.map((s) => s.slug)).toEqual(["vpf-doverie"]);
   });
 
-  test("computes the pillar share within the fund's own pillar", () => {
-    // A ДПФ and a УПФ are not comparable, so the denominator is the pillar.
+  test("computes the share within the fund's own TYPE, not its pillar", () => {
+    // A ДПФ and a УПФ are not comparable, so the denominator is the fund type.
+    // Pillar 2 is УПФ + ППФ, so a pillar denominator would be a different (and
+    // differently labelled) number.
     const root = withArchive({
       periods: [
         {
@@ -214,6 +216,6 @@ describe("readSeoPensionFunds", () => {
     const upf = readSeoPensionFunds(root).find(
       (f) => f.slug === "upf-doverie",
     )!;
-    expect(upf.pillarSharePct).toBeCloseTo(75, 5);
+    expect(upf.typeSharePct).toBeCloseTo(75, 5);
   });
 });

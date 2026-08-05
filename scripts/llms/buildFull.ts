@@ -4,11 +4,30 @@
 // some crawlers prefer (analogous to llms-full.txt in the de-facto spec).
 //
 // Output stays plain Markdown so a model can read it without extra parsing.
+//
+// NOT purely filesystem-driven any more: the judiciary table is read from
+// Postgres at build time (the same seo_courts.ts enumeration the prerender and
+// the sitemap use), so this script has a top-level await and a database
+// dependency. Both sources degrade to [] rather than throwing — but because
+// these outputs are COMMITTED, writeOutput refuses to publish a corpus that
+// LOST a section rather than silently shrinking the served file.
 
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { ElectionInfo, PartyInfo, RegionInfo } from "@/data/dataTypes";
+import { readSeoCourts, type SeoCourt } from "../db/lib/seo_courts";
+import {
+  readSeoPensionFunds,
+  type SeoPensionFund,
+} from "../prerender/kfnFunds";
+import {
+  judicialKindLabel,
+  judicialNum,
+  judicialTierAdjective,
+} from "@/lib/judicialKind";
+import { kfnFundName } from "@/lib/kfnFundSlug";
+import { kfnSharePct } from "@/lib/kfnPeriod";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -165,6 +184,17 @@ const COPY = {
     regionsHeading: "Области (МИР) — бързи връзки",
     governanceHeading:
       "Управление — местна йерархия (страна → област → община → населено място)",
+    judiciaryHeading: "Съдебна власт — органи, натовареност и магистрати",
+    judiciaryIntro: (siteUrl: string) =>
+      `Всеки съд, прокуратура и следствен отдел има собствена страница на ${siteUrl}/court/{код}. „Постъпили" и „свършени" са ДЕЙСТВИТЕЛНА натовареност — брой дела на съдия на месец за последната публикувана от ВСС година. Тире значи, че ВСС не публикува натовареност за този орган: това важи за всички прокуратури и следствени отдели, но и за няколко съдилища (сред тях ВКС и ВАС) — тирето не бива да се чете като нула. „Магистрати" са лицата с имуществени декларации в ИВСС от този орган. Обзор: ${siteUrl}/judiciary.`,
+    judiciaryTable:
+      "| Орган | Вид | Ниво | Седалище | Съдии | Магистрати | Постъпили/съдия/мес. | Свършени/съдия/мес. | Година | URL |",
+    pensionsHeading:
+      "Частни пенсионни фондове (КФН) — нетни активи и осигурени лица",
+    pensionsIntro: (siteUrl: string) =>
+      `Фондовете от втори и трети стълб, по тримесечни данни на КФН. Всеки има страница на ${siteUrl}/pension-fund/{slug}. „Дял сред същия вид" се смята спрямо фондовете от СЪЩИЯ вид (УПФ, ППФ, ДПФ, ДПФПС), а НЕ спрямо целия стълб — втори стълб са УПФ и ППФ заедно, трети са ДПФ и ДПФПС. Универсален и доброволен фонд не са сравними. Обзор на пенсиите: ${siteUrl}/pensions.`,
+    pensionsTable:
+      "| Фонд | Вид | Дружество | Осигурени лица | Нетни активи (EUR) | Дял сред същия вид | Тримесечие | URL |",
     governanceIntro: (siteUrl: string) =>
       `Изгледът „Управление" е стълба от места: ${siteUrl}/governance (страна) → ${siteUrl}/governance/region/{област} → ${siteUrl}/governance/{код} за община (код на община) или населено място (ЕКАТТЕ). Всеки възел показва как се управлява мястото — депутати и декларации, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, еврофондове, обществени поръчки, местни данъци, преброяване, прозрачност (LISI) и качество на средата. Страниците за община и населено място са само на български; страниците за област имат и английски версии. Връзки към областните възли:`,
   },
@@ -210,14 +240,42 @@ const COPY = {
     regionsHeading: "Regions (MIR) — quick links",
     governanceHeading:
       "Governance — place ladder (country → region → município → settlement)",
+    judiciaryHeading: "The judiciary — bodies, caseload and magistrates",
+    judiciaryIntro: (siteUrl: string) =>
+      `Every court, prosecution office and investigation service has its own page at ${siteUrl}/en/court/{code}. "Filed" and "resolved" are ACTUAL workload — cases per judge per month for the latest year the Supreme Judicial Council published. A dash means it publishes no workload for that body: that covers every prosecution office and investigation service, and also a handful of courts (the two Supreme Courts among them) — a dash is not a zero. "Magistrates" are the people filing asset declarations with the Judicial Inspectorate from that body. Overview: ${siteUrl}/en/judiciary.`,
+    judiciaryTable:
+      "| Body | Kind | Seat | Judges | Magistrates | Filed/judge/mo. | Resolved/judge/mo. | Year | URL |",
+    pensionsHeading:
+      "Private pension funds (FSC) — net assets and insured persons",
+    pensionsIntro: (siteUrl: string) =>
+      `Pillar 2 and 3 funds, from the Financial Supervision Commission's quarterly register. Each has a page at ${siteUrl}/en/pension-fund/{slug}. "Share of fund type" is computed within the SAME type (UPF, PPF, VPF, VPFOS), NOT across the whole pillar — pillar 2 is UPF plus PPF, pillar 3 is VPF plus VPFOS. A universal and a voluntary fund are not comparable. Pensions overview: ${siteUrl}/en/pensions.`,
+    pensionsTable:
+      "| Fund | Type | Company | Insured | Net assets (EUR) | Share of fund type | Quarter | URL |",
     governanceIntro: (siteUrl: string) =>
       `The "Governance" view is a place ladder: ${siteUrl}/governance (country) → ${siteUrl}/governance/region/{oblast} → ${siteUrl}/governance/{id} for a município (obshtina code) or settlement (EKATTE). Each node shows how the place is governed — MPs and declarations, mayor & council, municipal financing (Article 53 transfers), capital programmes, EU funds, public procurement, local taxes, census, transparency (LISI) and quality-of-life. The município and settlement place pages are Bulgarian-only; the region pages have English mirrors. Links to the region nodes:`,
   },
 } as const;
 
-const buildCorpus = (lang: Lang): string => {
+// A markdown table cell must not contain a raw pipe, and no name in either
+// corpus does today — but a court name is free text from the ИВСС register, so
+// escape rather than assume.
+const cell = (v: string | number | null | undefined): string =>
+  v == null || v === "" ? "—" : String(v).replace(/\|/g, "\\|");
+
+/** A markdown separator row from a per-column alignment: "r" right-aligns. */
+const sep = (align: string[]): string =>
+  `| ${align.map((a) => (a === "r" ? "---:" : "---")).join(" | ")} |`;
+
+const buildCorpus = (
+  lang: Lang,
+  courts: SeoCourt[],
+  funds: SeoPensionFund[],
+): string => {
   const t = COPY[lang];
   const lines: string[] = [];
+  // One derivation for the whole corpus. The EN root is `/en`, NOT `/en/` —
+  // the asymmetry CLAUDE.md calls out — and it was written out five times.
+  const langPrefix = lang === "en" ? "/en" : "";
 
   lines.push(`# ${t.heading}`);
   lines.push("");
@@ -302,7 +360,6 @@ const buildCorpus = (lang: Lang): string => {
         lines.push("");
         lines.push(t.partyRetrospectIntro(formatDate(latest, lang)));
         lines.push("");
-        const langPrefix = lang === "en" ? "/en" : "";
         for (const u of usable) {
           const { party, body } = u;
           const label =
@@ -344,7 +401,6 @@ const buildCorpus = (lang: Lang): string => {
     if (Array.isArray(analysis.agencyTakes) && analysis.agencyTakes.length) {
       lines.push(`## ${t.pollsHeading}`);
       lines.push("");
-      const langPrefix = lang === "en" ? "/en" : "";
       for (const take of analysis.agencyTakes) {
         const agency = agencyById.get(take.agencyId);
         if (!agency) continue;
@@ -434,7 +490,6 @@ const buildCorpus = (lang: Lang): string => {
     if (valid.length) {
       lines.push(`## ${t.regionsHeading}`);
       lines.push("");
-      const langPrefix = lang === "en" ? "/en" : "";
       for (const r of valid) {
         const name =
           lang === "en"
@@ -469,10 +524,134 @@ const buildCorpus = (lang: Lang): string => {
     }
   }
 
+  // Judiciary + private pensions ---------------------------------------
+  // Compact and tabular, which is the shape an LLM answers from most reliably.
+  // Both are small enough to fit an overview corpus without crowding it.
+  //
+  // A dash is NOT a zero anywhere below, and the intro prose says so: for a
+  // court it means the ВСС published no workload for it (true of ВКС and ВАС
+  // among others), and for `Магистрати` it means the dimension was not loaded
+  // on the database this corpus was built from. Emitting 0 for either would
+  // turn a gap in the source into a claim about the body.
+  if (courts.length) {
+    lines.push(`## ${t.judiciaryHeading}`);
+    lines.push("");
+    lines.push(t.judiciaryIntro(SITE_URL));
+    lines.push("");
+    lines.push(t.judiciaryTable);
+    // Numeric columns right-aligned, matching the party table above.
+    lines.push(
+      sep(
+        lang === "bg"
+          ? ["-", "-", "-", "-", "r", "r", "r", "r", "r", "-"]
+          : ["-", "-", "-", "r", "r", "r", "r", "r", "-"],
+      ),
+    );
+    for (const c of courts) {
+      const hasLoad = c.sourcesBuilt && c.year != null;
+      const cells = [
+        cell(c.name),
+        cell(judicialKindLabel(c.kind)[lang]),
+        // The BG table keeps the tier, agreed with its kind noun so a model
+        // recombining the two cells does not produce "апелативен прокуратура".
+        // The EN table drops the column: the tier exists only in Bulgarian, and
+        // a Cyrillic cell under an English header is worse than no cell — the
+        // same call the prerendered EN page makes.
+        ...(lang === "bg" ? [cell(judicialTierAdjective(c.tier, c.kind))] : []),
+        cell(lang === "en" ? (c.placeEn ?? c.place) : c.place),
+        // `judges` is the ВСС staffing figure the per-month rates divide by —
+        // without it the table can only answer "per judge", never "in total".
+        // Same court_load row, so it is a dash on exactly the same bodies.
+        hasLoad ? fmtInt(c.judges ?? 0, lang) : "—",
+        c.sourcesBuilt ? fmtInt(c.magistrates, lang) : "—",
+        hasLoad ? judicialNum(c.filedPerMonth, lang) : "—",
+        hasLoad ? judicialNum(c.resolvedPerMonth, lang) : "—",
+        hasLoad ? String(c.year) : "—",
+        `${SITE_URL}${langPrefix}/court/${c.bodyCode}`,
+      ];
+      lines.push(`| ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
+  if (funds.length) {
+    const bg = lang === "bg";
+    lines.push(`## ${t.pensionsHeading}`);
+    lines.push("");
+    lines.push(t.pensionsIntro(SITE_URL));
+    lines.push("");
+    lines.push(t.pensionsTable);
+    lines.push(sep(["-", "-", "-", "r", "r", "r", "-", "-"]));
+    for (const f of funds) {
+      const cells = [
+        cell(kfnFundName(f.pillar, f.companyBg, f.companyEn, bg)),
+        cell(bg ? f.pillarLabelBg : f.pillarLabelEn),
+        cell(bg ? f.companyBg : f.companyEn),
+        f.insured == null ? "—" : fmtInt(f.insured, lang),
+        f.netAssetsEur == null ? "—" : fmtInt(f.netAssetsEur, lang),
+        f.typeSharePct == null ? "—" : kfnSharePct(f.typeSharePct, lang),
+        cell(f.latestPeriodLabel),
+        `${SITE_URL}${langPrefix}/pension-fund/${f.slug}`,
+      ];
+      lines.push(`| ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
   return lines.join("\n");
 };
 
+// The headings whose disappearance means a DEGRADED build rather than a
+// content change — one per section fed by a source that can be absent.
+const REQUIRED_SECTIONS: Array<{ heading: string; fix: string }> = [
+  {
+    heading: "## " + COPY.bg.judiciaryHeading,
+    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+  },
+  {
+    heading: "## " + COPY.en.judiciaryHeading,
+    fix: "start the local Postgres (`npm run db:pg:up`) and re-run `npm run llms`",
+  },
+  {
+    heading: "## " + COPY.bg.pensionsHeading,
+    fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
+  },
+  {
+    heading: "## " + COPY.en.pensionsHeading,
+    fix: "restore data/budget/kfn/funds.json and re-run `npm run llms`",
+  },
+];
+
+/**
+ * True when the new corpus would DROP a section the committed one has.
+ *
+ * These files are COMMITTED, and every source behind them degrades to [] rather
+ * than throwing — right for `dist/`, wrong here: a build on a machine without
+ * Docker would rewrite llms-full.txt ~290 lines shorter, exit 0, and the only
+ * signal would be one warning nobody greps. Skip-and-warn instead of publishing
+ * the worse file, the same rule CLAUDE.md states for hub_stats / sector_stats.
+ */
+const wouldRegress = (filename: string, content: string): string | null => {
+  const file = path.join(PUBLIC, filename);
+  if (!fs.existsSync(file)) return null;
+  const previous = fs.readFileSync(file, "utf-8");
+  for (const { heading, fix } of REQUIRED_SECTIONS) {
+    if (previous.includes(heading) && !content.includes(heading)) {
+      return `"${heading.slice(3)}" — ${fix}`;
+    }
+  }
+  return null;
+};
+
 const writeOutput = (filename: string, content: string) => {
+  const lost = wouldRegress(filename, content);
+  if (lost) {
+    console.warn(
+      `${filename}: SKIPPED — regenerating it here would drop the section ${lost}. ` +
+        `The committed file is left as it is; a partial corpus is worse than a stale one.`,
+    );
+    return;
+  }
   fs.writeFileSync(path.join(PUBLIC, filename), content, "utf-8");
   // Also write to dist/ so the file ships in the same build that generated it.
   // Without this, postbuild's update lands in public/ and only reaches dist/
@@ -486,5 +665,11 @@ const writeOutput = (filename: string, content: string) => {
   );
 };
 
-writeOutput("llms-full.txt", buildCorpus("bg"));
-writeOutput("llms-full.en.txt", buildCorpus("en"));
+// Both are build-time reads that degrade to [] — Postgres unreachable for the
+// courts, no committed archive for the funds — so a corpus built without them
+// simply omits those sections rather than failing the build.
+const courts = await readSeoCourts();
+const funds = readSeoPensionFunds(PROJECT_ROOT);
+
+writeOutput("llms-full.txt", buildCorpus("bg", courts, funds));
+writeOutput("llms-full.en.txt", buildCorpus("en", courts, funds));

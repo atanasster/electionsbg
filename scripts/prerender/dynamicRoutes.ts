@@ -41,6 +41,7 @@ import {
   judicialTierAdjective,
 } from "@/lib/judicialKind";
 import { kfnFundName } from "@/lib/kfnFundSlug";
+import { kfnSharePct } from "@/lib/kfnPeriod";
 import {
   buildBreadcrumbLd,
   buildDatasetLd,
@@ -3505,13 +3506,16 @@ export const buildPensionFundRoutes = (
     // "универсален (упф)".
     const pillarWord = (label: string): string =>
       escapeHtmlMinimal(label.replace(/\s*\([^)]*\)\s*$/, "").toLowerCase());
+    // "на фондовете от вид X", NOT "на стълба X": `pillar` here is the fund TYPE
+    // (УПФ/ППФ/ДПФ/ДПФПС) and pillar 2 is УПФ + ППФ together, so the pillar
+    // wording put the sole ДПФПС at 100% of a pillar it holds 1.2% of.
     const shareBg =
-      f.pillarSharePct != null
-        ? ` Това е ${f.pillarSharePct.toFixed(1)}% от активите на стълба „${escapeHtmlMinimal(f.pillarLabelBg)}“.`
+      f.typeSharePct != null
+        ? ` Това е ${kfnSharePct(f.typeSharePct, "bg")} от активите на фондовете от вид „${escapeHtmlMinimal(f.pillarLabelBg)}“.`
         : "";
     const shareEn =
-      f.pillarSharePct != null
-        ? ` That is ${f.pillarSharePct.toFixed(1)}% of the ${escapeHtmlMinimal(f.pillarLabelEn)} pillar's assets.`
+      f.typeSharePct != null
+        ? ` That is ${kfnSharePct(f.typeSharePct, "en")} of the assets held by ${escapeHtmlMinimal(f.pillarLabelEn)} funds.`
         : "";
     // growthPct is null for TWO reasons, and only one of them is "the archive
     // has one quarter". `firstPeriodLabel == null` is the discriminator; a

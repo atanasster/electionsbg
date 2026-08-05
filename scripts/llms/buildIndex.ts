@@ -162,6 +162,21 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
     label: "Party financing",
     description: "declared campaign income and expenditures from Сметна палата",
   },
+  // These two are OVERVIEWS by design. The per-body and per-fund detail — 284
+  // courts, 31 funds — lives as a table in llms-full.txt; 284 rows do not
+  // belong in the short index an AI crawler fetches first.
+  {
+    url: "/judiciary",
+    label: "The judiciary",
+    description:
+      "courts, prosecution offices and investigation services — budget, actual caseload per judge (ВСС), cost per case, and the magistrates declaring assets to the Judicial Inspectorate; per-body pages at `/court/{code}`, every body tabulated in `/llms-full.txt`",
+  },
+  {
+    url: "/pensions",
+    label: "Pensions",
+    description:
+      "the state pension system (НОИ) — average pension by oblast, size distribution, contributors per pensioner — alongside the private pillar-2/3 funds from the FSC quarterly register; per-fund pages at `/pension-fund/{slug}`, every fund tabulated in `/llms-full.txt`",
+  },
   {
     url: "/indicators",
     label: "Macro & governance indicators",
@@ -200,6 +215,8 @@ const URL_PATTERNS: string[] = [
   "`/party/{nickName}` — results for a specific party across years and territories. Sub-paths: `/regions`, `/municipalities`, `/settlements`, `/preferences`, `/donors`, `/income`, `/expenses`.",
   "`/municipality/{oblastCode}` — oblast-level results and per-section anomalies.",
   "`/settlement/{ekatte}` — settlement-level results by section.",
+  "`/court/{bodyCode}` — one judicial body (court, prosecution office or investigation service): kind, tier, seat, magistrates and the ВСС caseload series. Every body is tabulated in `/llms-full.txt`.",
+  "`/pension-fund/{slug}` — one private pension fund: net assets, insured persons, share of its own pillar and the quarterly series. Every fund is tabulated in `/llms-full.txt`.",
   "`/governance/region/{oblastCode}` — region (oblast) node of the Governance view: the area's MPs and declarations, the Чл.53 transfer envelope, regional indicators, census and land-use.",
   "`/governance/{id}` — place node of the Governance view, where `{id}` is an obshtina code (município) or EKATTE (settlement): everything about how that place is governed — representation, mayor & council, municipal budget and capital programme, EU-funded projects, procurement, local taxes, census, transparency (LISI) and quality-of-life.",
   "`/section/{sectionId}` — individual polling-section detail.",

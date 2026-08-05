@@ -19,6 +19,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useKfnFund } from "@/data/budget/useBudget";
 import { kfnFundSlug, kfnFundName } from "@/lib/kfnFundSlug";
+import { kfnSharePct } from "@/lib/kfnPeriod";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
 export const PensionFundScreen: FC = () => {
@@ -37,8 +38,8 @@ export const PensionFundScreen: FC = () => {
     : null;
   const pillarLabel = row ? (bg ? row.pillarLabelBg : row.pillarLabelEn) : "";
   const share =
-    row && fund && fund.pillarTotal > 0
-      ? ((row.netAssetsEur ?? 0) / fund.pillarTotal) * 100
+    row && fund && fund.typeTotal > 0
+      ? ((row.netAssetsEur ?? 0) / fund.typeTotal) * 100
       : null;
   // First and last quarter the fund appears in — the honest growth window.
   const first = fund?.series[0] ?? null;
@@ -110,11 +111,11 @@ export const PensionFundScreen: FC = () => {
                 </span>
               </div>
             </StatCard>
-            <StatCard label={bg ? "Дял в стълба" : "Share of pillar"}>
+            <StatCard label={bg ? "Дял сред същия вид" : "Share of fund type"}>
               <div className="flex items-baseline gap-2">
                 <Building2 className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <span className="text-2xl font-bold tabular-nums">
-                  {share != null ? `${share.toFixed(1)}%` : "—"}
+                  {share != null ? kfnSharePct(share, L) : "—"}
                 </span>
               </div>
               <span className="mt-1 block truncate text-xs text-muted-foreground">

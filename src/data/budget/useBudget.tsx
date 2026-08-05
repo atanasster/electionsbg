@@ -377,14 +377,17 @@ export const useKfnFund = (slug: string | null | undefined) => {
       (f) =>
         f.companyEn === latest.row.companyEn && f.pillar !== latest.row.pillar,
     );
-    // Share of its own pillar in the latest quarter — a fund is big or small
-    // relative to its pillar, not to the whole market.
-    const pillarTotal = (
+    // Share of its own TYPE in the latest quarter — a fund is big or small
+    // relative to comparable funds, not to the whole market. `pillar` here is
+    // the fund type (УПФ/ППФ/ДПФ/ДПФПС), NOT the 2nd/3rd pillar: pillar 2 is
+    // УПФ + ППФ together, so a type share and a pillar share are different
+    // numbers and only one of them is what this computes.
+    const typeTotal = (
       data.periods.find((p) => p.period === latest.period)?.funds ?? []
     )
       .filter((f) => f.pillar === latest.row.pillar)
       .reduce((sum, f) => sum + (f.netAssetsEur ?? 0), 0);
-    return { slug, latest, series, siblings, pillarTotal };
+    return { slug, latest, series, siblings, typeTotal };
   }, [slug, data]);
   // isLoading is returned separately because a null `fund` is ambiguous — it is
   // both "still fetching" and "unknown slug", and rendering the not-found page

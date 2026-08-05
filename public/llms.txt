@@ -39,6 +39,8 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - [Public procurement](https://electionsbg.com/procurement): all АОП contracts since the dataset starts, debarred-supplier flags, MP-connection cross-reference.
 - [Procurement by settlement](https://electionsbg.com/procurement/by-settlement): per-settlement procurement totals — every contract pinned to the buyer's HQ address (municipalities, schools, hospitals, universities, regional offices, utilities) with central ministries / national state companies aggregated into a separate 'national procurement' rollup; ~388 settlements with €36 B in local-tier contracts.
 - [Party financing](https://electionsbg.com/financing): declared campaign income and expenditures from Сметна палата.
+- [The judiciary](https://electionsbg.com/judiciary): courts, prosecution offices and investigation services — budget, actual caseload per judge (ВСС), cost per case, and the magistrates declaring assets to the Judicial Inspectorate; per-body pages at `/court/{code}`, every body tabulated in `/llms-full.txt`.
+- [Pensions](https://electionsbg.com/pensions): the state pension system (НОИ) — average pension by oblast, size distribution, contributors per pensioner — alongside the private pillar-2/3 funds from the FSC quarterly register; per-fund pages at `/pension-fund/{slug}`, every fund tabulated in `/llms-full.txt`.
 - [Macro & governance indicators](https://electionsbg.com/indicators): KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; multi-panel EU peer comparison dashboard at /indicators/compare (WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters).
 - [Risk analysis](https://electionsbg.com/risk-analysis): composite electoral-risk index across 5 process signals + 4 context signals.
 - [Sitemap index](https://electionsbg.com/sitemap_index.xml): index of per-bucket sitemaps (~78,000 URLs total).
@@ -68,6 +70,8 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - `/party/{nickName}` — results for a specific party across years and territories. Sub-paths: `/regions`, `/municipalities`, `/settlements`, `/preferences`, `/donors`, `/income`, `/expenses`.
 - `/municipality/{oblastCode}` — oblast-level results and per-section anomalies.
 - `/settlement/{ekatte}` — settlement-level results by section.
+- `/court/{bodyCode}` — one judicial body (court, prosecution office or investigation service): kind, tier, seat, magistrates and the ВСС caseload series. Every body is tabulated in `/llms-full.txt`.
+- `/pension-fund/{slug}` — one private pension fund: net assets, insured persons, share of its own pillar and the quarterly series. Every fund is tabulated in `/llms-full.txt`.
 - `/governance/region/{oblastCode}` — region (oblast) node of the Governance view: the area's MPs and declarations, the Чл.53 transfer envelope, regional indicators, census and land-use.
 - `/governance/{id}` — place node of the Governance view, where `{id}` is an obshtina code (município) or EKATTE (settlement): everything about how that place is governed — representation, mayor & council, municipal budget and capital programme, EU-funded projects, procurement, local taxes, census, transparency (LISI) and quality-of-life.
 - `/section/{sectionId}` — individual polling-section detail.

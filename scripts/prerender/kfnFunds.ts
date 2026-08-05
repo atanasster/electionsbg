@@ -54,8 +54,11 @@ export type SeoPensionFund = {
   companyEn: string;
   insured: number | null;
   netAssetsEur: number | null;
-  /** Share of the fund's OWN pillar — a ДПФ and a УПФ are not comparable. */
-  pillarSharePct: number | null;
+  /** Share of the fund's own TYPE (УПФ / ППФ / ДПФ / ДПФПС) — a ДПФ and a УПФ
+   *  are not comparable. NOT a share of the pillar: pillar 2 is УПФ + ППФ and
+   *  pillar 3 is ДПФ + ДПФПС, so the sole ДПФПС reads 100% of its type against
+   *  1.2% of its pillar. See kfnSharePct. */
+  typeSharePct: number | null;
   /** The fund's own latest quarter, which is not necessarily the archive's: a
    *  fund that closed shows its last filing. Mirrors useKfnFund. */
   latestPeriod: string;
@@ -141,7 +144,7 @@ export const readSeoPensionFunds = (projectRoot: string): SeoPensionFund[] => {
     // and coalescing to zero would publish "€0 in net assets" as a fact.
     if (row.netAssetsEur == null) continue;
     const sameQuarter = latest.period.funds ?? [];
-    const pillarTotal = sameQuarter
+    const typeTotal = sameQuarter
       .filter((f) => f.pillar === row.pillar)
       .reduce((sum, f) => sum + (f.netAssetsEur ?? 0), 0);
     const firstAssets = first.row.netAssetsEur ?? 0;
@@ -154,8 +157,8 @@ export const readSeoPensionFunds = (projectRoot: string): SeoPensionFund[] => {
       companyEn: row.companyEn,
       insured: row.insured ?? null,
       netAssetsEur: row.netAssetsEur ?? null,
-      pillarSharePct:
-        pillarTotal > 0 ? ((row.netAssetsEur ?? 0) / pillarTotal) * 100 : null,
+      typeSharePct:
+        typeTotal > 0 ? ((row.netAssetsEur ?? 0) / typeTotal) * 100 : null,
       latestPeriod: latest.period.period,
       latestPeriodLabel: latest.period.periodLabel,
       quarters: series.length,
