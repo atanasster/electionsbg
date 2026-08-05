@@ -283,6 +283,75 @@ describe("buildGovernanceMuniBody with education", () => {
   });
 });
 
+describe("the build-time reader and the loader resolve settlements alike", () => {
+  // They share resolveSchoolSettlement but call it separately, so a school
+  // could land in one settlement in the served blob and another in the
+  // crawler-facing HTML. This re-derives the loader's side from the same
+  // committed files and compares key for key.
+  it("produces the same settlement blobs the loader would", async () => {
+    const {
+      buildPlacePayloads,
+      buildSettlementIndex,
+      resolveSchoolSettlement,
+      dziSeriesOf,
+      latestYearOf,
+      oblastOfObshtina,
+    } = await import("../db/lib/school_places");
+    const idx = JSON.parse(
+      readFileSync(path.join(ROOT, "data/schools/index.json"), "utf-8"),
+    ) as {
+      latestYear?: number;
+      schoolsByObshtina: Record<string, Record<string, unknown>[]>;
+    };
+    const setts = buildSettlementIndex(
+      JSON.parse(
+        readFileSync(path.join(ROOT, "data/settlements.json"), "utf-8"),
+      ),
+    );
+    const schools = Object.entries(idx.schoolsByObshtina).flatMap(
+      ([obshtina, recs]) =>
+        recs.map((rec) => {
+          const r = rec as {
+            id: string;
+            name: string;
+            loc?: string;
+            address?: string;
+            scoresByYear: Record<string, Record<string, number>>;
+            countsByYear?: Record<string, Record<string, number>>;
+          };
+          const series = dziSeriesOf(r.scoresByYear, r.countsByYear);
+          const last = series[series.length - 1] ?? null;
+          const st = resolveSchoolSettlement(setts, obshtina, r.loc, r.address);
+          return {
+            id: r.id,
+            name: r.name,
+            obshtina,
+            obshtinaName: obshtina,
+            oblast: oblastOfObshtina(obshtina),
+            ekatte: st?.ekatte ?? null,
+            settlementName: st?.name ?? null,
+            latestYear: last?.year ?? null,
+            latestScore: last?.score ?? null,
+            latestN: last?.n ?? null,
+            series,
+          };
+        }),
+    );
+    const expected = buildPlacePayloads(
+      schools,
+      latestYearOf(idx.latestYear, schools),
+      [],
+    );
+    const settKeys = (m: Map<string, { grain: string }>) =>
+      [...m]
+        .filter(([, b]) => b.grain === "settlement")
+        .map(([k]) => k)
+        .sort();
+    expect(settKeys(places)).toEqual(settKeys(expected));
+    expect(settKeys(places).length).toBeGreaterThan(250);
+  });
+});
+
 describe("every sub-city place resolves onto a parent that has data", () => {
   // The invariant, pinned against the real roster rather than three hand-picked
   // codes: Sofia's 24 районы and the 11 Пловдив/Варна районы are obshtina-shaped

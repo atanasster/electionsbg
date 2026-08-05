@@ -15,7 +15,8 @@
 --     the 1.25 MB raw index + a client-side regression; /school/:id reads its row
 --     out of that same blob. Stored verbatim → local↔cloud parity is byte-exact
 --     by construction. Three kinds are emitted: 'directory' (key ''), the slim
---     'risk' blob for the МОН pack, and 'place' (key = oblast or obshtina code)
+--     'risk' blob for the МОН pack, and 'place' (key = oblast, obshtina or
+--     settlement EKATTE)
 --     for the Governance place nodes — a place dashboard renders two education
 --     tiles and must never pull the ~650 KB directory to do it.
 

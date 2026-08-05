@@ -5,8 +5,8 @@
 //   • school_payloads — the 'directory' blob: the whole /education dataset with
 //     the SES + value-added regressions ALREADY COMPUTED here, so the client
 //     fetches one small blob instead of the 1.25 MB raw index + a client memo;
-//     plus the slim 'risk' blob (МОН pack) and one 'place' blob per oblast /
-//     obshtina (the Governance place-node education tiles).
+//     plus the slim 'risk' blob (МОН pack) and one 'place' blob per oblast,
+//     obshtina and settlement (the Governance place-node education tiles).
 //
 // SERVING loader — reads data/schools/index.json + data/education/school_context.json
 // (written by the update-schools ingest); never writes JSON back. The regression
@@ -31,9 +31,11 @@ import {
 } from "./lib/school_stats";
 import {
   buildPlacePayloads,
+  buildSettlementIndex,
   dziSeriesOf,
   latestYearOf,
   oblastOfObshtina,
+  resolveSchoolSettlement,
 } from "./lib/school_places";
 
 const ROOT = path.resolve(
@@ -49,6 +51,7 @@ const INGEST_TRACKING = path.join(
 const INDEX_FILE = path.join(ROOT, "data/schools/index.json");
 const CONTEXT_FILE = path.join(ROOT, "data/education/school_context.json");
 const MUNI_FILE = path.join(ROOT, "data/municipalities.json");
+const SETTLEMENT_FILE = path.join(ROOT, "data/settlements.json");
 
 type RawSchool = {
   id: string;
@@ -68,6 +71,10 @@ type DirSchool = {
   obshtina: string;
   obshtinaName: string;
   oblast: string;
+  /** Settlement the school stands in, resolved from `loc` — see
+   *  buildSettlementIndex. Null for Sofia and for a shared centroid. */
+  ekatte: string | null;
+  settlementName: string | null;
   address?: string;
   loc?: string;
   eik?: string;
@@ -115,6 +122,13 @@ const buildDirectory = () => {
       }[]
     ).map((m) => [m.obshtina, m.name]),
   );
+  // Settlement grain: the school's `loc` is its settlement's centroid, and
+  // settlements.json keys the same string — an exact join, see
+  // buildSettlementIndex.
+  const settlements = buildSettlementIndex(
+    JSON.parse(readFileSync(SETTLEMENT_FILE, "utf8")),
+  );
+
   const resolveMuni = (code: string): { name: string; oblast: string } => {
     const oblast = oblastOfObshtina(code);
     const nm = muni.get(code);
@@ -150,12 +164,20 @@ const buildDirectory = () => {
           break;
         }
       }
+      const settlement = resolveSchoolSettlement(
+        settlements,
+        obshtina,
+        rec.loc,
+        rec.address,
+      );
       schools.push({
         id: rec.id,
         name: rec.name,
         obshtina,
         obshtinaName: mn.name,
         oblast: mn.oblast,
+        ekatte: settlement?.ekatte ?? null,
+        settlementName: settlement?.name ?? null,
         address: rec.address,
         loc: rec.loc,
         eik: rec.eik,
@@ -483,7 +505,8 @@ const main = async () => {
       "INSERT INTO school_payloads (kind,key,payload) VALUES ('risk','',$1::jsonb) ON CONFLICT (kind,key) DO NOTHING",
       [JSON.stringify(risk)],
     );
-    // 'place' blobs — 271 rows today (28 oblasts + 243 municípios), ≤8.3 KB
+    // 'place' blobs — 561 rows today (28 oblasts + 243 municípios + 290
+    // settlements, keyed by EKATTE), ≤8.3 KB
     // each. One statement, like every other insert here: 271 round-trips cost
     // little locally but are paid at proxy RTT by db:load:schools:pg:cloud.
     const placeRows = [...places].sort(([a], [b]) => a.localeCompare(b));

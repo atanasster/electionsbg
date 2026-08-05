@@ -12,7 +12,13 @@
 // once in the loader. Re-fitting within an oblast — 20-142 schools — would be
 // noise dressed as a finding.
 
-import { isRankable, r1, r2, type Verdict } from "./school_stats";
+import {
+  isRankable,
+  MIN_RANK_COHORT,
+  r1,
+  r2,
+  type Verdict,
+} from "./school_stats";
 
 /** One school as a place blob renders it: score, cohort, and both verdicts. */
 export type PlaceSchoolRow = {
@@ -41,7 +47,7 @@ export type PlaceMuniRow = {
 };
 
 export type PlaceBlob = {
-  grain: "region" | "muni";
+  grain: "region" | "muni" | "settlement";
   code: string;
   latestYear: number | null;
   /** Count-weighted latest-year ДЗИ БЕЛ average for the place. */
@@ -58,6 +64,9 @@ export type PlaceBlob = {
   /** Share (%) of the place's graduates ATTENDING a school whose average is
    *  below the passing mark — not the share of graduates who failed. */
   shareInFailingSchools: number | null;
+  /** True when the place's ENTIRE cohort is under MIN_RANK_COHORT — the
+   *  average is real but thin, and every surface must say so. */
+  provisional: boolean;
   /** Schools eligible for every ranked list below: ≥10 graduates in the
    *  headline year. The denominator of the value-added coverage label. */
   rankable: number;
@@ -90,6 +99,12 @@ export type PlaceInputSchool = {
   obshtina: string;
   obshtinaName: string;
   oblast: string;
+  /** EKATTE of the school's settlement, where it could be resolved. Absent for
+   *  Sofia's schools (the city is not a settlement in settlements.json) and for
+   *  the handful whose centroid is shared by two settlements of one município. */
+  ekatte?: string | null;
+  /** The settlement's own name, for the blob's rows. */
+  settlementName?: string | null;
   latestYear: number | null;
   latestScore: number | null;
   latestN: number | null;
@@ -115,6 +130,116 @@ export type PlaceInputSchool = {
  *  not exist in this corpus. */
 export const oblastOfObshtina = (obshtina: string): string =>
   obshtina === "SOF00" ? "S23" : obshtina.slice(0, 3);
+
+/** Resolves a school to the settlement it stands in.
+ *
+ *  The schools index carries `loc` — a "lng,lat" string that is USUALLY the
+ *  settlement centroid (every school in Банско shares one pair) and is the same
+ *  string `data/settlements.json` keys its own `loc` on, so the join is exact
+ *  string equality: no distance threshold, no nearest-neighbour, nothing to
+ *  tune.
+ *
+ *  "Usually", because МОН sometimes files a village school under its
+ *  município's SEAT centroid. Two cases on the committed index: СУ „Никола
+ *  Вапцаров" (address `С.КАРАПЕЛИТ`) lands on гр. Добрич, and a school in
+ *  `С.ЕЛИН ПЕЛИН` lands on гр. Елин Пелин — SFO17 has both a village and a town
+ *  of that name, 2 km apart. So the centroid alone is not proof, and every
+ *  match is cross-checked against the school's own `address`, which is present
+ *  on all 994 records. A disagreement resolves to NOTHING and the page falls
+ *  back to the município, because publishing a village's matura under the
+ *  neighbouring town's name is the failure this whole layer exists to avoid.
+ *
+ *  Two more cases stay unresolved by design. A centroid two settlements of one
+ *  município share is refused outright — there is no way to pick. And ALL 157
+ *  Sofia schools carry one placeholder centroid (23.3219,42.6977) that matches
+ *  no settlement record, so none resolve — including the five in Банкя,
+ *  Бистрица, Казичене and Нови Искър, which DO exist in settlements.json under
+ *  the район codes. Recovering those would need an address-to-name join, which
+ *  is the fuzzy matching this exact-join design exists to avoid; they fall back
+ *  to Столична община like the rest of the city.
+ *
+ *  Measured on the committed index: 831 of 994 schools resolve. */
+export const buildSettlementIndex = (
+  settlements: {
+    ekatte: string;
+    name: string;
+    obshtina: string;
+    t_v_m?: string;
+    loc?: string;
+  }[],
+): Map<string, { ekatte: string; name: string; marker: string } | null> => {
+  const out = new Map<
+    string,
+    { ekatte: string; name: string; marker: string } | null
+  >();
+  for (const s of settlements) {
+    if (!s.loc) continue;
+    {
+      const key = settlementKeyOf(s.obshtina, s.loc);
+      // A second settlement on the same centroid poisons the key rather than
+      // silently winning it — attributing a school to the wrong village is
+      // worse than showing the município's numbers.
+      out.set(
+        key,
+        out.has(key)
+          ? null
+          : {
+              ekatte: s.ekatte,
+              name: s.t_v_m ? `${s.t_v_m} ${s.name}` : s.name,
+              marker: normalizeMarker(s.t_v_m),
+            },
+      );
+    }
+  }
+  return out;
+};
+
+/** The key `buildSettlementIndex` is looked up by. */
+export const settlementKeyOf = (obshtina: string, loc?: string | null) =>
+  loc ? `${obshtina}|${loc}` : "";
+
+const normalizeMarker = (t?: string): string =>
+  (t ?? "").replace(/[^а-яa-z]/gi, "").toLowerCase();
+
+/** Letters only, upper-cased — the address is free text ("С.ЕЛИН ПЕЛИН (ГАРА
+ *  ЕЛИН ПЕЛИН)"), so compare on the leading token after the type marker. */
+const normalizeName = (s: string): string =>
+  s.replace(/[^А-Яа-яA-Za-z]/g, "").toUpperCase();
+
+/** Splits "ГР.БАНСКО" / "С.КАРАПЕЛИТ" into its marker and settlement name. */
+const parseAddressPlace = (
+  address?: string | null,
+): { marker: string; name: string } | null => {
+  const m = /^\s*(гр|с|кв)\s*\.\s*([^,(]+)/i.exec(address ?? "");
+  return m
+    ? { marker: normalizeMarker(m[1]), name: normalizeName(m[2]) }
+    : null;
+};
+
+/**
+ * The settlement a school stands in, or null when the corpus cannot say.
+ *
+ * Both producers — the Postgres loader and the build-time prerender reader —
+ * call THIS, so a school cannot land in one settlement in the served blob and
+ * another in the crawler-facing HTML.
+ */
+export const resolveSchoolSettlement = (
+  index: ReturnType<typeof buildSettlementIndex>,
+  obshtina: string,
+  loc?: string | null,
+  address?: string | null,
+): { ekatte: string; name: string } | null => {
+  const hit = loc ? index.get(settlementKeyOf(obshtina, loc)) : null;
+  if (!hit) return null;
+  const claimed = parseAddressPlace(address);
+  // No parsable address is not a mismatch — take the centroid's word for it.
+  if (!claimed) return { ekatte: hit.ekatte, name: hit.name };
+  const settlementName = normalizeName(hit.name.replace(/^[а-я]+\.\s*/i, ""));
+  const sameName = claimed.name === settlementName;
+  const sameKind =
+    !claimed.marker || !hit.marker || claimed.marker === hit.marker;
+  return sameName && sameKind ? { ekatte: hit.ekatte, name: hit.name } : null;
+};
 
 /** A school's ascending ДЗИ БЕЛ series from the raw index, carrying each
  *  year's cohort where the index has one. Shared for the same reason as
@@ -304,8 +429,27 @@ const groupBy = <T>(
   return { groups, dropped };
 };
 
+/** One (kind, key) namespace holds all three grains, and their code spaces are
+ *  disjoint only by CONVENTION: EKATTE is usually 5 digits, obshtina codes are
+ *  5 alphanumeric, oblast codes 3 — but `municipalities.json` carries 2-letter
+ *  diaspora codes, and 109 EKATTE values are not 5 digits (Sofia's районы are
+ *  "68134-2302", 88 are country codes). So the collision is asserted at write
+ *  time rather than assumed: a silent overwrite here never reaches the database,
+ *  where ON CONFLICT would at least have a chance of showing it. */
+const claim = (
+  out: Map<string, PlaceBlob>,
+  key: string,
+  grain: PlaceBlob["grain"],
+): void => {
+  const existing = out.get(key);
+  if (existing)
+    throw new Error(
+      `place key collision: '${key}' is claimed by both ${existing.grain} and ${grain}`,
+    );
+};
+
 const blobFor = (
-  grain: "region" | "muni",
+  grain: PlaceBlob["grain"],
   code: string,
   group: PlaceInputSchool[],
   latestYear: number | null,
@@ -325,6 +469,11 @@ const blobFor = (
     rankOf: null,
     nationalAvg,
     series: seriesOf(group),
+    // The place's whole cohort is below the ranking floor, so its average is a
+    // handful of pupils. Marked rather than withheld — 27 municípios and 46
+    // settlements are in this state, and "2,00 from 3 graduates" is worth
+    // showing WITH that caveat and misleading without it.
+    provisional: head.examinees < MIN_RANK_COHORT,
     rankable: rows.length,
     byObshtina: [],
     top: topBy(rows, (r) => r.score, TOP_N),
@@ -420,7 +569,23 @@ export const buildPlacePayloads = (
 
   for (const [obshtina, group] of byMuni.groups) {
     const blob = blobFor("muni", obshtina, group, latestYear, nationalAvg);
-    if (blob.schools) out.set(obshtina, blob);
+    if (!blob.schools) continue;
+    claim(out, obshtina, "muni");
+    out.set(obshtina, blob);
+  }
+
+  // Settlement grain, keyed by EKATTE. A settlement is often ONE school, so
+  // its headline IS that school's average with nothing to dilute a small
+  // cohort — which is why `provisional` matters most here (46 of the 294
+  // settlements with a cohort are under the floor). The blob still ships: this
+  // corpus MARKS a thin sample rather than hiding it, the same way
+  // /school/:id draws its sub-10 years as hollow dots.
+  const bySettlement = groupBy(scored, (s) => s.ekatte ?? "");
+  for (const [ekatte, group] of bySettlement.groups) {
+    const blob = blobFor("settlement", ekatte, group, latestYear, nationalAvg);
+    if (!blob.schools) continue;
+    claim(out, ekatte, "settlement");
+    out.set(ekatte, blob);
   }
 
   const regions: PlaceBlob[] = [];
@@ -429,10 +594,7 @@ export const buildPlacePayloads = (
     // this map — the DB never sees the collision, so the loader's row count
     // would still look plausible. Same convention as the duplicate-school-id
     // throw in load_schools_pg.ts.
-    if (out.has(oblast) && out.get(oblast)?.grain === "muni")
-      throw new Error(
-        `place key collision: '${oblast}' is both an oblast and an obshtina code`,
-      );
+    claim(out, oblast, "region");
     const blob = blobFor("region", oblast, group, latestYear, nationalAvg);
     if (!blob.schools) continue;
     // The по-общини table is the region node's whole reason to exist as a

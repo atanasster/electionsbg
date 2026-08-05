@@ -660,6 +660,157 @@ test.skipIf(skip)("rank follows the byOblast ordering", async () => {
   );
 });
 
+test.skipIf(skip)(
+  "settlement blobs resolve by the shared centroid",
+  async () => {
+    // The join is exact string equality on `loc`, not geocoding — so a drop in
+    // coverage means the two files stopped agreeing, not that a threshold needs
+    // tuning. Sofia's schools resolve to nothing (the city is not a settlement
+    // record) and a centroid two villages share is refused, which is why this
+    // asserts a floor rather than totality.
+    const [r] = await allRows<{ blobs: number; keyed: number }>(
+      `SELECT count(*)::int AS blobs,
+            count(*) FILTER (WHERE key ~ '^[0-9]{5}$')::int AS keyed
+       FROM school_payloads
+      WHERE kind = 'place' AND payload ->> 'grain' = 'settlement'`,
+    );
+    assert.ok(
+      r.blobs >= 250,
+      `only ${r.blobs} settlement blobs — the loc join against settlements.json has degraded`,
+    );
+    assert.equal(
+      r.keyed,
+      r.blobs,
+      "a settlement blob is keyed by EKATTE, five digits",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "every settlement's schools belong to one município, and to that município's blob",
+  async () => {
+    // Membership, not a size comparison: each settlement's schools must appear
+    // by ID in its município's own school set, and a settlement cannot straddle
+    // two municípios. Uses the directory (which has every school with its
+    // obshtina) so the check does not depend on either blob's top-N.
+    const [r] = await allRows<{
+      settlements: number;
+      straddling: number;
+      orphaned: number;
+    }>(
+      `WITH dir AS (
+         SELECT s ->> 'id' AS id, s ->> 'obshtina' AS obshtina
+           FROM school_payloads, jsonb_array_elements(payload -> 'schools') AS s
+          WHERE kind = 'directory' AND key = ''
+       ),
+       rows AS (
+         SELECT sp.key AS ekatte, r ->> 'id' AS id
+           FROM school_payloads sp,
+                LATERAL (
+                  SELECT jsonb_array_elements(sp.payload -> 'top') AS r
+                  UNION ALL SELECT jsonb_array_elements(sp.payload -> 'bottom')
+                  UNION ALL SELECT jsonb_array_elements(sp.payload -> 'above')
+                ) AS x
+          WHERE sp.kind = 'place' AND sp.payload ->> 'grain' = 'settlement'
+       ),
+       joined AS (
+         SELECT rows.ekatte, dir.obshtina, rows.id FROM rows JOIN dir USING (id)
+       )
+       SELECT count(DISTINCT ekatte)::int AS settlements,
+              count(DISTINCT ekatte) FILTER (
+                WHERE ekatte IN (
+                  SELECT ekatte FROM joined GROUP BY ekatte HAVING count(DISTINCT obshtina) > 1
+                )
+              )::int AS straddling,
+              count(*) FILTER (
+                WHERE NOT EXISTS (
+                  SELECT 1 FROM school_payloads m
+                   WHERE m.kind = 'place' AND m.key = joined.obshtina
+                     AND m.payload ->> 'grain' = 'muni'
+                )
+              )::int AS orphaned
+       FROM joined`,
+    );
+    assert.ok(r.settlements > 0, "no settlement rows to check");
+    assert.equal(
+      r.straddling,
+      0,
+      `${r.straddling} settlements draw schools from more than one município`,
+    );
+    assert.equal(
+      r.orphaned,
+      0,
+      `${r.orphaned} settlement schools belong to a município with no blob`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "no settlement is published under a name its schools disown",
+  async () => {
+    // МОН sometimes files a village school under its município SEAT's centroid
+    // (СУ „Никола Вапцаров" in С.КАРАПЕЛИТ lands on гр. Добрич; a school in
+    // С.ЕЛИН ПЕЛИН lands on гр. Елин Пелин, 2 km away). The resolver refuses
+    // those by cross-checking the address, and this is the fence that says so.
+    const idx = JSON.parse(
+      readFileSync(path.join(ROOT, "data/schools/index.json"), "utf8"),
+    ) as {
+      schoolsByObshtina: Record<string, { id: string; address?: string }[]>;
+    };
+    const addressOf = new Map<string, string>();
+    for (const recs of Object.values(idx.schoolsByObshtina))
+      for (const rec of recs) addressOf.set(rec.id, rec.address ?? "");
+
+    const rows = await allRows<{ ekatte: string; id: string }>(
+      `SELECT sp.key AS ekatte, r ->> 'id' AS id
+         FROM school_payloads sp,
+              LATERAL jsonb_array_elements(sp.payload -> 'top') AS r
+        WHERE sp.kind = 'place' AND sp.payload ->> 'grain' = 'settlement'`,
+    );
+    const setts = JSON.parse(
+      readFileSync(path.join(ROOT, "data/settlements.json"), "utf8"),
+    ) as { ekatte: string; name: string }[];
+    const nameOf = new Map(setts.map((s) => [s.ekatte, s.name]));
+    const norm = (s: string) => s.replace(/[^А-Яа-яA-Za-z]/g, "").toUpperCase();
+
+    const bad = rows.filter(({ ekatte, id }) => {
+      const addr = addressOf.get(id);
+      const name = nameOf.get(ekatte);
+      if (!addr || !name) return false;
+      return !norm(addr).includes(norm(name));
+    });
+    assert.equal(
+      bad.length,
+      0,
+      `${bad.length}/${rows.length} settlement rows name a school whose own address is elsewhere: ${bad
+        .slice(0, 3)
+        .map((b) => `${b.id}→${nameOf.get(b.ekatte)}`)
+        .join(", ")}`,
+    );
+  },
+);
+
+test.skipIf(skip)("a thin cohort is marked, not hidden", async () => {
+  // This corpus marks a small sample rather than withholding it (the
+  // /school/:id hollow-dot convention). What must never happen is a place
+  // publishing a sub-floor average WITHOUT the flag that tells a reader so.
+  const [r] = await allRows<{ blobs: number; unflagged: number }>(
+    `SELECT count(*)::int AS blobs,
+            count(*) FILTER (
+              WHERE (payload ->> 'examinees')::int < $1
+                AND NOT (payload ->> 'provisional')::boolean
+            )::int AS unflagged
+       FROM school_payloads WHERE kind = 'place'`,
+    [MIN_RANK_COHORT],
+  );
+  assert.ok(r.blobs > 0, "no place blobs");
+  assert.equal(
+    r.unflagged,
+    0,
+    `${r.unflagged} place blobs publish a sub-${MIN_RANK_COHORT} cohort without the provisional flag`,
+  );
+});
+
 test.skipIf(skip)("no place blob grows into a second directory", async () => {
   // P2 in the plan's performance contract, as a hard gate rather than a
   // measurement: the whole point of this kind is that a place dashboard fetches

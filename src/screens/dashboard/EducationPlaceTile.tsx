@@ -139,6 +139,15 @@ export const EducationPlaceTile: FC<Props> = ({ place, aliasNote }) => {
         })}
       </div>
 
+      {/* The whole place produced fewer than MIN_RANK_COHORT graduates, so the
+          headline is a handful of pupils. 27 municípios are in this state and
+          rendered it uncaveated until now (PDV40 shows "2,00" off three). */}
+      {place.provisional && (
+        <div className="mt-1 text-xs text-amber-700 dark:text-amber-500">
+          {t("education_place_provisional", { min: MIN_RANK_COHORT })}
+        </div>
+      )}
+
       {place.shareInFailingSchools != null &&
         place.shareInFailingSchools > 0 && (
           <div className="mt-1 text-xs text-muted-foreground">

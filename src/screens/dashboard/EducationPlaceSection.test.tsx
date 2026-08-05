@@ -31,6 +31,7 @@ const blob = (over: Partial<EducationPlace> = {}): EducationPlace => ({
     { year: 2026, avg: 4.55, examinees: 743, schools: 22 },
   ],
   shareInFailingSchools: 0,
+  provisional: false,
   rankable: 20,
   byObshtina: [],
   top: [],

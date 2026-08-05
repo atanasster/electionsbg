@@ -25,6 +25,8 @@ import fs from "fs";
 import path from "path";
 import {
   buildPlacePayloads,
+  buildSettlementIndex,
+  resolveSchoolSettlement,
   dziSeriesOf,
   latestYearOf,
   oblastOfObshtina,
@@ -39,6 +41,11 @@ import {
 type RawSchool = {
   id: string;
   name: string;
+  /** "lng,lat" — the settlement centroid, joined against settlements.json. */
+  loc?: string;
+  /** "С.КАРАПЕЛИТ" — cross-checks the centroid, which МОН sometimes fills in
+   *  with the município seat's rather than the school's own. */
+  address?: string;
   scoresByYear: Record<string, Record<string, number>>;
   countsByYear?: Record<string, Record<string, number>>;
 };
@@ -75,13 +82,25 @@ export const readEducationPlaces = (
 ): Map<string, PlaceBlob> => {
   const indexFile = path.join(projectRoot, "data/schools/index.json");
   const muniFile = path.join(projectRoot, "data/municipalities.json");
+  const settFile = path.join(projectRoot, "data/settlements.json");
   if (!fs.existsSync(indexFile) || !fs.existsSync(muniFile)) return new Map();
 
   let idx: SchoolsIndex;
   let munis: { obshtina: string; name: string; name_en?: string }[];
+  let setts: Parameters<typeof buildSettlementIndex>[0] = [];
   try {
     idx = JSON.parse(fs.readFileSync(indexFile, "utf-8"));
     munis = JSON.parse(fs.readFileSync(muniFile, "utf-8"));
+    // Optional: without it the settlement blobs are simply absent and those
+    // pages fall back to their município, as they did before this grain. Say
+    // so, though — a silent drop of a whole grain looks identical to a corpus
+    // that legitimately has no settlements in it.
+    if (fs.existsSync(settFile))
+      setts = JSON.parse(fs.readFileSync(settFile, "utf-8"));
+    else
+      console.warn(
+        "education prerender: no data/settlements.json — settlement bodies omitted",
+      );
   } catch (e) {
     console.warn(
       `education prerender: unreadable source, section omitted (${e})`,
@@ -89,11 +108,18 @@ export const readEducationPlaces = (
     return new Map();
   }
   const muniNames = new Map(munis.map((m) => [m.obshtina, m.name]));
+  const settlements = buildSettlementIndex(setts);
 
   const schools: PlaceInputSchool[] = [];
   const years = new Set<number>();
   for (const [obshtina, recs] of Object.entries(idx.schoolsByObshtina ?? {})) {
     for (const rec of recs) {
+      const settlement = resolveSchoolSettlement(
+        settlements,
+        obshtina,
+        rec.loc,
+        rec.address,
+      );
       const series = dziSeriesOf(rec.scoresByYear, rec.countsByYear);
       const last = series[series.length - 1] ?? null;
       if (last) years.add(last.year);
@@ -105,6 +131,8 @@ export const readEducationPlaces = (
           muniNames.get(obshtina) ??
           (obshtina === "SOF00" ? "Столична община" : obshtina),
         oblast: oblastOfObshtina(obshtina),
+        ekatte: settlement?.ekatte ?? null,
+        settlementName: settlement?.name ?? null,
         latestYear: last?.year ?? null,
         latestScore: last?.score ?? null,
         latestN: last?.n ?? null,
@@ -154,7 +182,7 @@ export const educationBodyFor = (
  *  own label is then used, which is correct for a place reading its own blob. */
 const placePhraseOf = (
   code: string,
-  grain: "region" | "muni",
+  grain: PlaceBlob["grain"],
   names?: PlaceNames,
 ): { bg: string; en: string } | undefined => {
   if (code === "SOF00" || code === "S23")
@@ -162,6 +190,10 @@ const placePhraseOf = (
   const bg = names?.bg?.get(code);
   const en = names?.en?.get(code) ?? bg;
   if (!bg || !en) return undefined;
+  if (grain === "settlement")
+    // The settlement's own marker ("гр." / "с.") comes with the name, so the
+    // phrase is the name itself — "Матура в с. Баня", not "в община с. Баня".
+    return { bg, en };
   return grain === "muni"
     ? { bg: `община ${bg}`, en: `${en} municipality` }
     : { bg: `област ${bg}`, en: `${en} province` };

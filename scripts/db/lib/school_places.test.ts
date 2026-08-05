@@ -6,7 +6,12 @@
 // cohort gate on every ranked list, and deterministic ordering.
 
 import { describe, it, expect } from "vitest";
-import { buildPlacePayloads, type PlaceInputSchool } from "./school_places";
+import {
+  buildPlacePayloads,
+  buildSettlementIndex,
+  resolveSchoolSettlement,
+  type PlaceInputSchool,
+} from "./school_places";
 
 const school = (
   over: Partial<PlaceInputSchool> & { id: string },
@@ -301,6 +306,138 @@ describe("buildPlacePayloads", () => {
   it("carries the national average of the latest year for the tick", () => {
     const places = buildPlacePayloads([school({ id: "a" })], 2026, NATIONAL);
     expect(places.get("SML")?.nationalAvg).toBe(4.33);
+  });
+
+  const IDX = buildSettlementIndex([
+    {
+      ekatte: "02676",
+      name: "Банско",
+      obshtina: "BLG02",
+      t_v_m: "гр.",
+      loc: "23.48,41.84",
+    },
+    {
+      ekatte: "18490",
+      name: "Елин Пелин",
+      obshtina: "SFO17",
+      t_v_m: "с.",
+      loc: "23.58,42.62",
+    },
+    {
+      ekatte: "27303",
+      name: "Елин Пелин",
+      obshtina: "SFO17",
+      t_v_m: "гр.",
+      loc: "23.60,42.66",
+    },
+    {
+      ekatte: "11111",
+      name: "Едно",
+      obshtina: "VAR13",
+      t_v_m: "с.",
+      loc: "27.0,43.0",
+    },
+    {
+      ekatte: "22222",
+      name: "Друго",
+      obshtina: "VAR13",
+      t_v_m: "с.",
+      loc: "27.0,43.0",
+    },
+  ]);
+
+  it("resolves a school to its settlement by the shared centroid", () => {
+    expect(
+      resolveSchoolSettlement(IDX, "BLG02", "23.48,41.84", "ГР.БАНСКО"),
+    ).toEqual({ ekatte: "02676", name: "гр. Банско" });
+    // A centroid in another município is not this município's settlement.
+    expect(
+      resolveSchoolSettlement(IDX, "SML10", "23.48,41.84", "ГР.БАНСКО"),
+    ).toBeNull();
+  });
+
+  it("refuses a centroid two settlements of one município share", () => {
+    // No way to pick, and picking wrong publishes a village's matura under a
+    // neighbour's name — 4 schools are in this state on the committed index.
+    expect(
+      resolveSchoolSettlement(IDX, "VAR13", "27.0,43.0", "С.ЕДНО"),
+    ).toBeNull();
+  });
+
+  it("refuses a centroid the school's own address disowns", () => {
+    // МОН files some village schools under their município SEAT's centroid.
+    // SFO17 has both с. Елин Пелин and гр. Елин Пелин 2 km apart, so the type
+    // marker is the only thing separating them.
+    expect(
+      resolveSchoolSettlement(
+        IDX,
+        "SFO17",
+        "23.60,42.66",
+        "С.ЕЛИН ПЕЛИН (ГАРА)",
+      ),
+    ).toBeNull();
+    // …and the town's own school, on that same centroid, still resolves.
+    expect(
+      resolveSchoolSettlement(IDX, "SFO17", "23.60,42.66", "ГР.ЕЛИН ПЕЛИН"),
+    ).toEqual({ ekatte: "27303", name: "гр. Елин Пелин" });
+  });
+
+  it("takes the centroid's word for it when the address says nothing", () => {
+    expect(resolveSchoolSettlement(IDX, "BLG02", "23.48,41.84", "")).toEqual({
+      ekatte: "02676",
+      name: "гр. Банско",
+    });
+  });
+
+  it("resolves nothing without a loc at all", () => {
+    expect(resolveSchoolSettlement(IDX, "BLG02", null, "ГР.БАНСКО")).toBeNull();
+  });
+
+  it("emits a settlement blob keyed by EKATTE", () => {
+    const places = buildPlacePayloads(
+      [
+        school({ id: "a", ekatte: "02676", settlementName: "гр. Банско" }),
+        school({ id: "b", ekatte: "02676", settlementName: "гр. Банско" }),
+      ],
+      2026,
+      NATIONAL,
+    );
+    const s = places.get("02676")!;
+    expect(s.grain).toBe("settlement");
+    expect(s.schools).toBe(2);
+    // A settlement has no по-общини table and no rank.
+    expect(s.byObshtina).toEqual([]);
+    expect(s.rank).toBeNull();
+  });
+
+  it("marks a thin cohort provisional rather than hiding it", () => {
+    // The corpus MARKS a small sample (the /school/:id hollow-dot convention)
+    // instead of withholding it: 27 municípios and 46 settlements are here.
+    const places = buildPlacePayloads(
+      [school({ id: "a", ekatte: "02676", latestN: 3, latestScore: 2 })],
+      2026,
+      NATIONAL,
+    );
+    expect(places.get("02676")?.provisional).toBe(true);
+    expect(places.get("SML10")?.provisional).toBe(true);
+    expect(
+      buildPlacePayloads(
+        [school({ id: "a", latestN: 40 })],
+        2026,
+        NATIONAL,
+      ).get("SML10")?.provisional,
+    ).toBe(false);
+  });
+
+  it("leaves a school with no settlement out of settlement grain only", () => {
+    // Sofia's 155 schools resolve to no settlement — the city is not a
+    // settlement record — and must still count at município and oblast grain.
+    const places = buildPlacePayloads(
+      [school({ id: "a", ekatte: null })],
+      2026,
+      NATIONAL,
+    );
+    expect([...places.keys()].sort()).toEqual(["SML", "SML10"]);
   });
 
   it("skips a place with no scored school at all", () => {

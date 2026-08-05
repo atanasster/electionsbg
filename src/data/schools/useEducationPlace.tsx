@@ -38,7 +38,7 @@ export interface EducationPlaceMuni {
 }
 
 export interface EducationPlace {
-  grain: "region" | "muni";
+  grain: "region" | "muni" | "settlement";
   code: string;
   latestYear: number | null;
   avg: number;
@@ -51,6 +51,9 @@ export interface EducationPlace {
   /** Share (%) of graduates ATTENDING a school averaging below 3.00 — not the
    *  share of graduates who failed. */
   shareInFailingSchools: number | null;
+  /** True when the place's ENTIRE cohort is under the ranking floor — the
+   *  average is real but thin, and the tile says so. */
+  provisional: boolean;
   /** Schools with ≥10 graduates in the headline year: the denominator of the
    *  value-added coverage label, and what every ranked list is drawn from. */
   rankable: number;

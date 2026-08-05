@@ -53,6 +53,7 @@ const place = (over: Partial<EducationPlace> = {}): EducationPlace => ({
     { year: 2026, avg: 4.55, examinees: 743, schools: 22 },
   ],
   shareInFailingSchools: 3.4,
+  provisional: false,
   rankable: 20,
   byObshtina: [
     {
@@ -169,6 +170,18 @@ describe("EducationPlaceTile", () => {
     renderTile(place({ bottom: [] }));
     expect(screen.queryByText("Най-нисък успех")).not.toBeInTheDocument();
     expect(screen.getByText("Най-висок успех")).toBeInTheDocument();
+  });
+
+  it("caveats a place whose whole cohort is under the floor", () => {
+    // 27 municípios publish an average off fewer than 10 graduates — PDV40
+    // renders "2,00" from three — and said nothing about it until now.
+    renderTile(place({ provisional: true, schools: 1, examinees: 3 }));
+    expect(screen.getByText(/Малка извадка/)).toBeInTheDocument();
+  });
+
+  it("stays quiet when the cohort is big enough to stand on", () => {
+    renderTile(place());
+    expect(screen.queryByText(/Малка извадка/)).not.toBeInTheDocument();
   });
 
   it("says nothing about failing schools when there are none", () => {

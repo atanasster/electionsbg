@@ -274,8 +274,11 @@ and fix anything over budget before declaring done.
 - *Step 2* — the prerendered município body, so the 265×2 crawler pages carry
   what the SPA renders.
 
-**Phase 3**: the settlement node, where schools carry `loc` — see §9's open
-question about whether it aggregates by `loc` or by school coordinates.
+**Phase 3 — the settlement node.**
+
+- *Step 1* — settlement-grain blobs keyed by EKATTE.
+- *Step 2* — the settlement page reads its own blob, falling back to its
+  município with a disclosure; the prerendered settlement body carries it too.
 
 ---
 
@@ -319,10 +322,28 @@ Settled:
 - The value-added arm ships in v1 but **gated** at ≥5 schools with a `vaVerdict`
   and always labelled with coverage.
 
-Open (do not block the build):
+Settled during phase 3 (2026-08-05), by measuring rather than choosing:
 
-- Whether the settlement node (phase 3) aggregates by `loc` or by school
-  coordinates.
+- **The settlement aggregation question was a false fork.** `loc` on a school
+  IS the coordinate — a `"lng,lat"` string that is the SETTLEMENT CENTROID, not
+  the school's address (every school in Банско shares one pair), and it is the
+  same string `data/settlements.json` keys its own `loc` on. So "by `loc`" and
+  "by coordinates" are one rule, and it is an exact string join: no distance
+  threshold, no nearest-neighbour, nothing to tune. 833 of the 837 non-Sofia
+  schools resolve; 4 sit on a centroid two villages share and are refused;
+  Sofia's 155 resolve to nothing because the city is not a settlement record in
+  that file, only its outlying villages are.
+- **A thin cohort is marked, not withheld.** A settlement is often ONE school,
+  so its headline IS that school's average with nothing to dilute it. The first
+  cut suppressed those blobs; that was wrong for this corpus, which marks a
+  small sample rather than hiding it (`provisionalBelow` draws /school/:id's
+  sub-10 years as hollow dots, and /education says such schools "не се
+  класират" — are not RANKED — rather than that they disappear). The blob now
+  carries `provisional`, and it applies at every grain: it also flags **27
+  município blobs that have been publishing a sub-10-cohort average since phase
+  2** — PDV40 renders "2,00" off three graduates.
+
+Open (do not block the build):
 - Whether `residual` / `verdict` should become relational columns on `schools`
   so the AI tools can query them (a follow-up, not a v1 blocker).
 
