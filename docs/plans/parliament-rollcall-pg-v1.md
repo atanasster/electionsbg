@@ -60,7 +60,7 @@ Per-artifact sizes (bytes on disk; the bucket serves identity encoding, so these
 | `attendance.json` | 500 KB | `/parliament/attendance` + 2 tiles |
 | `loyalty.json` | 413 KB | 5 consumers |
 | `embedding.json` | 211 KB | `/parliament/embedding` + 3 tiles |
-| `important_votes/<ns>.json` | 47 KB × 9 | — |
+| `important_votes/<ns>.json` | 47 KB × 9 | **`useAreaImportantVotes` → the „Как гласуваха" tile on every My-Area dashboard** |
 | `similarity_headline.json` | 4.3 KB | the hub tile |
 | **`sessions/<date>.json`** | **482 KB avg · 4.97 MB max** | **`useRollcallSession` → every `/votes/<date>` page load** |
 
@@ -345,7 +345,7 @@ which phase retires it and what replaces it.
 | `loyalty.json` | 1 | 413 KB | **deferred** — same, and it is `per_mp_shards`' roster authority | — |
 | `index.json` | 1 | 303 KB | **kept** — the hub + `buildVotesRoutes` + the sitemap all read it; a 303 KB static file beats an API call for a prerender input | — |
 | `embedding.json` | 1 | 211 KB | **kept, forever** — UMAP is a stochastic iterative projection, not a SQL workload. Re-implementing it in PL/pgSQL would give two definitions of the map with nothing testing that they agree | — |
-| `important_votes/<ns>.json` | 9 | 47 KB ea | **kept** — `score` is an editorial weighting, the same argument `104_mp_roster.sql` gives for keeping `BRAND_ALIASES` out of SQL | — |
+| `important_votes/<ns>.json` | 9 | 47 KB ea | **kept** — `score` is an editorial weighting (the `BRAND_ALIASES` argument from `104_mp_roster.sql`), **and it has a live consumer outside this module**: `useAreaImportantVotes` powers the „Как гласуваха" tile on every My-Area dashboard | — |
 | `similarity_headline.json` | 1 | 4.3 KB | **kept** — feeds the hub tile + the band-4 seed; cheaper than a round trip. Regenerate it **from `mp_similarity`** once that exists | — |
 | `search_index.json` | 1 | 758 KB | **kept** — offline harness only, no page reads it | — |
 
@@ -419,6 +419,33 @@ Following the repo's own scar tissue:
   `vote_item.bill_id` is set. Declare the order in the `SCOPED_MATVIEWS`-style list, not in prose.
 - **No `recent_updates` row for the matviews** — they are a derived serving layer, like
   `person_search` / `contractor_search`. The *fact* loader takes one.
+
+### 7.1 Three repo-wide contracts a new loader must satisfy — none of them optional
+
+The first draft named the `update-rollcall` wiring and stopped. Three more are enforced elsewhere
+in this repo and would fail or rot silently:
+
+- **`db:refresh` chain membership.** `refresh_coverage.test.ts` fails unless **every** local
+  `db:load:*` / `db:resolve:*` in `package.json` is either referenced by `db:refresh` or listed in
+  `REFRESH_EXCLUSIONS` (`scripts/db/refresh_coverage.ts`) with an axis and a `ranBy`. Two new
+  loaders, two decisions. Both belong **in the chain**: the source (`sessions/*.json`) is
+  committed, so neither has the `uncommitted-input` axis, and the `cost` axis is weak — 2.9 s to
+  COPY, 40 s for the derived refresh. Order inside the chain: facts before derived; and the
+  derived step must precede anything reading it.
+- **`recent_updates()` needs a branch decision** (`007_query_builders.sql`). `feedback_pg_changelog_required`
+  makes wiring a new PG dataset into the feed the default, and 007 currently has **no vote
+  branch**. But 007 is also the function that was **13.61 s at the route's default shape** until
+  per-branch limits were added — over Cloud Run's 10 s timeout at its most common call. So a sixth
+  UNION branch inherits that discipline exactly: its own `LIMIT`, no join on an unindexed
+  expression, and a re-measure of the whole function after adding it. If that cannot be met
+  cheaply, the honest answer is to record the dataset in `data-changes.json` only and say so here
+  — what is not acceptable is adding an unlimited branch.
+- **`sync_cloud.ts` `CRITICAL_TABLES` — deliberately NOT joined.** That list is about
+  irrecoverability, on two axes: size, and *"no committed generator / gitignored source"*
+  (`kzk_decisions` is on it at 4.4k rows for exactly that reason). Roll-call fails both: 4M rows is
+  mid-sized here, and the source is **committed JSON that stays on disk** (§6.1), so a dropped
+  table is fully re-derivable by re-running the loader. Recorded because "big table, not on the
+  critical list" reads like an oversight otherwise.
 - **Wire both into `update-rollcall`**, per `reference_migrated_family_watch_reload`: a JSON→PG
   migration that does not add the `:cloud` loader to the regenerating watch skill leaves prod
   stale with nothing red. This is the single most-repeated failure in CLAUDE.md and it applies
@@ -475,6 +502,8 @@ there, or prod loses the data with no fallback.
 | **retirement — no dangling fetch** | after each phase, `grep` finds no `src/` fetch of an artifact that phase retired. A live route reading a deleted file is a 404 the degrade path turns into a silent empty state |
 | **retirement — bucket guard** | every retired tree has BOTH an `isExcluded` refusal and a `CHILD_EXCLUDES` entry in `bucket_sync_paths.ts` (§6.3). One without the other lets `bucket:sync:paths -- parliament` re-upload it |
 | **retirement — ledger is exhaustive** | every file under `data/parliament/votes/` is either in §6's ledger or fails the test. A new artifact must be classified when it is added, not discovered later |
+| **chain membership** | both new loaders appear in `db:refresh` or in `REFRESH_EXCLUSIONS` — enforced already by `refresh_coverage.test.ts`, listed here so it is a decision and not a test failure (§7.1) |
+| **`recent_updates` budget** | if a vote branch is added to 007, the whole function stays under its measured ceiling at `(days=1, limit=200)` — the shape that was 13.61 s before per-branch limits |
 
 ---
 

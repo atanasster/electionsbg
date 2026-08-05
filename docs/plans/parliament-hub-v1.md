@@ -535,6 +535,32 @@ every entry carries `to: string`; a `to` containing a `:` segment MUST also carr
 `seed: "similarity" | "pair"`, and the screen substitutes. **A tile whose seed is unavailable is
 omitted, not rendered with a broken href** — an absent tile is honest, a dead link is not.
 
+**Routed is not CRAWLABLE, and both of these fail that second test.** Measured live:
+
+```
+/parliament/similarity/5064   <title>Парламентарни избори 2026 …</title>   canonical -> https://electionsbg.com/
+/votes/between/GERB--PP       <title>Парламентарни избори 2026 …</title>   canonical -> https://electionsbg.com/
+/parliament/cohesion          <title>Партийна дисциплина …</title>          canonical -> itself
+```
+
+Neither parameterised route is prerendered — no `staticPage` entry, no `route_defs.ts` line — so
+both serve the **SPA shell**: the homepage's title, description and canonical. To a crawler they
+are duplicates of `/`. This is exactly the defect CLAUDE.md records for `/funds/contract/**` and
+`/company/**` before `spa_page.js` existed, at a smaller scale.
+
+It matters more here than it would elsewhere, because **§7 deliberately feeds these links crawl
+equity**. A prerendered hub linking to two homepage-duplicates is not a missed opportunity, it is
+a mild negative. So band 4 carries a prerender requirement:
+
+- **prerender ONE seed instance of each** — `/parliament/similarity/<seedId>` and
+  `/votes/between/<pairSlug>` for the current NS — with their own title, description and
+  self-canonical, and add both to `route_defs.ts`. Two pages against a ~248k-file `dist/`; the
+  file-count ceiling (`project_firebase_deploy_ceiling`) is untouched.
+- The seed is **NS-dependent**, so the prerendered instance is rebuilt when the parliament
+  changes. It is the same seed the hub reads from the blob — one source, not two.
+- If that is judged not worth doing, the honest alternative is to **drop both tiles**. What band 4
+  may not do is link a prerendered page at a homepage duplicate and say nothing.
+
 ### 3.5 Tile inventory — 11 tiles, 11 accents, 11 bespoke scenes
 
 Every tile gets its own hand-drawn vignette in the `SceneFrame` contract (300×116, ink =
@@ -810,8 +836,32 @@ else — from a page that holds every MP's vote.
 | `/parliament` | the band-3 figures as sentences with their bases (§3.3), the NS and its covered span (§2.3), and the count of sessions/items — the page currently states no number at all |
 | `/parliament/cohesion` · `/attendance` | the headline figure and the extreme group/MP, named |
 
-All of it is already computed — `important_votes/<ns>.json` for the item names and tallies,
-`hub_stats.json` for the rest. This is a body-builder change, not new data.
+#### 7.1.1 `important_votes` cannot source this — it covers 15% of the days
+
+The obvious source is wrong, and by a wide margin. `important_votes/<ns>.json` is a **top-15 per
+NS** shard, and those 135 entries cluster onto **92 distinct plenary days out of 613**:
+
+```
+plenary days                        613
+days with >=1 important_votes entry  92
+days with NONE                      521   = 85% of /votes/<date> pages
+```
+
+So `buildVotesRoutes` must read the **session files** at build time — it currently opens only
+`index.json`. Two consequences, and the second is cross-plan:
+
+1. **A build-time cost**: 613 files / 288 MB read during prerender. Acceptable (the build already
+   walks far more), but it must be a streaming read, not `readAllSessions()` into memory.
+2. **It is an independent reason `sessions/` must stay readable on the build machine** after
+   [parliament-rollcall-pg-v1](parliament-rollcall-pg-v1.md) §6 retires it from the bucket. That
+   plan already keeps the files on disk as a PG load source, so the two agree — but if anyone
+   later proposes deleting them locally and querying Postgres at build time instead, that is the
+   `/court/**` trap CLAUDE.md spells out in full: `seo_courts.ts` degrades to `[]` on any failure,
+   so a build machine without the data emits **zero pages, no `<loc>`s, at exit 0**. The good
+   failure, and an invisible one.
+
+`hub_stats.json` still sources the `/parliament` body figures — that half is a body-builder change
+with no new data.
 
 **Two rules, both from the editorial constraints already in the module plan (§7 there):**
 
@@ -1031,6 +1081,16 @@ Two more, found while writing the tile inventory (§3.5) rather than in review:
 |---|---|
 | Разцепления is a band-4 tile | **No route exists.** `grep dissent src/routes.tsx` is empty — the only surface is `MpDissentsSection` on a candidate page. Cut to 3 tiles; it stays a band-2 card. This is the orphan-by-assumption the §6 reachability gate is for, caught one step earlier |
 | The session strip shows за/против/въздържал per day | **`index.json` carries no tallies** — `RollcallIndexEntry` is `{date, stenogramId, items, file, ns}`. Outcome lives only in the 290 MB of session files. v1 encodes **items per day**; stacked outcome waits for `hub_feed` (§3.1.1) |
+
+### 10.4 Third audit pass — crawlability, sources and repo contracts
+
+| Position | Finding |
+|---|---|
+| Band 4's two seeded tiles link to routed pages | **Routed, but not crawlable.** Neither `/parliament/similarity/:mpId` nor `/votes/between/:pair` is prerendered — both serve the SPA shell with the **homepage's title and `canonical=/`**. §7 would feed them crawl equity. Prerender one seed each, or drop the tiles |
+| §7.1: put item names + tallies in each `/votes/<date>` body, sourced from `important_votes` | **That shard covers 92 of 613 days — 85% of the pages have no entry.** The prerender must read the session files at build time, which is also an independent reason `sessions/` must stay on the build machine after the PG retirement (§7.1.1) |
+| PG ledger: `important_votes/` has no consumer | **It has one outside this module** — `useAreaImportantVotes` powers the „Как гласуваха" tile on every My-Area dashboard. Corrected in both of that plan's tables |
+| PG plan names the `update-rollcall` wiring | **Three more repo-wide contracts apply**: `db:refresh` chain membership (`refresh_coverage.test.ts` fails without a decision), a `recent_updates()` branch decision bounded by the 13.61 s regression that function just recovered from, and an explicit *not*-`CRITICAL_TABLES` note (PG plan §7.1) |
+| (minor, unstated) | The session strip is **informational, not decorative** — unlike a tile scene it cannot be `aria-hidden`, so it needs a text equivalent. And bands 3–5 need ~30 new i18n keys × 2 locales, which no phase currently owns |
 
 ### 10.3 The SEO/AIO/OG audit, and one correction to §10
 
