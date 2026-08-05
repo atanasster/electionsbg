@@ -407,8 +407,11 @@ const FIXED_MILITARY: { match: RegExp; body: Omit<JudicialBody, "place"> }[] = [
 /** Optimal string alignment distance: Levenshtein plus ADJACENT TRANSPOSITION, which is
  *  what a keyboard slip actually looks like — `КЮСТНЕДИЛ` is ONE transposition from
  *  `КЮСТЕНДИЛ` but two substitutions without it. Gives up as soon as no alignment can
- *  come in at or under `max`, so scanning the whole settlement vocabulary stays cheap. */
-const editDistance = (a: string, b: string, max: number): number => {
+ *  come in at or under `max`, so scanning the whole settlement vocabulary stays cheap.
+ *  Exported for the radius invariant in judicialBodies.test.ts — it and placeSlips are
+ *  the two parameters the whole safety argument rests on, so the test asserts on them
+ *  directly rather than inferring them from an example. */
+export const editDistance = (a: string, b: string, max: number): number => {
   if (Math.abs(a.length - b.length) > max) return max + 1;
   let two: number[] = [];
   let one = Array.from({ length: b.length + 1 }, (_, j) => j);
@@ -436,22 +439,26 @@ const editDistance = (a: string, b: string, max: number): number => {
  * one slip from both Брегово and Брезово, and picking either would put a magistrate in
  * a court 200km from the one they sit in.
  *
- * `sameInitial` narrows the settlement scan: a slip that changes the first letter of a
- * town is not a slip we can tell apart from a different town. Institution words are
- * matched WITHOUT it, because a dropped leading letter is exactly what `рокуратура` is.
+ * The scan is over the WHOLE lexicon, and that is load-bearing rather than lazy. Filtering
+ * candidates by the token's own first letter reads as the conservative choice and is the
+ * exact opposite: it hides the town a first-letter slip actually came from, so `ВЕЛОВО`
+ * stops tying against Белово and quietly becomes Ветово — a real court 150km away, logged
+ * through onFix as an ordinary-looking correction. Measured over every single-character
+ * substitution of all 292 vocabulary names, that filter produced all 40 of the
+ * wrong-town answers AND cost 8,043 correct recoveries; without it, 0 and 0. Widening the
+ * candidate pool can only turn a match into a tie or into a strictly closer match — it can
+ * never turn a refusal into a loose guess.
  */
 const uniqueNearest = (
   token: string,
   lexicon: Iterable<string>,
   max: number,
-  sameInitial: boolean,
 ): string | null => {
   if (max <= 0) return null;
   let best: string | null = null;
   let bestD = max + 1;
   let tied = false;
   for (const w of lexicon) {
-    if (sameInitial && w[0] !== token[0]) continue;
     const d = editDistance(token, w, max);
     if (d > max) continue;
     if (d < bestD) {
@@ -463,15 +470,18 @@ const uniqueNearest = (
   return tied ? null : best;
 };
 
-/** Slips allowed in a SETTLEMENT name. Tight, because the vocabulary is 295 names and
- *  some are genuinely one edit apart (Брегово/Брезово): the radius is what decides how
- *  often the tie above fires instead of a match. Every misspelling in the register today
- *  is a single slip; the wider radius for long names is headroom for the next harvest,
- *  and no two settlement names of 10+ characters are within 2 of each other. */
-const placeSlips = (len: number): number => (len >= 10 ? 2 : len >= 5 ? 1 : 0);
+/** Slips allowed in a SETTLEMENT name. Tight, because the vocabulary is 292 names and
+ *  some are genuinely one edit apart (Брегово/Брезово, Кирково/Мирково): the radius is
+ *  what decides how often the tie above fires instead of a match. Every misspelling in
+ *  the register today is a single slip; the wider radius for long names is headroom for
+ *  the next harvest, and no two settlement names of 10+ characters are within 2 of each
+ *  other. judicialBodies.test.ts asserts that pair set over the whole vocabulary rather
+ *  than leaving it here as a claim — data/municipalities.json is a moving input. */
+export const placeSlips = (len: number): number =>
+  len >= 10 ? 2 : len >= 5 ? 1 : 0;
 
-/** Slips allowed in an institution word — looser, because the lexicon is 30 words rather
- *  than 295 names and they are far apart. */
+/** Slips allowed in an institution word — looser, because the lexicon is 33 words rather
+ *  than 292 names and they are far apart. */
 const wordSlips = (len: number): number => (len >= 8 ? 2 : len >= 4 ? 1 : 0);
 
 /**
@@ -486,7 +496,7 @@ const wordSlips = (len: number): number => (len >= 8 ? 2 : len >= 4 ? 1 : 0);
  * masculine and feminine forms are one edit apart, so every slip on one ties against the
  * other and corrects to neither. ADJECTIVE_CITY carries the misspellings that occur.
  */
-const INSTITUTION_WORDS = [
+export const INSTITUTION_WORDS = [
   "АДМИНИСТРАТИВЕН",
   "АДМИНИСТРАТИВНА",
   "АПЕЛАТИВЕН",
@@ -614,12 +624,7 @@ export const foldJudicialName = (
   s = s
     .split(" ")
     .map((tok) => {
-      const hit = uniqueNearest(
-        tok,
-        INSTITUTION_WORDS,
-        wordSlips(tok.length),
-        false,
-      );
+      const hit = uniqueNearest(tok, INSTITUTION_WORDS, wordSlips(tok.length));
       if (!hit || hit === tok) return tok;
       onFix?.({ from: tok, to: hit });
       return hit;
@@ -730,7 +735,7 @@ const restorePlace = (
     // A misspelling one slip from exactly ONE settlement IS that settlement: "Хаскопво"
     // is Хасково, and refusing it strands a real magistrate at a real court. Anything
     // further out, or close to two towns at once, still mints nothing.
-    const near = uniqueNearest(key, vocab.keys(), placeSlips(key.length), true);
+    const near = uniqueNearest(key, vocab.keys(), placeSlips(key.length));
     if (!near) return null;
     const canonical = vocab.get(near) ?? null;
     if (canonical) onFix?.({ from: key, to: near });
@@ -774,7 +779,10 @@ export type ResolveOptions = {
 };
 
 /** Generic words a national institution is written WITH, none of which narrow it —
- *  "Прокуратура - СРП" is the Софийска районна прокуратура, not a fourth thing. */
+ *  "Прокуратура - СРП" is the Софийска районна прокуратура, not a fourth thing.
+ *  "РБ" is here as well as in the fold, and neither is redundant: the fold only strips it
+ *  TRAILING ("ВКС на РБ"), so a leading one ("РБ - ВКС") reaches this list and resolves
+ *  only because of this entry. */
 const FILLER = new Set([
   "ПРОКУРАТУРА",
   "СЪД",

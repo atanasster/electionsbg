@@ -143,7 +143,13 @@ const main = async (): Promise<void> => {
       onFix: (f) => fixes.push(`${f.from} → ${f.to}`),
     });
     if (!body) {
-      unresolved[source].push(raw);
+      // Carry the corrections into the unresolved line rather than dropping them. "Did
+      // the typo layer mangle this before it failed?" is the first question an unresolved
+      // name raises, and without this the answer is unavailable: a string that was
+      // corrected and still failed looks identical to one nothing touched.
+      unresolved[source].push(
+        fixes.length ? `${raw}   [corrected: ${fixes.join(", ")}]` : raw,
+      );
       return;
     }
     if (fixes.length) corrected.push({ raw, name: body.name, fixes });

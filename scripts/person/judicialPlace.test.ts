@@ -33,14 +33,33 @@ describe("judicialPlaceFor", () => {
     expect(r.placeCode).toBe("srs");
   });
 
+  it("matches the raw source name before folding", () => {
+    // The loader keys judicial_body_alias with the VOCABULARY-FUL fold and there is no
+    // vocabulary here, so the one construct that needs it — a glued abbreviation — folds
+    // to a different key on this side and misses a body resolved fine at load time.
+    // judicial_body_source_name holds the un-folded string, which needs no vocabulary.
+    expect(foldJudicialName("РПКюстендил")).toBe("РПКЮСТЕНДИЛ");
+    const raw = new Map([["РПКюстендил", { code: "rp-kyustendil" }]]);
+    expect(judicialPlaceFor(raw, "РПКюстендил").placeCode).toBe(
+      "rp-kyustendil",
+    );
+    // …and the fold arm still carries every other spelling, which is the common case.
+    expect(judicialPlaceFor(dict, "софийски районен съд").placeCode).toBe(
+      "srs",
+    );
+  });
+
   it("keeps the declaration's own words when nothing resolves", () => {
-    // "Роайонен съд - Пловдив" is a real typo in the corpus. We refuse to guess a body for
-    // it — a wrong court is a misstatement about a named person — but the source's text is
+    // "Върховна прокуратура" is ambiguous between ВКП and ВАП — not a slip the typo layer
+    // can close, and never will be, which is why it is the right example here. (A real
+    // misspelling is NOT: the parser now resolves those, so one would only stay unmatched
+    // against this two-entry stand-in dictionary and would teach the reader the opposite
+    // of what the module does.) We refuse to guess a body, but the source's own text is
     // still the honest thing to show.
-    expect(judicialPlaceFor(dict, "Роайонен съд - Пловдив")).toEqual({
+    expect(judicialPlaceFor(dict, "Върховна прокуратура")).toEqual({
       placeKind: null,
       placeCode: null,
-      placeRaw: "Роайонен съд - Пловдив",
+      placeRaw: "Върховна прокуратура",
     });
   });
 

@@ -7,6 +7,9 @@ import {
   foldJudicialName,
   placeVocabulary,
   placeKey,
+  editDistance,
+  placeSlips,
+  INSTITUTION_WORDS,
 } from "./judicialBodies";
 
 // The real vocabulary, so the tests exercise the production path rather than a fixture
@@ -222,6 +225,50 @@ describe("resolveJudicialBody, with the settlement vocabulary", () => {
     expect(body("Районен съд - Брежово")).toBeNull();
   });
 
+  it("refuses a first-letter slip rather than moving the seat to another town", () => {
+    // The scan cannot tell "Велово" (a slip for Белово) from "Велово" (a slip for
+    // Ветово), so refusing is the only honest answer. This used to resolve — narrowing
+    // the scan to candidates sharing the TYPO's initial hid the town the slip came from
+    // and handed the string to whichever other real municipality shared the wrong
+    // letter, publishing a named magistrate at a court they do not sit in.
+    for (const s of [
+      "Районен съд - Велово", // was Ветово; Белово is equally close
+      "Окръжен съд - Лодеч", // was Ловеч; Годеч is equally close
+      "Районен съд Шемен", // was Шумен; Земен is equally close
+    ])
+      expect(body(s), s).toBeNull();
+    // …and where the real town is STRICTLY closer, the full scan does not merely refuse,
+    // it recovers the right answer: Велико Търново is one slip away, Малко Търново two.
+    // Under the narrowed scan this resolved to Малко Търново.
+    expect(body("Административен съд Мелико Търново")?.bodyCode).toBe(
+      "as-veliko-tarnovo",
+    );
+  });
+
+  it("keeps every settlement outside every other settlement's correction radius", () => {
+    // The radius placeSlips grants is only safe while the vocabulary is sparse enough
+    // that a slip cannot land closer to a different town than to its own. Two names
+    // inside each other's radius do not mis-resolve — they tie, which is safe — but the
+    // pair set is the measurement the radius is chosen from, and
+    // data/municipalities.json is a moving input: widening it toward settlements (5,366
+    // names, as place_dim already carries) would break the argument silently.
+    //
+    // Scanned across ALL initials on purpose. The same-initial habit is what hid
+    // Кирково/Мирково from the measurement that first justified the radius.
+    const keys = [...vocab.keys()];
+    const collisions = new Set<string>();
+    for (const a of keys)
+      for (const b of keys)
+        if (
+          a !== b &&
+          editDistance(a, b, placeSlips(a.length)) <= placeSlips(a.length)
+        )
+          collisions.add([a, b].sort().join(" ~ "));
+    expect(collisions).toEqual(
+      new Set(["БРЕГОВО ~ БРЕЗОВО", "КИРКОВО ~ МИРКОВО"]),
+    );
+  });
+
   it("reports every correction it makes", () => {
     const fixes: string[] = [];
     resolveJudicialBody("Окръжна прократура Кюстендл", {
@@ -262,6 +309,13 @@ describe("resolveJudicialBody, with the settlement vocabulary", () => {
     // list, so a word added to the lexicon later cannot quietly break it.
     // Compared against placeKey, NOT the fold — folding both sides would let a
     // correction that fires on the bare name pass unnoticed.
+    //
+    // Both sizes are pinned because placeSlips and wordSlips reason FROM them ("looser,
+    // because the lexicon is 33 words rather than 292 names"): a count that drifts turns
+    // those docstrings into an argument for a radius nobody chose. Failing here means
+    // update the two docstrings, not the numbers.
+    expect(INSTITUTION_WORDS.length).toBe(33);
+    expect(vocab.size).toBe(292);
     for (const name of vocab.values())
       for (const token of placeKey(name).split(" "))
         expect(
