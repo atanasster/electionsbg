@@ -69,6 +69,7 @@ import {
   buildGovernancePlaceBody,
   buildGovernanceMuniBody,
   buildGovernanceRegionBody,
+  buildPlaceEducationSection,
   buildProcurementSettlementBody,
   buildFundsThemeBody,
   buildDiasporaBody,
@@ -79,7 +80,7 @@ import {
 import {
   educationBodyFor,
   readEducationPlaces,
-  readMuniNamesEn,
+  readMuniNames,
 } from "./educationPlaces";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
@@ -600,6 +601,10 @@ export const buildGovernanceMuniRoutes = (
   projectRoot: string,
   oblastNames: Map<string, string>,
 ): PrerenderRoute[] => {
+  // One parse for all ~290 município pages — see the note in the region
+  // builder about why three parses total is the accepted shape.
+  const education = readEducationPlaces(projectRoot);
+  const muniNames = readMuniNames(projectRoot);
   const munis = [...readMunicipalities(projectRoot), SOFIA_CITY_MUNI];
   const result: PrerenderRoute[] = [];
   const seen = new Set<string>();
@@ -629,6 +634,7 @@ export const buildGovernanceMuniRoutes = (
       name: m.name,
       oblastCode: m.oblast,
       oblastName,
+      education: educationBodyFor(education, muniNames, m.obshtina),
     });
     result.push({
       path: `governance/${m.obshtina}`,
@@ -659,6 +665,8 @@ const RAYON_CITY: Record<string, { bg: string; mir: string }> = {
 export const buildGovernanceRayonRoutes = (
   projectRoot: string,
 ): PrerenderRoute[] => {
+  const education = readEducationPlaces(projectRoot);
+  const muniNames = readMuniNames(projectRoot);
   const result: PrerenderRoute[] = [];
   for (const muni of Object.keys(RAYON_CITY)) {
     const file = path.join(
@@ -691,7 +699,15 @@ export const buildGovernanceRayonRoutes = (
         { name: `Община ${city.bg}`, url: `${SITE_URL}/governance/${muni}` },
         { name: `Район ${name}`, url },
       ];
-      const bodyHtml = `<h1>Район ${name}</h1><p>Административен район на община ${city.bg} (${city.mir} МИР). Резултати от парламентарни избори по партии и районен кмет.</p>`;
+      // The education section names the PARENT city and says so — МОН
+      // publishes neither Пловдив nor Варна split by район.
+      const bodyHtml = [
+        `<h1>Район ${name}</h1><p>Административен район на община ${city.bg} (${city.mir} МИР). Резултати от парламентарни избори по партии и районен кмет.</p>`,
+        ...buildPlaceEducationSection(
+          educationBodyFor(education, muniNames, id),
+          city.bg,
+        ),
+      ].join("\n");
       result.push({
         path: `governance/${id}`,
         title,
@@ -738,10 +754,34 @@ export const buildGovernanceRegionRoutes = (
   projectRoot: string,
   regions: RegionInfo[],
 ): PrerenderRoute[] => {
-  // Parsed ONCE for all 28 regions × 2 languages — the schools index is 1.3 MB,
-  // and re-reading it per region would be 56 parses of it.
+  // Parsed once per BUILDER (three of them now: regions, municipalities,
+  // районы), not once per page — the 1.3 MB index would otherwise be read 56
+  // times here alone. Three parses measured at ~28 ms total, which is the
+  // price of keeping the builders independent.
   const education = readEducationPlaces(projectRoot);
-  const muniNamesEn = readMuniNamesEn(projectRoot);
+  // Region names too: an aliased region (Sofia's three МИР, PDV-00) must name
+  // the place its numbers describe, not itself.
+  const muniNames = readMuniNames(projectRoot);
+  // regions.json prefixes Пловдив alone with "обл." / "prov." to tell the
+  // province apart from the city МИР; the phrase adds its own "област", so
+  // strip it or the page reads "област обл. Пловдив".
+  const bare = (s: string) => s.replace(/^(обл\.|prov\.)\s*/i, "");
+  const placeNames = {
+    bg: new Map([
+      ...(muniNames.bg ?? []),
+      ...regions.map((r): [string, string] => [
+        r.oblast,
+        bare(r.long_name || r.name),
+      ]),
+    ]),
+    en: new Map([
+      ...(muniNames.en ?? []),
+      ...regions.map((r): [string, string] => [
+        r.oblast,
+        bare(r.long_name_en || r.name_en || r.name),
+      ]),
+    ]),
+  };
   const munisByOblast = new Map<string, GovernanceRegionMuni[]>();
   for (const m of readMunicipalities(projectRoot)) {
     if (!m.oblast) continue;
@@ -770,7 +810,7 @@ export const buildGovernanceRegionRoutes = (
           r,
           munis,
           "bg",
-          educationBodyFor(education, muniNamesEn, r.oblast),
+          educationBodyFor(education, placeNames, r.oblast),
         ),
         jsonLd: [
           buildWebPageLd({ title, description, url }),
@@ -787,7 +827,7 @@ export const buildGovernanceRegionRoutes = (
             r,
             munis,
             "en",
-            educationBodyFor(education, muniNamesEn, r.oblast),
+            educationBodyFor(education, placeNames, r.oblast),
           ),
           jsonLd: [
             buildWebPageLd({

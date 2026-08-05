@@ -14,9 +14,13 @@ import { fileURLToPath } from "url";
 import {
   educationBodyFor,
   readEducationPlaces,
-  readMuniNamesEn,
+  readMuniNames,
 } from "./educationPlaces";
-import { buildGovernanceRegionBody } from "./bodyBuilders";
+import {
+  buildGovernanceMuniBody,
+  buildGovernanceRegionBody,
+  buildPlaceEducationSection,
+} from "./bodyBuilders";
 import { resolveEducationPlaceKey as resolveEducationPlaceKeySync } from "@/data/schools/educationPlaceKey";
 import type { RegionInfo } from "@/data/dataTypes";
 
@@ -35,8 +39,8 @@ const smolyan = {
 } as unknown as RegionInfo;
 
 const places = readEducationPlaces(ROOT);
-const namesEn = readMuniNamesEn(ROOT);
-const bodyFor = (code: string) => educationBodyFor(places, namesEn, code);
+const names = readMuniNames(ROOT);
+const bodyFor = (code: string) => educationBodyFor(places, names, code);
 
 describe("readEducationPlaces", () => {
   it("reads the committed index, with no database in sight", () => {
@@ -173,6 +177,109 @@ describe("buildGovernanceRegionBody with education", () => {
     const ids = [...body.matchAll(/\/school\/([^"]+)"/g)].map((m) => m[1]);
     expect(ids.length).toBeGreaterThan(0);
     for (const id of ids) expect(id).toMatch(/^\d+$/);
+  });
+});
+
+describe("buildGovernanceMuniBody with education", () => {
+  const muniBody = (code: string, name: string) =>
+    buildGovernanceMuniBody({
+      name,
+      education: educationBodyFor(places, names, code),
+    });
+
+  it("names the município and gets its plurals right", () => {
+    // A one-school município printed "1 училища" before the count was pluralised.
+    const body = muniBody("SML10", "Доспат");
+    expect(body).toMatch(/<h2>Матура в община Доспат<\/h2>/);
+    expect(body).toMatch(/1 училище с \d+ зрелостници/);
+    expect(body).not.toMatch(/1 училища/);
+  });
+
+  it("names the CITY on a Sofia район page, and discloses it", () => {
+    // "Матура в община Лозенец" would name a place that does not exist and
+    // attribute Столична община's result to one район of it.
+    const body = muniBody("S2309", "Лозенец");
+    const section = body.slice(body.indexOf("<h2>Матура"));
+    expect(section).toMatch(/<h2>Матура в Столична община<\/h2>/);
+    expect(section).not.toMatch(/община Лозенец/);
+    expect(section).toMatch(/не за този район/);
+    // The h1 above this section still reads "община Лозенец" — a pre-existing
+    // mislabel of all 24 Sofia районы that predates this work and changes 24
+    // indexed page titles to fix, so it is reported rather than swept in here.
+  });
+
+  it("writes Sofia city's own page without a disclosure", () => {
+    const body = muniBody("SOF00", "Столична");
+    expect(body).toMatch(/<h2>Матура в Столична община<\/h2>/);
+    expect(body).not.toMatch(/не за този/);
+  });
+
+  it("gives a Пловдив район the city's numbers, and says so", () => {
+    const section = buildPlaceEducationSection(
+      educationBodyFor(places, names, "PDV22-01"),
+      "Пловдив",
+    ).join("\n");
+    expect(section).toMatch(/<h2>Матура в община Пловдив<\/h2>/);
+    expect(section).toMatch(/не за този район/);
+  });
+
+  it("leaves the body as it was for a município with no schools", () => {
+    const body = buildGovernanceMuniBody({
+      name: "Някъде",
+      education: undefined,
+    });
+    expect(body).not.toMatch(/<h2>Матура/);
+    expect(body).toMatch(/<h1>Управление — община Някъде<\/h1>/);
+  });
+
+  it("says the same thing as the SPA, in both languages", async () => {
+    // Two disclosure lists exist — this one inline in bodyBuilders, the
+    // client's ALIAS_NOTE_KEY pointing at translation.json — and they are
+    // maintained by hand. A reason worded differently on the two surfaces
+    // means the static page and the hydrated page make different claims about
+    // whose numbers a reader is looking at.
+    const { ALIAS_NOTE_KEY } = await import("@/data/schools/educationPlaceKey");
+    const bg = JSON.parse(
+      readFileSync(path.join(ROOT, "src/locales/bg/translation.json"), "utf-8"),
+    ) as Record<string, string>;
+    const en = JSON.parse(
+      readFileSync(path.join(ROOT, "src/locales/en/translation.json"), "utf-8"),
+    ) as Record<string, string>;
+
+    const byReason: Record<string, string> = {
+      "sofia-city": "S23",
+      "sofia-city-raion": "S2309",
+      "city-raion": "PDV22-01",
+      "plovdiv-province": "PDV-00",
+    };
+    // Exhaustive over the union: a fifth reason with no sample fails here.
+    expect(Object.keys(byReason).sort()).toEqual(
+      Object.keys(ALIAS_NOTE_KEY).sort(),
+    );
+
+    for (const [reason, code] of Object.entries(byReason)) {
+      const edu = educationBodyFor(places, names, code);
+      expect(edu?.aliasReason).toBe(reason);
+      const key = ALIAS_NOTE_KEY[reason as keyof typeof ALIAS_NOTE_KEY];
+      expect(buildPlaceEducationSection(edu, "X", "bg").join("\n")).toContain(
+        bg[key],
+      );
+      expect(buildPlaceEducationSection(edu, "X", "en").join("\n")).toContain(
+        en[key],
+      );
+    }
+  });
+
+  it("discloses on every aliased place the section can reach", () => {
+    // The static disclosure list must cover the same four reasons the client's
+    // ALIAS_NOTE_KEY does; a reason added to one and not the other is how a
+    // page starts stating a parent's numbers as its own.
+    for (const code of ["S23", "S2309", "PDV22-01", "PDV-00"]) {
+      const edu = educationBodyFor(places, names, code);
+      expect(edu?.aliasReason).toBeTruthy();
+      const section = buildPlaceEducationSection(edu, "X", "bg").join("\n");
+      expect(section).toMatch(/МОН публикува/);
+    }
   });
 });
 

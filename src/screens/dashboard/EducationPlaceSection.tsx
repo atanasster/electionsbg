@@ -16,7 +16,7 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap } from "lucide-react";
 import { useEducationPlace } from "@/data/schools/useEducationPlace";
-import type { PlaceAliasReason } from "@/data/schools/educationPlaceKey";
+import { ALIAS_NOTE_KEY } from "@/data/schools/educationPlaceKey";
 import { DashboardSection } from "./DashboardSection";
 import { EducationPlaceTile } from "./EducationPlaceTile";
 import { EducationExpectedTile } from "./EducationExpectedTile";
@@ -36,20 +36,6 @@ type Props = {
 
 /** Warned-about codes, so a re-render or a second visit doesn't re-log. */
 const warned = new Set<string>();
-
-/** One sentence per reason a place shows a broader aggregate's numbers. A
- *  lookup rather than a ternary ladder: the list grew to four the moment the
- *  Пловдив/Варна районы joined, and each entry is a claim a reader will hold
- *  us to. */
-const ALIAS_NOTE_KEY: Record<
-  NonNullable<PlaceAliasReason>,
-  `education_place_${string}`
-> = {
-  "sofia-city": "education_place_sofia_note",
-  "sofia-city-raion": "education_place_sofia_raion_note",
-  "city-raion": "education_place_city_raion_note",
-  "plovdiv-province": "education_place_plovdiv_note",
-};
 
 export const EducationPlaceSection: FC<Props> = ({
   code,

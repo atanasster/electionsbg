@@ -22,6 +22,20 @@ export type PlaceAliasReason =
   | "plovdiv-province"
   | null;
 
+/** One sentence per reason a place shows a broader aggregate's numbers. A
+ *  lookup rather than a ternary ladder: the list grew to four the moment the
+ *  Пловдив/Варна районы joined, and each entry is a claim a reader will hold
+ *  us to. */
+export const ALIAS_NOTE_KEY: Record<
+  NonNullable<PlaceAliasReason>,
+  `education_place_${string}`
+> = {
+  "sofia-city": "education_place_sofia_note",
+  "sofia-city-raion": "education_place_sofia_raion_note",
+  "city-raion": "education_place_city_raion_note",
+  "plovdiv-province": "education_place_plovdiv_note",
+};
+
 export interface PlaceKey {
   /** The code actually fetched. */
   key: string;

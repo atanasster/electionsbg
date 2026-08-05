@@ -3,6 +3,7 @@ import path from "path";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { hasCrawlableId } from "@/data/schools/schoolBel";
 import type { EducationPlaceBody } from "./educationPlaces";
+import type { PlaceAliasReason } from "@/data/schools/educationPlaceKey";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
 import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
@@ -1116,10 +1117,14 @@ export type GovernanceMuniInput = {
   name: string;
   oblastCode?: string;
   oblastName?: string;
+  /** The place's education blob, alias already resolved. Omitted for a place
+   *  the corpus has no current cohort for, and the section is then absent
+   *  rather than empty. */
+  education?: EducationPlaceBody;
 };
 
 export const buildGovernanceMuniBody = (input: GovernanceMuniInput): string => {
-  const { name, oblastCode, oblastName } = input;
+  const { name, oblastCode, oblastName, education } = input;
   const parts: string[] = [];
   parts.push(`<h1>Управление — община ${escapeHtml(name)}</h1>`);
   parts.push(
@@ -1135,8 +1140,20 @@ export const buildGovernanceMuniBody = (input: GovernanceMuniInput): string => {
     );
   }
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
+  // Same section the SPA renders on this page, so the crawler-facing HTML
+  // carries the matura result rather than only promising it in the intro.
+  parts.push(...governancePlaceEducation(education, name, "bg", "muni"));
   return parts.join("\n");
 };
+
+/** The education section on its own, for a body that builds its own heading —
+ *  the Пловдив/Варна район pages, whose h1 is "Район X" but whose matura
+ *  numbers are the parent city's (and say so). */
+export const buildPlaceEducationSection = (
+  edu: EducationPlaceBody | undefined,
+  placeLabel: string,
+  lang: "bg" | "en" = "bg",
+): string[] => governancePlaceEducation(edu, placeLabel, lang, "muni");
 
 // Region (oblast) node — /governance/region/{oblast}. Lists the oblast's
 // municipalities, each linking to its place node, so crawlers get a real
@@ -1155,10 +1172,12 @@ export type GovernanceRegionMuni = {
  *  Link rule, same as the function below: only `/school/:id` has an EN mirror,
  *  so only that one takes the `/en` prefix. `/governance/:obshtina` does not —
  *  an `/en/governance/SML10` would serve the EN homepage shell. */
-const governanceRegionEducation = (
+const governancePlaceEducation = (
   edu: EducationPlaceBody | undefined,
   displayName: string,
   lang: "bg" | "en",
+  /** "област Смолян" vs "община Доспат" — the same section, two place kinds. */
+  grain: "region" | "muni" = "region",
 ): string[] => {
   if (!edu?.blob.latestYear) return [];
   const { blob, namesEn, aliasReason } = edu;
@@ -1177,37 +1196,74 @@ const governanceRegionEducation = (
   // The same disclosure the live tile carries: three Sofia МИР pages and
   // Пловдив-град publish a broader place's numbers, because МОН publishes
   // those places as single aggregates.
-  const alias =
-    aliasReason === "sofia-city"
-      ? en
-        ? " МОН publishes Sofia city as one aggregate, so these are city-wide figures rather than this constituency's."
-        : " МОН публикува Столична община общо — числата са за целия град, не за този МИР."
-      : aliasReason === "plovdiv-province"
-        ? en
-          ? " МОН publishes Plovdiv province as one aggregate, so these figures include the city."
-          : " МОН публикува област Пловдив общо — числата включват и града."
-        : "";
+  // Every reason the client discloses, disclosed here too — a static body that
+  // states the city's average under a район's name is the same defect, one
+  // surface over. Keep in step with ALIAS_NOTE_KEY in EducationPlaceSection.
+  const ALIAS: Record<
+    NonNullable<PlaceAliasReason>,
+    { bg: string; en: string }
+  > = {
+    "sofia-city": {
+      bg: " МОН публикува Столична община общо — числата са за целия град, не за този МИР.",
+      en: " МОН publishes Sofia city as one aggregate — these are city-wide figures, not this constituency's.",
+    },
+    "sofia-city-raion": {
+      bg: " МОН публикува Столична община общо — числата са за целия град, не за този район.",
+      en: " МОН publishes Sofia city as one aggregate, so these are city-wide figures rather than this district's.",
+    },
+    "city-raion": {
+      bg: " МОН публикува данните по общини — числата са за цялата община, не за този район.",
+      en: " МОН publishes by municipality, so these are whole-municipality figures rather than this district's.",
+    },
+    "plovdiv-province": {
+      bg: " МОН публикува област Пловдив общо — числата включват и града.",
+      en: " МОН publishes Plovdiv province as one aggregate — these figures include the city.",
+    },
+  };
+  const alias = aliasReason ? ALIAS[aliasReason][en ? "en" : "bg"] : "";
 
+  // "в област X" / "in X province" for a region, "в община X" / "in X
+  // municipality" for a município — the same sentence, correctly named.
+  // `placePhraseBg` names the place the blob DESCRIBES, which on an aliased
+  // page is the parent — "Матура в Столична община" on Лозенец's page.
+  const placeBg = escapeHtml(
+    edu.placePhrase?.bg ??
+      (grain === "muni" ? `община ${displayName}` : `област ${displayName}`),
+  );
+  const placeEn = escapeHtml(
+    edu.placePhrase?.en ??
+      (grain === "muni"
+        ? `${displayName} municipality`
+        : `${displayName} province`),
+  );
+  // "1 училища" is what a bare count printed on the 40-odd one-school places.
+  const schoolsBg = `${fmtInt(blob.schools)} ${blob.schools === 1 ? "училище" : "училища"}`;
+  const gradsBg = `${fmtInt(blob.examinees)} ${blob.examinees === 1 ? "зрелостник" : "зрелостници"}`;
+  const schoolsEn = `${fmtIntEn(blob.schools)} ${blob.schools === 1 ? "school" : "schools"}`;
+  const gradsEn = `${fmtIntEn(blob.examinees)} ${blob.examinees === 1 ? "graduate" : "graduates"}`;
   parts.push(
-    en
-      ? `<h2>Matura in ${escapeHtml(displayName)} province</h2>`
-      : `<h2>Матура в област ${escapeHtml(displayName)}</h2>`,
+    en ? `<h2>Matura in ${placeEn}</h2>` : `<h2>Матура в ${placeBg}</h2>`,
   );
   parts.push(
     en
-      ? `<p>On the ${blob.latestYear} state matura in Bulgarian language and literature, schools in ${escapeHtml(displayName)} province averaged ${n2(blob.avg)}${rank}, across ${fmtIntEn(blob.schools)} schools and ${fmtIntEn(blob.examinees)} graduates.${alias} Averages are weighted by cohort; every failing graduate enters as a flat 2.00, so this differs from the ministry's own announced figure.</p>`
-      : `<p>На държавния зрелостен изпит по български език и литература през ${blob.latestYear} г. училищата в област ${escapeHtml(displayName)} постигат среден успех ${n2(blob.avg)}${rank}, в ${fmtInt(blob.schools)} училища с ${fmtInt(blob.examinees)} зрелостници.${alias} Успехът е претеглен по броя зрелостници; всеки скъсан зрелостник влиза с 2,00 независимо от точките си, затова числото се различава от обявеното от министерството.</p>`,
+      ? `<p>On the ${blob.latestYear} state matura in Bulgarian language and literature, schools in ${placeEn} averaged ${n2(blob.avg)}${rank}, across ${schoolsEn} and ${gradsEn}.${alias} Averages are weighted by cohort; every failing graduate enters as a flat 2.00, so this differs from the ministry's own announced figure.</p>`
+      : `<p>На държавния зрелостен изпит по български език и литература през ${blob.latestYear} г. училищата в ${placeBg} постигат среден успех ${n2(blob.avg)}${rank}, в ${schoolsBg} с ${gradsBg}.${alias} Успехът е претеглен по броя зрелостници; всеки скъсан зрелостник влиза с 2,00 независимо от точките си, затова числото се различава от обявеното от министерството.</p>`,
   );
 
   // Third emitter of /school/:id links after buildSchoolRoutes and the sitemap
   // — gate it on the same rule, or a fallback-id school in a region's top five
   // links at a page the prerender deliberately did not write.
-  const top = blob.top.filter((s) => hasCrawlableId(s));
+  //
+  // Suppressed entirely on an ALIASED page: the list would be the parent's, so
+  // all 24 Sofia район bodies would carry the same five schools verbatim. The
+  // headline is a fact about the place a reader is standing in; a duplicated
+  // top-five is just the same block 24 times over.
+  const top = aliasReason ? [] : blob.top.filter((s) => hasCrawlableId(s));
   if (top.length) {
     parts.push(
       en
-        ? `<h3>Highest matura results in ${escapeHtml(displayName)} province</h3>`
-        : `<h3>Най-висок успех на матурата в област ${escapeHtml(displayName)}</h3>`,
+        ? `<h3>Highest matura results in ${placeEn}</h3>`
+        : `<h3>Най-висок успех на матурата в ${placeBg}</h3>`,
     );
     parts.push(
       `<ul>${top
@@ -1278,7 +1334,7 @@ export const buildGovernanceRegionBody = (
   }
   // Education before the municipality list: it is the substance of the page,
   // while the list below is navigation. Both link to the same place nodes.
-  parts.push(...governanceRegionEducation(education, displayName, lang));
+  parts.push(...governancePlaceEducation(education, displayName, lang));
 
   if (munis.length) {
     const muniLabel = (m: GovernanceRegionMuni) =>

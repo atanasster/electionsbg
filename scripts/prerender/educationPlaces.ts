@@ -58,6 +58,12 @@ export type EducationPlaceBody = {
   /** Set when these numbers are a broader place's — the EN/BG bodies must say
    *  so, exactly as the live tile does. */
   aliasReason: PlaceAliasReason;
+  /** The place the numbers actually describe, ready to drop into a sentence.
+   *  On an aliased page this is the PARENT — "Матура в Столична община" on
+   *  Лозенец's page, not "Матура в община Лозенец", which names a place that
+   *  does not exist and attributes the city's result to a район. Both
+   *  languages, because the shared section builder serves both. */
+  placePhrase?: { bg: string; en: string };
 };
 
 /** Reads the two committed files and returns one blob per place, or an empty
@@ -116,33 +122,72 @@ export const readEducationPlaces = (
   return buildPlacePayloads(schools, latestYearOf(idx.latestYear, schools), []);
 };
 
-/** Everything a region body needs for one place code, alias resolved the same
- *  way the live page resolves it — so `/governance/region/S24` and
- *  `/governance/region/S23` both carry Столична община's numbers AND say so,
- *  in the static HTML as well as in the SPA. Undefined when the place has no
- *  blob (a diaspora МИР, or a checkout without the index). */
+/** Display names for the code the blob is keyed by, per language. Optional —
+ *  without them the section falls back to the caller's own label, which is
+ *  right for an un-aliased place and wrong for an aliased one. */
+export type PlaceNames = { bg?: Map<string, string>; en?: Map<string, string> };
+
+/** Everything a place body needs for one code, alias resolved the same way the
+ *  live page resolves it — so `/governance/region/S24` and `/governance/S2309`
+ *  both carry Столична община's numbers AND say so, in the static HTML as well
+ *  as in the SPA. Undefined when the place has no blob (a diaspora МИР, or a
+ *  checkout without the index). */
 export const educationBodyFor = (
   places: Map<string, PlaceBlob>,
-  namesEn: Map<string, string>,
+  names: PlaceNames,
   code: string,
 ): EducationPlaceBody | undefined => {
   const { key, reason } = resolveEducationPlaceKey(code);
   const blob = places.get(key);
-  return blob ? { blob, namesEn, aliasReason: reason } : undefined;
+  if (!blob) return undefined;
+  return {
+    blob,
+    namesEn: names.en ?? new Map(),
+    aliasReason: reason,
+    placePhrase: placePhraseOf(key, blob.grain, names),
+  };
 };
 
-/** obshtina code → English name, read from the same committed file. */
-export const readMuniNamesEn = (projectRoot: string): Map<string, string> => {
+/** "Столична община" / "община Доспат" / "област Смолян", and their English
+ *  forms. Sofia city is a fixed phrase with the adjective first; every other
+ *  place takes the noun first. Undefined when no name is known — the caller's
+ *  own label is then used, which is correct for a place reading its own blob. */
+const placePhraseOf = (
+  code: string,
+  grain: "region" | "muni",
+  names?: PlaceNames,
+): { bg: string; en: string } | undefined => {
+  if (code === "SOF00" || code === "S23")
+    return { bg: "Столична община", en: "Sofia city" };
+  const bg = names?.bg?.get(code);
+  const en = names?.en?.get(code) ?? bg;
+  if (!bg || !en) return undefined;
+  return grain === "muni"
+    ? { bg: `община ${bg}`, en: `${en} municipality` }
+    : { bg: `област ${bg}`, en: `${en} province` };
+};
+
+/** obshtina code → name, both languages, from ONE parse of the committed file.
+ *  Two separate readers meant municipalities.json was parsed twice per route
+ *  builder, and three builders now call in. */
+export const readMuniNames = (projectRoot: string): PlaceNames => {
   const muniFile = path.join(projectRoot, "data/municipalities.json");
-  if (!fs.existsSync(muniFile)) return new Map();
+  const empty = {
+    bg: new Map<string, string>(),
+    en: new Map<string, string>(),
+  };
+  if (!fs.existsSync(muniFile)) return empty;
   try {
     const munis = JSON.parse(fs.readFileSync(muniFile, "utf-8")) as {
       obshtina: string;
       name: string;
       name_en?: string;
     }[];
-    return new Map(munis.map((m) => [m.obshtina, m.name_en || m.name]));
+    return {
+      bg: new Map(munis.map((m) => [m.obshtina, m.name])),
+      en: new Map(munis.map((m) => [m.obshtina, m.name_en || m.name])),
+    };
   } catch {
-    return new Map();
+    return empty;
   }
 };
