@@ -266,6 +266,19 @@ audience `unknown` rather than implying "you can apply" (§4.2).
 **Invariant 6 — this is not advice.** A parsed eligibility line is an indication to check
 against the official `Условия`, never a determination. Say it once, near the filter.
 
+**Invariant 7 — a consultation is not a call.** `/PublicDiscussion` rows ship publicly
+(decision §8.3.6) but `kind='consultation'` never appears in the same list as `kind='call'`.
+A consultation's date is a **comment** deadline, not an application deadline; its figures are
+**draft**; and it can be withdrawn or materially changed before opening. Its section says so,
+and says what you *can* do now — comment on the draft guidance. The default view is
+`kind='call'`.
+
+**Invariant 8 — an unreviewed figure never enters a sortable or filterable numeric column.**
+Stage 7 extraction may surface the **verbatim quote** it found (that is evidence) but must not
+populate `budget_eur` / `grant_max_eur` / `aid_rate_pct` until a human sets
+`enrichment='reviewed'` — otherwise an unverified number silently drives the page's ranking and
+range filters.
+
 ## 3.2 Editorial rules for the front page
 
 The moment a feed puts a named company or person on a front page we are publishing, not
@@ -300,6 +313,10 @@ CREATE TABLE IF NOT EXISTS open_calls (
   source          text NOT NULL,           -- 'isun' | 'sp2023' | 'ahu' | 'az'
   source_key      text NOT NULL,           -- ИСУН GUID | intervention code | slug
   code            text,                    -- BG16RFPR001-1.011 | II.Д.1
+  -- 'call' = a real application procedure · 'consultation' = draft guidance out for
+  -- public comment (ИСУН /PublicDiscussion). NEVER mixed in one list — invariant 7.
+  kind            text NOT NULL DEFAULT 'call'
+                  CHECK (kind IN ('call','consultation')),
   title           text NOT NULL,
   programme_code  text,
   programme_name  text,
@@ -325,8 +342,12 @@ CREATE TABLE IF NOT EXISTS open_calls (
   docs            jsonb NOT NULL DEFAULT '[]',   -- [{label,url}]
   enrichment      text NOT NULL DEFAULT 'none'
                   CHECK (enrichment IN ('none','auto','reviewed')),
+  -- Provenance for Stage 7: {model, extracted_at, doc_url, quotes:{field: verbatim}}.
+  -- A field with no quote is never stored — see Stage 7's grounding gate.
+  enrichment_meta jsonb NOT NULL DEFAULT '{}',
 
   first_seen_at   timestamptz NOT NULL DEFAULT now(),
+  last_seen_at    timestamptz NOT NULL,    -- last crawl that still found this row
   checked_at      timestamptz NOT NULL,
   CONSTRAINT open_calls_source_key UNIQUE (source, source_key),
   CONSTRAINT open_calls_exact_has_close
@@ -373,18 +394,25 @@ honestly unhelpful beats being confidently wrong about who may apply.
 
 ```sql
 CREATE OR REPLACE FUNCTION open_calls_list(
-  p_status text DEFAULT 'open',       -- 'open'|'upcoming'|'indicative'|'all'
+  p_status text DEFAULT 'open',   -- 'open'|'upcoming'|'indicative'|'consultation'|'closed'|'all'
+  p_kind   text DEFAULT 'call',   -- 'call'|'consultation'|'all'   (default excludes drafts)
   p_audience text DEFAULT NULL, p_q text DEFAULT NULL, p_limit int DEFAULT 100
 ) RETURNS TABLE (...) LANGUAGE sql STABLE AS $$
   SELECT …,
     CASE
+      WHEN kind = 'consultation'                        THEN 'consultation'
       WHEN date_precision = 'indicative'                THEN 'indicative'
       WHEN opens_at  IS NOT NULL AND opens_at  > now()  THEN 'upcoming'
       WHEN closes_at IS NOT NULL AND closes_at < now()  THEN 'closed'
       ELSE 'open'
-    END AS status                              -- ← invariant 1, computed here
+    END AS status                              -- ← invariants 1 + 7, computed here
   FROM open_calls WHERE …
 $$;
+
+-- The flat view the DbDataTable registry binds to (§6). Kept in this migration so
+-- `base: "open_calls_table"` can never point at a relation that does not exist.
+CREATE OR REPLACE VIEW open_calls_table AS
+  SELECT * FROM open_calls_list('all', 'all', NULL, NULL, 100000);
 ```
 
 ## 4.4 Stage 4's precompute (the resolver)
@@ -411,8 +439,18 @@ scripts/opencalls/
   sp2023_parse.test.ts
   audience.ts          beneficiaries_raw → audience[]  (pure, table-driven)
   audience.test.ts
+  enrich_extract.ts    Stage 7 — doc text → {field:{value,quote}}
+  enrich_gate.ts       Stage 7 — deterministic quote-in-source check (the guarantee)
+  enrich_gate.test.ts
   types.ts             OpenCall — shared by parsers + loader
   write_snapshot.ts    OpenCall[] → data/opencalls/<source>.json  (COMMITTED)
+
+ai/tools/
+  funds.ts             + openCalls tool          (registry.ts already has fundsOverview/Projects)
+
+.claude/skills/
+  update-open-calls/SKILL.md    crawl + load + the :cloud publish step
+  enrich-open-calls/SKILL.md    Stage 7 — LLM extraction → review queue, never a direct write
 
 scripts/db/
   schema/pg/134_open_calls.sql
@@ -492,8 +530,19 @@ funded*.
 └──────────────────────────────────────┴──────────────────────────────────────┘
 ```
 
-`indicative` rows sit in a separate „Очаквани приеми" section with `очаква се` wording — never
-in the dated list, never with a countdown (invariant 2).
+**Three sections, never one list** (invariants 2 and 7):
+
+| Section | Rows | Wording | What the reader can do |
+|---|---|---|---|
+| **Отворено сега** | `kind='call'`, status `open`/`upcoming` | `краен срок` + countdown | apply |
+| **Очаквани приеми** | `date_precision='indicative'` (agri) | `очаква се` — no countdown | prepare |
+| **Проекти на насоки — обсъждане** | `kind='consultation'` | `коментари до` | **comment on the draft** |
+
+The consultation section is the one nobody else offers, and it is why `/PublicDiscussion` is
+worth publishing: it appears weeks before a call opens, it directly answers „предстоящи мерки?",
+and the useful action is not "apply" but "influence the guidance while it is still a draft".
+It must state plainly that applications are not open, that the figures are draft, and that a
+draft can be withdrawn or changed.
 
 ## 5.3 Tile grammar — stock · flow · change
 
@@ -539,23 +588,77 @@ prefix (`project_seo_discovery_gap`).
    `reference_stage_merge_reload`). Then `recordIngestBatch({ source:'open_call',
    keyExpr:"t.source || ':' || t.source_key", … })` per `feedback_pg_changelog_required`, plus an
    `open_calls_crawl` upsert.
-6. **Two guards in front of the merge**, modelled on `load_kzk_decisions_pg.ts` — here the
-   difference between a bad deploy and an empty page. `mergeFromStage` runs an anti-join DELETE,
-   so a markup change parsing to 0 rows would silently empty the table and exit 0.
-   **Shrink guard**: abort if the source's rows shrink >25% (small, lumpy set) unless
-   `--allow-shrink`. **Parse-rate guard**: abort if >15% of listing rows yield no detail parse.
+
+6. **UPSERT ONLY — no anti-join DELETE.** This is the one place where copying
+   `load_kzk_decisions_pg.ts` wholesale would be wrong. The crawler reads `/Active`, so **a call
+   that closes vanishes from the source** — an anti-join delete would therefore erase exactly the
+   closed calls we want to keep, and would do it silently. Three reasons to accumulate instead:
+   - invariant 1 already hides closed rows at query time, so keeping them costs nothing;
+   - they are the base-rate and „затвори наскоро" material (Stage 6);
+   - it is the archive the committed snapshot only half-provides (git has the JSON, but the
+     *table* would forget).
+
+   So: `stageUpsertSql` only, and **`first_seen_at` must be excluded from the merge `cols`** or
+   every run would reset it. `last_seen_at` is set to the crawl time for rows present in this
+   crawl and left untouched otherwise — that, not deletion, is how "no longer listed" is
+   recorded. A row absent for >30 days with no `closes_at` is reported for review, never
+   auto-deleted.
+
+7. **Two guards, in front of the merge**, modelled on `load_kzk_decisions_pg.ts`. With no
+   delete they no longer protect against data loss, but they still stop a garbage vintage from
+   overwriting good rows: **shrink guard** — abort if the crawl yields >25% fewer rows for a
+   source than its last successful crawl (`open_calls_crawl.rows_seen`), unless
+   `--allow-shrink`; **parse-rate guard** — abort if >15% of listing rows yield no detail parse.
    Both fail *before* the transaction opens.
-7. npm scripts + `db:refresh` membership (see §7.1).
+
+8. **Two parsing hazards that will silently produce wrong data if unhandled:**
+   - **Timezone.** `DD.MM.YYYY г. HH:MM ч.` is Sofia **local** time, and Sofia observes
+     EET/EEST. Parsing with a fixed `+02:00` puts every summer deadline an hour early — on a
+     `16:30` cut-off that is a real, wrong countdown. Resolve the offset per date (or store the
+     wall-clock plus an explicit `Europe/Sofia` conversion), and unit-test one winter and one
+     summer date.
+   - **Currency.** The agri XLSX column is literally
+     `БЮДЖЕТ ЗА ПРИЕМ До левовата равностойност на:` — some amounts are **lev**, not euro, even
+     though most rows print „евро". Per `feedback_bg_uses_eur`, convert at ingest at
+     **1 EUR = 1.95583 BGN**, keep the raw string in `budget_note`, and **drop the figure rather
+     than guess** when the unit is ambiguous. A lev amount stored as euro overstates by 1.96×.
+
+9. npm scripts + `db:refresh` membership (see §7.1).
 
 **Stage 2 — serving + the band-1 open-calls module.** Route, browse table, `/funds/calls`,
 `OpenCallsTile`, freshness banner, band 6 copy. Details in §6.
 
-**Stage 3 — watcher + skill + data map.** `isun_procedures.ts` (daily, `publishes:"irregular"`,
-fingerprint = `sha256Short(sorted GUID set)` + count + max Q&A stamp, detail like
-`"55 отворени · 3 нови · 1 затваря след 6 дни"`); `sp2023_indicative.ts` (weekly, XLSX bytes hash
-+ row count); new skill `.claude/skills/update-open-calls/SKILL.md`; two mapping rows in
-`process-watch-report`; a `DatasetDef` in `scripts/data_map/model.ts` + a `/data/sources` row
-(`reference_two_changelogs`).
+**Stage 3 — watcher, skill, and the five integrations that are easy to forget.**
+`isun_procedures.ts` (daily, `publishes:"irregular"`, fingerprint = `sha256Short(sorted GUID
+set)` + count + max Q&A stamp, detail like `"55 отворени · 3 нови · 1 затваря след 6 дни"`);
+`sp2023_indicative.ts` (weekly, XLSX bytes hash + row count); new skill
+`.claude/skills/update-open-calls/SKILL.md` **including the `:cloud` publish step**; two mapping
+rows in `process-watch-report`.
+
+Then the wiring a new dataset needs and this plan originally omitted:
+
+1. **`scripts/bucket_sync_paths.ts` — add an `isExcluded` entry for `opencalls/`.** `data/` is
+   walked wholesale and uploaded to GCS; `funds/` and `procurement/` are excluded precisely
+   because they are Cloud-SQL-served. `open_calls` is too, so without the exclusion every
+   `bucket:sync` publishes a second copy of the snapshot to a path nothing reads — a spare
+   serving surface that can go stale, which is the failure class
+   `reference_procurement_bucket_boundary` exists to prevent.
+2. **AI chat tool.** `ai/tools/registry.ts` already carries `fundsOverview` and `fundsProjects`;
+   add an `openCalls` tool (filter by audience/status, return soonest deadlines) in
+   `ai/tools/funds.ts` + a harness test. „Има ли отворена програма за X" is the single most
+   likely question the assistant will now be asked, and without a tool it will answer from the
+   awarded corpus and be wrong about what is open.
+3. **My-Area.** `scripts/myarea/build_alerts.ts` exists — open calls whose `territory` names the
+   user's obshtina (or that are national) are the most actionable alert we could add. Not full
+   subscriptions (out of scope), just the existing alert surface.
+4. **`/data` map + sources.** A `DatasetDef` in `scripts/data_map/model.ts` and a `/data/sources`
+   row (`reference_two_changelogs`).
+5. **i18n / EN mirror.** BG + EN keys in `src/locales/` and `public/locales/`. Heed
+   [funds-seo-geo-v1.md](funds-seo-geo-v1.md) F3: the funds pages already shipped an English
+   mirror carrying Bulgarian names, and Google paired a Bulgarian title with an English snippet.
+   Procedure titles are Bulgarian-only at source, so the EN page must either translate the
+   chrome and label the title as the official Bulgarian name, or not exist — **not** silently
+   mirror.
 
 **Stage 4 — the resolver** („финансирано ли е нещо като моето"). Answers categories A, B, E and
 F from the awarded corpus at procedure grain; precompute per §4.4. **No new-data dependency** —
@@ -568,13 +671,48 @@ event date on the card, publication week in the kicker (§3.2 rules 2–3).
 median grant, status mix, disbursement, org-form mix; and „5% от медианния грант тук = €X".
 Also the strongest AIO/GEO asset — [funds-seo-geo-v1.md](funds-seo-geo-v1.md) F4 is unresolved.
 
-**Stage 7 — enrichment: money + eligibility for ИСУН rows.** Fetch the short `Обява за откриване`
-per open procedure from the `InfoDownload?fileKey=` URL already in `docs`. Extraction writes
-`enrichment='auto'`; **an `auto` money figure never renders as a figure** — the UI shows „не е
-публикувано тук" plus the document link until a human promotes the row to `'reviewed'`. If an LLM
-extracts, reuse `project_ai_chat_grounding_gate`: a figure that cannot be quoted is dropped, not
-rounded. At ~55 rows hand-curation is a legitimate and probably more trustworthy alternative;
-the column supports either.
+**Stage 7 — enrichment: money + eligibility for ИСУН rows. LLM-backed, driven by a skill**
+(decision §8.3.7).
+
+New skill **`.claude/skills/enrich-open-calls/SKILL.md`** — deliberately separate from
+`update-open-calls` rather than a step inside it, because the two have different risk profiles:
+crawl+load is mechanical and safe to run unattended, while enrichment spends tokens per document
+and **must not publish a figure without human sign-off**. Keeping them apart means the daily
+refresh can never quietly ship an unreviewed number.
+
+The pipeline, per procedure with `enrichment='none'`:
+
+1. **Pick the document.** The short `Обява за откриване на процедурата` from the
+   `InfoDownload?fileKey=` URL already captured in `docs` — not the multi-annex `Условия`.
+   ⚠ **Unverified: the file format.** ИСУН's `Условия за кандидатстване и приложения към тях` is
+   very likely a ZIP/RAR bundle; the `Обява` is probably a single PDF or DOCX. Probe the
+   `Content-Type` and a few real files **before** writing an extractor, and handle "archive" as a
+   skip-with-reason rather than a crash. Text extraction: the `anthropic-skills:pdf` skill for
+   PDFs, and the repo already parses DOCX/PDF elsewhere (НЗОК НРД tariffs, ministry Отчет
+   reports) — reuse rather than add a dependency.
+2. **Extract to a strict schema**, one object per procedure, every field paired with a
+   `quote` — the verbatim span from the document that supports it:
+   ```
+   { budget_eur: {value, quote}, aid_rate_pct: {value, quote},
+     grant_min_eur: {value, quote}, grant_max_eur: {value, quote},
+     beneficiaries: {text, quote}, audience: [..] }
+   ```
+   A field the model cannot quote is **omitted, not guessed**.
+3. **Deterministic grounding gate — the load-bearing step.** Before anything is stored, a plain
+   substring check (whitespace-normalised) verifies **every** `quote` actually occurs in the
+   extracted document text. A quote that does not match drops its field and is reported. This is
+   the mechanical half of `project_ai_chat_grounding_gate`: the guarantee comes from the check,
+   **not** from trusting the model. Also re-run the §8.1 currency rule here — a lev figure
+   quoted correctly is still wrong if stored as euro.
+4. **Store as `enrichment='auto'`** with `enrichment_meta = {model, extracted_at, doc_url,
+   quotes:{…}}`. Per **invariant 8**, `auto` may render its verbatim quote plus the document
+   link, but **must not populate the sortable/filterable numeric columns**.
+5. **Human review promotes to `'reviewed'`**, which is what lets the figure into `budget_eur` &
+   co. and therefore into sorting, range filters and the tile's „€X общ бюджет". The skill's
+   output is a review queue — a diff of proposed values with their quotes — not a write.
+
+At ~55 rows this is a small job per run (only genuinely new procedures are touched), which is
+what makes a human gate affordable. Re-run when `update-open-calls` reports new GUIDs.
 
 **Stage 8 — АХУ + АЗ.** ~6 АХУ programme pages; АЗ needs a news-feed scrape plus a classifier
 and is the least reliable arm — label its provenance clearly.
@@ -653,17 +791,29 @@ db:load:open-calls:pg:cloud  DATABASE_URL=…5434… npm run db:load:open-calls:
 
 | Layer | File | Asserts |
 |---|---|---|
-| unit | `isun_parse.test.ts` | committed HTML fixtures → exact timestamps (incl. Europe/Sofia offset), doc links, codes; a fixture missing `Краен срок` is **rejected, not defaulted** |
-| unit | `sp2023_parse.test.ts` | the 11 rows; `II.Д.1` → €68,716,487.50 / 18–40 / 100% / €40,000; every row `indicative` |
-| unit | `audience.test.ts` | `Техническа помощ`→institution · `земеделски стопани`→farmer · unmapped→`unknown` |
-| **data** | `scripts/db/tests/open_calls.data.test.ts` | **no row where computed status = `open` and `closes_at < now()`** (invariant 1) · every row has `source_url` · exact ⇒ `closes_at` present · indicative ⇒ `closes_at` NULL · `isun` source non-empty · `open_calls_crawl` fresher than the SLA · `open_calls_list` under a buffer ceiling (`reference_pg_query_performance`) |
-| functions | `db_routes.opencalls.test.js` | degrades on 42P01/55000/42501/55P03; **rethrows 57014**; logs once per process |
+| unit | `isun_parse.test.ts` | committed HTML fixtures → exact timestamps; **one winter + one summer date** (EET/EEST, §5.4 Stage 1.8); doc links; codes; a fixture missing `Краен срок` is **rejected, not defaulted**; a `/PublicDiscussion` fixture yields `kind='consultation'` |
+| unit | `sp2023_parse.test.ts` | the 11 rows; `II.Д.1` → €68,716,487.50 / 18–40 / 100% / €40,000; every row `indicative`; **a lev-denominated amount converts at 1.95583, an ambiguous one is dropped** |
+| unit | `audience.test.ts` | `Техническа помощ`→institution · `земеделски стопани`→farmer · unmapped→`unknown`; **and `unknown` ≤40% of live rows** — a keyword map that resolves nothing makes the facet useless, so this is an acceptance threshold, not a unit assertion |
+| unit | `enrich_gate.test.ts` | a fabricated quote is rejected; a whitespace-differing real quote is accepted; a field without a quote never reaches output |
+| **data** | `scripts/db/tests/open_calls.data.test.ts` | **no row where computed status = `open` and `closes_at < now()`** (invariant 1) · **no `consultation` row in a `kind='call'` result** (invariant 7) · **no `enrichment != 'reviewed'` row with a non-NULL `budget_eur`/`grant_max_eur`/`aid_rate_pct`** (invariant 8) · every row has `source_url` · exact ⇒ `closes_at` present · indicative ⇒ `closes_at` NULL · `isun` source non-empty · `first_seen_at` never moves for an existing key across two loads · `open_calls_crawl` fresher than the SLA · `open_calls_list` under a buffer ceiling (`reference_pg_query_performance`) |
+| functions | `db_routes.opencalls.test.js` | degrades on 42P01/55000/42501/55P03; **rethrows 57014**; logs once per process. Runs under `npm run functions:test` (`node --test`), not vitest |
 | chain | `refresh_coverage.test.ts` | `db:load:open-calls:pg` is in `db:refresh` |
 | cadence | `watch/cadence.test.ts` | daily vs irregular sampling invariant |
+| bucket | `bucket_sync_paths` test | `opencalls/` is excluded from GCS sync (Stage 3.1) |
 | SEO | `sitemap/families.data.test.ts` | `/funds/calls` `<loc>` resolves to real `dist/` HTML; **no per-call `<loc>` exists** |
 
 The data test deliberately does **not** skip on an empty `isun` source — that is one of the two
 states it exists to catch.
+
+**Local verification before each commit** (`reference_typecheck_tsc_build` — `tsc --noEmit`
+checks nothing here, the root tsconfig is a references stub):
+
+```bash
+npx tsc -b && npm run lint && npm run test:unit && npm run functions:test
+```
+
+`npm run test:data` covers the Postgres gates and needs `npm run db:pg:up`. Note
+`reference_test_data_flaky_under_load`: re-run a single red file alone before believing it.
 
 ## 7.3 Deploy order
 
@@ -698,13 +848,13 @@ npm run db:load:open-calls:pg:cloud                        # prod — NOT automa
 | 1f | npm scripts + `db:refresh` membership + `open_calls.data.test.ts` | 1e |
 | 2a | `/api/db/open-calls` + degrade test | 1f |
 | 2b | `db_table.js` entry + `open_calls_table` view | 1f |
-| 2c | `OpenCallsTile` (band 1) + `/funds/calls` + i18n + freshness banner + band 6 copy | 2a, 2b |
+| 2c | `OpenCallsTile` (band 1) + the **three sections** (call / indicative / consultation) + `/funds/calls` + freshness banner + band 6 copy | 2a, 2b |
 | 2d | prerender/sitemap for `/funds/calls` + SEO gate | 2c |
-| 3 | watcher sources + `update-open-calls` skill + process-watch-report rows + `/data` map | 1f, 1d |
+| 3 | watcher sources + `update-open-calls` skill (**with `:cloud`**) + process-watch-report rows, **plus the five integrations**: bucket-sync exclusion · `openCalls` AI tool · My-Area alerts · `/data` map · i18n/EN | 1f, 1d |
 | 4 | the resolver + its `fund_payloads` kind (**parallelisable with 1–3**) | 0 |
 | 5 | wire (band 0) + news rail (band 2) | 2c, 4 |
 | 6 | base-rate cards on `/funds/procedure/:code` + reference price | 4 |
-| 7 | enrichment (auto → reviewed) | 1f |
+| 7 | enrichment — `enrich-open-calls` skill: extract → quote gate → review queue → `reviewed` | 1f |
 | 8 | АХУ + АЗ | 3 |
 | 9 | За теб (band 5) | 2c, 4 |
 
@@ -733,7 +883,10 @@ hammer it.
 
 | Risk | Mitigation |
 |---|---|
-| **ИСУН markup change → 0 rows parsed, table emptied** | shrink + parse-rate guards abort before the tx (Stage 1.6); data test asserts a non-empty `isun` source |
+| **ИСУН markup change → 0 rows parsed** | no anti-join delete, so the previous vintage survives (Stage 1.6); shrink + parse-rate guards abort before the tx; data test asserts a non-empty `isun` source |
+| **A consultation read as an open call** | `kind` + CHECK, separate section, separate wording, default view excludes drafts (invariant 7) |
+| **An LLM-extracted figure ships unreviewed** | deterministic quote-in-source gate; `auto` barred from numeric columns (invariant 8); data test asserts it |
+| **Lev amount stored as euro (1.96× overstatement)** | Stage 1.8 conversion rule + a parser test |
 | **A call closes earlier than published** | unavoidable from any source; daily cadence + per-row `source_url` + never presenting ourselves as the authority |
 | **Crawler dies silently** | invariant 1 self-hides expired rows; the freshness banner degrades the page; the watcher reports `error` |
 | **XLSX filename/URL rotates** | resolve via page scrape, fail loudly on 0 or >1 candidate |
@@ -751,27 +904,60 @@ hammer it.
    that becomes misleading on a known date.
 3. **`/funds/calls`, not a top-level `/calls`** — keeps open calls attached to the awarded
    corpus that gives them base rates.
-4. **v1 has no alerts** — most-wanted, needs an account system, would delay the spine.
+4. **v1 has no alerts** — most-wanted, needs an account system, would delay the spine. (The
+   existing My-Area alert surface does get open calls — Stage 3.3.)
 5. **Accountability tiles are demoted, not deleted** (§1.3).
+6. **`/PublicDiscussion` ships publicly** — as its own section, its own wording, never in the
+   open-calls list (invariant 7). Decided 2026-08-05.
+7. **Stage 7 enrichment is LLM-backed and driven by its own skill**
+   (`.claude/skills/enrich-open-calls/`), with a deterministic quote-in-source gate and a human
+   promotion step to `'reviewed'`. Decided 2026-08-05. Hand-curation is no longer the plan of
+   record, but the `enrichment` column still supports it as a fallback.
+8. **`open_calls` accumulates; the loader never anti-join deletes** (§5.4 Stage 1.6).
 
 ## 8.4 Open questions
 
-1. **Enrichment: LLM extraction or hand-curation?** At ~55 rows hand-curation is feasible and
-   auditable; LLM scales to Stage 8 but needs the grounded-number gate and human sign-off before
-   a money figure ships.
-2. **Is `/PublicDiscussion` worth surfacing publicly?** Earliest possible signal (weeks before
-   opening) and it directly answers „предстоящи мерки?" — but a draft can change or be
-   withdrawn, so it needs its own label and possibly its own section.
-3. **Do we mirror the documents?** Linking is cheaper and always current; mirroring survives a
+1. **Do we mirror the documents?** Linking is cheaper and always current; mirroring survives a
    source reorganisation. Given ИСУН's GUID-keyed URLs, linking is probably right.
-4. **МИГ granularity** — does ИСУН carry each local action group's own sub-call or only the
+2. **МИГ granularity** — does ИСУН carry each local action group's own sub-call or only the
    parent? Determines whether we cover ~64 МИГ territories or just the umbrella.
-5. **Resolver keyed on free text or a curated taxonomy?** `themes.json` / `taxonomy.json` already
+3. **Resolver keyed on free text or a curated taxonomy?** `themes.json` / `taxonomy.json` already
    exist in `data/funds/`. Free text ships sooner; a taxonomy gives stable URLs — and stable URLs
    are what earn the long-tail impressions `funds-seo-geo-v1` is chasing.
-6. **Is the reference price defensible?** „5% от медианния грант" is arithmetic on our own data,
+4. **Is the reference price defensible?** „5% от медианния грант" is arithmetic on our own data,
    but publishing it positions us against the consultancies who are the group's loudest voices.
    Decide deliberately rather than discovering.
+5. **Consultation → call continuity.** When a draft in `/PublicDiscussion` opens as a real
+   procedure, does it keep its ИСУН GUID? If it does, the row flips `kind` in place and we can
+   show "this is the draft you commented on". If it gets a new GUID we will hold two unlinked
+   rows and need a code-based join. **Verify against one procedure that has made the transition
+   before Stage 2 ships** — it determines whether `source_key` is stable across the lifecycle.
+6. **Which sitemap shard** does `/funds/calls` join — `sitemap_funds.xml` (topical, currently
+   110 URLs) or the static-pages shard? Trivial, but `families.data.test.ts` needs to know.
+
+## 8.5 Audit log — gaps found reviewing this plan, and what changed
+
+A pass over the consolidated plan against the repo on 2026-08-05 (after folding in the
+`/PublicDiscussion` and LLM-enrichment decisions) found nine real gaps. All are now patched
+above; recorded here so the reasoning is not lost.
+
+| # | Gap | Severity | Fix |
+|---|---|---|---|
+| 1 | **The loader would have deleted its own history.** `mergeFromStage`'s anti-join DELETE, copied from `load_kzk_decisions_pg.ts`, removes every live row the build did not produce — but the crawler reads `/Active`, so a call that closes is *absent by design*. Every closed call would have been silently erased, destroying the base-rate and archive value the plan claims. | **high** | Upsert only, no delete; `last_seen_at` records absence (§5.4 Stage 1.6) |
+| 2 | `first_seen_at` in the merge `cols` would be **reset on every run**, so „ново" would be permanently true | **high** | excluded from `cols`; data test asserts it never moves |
+| 3 | **Currency.** The agri XLSX header is `БЮДЖЕТ ЗА ПРИЕМ До левовата равностойност на:` — some amounts are lev. Storing them as euro **overstates by 1.96×** | **high** | convert at 1.95583, drop when ambiguous, keep raw in `budget_note` (Stage 1.8) |
+| 4 | **Timezone.** A fixed `+02:00` offset puts every summer deadline an hour early against a real `16:30` cut-off | medium | resolve per date; test one winter + one summer date |
+| 5 | `db_table.js` bound to `base: "open_calls_table"`, a **view the migration never created** | medium | view added to 134 (§4.3) |
+| 6 | **`bucket_sync_paths.ts` exclusion missing.** `data/` is walked wholesale; without an entry, every `bucket:sync` would publish a spare GCS copy of a Cloud-SQL-served dataset | medium | Stage 3.1 + a test |
+| 7 | **No AI chat tool.** `registry.ts` has `fundsOverview`/`fundsProjects`; without an `openCalls` tool the assistant answers „има ли отворена програма" from the *awarded* corpus — confidently wrong | medium | Stage 3.2 |
+| 8 | **No My-Area integration**, though `scripts/myarea/build_alerts.ts` exists and place-scoped calls are the most actionable alert available | low | Stage 3.3 |
+| 9 | **i18n/EN unspecified**, on a page family that has already shipped a Bulgarian-title/English-snippet SERP bug (`funds-seo-geo-v1` F3) | low | Stage 3.5 |
+
+Two claims checked and **dismissed** rather than patched: `type: "date"` *is* a valid
+`db_table.js` column type (8 existing uses), and `recordIngestBatch` handles the changelog
+correctly as specified. One item was reclassified from a gap to an **acceptance threshold**: the
+`audience` keyword map needs a measured `unknown` rate (≤40%), since a map that resolves nothing
+would pass every unit test while making the facet useless.
 
 ---
 
