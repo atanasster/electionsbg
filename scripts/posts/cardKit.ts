@@ -1515,6 +1515,13 @@ export type PlaceCardSpec = {
 const PLACE_PAD = 64;
 const PLACE_GAP = 16;
 
+/** Thousands-grouped integer, BG convention (non-breaking space). The hero
+ *  total arrives pre-formatted as a string, but an age band's value has to stay
+ *  a number because it drives the bar width — so the renderer groups it here,
+ *  or one card prints "3 477" and "1248" side by side. */
+export const placeInt = (n: number): string =>
+  String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
 /** Muted text that must not overflow its box — shrinks, then hard-truncates
  *  with an ellipsis. A clipped label reads as a rendering fault; an elided one
  *  reads as an abbreviation. */
@@ -1754,7 +1761,7 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
         ctx.textAlign = "right";
         ctx.fillStyle = pal.text;
         ctx.font = `600 18px ${FONT}`;
-        ctx.fillText(String(b.value), ix + iw, by + 6);
+        ctx.fillText(placeInt(b.value), ix + iw, by + 6);
       });
 
       if (p.sex) {

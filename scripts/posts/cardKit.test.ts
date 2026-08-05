@@ -9,6 +9,7 @@ import {
   renderMapCard,
   renderTableCard,
   renderPlaceCard,
+  placeInt,
   safeColor,
   type GeoFeature,
   type TableCardSpec,
@@ -459,6 +460,21 @@ describe("renderPlaceCard", () => {
         theme: "dark",
       }),
     ).not.toThrow();
+  });
+});
+
+describe("placeInt", () => {
+  it("groups thousands so an age band matches the pre-formatted hero", () => {
+    // The hero total arrives as a caller-formatted string ("3 477") while an
+    // age band stays a number (it drives the bar width). Without grouping here
+    // one card prints "3 477" and "1248" side by side, which reads as a bug.
+    // Escaped, not a literal: the separator is U+00A0, so a plain space in
+    // this file would fail against an identical-LOOKING string.
+    expect(placeInt(1248)).toBe(`1\u00a0248`);
+    expect(placeInt(3477)).toBe(`3\u00a0477`);
+    expect(placeInt(910)).toBe("910");
+    expect(placeInt(0)).toBe("0");
+    expect(placeInt(1234567)).toBe(`1\u00a0234\u00a0567`);
   });
 });
 
