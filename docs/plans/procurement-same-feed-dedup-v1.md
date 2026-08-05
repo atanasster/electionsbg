@@ -20,7 +20,7 @@ requiring a УНП that 42% of legacy rows do not have.
 | --- | ---: | --- | ---: |
 | `ocds` — 238 groups | €591,109,510.10 | **Not duplicates.** All distinct annexes; already excluded from every sum | **€0** |
 | `aop` A1 — stale key | (part of €2.9m) | **Genuine defect, ours.** Pre-`disambiguateContractKeys` orphans | **€2,068,182.74** |
-| `aop` A2 — source re-publication | (part of €2.9m) | **Candidate, needs triage.** Not established | €9,593,387.26 |
+| `aop` A2 — two document ids | (part of €2.9m) | **Triaged (§3.3): 56 of 101 groups are NOT duplicates.** Blocked on an ingest change | €1,951,479.39 |
 | `eop`, `rop` | not examined | **Clean.** Zero content duplicates | €0 |
 
 Five things this measurement changed relative to the brief:
@@ -224,19 +224,57 @@ Worked case — `raw_data/procurement/legacy/2022-RL.csv.gz`, document ids 10318
 Byte-identical in every business field, consecutive document ids, same publication day. The register
 published the same *"Информация за сключен договор"* twice; our pipeline faithfully mints two rows.
 
-**This class is NOT ready to act on.** Adjacency is the exception, not the rule:
+**TRIAGED 2026-08-05 — and the majority are NOT duplicates.** Re-derive with
+`npx tsx scripts/procurement/triage_legacy_twins.ts` (read-only, no `--apply`, all 101 groups
+resolved against the raw dumps, 0 unmatched):
 
-| Shape | Groups | Surplus € |
-| --- | ---: | ---: |
-| same file, distant document ids | 126 | 9,725,057.57 |
-| same file, near-adjacent (≤20) | 8 | 345,469.00 |
-| same file, **adjacent** document ids | 1 | 228,272.69 |
-| different dataset files | 5 | 26,953.31 |
+| procurement id | publication date | Groups | Surplus € |
+| --- | --- | ---: | ---: |
+| **DIFFERENT** | different | **51** | 7,459,935.51 |
+| same | different | 27 | 1,254,703.38 |
+| same | same | 18 | 696,776.01 |
+| **DIFFERENT** | same | **5** | 181,972.36 |
 
-(Counts here are on a looser key — `currency`/`cpv` dropped — hence 140 vs 101; the point is the
-distribution, not the total.) Two identical-value lots of one framework with the same subject line
-would land in "distant" and are exactly the population whose eviction destroyed 46 legitimate rows /
-€5.15m in an earlier attempt. A2 needs per-group triage against the raw CSVs, not a rule.
+**56 of 101 groups — €7,641,907.87, 79.7% of the A2 money — are two DIFFERENT procurements** that
+happen to share a contract number, value, signing date, subject, buyer and supplier. They are not
+duplicates at all, and they are precisely the shape whose eviction destroyed 46 legitimate rows /
+€5.15m in an earlier attempt.
+
+The remaining 45 groups (€1,951,479.39) share a procurement and are genuine duplicate candidates:
+18 published twice on the same day, 27 re-published later (a correction or re-filing, where the
+later document should win).
+
+Two things this measurement got wrong on the first pass, both worth recording because both made
+the population look *safer to evict* than it is:
+
+- **The procurement id is published under two different column names**, and an exact-match header
+  lookup found only one of them. `ID на поръчката` exists on 2011-2015 / 2016 / 2017 / 2019 / 2021
+  / 2022-RL; the CE dumps from 2020 on carry `Уникален номер на поръчката` and no
+  `ID на поръчката` at all. The first draft defaulted the missing column to `""`, so every row in
+  those dumps agreed with every other and **11 groups were filed under "same поръчка" on no
+  evidence** — one of them provably two different procurements (`aop-legacy-2020-65483` vs
+  `-72710`, УНП `00166-2020-0011` vs `00166-2020-0013`). The script now resolves headers by the
+  same regexes `legacy_csv.ts` binds, including `UNP_HEADER_PATTERNS`, and an absent column is a
+  distinct `UNKNOWN` bucket rather than agreement.
+- **`ТИП ДОКУМЕНТ` is published by exactly ONE of the nine dumps** (2011-2015), so it cannot
+  discriminate and has been dropped from the classification entirely. A first draft's
+  "DIFFERENT тип · 3 groups" row was pure artifact — `["3", <column absent>]`.
+
+> **What actually blocks a rule.** `legacy_csv.ts` *does* read `ID на поръчката` — it binds it to
+> `tenderId` (line 187) and then deliberately drops it — and it *does* emit the CE dumps'
+> `Уникален номер на поръчката` as `unp`. So the blocker is narrower than "the ingest discards the
+> discriminator": **24 of the 101 groups already carry a differing `unp` on the shards today**, and
+> §3.1's identity key simply excludes `unp` (it must, or the 2011-2015 population — where `unp` is
+> blank — would be invisible). Only the **58 groups touching the 2011-2015 bulk file** are
+> genuinely blind, and for those the fix is to carry `tenderId` onto the row rather than dropping
+> it. Nothing here is unblocked enough to justify a rule yet, but the work is smaller than a
+> re-ingest.
+
+One parsing trap is worth recording, because it silently swallowed the largest sub-population:
+`2011-2015.csv.gz` is **not a CSV** despite the name — it is a JSON array-of-arrays. Parsed as CSV
+its header reads as a single 2,607,413-field row and every document lookup misses, reporting all 58
+of its groups as "unmatched in the raw CSV" rather than as an error. `triage_legacy_twins.ts` sniffs
+the first byte for this reason.
 
 ### 3.4 `eop` and `rop` are clean
 
@@ -289,8 +327,14 @@ Ordered by confidence. Nothing below has been executed.
 3. **Close the general defect.** A permanent gate asserting no legacy row's key is a bare base key
    whose base also has a disambiguated member. This turns the next key-formula change from a silent
    corpus leak into a red test.
-4. **A2 — triage only.** 101 groups against the raw CSVs. Do not write a rule until the
-   distant-document-id majority is understood.
+4. **A2 — TRIAGED (§3.3), and the conclusion is "do not write a rule yet".** 56 of the 101 groups
+   (€7.64m, 79.7% of the class) are two different procurements, not duplicates. The 45 that are
+   genuine candidates (€1.95m) are told apart by the procurement id, which the shards already carry
+   as `unp` for 24 of them — but not for the 58 groups from the 2011-2015 bulk file, where `unp` is
+   blank and `legacy_csv.ts` binds the procurement id to `tenderId` only to drop it. So the
+   prerequisite is a small **ingest change** (persist `tenderId`), after which the rule is
+   "same procurement, later publication wins". Writing it in the other order means guessing on a
+   population that has already destroyed real data once.
 
 Corpus impact of steps 1–3 combined: **−30 rows, −€2,068,182.74 of €99.26bn (0.002%).** Worth doing
 for corpus integrity and to close the recurring mechanism, not for the money.
