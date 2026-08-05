@@ -3,7 +3,25 @@
 // re-run and shipped the table has to render from the latest-year-only
 // byOblast, minus the trend columns, rather than showing an empty section.
 
+import regions from "@/data/json/regions.json";
 import type { OblastRow } from "./OblastTrendTable";
+
+// МОН publishes Столична община as one aggregate, so the loader keys Sofia city
+// as S23 — but there is no region node for it: parliamentary splits the city
+// into three МИР (S23/S24/S25) with no region GeoJSON of its own, which is why
+// /governance/region/:oblast redirects SOF to the município dashboard. Send all
+// three straight there rather than through a degenerate region page.
+const SOFIA_CITY_MIR = new Set(["S23", "S24", "S25"]);
+
+const KNOWN_OBLAST = new Set(regions.map((r) => r.oblast));
+
+/** The place page for an oblast row, or null when the code isn't a region we
+ *  serve (МОН's obshtina prefixes are the source, so an unknown one is
+ *  possible — a dead link is worse than plain text). */
+export const oblastGovernanceHref = (oblast: string): string | null => {
+  if (SOFIA_CITY_MIR.has(oblast)) return "/governance/SOF00";
+  return KNOWN_OBLAST.has(oblast) ? `/governance/region/${oblast}` : null;
+};
 
 interface ByOblast {
   oblast: string;
@@ -36,6 +54,7 @@ export const buildOblastRows = (
     return {
       oblast: o.oblast,
       name: name(o.oblast),
+      href: oblastGovernanceHref(o.oblast),
       firstYear: first?.year ?? latestYear ?? 0,
       firstAvg: first?.avg ?? null,
       latestYear: last?.year ?? latestYear ?? 0,

@@ -7,6 +7,7 @@ import "@testing-library/jest-dom/vitest";
 import { describe, it, expect } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { OblastTrendTable, type OblastRow } from "./OblastTrendTable";
 
 const row = (over: Partial<OblastRow> & { oblast: string }): OblastRow => ({
@@ -110,6 +111,28 @@ describe("OblastTrendTable", () => {
     expect(screen.queryByText(/2022\s*→\s*2026/)).not.toBeInTheDocument();
     // …but the latest-year table still renders in full.
     expect(bodyNames()).toEqual(["Варна", "Кърджали", "Пазарджик"]);
+  });
+
+  it("links each oblast to its place page, and leaves an unlinkable one as text", () => {
+    const linked = ROWS.map((r) => ({
+      ...r,
+      href: r.oblast === "PAZ" ? null : `/governance/region/${r.oblast}`,
+    }));
+    render(
+      <MemoryRouter>
+        <OblastTrendTable rows={linked} nationalLatest={4.33} lang="bg" />
+      </MemoryRouter>,
+    );
+    expect(screen.getByRole("link", { name: "Варна" })).toHaveAttribute(
+      "href",
+      "/governance/region/VAR",
+    );
+    expect(screen.getByRole("link", { name: "Кърджали" })).toBeInTheDocument();
+    // No href — the name still renders, just not as a link.
+    expect(
+      screen.queryByRole("link", { name: "Пазарджик" }),
+    ).not.toBeInTheDocument();
+    expect(bodyNames()).toContain("Пазарджик");
   });
 
   it("labels the columns in English when asked", () => {

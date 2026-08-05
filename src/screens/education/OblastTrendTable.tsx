@@ -12,10 +12,13 @@
 // is no viewBox to scale and no intrinsic width to blow out a grid track.
 
 import { FC, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 export interface OblastRow {
   oblast: string;
   name: string;
+  /** Place page for the oblast, or null when the code names no region we serve. */
+  href?: string | null;
   firstYear: number;
   firstAvg: number | null;
   latestYear: number;
@@ -184,7 +187,15 @@ export const OblastTrendTable: FC<{
           <tbody>
             {sorted.map((o) => (
               <tr key={o.oblast} className="border-t">
-                <td className="py-1.5 pr-2">{o.name}</td>
+                <td className="py-1.5 pr-2">
+                  {o.href ? (
+                    <Link to={o.href} className="hover:text-primary">
+                      {o.name}
+                    </Link>
+                  ) : (
+                    o.name
+                  )}
+                </td>
                 <td className="py-1.5 pr-2 text-right font-semibold tabular-nums">
                   {num(o.latestAvg, lang)}
                 </td>

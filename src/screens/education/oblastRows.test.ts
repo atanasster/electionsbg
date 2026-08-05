@@ -3,7 +3,7 @@
 // (byOblastYear alongside it).
 
 import { describe, it, expect } from "vitest";
-import { buildOblastRows } from "./oblastRows";
+import { buildOblastRows, oblastGovernanceHref } from "./oblastRows";
 
 const BY_OBLAST = [
   { oblast: "KRZ", avg: 4.33, examinees: 1200, schools: 20 },
@@ -86,5 +86,34 @@ describe("buildOblastRows", () => {
   it("carries every oblast through, in byOblast order", () => {
     const rows = buildOblastRows(BY_OBLAST, BY_OBLAST_YEAR, 2026, name);
     expect(rows.map((r) => r.oblast)).toEqual(["KRZ", "VAR"]);
+  });
+
+  it("gives every row its place page", () => {
+    const rows = buildOblastRows(BY_OBLAST, BY_OBLAST_YEAR, 2026, name);
+    expect(rows.map((r) => r.href)).toEqual([
+      "/governance/region/KRZ",
+      "/governance/region/VAR",
+    ]);
+  });
+});
+
+describe("oblastGovernanceHref", () => {
+  it("points an oblast at its region node", () => {
+    expect(oblastGovernanceHref("KRZ")).toBe("/governance/region/KRZ");
+    // The whole Plovdiv oblast — the МОН cut has no city/province МИР split, so
+    // the row must not land on PDV-00.
+    expect(oblastGovernanceHref("PDV")).toBe("/governance/region/PDV");
+  });
+
+  it("sends Sofia city to the município dashboard, not a region page", () => {
+    // /governance/region/S23 would render a region with no GeoJSON and the
+    // regions.json placeholder name ("23"); SOF00 is the city's real node.
+    for (const mir of ["S23", "S24", "S25"]) {
+      expect(oblastGovernanceHref(mir)).toBe("/governance/SOF00");
+    }
+  });
+
+  it("returns null rather than a dead link for a code we don't serve", () => {
+    expect(oblastGovernanceHref("XXX")).toBeNull();
   });
 });
