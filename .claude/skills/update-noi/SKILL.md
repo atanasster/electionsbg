@@ -153,6 +153,32 @@ period appears, open that sub-page and grab its `statistics_*.zip`.
 # Download the newest quarter's ZIP (from the sub-page the watcher named), then:
 curl -sSL -o raw_data/budget/kfn/statistics_2025_q2.zip "<the ZIP URL>"
 tsx scripts/budget/kfn/__write_funds.ts       # → data/budget/kfn/funds.json
+
+**The writer MERGES; it does not overwrite.** `data/budget/kfn/funds.json` retains every quarter
+ever ingested (`{latestPeriod, periods[]}`) and is the DURABLE store for that series —
+`raw_data/budget/` is gitignored, so a history re-derived from the ZIPs on disk would be a
+property of one machine and a fresh clone would silently restart from one quarter. Re-running the
+same quarter is a no-op (byte-identical file); a corrected re-ingest replaces that quarter's rows.
+It refuses to write a file with fewer periods than it read unless `--allow-shrink` is passed, since
+a merge can only add or replace. `--zip <name>` targets one archive explicitly, which is how a
+back-catalogue is seeded one quarter at a time.
+
+It REFUSES a quarter missing a pillar. That is a parse failure, not a source gap, and it has
+happened: an English archive ships both `VPF_*` (the voluntary pillar) and `DPF_*` (a
+deferred-payment workbook with no Table №1-V), so a matcher that reached `DPF_*` first dropped the
+whole pillar — 21 funds instead of 31, €851M of assets and 627,640 insured — and the shortfall then
+reads as GROWTH against the neighbouring quarter. The runbook's own sanity line is
+`[UPF:10 PPF:10 VPF:10 VPFOS:1]`; anything else is a bug.
+
+**DEPLOY ORDER: code first, then data.** The served file changed shape (single period →
+`{latestPeriod, periods[]}`). An old bundle against the new JSON iterates `data.funds` on
+`undefined` and, since there is no ErrorBoundary in `src/`, blanks the whole of `/pensions`. The
+reverse order degrades cleanly — a new bundle against the old JSON just self-suppresses the tile.
+So `npm run deploy` BEFORE `bucket:sync`, not after.
+
+**Joining a fund across quarters** — use `pillar` + `companyEn`, never `fundName`. The register
+writes the fund name in the archive's own language (`UPF "DOVERIE"` vs `УПФ "ДОВЕРИЕ"`), so
+`fundName` joins 0 of 21 rows across a BG/EN boundary.
 ```
 
 Only the four accumulation workbooks (UPF/PPF/VPF/VPFOS) are parsed; DPF/LPPF are

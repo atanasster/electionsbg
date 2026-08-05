@@ -3,6 +3,7 @@
 // well under 100 KB) and filters client-side. Same pattern as the procurement
 // hooks: dataUrl() seam, staleTime Infinity, 404 → null.
 
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { rayonFromObshtina } from "./sofiaRayons";
@@ -25,6 +26,7 @@ import type {
   NoiFundsFile,
   NoiPensionsFile,
   KfnFundsFile,
+  KfnPeriod,
   NzokBudgetFile,
   NzokExecutionFile,
   NzokExecutionHistoryFile,
@@ -322,15 +324,28 @@ export const useNoiPensions = () =>
     staleTime: Infinity,
   });
 
-// КФН private pension funds (pillars 2 & 3) — per-fund insured + net assets for
-// the /pensions "private funds" comparison. ~5 KB. Written by
-// scripts/budget/kfn/__write_funds.ts.
+// КФН private pension funds (pillars 2 & 3) — per-fund insured + net assets.
+// Written by scripts/budget/kfn/__write_funds.ts, which MERGES each quarter, so
+// this carries the whole retained series.
 export const useKfnFunds = () =>
   useQuery({
     queryKey: ["budget", "kfn", "funds"] as const,
     queryFn: () => fetchJson<KfnFundsFile>("/budget/kfn/funds.json"),
     staleTime: Infinity,
   });
+
+/** The newest quarter alone — what a snapshot tile wants. Returns null while
+ *  loading or if the archive is empty, so callers keep one guard. */
+export const useKfnLatest = (): KfnPeriod | null => {
+  const { data } = useKfnFunds();
+  return useMemo(() => {
+    if (!data?.periods?.length) return null;
+    return (
+      data.periods.find((p) => p.period === data.latestPeriod) ??
+      data.periods[data.periods.length - 1]
+    );
+  }, [data]);
+};
 
 // НЗОК budget-law breakdown — drives the health sector pack's "Къде отиват
 // НЗОК budget-bridge tile. Single committed file (~4 KB across the ingested

@@ -1213,12 +1213,24 @@ export interface KfnFundRow {
   netAssetsEur: number | null;
 }
 
-export interface KfnFundsFile {
-  generatedAt: string;
+/** One quarter of the КФН register. */
+export interface KfnPeriod {
   period: string;
   periodLabel: string;
-  source: { publisher: string; url: string; description: string };
   funds: KfnFundRow[];
+}
+
+/** The served file: EVERY quarter ever ingested, ascending by `period`.
+ *
+ *  It used to be a single snapshot — the writer overwrote it each ingest — so a
+ *  per-fund trend was impossible. The archive is the durable store because
+ *  raw_data/budget/ is gitignored: a series re-derived from the ZIPs on disk
+ *  would be a property of one machine. */
+export interface KfnFundsFile {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  latestPeriod: string;
+  periods: KfnPeriod[];
 }
 
 // ---------------------------------------------------------------------------

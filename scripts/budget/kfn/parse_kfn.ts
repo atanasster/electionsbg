@@ -25,16 +25,30 @@ export type KfnPillar = "UPF" | "PPF" | "VPF" | "VPFOS";
  *  ("UPF_… EN.xlsx", sheets "Table №1-U") through 2025; from the 2026 Q1
  *  release the zip is Bulgarian-only ("UPF_2026_Q1_BG.xlsx", nested under a
  *  "Statistics_YYYY_QN/" folder, sheets "Таблица №1-У", the voluntary pillars
- *  renamed ДПФ/ДПФПС). Match both languages: the filename regex accepts either
- *  spelling (VPF≡ДПФ, VPFOS≡ДПФПС) and each pillar carries its Latin + Cyrillic
- *  sheet token. Anchor the filename so "PPF" doesn't match "LPPF" and "DPF"
- *  doesn't match "DPFPS"; it is tested against the entry BASENAME (the BG zip
- *  nests the workbooks in a folder). */
-const WORKBOOKS: { pillar: KfnPillar; file: RegExp; tokens: string[] }[] = [
-  { pillar: "UPF", file: /^UPF[_ ]/i, tokens: ["U", "У"] },
-  { pillar: "PPF", file: /^PPF[_ ]/i, tokens: ["P", "П"] },
-  { pillar: "VPF", file: /^(?:VPF|DPF)[_ ]/i, tokens: ["V", "Д"] },
-  { pillar: "VPFOS", file: /^(?:VPFOS|DPFPS)[_ ]/i, tokens: ["OS", "ПС"] },
+ *  renamed ДПФ/ДПФПС). Match both languages: each pillar carries its Latin +
+ *  Cyrillic sheet token, and `file` is an ORDERED list of filename patterns.
+ *  Anchor them so "PPF" doesn't match "LPPF" and "DPF" doesn't match "DPFPS";
+ *  they are tested against the entry BASENAME (the BG zip nests the workbooks
+ *  in a folder).
+ *
+ *  THE ORDER OF `file` IS LOAD-BEARING FOR VPF, and getting it wrong silently
+ *  deletes a whole pillar. `DPF ≡ VPF` only in the BULGARIAN archives, where
+ *  ДПФ is simply how "voluntary" is spelled. The ENGLISH archives ship BOTH
+ *  `VPF_*` (the voluntary pillar) AND `DPF_*` — a completely different
+ *  deferred-payment workbook that has no Table №1-V, so a matcher that reached
+ *  it first found no table, emitted no rows, and dropped the pillar with no
+ *  warning. Measured on statistics_2025_q2.zip: 21 funds instead of 31, missing
+ *  €851M of assets and 627,640 insured — which then reads as GROWTH against the
+ *  next quarter rather than as a parse failure. Try the unambiguous name first. */
+const WORKBOOKS: { pillar: KfnPillar; file: RegExp[]; tokens: string[] }[] = [
+  { pillar: "UPF", file: [/^UPF[_ ]/i], tokens: ["U", "У"] },
+  { pillar: "PPF", file: [/^PPF[_ ]/i], tokens: ["P", "П"] },
+  { pillar: "VPF", file: [/^VPF[_ ]/i, /^DPF[_ ]/i], tokens: ["V", "Д"] },
+  {
+    pillar: "VPFOS",
+    file: [/^VPFOS[_ ]/i, /^DPFPS[_ ]/i],
+    tokens: ["OS", "ПС"],
+  },
 ];
 
 const PILLAR_LABEL: Record<
@@ -101,12 +115,33 @@ export interface KfnFundRow {
   netAssetsEur: number | null;
 }
 
-export interface KfnFundsFile {
-  generatedAt: string;
+/** ONE quarter, as parsed out of a single КФН ZIP. */
+export interface KfnPeriod {
   period: string; // ISO as-of date, e.g. "2025-06-30"
   periodLabel: string; // e.g. "2025 Q2"
-  source: { publisher: string; url: string; description: string };
   funds: KfnFundRow[];
+}
+
+/** What a single ZIP yields — one period plus provenance. */
+export interface KfnFundsFile extends KfnPeriod {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+}
+
+/** The SERVED file: every quarter ever ingested, newest last.
+ *
+ *  This is the durable store, not the ZIP cache. `raw_data/budget/` is
+ *  gitignored and its ZIPs are untracked, so "re-parse everything on disk"
+ *  would make the history a property of one machine and a fresh clone would
+ *  silently restart from a single quarter. `data/budget/kfn/funds.json` IS
+ *  tracked, so the series lives here and each ingest MERGES into it. */
+export interface KfnFundsArchive {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  /** The newest `period` present — what a single-quarter view should read. */
+  latestPeriod: string;
+  /** Ascending by `period`. */
+  periods: KfnPeriod[];
 }
 
 type Row = unknown[];
@@ -218,9 +253,16 @@ export const parseKfnZip = (bytes: Uint8Array): KfnFundsFile => {
     bgn == null ? null : Math.round(toEur(bgn, "BGN") ?? bgn);
 
   for (const { pillar, file, tokens } of WORKBOOKS) {
-    const entry = entries.find((e) =>
-      file.test(e.entryName.split("/").pop() ?? e.entryName),
-    );
+    // First PATTERN wins, not first entry — see the WORKBOOKS header. An
+    // English archive carries both VPF_* and DPF_*, and only the first is the
+    // voluntary pillar.
+    let entry;
+    for (const re of file) {
+      entry = entries.find((e) =>
+        re.test(e.entryName.split("/").pop() ?? e.entryName),
+      );
+      if (entry) break;
+    }
     if (!entry) continue;
     if (!period) {
       const p = periodFromFilename(entry.entryName);

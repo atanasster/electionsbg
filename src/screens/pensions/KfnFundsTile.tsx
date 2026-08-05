@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact, formatInt } from "@/lib/currency";
 import { PillToggle } from "@/components/ui/PillToggle";
-import { useKfnFunds } from "@/data/budget/useBudget";
+import { useKfnLatest } from "@/data/budget/useBudget";
 import type { KfnFundRow, KfnPillar } from "@/data/budget/types";
 
 type Metric = "assets" | "insured";
@@ -26,7 +26,9 @@ export const KfnFundsTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { data } = useKfnFunds();
+  // The served file is now the whole retained series; this tile is a snapshot,
+  // so it reads the newest quarter. The per-fund trend lives on /pension-fund.
+  const data = useKfnLatest();
   const [metric, setMetric] = useState<Metric>("assets");
 
   const grouped = useMemo(() => {
