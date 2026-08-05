@@ -5516,5 +5516,6 @@
   "education_place_city_raion_note": "МОН publishes by municipality, so these are whole-municipality figures rather than this district's.",
   "my_area_quality_schools_caption_sofia_one": "matura, per-school average · {{count}} school in Sofia city",
   "my_area_quality_schools_caption_sofia_other": "matura, per-school average · {{count}} schools in Sofia city",
-  "education_place_provisional": "Small sample — under {{min}} graduates in the whole place; treat the figure as indicative."
+  "education_place_provisional": "Small sample — under {{min}} graduates in the whole place; treat the figure as indicative.",
+  "education_place_muni_fallback_note": "No school here sits the matura, so these are {{place}}'s figures."
 }

@@ -22,6 +22,7 @@ import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { useCycleKind } from "@/data/area/useCycleKind";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
@@ -48,7 +49,7 @@ import { PlaceCompaniesTile } from "@/screens/dashboard/PlaceCompaniesTile";
 import { EducationPlaceSection } from "@/screens/dashboard/EducationPlaceSection";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
-import { SOFIA_REGIONS } from "@/data/dataTypes";
+import { isSofiaRayonObshtina, SOFIA_REGIONS } from "@/data/dataTypes";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -56,6 +57,7 @@ export const MyAreaScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
   const cycle = useCycleKind();
+  const { findMunicipality } = useMunicipalities();
 
   // No need to mirror the path :id into `?area=` — AreaAnchorProvider now
   // reads from the path directly on the /my-area/<id> route. That removed
@@ -126,6 +128,22 @@ export const MyAreaScreen: FC = () => {
   // mayor card downstream may show a freshly elected replacement. Surface
   // that context above the dashboard so users don't miss the framing.
   const showChmiBanner = cycle.kind === "chmi";
+
+  // Names the place the education card's fallback figures ACTUALLY come from.
+  // Inside Sofia that is Столична община, not the район the settlement sits in:
+  // МОН publishes the city as one aggregate, so с. Бистрица showing "община
+  // Панчарево" would both call a район an община and name the wrong place for
+  // 155 schools it is not the school count of.
+  const sofiaCityFigures =
+    isSofiaRayonObshtina(area.obshtina) || isSofiaCityObshtina(area.obshtina);
+  const muni = findMunicipality(area.obshtina);
+  const muniLabel = sofiaCityFigures
+    ? lang === "bg"
+      ? "Столична община"
+      : "Sofia city"
+    : muni
+      ? `община ${lang === "bg" ? muni.name : (muni.name_en ?? muni.name)}`
+      : undefined;
 
   return (
     <>
@@ -318,14 +336,20 @@ export const MyAreaScreen: FC = () => {
             canonical /settlement and /municipality routes. */}
         <MyAreaQualityStrip obshtina={area.obshtina} />
 
-        {/* The schools column of the strip above, opened up: the município's
-            matura result against the country, its best and weakest schools,
-            and the context-adjusted cut. Obshtina-scoped, so a settlement view
-            shows its parent município's figures — the same convention as the
-            money tiles. Sofia районы read Столична община and say so; a place
-            with no matura school renders nothing. Bare, because this page is a
-            flat run of cards with no section kickers. */}
-        <EducationPlaceSection code={area.obshtina} chrome="none" />
+        {/* The schools column of the strip above, opened up: the place's matura
+            result against the country, its best and weakest schools, and the
+            context-adjusted cut. A settlement asks for ITSELF first — ~290 have
+            a school of their own — and falls back to its município with a
+            disclosure, which is the common case and was silent until phase 3.
+            Sofia районы read Столична община and say so; a place with nothing to
+            show renders nothing. Bare, because this page is a flat run of cards
+            with no section kickers. */}
+        <EducationPlaceSection
+          code={area.kind === "settlement" ? area.ekatte : area.obshtina}
+          fallbackCode={area.obshtina}
+          fallbackLabel={muniLabel}
+          chrome="none"
+        />
 
         {/* Community funnel — the dashboard's final tile invites the user
             into the Наясно Facebook group for discussion and alerts about

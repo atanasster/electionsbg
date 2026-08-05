@@ -81,6 +81,7 @@ import {
   educationBodyFor,
   readEducationPlaces,
   readMuniNames,
+  readSettlementParents,
 } from "./educationPlaces";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
@@ -499,9 +500,13 @@ export const buildGovernancePlaceRoutes = (
   publicFolder: string,
   latestElection: string,
   oblastNames: Map<string, string>,
+  projectRoot: string,
 ): PrerenderRoute[] => {
   const byDir = path.join(publicFolder, latestElection, "settlements", "by");
   if (!fs.existsSync(byDir)) return [];
+  const education = readEducationPlaces(projectRoot);
+  const placeNames = readMuniNames(projectRoot);
+  const parentOf = readSettlementParents(projectRoot);
   const files = fs.readdirSync(byDir).filter((f) => f.endsWith(".json"));
   const seen = new Set<string>();
   const result: PrerenderRoute[] = [];
@@ -542,11 +547,28 @@ export const buildGovernancePlaceRoutes = (
             { name: "Управление", url: `${SITE_URL}/governance` },
             { name: fullName, url },
           ];
+      // Its own blob when it has one, else its município's — the same
+      // fallback the live page performs, so the two agree.
+      // Its own blob when it has one, else its município's — and when it IS
+      // the fallback, say so. The live page discloses it; a static body that
+      // states the município's average under a village's name would be the
+      // same defect one surface over.
+      const own = educationBodyFor(education, placeNames, s.ekatte);
+      const parent = parentOf.get(s.ekatte);
+      const inherited = parent
+        ? educationBodyFor(education, placeNames, parent)
+        : undefined;
+      const edu =
+        own ??
+        (inherited
+          ? { ...inherited, aliasReason: "muni-fallback" as const }
+          : undefined);
       const bodyHtml = buildGovernancePlaceBody({
         ekatte: s.ekatte,
         settlement: fullName,
         oblastName,
         oblastCode: s.oblast,
+        education: edu,
       });
       result.push({
         path: `governance/${s.ekatte}`,
@@ -4233,7 +4255,12 @@ export const buildDynamicRoutes = async (
     ...buildGovernanceRegionRoutes(projectRoot, regions),
     ...buildGovernanceMuniRoutes(projectRoot, oblastNames),
     ...buildGovernanceRayonRoutes(projectRoot),
-    ...buildGovernancePlaceRoutes(publicFolder, latest, oblastNames),
+    ...buildGovernancePlaceRoutes(
+      publicFolder,
+      latest,
+      oblastNames,
+      projectRoot,
+    ),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
     ...candidateRoutes,

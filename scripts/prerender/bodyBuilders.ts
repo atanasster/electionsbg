@@ -1085,9 +1085,13 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
 
 // Settlement-grain place node — /governance/{ekatte}.
 export const buildGovernancePlaceBody = (
-  input: SettlementBodyInput,
+  input: SettlementBodyInput & {
+    /** The settlement's own blob, or its município's — `educationBodyFor`
+     *  names whichever it resolved, and the section discloses a fallback. */
+    education?: EducationPlaceBody;
+  },
 ): string => {
-  const { ekatte, settlement, oblastName, oblastCode } = input;
+  const { ekatte, settlement, oblastName, oblastCode, education } = input;
   const placeLabel = oblastName
     ? `${settlement}, обл. ${oblastName}`
     : settlement;
@@ -1109,6 +1113,9 @@ export const buildGovernancePlaceBody = (
     `<a href="${SITE_URL}/settlement/${ekatte}">Резултати по партии</a>`,
   );
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
+  // ~290 settlements have a school of their own; the rest carry their
+  // município's figures, disclosed by the section itself.
+  parts.push(...governancePlaceEducation(education, settlement, "bg", "muni"));
   return parts.join("\n");
 };
 
@@ -1145,6 +1152,45 @@ export const buildGovernanceMuniBody = (input: GovernanceMuniInput): string => {
   parts.push(...governancePlaceEducation(education, name, "bg", "muni"));
   return parts.join("\n");
 };
+
+// Every reason the client discloses, disclosed here too — a static body that
+// states the city's average under a район's name is the same defect, one
+// surface over. Keep in step with ALIAS_NOTE_KEY in EducationPlaceSection.
+/** One sentence per reason a place shows a broader aggregate's numbers, in both
+ *  languages. A function rather than a constant because `muni-fallback` names
+ *  the place the figures belong to: the same sentence has to be true for a
+ *  village whose município is Ловеч and for one inside Столична община, where
+ *  the figures are the whole city's rather than its район's — and naming it
+ *  also stops ~4,700 fallback bodies carrying one byte-identical block.
+ *
+ *  Keep in step with ALIAS_NOTE_KEY / translation.json; educationPlaces.test.ts
+ *  compares the two, and the Record typing makes a new reason a compile error
+ *  here rather than a missing disclosure at runtime. */
+export const placeAliasSentences = (
+  placeBg: string,
+  placeEn: string,
+): Record<NonNullable<PlaceAliasReason>, { bg: string; en: string }> => ({
+  "muni-fallback": {
+    bg: ` В това населено място няма училище с матура — числата са за ${placeBg}.`,
+    en: ` No school here sits the matura, so these are ${placeEn}'s figures.`,
+  },
+  "sofia-city": {
+    bg: " МОН публикува Столична община общо — числата са за целия град, не за този МИР.",
+    en: " МОН publishes Sofia city as one aggregate — these are city-wide figures, not this constituency's.",
+  },
+  "sofia-city-raion": {
+    bg: " МОН публикува Столична община общо — числата са за целия град, не за този район.",
+    en: " МОН publishes Sofia city as one aggregate, so these are city-wide figures rather than this district's.",
+  },
+  "city-raion": {
+    bg: " МОН публикува данните по общини — числата са за цялата община, не за този район.",
+    en: " МОН publishes by municipality, so these are whole-municipality figures rather than this district's.",
+  },
+  "plovdiv-province": {
+    bg: " МОН публикува област Пловдив общо — числата включват и града.",
+    en: " МОН publishes Plovdiv province as one aggregate — these figures include the city.",
+  },
+});
 
 /** The education section on its own, for a body that builds its own heading —
  *  the Пловдив/Варна район pages, whose h1 is "Район X" but whose matura
@@ -1193,35 +1239,6 @@ const governancePlaceEducation = (
         ? ` — №${blob.rank} of ${blob.rankOf} provinces`
         : ` — №${blob.rank} от ${blob.rankOf} области`
       : "";
-  // The same disclosure the live tile carries: three Sofia МИР pages and
-  // Пловдив-град publish a broader place's numbers, because МОН publishes
-  // those places as single aggregates.
-  // Every reason the client discloses, disclosed here too — a static body that
-  // states the city's average under a район's name is the same defect, one
-  // surface over. Keep in step with ALIAS_NOTE_KEY in EducationPlaceSection.
-  const ALIAS: Record<
-    NonNullable<PlaceAliasReason>,
-    { bg: string; en: string }
-  > = {
-    "sofia-city": {
-      bg: " МОН публикува Столична община общо — числата са за целия град, не за този МИР.",
-      en: " МОН publishes Sofia city as one aggregate — these are city-wide figures, not this constituency's.",
-    },
-    "sofia-city-raion": {
-      bg: " МОН публикува Столична община общо — числата са за целия град, не за този район.",
-      en: " МОН publishes Sofia city as one aggregate, so these are city-wide figures rather than this district's.",
-    },
-    "city-raion": {
-      bg: " МОН публикува данните по общини — числата са за цялата община, не за този район.",
-      en: " МОН publishes by municipality, so these are whole-municipality figures rather than this district's.",
-    },
-    "plovdiv-province": {
-      bg: " МОН публикува област Пловдив общо — числата включват и града.",
-      en: " МОН publishes Plovdiv province as one aggregate — these figures include the city.",
-    },
-  };
-  const alias = aliasReason ? ALIAS[aliasReason][en ? "en" : "bg"] : "";
-
   // "в област X" / "in X province" for a region, "в община X" / "in X
   // municipality" for a município — the same sentence, correctly named.
   // `placePhraseBg` names the place the blob DESCRIBES, which on an aliased
@@ -1236,6 +1253,14 @@ const governancePlaceEducation = (
         ? `${displayName} municipality`
         : `${displayName} province`),
   );
+  // The same disclosures the live tile carries, wording for wording — a static
+  // page that states a broader place's numbers under this one's name is the
+  // same defect, one surface over. `placeAliasSentences` keeps the two in step;
+  // educationPlaces.test.ts compares them against translation.json.
+  const alias = aliasReason
+    ? placeAliasSentences(placeBg, placeEn)[aliasReason][en ? "en" : "bg"]
+    : "";
+
   // "1 училища" is what a bare count printed on the 40-odd one-school places.
   const schoolsBg = `${fmtInt(blob.schools)} ${blob.schools === 1 ? "училище" : "училища"}`;
   const gradsBg = `${fmtInt(blob.examinees)} ${blob.examinees === 1 ? "зрелостник" : "зрелостници"}`;

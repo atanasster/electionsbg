@@ -199,27 +199,69 @@ const placePhraseOf = (
     : { bg: `област ${bg}`, en: `${en} province` };
 };
 
+/** EKATTE → its município code, so a settlement body can fall back to the
+ *  place whose blob covers it. Same source the settlement grain is built from. */
+export const readSettlementParents = (
+  projectRoot: string,
+): Map<string, string> => {
+  const settFile = path.join(projectRoot, "data/settlements.json");
+  if (!fs.existsSync(settFile)) return new Map();
+  try {
+    const setts = JSON.parse(fs.readFileSync(settFile, "utf-8")) as {
+      ekatte: string;
+      obshtina: string;
+    }[];
+    return new Map(setts.map((x) => [x.ekatte, x.obshtina]));
+  } catch {
+    return new Map();
+  }
+};
+
 /** obshtina code → name, both languages, from ONE parse of the committed file.
  *  Two separate readers meant municipalities.json was parsed twice per route
  *  builder, and three builders now call in. */
 export const readMuniNames = (projectRoot: string): PlaceNames => {
   const muniFile = path.join(projectRoot, "data/municipalities.json");
-  const empty = {
-    bg: new Map<string, string>(),
-    en: new Map<string, string>(),
-  };
-  if (!fs.existsSync(muniFile)) return empty;
+  const settFile = path.join(projectRoot, "data/settlements.json");
+  const bg = new Map<string, string>();
+  const en = new Map<string, string>();
   try {
-    const munis = JSON.parse(fs.readFileSync(muniFile, "utf-8")) as {
-      obshtina: string;
-      name: string;
-      name_en?: string;
-    }[];
-    return {
-      bg: new Map(munis.map((m) => [m.obshtina, m.name])),
-      en: new Map(munis.map((m) => [m.obshtina, m.name_en || m.name])),
-    };
+    if (fs.existsSync(muniFile)) {
+      const munis = JSON.parse(fs.readFileSync(muniFile, "utf-8")) as {
+        obshtina: string;
+        name: string;
+        name_en?: string;
+      }[];
+      for (const m of munis) {
+        bg.set(m.obshtina, m.name);
+        en.set(m.obshtina, m.name_en || m.name);
+      }
+    }
+    // Settlements share the map: EKATTE is numeric and obshtina codes are not,
+    // so one lookup serves both grains. The type marker comes WITH the name
+    // ("гр. Банско"), because a settlement's phrase is the name itself — the
+    // section adds "община"/"област" only for the coarser grains.
+    if (fs.existsSync(settFile)) {
+      const setts = JSON.parse(fs.readFileSync(settFile, "utf-8")) as {
+        ekatte: string;
+        name: string;
+        name_en?: string;
+        t_v_m?: string;
+      }[];
+      for (const x of setts) {
+        // Only NUMERIC EKATTE joins this map. 88 diaspora "settlements" carry
+        // two-letter country codes, and `AF` / `SA` are literally also obshtina
+        // codes — merging those would overwrite Африка and Южна Америка with a
+        // polling station abroad. None of them has an education blob, so the
+        // only effect of admitting them would be the collision.
+        if (!/^\d+$/.test(x.ekatte)) continue;
+        const marker = x.t_v_m ? `${x.t_v_m} ` : "";
+        bg.set(x.ekatte, `${marker}${x.name}`);
+        en.set(x.ekatte, `${marker}${x.name_en || x.name}`);
+      }
+    }
   } catch {
-    return empty;
+    return { bg: new Map(), en: new Map() };
   }
+  return { bg, en };
 };

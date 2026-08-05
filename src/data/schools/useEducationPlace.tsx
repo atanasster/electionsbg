@@ -79,30 +79,63 @@ export interface EducationPlace {
  * throws on an empty body: a cloud database mid-rollout should show no
  * education section, not an error.
  */
-export const useEducationPlace = (code?: string | null) => {
+const fetchPlace = async (key: string): Promise<EducationPlace | null> => {
+  const r = await fetch(
+    `/api/db/education-payload?kind=place&key=${encodeURIComponent(key)}`,
+  );
+  if (!r.ok) throw new Error("education place fetch failed");
+  return r.json(); // null when the place has no blob
+};
+
+export const useEducationPlace = (
+  code?: string | null,
+  /** Where to look when `code` has no blob of its own — a settlement's
+   *  município. Only ~290 of the ~5,000 settlements have matura schools, so
+   *  the fallback is the COMMON path there, not the exception. */
+  fallbackCode?: string | null,
+) => {
   const resolved = code ? resolveEducationPlaceKey(code) : null;
   const query = useQuery({
     queryKey: ["education-place", resolved?.key ?? ""],
-    queryFn: async (): Promise<EducationPlace | null> => {
-      const r = await fetch(
-        `/api/db/education-payload?kind=place&key=${encodeURIComponent(
-          resolved!.key,
-        )}`,
-      );
-      if (!r.ok) throw new Error("education place fetch failed");
-      return r.json(); // null when the place has no blob
-    },
+    queryFn: () => fetchPlace(resolved!.key),
     enabled: !!resolved,
     staleTime: Infinity,
   });
+
+  // Second request only once the first has come back empty. A settlement page
+  // therefore costs one extra round trip that returns `null` — the alternative
+  // is a route change (one key, server-side coalesce), which buys ~100 ms at
+  // the price of a functions deploy in every environment.
+  const fallback = fallbackCode ? resolveEducationPlaceKey(fallbackCode) : null;
+  const useFallback =
+    !!fallback &&
+    query.isSuccess &&
+    !query.data &&
+    fallback.key !== resolved?.key;
+  const fallbackQuery = useQuery({
+    queryKey: ["education-place", fallback?.key ?? ""],
+    queryFn: () => fetchPlace(fallback!.key),
+    enabled: useFallback,
+    staleTime: Infinity,
+  });
+
+  const place =
+    query.data ?? (useFallback ? (fallbackQuery.data ?? null) : null);
+  const viaFallback = useFallback && !!fallbackQuery.data;
   // `place: null` covers three different states, so the flags come with it: a
   // caller that hides an empty place and a failed request identically can never
   // tell "this place has no schools" from "the database is down".
   return {
-    place: query.data ?? null,
-    aliased: !!resolved?.aliased,
-    aliasReason: resolved?.reason ?? null,
-    isPending: !!resolved && query.isPending,
-    isError: query.isError,
+    place,
+    aliased: viaFallback || !!resolved?.aliased,
+    // The fallback's own reason wins: a settlement showing its município's
+    // numbers must say THAT, not whatever the município's own alias would be.
+    aliasReason: viaFallback
+      ? ("muni-fallback" as const)
+      : (resolved?.reason ?? null),
+    isPending:
+      (!!resolved && query.isPending) ||
+      (useFallback && fallbackQuery.isPending),
+    isError: query.isError || fallbackQuery.isError,
   };
 };

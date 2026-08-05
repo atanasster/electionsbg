@@ -16,6 +16,8 @@ import { findCityRayon } from "@/data/local/cityRayonCatalog";
  *  city, not this МИР" and "the whole city, not this район" are different
  *  claims to a reader standing on one page or the other. */
 export type PlaceAliasReason =
+  /** A settlement with no matura school of its own, showing its município's. */
+  | "muni-fallback"
   | "sofia-city"
   | "sofia-city-raion"
   | "city-raion"
@@ -30,6 +32,7 @@ export const ALIAS_NOTE_KEY: Record<
   NonNullable<PlaceAliasReason>,
   `education_place_${string}`
 > = {
+  "muni-fallback": "education_place_muni_fallback_note",
   "sofia-city": "education_place_sofia_note",
   "sofia-city-raion": "education_place_sofia_raion_note",
   "city-raion": "education_place_city_raion_note",

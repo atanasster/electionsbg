@@ -73,11 +73,18 @@ describe("the section is actually mounted on the place nodes", () => {
   // `chrome` would look right in a diff.
   const read = (p: string) => readFileSync(new URL(p, import.meta.url), "utf8");
 
-  it("is on the município node, obshtina-scoped and un-chromed", () => {
+  it("names the fallback place, so a village says whose figures it shows", () => {
+    const src = read("../myarea/MyAreaScreen.tsx");
+    expect(src).toMatch(/fallbackLabel=\{muniLabel\}/);
+  });
+
+  it("is on the place node, settlement-first with the município behind it", () => {
     const src = read("../myarea/MyAreaScreen.tsx");
     expect(src).toMatch(
-      /<EducationPlaceSection\s+code=\{area\.obshtina\}\s+chrome="none"\s*\/>/,
+      /code=\{area\.kind === "settlement" \? area\.ekatte : area\.obshtina\}/,
     );
+    expect(src).toMatch(/fallbackCode=\{area\.obshtina\}/);
+    expect(src).toMatch(/chrome="none"/);
   });
 
   it("is on the region node, oblast-scoped and inside its section", () => {
@@ -154,6 +161,74 @@ describe("EducationPlaceSection", () => {
     );
     await waitFor(() => expect(spy).toHaveBeenCalled());
     expect(String(spy.mock.calls[0][0])).toContain("key=SOF00");
+  });
+
+  it("falls back to the município when a settlement has no school", async () => {
+    // ~4,700 of ~5,000 settlements. The second request only fires once the
+    // first comes back empty, and the disclosure is what keeps a village page
+    // from stating the município's average as its own.
+    const spy = vi.spyOn(globalThis, "fetch").mockImplementation((input) =>
+      Promise.resolve({
+        ok: true,
+        json: async () =>
+          String(input).includes("key=00028")
+            ? null
+            : blob({ grain: "muni", code: "LOV18" }),
+      } as Response),
+    );
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    render(
+      <MemoryRouter>
+        <QueryClientProvider client={client}>
+          <TooltipProvider>
+            <EducationPlaceSection
+              code="00028"
+              fallbackCode="LOV18"
+              fallbackLabel="община Ловеч"
+              chrome="none"
+            />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </MemoryRouter>,
+    );
+    await waitFor(() =>
+      expect(
+        screen.getByText(/числата са за община Ловеч/),
+      ).toBeInTheDocument(),
+    );
+    const keys = spy.mock.calls.map((c) => String(c[0]));
+    expect(keys.some((k) => k.includes("key=00028"))).toBe(true);
+    expect(keys.some((k) => k.includes("key=LOV18"))).toBe(true);
+  });
+
+  it("does not ask the município when the settlement has its own", async () => {
+    const spy = vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => blob({ grain: "settlement", code: "02676" }),
+    } as Response);
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    render(
+      <MemoryRouter>
+        <QueryClientProvider client={client}>
+          <TooltipProvider>
+            <EducationPlaceSection
+              code="02676"
+              fallbackCode="BLG01"
+              chrome="none"
+            />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </MemoryRouter>,
+    );
+    await waitFor(() => expect(screen.getByText("4,55")).toBeInTheDocument());
+    expect(screen.queryByText(/няма училище с матура/)).not.toBeInTheDocument();
+    expect(
+      spy.mock.calls.map((c) => String(c[0])).some((k) => k.includes("BLG01")),
+    ).toBe(false);
   });
 
   it("renders nothing when the place has no blob", async () => {

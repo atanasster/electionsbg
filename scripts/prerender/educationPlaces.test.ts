@@ -15,9 +15,11 @@ import {
   educationBodyFor,
   readEducationPlaces,
   readMuniNames,
+  readSettlementParents,
 } from "./educationPlaces";
 import {
   buildGovernanceMuniBody,
+  buildGovernancePlaceBody,
   buildGovernanceRegionBody,
   buildPlaceEducationSection,
 } from "./bodyBuilders";
@@ -233,40 +235,48 @@ describe("buildGovernanceMuniBody with education", () => {
   });
 
   it("says the same thing as the SPA, in both languages", async () => {
-    // Two disclosure lists exist — this one inline in bodyBuilders, the
-    // client's ALIAS_NOTE_KEY pointing at translation.json — and they are
-    // maintained by hand. A reason worded differently on the two surfaces
-    // means the static page and the hydrated page make different claims about
-    // whose numbers a reader is looking at.
+    // Two disclosure lists exist — PLACE_ALIAS_SENTENCE here, the client's
+    // ALIAS_NOTE_KEY pointing at translation.json — and they are maintained by
+    // hand. A reason worded differently on the two surfaces means the static
+    // page and the hydrated page make different claims about whose numbers a
+    // reader is looking at. Driven off the key map, so a new reason with no
+    // static sentence fails here as well as at the type level.
     const { ALIAS_NOTE_KEY } = await import("@/data/schools/educationPlaceKey");
-    const bg = JSON.parse(
-      readFileSync(path.join(ROOT, "src/locales/bg/translation.json"), "utf-8"),
-    ) as Record<string, string>;
-    const en = JSON.parse(
-      readFileSync(path.join(ROOT, "src/locales/en/translation.json"), "utf-8"),
-    ) as Record<string, string>;
-
-    const byReason: Record<string, string> = {
-      "sofia-city": "S23",
-      "sofia-city-raion": "S2309",
-      "city-raion": "PDV22-01",
-      "plovdiv-province": "PDV-00",
+    const { placeAliasSentences } = await import("./bodyBuilders");
+    // The fallback sentence names its place, so compare with a known one in.
+    const SENTENCES = placeAliasSentences(
+      "община Ловеч",
+      "Lovech municipality",
+    );
+    const bundles = {
+      bg: JSON.parse(
+        readFileSync(
+          path.join(ROOT, "src/locales/bg/translation.json"),
+          "utf-8",
+        ),
+      ) as Record<string, string>,
+      en: JSON.parse(
+        readFileSync(
+          path.join(ROOT, "src/locales/en/translation.json"),
+          "utf-8",
+        ),
+      ) as Record<string, string>,
     };
-    // Exhaustive over the union: a fifth reason with no sample fails here.
-    expect(Object.keys(byReason).sort()).toEqual(
+
+    expect(Object.keys(SENTENCES).sort()).toEqual(
       Object.keys(ALIAS_NOTE_KEY).sort(),
     );
-
-    for (const [reason, code] of Object.entries(byReason)) {
-      const edu = educationBodyFor(places, names, code);
-      expect(edu?.aliasReason).toBe(reason);
-      const key = ALIAS_NOTE_KEY[reason as keyof typeof ALIAS_NOTE_KEY];
-      expect(buildPlaceEducationSection(edu, "X", "bg").join("\n")).toContain(
-        bg[key],
-      );
-      expect(buildPlaceEducationSection(edu, "X", "en").join("\n")).toContain(
-        en[key],
-      );
+    for (const [reason, key] of Object.entries(ALIAS_NOTE_KEY)) {
+      for (const lang of ["bg", "en"] as const) {
+        expect(bundles[lang][key]).toBeTruthy();
+        const expected = bundles[lang][key].replace(
+          "{{place}}",
+          lang === "bg" ? "община Ловеч" : "Lovech municipality",
+        );
+        expect(SENTENCES[reason as keyof typeof SENTENCES][lang].trim()).toBe(
+          expected,
+        );
+      }
     }
   });
 
@@ -280,6 +290,54 @@ describe("buildGovernanceMuniBody with education", () => {
       const section = buildPlaceEducationSection(edu, "X", "bg").join("\n");
       expect(section).toMatch(/МОН публикува/);
     }
+  });
+});
+
+describe("buildGovernancePlaceBody with education", () => {
+  const parents = readSettlementParents(ROOT);
+  const settlementBody = (ekatte: string, name: string) => {
+    const own = educationBodyFor(places, names, ekatte);
+    const parent = parents.get(ekatte);
+    const inherited = parent
+      ? educationBodyFor(places, names, parent)
+      : undefined;
+    return buildGovernancePlaceBody({
+      ekatte,
+      settlement: name,
+      education:
+        own ??
+        (inherited
+          ? { ...inherited, aliasReason: "muni-fallback" as const }
+          : undefined),
+    });
+  };
+
+  it("names a settlement by its own name, marker and all", () => {
+    // "Матура в община гр. Банско" names a place that does not exist: the
+    // settlement phrase is the name itself, the coarser grains add a noun.
+    const body = settlementBody("02676", "гр. Банско");
+    expect(body).toMatch(/<h2>Матура в гр. Банско<\/h2>/);
+    expect(body).not.toMatch(/община гр\./);
+  });
+
+  it("falls back to the município and says that is what it did", () => {
+    // ~4,700 of ~5,000 settlements have no matura school. Showing the
+    // município's average under a village's name without saying so is the
+    // defect this whole layer keeps guarding against.
+    const noSchool = [...parents.keys()].find((e) => !places.has(e))!;
+    const body = settlementBody(noSchool, "с. Някъде");
+    expect(body).toMatch(/<h2>Матура в община /);
+    expect(body).toMatch(/няма училище с матура/);
+  });
+
+  it("has no section at all for a settlement whose município has none either", () => {
+    const body = buildGovernancePlaceBody({
+      ekatte: "99999",
+      settlement: "с. Никъде",
+      education: undefined,
+    });
+    expect(body).not.toMatch(/<h2>Матура/);
+    expect(body).toMatch(/<h1>Управление/);
   });
 });
 

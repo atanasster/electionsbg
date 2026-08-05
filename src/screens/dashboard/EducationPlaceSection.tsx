@@ -22,8 +22,18 @@ import { EducationPlaceTile } from "./EducationPlaceTile";
 import { EducationExpectedTile } from "./EducationExpectedTile";
 
 type Props = {
-  /** Oblast code (`SML`, `S23`) or obshtina code (`SML10`, `SOF00`). */
+  /** Oblast code (`SML`, `S23`), obshtina code (`SML10`, `SOF00`) or a
+   *  settlement EKATTE (`02676`). */
   code: string;
+  /** Where to look when `code` has no blob — a settlement's município. Only
+   *  ~290 of ~5,000 settlements have matura schools, so on that page the
+   *  fallback is the rule rather than the exception, and it discloses. */
+  fallbackCode?: string;
+  /** How to NAME that fallback place in the disclosure ("община Ловеч"). The
+   *  sentence has to be true both there and inside Столична община, where the
+   *  figures are the whole city's, so it names the place rather than saying
+   *  "the municipality". */
+  fallbackLabel?: string;
   /** Which wrapper the two tiles come in. The wrapper cannot move to the
    *  caller: this component owns the self-hide, and a caller composing
    *  `<DashboardSection><Tiles/></DashboardSection>` would render an empty
@@ -39,10 +49,12 @@ const warned = new Set<string>();
 
 export const EducationPlaceSection: FC<Props> = ({
   code,
+  fallbackCode,
+  fallbackLabel,
   chrome = "section",
 }) => {
   const { t } = useTranslation();
-  const { place, aliasReason, isError } = useEducationPlace(code);
+  const { place, aliasReason, isError } = useEducationPlace(code, fallbackCode);
 
   // An absent blob is a legitimate empty and stays silent; a FAILED read is
   // not. Without this, a cloud database where db:load:schools:pg:cloud never
@@ -58,7 +70,9 @@ export const EducationPlaceSection: FC<Props> = ({
 
   if (!place) return null;
 
-  const aliasNote = aliasReason ? t(ALIAS_NOTE_KEY[aliasReason]) : null;
+  const aliasNote = aliasReason
+    ? t(ALIAS_NOTE_KEY[aliasReason], { place: fallbackLabel ?? "" })
+    : null;
 
   const tiles = (
     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
