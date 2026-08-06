@@ -41,8 +41,21 @@ export interface ParliamentBand {
 
 export const PARLIAMENT_BANDS: ParliamentBand[] = [
   {
-    // Band 3 — Разгледай. The high-intent destinations, ordered by measured demand.
-    labelKey: "nsh_band_explore",
+    // BANDS ARE NAMED FOR WHAT IS IN THEM, not for their rank.
+    //
+    // FOUR / THREE / FOUR, and the counts are not incidental: the grid is four columns at
+    // xl, so a five-tile band leaves one orphan on its own row. That is what the first cut
+    // of this regrouping did by putting the roster with the declarations.
+    //
+    // The first two used to read „Разгледай" and „Още" — an instruction and a leftover,
+    // neither of which says what is inside. „Още" was the worse: it announced only that the
+    // band above it mattered more, so attendance and both similarity views read as offcuts
+    // rather than as the answer to „кой с кого гласува". The third heading was always fine
+    // and is unchanged, and it now pairs with the first: what happens IN the chamber, then
+    // what the members do outside it.
+    //
+    // Ordering WITHIN a band is still by measured demand (§2.7) — that part was right.
+    labelKey: "nsh_band_chamber",
     tiles: [
       {
         // The records. §2.7: 107 views across 51 distinct paths, engagement 15.6% ABOVE
@@ -54,14 +67,13 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
         accent: TILE_ACCENTS.plum,
       },
       {
-        // Promoted from the long tail: 21 views at 1m01s, earned from the LAST tile
-        // position on the previous hub — the one traffic signal that survives the
-        // objection that this distribution merely measures what the hub links to.
-        id: "embedding",
-        titleKey: "nsh_tile_embedding",
-        descKey: "nsh_tile_embedding_desc",
-        to: "/parliament/embedding",
-        accent: TILE_ACCENTS.indigo,
+        // Who turned up. Moved here from „Още": presence is a fact about the sitting, and
+        // it sat under a heading that implied it was an afterthought.
+        id: "attendance",
+        titleKey: "nsh_tile_attendance",
+        descKey: "nsh_tile_attendance_desc",
+        to: "/parliament/attendance",
+        accent: TILE_ACCENTS.amber,
       },
       {
         id: "cohesion",
@@ -71,11 +83,9 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
         accent: TILE_ACCENTS.teal,
       },
       {
-        // NOT NS-scoped and cannot be: person_role rows for `mp` carry ref = mpId with no
-        // term column, so this lands on every MP since the 44th (2,120 people), not the
-        // 240 currently seated. The tile therefore leads with the DESTINATION's number and
-        // carries the chamber's as the secondary — leading with 240 and landing on a
-        // 2,120-row page is the "show one window and count another" failure.
+        // Who sits there. NOT NS-scoped and cannot be — person_role rows for `mp` carry
+        // ref = mpId with no term column, so it lands on every MP since the 44th (2,120
+        // people) rather than the 240 seated, which is why the tile carries no figure.
         id: "mps",
         titleKey: "nsh_tile_mps",
         descKey: "nsh_tile_mps_desc",
@@ -85,17 +95,20 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     ],
   },
   {
-    // Band 4 — Още. Разцепления is deliberately ABSENT: `grep dissent src/routes.tsx`
+    // Band 4 — alignment. Разцепления is deliberately ABSENT: `grep dissent src/routes.tsx`
     // returns nothing, so it has no destination. It stays a band-2 news card (H2), where
     // it needs none, and returns as a tile if /parliament/dissents is ever built.
-    labelKey: "nsh_band_more",
+    labelKey: "nsh_band_alignment",
     tiles: [
       {
-        id: "attendance",
-        titleKey: "nsh_tile_attendance",
-        descKey: "nsh_tile_attendance_desc",
-        to: "/parliament/attendance",
-        accent: TILE_ACCENTS.amber,
+        // Promoted from the long tail: 21 views at 1m01s, earned from the LAST tile
+        // position on the previous hub — the one traffic signal that survives the
+        // objection that this distribution merely measures what the hub links to.
+        id: "embedding",
+        titleKey: "nsh_tile_embedding",
+        descKey: "nsh_tile_embedding_desc",
+        to: "/parliament/embedding",
+        accent: TILE_ACCENTS.indigo,
       },
       {
         id: "similarity",
@@ -120,7 +133,7 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     // to the Сметна палата and the Търговски регистър, not the NS, so the module promotes
     // the link rather than claiming the ownership. This band is what makes /parliament a
     // module rather than a vote-analytics silo.
-    labelKey: "nsh_band_outside",
+    labelKey: "nsh_band_people",
     tiles: [
       {
         id: "declarations",

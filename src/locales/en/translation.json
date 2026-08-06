@@ -5518,9 +5518,6 @@
   "nsh_hub_description": "Roll-call voting in Bulgaria's National Assembly — sittings, attendance, group cohesion and how every MP voted.",
   "nsh_hub_intro": "Roll-call voting in the Bulgarian National Assembly — every sitting, every item, and how each MP voted.",
   "nsh_hub_data_note": "Source: parliament.bg stenograms. Per-MP, per-item votes are extracted from the official roll-call record attached to each plenary day.",
-  "nsh_band_explore": "Explore",
-  "nsh_band_more": "More",
-  "nsh_band_outside": "MPs outside the chamber",
   "nsh_strip_title": "Plenary days",
   "nsh_strip_last": "Last sitting",
   "nsh_strip_no_data": "No roll-call votes for the selected parliament — the data starts with the 44th National Assembly.",
@@ -5584,5 +5581,8 @@
   "nsh_feed_sub_absence_other": "a sitting of {{count}} items",
   "nsh_feed_title_absence_one": "{{count}} of {{roll}} MPs cast no vote on any item",
   "nsh_feed_title_absence_other": "{{count}} of {{roll}} MPs cast no vote on any item",
-  "nsh_wire_last_sat": "Last sat on {{date}}"
+  "nsh_wire_last_sat": "Last sat on {{date}}",
+  "nsh_band_chamber": "In the chamber",
+  "nsh_band_alignment": "Who votes with whom",
+  "nsh_band_people": "MPs outside the chamber"
 }

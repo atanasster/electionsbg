@@ -203,7 +203,6 @@ export const ParliamentHubScreen: FC = () => {
   );
 
   const pageTitle = t("nsh_hub_title") || "National Assembly";
-  const cta = t("gov_hub_view") || "разгледай";
 
   const seeds: Partial<Record<ParliamentSeed, string | undefined>> = useMemo(
     () => stats?.seeds ?? {},
@@ -227,7 +226,11 @@ export const ParliamentHubScreen: FC = () => {
               desc: t(tile.descKey),
               accent: tile.accent,
               scene: PARLIAMENT_SCENES[tile.id],
-              cta,
+              // NO `cta`. „разгледай →" repeated on every tile is an affordance the tile
+              // already has — the whole card is the link, and it carries a hover state that
+              // says so. The one place a cta earns its keep is where it names a DIFFERENT
+              // action than "open this" (ProjectFileScreen's „Създай досие"), which is why
+              // the prop stays optional rather than being removed from the kit.
               ...(metrics[tile.id] ?? {}),
               ...(metrics[tile.id]
                 ? { metricCaption: metrics[tile.id].caption }
@@ -236,7 +239,7 @@ export const ParliamentHubScreen: FC = () => {
           ];
         }),
       })).filter((section) => section.tiles.length > 0),
-    [t, cta, seeds, metrics],
+    [t, seeds, metrics],
   );
 
   return (
