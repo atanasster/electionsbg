@@ -34,9 +34,13 @@ import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import type { StripDay as FeedStripDay } from "@/data/parliament/useParliamentHubFeed";
 import { buildStripWindow, type StripSource } from "./stripWindow";
 import { barGeometry, SEGMENT_CLASS } from "./stripBars";
+import { useTooltip } from "@/ux/useTooltip";
 
-/** Legend order — base of the column upward, matching the stack. */
+/** Tooltip order — base of the column upward, matching the stack. */
 const SEGMENT_ORDER = ["yes", "no", "abstain"] as const;
+/** The colour key names the SEGMENT; the tally names the VOTE. They coincide today and the
+ *  map is here so a renamed segment cannot silently read the wrong figure. */
+const VOTE_KEY = { yes: "yes", no: "no", abstain: "abstain" } as const;
 
 export const ParliamentSessionStrip: FC<{
   /** hub_feed's sittings for the selected parliament. When present it supplies BOTH the
@@ -46,6 +50,7 @@ export const ParliamentSessionStrip: FC<{
   todayIso?: string;
 }> = ({ feedDays, todayIso }) => {
   const { t, i18n } = useTranslation();
+  const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const { sessions, isLoading } = useRollcallIndex();
   const today = todayIso ?? new Date().toISOString().slice(0, 10);
 
@@ -94,134 +99,157 @@ export const ParliamentSessionStrip: FC<{
   // nothing about what five is, and the visible caption that explains it is not announced
   // with each bar.
   const itemsWord = t("nsh_strip_items") || "items voted";
-  const split = days.some((d) => d.tally);
 
   return (
-    <section
-      aria-labelledby="nsh-strip-heading"
-      className="rounded-xl border border-border bg-card px-3 py-3 sm:px-4"
-    >
-      <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2
-          id="nsh-strip-heading"
-          className="text-sm font-semibold tracking-tight"
-        >
-          {t("nsh_strip_title") || "Plenary days"}
-        </h2>
-        <span className="text-xs text-muted-foreground">
-          {/* Names the unit, so the bars cannot be read as an outcome split. The caption
-              gains its second clause only when the colours are actually there — a legend
-              for a dimension the strip is not drawing is worse than none. */}
-          {split
-            ? t("nsh_strip_caption_split") ||
-              "height = items voted · colour = за / против / въздържал"
-            : t("nsh_strip_caption") || "bar height = items voted that day"}
-        </span>
-      </div>
+    <>
+      <section
+        aria-labelledby="nsh-strip-heading"
+        className="rounded-xl border border-border bg-card px-3 py-3 sm:px-4"
+      >
+        {/* NO STANDING CAPTION AND NO LEGEND ROW. Both spent a line of the hero explaining an
+          encoding the reader can simply be shown: the tooltip names the day, the item count
+          and each colour's own figure, on the bar the cursor is already over. The text
+          equivalent stays in each bar's aria-label, where a screen-reader user gets it
+          without a hover they cannot perform. */}
+        <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <h2
+            id="nsh-strip-heading"
+            className="text-sm font-semibold tracking-tight"
+          >
+            {t("nsh_strip_title") || "Plenary days"}
+          </h2>
+        </div>
 
-      {split ? (
-        <ul className="mb-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
-          {SEGMENT_ORDER.map((key) => (
-            <li key={key} className="flex items-center gap-1">
-              {/* The legend and the bars read ONE colour map, so a legend can never end up
-                  explaining colours the columns do not use. */}
-              <span
-                aria-hidden
-                className={`h-2 w-2 shrink-0 rounded-[1px] ${SEGMENT_CLASS[key]}`}
-              />
-              {t(`nsh_strip_legend_${key}`)}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-
-      <div className="overflow-x-auto">
-        <ol
-          className="flex min-w-[520px] items-end gap-[3px]"
-          style={{ height: 72 }}
-        >
-          {days.map((day) => {
-            // Geometry lives in stripBars.ts so the arithmetic is testable — see its header
-            // for the clamp defect that made this worth extracting. Colour splits the bar by
-            // SHARE of the day's CAST votes; height still counts items. Cast votes, not the
-            // roll, because a fourth "absent" segment would put a member who did not vote
-            // inside a picture of how the chamber voted, and absence has its own tile.
-            const { height, segments } = barGeometry(day, peak);
-            const label = dayLabel.format(new Date(`${day.date}T00:00:00Z`));
-            return (
-              // A gap carries no information a screen reader can use — without
-              // aria-hidden on the LI (not just the rule inside it) the list announces a
-              // run of empty items between every sitting.
-              <li
-                key={day.date}
-                className="flex h-full flex-1 items-end"
-                aria-hidden={day.items === 0 || undefined}
-              >
-                {day.items > 0 ? (
-                  <Link
-                    to={`/votes/${day.date}`}
-                    underline={false}
-                    title={`${label} · ${day.items}`}
-                    aria-label={
-                      day.tally
-                        ? `${label} — ${day.items} ${itemsWord}, ${t("nsh_strip_legend_yes")} ${day.tally.yes}, ${t("nsh_strip_legend_no")} ${day.tally.no}, ${t("nsh_strip_legend_abstain")} ${day.tally.abstain}`
-                        : `${label} — ${day.items} ${itemsWord}`
-                    }
-                    className="flex w-full flex-col-reverse overflow-hidden rounded-t-[2px] opacity-75 transition-opacity hover:opacity-100"
-                    style={{ height }}
-                  >
-                    {segments ? (
-                      <>
-                        {/* flex-col-REVERSE, so за sits at the base of the column. A
+        <div className="overflow-x-auto">
+          <ol
+            className="flex min-w-[520px] items-end gap-[3px]"
+            style={{ height: 72 }}
+          >
+            {days.map((day) => {
+              // Geometry lives in stripBars.ts so the arithmetic is testable — see its header
+              // for the clamp defect that made this worth extracting. Colour splits the bar by
+              // SHARE of the day's CAST votes; height still counts items. Cast votes, not the
+              // roll, because a fourth "absent" segment would put a member who did not vote
+              // inside a picture of how the chamber voted, and absence has its own tile.
+              const { height, segments } = barGeometry(day, peak);
+              const label = dayLabel.format(new Date(`${day.date}T00:00:00Z`));
+              return (
+                // A gap carries no information a screen reader can use — without
+                // aria-hidden on the LI (not just the rule inside it) the list announces a
+                // run of empty items between every sitting.
+                <li
+                  key={day.date}
+                  className="flex h-full flex-1 items-end"
+                  aria-hidden={day.items === 0 || undefined}
+                >
+                  {day.items > 0 ? (
+                    <Link
+                      to={`/votes/${day.date}`}
+                      underline={false}
+                      onMouseEnter={(e) =>
+                        onMouseEnter(
+                          { pageX: e.pageX, pageY: e.pageY },
+                          <div className="flex flex-col gap-1">
+                            <span className="font-medium">{label}</span>
+                            <span className="tabular-nums">
+                              {day.items} {itemsWord}
+                            </span>
+                            {day.tally ? (
+                              <ul className="flex flex-col gap-0.5">
+                                {SEGMENT_ORDER.map((key) => (
+                                  <li
+                                    key={key}
+                                    className="flex items-center gap-1.5 text-xs"
+                                  >
+                                    {/* The swatch and the bar read ONE colour map, so the
+                                      tooltip cannot end up naming a colour the column
+                                      does not use. */}
+                                    <span
+                                      aria-hidden
+                                      className={`h-2 w-2 shrink-0 rounded-[1px] ${SEGMENT_CLASS[key]}`}
+                                    />
+                                    <span className="text-muted-foreground">
+                                      {t(`nsh_strip_legend_${key}`)}
+                                    </span>
+                                    <span className="ml-auto tabular-nums">
+                                      {day.tally![VOTE_KEY[key]]}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : null}
+                          </div>,
+                        )
+                      }
+                      onMouseMove={(e) =>
+                        onMouseMove({ pageX: e.pageX, pageY: e.pageY })
+                      }
+                      onMouseLeave={onMouseLeave}
+                      aria-label={
+                        day.tally
+                          ? `${label} — ${day.items} ${itemsWord}, ${t("nsh_strip_legend_yes")} ${day.tally.yes}, ${t("nsh_strip_legend_no")} ${day.tally.no}, ${t("nsh_strip_legend_abstain")} ${day.tally.abstain}`
+                          : `${label} — ${day.items} ${itemsWord}`
+                      }
+                      className="flex w-full flex-col-reverse overflow-hidden rounded-t-[2px] opacity-75 transition-opacity hover:opacity-100"
+                      style={{ height }}
+                    >
+                      {segments ? (
+                        <>
+                          {/* flex-col-REVERSE, so за sits at the base of the column. A
                             stack that grew downward from the top would put the largest
                             segment against the axis on some days and away from it on
                             others, which makes the columns uncomparable. */}
-                        <span
-                          aria-hidden
-                          className={`w-full shrink-0 ${SEGMENT_CLASS.yes}`}
-                          style={{ height: segments.yes }}
-                        />
-                        <span
-                          aria-hidden
-                          className={`w-full shrink-0 ${SEGMENT_CLASS.no}`}
-                          style={{ height: segments.no }}
-                        />
-                        {/* The remainder segment, computed as `height - yes - no` rather
+                          <span
+                            aria-hidden
+                            className={`w-full shrink-0 ${SEGMENT_CLASS.yes}`}
+                            style={{ height: segments.yes }}
+                          />
+                          <span
+                            aria-hidden
+                            className={`w-full shrink-0 ${SEGMENT_CLASS.no}`}
+                            style={{ height: segments.no }}
+                          />
+                          {/* The remainder segment, computed as `height - yes - no` rather
                             than rounded on its own share — the three then sum to exactly
                             the bar and no column shows a hairline of card colour. */}
+                          <span
+                            aria-hidden
+                            className={`w-full shrink-0 ${SEGMENT_CLASS.abstain}`}
+                            style={{ height: segments.abstain }}
+                          />
+                        </>
+                      ) : (
                         <span
                           aria-hidden
-                          className={`w-full shrink-0 ${SEGMENT_CLASS.abstain}`}
-                          style={{ height: segments.abstain }}
+                          className={`w-full flex-1 ${SEGMENT_CLASS.yes}`}
                         />
-                      </>
-                    ) : (
-                      <span
-                        aria-hidden
-                        className={`w-full flex-1 ${SEGMENT_CLASS.yes}`}
-                      />
-                    )}
-                  </Link>
-                ) : (
-                  <span
-                    aria-hidden
-                    className="block h-[3px] w-full rounded-full bg-border"
-                  />
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </div>
+                      )}
+                    </Link>
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="block h-[3px] w-full rounded-full bg-border"
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
 
-      {last ? (
-        <p className="mt-2 text-xs text-muted-foreground">
-          {t("nsh_strip_last") || "Last sitting"}:{" "}
-          <Link to={`/votes/${last.date}`} className="font-medium">
-            {dayLabel.format(new Date(`${last.date}T00:00:00Z`))}
-          </Link>
-        </p>
-      ) : null}
-    </section>
+        {last ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {t("nsh_strip_last") || "Last sitting"}:{" "}
+            <Link to={`/votes/${last.date}`} className="font-medium">
+              {dayLabel.format(new Date(`${last.date}T00:00:00Z`))}
+            </Link>
+          </p>
+        ) : null}
+      </section>
+      {/* OUTSIDE the section, and that placement is the rule rather than a preference: the
+          strip's own overflow-x-auto container would clip a positioned element, and the
+          shared tooltip positions against the page. */}
+      {tooltip}
+    </>
   );
 };
