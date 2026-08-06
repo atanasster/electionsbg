@@ -53,6 +53,7 @@ import {
   buildBreadcrumbLd,
   buildDataCatalogLd,
   buildDatasetLd,
+  buildFaqLd,
   buildOrganizationLd,
   buildWebPageLd,
   buildWebSiteLd,
@@ -4299,33 +4300,125 @@ export const prerenderRoutes: PrerenderRoute[] = [
     title:
       "Народно събрание — анализ на поименните гласувания | electionsbg.com",
     description:
-      "Анализ на поименните гласувания в българското Народно събрание — архив на заседанията, партийна дисциплина, гласови близнаци и UMAP визуализация на гласовото пространство.",
+      "Анализ на поименните гласувания в българското Народно събрание — архив на заседанията, присъствие, единство на групите, сходство между депутати и карта на гласуването.",
     breadcrumbName: "Народно събрание",
     ogImage: "/og/parliament.png",
     bodyHtml: `
 <h1>Народно събрание — анализ на поименните гласувания</h1>
-<p>Аналитични страници върху поименните гласувания в българското Народно събрание. Данните се извличат от стенограмите на parliament.bg.</p>
+<p>Поименните гласувания в българското Народно събрание, извлечени от стенограмите на parliament.bg. Данните покриват 44-то до 52-ро НС; за по-ранните състави няма публикувани поименни гласувания.</p>
 <ul>
-<li><a href="${SITE_URL}/votes">Архив на поименните гласувания</a> по заседания, с разбивка по точка и парламентарна група.</li>
-<li><a href="${SITE_URL}/parliament/cohesion">Партийна дисциплина</a> — колко обединени гласуват членовете на всяка група, с динамика по време.</li>
-<li>Гласови близнаци — кои депутати гласуват най-сходно с други, с акцент на близнаци от различни групи. Достъпни от страницата на всеки депутат.</li>
-<li><a href="${SITE_URL}/parliament/embedding">Гласово пространство</a> — UMAP визуализация на цялото гласово поведение.</li>
-</ul>`.trim(),
+<li><a href="${SITE_URL}/votes">Архив на поименните гласувания</a> — всяко пленарно заседание, с разбивка по точка, по депутат и по парламентарна група.</li>
+<li><a href="${SITE_URL}/parliament/embedding">Карта на гласуването</a> — двумерна проекция (UMAP) на гласовото поведение: кой депутат е близо до кого, независимо от групата.</li>
+<li><a href="${SITE_URL}/parliament/cohesion">Единство на групите</a> — колко сплотено гласува всяка парламентарна група и как се променя това във времето.</li>
+<li><a href="${SITE_URL}/parliament/attendance">Присъствие</a> — кой депутат участва в гласуванията и кой отсъства, претеглено спрямо точките, в които е могъл да гласува.</li>
+<li><a href="${SITE_URL}/persons?role=mp">Депутати</a> — всички народни представители от 44-то НС насам.</li>
+</ul>
+<p>Извън залата: <a href="${SITE_URL}/governance/declarations">декларациите</a> пред Сметната палата, <a href="${SITE_URL}/mp-assets">декларираното имущество</a>, <a href="${SITE_URL}/mp/companies">фирмите, свързани с депутати</a>, и <a href="${SITE_URL}/connections">графът на връзките</a>.</p>`.trim(),
+    // extraJsonLd, not jsonLd: staticPage composes WebPage + BreadcrumbList itself.
+    // The hub described itself less than any record page beneath it — WebPage plus a
+    // breadcrumb, while every /votes/<date> also carries a Dataset. Dataset is what makes
+    // the corpus citable rather than merely readable; ItemList states the module's shape
+    // machine-readably instead of leaving it to be inferred from a <ul>; FAQPage answers
+    // the three questions this module actually gets asked, and FAQ entities are
+    // disproportionately quoted by answer engines.
+    extraJsonLd: [
+      buildDatasetLd({
+        name: "Поименни гласувания в Народното събрание",
+        description:
+          "Поименните гласувания в българското Народно събрание от 44-то до 52-ро НС — по заседание, по точка и по депутат, с разбивка по парламентарна група.",
+        url: `${SITE_URL}/parliament`,
+        spatialCoverage: "България",
+        temporalCoverage: "2020-10-28/..",
+        keywords: [
+          "поименни гласувания",
+          "Народно събрание",
+          "парламентарни групи",
+          "присъствие",
+        ],
+        distribution: [
+          {
+            url: `${DATA_URL}/parliament/votes/index.json`,
+            name: "Индекс на заседанията (JSON)",
+          },
+        ],
+      }),
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Народно събрание — раздели",
+        url: `${SITE_URL}/parliament`,
+        itemListElement: [
+          { name: "Гласувания", url: `${SITE_URL}/votes` },
+          {
+            name: "Карта на гласуването",
+            url: `${SITE_URL}/parliament/embedding`,
+          },
+          {
+            name: "Единство на групите",
+            url: `${SITE_URL}/parliament/cohesion`,
+          },
+          { name: "Присъствие", url: `${SITE_URL}/parliament/attendance` },
+        ].map((entry, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: entry.name,
+          item: entry.url,
+        })),
+      },
+      buildFaqLd([
+        {
+          question: "За кои парламенти има поименни гласувания?",
+          answer:
+            "За 44-то до 52-ро Народно събрание. За изборите от 2005, 2009, 2013 и 2014 г. няма публикувани поименни гласувания, а данните за 44-то НС покриват само последните му месеци (окт. 2020 – март 2021).",
+        },
+        {
+          question: "Как се измерва присъствието на депутат?",
+          answer:
+            "Претеглено: броят точки, в които депутатът е гласувал, делен на броя точки, в които е могъл да гласува. Обикновена средна стойност по депутати надценява онези, които са заседавали само няколко пъти.",
+        },
+        {
+          question: "Откъде идват данните?",
+          answer:
+            "От стенограмите и официалните протоколи за поименно гласуване на parliament.bg. За всяка точка се записва как е гласувал всеки народен представител — „за“, „против“, „въздържал се“ или „отсъствал“.",
+        },
+      ]),
+    ],
     english: {
       title:
         "National Assembly — Bulgarian roll-call voting analytics | electionsbg.com",
       description:
-        "Roll-call voting analytics for the Bulgarian National Assembly — session archive, group cohesion, voting twins, and a UMAP map of MP voting behaviour.",
+        "Roll-call voting analytics for the Bulgarian National Assembly — session archive, attendance, group cohesion, MP similarity and a map of voting behaviour.",
       breadcrumbName: "National Assembly",
       bodyHtml: `
 <h1>National Assembly — roll-call voting analytics</h1>
-<p>Analytical views over roll-call voting in the Bulgarian National Assembly. Data is sourced from parliament.bg stenograms.</p>
+<p>Roll-call voting in the Bulgarian National Assembly, extracted from the parliament.bg stenographic records. Coverage runs from the 44th to the 52nd National Assembly; earlier parliaments published no roll-call records.</p>
 <ul>
-<li><a href="${SITE_URL}/en/votes">Roll-call vote archive</a>, broken down per item and per parliamentary group.</li>
-<li><a href="${SITE_URL}/en/parliament/cohesion">Group cohesion</a> — how unified each parliamentary group votes, with a per-session trend.</li>
-<li>Voting twins — which MPs vote most similarly, surfacing twins from different groups. Available from each MP's candidate page.</li>
-<li><a href="${SITE_URL}/en/parliament/embedding">Voting space</a> — UMAP projection of every MP's voting behaviour.</li>
-</ul>`.trim(),
+<li><a href="${SITE_URL}/en/votes">Roll-call vote archive</a> — every plenary sitting, broken down per item, per MP and per parliamentary group.</li>
+<li><a href="${SITE_URL}/en/parliament/embedding">Voting map</a> — a two-dimensional (UMAP) projection of voting behaviour: which MPs sit near which, regardless of group.</li>
+<li><a href="${SITE_URL}/en/parliament/cohesion">Group cohesion</a> — how unified each parliamentary group votes, and how that changes over time.</li>
+<li><a href="${SITE_URL}/en/parliament/attendance">Attendance</a> — which MPs take part in votes and which do not, weighted by the items they could have voted on.</li>
+<li><a href="${SITE_URL}/en/persons?role=mp">MPs</a> — every member of parliament since the 44th National Assembly.</li>
+</ul>
+<p>Outside the chamber: <a href="${SITE_URL}/en/governance/declarations">declarations</a> filed with the Court of Audit, <a href="${SITE_URL}/en/mp-assets">declared assets</a>, <a href="${SITE_URL}/en/mp/companies">companies linked to MPs</a>, and the <a href="${SITE_URL}/en/connections">connections graph</a>.</p>`.trim(),
+      extraJsonLd: [
+        buildFaqLd([
+          {
+            question: "Which parliaments have roll-call data?",
+            answer:
+              "The 44th to the 52nd National Assembly. The 2005, 2009, 2013 and 2014 elections have no published roll-call votes, and the 44th is partial — it covers only October 2020 to March 2021.",
+          },
+          {
+            question: "How is an MP's attendance measured?",
+            answer:
+              "Weighted: the number of items the MP voted on divided by the number they could have voted on. A plain average across MPs over-weights those who sat for only a handful of sittings.",
+          },
+          {
+            question: "Where does the data come from?",
+            answer:
+              "From the stenographic records and official roll-call sheets published by parliament.bg. For every item we record how each MP voted — for, against, abstained or absent.",
+          },
+        ]),
+      ],
     },
   }),
   staticPage({

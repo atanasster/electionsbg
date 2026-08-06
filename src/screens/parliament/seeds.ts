@@ -12,10 +12,10 @@
  *  The slug format is NOT free: `/votes/between/:pair` is already minted by
  *  ParliamentVotingTile with a DOUBLE hyphen separator, because a party short name can
  *  contain a single one (ГЕРБ-СДС) and a single-hyphen separator would not round-trip. */
-export const mostDivergentPairSlug = (
+export const mostDivergentPairNames = (
   parties: string[] | undefined,
   matrix: number[][] | undefined,
-): string | undefined => {
+): [string, string] | undefined => {
   if (!parties?.length || !matrix?.length) return undefined;
 
   let best: { a: string; b: string; score: number } | undefined;
@@ -28,6 +28,28 @@ export const mostDivergentPairSlug = (
       }
     }
   }
-  if (!best) return undefined;
-  return `${encodeURIComponent(best.a)}--${encodeURIComponent(best.b)}`;
+  return best ? [best.a, best.b] : undefined;
+};
+
+/** RAW `А--Б`, unencoded. What the PRERENDER wants: route paths in this repo are stored
+ *  decoded and encoded once on the way out by `encodeUrlPath`, so handing it a
+ *  percent-encoded path double-encodes it — `%D0%9F` becomes `%25D0%259F`, the canonical
+ *  names a URL nobody can reach, and the dist filename carries literal `%` bytes. */
+export const mostDivergentPairPath = (
+  parties: string[] | undefined,
+  matrix: number[][] | undefined,
+): string | undefined => {
+  const names = mostDivergentPairNames(parties, matrix);
+  return names ? `${names[0]}--${names[1]}` : undefined;
+};
+
+/** Percent-encoded. What a CLIENT href wants, matching the format ParliamentVotingTile
+ *  already mints. */
+export const mostDivergentPairSlug = (
+  parties: string[] | undefined,
+  matrix: number[][] | undefined,
+): string | undefined => {
+  const names = mostDivergentPairNames(parties, matrix);
+  if (!names) return undefined;
+  return `${encodeURIComponent(names[0])}--${encodeURIComponent(names[1])}`;
 };

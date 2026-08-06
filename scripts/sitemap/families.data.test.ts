@@ -56,7 +56,7 @@ afterAll(async () => {
 const inFamily = (family: string): string[] =>
   LOCS.filter((p) => p.startsWith(family) || p.startsWith(`/en${family}`));
 
-test("the sitemap names both new families in both languages", () => {
+test("the sitemap names every gated family in both languages", () => {
   // A guard on the guards: if the enumerators regress to emitting nothing, the
   // parity assertions below would pass vacuously.
   assert.ok(inFamily("/court/").length > 0, "no /court <loc> in the sitemap");
@@ -64,9 +64,29 @@ test("the sitemap names both new families in both languages", () => {
     inFamily("/pension-fund/").length > 0,
     "no /pension-fund <loc> in the sitemap",
   );
+  assert.ok(inFamily("/votes/").length > 0, "no /votes <loc> in the sitemap");
+  // The scored item pages, not just the 613 sitting pages. Their absence would mean the
+  // shared reader stopped agreeing with the prerender.
+  assert.ok(
+    inFamily("/votes/").some((p) => p.split("/").filter(Boolean).length >= 3),
+    "the sitemap has sitting pages but no item pages",
+  );
 });
 
-for (const family of ["/court/", "/pension-fund/"]) {
+// /votes/<date>/<slug> and the two seeded /parliament hub destinations join this gate for
+// the reason it exists. Both families are minted by readers that run in a DIFFERENT process
+// from the build (`npm run sitemap` vs postbuild), and the pair route in particular carries
+// Cyrillic — which is exactly where a <loc> and a dist filename drift apart. The first
+// draft of that route stored an already-percent-encoded path, so `encodeUrlPath` encoded it
+// a second time and the canonical named `%25D0%259F…` while the sitemap named the
+// single-encoded form; this test is what turns that into a red run rather than a soft-404
+// nobody sees.
+for (const family of [
+  "/court/",
+  "/pension-fund/",
+  "/votes/",
+  "/parliament/similarity/",
+]) {
   test(`every ${family} <loc> has a dist/<path>/index.html`, (t) => {
     if (!haveDist) return t.skip();
     const missing = inFamily(family).filter(

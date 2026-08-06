@@ -102,9 +102,27 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
       "country node of the Governance view — parliament roll-calls, MP declarations, state budget execution, public procurement, party financing and macro/governance context; also the top of a place ladder that drills country → region (/governance/region/{oblast}) → município or settlement (/governance/{id}) for the local governance picture (the place's MPs, mayor & council, Чл.53 transfers, EU funds, local taxes, census, transparency)",
   },
   {
+    // Was "MP roster, party seats, per-MP profiles" — a description of a page that does
+    // not exist. There is no MP roster page; the roster lives at /persons?role=mp. An
+    // assistant asked what is at /parliament answered wrongly, out of our own file.
     url: "/parliament",
-    label: "Parliament",
-    description: "MP roster, party seats, per-MP profiles",
+    label: "National Assembly",
+    description:
+      "module front page for roll-call voting: sittings archive, attendance, group cohesion, MP similarity and the voting map. Coverage is the 44th-52nd National Assembly; earlier parliaments published no roll-call records, and the 44th is partial (Oct 2020 - Mar 2021)",
+  },
+  {
+    // The module's largest and best-read half, and it was absent from this file entirely:
+    // 613 prerendered sitting pages plus the scored item pages beneath them.
+    url: "/votes",
+    label: "Roll-call votes",
+    description:
+      "every plenary sitting with a roll-call vote, per item and per MP. Per-sitting pages are `/votes/{YYYY-MM-DD}` and individual items are `/votes/{YYYY-MM-DD}/{item-slug}`; each names its tally (for / against / abstained) and outcome",
+  },
+  {
+    url: "/parliament/attendance",
+    label: "Parliament attendance",
+    description:
+      "per-MP participation in roll-call votes, weighted by the items each MP could have voted on",
   },
   {
     url: "/parliament/cohesion",

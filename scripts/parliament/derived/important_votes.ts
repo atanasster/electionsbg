@@ -85,17 +85,17 @@ const PARLIAMENT_RULES =
 const ZID =
   /зид\s+на\s+закона|закон\s+за\s+изменение\s+и\s+допълнение|^зи\s+на\s+закона/i;
 
-const castCount = (item: SessionItemFile): number =>
+export const castCount = (item: SessionItemFile): number =>
   item.tallies.yes + item.tallies.no + item.tallies.abstain;
 
-const contestScoreFor = (item: SessionItemFile): number => {
+export const contestScoreFor = (item: SessionItemFile): number => {
   const { yes, no, abstain } = item.tallies;
   const cast = castCount(item);
   if (cast === 0) return 0;
   return Math.min(yes, no + abstain) / cast;
 };
 
-const outcomeFor = (item: SessionItemFile): Outcome => {
+export const outcomeFor = (item: SessionItemFile): Outcome => {
   const { yes, no, abstain } = item.tallies;
   const cast = castCount(item);
   if (cast === 0) return "contested";
@@ -110,7 +110,13 @@ const outcomeFor = (item: SessionItemFile): Outcome => {
 // Higher score = more important. Zero drops the item. Same ordering as the
 // client-side scorer in src/data/myarea/useAreaImportantVotes.ts — keep them
 // in sync if either changes.
-const importanceScore = (title: string, contest: number): number => {
+//
+// EXPORTED so the prerender can pick each plenary day's headline items with the
+// SAME vocabulary rather than inventing a third one. It cannot read the shipped
+// important_votes shard for that: the shard is a top-15-per-NS leaderboard whose
+// 135 rows land on only 92 of 613 plenary days, so 85% of the /votes/<date>
+// bodies would have had nothing to name.
+export const importanceScore = (title: string, contest: number): number => {
   if (!title || PROCEDURAL.test(title)) return 0;
   if (CONFIDENCE.test(title)) return 100;
   if (CABINET_VOTE.test(title)) return 90;

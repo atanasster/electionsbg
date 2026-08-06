@@ -31,6 +31,11 @@ import {
 import { electionYearSuffix } from "./electionYear";
 import { DATA_URL, EN_HOME, PrerenderRoute, SITE_URL } from "./routes";
 import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
+import { readSessionFacts, tallyClause } from "./votesFacts";
+import {
+  mostDivergentPairNames,
+  mostDivergentPairPath,
+} from "../../src/screens/parliament/seeds";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import { readSeoCourts } from "../db/lib/seo_courts";
 import { readSeoPensionFunds } from "./kfnFunds";
@@ -3005,7 +3010,27 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
   if (!idx.sessions?.length) return [];
 
   const indexUrl = `${SITE_URL}/votes`;
+  const hubUrl = `${SITE_URL}/parliament`;
   const totalItems = idx.sessions.reduce((n, s) => n + (s.items ?? 0), 0);
+
+  // The module crumb. Every /votes page used to ladder Начало → Поименни гласувания,
+  // skipping /parliament entirely — so a crawler never saw the module the SPA shows, on
+  // the one prefix that carries this module's engagement and none of its links.
+  const crumbsBg = (tail: Array<{ name: string; url: string }>) =>
+    buildBreadcrumbLd([
+      { name: "Начало", url: `${SITE_URL}/` },
+      { name: "Народно събрание", url: hubUrl },
+      { name: "Поименни гласувания", url: indexUrl },
+      ...tail,
+    ]);
+  const crumbsEn = (tail: Array<{ name: string; url: string }>) =>
+    buildBreadcrumbLd([
+      { name: "Home", url: EN_HOME },
+      { name: "National Assembly", url: `${SITE_URL}/en/parliament` },
+      { name: "Roll-call votes", url: `${SITE_URL}/en/votes` },
+      ...tail,
+    ]);
+
   const result: PrerenderRoute[] = [
     {
       path: "votes",
@@ -3016,15 +3041,9 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
       bodyHtml: `
 <h1>Поименни гласувания в Народното събрание</h1>
 <p>Архив на всички пленарни заседания, в които Народното събрание е провело поименно гласуване. За всяка точка се записва как е гласувал всеки депутат — "за", "против", "въздържал се" или "отсъствал" — заедно с разбивка по парламентарна група.</p>
-<p>Данните се извличат от стенограмите на parliament.bg.</p>`.trim(),
-      jsonLd: [
-        buildBreadcrumbLd([
-          { name: "Начало", url: `${SITE_URL}/` },
-          { name: "Поименни гласувания", url: indexUrl },
-        ]),
-      ],
-      // EN index mirror — the per-session pages below already emit /en/votes/{date},
-      // so the /en/votes hub must resolve too (the sitemap lists it).
+<p>Данните се извличат от стенограмите на parliament.bg.</p>
+<p>Част от модула <a href="${hubUrl}">Народно събрание</a>, където са и <a href="${SITE_URL}/parliament/attendance">присъствието</a>, <a href="${SITE_URL}/parliament/cohesion">единството на групите</a> и <a href="${SITE_URL}/parliament/embedding">картата на гласуването</a>.</p>`.trim(),
+      jsonLd: [crumbsBg([])],
       english: {
         title:
           "Roll-call votes in the National Assembly — per-item data | electionsbg.com",
@@ -3032,26 +3051,100 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
         bodyHtml: `
 <h1>Roll-call votes in the National Assembly</h1>
 <p>An archive of every plenary sitting in which the National Assembly held a roll-call vote. For each item we record how every MP voted — "for", "against", "abstained" or "absent" — together with a per-parliamentary-group breakdown.</p>
-<p>Data is extracted from the parliament.bg stenographic records.</p>`.trim(),
-        jsonLd: [
-          buildBreadcrumbLd([
-            { name: "Home", url: EN_HOME },
-            { name: "Roll-call votes", url: `${SITE_URL}/en/votes` },
-          ]),
-        ],
+<p>Data is extracted from the parliament.bg stenographic records.</p>
+<p>Part of the <a href="${SITE_URL}/en/parliament">National Assembly</a> module, alongside <a href="${SITE_URL}/en/parliament/attendance">attendance</a>, <a href="${SITE_URL}/en/parliament/cohesion">group cohesion</a> and the <a href="${SITE_URL}/en/parliament/embedding">voting map</a>.</p>`.trim(),
+        jsonLd: [crumbsEn([])],
       },
     },
   ];
 
-  for (const s of idx.sessions) {
+  // Chronological, so "previous / next sitting" means what it says regardless of the
+  // order the index happens to carry.
+  const sessions = [...idx.sessions].sort((a, b) =>
+    a.date.localeCompare(b.date),
+  );
+
+  for (let i = 0; i < sessions.length; i++) {
+    const s = sessions[i];
+    const prev = sessions[i - 1];
+    const next = sessions[i + 1];
     const url = `${SITE_URL}/votes/${s.date}`;
     const enUrl = `${SITE_URL}/en/votes/${s.date}`;
     const dateBg = formatVoteDateBg(s.date);
     const dateEn = formatVoteDateEn(s.date);
+
+    // The facts. Read per day rather than tree-wide: 613 files / 288 MB, walked once.
+    const facts = readSessionFacts(projectRoot, s.date);
+    const top = facts?.top ?? [];
+
+    // A body that NAMES its items, with the tally in the same sentence as the name — an
+    // answer engine quotes a sentence, not a page, so a figure whose basis lives three
+    // paragraphs up gets quoted without it.
+    //
+    // THE TALLY ONLY, never the outcome word. `outcomeFor` classifies on a majority of the
+    // votes CAST, which is not the threshold Bulgarian law applies: a чл. 101 veto
+    // re-vote needs 121 of all 240 members, so /votes/2020-11-19/5-novo-obsazhdane… (84
+    // за) and /votes/2020-12-03/3-novo-obsazhdane… (114 за) both classify as "приет" for
+    // bills that failed. 324 of the 1,054 item pages would have asserted "приет" on fewer
+    // than 121 "за". The tally is a fact the source records; the outcome is an inference
+    // this pipeline cannot ground, and a prerendered body is exactly where an ungrounded
+    // inference gets quoted back at us. It stays in the derived pipeline, where it is
+    // labelled as a classification rather than stated as law.
+    const factsBg = top.length
+      ? `<p>Най-съществените гласувания в този ден:</p>\n<ul>\n${top
+          .map(
+            (f) =>
+              `<li><a href="${url}/${encodeUrlPath(f.slug)}">${escapeHtmlSimple(f.title)}</a> — ${tallyClause(f, "bg")}.</li>`,
+          )
+          .join("\n")}\n</ul>`
+      : // NOT "всички точки са процедурни". importanceScore returns 0 both for "matched a
+        // procedural pattern" AND for "matched no rule at all", so that sentence was false on
+        // 89 of the 206 days that take this branch — /votes/2021-04-22 holds 73 substantive
+        // votes including a moratorium decision. The honest sentence describes OUR shortlist,
+        // which is what is actually empty, not the chamber's day.
+        `<p>Няма откроени гласувания за този ден — виж пълния списък с точки по-горе.</p>`;
+    const factsEn = top.length
+      ? `<p>The most consequential votes of the day:</p>\n<ul>\n${top
+          .map(
+            (f) =>
+              `<li><a href="${enUrl}/${encodeUrlPath(f.slug)}">${escapeHtmlSimple(f.title)}</a> — ${tallyClause(f, "en")}.</li>`,
+          )
+          .join("\n")}\n</ul>`
+      : `<p>No highlighted votes for this sitting — see the full item list above.</p>`;
+
+    const navBg = [
+      prev
+        ? `<a href="${SITE_URL}/votes/${prev.date}">← ${formatVoteDateBg(prev.date)}</a>`
+        : null,
+      `<a href="${indexUrl}">всички заседания</a>`,
+      next
+        ? `<a href="${SITE_URL}/votes/${next.date}">${formatVoteDateBg(next.date)} →</a>`
+        : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+    const navEn = [
+      prev
+        ? `<a href="${SITE_URL}/en/votes/${prev.date}">← ${formatVoteDateEn(prev.date)}</a>`
+        : null,
+      `<a href="${SITE_URL}/en/votes">all sittings</a>`,
+      next
+        ? `<a href="${SITE_URL}/en/votes/${next.date}">${formatVoteDateEn(next.date)} →</a>`
+        : null,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+
+    const headline = top[0];
     const title = `Поименно гласуване — ${dateBg} | electionsbg.com`;
-    const description = `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки с разбивка по депутат и парламентарна група.`;
+    const description = headline
+      ? `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки, сред които „${headline.title.slice(0, 70)}“ — ${tallyClause(headline, "bg")}.`
+      : `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки с разбивка по депутат и парламентарна група.`;
     const titleEn = `Roll-call vote — ${dateEn} | electionsbg.com`;
-    const descriptionEn = `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items with per-MP and per-party breakdowns.`;
+    const descriptionEn = headline
+      ? `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items, including "${headline.title.slice(0, 70)}" — ${tallyClause(headline, "en")}.`
+      : `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items with per-MP and per-party breakdowns.`;
+
     result.push({
       path: `votes/${s.date}`,
       title,
@@ -3059,7 +3152,9 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
       ogImage: "/og/votes.png",
       bodyHtml: `
 <h1>Поименно гласуване · ${dateBg}</h1>
-<p>${s.items} ${s.items === 1 ? "точка" : "точки"} в дневния ред на това заседание. Кликнете върху точка, за да видите как е гласувал всеки депутат и обобщение по парламентарни групи.</p>`.trim(),
+<p>${s.items} ${s.items === 1 ? "точка" : "точки"} в дневния ред на това заседание, с поименен запис как е гласувал всеки народен представител.</p>
+${factsBg}
+<p>${navBg}</p>`.trim(),
       jsonLd: [
         buildWebPageLd({ title, description, url }),
         buildDatasetLd({
@@ -3067,6 +3162,7 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
           description,
           url,
           spatialCoverage: "България",
+          temporalCoverage: s.date,
           keywords: ["поименно гласуване", "Народно събрание", s.date],
           distribution: [
             {
@@ -3075,18 +3171,16 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
             },
           ],
         }),
-        buildBreadcrumbLd([
-          { name: "Начало", url: `${SITE_URL}/` },
-          { name: "Поименни гласувания", url: indexUrl },
-          { name: dateBg, url },
-        ]),
+        crumbsBg([{ name: dateBg, url }]),
       ],
       english: {
         title: titleEn,
         description: descriptionEn,
         bodyHtml: `
 <h1>Roll-call vote · ${dateEn}</h1>
-<p>${s.items} ${s.items === 1 ? "item" : "items"} on the agenda for this session. Click an item to see how every MP voted and the per-party breakdown.</p>`.trim(),
+<p>${s.items} ${s.items === 1 ? "item" : "items"} on the agenda for this sitting, with a per-MP record of how every member voted.</p>
+${factsEn}
+<p>${navEn}</p>`.trim(),
         jsonLd: [
           buildWebPageLd({
             title: titleEn,
@@ -3094,11 +3188,181 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
             url: enUrl,
             inLanguage: "en",
           }),
+          crumbsEn([{ name: dateEn, url: enUrl }]),
         ],
       },
     });
+
+    // ITEM PAGES for the scored subset (1,054 across the corpus; ~0.8% of dist). Without
+    // these, /votes/<date>/<slug> serves the SPA shell — the homepage's title and a
+    // canonical pointing at "/" — which is what the module's single best-engaging page
+    // (a 2020 item page, 3m22s) was doing. Prerendering every one of the 15,096 items
+    // would add ~30k files against a deploy ceiling that has already been hit once, so
+    // this is the scored middle: the items worth landing on, and only those.
+    for (const f of top) {
+      const itemUrl = `${url}/${encodeUrlPath(f.slug)}`;
+      const itemEnUrl = `${enUrl}/${encodeUrlPath(f.slug)}`;
+      const itemTitleBg = `${f.title.slice(0, 80)} — гласуване на ${dateBg} | electionsbg.com`;
+      const itemDescBg = `Поименно гласуване в Народното събрание на ${dateBg}: „${f.title.slice(0, 90)}“ — ${tallyClause(f, "bg")}. Виж как гласува всеки депутат.`;
+      const itemTitleEn = `${f.title.slice(0, 80)} — vote on ${dateEn} | electionsbg.com`;
+      const itemDescEn = `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: "${f.title.slice(0, 90)}" — ${tallyClause(f, "en")}. See how every MP voted.`;
+      result.push({
+        path: `votes/${s.date}/${f.slug}`,
+        title: itemTitleBg,
+        description: itemDescBg,
+        ogImage: "/og/votes.png",
+        bodyHtml: `
+<h1>${escapeHtmlSimple(f.title)}</h1>
+<p>Гласувано в Народното събрание на ${dateBg}: ${tallyClause(f, "bg")}.</p>
+<p>Виж <a href="${url}">всички ${s.items} точки от заседанието на ${dateBg}</a> или <a href="${indexUrl}">архива на поименните гласувания</a>.</p>`.trim(),
+        jsonLd: [
+          buildWebPageLd({
+            title: itemTitleBg,
+            description: itemDescBg,
+            url: itemUrl,
+          }),
+          crumbsBg([
+            { name: dateBg, url },
+            { name: f.title.slice(0, 60), url: itemUrl },
+          ]),
+        ],
+        english: {
+          title: itemTitleEn,
+          description: itemDescEn,
+          bodyHtml: `
+<h1>${escapeHtmlSimple(f.title)}</h1>
+<p>Voted in the National Assembly on ${dateEn}: ${tallyClause(f, "en")}.</p>
+<p>See <a href="${enUrl}">all ${s.items} items from the ${dateEn} sitting</a> or the <a href="${SITE_URL}/en/votes">roll-call archive</a>.</p>`.trim(),
+          jsonLd: [
+            buildWebPageLd({
+              title: itemTitleEn,
+              description: itemDescEn,
+              url: itemEnUrl,
+              inLanguage: "en",
+            }),
+            crumbsEn([
+              { name: dateEn, url: enUrl },
+              { name: f.title.slice(0, 60), url: itemEnUrl },
+            ]),
+          ],
+        },
+      });
+    }
   }
   return result;
+};
+
+/** The two band-4 hub tiles point at PARAMETERISED routes with no static landing —
+ *  /parliament/similarity/:mpId and /votes/between/:pair. Unprerendered, those serve the
+ *  SPA shell: the homepage's title, description and canonical, so to a crawler they are
+ *  duplicates of "/". That was tolerable while nothing linked to them; it stops being
+ *  tolerable now that a PRERENDERED hub does, because the links feed crawl equity into two
+ *  homepage duplicates.
+ *
+ *  So one instance of each is prerendered, seeded exactly the way the hub seeds its tiles —
+ *  from the same small shards, so the crawler lands on the page the reader would. Two pages
+ *  against a ~248k-file dist; the deploy ceiling is untouched. */
+export const buildParliamentSeedRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const read = <T>(rel: string): T | null => {
+    const file = path.join(projectRoot, rel);
+    if (!fs.existsSync(file)) return null;
+    try {
+      return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
+    } catch {
+      return null;
+    }
+  };
+
+  const idx = read<VotesIndexFile>("data/parliament/votes/index.json");
+  const ns = idx?.ns;
+  if (!ns) return [];
+
+  const routes: PrerenderRoute[] = [];
+
+  const headline = read<{
+    byNs?: Record<string, { seedId?: number; seedPartyShort?: string }>;
+  }>("data/parliament/votes/derived/similarity_headline.json");
+  const seedId = headline?.byNs?.[ns]?.seedId;
+  if (seedId != null) {
+    const url = `${SITE_URL}/parliament/similarity/${seedId}`;
+    const title = `Сходство между депутати — ${ns}-то Народно събрание | electionsbg.com`;
+    const description = `Кои народни представители гласуват най-сходно помежду си в ${ns}-то Народно събрание, включително през границите на парламентарните групи.`;
+    const titleEn = `MP voting similarity — ${ns}th National Assembly | electionsbg.com`;
+    const descriptionEn = `Which members of the Bulgarian National Assembly vote most alike in the ${ns}th parliament, including across parliamentary-group lines.`;
+    routes.push({
+      path: `parliament/similarity/${seedId}`,
+      title,
+      description,
+      ogImage: "/og/parliament.png",
+      bodyHtml: `
+<h1>Сходство между депутати</h1>
+<p>За всеки народен представител се изчислява доколко гласовете му съвпадат с тези на всеки друг депутат в ${ns}-то Народно събрание. Най-интересни са съвпаденията ИЗВЪН собствената група — депутати от различни парламентарни групи, които на практика гласуват еднакво.</p>
+<p>Виж също <a href="${SITE_URL}/parliament/cohesion">единството на групите</a>, <a href="${SITE_URL}/parliament/embedding">картата на гласуването</a> и <a href="${SITE_URL}/votes">архива на поименните гласувания</a>.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Народно събрание", url: `${SITE_URL}/parliament` },
+          { name: "Сходство между депутати", url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: `
+<h1>MP voting similarity</h1>
+<p>For every member we compute how closely their votes match each other member's in the ${ns}th National Assembly. The interesting matches are the ones OUTSIDE a member's own group — MPs from different parliamentary groups who vote, in practice, identically.</p>
+<p>See also <a href="${SITE_URL}/en/parliament/cohesion">group cohesion</a>, the <a href="${SITE_URL}/en/parliament/embedding">voting map</a> and the <a href="${SITE_URL}/en/votes">roll-call archive</a>.</p>`.trim(),
+      },
+    });
+  }
+
+  const correlation = read<{
+    byNs?: Record<string, { parties?: string[]; matrix?: number[][] }>;
+  }>("data/parliament/votes/derived/party_correlation.json");
+  const slice = correlation?.byNs?.[ns];
+  // RAW — writeRoute runs encodeUrlPath over it exactly once.
+  const pair = mostDivergentPairPath(slice?.parties, slice?.matrix);
+  const pairNames = mostDivergentPairNames(slice?.parties, slice?.matrix);
+  if (pair && pairNames) {
+    const [a, b] = pairNames;
+    const url = `${SITE_URL}/votes/between/${pair}`;
+    const title = `${a} срещу ${b} — къде се разминават | electionsbg.com`;
+    const description = `Точките, по които ${a} и ${b} гласуват различно в ${ns}-то Народно събрание — двете парламентарни групи с най-малко съвпадение.`;
+    const titleEn = `${a} vs ${b} — where they diverge | electionsbg.com`;
+    const descriptionEn = `The items on which ${a} and ${b} vote differently in the ${ns}th National Assembly — the two parliamentary groups that agree least.`;
+    routes.push({
+      path: `votes/between/${pair}`,
+      title,
+      description,
+      ogImage: "/og/votes.png",
+      bodyHtml: `
+<h1>${escapeHtmlSimple(a)} срещу ${escapeHtmlSimple(b)}</h1>
+<p>Двете парламентарни групи с най-ниско съвпадение на гласовете в ${ns}-то Народно събрание, и точките, по които се разминават.</p>
+<p>Виж също <a href="${SITE_URL}/parliament/cohesion">единството на групите</a> и <a href="${SITE_URL}/votes">архива на поименните гласувания</a>.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Народно събрание", url: `${SITE_URL}/parliament` },
+          { name: "Поименни гласувания", url: `${SITE_URL}/votes` },
+          { name: `${a} срещу ${b}`, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: `
+<h1>${escapeHtmlSimple(a)} vs ${escapeHtmlSimple(b)}</h1>
+<p>The two parliamentary groups whose votes agree least in the ${ns}th National Assembly, and the items on which they diverge.</p>
+<p>See also <a href="${SITE_URL}/en/parliament/cohesion">group cohesion</a> and the <a href="${SITE_URL}/en/votes">roll-call archive</a>.</p>`.trim(),
+      },
+    });
+  }
+
+  return routes;
 };
 
 export const buildBudgetMinistryRoutes = (
@@ -4268,6 +4532,7 @@ export const buildDynamicRoutes = async (
     // ...buildCandidateSubTabRoutes(candidateRoutes),
     ...buildPollsRoutes(publicFolder),
     ...buildVotesRoutes(projectRoot),
+    ...buildParliamentSeedRoutes(projectRoot),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
     ...buildReportRoutes(),
     // Articles are site content (human-authored markdown + same-origin

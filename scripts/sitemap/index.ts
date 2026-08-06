@@ -17,6 +17,8 @@ import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
+import { readSessionFacts } from "../prerender/votesFacts";
+import { mostDivergentPairSlug } from "@/screens/parliament/seeds";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
@@ -656,6 +658,51 @@ const enumerateVotes = (rootUrl: string) => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(s.date)) continue;
     pushUrl(`${rootUrl}/votes/${s.date}`, s.date);
     pushUrl(`${rootUrl}/en/votes/${s.date}`, s.date);
+
+    // The scored item pages, enumerated through the SAME reader buildVotesRoutes uses.
+    // A <loc> with no dist/<path>/index.html behind it is the defect
+    // families.data.test.ts exists to catch, and the two callers run in separate
+    // processes at separate times (`npm run sitemap` vs the build) — sharing the reader
+    // is what keeps them from disagreeing about which items qualify.
+    for (const fact of readSessionFacts(projectPath, s.date)?.top ?? []) {
+      pushUrl(`${rootUrl}/votes/${s.date}/${encodeURI(fact.slug)}`, s.date);
+      pushUrl(`${rootUrl}/en/votes/${s.date}/${encodeURI(fact.slug)}`, s.date);
+    }
+  }
+
+  // The two seeded hub destinations. Same reasoning as the item pages: they are
+  // prerendered now, so they belong in the sitemap — and they are seeded from the same
+  // shards the hub reads, so the URL a crawler is given is the URL a reader gets.
+  const ns = (idx as { ns?: string }).ns;
+  if (ns) {
+    const headline = readJson<{
+      byNs?: Record<string, { seedId?: number }>;
+    }>(`${projectPath}/data/parliament/votes/derived/similarity_headline.json`);
+    const seedId = headline?.byNs?.[ns]?.seedId;
+    if (seedId != null) {
+      pushUrl(`${rootUrl}/parliament/similarity/${seedId}`, lastmod);
+      pushUrl(`${rootUrl}/en/parliament/similarity/${seedId}`, lastmod);
+    }
+    const correlation = readJson<{
+      byNs?: Record<string, { parties?: string[]; matrix?: number[][] }>;
+    }>(`${projectPath}/data/parliament/votes/derived/party_correlation.json`);
+    const slice = correlation?.byNs?.[ns];
+    const pair = mostDivergentPairSlug(slice?.parties, slice?.matrix);
+    if (pair) {
+      pushUrl(`${rootUrl}/votes/between/${pair}`, lastmod);
+      pushUrl(`${rootUrl}/en/votes/between/${pair}`, lastmod);
+    }
+  }
+};
+
+/** Small local reader — the sitemap parses several optional shards and must treat an
+ *  absent or malformed one as "nothing to enumerate" rather than throwing mid-run. */
+const readJson = <T>(file: string): T | null => {
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
+  } catch {
+    return null;
   }
 };
 
