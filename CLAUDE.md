@@ -457,6 +457,28 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
+`vote_item` / `vote_cast` / `mp_seat` / `party_dim` (migration 134,
+`db:load:rollcall:pg`) are the National Assembly roll-call corpus — 16,741 items and 4M
+casts loaded from `data/parliament/votes/sessions/*.json`, the same tree the derived JSON
+metrics read. In `db:refresh`; on the cloud side:
+
+```bash
+npm run db:load:rollcall:pg:cloud
+```
+
+Re-run it after **every** `update-rollcall` ingest that added a session; the skill's Step 5b
+says so, and nothing runs it automatically. Stage-merge, so it is safe against a live
+database.
+
+**Two things about this table are easy to get backwards and both fail silently.**
+`vote_item` holds ALL 16,741 raw items — the 1,645 re-votes `dedupeRevotes` collapses carry
+`superseded_by`, so **every aggregate needs `WHERE superseded_by IS NULL`** or it
+over-counts by 9.8% at a 200. And party affiliation lives on `vote_cast.party_id`, the
+affiliation AT CAST TIME: 179 of 2,366 seats change party mid-term, so grouping on
+`mp_seat.party_id` instead compares those members against a group they had already left.
+`rollcall.data.test.ts` holds both, plus the 26 recycled `mp_id`s that make `(ns, mp_id)`
+the only safe key.
+
 `transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
 crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water
 and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility

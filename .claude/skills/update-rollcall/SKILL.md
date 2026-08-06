@@ -111,6 +111,39 @@ npm run derived:rebuild -- --upload  # write + upload
 
 `scripts/parliament/derived/index.ts` exports `rebuildDerived()` (imported by `scrape_rollcall.ts`); its CLI stays dormant when imported and only runs when invoked directly.
 
+## Step 5b — Reload the Postgres corpus (local, then CLOUD BY HAND)
+
+The roll-call corpus is now also a set of Postgres tables (`vote_item`, `vote_cast`,
+`mp_seat`, `party_dim` — migration 134), loaded from the same session files this skill
+writes. Any newly-ingested session leaves them stale.
+
+```bash
+npm run db:load:rollcall:pg          # local
+npm run db:load:rollcall:pg:cloud    # the serving database — NOTHING runs this for you
+```
+
+`db:refresh` runs the local half automatically. **Nothing runs the cloud half**, which is
+the failure this repo has shipped most often (`reference_migrated_family_watch_reload`): a
+JSON→PG migration whose `:cloud` loader is not wired into the regenerating skill leaves
+prod serving the previous vintage with every row count reconciling and nothing red
+anywhere. Run it after every ingest that added a session.
+
+The loader is a stage-merge, so it is safe to run against a live database — it takes a
+RowExclusiveLock rather than blocking readers, and one plenary day is ~60,000 rows, not 4M.
+
+It also PRINTS two source defects rather than throwing on them, and both are expected
+output rather than a failed run:
+
+- **duplicate casts** — 84 (item, MP) pairs the source lists twice, always an identical
+  `absent` on a parliament's opening sitting. The JSON `votes` array is keyed by position
+  rather than by MP, so nothing upstream dedupes them.
+- **recycled mp_ids** — 26 ids that name two genuinely different people across
+  parliaments. `(ns, mp_id)` keeps them apart in these tables; `person_role.ref = mp_id`
+  has no NS column, so the person→votes bridge stays ambiguous for them.
+
+A CHANGE in either count is worth reading: a 27th recycled id is a new person whose votes
+something keying on `mp_id` alone could attribute to someone else.
+
 ## Step 6 — Commit
 
 ```bash
