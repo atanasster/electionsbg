@@ -255,7 +255,8 @@ const absenceCards = (sessions: SessionFile[]): FeedItem[] => {
         roll: onRoll.size,
         items: dayItems,
       },
-      target: { kind: "session" as const, date: last.date },
+      // Anchored at the section that names the people this card counts.
+      target: { kind: "session" as const, date: last.date, anchor: "absent" },
     },
   ];
 };

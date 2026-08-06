@@ -5584,5 +5584,8 @@
   "nsh_wire_last_sat": "Last sat on {{date}}",
   "nsh_band_chamber": "In the chamber",
   "nsh_band_alignment": "Who votes with whom",
-  "nsh_band_people": "MPs outside the chamber"
+  "nsh_band_people": "MPs outside the chamber",
+  "votes_session_absent_title": "Absent for the whole sitting",
+  "votes_session_absent_lead_one": "{{count}} of {{roll}} MPs cast no vote on any of the {{items}} items that day.",
+  "votes_session_absent_lead_other": "{{count}} of {{roll}} MPs cast no vote on any of the {{items}} items that day."
 }

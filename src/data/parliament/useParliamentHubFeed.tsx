@@ -32,7 +32,12 @@ export type {
 export const feedHref = (target: FeedTarget): string => {
   switch (target.kind) {
     case "session":
-      return `/votes/${target.date}`;
+      // #absent when the card is the absence aggregate: the card states a count, and the
+      // section it anchors is the only place that names the people in it. Landing on the
+      // top of a 219-item agenda instead is how a reader concludes we do not have it.
+      return target.anchor
+        ? `/votes/${target.date}#${target.anchor}`
+        : `/votes/${target.date}`;
     case "item":
       return `/votes/${target.date}/${target.slug}`;
     case "mp":

@@ -16,7 +16,9 @@
  *  generator: /candidate/mp-<id> is candidateSlug.ts's rule, and a second copy of it in
  *  scripts/ would keep emitting the old shape after the rule moved, green on both sides. */
 export type FeedTarget =
-  | { kind: "session"; date: string }
+  // `anchor` names a SECTION of the day page — the absence card carries "absent", so the
+  // reader lands on the list of who was missing rather than at the top of the agenda.
+  | { kind: "session"; date: string; anchor?: string }
   | { kind: "item"; date: string; slug: string }
   | { kind: "mp"; mpId: number };
 

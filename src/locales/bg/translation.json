@@ -5584,5 +5584,8 @@
   "nsh_wire_last_sat": "Последно заседание на {{date}}",
   "nsh_band_chamber": "В залата",
   "nsh_band_alignment": "Кой с кого гласува",
-  "nsh_band_people": "Депутатите извън залата"
+  "nsh_band_people": "Депутатите извън залата",
+  "votes_session_absent_title": "Отсъствали от цялото заседание",
+  "votes_session_absent_lead_one": "{{count}} от {{roll}} депутати не гласуваха по нито една от {{items}} точки на този ден.",
+  "votes_session_absent_lead_other": "{{count}} от {{roll}} депутати не гласуваха по нито една от {{items}} точки на този ден."
 }

@@ -17,6 +17,7 @@ import { RollcallHeatmap } from "@/screens/components/votes/RollcallHeatmap";
 import { SessionStatsTiles } from "@/screens/components/votes/SessionStatsTiles";
 import { SessionItemBreakdown } from "@/screens/components/votes/SessionItemBreakdown";
 import { SessionDefections } from "@/screens/components/votes/SessionDefections";
+import { SessionAbsentees } from "@/screens/components/votes/SessionAbsentees";
 import { computeSessionMetrics } from "@/data/parliament/votes/sessionMetrics";
 import { majorityFor } from "@/data/parliament/votes/majority";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
@@ -46,6 +47,10 @@ const formatDate = (iso: string, lang: string): string => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    // timeZone: "UTC" is load-bearing. The date above is a plain calendar DAY parsed as
+    // UTC midnight; formatting it in the viewer's zone renders it a day early for
+    // everyone west of UTC — so the label and the URL it belongs to disagree.
+    timeZone: "UTC",
   }).format(d);
 };
 
@@ -269,6 +274,10 @@ export const SessionScreen: FC = () => {
                 perItem={metrics.perItem}
               />
             ) : null}
+
+            {/* Who was not there. Placed after the defections — both answer "who", and a
+                reader who came from the hub's „Отсъствие" card lands on #absent anyway. */}
+            <SessionAbsentees session={session} candidateUrl={candidateUrl} />
 
             {metrics && (
               <SessionDefections

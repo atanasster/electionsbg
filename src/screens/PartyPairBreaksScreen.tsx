@@ -45,6 +45,10 @@ const formatDate = (iso: string, lang: string): string => {
     year: "numeric",
     month: "short",
     day: "numeric",
+    // timeZone: "UTC" is load-bearing. The date above is a plain calendar DAY parsed as
+    // UTC midnight; formatting it in the viewer's zone renders it a day early for
+    // everyone west of UTC — so the label and the URL it belongs to disagree.
+    timeZone: "UTC",
   }).format(d);
 };
 
