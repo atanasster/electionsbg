@@ -118,9 +118,15 @@ The roll-call corpus is now also a set of Postgres tables (`vote_item`, `vote_ca
 writes. Any newly-ingested session leaves them stale.
 
 ```bash
-npm run db:load:rollcall:pg          # local
-npm run db:load:rollcall:pg:cloud    # the serving database — NOTHING runs this for you
+npm run db:load:rollcall:pg          # local — facts
+npm run db:load:rollcall-derived:pg  # local — the four precomputes
+npm run db:load:rollcall:pg:cloud            # the serving database — NOTHING runs these
+npm run db:load:rollcall-derived:pg:cloud    # for you. Derived AFTER facts, always.
 ```
+
+The derived step rebuilds `mp_attendance`, `party_cohesion`, `mp_dissent`, `mp_vote_norm`
+and `mp_similarity`. It takes about 70 s locally and is dominated by `mp_similarity`, which
+is quadratic; expect **minutes** on Cloud SQL, which is unmeasured.
 
 `db:refresh` runs the local half automatically. **Nothing runs the cloud half**, which is
 the failure this repo has shipped most often (`reference_migrated_family_watch_reload`): a

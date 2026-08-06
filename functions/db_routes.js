@@ -158,6 +158,32 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// Reads of a MATERIALIZED VIEW, which fail two ways the helpers above do not cover.
+//
+//   55000 — object_not_in_prerequisite_state. A matview created WITH NO DATA does not
+//           return zero rows when you select from it, it RAISES. That is precisely the
+//           state of a database where the DDL has been applied and the refresh has not
+//           run, i.e. every first deploy, so leaving it out turns the ordinary
+//           deploy-ordering case into a 500.
+//   55P03 — lock_not_available. A REFRESH is in progress; serving stale-but-empty beats
+//           blocking the pool behind a multi-minute rebuild.
+//
+// 57014 is deliberately ABSENT, and it is the one that looks like it belongs. It is not the
+// "locked" code (that is 55P03) — it is the pool's own statement_timeout, which means the
+// request has already burned its full budget. Degrading there would turn a 10 s failure
+// into a ~20 s one while still holding a pooled connection, under exactly the saturation
+// that caused the timeout. Degrading is only correct when it beats failing.
+const matviewRows = (label) => (e) => {
+  if (!["42P01", "42883", "55000", "55P03", "42501"].includes(e?.code)) {
+    return Promise.reject(e);
+  }
+  logMissOnce(
+    `rc:not-built:${label}:${e.code}`,
+    `${label}: read failed (${e.code}) — serving empty. Run db:load:rollcall-derived:pg.`,
+  );
+  return [];
+};
+
 // Same degradation, but wrapping a caller-supplied sentinel as `[{ r: sentinel }]`
 // — for a route whose empty payload is not `[]` (e.g. an object the client
 // destructures). Served via `rows[0].r`, like the scalar-function routes.
@@ -2885,6 +2911,101 @@ const DB_ROUTES = {
       lim,
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
+  },
+  // One MP's votes against their own group's plurality (135 mp_dissent), for the dissents
+  // section on a candidate page. Replaces useMpDissents' read of dissents.json — a 31 MB
+  // artifact that page downloads WHOLE whenever the per-MP shard is missing, which it is
+  // for 36 members today.
+  //
+  // Keyed (ns, mp_id) and never mp_id alone: parliament.bg recycles member ids across
+  // parliaments, and 26 of them name two genuinely different people.
+  "mp-dissents": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    const mpId = clampInt(q.mp, 0, 1, 100000);
+    if (!ns || !mpId) return { body: [] };
+    const lim = clampInt(q.limit, 200, 1, 1000);
+    // The COUNT is not `rows.length`: a member can have 621 dissents and the row list is
+    // capped, so returning the page length as the total would under-report 46 seats.
+    // totalCast comes from mp_attendance because a dissent-only view has no denominator —
+    // without it the client renders "31 / 0".
+    const rows = await dbRows(
+      `WITH d AS (
+         SELECT * FROM mp_dissent WHERE ns = $1 AND mp_id = $2
+       )
+       SELECT (SELECT count(*) FROM d)                                  AS dissent_count,
+              (SELECT present FROM mp_attendance
+                WHERE ns = $1 AND mp_id = $2)                           AS total_cast,
+              COALESCE((
+                SELECT json_agg(r ORDER BY r.date DESC, r.item_no)
+                  FROM (
+                    SELECT i.date, i.item_no, i.slug, i.title, i.topic,
+                           d.vote, d.party_vote, d.party_members,
+                           p.short AS party
+                      FROM d
+                      JOIN vote_item i ON i.item_id = d.item_id
+                      LEFT JOIN party_dim p ON p.party_id = d.party_id
+                     ORDER BY i.date DESC, i.item_no
+                     LIMIT $3
+                  ) r
+              ), '[]'::json)                                            AS rows`,
+      [ns, mpId, lim],
+    ).catch(matviewRows("mp_dissent"));
+    return { body: rows[0] ?? null };
+  },
+  // One MP's closest voting matches (135 mp_similarity). Replaces useMpSimilarity's read of
+  // similarity.json (11.7 MB).
+  //
+  // The matview stores each pair ONCE with a_mp < b_mp, so a member appears on either side
+  // depending on the other's id — hence the UNION rather than a single WHERE. Reading only
+  // one side would silently return half of anyone's neighbours, weighted by whether their
+  // id happens to be low.
+  "mp-similarity": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    const mpId = clampInt(q.mp, 0, 1, 100000);
+    if (!ns || !mpId) return { body: [] };
+    const lim = clampInt(q.limit, 20, 1, 300);
+    const minShared = clampInt(q.minShared, 20, 1, 100000);
+    // score = dot / (norm(a) * norm(b)) — the same cosine similarity.ts computes, not an
+    // agree/shared rate. similarityClass.ts calibrates its "voting twin" thresholds on this
+    // scale, so a rate here would have relabelled twins on every page that shows them.
+    const rows = await dbRows(
+      `WITH me AS (
+         SELECT sqrt(norm_sq::numeric) AS n FROM mp_vote_norm WHERE ns = $1 AND mp_id = $2
+       ), pairs AS (
+         SELECT b_mp AS other, overlap, dot FROM mp_similarity
+          WHERE ns = $1 AND a_mp = $2
+         UNION ALL
+         SELECT a_mp AS other, overlap, dot FROM mp_similarity
+          WHERE ns = $1 AND b_mp = $2
+       )
+       , scored AS (
+         SELECT x.other AS mp_id,
+              x.overlap,
+              x.dot::numeric / NULLIF(me.n * sqrt(o.norm_sq::numeric), 0) AS score,
+              s.name,
+              p.short AS party
+         FROM pairs x
+         CROSS JOIN me
+         JOIN mp_vote_norm o ON o.ns = $1 AND o.mp_id = x.other
+         LEFT JOIN mp_seat s ON s.ns = $1 AND s.mp_id = x.other
+         LEFT JOIN party_dim p ON p.party_id = s.party_id
+        WHERE x.overlap >= $3
+          -- A member who only ever abstained has a zero norm and no defined cosine.
+          -- Dropping them beats serving a NULL the client would render as 0%.
+          AND me.n > 0 AND o.norm_sq > 0
+      )
+       SELECT json_build_object(
+         'top', COALESCE((SELECT json_agg(t) FROM (
+                  SELECT * FROM scored ORDER BY score DESC, overlap DESC LIMIT $4) t), '[]'::json),
+         -- The OTHER END of the same ranking. Taking the tail of a top-N page instead
+         -- yields peers ranked N-9..N out of ~240 and labels them "most different", which
+         -- is a claim about two named members that the data does not make.
+         'bottom', COALESCE((SELECT json_agg(b) FROM (
+                  SELECT * FROM scored ORDER BY score ASC, overlap DESC LIMIT $4) b), '[]'::json)
+       ) AS r`,
+      [ns, mpId, minShared, lim],
+    ).catch(matviewRows("mp_similarity"));
+    return { body: rows[0]?.r ?? { top: [], bottom: [] } };
   },
   // Person↔person edges (shared company, association-noise-guarded) → the Connections
   // component (§8) + the future personConnections AI tool. Reads the unified graph (128/084).

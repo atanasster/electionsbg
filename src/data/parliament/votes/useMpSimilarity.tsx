@@ -7,6 +7,41 @@ import { useMpProfile } from "./useMpProfile";
 import { useMpShard } from "./useMpShard";
 import type { SimilarityEntry, SimilarityFile, SimilaritySlice } from "./types";
 
+/** One peer as /api/db/mp-similarity returns it (135 mp_similarity + mp_vote_norm).
+ *  `score` is the SAME cosine similarity.json carries — the route divides dot by the two
+ *  full-vector norms rather than returning an agreement rate, because similarityClass.ts
+ *  calibrates its twin thresholds on the cosine scale. */
+interface PgPeerRow {
+  mp_id: number;
+  overlap: number;
+  score: string | number;
+}
+
+/** Both ENDS of the ranking, computed server-side. Slicing the tail off a top-N page
+ *  instead would label peers ranked N-9..N of ~240 as "most different", which is a claim
+ *  about two named members the data does not support. */
+interface PgSimilarity {
+  top: PgPeerRow[];
+  bottom: PgPeerRow[];
+}
+
+// PRIMARY source: the precompute. The shard and the aggregate stay as fallbacks — but the
+// ordering is what matters, because `similarity.json` is 11.7 MB and the aggregate branch
+// fires whenever the per-MP shard is missing.
+const pgQueryFn = async ({
+  queryKey,
+}: {
+  queryKey: readonly [string, string, number];
+}): Promise<PgSimilarity | null> => {
+  const [, ns, mpId] = queryKey;
+  const r = await fetch(
+    `/api/db/mp-similarity?ns=${encodeURIComponent(ns)}&mp=${mpId}&limit=10`,
+  );
+  if (!r.ok) return null;
+  const body = (await r.json()) as PgSimilarity | null;
+  return body && Array.isArray(body.top) ? body : null;
+};
+
 const queryFn = async (): Promise<SimilarityFile | undefined> => {
   const response = await fetch(
     dataUrl(`/parliament/votes/derived/similarity.json`),
@@ -38,10 +73,13 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
   const { selected } = useElectionContext();
 
   // Fast-path: shard hit avoids the ~12 MB similarity aggregate fetch.
-  const { shard, isLoading: shardLoading } = useMpShard(
-    mpId ?? undefined,
-    name ?? undefined,
-  );
+  // csvId, not mpId — see the note in useMpDissents: the roster id is not this NS's id for
+  // the 26 recycled ids, and this tier outranks the shard.
+  const {
+    shard,
+    csvId,
+    isLoading: shardLoading,
+  } = useMpShard(mpId ?? undefined, name ?? undefined);
 
   const { mpNames } = useMpProfile();
 
@@ -60,9 +98,23 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
           (n) => n.toLocaleLowerCase("bg") === name.toLocaleLowerCase("bg"),
         )));
 
+  const ns = electionToNsFolder(selected);
+
+  const { data: pgPeers, isLoading: pgLoading } = useQuery({
+    queryKey: ["rollcall_similarity_pg", ns ?? "", csvId ?? 0] as [
+      string,
+      string,
+      number,
+    ],
+    queryFn: pgQueryFn,
+    staleTime: Infinity,
+    enabled: Boolean(ns) && csvId != null && !browseMode,
+  });
+  const pgHit = pgPeers != null && pgPeers.top.length > 0;
+
   const aggregateEnabled = browseMode
     ? true
-    : mpInSelectedNs && !shard && !shardLoading;
+    : mpInSelectedNs && !pgHit && !pgLoading && !shard && !shardLoading;
   const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_similarity"] as [string],
     queryFn,
@@ -70,7 +122,6 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
     enabled: aggregateEnabled,
   });
 
-  const ns = electionToNsFolder(selected);
   const slice = pickSlice(data, ns);
 
   const byMpId = useMemo(() => {
@@ -103,7 +154,24 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
     (mpId != null ? byMpId.get(mpId) : undefined) ??
     (fallbackCsvId != null ? byMpId.get(fallbackCsvId) : undefined);
 
-  const entry = shardEntry ?? aggregateEntry;
+  // The route returns peers best-first; topK/bottomK are the two ends of that ordering,
+  // which is the shape both consumers read.
+  const toPeer = (p: PgPeerRow) => ({
+    mpId: p.mp_id,
+    score: Number(p.score),
+    overlap: p.overlap,
+  });
+  const pgEntry: SimilarityEntry | undefined = pgHit
+    ? {
+        mpId: csvId!,
+        topK: pgPeers!.top.map(toPeer),
+        // Ascending from the route: genuinely the most-different peers, matching what
+        // similarity.json's bottomK means.
+        bottomK: pgPeers!.bottom.map(toPeer),
+      }
+    : undefined;
+
+  const entry = pgEntry ?? shardEntry ?? aggregateEntry;
 
   return {
     file: slice,

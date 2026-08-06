@@ -11,7 +11,26 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { allRows, dbReachable, end } from "../lib/pg";
+
+interface AttendanceEntry {
+  mpId: number;
+  totalItems: number;
+  presentCount: number;
+}
+interface CohesionEntry {
+  partyShort: string;
+  meanCohesion: number;
+}
+interface DissentJsonEntry {
+  mpId: number;
+  dissentCount: number;
+}
+interface SimilarityJsonEntry {
+  mpId: number;
+  topK: Array<{ mpId: number; score: number; overlap: number }>;
+}
 
 const haveDb = await dbReachable();
 
@@ -132,6 +151,201 @@ test("the standing set matches index.json, per parliament", async (t) => {
   );
   const total = rows.reduce((n, r) => n + Number(r.days), 0);
   assert.equal(total, 613, "plenary-day count moved");
+});
+
+test("mp_attendance reproduces attendance.json, except where the source double-counts", async (t) => {
+  if (!haveDb || !(await tableExists("mp_attendance"))) return t.skip();
+  const att = JSON.parse(
+    readFileSync("data/parliament/votes/derived/attendance.json", "utf8"),
+  ) as { byNs: Record<string, { entries: AttendanceEntry[] }> };
+  const rows = await allRows<{ ns: number; mp_id: number; items: string; present: string }>(
+    "SELECT ns, mp_id, items, present FROM mp_attendance",
+  );
+  const pg = new Map(
+    rows.map((r) => [`${r.ns}|${r.mp_id}`, { items: Number(r.items), present: Number(r.present) }]),
+  );
+
+  // THE MIGRATION'S CORRECTNESS PROOF, and it must run while both layers exist.
+  //
+  // 2,356 of 2,366 seats agree exactly. The 10 that do not are precisely the members whose
+  // casts the source lists twice (§3.3's 84 duplicates), and they disagree in ONE direction:
+  // the JSON is higher, by 84 in total. The JSON is the side that is wrong — it credits
+  // those members with 1,207 items in a parliament that held 1,198, which is impossible on
+  // its face. So this asserts the disagreement rather than tolerating it: an exact match
+  // everywhere else, a known direction and a known magnitude here.
+  let agree = 0;
+  let overCountTotal = 0;
+  const wrongDirection: string[] = [];
+  const mismatched: string[] = [];
+  for (const [ns, slice] of Object.entries(att.byNs)) {
+    for (const e of slice.entries) {
+      const p = pg.get(`${ns}|${e.mpId}`);
+      assert.ok(p, `${ns}:${e.mpId} is in attendance.json but not in mp_attendance`);
+      if (p.items === e.totalItems && p.present === e.presentCount) {
+        agree++;
+        continue;
+      }
+      mismatched.push(`${ns}:${e.mpId}`);
+      if (e.totalItems <= p.items) wrongDirection.push(`${ns}:${e.mpId}`);
+      overCountTotal += e.totalItems - p.items;
+    }
+  }
+  assert.deepEqual(
+    wrongDirection,
+    [],
+    "Postgres counted MORE items than the JSON somewhere — the dedupe filter is the first thing to check",
+  );
+  assert.equal(mismatched.length, 10, `seats disagreeing: ${mismatched.join(", ")}`);
+  assert.equal(
+    overCountTotal,
+    84,
+    "the JSON's excess no longer equals the 84 duplicate casts that explain it",
+  );
+  assert.equal(agree, 2356);
+});
+
+test("mp_similarity reproduces similarity.json's cosine", async (t) => {
+  if (!haveDb || !(await tableExists("mp_similarity"))) return t.skip();
+  const sim = (
+    JSON.parse(
+      readFileSync("data/parliament/votes/derived/similarity.json", "utf8"),
+    ) as { byNs: Record<string, { entries: SimilarityJsonEntry[] }> }
+  ).byNs["52"];
+  const norms = await allRows<{ mp_id: number; norm_sq: string }>(
+    "SELECT mp_id, norm_sq FROM mp_vote_norm WHERE ns = 52",
+  );
+  const n = new Map(norms.map((r) => [Number(r.mp_id), Math.sqrt(Number(r.norm_sq))]));
+
+  // The score is a COSINE over ±1 vote vectors, not an agreement rate — the two are on
+  // different scales and similarityClass.ts's twin thresholds are calibrated on the cosine.
+  // Storing dot + overlap and dividing by the two FULL-vector norms reproduces it to 1e-9
+  // on every pair except the ones touching a double-counted cast, where Postgres has the
+  // lower overlap for the same reason attendance does.
+  let checked = 0;
+  let exact = 0;
+  const off: string[] = [];
+  for (const e of sim.entries.slice(0, 60)) {
+    for (const peer of e.topK.slice(0, 2)) {
+      const [a, b] = e.mpId < peer.mpId ? [e.mpId, peer.mpId] : [peer.mpId, e.mpId];
+      const rows = await allRows<{ overlap: string; dot: string }>(
+        `SELECT overlap, dot FROM mp_similarity WHERE ns = 52 AND a_mp = ${a} AND b_mp = ${b}`,
+      );
+      if (!rows.length) {
+        off.push(`${a}-${b} missing`);
+        continue;
+      }
+      checked++;
+      const na = n.get(e.mpId);
+      const nb = n.get(peer.mpId);
+      if (!na || !nb) continue;
+      const score = Number(rows[0].dot) / (na * nb);
+      if (Math.abs(score - peer.score) < 1e-9 && Number(rows[0].overlap) === peer.overlap) {
+        exact++;
+      }
+    }
+  }
+  assert.deepEqual(off, [], "pairs present in similarity.json but absent from the matview");
+  assert.ok(checked > 80, `only ${checked} pairs compared`);
+  // Not 100%: the pairs touching a double-counted cast legitimately differ, and there are
+  // few enough of them that a floor rather than an exact count is the honest assertion.
+  assert.ok(
+    exact / checked > 0.9,
+    `only ${exact}/${checked} pairs reproduced the JSON cosine exactly`,
+  );
+});
+
+test("mp_dissent groups on the CAST-time party, not the seat's last-seen one", async (t) => {
+  if (!haveDb || !(await tableExists("mp_dissent"))) return t.skip();
+  // The 179 switchers are the whole reason vote_cast carries its own party_id. If
+  // mp_dissent ever joined mp_seat instead, those members would be compared against a group
+  // they had already left — and the symptom is that defectors read as unusually LOYAL,
+  // which is the opposite of what the view is for. This catches it by finding dissent rows
+  // whose party differs from the seat's: they must exist.
+  const r = await one<{ n: string }>(
+    `SELECT count(*) n FROM mp_dissent d
+       JOIN mp_seat s ON s.ns = d.ns AND s.mp_id = d.mp_id
+      WHERE s.party_id IS DISTINCT FROM d.party_id`,
+  );
+  assert.ok(
+    Number(r.n) > 0,
+    "no dissent row disagrees with mp_seat.party_id — the view has started grouping on the seat",
+  );
+});
+
+test("every matview filters the superseded re-votes", async (t) => {
+  if (!haveDb || !(await tableExists("mp_attendance"))) return t.skip();
+  // Rule 1 of 135, asserted rather than trusted. A matview that forgets
+  // `WHERE superseded_by IS NULL` over-counts by 9.8% and returns a 200 while doing it, so
+  // the cheapest reliable check is that no aggregate exceeds the STANDING item count.
+  const bad = await allRows<{ ns: number; items: string; standing: string }>(
+    `SELECT a.ns, max(a.items)::text items,
+            (SELECT count(*)::text FROM vote_item i
+              WHERE i.ns = a.ns AND i.superseded_by IS NULL) standing
+       FROM mp_attendance a GROUP BY a.ns
+      HAVING max(a.items) > (SELECT count(*) FROM vote_item i
+                              WHERE i.ns = a.ns AND i.superseded_by IS NULL)`,
+  );
+  assert.deepEqual(
+    bad,
+    [],
+    "a member voted on more items than their parliament held — the dedupe filter is missing",
+  );
+});
+
+test("party_cohesion reproduces cohesion.json, item-weighted", async (t) => {
+  if (!haveDb || !(await tableExists("party_cohesion"))) return t.skip();
+  const coh = (
+    JSON.parse(
+      readFileSync("data/parliament/votes/derived/cohesion.json", "utf8"),
+    ) as { byNs: Record<string, { entries: CohesionEntry[] }> }
+  ).byNs["52"];
+  const parties = await allRows<{ party_id: number; short: string }>(
+    "SELECT party_id, short FROM party_dim WHERE ns = 52",
+  );
+  const shortOf = new Map(parties.map((p) => [Number(p.party_id), p.short]));
+  // ITEM-weighted, because cohesion.json means over items and the matview stores a
+  // per-DAY mean. Comparing the day-means unweighted looks like a 0.015 error and is not.
+  const rows = await allRows<{ party_id: number; c: string }>(
+    "SELECT party_id, sum(cohesion * items) / sum(items) c FROM party_cohesion WHERE ns = 52 GROUP BY party_id",
+  );
+  let worst = 0;
+  for (const e of coh.entries) {
+    const r = rows.find((x) => shortOf.get(Number(x.party_id)) === e.partyShort);
+    assert.ok(r, `${e.partyShort} missing from party_cohesion`);
+    worst = Math.max(worst, Math.abs(Number(r.c) - e.meanCohesion));
+  }
+  // The residual is the double-counted casts again. The first version of this matview used
+  // a correlated LATERAL that returned one row per distinct vote value and multiplied the
+  // denominator — it read 0.9227 against 0.9704 for ГЕРБ - СДС, and was exact only on
+  // unanimous items, which is exactly why a spot check passed it.
+  assert.ok(
+    worst < 0.001,
+    `cohesion diverges from the JSON by ${worst.toFixed(5)} — check the denominator`,
+  );
+});
+
+test("mp_dissent reproduces dissents.json per member", async (t) => {
+  if (!haveDb || !(await tableExists("mp_dissent"))) return t.skip();
+  const dj = (
+    JSON.parse(
+      readFileSync("data/parliament/votes/derived/dissents.json", "utf8"),
+    ) as { byNs: Record<string, { entries: DissentJsonEntry[] }> }
+  ).byNs["52"];
+  const rows = await allRows<{ mp_id: number; n: string }>(
+    "SELECT mp_id, count(*) n FROM mp_dissent WHERE ns = 52 GROUP BY mp_id",
+  );
+  const pg = new Map(rows.map((r) => [Number(r.mp_id), Number(r.n)]));
+  let exact = 0;
+  for (const e of dj.entries) {
+    if ((pg.get(e.mpId) ?? 0) === e.dissentCount) exact++;
+  }
+  // PER MEMBER, not in total. The tie-break on a split party decides which side dissents,
+  // and getting it backwards flips 4,976 rows while leaving the CORPUS TOTAL correct to
+  // within 1 — so a totals gate passes a view in which only 105 of 268 members are right.
+  assert.ok(
+    exact >= dj.entries.length - 2,
+    `only ${exact}/${dj.entries.length} members reproduce dissents.json — check the mode() tie-break`,
+  );
 });
 
 test("the live-served shapes stay under the Cloud SQL buffer budget", async (t) => {

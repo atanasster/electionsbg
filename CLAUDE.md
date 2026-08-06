@@ -463,7 +463,8 @@ casts loaded from `data/parliament/votes/sessions/*.json`, the same tree the der
 metrics read. In `db:refresh`; on the cloud side:
 
 ```bash
-npm run db:load:rollcall:pg:cloud
+npm run db:load:rollcall:pg:cloud            # facts
+npm run db:load:rollcall-derived:pg:cloud    # the four precomputes — ALWAYS after facts
 ```
 
 Re-run it after **every** `update-rollcall` ingest that added a session; the skill's Step 5b
@@ -478,6 +479,18 @@ affiliation AT CAST TIME: 179 of 2,366 seats change party mid-term, so grouping 
 `mp_seat.party_id` instead compares those members against a group they had already left.
 `rollcall.data.test.ts` holds both, plus the 26 recycled `mp_id`s that make `(ns, mp_id)`
 the only safe key.
+
+**The derived half (migration 135, `db:load:rollcall-derived:pg`)** builds `mp_attendance`,
+`party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
+`scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic
+`mp_similarity`; **minutes on Cloud SQL, unmeasured**. `/api/db/mp-dissents` and
+`/api/db/mp-similarity` read them and DEGRADE to an empty array on `42P01 · 42883 · 55000 ·
+55P03 · 42501` — `55000` is in that set because a matview created `WITH NO DATA` RAISES
+rather than returning zero rows, which is every first deploy; `57014` is deliberately out,
+because it is the pool's own timeout and degrading there turns a 10 s failure into a 20 s
+one. `mp_similarity` stores `dot` + `overlap`, NOT an agreement rate: the score consumers
+are calibrated for is a cosine (`score = dot / (norm_a * norm_b)` via `mp_vote_norm`), and
+substituting a rate would relabel "voting twins" sitewide.
 
 `transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
 crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water

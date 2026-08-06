@@ -58,7 +58,7 @@ export const useMpShard = (
   mpId?: number | null,
   name?: string | null,
   enabled = true,
-): { shard: MpShard | null; isLoading: boolean } => {
+): { shard: MpShard | null; csvId: number | null; isLoading: boolean } => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
   const { mpNames, isLoading: profileLoading } = useMpProfile(enabled);
@@ -86,6 +86,11 @@ export const useMpShard = (
   const stillResolving = enabled && !profileReady && profileLoading;
   return {
     shard: data ?? null,
+    // Exposed so the Postgres tier in useMpDissents / useMpSimilarity keys on the SAME id
+    // this hook resolves. parliament.bg recycles member ids across parliaments — 26 of them
+    // name two different people — so querying with the roster id instead would, for those,
+    // serve another member's record under this one's name.
+    csvId,
     isLoading: stillResolving || (queryEnabled && isLoading),
   };
 };
