@@ -11,6 +11,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { usePreserveParams } from "@/ux/usePreserveParams";
 
 export interface InfographicTileProps {
   /** Destination route. */
@@ -50,6 +51,27 @@ const metricShadow =
 const captionColor =
   "color-mix(in srgb, var(--sector) 40%, hsl(var(--muted-foreground)))";
 
+/** Merge a tile's own query string with the allowlisted params that must survive
+ *  navigation (`elections`, `pscope`, `area`, …).
+ *
+ *  WHY THIS EXISTS. Hub tiles rendered react-router's bare Link, which drops the search
+ *  entirely — so on an NS-scoped hub, selecting the 49th parliament and clicking a tile
+ *  silently landed on the 52nd, because ElectionContext falls back to the latest election.
+ *  `@/ux/Link` is the repo's param-preserving Link and would have been the obvious swap,
+ *  but it appends `"?" + params` unconditionally, which double-appends on a `to` that
+ *  already carries a query (`/persons?role=mp`). So the merge happens here: the tile's own
+ *  params win over the preserved ones, and a tile with no query and no preserved params
+ *  keeps a clean path with no trailing `?`. */
+const useTileHref = (to: string): string => {
+  const preserve = usePreserveParams();
+  const [path, ownQuery] = to.split("?");
+  const merged = preserve(
+    ownQuery ? Object.fromEntries(new URLSearchParams(ownQuery)) : undefined,
+  );
+  const search = merged.toString();
+  return search ? `${path}?${search}` : path;
+};
+
 export const InfographicTile: FC<InfographicTileProps> = ({
   to,
   title,
@@ -62,7 +84,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   metricCaption,
 }) => (
   <Link
-    to={to}
+    to={useTileHref(to)}
     style={{ ["--sector" as string]: accent }}
     className="group relative flex flex-row overflow-hidden rounded-xl border border-border bg-card transition-all duration-150 hover:border-[color-mix(in_srgb,var(--sector)_55%,hsl(var(--border)))] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:flex-col sm:rounded-2xl sm:hover:-translate-y-0.5 motion-reduce:sm:hover:translate-y-0"
   >

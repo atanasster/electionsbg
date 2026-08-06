@@ -216,7 +216,7 @@ export interface SimilarityFile {
 
 // Pre-baked "best cross-party MP" headline served at
 // /parliament/votes/derived/similarity_headline.json (~1 KB gzipped total
-// across all NSes). Drives the hub's ParliamentSimilarityMiniTile so it
+// across all NSes). Seeds the /parliament hub's similarity tile so it
 // doesn't fetch the 1.45 MB similarity aggregate. Detail screens still go
 // through the per-MP shard / aggregate path.
 export interface SimilarityHeadlineTwin {

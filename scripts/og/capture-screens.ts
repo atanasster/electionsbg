@@ -41,6 +41,13 @@ type Capture = {
   // measuring/screenshotting. For pages where the chart is only rendered
   // after a user interaction (e.g. expanding the first accordion item).
   clickFirst?: string;
+  // Per-capture viewport override, applied for this entry and reset afterwards.
+  // The shared context is 1280 wide, which is exactly Tailwind's `xl` breakpoint —
+  // so a responsive tile grid renders FOUR columns there and a 1200px clip slices
+  // the fourth one vertically down the middle. Dropping below 1280 gives three
+  // full-width columns that fit the clip exactly. Use when the page's layout, not
+  // its content, is what the crop is fighting.
+  viewport?: { width: number; height: number };
   // When true, the clip's left edge is pinned to the anchor's left edge (minus
   // a small margin) instead of centered. Best for wide left-to-right content
   // (a table + KPI row) where the identity columns live on the left and the
@@ -259,12 +266,21 @@ const captures: Capture[] = [
   {
     slug: "parliament",
     routePath: "parliament",
-    // Hub has four tiles; the heatmap (correlation tile) has the most visual
-    // weight at OG aspect ratio. Wait for any cell, then anchor the grid.
-    waitFor: 'div[title*="↔"]',
-    anchor: 'div[title*="↔"]',
-    centerOnAnchor: true,
-    settleMs: 2500,
+    // The rebuilt hub is a session strip over a tile grid. This entry used to wait
+    // for `div[title*="↔"]` — a cell inside the party-correlation heatmap tile,
+    // which the rebuild removes — so it would have waited the full 60 s and failed
+    // with nothing on the page to explain why. Anchor on the hub wrapper and
+    // left-align, mirroring the procurement entry, so the card leads with the strip
+    // and the first tiles rather than a crop of one card's interior.
+    waitFor: '[data-og="parliament-hub"] a',
+    anchor: '[data-og="parliament-hub"]',
+    leftAlign: true,
+    // Below `xl`, so the explore band is three full-width tiles rather than four
+    // that the 1200px clip would cut through. §9.4 of the plan exists because the
+    // previous card was a crop taken mid-card; reproducing that with a different
+    // tile would have missed the point.
+    viewport: { width: 1180, height: 1100 },
+    settleMs: 3000,
   },
   {
     slug: "procurement",
@@ -755,7 +771,12 @@ const HIDE_CHROME_CSS = `
   [role="tooltip"]{display:none!important;}
 `;
 
+const DEFAULT_VIEWPORT = { width: 1280, height: 1100 };
+
 const captureOne = async (page: Page, c: Capture): Promise<void> => {
+  // Reset every time rather than only when an override is present, so one entry's
+  // viewport cannot leak into the next capture in the loop.
+  await page.setViewportSize(c.viewport ?? DEFAULT_VIEWPORT);
   const url = `${DEV_URL}/${c.routePath}`;
   await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
   await page.addStyleTag({ content: HIDE_CHROME_CSS + (c.extraCss ?? "") });
@@ -812,7 +833,7 @@ const filter = process.argv.slice(2);
 const main = async () => {
   const browser = await chromium.launch();
   const context = await browser.newContext({
-    viewport: { width: 1280, height: 1100 },
+    viewport: DEFAULT_VIEWPORT,
     deviceScaleFactor: 2,
     locale: "bg-BG",
   });

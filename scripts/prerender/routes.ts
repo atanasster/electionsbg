@@ -2266,7 +2266,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Управленското табло обединява инструментите за следене на изпълнителната и законодателната власт в България: какво гласува парламентът, какво декларират депутатите, как се харчат публичните пари и какъв е макроикономическият контекст. Срещуположното табло — <a href="${SITE_URL}/">Изборите</a> — следи самите парламентарни вотове.</p>
 <h2>Какво ще намерите тук</h2>
 <ul>
-<li><a href="${SITE_URL}/parliament">Парламент</a> — поименни гласувания, кохезия на групите и UMAP проекция на гласовото пространство.</li>
+<li><a href="${SITE_URL}/parliament">Народно събрание</a> — поименни гласувания, кохезия на групите и UMAP проекция на гласовото пространство.</li>
 <li><a href="${SITE_URL}/connections">Декларации на депутатите</a> — имущество, доходи, бизнес роли (Сметна палата + Търговски регистър).</li>
 <li><a href="${SITE_URL}/budget">Държавен бюджет</a> — изпълнение по КФП и програмни отчети по министерства.</li>
 <li><a href="${SITE_URL}/procurement">Обществени поръчки</a> — възложители, изпълнители и потоци от АОП (data.egov.bg).</li>
@@ -4297,13 +4297,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "parliament",
     title:
-      "Парламент — анализ на гласуванията в Народното събрание | electionsbg.com",
+      "Народно събрание — анализ на поименните гласувания | electionsbg.com",
     description:
       "Анализ на поименните гласувания в българското Народно събрание — архив на заседанията, партийна дисциплина, гласови близнаци и UMAP визуализация на гласовото пространство.",
-    breadcrumbName: "Парламент",
+    breadcrumbName: "Народно събрание",
     ogImage: "/og/parliament.png",
     bodyHtml: `
-<h1>Парламент — анализ на гласуванията</h1>
+<h1>Народно събрание — анализ на поименните гласувания</h1>
 <p>Аналитични страници върху поименните гласувания в българското Народно събрание. Данните се извличат от стенограмите на parliament.bg.</p>
 <ul>
 <li><a href="${SITE_URL}/votes">Архив на поименните гласувания</a> по заседания, с разбивка по точка и парламентарна група.</li>
@@ -4313,12 +4313,12 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>`.trim(),
     english: {
       title:
-        "Parliament — Bulgarian National Assembly Voting Analytics | electionsbg.com",
+        "National Assembly — Bulgarian roll-call voting analytics | electionsbg.com",
       description:
         "Roll-call voting analytics for the Bulgarian National Assembly — session archive, group cohesion, voting twins, and a UMAP map of MP voting behaviour.",
-      breadcrumbName: "Parliament",
+      breadcrumbName: "National Assembly",
       bodyHtml: `
-<h1>Parliament — voting analytics</h1>
+<h1>National Assembly — roll-call voting analytics</h1>
 <p>Analytical views over roll-call voting in the Bulgarian National Assembly. Data is sourced from parliament.bg stenograms.</p>
 <ul>
 <li><a href="${SITE_URL}/en/votes">Roll-call vote archive</a>, broken down per item and per parliamentary group.</li>
