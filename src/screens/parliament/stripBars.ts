@@ -26,6 +26,20 @@ export interface BarGeometry {
   /** Segment heights in pixels, summing to exactly `height`. Null when the day carries no
    *  split, in which case the caller draws one solid bar. */
   segments: { yes: number; no: number; abstain: number } | null;
+  /** The same split as FRACTIONS of the day's cast votes — what the pixels are rounded from,
+   *  and the only form of this figure the strip may DISPLAY.
+   *
+   *  The raw counts must never be shown. They are votes summed over every item of the
+   *  sitting, not members: the 52nd's budget day is 219 items, so its tally reads
+   *  „за 15 961" for a chamber of 240. Printed beside a date that is off by two orders of
+   *  magnitude and reads as a headcount — which is exactly what shipped in the first
+   *  tooltip, one commit after hub_feed.ts documented the trap and said the two should
+   *  agree "by construction rather than by anyone remembering to keep them in step".
+   *  Returning the shares from the same function that draws the pixels is that
+   *  construction. */
+  shares: { yes: number; no: number; abstain: number } | null;
+  /** Cast votes that day — the denominator the shares are of. Also not for display. */
+  cast: number;
 }
 
 /** Geometry for one column.
@@ -39,14 +53,20 @@ export const barGeometry = (day: StripDay, peak: number): BarGeometry => {
     peak > 0 ? Math.round(Math.sqrt(day.items / peak) * MAX_BAR_PX) : 0;
   const height = Math.max(raw, MIN_BAR_PX);
   const cast = day.tally ? day.tally.yes + day.tally.no + day.tally.abstain : 0;
-  if (!day.tally || cast === 0) return { height, segments: null };
+  if (!day.tally || cast === 0)
+    return { height, segments: null, shares: null, cast: 0 };
+  const shares = {
+    yes: day.tally.yes / cast,
+    no: day.tally.no / cast,
+    abstain: day.tally.abstain / cast,
+  };
   // Scaled against the RENDERED height, and the last segment takes the remainder rather than
   // its own rounding — so the three always sum to exactly `height` and no column shows a
   // hairline of card colour where three roundings fell short.
-  const yes = Math.max(0, Math.round((day.tally.yes / cast) * height));
-  const no = Math.max(0, Math.round((day.tally.no / cast) * height));
+  const yes = Math.max(0, Math.round(shares.yes * height));
+  const no = Math.max(0, Math.round(shares.no * height));
   const abstain = Math.max(0, height - yes - no);
-  return { height, segments: { yes, no, abstain } };
+  return { height, segments: { yes, no, abstain }, shares, cast };
 };
 
 /** The three colours, declared once. The legend above the strip and the segments inside it

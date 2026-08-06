@@ -38,9 +38,6 @@ import { useTooltip } from "@/ux/useTooltip";
 
 /** Tooltip order — base of the column upward, matching the stack. */
 const SEGMENT_ORDER = ["yes", "no", "abstain"] as const;
-/** The colour key names the SEGMENT; the tally names the VOTE. They coincide today and the
- *  map is here so a renamed segment cannot silently read the wrong figure. */
-const VOTE_KEY = { yes: "yes", no: "no", abstain: "abstain" } as const;
 
 export const ParliamentSessionStrip: FC<{
   /** hub_feed's sittings for the selected parliament. When present it supplies BOTH the
@@ -68,6 +65,15 @@ export const ParliamentSessionStrip: FC<{
   // parsed as UTC midnight; formatting them in the viewer's zone renders 2026-07-31 as
   // "30.07" for everyone west of UTC, so the label and the /votes/<date> it links to
   // disagree by a day. Caught on a UTC−4 machine, where every column was off by one.
+  const pct = useMemo(
+    () =>
+      new Intl.NumberFormat(i18n.language === "bg" ? "bg-BG" : "en-GB", {
+        style: "percent",
+        maximumFractionDigits: 0,
+      }),
+    [i18n.language],
+  );
+
   const dayLabel = useMemo(
     () =>
       new Intl.DateTimeFormat(i18n.language === "bg" ? "bg-BG" : "en-GB", {
@@ -131,7 +137,7 @@ export const ParliamentSessionStrip: FC<{
               // SHARE of the day's CAST votes; height still counts items. Cast votes, not the
               // roll, because a fourth "absent" segment would put a member who did not vote
               // inside a picture of how the chamber voted, and absence has its own tile.
-              const { height, segments } = barGeometry(day, peak);
+              const { height, segments, shares } = barGeometry(day, peak);
               const label = dayLabel.format(new Date(`${day.date}T00:00:00Z`));
               return (
                 // A gap carries no information a screen reader can use — without
@@ -154,7 +160,7 @@ export const ParliamentSessionStrip: FC<{
                             <span className="tabular-nums">
                               {day.items} {itemsWord}
                             </span>
-                            {day.tally ? (
+                            {shares ? (
                               <ul className="flex flex-col gap-0.5">
                                 {SEGMENT_ORDER.map((key) => (
                                   <li
@@ -171,8 +177,12 @@ export const ParliamentSessionStrip: FC<{
                                     <span className="text-muted-foreground">
                                       {t(`nsh_strip_legend_${key}`)}
                                     </span>
+                                    {/* SHARES, never the raw counts. Those are votes summed
+                                      over every item of the day, so a 219-item sitting
+                                      reads „за 15 961" in a chamber of 240 — and the share
+                                      is what the segment beside it is drawn from anyway. */}
                                     <span className="ml-auto tabular-nums">
-                                      {day.tally![VOTE_KEY[key]]}
+                                      {pct.format(shares[key])}
                                     </span>
                                   </li>
                                 ))}
@@ -186,8 +196,11 @@ export const ParliamentSessionStrip: FC<{
                       }
                       onMouseLeave={onMouseLeave}
                       aria-label={
-                        day.tally
-                          ? `${label} — ${day.items} ${itemsWord}, ${t("nsh_strip_legend_yes")} ${day.tally.yes}, ${t("nsh_strip_legend_no")} ${day.tally.no}, ${t("nsh_strip_legend_abstain")} ${day.tally.abstain}`
+                        // The SAME shares the tooltip prints, so what is announced and what
+                        // is shown cannot diverge — and so a screen-reader user is not the
+                        // only one handed the raw 15,961.
+                        shares
+                          ? `${label} — ${day.items} ${itemsWord}, ${t("nsh_strip_legend_yes")} ${pct.format(shares.yes)}, ${t("nsh_strip_legend_no")} ${pct.format(shares.no)}, ${t("nsh_strip_legend_abstain")} ${pct.format(shares.abstain)}`
                           : `${label} — ${day.items} ${itemsWord}`
                       }
                       className="flex w-full flex-col-reverse overflow-hidden rounded-t-[2px] opacity-75 transition-opacity hover:opacity-100"

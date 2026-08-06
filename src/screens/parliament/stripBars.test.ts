@@ -73,4 +73,33 @@ describe("barGeometry", () => {
     assert.ok(small >= 14, `a 14-item day drew ${small}px against a 237 peak`);
     assert.ok(small < barGeometry(day(237), 237).height);
   });
+
+  test("shares are what the pixels are rounded from, and sum to 1", () => {
+    // The strip must DISPLAY the share, never the raw tally: those are votes summed over
+    // every item of the day, so the 52nd's 219-item budget sitting reads „за 15 961" in a
+    // chamber of 240. Returning both from one function is what keeps the number the tooltip
+    // prints and the pixels the bar draws from drifting apart — they did, one commit after
+    // hub_feed.ts documented the trap.
+    const { height, segments, shares, cast } = barGeometry(
+      day(219, { yes: 15961, no: 9708, abstain: 17710 }),
+      237,
+    );
+    assert.ok(shares && segments);
+    assert.equal(cast, 15961 + 9708 + 17710);
+    assert.ok(Math.abs(shares.yes + shares.no + shares.abstain - 1) < 1e-12);
+    // Every share is a fraction — anything above 1 means a count leaked into the field the
+    // tooltip formats as a percentage.
+    for (const v of Object.values(shares))
+      assert.ok(v >= 0 && v <= 1, `share ${v}`);
+    // And the pixels follow them: yes is the smallest share here, so it is not the tallest
+    // segment.
+    assert.ok(segments.abstain >= segments.yes);
+    assert.equal(segments.yes + segments.no + segments.abstain, height);
+  });
+
+  test("a day with no split has no shares either", () => {
+    const g = barGeometry(day(12), 219);
+    assert.equal(g.shares, null);
+    assert.equal(g.cast, 0);
+  });
 });
