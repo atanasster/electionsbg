@@ -173,6 +173,24 @@ const missingMigrationRows = (e) =>
 // request has already burned its full budget. Degrading there would turn a 10 s failure
 // into a ~20 s one while still holding a pooled connection, under exactly the saturation
 // that caused the timeout. Degrading is only correct when it beats failing.
+// Reads of a plain TABLE, which fails differently from a matview.
+//
+// 55000 is dropped: a table is never "not populated" — that state belongs to a matview
+// created WITH NO DATA. 42501 is dropped for a sharper reason: a missing GRANT on a table
+// is PERMANENT, not a refresh artifact, so degrading it would serve an empty day at a 200
+// for ever on a Cloud SQL database that never received 134's grants. That is precisely the
+// silent-wrong-answer shape the degrade contract exists to avoid, so it must 500 and be
+// noticed. 42P01 (table absent — a database before the migration) and 55P03 (a reload
+// holding the lock) remain.
+const tableRows = (label, loader) => (e) => {
+  if (!["42P01", "55P03"].includes(e?.code)) return Promise.reject(e);
+  logMissOnce(
+    `rc:table-miss:${label}:${e.code}`,
+    `${label}: read failed (${e.code}) — serving empty. Run ${loader}.`,
+  );
+  return [];
+};
+
 const matviewRows = (label) => (e) => {
   if (!["42P01", "42883", "55000", "55P03", "42501"].includes(e?.code)) {
     return Promise.reject(e);
@@ -2911,6 +2929,76 @@ const DB_ROUTES = {
       lim,
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
+  },
+  // One plenary day: every item with its title, slug, topic and tally (134 vote_item).
+  //
+  // Replaces the day-level half of useRollcallSession, which fetches the whole session file
+  // — 482 KB on an average day and 4.97 MB on 2025-06-19 — because that file carries every
+  // MP's vote on every item. This returns the agenda and the tallies; the per-MP matrix is
+  // a separate call, made only for the item a reader actually opens.
+  //
+  // Includes the superseded re-votes, unlike every aggregate: an item put to the floor
+  // twice IS a fact about the day, and this route is the day's record rather than a
+  // statistic over it. `superseded_by` is returned so the page can say so.
+  "session": async (dbRows, q) => {
+    const date = s(q, "date");
+    // Shape AND validity. The regex alone admits 2026-13-45, which Postgres rejects with
+    // 22007 — a 500 on a malformed query string rather than an empty day.
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return { body: null };
+    const parsed = new Date(`${date}T00:00:00Z`);
+    if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) {
+      return { body: null };
+    }
+    const rows = await dbRows(
+      `SELECT item_id, item_no, slug, title, topic, reading, superseded_by,
+              yes, no, abstain, absent, ns
+         FROM vote_item
+        WHERE date = $1
+        -- ns in the sort key because UNIQUE (ns, date, item_no) PERMITS one date to carry
+        -- two parliaments' items. It never has (a dissolution and a first sitting have not
+        -- fallen on the same day), but item_no alone would interleave them if it ever did,
+        -- and the ns reported below would then depend on sort order.
+        ORDER BY ns, item_no`,
+      [date],
+    ).catch(tableRows("vote_item", "db:load:rollcall:pg"));
+    if (!rows.length) return { body: null };
+    const nsSet = [...new Set(rows.map((r) => r.ns))];
+    return {
+      body: {
+        date,
+        ns: nsSet[0],
+        // Named rather than silently dropped: a day spanning two parliaments is a real
+        // event this corpus has not yet seen, and the caller should know rather than be
+        // handed the first one as if it were the whole story.
+        ...(nsSet.length > 1 ? { spansNs: nsSet } : {}),
+        items: rows,
+      },
+    };
+  },
+  // The per-MP votes for ONE item — the hemicycle, fetched when a reader expands a row.
+  //
+  // Driven from an explicit item id rather than a join on date, because the planner gets
+  // this shape wrong at the default random_page_cost: a seq scan over the 4M-row fact table
+  // costs 21,904 buffers against 1,023 for the nested loop, and prod is a db-g1-small with
+  // a 10 s statement_timeout. One item is a PK range scan and cannot be planned any other
+  // way.
+  "session-item": async (dbRows, q) => {
+    // Parsed before clamping, not after: clampInt(q.item, 0, 1, …) returns 1 for `0`, for a
+    // negative and for junk, so `?item=0` served item 1's per-MP votes under someone else's
+    // heading.
+    const raw = Number(s(q, "item"));
+    if (!Number.isInteger(raw) || raw < 1 || raw > 100000000) return { body: [] };
+    const itemId = raw;
+    const rows = await dbRows(
+      `SELECT c.mp_id, c.vote, s.name, p.short AS party
+         FROM vote_cast c
+         LEFT JOIN mp_seat s ON s.ns = c.ns AND s.mp_id = c.mp_id
+         LEFT JOIN party_dim p ON p.party_id = c.party_id
+        WHERE c.item_id = $1
+        ORDER BY c.mp_id`,
+      [itemId],
+    ).catch(tableRows("vote_cast", "db:load:rollcall:pg"));
+    return { body: rows };
   },
   // Attendance for one parliament (135 mp_attendance) — the /parliament/attendance table.
   // Replaces a 500 KB whole-corpus fetch with one indexed scan of ~270 rows.

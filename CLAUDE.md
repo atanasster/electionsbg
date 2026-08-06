@@ -480,6 +480,27 @@ affiliation AT CAST TIME: 179 of 2,366 seats change party mid-term, so grouping 
 `rollcall.data.test.ts` holds both, plus the 26 recycled `mp_id`s that make `(ns, mp_id)`
 the only safe key.
 
+**`/api/db/session?date=` + `/api/db/session-item?item=`** split the day file that
+`/votes/<date>` currently downloads whole — 482 KB on an average day, 4.97 MB on
+2025-06-19, because that file carries every MP's vote on every item. The day route is the
+agenda and the tallies (14 buffers); the item route is one item's per-MP votes (~64 — the
+PK scan is 7, and the joins onto `mp_seat` and `party_dim` for names and party labels are
+the rest). Neither can be planned into the seq scan that costs 21,904 buffers, because the
+item route is driven from an explicit `item_id` rather than a join on date.
+
+Unlike every matview, the day route does **not** filter `superseded_by`: it is the day's
+RECORD rather than a statistic over it, and a motion put to the floor twice is a fact about
+the day.
+
+**`SessionScreen` is not yet on these routes**, and `data/parliament/votes/sessions/` is
+still bucket-served. Retiring it needs, in order: the screen moved onto the two routes
+(it currently reads `mpNames`, `mpParty` and every item's `votes` from the file);
+the routes verified on prod; then `bucket_sync_paths.ts` gaining BOTH an `isExcluded`
+refusal and a `CHILD_EXCLUDES` entry for `parliament/votes/sessions` — one without the
+other still lets `bucket:sync:paths -- parliament` re-upload all 613 files; then a scoped
+`--delete`. The files stay on disk either way: they are the loader's input AND the
+prerender's fact source (`scripts/prerender/votesFacts.ts`).
+
 **The derived half (migration 135, `db:load:rollcall-derived:pg`)** builds `mp_attendance`,
 `party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
 `scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic
