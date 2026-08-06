@@ -107,7 +107,7 @@ test("renderIntoShell replaces the head and body, keeping the bundle", () => {
   assert.ok(!html.includes('content="homepage"'));
   assert.ok(!html.includes('href="https://electionsbg.com/" />'));
   // … replaced by this page's, and the SPA bundle survives.
-  assert.ok(html.includes("<title>Подкрепа за малки предприятия"));
+  assert.ok(html.includes("<title>НК &quot;ЖИ&quot; ЕАД — договор BG16RFOP002-2.089-0001"));
   assert.ok(html.includes('canonical" href="https://electionsbg.com/funds/contract/x"'));
   assert.ok(html.includes("/assets/index-abc123.js"));
   assert.ok(html.includes('<div id="root">'));
@@ -122,6 +122,94 @@ test("the English page does not claim lang=bg", () => {
   assert.ok(html.includes('<html lang="en"'));
   assert.ok(!html.includes('<html lang="bg"'));
   assert.ok(html.includes("Contracted"));
+});
+
+// The row exactly as fund_projects holds it for the contract that surfaced the
+// defect. ИСУН's beneficiary field is title-case ("Национал - 2009 ЕООД"); the
+// all-caps "НАЦИОНАЛ - 2009 ЕООД" a reader sees on the page is the PROJECT
+// title's spelling, and the <title> is built from the beneficiary field.
+const NATIONAL_2009 = {
+  contractNumber: "BG16RFPR001-1.004-2616",
+  title:
+    "Подобряване на производствения капацитет в семейното предприятие НАЦИОНАЛ - 2009 ЕООД",
+  beneficiaryEik: "205308765",
+  beneficiaryName: "Национал - 2009 ЕООД",
+  programCode: "2021BG16RFPR001",
+  programName:
+    'Програма "Конкурентоспособност и иновации в предприятията" 2021-2027',
+  totalEur: 91887,
+  paidEur: 0,
+  status: "В изпълнение",
+  locationRaw: "гр.Хисаря",
+};
+
+// Roughly what a SERP renders before it truncates. Not a promise about Google —
+// the point is that the whole beneficiary name fits inside any plausible cut,
+// so no rewrite can leave a reader with a fragment of a company name.
+const SERP_CHARS = 60;
+
+test("a hyphenated company name reaches the SERP whole, not as its tail", () => {
+  // Google rendered "2009 ЕООД — договор BG16RFPR001-1.004-2616" for this page:
+  // a contiguous slice of a 145-char <title> that begins mid-company-name and
+  // reads as a different company. Both languages, through the full shell
+  // splice, since that is what the crawler is served.
+  for (const [lang, url] of [
+    ["bg", "https://electionsbg.com/funds/contract/BG16RFPR001-1.004-2616"],
+    ["en", "https://electionsbg.com/en/funds/contract/BG16RFPR001-1.004-2616"],
+  ]) {
+    const html = renderIntoShell(
+      SHELL,
+      contractPage(NATIONAL_2009, lang, url),
+    );
+    const title = /<title>([^<]*)<\/title>/.exec(html)[1];
+    const visible = title.slice(0, SERP_CHARS);
+
+    // The name is present in full, and the segment before the hyphen — the part
+    // that went missing — is inside the rendered window, not past the cut.
+    assert.ok(
+      visible.includes("Национал - 2009 ЕООД"),
+      `beneficiary not whole in the first ${SERP_CHARS} chars: ${visible}`,
+    );
+    // "2009 ЕООД" must never be what the title leads with.
+    assert.ok(!title.startsWith("2009 ЕООД"));
+    assert.ok(title.startsWith("Национал - 2009 ЕООД"));
+    // The contract number survives the cut too, so the exact-match query for it
+    // still shows a title a human can identify.
+    assert.ok(visible.includes("BG16RFPR001-1.004-2616"), visible);
+  }
+});
+
+test("the scheme label never leads the contract <title>", () => {
+  // 61% of the 82,011 ИСУН contracts share their first 65 title characters with
+  // another contract, and one scheme prefix covers 23,622 of them — so leading
+  // with row.title made the whole rendered SERP slice identical across
+  // thousands of sibling pages, and Google rewrote it into what looked like a
+  // truncated company name. The beneficiary and the contract number are what
+  // distinguish the page, so both must land inside the first 60 characters.
+  const page = contractPage(
+    {
+      ...CONTRACT,
+      title:
+        "Преодоляване недостига на средства и липсата на ликвидност, настъпили в резултат от епидемичния взрив от COVID-19",
+    },
+    "bg",
+    "https://electionsbg.com/funds/contract/x",
+  );
+  assert.ok(!page.title.startsWith("Преодоляване"));
+  assert.ok(page.title.slice(0, 60).includes('НК "ЖИ" ЕАД'));
+  assert.ok(page.title.slice(0, 60).includes("BG16RFOP002-2.089-0001"));
+  // The scheme label is not lost — it is still the <h1> and the crawlable body.
+  assert.ok(page.bodyHtml.includes("<h1>Преодоляване недостига"));
+});
+
+test("a beneficiary name long enough to bury the contract number is cut", () => {
+  const page = contractPage(
+    { ...CONTRACT, beneficiaryName: "Сдружение ".repeat(20).trim() },
+    "bg",
+    "https://electionsbg.com/funds/contract/x",
+  );
+  assert.ok(page.title.includes("…"));
+  assert.ok(page.title.includes("договор BG16RFOP002-2.089-0001"));
 });
 
 test("ИСУН text is escaped — names routinely carry quotes", () => {
@@ -227,7 +315,7 @@ test("handleSpaPageRequest serves a matched contract", async () => {
   );
   assert.equal(handled, true);
   assert.equal(res.statusCode, 200);
-  assert.ok(res.body.includes("<title>Подкрепа за малки предприятия"));
+  assert.ok(res.body.includes("<title>НК &quot;ЖИ&quot; ЕАД — договор BG16RFOP002-2.089-0001"));
 });
 
 test("HEAD is served — link checkers and half the crawlers use it", async () => {
@@ -334,7 +422,7 @@ test("a shell fetch failure still serves correct head tags", async () => {
     }),
   );
   assert.equal(handled, true);
-  assert.ok(res.body.includes("<title>Подкрепа за малки предприятия"));
+  assert.ok(res.body.includes("<title>НК &quot;ЖИ&quot; ЕАД — договор BG16RFOP002-2.089-0001"));
   assert.ok(res.body.includes("BG16RFOP002-2.089-0001"));
 });
 

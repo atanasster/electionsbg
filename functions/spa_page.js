@@ -56,9 +56,10 @@ const jsonLdScript = (obj) =>
     .replace(/<\//g, "<\\/")
     .replace(/<!--/g, "<\\!--")}</script>`;
 
-/** Cut a label to `max` chars on a word boundary. ИСУН contract titles run past
- *  300 characters (the COVID schemes spell out the whole eligibility rule), and
- *  a 340-char <title> is not a title. */
+/** Cut a label to `max` chars on a word boundary. ИСУН free text is unbounded —
+ *  contract titles run past 300 characters (the COVID schemes spell out the
+ *  whole eligibility rule) and beneficiary names reach 199 — and a 340-char
+ *  <title> is not a title. */
 const truncateAtWord = (text, max) => {
   const t = String(text ?? "");
   if (t.length <= max) return t;
@@ -131,13 +132,28 @@ const safeDecode = (s) => {
   }
 };
 
-/** The <head> block and the crawlable body for one contract. */
+/** The <head> block and the crawlable body for one contract.
+ *
+ *  The ИСУН project name leads the <h1>, but it must NOT lead the <title>: it
+ *  is a scheme label, not a per-contract one. 61% of the 82,011 contracts share
+ *  their first 65 characters with another contract, and one prefix alone
+ *  ("Преодоляване недостига на средства и липсата на ликвидност…") covers
+ *  23,622 of them — so the ~60 characters a SERP actually renders were byte-
+ *  identical across thousands of siblings. Google rewrote the title rather than
+ *  truncating it, and the slice it kept read as a mangled company name:
+ *  "2009 ЕООД — договор BG16RFPR001-1.004-2616" for a beneficiary whose name is
+ *  "Национал - 2009 ЕООД". Beneficiary + contract number is unique on the first
+ *  60 characters for 97% of the corpus, and is what a human searches, so it
+ *  leads instead. The project name is not lost — it is still the <h1>, the
+ *  JSON-LD name and the crawlable body. */
 const contractPage = (row, lang, selfUrl) => {
   const bg = lang === "bg";
-  const shortTitle = truncateAtWord(row.title, 90);
+  // Beneficiary names reach 199 chars (p50 16, p90 33); cut the tail rather
+  // than let one push the contract number out of the rendered slice.
+  const who = truncateAtWord(row.beneficiaryName || row.title, 60);
   const title = bg
-    ? `${shortTitle} — договор ${row.contractNumber} | Европейски средства`
-    : `${shortTitle} — contract ${row.contractNumber} | EU funds`;
+    ? `${who} — договор ${row.contractNumber} | Европейски средства`
+    : `${who} — contract ${row.contractNumber} | EU funds`;
   const description = bg
     ? `${row.beneficiaryName} по ${row.programName}: ${eur(row.totalEur, lang)} договорени, ${eur(row.paidEur, lang)} изплатени. Договор ${row.contractNumber} от регистъра на ИСУН 2020.`
     : `${row.beneficiaryName} under ${row.programName}: ${eur(row.totalEur, lang)} contracted, ${eur(row.paidEur, lang)} paid. Contract ${row.contractNumber} from the ИСУН 2020 register.`;
