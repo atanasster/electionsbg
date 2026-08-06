@@ -2820,6 +2820,15 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {/* Picker; `/votes/between/:pair` below is one pair. */}
+          <Route
+            path="votes/between"
+            element={
+              <LayoutScreen>
+                <PartyPairBreaksScreen />
+              </LayoutScreen>
+            }
+          />
           <Route
             path="votes/between/:pair"
             element={
@@ -2849,6 +2858,16 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ParliamentAttendanceScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The picker. `/parliament/similarity/:mpId` below is one member's ranking; this
+              is how a reader reaches it without the hub having to seed a stranger. */}
+          <Route
+            path="parliament/similarity"
+            element={
+              <LayoutScreen>
+                <MpSimilarityScreen />
               </LayoutScreen>
             }
           />

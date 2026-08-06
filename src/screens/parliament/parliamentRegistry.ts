@@ -124,16 +124,20 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
         id: "similarity",
         titleKey: "nsh_tile_similarity",
         descKey: "nsh_tile_similarity_desc",
-        to: "/parliament/similarity/:mpId",
-        seed: "similarity",
+        // The PICKER, not a seeded member. It used to point at
+        // /parliament/similarity/:mpId with a seed the generator chose, so a reader landed
+        // on a stranger's ranking and the tile omitted itself entirely whenever the seed
+        // was missing. The page now opens on a chooser and keeps it on screen.
+        to: "/parliament/similarity",
         accent: TILE_ACCENTS.aqua,
       },
       {
         id: "pair",
         titleKey: "nsh_tile_pair",
         descKey: "nsh_tile_pair_desc",
-        to: "/votes/between/:pair",
-        seed: "pair",
+        // The PICKER. Same change as the similarity tile, same reason: it pointed at a
+        // generator-chosen pair, so the reader landed on two groups somebody else picked.
+        to: "/votes/between",
         accent: TILE_ACCENTS.terracotta,
       },
     ],

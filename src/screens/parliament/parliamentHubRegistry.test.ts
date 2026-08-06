@@ -29,11 +29,13 @@ import { PARLIAMENT_SCENES } from "./parliamentScenes";
  *  routes.tsx so that deleting a route breaks the test loudly. */
 const ROUTED_PATTERNS = [
   "/votes",
+  "/votes/between",
   "/votes/between/:pair",
   "/parliament/correlation",
   "/parliament/embedding",
   "/parliament/cohesion",
   "/parliament/attendance",
+  "/parliament/similarity",
   "/parliament/similarity/:mpId",
   "/persons",
   "/governance/declarations",
@@ -112,10 +114,32 @@ describe("the /parliament hub registry", () => {
     }
   });
 
-  test("a seeded tile resolves when its seed is present and is omitted when it is not", () => {
-    const seeded = PARLIAMENT_TILES.filter((t) => t.seed);
-    assert.ok(seeded.length >= 2, "expected the similarity and pair tiles");
-    for (const tile of seeded) {
+  test("no tile is seeded any more, and the resolver still handles one correctly", () => {
+    // BOTH seeded tiles became pickers. /parliament/similarity and /votes/between now open
+    // on a chooser, so the hub no longer has to name a member or a pair on the reader's
+    // behalf — which was the whole reason a seed existed, and the reason those two tiles
+    // could vanish entirely when the generator produced none.
+    assert.deepEqual(
+      PARLIAMENT_TILES.filter((t) => t.seed).map((t) => t.id),
+      [],
+      "a tile is seeded again — prefer a picker page unless there is a reason not to",
+    );
+
+    // The machinery stays and stays TESTED, against a synthetic tile rather than a live
+    // one. It is the guard for the next seeded destination, and an untested guard is not
+    // one; the case that matters is the ABSENT seed, where the alternative to omitting the
+    // tile is rendering a link with a raw `:param` in it that 404s.
+    const synthetic = [
+      {
+        id: "synthetic",
+        titleKey: "x",
+        descKey: "x",
+        to: "/parliament/similarity/:mpId",
+        seed: "similarity" as const,
+        accent: "#000",
+      },
+    ];
+    for (const tile of synthetic) {
       const resolved = resolveDestination(tile, { [tile.seed!]: "SEED" });
       assert.ok(resolved, `tile '${tile.id}' did not resolve with a seed`);
       assert.ok(
@@ -162,10 +186,9 @@ describe("the /parliament hub registry", () => {
     }
   });
 
-  test("the four sub-pages the module owns are all reachable from the hub", () => {
+  test("every sub-page the module owns is reachable from the hub", () => {
     // The reachability half of §11: /parliament/* pages that exist but are linked from
-    // nowhere are the 28-orphan reports gap repeating. /parliament/similarity is covered
-    // by its seeded tile, which is why the pattern rather than a concrete href is checked.
+    // nowhere are the 28-orphan reports gap repeating.
     const destinations = new Set(PARLIAMENT_TILES.map((t) => patternOf(t.to)));
     for (const owned of [
       "/votes",
@@ -173,12 +196,34 @@ describe("the /parliament hub registry", () => {
       "/parliament/embedding",
       "/parliament/cohesion",
       "/parliament/attendance",
-      "/parliament/similarity/:mpId",
-      "/votes/between/:pair",
+      "/parliament/similarity",
+      "/votes/between",
     ]) {
       assert.ok(
         destinations.has(owned),
         `${owned} is routed but no hub tile links to it`,
+      );
+    }
+  });
+
+  test("the parameterised routes are reached through their pickers, not from the hub", () => {
+    // /parliament/similarity/:mpId and /votes/between/:pair are still routed and still the
+    // page a reader ends up on — they are simply no longer the hub's business. Asserted
+    // rather than left implicit, because "the hub links to it" was how this file previously
+    // proved they were reachable at all, and dropping that without replacing it would have
+    // quietly retired the check.
+    const destinations = new Set(PARLIAMENT_TILES.map((t) => patternOf(t.to)));
+    for (const [param, picker] of [
+      ["/parliament/similarity/:mpId", "/parliament/similarity"],
+      ["/votes/between/:pair", "/votes/between"],
+    ]) {
+      assert.ok(
+        !destinations.has(param),
+        `${param} is a hub destination again — the hub should link to ${picker}`,
+      );
+      assert.ok(
+        destinations.has(picker),
+        `${picker} must be a hub destination, or ${param} becomes unreachable`,
       );
     }
   });
