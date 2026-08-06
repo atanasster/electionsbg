@@ -490,6 +490,56 @@ describe("renderPlaceCard", () => {
     expect(png.length).toBeGreaterThan(10_000);
   });
 
+  it("carries cells AND benchmarks in one band, in portrait", () => {
+    // The full card: four zones, three absolute-figure cells, three benchmark
+    // rows. This does not fit a square and is the reason `portrait` exists.
+    const png = renderPlaceCard({
+      ...place,
+      format: "portrait",
+      municipality: {
+        label: benchBand.label,
+        cells: [
+          {
+            label: "висше образование",
+            value: "13,2%",
+            note: "безработица 14,6%",
+          },
+          { label: "евросредства", value: "20,70 млн. €", note: "54 проекта" },
+          {
+            label: "обществени поръчки",
+            value: "33,5 млн. €",
+            note: "8 възложители",
+          },
+        ],
+        benchmarks: benchBand.benchmarks.slice(0, 3),
+      },
+    });
+    expect(png.readUInt32BE(16)).toBe(1080);
+    expect(png.readUInt32BE(20)).toBe(1350);
+  });
+
+  it("defaults to a 1080 square when no format is given", () => {
+    const png = renderPlaceCard(place);
+    expect(png.readUInt32BE(16)).toBe(1080);
+    expect(png.readUInt32BE(20)).toBe(1080);
+  });
+
+  it("still refuses when portrait's extra height is not enough", () => {
+    // Portrait buys 270px, not a licence to stack everything: four zones plus
+    // cells plus FOUR benchmark rows is still 263px a zone.
+    expect(() =>
+      renderPlaceCard({
+        ...place,
+        format: "portrait",
+        municipality: {
+          label: benchBand.label,
+          cells: [{ label: "висше образование", value: "13,2%" }],
+          benchmarks: benchBand.benchmarks,
+        },
+      }),
+    ).toThrow(/do not fit/);
+  });
+
   it("refuses a four-row band under a two-row grid rather than garbling it", () => {
     // The trade-off is real and the geometry is fixed: four benchmark rows cost
     // 272px, which leaves 202px a zone across two grid rows. That overprints the

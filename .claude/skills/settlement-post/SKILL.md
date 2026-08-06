@@ -190,11 +190,11 @@ Then a full-width **municipality band** with its own rule, label and population
 (`ОБЩИНА X · N ЖИТЕЛИ`). **The band header is what makes mixing two grains
 honest** — the reader must never be in doubt which grain they are reading.
 
-The band has **two mutually exclusive forms**; `benchmarks` wins when both are
-passed.
+The band has **two forms, and they STACK** — pass either or both, under one
+header.
 
-- **`cells` — the profile form.** Three cells: EU funds, procurement, and a
-  first cell that is **education+employment or ethnic composition, whichever
+- **`cells` — the profile form.** Up to three cells: EU funds, procurement, and
+  a first cell that is **education+employment or ethnic composition, whichever
   the operator picked in Step 7**. Ask before you build the band; do not fill
   that cell on your own judgement.
 - **`benchmarks` — the comparison form.** Up to four full-width rows, each
@@ -202,6 +202,12 @@ passed.
   place, a **tick** for the reference, the value right-aligned, and an optional
   `note` for a rank. Use it when the post's claim is *"this place beats its
   peers"* rather than *"this is what this place looks like"*.
+
+**Prefer both to either.** The cells carry the magnitudes (`20,70 млн. €`,
+`54 проекта`) and the benchmarks carry the ranking of those magnitudes — a
+card with only benchmarks tells the reader this place is №1 without ever saying
+№1 at *what size*, and a card with only cells gives a number with nothing to
+judge it against.
 
 **Every governance KPI is municipality-grain, so it belongs in the band and
 nowhere else.** Procurement competition, EU-funds capacity, project density and
@@ -217,13 +223,24 @@ euro figure or a rate per 1 000. Nothing is colour-coded good/bad: the bar
 passing the tick or falling short of it is the whole message, and the direction
 belongs in the label and the copy.
 
-**The band trades against the grid, and the geometry is fixed at 1080px.** A
-benchmark row costs 68px, and a zone needs 268px. So **four benchmark rows admit
-only ONE grid row — at most two zones**; a full four-zone grid admits at most
-two rows. The renderer refuses rather than garbles (see below), so a card that
-wants both will throw and you drop a zone. For a governance-performance post the
-zone to drop is `vote`: a parliamentary result is a different story from how the
-municipality runs its money.
+**The band trades against the grid, so pick the canvas first.** A benchmark row
+costs 68px, a cells row 132px, and a zone needs 268px. `format` decides how much
+there is to spend:
+
+| `format` | canvas | what fits |
+|---|---|---|
+| `"square"` (default) | 1080×1080 | 4 zones + **either** 3 cells **or** 2 benchmark rows |
+| `"portrait"` | 1080×1350 | 4 zones + 3 cells + **3 benchmark rows** |
+
+**Reach for `portrait` as soon as the band carries both forms** — the full card
+does not fit a square, and 1080×1350 is Facebook's tallest uncropped feed ratio
+(4:5), so it costs nothing and gains feed height. Anything taller than 4:5 is
+cropped in feed, which is why there is no third option.
+
+Portrait buys 270px, not a licence to stack everything: four zones + cells +
+**four** benchmark rows is still 263px a zone and throws. Drop to three
+benchmark rows (fold two rows that tell the same story — "еднооферни поръчки"
+and "средно оферти на поръчка" are one claim about competition), or drop a zone.
 
 Ranks and medians are computed over the **265 общини** — fold Sofia's 24 `S**`
 district codes into one Столична община and drop the six abroad pseudo-codes
@@ -292,13 +309,15 @@ Spec shape — every zone optional, `place` and `source` required:
                                { "label": "етнически състав",
                                  "split": [{ "label": "българи", "value": 81.4, "color": "…" }, …],
                                  "splitCaption": ["българи 81,4%", "роми 15,3%"] } ] },  // ≤3
-  // …or, instead of `cells`, the comparison form (≤4 rows, costs 68px each):
+  // …and/or, in the SAME band, the comparison form (≤4 rows, 68px each):
   "municipality": { "label": "община Малко Търново · 2 628 жители",
+                    "cells": [ … ],                        // magnitudes
                     "benchmarks": [ { "label": "еднооферни поръчки на общината",
                                       "value": 28.0, "valueLabel": "28,0%",
                                       "reference": 43.4,
                                       "referenceLabel": "43,4% средно за страната",
                                       "note": "107 договора от 2020" }, … ] },
+  "format": "portrait",   // needed whenever the band carries BOTH forms
   "source": "Източник: МОН, ЦИК, НСИ, ИСУН",
   "cta": "виж училището"
 }
@@ -316,6 +335,14 @@ Notes that are load-bearing:
   deliberate. Never pass a colour field straight to `fillStyle`.
 - **`focus` is the zone that varies.** Matura when the settlement has a school
   (12%), EU funds otherwise. It is the fourth zone, and the one the post is about.
+  **Having a school does not oblige you to print its matura** — on a
+  governance-money post, a weak school result in the same frame is a different
+  story with no causal link (Малко Търново, 2026-08-06: 2,41 БЕЛ beside a №1
+  funds ranking). That is the operator's call, so ask; do not decide it silently
+  in either direction.
+- **A `focus` with no `scale` puts its caption under the value, not at the zone
+  foot** — otherwise a money hero leaves ~150px of void that reads as a zone
+  that failed to load. Keep `captionNote` short; it is one line and elides.
 - **The renderer refuses rather than garbles**: no zones at all throws, and so
   does a grid squeezed below **268px** a zone. Drop a zone or shorten the band.
   That floor read 190 until 2026-08-06 and was a lie — it passed a 202px grid

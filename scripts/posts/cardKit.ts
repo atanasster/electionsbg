@@ -1535,6 +1535,11 @@ export type PlaceCardSpec = {
   source: string;
   cta?: string;
   theme?: Theme;
+  /** Canvas shape. `square` is 1080×1080; `portrait` is 1080×1350 — Facebook's
+   *  tallest uncropped feed ratio (4:5), and the only way to carry a full
+   *  four-zone grid AND a band with both cells and benchmarks. Anything taller
+   *  than 4:5 gets cropped in feed, so this is a two-value choice, not a knob. */
+  format?: "square" | "portrait";
 };
 
 const PLACE_PAD = 64;
@@ -1578,16 +1583,17 @@ const fitText = (
 
 /** 1080×1080 settlement profile. Returns a PNG buffer. */
 export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
-  const S = 1080;
+  const W = 1080;
+  const H = spec.format === "portrait" ? 1350 : 1080;
   const pal = THEME[spec.theme ?? "dark"];
-  const canvas = createCanvas(S, S);
+  const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d") as unknown as Ctx;
 
-  const g = ctx.createLinearGradient(0, 0, 0, S);
+  const g = ctx.createLinearGradient(0, 0, 0, H);
   g.addColorStop(0, pal.bg2);
   g.addColorStop(1, pal.bg);
   ctx.fillStyle = g;
-  ctx.fillRect(0, 0, S, S);
+  ctx.fillRect(0, 0, W, H);
 
   ctx.textBaseline = "alphabetic";
   drawWordmark(ctx, PLACE_PAD, 96, 40, pal);
@@ -1598,7 +1604,7 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   ctx.fillStyle = pal.muted;
   const ctxFit = fitText(ctx, spec.place.context, 600, 26, 420, 20);
   ctx.font = `600 ${ctxFit.px}px ${FONT}`;
-  ctx.fillText(ctxFit.text, S - PLACE_PAD, headBase);
+  ctx.fillText(ctxFit.text, W - PLACE_PAD, headBase);
   const ctxW = ctx.measureText(ctxFit.text).width;
 
   ctx.textAlign = "left";
@@ -1608,19 +1614,19 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
     spec.place.name,
     800,
     58,
-    S - PLACE_PAD * 2 - ctxW - 40,
+    W - PLACE_PAD * 2 - ctxW - 40,
     32,
   );
   ctx.font = `800 ${nameFit.px}px ${FONT}`;
   ctx.fillText(nameFit.text, PLACE_PAD, headBase);
 
   ctx.fillStyle = pal.rule;
-  ctx.fillRect(PLACE_PAD, headBase + 26, S - PLACE_PAD * 2, 1);
+  ctx.fillRect(PLACE_PAD, headBase + 26, W - PLACE_PAD * 2, 1);
 
   // ---- footer is anchored; everything above flexes into what is left ----
-  const SOURCE_Y = 1032;
+  const SOURCE_Y = H - 48;
   ctx.fillStyle = pal.rule;
-  ctx.fillRect(PLACE_PAD, SOURCE_Y - 54, S - PLACE_PAD * 2, 1);
+  ctx.fillRect(PLACE_PAD, SOURCE_Y - 54, W - PLACE_PAD * 2, 1);
   ctx.fillStyle = pal.muted;
   ctx.font = `500 25px ${FONT}`;
   ctx.textAlign = "left";
@@ -1628,11 +1634,11 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   ctx.fillStyle = pal.accent;
   ctx.textAlign = "right";
   ctx.font = `700 25px ${FONT}`;
-  ctx.fillText(spec.cta ?? "виж мястото", S - PLACE_PAD - 30, SOURCE_Y);
+  ctx.fillText(spec.cta ?? "виж мястото", W - PLACE_PAD - 30, SOURCE_Y);
   ctx.beginPath();
-  ctx.moveTo(S - PLACE_PAD - 22, SOURCE_Y - 16);
-  ctx.lineTo(S - PLACE_PAD, SOURCE_Y - 5);
-  ctx.lineTo(S - PLACE_PAD - 22, SOURCE_Y + 6);
+  ctx.moveTo(W - PLACE_PAD - 22, SOURCE_Y - 16);
+  ctx.lineTo(W - PLACE_PAD, SOURCE_Y - 5);
+  ctx.lineTo(W - PLACE_PAD - 22, SOURCE_Y + 6);
   ctx.closePath();
   ctx.fill();
 
@@ -1642,11 +1648,19 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   if (muni) {
     const CELL_H = 132;
     const bench = muni.benchmarks?.slice(0, 4) ?? [];
-    const cells = bench.length ? [] : (muni.cells ?? []).slice(0, 3);
-    const bandH = bench.length ? bench.length * PLACE_BENCH_H : CELL_H;
+    const cells = (muni.cells ?? []).slice(0, 3);
+    // The two forms stack rather than exclude each other: cells carry the
+    // absolute figures ("3,91 млн. €, 44 проекта"), benchmarks carry the same
+    // municipality measured against the country. A card that drops the cells to
+    // fit the benchmarks loses the magnitudes the ranking is a ranking OF.
+    const bandH =
+      (cells.length ? CELL_H : 0) +
+      (cells.length && bench.length ? PLACE_GAP : 0) +
+      bench.length * PLACE_BENCH_H;
     const cellTop = SOURCE_Y - 54 - 22 - bandH;
+    const benchTop = cellTop + (cells.length ? CELL_H + PLACE_GAP : 0);
     const cellW = cells.length
-      ? (S - PLACE_PAD * 2 - PLACE_GAP * (cells.length - 1)) / cells.length
+      ? (W - PLACE_PAD * 2 - PLACE_GAP * (cells.length - 1)) / cells.length
       : 0;
 
     ctx.textAlign = "left";
@@ -1659,14 +1673,14 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
     ctx.fillRect(
       PLACE_PAD + lw + 18,
       labelY - 7,
-      S - PLACE_PAD * 2 - lw - 18,
+      W - PLACE_PAD * 2 - lw - 18,
       1,
     );
 
     bench.forEach((b, i) => {
-      const ry = cellTop + i * PLACE_BENCH_H;
+      const ry = benchTop + i * PLACE_BENCH_H;
       const ix = PLACE_PAD;
-      const iw = S - PLACE_PAD * 2;
+      const iw = W - PLACE_PAD * 2;
       // Each row carries its own units, so each gets its own scale. The
       // headroom above the larger of the pair keeps the reference tick off the
       // right edge, where it would read as the end of the axis rather than as a
@@ -2131,7 +2145,11 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
         }
       }
 
-      let cy = y + h - (f.captionNote ? 46 : 20);
+      // With a scale, the caption is the zone's footer and belongs at its foot.
+      // Without one there is nothing between the hero and that foot, so the
+      // caption rides up under the value instead of leaving a ~150px void that
+      // reads as a zone that failed to load.
+      let cy = f.scale ? y + h - (f.captionNote ? 46 : 20) : y + 138;
       if (f.caption) {
         ctx.textAlign = "left";
         ctx.fillStyle = pal.text;
@@ -2158,7 +2176,7 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   const gridTop = headBase + 26 + 22;
   const cols = zones.length === 1 ? 1 : 2;
   const rows = Math.ceil(zones.length / cols);
-  const zoneW = (S - PLACE_PAD * 2 - PLACE_GAP * (cols - 1)) / cols;
+  const zoneW = (W - PLACE_PAD * 2 - PLACE_GAP * (cols - 1)) / cols;
   const zoneH = (gridBottom - gridTop - PLACE_GAP * (rows - 1)) / rows;
 
   // These cards get published. A zone squeezed below the readable floor draws
@@ -2175,7 +2193,7 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   // still slightly tight here; widen the constant if one ever ships.
   if (zoneH < 268)
     throw new Error(
-      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 268) — drop a zone, or shorten the municipality band (a benchmark row costs ${PLACE_BENCH_H}px)`,
+      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 268) — drop a zone, shorten the municipality band (a benchmark row costs ${PLACE_BENCH_H}px, a cells row ${132}px), or pass format: "portrait" for 270px more height`,
     );
 
   zones.forEach((draw, i) => {
