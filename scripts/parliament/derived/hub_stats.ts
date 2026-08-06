@@ -81,6 +81,8 @@ const DAY_MS = 86_400_000;
  *  is 25. (55 of 189 on the 51st.) The plan's own "33" was measured with the loose regex
  *  and so confirmed nothing. */
 const SECOND_READING_SPLIT = /\s*[-–—]\s*второ\s+(?:гласуване|четене)/i;
+/** The first-reading counterpart, same shape and same qualification. */
+const FIRST_READING_SPLIT = /\s*[-–—]\s*първо\s+(?:гласуване|четене)/i;
 
 /** The stem of a second-reading title, or null when this is not one.
  *
@@ -94,6 +96,19 @@ const SECOND_READING_SPLIT = /\s*[-–—]\s*второ\s+(?:гласуване|
 export const secondReadingStem = (title: string): string | null => {
   const normalized = normalizeTitle(title);
   const stem = normalized.split(SECOND_READING_SPLIT)[0].trim();
+  return stem && stem !== normalized ? stem : null;
+};
+
+/** The stem of a FIRST-reading title, or null.
+ *
+ *  Exists so the bill dimension (migration 136) can point a bill back at the reading it
+ *  started from: 401 of the 504 second-reading stems have a first-reading item carrying the
+ *  same stem. It deliberately shares `secondReadingStem`'s normalization and its
+ *  split-must-fire rule — the two are one derivation seen from either end, and a first
+ *  reading matched by a looser rule would attach the wrong item to the bill. */
+export const firstReadingStem = (title: string): string | null => {
+  const normalized = normalizeTitle(title);
+  const stem = normalized.split(FIRST_READING_SPLIT)[0].trim();
   return stem && stem !== normalized ? stem : null;
 };
 

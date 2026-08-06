@@ -3000,6 +3000,134 @@ const DB_ROUTES = {
     ).catch(tableRows("vote_cast", "db:load:rollcall:pg"));
     return { body: rows };
   },
+  // Per-day topic + outcome summary for one parliament — the /votes table's two derived
+  // columns (plan §7, P5).
+  //
+  // Replaces `topic_index.json`, an 8 MB whole-corpus artifact that /votes and the
+  // contested-votes tile both fetched in full to render, between them, a topic chip set and
+  // a four-segment bar. This is ~39 rows for the 52nd, served off idx_vote_item_ns_date.
+  //
+  // FILTERS superseded_by, unlike the `session` route above. Its consumer is a STATISTIC
+  // over the day — how many items of each outcome — and the derived artifact it replaces was
+  // computed after dedupeRevotes. Counting the 1,645 re-voted items again would inflate
+  // every bar by up to 9.8% and disagree with the item count beside it.
+  //
+  // The outcome buckets replicate outcomeFor() in scripts/parliament/derived/important_votes.ts,
+  // which is the only place that classification is defined. Two clauses are easy to get
+  // wrong and both are load-bearing: a zero-cast item is `contested` rather than a division
+  // by zero, and `abstain == cast` is UNANIMOUS (a chamber that abstained as one), not
+  // rejected.
+  "vote-day-summary": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    if (!ns) return { body: [] };
+    const rows = await dbRows(
+      `WITH standing AS (
+         SELECT date, topic,
+                (yes + no + abstain) AS cast_votes,
+                yes, no, abstain
+           FROM vote_item
+          WHERE ns = $1 AND superseded_by IS NULL
+       ),
+       bucketed AS (
+         SELECT date, topic,
+                CASE
+                  WHEN cast_votes = 0                     THEN 'contested'
+                  WHEN yes     = cast_votes                THEN 'unanimous'
+                  WHEN no      = cast_votes                THEN 'unanimous'
+                  WHEN abstain = cast_votes                THEN 'unanimous'
+                  WHEN yes > no + abstain                  THEN 'passed'
+                  WHEN no + abstain > yes                  THEN 'rejected'
+                  ELSE 'contested'
+                END AS bucket
+           FROM standing
+       )
+       SELECT date::text AS date,
+              array_agg(DISTINCT topic)                            AS topics,
+              count(*) FILTER (WHERE bucket = 'unanimous')::int    AS unanimous,
+              count(*) FILTER (WHERE bucket = 'passed')::int       AS passed,
+              count(*) FILTER (WHERE bucket = 'rejected')::int     AS rejected,
+              count(*) FILTER (WHERE bucket = 'contested')::int    AS contested
+         FROM bucketed
+        GROUP BY date
+        ORDER BY date DESC`,
+      [ns],
+    ).catch(tableRows("vote_item", "db:load:rollcall:pg"));
+    return { body: rows };
+  },
+  // The most-contested votes of a parliament — the tile on /votes.
+  //
+  // Returns BOTH tiers in one response rather than making the caller choose. The tile's rule
+  // is "the trailing window, falling back to all-time when the window is thin", and the
+  // window is anchored on the corpus's newest sitting rather than on wall-clock today —
+  // otherwise the tile empties during every recess, which is 11-32% of a term. Splitting
+  // that across two round trips, or re-deriving the anchor client-side, is how the rule ends
+  // up meaning two different things.
+  //
+  // contest = min(yes, no + abstain) / cast — how close the vote was, NOT the discrete
+  // `contested` outcome, which fires only on an exact tie and is vanishingly rare.
+  "contested-votes": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    if (!ns) return { body: { anchor: null, recent: [], allTime: [] } };
+    const windowDays = clampInt(q.windowDays, 7, 1, 365);
+    const lim = clampInt(q.limit, 5, 1, 50);
+    const rows = await dbRows(
+      `WITH scored AS (
+         SELECT date::text AS date, item_no, slug, title, topic,
+                yes, no, abstain,
+                CASE WHEN yes + no + abstain = 0 THEN 0
+                     ELSE least(yes, no + abstain)::float8 / (yes + no + abstain)
+                END AS contest,
+                -- The SIX-valued outcome, not the four-way bucket the day summary uses:
+                -- the tile prints this one as a word and colours the row by it, so
+                -- collapsing it here would lose "unanimous" — and omitting it, as the
+                -- first draft did, rendered votes_outcome_undefined on every row.
+                -- Mirrors outcomeFor(); vote_day_summary's gate covers the shared clauses.
+                CASE
+                  WHEN yes + no + abstain = 0    THEN 'contested'
+                  WHEN yes     = yes+no+abstain  THEN 'passed_unanimous'
+                  WHEN no      = yes+no+abstain  THEN 'rejected_unanimous'
+                  WHEN abstain = yes+no+abstain  THEN 'abstain_unanimous'
+                  WHEN yes > no + abstain        THEN 'passed'
+                  WHEN no + abstain > yes        THEN 'rejected'
+                  ELSE 'contested'
+                END AS outcome
+           FROM vote_item
+          WHERE ns = $1 AND superseded_by IS NULL AND title IS NOT NULL
+       ),
+       anchored AS (SELECT max(date) AS anchor FROM scored),
+       -- The 0.05 floor is the tile's own: below it a "split" vote is procedural noise.
+       pool AS (
+         SELECT s.*, a.anchor,
+                (s.date >= (a.anchor::date - ($2::int))::text) AS in_window
+           FROM scored s CROSS JOIN anchored a
+          WHERE s.contest >= 0.05
+       )
+       -- EACH TIER IS RANKED AND LIMITED ON ITS OWN, and that is the whole shape of this
+       -- query. Ranking once and windowing the result afterwards looks equivalent and is
+       -- not: measured on the 51st, ZERO of the trailing week's votes appear in the global
+       -- top 200, so the window would come back empty on every large parliament and the
+       -- tile would show the all-time ranking for ever while claiming to show the week.
+       (SELECT 'recent' AS tier, p.* FROM pool p
+         WHERE p.in_window ORDER BY p.contest DESC, p.date DESC LIMIT $3)
+       UNION ALL
+       (SELECT 'all' AS tier, p.* FROM pool p
+         ORDER BY p.contest DESC, p.date DESC LIMIT $3)`,
+      [ns, windowDays, lim],
+    ).catch(tableRows("vote_item", "db:load:rollcall:pg"));
+    const anchor = rows[0]?.anchor ?? null;
+    const strip = (r) => ({
+      date: r.date, item: r.item_no, slug: r.slug, title: r.title,
+      topic: r.topic, contestScore: r.contest, outcome: r.outcome,
+      tally: { yes: r.yes, no: r.no, abstain: r.abstain },
+    });
+    return {
+      body: {
+        anchor,
+        recent: rows.filter((r) => r.tier === "recent").map(strip),
+        allTime: rows.filter((r) => r.tier === "all").map(strip),
+      },
+    };
+  },
   // Attendance for one parliament (135 mp_attendance) — the /parliament/attendance table.
   // Replaces a 500 KB whole-corpus fetch with one indexed scan of ~270 rows.
   "mp-attendance": async (dbRows, q) => {

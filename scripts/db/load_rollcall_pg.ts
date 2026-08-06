@@ -41,6 +41,13 @@ import {
 } from "./lib/stage_merge";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { dedupeRevotes, normalizeTitle } from "../parliament/derived/dedupe";
+// ONE stem rule, shared with the hub's bill count. A second copy here would be a copy that
+// does not learn the next trap — and the rule already has one in it (a title carrying
+// „второ гласуване" in a procedural position is a FIRST reading).
+import {
+  secondReadingStem,
+  firstReadingStem,
+} from "../parliament/derived/hub_stats";
 import { classifyTitle } from "../parliament/derived/topics";
 import type { SessionFile } from "../parliament/derived/types";
 
@@ -51,6 +58,7 @@ const ROOT = path.resolve(
 );
 const SESSIONS_DIR = path.join(ROOT, "data/parliament/votes/sessions");
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/134_rollcall.sql");
+const BILL_SCHEMA = path.join(ROOT, "scripts/db/schema/pg/136_bill.sql");
 const INGEST_TRACKING = path.join(
   ROOT,
   "scripts/db/schema/pg/005_ingest_tracking.sql",
@@ -70,6 +78,17 @@ const readingOf = (title: string): number | null => {
   return null;
 };
 
+interface LoadedBill {
+  /** Assigned by the loader against what the database already holds, so a re-run does not
+   *  renumber every bill and churn vote_item.bill_id. */
+  billId: number;
+  ns: number;
+  stem: string;
+  /** Resolved in a second pass, because bill.first_reading_item references vote_item and
+   *  vote_item.bill_id references bill — the cycle has to be filled from both ends. */
+  firstReadingItem: number | null;
+}
+
 interface LoadedItem {
   itemId: number;
   ns: number;
@@ -79,6 +98,8 @@ interface LoadedItem {
   title: string | null;
   topic: string;
   reading: number | null;
+  /** Set for first- and second-reading items of a bill that REACHED a second reading. */
+  billId: number | null;
   supersededBy: number | null;
   yes: number;
   no: number;
@@ -123,6 +144,7 @@ export interface RollcallBuild {
   dedupedItems: number;
   /** Rows carrying superseded_by — must equal rawItems - dedupedItems. */
   superseded: number;
+  bills: LoadedBill[];
 }
 
 /** Pure, so the dedupe/keying decisions are testable without a database.
@@ -136,7 +158,13 @@ export interface RollcallBuild {
  *  `superseded_by IS NULL` and therefore sees exactly the 15,096 the JSON artifacts were
  *  computed from. Loading only the survivors would have thrown away 1,645 real votes to
  *  make one COUNT(*) match a number in a document. */
-export const buildRollcall = (raw: SessionFile[]): RollcallBuild => {
+export const buildRollcall = (
+  raw: SessionFile[],
+  /** (ns|stem) → bill_id already in the database. Passed in so a re-run REUSES ids rather
+   *  than renumbering: bill_id is a foreign key on 15,096 vote_item rows, and renumbering it
+   *  every night would rewrite them all and make the merge's changed-row count meaningless. */
+  existingBillIds: Map<string, number> = new Map(),
+): RollcallBuild => {
   const rawItems = raw.reduce((n, s) => n + s.sessions.length, 0);
   const dedupedItems = dedupeRevotes(raw).reduce(
     (n, s) => n + s.sessions.length,
@@ -201,6 +229,8 @@ export const buildRollcall = (raw: SessionFile[]): RollcallBuild => {
         topic:
           session.itemTopics?.[String(it.item)] ?? classifyTitle(title ?? ""),
         reading: title ? readingOf(title) : null,
+        // Filled by the bill pass below, once every stem in the corpus is known.
+        billId: null,
         // Resolved in the second pass, once every item on the day has an id.
         supersededBy: null,
         yes: it.tallies.yes,
@@ -260,6 +290,65 @@ export const buildRollcall = (raw: SessionFile[]): RollcallBuild => {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // THE BILL PASS (migration 136). Runs after every item has an id, because it keys on the
+  // whole corpus rather than on one day: a bill's first reading and its article votes are
+  // usually weeks apart.
+  //
+  // A BILL IS A STEM THAT REACHED A SECOND READING — not every bill the chamber saw. That
+  // is the same set the /parliament tile counts, and the point of matching it exactly is
+  // that `SELECT count(*) FROM bill WHERE ns = 52` and the number on the page cannot drift.
+  // A first reading that never came back gets no row.
+  const secondByStem = new Map<string, LoadedItem[]>();
+  const firstByStem = new Map<string, LoadedItem[]>();
+  for (const row of items) {
+    if (!row.title) continue;
+    const second = secondReadingStem(row.title);
+    if (second) {
+      const key = `${row.ns}|${second}`;
+      (secondByStem.get(key) ?? secondByStem.set(key, []).get(key)!).push(row);
+      continue;
+    }
+    const first = firstReadingStem(row.title);
+    if (first) {
+      const key = `${row.ns}|${first}`;
+      (firstByStem.get(key) ?? firstByStem.set(key, []).get(key)!).push(row);
+    }
+  }
+  // Ids continue above whatever the database already holds, and existing (ns, stem) pairs
+  // keep theirs.
+  let nextBillId = Math.max(0, ...existingBillIds.values()) + 1;
+  const bills: LoadedBill[] = [];
+  for (const key of [...secondByStem.keys()].sort()) {
+    const billId = existingBillIds.get(key) ?? nextBillId++;
+    const [ns, stem] = [
+      Number(key.slice(0, key.indexOf("|"))),
+      key.slice(key.indexOf("|") + 1),
+    ];
+    for (const row of secondByStem.get(key)!) row.billId = billId;
+    // The bill's own first reading, when the corpus carries one under the same stem — 401
+    // of 504 do. The earliest STANDING one: „първо гласуване" can appear twice when a motion
+    // to take both readings in one sitting is put and then the reading itself is held, and
+    // a re-voted first reading leaves an ANNULLED row behind that sorts first.
+    //
+    // Filtering superseded_by is what makes this right, and it was measurably wrong without
+    // it: 66 of the 504 bills stored the annulled reading rather than the one that stands —
+    // deterministically, since dedupeRevotes keeps the HIGHEST item number and this sorts
+    // ascending. A /votes link to a vote the chamber took back, on every one of them.
+    const firstItems = (firstByStem.get(key) ?? [])
+      .filter((row) => row.supersededBy === null)
+      .sort((a, b) =>
+        a.date === b.date ? a.itemNo - b.itemNo : a.date.localeCompare(b.date),
+      );
+    for (const row of firstItems) row.billId = billId;
+    bills.push({
+      billId,
+      ns,
+      stem,
+      firstReadingItem: firstItems[0]?.itemId ?? null,
+    });
+  }
+
   const recycledIds = [...namesById.entries()]
     .filter(([, names]) => names.size > 1)
     .map(([mpId, names]) => ({ mpId, names: [...names] }))
@@ -284,6 +373,7 @@ export const buildRollcall = (raw: SessionFile[]): RollcallBuild => {
     rawItems,
     dedupedItems,
     superseded,
+    bills,
   };
 };
 
@@ -298,12 +388,31 @@ const run = async (): Promise<void> => {
     return;
   }
 
-  const build = buildRollcall(raw);
+  // Bill ids are read from the database first — see buildRollcall's parameter. On a cold
+  // database this is empty and the loader numbers from 1.
+  const existingBillIds = new Map<string, number>();
+  await exec(readFileSync(INGEST_TRACKING, "utf8"));
+  await exec(readFileSync(SCHEMA, "utf8"));
+  // 136 after 134: it adds the FK from vote_item.bill_id, which 134 declares without one
+  // because `bill` does not exist at that point.
+  await exec(readFileSync(BILL_SCHEMA, "utf8"));
+  await withClient(async (c) => {
+    for (const r of (
+      await c.query<{ bill_id: number; ns: number; stem: string }>(
+        "SELECT bill_id, ns, stem FROM bill",
+      )
+    ).rows) {
+      existingBillIds.set(`${r.ns}|${r.stem}`, r.bill_id);
+    }
+  });
+
+  const build = buildRollcall(raw, existingBillIds);
 
   console.log(
     `rollcall: ${raw.length} plenary days · ${build.rawItems} raw items → ` +
       `${build.dedupedItems} stand after dedupeRevotes (${build.superseded} marked superseded) · ` +
-      `${build.casts.length} casts · ${build.seats.size} seats · ${build.parties.size} party rows`,
+      `${build.casts.length} casts · ${build.seats.size} seats · ${build.parties.size} party rows · ` +
+      `${build.bills.length} bills (${build.bills.filter((b) => b.firstReadingItem !== null).length} with a first reading)`,
   );
   if (build.duplicateCasts > 0) {
     console.warn(
@@ -323,9 +432,6 @@ const run = async (): Promise<void> => {
           .join("; "),
     );
   }
-
-  await exec(readFileSync(INGEST_TRACKING, "utf8"));
-  await exec(readFileSync(SCHEMA, "utf8"));
 
   await withClient(async (c) => {
     await c.query("BEGIN");
@@ -374,6 +480,26 @@ const run = async (): Promise<void> => {
         );
       }
 
+      // BILLS BEFORE ITEMS, first_reading_item AFTER. bill.first_reading_item references
+      // vote_item and vote_item.bill_id references bill, so the cycle is filled from both
+      // ends: the row goes in with a NULL first reading, the items merge against it, then
+      // the reference is set.
+      for (const b of build.bills) {
+        await c.query(
+          `INSERT INTO bill (bill_id, ns, stem) VALUES ($1, $2, $3)
+             ON CONFLICT (bill_id) DO UPDATE
+               SET ns = EXCLUDED.ns, stem = EXCLUDED.stem,
+                   -- CLEARED, not left in place. mergeFromStage ends with an anti-join
+                   -- DELETE of vote_item rows the fresh build no longer produces, and
+                   -- item_id is a positional counter — so any corpus SHRINK deletes the
+                   -- tail while a stale first_reading_item still points into it, raising
+                   -- 23503 and rolling back the entire load. It is re-set from the fresh
+                   -- build a few lines below, so this window is the merge and nothing else.
+                   first_reading_item = NULL`,
+          [b.billId, b.ns, b.stem],
+        );
+      }
+
       const itemSpec = {
         table: "vote_item",
         source: "vote_item_stage",
@@ -387,6 +513,7 @@ const run = async (): Promise<void> => {
           "title",
           "topic",
           "reading",
+          "bill_id",
           "superseded_by",
           "yes",
           "no",
@@ -408,6 +535,7 @@ const run = async (): Promise<void> => {
           i.title,
           i.topic,
           i.reading,
+          i.billId,
           i.supersededBy,
           i.yes,
           i.no,
@@ -417,6 +545,13 @@ const run = async (): Promise<void> => {
       );
       await addStagePrimaryKey(c, itemSpec);
       await mergeFromStage(c, itemSpec);
+
+      for (const b of build.bills) {
+        await c.query(
+          "UPDATE bill SET first_reading_item = $2 WHERE bill_id = $1",
+          [b.billId, b.firstReadingItem],
+        );
+      }
 
       const castSpec = {
         table: "vote_cast",
@@ -476,7 +611,12 @@ const run = async (): Promise<void> => {
   await end();
 };
 
-run().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Only when this module is the entry point. `buildRollcall` is imported by
+// bill_and_topics.data.test.ts to exercise id stability, and an unguarded call ran the whole
+// 4M-row load — against the developer's database — as a side effect of the import.
+if (process.argv[1] && process.argv[1].includes("load_rollcall_pg")) {
+  run().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

@@ -501,6 +501,38 @@ other still lets `bucket:sync:paths -- parliament` re-upload all 613 files; then
 `--delete`. The files stay on disk either way: they are the loader's input AND the
 prerender's fact source (`scripts/prerender/votesFacts.ts`).
 
+**`bill` (migration 136) rides the SAME loader** — `db:load:rollcall:pg` applies 136 and fills
+it, so `db:load:rollcall:pg:cloud` carries it with no extra command. 504 rows, one per
+(ns, title stem) that **reached a second reading** — NOT every bill the chamber saw, because
+that is the set the /parliament tile counts and a table whose `count(*)` disagreed with the
+number on the page is exactly the drift the hub plan exists to remove.
+
+Two things about it are easy to get backwards. The stem split is **TypeScript**
+(`secondReadingStem` in `scripts/parliament/derived/hub_stats.ts`), never a SQL regex — the
+rule has a documented trap in it, since a title carrying „второ гласуване" in a PROCEDURAL
+position is a FIRST reading, and matching the phrase instead of requiring the split to fire
+counted 8 extra bills on the 52nd. And **`final_item` is always NULL**: it is where a
+whole-bill adoption marker would live, and this corpus has none, so NULL means "not
+derivable" rather than "not adopted". `bill_and_topics.data.test.ts` fails if either changes.
+
+**`/api/db/vote-day-summary?ns=` + `/api/db/contested-votes?ns=`** retire the 8 MB
+`topic_index.json` from the two consumers that fetched it whole — the `/votes` table (a topic
+chip set and a four-segment outcome bar per day) and the contested-votes tile. 39 rows and
+34 ms for the 52nd against an 8 MB download.
+
+Both **filter `superseded_by`**, unlike the `session` route above, because both are
+statistics over the day rather than the day's record — and the artifact they replace was
+computed after `dedupeRevotes`. Both also keep `topic_index.json` as a **fallback**, so a
+checkout without Postgres and a first cloud deploy before the loader runs still render;
+the file therefore stays in `rebuildDerived`'s `--upload` list.
+
+The outcome bucketing exists **twice** — in SQL in the route, and in `outcomeBucket()` /
+`outcomeFor()` in TypeScript for the fallback — because a route cannot import TS.
+`bill_and_topics.data.test.ts` re-derives every day's buckets from the session files and
+fails on any disagreement; without it the two drift silently and the symptom is a bar of the
+wrong colour. Measured coverage of that gate: the `abstain = cast` branch is the one clause
+no item in the corpus reaches, so it rides on `outcomeFor()`'s definition alone.
+
 **The derived half (migration 135, `db:load:rollcall-derived:pg`)** builds `mp_attendance`,
 `party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
 `scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic

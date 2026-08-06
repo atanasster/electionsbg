@@ -70,7 +70,8 @@ test("the day route reproduces the session file's agenda and tallies", async (t)
       wrong.push(`item ${r.item_no} tally differs`);
     }
     const title = file.itemTitles?.[String(r.item_no)] ?? null;
-    if ((r.title ?? null) !== title) wrong.push(`item ${r.item_no} title differs`);
+    if ((r.title ?? null) !== title)
+      wrong.push(`item ${r.item_no} title differs`);
   }
   assert.deepEqual(wrong.slice(0, 10), []);
 });
@@ -90,7 +91,12 @@ test("one item's per-MP votes reproduce the file, modulo the duplicate casts", a
     `SELECT mp_id, vote FROM vote_cast WHERE item_id = ${ids[0].item_id}`,
   );
   const pg = new Map(rows.map((r) => [Number(r.mp_id), r.vote]));
-  const WORD: Record<string, string> = { y: "yes", n: "no", a: "abstain", x: "absent" };
+  const WORD: Record<string, string> = {
+    y: "yes",
+    n: "no",
+    a: "abstain",
+    x: "absent",
+  };
 
   // DISTINCT, because the source lists 84 (item, MP) pairs twice and the primary key keeps
   // one. Comparing raw lengths would fail on exactly the days that carry them.
@@ -107,11 +113,13 @@ test("one item's per-MP votes reproduce the file, modulo the duplicate casts", a
       wrong.push(`mp ${v.mpId}: in the file, absent from Postgres`);
       continue;
     }
-    if (WORD[got] !== v.vote) wrong.push(`mp ${v.mpId}: ${WORD[got]} vs ${v.vote}`);
+    if (WORD[got] !== v.vote)
+      wrong.push(`mp ${v.mpId}: ${WORD[got]} vs ${v.vote}`);
   }
   // And the other direction, which the size check also cannot see on its own.
   for (const mpId of pg.keys()) {
-    if (!distinct.has(mpId)) wrong.push(`mp ${mpId}: in Postgres, absent from the file`);
+    if (!distinct.has(mpId))
+      wrong.push(`mp ${mpId}: in Postgres, absent from the file`);
   }
   assert.deepEqual(wrong.slice(0, 10), []);
 });
@@ -138,10 +146,9 @@ test("neither route can be planned into the seq scan", async (t) => {
       !/Seq Scan on vote_cast/i.test(text),
       `${label}: planned a seq scan over vote_cast`,
     );
-    const buffers = [...text.matchAll(/shared hit=(\d+)(?: read=(\d+))?/g)].reduce(
-      (n, m) => n + Number(m[1]) + Number(m[2] ?? 0),
-      0,
-    );
+    const buffers = [
+      ...text.matchAll(/shared hit=(\d+)(?: read=(\d+))?/g),
+    ].reduce((n, m) => n + Number(m[1]) + Number(m[2] ?? 0), 0);
     assert.ok(
       buffers < 2000,
       `${label}: ${buffers} buffers, over the 2,000 live ceiling`,

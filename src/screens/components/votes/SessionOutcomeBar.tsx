@@ -1,16 +1,18 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@/ux/Tooltip";
-import type { TopicEntry, VoteOutcome } from "@/data/parliament/votes/types";
+import type { OutcomeBucket } from "@/data/parliament/votes/outcomeBucket";
 
 type Props = {
-  // Entries from topic_index, scoped to one date. The bar collapses the
-  // six-way outcome enum into four visual classes so the strip stays
-  // readable even on narrow screens.
-  entries: TopicEntry[];
+  // ITEM COUNTS PER BUCKET, not the items themselves. The bar used to take one date's
+  // `topic_index` entries and count them here, which meant every consumer had to hold the
+  // whole 8 MB artifact to render a 2px strip. The bucketing now happens where the data
+  // is — in SQL for the fast path, in outcomeBucket() for the fallback — and this component
+  // draws four numbers.
+  buckets: Record<OutcomeBucket, number>;
 };
 
-type Bucket = "unanimous" | "passed" | "rejected" | "contested";
+type Bucket = OutcomeBucket;
 
 const BUCKET_COLOR: Record<Bucket, string> = {
   unanimous: "#94a3b8", // slate — boring/procedural
@@ -26,37 +28,12 @@ const BUCKET_LABEL: Record<Bucket, string> = {
   contested: "votes_outcome_bar_contested",
 };
 
-const bucketOf = (o: VoteOutcome): Bucket => {
-  switch (o) {
-    case "passed_unanimous":
-    case "abstain_unanimous":
-    case "rejected_unanimous":
-      return "unanimous";
-    case "passed":
-      return "passed";
-    case "rejected":
-      return "rejected";
-    case "contested":
-      return "contested";
-  }
-};
-
 // One thin horizontal strip with up to four colored segments, one per outcome
 // bucket. The vote-count weight (length) gives a quick read on what kind of
 // day it was: a wide grey stretch = procedural / unanimous; a long amber
 // segment = contested decisions on the floor.
-export const SessionOutcomeBar: FC<Props> = ({ entries }) => {
+export const SessionOutcomeBar: FC<Props> = ({ buckets: counts }) => {
   const { t } = useTranslation();
-  const counts = useMemo(() => {
-    const c: Record<Bucket, number> = {
-      unanimous: 0,
-      passed: 0,
-      rejected: 0,
-      contested: 0,
-    };
-    for (const e of entries) c[bucketOf(e.outcome)]++;
-    return c;
-  }, [entries]);
 
   const total =
     counts.unanimous + counts.passed + counts.rejected + counts.contested;

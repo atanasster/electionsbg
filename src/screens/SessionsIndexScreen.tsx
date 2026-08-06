@@ -7,53 +7,38 @@ import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
-import { useTopicIndex } from "@/data/parliament/votes/useTopicIndex";
+import { useVoteDaySummary } from "@/data/parliament/votes/useVoteDaySummary";
+import { useDayLabel } from "@/ux/feed";
 import { ParliamentVotingTile } from "@/screens/dashboard/ParliamentVotingTile";
 import { ContestedVotesFeed } from "@/screens/components/votes/ContestedVotesFeed";
 import { SessionOutcomeBar } from "@/screens/components/votes/SessionOutcomeBar";
 import { TopicChip } from "@/screens/components/votes/TopicChip";
 import type {
   RollcallIndexEntry,
-  TopicEntry,
   VoteTopic,
 } from "@/data/parliament/votes/types";
 
-const formatDate = (iso: string, lang: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  return new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(d);
-};
+// timeZone: "UTC" via the shared hook. These are calendar days parsed as UTC midnight; the
+// local formatter this replaced rendered 2026-07-24 as "23 юли" for every reader west of
+// UTC, so the row's date and the /votes/<date> it links to disagreed by one.
 
 export const SessionsIndexScreen: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { sessions, currentNs, isLoading } = useRollcallIndex();
-  const { entries: topicEntries } = useTopicIndex();
+  // One aggregate row per plenary day, not the whole 8 MB corpus (plan §7, P5).
+  const { byDate } = useVoteDaySummary();
   const [params, setParams] = useSearchParams();
   const topicFilter = params.get("topic") as VoteTopic | null;
-  const lang = i18n.language;
-
-  // Group topic entries by date so the outcome-bar column lookup is O(1).
-  const entriesByDate = useMemo(() => {
-    const m = new Map<string, TopicEntry[]>();
-    for (const e of topicEntries) {
-      const arr = m.get(e.date) ?? [];
-      arr.push(e);
-      m.set(e.date, arr);
-    }
-    return m;
-  }, [topicEntries]);
+  const day = useDayLabel("long");
 
   // When the user clicks a TopicChip elsewhere we land here with `?topic=`.
   // Only keep sessions that contain at least one item of that topic.
   const visibleSessions = useMemo(() => {
     if (!topicFilter) return sessions;
     return sessions.filter((s) =>
-      (entriesByDate.get(s.date) ?? []).some((e) => e.topic === topicFilter),
+      (byDate.get(s.date)?.topics ?? []).includes(topicFilter),
     );
-  }, [sessions, topicFilter, entriesByDate]);
+  }, [sessions, topicFilter, byDate]);
 
   const columns: DataTableColumns<RollcallIndexEntry, unknown> = useMemo(
     () => [
@@ -68,7 +53,7 @@ export const SessionsIndexScreen: FC = () => {
           >
             <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
             <span className="font-medium tabular-nums">
-              {formatDate(row.original.date, lang)}
+              {day(row.original.date)}
             </span>
           </Link>
         ),
@@ -77,14 +62,14 @@ export const SessionsIndexScreen: FC = () => {
         accessorKey: "items",
         header: t("votes_session_items") || "Vote items",
         cell: ({ row }) => {
-          const entries = entriesByDate.get(row.original.date) ?? [];
+          const buckets = byDate.get(row.original.date)?.buckets;
           return (
             <div className="flex items-center gap-3">
               <span className="tabular-nums text-right shrink-0 w-8 text-muted-foreground">
                 {row.original.items}
               </span>
               <div className="flex-1 min-w-[80px]">
-                <SessionOutcomeBar entries={entries} />
+                {buckets ? <SessionOutcomeBar buckets={buckets} /> : null}
               </div>
             </div>
           );
@@ -105,7 +90,7 @@ export const SessionsIndexScreen: FC = () => {
         ),
       },
     ],
-    [t, lang, entriesByDate],
+    [t, day, byDate],
   );
 
   const pageTitle = t("votes_index_title") || "Roll-call votes";

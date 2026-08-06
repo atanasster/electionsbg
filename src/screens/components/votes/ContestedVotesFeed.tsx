@@ -1,10 +1,14 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { ArrowRight } from "lucide-react";
-import { useTopicIndex } from "@/data/parliament/votes/useTopicIndex";
+import { useContestedVotes } from "@/data/parliament/votes/useContestedVotes";
+// timeZone: "UTC" is load-bearing — these are calendar DAYS, and the local formatter this
+// replaced rendered 2026-07-24 as "23.07" for every reader west of UTC, so the row's date
+// and the /votes/<date> it links to disagreed by one.
+import { useDayLabel } from "@/ux/feed";
 import { TopicChip } from "./TopicChip";
-import type { TopicEntry, VoteOutcome } from "@/data/parliament/votes/types";
+import type { VoteOutcome } from "@/data/parliament/votes/types";
 
 type Props = {
   /** Lookback window in days. Defaults to 7 (rolling week). */
@@ -22,63 +26,20 @@ const OUTCOME_COLOR: Record<VoteOutcome, string> = {
   contested: "text-amber-700",
 };
 
-const formatDate = (iso: string, lang: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  return new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(d);
-};
-
-// Most-contested votes in the trailing window. Falls back to "most-recent N
-// contested" when the rolling window has fewer than 3 results (recess weeks,
-// summer break) so the tile never goes empty during a working session.
+// Most-contested votes in the trailing window, with an all-time fallback for recess weeks.
+//
+// The ranking, the window and the fallback all moved into useContestedVotes and the route
+// behind it (plan §7, P5). This component used to fetch `topic_index.json` — 8 MB of the
+// whole corpus — and filter it in the browser to render five rows.
 export const ContestedVotesFeed: FC<Props> = ({
   windowDays = 7,
   count = 5,
 }) => {
-  const { t, i18n } = useTranslation();
-  const { entries, isLoading } = useTopicIndex();
-
-  const items = useMemo(() => {
-    if (entries.length === 0) return [];
-    // Newest entry's date as the anchor for the rolling window — using
-    // wall-clock today() would empty the feed during a recess.
-    const newestDate = entries[0].date;
-    const anchor = new Date(newestDate + "T00:00:00Z");
-    const cutoff = new Date(anchor);
-    cutoff.setUTCDate(cutoff.getUTCDate() - windowDays);
-    const cutoffStr = cutoff.toISOString().slice(0, 10);
-
-    // Rank by contestScore (closeness) rather than the discrete "contested"
-    // outcome label — the latter only fires on exact ties (yes == no+abstain),
-    // which is vanishingly rare. contestScore > 0 covers any genuinely split
-    // vote; the threshold filters out unanimous procedural noise.
-    const MIN_CONTEST = 0.05;
-    const inWindow: TopicEntry[] = entries.filter(
-      (e) => e.date >= cutoffStr && e.contestScore >= MIN_CONTEST,
-    );
-
-    // Fallback when the rolling window is thin (recess weeks): expand to
-    // "most-contested across all time" so the tile never goes empty.
-    const pool =
-      inWindow.length >= 3
-        ? inWindow
-        : entries.filter((e) => e.contestScore >= MIN_CONTEST);
-    return [...pool]
-      .sort((a, b) => {
-        if (b.contestScore !== a.contestScore) {
-          return b.contestScore - a.contestScore;
-        }
-        return b.date.localeCompare(a.date);
-      })
-      .slice(0, count);
-  }, [entries, windowDays, count]);
+  const { t } = useTranslation();
+  const day = useDayLabel("long");
+  const { items, isLoading } = useContestedVotes(windowDays, count);
 
   if (isLoading || items.length === 0) return null;
-
-  const lang = i18n.language;
 
   return (
     <section className="rounded-xl border bg-card p-4">
@@ -95,9 +56,7 @@ export const ContestedVotesFeed: FC<Props> = ({
               className="block hover:text-primary"
             >
               <div className="flex items-baseline gap-2 text-xs text-muted-foreground mb-0.5 flex-wrap">
-                <span className="tabular-nums">
-                  {formatDate(it.date, lang)}
-                </span>
+                <span className="tabular-nums">{day(it.date)}</span>
                 {it.topic && <TopicChip topic={it.topic} linkable={false} />}
                 <span
                   className={`uppercase font-semibold ${OUTCOME_COLOR[it.outcome]}`}
