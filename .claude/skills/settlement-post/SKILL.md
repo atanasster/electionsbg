@@ -131,7 +131,16 @@ EU funds are the opposite: `fund_projects` is attributed by *Местонахо�
 so it genuinely is money spent there, at either grain.
 
 **3. Matura is the май–юни session only.** The август–септември retake is not in
-the МОН table. Any matura claim carries "сесия май–юни".
+the МОН table. Any matura claim carries "сесия май–юни". In a *cell* there is no
+room for it — put it in the `source` line (`… НСИ, МОН · матура май–юни`), which
+is full width. The source is bounded against the CTA, so keep it under ~700px or
+it elides.
+
+**3b. НВО carries NO cohort count.** `nvoByYear` has `bel`/`math` points and no
+`n`, unlike `countsByYear` for ДЗИ. So an НВО figure cannot be sized, and in a
+small school it swings wildly on a handful of pupils — Малко Търново went
+38,74 → **9,44** on maths between 2025 and 2026. **Do not print an НВО score for
+a small school**; the ДЗИ figure at least reports its examinees.
 
 **4. Census age and sex are NOT cross-tabulated.** `census_2021_settlements.json`
 gives `age` (5 bands) and `gender` (male/female) as separate totals. **A
@@ -193,10 +202,16 @@ honest** — the reader must never be in doubt which grain they are reading.
 The band has **two forms, and they STACK** — pass either or both, under one
 header.
 
-- **`cells` — the profile form.** Up to three cells: EU funds, procurement, and
-  a first cell that is **education+employment or ethnic composition, whichever
-  the operator picked in Step 7**. Ask before you build the band; do not fill
-  that cell on your own judgement.
+- **`cells` — the profile form.** Up to **four** cells: EU funds, procurement,
+  a matura cell where the settlement has a school, and a first cell that is
+  **education+employment or ethnic composition, whichever the operator picked in
+  Step 7**. Ask before you build the band; do not fill that cell on your own
+  judgement.
+  **A 4th cell is free vertically** — cells divide the width, not the height —
+  but it takes every cell from 316px to 226px (186px inner), so all four labels
+  and notes must be short. Measured: `матура БЕЛ` / `2,41` / `при 4,33 за
+  страната` fits; `17 зрелостници · 4,33 страната` elides even at the 15px
+  floor. Put what does not fit in the post copy, not in a smaller font.
 - **`benchmarks` — the comparison form.** Up to four full-width rows, each
   measuring this municipality against a national reference: a bar for the
   place, a **tick** for the reference, the value right-aligned, and an optional

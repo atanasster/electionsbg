@@ -490,6 +490,60 @@ describe("renderPlaceCard", () => {
     expect(png.length).toBeGreaterThan(10_000);
   });
 
+  it("keeps a long source clear of the CTA instead of drawing under it", async () => {
+    // The CTA is right-aligned and drawn after the source, so an over-long
+    // source used to run straight under it and its arrow — silently, since
+    // neither was measured against the other. Sample the strip the CTA occupies
+    // and assert the source's ink never reaches it.
+    const { createCanvas, loadImage } = await import("@napi-rs/canvas");
+    // The CTA's own strip, from where its text starts to the arrow's tip.
+    const ctaStrip = async (source: string) => {
+      const png = renderPlaceCard({ ...place, source, cta: "виж общината" });
+      const img = await loadImage(png);
+      const cx = createCanvas(1080, 1080).getContext("2d");
+      cx.drawImage(img, 0, 0);
+      return Buffer.from(cx.getImageData(790, 1005, 226, 42).data);
+    };
+    // Identical pixels means the source stayed out; an unbounded source draws
+    // its tail through this box and the two renders diverge.
+    const short = await ctaStrip("Източник: ЦИК");
+    const long = await ctaStrip(
+      `Източник: ${"АОП, ИСУН, ЦИК, НСИ, МОН, ".repeat(8)}`,
+    );
+    expect(long.equals(short)).toBe(true);
+    // And the box is not simply blank, or the assertion above proves nothing.
+    expect(short.some((b) => b > 90)).toBe(true);
+  });
+
+  it("carries four cells, the cap, without eliding a short label", () => {
+    // Cells divide the width rather than the height, so a 4th costs nothing
+    // vertically — it takes every cell to 186px inner, which is why the cap is
+    // four and why the labels have to stay short.
+    const png = renderPlaceCard({
+      ...place,
+      format: "portrait",
+      municipality: {
+        label: benchBand.label,
+        cells: [
+          {
+            label: "висше образование",
+            value: "13,2%",
+            note: "безработица 14,6%",
+          },
+          { label: "евросредства", value: "20,70 млн. €", note: "54 проекта" },
+          {
+            label: "обществени поръчки",
+            value: "33,5 млн. €",
+            note: "8 възложители",
+          },
+          { label: "матура БЕЛ", value: "2,41", note: "при 4,33 за страната" },
+        ],
+        benchmarks: benchBand.benchmarks.slice(0, 3),
+      },
+    });
+    expect(png.readUInt32BE(20)).toBe(1350);
+  });
+
   it("carries cells AND benchmarks in one band, in portrait", () => {
     // The full card: four zones, three absolute-figure cells, three benchmark
     // rows. This does not fit a square and is the reason `portrait` exists.

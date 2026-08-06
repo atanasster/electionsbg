@@ -1627,14 +1627,28 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   const SOURCE_Y = H - 48;
   ctx.fillStyle = pal.rule;
   ctx.fillRect(PLACE_PAD, SOURCE_Y - 54, W - PLACE_PAD * 2, 1);
+  // The CTA is right-aligned and drawn after, so a long source used to run
+  // straight under it and its arrow — silently, since neither is measured
+  // against the other. Bound the source by the gap the CTA actually leaves.
+  const ctaText = spec.cta ?? "виж мястото";
+  ctx.font = `700 25px ${FONT}`;
+  const ctaW = ctx.measureText(ctaText).width + 30 + 22;
   ctx.fillStyle = pal.muted;
-  ctx.font = `500 25px ${FONT}`;
   ctx.textAlign = "left";
-  ctx.fillText(spec.source, PLACE_PAD, SOURCE_Y);
+  const srcFit = fitText(
+    ctx,
+    spec.source,
+    500,
+    25,
+    W - PLACE_PAD * 2 - ctaW - 24,
+    17,
+  );
+  ctx.font = `500 ${srcFit.px}px ${FONT}`;
+  ctx.fillText(srcFit.text, PLACE_PAD, SOURCE_Y);
   ctx.fillStyle = pal.accent;
   ctx.textAlign = "right";
   ctx.font = `700 25px ${FONT}`;
-  ctx.fillText(spec.cta ?? "виж мястото", W - PLACE_PAD - 30, SOURCE_Y);
+  ctx.fillText(ctaText, W - PLACE_PAD - 30, SOURCE_Y);
   ctx.beginPath();
   ctx.moveTo(W - PLACE_PAD - 22, SOURCE_Y - 16);
   ctx.lineTo(W - PLACE_PAD, SOURCE_Y - 5);
@@ -1648,7 +1662,11 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   if (muni) {
     const CELL_H = 132;
     const bench = muni.benchmarks?.slice(0, 4) ?? [];
-    const cells = (muni.cells ?? []).slice(0, 3);
+    // Four is the cap because cells divide the width, not the height: a 4th
+    // costs nothing vertically but takes every cell from 316px to 226px inner
+    // 186px, which is below what "17 зрелостници · 4,33 страната" needs at its
+    // minimum size. Four short labels read fine; four long ones elide.
+    const cells = (muni.cells ?? []).slice(0, 4);
     // The two forms stack rather than exclude each other: cells carry the
     // absolute figures ("3,91 млн. €, 44 проекта"), benchmarks carry the same
     // municipality measured against the country. A card that drops the cells to
