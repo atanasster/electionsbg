@@ -17,6 +17,7 @@
 // ===========================================================================
 
 import type { SessionFile } from "./types";
+import { normalizeTitle } from "./dedupe";
 import type { AttendanceOutput } from "./attendance";
 import type { CohesionOutput } from "./cohesion";
 import type { SimilarityHeadlineSlice } from "./similarity_headline";
@@ -70,36 +71,101 @@ export interface HubStatsFile {
 
 const DAY_MS = 86_400_000;
 
-/** Bills that reached a second reading, by title stem.
+/** THE SPLIT FIRING is the qualification, not a bare „второ гласуване" match.
  *
- *  The corpus has no "law adopted" record: 7,782 items across the corpus carry
- *  „второ гласуване", but they are per-ARTICLE votes — 754 in the 52nd NS alone, of which
- *  466 match `параграф`. Counting them would report ~750 laws for a parliament that passed
- *  a few dozen. Grouping on the title before the reading marker collapses the 52nd's 754
- *  to 33, which is a credible number and the one the tile shows.
+ *  Bulgarian plenary titles carry the phrase in a PROCEDURAL position too — „ЗИ на Закона
+ *  за държавната финансова инспекция – първо гласуване - процедура за второ гласуване" is a
+ *  motion to take a bill through both readings in one sitting, and it is a FIRST reading.
+ *  Matching the phrase alone made eight such titles their own stems on the 52nd, every one
+ *  of them a bill already counted from its real second reading: 33 where the honest answer
+ *  is 25. (55 of 189 on the 51st.) The plan's own "33" was measured with the loose regex
+ *  and so confirmed nothing. */
+const SECOND_READING_SPLIT = /\s*[-–—]\s*второ\s+(?:гласуване|четене)/i;
+
+/** The stem of a second-reading title, or null when this is not one.
+ *
+ *  NORMALIZES INTERNALLY, so all three consumers — the Гласувания tile's bill count, the
+ *  rail's bill cards, and the wire's per-day figure — share one basis by construction. They
+ *  briefly did not: the wire passed an already-normalized title while the stem builder read
+ *  `itemTitles` raw. Today the two agree, because normalizeTitle only strips trailing re-vote
+ *  markers and the split anchors on an interior „– второ гласуване". Nothing held that, and
+ *  this module's own comment names the failure it would produce — a hub printing 25 beside a
+ *  rail listing a 26th. */
+export const secondReadingStem = (title: string): string | null => {
+  const normalized = normalizeTitle(title);
+  const stem = normalized.split(SECOND_READING_SPLIT)[0].trim();
+  return stem && stem !== normalized ? stem : null;
+};
+
+export interface BillStem {
+  stem: string;
+  /** Article votes counted under this stem. */
+  items: number;
+  firstDate: string;
+  lastDate: string;
+  /** The last article vote on this bill, so the rail can link at an item rather than a
+   *  whole plenary day. */
+  lastItem: { date: string; item: number; slug: string };
+}
+
+/** Bills that reached a second reading, grouped by title stem, newest last vote first.
+ *
+ *  ONE derivation, two consumers: the Гласувания tile's flow number is this list's LENGTH
+ *  and the news rail's „на второ четене" card is its head. Computing them separately is how
+ *  a hub ends up printing 25 beside a rail listing a 26th — the same class of drift §5 gives
+ *  as the reason the hub blob is built from rebuildDerived's in-memory objects. */
+export const secondReadingStems = (sessions: SessionFile[]): BillStem[] => {
+  const byStem = new Map<string, BillStem>();
+  for (const session of sessions) {
+    for (const [itemNo, title] of Object.entries(session.itemTitles ?? {})) {
+      const stem = secondReadingStem(title);
+      if (!stem) continue;
+      const item = Number(itemNo);
+      const last = {
+        date: session.date,
+        item,
+        slug: session.itemSlugs?.[itemNo] ?? itemNo,
+      };
+      const prev = byStem.get(stem);
+      if (!prev) {
+        byStem.set(stem, {
+          stem,
+          items: 1,
+          firstDate: session.date,
+          lastDate: session.date,
+          lastItem: last,
+        });
+        continue;
+      }
+      prev.items += 1;
+      if (session.date < prev.firstDate) prev.firstDate = session.date;
+      // `>=` so that within a day the later item wins; the sessions array is not ordered.
+      if (session.date > prev.lastDate) {
+        prev.lastDate = session.date;
+        prev.lastItem = last;
+      } else if (session.date === prev.lastDate && item > prev.lastItem.item) {
+        prev.lastItem = last;
+      }
+    }
+  }
+  return [...byStem.values()].sort((a, b) =>
+    a.lastDate === b.lastDate
+      ? b.lastItem.item - a.lastItem.item
+      : b.lastDate.localeCompare(a.lastDate),
+  );
+};
+
+/** Bills that reached a second reading, by title stem — the Гласувания tile's flow number.
+ *
+ *  The corpus has no "law adopted" record: 7,782 items across it carry „второ гласуване", but
+ *  they are per-ARTICLE votes — 754 in the 52nd alone, of which 466 match `параграф`. Counting
+ *  them would report ~750 laws for a parliament that passed a few dozen. Stem grouping
+ *  collapses the 52nd's 754 to 25 and the 51st's to 133.
  *
  *  What is NOT derivable is the pass/fail split: the largest stem (държавния бюджет, 232
  *  items) ends on yes:38 no:4 abstain:135, a rejected amendment rather than an adoption. */
-export const secondReadingBills = (sessions: SessionFile[]): number => {
-  const stems = new Set<string>();
-  for (const session of sessions) {
-    for (const title of Object.values(session.itemTitles ?? {})) {
-      const stem = title
-        .split(/\s*[-–—]\s*второ\s+(?:гласуване|четене)/i)[0]
-        .trim();
-      // THE SPLIT FIRING is the qualification, not a bare "второ гласуване" match.
-      // Bulgarian plenary titles carry the phrase in a PROCEDURAL position too — „ЗИ на
-      // Закона за държавната финансова инспекция – първо гласуване - процедура за второ
-      // гласуване" is a motion to take a bill through both readings in one sitting, and it
-      // is a FIRST reading. Matching the phrase alone made eight such titles their own
-      // stems on the 52nd, every one of them a bill already counted from its real second
-      // reading: 33 where the honest answer is 25. (55 of 189 on the 51st.) The plan's own
-      // "33" was measured with the loose regex and so confirmed nothing.
-      if (stem && stem !== title.trim()) stems.add(stem);
-    }
-  }
-  return stems.size;
-};
+export const secondReadingBills = (sessions: SessionFile[]): number =>
+  secondReadingStems(sessions).length;
 
 export interface HubStatsInput {
   ns: string;

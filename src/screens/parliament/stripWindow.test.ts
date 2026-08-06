@@ -97,4 +97,46 @@ describe("buildStripWindow", () => {
     );
     assert.deepEqual(days, [{ date: "2026-07-01", items: 55 }]);
   });
+  test("a tally-less source yields NO tally, not three zeroes", () => {
+    // index.json is { date, stenogramId, items, file, ns } and carries no split at all.
+    // Defaulting the absent split to zeroes would draw a real sitting as an empty stack —
+    // pixel-identical to a day on which the chamber voted for nothing.
+    const days = buildStripWindow(
+      [{ date: "2026-07-01", items: 12 }],
+      "2026-07-01",
+    );
+    assert.equal(days[0].tally, undefined);
+  });
+
+  test("a hub_feed source carries the split through, summed across split sittings", () => {
+    const days = buildStripWindow(
+      [
+        { date: "2026-07-01", items: 10, yes: 400, no: 30, abstain: 20 },
+        { date: "2026-07-01", items: 2, yes: 100, no: 5, abstain: 0 },
+      ],
+      "2026-07-01",
+    );
+    assert.deepEqual(days, [
+      {
+        date: "2026-07-01",
+        items: 12,
+        tally: { yes: 500, no: 35, abstain: 20 },
+      },
+    ]);
+  });
+
+  test("a gap day inside a tallied window still has no tally", () => {
+    // Otherwise the component reads { yes: 0, no: 0, abstain: 0 } on a day the chamber did
+    // not sit and tries to stack a bar of height zero.
+    const days = buildStripWindow(
+      [
+        { date: "2026-07-01", items: 10, yes: 400, no: 30, abstain: 20 },
+        { date: "2026-07-03", items: 8, yes: 300, no: 10, abstain: 5 },
+      ],
+      "2026-07-03",
+    );
+    assert.equal(days[1].date, "2026-07-02");
+    assert.equal(days[1].items, 0);
+    assert.equal(days[1].tally, undefined);
+  });
 });

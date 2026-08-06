@@ -10,12 +10,17 @@
 // 613 /votes/<date> pages, which carry this module's highest measured engagement and which
 // nothing else links to.
 //
-// WHAT THE BARS ENCODE — and what they do NOT. RollcallIndexEntry is
-// { date, stenogramId, items, file, ns }: index.json carries NO tallies. Per-day
-// за/против/въздържал lives only inside the session files (482 KB average, 4.97 MB worst),
-// which the hub may never fetch. So v1 encodes ITEMS VOTED PER DAY and says so; the
-// stacked-outcome version arrives with hub_feed in H2. The caption must never imply
-// outcome.
+// WHAT THE BARS ENCODE — and what they do NOT. Bar HEIGHT is always items voted that day;
+// the caption says so and must never be written as though height encoded outcome.
+//
+// The COLOUR is the second dimension, and it exists only when hub_feed/<ns>.json has
+// loaded. index.json is { date, stenogramId, items, file, ns } — it carries no tallies at
+// all — while the feed shard carries a per-day за/против/въздържал split. So the strip has
+// two states, and the one rule that matters is that HEIGHT AND COLOUR COME FROM THE SAME
+// SOURCE. index.json's item count is the RAW count and the feed's is post-dedupe (1,263 vs
+// 1,198 on the 52nd, ~5% apart), so a strip drawing index.json heights under feed colours
+// would be stacking one basis on another — the exact defect class this page's audits kept
+// finding. When the feed is present it supplies both; when it is not, volume only.
 //
 // The strip is INFORMATIONAL, not decorative, so unlike a tile scene it cannot be
 // aria-hidden. Each sitting is a link carrying its own accessible name (date + count +
@@ -26,19 +31,29 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
-import { buildStripWindow } from "./stripWindow";
+import type { StripDay as FeedStripDay } from "@/data/parliament/useParliamentHubFeed";
+import { buildStripWindow, type StripSource } from "./stripWindow";
+import { barGeometry, SEGMENT_CLASS } from "./stripBars";
 
-export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
-  todayIso,
-}) => {
+/** Legend order — base of the column upward, matching the stack. */
+const SEGMENT_ORDER = ["yes", "no", "abstain"] as const;
+
+export const ParliamentSessionStrip: FC<{
+  /** hub_feed's sittings for the selected parliament. When present it supplies BOTH the
+   *  heights and the split; when absent the strip falls back to index.json for heights
+   *  alone. Never one from each — see the header note on bases. */
+  feedDays?: FeedStripDay[];
+  todayIso?: string;
+}> = ({ feedDays, todayIso }) => {
   const { t, i18n } = useTranslation();
   const { sessions, isLoading } = useRollcallIndex();
   const today = todayIso ?? new Date().toISOString().slice(0, 10);
 
-  const days = useMemo(
-    () => buildStripWindow(sessions, today),
-    [sessions, today],
+  const source: StripSource[] = useMemo(
+    () => (feedDays && feedDays.length > 0 ? feedDays : sessions),
+    [feedDays, sessions],
   );
+  const days = useMemo(() => buildStripWindow(source, today), [source, today]);
   const peak = useMemo(
     () => days.reduce((max, d) => Math.max(max, d.items), 0),
     [days],
@@ -62,7 +77,8 @@ export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
   // the thirteen elections in the picker map to an NS with roll-call data, and the four
   // oldest have none at all. Naming the gap is the whole point — a zeroed strip would read
   // as "the chamber did not sit".
-  if (isLoading) return <div className="min-h-[132px]" aria-hidden />;
+  if (isLoading && !(feedDays && feedDays.length > 0))
+    return <div className="min-h-[132px]" aria-hidden />;
   if (days.length === 0) {
     return (
       <p className="rounded-xl border border-border bg-card px-4 py-6 text-sm text-muted-foreground">
@@ -78,6 +94,7 @@ export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
   // nothing about what five is, and the visible caption that explains it is not announced
   // with each bar.
   const itemsWord = t("nsh_strip_items") || "items voted";
+  const split = days.some((d) => d.tally);
 
   return (
     <section
@@ -92,10 +109,31 @@ export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
           {t("nsh_strip_title") || "Plenary days"}
         </h2>
         <span className="text-xs text-muted-foreground">
-          {/* Names the unit, so the bars cannot be read as an outcome split. */}
-          {t("nsh_strip_caption") || "bar height = items voted that day"}
+          {/* Names the unit, so the bars cannot be read as an outcome split. The caption
+              gains its second clause only when the colours are actually there — a legend
+              for a dimension the strip is not drawing is worse than none. */}
+          {split
+            ? t("nsh_strip_caption_split") ||
+              "height = items voted · colour = за / против / въздържал"
+            : t("nsh_strip_caption") || "bar height = items voted that day"}
         </span>
       </div>
+
+      {split ? (
+        <ul className="mb-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+          {SEGMENT_ORDER.map((key) => (
+            <li key={key} className="flex items-center gap-1">
+              {/* The legend and the bars read ONE colour map, so a legend can never end up
+                  explaining colours the columns do not use. */}
+              <span
+                aria-hidden
+                className={`h-2 w-2 shrink-0 rounded-[1px] ${SEGMENT_CLASS[key]}`}
+              />
+              {t(`nsh_strip_legend_${key}`)}
+            </li>
+          ))}
+        </ul>
+      ) : null}
 
       <div className="overflow-x-auto">
         <ol
@@ -103,14 +141,12 @@ export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
           style={{ height: 72 }}
         >
           {days.map((day) => {
-            // SQUARE-ROOT scale, not linear. Item counts per day are long-tailed — the
-            // 52nd NS ranges from 1 to 237 — so a linear scale renders a 14-item sitting
-            // as a 4px sliver indistinguishable from the hairline that marks a day the
-            // chamber did not sit. That is the one comparison this strip exists to make,
-            // so the scale has to preserve it. Ordering is unchanged; only the contrast
-            // between small values is.
-            const height =
-              peak > 0 ? Math.round(Math.sqrt(day.items / peak) * 58) : 0;
+            // Geometry lives in stripBars.ts so the arithmetic is testable — see its header
+            // for the clamp defect that made this worth extracting. Colour splits the bar by
+            // SHARE of the day's CAST votes; height still counts items. Cast votes, not the
+            // roll, because a fourth "absent" segment would put a member who did not vote
+            // inside a picture of how the chamber voted, and absence has its own tile.
+            const { height, segments } = barGeometry(day, peak);
             const label = dayLabel.format(new Date(`${day.date}T00:00:00Z`));
             return (
               // A gap carries no information a screen reader can use — without
@@ -126,10 +162,46 @@ export const ParliamentSessionStrip: FC<{ todayIso?: string }> = ({
                     to={`/votes/${day.date}`}
                     underline={false}
                     title={`${label} · ${day.items}`}
-                    aria-label={`${label} — ${day.items} ${itemsWord}`}
-                    className="block w-full rounded-t-[2px] bg-[hsl(var(--primary))] opacity-75 transition-opacity hover:opacity-100"
-                    style={{ height: Math.max(height, 8) }}
-                  />
+                    aria-label={
+                      day.tally
+                        ? `${label} — ${day.items} ${itemsWord}, ${t("nsh_strip_legend_yes")} ${day.tally.yes}, ${t("nsh_strip_legend_no")} ${day.tally.no}, ${t("nsh_strip_legend_abstain")} ${day.tally.abstain}`
+                        : `${label} — ${day.items} ${itemsWord}`
+                    }
+                    className="flex w-full flex-col-reverse overflow-hidden rounded-t-[2px] opacity-75 transition-opacity hover:opacity-100"
+                    style={{ height }}
+                  >
+                    {segments ? (
+                      <>
+                        {/* flex-col-REVERSE, so за sits at the base of the column. A
+                            stack that grew downward from the top would put the largest
+                            segment against the axis on some days and away from it on
+                            others, which makes the columns uncomparable. */}
+                        <span
+                          aria-hidden
+                          className={`w-full shrink-0 ${SEGMENT_CLASS.yes}`}
+                          style={{ height: segments.yes }}
+                        />
+                        <span
+                          aria-hidden
+                          className={`w-full shrink-0 ${SEGMENT_CLASS.no}`}
+                          style={{ height: segments.no }}
+                        />
+                        {/* The remainder segment, computed as `height - yes - no` rather
+                            than rounded on its own share — the three then sum to exactly
+                            the bar and no column shows a hairline of card colour. */}
+                        <span
+                          aria-hidden
+                          className={`w-full shrink-0 ${SEGMENT_CLASS.abstain}`}
+                          style={{ height: segments.abstain }}
+                        />
+                      </>
+                    ) : (
+                      <span
+                        aria-hidden
+                        className={`w-full flex-1 ${SEGMENT_CLASS.yes}`}
+                      />
+                    )}
+                  </Link>
                 ) : (
                   <span
                     aria-hidden

@@ -16,8 +16,16 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import { LeadCard, NewsRail } from "@/ux/feed";
+import type { NewsCardProps } from "@/ux/feed";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useParliamentHubStats } from "@/data/parliament/useParliamentHubStats";
+import {
+  useParliamentHubFeed,
+  feedHref,
+  type FeedItem,
+} from "@/data/parliament/useParliamentHubFeed";
+import { ParliamentWire } from "./parliament/ParliamentWire";
 import {
   PARLIAMENT_BANDS,
   PARLIAMENT_TILES,
@@ -47,6 +55,10 @@ export const ParliamentHubScreen: FC = () => {
   // ONE blob for the whole page. The seven mini-tiles this replaced fetched a full derived
   // artifact each — 1.65 MB between them — to render three rows apiece.
   const { stats } = useParliamentHubStats();
+  // A second, per-NS shard for bands 0–2. Fetched in parallel with the blob above, so the
+  // split costs no latency; it exists because this one carries Bulgarian bill titles and
+  // only the parliament on screen needs them.
+  const { feed } = useParliamentHubFeed();
 
   const nf = useMemo(
     () => new Intl.NumberFormat(i18n.language === "bg" ? "bg-BG" : "en-GB"),
@@ -106,6 +118,89 @@ export const ParliamentHubScreen: FC = () => {
     });
     return out;
   }, [stats, nf, pct, dec2, t]);
+
+  // BAND 2 — one card per kind, topped up from the leftovers.
+  //
+  // The shard carries up to four items of each kind and the rail shows four in total, which
+  // looks like waste until a thin parliament arrives: the 45th sat 17 days, and a rail built
+  // as "one of each" would have rendered two cards there. Taking the head of each kind first
+  // keeps the rail varied when the corpus is rich, and the spares fill it when it is not.
+  const railItems = useMemo(() => {
+    if (!feed) return [];
+    const kinds = [
+      feed.feed.sessions,
+      feed.feed.bills,
+      feed.feed.dissents,
+      feed.feed.absences,
+    ];
+    const picked: FeedItem[] = kinds.map((k) => k[0]).filter(Boolean);
+    for (const kind of kinds) {
+      for (const item of kind.slice(1)) {
+        if (picked.length >= 4) break;
+        picked.push(item);
+      }
+    }
+    return picked.slice(0, 4);
+  }, [feed]);
+
+  // The generator ships numbers and source text only — no glue prose — so every subtitle is
+  // composed here, under an i18n key chosen by `kind`. That is what keeps the English hub
+  // from being the Bulgarian one with English headings.
+  //
+  // A session's yes/no/abstain are VOTES summed over the whole sitting, not members: the
+  // budget day is 219 items and 15,961 „за". Printed raw beside a date in a chamber of 240
+  // that reads as a membership count off by two orders of magnitude, so they go out as
+  // SHARES of the day's cast votes — the same encoding the strip's colours use.
+  //
+  // Every count goes through a `count` key so Bulgarian inflects it. That is why the session
+  // subtitle is two fragments joined rather than one interpolated sentence: i18next
+  // pluralises on a single `count`, and the first draft rendered „1 гласувания".
+  const railCards = useMemo<(NewsCardProps & { id: string })[]>(
+    () =>
+      railItems.map((item) => {
+        const s = item.stats;
+        const cast = (s.yes ?? 0) + (s.no ?? 0) + (s.abstain ?? 0);
+        const share = (n: number): string =>
+          cast > 0 ? pct.format(n / cast) : "—";
+        return {
+          id: item.id,
+          to: feedHref(item.target),
+          at: item.at,
+          kicker: t(`nsh_feed_kicker_${item.kind}`),
+          title:
+            item.title ||
+            (item.kind === "absence"
+              ? t("nsh_feed_title_absence", {
+                  count: s.absent,
+                  roll: s.roll,
+                })
+              : t("nsh_feed_untitled")),
+          subtitle:
+            item.kind === "session"
+              ? [
+                  t("nsh_num_items", { count: s.items }),
+                  t("nsh_feed_split", {
+                    yes: share(s.yes ?? 0),
+                    no: share(s.no ?? 0),
+                    abstain: share(s.abstain ?? 0),
+                  }),
+                ].join(" · ")
+              : t(`nsh_feed_sub_${item.kind}`, {
+                  ...s,
+                  // The one number each kind inflects on: articles for a bill, breaks for a
+                  // dissent, the sitting's items for the absence aggregate.
+                  count:
+                    item.kind === "bill"
+                      ? s.articles
+                      : item.kind === "dissent"
+                        ? s.dissents
+                        : s.items,
+                }),
+          badge: item.badge,
+        };
+      }),
+    [railItems, t, pct],
+  );
 
   const pageTitle = t("nsh_hub_title") || "National Assembly";
   const cta = t("gov_hub_view") || "разгледай";
@@ -178,9 +273,60 @@ export const ParliamentHubScreen: FC = () => {
           capture selected a party-correlation heatmap cell inside a tile this rebuild
           removes, so it would have waited 60 s and failed silently. */}
       <div data-og="parliament-hub">
-        <div className="mt-4">
-          <ParliamentSessionStrip />
+        {/* BAND 0 — the wire, above the hero. One line, no border: anything boxed here
+            competes with the strip for the top of the page, which §4.1 decided the strip
+            should win. */}
+        {feed?.wire ? (
+          <div className="mt-4">
+            <ParliamentWire wire={feed.wire} />
+          </div>
+        ) : null}
+
+        <div className="mt-3">
+          <ParliamentSessionStrip feedDays={feed?.strip} />
         </div>
+
+        {/* BAND 1 — the lead. `stage`, never an outcome word: this corpus has no adoption
+            marker at all (§4.2), and P3 measured 324 item pages where the obvious reading
+            of „приет" — a majority of the votes cast — is wrong outright, because a чл.101
+            veto re-vote needs 121 of 240 regardless of how many members are in the room. */}
+        {feed?.lead ? (
+          <LeadCard
+            className="mt-4"
+            to={feedHref(feed.lead.target)}
+            at={feed.lead.at}
+            kicker={t(`nsh_lead_stage_${feed.lead.stage}`)}
+            title={feed.lead.title}
+            subtitle={t("nsh_lead_basis")}
+            stats={[
+              {
+                label: t("nsh_strip_legend_yes"),
+                value: nf.format(feed.lead.stats.yes ?? 0),
+                tone: "positive",
+              },
+              {
+                label: t("nsh_strip_legend_no"),
+                value: nf.format(feed.lead.stats.no ?? 0),
+                tone: "negative",
+              },
+              {
+                label: t("nsh_strip_legend_abstain"),
+                value: nf.format(feed.lead.stats.abstain ?? 0),
+              },
+            ]}
+          />
+        ) : null}
+
+        {/* BAND 2 — the news rail. Renders nothing at all when the shard has no items,
+            rather than an empty row: this is one band of several, and a parliament with
+            nothing to report should lose the rail, not gain a box explaining its absence. */}
+        <NewsRail
+          className="mt-6 sm:mt-8"
+          heading={t("nsh_band_latest")}
+          action={{ to: "/votes", label: t("gov_hub_view") || "разгледай" }}
+          items={railCards}
+        />
+
         <TileHubGrid sections={sections} className="mt-6 sm:mt-8" />
       </div>
 

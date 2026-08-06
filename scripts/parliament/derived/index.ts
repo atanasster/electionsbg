@@ -28,6 +28,7 @@ import { computeDissents } from "./dissents";
 import { computePartyPairBreaks } from "./party_pair_breaks";
 import { writeMpShards } from "./per_mp_shards";
 import { computeHubNsStats, type HubStatsFile } from "./hub_stats";
+import { computeHubFeed } from "./hub_feed";
 import { mostDivergentPairSlug } from "../../../src/screens/parliament/seeds";
 import { NS_TERM_START } from "../../../src/data/parliament/nsFolders";
 import { dedupeRevotes } from "./dedupe";
@@ -356,6 +357,51 @@ export const rebuildDerived = async (args: {
     // past a quarter means the ingest starts mid-term.
     if (missedDays > 90) stats.coverage = "partial";
   }
+  // leads.json is READ AND VALIDATED HERE, before the first write of this block.
+  //
+  // computeHubFeed throws on an override it cannot resolve, which is right — falling back to
+  // the automatic pick would put a lead on the page that the editor who wrote the entry has
+  // no way to tell was not theirs. But thrown from inside the per-NS loop it lands AFTER
+  // hub_stats.json is rewritten and BEFORE the --upload branch, so one stale entry leaves the
+  // daily `npm run watch` ingest half-done and every artifact unuploaded — the bucket serving
+  // last week's numbers, reached by a crash instead of by the omission upload_coverage.test
+  // was written to prevent. And the trigger is ordinary: a re-vote collapsing during a
+  // routine re-ingest invalidates a lead nobody touched.
+  //
+  // Iterating leads.json's OWN keys rather than nsKeys is the other half. `curatedLeads[ns]`
+  // for ns of nsKeys never consults a typo'd key ("5 2", "NS52"), and the confirmation log
+  // filtered those same keys out — so an operator saw `curated leads: none` and could not
+  // distinguish a misspelling from an absence.
+  const leadsPath = path.join(VOTES_DIR, "leads.json");
+  const curatedLeads: Record<string, { date: string; item: number }> =
+    fs.existsSync(leadsPath)
+      ? JSON.parse(fs.readFileSync(leadsPath, "utf8"))
+      : {};
+  for (const [ns, ref] of Object.entries(curatedLeads)) {
+    if (
+      typeof ref?.date !== "string" ||
+      typeof ref?.item !== "number" ||
+      !Number.isInteger(ref.item)
+    ) {
+      throw new Error(
+        `leads.json entry for NS ${ns} is malformed: expected { date: string, item: number }.`,
+      );
+    }
+    const sessionsForNs = byNs.get(ns);
+    if (!sessionsForNs) {
+      throw new Error(
+        `leads.json names NS ${ns}, which is not in the corpus (have: ${nsKeys.join(", ")}).`,
+      );
+    }
+    const day = sessionsForNs.find((x) => x.date === ref.date);
+    if (!day?.sessions.some((i) => i.item === ref.item)) {
+      throw new Error(
+        `leads.json names NS ${ns} ${ref.date} item ${ref.item}, which is not in the deduped ` +
+          `corpus. A re-vote may have collapsed it — pick the surviving item.`,
+      );
+    }
+  }
+
   writeJson(path.join(DERIVED_DIR, "hub_stats.json"), {
     computedAt: nowIso,
     byNs: hubByNs,
@@ -367,6 +413,32 @@ export const rebuildDerived = async (args: {
         .map(([k]) => k)
         .join(", ") || "none"
     })`,
+  );
+
+  // The per-NS feed shard — bands 0–2 and the strip's outcome split. Separate from the blob
+  // above because it carries Bulgarian bill titles: nine parliaments of rail in the
+  // always-fetched file would be ~38 KB of text, eight ninths of it for a parliament the
+  // reader is not looking at (plan §5.1).
+  console.log(`→ computing hub feed per NS (sharded)`);
+  fs.mkdirSync(path.join(DERIVED_DIR, "hub_feed"), { recursive: true });
+  let feedNs = 0;
+  for (const ns of nsKeys) {
+    const feed = computeHubFeed({
+      ns,
+      sessions: byNs.get(ns)!,
+      dissents: dissentsByNs[ns],
+      curatedLead: curatedLeads[ns],
+      computedAt: nowIso,
+    });
+    if (!feed) continue;
+    fs.writeFileSync(
+      path.join(DERIVED_DIR, "hub_feed", `${ns}.json`),
+      JSON.stringify(feed),
+    );
+    feedNs += 1;
+  }
+  console.log(
+    `  ✓ ${feedNs} NS shards (curated leads: ${Object.keys(curatedLeads).join(", ") || "none"})`,
   );
 
   if (args.upload) {
@@ -398,6 +470,12 @@ export const rebuildDerived = async (args: {
     await uploadTextTree(
       path.join(DERIVED_DIR, "important_votes"),
       "parliament/votes/derived/important_votes",
+    );
+    // The hub's per-NS feed shards. Same shape, same reason: without this line the daily
+    // ingest refreshes the rail locally and leaves prod on the previous week's sittings.
+    await uploadTextTree(
+      path.join(DERIVED_DIR, "hub_feed"),
+      "parliament/votes/derived/hub_feed",
     );
     // Per-MP shards live in per-mp/<ns>/<mpId>.json. ~2,400 files total
     // across the 9 ingested NSes (one per MP that ever cast a vote). On the
