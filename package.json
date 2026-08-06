@@ -112,6 +112,7 @@
     "db:load:rollcall:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:rollcall:pg",
     "db:load:rollcall-derived:pg": "tsx scripts/db/load_rollcall_derived_pg.ts",
     "db:load:rollcall-derived:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:rollcall-derived:pg",
+    "db:check-hub-stats": "tsx scripts/db/gen_parliament/hub_stats_pg.ts",
     "db:load:official-candidate-links:pg": "tsx scripts/db/load_official_candidate_links_pg.ts",
     "db:load:official-candidate-links:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:official-candidate-links:pg",
     "db:load:persons-browse:pg": "tsx scripts/db/load_persons_browse_pg.ts",

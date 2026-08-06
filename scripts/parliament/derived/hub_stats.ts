@@ -131,17 +131,41 @@ const groupKey = (short: string): string =>
     .trim()
     .toUpperCase();
 
-export const realGroups = <T extends { partyShort: string }>(
+/** One entry per real group, MERGING the spelling variants item-weighted.
+ *
+ *  Keeping the first spelling and dropping the rest was the obvious implementation and it
+ *  silently discards part of a group's record: in the 51st, `ГЕРБ - СДС` covers 3,698 items
+ *  and `ГЕРБ-СДС` another 177 — the same group, renamed mid-term in the source, and the
+ *  entries arrive sorted by cohesion so keep-first systematically retains the flattering
+ *  variant. Weighting by `itemsCovered` and summing is the only version that answers "how
+ *  unified was this group" over the whole parliament. */
+export const realGroups = <
+  T extends { partyShort: string; itemsCovered?: number; meanCohesion: number },
+>(
   entries: T[],
 ): T[] => {
-  const byKey = new Map<string, T>();
+  const byKey = new Map<string, { rep: T; items: number; weighted: number }>();
   for (const e of entries) {
     if (NON_GROUP.test(e.partyShort.trim())) continue;
     const key = groupKey(e.partyShort);
-    // Keep the first spelling seen; the entries arrive sorted, so this is stable.
-    if (!byKey.has(key)) byKey.set(key, e);
+    // Weight by items where the source gives them; fall back to 1 so a shape without
+    // itemsCovered degrades to an unweighted mean rather than to zero.
+    const items = e.itemsCovered ?? 1;
+    const prev = byKey.get(key);
+    if (!prev) {
+      byKey.set(key, { rep: e, items, weighted: e.meanCohesion * items });
+      continue;
+    }
+    prev.items += items;
+    prev.weighted += e.meanCohesion * items;
+    // The label follows the spelling that covers more of the term.
+    if (items > (prev.rep.itemsCovered ?? 0)) prev.rep = e;
   }
-  return [...byKey.values()];
+  return [...byKey.values()].map((v) => ({
+    ...v.rep,
+    itemsCovered: v.items,
+    meanCohesion: v.items > 0 ? v.weighted / v.items : v.rep.meanCohesion,
+  }));
 };
 
 const spanOf = (sessions: SessionFile[]): { from: string; to: string } => {

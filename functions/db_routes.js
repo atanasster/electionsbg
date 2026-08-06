@@ -2912,6 +2912,51 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+  // Attendance for one parliament (135 mp_attendance) — the /parliament/attendance table.
+  // Replaces a 500 KB whole-corpus fetch with one indexed scan of ~270 rows.
+  "mp-attendance": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    if (!ns) return { body: [] };
+    const rows = await dbRows(
+      `SELECT a.mp_id, a.items, a.present, a.absent, s.name, p.short AS party
+         FROM mp_attendance a
+         LEFT JOIN mp_seat s ON s.ns = a.ns AND s.mp_id = a.mp_id
+         LEFT JOIN party_dim p ON p.party_id = s.party_id
+        WHERE a.ns = $1
+        ORDER BY a.present::numeric / NULLIF(a.items, 0) DESC NULLS LAST`,
+      [ns],
+    ).catch(matviewRows("mp_attendance"));
+    return { body: rows };
+  },
+  // Group cohesion per sitting (135 party_cohesion) — the /parliament/cohesion trend.
+  //
+  // Filters the unaffiliated buckets HERE rather than in the matview, because the matview
+  // is the record and they are real rows in it: НЕЗ and НЕЧЛ В ПГ are members without a
+  // group, so their "cohesion" is a number about individuals. Charting them alongside the
+  // groups is what made the 50th read 0.94 against a real-group 0.973.
+  "party-cohesion": async (dbRows, q) => {
+    const ns = clampInt(q.ns, 0, 40, 60);
+    if (!ns) return { body: [] };
+    // FOLD THE SPELLING VARIANTS. The source renames a group mid-term — the 51st carries
+    // both `ГЕРБ - СДС` (3,698 items) and `ГЕРБ-СДС` (177), under different party_id rows —
+    // so grouping by party_id returns 13 series for 11 groups, with two lines stopping on
+    // 2024-12-20 and two more starting on 2025-01-08 and no overlapping dates between them.
+    // A reader sees a group vanish and a near-identical one appear.
+    const rows = await dbRows(
+      `SELECT c.date,
+              sum(c.items)                                          AS items,
+              sum(c.cohesion * c.items) / NULLIF(sum(c.items), 0)   AS cohesion,
+              min(p.short)                                          AS party
+         FROM party_cohesion c
+         JOIN party_dim p ON p.party_id = c.party_id
+        WHERE c.ns = $1
+          AND btrim(p.short) !~* '^(НЕЗ|НЕЧЛ)'
+        GROUP BY c.date, upper(replace(btrim(p.short), ' ', ''))
+        ORDER BY c.date, 4`,
+      [ns],
+    ).catch(matviewRows("party_cohesion"));
+    return { body: rows };
+  },
   // One MP's votes against their own group's plurality (135 mp_dissent), for the dissents
   // section on a candidate page. Replaces useMpDissents' read of dissents.json — a 31 MB
   // artifact that page downloads WHOLE whenever the per-MP shard is missing, which it is

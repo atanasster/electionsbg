@@ -150,11 +150,13 @@ describe("computeHubNsStats", () => {
       cohesion: {
         computedAt: "",
         entries: [
-          { partyShort: "ГЕРБ - СДС", meanCohesion: 0.96 },
-          { partyShort: "ГЕРБ-СДС", meanCohesion: 0.96 },
-          { partyShort: "ПП", meanCohesion: 0.98 },
-          { partyShort: "НЕЗ", meanCohesion: 0.5 },
-          { partyShort: "НЕЧЛ В ПГ", meanCohesion: 0.4 },
+          // The same group under two spellings, as the 51st really carries it: the source
+          // renames a group mid-term and both spellings hold part of its record.
+          { partyShort: "ГЕРБ - СДС", itemsCovered: 300, meanCohesion: 0.96 },
+          { partyShort: "ГЕРБ-СДС", itemsCovered: 100, meanCohesion: 0.92 },
+          { partyShort: "ПП", itemsCovered: 400, meanCohesion: 0.98 },
+          { partyShort: "НЕЗ", itemsCovered: 50, meanCohesion: 0.5 },
+          { partyShort: "НЕЧЛ В ПГ", itemsCovered: 50, meanCohesion: 0.4 },
         ],
       } as never,
     })!;
@@ -164,7 +166,11 @@ describe("computeHubNsStats", () => {
       "spelling variants or non-groups counted",
     );
     assert.equal(stats.tiles.leastUnifiedGroup, "ГЕРБ - СДС");
-    assert.ok(Math.abs(stats.tiles.cohesionMean - 0.97) < 1e-12);
+    // MERGED item-weighted, not keep-first: (300·0.96 + 100·0.92)/400 = 0.95 for ГЕРБ,
+    // then the unweighted mean across the two groups with ПП's 0.98. Keeping the first
+    // spelling would report 0.97 and quietly discard 100 items of that group's record —
+    // and since entries arrive sorted by cohesion, it would always keep the flattering one.
+    assert.ok(Math.abs(stats.tiles.cohesionMean - (0.95 + 0.98) / 2) < 1e-12);
   });
 
   test("the map's tile counts PROJECTED members, not the whole roll", () => {
