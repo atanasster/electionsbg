@@ -30,6 +30,7 @@ import { PARLIAMENT_SCENES } from "./parliamentScenes";
 const ROUTED_PATTERNS = [
   "/votes",
   "/votes/between/:pair",
+  "/parliament/correlation",
   "/parliament/embedding",
   "/parliament/cohesion",
   "/parliament/attendance",
@@ -168,6 +169,7 @@ describe("the /parliament hub registry", () => {
     const destinations = new Set(PARLIAMENT_TILES.map((t) => patternOf(t.to)));
     for (const owned of [
       "/votes",
+      "/parliament/correlation",
       "/parliament/embedding",
       "/parliament/cohesion",
       "/parliament/attendance",

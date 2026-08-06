@@ -706,6 +706,11 @@ const SessionScreen = lazy(() =>
     default: m.SessionScreen,
   })),
 );
+const ParliamentCorrelationScreen = lazy(() =>
+  import("./screens/ParliamentCorrelationScreen").then((m) => ({
+    default: m.ParliamentCorrelationScreen,
+  })),
+);
 const ParliamentCohesionScreen = lazy(() =>
   import("./screens/ParliamentCohesionScreen").then((m) => ({
     default: m.ParliamentCohesionScreen,
@@ -2820,6 +2825,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PartyPairBreaksScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament/correlation"
+            element={
+              <LayoutScreen>
+                <ParliamentCorrelationScreen />
               </LayoutScreen>
             }
           />

@@ -9,8 +9,6 @@ import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import { useVoteDaySummary } from "@/data/parliament/votes/useVoteDaySummary";
 import { useDayLabel } from "@/ux/feed";
-import { ParliamentVotingTile } from "@/screens/dashboard/ParliamentVotingTile";
-import { ContestedVotesFeed } from "@/screens/components/votes/ContestedVotesFeed";
 import { SessionOutcomeBar } from "@/screens/components/votes/SessionOutcomeBar";
 import { TopicChip } from "@/screens/components/votes/TopicChip";
 import type {
@@ -137,19 +135,6 @@ export const SessionsIndexScreen: FC = () => {
               <X className="h-3 w-3" />
               {t("votes_topic_filter_clear") || "Clear topic filter"}
             </button>
-          </div>
-        )}
-
-        {!topicFilter && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div>
-              <h2 className="sr-only">
-                {t("votes_landing_correlation_title") ||
-                  "How groups vote together"}
-              </h2>
-              <ParliamentVotingTile />
-            </div>
-            <ContestedVotesFeed />
           </div>
         )}
 

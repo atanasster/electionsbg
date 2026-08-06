@@ -243,6 +243,50 @@ const Attendance: FC = () => {
 
 // Сходство между депутати — two voting records laid side by side with the matching rows
 // bridged. The bridges ARE the score, drawn rather than stated.
+/** The correlation matrix itself — a 5x5 grid of cells whose fill runs from the accent
+ *  (agreement) through pale (indifference) to hollow ink (opposition), with the diagonal
+ *  solid because a group always agrees with itself. That diagonal is the thing that makes
+ *  the picture legible as a matrix rather than as a chequerboard. */
+const Correlation: FC = () => {
+  // Deliberately asymmetric off the diagonal in VALUE but symmetric in POSITION, which is
+  // what a correlation matrix looks like: cell (a,b) equals cell (b,a).
+  const v = [
+    [1, 0.3, 0.22, 0.31, -0.11],
+    [0.3, 1, 0.59, 0.53, 0.35],
+    [0.22, 0.59, 1, 0.82, 0.39],
+    [0.31, 0.53, 0.82, 1, 0.31],
+    [-0.11, 0.35, 0.39, 0.31, 1],
+  ];
+  const size = 19;
+  const gap = 3;
+  const x0 = 92;
+  const y0 = 13;
+  return (
+    <SceneFrame>
+      {v.flatMap((row, r) =>
+        row.map((value, c) => (
+          <rect
+            key={`${r}-${c}`}
+            x={x0 + c * (size + gap)}
+            y={y0 + r * (size + gap)}
+            width={size}
+            height={size}
+            rx={2}
+            fill={value < 0 ? "currentColor" : "var(--sector)"}
+            opacity={value < 0 ? 0.18 : 0.14 + Math.abs(value) * 0.76}
+          />
+        )),
+      )}
+      {/* Row stubs, so the grid reads as labelled axes rather than as decoration. */}
+      <g stroke="currentColor" strokeWidth="1.5" opacity=".3">
+        {v.map((_, r) => (
+          <path key={r} d={`M62 ${y0 + r * (size + gap) + size / 2}h22`} />
+        ))}
+      </g>
+    </SceneFrame>
+  );
+};
+
 const Similarity: FC = () => (
   <SceneFrame>
     <g stroke="currentColor" strokeWidth="1.5" opacity=".3">
@@ -524,6 +568,7 @@ const Connections: FC = () => {
 export const PARLIAMENT_SCENES: Record<string, FC> = {
   votes: Votes,
   embedding: Embedding,
+  correlation: Correlation,
   cohesion: Cohesion,
   mps: Mps,
   attendance: Attendance,

@@ -101,6 +101,16 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     labelKey: "nsh_band_alignment",
     tiles: [
       {
+        // Split out of /votes, which is an archive and had grown an analysis above its
+        // table. It is the group-level answer to this band's question, where the three
+        // beside it are the member-level ones.
+        id: "correlation",
+        titleKey: "nsh_tile_correlation",
+        descKey: "nsh_tile_correlation_desc",
+        to: "/parliament/correlation",
+        accent: TILE_ACCENTS.olive,
+      },
+      {
         // Promoted from the long tail: 21 views at 1m01s, earned from the LAST tile
         // position on the previous hub — the one traffic signal that survives the
         // objection that this distribution merely measures what the hub links to.

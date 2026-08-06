@@ -2323,6 +2323,22 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    // Split out of /votes, which is an archive. Prerendered like its siblings: the page is
+    // a standing analysis, not a per-request view, so a crawler should get the real head
+    // tags rather than the SPA shell.
+    path: "parliament/correlation",
+    title: "Корелация на гласуването в НС | electionsbg.com",
+    description:
+      "Кои парламентарни групи гласуват еднакво и кои се разминават — матрица на съвпаденията между вотовете на мнозинството във всяка двойка групи по поименните гласувания.",
+    breadcrumbName: "Корелация на гласуването",
+    english: {
+      title: "Voting correlation in the National Assembly | electionsbg.com",
+      description:
+        "Which parliamentary groups vote alike and which diverge — an agreement matrix between each pair of groups across the roll-call votes.",
+      breadcrumbName: "Voting correlation",
+    },
+  }),
+  staticPage({
     path: "parliament/attendance",
     title: "Посещаемост на депутатите | electionsbg.com",
     description:
@@ -4309,6 +4325,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li><a href="${SITE_URL}/votes">Архив на поименните гласувания</a> — всяко пленарно заседание, с разбивка по точка, по депутат и по парламентарна група.</li>
 <li><a href="${SITE_URL}/parliament/embedding">Карта на гласуването</a> — двумерна проекция (UMAP) на гласовото поведение: кой депутат е близо до кого, независимо от групата.</li>
+<li><a href="${SITE_URL}/parliament/correlation">Корелация на гласуването</a> — кои парламентарни групи гласуват еднакво и кои се разминават, по всички точки.</li>
 <li><a href="${SITE_URL}/parliament/cohesion">Единство на групите</a> — колко сплотено гласува всяка парламентарна група и как се променя това във времето.</li>
 <li><a href="${SITE_URL}/parliament/attendance">Присъствие</a> — кой депутат участва в гласуванията и кой отсъства, претеглено спрямо точките, в които е могъл да гласува.</li>
 <li><a href="${SITE_URL}/persons?role=mp">Депутати</a> — всички народни представители от 44-то НС насам.</li>
