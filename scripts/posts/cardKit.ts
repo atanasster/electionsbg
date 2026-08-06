@@ -1447,6 +1447,23 @@ export const safeColor = (c: string | undefined, fallback: string): string => {
 export type PlaceAgeBand = { label: string; value: number };
 export type PlaceShare = { label: string; value: number; color?: string };
 
+/** One "this place against the country" row in the municipality band.
+ *
+ *  `value` and `reference` must be in the SAME units — the row is drawn on a
+ *  scale derived from the pair, so a share against a count silently rescales
+ *  into nonsense. Both labels are pre-formatted BG strings; the renderer never
+ *  formats a benchmark number, because the caller is the only one that knows
+ *  whether it is a percentage, a euro figure or a rate per 1 000. */
+export type PlaceBenchmark = {
+  label: string;
+  value: number;
+  valueLabel: string;
+  reference: number;
+  referenceLabel: string;
+  /** Right-hand annotation — a rank ("№1 от 265 общини"), never a verdict. */
+  note?: string;
+};
+
 export type PlaceCardSpec = {
   /** Discriminator: the presence of `place` routes a spec to this renderer. */
   place: { name: string; context: string };
@@ -1496,16 +1513,24 @@ export type PlaceCardSpec = {
     caption?: string;
     captionNote?: string;
   };
-  /** Municipality-grain band, fenced off below its own rule. */
+  /** Municipality-grain band, fenced off below its own rule.
+   *
+   *  Two mutually exclusive forms; `benchmarks` wins when both are passed.
+   *  `cells` is the profile form — up to three standalone figures. `benchmarks`
+   *  is the comparison form — full-width rows measuring this municipality
+   *  against a national reference. The band header names the grain either way,
+   *  which is what lets a municipality-grain KPI sit under a settlement-grain
+   *  grid without the reader mistaking one for the other. */
   municipality?: {
     label: string;
-    cells: {
+    cells?: {
       label: string;
       value?: string;
       note?: string;
       split?: PlaceShare[];
       splitCaption?: [string, string];
     }[];
+    benchmarks?: PlaceBenchmark[];
   };
   source: string;
   cta?: string;
@@ -1514,6 +1539,11 @@ export type PlaceCardSpec = {
 
 const PLACE_PAD = 64;
 const PLACE_GAP = 16;
+/** Row pitch in the benchmark band. Three lines (label+value, track, captions)
+ *  land at +20 / +30 / +62, so 68 leaves the descender clear of the next row.
+ *  Four rows plus a 2×2 grid clears the 190px zone floor by 12px — widening
+ *  this is what starves the grid, not adding a zone. */
+const PLACE_BENCH_H = 68;
 
 /** Thousands-grouped integer, BG convention (non-breaking space). The hero
  *  total arrives pre-formatted as a string, but an age band's value has to stay
@@ -1611,10 +1641,13 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   let gridBottom = SOURCE_Y - 54 - 20;
   if (muni) {
     const CELL_H = 132;
-    const cells = muni.cells.slice(0, 3);
-    const cellTop = SOURCE_Y - 54 - 22 - CELL_H;
-    const cellW =
-      (S - PLACE_PAD * 2 - PLACE_GAP * (cells.length - 1)) / cells.length;
+    const bench = muni.benchmarks?.slice(0, 4) ?? [];
+    const cells = bench.length ? [] : (muni.cells ?? []).slice(0, 3);
+    const bandH = bench.length ? bench.length * PLACE_BENCH_H : CELL_H;
+    const cellTop = SOURCE_Y - 54 - 22 - bandH;
+    const cellW = cells.length
+      ? (S - PLACE_PAD * 2 - PLACE_GAP * (cells.length - 1)) / cells.length
+      : 0;
 
     ctx.textAlign = "left";
     ctx.fillStyle = pal.muted;
@@ -1629,6 +1662,57 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
       S - PLACE_PAD * 2 - lw - 18,
       1,
     );
+
+    bench.forEach((b, i) => {
+      const ry = cellTop + i * PLACE_BENCH_H;
+      const ix = PLACE_PAD;
+      const iw = S - PLACE_PAD * 2;
+      // Each row carries its own units, so each gets its own scale. The
+      // headroom above the larger of the pair keeps the reference tick off the
+      // right edge, where it would read as the end of the axis rather than as a
+      // benchmark the bar can pass.
+      const max = Math.max(b.value, b.reference) * 1.18 || 1;
+
+      ctx.textAlign = "right";
+      ctx.fillStyle = pal.accent;
+      ctx.font = `800 26px ${FONT}`;
+      ctx.fillText(b.valueLabel, ix + iw, ry + 20);
+      const vlw = ctx.measureText(b.valueLabel).width;
+      ctx.textAlign = "left";
+      ctx.fillStyle = pal.text;
+      const lab = fitText(ctx, b.label, 600, 22, iw - vlw - 24, 16);
+      ctx.font = `600 ${lab.px}px ${FONT}`;
+      ctx.fillText(lab.text, ix, ry + 20);
+
+      const ty = ry + 30;
+      ctx.fillStyle = pal.rule;
+      roundRect(ctx, ix, ty, iw, 14, 4);
+      ctx.fill();
+      ctx.fillStyle = pal.accent;
+      roundRect(ctx, ix, ty, Math.max(4, (b.value / max) * iw), 14, 4);
+      ctx.fill();
+      // The reference is a TICK, not a second bar. Two bars read as two
+      // readings of the same thing; a tick reads as the line being measured
+      // against — which is the whole claim of a benchmark row.
+      ctx.fillStyle = pal.text;
+      ctx.fillRect(ix + (b.reference / max) * iw - 1.5, ty - 5, 3, 24);
+
+      ctx.font = `500 18px ${FONT}`;
+      ctx.fillStyle = pal.muted;
+      const noteW = b.note ? ctx.measureText(b.note).width + 16 : 0;
+      ctx.textAlign = "left";
+      ctx.fillText(
+        fitText(ctx, b.referenceLabel, 500, 18, iw - noteW, 13).text,
+        ix,
+        ry + 62,
+      );
+      if (b.note) {
+        ctx.textAlign = "right";
+        ctx.fillStyle = pal.muted;
+        ctx.font = `500 18px ${FONT}`;
+        ctx.fillText(b.note, ix + iw, ry + 62);
+      }
+    });
 
     cells.forEach((cell, i) => {
       const cx = PLACE_PAD + i * (cellW + PLACE_GAP);
@@ -1895,7 +1979,11 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
       for (const m of mayors) {
         const col = safeColor(m.color, pal.accent);
         ctx.fillStyle = col;
-        roundRect(ctx, ix, my, 4, mayorH - 14, 2);
+        // The rule marks the mayor's text block, so it is capped at that block's
+        // own height rather than stretched to the row pitch. A one-row grid
+        // gives the zone ~420px, and an uncapped rule ran the full 254px of it
+        // beside three lines of text, reading as a bar with nothing in it.
+        roundRect(ctx, ix, my, 4, Math.min(mayorH, 100) - 14, 2);
         ctx.fill();
         const tx = ix + 16;
         const tw = iw - 16;
@@ -2076,9 +2164,18 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   // These cards get published. A zone squeezed below the readable floor draws
   // its rows over the one above it, so refuse rather than emit garbage — same
   // contract as renderBarCard.
-  if (zoneH < 190)
+  //
+  // 268 is derived, not chosen. The tightest zone is `people`: it spends
+  // 168px on the hero, the sex split and its padding, leaving (h - 168) for the
+  // age bands, and an 18px label needs ~20px of pitch to clear the row above.
+  // Five bands therefore need 168 + 5×20 = 268. The floor read 190 until
+  // 2026-08-06, which let a 202px grid through and overprinted the age bands,
+  // the party rows and the mayor's note onto the council label — the exact
+  // garbling the guard exists to prevent. A six-band card wants ~288 and is
+  // still slightly tight here; widen the constant if one ever ships.
+  if (zoneH < 268)
     throw new Error(
-      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 190) — drop a zone or shorten the municipality band`,
+      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 268) — drop a zone, or shorten the municipality band (a benchmark row costs ${PLACE_BENCH_H}px)`,
     );
 
   zones.forEach((draw, i) => {

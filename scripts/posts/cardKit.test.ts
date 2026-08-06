@@ -443,6 +443,95 @@ describe("renderPlaceCard", () => {
     expect(big.length).toBeGreaterThan(10_000);
   });
 
+  const benchBand = {
+    label: "община Малко Търново · 2 628 жители",
+    benchmarks: [
+      {
+        label: "проекти на общината на 1 000 жители",
+        value: 14.8,
+        valueLabel: "14,8",
+        reference: 2.58,
+        referenceLabel: "2,6 медиана за страната",
+        note: "№1 от 265 общини",
+      },
+      {
+        label: "евросредства, спечелени от общината",
+        value: 4105,
+        valueLabel: "4 105 €/жит.",
+        reference: 958,
+        referenceLabel: "958 €/жит. медиана",
+      },
+      {
+        label: "еднооферни поръчки на общината",
+        value: 28,
+        valueLabel: "28,0%",
+        reference: 43.4,
+        referenceLabel: "43,4% средно за страната",
+        note: "107 договора",
+      },
+      {
+        label: "средно оферти на поръчка",
+        value: 3.44,
+        valueLabel: "3,44",
+        reference: 2.68,
+        referenceLabel: "2,68 средно за страната",
+      },
+    ],
+  };
+
+  it("renders a four-row benchmark band above a single grid row", () => {
+    const png = renderPlaceCard({
+      place: place.place,
+      people: place.people,
+      government: place.government,
+      municipality: benchBand,
+      source: place.source,
+    });
+    expect(png.length).toBeGreaterThan(10_000);
+  });
+
+  it("refuses a four-row band under a two-row grid rather than garbling it", () => {
+    // The trade-off is real and the geometry is fixed: four benchmark rows cost
+    // 272px, which leaves 202px a zone across two grid rows. That overprints the
+    // age bands and the council label, so the renderer must say so instead of
+    // publishing it. Shipped once, on 2026-08-06, when the floor was 190.
+    expect(() =>
+      renderPlaceCard({ ...place, municipality: benchBand }),
+    ).toThrow(/do not fit/);
+  });
+
+  it("renders a two-row benchmark band beside the full four-zone grid", () => {
+    const png = renderPlaceCard({
+      ...place,
+      municipality: {
+        label: benchBand.label,
+        benchmarks: benchBand.benchmarks.slice(0, 2),
+      },
+    });
+    expect(png.length).toBeGreaterThan(10_000);
+  });
+
+  it("caps the benchmark band at four rows", () => {
+    // A fifth row would silently steal another 68px from the grid; the cap is
+    // what keeps the floor guard's arithmetic bounded.
+    const png = renderPlaceCard({
+      place: place.place,
+      people: place.people,
+      municipality: {
+        label: benchBand.label,
+        benchmarks: [...benchBand.benchmarks, ...benchBand.benchmarks],
+      },
+      source: place.source,
+    });
+    expect(png.length).toBeGreaterThan(10_000);
+  });
+
+  it("keeps the cells band working when no benchmarks are passed", () => {
+    // `cells` went optional when `benchmarks` landed; the profile form is still
+    // the default and must not need a benchmarks key to render.
+    expect(() => renderPlaceCard(place)).not.toThrow();
+  });
+
   it("throws when the zones are squeezed below the readable floor", () => {
     // Six zones cannot exist, but a caller can starve the grid by other means;
     // the contract is refuse-don't-garble, same as renderBarCard.

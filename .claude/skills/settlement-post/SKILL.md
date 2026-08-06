@@ -187,12 +187,48 @@ Settlement grain, 2×2:
 | the fourth | matura, or EU funds when there is no school |
 
 Then a full-width **municipality band** with its own rule, label and population
-(`ОБЩИНА X · N ЖИТЕЛИ`): three cells — EU funds, procurement, and a first cell
-that is **education+employment or ethnic composition, whichever the operator
-picked in Step 7**. Ask before you build the band; do not fill that cell on your
-own judgement.
-**The band header is what makes mixing two grains honest** — the reader must
-never be in doubt which grain they are reading.
+(`ОБЩИНА X · N ЖИТЕЛИ`). **The band header is what makes mixing two grains
+honest** — the reader must never be in doubt which grain they are reading.
+
+The band has **two mutually exclusive forms**; `benchmarks` wins when both are
+passed.
+
+- **`cells` — the profile form.** Three cells: EU funds, procurement, and a
+  first cell that is **education+employment or ethnic composition, whichever
+  the operator picked in Step 7**. Ask before you build the band; do not fill
+  that cell on your own judgement.
+- **`benchmarks` — the comparison form.** Up to four full-width rows, each
+  measuring this municipality against a national reference: a bar for the
+  place, a **tick** for the reference, the value right-aligned, and an optional
+  `note` for a rank. Use it when the post's claim is *"this place beats its
+  peers"* rather than *"this is what this place looks like"*.
+
+**Every governance KPI is municipality-grain, so it belongs in the band and
+nowhere else.** Procurement competition, EU-funds capacity, project density and
+execution are all properties of the общинска администрация, not of the
+settlement — putting them in the 2×2 grid puts a municipality number under a
+settlement heading, which is the exact confusion the band exists to prevent.
+
+`value` and `reference` must be in the **same units** — the row derives its
+scale from the pair, so a share against a count silently rescales into
+nonsense. Both labels are pre-formatted BG strings; the renderer never formats a
+benchmark number, because only the caller knows whether it is a percentage, a
+euro figure or a rate per 1 000. Nothing is colour-coded good/bad: the bar
+passing the tick or falling short of it is the whole message, and the direction
+belongs in the label and the copy.
+
+**The band trades against the grid, and the geometry is fixed at 1080px.** A
+benchmark row costs 68px, and a zone needs 268px. So **four benchmark rows admit
+only ONE grid row — at most two zones**; a full four-zone grid admits at most
+two rows. The renderer refuses rather than garbles (see below), so a card that
+wants both will throw and you drop a zone. For a governance-performance post the
+zone to drop is `vote`: a parliamentary result is a different story from how the
+municipality runs its money.
+
+Ranks and medians are computed over the **265 общини** — fold Sofia's 24 `S**`
+district codes into one Столична община and drop the six abroad pseudo-codes
+(`OC`/`EU`/`NA`/`SA`/`AS`/`AF`), or the universe comes out at 272 and the
+denominator in the caption is wrong.
 
 ### Marks must be count-independent
 
@@ -256,6 +292,13 @@ Spec shape — every zone optional, `place` and `source` required:
                                { "label": "етнически състав",
                                  "split": [{ "label": "българи", "value": 81.4, "color": "…" }, …],
                                  "splitCaption": ["българи 81,4%", "роми 15,3%"] } ] },  // ≤3
+  // …or, instead of `cells`, the comparison form (≤4 rows, costs 68px each):
+  "municipality": { "label": "община Малко Търново · 2 628 жители",
+                    "benchmarks": [ { "label": "еднооферни поръчки на общината",
+                                      "value": 28.0, "valueLabel": "28,0%",
+                                      "reference": 43.4,
+                                      "referenceLabel": "43,4% средно за страната",
+                                      "note": "107 договора от 2020" }, … ] },
   "source": "Източник: МОН, ЦИК, НСИ, ИСУН",
   "cta": "виж училището"
 }
@@ -274,7 +317,11 @@ Notes that are load-bearing:
 - **`focus` is the zone that varies.** Matura when the settlement has a school
   (12%), EU funds otherwise. It is the fourth zone, and the one the post is about.
 - **The renderer refuses rather than garbles**: no zones at all throws, and so
-  does a grid squeezed below 190px a zone. Drop a zone or shorten the band.
+  does a grid squeezed below **268px** a zone. Drop a zone or shorten the band.
+  That floor read 190 until 2026-08-06 and was a lie — it passed a 202px grid
+  that overprinted the age bands, the party rows and the mayor's note onto the
+  council label. 268 is derived: the `people` zone spends 168px on the hero, the
+  sex split and its padding, and five age bands need 20px of pitch each.
 - Always `Read` the rendered PNG before showing the operator — check for
   overlapping rows as well as tofu boxes.
 
