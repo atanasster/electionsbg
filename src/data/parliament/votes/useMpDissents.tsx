@@ -107,9 +107,7 @@ export const useMpDissents = (mpId?: number | null, name?: string | null) => {
   const pgHit = pgRows != null && pgRows.rows.length > 0;
 
   const aggregateEnabled =
-    !mpId && !name
-      ? true
-      : !pgHit && !pgLoading && !shard && !shardLoading;
+    !mpId && !name ? true : !pgHit && !pgLoading && !shard && !shardLoading;
   const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_dissents"] as [string],
     queryFn,

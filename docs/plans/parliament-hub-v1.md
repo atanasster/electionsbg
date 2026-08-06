@@ -458,9 +458,19 @@ current top-scoring item in the 52nd (score 80) is titled `… - първо гл
 A naive count reports ~750 „приети закони" for a parliament that passed a few dozen.
 
 **The derivation that works — bill-stem grouping.** Split each second-reading title on
-`/\s*[-–]\s*второ (гласуване|четене)/` and group by the stem. NS 52 collapses from 754 items to
-**33 distinct bills** (largest: държавния бюджет 232 items, Изборния кодекс 136, противодействие
-на корупцията 69).
+`/\s*[-–]\s*второ (гласуване|четене)/` and group by the stem — **and require the split to
+fire**, rather than matching the phrase anywhere in the title.
+
+That last clause is not a detail. Bulgarian plenary titles carry „второ гласуване" in a
+PROCEDURAL position too — „ЗИ на Закона за държавната финансова инспекция – първо гласуване -
+процедура за второ гласуване" is a motion to take a bill through both readings in one sitting,
+and it is a FIRST reading. Matching the phrase makes eight such titles their own stems on the
+52nd, every one of them a bill already counted from its real second reading.
+
+**NS 52 collapses from 754 items to 25 distinct bills**, not the 33 this plan asserted through
+three audits. That 33 was measured with the loose regex and so confirmed nothing — the figure
+and its verification shared the same defect. Caught in H1's review (2026-08-06) by recomputing
+from the session files. The 51st goes from 189 to 133 on the same correction.
 
 **What is NOT derivable, and is cut from v1:** the pass/fail split. "Last item of the stem" does
 not give adoption — the largest stem ends on `yes:38 no:4 abstain:135`, a rejected amendment. So
@@ -486,9 +496,9 @@ than assuming. Today's hub opens with cohesion and embedding, the two most analy
 | Tile | To | stock · flow · change (NS 52, measured) | traffic |
 |---|---|---|---|
 | Гласувания | `/votes` | `39` заседания · `1 198` точки · `33` законопроекта на второ четене | **107** views, +15.6% |
-| Карта на гласуването | `/parliament/embedding` | `270` депутати проектирани · `6` групи | **21** views, 1m 01s |
+| Карта на гласуването | `/parliament/embedding` | `255` депутати проектирани · `6` групи | **21** views, 1m 01s |
 | Единство на групите | `/parliament/cohesion` | `0,97` средна кохезия · най-разединена: ГЕРБ - СДС (0,93) | 12 views |
-| Депутати | `/persons?role=mp` | `2 120` депутати от 44-то НС насам · `240` в текущото | no history |
+| Депутати | `/persons?role=mp` | **no figure** — the destination is not NS-scoped and the corpus cannot produce its 2,120 | no history |
 
 **The measured numbers, and their bases.** An earlier draft's illustrative figures were wrong in
 six of six cases, each for a different reason. On NS 52:

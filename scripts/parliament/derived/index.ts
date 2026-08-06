@@ -27,6 +27,9 @@ import { computeImportantVotes } from "./important_votes";
 import { computeDissents } from "./dissents";
 import { computePartyPairBreaks } from "./party_pair_breaks";
 import { writeMpShards } from "./per_mp_shards";
+import { computeHubNsStats, type HubStatsFile } from "./hub_stats";
+import { mostDivergentPairSlug } from "../../../src/screens/parliament/seeds";
+import { NS_TERM_START } from "../../../src/data/parliament/nsFolders";
 import { dedupeRevotes } from "./dedupe";
 import type { SessionFile } from "./types";
 import { uploadText, uploadTextTree } from "../../lib/upload";
@@ -312,6 +315,60 @@ export const rebuildDerived = async (args: {
     `  ✓ ${shardWritten} written, ${shardUnchanged} unchanged, ${shardPruned} pruned`,
   );
 
+  // The hub blob — LAST, and from the objects above rather than from the files just
+  // written. Re-reading them would work and would also be the thing that lets the hub's
+  // numbers drift from the sub-pages'; sharing the object makes that impossible.
+  console.log(`→ computing hub stats per NS`);
+  const today = nowIso.slice(0, 10);
+  const hubByNs: HubStatsFile["byNs"] = {};
+  for (const ns of nsKeys) {
+    const stats = computeHubNsStats({
+      ns,
+      sessions: byNs.get(ns)!,
+      attendance: attendanceByNs[ns],
+      cohesion: cohesionByNs[ns],
+      headline: similarityHeadlineByNs[ns],
+      embeddingPoints: embeddingByNs[ns]?.points.length ?? 0,
+      pairSlug: mostDivergentPairSlug(
+        partyCorrelationByNs[ns]?.parties,
+        partyCorrelationByNs[ns]?.matrix,
+      ),
+      today,
+    });
+    if (stats) hubByNs[ns] = stats;
+  }
+  // PARTIAL coverage, measured against the ELECTION that seated the parliament rather than
+  // against the next one. That distinction is the whole finding: a short parliament and a
+  // partially-ingested one are indistinguishable from their sittings alone. The 45th sat
+  // 17 days and we hold every one of them; the 44th sat four years and we hold its last
+  // five months (2020-10-28 → 2021-03-25 of a term that began 2017-03-26). A heuristic
+  // comparing each term to the NEXT one gets this exactly backwards — it marked 45 and 46
+  // partial and 44 complete.
+  for (const ns of nsKeys) {
+    const stats = hubByNs[ns];
+    const termStart = NS_TERM_START[ns];
+    if (!stats || !termStart) continue;
+    const missedDays =
+      (Date.parse(`${stats.coveredFrom}T00:00:00Z`) -
+        Date.parse(`${termStart}T00:00:00Z`)) /
+      86_400_000;
+    // A parliament's first sitting follows its election by weeks, not months. Anything
+    // past a quarter means the ingest starts mid-term.
+    if (missedDays > 90) stats.coverage = "partial";
+  }
+  writeJson(path.join(DERIVED_DIR, "hub_stats.json"), {
+    computedAt: nowIso,
+    byNs: hubByNs,
+  } satisfies HubStatsFile);
+  console.log(
+    `  ✓ ${Object.keys(hubByNs).length} NS (partial: ${
+      Object.entries(hubByNs)
+        .filter(([, v]) => v.coverage === "partial")
+        .map(([k]) => k)
+        .join(", ") || "none"
+    })`,
+  );
+
   if (args.upload) {
     console.log(`→ uploading derived/ to bucket`);
     for (const f of [
@@ -326,6 +383,9 @@ export const rebuildDerived = async (args: {
       "search_index.json",
       "dissents.json",
       "party_pair_breaks.json",
+      // The hub blob. Without this line the daily ingest refreshes eleven artifacts and
+      // leaves the hub on last week's numbers — green locally, stale on prod.
+      "hub_stats.json",
     ]) {
       await uploadText(
         path.join(DERIVED_DIR, f),

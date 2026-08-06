@@ -158,11 +158,17 @@ test("mp_attendance reproduces attendance.json, except where the source double-c
   const att = JSON.parse(
     readFileSync("data/parliament/votes/derived/attendance.json", "utf8"),
   ) as { byNs: Record<string, { entries: AttendanceEntry[] }> };
-  const rows = await allRows<{ ns: number; mp_id: number; items: string; present: string }>(
-    "SELECT ns, mp_id, items, present FROM mp_attendance",
-  );
+  const rows = await allRows<{
+    ns: number;
+    mp_id: number;
+    items: string;
+    present: string;
+  }>("SELECT ns, mp_id, items, present FROM mp_attendance");
   const pg = new Map(
-    rows.map((r) => [`${r.ns}|${r.mp_id}`, { items: Number(r.items), present: Number(r.present) }]),
+    rows.map((r) => [
+      `${r.ns}|${r.mp_id}`,
+      { items: Number(r.items), present: Number(r.present) },
+    ]),
   );
 
   // THE MIGRATION'S CORRECTNESS PROOF, and it must run while both layers exist.
@@ -180,7 +186,10 @@ test("mp_attendance reproduces attendance.json, except where the source double-c
   for (const [ns, slice] of Object.entries(att.byNs)) {
     for (const e of slice.entries) {
       const p = pg.get(`${ns}|${e.mpId}`);
-      assert.ok(p, `${ns}:${e.mpId} is in attendance.json but not in mp_attendance`);
+      assert.ok(
+        p,
+        `${ns}:${e.mpId} is in attendance.json but not in mp_attendance`,
+      );
       if (p.items === e.totalItems && p.present === e.presentCount) {
         agree++;
         continue;
@@ -195,7 +204,11 @@ test("mp_attendance reproduces attendance.json, except where the source double-c
     [],
     "Postgres counted MORE items than the JSON somewhere — the dedupe filter is the first thing to check",
   );
-  assert.equal(mismatched.length, 10, `seats disagreeing: ${mismatched.join(", ")}`);
+  assert.equal(
+    mismatched.length,
+    10,
+    `seats disagreeing: ${mismatched.join(", ")}`,
+  );
   assert.equal(
     overCountTotal,
     84,
@@ -214,7 +227,9 @@ test("mp_similarity reproduces similarity.json's cosine", async (t) => {
   const norms = await allRows<{ mp_id: number; norm_sq: string }>(
     "SELECT mp_id, norm_sq FROM mp_vote_norm WHERE ns = 52",
   );
-  const n = new Map(norms.map((r) => [Number(r.mp_id), Math.sqrt(Number(r.norm_sq))]));
+  const n = new Map(
+    norms.map((r) => [Number(r.mp_id), Math.sqrt(Number(r.norm_sq))]),
+  );
 
   // The score is a COSINE over ±1 vote vectors, not an agreement rate — the two are on
   // different scales and similarityClass.ts's twin thresholds are calibrated on the cosine.
@@ -226,7 +241,8 @@ test("mp_similarity reproduces similarity.json's cosine", async (t) => {
   const off: string[] = [];
   for (const e of sim.entries.slice(0, 60)) {
     for (const peer of e.topK.slice(0, 2)) {
-      const [a, b] = e.mpId < peer.mpId ? [e.mpId, peer.mpId] : [peer.mpId, e.mpId];
+      const [a, b] =
+        e.mpId < peer.mpId ? [e.mpId, peer.mpId] : [peer.mpId, e.mpId];
       const rows = await allRows<{ overlap: string; dot: string }>(
         `SELECT overlap, dot FROM mp_similarity WHERE ns = 52 AND a_mp = ${a} AND b_mp = ${b}`,
       );
@@ -239,12 +255,19 @@ test("mp_similarity reproduces similarity.json's cosine", async (t) => {
       const nb = n.get(peer.mpId);
       if (!na || !nb) continue;
       const score = Number(rows[0].dot) / (na * nb);
-      if (Math.abs(score - peer.score) < 1e-9 && Number(rows[0].overlap) === peer.overlap) {
+      if (
+        Math.abs(score - peer.score) < 1e-9 &&
+        Number(rows[0].overlap) === peer.overlap
+      ) {
         exact++;
       }
     }
   }
-  assert.deepEqual(off, [], "pairs present in similarity.json but absent from the matview");
+  assert.deepEqual(
+    off,
+    [],
+    "pairs present in similarity.json but absent from the matview",
+  );
   assert.ok(checked > 80, `only ${checked} pairs compared`);
   // Not 100%: the pairs touching a double-counted cast legitimately differ, and there are
   // few enough of them that a floor rather than an exact count is the honest assertion.
@@ -310,7 +333,9 @@ test("party_cohesion reproduces cohesion.json, item-weighted", async (t) => {
   );
   let worst = 0;
   for (const e of coh.entries) {
-    const r = rows.find((x) => shortOf.get(Number(x.party_id)) === e.partyShort);
+    const r = rows.find(
+      (x) => shortOf.get(Number(x.party_id)) === e.partyShort,
+    );
     assert.ok(r, `${e.partyShort} missing from party_cohesion`);
     worst = Math.max(worst, Math.abs(Number(r.c) - e.meanCohesion));
   }

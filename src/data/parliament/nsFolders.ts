@@ -77,5 +77,16 @@ const ELECTION_TO_NS: Record<string, string> = {
   "2026_04_19": "52",
 };
 
+/** The election that seated each parliament, as YYYY-MM-DD. The term BEGINS there, which
+ *  is the only way to tell a short parliament from a partially-ingested one: the 45th sat
+ *  17 days and we hold all of them; the 44th sat four years and we hold the last five
+ *  months. Both look identical from the sittings alone. */
+export const NS_TERM_START: Record<string, string> = Object.fromEntries(
+  Object.entries(ELECTION_TO_NS).map(([election, ns]) => [
+    ns,
+    election.replace(/_/g, "-"),
+  ]),
+);
+
 export const electionToNsFolder = (election?: string | null): string | null =>
   election ? (ELECTION_TO_NS[election] ?? null) : null;

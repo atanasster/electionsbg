@@ -1,0 +1,212 @@
+{
+  "computedAt": "2026-08-06T14:15:28.430Z",
+  "byNs": {
+    "44": {
+      "lastDate": "2021-03-25",
+      "coveredFrom": "2020-10-28",
+      "coveredTo": "2021-03-25",
+      "coverage": "partial",
+      "inRecessDays": 1960,
+      "tiles": {
+        "sessions": 41,
+        "items": 1036,
+        "billsSecondReading": 68,
+        "membersVoting": 245,
+        "membersProjected": 245,
+        "groups": 5,
+        "attendanceWeighted": 0.4412765444015444,
+        "cohesionMean": 0.9439240167419521,
+        "leastUnifiedGroup": "БСП",
+        "leastUnifiedValue": 0.8805112971493804
+      },
+      "seeds": {
+        "similarity": "1371",
+        "pair": "%D0%93%D0%95%D0%A0%D0%91--%D0%91%D0%A1%D0%9F"
+      }
+    },
+    "45": {
+      "lastDate": "2021-05-07",
+      "coveredFrom": "2021-04-21",
+      "coveredTo": "2021-05-07",
+      "coverage": "full",
+      "inRecessDays": 1917,
+      "tiles": {
+        "sessions": 6,
+        "items": 207,
+        "billsSecondReading": 2,
+        "membersVoting": 241,
+        "membersProjected": 241,
+        "groups": 6,
+        "attendanceWeighted": 0.7131843800322061,
+        "cohesionMean": 0.9445060531884266,
+        "leastUnifiedGroup": "ИСМВ",
+        "leastUnifiedValue": 0.9040767149517152
+      },
+      "seeds": {
+        "similarity": "3307",
+        "pair": "%D0%98%D0%A1%D0%9C%D0%92--%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1"
+      }
+    },
+    "46": {
+      "lastDate": "2021-09-15",
+      "coveredFrom": "2021-07-21",
+      "coveredTo": "2021-09-15",
+      "coverage": "full",
+      "inRecessDays": 1786,
+      "tiles": {
+        "sessions": 26,
+        "items": 560,
+        "billsSecondReading": 13,
+        "membersVoting": 240,
+        "membersProjected": 240,
+        "groups": 6,
+        "attendanceWeighted": 0.6854613095238096,
+        "cohesionMean": 0.9387364098109642,
+        "leastUnifiedGroup": "ГЕРБ-СДС",
+        "leastUnifiedValue": 0.9121641424260655
+      },
+      "seeds": {
+        "similarity": "3949",
+        "pair": "%D0%94%D0%91--%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1"
+      }
+    },
+    "47": {
+      "lastDate": "2022-07-29",
+      "coveredFrom": "2021-12-03",
+      "coveredTo": "2022-07-29",
+      "coverage": "full",
+      "inRecessDays": 1469,
+      "tiles": {
+        "sessions": 97,
+        "items": 1933,
+        "billsSecondReading": 64,
+        "membersVoting": 268,
+        "membersProjected": 268,
+        "groups": 7,
+        "attendanceWeighted": 0.6736984635552546,
+        "cohesionMean": 0.9561124318272779,
+        "leastUnifiedGroup": "ДБ",
+        "leastUnifiedValue": 0.9048299084815163
+      },
+      "seeds": {
+        "similarity": "4043",
+        "pair": "%D0%9F%D0%9F--%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1"
+      }
+    },
+    "48": {
+      "lastDate": "2023-02-02",
+      "coveredFrom": "2022-10-19",
+      "coveredTo": "2023-02-02",
+      "coverage": "full",
+      "inRecessDays": 1281,
+      "tiles": {
+        "sessions": 52,
+        "items": 1435,
+        "billsSecondReading": 48,
+        "membersVoting": 240,
+        "membersProjected": 240,
+        "groups": 7,
+        "attendanceWeighted": 0.723548199767712,
+        "cohesionMean": 0.9721882130389777,
+        "leastUnifiedGroup": "ДБ",
+        "leastUnifiedValue": 0.9596039275596285
+      },
+      "seeds": {
+        "similarity": "4720",
+        "pair": "%D0%92%D0%AA%D0%97%D0%A0%D0%90%D0%96%D0%94%D0%90%D0%9D%D0%95--%D0%9D%D0%95%D0%97"
+      }
+    },
+    "49": {
+      "lastDate": "2024-06-02",
+      "coveredFrom": "2023-04-12",
+      "coveredTo": "2024-06-02",
+      "coverage": "full",
+      "inRecessDays": 795,
+      "tiles": {
+        "sessions": 141,
+        "items": 3855,
+        "billsSecondReading": 124,
+        "membersVoting": 264,
+        "membersProjected": 264,
+        "groups": 6,
+        "attendanceWeighted": 0.686359384715201,
+        "cohesionMean": 0.9601408851837886,
+        "leastUnifiedGroup": "ИТН",
+        "leastUnifiedValue": 0.9406814138008837
+      },
+      "seeds": {
+        "similarity": "4913",
+        "pair": "%D0%9F%D0%9F-%D0%94%D0%91--%D0%92%D0%AA%D0%97%D0%A0%D0%90%D0%96%D0%94%D0%90%D0%9D%D0%95"
+      }
+    },
+    "50": {
+      "lastDate": "2024-09-26",
+      "coveredFrom": "2024-06-19",
+      "coveredTo": "2024-09-26",
+      "coverage": "full",
+      "inRecessDays": 679,
+      "tiles": {
+        "sessions": 37,
+        "items": 685,
+        "billsSecondReading": 27,
+        "membersVoting": 289,
+        "membersProjected": 288,
+        "groups": 7,
+        "attendanceWeighted": 0.6394235143545168,
+        "cohesionMean": 0.9729278726280074,
+        "leastUnifiedGroup": "БСП",
+        "leastUnifiedValue": 0.944115375570944
+      },
+      "seeds": {
+        "similarity": "2977",
+        "pair": "%D0%9D%D0%95%D0%A7%D0%9B%20%D0%92%20%D0%9F%D0%93--%D0%9D%D0%95%D0%97"
+      }
+    },
+    "51": {
+      "lastDate": "2026-04-01",
+      "coveredFrom": "2024-11-11",
+      "coveredTo": "2026-04-01",
+      "coverage": "full",
+      "inRecessDays": 127,
+      "tiles": {
+        "sessions": 174,
+        "items": 4187,
+        "billsSecondReading": 133,
+        "membersVoting": 309,
+        "membersProjected": 308,
+        "groups": 11,
+        "attendanceWeighted": 0.7071608771589365,
+        "cohesionMean": 0.970223251934248,
+        "leastUnifiedGroup": "ПП - ДБ",
+        "leastUnifiedValue": 0.9141861231276706
+      },
+      "seeds": {
+        "similarity": "3525",
+        "pair": "%D0%90%D0%9F%D0%A1--%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1"
+      }
+    },
+    "52": {
+      "lastDate": "2026-07-31",
+      "coveredFrom": "2026-04-30",
+      "coveredTo": "2026-07-31",
+      "coverage": "full",
+      "inRecessDays": 6,
+      "tiles": {
+        "sessions": 39,
+        "items": 1198,
+        "billsSecondReading": 25,
+        "membersVoting": 270,
+        "membersProjected": 255,
+        "groups": 6,
+        "attendanceWeighted": 0.7319111172980215,
+        "cohesionMean": 0.9701691537505753,
+        "leastUnifiedGroup": "ГЕРБ - СДС",
+        "leastUnifiedValue": 0.9335400870075504
+      },
+      "seeds": {
+        "similarity": "5228",
+        "pair": "%D0%9F%D0%91--%D0%92%D0%AA%D0%97%D0%A0%D0%90%D0%96%D0%94%D0%90%D0%9D%D0%95"
+      }
+    }
+  }
+}
