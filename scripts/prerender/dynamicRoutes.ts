@@ -88,6 +88,7 @@ import {
   readMuniNames,
   readSettlementParents,
 } from "./educationPlaces";
+import { localOfficePhraseBg, localOfficePhraseEn } from "./localOfficePhrase";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
@@ -4055,29 +4056,12 @@ const OFFICIAL_CATEGORY_EN: Record<string, string> = Object.fromEntries(
 const formatEurForPrerender = (n: number): string =>
   `€${Math.round(n).toLocaleString("en-GB").replace(/,/g, " ")}`;
 
-// Local-office role labels (person_role.role) for the village/район-mayor + councillor
-// prerender bodies. Static (this is a Node build step, no i18n runtime).
-const LOCAL_ROLE_BG: Record<string, string> = {
-  mayor: "Кмет на община",
-  village_mayor: "Кмет на кметство",
-  rayon_mayor: "Районен кмет",
-  councillor: "Общински съветник",
-  council_chair: "Председател на общински съвет",
-  deputy_mayor: "Заместник-кмет",
-  chief_architect: "Главен архитект",
-};
-const LOCAL_ROLE_EN: Record<string, string> = {
-  mayor: "Municipal mayor",
-  village_mayor: "Village mayor",
-  rayon_mayor: "District mayor",
-  councillor: "Municipal councillor",
-  council_chair: "Municipal council chair",
-  deputy_mayor: "Deputy mayor",
-  chief_architect: "Chief architect",
-};
-
 // SEO body for a local-elected person (mayor / councillor / village / район mayor) — no
 // declaration/net worth, so the page is described by office + place instead.
+//
+// Office and place read as ONE phrase (localOfficePhrase.ts) rather than as a label with
+// " в <place>" glued on: the mayor labels already name the kind of place they govern, so the
+// generic form printed the place twice ("Кмет на кметство в с. Цветино").
 const localPersonRoute = (
   c: PersonLocalCard,
   path_: string,
@@ -4085,30 +4069,25 @@ const localPersonRoute = (
   enUrl: string,
 ): PrerenderRoute => {
   const name = escapeHtmlMinimal(c.name);
-  const roleBg = LOCAL_ROLE_BG[c.role] ?? "Местен вот";
-  const roleEn = LOCAL_ROLE_EN[c.role] ?? "Local office";
   const placeRaw = c.placeLabel;
   const place = placeRaw ? escapeHtmlMinimal(placeRaw) : null;
-  // A village mayor's place now carries its Bulgarian settlement type ("с. Безмер") so the
-  // page names the village rather than the община around it. The EN half of this route has
-  // always printed the Bulgarian place name — there is no English place in the card — but
-  // "с." is a Bulgarian ABBREVIATION, not part of the name, and leaving it in an English
-  // title reads as a typo. Strip just the marker, keep the name.
-  const placeEnRaw = placeRaw?.replace(/^(?:с|гр)\.\s*/u, "") ?? null;
-  const placeEn = placeEnRaw ? escapeHtmlMinimal(placeEnRaw) : null;
-  const inBg = placeRaw ? ` в ${placeRaw}` : "";
-  const inBgSafe = place ? ` в ${place}` : "";
-  const title = `${c.name} — ${roleBg}${inBg} | electionsbg.com`;
-  const titleEn = `${c.name} — ${roleEn}${placeEnRaw ? ` in ${placeEnRaw}` : ""} | electionsbg.com`;
-  const description = `Профил на ${c.name}, ${roleBg}${inBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
-  const descriptionEn = `Profile of ${c.name}, ${roleEn}${placeEnRaw ? ` in ${placeEnRaw}` : ""}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
+  const officeBg = localOfficePhraseBg(c.role, placeRaw, c.placeCode);
+  const officeEn = localOfficePhraseEn(c.role, placeRaw, c.placeCode);
+  // The body is HTML, the title/description are not — so the phrase is built twice, over the
+  // raw place and over the escaped one, rather than escaping a composed sentence.
+  const officeBgSafe = localOfficePhraseBg(c.role, place, c.placeCode);
+  const officeEnSafe = localOfficePhraseEn(c.role, place, c.placeCode);
+  const title = `${c.name} — ${officeBg} | electionsbg.com`;
+  const titleEn = `${c.name} — ${officeEn} | electionsbg.com`;
+  const description = `Профил на ${c.name}, ${officeBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
+  const descriptionEn = `Profile of ${c.name}, ${officeEn}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
   return {
     path: path_,
     title,
     description,
     bodyHtml: `
 <h1>${name}</h1>
-<p>${roleBg}${inBgSafe}.</p>
+<p>${officeBgSafe}.</p>
 <p>Виж <a href="${SITE_URL}/local">местните избори</a> и профила за декларации, връзки и обществени поръчки.</p>`.trim(),
     jsonLd: [
       buildWebPageLd({ title, description, url }),
@@ -4123,7 +4102,7 @@ const localPersonRoute = (
       description: descriptionEn,
       bodyHtml: `
 <h1>${name}</h1>
-<p>${roleEn}${placeEn ? ` in ${placeEn}` : ""}.</p>
+<p>${officeEnSafe}.</p>
 <p>See the <a href="${SITE_URL}/en/local">local elections</a> and the profile for declarations, connections and public procurement.</p>`.trim(),
       jsonLd: [
         buildWebPageLd({

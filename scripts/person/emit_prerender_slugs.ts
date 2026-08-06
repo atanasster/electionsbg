@@ -93,6 +93,13 @@ export type PersonLocalCard = {
   role: string;
   /** Obshtina/place label (person_role.place_raw), null when the source carried none. */
   placeLabel: string | null;
+  /** person_role.place_code — the label alone cannot say WHICH namespace the place is in,
+   *  and the prerendered office phrase needs to know: Sofia's 24 районa are obshtina-code
+   *  `S2***` (src/lib/obshtinaPlace), and six of them share a name with a real município
+   *  ("Средец" is both a Sofia район and a Бургас община), so a name-based rule would print
+   *  "Кмет на община Средец" over a район mayor and name a different place's office.
+   *  Optional: a manifest minted before this field falls back to the obshtina reading. */
+  placeCode?: string | null;
 };
 
 export type PersonPrerenderCard = PersonOfficialCard | PersonLocalCard;
@@ -321,6 +328,7 @@ export const computePersonSlugs = async (): Promise<
       name: string;
       role: string;
       place_label: string | null;
+      place_code: string | null;
     }>(
       // place lives in place_code (resolved via place_dim), NOT place_raw, for these sources —
       // 082_person_api.sql resolves the /person label the same way. A stable tiebreak on
@@ -335,7 +343,10 @@ export const computePersonSlugs = async (): Promise<
               COALESCE(
                 CASE WHEN pd.kind = 'settlement' AND pd.settlement_type IS NOT NULL
                      THEN pd.settlement_type || ' ' || pd.name_bg END,
-                pd.name_bg) AS place_label
+                pd.name_bg) AS place_label,
+              -- Only carried when the dictionary RESOLVED the place: a code with no label
+              -- names nothing on the page, and the phrase builder keys both off the label.
+              CASE WHEN pd.code IS NOT NULL THEN r.place_code END AS place_code
          FROM person p
          JOIN person_role r ON r.person_id = p.person_id
          LEFT JOIN place_dim pd
@@ -364,6 +375,7 @@ export const computePersonSlugs = async (): Promise<
           name: o.name,
           role: o.role,
           placeLabel: o.place_label,
+          placeCode: o.place_code,
         });
     }
     console.log(
