@@ -536,7 +536,11 @@ no item in the corpus reaches, so it rides on `outcomeFor()`'s definition alone.
 **The derived half (migration 135, `db:load:rollcall-derived:pg`)** builds `mp_attendance`,
 `party_cohesion`, `mp_dissent`, `mp_vote_norm` and `mp_similarity`, declared once in
 `scripts/db/lib/rollcallMatviews.ts`. ~70 s locally, dominated by the quadratic
-`mp_similarity`; **minutes on Cloud SQL, unmeasured**. `/api/db/mp-dissents` and
+`mp_similarity` — **measured on Cloud SQL 2026-08-06: 801 s end to end, of which
+`mp_similarity` alone is 744.5 s (12.4 min, 11x local)** on a db-g1-small at 4,017,519
+casts. Budget a quarter of an hour and do not chain it behind anything urgent. The facts
+half (`db:load:rollcall:pg:cloud`) is ~10 min, dominated by ~2,900 single-row round trips
+through the proxy before the COPY starts. `/api/db/mp-dissents` and
 `/api/db/mp-similarity` read them and DEGRADE to an empty array on `42P01 · 42883 · 55000 ·
 55P03 · 42501` — `55000` is in that set because a matview created `WITH NO DATA` RAISES
 rather than returning zero rows, which is every first deploy; `57014` is deliberately out,

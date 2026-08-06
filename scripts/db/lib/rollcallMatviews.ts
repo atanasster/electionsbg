@@ -33,12 +33,18 @@ export const ROLLCALL_MATVIEWS: readonly RollcallMatview[] = [
   {
     name: "party_cohesion",
     inputs: ["vote_item", "vote_cast"],
-    costNote: "~2 s (~10k rows)",
+    costNote: "~2 s local / 10 s cloud (4,269 rows)",
   },
   {
     name: "mp_dissent",
     inputs: ["vote_item", "vote_cast"],
-    costNote: "~2 s (105,571 rows)",
+    // 90,542, NOT the 105,571 the plan records and this note used to print. That figure
+    // predates P1's fix to the tie-break — `mode() WITHIN GROUP (ORDER BY vote)` breaks ties
+    // toward 'a' while majorityFor breaks them toward yes, which flipped 4,976 rows and
+    // changed which of them qualify as a dissent at all. The stale note printed beside the
+    // real count on every run, local and cloud, inviting exactly the "which of these two is
+    // right?" that the whole module has been audited to remove.
+    costNote: "~2 s local / 30 s cloud (90,542 rows)",
   },
   {
     // Must precede mp_similarity in spirit though not in dependency: the score is
@@ -54,7 +60,10 @@ export const ROLLCALL_MATVIEWS: readonly RollcallMatview[] = [
     // 18x over the budget that keeps a query off a db-g1-small's 10 s timeout.
     name: "mp_similarity",
     inputs: ["vote_item", "vote_cast"],
-    costNote: "~67 s (297,493 rows) — minutes on Cloud SQL, unmeasured",
+    // MEASURED on Cloud SQL 2026-08-06: 744.5 s — 12.4 minutes, 11x the local build, on a
+    // db-g1-small with the corpus at 4,017,519 casts. No longer "unmeasured": budget a
+    // quarter of an hour for this one alone and do not chain it behind anything urgent.
+    costNote: "~67 s local / 745 s cloud (297,493 rows)",
   },
 ] as const;
 
