@@ -15,15 +15,13 @@ import { isBulgarianPartner } from "./types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const FETCHED = "2026-08-07T00:00:00.000Z";
-
 const fixture = (keepId: number): KeepProjectRaw =>
   JSON.parse(
     fs.readFileSync(path.join(__dirname, "fixtures", `${keepId}.json`), "utf8"),
   );
 
 const parsed = (keepId: number) => {
-  const p = parseOperation(fixture(keepId), FETCHED);
+  const p = parseOperation(fixture(keepId));
   if (!p) throw new Error(`fixture ${keepId} was not admitted`);
   return p;
 };
@@ -235,7 +233,7 @@ describe("budgetBasisOf — three states, none inferred", () => {
     // `partnerSeq` is now ordered by that id, so raw[0] need not be parsed[0].
     const id = raw.partnerships![0].id;
     raw.partnerships![0].total_budget = null;
-    const p = parseOperation(raw, FETCHED)!;
+    const p = parseOperation(raw)!;
     const row = p.partners.find((q) => q.keepPartnershipId === id)!;
     expect(row.budgetEur).toBeNull();
     expect(row.budgetBasis).toBe("unpublished");
@@ -251,7 +249,7 @@ describe("what parseOperation refuses", () => {
       title: "Romania - Rep.Moldova",
       period: { title: "2021-2027" },
     };
-    expect(parseOperation(raw, FETCHED)).toBeNull();
+    expect(parseOperation(raw)).toBeNull();
     expect(warn).toHaveBeenCalledOnce();
     warn.mockRestore();
   });
@@ -259,21 +257,19 @@ describe("what parseOperation refuses", () => {
   it("throws when keep.eu's period disagrees with the curated register", () => {
     const raw = fixture(33607);
     raw.programme!.period = { title: "2014-2020" };
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/register says/);
+    expect(() => parseOperation(raw)).toThrow(/register says/);
   });
 
   it("fences out a period we do not ingest", () => {
     const raw = fixture(33607);
     raw.programme!.period = { title: "2007-2013" };
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/outside/);
+    expect(() => parseOperation(raw)).toThrow(/outside/);
   });
 
   it("throws only when NO language carries a title", () => {
     const raw = fixture(33607);
     raw.translations = { en: { name: null } };
-    expect(() => parseOperation(raw, FETCHED)).toThrow(
-      /no title in any language/,
-    );
+    expect(() => parseOperation(raw)).toThrow(/no title in any language/);
   });
 
   // keep.eu files two plainly-English titles under `mt` and `it`. Refusing them
@@ -282,7 +278,7 @@ describe("what parseOperation refuses", () => {
     const raw = fixture(33607);
     const name = raw.translations!.en!.name;
     raw.translations = { it: { name, description: null } };
-    const op = parseOperation(raw, FETCHED)!.operation;
+    const op = parseOperation(raw)!.operation;
     expect(op.titleEn).toBe(name);
     expect(op.titleLang).toBe("it");
   });
@@ -294,7 +290,7 @@ describe("what parseOperation refuses", () => {
   it("throws rather than dropping a project with no programme", () => {
     const raw = fixture(33607);
     raw.programme = null;
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/no programme/);
+    expect(() => parseOperation(raw)).toThrow(/no programme/);
   });
 });
 
@@ -305,7 +301,7 @@ describe("the two budget levels", () => {
   it("KEEPS an operation whose partner budgets exceed its total, recording the sum", () => {
     const raw = fixture(33607);
     raw.total_budget = "1000.00";
-    const { operation } = parseOperation(raw, FETCHED)!;
+    const { operation } = parseOperation(raw)!;
     expect(operation.totalBudgetEur).toBe(1000);
     expect(operation.partnerBudgetSumEur).toBeGreaterThan(1000);
   });
@@ -313,9 +309,7 @@ describe("the two budget levels", () => {
   it("records a null partner sum when no partner publishes a budget", () => {
     const raw = fixture(33607);
     for (const p of raw.partnerships!) p.total_budget = null;
-    expect(
-      parseOperation(raw, FETCHED)!.operation.partnerBudgetSumEur,
-    ).toBeNull();
+    expect(parseOperation(raw)!.operation.partnerBudgetSumEur).toBeNull();
   });
 
   // The one budget shape that IS refused: a structural impossibility rather
@@ -324,10 +318,8 @@ describe("the two budget levels", () => {
   it("throws when one partner carries the whole operation total beside a funded sibling", () => {
     const raw = fixture(33607);
     raw.partnerships![0].total_budget = raw.total_budget;
-    expect(() => parseOperation(raw, FETCHED)).toThrow(OperationParseError);
-    expect(() => parseOperation(raw, FETCHED)).toThrow(
-      /entire operation total/,
-    );
+    expect(() => parseOperation(raw)).toThrow(OperationParseError);
+    expect(() => parseOperation(raw)).toThrow(/entire operation total/);
   });
 
   it("allows a sole funded partner to equal the total when the others are zero", () => {
@@ -335,13 +327,13 @@ describe("the two budget levels", () => {
     raw.partnerships = raw.partnerships!.slice(0, 2);
     raw.partnerships[0].total_budget = raw.total_budget;
     raw.partnerships[1].total_budget = "0.00";
-    expect(() => parseOperation(raw, FETCHED)).not.toThrow();
+    expect(() => parseOperation(raw)).not.toThrow();
   });
 
   it("throws on a negative partner budget", () => {
     const raw = fixture(33607);
     raw.partnerships![0].total_budget = "-1.00";
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/negative budget/);
+    expect(() => parseOperation(raw)).toThrow(/negative budget/);
   });
 });
 
@@ -396,13 +388,13 @@ describe("the shapes a consumer must not assume", () => {
   it("throws on a present-but-unparseable number rather than calling it unpublished", () => {
     const raw = fixture(33607);
     raw.partnerships![0].total_budget = "n/a";
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/is not a number/);
+    expect(() => parseOperation(raw)).toThrow(/is not a number/);
   });
 
   it("throws when a partner has no country", () => {
     const raw = fixture(33607);
     raw.partnerships![0].partner!.country = null;
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/has no country/);
+    expect(() => parseOperation(raw)).toThrow(/has no country/);
   });
 
   it("throws when a partner has no name in any language", () => {
@@ -411,6 +403,6 @@ describe("the shapes a consumer must not assume", () => {
     raw.partnerships![0].partner!.translations = {
       en: { name_translated: null },
     };
-    expect(() => parseOperation(raw, FETCHED)).toThrow(/has no name/);
+    expect(() => parseOperation(raw)).toThrow(/has no name/);
   });
 });

@@ -206,7 +206,6 @@ export interface InterregOperation {
   /** Every participating country, as keep.eu names them, sorted. Verbatim —
    *  see InterregPartner.country for why these are names and not ISO2. */
   countries: string[];
-  sourceFetchedAt: string;
 }
 
 /**
@@ -287,7 +286,15 @@ export interface InterregCorpus {
  * and the source has nothing".
  */
 export interface InterregIndex {
-  /** When the underlying keep.eu crawl ran. */
+  /**
+   * When the underlying keep.eu crawl ran — ONCE, here, and not on every
+   * operation row.
+   *
+   * A per-row stamp made `operations.json` differ on every re-ingest even when
+   * nothing upstream had moved, turning a 4.7 MB committed file into a 4.7 MB
+   * diff and making `git diff` useless for spotting a real corpus change. The
+   * loader stamps `interreg_operations.source_fetched_at` from this value.
+   */
   fetchedAt: string;
   operationCount: number;
   partnerCount: number;

@@ -191,11 +191,11 @@ export interface ParsedOperation {
  * Returns null — with a one-per-programme warning — when the project belongs to
  * a programme the curated register does not admit. See the header for why that
  * is the only silent outcome.
+ *
+ * Deliberately takes no fetch timestamp: stamping one per row made the
+ * committed corpus differ on every re-ingest. It lives once on the index.
  */
-export const parseOperation = (
-  raw: KeepProjectRaw,
-  sourceFetchedAt: string,
-): ParsedOperation | null => {
+export const parseOperation = (raw: KeepProjectRaw): ParsedOperation | null => {
   const keepId = raw.id;
   if (!Number.isInteger(keepId))
     throw new OperationParseError(
@@ -381,7 +381,6 @@ export const parseOperation = (
       partnerBudgetSumEur,
       partnerBudgetPublishedCount: publishedBudgets.length,
       countries,
-      sourceFetchedAt,
     },
     partners,
   };
