@@ -460,6 +460,16 @@ volume is trivial. Only rows `isBulgarianPartner()` admits are ever placed or co
 the programme itself. A keep.eu programme with no entry is **skipped with a warning**, so a
 new programme upstream cannot silently mint an unnamed code.
 
+**Shipped shape differs from the block above in four ways, all decided at T2.1 and all
+deliberate.** (1) A third table, `interreg_programmes`, mirrors the curated register: the
+register lives under `scripts/`, which neither `src/` nor `functions/` can import, so
+without it there is no SQL-side programme label for the T3 surfaces — and it lets
+`programme_code` carry a foreign key, making §9 gate 11 structural rather than a test.
+(2) `programme_name` / `programme_name_en` are dropped from `interreg_operations` in
+favour of that table. (3) The unique index is scoped `(programme_code, operation_id)`
+rather than global: 0 operation ids span two programmes today, so both forms hold — this
+is the defensive choice. (4) `countries` is `NOT NULL DEFAULT '{}'`.
+
 Both tables are on a serving path → **stage-merge, never TRUNCATE**
 (`scripts/db/lib/stage_merge.ts`). `person_reload_locks.data.test.ts`'s ALLOWED registry
 records `load_funds_pg.ts`'s two TRUNCATEs as accepted debt — do not add a third.
@@ -531,8 +541,8 @@ Crawl cost was well under budget — 40m22s for the 5,451-page index walk (§2.1
 | period | ops | partnerships | BG rows | BG budget | BG w/ EIK | budget published | published_zero | unpublished |
 |---|---|---|---|---|---|---|---|---|
 | 2014-2020 | 1,251 | 6,843 | 1,080 | **€281.72m** | **0 (0%)** | 1,058 (98.0%) | 7 | 15 |
-| 2021-2027 | 703 | 5,298 | 413 | **€114.67m** | **359 (87%)** | 407 (98.5%) | 0 | 6 |
-| **total** | **1,954** | **12,141** | **1,493** | **€396.39m** | 359 (24%) | 1,465 (98.1%) | 7 | 21 |
+| 2021-2027 | 703 | 5,298 | 413 | **€114.67m** | **336 (81.4%)** | 407 (98.5%) | 0 | 6 |
+| **total** | **1,954** | **12,141** | **1,493** | **€396.39m** | 336 (22.5%) | 1,465 (98.1%) | 7 | 21 |
 
 **§5's extrapolation holds — every band was right:**
 
@@ -765,7 +775,7 @@ Downstream re-run chain: 127 → `load_graph_pg.ts` → `tr_company_place.money_
 4. **No money aggregate crosses the join** — read every shipped function body out of `pg_get_functiondef` and fail if any sums `interreg_operations.total_budget_eur` grouped by a place- or beneficiary-keyed column (the `procurement_payloads.data.test.ts` idiom).
 5. **EKATTE is never invented** — every non-NULL `ekatte` exists in `data/settlements.json`; every placed row is within 25 km of its published lat/lng; `place_basis` is non-NULL exactly when `ekatte` is.
 6. **Placement floor, split by period** — ≥90% of BG partner rows *and* ≥90% of BG partner money placed, asserted **separately for 2014-2020 and 2021-2027** so a regression in the harder tier cannot hide behind the easier one.
-7. **EIK hygiene** — no 10-digit value ever stored (the ЕГН guard); ≥85% of 2021-2027 BG rows carry an EIK; **exactly 0% of 2014-2020 rows do** (asserted, so a future source change that starts supplying them is noticed rather than silently absorbed).
+7. **EIK hygiene** — no 10-digit value ever stored (the ЕГН guard, now also a CHECK in 137); **≥80%** of 2021-2027 BG rows carry an EIK (measured 81.4% = 336/413 — the earlier ≥85% was calibrated on 359, which counts the raw `beneficiary_id` rather than the parsed column); **exactly 0% of 2014-2020 rows do** (asserted, so a future source change that starts supplying them is noticed rather than silently absorbed).
 8. **Namespace disjointness** — no `interreg_operations.operation_id` appears as a `fund_projects.contract_number`, and vice versa.
 9. **No cross-corpus double count** — no `(eik, folded title, start year, amount ±1%)` match between `fund_projects` and `interreg_partners`. The test asserts its own partiality: it can only cover Tier L, and it reports the uncovered row count.
 10. **Period fence** — no row outside {2014-2020, 2021-2027}.
@@ -830,7 +840,7 @@ period and the plan needs revising before any schema lands.
 
 Recorded because each was a real defect, and because two of them would have shipped silently.
 
-1. **`beneficiary_id` / `pic` are 2021-2027 fields only** (0 of 30 sampled 2014-2020 rows carry either). The draft's "91% EIK coverage" was measured on 2021-2027 and generalised. Forced the Tier L / Tier P split, the `keep_id` PK, and the halving of T4's scope.
+1. **`beneficiary_id` / `pic` are 2021-2027 fields only** (0 of 30 sampled 2014-2020 rows carry either). The draft's "91% EIK coverage" was measured on 2021-2027 and generalised. Forced the Tier L / Tier P split, the `keep_id` PK, and the halving of T4's scope. **Corrected again at T2.1**: the stored figure is **336 of 413 (81.4%)**, not 359 (87%). keep.eu fills `beneficiary_id` on 413 of 413, but 54 are the literal `N.a.` and 23 more are shapes `canonicalEik()` refuses — so 413 − 54 = 359 counts the RAW FIELD, not the column. §9 gate 7's floor is set against 81.4%.
 2. **`project_id` is NULL for 2014-2020** and heterogeneous where present. PK changed from `operation_id` to `keep_id`.
 3. **Writing into `fund_payloads` would be silently erased** by the next `db:load:funds:pg` — `mergeFromStage` runs an unscoped anti-join DELETE and its parity guard would still pass. Serving moved to live aggregates over the fact tables.
 4. **Migration 136 is taken** (`136_bill.sql`). Now 137.
