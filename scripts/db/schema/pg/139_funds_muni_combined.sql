@@ -212,6 +212,18 @@ SELECT jsonb_build_object(
   'movedCount', (SELECT count(*)::int FROM funds_muni_combined_v WHERE rank <> rank_before),
   'withInterregCount',
     (SELECT count(*)::int FROM funds_muni_combined_v WHERE interreg_eur > 0),
+  -- The ИСУН money outside the SAME cohort, and it is the larger number by two
+  -- orders of magnitude: €6.56bn against Interreg's €95.4m, because Столична
+  -- община alone holds €5.52bn of ИСУН projects and has no per-capita figure on
+  -- either arm. A caption that printed only the Interreg exclusion beside the
+  -- phrase "on either source" would tell a reader €95m is missing from a ranking
+  -- that is missing €6.6bn — which is why this travels in the payload rather
+  -- than being left for the client to not compute.
+  'excludedIsunEur', (
+    SELECT COALESCE(SUM((f.payload->'rollup'->>'totalEur')::double precision), 0)
+      FROM fund_payloads f
+     WHERE f.kind = 'muni-summary'
+       AND f.key NOT IN (SELECT obshtina FROM funds_muni_combined_v)),
   -- The Interreg money the ranking cannot see, and why. Not decoration: it is
   -- 22.6% of the placed corpus, and a caption claiming the ranking covers the
   -- country would be wrong without it.

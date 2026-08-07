@@ -233,3 +233,70 @@ DO $$ BEGIN
   END IF;
 END $$;
 DROP FUNCTION IF EXISTS interreg_by_eik(text);
+
+-- The national Interreg picture: totals, the programme breakdown, and the
+-- period split that governs what can be linked to a legal entity.
+--
+-- BULGARIAN PARTNER BUDGETS ONLY. The corpus holds all ~12,141 partner rows so
+-- an operation reads as cross-border on its page, but every € here is a row that
+-- is Bulgarian — summing the foreign partners would state a number about other
+-- countries' money under a Bulgarian heading.
+CREATE OR REPLACE FUNCTION interreg_overview(p_limit int DEFAULT 12)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH bg AS (
+  SELECT p.keep_id, p.budget_eur, p.budget_basis, p.eik, p.ekatte,
+         o.period, o.programme_code
+    FROM interreg_partners p
+    JOIN interreg_operations o USING (keep_id)
+   WHERE p.country = 'Bulgaria' OR p.country_department = 'Bulgaria'
+)
+SELECT jsonb_build_object(
+  'budgetEur',      (SELECT COALESCE(SUM(budget_eur), 0)::double precision FROM bg),
+  'partnerCount',   (SELECT count(*)::int FROM bg),
+  'operationCount', (SELECT count(DISTINCT keep_id)::int FROM bg),
+  'programmeCount', (SELECT count(DISTINCT programme_code)::int FROM bg),
+  'placedCount',    (SELECT count(*) FILTER (WHERE ekatte IS NOT NULL)::int FROM bg),
+  'unpublishedPartnerCount',
+    (SELECT count(*) FILTER (WHERE budget_basis = 'unpublished')::int FROM bg),
+  -- THE PERIOD SPLIT IS THE HEADLINE CAVEAT, not a detail. keep.eu's national-id
+  -- field exists only in the 2021-2027 template, so `linkedCount` is ~0 for
+  -- 2014-2020 by construction — roughly two thirds of this money can be
+  -- attributed to a PLACE but never to a company. Any surface that offers an
+  -- entity view must read this before implying coverage it cannot have.
+  'periods', COALESCE((
+    SELECT jsonb_object_agg(period, jsonb_build_object(
+             'budgetEur', eur, 'partnerCount', n,
+             'operationCount', ops, 'linkedCount', linked))
+      FROM (
+        SELECT period,
+               COALESCE(SUM(budget_eur), 0)::double precision AS eur,
+               count(*)::int                                  AS n,
+               count(DISTINCT keep_id)::int                   AS ops,
+               count(*) FILTER (WHERE eik IS NOT NULL)::int    AS linked
+          FROM bg GROUP BY period
+      ) z), '{}'::jsonb),
+  'programmes', COALESCE((
+    SELECT jsonb_agg(x ORDER BY (x->>'budgetEur')::double precision DESC NULLS LAST,
+                                x->>'code')
+      FROM (
+        SELECT jsonb_build_object(
+                 'code',           b.programme_code,
+                 'nameBg',         g.name_bg,
+                 'nameEn',         g.name_en,
+                 'period',         g.period,
+                 'budgetEur',      COALESCE(SUM(b.budget_eur), 0)::double precision,
+                 'partnerCount',   count(*)::int,
+                 'operationCount', count(DISTINCT b.keep_id)::int) AS x
+          FROM bg b
+          JOIN interreg_programmes g ON g.code = b.programme_code
+         GROUP BY b.programme_code, g.name_bg, g.name_en, g.period
+         ORDER BY COALESCE(SUM(b.budget_eur), 0) DESC NULLS LAST, b.programme_code
+         LIMIT GREATEST(p_limit, 1)
+      ) t), '[]'::jsonb)
+);
+$$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT EXECUTE ON FUNCTION interreg_overview(int) TO app_readonly';
+  END IF;
+END $$;

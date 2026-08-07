@@ -2901,6 +2901,33 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? empty };
   },
+  // The national Interreg picture for the /funds hub (138).
+  //
+  // Live over the fact tables, NOT via fund_payloads: an interreg-* kind written
+  // there would be silently deleted by the next db:load:funds:pg, whose stage
+  // merge runs an unscoped anti-join DELETE and whose parity guard would pass.
+  "interreg-overview": async (dbRows, q) => {
+    const empty = {
+      budgetEur: 0,
+      partnerCount: 0,
+      operationCount: 0,
+      programmeCount: 0,
+      placedCount: 0,
+      unpublishedPartnerCount: 0,
+      periods: {},
+      programmes: [],
+    };
+    const rows = await dbRows("SELECT interreg_overview($1) AS r", [
+      clampInt(q.limit, 12, 1, 40),
+    ]).catch(
+      missingMigrationLogged(
+        "interreg-overview",
+        empty,
+        "db:load:interreg:pg:cloud (and apply 138)",
+      ),
+    );
+    return { body: rows[0]?.r ?? empty };
+  },
   // The per-capita municipal EU-money ranking, WITH the Interreg arm (139).
   //
   // The ranking the site published before this was ИСУН-only, and ИСУН holds no

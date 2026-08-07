@@ -36,6 +36,7 @@ import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaCommunityTile } from "./MyAreaCommunityTile";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
+import { MyAreaInterregTile } from "./MyAreaInterregTile";
 import { MyAreaPropertyStockTile } from "./MyAreaPropertyStockTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
@@ -299,6 +300,12 @@ export const MyAreaScreen: FC = () => {
           />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
+        {/* Interreg — separate from the EU-projects tile above BECAUSE it is a
+            separate corpus (ИСУН holds none of it), and pinned here because
+            cross-border money lands almost entirely on border municipalities,
+            i.e. exactly the places whose ИСУН figure was an undercount.
+            Self-hides for the ~135 общини with no Interreg rows. */}
+        <MyAreaInterregTile obshtina={area.obshtina} />
         {/* Public procurement pinned to this place — local-tier buyers
             (município, schools, hospitals) and what they spent. Self-hides
             when the place has no local-tier procurement on record. */}

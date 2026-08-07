@@ -364,6 +364,107 @@ test.skipIf(skip)(
   },
 );
 
+// ── 12. interreg_overview re-derived from the facts ──────────────────────
+test.skipIf(skip)(
+  "the /funds overview totals come from interreg_partners",
+  async () => {
+    const got = await one<{
+      r: {
+        budgetEur: number;
+        partnerCount: number;
+        operationCount: number;
+        programmeCount: number;
+        placedCount: number;
+        periods: Record<string, { budgetEur: number; linkedCount: number }>;
+        programmes: { code: string; budgetEur: number }[];
+      };
+    }>(`SELECT interreg_overview(40) AS r`);
+    const o = got.r;
+
+    const raw = await one<{
+      eur: string;
+      n: string;
+      ops: string;
+      progs: string;
+      placed: string;
+    }>(
+      `SELECT COALESCE(SUM(p.budget_eur), 0)::text eur, count(*) n,
+            count(DISTINCT p.keep_id) ops,
+            count(DISTINCT o.programme_code) progs,
+            count(*) FILTER (WHERE p.ekatte IS NOT NULL) placed
+       FROM interreg_partners p JOIN interreg_operations o USING (keep_id)
+      WHERE p.country = 'Bulgaria' OR p.country_department = 'Bulgaria'`,
+    );
+    assert.ok(Math.abs(o.budgetEur - Number(raw.eur)) < 0.01, "budget drifts");
+    assert.equal(o.partnerCount, Number(raw.n));
+    assert.equal(o.operationCount, Number(raw.ops));
+    assert.equal(o.programmeCount, Number(raw.progs));
+    assert.equal(o.placedCount, Number(raw.placed));
+
+    // The programmes list INNER JOINs interreg_programmes, so a code with no
+    // catalogue row would vanish from it while still counting in programmeCount —
+    // the tile would then print "largest 6 of 19" over a list that can never
+    // reach 19. At limit 40 (above the 19 that exist) the two must agree.
+    assert.equal(
+      o.programmes.length,
+      o.programmeCount,
+      "a programme_code has no interreg_programmes row and dropped out of the list",
+    );
+
+    // The period asymmetry, asserted so a source change that starts supplying
+    // 2014-2020 national ids is NOTICED rather than silently absorbed — every
+    // "Tier L only" caption on the site is calibrated on this being zero.
+    assert.equal(
+      o.periods["2014-2020"]?.linkedCount,
+      0,
+      "keep.eu is now publishing 2014-2020 national ids — the Tier L/P split moved",
+    );
+    assert.ok(
+      (o.periods["2021-2027"]?.linkedCount ?? 0) > 250,
+      "the 2021-2027 EIK link collapsed",
+    );
+  },
+);
+
+// ── 13. The exclusion the /funds caption prints ──────────────────────────
+test.skipIf(skip)(
+  "both exclusion figures are present and the larger one is ИСУН",
+  async () => {
+    // The caption names BOTH sources. Printing only the Interreg exclusion beside
+    // that sentence tells a reader €95.4m is missing from a ranking that is
+    // missing €6.56bn — Столична община alone holds €5.52bn of ИСУН projects and
+    // has no per-capita figure on either arm. So the payload carries both, and
+    // this fails if the ИСУН side ever stops travelling.
+    const got = await one<{
+      r: {
+        excluded: Record<string, { rows: number; eur: number }>;
+        excludedIsunEur: number;
+      };
+    }>(`SELECT funds_muni_combined_rank(1) AS r`);
+    const interregExcluded = Object.entries(got.r.excluded)
+      .filter(([reason]) => reason !== "ranked")
+      .reduce((a, [, v]) => a + v.eur, 0);
+
+    assert.ok(interregExcluded > 0, "no Interreg money outside the cohort?");
+    assert.ok(
+      got.r.excludedIsunEur > interregExcluded,
+      `excludedIsunEur (€${got.r.excludedIsunEur}) should dwarf the Interreg ` +
+        `exclusion (€${interregExcluded}) — if it does not, the cohort changed`,
+    );
+
+    const raw = await one<{ eur: string }>(
+      `SELECT COALESCE(SUM((f.payload->'rollup'->>'totalEur')::double precision), 0)::text eur
+       FROM fund_payloads f
+      WHERE f.kind = 'muni-summary'
+        AND f.key NOT IN (SELECT obshtina FROM funds_muni_combined_v)`,
+    );
+    assert.ok(
+      Math.abs(got.r.excludedIsunEur - Number(raw.eur)) < 0.01,
+      "excludedIsunEur is not the ИСУН money outside the cohort",
+    );
+  },
+);
+
 test.skipIf(skip)("close the pool", async () => {
   await end();
 });

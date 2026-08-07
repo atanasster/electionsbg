@@ -396,3 +396,65 @@ export interface FundsMuniCombined {
   oblastRankDelta: number;
   oblastCohortSize: number;
 }
+
+/** The national Interreg picture (migration 138, /api/db/interreg-overview). */
+export interface InterregOverview {
+  budgetEur: number;
+  partnerCount: number;
+  operationCount: number;
+  programmeCount: number;
+  /** Partner rows resolved to an EKATTE. The rest are honestly unplaced. */
+  placedCount: number;
+  /** Rows whose programme published no budget: they count in `partnerCount` and
+   *  contribute ZERO euros, so the two must never be divided by each other. */
+  unpublishedPartnerCount: number;
+  /** THE headline caveat, not a detail. keep.eu's national-id field exists only
+   *  in the 2021-2027 template, so `linkedCount` is 0 for 2014-2020 by
+   *  construction — roughly two thirds of this money is attributable to a place
+   *  but never to a company. */
+  periods: Record<
+    string,
+    {
+      budgetEur: number;
+      partnerCount: number;
+      operationCount: number;
+      linkedCount: number;
+    }
+  >;
+  programmes: {
+    code: string;
+    nameBg: string | null;
+    nameEn: string | null;
+    period: string;
+    budgetEur: number;
+    partnerCount: number;
+    operationCount: number;
+  }[];
+}
+
+/** The combined per-capita leaderboard (/api/db/funds-muni-rank). */
+export interface FundsMuniRank {
+  cohortSize: number;
+  movedCount: number;
+  withInterregCount: number;
+  /** What the ranking does NOT cover on the INTERREG arm, by reason —
+   *  `outsideCohort` carries Столична община's €88.7m, `ranked` is the covered
+   *  bucket rather than an exclusion. Render it or the table implies coverage it
+   *  does not have. */
+  excluded: Record<string, { rows: number; eur: number }>;
+  /** The ИСУН money outside the SAME cohort — €6.56bn, two orders of magnitude
+   *  larger, because Sofia alone holds €5.52bn and has no per-capita figure on
+   *  either arm. Any caption naming both sources must print both numbers. */
+  excludedIsunEur: number;
+  munis: {
+    obshtina: string;
+    population: number;
+    isunEur: number;
+    interregEur: number;
+    totalEur: number;
+    perCapitaEur: number;
+    rank: number;
+    rankBefore: number;
+    rankDelta: number;
+  }[];
+}

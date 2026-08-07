@@ -37,6 +37,7 @@ import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
 import { FundsFocusTile } from "./funds/FundsFocusTile";
 import { RrfTeaserTile } from "./funds/RrfTeaserTile";
 import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
+import { InterregTile } from "./funds/InterregTile";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -410,6 +411,14 @@ export const FundsScreen: FC = () => {
         >
           <DualCorpusLeaderboardTile />
         </DashboardSection>
+
+        {/* Interreg — the corpus ИСУН does not hold at all. It sits in its own
+            section rather than inside the ИСУН tiles above precisely because it
+            is a different source with a different grain: an operation is
+            cross-border and the money shown is the BULGARIAN partner's share of
+            it, never the project total. Self-suppresses when the corpus is
+            absent (a database before migration 137). */}
+        <InterregTile />
 
         {/* Leaderboards — top beneficiaries + top programmes side by side. */}
         {projectsIndex ? (

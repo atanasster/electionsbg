@@ -180,6 +180,7 @@ test("the sentinels carry the same keys as the functions", async () => {
 // !ok, React Query retries) while rendering an identical number, because S22 has
 // no published rank on either arm. Invisible in the UI, live in the logs.
 
+const overview = DB_ROUTES["interreg-overview"];
 const muni = DB_ROUTES["funds-muni-combined"];
 const rank = DB_ROUTES["funds-muni-rank"];
 
@@ -233,4 +234,48 @@ test("the leaderboard limit is clamped", async () => {
     await rank(db, q);
     assert.equal(db.calls[0].params[0], want, JSON.stringify(q));
   }
+});
+
+// ── /api/db/interreg-overview — the national picture on /funds ───────────────
+
+test("the overview limit is clamped", async () => {
+  for (const [q, want] of [
+    [{}, 12],
+    [{ limit: "6" }, 6],
+    [{ limit: "99" }, 40],
+    [{ limit: "0" }, 1],
+    [{ limit: "nope" }, 12],
+  ]) {
+    const db = stubDb({ programmes: [] });
+    await overview(db, q);
+    assert.equal(db.calls[0].params[0], want, JSON.stringify(q));
+  }
+});
+
+// Same contract as the routes above: an absent migration degrades (deploy:db can
+// ship before 138 is applied on Cloud SQL), a timeout does not.
+test("the overview degrades an absent migration but not a timeout", async () => {
+  const r = await overview(throwingDb("42P01"), {});
+  assert.equal(r.body.budgetEur, 0);
+  assert.deepEqual(r.body.programmes, []);
+  assert.deepEqual(r.body.periods, {});
+  await assert.rejects(() => overview(throwingDb("57014"), {}));
+});
+
+// The sentinel is what /funds renders in the window between deploy:db and the
+// migration. Its keys must be the function's keys — InterregTile reads
+// `partnerCount` to decide whether to self-hide, so a missing key there renders
+// the whole section against `undefined` instead of hiding it.
+test("the overview sentinel carries the same keys as the function", async () => {
+  const body = (await overview(throwingDb("42883"), {})).body;
+  assert.deepEqual(Object.keys(body).sort(), [
+    "budgetEur",
+    "operationCount",
+    "partnerCount",
+    "periods",
+    "placedCount",
+    "programmeCount",
+    "programmes",
+    "unpublishedPartnerCount",
+  ]);
 });
