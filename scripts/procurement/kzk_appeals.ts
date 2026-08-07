@@ -56,6 +56,7 @@ import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import { command, run, flag, boolean, option, optional, string } from "cmd-ts";
 import type { Browser, Page } from "playwright";
+import { atomicWriteFileSync } from "../lib/atomic_write";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -84,14 +85,10 @@ export const UA =
 export const BLOCK_HOSTS =
   /m\.cpc\.bg|google-analytics\.com|googletagmanager\.com|doubleclick\.net|google\.com\/ads|ga-audiences|\/g\/collect|matomo/i;
 
-// Write-to-temp-then-rename: OUT_FILE is declared "the only copy" of the
-// unregenerable tier-2 outcomes, so a crash mid-write must not truncate it
-// (rename is atomic on the same filesystem).
-const atomicWrite = (file: string, data: string): void => {
-  const tmp = `${file}.tmp`;
-  fs.writeFileSync(tmp, data);
-  fs.renameSync(tmp, file);
-};
+// OUT_FILE is declared "the only copy" of the unregenerable tier-2 outcomes,
+// so a crash mid-write must not truncate it. Shared helper — the Interreg crawl
+// manifest and the keep.eu detail cache need the same guarantee.
+const atomicWrite = atomicWriteFileSync;
 
 export type KzkAppeal = {
   complaintNo: string;

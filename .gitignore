@@ -118,6 +118,11 @@ functions/.secret.local
 # update-judiciary skill re-fetches them from vss.justice.bg on demand.
 /raw_data/judiciary/
 
+# keep.eu project-detail JSON cache for the Interreg corpus (~1,930 files).
+# Re-fetched on demand by `npm run funds:crawl-interreg`. The normalized
+# outputs under data/funds/interreg/ are committed; this raw cache is not.
+/raw_data/interreg/
+
 # Cached EC Financial Transparency System (FTS) yearly datasets (~16-20 MB each).
 # Downloaded on demand for `db:load:ngo-funding:pg`. The matched rows live in the
 # Postgres ngo_funding table; this raw cache is not committed.
