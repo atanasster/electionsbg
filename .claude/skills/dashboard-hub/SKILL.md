@@ -127,6 +127,11 @@ tiles are the same kind of thing". Gate it.
 
 ## 3. Bands
 
+**Name a band for what is in it, then say what is in it.** The heading is a label; a hub
+needs a table of contents. Give each band a one-line description under the heading —
+`SectionHeading` takes an optional `description` — saying what a reader will find there, in
+their terms.
+
 **Name a band for what is in it.** „Разгледай" (Explore) and „Още" (More) are an instruction
 and a leftover. „Още" is the worse of the two — it announces only that the band above it
 mattered more, so everything under it reads as offcuts.
@@ -139,6 +144,15 @@ on its own row. 4/3/4 beats 3/3/5. Check the rendered grid, not the array length
 
 **Order within a band by measured demand** where you have analytics, and say so in a comment
 — otherwise the order encodes nothing and the next person reshuffles it.
+
+**A tile may carry a SECOND figure, smaller, under the caption.** The headline answers "how
+much"; the second answers "and what about it". `InfographicTile` takes `metricSecondary` as
+a whole composed phrase, because the useful shape varies per tile.
+
+Two rules. It must come from the **same blob** as the headline — a second figure that needs
+a second fetch or a new derivation is a sub-page, not a tile. And prefer the one that
+**disambiguates the headline**: a mean is much safer beside its minimum, and a percentage is
+safer beside the population it is over. One line only; a third number makes it a table.
 
 **No per-tile CTA.** The whole card is the link and already has a hover state; „разгледай →"
 repeated eleven times is one affordance restated. Keep the `cta` prop for the rare tile whose
@@ -178,7 +192,24 @@ raw `:param` in its href is a dead link that also passes any "destination is abs
 
 ---
 
-## 5. Rendering rules that keep being violated
+## 5. Language
+
+Write the target language, not a translation of the English. This is a repo convention
+(`feedback_bg_language`) and hub copy breaks it constantly, because a tile description is
+written next to its English sibling.
+
+The failure is the **calque**: a phrase that parses but that nobody says. „Кой гласува близо
+до кого" is a literal rendering of "who votes close to whom" — Bulgarian expresses that
+agreement as „гласуват еднакво / сходно" or „съвпада вотът", and reserves „близо до" for
+distance. Same class: „Кой до кого гласува".
+
+When a phrase describes a RELATION (agreement, proximity, similarity, opposition), check it
+against how the language actually says it before shipping. If the English reads naturally and
+the Bulgarian reads like a diagram label, it is a calque.
+
+---
+
+## 6. Rendering rules that keep being violated
 
 **Calendar days are formatted in UTC.** `new Date("2026-07-31T00:00:00Z")` through an
 `Intl.DateTimeFormat` with no `timeZone` renders "30 юли" for every reader west of UTC — so
@@ -208,7 +239,7 @@ back on — an id. Publish the aggregate instead, and link to where the names ar
 
 ---
 
-## 6. Postgres-backed routes
+## 7. Postgres-backed routes
 
 If a tile's destination or the hub itself reads `/api/db/*`:
 
@@ -229,7 +260,7 @@ If a tile's destination or the hub itself reads `/api/db/*`:
 
 ---
 
-## 7. Gates to write
+## 8. Gates to write
 
 Not optional, and each exists because its absence shipped something:
 
@@ -252,7 +283,7 @@ the fix, so deleting the option left it green. Both read as real tests.
 
 ---
 
-## 8. Verify in the browser
+## 9. Verify in the browser
 
 **Four of the last defects were found by looking at the page, not by the suite** — a missing
 `outcome` field rendering `votes_outcome_undefined`, two off-by-one dates, raw vote sums, and
@@ -264,7 +295,7 @@ figures, the hrefs, the grid's last-row count, the console. Then click the thing
 
 ---
 
-## 9. Shipping order
+## 10. Shipping order
 
 Hosting last, always.
 
@@ -287,7 +318,39 @@ just-deployed route 404s, retry with a cache-buster before debugging.
 
 ---
 
-## 10. Working style
+## 11. What a hub cannot fix
+
+A hub surfaces a data layer; it does not repair one. When a tile's figure is empty or a
+destination is thin, find out which of the two it is before touching the hub:
+
+- **The page is honest and the data is absent.** A person who sat in the 39th National
+  Assembly has no declaration (the register postdates them) and no candidacy (the CIK corpus
+  starts later). A page showing only their role is correct. Do not invent a figure.
+- **The data exists and the layer does not carry it.** Quantify by ROLE before concluding:
+  `person_role` holds party on 76% of `candidate` rows and 48% of `councillor` rows, and on
+  **0 of 2,122 `mp` rows** — so every MP shows „—" for party. That is a resolver gap, fixed
+  where the roles are written, not on the hub.
+
+The distinction matters because both look identical on the page. Run the counts, split by
+role or by era, and say which one you found. A hub change that papers over a resolver gap
+makes the gap permanent.
+
+---
+
+## 12. Keeping this skill current
+
+**When the user gives a new requirement or correction for a hub, fold it into this file in
+the same turn** — not at the end of the session, not "if it comes up again". Every section
+above exists because something shipped wrong once; the value is in it being written down
+while the reason is still concrete.
+
+Record the RULE and the EVIDENCE, not just the rule. "Name bands for what is in them" is
+advice; "„Още" announces that the band above it mattered more, so attendance and both
+similarity views read as offcuts" is why anyone will follow it.
+
+---
+
+## 13. Working style
 
 - **Implement, then run `/code-review` in a subagent, then repair.** In this pattern's
   history the review found 2–5 real defects per step and the rate did not fall with
