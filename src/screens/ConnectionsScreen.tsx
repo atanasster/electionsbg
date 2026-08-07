@@ -14,6 +14,7 @@ import { Building2, Users, Network, Loader2 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { Card, CardContent } from "@/ux/Card";
+import { StatCard } from "@/screens/dashboard/StatCard";
 import { PartyBadge } from "@/screens/components/PartyBadge";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { formatEurCompact } from "@/lib/currency";
@@ -24,6 +25,7 @@ import {
   blobToView,
   blobStats,
   buildMatrixLookup,
+  offDiagonalMax,
   facetAxes,
   partyAxes,
   facetColor,
@@ -58,22 +60,46 @@ const useMoney = () => {
 const Heatmap: FC<{
   axes: string[];
   get: (a: string, b: string) => number;
-  max: number;
   label: (a: string) => string;
   color: (a: string) => string;
-}> = ({ axes, get, max, label, color }) => {
-  if (axes.length === 0) return null;
+}> = ({ axes, get, label, color }) => {
+  const { t } = useTranslation();
+  // THE COLOUR SCALE IGNORES THE DIAGONAL — see offDiagonalMax in graphBlob.ts for why,
+  // and graphBlob.test.ts for the cases that hold it.
+  const scaleMax = useMemo(() => offDiagonalMax(axes, get), [axes, get]);
+
+  // CLAMPED, so the diagonal cannot produce t01 > 1 and an out-of-range alpha. Today the
+  // `self` branch short-circuits before the value is used, which makes that safe by
+  // ORDERING rather than by construction — one reordered ternary away from an invalid
+  // rgba(). Політici↔Політici is 1,068 against an off-diagonal max of 358, so the
+  // unclamped value really does reach 1.9.
   const bright = (n: number): number =>
-    max <= 0 ? 0 : Math.log(n + 1) / Math.log(max + 1);
+    scaleMax <= 0 ? 0 : Math.min(1, Math.log(n + 1) / Math.log(scaleMax + 1));
+
+  if (axes.length === 0) return null;
   return (
     <div className="overflow-x-auto">
-      <table className="border-separate border-spacing-0.5 text-xs">
+      <table className="border-separate border-spacing-1 text-xs">
         <thead>
           <tr>
             <th />
+            {/* LOWER TRIANGLE, DIAGONAL INCLUDED. `cellKey` canonicalises on `a <= b`, so
+                `get` is symmetric BY CONSTRUCTION and the upper half was provably the same
+                numbers mirrored — half the cells carried no information.
+                This does NOT make the table narrower: every column still holds its own
+                diagonal cell, so the column count is unchanged and the larger cells make it
+                wider than before. The gain is that a reader is not asked to notice that the
+                two halves match.
+                Dropping the diagonal along with the mirror would have deleted the self-ties
+                entirely, and „колко е свързана групата вътре в себе си" is worth reading
+                even though it is not a bridge. It stays, in neutral ink and out of the
+                scale. */}
             {axes.map((a) => (
               <th key={a} className="p-1 align-bottom">
-                <div className="mx-auto flex h-20 w-6 items-end justify-center">
+                {/* min-h, NOT a fixed h-20. „Публичен сектор" is ~105px of vertical text at
+                    this size and the box was 80px, so it rendered as „Публичен се". Letting
+                    the content set the height fixes every label, not just today's longest. */}
+                <div className="mx-auto flex min-h-[5rem] w-6 items-end justify-center">
                   <span
                     className="whitespace-nowrap"
                     style={{
@@ -93,7 +119,7 @@ const Heatmap: FC<{
           </tr>
         </thead>
         <tbody>
-          {axes.map((row) => (
+          {axes.map((row, rowIndex) => (
             <tr key={row}>
               <th className="whitespace-nowrap pr-2 text-right font-medium">
                 <span
@@ -102,22 +128,50 @@ const Heatmap: FC<{
                 />
                 {label(row)}
               </th>
-              {axes.map((col) => {
+              {axes.map((col, colIndex) => {
+                if (colIndex > rowIndex) return <td key={col} />;
                 const n = get(row, col);
+                const self = row === col;
                 const t01 = bright(n);
-                const lbl = `${label(row)} ↔ ${label(col)}: ${n}`;
+
+                // A DIFFERENT SENTENCE for a self-tie. „Политици ↔ Политици: 1068" is
+                // exactly the reading the grey ink exists to prevent, and a screen-reader
+                // user got it on the largest number in the table.
+                const lbl = self
+                  ? t("connections_matrix_cell_self", { group: label(row), n })
+                  : t("connections_matrix_cell_bridge", {
+                      a: label(row),
+                      b: label(col),
+                      n,
+                    });
                 return (
                   <td key={col} className="p-0">
                     <div
                       role="img"
                       aria-label={n > 0 ? lbl : undefined}
                       title={n > 0 ? lbl : undefined}
-                      className={`flex h-7 w-7 items-center justify-center rounded-sm text-[10px] tabular-nums ${
-                        n > 0 && t01 > 0.45 ? "text-white" : "text-foreground"
+                      className={`flex h-11 w-11 items-center justify-center rounded-sm text-xs tabular-nums ${
+                        self
+                          ? "text-muted-foreground"
+                          : // 0.7, NOT 0.45. The threshold was calibrated against the old
+                            // diagonal-inclusive denominator; rescaling to the off-diagonal
+                            // max lifts every cross-group cell's t01, so 0.45 now flips
+                            // white onto ~50%-alpha blue at roughly 2:1 contrast. 0.7 maps
+                            // to alpha ≈ 0.64, which is where white becomes the readable
+                            // choice.
+                            n > 0 && t01 > 0.7
+                            ? "text-white"
+                            : "text-foreground"
                       }`}
                       style={{
-                        background:
-                          n === 0
+                        // The diagonal is drawn in NEUTRAL ink rather than on the scale.
+                        // It is still a number worth reading — how tied together one group
+                        // is internally — but it is not the quantity this chart ranks, and
+                        // colouring it on the same ramp invites reading it as the biggest
+                        // bridge.
+                        background: self
+                          ? "hsl(var(--muted))"
+                          : n === 0
                             ? "transparent"
                             : `rgba(37,99,235,${0.14 + t01 * 0.72})`,
                       }}
@@ -443,7 +497,8 @@ const ConnectionsBody: FC<{
   topPeople,
   topCompanies,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language?.startsWith("bg") ? "bg-BG" : "en-GB";
   const stats = blobStats(blob);
   const money = useMoney();
   const facetM = useMemo(() => buildMatrixLookup(blob.matrix), [blob]);
@@ -463,26 +518,38 @@ const ConnectionsBody: FC<{
       <Card className="mt-4">
         <CardContent className="pt-5 text-sm">
           <p>{t("connections_intro")}</p>
-          <p className="mt-2 text-muted-foreground">
-            <span className="font-semibold text-foreground tabular-nums">
-              {stats.publicFigures}
-            </span>{" "}
-            {t("connections_hero_public_figures")} ·{" "}
-            <span className="font-semibold text-foreground tabular-nums">
-              {stats.bridgeCompanies}
-            </span>{" "}
-            {t("connections_hero_bridge_companies")}{" "}
-            <span className="tabular-nums">
-              ({t("connections_hero_of")} {stats.bridgeCompaniesTotal})
-            </span>{" "}
-            ·{" "}
-            <span className="font-semibold text-foreground tabular-nums">
-              {stats.edges}
-            </span>{" "}
-            {t("connections_legend_edges")}
-          </p>
         </CardContent>
       </Card>
+
+      {/* The three figures, as cards rather than as one run-on sentence — the shape every
+          other dashboard on the site uses. „150 мостови фирми (от 1823)" in particular was
+          a bare parenthesis: the hint now says what the 1,823 are. */}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        <StatCard label={t("connections_kpi_figures")}>
+          <span className="text-lg font-bold tabular-nums md:text-xl">
+            {stats.publicFigures.toLocaleString(locale)}
+          </span>
+        </StatCard>
+        <StatCard
+          label={t("connections_kpi_bridges")}
+          hint={t("connections_hero_bridge_hint", {
+            total: stats.bridgeCompaniesTotal.toLocaleString(locale),
+          })}
+        >
+          <span className="text-lg font-bold tabular-nums md:text-xl">
+            {stats.bridgeCompanies.toLocaleString(locale)}
+          </span>
+          <span className="ml-1.5 text-xs text-muted-foreground tabular-nums">
+            {t("connections_hero_of")}{" "}
+            {stats.bridgeCompaniesTotal.toLocaleString(locale)}
+          </span>
+        </StatCard>
+        <StatCard label={t("connections_kpi_edges")}>
+          <span className="text-lg font-bold tabular-nums md:text-xl">
+            {stats.edges.toLocaleString(locale)}
+          </span>
+        </StatCard>
+      </div>
 
       {/* Matrix */}
       <Card>
@@ -512,7 +579,6 @@ const ConnectionsBody: FC<{
             <Heatmap
               axes={fAxes}
               get={facetM.get}
-              max={facetM.max}
               label={facetLabel}
               color={(a) => facetColor(a)}
             />
@@ -524,13 +590,20 @@ const ConnectionsBody: FC<{
             <Heatmap
               axes={pAxes}
               get={partyM.get}
-              max={partyM.max}
               label={(a) => a}
               color={(a) => partyColor(blob, a)}
             />
           )}
+          {/* PER MODE. One caption sat outside the branch and read „Връзки
+              депутат↔депутат по партии" under BOTH — so the role matrix, which is
+              facet↔facet across all 354 public figures, was captioned as an MP-by-party
+              chart. It also said „кликнете върху клетка за детайли" while the cells carry
+              no handler at all; the instruction is gone rather than made true, because a
+              per-cell drill-down is a feature and not a caption fix. */}
           <p className="mt-2 text-xs text-muted-foreground">
-            {t("connections_hero_matrix_caption")}
+            {matrixMode === "facet"
+              ? t("connections_matrix_caption_facet")
+              : t("connections_matrix_caption_party")}
           </p>
         </CardContent>
       </Card>

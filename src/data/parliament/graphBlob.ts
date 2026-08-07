@@ -187,6 +187,25 @@ export const blobStats = (blob: GraphGlobalBlob): GraphStats => ({
 export const cellKey = (a: string, b: string): string =>
   a <= b ? `${a}|${b}` : `${b}|${a}`;
 
+/** The colour ramp's denominator: the largest CROSS-GROUP tie, ignoring the diagonal.
+ *
+ *  A self-tie is two people in the same group sharing a company — real, but not a bridge,
+ *  and it dwarfs everything else: on the facet matrix Политици↔Политици is 1,068 against a
+ *  largest genuine bridge of 358 and a smallest of 3. Scaling on it made every cross-group
+ *  cell pale under a heading that reads „Мост между групи".
+ *
+ *  Returns 0 when there is nothing off-diagonal to scale by (a single-axis matrix, or every
+ *  cross tie zero); the caller treats that as "draw nothing". */
+export const offDiagonalMax = (
+  axes: string[],
+  get: (a: string, b: string) => number,
+): number => {
+  let m = 0;
+  for (const a of axes)
+    for (const b of axes) if (a !== b) m = Math.max(m, get(a, b));
+  return m;
+};
+
 export const buildMatrixLookup = (
   cells: GraphMatrixCell[],
 ): { axes: string[]; get: (a: string, b: string) => number; max: number } => {
