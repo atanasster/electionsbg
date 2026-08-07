@@ -39,6 +39,16 @@ export const usePersonLabels = () => {
       /** `person_role.role` → localized office name (Кмет, Общински съветник, …). */
       roleLabel: (role: string | null | undefined): string =>
         labelWith(t, "pp_role_", role),
+      /** PLURAL role name, for a heading over a filtered set — „Народни представители"
+       *  rather than „Народен представител" above 2,120 people. Falls back to the singular
+       *  for the long tail of role codes that have no plural key: a singular heading is a
+       *  worse one, never a wrong one, and there are ~60 codes of which a handful are ever
+       *  landed on directly. */
+      rolePluralLabel: (role: string | null | undefined): string => {
+        if (!role) return "";
+        const plural = t(`pp_role_plural_${role}`, { defaultValue: "" });
+        return plural || labelWith(t, "pp_role_", role);
+      },
       /** `person_source.facet` → localized group name (Политици, Изпълнителна власт, …). */
       facetLabel: (facet: string | null | undefined): string =>
         labelWith(t, "pp_facet_", facet),

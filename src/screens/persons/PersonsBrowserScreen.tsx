@@ -72,7 +72,7 @@ export const PersonsBrowserScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language?.startsWith("bg") ?? true;
   const { colorFor, displayNameForId } = useCanonicalParties();
-  const { roleLabel } = usePersonLabels();
+  const { roleLabel, rolePluralLabel } = usePersonLabels();
   const [params] = useSearchParams();
 
   const {
@@ -638,23 +638,39 @@ export const PersonsBrowserScreen: FC = () => {
     [t, roleLabel, colorFor, displayNameForId, isBg],
   );
 
+  // THE HEADING NAMES THE FILTERED SET. Landing here from the hub's „Депутати" tile gave a
+  // page headed „Хора" over a KPI reading „Лица 2 120" — the numbers were right (2,120 IS
+  // the MP count; unfiltered the same tile reads 62,050) but nothing on the page said the
+  // set had been narrowed, so the figures read as a broken count of everybody rather than
+  // as an accurate count of MPs. A filtered view has to say what it is filtered to.
+  const roleName =
+    role !== PERSON_FILTER_ALL ? rolePluralLabel(role) || role : null;
+  const baseTitle = t("persons_title", { defaultValue: "Хора" });
+  const pageTitle = roleName || baseTitle;
+
   return (
     <>
       <Title description="Every person the site can identify across parliament, local government, the courts, the company register and the campaign-finance filings — searchable and filterable.">
-        {t("persons_title", { defaultValue: "Хора" })}
+        {pageTitle}
       </Title>
       <Breadcrumbs
         items={[
           { label: t("nav_governance"), to: "/governance" },
-          { label: t("persons_title", { defaultValue: "Хора" }) },
+          // The unfiltered browser stays in the trail when a role is picked, so „Хора"
+          // remains one click away rather than being replaced by the narrower view.
+          ...(roleName
+            ? [{ label: baseTitle, to: "/persons" }, { label: roleName }]
+            : [{ label: baseTitle }]),
         ]}
       />
 
       <section aria-label="persons" className="my-4">
         <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
           <Users className="h-4 w-4 shrink-0" />
-          {t("persons_intro") ||
-            "Един човек, събран от девет регистъра — парламент, местна власт, съд, Търговски регистър и дарения."}
+          {roleName
+            ? t("persons_intro_role", { role: roleName })
+            : t("persons_intro") ||
+              "Един човек, събран от девет регистъра — парламент, местна власт, съд, Търговски регистър и дарения."}
         </div>
 
         <PersonsAnalysisStrip
