@@ -58,6 +58,13 @@ export type CompanyEntry = {
   /** Phase 5 TR enrichment — present only when the company name matched a
    * row in the reconstructed Commerce Registry SQLite. */
   tr?: TrCompanyEnrichment;
+  /** The entity is a registered political party, not a company. */
+  isParty?: true;
+  /** The party's entry in the Court-of-Audit annual-report register, resolved
+   * at build time. Present only when `isParty` AND the register has it — a
+   * coalition (which files nothing of its own) and a party that predates the
+   * 2011 register are both legitimately absent. */
+  financing?: { slug: string; name: string };
 };
 
 type IndexFile = {

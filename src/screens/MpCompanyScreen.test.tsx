@@ -269,6 +269,49 @@ describe("MpCompanyScreen — declared roles vs declared stakes", () => {
     expect(sourceLinks()).toHaveLength(1);
   });
 
+  // The register labels BOTH of Мирчев's 2021 mandates "Народно събраниe",
+  // so they are indistinguishable to the key and collapse. A deliberate lost
+  // source: either document proves the same seat. The tiebreak must make the
+  // survivor stable, so a rebuild never silently cites a different one.
+  it("collapses same-year filings the register labels identically", () => {
+    const sameLabel = party();
+    const base = sameLabel.stakes[0];
+    const rows = [
+      {
+        ...base,
+        declarationYear: 2021,
+        institution: "Народно събраниe" as const,
+        sourceUrl: "https://register.cacbg.bg/2021_nc/b.xml",
+      },
+      {
+        ...base,
+        declarationYear: 2021,
+        institution: "Народно събраниe" as const,
+        sourceUrl: "https://register.cacbg.bg/2021_nc/a.xml",
+      },
+    ];
+    sameLabel.stakes = rows;
+    renderCompany(sameLabel);
+    expect(sourceLinks()).toEqual(["https://register.cacbg.bg/2021_nc/a.xml"]);
+  });
+
+  // The tiebreak's whole job: same two filings, opposite index order, same
+  // surviving citation. Must be its own test — renderCompany does not unmount,
+  // so a second render in one test leaves both in the DOM.
+  it("cites the same filing whichever order the index lists them in", () => {
+    const flipped = party();
+    const base = flipped.stakes[0];
+    const at = (name: string) => ({
+      ...base,
+      declarationYear: 2021,
+      institution: "Народно събраниe",
+      sourceUrl: `https://register.cacbg.bg/2021_nc/${name}.xml`,
+    });
+    flipped.stakes = [at("a"), at("b")];
+    renderCompany(flipped);
+    expect(sourceLinks()).toEqual(["https://register.cacbg.bg/2021_nc/a.xml"]);
+  });
+
   it("but keeps both bodies when one year spans two parliaments", () => {
     const twoBodies = party();
     const base = twoBodies.stakes[0];

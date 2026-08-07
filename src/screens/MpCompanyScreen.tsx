@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   Briefcase,
   ExternalLink,
+  FileCheck2,
   MapPin,
   ArrowRightLeft,
   Building2,
@@ -18,6 +19,7 @@ import {
   type CompanyMpRole,
   type CompanyStakeEntry,
 } from "@/data/parliament/useCompanyIndex";
+import { PartyAnnualReportPanel } from "@/screens/dashboard/PartyAnnualReportPanel";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -138,13 +140,22 @@ type StakeGroup = {
   filings: { year: number; institution: string; sourceUrl: string }[];
 };
 
-/** One source link per (year, body), newest first. Entering and leaving a
- * mandate each triggers a filing, so one unchanged holding produces up to
- * four documents a year — Димитър Аврамов's 50% carries fifteen, eight of
- * them labelled "2021", which is a wall of identical links that helps nobody
- * verify anything. Collapsing on the BODY as well as the year is what keeps
- * the distinction that matters: Мирчев's two 2021 filings are the 45th and
- * the 46th National Assembly and both stay. */
+/** One source link per (year, body as the register LABELS it), newest first.
+ *
+ * Entering and leaving a mandate each triggers a filing, so one unchanged
+ * holding produces up to four documents a year — Димитър Аврамов's 50%
+ * carries fifteen, eight of them labelled "2021", a wall of identical links
+ * that helps nobody verify anything. Adding the body to the key keeps the
+ * distinction where cacbg records one: his 2023 pair spans the 48th and 49th
+ * National Assembly, so both survive.
+ *
+ * It does NOT recover a distinction cacbg failed to record. Мирчев's two 2021
+ * filings are the 45th and the 46th National Assembly, but the register calls
+ * both "Народно събраниe", so they collapse to one link. That is a real lost
+ * source, accepted deliberately: either document proves the same board seat,
+ * and the alternative is fifteen links of which the reader can tell nothing
+ * apart. The kept one is fixed by the sourceUrl tiebreak below rather than by
+ * input order, so a rebuild does not silently swap which document is cited. */
 const onePerYearAndBody = (
   filings: StakeGroup["filings"],
 ): StakeGroup["filings"] => {
@@ -220,7 +231,11 @@ const groupStakes = (stakes: CompanyStakeEntry[]): StakeGroup[] => {
     }
   }
   for (const g of map.values()) {
-    g.filings.sort((a, b) => b.year - a.year);
+    // sourceUrl breaks the tie so two filings of the same year and body always
+    // collapse to the SAME one, whatever order the index listed them in.
+    g.filings.sort(
+      (a, b) => b.year - a.year || a.sourceUrl.localeCompare(b.sourceUrl),
+    );
     g.filings = onePerYearAndBody(g.filings);
   }
   // Still-held first, then most recent filing, then name.
@@ -440,6 +455,21 @@ export const MpCompanyScreen: FC = () => {
       <Title description={`MP-declared company: ${company.displayName}`}>
         {company.displayName}
       </Title>
+
+      {/* A political party's money. Resolved at BUILD time onto the index
+       * entry (see `enrichWithFinancing`) — the join is by name, because no
+       * registry we ingest issues a party an EIK, so it is settled once in
+       * the pipeline under a test rather than guessed here per render. The
+       * panel is the same one the /party dashboard uses. */}
+      {company.financing && (
+        <div className="my-4">
+          <div className="text-base font-semibold flex items-center gap-2 mb-2">
+            <FileCheck2 className="h-4 w-4" />
+            {t("annual_reports_panel_title") || "Annual financial reports"}
+          </div>
+          <PartyAnnualReportPanel slug={company.financing.slug} />
+        </div>
+      )}
 
       {tr && (
         <Card className="my-4">

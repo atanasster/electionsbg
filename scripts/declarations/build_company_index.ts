@@ -95,6 +95,19 @@ export type CompanyIndexEntry = {
   /** Filled in by Phase 5 TR integration when the declared company name
    * matches a row in raw_data/tr/state.sqlite. */
   tr?: TrCompanyEnrichment;
+  /** The declared entity is a registered POLITICAL PARTY, not a company —
+   * decided from the raw declared names by `looksLikeParty`. Set independently
+   * of `financing` below, which additionally requires a register match: a
+   * party we cannot find in gfopp is still a party. */
+  isParty?: true;
+  /** Set only on entries that ARE a registered political party and that match
+   * one in the Court-of-Audit annual-report register (gfopp). Resolved here,
+   * at build time, so the page does no name matching at runtime: the join is
+   * by NAME (parties carry no EIK in any registry we ingest), and a name join
+   * that can attach a party's financing record to a same-named private
+   * company is exactly the claim that must be settled deterministically and
+   * covered by a test. See `looksLikeParty`. */
+  financing?: { slug: string; name: string };
 };
 
 export type CompaniesIndexFile = {
@@ -164,6 +177,31 @@ export const normalizeCompanyName = (raw: string): string =>
       .replace(PARTY_FORM_PREFIX, ""),
   );
 
+// A COMMERCIAL legal form on the raw name. Separate from the fold above,
+// which is a grouping concern: this one is evidence about what the entity IS.
+const COMPANY_FORM = new RegExp(
+  String.raw`(^|[^\p{L}])(${LEGAL_FORM_SUFFIXES.join("|")})$`,
+  "u",
+);
+
+/** Is this index entry a registered POLITICAL PARTY rather than a company?
+ *
+ * Decided from the raw names declarants wrote, never from the folded key —
+ * `normalizeCompanyName` strips the party prefix, so by then the evidence is
+ * gone. Both halves are load-bearing, and the second is what stops a name
+ * match from becoming an identity claim: "Величие АД" is a joint-stock
+ * company whose stripped name is exactly the party "Величие", and matching it
+ * would publish a party's financing record on a private firm's page. Its own
+ * АД says it is not a party, so the presence of a commercial form vetoes. */
+export const looksLikeParty = (rawNames: string[]): boolean => {
+  const prepped = rawNames.map((r) =>
+    r.replace(QUOTES, "").replace(/\s+/g, " ").trim().toLowerCase(),
+  );
+  if (prepped.length === 0) return false;
+  if (prepped.some((s) => COMPANY_FORM.test(s))) return false;
+  return prepped.some((s) => PARTY_FORM_PREFIX.test(s));
+};
+
 // URL-safe slug. We keep Cyrillic but strip quotes, replace spaces with -,
 // and collapse the result. Encoded at link time, decoded on the route side.
 export const slugifyCompanyName = (raw: string): string =>
@@ -212,6 +250,54 @@ export const roleLabel = (stake: MpOwnershipStake): string | null => {
   // column of capitalised offices as the one row starting lower-case.
   const s = normaliseOrgName(stake.shareSize);
   return s.charAt(0).toLocaleUpperCase("bg-BG") + s.slice(1);
+};
+
+/** Link party entries to the Court-of-Audit annual-report register, mutating
+ * in place and returning how many landed.
+ *
+ * This is the only bridge we have to a party's money. Parties register with
+ * the Sofia City Court and draw their EIK from БУЛСТАТ, neither of which we
+ * ingest — `tr_companies` and `ngos_list` are companies and ЮЛНЦ only — so
+ * there is no identifier to join on and the name is all there is. That makes
+ * the `looksLikeParty` gate the whole safety story, not a nicety.
+ *
+ * Silently no-ops when reports.json is absent, keeping a fresh checkout
+ * buildable. Idempotent: clears a stale link before re-resolving, so an entry
+ * that stops matching does not keep yesterday's party. */
+export const enrichWithFinancing = (
+  companies: CompanyIndexEntry[],
+  reportsPath = path.join(process.cwd(), "data", "financing", "reports.json"),
+): number => {
+  if (!fs.existsSync(reportsPath)) {
+    console.warn(
+      `[declarations] financing/reports.json missing — skipping party financing link`,
+    );
+    return 0;
+  }
+  const file = JSON.parse(fs.readFileSync(reportsPath, "utf-8")) as {
+    years?: { parties?: { name: string; slug: string }[] }[];
+  };
+  // Newest year first in the file, so the first spelling seen is the most
+  // recent one the register used.
+  const byName = new Map<string, { slug: string; name: string }>();
+  for (const y of file.years ?? []) {
+    for (const p of y.parties ?? []) {
+      const key = normalizeCompanyName(p.name);
+      if (key && !byName.has(key))
+        byName.set(key, { slug: p.slug, name: p.name });
+    }
+  }
+
+  let linked = 0;
+  for (const c of companies) {
+    delete c.financing;
+    if (!c.isParty) continue;
+    const match = byName.get(normalizeCompanyName(c.displayName));
+    if (!match) continue;
+    c.financing = match;
+    linked++;
+  }
+  return linked;
 };
 
 export type BuildCompanyIndexArgs = {
@@ -415,6 +501,7 @@ export const buildCompanyIndex = ({
       displayName,
       registeredOffices: Array.from(g.offices),
       stakes: g.stakes.sort((a, b) => b.declarationYear - a.declarationYear),
+      ...(looksLikeParty(g.rawNames) ? { isParty: true as const } : {}),
     });
   }
   if (droppedPlaceholder > 0) {
@@ -422,6 +509,11 @@ export const buildCompanyIndex = ({
       `[declarations] dropped ${droppedPlaceholder} placeholder stake(s) with no resolvable company name`,
     );
   }
+
+  const linked = enrichWithFinancing(companies);
+  console.log(
+    `[declarations] linked ${linked} party entr(ies) to the gfopp annual-report register`,
+  );
 
   const { matched, total } = enrichWithEkatteHQ(companies);
   console.log(

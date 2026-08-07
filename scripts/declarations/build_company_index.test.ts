@@ -7,7 +7,16 @@
 // under-reported the party's declared board with nothing failing.
 
 import { describe, it, expect } from "vitest";
-import { normalizeCompanyName, roleLabel } from "./build_company_index";
+import fs from "fs";
+import os from "os";
+import path from "path";
+import {
+  normalizeCompanyName,
+  roleLabel,
+  looksLikeParty,
+  enrichWithFinancing,
+  type CompanyIndexEntry,
+} from "./build_company_index";
 import type { MpOwnershipStake } from "../../src/data/dataTypes";
 
 describe("normalizeCompanyName — party legal-form prefix", () => {
@@ -87,5 +96,111 @@ describe("roleLabel — the declared office", () => {
     expect(
       roleLabel({ stakeKind: "role", shareSize: null } as MpOwnershipStake),
     ).toBe(null);
+  });
+});
+
+// A political party carries no EIK in any registry we ingest — parties
+// register with the Sofia City Court and draw their БУЛСТАТ elsewhere, while
+// tr_companies is companies and ngos_list is ЮЛНЦ — so linking a party to its
+// Court-of-Audit filing record can only be done by NAME. That makes this gate
+// the whole safety story: a bare name match pairs the joint-stock company
+// "Величие АД" with the party "Величие" and publishes a party's financing
+// record on a private firm's page.
+describe("looksLikeParty — is this entry a party at all?", () => {
+  it("accepts either spelling of the party legal form", () => {
+    expect(looksLikeParty(['Политическа партия "Движение ДА БЪЛГАРИЯ"'])).toBe(
+      true,
+    );
+    expect(looksLikeParty(["ПП Възраждане"])).toBe(true);
+    expect(
+      looksLikeParty(["Коалиция Демократична България - Обединение"]),
+    ).toBe(true);
+  });
+
+  it("a commercial legal form vetoes, even alongside a party spelling", () => {
+    expect(looksLikeParty(["Величие АД"])).toBe(false);
+    expect(looksLikeParty(["ВЕЛИЧИЕ АД"])).toBe(false);
+    // The veto must win however the names are ordered across filings.
+    expect(looksLikeParty(["ПП Величие", "Величие АД"])).toBe(false);
+  });
+
+  it("rejects a plain company and an entry with no declared name at all", () => {
+    expect(looksLikeParty(["Отзвук ЕООД"])).toBe(false);
+    expect(looksLikeParty(["Ние идваме"])).toBe(false);
+    // TR-only entries carry no declared raw names; they are companies.
+    expect(looksLikeParty([])).toBe(false);
+  });
+});
+
+describe("enrichWithFinancing — the party↔gfopp link", () => {
+  const withReports = (
+    companies: CompanyIndexEntry[],
+    parties: { name: string; slug: string }[],
+  ) => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "fin-"));
+    const p = path.join(dir, "reports.json");
+    fs.writeFileSync(p, JSON.stringify({ years: [{ parties }] }));
+    const n = enrichWithFinancing(companies, p);
+    fs.rmSync(dir, { recursive: true, force: true });
+    return n;
+  };
+  const entry = (over: Partial<CompanyIndexEntry>): CompanyIndexEntry => ({
+    slug: "x",
+    displayName: "x",
+    registeredOffices: [],
+    stakes: [],
+    ...over,
+  });
+
+  it("links a party to its register entry across spelling differences", () => {
+    const c = [
+      entry({
+        displayName: 'Политическа партия "Движение ДА българия"',
+        isParty: true,
+      }),
+    ];
+    expect(
+      withReports(c, [
+        { name: "Движение да българия", slug: "dvizhenie-da-balgariya" },
+      ]),
+    ).toBe(1);
+    expect(c[0].financing?.slug).toBe("dvizhenie-da-balgariya");
+  });
+
+  // The defect the gate exists to prevent, end to end.
+  it("never links a company that merely shares a party's name", () => {
+    const c = [entry({ displayName: "Величие АД" })];
+    expect(withReports(c, [{ name: "Величие", slug: "velichie" }])).toBe(0);
+    expect(c[0].financing).toBeUndefined();
+  });
+
+  it("leaves a party the register does not carry unlinked", () => {
+    // A coalition files nothing of its own; a pre-2011 party predates the
+    // register. Both must render no panel rather than borrow someone's.
+    const c = [
+      entry({ displayName: "Коалиция Демократична България", isParty: true }),
+    ];
+    expect(withReports(c, [{ name: "Възраждане", slug: "vazrazhdane" }])).toBe(
+      0,
+    );
+    expect(c[0].financing).toBeUndefined();
+  });
+
+  it("clears a stale link when the entry stops matching", () => {
+    const c = [
+      entry({
+        displayName: "ПП Възраждане",
+        isParty: true,
+        financing: { slug: "gone", name: "Изчезнала" },
+      }),
+    ];
+    expect(withReports(c, [])).toBe(0);
+    expect(c[0].financing).toBeUndefined();
+  });
+
+  it("no-ops without reports.json so a fresh checkout still builds", () => {
+    const c = [entry({ displayName: "ПП Възраждане", isParty: true })];
+    expect(enrichWithFinancing(c, "/nonexistent/reports.json")).toBe(0);
+    expect(c[0].financing).toBeUndefined();
   });
 });
