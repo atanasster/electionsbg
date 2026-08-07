@@ -104,6 +104,15 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     why: "reads person_browse_table facets for its person nodes",
   },
   {
+    // Unlike hub_stats / sector_stats, which are NOT in this table, this generator's
+    // position is declared: `people` is person_browse_table's tier='P' count, so run
+    // ahead of the loader it commits the PREVIOUS vintage of the one figure on the page
+    // that a reader can check by opening the destination and reading its row count.
+    after: "db:gen-declarations-hub-stats",
+    before: "db:load:persons-browse:pg",
+    why: "its `people` figure is person_browse_table's tier='P' floor, which that loader rebuilds",
+  },
+  {
     after: "db:load:annexes:pg",
     before: "db:load:pg",
     why:

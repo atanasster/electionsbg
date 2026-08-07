@@ -13,6 +13,32 @@ export interface DeclarationTile {
   accent: string;
 }
 
+export interface DeclarationBand {
+  labelKey: string;
+  descKey: string;
+  tileIds: string[];
+}
+
+/** TWO bands, because the six tiles answer two different questions and the single band was
+ *  named „Декларации" — the page title again, which is a label rather than a table of
+ *  contents. The split is by SUBJECT: who is in the register, then what they declared.
+ *
+ *  Four and two, not six: the grid is four columns at xl, so six renders 4 + 2 with the
+ *  second row half empty either way — but as two named bands those two tiles are a section
+ *  rather than a remainder. */
+export const DECLARATION_BANDS: DeclarationBand[] = [
+  {
+    labelKey: "decl_band_who",
+    descKey: "decl_band_who_desc",
+    tileIds: ["persons", "officials", "assets", "cars"],
+  },
+  {
+    labelKey: "decl_band_business",
+    descKey: "decl_band_business_desc",
+    tileIds: ["companies", "connections"],
+  },
+];
+
 export const DECLARATION_TILES: DeclarationTile[] = [
   {
     // First: it is the parent of the four leaderboards below it. Those each rank ONE

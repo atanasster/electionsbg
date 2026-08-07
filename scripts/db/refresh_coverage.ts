@@ -122,4 +122,9 @@ export const REFRESH_GENERATORS: Record<string, RefreshGenerator> = {
     reason:
       "the /governance/sectors hub headline per sector; its agri payout reads agri_payloads (db:load:agri:pg), so it must follow that loader",
   },
+  "db:gen-declarations-hub-stats": {
+    artifact: "data/governance/declarations_hub_stats.json",
+    reason:
+      "the six /governance/declarations tile figures; its `people` field is person_browse_table's tier='P' floor (the basis /persons itself lists), so it must follow db:load:persons-browse:pg — every other field reads a matview that loader's predecessors build",
+  },
 };
