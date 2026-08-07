@@ -137,3 +137,48 @@ export const mergeFromStage = async (
       `${s.table} merge parity check failed: live=${live} staged=${staged}`,
     );
 };
+
+/**
+ * The parity half of `mergeFromStage`, exposed so a caller merging a CHAIN of
+ * FK-related tables can interleave the phases correctly.
+ *
+ * `mergeFromStage` couples upsert-then-delete per table, which is right for one
+ * table and wrong for a chain: upserts must run PARENT→CHILD (a child row needs
+ * its parent to exist) while deletes must run CHILD→PARENT (a parent cannot go
+ * while a child still references it). Running the coupled form down a chain
+ * raises 23503 the first time a parent is retired while its children are still
+ * live — measured on interreg_programmes → interreg_operations.
+ */
+export const assertStageParity = async (
+  c: PoolClient,
+  s: StageMergeSpec,
+): Promise<void> => {
+  checkIdents(s);
+  const { rows } = await c.query<{ live: string; staged: string }>(
+    `SELECT (SELECT count(*) FROM ${s.table}) AS live,
+            (SELECT count(*) FROM ${s.source}) AS staged`,
+  );
+  const { live, staged } = rows[0];
+  if (live !== staged)
+    throw new Error(
+      `${s.table} merge parity check failed: live=${live} staged=${staged}`,
+    );
+};
+
+/**
+ * Merge a CHAIN of FK-related stage tables, `specs` ordered parent → child.
+ *
+ * Upserts run in the given order and deletes in reverse, so neither direction
+ * of the foreign key is ever violated mid-merge. Parity is checked for every
+ * table at the end, once the whole chain is consistent — checking it per table
+ * mid-chain would compare a parent that has already lost rows against children
+ * that have not yet.
+ */
+export const mergeChainFromStage = async (
+  c: PoolClient,
+  specs: StageMergeSpec[],
+): Promise<void> => {
+  for (const s of specs) await c.query(stageUpsertSql(s));
+  for (const s of [...specs].reverse()) await c.query(stageDeleteSql(s));
+  for (const s of specs) await assertStageParity(c, s);
+};

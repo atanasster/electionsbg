@@ -64,7 +64,8 @@ const escapeText = (s: string): string =>
  *                column (`text[]` wants `{a,b}`), and a Buffer/TypedArray is not
  *                valid `bytea` input. Both would corrupt silently, so typed arrays
  *                throw here; a plain array bound for `text[]` is still the caller's
- *                responsibility (no column in these tables has one).
+ *                responsibility — use `pgTextArray` below, which two `text[]` columns in
+ *                137_interreg.sql and mp_roster.ns_folders now need.
  * - bigint     → String (no precision loss through Number).
  */
 const render = (v: unknown): string => {
@@ -135,3 +136,20 @@ export const copyRows = async (
     );
   return accepted;
 };
+
+/**
+ * Render a JS string array as a Postgres array literal for COPY *text* format.
+ *
+ * TWO ESCAPE LAYERS, and they must be applied in this order. Inside the array
+ * literal an element is quoted, so a backslash and a double quote each need a
+ * backslash — and the backslash must go FIRST, or escaping `"` to `\"` would
+ * then have its own backslash doubled. `escapeText` below then doubles both
+ * again for the COPY stream, and Postgres unwinds the two layers in order.
+ *
+ * Quoting every element is what makes commas, braces, whitespace and the
+ * literal string `NULL` safe: unquoted, `NULL` becomes a NULL element and a
+ * comma splits one value into two. Round-tripped through the real COPY path
+ * against Postgres for all of those plus tabs and newlines.
+ */
+export const pgTextArray = (xs: readonly string[]): string =>
+  `{${xs.map((x) => `"${x.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`).join(",")}}`;

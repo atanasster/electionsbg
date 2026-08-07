@@ -582,6 +582,42 @@ The route degrades a missing migration to an empty place, so first-deploy orderi
 cosmetic. The tile self-suppresses on `count === 0`, so a cloud database that never ran the
 loader simply shows no tile rather than an empty one.
 
+`interreg_programmes` / `interreg_operations` / `interreg_partners` (migration 137,
+`db:load:interreg:pg`) are the Interreg cross-border corpus — 1,954 operations, 12,141
+partnerships, 1,493 Bulgarian partner rows, €396.39m — from keep.eu (INTERACT), which is
+where Interreg lives because it runs on **Jems** and not on ИСУН. That is why
+`fund_projects` holds zero Interreg rows: the gap is a system boundary, not a filter.
+In `db:refresh`; on the cloud side:
+
+```bash
+npm run db:load:interreg:pg:cloud
+```
+
+**Its re-run triggers are wider than its own source**, and two of the three are the
+non-obvious ones. Place resolution happens IN THE LOADER (Tier L1 reads `awarder_seats`,
+L2 reads `tr_company_place`), so 199 of the 1,469 placed rows depend on the *content* of
+those two tables and not merely on their existence. Re-run it after:
+
+- a keep.eu re-import (`npm run funds:crawl-interreg -- --full` then `funds:ingest-interreg`);
+- **`db:load:awarder-seats:pg:cloud`** — 158 placements;
+- **`db:load:tr-company-place:pg:cloud`** — 41 placements.
+
+Skipping it after either crosswalk moves is the usual silent shape: the corpus keeps the
+previous placements at a 200. `refresh_coverage.test.ts` carries both as `ORDER_PAIRS`
+entries, which covers the local chain; nothing covers the cloud side.
+
+The loader **refuses rather than degrades** on an absent or empty crosswalk, and on a
+placement share below 90%. That is not defensive padding: all three tables are
+stage-merged, so the upsert SETs `ekatte`/`obshtina`/`oblast`/`place_basis` from the stage
+like any other column — a run with a broken cascade writes NULL over good placements and
+`mergeFromStage`'s parity guard **passes**, because it counts rows, not places. Measured:
+empty crosswalks take placed rows 1,469 → 1,270 with the guard green.
+
+**Never build the stage from one programme.** `ingest.ts`'s `--programme` is a debugging
+filter that refuses to write, and the loader has no such flag at all, because
+`stageDeleteSql` is an unscoped anti-join: a partial stage deletes every other programme's
+operations, `ON DELETE CASCADE` takes their partners, and the parity guard passes again.
+
 `nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
 behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
 the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by

@@ -84,6 +84,19 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:interreg:pg",
+    before: "db:load:awarder-seats:pg",
+    why:
+      "Tier L1 of its place cascade reads awarder_seats — 158 of 1,469 placed " +
+      "Bulgarian partner rows come from it, and running first places them from " +
+      "the previous vintage or not at all",
+  },
+  {
+    after: "db:load:interreg:pg",
+    before: "db:load:tr-company-place:pg",
+    why: "Tier L2 of its place cascade reads tr_company_place (41 placements)",
+  },
+  {
     after: "db:load:tr-company-place:pg",
     before: "db:load:graph:pg",
     why: "denormalizes company_public_money (127), which db:load:graph:pg applies and rebuilds",
