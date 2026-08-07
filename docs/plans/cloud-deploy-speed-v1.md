@@ -23,7 +23,7 @@ This plan finishes the job by generalising the pattern that already worked, and
 by removing the structural sources of waste that survive it.
 
 **Scope (operator directive 2026-07-24):** the whole Cloud SQL publish, not just
-the three procurement commands — `db:load:tr:pg:cloud` (~18.6 min) and the other
+the three procurement commands — `db:load:tr:pg:cloud` (~18.6 min estimated; **34.9 min measured 2026-08-07, see F11**) and the other
 30 `:cloud` scripts included. `lib/ship.ts`, `applyIfChanged` and `shipDelta` are
 shared infrastructure from day one.
 
@@ -126,6 +126,17 @@ win: a per-run "already refreshed this generation" guard (a refresh ledger
 keyed by matview + input digest), so the Nth caller in one deploy is a no-op.
 That is strictly smaller than Phase 2 and would have cut this run by ~16 min.
 
+> **EXTENDED 2026-08-07 — see F8.** The duplication is not confined to this one
+> step. A run that skipped `procurement-scopes` entirely still refreshed every
+> scoped matview **at least twice**, because `db:load:pg` (6/6),
+> `db:load:awarder-seats:pg` (4/4) and `db:load:tr:pg` (3/3) each refresh from
+> inside themselves. `procurement_payloads` ran **3×** in one deploy. The
+> duplicate 4/4 is 656 s of `awarder-seats`' 740 s (**89%**), so the total
+> removable duplicate is **~1,600 s ≈ 27 min**, not 945 s. Verification also
+> showed all six matviews correct on cloud *without* the standalone step — so
+> dropping `db:load:procurement-scopes:pg:cloud` from the publish chain is a
+> free ~945 s before any ledger is built.
+
 ### F2 — cost is decoupled from data volume, in both directions
 
 `contracts` spent 64.6 min to ship **106 new rows** (0.026% of the table) —
@@ -194,6 +205,13 @@ explicitly — same tag filter, same table — or the verifier will produce
 confident false alarms of exactly this shape. A cheap guard: have the verifier
 report `count(*) GROUP BY tag`, never a single scalar.
 
+> **EXTENDED 2026-08-07 — see F12.** `GROUP BY tag` is necessary but not
+> sufficient: there are **four** bases, not two, and the fourth is the dangerous
+> one. Even at identical tag and table, PG holds 2,658 rows the shards do not —
+> the synthetic `obed-` consortium carriers minted by 087 — and the natural
+> "normalisation" of filtering them out under-reports by **€6.13 bn**, because
+> 087 zeroed the member rows those carriers replaced.
+
 ### F7 — one dataset cannot join any automated deploy chain
 
 `kzk_appeals` (intake) has **no `db:load:*:cloud`** — the crawl *is* the
@@ -203,6 +221,210 @@ loader, so publishing means re-running a **headed Playwright** crawl with
 33 rows), but it needs a display and Bulgarian egress, so it can never run
 unattended in the Phase 5 orchestration. Either it stays a documented manual
 tail step, or the intake arm gains a real loader. Phase 5 should say which.
+
+---
+
+## Measured deploy profile (2026-08-07) — second per-step timing
+
+Second full publish, same instrument (external per-step wrapper, unpiped, `$?`
+checked per F5), same `db-g1-small`. Two things make it a better data point than
+the first: it covers **five steps the 2026-08-05 profile never measured** (`tr`,
+`risk-caches`, both NZOK loaders, `prices`), and it deliberately **omits**
+`db:load:procurement-scopes:pg:cloud` — turning F1's "entirely duplicate" claim
+into an A/B rather than an inference.
+
+Source run: the `/process-watch-report` of 2026-08-06 (ЦАИС ЕОП + TR + macro +
+regional + НЗОК + prices), including the one-time stale-base-key sweep.
+
+| # | step | seconds | | vs 2026-08-05 |
+|--:|---|--:|---|---|
+| 1 | `contracts` | **4045** | 67.4 min | 3878 (+4.3%) |
+| 2 | `annexes` | 49 | | 41 |
+| 3 | `tenders` | **1135** | 18.9 min | 1049 (+8.2%) |
+| 4 | `awarder-seats` | **740** | 12.3 min | 776 (−4.6%) |
+| 5 | `transport-project-map` | 224 | 3.7 min | 247 |
+| 6 | `water-operator-map` | 4 | | 4 |
+| 7 | `mvr-directorate-map` | 16 | | 17 |
+| 8 | `tr` | **2092** | 34.9 min | *not measured* |
+| 9 | `persons-browse` | 344 | 5.7 min | 362 |
+| 10 | `person-search` | 417 | 7.0 min | 421 |
+| 11 | `graph` | 177 | 3.0 min | 167 |
+| 12 | `tr-company-place` | 78 | 1.3 min | 61 |
+| 13 | `risk-caches` | **752** | 12.5 min | *not measured* |
+| 14 | `nzok-hospital` | 40 | | *not measured* |
+| 15 | `nzok-hospital-map` | 5 | | *not measured* |
+| 16 | `prices` | **5744** | 95.7 min | *not measured* |
+| | **total** | **15862** | **264.4 min (4.4 h)** | |
+
+The eleven steps present in both profiles reproduce well enough to trust the
+instrument. The four that dominate — `contracts`, `tenders`, `awarder-seats`,
+`person-search` — agree within **±9%**. The small steps swing more in percentage
+terms (`annexes` 41→49 s, `tr-company-place` 61→78 s, `transport-project-map`
+247→224 s) but by **at most 23 s each**, which is noise at this scale. So the
+2026-08-05 numbers were not a one-off, and percentage comparisons on sub-100 s
+steps should not be read as signal.
+
+**Verified afterwards** — local and cloud agree on every count and sum:
+`contracts` 408,560 (405,072 `contract` + 3,488 `contractAmendment`),
+`procurement_annexes` 24,098 rows / 18,592 keys, `tenders` 237,080,
+`tr_companies` 1,020,573, `company_politicians` 521, НЗОК latest bmp 2026-06 with
+392 facilities / €1,133,079,162, and all six scoped matviews populated. The only
+difference anywhere was **€0.01** on the contracts euro sum (`…864.51` local vs
+`…864.50` cloud) — `double precision` accumulation order, not a data difference.
+Worth pinning: any Phase 3 verifier that compares money with `=` rather than a
+cent tolerance will fail on this permanently.
+
+### F8 — F1 is structural across THREE loaders, not one duplicate step
+
+F1 named `db:load:procurement-scopes:pg` as "entirely duplicate" (945 s). This run
+skipped that step entirely and **still** refreshed every scoped matview at least
+twice, because the refresh is embedded in the loaders themselves:
+
+| loader | log line | refreshes |
+|---|---|---|
+| `db:load:pg` | `scoped precomputes: refreshing 6/6` | all six |
+| `db:load:awarder-seats:pg` | `refreshing 4/4 (changed: awarder_seats)` | 4 of the 6, ~40 min after contracts did them |
+| `db:load:tr:pg` | `refreshing 3/3 (changed: company_politicians, tr_companies)` | `contractor_rank`, `contractor_scope_kpis`, `procurement_payloads` |
+
+Per-matview refresh count in ONE deploy: `procurement_payloads` **3×**; the other
+five **2×** each. Had `procurement-scopes` also run, all six would have been 3×.
+
+Cost, from `pg_stat_activity` sampling at 30 s (longest observed run of each):
+
+| matview | one refresh |
+|---|--:|
+| `procurement_payloads` | 258 s |
+| `procurement_settlement_payloads` | 146 s |
+| `procurement_settlement_rank` | 126 s |
+| `procurement_geo_payloads` | 126 s |
+| `contractor_rank` | 198 s |
+
+The duplicate 4/4 inside `awarder-seats` is **656 s of that step's 740 s — 89%**.
+Adding the 945 s `procurement-scopes` pass the first profile paid, the removable
+duplicate in a full deploy is **~1,600 s ≈ 27 min**, not the 945 s F1 estimated.
+
+This also **retires the standalone step**: the post-deploy verification confirmed
+all six matviews correct on cloud without it. `db:load:procurement-scopes:pg:cloud`
+is redundant whenever `contracts` + `awarder-seats` have run — the refresh ledger
+F1 proposes should be built, but the cheaper first move is to stop calling the
+standalone loader in the publish chain at all.
+
+### F9 — RC4 is confirmed by direct measurement: readers get 55P03, not slowness
+
+RC4 was inferred. Measured here, mid-`tenders`, from a second connection:
+
+```
+READ-BLOCKED 4991ms  code=55P03  canceling statement due to lock timeout
+  LOCK tenders AccessExclusiveLock granted=true
+  LOCK tenders ShareLock          granted=true
+  LOCK tenders RowExclusiveLock   granted=true
+```
+
+A plain `SELECT count(*) FROM tenders` is **rejected**, not delayed. The sampler
+saw a **single `COPY tenders` statement running 651 s** (10.9 min) — one
+uninterrupted AccessExclusive window inside an 18.9-min step. So the availability
+cost of RC4 is not "slow queries during the load": every route touching `tenders`
+returns an error for ~11 minutes. That raises Phase 4's priority — it is a
+correctness-of-service bug, and `55P03` is exactly the SQLSTATE CLAUDE.md tells
+route authors to degrade on, so a route that *doesn't* degrade returns 500.
+
+### F10 — RC6 is mischaracterised: there is no missing-view window
+
+RC6 says every tenders load leaves "a window where the contracts browser has no
+view to read". Measured: a 5 s probe of `to_regclass('public.appealed_ocids')` and
+`contracts_list` across the **entire** tenders step — **167 samples, zero absent**.
+
+That is not luck, and not a sampling artefact. `042_kzk_appeals.sql` **is** applied
+unconditionally on every tenders load (`exec(readFileSync(KZK_FILE))`,
+`load_tenders_pg.ts:179`, no `applyIfChanged` guard), and it does contain the
+`DROP MATERIALIZED VIEW IF EXISTS appealed_ocids CASCADE`. But `exec()` sends the
+file as ONE string, and its own sibling comment in `lib/pg.ts` states the
+mechanism: *"the simple query protocol wraps a multi-statement string in a SINGLE
+implicit transaction — so every lock is held until the last statement commits."*
+042 carries no explicit `BEGIN`/`COMMIT`. The `DROP … CASCADE` and the
+`rebuild_contracts_list()` ~30 lines later therefore **commit atomically**: under
+MVCC a concurrent reader sees the old view until commit, then the new one. It can
+never see neither.
+
+So RC6 is **not a second, independent availability defect**. It is the same
+defect as RC4 — a lock wait on the same command — and the fix is the same fix.
+Correct the claim before Phase 4 is scoped against it, or the plan will budget
+work for a failure mode that does not exist.
+
+(The transactional argument is what settles this; the 167 clean probes are
+consistent with it but could not, alone, exclude a sub-5 s window.)
+
+### F11 — TR costs 1.87× what the plan assumes
+
+G21/7b sizes the TR delta-ship against "~18.6 min load". First actual
+measurement of `db:load:tr:pg:cloud`: **2092 s = 34.9 min**. Roughly half is its
+own work (`COPY tr_person_roles` 171 s, `tr_companies` 95 s, `tr_officers` 93 s,
+`company_person_roles` 90 s, the K-Index 72 s, index builds ~46 s) and roughly
+half is the duplicate scoped-precompute refresh from F8. Phase 7b's win estimate
+should be re-based on 2092 s, and F8 removes part of it for free.
+
+### F12 — `contracts` in PG is NOT row-identical to the shards, by design (blocking for Phase 3 / G3 / G20)
+
+The corpus has a fifth key namespace that exists **only in Postgres**. Measured:
+
+| basis | rows | EUR |
+|---|--:|--:|
+| `index.json` `totals.contracts` | 402,414 | — |
+| shard rows on disk (`contract` + `contractAmendment`) | 405,902 | — |
+| PG `count(*)` | 408,560 | — |
+| PG `tag='contract'` | 405,072 | 93,387,402,864.51 |
+| shard `index.totals.totalEur` | — | 93,387,402,864.50 |
+| PG `tag='contract'` **excluding** `obed-` | 402,414 | 87,257,118,672.95 |
+
+The anti-join of PG against every shard key is exactly **2,658 rows, and all of
+them are `obed-`** (non-`obed` anti-join: **0**). They are minted by
+`087_procurement_consortium.sql`'s `rebuild_consortium()`: for a joint
+ДЗЗД/обединение award it moves the full value onto ONE carrier row — a synthetic
+`obed-<hash>` entity keyed by the sorted member-EIK set when the source names no
+ДЗЗД — and **zeroes the member rows**. The operation is value-neutral, which is
+why the money still reconciles to the cent while the row count is +2,658.
+
+Three consequences the plan must absorb:
+
+1. **G3's row hash cannot be taken over shards and compared to PG after load.**
+   2,658 PG rows have no shard counterpart, and 087 *mutates* `amount_eur` on
+   real member rows post-COPY. The digest must be captured before
+   `rebuild_consortium()`, or over a basis that models the carrier split.
+2. **G20's no-shrink / anti-join DELETE must whitelist `obed-`.** A mirror that
+   deletes "rows cloud has and local doesn't" would delete every carrier and
+   silently move €6.13 bn onto rows that 087 has zeroed — a corpus that still
+   passes a `count(*)` sanity check while under-reporting by 6.6%.
+3. **The obvious normalisation is the wrong one.** "Filter out the synthetic rows
+   to compare like-for-like" yields €87.26 bn — **€6.13 bn short** — because the
+   members whose value was moved are still zero. The only safe comparisons are
+   whole-table `SUM(amount_eur)` with no key filter, or a row count that
+   explicitly expects `+N` carriers.
+
+### F13 — two large steps are absent from the plan's cost model
+
+`db:refresh:risk:cloud` (**752 s**) and `prices:ingest:cloud` (**5744 s**) appear
+in neither the 2026-08-05 profile nor any phase estimate, yet together they are
+**41% of this deploy**. Neither is optional: the risk caches must follow any TR
+load (CLAUDE.md's `mpConnected` parity note), and prices is a daily publish.
+
+`prices` deserves its own line in Phase 3's thinking because it is the one step
+whose cost is genuinely proportional to shipped volume — two days of ~1.4 M store
+rows each. Per-day cloud phases: `COPY price_stage` 226 s, `UPDATE price_facts
+SET valid_to` 138 s, `INSERT price_facts` 108 s, `INSERT price_grid_days` 75 s,
+`CREATE TEMP TABLE obs` 68 s, `INSERT price_current` 42 s — ~11 min/day against
+~2 min/day locally. The tail is the rebuild: `product-days` runs 13 batches at up
+to 172 s each (~26 min), then the payload build scans `price_chain_grid_days` in
+a single 356 s+ query. So prices is ~40% transfer, ~60% recompute — the same
+split as the procurement half, and the same Phase 2 vs Phase 3 question.
+
+### F14 — the success criterion is 9× away, and measures a subset
+
+The stated criterion is the three procurement commands + three crosswalk maps +
+`db:load:tr:pg:cloud` under **15 minutes**. Those eight steps in this run:
+4045 + 49 + 1135 + 740 + 224 + 4 + 16 + 2092 = **8305 s = 138.4 min**, i.e. a
+**9.2× reduction** is required. Worth stating plainly next to the criterion, and
+worth noting that the criterion covers 52% of the measured deploy — the person
+chain, risk caches, NZOK and prices are all outside it.
 
 ---
 
@@ -280,6 +502,15 @@ documented in [[reference_contracts_reload_lock]] — `tenders` never got the fi
 and has since doubled in size. **This is a live serving bug, not just a speed
 problem.**
 
+**Confirmed by measurement 2026-08-07 (F9), with one correction to the SQLSTATE.**
+A concurrent `SELECT count(*) FROM tenders` mid-load was **rejected with `55P03`**
+(lock_timeout) while `pg_locks` showed `AccessExclusiveLock granted=true` on
+`tenders`; the sampler caught a single `COPY tenders` statement running **651 s**.
+So the blocking window is ~11 min of an 18.9-min step, and the error a route sees
+depends on which timeout trips first — `55P03` when `lock_timeout` is set (as the
+loaders set it), `57014` when only `statement_timeout` is. Any degrade-set that
+lists one and not the other will still 500. Not inferred any more.
+
 ### RC6 — Every tenders load drops the serving view behind `/procurement/contracts`
 
 `042_kzk_appeals.sql:142` is `DROP MATERIALIZED VIEW IF EXISTS appealed_ocids
@@ -290,6 +521,17 @@ but there is a window on **every** tenders cloud load where the contracts browse
 has no view to read.
 
 A second, independent availability defect alongside RC4, on the same command.
+
+> **SUPERSEDED 2026-08-07 — see F10. The DROP is real; the missing-view window is
+> not.** 042 is applied unconditionally on every tenders load
+> (`load_tenders_pg.ts:179`), but via `exec()`, which sends the file as one string
+> — and the simple query protocol wraps that in a SINGLE implicit transaction
+> (`lib/pg.ts`'s own comment says so; 042 has no explicit `BEGIN`/`COMMIT`). The
+> `DROP … CASCADE` and `rebuild_contracts_list()` therefore commit atomically, so
+> under MVCC no reader can observe either object absent. Measured: 167 probes at
+> 5 s across the whole step, **zero absent**. RC6 is therefore NOT independent of
+> RC4 — it is the same lock wait on the same command, and Phase 4 should not
+> budget separate work for it.
 
 ### RC5 — The instance is the wrong size for the job, and nothing is overlapped
 
@@ -861,7 +1103,7 @@ That means all 30 `:cloud` npm scripts, and `lib/ship.ts` / `applyIfChanged` /
 `shipDelta` are **shared infrastructure from day one**, not procurement-local
 helpers retrofitted later.
 
-`db:load:tr:pg:cloud` specifics (~18.6 min, [[reference_cloud_sql_deploy_perf]]):
+`db:load:tr:pg:cloud` specifics (~18.6 min assumed; **34.9 min measured 2026-08-07, F11**, [[reference_cloud_sql_deploy_perf]]):
 COPYs are ~1.5 min each; the tail is index builds + the Awarder K-Index matview.
 `tr_companies` (1,018,999 rows) and `tr_officers` (750,178) are prime delta-ship
 candidates — TR churn is a daily-refresh delta, not a full rewrite. Its matviews
@@ -1195,7 +1437,7 @@ adds three work items to the critical path:
 | 2b | **pre-flight guards**: local-not-stale assertion (G16) + no-shrink guard (G20) | the inverted contract is unsafe without them; install before any shipping code |
 | 6b | **`db:load:kzk:pg:cloud`** — ship `kzk_appeals` + `buyer_appeal_stats` from local, union+COALESCE | unblocks the five appeal-derived caches incl. `awarder_risk_grade_scoped` |
 | 6c | **ship `company_founded`** with `procurement_risk_indexes_cache` (G19) | prevents cache≠fn on cloud; announce the `newFirmWinner` behaviour change |
-| 7b | **TR delta-ship** — `tr_companies` (1.02M) + `tr_officers` (751k) + their three matviews, **Merkle-grouped** (G21) | ~18.6 min load, now in scope |
+| 7b | **TR delta-ship** — `tr_companies` (1.02M) + `tr_officers` (751k) + their three matviews, **Merkle-grouped** (G21) | **34.9 min measured** (2026-08-07, F11 — not the ~18.6 min previously assumed), now in scope |
 | 7c | **stage-table isolation + advisory locks** (G22) | must precede Phase 5b parallelism |
 
 Also: update `process-watch-report` Step 8 alongside Phase 2 (G16, G18); make the
@@ -1215,6 +1457,23 @@ and (per G8) the **local** `db:refresh` leg does not grow by more than the cloud
 leg shrinks. The measured target is total daily loop time, not the cloud leg
 alone. The irreducible floor (G11) must be estimated from the Phase 0 profile
 before this number is treated as achievable.
+
+**Distance to it, measured (2026-08-07, F14).** Those exact eight steps ran in
+**8305 s = 138.4 min**, so the criterion demands a **9.2× reduction** — worth
+stating next to the number rather than discovering later. Two caveats on the
+criterion's *scope*, both from the same run:
+
+- It covers **52%** of the real publish. The other 48% — the person chain
+  (persons-browse / person-search / graph / tr-company-place, 1016 s), the risk
+  caches (752 s) and prices (5744 s) — is outside it, and the full deploy was
+  **264 min**. A criterion that can be met while the publish still takes ~2 h is
+  the wrong success measure; either widen it or say explicitly that it governs
+  the procurement+TR leg only.
+- "Zero `/procurement` 500s during the window" is currently **unmeasurable as
+  written**, because F9 shows the failure surfaces as `55P03`/`57014` at the
+  database, and whether that becomes a 500 depends on each route's degrade set.
+  Pin the criterion to the database symptom (no reader rejected on `tenders`),
+  not to the HTTP status.
 
 ---
 
