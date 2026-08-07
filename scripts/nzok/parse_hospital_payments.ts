@@ -214,11 +214,27 @@ export const extractAmounts = (
   return { name, cumulative, month };
 };
 
-// A facility row start: 2-digit РЗОК code, region name (no digits), ordinal,
-// 10-digit Рег.№ ЛЗ, then the rest (name + amounts, which may wrap to the next
-// line). Region subtotals ("13  РЗОК Благоевград  …") and the grand total
-// ("381  Общо РЗОК  …") have no 10-digit reg number, so they never match.
-const ROW_START_RE = /^\s*(\d{2})\s+(\S[^\d]*?)\s+\d+\s+(\d{10})\b(.*)$/;
+// A facility row start: 2-digit РЗОК code, region name (no digits), an OPTIONAL
+// ordinal, 10-digit Рег.№ ЛЗ, then the rest (name + amounts, which may wrap to
+// the next line). Region subtotals ("13  РЗОК Благоевград  …") and the grand
+// total ("381  Общо РЗОК  …") have no 10-digit reg number, so they never match.
+//
+// The ordinal is optional because НЗОК leaves "№ по ред" BLANK on some
+// zero-payment facilities — they are listed but not numbered, since the counted
+// universe is the facilities it actually paid. Requiring the ordinal did not
+// merely skip those rows, it corrupted the row BEFORE each one: a line that
+// fails ROW_START_RE is treated as a wrapped continuation, so the unnumbered
+// facility was appended to its predecessor's tail, overwriting that row's name
+// with the swallowed text and pushing a trailing "0 0" into the amount scan —
+// zeroing a genuinely paid facility. 2026-06 listed 6 such rows, which landed in
+// 5 hosts (one absorbed two) and dropped €1,008,597 — 0.09%, comfortably inside
+// the Σ reconciliation tolerance, so ONLY the facility-count assert caught it.
+// Making the ordinal optional is what keeps the two asserts independent.
+//
+// Whitespace separates the ordinal from the reg number and `\d{10}` needs ten
+// CONTIGUOUS digits, so an ordinal can never be mistaken for one; the optional
+// group is unambiguous in both directions.
+const ROW_START_RE = /^\s*(\d{2})\s+(\S[^\d]*?)\s+(?:\d+\s+)?(\d{10})\b(.*)$/;
 // `bmp` labels its grand total "Общо РЗОК"; `drugs`/`devices` label theirs
 // "ОБЩО" (all-caps, no "РЗОК"). Both are followed by the per-РЗОК subtotals,
 // which carry no 10-digit reg number and so can never match ROW_START_RE.
@@ -325,9 +341,27 @@ export const parseHospitalPaymentsPdf = (
         `reconciliation failed for ${pdfPath}: Σ facilities €${sum} vs header €${totalCumulativeEur} (drift ${(drift * 100).toFixed(2)}%, ${rows.length} rows parsed vs ${headerFacilityCount} expected)`,
       );
   }
-  if (headerFacilityCount && Math.abs(rows.length - headerFacilityCount) > 2)
+  // НЗОК's own facility count covers only the facilities it actually PAID in the
+  // period. The table still LISTS zero-payment ones — some carrying a sequence
+  // number (so they parse as ordinary rows), some not — and how many appear
+  // varies month to month. Comparing against rows.length therefore drifts by
+  // whatever that month happens to carry: 2026-06 listed 11 zero rows, 5 of them
+  // seq-numbered, so the parser produced 381 + 5 = 386 and tripped the old ±2
+  // window while every euro reconciled to the header (the extras are €0, so they
+  // are invisible to the Σ assert above — this guard is the only one that sees
+  // them).
+  //
+  // Count paid rows instead. That is what the header means, and it keeps the
+  // guard sharp rather than blunting it: a parser that dropped a genuinely paid
+  // facility still fails here, however many zero rows the month carries. `!== 0`
+  // rather than `> 0` because the lenient streams (drugs/devices) legitimately
+  // carry negative clawbacks — a facility НЗОК transacted with, not a gap.
+  const paidRows = rows.filter((r) => r.cumulativeEur !== 0).length;
+  if (headerFacilityCount && Math.abs(paidRows - headerFacilityCount) > 2)
     throw new Error(
-      `facility-count mismatch for ${pdfPath}: parsed ${rows.length}, header says ${headerFacilityCount}`,
+      `facility-count mismatch for ${pdfPath}: parsed ${paidRows} paid row(s) ` +
+        `(${rows.length} total, incl. ${rows.length - paidRows} zero-payment), ` +
+        `header says ${headerFacilityCount}`,
     );
 
   return {

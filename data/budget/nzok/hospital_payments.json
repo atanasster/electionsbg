@@ -1,184 +1,184 @@
 {
-  "generatedAt": "2026-07-13T23:05:11.330Z",
+  "generatedAt": "2026-08-06T22:30:23.175Z",
   "source": {
     "publisher": "Национална здравноосигурителна каса (НЗОК)",
     "url": "https://www.nhif.bg/bg/hospitals/bmp/2026",
     "description": "Заплатени здравноосигурителни плащания за болнична медицинска помощ по лечебни заведения (месечен отчет). Кумулативно от началото на годината."
   },
-  "asOf": "2026-05-31",
+  "asOf": "2026-06-30",
   "year": 2026,
-  "month": 5,
+  "month": 6,
   "currencyOfRecord": "EUR",
-  "totalCumulativeEur": 942127532,
-  "monthTotalEur": 191201509,
-  "facilityCount": 381,
+  "totalCumulativeEur": 1133079164,
+  "monthTotalEur": 190903630,
+  "facilityCount": 392,
   "byRzok": [
     {
       "code": "22",
       "name": "София град",
-      "cumulativeEur": 303945694,
-      "facilityCount": 82
+      "cumulativeEur": 365644583,
+      "facilityCount": 87
     },
     {
       "code": "16",
       "name": "Пловдив",
-      "cumulativeEur": 153093987,
+      "cumulativeEur": 184215807,
       "facilityCount": 49
     },
     {
       "code": "02",
       "name": "Бургас",
-      "cumulativeEur": 77836917,
-      "facilityCount": 26
+      "cumulativeEur": 94345360,
+      "facilityCount": 28
     },
     {
       "code": "15",
       "name": "Плевен",
-      "cumulativeEur": 60398657,
-      "facilityCount": 16
+      "cumulativeEur": 72524196,
+      "facilityCount": 17
     },
     {
       "code": "03",
       "name": "Варна",
-      "cumulativeEur": 50993587,
+      "cumulativeEur": 60994588,
       "facilityCount": 25
     },
     {
       "code": "18",
       "name": "Русе",
-      "cumulativeEur": 36894580,
-      "facilityCount": 7
+      "cumulativeEur": 44293279,
+      "facilityCount": 8
     },
     {
       "code": "13",
       "name": "Пазарджик",
-      "cumulativeEur": 36751117,
-      "facilityCount": 13
+      "cumulativeEur": 44113957,
+      "facilityCount": 14
     },
     {
       "code": "24",
       "name": "Стара Загора",
-      "cumulativeEur": 29286259,
+      "cumulativeEur": 35228376,
       "facilityCount": 15
     },
     {
       "code": "01",
       "name": "Благоевград",
-      "cumulativeEur": 24126713,
+      "cumulativeEur": 29019261,
       "facilityCount": 13
     },
     {
       "code": "26",
       "name": "Хасково",
-      "cumulativeEur": 15495326,
+      "cumulativeEur": 18612104,
       "facilityCount": 12
     },
     {
       "code": "04",
       "name": "Велико Търново",
-      "cumulativeEur": 15352082,
+      "cumulativeEur": 18344606,
       "facilityCount": 13
     },
     {
       "code": "20",
       "name": "Сливен",
-      "cumulativeEur": 14614828,
+      "cumulativeEur": 17544767,
       "facilityCount": 7
     },
     {
       "code": "06",
       "name": "Враца",
-      "cumulativeEur": 12947403,
+      "cumulativeEur": 15505553,
       "facilityCount": 13
     },
     {
       "code": "27",
       "name": "Шумен",
-      "cumulativeEur": 12643631,
+      "cumulativeEur": 15174861,
       "facilityCount": 6
     },
     {
       "code": "12",
       "name": "Монтана",
-      "cumulativeEur": 12431259,
+      "cumulativeEur": 14942797,
       "facilityCount": 6
     },
     {
       "code": "23",
       "name": "София област",
-      "cumulativeEur": 10654428,
+      "cumulativeEur": 12797844,
       "facilityCount": 13
     },
     {
       "code": "21",
       "name": "Смолян",
-      "cumulativeEur": 7930280,
+      "cumulativeEur": 9536967,
       "facilityCount": 7
     },
     {
       "code": "10",
       "name": "Кюстендил",
-      "cumulativeEur": 7634338,
-      "facilityCount": 7
+      "cumulativeEur": 9155731,
+      "facilityCount": 8
     },
     {
       "code": "09",
       "name": "Кърджали",
-      "cumulativeEur": 7356690,
+      "cumulativeEur": 8825275,
       "facilityCount": 5
     },
     {
       "code": "25",
       "name": "Търговище",
-      "cumulativeEur": 7318795,
+      "cumulativeEur": 8803098,
       "facilityCount": 4
     },
     {
       "code": "07",
       "name": "Габрово",
-      "cumulativeEur": 7030308,
+      "cumulativeEur": 8481987,
       "facilityCount": 5
     },
     {
       "code": "08",
       "name": "Добрич",
-      "cumulativeEur": 6969708,
+      "cumulativeEur": 8374015,
       "facilityCount": 8
     },
     {
       "code": "19",
       "name": "Силистра",
-      "cumulativeEur": 6782755,
+      "cumulativeEur": 8155444,
       "facilityCount": 3
     },
     {
       "code": "28",
       "name": "Ямбол",
-      "cumulativeEur": 5939190,
+      "cumulativeEur": 7153947,
       "facilityCount": 5
     },
     {
       "code": "11",
       "name": "Ловеч",
-      "cumulativeEur": 5201850,
+      "cumulativeEur": 6259772,
       "facilityCount": 7
     },
     {
       "code": "17",
       "name": "Разград",
-      "cumulativeEur": 4812589,
+      "cumulativeEur": 5758785,
       "facilityCount": 6
     },
     {
       "code": "14",
       "name": "Перник",
-      "cumulativeEur": 4457617,
+      "cumulativeEur": 5404436,
       "facilityCount": 5
     },
     {
       "code": "05",
       "name": "Видин",
-      "cumulativeEur": 3226941,
+      "cumulativeEur": 3867766,
       "facilityCount": 3
     }
   ],
@@ -188,8 +188,8 @@
       "name": "УМБАЛ Свети Георги ЕАД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 40934128,
-      "monthEur": 8197506,
+      "cumulativeEur": 49201463,
+      "monthEur": 8267335,
       "eik": "115576405"
     },
     {
@@ -197,8 +197,8 @@
       "name": "УМБАЛ Софиямед ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 36657663,
-      "monthEur": 7700283,
+      "cumulativeEur": 44378824,
+      "monthEur": 7721161,
       "eik": "160138163"
     },
     {
@@ -206,8 +206,8 @@
       "name": "УМБАЛСМ Н. И. Пирогов ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 32216715,
-      "monthEur": 6460652,
+      "cumulativeEur": 38679609,
+      "monthEur": 6462894,
       "eik": "130345786"
     },
     {
@@ -215,8 +215,8 @@
       "name": "УМБАЛ Пълмед ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 28117105,
-      "monthEur": 5668595,
+      "cumulativeEur": 34200068,
+      "monthEur": 6082964,
       "eik": "112596309"
     },
     {
@@ -224,8 +224,8 @@
       "name": "УМБАЛ Света Марина ЕАД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 27304995,
-      "monthEur": 5504925,
+      "cumulativeEur": 32635797,
+      "monthEur": 5330802,
       "eik": "103562052"
     },
     {
@@ -233,8 +233,8 @@
       "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 26241737,
-      "monthEur": 5106804,
+      "cumulativeEur": 31952063,
+      "monthEur": 5710326,
       "eik": "175077093"
     },
     {
@@ -242,8 +242,8 @@
       "name": "МБАЛ Сърце и Мозък ЕАД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 25388755,
-      "monthEur": 5064656,
+      "cumulativeEur": 30441104,
+      "monthEur": 5052348,
       "eik": "203831564"
     },
     {
@@ -251,8 +251,8 @@
       "name": "МБАЛ Сърце и мозък Бургас",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 21141782,
-      "monthEur": 4295765,
+      "cumulativeEur": 25431789,
+      "monthEur": 4290007,
       "eik": "203831564"
     },
     {
@@ -260,8 +260,8 @@
       "name": "Военномедицинска академия",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 20040324,
-      "monthEur": 4051302,
+      "cumulativeEur": 24095602,
+      "monthEur": 4055278,
       "eik": "129000273"
     },
     {
@@ -269,8 +269,8 @@
       "name": "УМБАЛ Св. Иван Рилски ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 18520429,
-      "monthEur": 3757525,
+      "cumulativeEur": 22243544,
+      "monthEur": 3723116,
       "eik": "000715054"
     },
     {
@@ -278,8 +278,8 @@
       "name": "Аджибадем Сити клиник УМБАЛ ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 17830762,
-      "monthEur": 3700698,
+      "cumulativeEur": 21546334,
+      "monthEur": 3715572,
       "eik": "202139132"
     },
     {
@@ -287,8 +287,8 @@
       "name": "МБАЛ Дева Мария ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 16831936,
-      "monthEur": 3804980,
+      "cumulativeEur": 21010908,
+      "monthEur": 4178972,
       "eik": "200800019"
     },
     {
@@ -296,8 +296,8 @@
       "name": "УМБАЛ Александровска - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 16727332,
-      "monthEur": 3357457,
+      "cumulativeEur": 20073401,
+      "monthEur": 3346069,
       "eik": "831605795"
     },
     {
@@ -305,8 +305,8 @@
       "name": "МБАЛ Св. Анна - София АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 16361365,
-      "monthEur": 3284312,
+      "cumulativeEur": 19619925,
+      "monthEur": 3258561,
       "eik": "130367715"
     },
     {
@@ -314,8 +314,8 @@
       "name": "„УМБАЛ Д-р Г. Странски” ЕАД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 15930092,
-      "monthEur": 3216524,
+      "cumulativeEur": 19129242,
+      "monthEur": 3199150,
       "eik": "114532352"
     },
     {
@@ -323,8 +323,8 @@
       "name": "УМБАЛ МЕДИКА РУСЕ ООД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 15641504,
-      "monthEur": 3108248,
+      "cumulativeEur": 18752991,
+      "monthEur": 3111487,
       "eik": "117044162"
     },
     {
@@ -332,8 +332,8 @@
       "name": "УМБАЛ Каспела ЕООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 15242402,
-      "monthEur": 3039155,
+      "cumulativeEur": 18265779,
+      "monthEur": 3023377,
       "eik": "115757028"
     },
     {
@@ -341,8 +341,8 @@
       "name": "МБАЛ-Уни Хоспитал ООД гр.Панагюрище",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 13280652,
-      "monthEur": 2679066,
+      "cumulativeEur": 15988577,
+      "monthEur": 2707925,
       "eik": "112520604"
     },
     {
@@ -350,8 +350,8 @@
       "name": "МБАЛ-БУРГАСМЕД EООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 12363881,
-      "monthEur": 2608935,
+      "cumulativeEur": 14958869,
+      "monthEur": 2594989,
       "eik": "201889501"
     },
     {
@@ -359,8 +359,8 @@
       "name": "УМБАЛ КАНЕВ - РУСЕ АД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 11497458,
-      "monthEur": 2333277,
+      "cumulativeEur": 13822473,
+      "monthEur": 2325015,
       "eik": "117505556"
     },
     {
@@ -368,8 +368,8 @@
       "name": "УМБАЛ - Проф., Д-р Ст. Киркович АД гр. Стара Загора",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 10761895,
-      "monthEur": 2196953,
+      "cumulativeEur": 12981494,
+      "monthEur": 2219599,
       "eik": "123535874"
     },
     {
@@ -377,8 +377,8 @@
       "name": "УМБАЛ Царица Йоанна - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 10708801,
-      "monthEur": 2151170,
+      "cumulativeEur": 12797028,
+      "monthEur": 2088227,
       "eik": "831605806"
     },
     {
@@ -386,8 +386,8 @@
       "name": "МБАЛ Света София ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 10590508,
-      "monthEur": 2167205,
+      "cumulativeEur": 12761497,
+      "monthEur": 2170988,
       "eik": "130466880"
     },
     {
@@ -395,8 +395,8 @@
       "name": "УМБАЛ - Бургас АД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 9859354,
-      "monthEur": 1960046,
+      "cumulativeEur": 11845888,
+      "monthEur": 1986535,
       "eik": "102274111"
     },
     {
@@ -404,8 +404,8 @@
       "name": "МБАЛ-Пазарджик АД гр.Пазарджик",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 8749978,
-      "monthEur": 1755993,
+      "cumulativeEur": 10515784,
+      "monthEur": 1765806,
       "eik": "130072241"
     },
     {
@@ -413,8 +413,8 @@
       "name": "МБАЛ Хасково АД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 8741665,
-      "monthEur": 1763422,
+      "cumulativeEur": 10494777,
+      "monthEur": 1753111,
       "eik": "126529015"
     },
     {
@@ -422,8 +422,8 @@
       "name": "УМБАЛ Пловдив АД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 8595203,
-      "monthEur": 1727863,
+      "cumulativeEur": 10225135,
+      "monthEur": 1629932,
       "eik": "115532049"
     },
     {
@@ -431,8 +431,8 @@
       "name": "МБАЛ Д-р Иван Селимински АД - Сливен",
       "rzokCode": "20",
       "rzokName": "Сливен",
-      "cumulativeEur": 8153260,
-      "monthEur": 1616401,
+      "cumulativeEur": 9770568,
+      "monthEur": 1617308,
       "eik": "119502733"
     },
     {
@@ -440,8 +440,8 @@
       "name": "МБАЛ - НКБ - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 8031953,
-      "monthEur": 1594230,
+      "cumulativeEur": 9628654,
+      "monthEur": 1596701,
       "eik": "121663601"
     },
     {
@@ -449,8 +449,8 @@
       "name": "„УМБАЛ Св. Марина – Плевен” ООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 7869031,
-      "monthEur": 1609894,
+      "cumulativeEur": 9497561,
+      "monthEur": 1628530,
       "eik": "114521594"
     },
     {
@@ -458,8 +458,8 @@
       "name": "УСБАЛ по онкология ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 7606149,
-      "monthEur": 1543721,
+      "cumulativeEur": 8915125,
+      "monthEur": 1308977,
       "eik": "000662776"
     },
     {
@@ -467,8 +467,8 @@
       "name": "УБ Болница Лозенец",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 7419337,
-      "monthEur": 1443770,
+      "cumulativeEur": 8887680,
+      "monthEur": 1468343,
       "eik": "205967328"
     },
     {
@@ -476,8 +476,8 @@
       "name": "УМБАЛ „Света Екатерина“ ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 6963499,
-      "monthEur": 1420204,
+      "cumulativeEur": 8268102,
+      "monthEur": 1304603,
       "eik": "831605845"
     },
     {
@@ -485,8 +485,8 @@
       "name": "МБАЛ Света Каридад ЕАД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 6844054,
-      "monthEur": 1396529,
+      "cumulativeEur": 8192084,
+      "monthEur": 1348029,
       "eik": "201204876"
     },
     {
@@ -494,8 +494,8 @@
       "name": "МБАЛ ТРАКИЯ ЕООД гр. Стара Загора",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 6750255,
-      "monthEur": 1352541,
+      "cumulativeEur": 8078452,
+      "monthEur": 1328197,
       "eik": "160135466"
     },
     {
@@ -503,35 +503,35 @@
       "name": "МБАЛ Д-р Атанас Дафовски АД Кърджали",
       "rzokCode": "09",
       "rzokName": "Кърджали",
-      "cumulativeEur": 6342139,
-      "monthEur": 1325180,
+      "cumulativeEur": 7612948,
+      "monthEur": 1270809,
       "eik": "108501669"
-    },
-    {
-      "regNo": "0404211001",
-      "name": "МОБАЛ Д-р Стефан Черкезов АД - Велико Търново",
-      "rzokCode": "04",
-      "rzokName": "Велико Търново",
-      "cumulativeEur": 6256168,
-      "monthEur": 1247416,
-      "eik": "104510514"
     },
     {
       "regNo": "2730211001",
       "name": "МБАЛ Шумен АД",
       "rzokCode": "27",
       "rzokName": "Шумен",
-      "cumulativeEur": 6230244,
-      "monthEur": 1259400,
+      "cumulativeEur": 7529616,
+      "monthEur": 1299372,
       "eik": "127521092"
+    },
+    {
+      "regNo": "0404211001",
+      "name": "МОБАЛ Д-р Стефан Черкезов АД - Велико Търново",
+      "rzokCode": "04",
+      "rzokName": "Велико Търново",
+      "cumulativeEur": 7526564,
+      "monthEur": 1270395,
+      "eik": "104510514"
     },
     {
       "regNo": "0103211015",
       "name": "МБАЛ - ПУЛС АД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 6223021,
-      "monthEur": 1260499,
+      "cumulativeEur": 7517919,
+      "monthEur": 1294899,
       "eik": "200110954"
     },
     {
@@ -539,35 +539,35 @@
       "name": "МБАЛ Света Анна - Варна АД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 5991323,
-      "monthEur": 1233732,
+      "cumulativeEur": 7125463,
+      "monthEur": 1134140,
       "eik": "000090019"
-    },
-    {
-      "regNo": "1622334019",
-      "name": "КОЦ Пловдив ЕООД",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 5827491,
-      "monthEur": 1226643,
-      "eik": "000463379"
     },
     {
       "regNo": "2201911041",
       "name": "Медицински институт - МВР",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 5796750,
-      "monthEur": 1212238,
+      "cumulativeEur": 7041357,
+      "monthEur": 1244606,
       "eik": "129007218"
+    },
+    {
+      "regNo": "1622334019",
+      "name": "КОЦ Пловдив ЕООД",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 6963800,
+      "monthEur": 1136308,
+      "eik": "000463379"
     },
     {
       "regNo": "0828211001",
       "name": "МБАЛ ДОБРИЧ АД",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 5632793,
-      "monthEur": 1115784,
+      "cumulativeEur": 6755497,
+      "monthEur": 1122704,
       "eik": "124141302"
     },
     {
@@ -575,26 +575,17 @@
       "name": "УМБАЛ Пълмед ООД - клон МС Здраве гр.Пазарджик",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 5457369,
-      "monthEur": 1163914,
+      "cumulativeEur": 6558680,
+      "monthEur": 1101310,
       "eik": null
-    },
-    {
-      "regNo": "0204334013",
-      "name": "КОЦ - Бургас ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 5433926,
-      "monthEur": 1171283,
-      "eik": "000053191"
     },
     {
       "regNo": "2201212075",
       "name": "СБАЛХЗ-ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 5409129,
-      "monthEur": 1117955,
+      "cumulativeEur": 6488743,
+      "monthEur": 1079615,
       "eik": "200105779"
     },
     {
@@ -602,17 +593,26 @@
       "name": "МБАЛ Д-р Стамен Илиев АД",
       "rzokCode": "12",
       "rzokName": "Монтана",
-      "cumulativeEur": 5387634,
-      "monthEur": 1083656,
+      "cumulativeEur": 6460078,
+      "monthEur": 1072444,
       "eik": "111047073"
+    },
+    {
+      "regNo": "0204334013",
+      "name": "КОЦ - Бургас ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 6455382,
+      "monthEur": 1021455,
+      "eik": "000053191"
     },
     {
       "regNo": "1622211044",
       "name": "МБАЛ МК Свети Иван Рилски ЕООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 5124888,
-      "monthEur": 1045736,
+      "cumulativeEur": 6167306,
+      "monthEur": 1042418,
       "eik": "201397400"
     },
     {
@@ -620,17 +620,26 @@
       "name": "МБАЛ Христо Ботев АД Враца",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 4959550,
-      "monthEur": 981255,
+      "cumulativeEur": 5905692,
+      "monthEur": 946142,
       "eik": "106518890"
+    },
+    {
+      "regNo": "1931211001",
+      "name": "МБАЛ - Силистра АД",
+      "rzokCode": "19",
+      "rzokName": "Силистра",
+      "cumulativeEur": 5893365,
+      "monthEur": 997649,
+      "eik": "118501906"
     },
     {
       "regNo": "1622211045",
       "name": "УМБАЛ Еврохоспитал Пловдив ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 4908497,
-      "monthEur": 979349,
+      "cumulativeEur": 5890577,
+      "monthEur": 982080,
       "eik": "201537560"
     },
     {
@@ -638,26 +647,17 @@
       "name": "СБАЛАГ Майчин дом - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 4901323,
-      "monthEur": 955374,
+      "cumulativeEur": 5875652,
+      "monthEur": 974329,
       "eik": "000662769"
-    },
-    {
-      "regNo": "1931211001",
-      "name": "МБАЛ - Силистра АД",
-      "rzokCode": "19",
-      "rzokName": "Силистра",
-      "cumulativeEur": 4895716,
-      "monthEur": 995985,
-      "eik": "118501906"
     },
     {
       "regNo": "0103211001",
       "name": "МБАЛ Благоевград АД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 4684771,
-      "monthEur": 903437,
+      "cumulativeEur": 5626688,
+      "monthEur": 941917,
       "eik": "101505152"
     },
     {
@@ -665,8 +665,8 @@
       "name": "МБАЛ - Търговище АД",
       "rzokCode": "25",
       "rzokName": "Търговище",
-      "cumulativeEur": 4585673,
-      "monthEur": 941179,
+      "cumulativeEur": 5532832,
+      "monthEur": 947160,
       "eik": "125501290"
     },
     {
@@ -674,26 +674,17 @@
       "name": "МБАЛ Д-р Тота Венкова АД",
       "rzokCode": "07",
       "rzokName": "Габрово",
-      "cumulativeEur": 4419144,
-      "monthEur": 921308,
+      "cumulativeEur": 5334937,
+      "monthEur": 915793,
       "eik": "107507217"
-    },
-    {
-      "regNo": "2201211035",
-      "name": "Пета МБАЛ - София - ЕАД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 4176849,
-      "monthEur": 817591,
-      "eik": "000689061"
     },
     {
       "regNo": "0140211003",
       "name": "МБАЛ Югозападна болница ООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 4176661,
-      "monthEur": 862479,
+      "cumulativeEur": 5031898,
+      "monthEur": 855236,
       "eik": "101522447"
     },
     {
@@ -701,16 +692,25 @@
       "name": "МБАЛ - Д-р Братан Шукеров АД гр.Смолян",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 4131600,
-      "monthEur": 840402,
+      "cumulativeEur": 4969921,
+      "monthEur": 838321,
       "eik": "120503871"
+    },
+    {
+      "regNo": "2201211035",
+      "name": "Пета МБАЛ - София - ЕАД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 4967122,
+      "monthEur": 790273,
+      "eik": "000689061"
     },
     {
       "regNo": "1827212015",
       "name": "СБАЛК МЕДИКА-КОР ЕАД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 4126486,
+      "cumulativeEur": 4944794,
       "monthEur": 818308,
       "eik": "117684874"
     },
@@ -719,8 +719,8 @@
       "name": "МБАЛ за женско здраве - Надежда ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 3992307,
-      "monthEur": 766380,
+      "cumulativeEur": 4810682,
+      "monthEur": 818374,
       "eik": "202195960"
     },
     {
@@ -728,8 +728,8 @@
       "name": "МБАЛ Централ онко хоспитал ООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 3918642,
-      "monthEur": 810828,
+      "cumulativeEur": 4716515,
+      "monthEur": 797873,
       "eik": "201739317"
     },
     {
@@ -737,8 +737,8 @@
       "name": "КОЦ-Шумен ЕООД",
       "rzokCode": "27",
       "rzokName": "Шумен",
-      "cumulativeEur": 3915160,
-      "monthEur": 789257,
+      "cumulativeEur": 4645503,
+      "monthEur": 730343,
       "eik": "127521758"
     },
     {
@@ -746,8 +746,8 @@
       "name": "МБАЛ Иван Скендеров ЕООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 3819831,
-      "monthEur": 759302,
+      "cumulativeEur": 4580488,
+      "monthEur": 760657,
       "eik": "000022025"
     },
     {
@@ -755,71 +755,62 @@
       "name": "МБАЛ Свети Пантелеймон Пловдив ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 3655928,
+      "cumulativeEur": 4389247,
       "monthEur": 733319,
       "eik": "115517517"
-    },
-    {
-      "regNo": "1308211017",
-      "name": "\"МБАЛ ВЕЛИМЕД\" ЕООД гр.Велинград",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 3517407,
-      "monthEur": 811377,
-      "eik": "200143491"
     },
     {
       "regNo": "2020211016",
       "name": "МБАЛ Хаджи Димитър ООД - Сливен",
       "rzokCode": "20",
       "rzokName": "Сливен",
-      "cumulativeEur": 3503617,
-      "monthEur": 703098,
+      "cumulativeEur": 4206732,
+      "monthEur": 703115,
       "eik": "119624388"
     },
     {
-      "regNo": "0306212026",
-      "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 3185427,
-      "monthEur": 656756,
-      "eik": "000090154"
-    },
-    {
-      "regNo": "2201211032",
-      "name": "Първа МБАЛ София-ЕАД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 3177129,
-      "monthEur": 636545,
-      "eik": "000689015"
-    },
-    {
-      "regNo": "1029211001",
-      "name": "МБАЛ Д-р Никола Василиев АД",
-      "rzokCode": "10",
-      "rzokName": "Кюстендил",
-      "cumulativeEur": 3174350,
-      "monthEur": 646333,
-      "eik": "109080582"
+      "regNo": "1308211017",
+      "name": "\"МБАЛ ВЕЛИМЕД\" ЕООД гр.Велинград",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 4198905,
+      "monthEur": 681498,
+      "eik": "200143491"
     },
     {
       "regNo": "0306911012",
       "name": "МБАЛ - Варна към ВМА",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 3169898,
-      "monthEur": 720571,
+      "cumulativeEur": 3850502,
+      "monthEur": 680603,
       "eik": "129000273"
+    },
+    {
+      "regNo": "0306212026",
+      "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 3816415,
+      "monthEur": 630987,
+      "eik": "000090154"
+    },
+    {
+      "regNo": "1029211001",
+      "name": "МБАЛ Д-р Никола Василиев АД",
+      "rzokCode": "10",
+      "rzokName": "Кюстендил",
+      "cumulativeEur": 3795485,
+      "monthEur": 621136,
+      "eik": "109080582"
     },
     {
       "regNo": "2201212012",
       "name": "СБАЛДБ - проф. Иван Митев ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 3148309,
-      "monthEur": 643019,
+      "cumulativeEur": 3770703,
+      "monthEur": 622394,
       "eik": "000662790"
     },
     {
@@ -827,35 +818,44 @@
       "name": "МБАЛ Сити клиник - Св.Георги ЕООД гр.Монтана",
       "rzokCode": "12",
       "rzokName": "Монтана",
-      "cumulativeEur": 3118082,
+      "cumulativeEur": 3757063,
       "monthEur": 638981,
       "eik": "111587016"
     },
     {
-      "regNo": "2826211001",
-      "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
-      "rzokCode": "28",
-      "rzokName": "Ямбол",
-      "cumulativeEur": 3038073,
-      "monthEur": 638468,
-      "eik": "128501598"
+      "regNo": "2201211032",
+      "name": "Първа МБАЛ София-ЕАД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 3753410,
+      "monthEur": 576281,
+      "eik": "000689015"
     },
     {
       "regNo": "1432211001",
       "name": "МБАЛ Р.Ангелова -АД-гр.Перник",
       "rzokCode": "14",
       "rzokName": "Перник",
-      "cumulativeEur": 3037956,
-      "monthEur": 654860,
+      "cumulativeEur": 3698860,
+      "monthEur": 660904,
       "eik": "113513858"
+    },
+    {
+      "regNo": "2826211001",
+      "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+      "rzokCode": "28",
+      "rzokName": "Ямбол",
+      "cumulativeEur": 3651802,
+      "monthEur": 613729,
+      "eik": "128501598"
     },
     {
       "regNo": "1726211001",
       "name": "МБАЛ Св. Иван Рилски - Разград АД",
       "rzokCode": "17",
       "rzokName": "Разград",
-      "cumulativeEur": 2975514,
-      "monthEur": 594212,
+      "cumulativeEur": 3570298,
+      "monthEur": 594784,
       "eik": "116503980"
     },
     {
@@ -863,8 +863,8 @@
       "name": "МБАЛ АСЕНОВГРАД ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 2851640,
-      "monthEur": 588893,
+      "cumulativeEur": 3411179,
+      "monthEur": 559539,
       "eik": "115532654"
     },
     {
@@ -872,8 +872,8 @@
       "name": "МБАЛ Св.Петка АД Видин",
       "rzokCode": "05",
       "rzokName": "Видин",
-      "cumulativeEur": 2815096,
-      "monthEur": 573946,
+      "cumulativeEur": 3373459,
+      "monthEur": 558363,
       "eik": "105515902"
     },
     {
@@ -881,35 +881,35 @@
       "name": "МБАЛ - МК Св. Ив. Рилски ЕООД клон Стара Загора",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 2767722,
-      "monthEur": 569422,
+      "cumulativeEur": 3321126,
+      "monthEur": 553404,
       "eik": null
-    },
-    {
-      "regNo": "2201211060",
-      "name": "МБАЛ Вита ЕООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 2713688,
-      "monthEur": 537454,
-      "eik": "131259767"
     },
     {
       "regNo": "1524211014",
       "name": "„МБАЛ Авис Медика” ООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 2711104,
-      "monthEur": 548161,
+      "cumulativeEur": 3258945,
+      "monthEur": 547841,
       "eik": "114671238"
+    },
+    {
+      "regNo": "2201211060",
+      "name": "МБАЛ Вита ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 3253364,
+      "monthEur": 539676,
+      "eik": "131259767"
     },
     {
       "regNo": "2201211063",
       "name": "МБАЛ Доверие АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 2656199,
-      "monthEur": 550720,
+      "cumulativeEur": 3226486,
+      "monthEur": 570288,
       "eik": "131372487"
     },
     {
@@ -917,7 +917,7 @@
       "name": "МБАЛ Мед Лайн Клиник АД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 2526452,
+      "cumulativeEur": 3035478,
       "monthEur": 509026,
       "eik": "201964523"
     },
@@ -926,8 +926,8 @@
       "name": "МБАЛ Свиленград ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 2514490,
-      "monthEur": 503333,
+      "cumulativeEur": 3018272,
+      "monthEur": 503782,
       "eik": null
     },
     {
@@ -935,8 +935,8 @@
       "name": "КОЦ - РУСЕ ЕООД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 2506015,
-      "monthEur": 531532,
+      "cumulativeEur": 3016651,
+      "monthEur": 510636,
       "eik": null
     },
     {
@@ -944,8 +944,8 @@
       "name": "МБАЛ Лайф Хоспитал ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 2473177,
-      "monthEur": 487653,
+      "cumulativeEur": 2967202,
+      "monthEur": 494025,
       "eik": null
     },
     {
@@ -953,8 +953,8 @@
       "name": "УСБАЛАГ СЕЛЕНА ООД ПЛОВДИВ",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 2440565,
-      "monthEur": 474690,
+      "cumulativeEur": 2931365,
+      "monthEur": 490799,
       "eik": "160044550"
     },
     {
@@ -962,7 +962,7 @@
       "name": "СБАЛ ПО КАРДИОЛОГИЯ ВАРНА ЕАД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 2430858,
+      "cumulativeEur": 2917321,
       "monthEur": 486463,
       "eik": "175463110"
     },
@@ -971,8 +971,8 @@
       "name": "МБАЛ - Самоков ЕООД",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 2408249,
-      "monthEur": 487376,
+      "cumulativeEur": 2895674,
+      "monthEur": 487425,
       "eik": "000770086"
     },
     {
@@ -980,35 +980,35 @@
       "name": "МБАЛ Паркхоспитал ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 2382866,
-      "monthEur": 492528,
+      "cumulativeEur": 2861151,
+      "monthEur": 478285,
       "eik": null
-    },
-    {
-      "regNo": "0406211002",
-      "name": "МБАЛ Св. Иван Рилски ЕООД - Горна Оряховица",
-      "rzokCode": "04",
-      "rzokName": "Велико Търново",
-      "cumulativeEur": 2355129,
-      "monthEur": 473868,
-      "eik": "104512579"
     },
     {
       "regNo": "1048211009",
       "name": "МБАЛ Св. Иван Рилски-2003 ООД",
       "rzokCode": "10",
       "rzokName": "Кюстендил",
-      "cumulativeEur": 2277280,
-      "monthEur": 451934,
+      "cumulativeEur": 2731870,
+      "monthEur": 454591,
       "eik": "109568877"
+    },
+    {
+      "regNo": "0406211002",
+      "name": "МБАЛ Св. Иван Рилски ЕООД - Горна Оряховица",
+      "rzokCode": "04",
+      "rzokName": "Велико Търново",
+      "cumulativeEur": 2725129,
+      "monthEur": 370000,
+      "eik": "104512579"
     },
     {
       "regNo": "0137211002",
       "name": "МБАЛ Разлог ЕООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 2259888,
-      "monthEur": 472231,
+      "cumulativeEur": 2724694,
+      "monthEur": 464806,
       "eik": "000022044"
     },
     {
@@ -1016,8 +1016,8 @@
       "name": "МБАЛ Д-р Христо Стамболски ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 2250944,
-      "monthEur": 455747,
+      "cumulativeEur": 2709539,
+      "monthEur": 458595,
       "eik": "123540775"
     },
     {
@@ -1025,8 +1025,8 @@
       "name": "Втора САГБАЛ Шейново - АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 2210029,
-      "monthEur": 467425,
+      "cumulativeEur": 2660703,
+      "monthEur": 450674,
       "eik": "130485795"
     },
     {
@@ -1034,8 +1034,8 @@
       "name": "МБАЛ Св. Николай Чудотворец - ЕООД гр. Лом",
       "rzokCode": "12",
       "rzokName": "Монтана",
-      "cumulativeEur": 2118777,
-      "monthEur": 421668,
+      "cumulativeEur": 2556145,
+      "monthEur": 437368,
       "eik": "130128163"
     },
     {
@@ -1043,8 +1043,8 @@
       "name": "МБАЛ СЕРДИКАМЕД ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 2082681,
-      "monthEur": 485007,
+      "cumulativeEur": 2520130,
+      "monthEur": 437449,
       "eik": "201242663"
     },
     {
@@ -1052,8 +1052,8 @@
       "name": "КОЦ Враца ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 2074413,
-      "monthEur": 428276,
+      "cumulativeEur": 2512831,
+      "monthEur": 438418,
       "eik": "000190101"
     },
     {
@@ -1061,7 +1061,7 @@
       "name": "УСБАЛЕ Акад. Ив. Пенчев - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 2004200,
+      "cumulativeEur": 2400603,
       "monthEur": 396403,
       "eik": "000664332"
     },
@@ -1070,8 +1070,8 @@
       "name": "МБАЛ - ЮЛИЯ ВРЕВСКА - БЯЛА ЕООД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 1994500,
-      "monthEur": 401394,
+      "cumulativeEur": 2397156,
+      "monthEur": 402656,
       "eik": "117500566"
     },
     {
@@ -1079,7 +1079,7 @@
       "name": "МБАЛНП Св. Наум - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 1923922,
+      "cumulativeEur": 2315574,
       "monthEur": 391652,
       "eik": "831605813"
     },
@@ -1088,34 +1088,34 @@
       "name": "„МБАЛ Св. Панталеймон – Плевен” ООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 1837199,
-      "monthEur": 368277,
+      "cumulativeEur": 2207649,
+      "monthEur": 370450,
       "eik": "114686820"
-    },
-    {
-      "regNo": "0610211019",
-      "name": "Първа частна МБАЛ Враца ЕООД",
-      "rzokCode": "06",
-      "rzokName": "Враца",
-      "cumulativeEur": 1812071,
-      "monthEur": 353831,
-      "eik": null
     },
     {
       "regNo": "1623211007",
       "name": "МБАЛ ПЪРВОМАЙ ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1804386,
-      "monthEur": 355620,
+      "cumulativeEur": 2168076,
+      "monthEur": 363691,
       "eik": "115516059"
+    },
+    {
+      "regNo": "0610211019",
+      "name": "Първа частна МБАЛ Враца ЕООД",
+      "rzokCode": "06",
+      "rzokName": "Враца",
+      "cumulativeEur": 2165902,
+      "monthEur": 353831,
+      "eik": null
     },
     {
       "regNo": "2730212011",
       "name": "СБАЛК МАДАРА ЕАД Шумен",
       "rzokCode": "27",
       "rzokName": "Шумен",
-      "cumulativeEur": 1803361,
+      "cumulativeEur": 2163088,
       "monthEur": 359727,
       "eik": "201612434"
     },
@@ -1124,8 +1124,8 @@
       "name": "Първа САГБАЛ Св. София - АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 1748254,
-      "monthEur": 363099,
+      "cumulativeEur": 2120020,
+      "monthEur": 371766,
       "eik": "000689182"
     },
     {
@@ -1133,7 +1133,7 @@
       "name": "СБАЛК - Ямбол ЕАД гр. Ямбол",
       "rzokCode": "28",
       "rzokName": "Ямбол",
-      "cumulativeEur": 1664166,
+      "cumulativeEur": 1997618,
       "monthEur": 333452,
       "eik": "200111173"
     },
@@ -1142,7 +1142,7 @@
       "name": "СБР-Несебър АД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 1644210,
+      "cumulativeEur": 1978292,
       "monthEur": 334082,
       "eik": "102835135"
     },
@@ -1151,7 +1151,7 @@
       "name": "МБАЛ - Скин Системс EООД - с. Доганово",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 1621868,
+      "cumulativeEur": 1946294,
       "monthEur": 324426,
       "eik": "200603178"
     },
@@ -1160,62 +1160,62 @@
       "name": "СБАЛО Свети мина ЕООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 1608929,
-      "monthEur": 339667,
+      "cumulativeEur": 1936651,
+      "monthEur": 327721,
       "eik": "101533900"
-    },
-    {
-      "regNo": "1319211013",
-      "name": "МБАЛ-Хигия АД гр.Пазарджик",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 1585866,
-      "monthEur": 308833,
-      "eik": "112052721"
-    },
-    {
-      "regNo": "1321211003",
-      "name": "МБАЛ Проф. Димитър Ранев ООД гр.Пещера",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 1563406,
-      "monthEur": 325276,
-      "eik": "112519153"
     },
     {
       "regNo": "1118211001",
       "name": "МБАЛ -Ловеч - Проф. Д-р Параскев Стоянов АД",
       "rzokCode": "11",
       "rzokName": "Ловеч",
-      "cumulativeEur": 1548284,
-      "monthEur": 329364,
+      "cumulativeEur": 1879260,
+      "monthEur": 330976,
       "eik": "110503990"
     },
     {
-      "regNo": "1622211003",
-      "name": "МБАЛ Свети Мина Пловдив ЕООД",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 1543028,
-      "monthEur": 319020,
-      "eik": "115531627"
+      "regNo": "1321211003",
+      "name": "МБАЛ Проф. Димитър Ранев ООД гр.Пещера",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 1869426,
+      "monthEur": 306020,
+      "eik": "112519153"
     },
     {
       "regNo": "2307211002",
       "name": "МБАЛ - Ботевград ЕООД",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 1541493,
-      "monthEur": 273331,
+      "cumulativeEur": 1857546,
+      "monthEur": 316054,
       "eik": "000770022"
+    },
+    {
+      "regNo": "1319211013",
+      "name": "МБАЛ-Хигия АД гр.Пазарджик",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 1850083,
+      "monthEur": 264217,
+      "eik": "112052721"
+    },
+    {
+      "regNo": "1622211003",
+      "name": "МБАЛ Свети Мина Пловдив ЕООД",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 1833542,
+      "monthEur": 290515,
+      "eik": "115531627"
     },
     {
       "regNo": "2431334012",
       "name": "КОЦ - Стара Загора ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 1540475,
-      "monthEur": 312809,
+      "cumulativeEur": 1829624,
+      "monthEur": 289149,
       "eik": "000812197"
     },
     {
@@ -1223,8 +1223,8 @@
       "name": "СБАЛ по кардиология - Велико Търново ЕАД",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 1502824,
-      "monthEur": 299631,
+      "cumulativeEur": 1805152,
+      "monthEur": 302328,
       "eik": "200111255"
     },
     {
@@ -1232,35 +1232,35 @@
       "name": "МБАЛ Св.Св.Козма и Дамян ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1443336,
-      "monthEur": 313258,
+      "cumulativeEur": 1757308,
+      "monthEur": 313971,
       "eik": "160105708"
-    },
-    {
-      "regNo": "0729211003",
-      "name": "МБАЛ Д-р Стойчо Христов ЕООД",
-      "rzokCode": "07",
-      "rzokName": "Габрово",
-      "cumulativeEur": 1408752,
-      "monthEur": 281866,
-      "eik": null
     },
     {
       "regNo": "0306211030",
       "name": "МБАЛ \"Майчин дом - Варна\" ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 1384927,
-      "monthEur": 290095,
+      "cumulativeEur": 1719045,
+      "monthEur": 334118,
       "eik": "103801755"
+    },
+    {
+      "regNo": "0729211003",
+      "name": "МБАЛ Д-р Стойчо Христов ЕООД",
+      "rzokCode": "07",
+      "rzokName": "Габрово",
+      "cumulativeEur": 1706566,
+      "monthEur": 297814,
+      "eik": null
     },
     {
       "regNo": "1524212015",
       "name": "„СБАЛ по кардиология” ЕАД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 1347737,
-      "monthEur": 264626,
+      "cumulativeEur": 1636990,
+      "monthEur": 289254,
       "eik": "175075078"
     },
     {
@@ -1268,62 +1268,35 @@
       "name": "МБАЛ Здравето 2012 ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 1329429,
+      "cumulativeEur": 1590694,
       "monthEur": 261265,
       "eik": "202285258"
-    },
-    {
-      "regNo": "2201212010",
-      "name": "СБАЛО Проф. Бойчо Бойчев - ЕАД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 1315979,
-      "monthEur": 270779,
-      "eik": "831900201"
-    },
-    {
-      "regNo": "0306212008",
-      "name": "СБАГАЛ - проф. д-р Д.Стаматов- Варна ЕООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 1311950,
-      "monthEur": 265440,
-      "eik": null
     },
     {
       "regNo": "1622911013",
       "name": "МБАЛ ПЛОВДИВ към ВМА София",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1298571,
+      "cumulativeEur": 1571760,
       "monthEur": 273189,
       "eik": "129000273"
-    },
-    {
-      "regNo": "0404334009",
-      "name": "КОЦ - Велико Търново ЕООД",
-      "rzokCode": "04",
-      "rzokName": "Велико Търново",
-      "cumulativeEur": 1294912,
-      "monthEur": 268953,
-      "eik": "104524994"
-    },
-    {
-      "regNo": "1613211006",
-      "name": "МБАЛ Д-Р КИРО ПОПОВ КАРЛОВО ЕООД",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 1294281,
-      "monthEur": 255916,
-      "eik": "115518099"
     },
     {
       "regNo": "1622211049",
       "name": "МБАЛ Уро Медикс EООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1290917,
-      "monthEur": 245576,
+      "cumulativeEur": 1552195,
+      "monthEur": 261277,
+      "eik": null
+    },
+    {
+      "regNo": "0306212008",
+      "name": "СБАГАЛ - проф. д-р Д.Стаматов- Варна ЕООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 1548477,
+      "monthEur": 236527,
       "eik": null
     },
     {
@@ -1331,17 +1304,44 @@
       "name": "МБАЛ Бяла Слатина ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 1280960,
-      "monthEur": 245679,
+      "cumulativeEur": 1548205,
+      "monthEur": 267244,
       "eik": "106513498"
+    },
+    {
+      "regNo": "0404334009",
+      "name": "КОЦ - Велико Търново ЕООД",
+      "rzokCode": "04",
+      "rzokName": "Велико Търново",
+      "cumulativeEur": 1543375,
+      "monthEur": 248463,
+      "eik": "104524994"
+    },
+    {
+      "regNo": "2201212010",
+      "name": "СБАЛО Проф. Бойчо Бойчев - ЕАД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 1538190,
+      "monthEur": 222211,
+      "eik": "831900201"
+    },
+    {
+      "regNo": "1613211006",
+      "name": "МБАЛ Д-Р КИРО ПОПОВ КАРЛОВО ЕООД",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 1533705,
+      "monthEur": 239424,
+      "eik": "115518099"
     },
     {
       "regNo": "1134211002",
       "name": "МБАЛ - Троян - ЕООД",
       "rzokCode": "11",
       "rzokName": "Ловеч",
-      "cumulativeEur": 1238613,
-      "monthEur": 252373,
+      "cumulativeEur": 1494941,
+      "monthEur": 256328,
       "eik": null
     },
     {
@@ -1349,35 +1349,35 @@
       "name": "МБАЛ - Омуртаг ЕАД",
       "rzokCode": "25",
       "rzokName": "Търговище",
-      "cumulativeEur": 1227982,
-      "monthEur": 248339,
+      "cumulativeEur": 1470249,
+      "monthEur": 242267,
       "eik": "125550070"
-    },
-    {
-      "regNo": "0215232022",
-      "name": "СБР Стайков и фамилия ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 1189164,
-      "monthEur": 231113,
-      "eik": "119625586"
     },
     {
       "regNo": "2201212014",
       "name": "СБАЛИПБ Проф. Ив. Киров ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 1182567,
-      "monthEur": 240426,
+      "cumulativeEur": 1422849,
+      "monthEur": 240282,
       "eik": "000689150"
+    },
+    {
+      "regNo": "0215232022",
+      "name": "СБР Стайков и фамилия ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 1420277,
+      "monthEur": 231113,
+      "eik": "119625586"
     },
     {
       "regNo": "1048211002",
       "name": "МБАЛ Св. Иван Рилски ЕООД",
       "rzokCode": "10",
       "rzokName": "Кюстендил",
-      "cumulativeEur": 1176570,
-      "monthEur": 238178,
+      "cumulativeEur": 1409882,
+      "monthEur": 233312,
       "eik": "109501412"
     },
     {
@@ -1385,34 +1385,34 @@
       "name": "МБАЛ Люлин ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 1162628,
-      "monthEur": 225165,
+      "cumulativeEur": 1404193,
+      "monthEur": 241565,
       "eik": null
-    },
-    {
-      "regNo": "2201212071",
-      "name": "СБАЛОБ ЗОРА ООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 1151032,
-      "monthEur": 231980,
-      "eik": "208515399"
     },
     {
       "regNo": "0306211021",
       "name": "МБАЛ Еврохоспитал ООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 1138876,
-      "monthEur": 240310,
+      "cumulativeEur": 1378731,
+      "monthEur": 239855,
       "eik": "103929677"
+    },
+    {
+      "regNo": "2201212071",
+      "name": "СБАЛОБ ЗОРА ООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 1371758,
+      "monthEur": 220725,
+      "eik": "208515399"
     },
     {
       "regNo": "1622212033",
       "name": "СГЕБАЛ Еврохоспитал ООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1121902,
+      "cumulativeEur": 1343165,
       "monthEur": 221263,
       "eik": "160058895"
     },
@@ -1421,26 +1421,17 @@
       "name": "ВМА – МБАЛ – Плевен",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 1114333,
-      "monthEur": 218362,
+      "cumulativeEur": 1319108,
+      "monthEur": 204775,
       "eik": "129000273"
-    },
-    {
-      "regNo": "2201212086",
-      "name": "СБАЛОЗ ЕООД гр. София",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 1094124,
-      "monthEur": 224300,
-      "eik": "000693654"
     },
     {
       "regNo": "2431131041",
       "name": "\"МЦ-Медицински комплекс Берое\" ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 1087751,
-      "monthEur": 255377,
+      "cumulativeEur": 1315747,
+      "monthEur": 227996,
       "eik": "202192245"
     },
     {
@@ -1448,17 +1439,26 @@
       "name": "MБАЛ-Сливен към ВМА-София",
       "rzokCode": "20",
       "rzokName": "Сливен",
-      "cumulativeEur": 1083009,
-      "monthEur": 216029,
+      "cumulativeEur": 1300614,
+      "monthEur": 217605,
       "eik": "129000273"
+    },
+    {
+      "regNo": "2201212086",
+      "name": "СБАЛОЗ ЕООД гр. София",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 1299634,
+      "monthEur": 205510,
+      "eik": "000693654"
     },
     {
       "regNo": "1622391046",
       "name": "ДЦ Фърст Диализис Сървисиз България ЕАД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 1072647,
-      "monthEur": 218644,
+      "cumulativeEur": 1292320,
+      "monthEur": 219673,
       "eik": null
     },
     {
@@ -1466,35 +1466,35 @@
       "name": "МБАЛ Проф. д-р Константин Чилов ЕООД-гр.Мадан",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 1069781,
-      "monthEur": 218369,
+      "cumulativeEur": 1284841,
+      "monthEur": 215060,
       "eik": "120505630"
-    },
-    {
-      "regNo": "0428211006",
-      "name": "МБАЛ Д-р Димитър Павлович ЕООД - Свищов",
-      "rzokCode": "04",
-      "rzokName": "Велико Търново",
-      "cumulativeEur": 1054023,
-      "monthEur": 207022,
-      "eik": null
     },
     {
       "regNo": "1934211002",
       "name": "МБАЛ - Тутракан ЕООД",
       "rzokCode": "19",
       "rzokName": "Силистра",
-      "cumulativeEur": 1051115,
-      "monthEur": 198959,
+      "cumulativeEur": 1263236,
+      "monthEur": 212122,
       "eik": "118506069"
+    },
+    {
+      "regNo": "0428211006",
+      "name": "МБАЛ Д-р Димитър Павлович ЕООД - Свищов",
+      "rzokCode": "04",
+      "rzokName": "Велико Търново",
+      "cumulativeEur": 1261170,
+      "monthEur": 207147,
+      "eik": null
     },
     {
       "regNo": "2634212017",
       "name": "СБАЛО Хасково ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 1047876,
-      "monthEur": 225951,
+      "cumulativeEur": 1255936,
+      "monthEur": 208061,
       "eik": "000900156"
     },
     {
@@ -1502,35 +1502,35 @@
       "name": "МБАЛ - Исперих ЕООД",
       "rzokCode": "17",
       "rzokName": "Разград",
-      "cumulativeEur": 1012903,
-      "monthEur": 202831,
+      "cumulativeEur": 1215928,
+      "monthEur": 203025,
       "eik": "116504387"
-    },
-    {
-      "regNo": "2524211002",
-      "name": "МБАЛ - Попово ЕООД",
-      "rzokCode": "25",
-      "rzokName": "Търговище",
-      "cumulativeEur": 976692,
-      "monthEur": 193375,
-      "eik": "000874028"
     },
     {
       "regNo": "2201212061",
       "name": "САГБАЛ Д-р Щерев ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 970024,
-      "monthEur": 170077,
+      "cumulativeEur": 1167976,
+      "monthEur": 197951,
       "eik": null
+    },
+    {
+      "regNo": "2524211002",
+      "name": "МБАЛ - Попово ЕООД",
+      "rzokCode": "25",
+      "rzokName": "Търговище",
+      "cumulativeEur": 1165877,
+      "monthEur": 189185,
+      "eik": "000874028"
     },
     {
       "regNo": "0209211003",
       "name": "МБАЛ - Карнобат ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 965023,
-      "monthEur": 195316,
+      "cumulativeEur": 1160066,
+      "monthEur": 195042,
       "eik": "102612100"
     },
     {
@@ -1538,7 +1538,7 @@
       "name": "СБР-Банкя АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 950557,
+      "cumulativeEur": 1153657,
       "monthEur": 203100,
       "eik": "130287411"
     },
@@ -1547,8 +1547,8 @@
       "name": "МБАЛ Харманли ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 934240,
-      "monthEur": 184597,
+      "cumulativeEur": 1119709,
+      "monthEur": 185468,
       "eik": null
     },
     {
@@ -1556,7 +1556,7 @@
       "name": "МТБ Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 930640,
+      "cumulativeEur": 1119133,
       "monthEur": 188493,
       "eik": null
     },
@@ -1565,8 +1565,8 @@
       "name": "НМТБ ЦАР БОРИС ІІІ",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 921648,
-      "monthEur": 190037,
+      "cumulativeEur": 1108963,
+      "monthEur": 187315,
       "eik": null
     },
     {
@@ -1574,8 +1574,8 @@
       "name": "МЦ Света Марина - Диагностика и Терапия ООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 917261,
-      "monthEur": 188156,
+      "cumulativeEur": 1102594,
+      "monthEur": 185334,
       "eik": "202284487"
     },
     {
@@ -1583,8 +1583,8 @@
       "name": "МБАЛ Раковски ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 899574,
-      "monthEur": 178827,
+      "cumulativeEur": 1078037,
+      "monthEur": 178464,
       "eik": "115532871"
     },
     {
@@ -1592,7 +1592,7 @@
       "name": "СБАЛПФЗ - РУСЕ- ЕООД",
       "rzokCode": "18",
       "rzokName": "Русе",
-      "cumulativeEur": 893521,
+      "cumulativeEur": 1072923,
       "monthEur": 179402,
       "eik": null
     },
@@ -1601,8 +1601,8 @@
       "name": "Диализен център Дружба ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 871093,
-      "monthEur": 182655,
+      "cumulativeEur": 1056177,
+      "monthEur": 185083,
       "eik": null
     },
     {
@@ -1610,8 +1610,8 @@
       "name": "МБАЛ -Чирпан ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 864622,
-      "monthEur": 174117,
+      "cumulativeEur": 1042707,
+      "monthEur": 178084,
       "eik": "123535867"
     },
     {
@@ -1619,98 +1619,98 @@
       "name": "МБАЛ - Павликени ЕООД - Павликени",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 857483,
-      "monthEur": 157785,
+      "cumulativeEur": 1020006,
+      "monthEur": 162524,
       "eik": "104508837"
-    },
-    {
-      "regNo": "2016211002",
-      "name": "МБАЛ Света Петка Българска ЕООД - Нова Загора",
-      "rzokCode": "20",
-      "rzokName": "Сливен",
-      "cumulativeEur": 847325,
-      "monthEur": 169170,
-      "eik": "119502651"
     },
     {
       "regNo": "1539211012",
       "name": "„МБАЛ – Кнежа” ЕООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 846635,
-      "monthEur": 168803,
+      "cumulativeEur": 1016589,
+      "monthEur": 169954,
       "eik": "106510662"
-    },
-    {
-      "regNo": "1537211002",
-      "name": "„МБАЛ – Червен бряг” ЕООД",
-      "rzokCode": "15",
-      "rzokName": "Плевен",
-      "cumulativeEur": 846019,
-      "monthEur": 168820,
-      "eik": "000410056"
     },
     {
       "regNo": "1229391010",
       "name": "„ФЪРСТ ДИАЛИЗИС СЪРВИСИЗ БЪЛГАРИЯ“ ЕАД гр. Монтана",
       "rzokCode": "12",
       "rzokName": "Монтана",
-      "cumulativeEur": 841995,
-      "monthEur": 168605,
+      "cumulativeEur": 1011972,
+      "monthEur": 169977,
       "eik": null
     },
     {
-      "regNo": "0627211002",
-      "name": "МБАЛ Мездра ЕООД",
-      "rzokCode": "06",
-      "rzokName": "Враца",
-      "cumulativeEur": 837563,
-      "monthEur": 163693,
-      "eik": "106512909"
-    },
-    {
-      "regNo": "2201211033",
-      "name": "Втора МБАЛ - София - ЕАД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 836994,
-      "monthEur": 148334,
-      "eik": null
-    },
-    {
-      "regNo": "1910211003",
-      "name": "МБАЛ - Дулово ЕООД",
-      "rzokCode": "19",
-      "rzokName": "Силистра",
-      "cumulativeEur": 835924,
-      "monthEur": 173509,
-      "eik": "118502097"
+      "regNo": "1537211002",
+      "name": "„МБАЛ – Червен бряг” ЕООД",
+      "rzokCode": "15",
+      "rzokName": "Плевен",
+      "cumulativeEur": 1010522,
+      "monthEur": 164502,
+      "eik": "000410056"
     },
     {
       "regNo": "2609211002",
       "name": "МБАЛ Света Екатерина ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 834998,
-      "monthEur": 161576,
+      "cumulativeEur": 1005786,
+      "monthEur": 170788,
       "eik": "126531685"
-    },
-    {
-      "regNo": "2201391101",
-      "name": "Диализен център Хемомед ЕООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 824311,
-      "monthEur": 168850,
-      "eik": null
     },
     {
       "regNo": "2826211008",
       "name": "МБАЛ Св.Йоан Рилски ООД гр. Ямбол",
       "rzokCode": "28",
       "rzokName": "Ямбол",
-      "cumulativeEur": 823912,
-      "monthEur": 146966,
+      "cumulativeEur": 1004886,
+      "monthEur": 180974,
+      "eik": null
+    },
+    {
+      "regNo": "2016211002",
+      "name": "МБАЛ Света Петка Българска ЕООД - Нова Загора",
+      "rzokCode": "20",
+      "rzokName": "Сливен",
+      "cumulativeEur": 1004252,
+      "monthEur": 156926,
+      "eik": "119502651"
+    },
+    {
+      "regNo": "0627211002",
+      "name": "МБАЛ Мездра ЕООД",
+      "rzokCode": "06",
+      "rzokName": "Враца",
+      "cumulativeEur": 1003495,
+      "monthEur": 165932,
+      "eik": "106512909"
+    },
+    {
+      "regNo": "1910211003",
+      "name": "МБАЛ - Дулово ЕООД",
+      "rzokCode": "19",
+      "rzokName": "Силистра",
+      "cumulativeEur": 998843,
+      "monthEur": 162918,
+      "eik": "118502097"
+    },
+    {
+      "regNo": "2201391101",
+      "name": "Диализен център Хемомед ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 990222,
+      "monthEur": 165910,
+      "eik": null
+    },
+    {
+      "regNo": "2201211033",
+      "name": "Втора МБАЛ - София - ЕАД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 977184,
+      "monthEur": 140190,
       "eik": null
     },
     {
@@ -1718,17 +1718,26 @@
       "name": "СОБАЛ Луксор ЕООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 812245,
+      "cumulativeEur": 975914,
       "monthEur": 163669,
       "eik": "125535944"
+    },
+    {
+      "regNo": "2301212022",
+      "name": "СБАЛОЗ - София област ЕООД",
+      "rzokCode": "23",
+      "rzokName": "София област",
+      "cumulativeEur": 974196,
+      "monthEur": 180981,
+      "eik": "000770246"
     },
     {
       "regNo": "1622212038",
       "name": "Медикус Алфа СХБАЛ ЕООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 804427,
-      "monthEur": 167009,
+      "cumulativeEur": 962228,
+      "monthEur": 157801,
       "eik": "160087562"
     },
     {
@@ -1736,52 +1745,43 @@
       "name": "МБАЛ - Тетевен - Д-р Ангел Пешев - ЕООД",
       "rzokCode": "11",
       "rzokName": "Ловеч",
-      "cumulativeEur": 795622,
-      "monthEur": 158753,
+      "cumulativeEur": 954348,
+      "monthEur": 158726,
       "eik": "110502867"
-    },
-    {
-      "regNo": "2301212022",
-      "name": "СБАЛОЗ - София област ЕООД",
-      "rzokCode": "23",
-      "rzokName": "София област",
-      "cumulativeEur": 793215,
-      "monthEur": 181688,
-      "eik": "000770246"
     },
     {
       "regNo": "1716211003",
       "name": "МБАЛ - Кубрат ЕООД",
       "rzokCode": "17",
       "rzokName": "Разград",
-      "cumulativeEur": 777141,
-      "monthEur": 158658,
+      "cumulativeEur": 917788,
+      "monthEur": 140647,
       "eik": "000504032"
-    },
-    {
-      "regNo": "2320211006",
-      "name": "МБАЛ - Ихтиман ЕООД",
-      "rzokCode": "23",
-      "rzokName": "София област",
-      "cumulativeEur": 764089,
-      "monthEur": 153256,
-      "eik": null
     },
     {
       "regNo": "1622211036",
       "name": "МБАЛ Тримонциум ООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 760019,
+      "cumulativeEur": 911966,
       "monthEur": 151947,
       "eik": "200213096"
+    },
+    {
+      "regNo": "2320211006",
+      "name": "МБАЛ - Ихтиман ЕООД",
+      "rzokCode": "23",
+      "rzokName": "София област",
+      "cumulativeEur": 910833,
+      "monthEur": 146743,
+      "eik": null
     },
     {
       "regNo": "0610212018",
       "name": "СБАЛПФЗ ВРАЦА ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 738667,
+      "cumulativeEur": 888386,
       "monthEur": 149719,
       "eik": "000190083"
     },
@@ -1790,8 +1790,8 @@
       "name": "МБАЛ - Айтос ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 736096,
-      "monthEur": 146111,
+      "cumulativeEur": 873530,
+      "monthEur": 137434,
       "eik": "102613775"
     },
     {
@@ -1799,35 +1799,44 @@
       "name": "СБР \"Света Елена 1\" ООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 719325,
+      "cumulativeEur": 871180,
       "monthEur": 151855,
       "eik": null
-    },
-    {
-      "regNo": "0620211004",
-      "name": "МБАЛ Св. Иван Рилски ЕООД Козлодуй",
-      "rzokCode": "06",
-      "rzokName": "Враца",
-      "cumulativeEur": 713505,
-      "monthEur": 136468,
-      "eik": "106510388"
-    },
-    {
-      "regNo": "1637232012",
-      "name": "ВМА-БПЛР Хисар",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 711961,
-      "monthEur": 142394,
-      "eik": "129000273"
     },
     {
       "regNo": "2201211084",
       "name": "МБАЛ СВ. БОГОРОДИЦА ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 678987,
-      "monthEur": 143950,
+      "cumulativeEur": 857480,
+      "monthEur": 178493,
+      "eik": null
+    },
+    {
+      "regNo": "1637232012",
+      "name": "ВМА-БПЛР Хисар",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 851700,
+      "monthEur": 139739,
+      "eik": "129000273"
+    },
+    {
+      "regNo": "0620211004",
+      "name": "МБАЛ Св. Иван Рилски ЕООД Козлодуй",
+      "rzokCode": "06",
+      "rzokName": "Враца",
+      "cumulativeEur": 844318,
+      "monthEur": 130813,
+      "eik": "106510388"
+    },
+    {
+      "regNo": "2201233028",
+      "name": "СБР Здраве - ЕАД - Банкя",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 823815,
+      "monthEur": 163893,
       "eik": null
     },
     {
@@ -1835,8 +1844,8 @@
       "name": "МБАЛ ЕАД гр. Гълъбово",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 676126,
-      "monthEur": 142266,
+      "cumulativeEur": 808548,
+      "monthEur": 132422,
       "eik": "123531146"
     },
     {
@@ -1844,8 +1853,8 @@
       "name": "МБАЛ - Своге ЕООД",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 662761,
-      "monthEur": 134330,
+      "cumulativeEur": 797092,
+      "monthEur": 134332,
       "eik": "000770093"
     },
     {
@@ -1853,61 +1862,61 @@
       "name": "МБАЛ Хигия-Север ООД гр.Пазарджик",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 660782,
-      "monthEur": 136716,
+      "cumulativeEur": 796973,
+      "monthEur": 136191,
       "eik": "112511199"
-    },
-    {
-      "regNo": "2201233028",
-      "name": "СБР Здраве - ЕАД - Банкя",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 659922,
-      "monthEur": 163893,
-      "eik": null
-    },
-    {
-      "regNo": "1118211010",
-      "name": "МБАЛ\"Кардиолайф\"ООД",
-      "rzokCode": "11",
-      "rzokName": "Ловеч",
-      "cumulativeEur": 658373,
-      "monthEur": 129946,
-      "eik": "203720884"
     },
     {
       "regNo": "1041232010",
       "name": "СБР-Сапарева баня АД",
       "rzokCode": "10",
       "rzokName": "Кюстендил",
-      "cumulativeEur": 655385,
+      "cumulativeEur": 785874,
       "monthEur": 130489,
       "eik": "109563191"
-    },
-    {
-      "regNo": "2355211007",
-      "name": "МБАЛ - Пирдоп АД",
-      "rzokCode": "23",
-      "rzokName": "София област",
-      "cumulativeEur": 651529,
-      "monthEur": 131823,
-      "eik": "202503899"
     },
     {
       "regNo": "2201212079",
       "name": "СБАЛ -ГРЪБНАЧЕН ЦЕНТЪР АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 650205,
+      "cumulativeEur": 782418,
       "monthEur": 132213,
       "eik": "201215716"
+    },
+    {
+      "regNo": "2020212015",
+      "name": "САГБАЛ \"Ева",
+      "rzokCode": "20",
+      "rzokName": "Сливен",
+      "cumulativeEur": 775484,
+      "monthEur": 144524,
+      "eik": null
+    },
+    {
+      "regNo": "2355211007",
+      "name": "МБАЛ - Пирдоп АД",
+      "rzokCode": "23",
+      "rzokName": "София област",
+      "cumulativeEur": 774312,
+      "monthEur": 122783,
+      "eik": "202503899"
+    },
+    {
+      "regNo": "1118211010",
+      "name": "МБАЛ\"Кардиолайф\"ООД",
+      "rzokCode": "11",
+      "rzokName": "Ловеч",
+      "cumulativeEur": 769974,
+      "monthEur": 111601,
+      "eik": "203720884"
     },
     {
       "regNo": "2127232011",
       "name": "СБР-Родопи ЕООД гр. Рудозем",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 638559,
+      "cumulativeEur": 766712,
       "monthEur": 128153,
       "eik": "202812027"
     },
@@ -1916,17 +1925,8 @@
       "name": "Диализен център Диалмед ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 637442,
-      "monthEur": 123521,
-      "eik": null
-    },
-    {
-      "regNo": "2020212015",
-      "name": "САГБАЛ \"Ева",
-      "rzokCode": "20",
-      "rzokName": "Сливен",
-      "cumulativeEur": 630961,
-      "monthEur": 140641,
+      "cumulativeEur": 764292,
+      "monthEur": 126851,
       "eik": null
     },
     {
@@ -1934,8 +1934,8 @@
       "name": "МБАЛ Проф. д-р Асен Шопов ЕООД-гр.Златоград",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 628517,
-      "monthEur": 127149,
+      "cumulativeEur": 755562,
+      "monthEur": 127045,
       "eik": "120504642"
     },
     {
@@ -1943,8 +1943,8 @@
       "name": "МБАЛ Проф. д-р Ал. Герчев Етрополе - Етрополе ЕООД",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 606324,
-      "monthEur": 126102,
+      "cumulativeEur": 734228,
+      "monthEur": 127904,
       "eik": "000770054"
     },
     {
@@ -1952,53 +1952,35 @@
       "name": "МБАЛ \"Св.Георги\"-Перник-ООД",
       "rzokCode": "14",
       "rzokName": "Перник",
-      "cumulativeEur": 604248,
+      "cumulativeEur": 728244,
       "monthEur": 123996,
       "eik": "202876236"
-    },
-    {
-      "regNo": "0204211031",
-      "name": "МБАЛ-Д-р Маджуров ООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 595387,
-      "monthEur": 124629,
-      "eik": "201834348"
-    },
-    {
-      "regNo": "0306212027",
-      "name": "\"СБАЛК Кардиолайф\"ООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 587675,
-      "monthEur": 22270,
-      "eik": "201299963"
     },
     {
       "regNo": "0204212010",
       "name": "СБАЛПФЗ - Бургас ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 582598,
-      "monthEur": 118259,
+      "cumulativeEur": 700127,
+      "monthEur": 117529,
       "eik": "000053088"
     },
     {
-      "regNo": "2317211004",
-      "name": "МБАЛ - Елин Пелин ЕООД",
-      "rzokCode": "23",
-      "rzokName": "София област",
-      "cumulativeEur": 571736,
-      "monthEur": 105606,
-      "eik": "000770047"
+      "regNo": "0204211031",
+      "name": "МБАЛ-Д-р Маджуров ООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 683433,
+      "monthEur": 88045,
+      "eik": "201834348"
     },
     {
       "regNo": "1202211002",
       "name": "МБАЛ ЕООД гр. Берковица",
       "rzokCode": "12",
       "rzokName": "Монтана",
-      "cumulativeEur": 564958,
-      "monthEur": 115467,
+      "cumulativeEur": 680365,
+      "monthEur": 115407,
       "eik": "111511773"
     },
     {
@@ -2006,43 +1988,61 @@
       "name": "МБАЛ-Девин ЕАД гр.Девин",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 554690,
-      "monthEur": 117082,
+      "cumulativeEur": 663188,
+      "monthEur": 108498,
       "eik": "200591288"
     },
     {
-      "regNo": "1390391001",
-      "name": "\"Фърст диализис сървисис България\" ЕАД",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 543491,
-      "monthEur": 106858,
-      "eik": null
-    },
-    {
-      "regNo": "0404391019",
-      "name": "Частен диализен център - В. Търново ЕООД",
-      "rzokCode": "04",
-      "rzokName": "Велико Търново",
-      "cumulativeEur": 543363,
-      "monthEur": 114015,
-      "eik": null
+      "regNo": "2317211004",
+      "name": "МБАЛ - Елин Пелин ЕООД",
+      "rzokCode": "23",
+      "rzokName": "София област",
+      "cumulativeEur": 662871,
+      "monthEur": 91135,
+      "eik": "000770047"
     },
     {
       "regNo": "1508211005",
       "name": "„МБАЛ – Гулянци” ЕООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 543044,
-      "monthEur": 106627,
+      "cumulativeEur": 659462,
+      "monthEur": 116419,
       "eik": "000412255"
+    },
+    {
+      "regNo": "0404391019",
+      "name": "Частен диализен център - В. Търново ЕООД",
+      "rzokCode": "04",
+      "rzokName": "Велико Търново",
+      "cumulativeEur": 655844,
+      "monthEur": 112482,
+      "eik": null
+    },
+    {
+      "regNo": "1390391001",
+      "name": "\"Фърст диализис сървисис България\" ЕАД",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 651626,
+      "monthEur": 108136,
+      "eik": null
+    },
+    {
+      "regNo": "2424233014",
+      "name": "СБР-НК ЕАД филиал Павел Баня",
+      "rzokCode": "24",
+      "rzokName": "Стара Загора",
+      "cumulativeEur": 647535,
+      "monthEur": 133526,
+      "eik": null
     },
     {
       "regNo": "2535212007",
       "name": "СОБАЛ - Д-р Тасков ООД",
       "rzokCode": "25",
       "rzokName": "Търговище",
-      "cumulativeEur": 528448,
+      "cumulativeEur": 634140,
       "monthEur": 105692,
       "eik": "200366302"
     },
@@ -2051,8 +2051,8 @@
       "name": "Нефроцентър Бургас ООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 525212,
-      "monthEur": 110053,
+      "cumulativeEur": 630920,
+      "monthEur": 105707,
       "eik": null
     },
     {
@@ -2060,7 +2060,7 @@
       "name": "СОБАЛ ПЕНТАГРАМ ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 520855,
+      "cumulativeEur": 625322,
       "monthEur": 104467,
       "eik": "202302622"
     },
@@ -2069,17 +2069,17 @@
       "name": "МБАЛ Болница Европа ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 520393,
+      "cumulativeEur": 623222,
       "monthEur": 102829,
       "eik": "202108197"
     },
     {
-      "regNo": "2424233014",
-      "name": "СБР-НК ЕАД филиал Павел Баня",
-      "rzokCode": "24",
-      "rzokName": "Стара Загора",
-      "cumulativeEur": 514009,
-      "monthEur": 133526,
+      "regNo": "1308233008",
+      "name": "СБР-НК ЕАД филиал Велинград",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 615920,
+      "monthEur": 122194,
       "eik": null
     },
     {
@@ -2087,7 +2087,7 @@
       "name": "СОБАЛ Акад. Пашев ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 505788,
+      "cumulativeEur": 609088,
       "monthEur": 103300,
       "eik": null
     },
@@ -2096,71 +2096,53 @@
       "name": "СБАЛПФЗ Д-р Трейман ЕООД - Велико Търново",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 503643,
+      "cumulativeEur": 603331,
       "monthEur": 99688,
       "eik": "000130104"
     },
     {
-      "regNo": "0306232016",
-      "name": "\"СБР - ВАРНА\" АД",
+      "regNo": "0306212027",
+      "name": "\"СБАЛК Кардиолайф\"ООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 494403,
-      "monthEur": 98744,
-      "eik": "103552026"
-    },
-    {
-      "regNo": "1308233008",
-      "name": "СБР-НК ЕАД филиал Велинград",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 493726,
-      "monthEur": 122194,
-      "eik": null
-    },
-    {
-      "regNo": "2431211024",
-      "name": "МБАЛ НИАМЕД ООД гр. Стара Загора",
-      "rzokCode": "24",
-      "rzokName": "Стара Загора",
-      "cumulativeEur": 487303,
-      "monthEur": 83430,
-      "eik": "123672022"
+      "cumulativeEur": 594945,
+      "monthEur": 7269,
+      "eik": "201299963"
     },
     {
       "regNo": "0803211002",
       "name": "МБАЛ БАЛЧИК ЕООД",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 485041,
-      "monthEur": 98123,
+      "cumulativeEur": 594885,
+      "monthEur": 109844,
       "eik": null
+    },
+    {
+      "regNo": "0306232016",
+      "name": "\"СБР - ВАРНА\" АД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 593348,
+      "monthEur": 98945,
+      "eik": "103552026"
     },
     {
       "regNo": "1516211003",
       "name": "„МБАЛ – Левски” ЕООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 483074,
-      "monthEur": 99480,
+      "cumulativeEur": 582755,
+      "monthEur": 99681,
       "eik": "000410031"
-    },
-    {
-      "regNo": "2634212016",
-      "name": "СБАЛПФЗ Хасково ЕООД",
-      "rzokCode": "26",
-      "rzokName": "Хасково",
-      "cumulativeEur": 478780,
-      "monthEur": 95457,
-      "eik": "000900131"
     },
     {
       "regNo": "1134212005",
       "name": "СБАЛББ - Троян - ЕООД",
       "rzokCode": "11",
       "rzokName": "Ловеч",
-      "cumulativeEur": 477318,
-      "monthEur": 99425,
+      "cumulativeEur": 576567,
+      "monthEur": 99250,
       "eik": "000289081"
     },
     {
@@ -2168,17 +2150,35 @@
       "name": "МБАЛ - Луковит - ЕООД",
       "rzokCode": "11",
       "rzokName": "Ловеч",
-      "cumulativeEur": 476461,
-      "monthEur": 97171,
+      "cumulativeEur": 576385,
+      "monthEur": 99924,
       "eik": "110504291"
+    },
+    {
+      "regNo": "2431211024",
+      "name": "МБАЛ НИАМЕД ООД гр. Стара Загора",
+      "rzokCode": "24",
+      "rzokName": "Стара Загора",
+      "cumulativeEur": 576359,
+      "monthEur": 89055,
+      "eik": "123672022"
+    },
+    {
+      "regNo": "2634212016",
+      "name": "СБАЛПФЗ Хасково ЕООД",
+      "rzokCode": "26",
+      "rzokName": "Хасково",
+      "cumulativeEur": 574237,
+      "monthEur": 95457,
+      "eik": "000900131"
     },
     {
       "regNo": "2201234021",
       "name": "НСБФТР - ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 474852,
-      "monthEur": 98751,
+      "cumulativeEur": 565983,
+      "monthEur": 91131,
       "eik": null
     },
     {
@@ -2186,8 +2186,8 @@
       "name": "СБПФЗДПЛР - Цар Фердинанд І ЕООД с.Искрец",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 465791,
-      "monthEur": 92743,
+      "cumulativeEur": 558689,
+      "monthEur": 92898,
       "eik": null
     },
     {
@@ -2195,8 +2195,17 @@
       "name": "СБОБАЛ - Варна ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 463332,
+      "cumulativeEur": 558436,
       "monthEur": 95104,
+      "eik": null
+    },
+    {
+      "regNo": "2102232008",
+      "name": "СБР-НК ЕАД - филиал с. Баните",
+      "rzokCode": "21",
+      "rzokName": "Смолян",
+      "cumulativeEur": 551301,
+      "monthEur": 95351,
       "eik": null
     },
     {
@@ -2204,26 +2213,17 @@
       "name": "СБАЛПФЗ Благоевград ЕООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 458663,
+      "cumulativeEur": 551115,
       "monthEur": 92452,
       "eik": "101533917"
-    },
-    {
-      "regNo": "2102232008",
-      "name": "СБР-НК ЕАД - филиал с. Баните",
-      "rzokCode": "21",
-      "rzokName": "Смолян",
-      "cumulativeEur": 455950,
-      "monthEur": 95351,
-      "eik": null
     },
     {
       "regNo": "2109232012",
       "name": "СБР-Орфей ЕООД гр. Девин",
       "rzokCode": "21",
       "rzokName": "Смолян",
-      "cumulativeEur": 451183,
-      "monthEur": 94715,
+      "cumulativeEur": 545442,
+      "monthEur": 94260,
       "eik": "130963149"
     },
     {
@@ -2231,8 +2231,8 @@
       "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 434962,
-      "monthEur": 107568,
+      "cumulativeEur": 529755,
+      "monthEur": 94793,
       "eik": "200429329"
     },
     {
@@ -2240,7 +2240,7 @@
       "name": "БПЛР МИ-МВР филиал Хисар",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 434422,
+      "cumulativeEur": 521725,
       "monthEur": 87303,
       "eik": null
     },
@@ -2249,8 +2249,8 @@
       "name": "ДЦ ВИА ДИАЛ ООД гр. Стара Загора",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 428489,
-      "monthEur": 83916,
+      "cumulativeEur": 513516,
+      "monthEur": 85026,
       "eik": null
     },
     {
@@ -2258,8 +2258,8 @@
       "name": "МБАЛ Д-р С. Ростовцев ЕООД Момчилград",
       "rzokCode": "09",
       "rzokName": "Кърджали",
-      "cumulativeEur": 426551,
-      "monthEur": 85233,
+      "cumulativeEur": 509976,
+      "monthEur": 83425,
       "eik": null
     },
     {
@@ -2267,35 +2267,35 @@
       "name": "СБАЛББ - Габрово ЕООД",
       "rzokCode": "07",
       "rzokName": "Габрово",
-      "cumulativeEur": 420376,
+      "cumulativeEur": 504434,
       "monthEur": 84058,
       "eik": "000214050"
-    },
-    {
-      "regNo": "0204212025",
-      "name": "СОБАЛ-Бургас ООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 418698,
-      "monthEur": 84503,
-      "eik": "147098760"
     },
     {
       "regNo": "0705211013",
       "name": "МБАЛ Св. Ив. Рилски - Габрово ЕООД",
       "rzokCode": "07",
       "rzokName": "Габрово",
-      "cumulativeEur": 416755,
+      "cumulativeEur": 503997,
       "monthEur": 87242,
       "eik": null
+    },
+    {
+      "regNo": "0204212025",
+      "name": "СОБАЛ-Бургас ООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 503201,
+      "monthEur": 84503,
+      "eik": "147098760"
     },
     {
       "regNo": "0206211005",
       "name": "МБАЛ-Средец ЕООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 414914,
-      "monthEur": 82887,
+      "cumulativeEur": 497800,
+      "monthEur": 82886,
       "eik": "102663909"
     },
     {
@@ -2303,8 +2303,8 @@
       "name": "МБАЛ Хигия ООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 408623,
-      "monthEur": 92013,
+      "cumulativeEur": 497722,
+      "monthEur": 89099,
       "eik": null
     },
     {
@@ -2312,8 +2312,8 @@
       "name": "СБР НК ЕАД София филиал Баня;Карловско",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 404333,
-      "monthEur": 96952,
+      "cumulativeEur": 494739,
+      "monthEur": 90405,
       "eik": null
     },
     {
@@ -2321,35 +2321,44 @@
       "name": "СБР - НК -ф.Поморие ЕАД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 402118,
-      "monthEur": 102200,
+      "cumulativeEur": 488978,
+      "monthEur": 86861,
       "eik": null
-    },
-    {
-      "regNo": "2807211002",
-      "name": "МБАЛ Св.Иван Рилски ЕООД гр.Елхово",
-      "rzokCode": "28",
-      "rzokName": "Ямбол",
-      "cumulativeEur": 400541,
-      "monthEur": 83182,
-      "eik": "128501819"
     },
     {
       "regNo": "1622212041",
       "name": "СБАЛАГ Торакс Д-р Сава Бояджиев ЕООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 400425,
-      "monthEur": 78826,
+      "cumulativeEur": 488598,
+      "monthEur": 88172,
       "eik": "115519436"
     },
     {
-      "regNo": "1212233004",
-      "name": "СБР-НК ЕАД -филиал Св.Мина гр.Вършец",
-      "rzokCode": "12",
-      "rzokName": "Монтана",
-      "cumulativeEur": 399813,
-      "monthEur": 77361,
+      "regNo": "2807211002",
+      "name": "МБАЛ Св.Иван Рилски ЕООД гр.Елхово",
+      "rzokCode": "28",
+      "rzokName": "Ямбол",
+      "cumulativeEur": 484603,
+      "monthEur": 84062,
+      "eik": "128501819"
+    },
+    {
+      "regNo": "1601232056",
+      "name": "СБР Света Богородица ЕООД -Нареченски бани",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 479752,
+      "monthEur": 88185,
+      "eik": null
+    },
+    {
+      "regNo": "0204391034",
+      "name": "\"НефроЛайф България - Специализирани центрове по хемодиализа\"ООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 479069,
+      "monthEur": 82955,
       "eik": null
     },
     {
@@ -2357,17 +2366,17 @@
       "name": "МБАЛ Царица Йоанна - Провадия ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 398677,
-      "monthEur": 82308,
+      "cumulativeEur": 478229,
+      "monthEur": 79552,
       "eik": "000090033"
     },
     {
-      "regNo": "0204391034",
-      "name": "\"НефроЛайф България - Специализирани центрове по хемодиализа\"ООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 396114,
-      "monthEur": 80654,
+      "regNo": "1212233004",
+      "name": "СБР-НК ЕАД -филиал Св.Мина гр.Вършец",
+      "rzokCode": "12",
+      "rzokName": "Монтана",
+      "cumulativeEur": 477174,
+      "monthEur": 77361,
       "eik": null
     },
     {
@@ -2375,35 +2384,17 @@
       "name": "МЦ Верея ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 393184,
+      "cumulativeEur": 471963,
       "monthEur": 78779,
       "eik": "203738793"
-    },
-    {
-      "regNo": "1601232056",
-      "name": "СБР Света Богородица ЕООД -Нареченски бани",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 391567,
-      "monthEur": 94460,
-      "eik": null
-    },
-    {
-      "regNo": "2201211080",
-      "name": "МБАЛ \"Полимед\" ООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 383143,
-      "monthEur": 70461,
-      "eik": "200261536"
     },
     {
       "regNo": "0306391031",
       "name": "„Диализен център - Виртус медикал“ ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 382334,
-      "monthEur": 76268,
+      "cumulativeEur": 462738,
+      "monthEur": 80404,
       "eik": null
     },
     {
@@ -2411,17 +2402,26 @@
       "name": "СБАЛББ-Перник-ЕООД",
       "rzokCode": "14",
       "rzokName": "Перник",
-      "cumulativeEur": 375238,
-      "monthEur": 82743,
+      "cumulativeEur": 455682,
+      "monthEur": 80445,
       "eik": "113513064"
     },
     {
-      "regNo": "0735211004",
-      "name": "МБАЛ Д-р Теодоси Витанов ЕООД",
-      "rzokCode": "07",
-      "rzokName": "Габрово",
-      "cumulativeEur": 365281,
-      "monthEur": 73071,
+      "regNo": "2201211080",
+      "name": "МБАЛ \"Полимед\" ООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 452107,
+      "monthEur": 68964,
+      "eik": "200261536"
+    },
+    {
+      "regNo": "1637233021",
+      "name": "СБР НК ЕАД филиал Хисар",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 451809,
+      "monthEur": 93123,
       "eik": null
     },
     {
@@ -2429,7 +2429,7 @@
       "name": "СБПЛР \"Минерални бани\" ЕООД - Полски Тръмбеш",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 364382,
+      "cumulativeEur": 446132,
       "monthEur": 81750,
       "eik": "203650343"
     },
@@ -2438,17 +2438,8 @@
       "name": "СБАЛ СПЕЦИАЛ МЕДИК ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 364041,
-      "monthEur": 70106,
-      "eik": null
-    },
-    {
-      "regNo": "2730391012",
-      "name": "Дъчмед диализа България - диализен център Шумен ЕООД",
-      "rzokCode": "27",
-      "rzokName": "Шумен",
-      "cumulativeEur": 361475,
-      "monthEur": 71579,
+      "cumulativeEur": 439378,
+      "monthEur": 75337,
       "eik": null
     },
     {
@@ -2456,17 +2447,26 @@
       "name": "МБАЛ Св. Панталеймон АД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 360674,
+      "cumulativeEur": 439107,
       "monthEur": 78433,
       "eik": "130539054"
     },
     {
-      "regNo": "1637233021",
-      "name": "СБР НК ЕАД филиал Хисар",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 358686,
-      "monthEur": 93123,
+      "regNo": "0735211004",
+      "name": "МБАЛ Д-р Теодоси Витанов ЕООД",
+      "rzokCode": "07",
+      "rzokName": "Габрово",
+      "cumulativeEur": 432053,
+      "monthEur": 66771,
+      "eik": null
+    },
+    {
+      "regNo": "2730391012",
+      "name": "Дъчмед диализа България - диализен център Шумен ЕООД",
+      "rzokCode": "27",
+      "rzokName": "Шумен",
+      "cumulativeEur": 430753,
+      "monthEur": 69278,
       "eik": null
     },
     {
@@ -2474,8 +2474,8 @@
       "name": "Дъчмед Диализа България-ДЦ ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 354445,
-      "monthEur": 69406,
+      "cumulativeEur": 424362,
+      "monthEur": 69918,
       "eik": null
     },
     {
@@ -2483,7 +2483,7 @@
       "name": "СБР - БМБ ЕАД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 346670,
+      "cumulativeEur": 419639,
       "monthEur": 72969,
       "eik": "102659833"
     },
@@ -2492,8 +2492,8 @@
       "name": "СБАЛ Йоан Павел ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 343613,
-      "monthEur": 69861,
+      "cumulativeEur": 409515,
+      "monthEur": 65902,
       "eik": "131487151"
     },
     {
@@ -2501,8 +2501,8 @@
       "name": "„МБАЛ – Белене” ЕООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 339222,
-      "monthEur": 64589,
+      "cumulativeEur": 394565,
+      "monthEur": 55343,
       "eik": "114542439"
     },
     {
@@ -2510,35 +2510,44 @@
       "name": "СБАЛПФЗ - Стара Загора ЕООД",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 331216,
-      "monthEur": 66392,
+      "cumulativeEur": 393364,
+      "monthEur": 62148,
       "eik": "000812172"
+    },
+    {
+      "regNo": "2201211034",
+      "name": "Четвърта МБАЛ - София - ЕАД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 392442,
+      "monthEur": 94100,
+      "eik": null
     },
     {
       "regNo": "1308232020",
       "name": "СБР Вита ЕООД гр.Велинград",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 327986,
+      "cumulativeEur": 391188,
       "monthEur": 63202,
       "eik": "112531538"
-    },
-    {
-      "regNo": "0204391033",
-      "name": "Диализен център Ел Масри",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 322106,
-      "monthEur": 64038,
-      "eik": null
     },
     {
       "regNo": "2201222027",
       "name": "СБПЛРДЦП Св. София - ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 319425,
+      "cumulativeEur": 386119,
       "monthEur": 66694,
+      "eik": null
+    },
+    {
+      "regNo": "0204391033",
+      "name": "Диализен център Ел Масри",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 383843,
+      "monthEur": 61737,
       "eik": null
     },
     {
@@ -2546,8 +2555,8 @@
       "name": "СОБАЛ Вижън ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 319293,
-      "monthEur": 66414,
+      "cumulativeEur": 383148,
+      "monthEur": 63855,
       "eik": "175317154"
     },
     {
@@ -2555,35 +2564,26 @@
       "name": "СБАЛПФЗ-Пазарджик ЕООД гр.Пазарджик",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 315942,
+      "cumulativeEur": 379074,
       "monthEur": 63132,
       "eik": "000349201"
-    },
-    {
-      "regNo": "1432391012",
-      "name": "Диализен център-Перник",
-      "rzokCode": "14",
-      "rzokName": "Перник",
-      "cumulativeEur": 311114,
-      "monthEur": 64549,
-      "eik": null
     },
     {
       "regNo": "1029233006",
       "name": "СБР-НК ЕАД ф. Кюстендил",
       "rzokCode": "10",
       "rzokName": "Кюстендил",
-      "cumulativeEur": 308163,
+      "cumulativeEur": 378956,
       "monthEur": 70793,
       "eik": null
     },
     {
-      "regNo": "0915211004",
-      "name": "МБАЛ Живот+ ЕООД Крумовград",
-      "rzokCode": "09",
-      "rzokName": "Кърджали",
-      "cumulativeEur": 305823,
-      "monthEur": 60266,
+      "regNo": "1432391012",
+      "name": "Диализен център-Перник",
+      "rzokCode": "14",
+      "rzokName": "Перник",
+      "cumulativeEur": 374257,
+      "monthEur": 63143,
       "eik": null
     },
     {
@@ -2591,35 +2591,17 @@
       "name": "СБР- Витус ООД Хисаря",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 304035,
+      "cumulativeEur": 370857,
       "monthEur": 66822,
       "eik": "203788650"
     },
     {
-      "regNo": "2201211034",
-      "name": "Четвърта МБАЛ - София - ЕАД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 298343,
-      "monthEur": 0,
-      "eik": null
-    },
-    {
-      "regNo": "0290232001",
-      "name": "СБР Вита ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 294403,
-      "monthEur": 63145,
-      "eik": null
-    },
-    {
-      "regNo": "0306131071",
-      "name": "АМЦСМП - ОМЦ Св. Николай Чудотворец ЕООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 294183,
-      "monthEur": 60747,
+      "regNo": "0915211004",
+      "name": "МБАЛ Живот+ ЕООД Крумовград",
+      "rzokCode": "09",
+      "rzokName": "Кърджали",
+      "cumulativeEur": 365921,
+      "monthEur": 60098,
       "eik": null
     },
     {
@@ -2627,8 +2609,26 @@
       "name": "СБР-НК ЕАД, филиал Сандански",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 286275,
+      "cumulativeEur": 358473,
       "monthEur": 72198,
+      "eik": null
+    },
+    {
+      "regNo": "0290232001",
+      "name": "СБР Вита ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 355364,
+      "monthEur": 60961,
+      "eik": null
+    },
+    {
+      "regNo": "0306131071",
+      "name": "АМЦСМП - ОМЦ Св. Николай Чудотворец ЕООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 355066,
+      "monthEur": 60884,
       "eik": null
     },
     {
@@ -2636,17 +2636,26 @@
       "name": "СХБАЛ Професор Темелков ООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 285793,
+      "cumulativeEur": 343638,
       "monthEur": 57845,
       "eik": "103253312"
+    },
+    {
+      "regNo": "2290211001",
+      "name": "МБАЛ СВЕТИ ГЕОРГИ-ПЕРНИК ООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 339865,
+      "monthEur": 64109,
+      "eik": null
     },
     {
       "regNo": "2201212038",
       "name": "СБАЛ - Св. Лазар ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 284808,
-      "monthEur": 55276,
+      "cumulativeEur": 337416,
+      "monthEur": 52609,
       "eik": "831717011"
     },
     {
@@ -2654,80 +2663,53 @@
       "name": "МБАЛ Ардино ЕООД",
       "rzokCode": "09",
       "rzokName": "Кърджали",
-      "cumulativeEur": 281233,
-      "monthEur": 49882,
+      "cumulativeEur": 335486,
+      "monthEur": 54253,
       "eik": "108508788"
-    },
-    {
-      "regNo": "2290211001",
-      "name": "МБАЛ СВЕТИ ГЕОРГИ-ПЕРНИК ООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 275756,
-      "monthEur": 51104,
-      "eik": null
     },
     {
       "regNo": "2325233017",
       "name": "СБР - НК ЕАД филиал Момин проход",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 270970,
+      "cumulativeEur": 328441,
       "monthEur": 57471,
       "eik": null
-    },
-    {
-      "regNo": "0217211004",
-      "name": "МБАЛ - Поморие ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 264051,
-      "monthEur": 48755,
-      "eik": "102618523"
-    },
-    {
-      "regNo": "2301212023",
-      "name": "СБАЛПФЗ - София област ЕООД",
-      "rzokCode": "23",
-      "rzokName": "София област",
-      "cumulativeEur": 263360,
-      "monthEur": 51110,
-      "eik": "000770225"
-    },
-    {
-      "regNo": "0133232018",
-      "name": "СБР Петрич ЕООД",
-      "rzokCode": "01",
-      "rzokName": "Благоевград",
-      "cumulativeEur": 261846,
-      "monthEur": 11369,
-      "eik": "202516074"
     },
     {
       "regNo": "2020212012",
       "name": "СХБАЛ \"Амброаз Паре\" ООД",
       "rzokCode": "20",
       "rzokName": "Сливен",
-      "cumulativeEur": 260646,
-      "monthEur": 56726,
+      "cumulativeEur": 319989,
+      "monthEur": 59343,
       "eik": "119544675"
+    },
+    {
+      "regNo": "2301212023",
+      "name": "СБАЛПФЗ - София област ЕООД",
+      "rzokCode": "23",
+      "rzokName": "София област",
+      "cumulativeEur": 317710,
+      "monthEur": 54351,
+      "eik": "000770225"
+    },
+    {
+      "regNo": "0217211004",
+      "name": "МБАЛ - Поморие ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 316410,
+      "monthEur": 52359,
+      "eik": "102618523"
     },
     {
       "regNo": "0306131074",
       "name": "\"АМЦСМП-Очна клиника Св.Петка\" АД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 253616,
-      "monthEur": 51520,
-      "eik": null
-    },
-    {
-      "regNo": "1319391019",
-      "name": "ДЪЧМЕД ДИАЛИЗА БЪЛГАРИЯ - ДИАЛИЗЕН ЦЕНТЪР ЕООД",
-      "rzokCode": "13",
-      "rzokName": "Пазарджик",
-      "cumulativeEur": 242730,
-      "monthEur": 41414,
+      "cumulativeEur": 300739,
+      "monthEur": 47122,
       "eik": null
     },
     {
@@ -2735,8 +2717,44 @@
       "name": "СБНАЛ - Свети Лазар ЕООД гр. Казанлък",
       "rzokCode": "24",
       "rzokName": "Стара Загора",
-      "cumulativeEur": 236375,
-      "monthEur": 44330,
+      "cumulativeEur": 295767,
+      "monthEur": 59392,
+      "eik": null
+    },
+    {
+      "regNo": "1601233016",
+      "name": "СБР НК ЕАД филиал Нареченски бани",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 291520,
+      "monthEur": 75078,
+      "eik": null
+    },
+    {
+      "regNo": "1827212013",
+      "name": "СБАЛ ПО ФРМ - МЕДИКА - ООД",
+      "rzokCode": "18",
+      "rzokName": "Русе",
+      "cumulativeEur": 286291,
+      "monthEur": 51194,
+      "eik": null
+    },
+    {
+      "regNo": "2201232030",
+      "name": "БДПЛР - ВМА БАНКЯ",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 286014,
+      "monthEur": 58508,
+      "eik": "129000273"
+    },
+    {
+      "regNo": "1319391019",
+      "name": "ДЪЧМЕД ДИАЛИЗА БЪЛГАРИЯ - ДИАЛИЗЕН ЦЕНТЪР ЕООД",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 283633,
+      "monthEur": 40902,
       "eik": null
     },
     {
@@ -2744,25 +2762,16 @@
       "name": "МЦ Литомед ООД Пловдив",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 235371,
-      "monthEur": 47295,
+      "cumulativeEur": 282922,
+      "monthEur": 47551,
       "eik": "201675287"
-    },
-    {
-      "regNo": "1827212013",
-      "name": "СБАЛ ПО ФРМ - МЕДИКА - ООД",
-      "rzokCode": "18",
-      "rzokName": "Русе",
-      "cumulativeEur": 235096,
-      "monthEur": 50217,
-      "eik": null
     },
     {
       "regNo": "2723211002",
       "name": "МБАЛ ВЕЛИКИ ПРЕСЛАВ ЕООД",
       "rzokCode": "27",
       "rzokName": "Шумен",
-      "cumulativeEur": 234108,
+      "cumulativeEur": 281169,
       "monthEur": 47061,
       "eik": "127513804"
     },
@@ -2771,8 +2780,8 @@
       "name": "МБАЛ КАВАРНА ЕООД",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 233102,
-      "monthEur": 35800,
+      "cumulativeEur": 279269,
+      "monthEur": 46167,
       "eik": "124142404"
     },
     {
@@ -2780,35 +2789,35 @@
       "name": "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, ПРОДЪЛЖИТЕЛНО 48",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 230716,
+      "cumulativeEur": 279178,
       "monthEur": 462,
       "eik": null
-    },
-    {
-      "regNo": "2201232030",
-      "name": "БДПЛР - ВМА БАНКЯ",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 227506,
-      "monthEur": 58508,
-      "eik": "129000273"
     },
     {
       "regNo": "0828391015",
       "name": "ДЦ Диалхелп ЕООД",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 227173,
-      "monthEur": 47104,
+      "cumulativeEur": 270658,
+      "monthEur": 43485,
       "eik": null
+    },
+    {
+      "regNo": "0133232018",
+      "name": "СБР Петрич ЕООД",
+      "rzokCode": "01",
+      "rzokName": "Благоевград",
+      "cumulativeEur": 269915,
+      "monthEur": 8069,
+      "eik": "202516074"
     },
     {
       "regNo": "0509391009",
       "name": "Диализен център \"Омега\" ЕООД",
       "rzokCode": "05",
       "rzokName": "Видин",
-      "cumulativeEur": 220873,
-      "monthEur": 44737,
+      "cumulativeEur": 262926,
+      "monthEur": 42053,
       "eik": null
     },
     {
@@ -2816,17 +2825,17 @@
       "name": "СБАЛОБ ДЕН - ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 220327,
+      "cumulativeEur": 261818,
       "monthEur": 41491,
       "eik": null
     },
     {
-      "regNo": "1601233016",
-      "name": "СБР НК ЕАД филиал Нареченски бани",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 216442,
-      "monthEur": 71236,
+      "regNo": "0215391023",
+      "name": "Диализа Етропал Бета ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 248099,
+      "monthEur": 47549,
       "eik": null
     },
     {
@@ -2834,26 +2843,8 @@
       "name": "МЦО - Ресбиомед ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 212095,
-      "monthEur": 42007,
-      "eik": null
-    },
-    {
-      "regNo": "2201212039",
-      "name": "СБАЛОТ ВИТОША ЕООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 203218,
-      "monthEur": 39633,
-      "eik": "130467417"
-    },
-    {
-      "regNo": "0306391032",
-      "name": "ДЦ ХИПОКРАТ ЕООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 202595,
-      "monthEur": 40902,
+      "cumulativeEur": 247590,
+      "monthEur": 35495,
       "eik": null
     },
     {
@@ -2861,17 +2852,35 @@
       "name": "СОБАЛ Ралчовски Враца ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 202310,
-      "monthEur": 47973,
+      "cumulativeEur": 243769,
+      "monthEur": 41459,
       "eik": "106629912"
     },
     {
-      "regNo": "0215391023",
-      "name": "Диализа Етропал Бета ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 200550,
-      "monthEur": 42948,
+      "regNo": "2201212039",
+      "name": "СБАЛОТ ВИТОША ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 243299,
+      "monthEur": 40081,
+      "eik": "130467417"
+    },
+    {
+      "regNo": "2431131035",
+      "name": "ОМЦ Трошев ООД гр. Стара Загора",
+      "rzokCode": "24",
+      "rzokName": "Стара Загора",
+      "cumulativeEur": 242635,
+      "monthEur": 46743,
+      "eik": "200415548"
+    },
+    {
+      "regNo": "0306391032",
+      "name": "ДЦ ХИПОКРАТ ЕООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 242219,
+      "monthEur": 39624,
       "eik": null
     },
     {
@@ -2879,53 +2888,44 @@
       "name": "СБР ТУЗЛАТА ЕООД",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 198395,
+      "cumulativeEur": 239104,
       "monthEur": 40709,
       "eik": "124517480"
-    },
-    {
-      "regNo": "2431131035",
-      "name": "ОМЦ Трошев ООД гр. Стара Загора",
-      "rzokCode": "24",
-      "rzokName": "Стара Загора",
-      "cumulativeEur": 195893,
-      "monthEur": 35597,
-      "eik": "200415548"
-    },
-    {
-      "regNo": "0306131010",
-      "name": "АМЦСМП Света Петка ООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 191086,
-      "monthEur": 38925,
-      "eik": null
-    },
-    {
-      "regNo": "0501211002",
-      "name": "МБАЛ Проф. д-р Г. Златарски ЕООД Белоградчик",
-      "rzokCode": "05",
-      "rzokName": "Видин",
-      "cumulativeEur": 190972,
-      "monthEur": 40784,
-      "eik": "105515375"
     },
     {
       "regNo": "0133232006",
       "name": "СБР Марикостиново ЕООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 190410,
+      "cumulativeEur": 233734,
       "monthEur": 43324,
       "eik": "101510103"
+    },
+    {
+      "regNo": "0501211002",
+      "name": "МБАЛ Проф. д-р Г. Златарски ЕООД Белоградчик",
+      "rzokCode": "05",
+      "rzokName": "Видин",
+      "cumulativeEur": 231381,
+      "monthEur": 40409,
+      "eik": "105515375"
     },
     {
       "regNo": "0404232018",
       "name": "СБР по ФРМ - Димина ООД - с. Вонеща вода",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 186497,
-      "monthEur": 41864,
+      "cumulativeEur": 229385,
+      "monthEur": 42888,
+      "eik": null
+    },
+    {
+      "regNo": "0306131010",
+      "name": "АМЦСМП Света Петка ООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 228148,
+      "monthEur": 37061,
       "eik": null
     },
     {
@@ -2933,7 +2933,7 @@
       "name": "БДПЛР-МИ-МВР_София филиал Банкя",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 176734,
+      "cumulativeEur": 219101,
       "monthEur": 42367,
       "eik": null
     },
@@ -2942,7 +2942,7 @@
       "name": "МЦ Пентаграм 2012 ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 168749,
+      "cumulativeEur": 203024,
       "monthEur": 34275,
       "eik": "201827812"
     },
@@ -2951,26 +2951,35 @@
       "name": "СБПЛРВБ МЕЗДРА ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 167744,
-      "monthEur": 34654,
+      "cumulativeEur": 200335,
+      "monthEur": 32591,
       "eik": "000192383"
-    },
-    {
-      "regNo": "2619232019",
-      "name": "СБР Айлин ЕООД",
-      "rzokCode": "26",
-      "rzokName": "Хасково",
-      "cumulativeEur": 164432,
-      "monthEur": 34261,
-      "eik": null
     },
     {
       "regNo": "0428233013",
       "name": "СБР-НК ЕАД филиал Овча могила",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 159788,
+      "cumulativeEur": 199852,
       "monthEur": 40064,
+      "eik": null
+    },
+    {
+      "regNo": "2619232019",
+      "name": "СБР Айлин ЕООД",
+      "rzokCode": "26",
+      "rzokName": "Хасково",
+      "cumulativeEur": 198693,
+      "monthEur": 34261,
+      "eik": null
+    },
+    {
+      "regNo": "0204131030",
+      "name": "АМЦСМП“ОЧНА КЛИНИКА д-р ХУБАНОВ“ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 194535,
+      "monthEur": 37975,
       "eik": null
     },
     {
@@ -2978,26 +2987,17 @@
       "name": "МЦСМП Визус ЕООД - Горна Оряховица",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 157032,
-      "monthEur": 34697,
+      "cumulativeEur": 188501,
+      "monthEur": 31469,
       "eik": "104655851"
-    },
-    {
-      "regNo": "0204131030",
-      "name": "АМЦСМП“ОЧНА КЛИНИКА д-р ХУБАНОВ“ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 156560,
-      "monthEur": 26081,
-      "eik": null
     },
     {
       "regNo": "2201212017",
       "name": "СБАЛТОСМ - ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 155488,
-      "monthEur": 37118,
+      "cumulativeEur": 187981,
+      "monthEur": 32493,
       "eik": "831142169"
     },
     {
@@ -3005,8 +3005,8 @@
       "name": "МЦ ОКСИКОМ ООД",
       "rzokCode": "02",
       "rzokName": "Бургас",
-      "cumulativeEur": 154293,
-      "monthEur": 30462,
+      "cumulativeEur": 185099,
+      "monthEur": 30807,
       "eik": "102627700"
     },
     {
@@ -3014,8 +3014,8 @@
       "name": "МБДПЛР СЕРДИКА ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 152165,
-      "monthEur": 33032,
+      "cumulativeEur": 181955,
+      "monthEur": 29789,
       "eik": null
     },
     {
@@ -3023,26 +3023,35 @@
       "name": "СБДПЛР Любимец ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 139307,
+      "cumulativeEur": 170326,
       "monthEur": 31019,
       "eik": "126618510"
-    },
-    {
-      "regNo": "1521211004",
-      "name": "„МБАЛ – Никопол” ЕООД",
-      "rzokCode": "15",
-      "rzokName": "Плевен",
-      "cumulativeEur": 137329,
-      "monthEur": 26899,
-      "eik": "000410049"
     },
     {
       "regNo": "2011252017",
       "name": "СБР - Котел ЕООД",
       "rzokCode": "20",
       "rzokName": "Сливен",
-      "cumulativeEur": 136010,
-      "monthEur": 28150,
+      "cumulativeEur": 167128,
+      "monthEur": 31118,
+      "eik": null
+    },
+    {
+      "regNo": "1521211004",
+      "name": "„МБАЛ – Никопол” ЕООД",
+      "rzokCode": "15",
+      "rzokName": "Плевен",
+      "cumulativeEur": 162245,
+      "monthEur": 24916,
+      "eik": "000410049"
+    },
+    {
+      "regNo": "2201233087",
+      "name": "СБР - НК ЕАД филиал Банкя",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 149328,
+      "monthEur": 26193,
       "eik": null
     },
     {
@@ -3050,26 +3059,17 @@
       "name": "СБПЛР-Перник-ЕООД",
       "rzokCode": "14",
       "rzokName": "Перник",
-      "cumulativeEur": 129061,
-      "monthEur": 23487,
+      "cumulativeEur": 147393,
+      "monthEur": 18332,
       "eik": "203650343"
-    },
-    {
-      "regNo": "2201233087",
-      "name": "СБР - НК ЕАД филиал Банкя",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 123135,
-      "monthEur": 31343,
-      "eik": null
     },
     {
       "regNo": "2634131016",
       "name": "Очен медицински център Хасково ООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 120015,
-      "monthEur": 26655,
+      "cumulativeEur": 145695,
+      "monthEur": 25680,
       "eik": "203346454"
     },
     {
@@ -3077,7 +3077,7 @@
       "name": "СБР Медика - Албена",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 118388,
+      "cumulativeEur": 145115,
       "monthEur": 26727,
       "eik": "124618376"
     },
@@ -3086,8 +3086,8 @@
       "name": "ЦКВЗ - Велико Търново ЕООД",
       "rzokCode": "04",
       "rzokName": "Велико Търново",
-      "cumulativeEur": 116838,
-      "monthEur": 24503,
+      "cumulativeEur": 140165,
+      "monthEur": 23327,
       "eik": "104527481"
     },
     {
@@ -3095,8 +3095,17 @@
       "name": "МБПЛР - Стамболийски ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 114113,
-      "monthEur": 23514,
+      "cumulativeEur": 138126,
+      "monthEur": 24013,
+      "eik": null
+    },
+    {
+      "regNo": "0215232029",
+      "name": "СБР Мари ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 135379,
+      "monthEur": 31195,
       "eik": null
     },
     {
@@ -3104,26 +3113,17 @@
       "name": "СБАЛГАР- Д-Р МАЛИНОВ ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 113789,
-      "monthEur": 22671,
+      "cumulativeEur": 135224,
+      "monthEur": 21435,
       "eik": "131187321"
-    },
-    {
-      "regNo": "0215232029",
-      "name": "СБР Мари ЕООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 104184,
-      "monthEur": 31195,
-      "eik": null
     },
     {
       "regNo": "2730131021",
       "name": "МЦОБ д-р Маринови ООД",
       "rzokCode": "27",
       "rzokName": "Шумен",
-      "cumulativeEur": 99283,
-      "monthEur": 20453,
+      "cumulativeEur": 124732,
+      "monthEur": 25449,
       "eik": "205475063"
     },
     {
@@ -3131,8 +3131,8 @@
       "name": "МБПЛ Иван Раев Сопот ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 95496,
-      "monthEur": 20003,
+      "cumulativeEur": 115475,
+      "monthEur": 19979,
       "eik": null
     },
     {
@@ -3140,8 +3140,8 @@
       "name": "ЦКВЗ Враца ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 93928,
-      "monthEur": 19218,
+      "cumulativeEur": 113015,
+      "monthEur": 19087,
       "eik": "000190090"
     },
     {
@@ -3149,8 +3149,8 @@
       "name": "СОБАЛ ВИЗУС ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 92384,
-      "monthEur": 18432,
+      "cumulativeEur": 111837,
+      "monthEur": 19453,
       "eik": "175279629"
     },
     {
@@ -3158,7 +3158,7 @@
       "name": "СБАЛОБ ПРОСПЕРИТАС ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 78002,
+      "cumulativeEur": 93574,
       "monthEur": 15572,
       "eik": "175172463"
     },
@@ -3167,7 +3167,7 @@
       "name": "АСМП – МЦ „Окулус-Кушинова” ЕООД",
       "rzokCode": "15",
       "rzokName": "Плевен",
-      "cumulativeEur": 70182,
+      "cumulativeEur": 83799,
       "monthEur": 13617,
       "eik": null
     },
@@ -3176,7 +3176,7 @@
       "name": "МЦ Луксор ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 69075,
+      "cumulativeEur": 83106,
       "monthEur": 14031,
       "eik": null
     },
@@ -3185,8 +3185,8 @@
       "name": "СБАЛВБ Тополовград ЕООД",
       "rzokCode": "26",
       "rzokName": "Хасково",
-      "cumulativeEur": 63269,
-      "monthEur": 11629,
+      "cumulativeEur": 76448,
+      "monthEur": 13180,
       "eik": "000967532"
     },
     {
@@ -3194,8 +3194,8 @@
       "name": "МЦ за очно здраве Виста ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 60489,
-      "monthEur": 12402,
+      "cumulativeEur": 74828,
+      "monthEur": 14339,
       "eik": null
     },
     {
@@ -3203,7 +3203,7 @@
       "name": "МЦ Надежда ООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 58591,
+      "cumulativeEur": 70391,
       "monthEur": 11800,
       "eik": "101615428"
     },
@@ -3212,8 +3212,8 @@
       "name": "МЦ за очно здраве Фокус ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 57950,
-      "monthEur": 12602,
+      "cumulativeEur": 69906,
+      "monthEur": 11956,
       "eik": "202999819"
     },
     {
@@ -3221,7 +3221,7 @@
       "name": "ДКЦ 2 Добрич",
       "rzokCode": "08",
       "rzokName": "Добрич",
-      "cumulativeEur": 56673,
+      "cumulativeEur": 67724,
       "monthEur": 11051,
       "eik": null
     },
@@ -3230,62 +3230,62 @@
       "name": "МДЦ Неврокоп ООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 52183,
+      "cumulativeEur": 62619,
       "monthEur": 10437,
       "eik": null
-    },
-    {
-      "regNo": "1622333018",
-      "name": "ЦКВЗ Пловдив ЕООД",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 50192,
-      "monthEur": 8410,
-      "eik": null
-    },
-    {
-      "regNo": "2634131024",
-      "name": "МЦ Уролоджия ЕООД",
-      "rzokCode": "26",
-      "rzokName": "Хасково",
-      "cumulativeEur": 47631,
-      "monthEur": 9878,
-      "eik": "207860969"
-    },
-    {
-      "regNo": "0306212011",
-      "name": "СОБАЛ - доц. Георгиев ЕООД",
-      "rzokCode": "03",
-      "rzokName": "Варна",
-      "cumulativeEur": 47402,
-      "monthEur": 9708,
-      "eik": "103263000"
     },
     {
       "regNo": "0306131078",
       "name": "\"Аджибадем Сити Клиник Медицински център Варна\"ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 47040,
-      "monthEur": 11249,
+      "cumulativeEur": 57777,
+      "monthEur": 10737,
       "eik": "148018742"
+    },
+    {
+      "regNo": "0306212011",
+      "name": "СОБАЛ - доц. Георгиев ЕООД",
+      "rzokCode": "03",
+      "rzokName": "Варна",
+      "cumulativeEur": 56625,
+      "monthEur": 9223,
+      "eik": "103263000"
+    },
+    {
+      "regNo": "1622333018",
+      "name": "ЦКВЗ Пловдив ЕООД",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 55369,
+      "monthEur": 5177,
+      "eik": null
     },
     {
       "regNo": "0103131013",
       "name": "МЦ Визио ЛМ ООД",
       "rzokCode": "01",
       "rzokName": "Благоевград",
-      "cumulativeEur": 45644,
-      "monthEur": 9913,
+      "cumulativeEur": 54676,
+      "monthEur": 9032,
       "eik": "201409742"
+    },
+    {
+      "regNo": "2634131024",
+      "name": "МЦ Уролоджия ЕООД",
+      "rzokCode": "26",
+      "rzokName": "Хасково",
+      "cumulativeEur": 54503,
+      "monthEur": 6872,
+      "eik": "207860969"
     },
     {
       "regNo": "0314211005",
       "name": "МБАЛ- Девня ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 38768,
-      "monthEur": 8660,
+      "cumulativeEur": 46767,
+      "monthEur": 7999,
       "eik": "000092550"
     },
     {
@@ -3293,8 +3293,8 @@
       "name": "МЦ \"Мария Магдалена\" ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 38225,
-      "monthEur": 7689,
+      "cumulativeEur": 45978,
+      "monthEur": 7753,
       "eik": "202896872"
     },
     {
@@ -3302,7 +3302,7 @@
       "name": "ДКЦ НЕОКЛИНИК ЕАД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 36559,
+      "cumulativeEur": 44101,
       "monthEur": 7542,
       "eik": "203578986"
     },
@@ -3311,8 +3311,8 @@
       "name": "СБАЛОБ ЗРЕНИЕ ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 35847,
-      "monthEur": 7919,
+      "cumulativeEur": 42540,
+      "monthEur": 6693,
       "eik": "175403781"
     },
     {
@@ -3320,16 +3320,25 @@
       "name": "МДЦ Трио ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 35757,
+      "cumulativeEur": 42522,
       "monthEur": 6765,
       "eik": null
+    },
+    {
+      "regNo": "1048131004",
+      "name": "МЦ Хипократ ООД гр. Дупница",
+      "rzokCode": "10",
+      "rzokName": "Кюстендил",
+      "cumulativeEur": 41826,
+      "monthEur": 8992,
+      "eik": "201371373"
     },
     {
       "regNo": "2201222024",
       "name": "СБПЛР - Кремиковци ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 33626,
+      "cumulativeEur": 40493,
       "monthEur": 6867,
       "eik": null
     },
@@ -3338,26 +3347,17 @@
       "name": "СБПЛР - Костенец ЕООД",
       "rzokCode": "23",
       "rzokName": "София област",
-      "cumulativeEur": 33043,
+      "cumulativeEur": 39958,
       "monthEur": 6916,
       "eik": null
-    },
-    {
-      "regNo": "1048131004",
-      "name": "МЦ Хипократ ООД гр. Дупница",
-      "rzokCode": "10",
-      "rzokName": "Кюстендил",
-      "cumulativeEur": 32834,
-      "monthEur": 5015,
-      "eik": "201371373"
     },
     {
       "regNo": "1622131104",
       "name": "МЦ АВАНГАРД I ООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 31787,
-      "monthEur": 6805,
+      "cumulativeEur": 37497,
+      "monthEur": 5710,
       "eik": "206330409"
     },
     {
@@ -3365,8 +3365,8 @@
       "name": "СБПЛББ Роман ЕООД",
       "rzokCode": "06",
       "rzokName": "Враца",
-      "cumulativeEur": 28574,
-      "monthEur": 5635,
+      "cumulativeEur": 34722,
+      "monthEur": 6147,
       "eik": "106519070"
     },
     {
@@ -3374,62 +3374,8 @@
       "name": "СБАЛОЗ Кристал ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 26586,
-      "monthEur": 2180,
-      "eik": null
-    },
-    {
-      "regNo": "2210134002",
-      "name": "ДКЦ- 14- София- ЕООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 21948,
-      "monthEur": 5218,
-      "eik": null
-    },
-    {
-      "regNo": "0204131018",
-      "name": "МЦСП Д-р Иванови-Младост ООД",
-      "rzokCode": "02",
-      "rzokName": "Бургас",
-      "cumulativeEur": 20510,
-      "monthEur": 4138,
-      "eik": "102891276"
-    },
-    {
-      "regNo": "1726131005",
-      "name": "МЦ Вита Медика ЕООД",
-      "rzokCode": "17",
-      "rzokName": "Разград",
-      "cumulativeEur": 19491,
-      "monthEur": 2608,
-      "eik": null
-    },
-    {
-      "regNo": "0828134001",
-      "name": "ДКЦ 1 Добрич",
-      "rzokCode": "08",
-      "rzokName": "Добрич",
-      "cumulativeEur": 18143,
-      "monthEur": 3812,
-      "eik": "124140855"
-    },
-    {
-      "regNo": "1613131004",
-      "name": "МЦ ВИТАМЕД ЕООД Карлово",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 17648,
-      "monthEur": 2492,
-      "eik": "115811006"
-    },
-    {
-      "regNo": "1524134003",
-      "name": "„ДКЦ ІІ – Плевен” ЕООД",
-      "rzokCode": "15",
-      "rzokName": "Плевен",
-      "cumulativeEur": 17640,
-      "monthEur": 3114,
+      "cumulativeEur": 32942,
+      "monthEur": 6357,
       "eik": null
     },
     {
@@ -3437,17 +3383,71 @@
       "name": "МЦ РВД ЗДРАВЕ ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 17640,
-      "monthEur": 0,
+      "cumulativeEur": 32722,
+      "monthEur": 15082,
       "eik": "175339962"
+    },
+    {
+      "regNo": "2210134002",
+      "name": "ДКЦ- 14- София- ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 26234,
+      "monthEur": 4286,
+      "eik": null
+    },
+    {
+      "regNo": "1726131005",
+      "name": "МЦ Вита Медика ЕООД",
+      "rzokCode": "17",
+      "rzokName": "Разград",
+      "cumulativeEur": 22354,
+      "monthEur": 2863,
+      "eik": null
+    },
+    {
+      "regNo": "1613131004",
+      "name": "МЦ ВИТАМЕД ЕООД Карлово",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 22319,
+      "monthEur": 4672,
+      "eik": "115811006"
+    },
+    {
+      "regNo": "0828134001",
+      "name": "ДКЦ 1 Добрич",
+      "rzokCode": "08",
+      "rzokName": "Добрич",
+      "cumulativeEur": 21763,
+      "monthEur": 3619,
+      "eik": "124140855"
+    },
+    {
+      "regNo": "0204131018",
+      "name": "МЦСП Д-р Иванови-Младост ООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 21261,
+      "monthEur": 751,
+      "eik": "102891276"
+    },
+    {
+      "regNo": "1524134003",
+      "name": "„ДКЦ ІІ – Плевен” ЕООД",
+      "rzokCode": "15",
+      "rzokName": "Плевен",
+      "cumulativeEur": 21066,
+      "monthEur": 3426,
+      "eik": null
     },
     {
       "regNo": "2201222026",
       "name": "СБПЛР ПАНЧАРЕВО ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 17285,
-      "monthEur": 4555,
+      "cumulativeEur": 20816,
+      "monthEur": 3531,
       "eik": null
     },
     {
@@ -3455,8 +3455,8 @@
       "name": "МЦ Здраве Разград ООД",
       "rzokCode": "17",
       "rzokName": "Разград",
-      "cumulativeEur": 15383,
-      "monthEur": 3315,
+      "cumulativeEur": 18240,
+      "monthEur": 2858,
       "eik": null
     },
     {
@@ -3464,7 +3464,7 @@
       "name": "АСИП-МЦ ЕВРОХОСПИТАЛ ПЛОВДИВ ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 14909,
+      "cumulativeEur": 17891,
       "monthEur": 2982,
       "eik": null
     },
@@ -3473,8 +3473,8 @@
       "name": "ДКЦ 1 - Ямбол ЕООД гр. Ямбол",
       "rzokCode": "28",
       "rzokName": "Ямбол",
-      "cumulativeEur": 12498,
-      "monthEur": 2485,
+      "cumulativeEur": 15038,
+      "monthEur": 2539,
       "eik": "128057410"
     },
     {
@@ -3482,8 +3482,8 @@
       "name": "МЦ Ре Спиро ООД",
       "rzokCode": "17",
       "rzokName": "Разград",
-      "cumulativeEur": 12157,
-      "monthEur": 2238,
+      "cumulativeEur": 14177,
+      "monthEur": 2019,
       "eik": "203218275"
     },
     {
@@ -3491,8 +3491,8 @@
       "name": "СБПЛРПФЗ Св. Петка Българска ЕООД гр.Велинград",
       "rzokCode": "13",
       "rzokName": "Пазарджик",
-      "cumulativeEur": 11782,
-      "monthEur": 3074,
+      "cumulativeEur": 14088,
+      "monthEur": 2305,
       "eik": null
     },
     {
@@ -3500,7 +3500,7 @@
       "name": "МЦ Д-р Никола Василиев ЕООД",
       "rzokCode": "10",
       "rzokName": "Кюстендил",
-      "cumulativeEur": 9756,
+      "cumulativeEur": 11838,
       "monthEur": 2082,
       "eik": "109530392"
     },
@@ -3509,7 +3509,7 @@
       "name": "МДЦ ВИЗИОДЕНТ ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 9438,
+      "cumulativeEur": 11741,
       "monthEur": 2303,
       "eik": null
     },
@@ -3518,8 +3518,8 @@
       "name": "СБПЛР - Бухово ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 8649,
-      "monthEur": 2414,
+      "cumulativeEur": 10383,
+      "monthEur": 1734,
       "eik": null
     },
     {
@@ -3527,53 +3527,53 @@
       "name": "МЦ БАЛКАНМЕД ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 8565,
-      "monthEur": 1023,
+      "cumulativeEur": 9843,
+      "monthEur": 1278,
       "eik": null
-    },
-    {
-      "regNo": "2202131522",
-      "name": "ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ООД",
-      "rzokCode": "22",
-      "rzokName": "София град",
-      "cumulativeEur": 7621,
-      "monthEur": 1417,
-      "eik": "130484427"
-    },
-    {
-      "regNo": "1118131004",
-      "name": "МЦ Ловеч ЕООД",
-      "rzokCode": "11",
-      "rzokName": "Ловеч",
-      "cumulativeEur": 7179,
-      "monthEur": 1726,
-      "eik": "110530756"
-    },
-    {
-      "regNo": "1625131001",
-      "name": "МЦ Света Елисавета Раковски ЕООД",
-      "rzokCode": "16",
-      "rzokName": "Пловдив",
-      "cumulativeEur": 7124,
-      "monthEur": 1449,
-      "eik": "115524159"
     },
     {
       "regNo": "2209131537",
       "name": "МЦ БЕТА КЛИНИК ООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 6584,
-      "monthEur": 6460,
+      "cumulativeEur": 9442,
+      "monthEur": 2858,
       "eik": "205436270"
+    },
+    {
+      "regNo": "2202131522",
+      "name": "ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 9038,
+      "monthEur": 1417,
+      "eik": "130484427"
+    },
+    {
+      "regNo": "1625131001",
+      "name": "МЦ Света Елисавета Раковски ЕООД",
+      "rzokCode": "16",
+      "rzokName": "Пловдив",
+      "cumulativeEur": 8573,
+      "monthEur": 1449,
+      "eik": "115524159"
+    },
+    {
+      "regNo": "1118131004",
+      "name": "МЦ Ловеч ЕООД",
+      "rzokCode": "11",
+      "rzokName": "Ловеч",
+      "cumulativeEur": 8297,
+      "monthEur": 1118,
+      "eik": "110530756"
     },
     {
       "regNo": "2205131519",
       "name": "МЦ СВЕТЛИНА ЕООД",
       "rzokCode": "22",
       "rzokName": "София град",
-      "cumulativeEur": 3789,
-      "monthEur": 706,
+      "cumulativeEur": 4627,
+      "monthEur": 838,
       "eik": "205660674"
     },
     {
@@ -3581,17 +3581,8 @@
       "name": "АМЦСМП Света Петка Ай Кеър ЕООД",
       "rzokCode": "03",
       "rzokName": "Варна",
-      "cumulativeEur": 3426,
+      "cumulativeEur": 4049,
       "monthEur": 623,
-      "eik": null
-    },
-    {
-      "regNo": "0610131005",
-      "name": "МЦ Света Ана ООД",
-      "rzokCode": "06",
-      "rzokName": "Враца",
-      "cumulativeEur": 2361,
-      "monthEur": 373,
       "eik": null
     },
     {
@@ -3599,9 +3590,18 @@
       "name": "МЦ 1- Стамболийски ЕООД",
       "rzokCode": "16",
       "rzokName": "Пловдив",
-      "cumulativeEur": 2154,
-      "monthEur": 373,
+      "cumulativeEur": 3024,
+      "monthEur": 870,
       "eik": "115343340"
+    },
+    {
+      "regNo": "0610131005",
+      "name": "МЦ Света Ана ООД",
+      "rzokCode": "06",
+      "rzokName": "Враца",
+      "cumulativeEur": 2361,
+      "monthEur": 0,
+      "eik": null
     },
     {
       "regNo": "0916211009",
@@ -3609,6 +3609,105 @@
       "rzokCode": "09",
       "rzokName": "Кърджали",
       "cumulativeEur": 944,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "0204134004",
+      "name": "ДКЦ СВ. Георги Победоносец ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "0204331011",
+      "name": "ЦПЗ Проф.И.Темков ЕООД",
+      "rzokCode": "02",
+      "rzokName": "Бургас",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "1048131001",
+      "name": "МЦ Асклепий ООД",
+      "rzokCode": "10",
+      "rzokName": "Кюстендил",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "1308211004",
+      "name": "МБАЛ-Велинград ЕООД гр.Велинград",
+      "rzokCode": "13",
+      "rzokName": "Пазарджик",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "1524211018",
+      "name": "МБАЛ Св. Параскева ООД",
+      "rzokCode": "15",
+      "rzokName": "Плевен",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "1827391020",
+      "name": "ДИАЛИЗЕН ЦЕНТЪР РУРИКОМ ООД",
+      "rzokCode": "18",
+      "rzokName": "Русе",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "2201252113",
+      "name": "СБРПЛ Блокс ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "2201331047",
+      "name": "ЦПЗ \"Проф. Н. Шипковенски\" ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "2210131569",
+      "name": "АСМП МЦ \"Просперитас\" ООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "2217134501",
+      "name": "ДКЦ Св. София ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 0,
+      "monthEur": 0,
+      "eik": null
+    },
+    {
+      "regNo": "2220134001",
+      "name": "ДКЦ ХХХ- София ЕООД",
+      "rzokCode": "22",
+      "rzokName": "София град",
+      "cumulativeEur": 0,
       "monthEur": 0,
       "eik": null
     }

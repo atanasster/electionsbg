@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-05T13:35:27.056Z",
+  "lastSuccessfulIngest": "2026-08-06T22:32:47.403Z",
   "skill": "update-nzok",
-  "summary": "bootstrap: nzok_nrd_tariffs watcher baseline (first run, 5 НРД links), no run"
+  "summary": "hospital payments → 2026-06: 392 facilities, YTD €1,133,079,164; parser fix (optional ordinal) recovered 5 zero-read paid rows + €1,008,597, whole 2023→ series re-parsed; 18,679 rows / 101 months in PG"
 }
