@@ -1,0 +1,298 @@
+---
+name: dashboard-hub
+description: Build or rework a module front page (a "hub") — the tile-grid landing that fronts a topic's sub-pages, like /parliament, /procurement or /governance/sectors. Covers the whole shape: the tile registry, bespoke SVG scenes, the ONE small precomputed stat blob that replaces per-tile artifact fetches, band structure and naming, destination reachability, and the gates that keep every figure honest. Use when the user asks to build a hub / module landing / dashboard front page for a topic, to restructure an existing hub's tiles or sections, to add a tile, or to cut a hub's payload. Encodes the defect classes this pattern reliably produces — undeclared bases, figures that are arithmetically right and false as a sentence, seeded destinations, dead links, and captions that describe a different chart.
+allowed-tools:
+  - Read
+  - Bash
+  - Edit
+  - Write
+  - Agent
+  - Skill
+---
+
+# Dashboard hub skill
+
+A **hub** is a module's front page: a short intro, optionally a hero and a news
+band, then bands of `InfographicTile`s that front the module's sub-pages. `/parliament`
+is the worked example; `/procurement`, `/governance/sectors` and the analysis hub are the
+same shape.
+
+This skill is mostly about **what goes wrong**. The layout is easy. Every hub built on this
+pattern has shipped the same defects, and they share one signature: **a figure that is
+arithmetically correct and, read as a sentence, false.** Those survive code review, survive
+tests written from the same misunderstanding, and are caught by comparing against an
+artifact you did not write — or by looking at the rendered page.
+
+---
+
+## 0. Before writing anything: measure the numbers you intend to show
+
+Do this first, in a scratch script against the real corpus. Not from the plan, not from a
+doc, not from a previous tile.
+
+For **every** figure a tile will display, write down:
+
+- the number,
+- **the denominator**, and
+- the other defensible answers to the same question.
+
+This is not ceremony. On the parliament hub there were three defensible answers to "how
+many votes were there" (raw / post-dedupe / titled — 1,263 / 1,198 / 1,157) and three to
+"what is attendance" (simple mean 70.2% / weighted 73.2% / over full-term members 73.6%).
+An earlier draft picked a different one per tile by accident and **six of six figures were
+wrong**, each for a different reason.
+
+A figure whose basis you cannot state in one clause is not ready to ship.
+
+### The specific traps, all of which have shipped
+
+| Trap | What it looks like | The rule |
+|---|---|---|
+| **Corpus total on a scoped hub** | `613 заседания` on a page scoped to one parliament (real answer: 39) | Scope every figure to the page's selector |
+| **Destination counts a different set** | Tile says `240` and lands on a page listing 2,120 | Lead with the DESTINATION's basis, or show no figure |
+| **Sums of votes read as headcounts** | `за 15 961` in a chamber of 240 — votes summed over 219 items | Express as SHARES, from the same function that draws the pixels |
+| **A mean labelled as a minimum** | `0,94 средна кохезия` where 0.94 was the min and the mean was 0.970 | Two numbers, two labels; never one number wearing both |
+| **A projection quoted as the roll** | Map tile says 270 members; the map plots 255 | Quote what the destination DRAWS |
+| **Structural zero** | `Общини 0` under an MP filter | Hide a figure that cannot vary; do not print 0 |
+| **Undeclared "not derivable"** | `0% присъствие` on a day with no roll call | NULL means "cannot derive"; render it as absent, never as 0 |
+
+**Corollary that has bitten twice:** if a number is computed in two places, it will drift.
+Compute it ONCE and have both consumers read that. Where two implementations are
+unavoidable (SQL for a route, TypeScript for a fallback — a route cannot import TS), write
+the gate that re-derives one from the other over the WHOLE corpus, and verify the gate fails
+by breaking each clause in turn.
+
+---
+
+## 1. The payload rule
+
+A hub must not fetch the module's full artifacts to render preview numbers. The parliament
+hub's seven mini-tiles pulled **~1.65 MB** between them to draw three rows each.
+
+**One small precomputed blob, keyed by the page's selector.**
+
+```
+derived/hub_stats.json        all keys · numbers, coverage, seeds   ~6 KB · always fetched
+derived/hub_feed/<key>.json   prose + per-key detail                ~8 KB · on demand
+```
+
+Split when the second file carries **text**. Titles in the always-fetched blob multiply by
+the number of keys and every visitor downloads the ones they will never read.
+
+Rules that have each been learned the hard way:
+
+- **Generate the blob from the objects the pipeline ALREADY HAS IN MEMORY**, at the end of
+  its run — not by re-reading the files it just wrote. Sharing the object is what makes it
+  impossible for the hub's numbers to drift from the sub-pages'.
+- **Budget it, and gate the budget.** Without a ceiling it regrows to the full artifact the
+  first time someone adds a field carrying detail.
+- **The artifact carries source text and numbers. No glue prose, no URLs.** Prose belongs in
+  i18n or the English hub becomes the Bulgarian one with English headings. URLs belong to
+  the SPA's slug helpers, or the generator keeps emitting the old shape after the rule moves
+  — green on both sides.
+- **`undefined` for an uncovered key is an ANSWER, not a loading state.** Selectors commonly
+  map to keys with no data; render the named empty state, not a grid of zeroes.
+- **Wire it into the pipeline's `--upload` branch** and gate that generically: *every file
+  the generator writes appears in its upload list*. An artifact missing from it is
+  regenerated locally, committed, and never uploaded — green everywhere, stale on prod.
+- **A shared type gets ONE declaration.** Two hand-copied halves drifted on a nullability
+  within a single review cycle. Put it on the `src/` side and import it from `scripts/`.
+
+---
+
+## 2. The three files
+
+```
+src/screens/<topic>/<topic>Registry.ts    pure data, no JSX
+src/screens/<topic>/<topic>Scenes.tsx     id → SVG scene (needs the react-refresh disable)
+src/screens/<Topic>HubScreen.tsx          composition
+```
+
+**The registry is data.** Each tile: `id`, `titleKey`, `descKey`, `to`, `accent`. Bands carry
+a `labelKey` and their tiles.
+
+**Every tile id needs a scene.** `InfographicTile` renders `<Scene />` unguarded, so a
+missing one is `undefined` as a component type — "Element type is invalid" and a white
+screen, not a blank vignette. Add a DEV console guard and a commit-time gate.
+
+**Scenes are bespoke, 300×116, `currentColor` ink + `var(--sector)` accent.** Draw the thing
+the tile is about — a hemicycle, a matrix, an ego graph. A scene that draws the actual
+structure (the matrix's diagonal, the strip's gaps) is worth the effort; generic bars are
+not.
+
+**Accents are unique per PAGE.** All bands render together, so a repeat reads as "these two
+tiles are the same kind of thing". Gate it.
+
+---
+
+## 3. Bands
+
+**Name a band for what is in it.** „Разгледай" (Explore) and „Още" (More) are an instruction
+and a leftover. „Още" is the worse of the two — it announces only that the band above it
+mattered more, so everything under it reads as offcuts.
+
+Name them for the question they answer: „В залата" / „Кой с кого гласува" / „Депутатите
+извън залата". A hub's headings are its table of contents.
+
+**Balance to the grid.** It is 4 columns at `xl`, so a five-tile band strands one tile alone
+on its own row. 4/3/4 beats 3/3/5. Check the rendered grid, not the array length.
+
+**Order within a band by measured demand** where you have analytics, and say so in a comment
+— otherwise the order encodes nothing and the next person reshuffles it.
+
+**No per-tile CTA.** The whole card is the link and already has a hover state; „разгледай →"
+repeated eleven times is one affordance restated. Keep the `cta` prop for the rare tile whose
+action is genuinely different ("Създай досие" — create, not open).
+
+---
+
+## 4. Destinations
+
+Three tests, in order. Each has failed in production.
+
+1. **Routed.** `grep` the path in `routes.tsx`. A tile pointing at a page that does not
+   exist is a dead link that no type system catches. Keep the allowed list as LITERALS in a
+   gate so a new destination has to be declared and a deleted route breaks loudly.
+2. **Reachable.** Every sub-page the module owns must be linked from the hub, or it is an
+   orphan nothing indexes.
+3. **Crawlable.** A routed SPA path with no prerender entry serves the shell — so to a
+   crawler it is a duplicate of the homepage. Add a `staticPage` entry and verify
+   `dist/<path>/index.html` exists after the build. **Do not prerender per-entity
+   parameterised routes** (2,120 members = 2,120 files against a ceiling on file COUNT);
+   prerender the PICKER instead.
+
+### Seeded destinations are a smell — prefer a picker
+
+A tile pointing at `/x/:id` needs a seed the generator picks, which means:
+
+- the reader lands on **a subject somebody else chose**, with no way to reach their own;
+- the tile **omits itself entirely** whenever the generator produced no seed.
+
+Build `/x` as a picker page beside `/x/:id`, point the tile there, and **keep the picker on
+screen after a choice** — comparison means switching subjects repeatedly, and a picker you
+must navigate back to is one you use once.
+
+If you keep the seeded machinery for a future tile, keep it TESTED against a synthetic tile.
+The case that matters is the ABSENT seed: an omitted tile is honest, a tile rendered with a
+raw `:param` in its href is a dead link that also passes any "destination is absolute" check.
+
+---
+
+## 5. Rendering rules that keep being violated
+
+**Calendar days are formatted in UTC.** `new Date("2026-07-31T00:00:00Z")` through an
+`Intl.DateTimeFormat` with no `timeZone` renders "30 юли" for every reader west of UTC — so
+a label and the URL it links to disagree by a day. This shipped on 613 pages and in six more
+files found by sweep. Use the shared day-label hook; keep the repo-wide grep gate.
+
+**A caption describes what is drawn, in the mode it is drawn in.** A caption outside a
+mode branch will describe the other mode. A caption promising an interaction ("click a cell")
+must be deleted or made true.
+
+**An affordance exists or it does not.** Render a `<button>` when a cell acts and a plain
+element when it does not; do not give every cell a button role and have a third do nothing.
+Use the repo's `focus-visible:ring-*` — an `outline-transparent hover:outline` trick
+overrides the UA focus ring and leaves keyboard users with no indicator.
+
+**A chart's colour scale must measure the thing the title names.** A "bridge between groups"
+matrix scaled on its diagonal is a chart about group size. Exclude the diagonal from the
+ramp, draw it in neutral ink, and keep it — it is worth reading, it is just not the ranked
+quantity.
+
+**A count that links somewhere must be nameable there.** A card saying "50 of 240 MPs did
+not vote" that lands on a page which cannot name the fifty is worse than no card.
+
+**Never name individuals on an arbitrary tie-break.** Ranking people by a value that ties
+(everyone who missed a 5-item sitting missed all five) sorts by whatever the comparator falls
+back on — an id. Publish the aggregate instead, and link to where the names are.
+
+---
+
+## 6. Postgres-backed routes
+
+If a tile's destination or the hub itself reads `/api/db/*`:
+
+- **Degrade on `42P01 · 55000 · 42501 · 55P03`. Never on `57014`.** `55000` is a matview
+  created `WITH NO DATA` — the first cloud deploy. `57014` is the pool's own timeout: the
+  probe has already burned the budget and the fallback cannot finish either.
+- **A missing GRANT on a plain TABLE is permanent**, not a refresh artifact, so `42501` must
+  500 there rather than serve an empty page for ever.
+- **Log the miss once per process** with the loader to run. That log, not latency, is how an
+  operator learns the cloud loader never ran.
+- **Keep the static fallback** where one exists, and make the query function return `null`
+  on ANY failure including a **thrown** one — `!r.ok` alone leaves React Query settling with
+  `undefined`, so a fallback gated on `=== null` is unreachable.
+- **Nothing above ~2,000 buffers is served live.** Measure with `EXPLAIN (ANALYZE, BUFFERS)`
+  on the WORST key, not the current one.
+- **Rank each tier in SQL.** Ranking once and filtering afterwards silently empties the
+  narrower tier: measured, ZERO of a trailing week's rows appeared in a global top-200.
+
+---
+
+## 7. Gates to write
+
+Not optional, and each exists because its absence shipped something:
+
+| Gate | Catches |
+|---|---|
+| Every tile id has a scene | White screen |
+| Every `to` is absolute AND in the routed list | Dead links |
+| Every sub-page is a hub destination | Orphans |
+| No accent twice on the page | "These are the same kind of thing" |
+| Blob under its byte budget | Regrowth to the full artifact |
+| Blob's keys == the shard files present | A hub with tiles and no detail |
+| Every figure recomputed from its declared basis | The six-of-six class |
+| Every written file appears in `--upload` | Green locally, stale on prod |
+| Calendar days formatted in UTC | Off-by-one dates |
+
+**Then check the gate can fail.** Break each clause and watch it fire. In this pattern's
+history: a gate asserted `max(id) >= count(*)`, true of any gap-free sequence — the very
+symptom it named; another matched a `timeZone: "UTC"` string inside the COMMENT explaining
+the fix, so deleting the option left it green. Both read as real tests.
+
+---
+
+## 8. Verify in the browser
+
+**Four of the last defects were found by looking at the page, not by the suite** — a missing
+`outcome` field rendering `votes_outcome_undefined`, two off-by-one dates, raw vote sums, and
+a state toggle that silently never applied because a formatter had reshaped the target so the
+edit matched nothing.
+
+After every visible change: `preview_start`, load the page, and read the DOM — the rendered
+figures, the hrefs, the grid's last-row count, the console. Then click the thing you built.
+
+---
+
+## 9. Shipping order
+
+Hosting last, always.
+
+```bash
+npm run db:load:<x>:pg:cloud          # 1. tables the routes read
+npm run deploy:db                     # 2. the function
+npm run bucket:sync:paths -- <path>   # 3. bucket-served artifacts
+npm run build                         # 4. prerender (needs its own local PG inputs)
+npm run deploy                        # 5. hosting
+```
+
+**Step 3 is the one that gets skipped.** A new bucket-served shard that has not been synced
+means the hub ships and its data-driven bands silently render nothing — the fetch 404s, the
+hook returns `undefined`, and the bands return `null`. Check the bucket before deploying.
+
+`npm run deploy` does **not** build. Deploying without building ships a stale `dist/`.
+
+**Probing a route before it exists pins a 404 at the CDN** for up to an hour. If a
+just-deployed route 404s, retry with a cache-buster before debugging.
+
+---
+
+## 10. Working style
+
+- **Implement, then run `/code-review` in a subagent, then repair.** In this pattern's
+  history the review found 2–5 real defects per step and the rate did not fall with
+  experience.
+- **Confirm each finding against the corpus before fixing it.** Reviewers are sometimes
+  wrong about the cause even when right that something is wrong.
+- **Report what you did not do.** A step that builds the routes but does not rewire the
+  screen is a partial step; say so plainly rather than letting the commit imply completion.

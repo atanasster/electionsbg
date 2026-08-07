@@ -2323,6 +2323,36 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    // The MP picker. /parliament/similarity/:mpId is per-member and stays SPA-only — 2,120
+    // of them would be 2,120 more files against a dist that already holds 253k and a
+    // Firebase ceiling on file COUNT. The picker is the crawlable entry point.
+    path: "parliament/similarity",
+    title: "Гласово сходство между депутатите | electionsbg.com",
+    description:
+      "Кой народен представител гласува най-близо до кого — избери депутат и виж пълното класиране по сходство на вота, изчислено от поименните гласувания.",
+    breadcrumbName: "Гласово сходство",
+    english: {
+      title: "Voting similarity between MPs | electionsbg.com",
+      description:
+        "Which MP votes closest to which — pick a member and see the full similarity ranking derived from the roll-call votes.",
+      breadcrumbName: "Voting similarity",
+    },
+  }),
+  staticPage({
+    // The group-pair picker. /votes/between/:pair stays SPA-only for the same reason.
+    path: "votes/between",
+    title: "Сравни две парламентарни групи | electionsbg.com",
+    description:
+      "Избери две парламентарни групи и виж точките, по които са гласували срещуположно — от поименните гласувания в Народното събрание.",
+    breadcrumbName: "Сравни две групи",
+    english: {
+      title: "Compare two parliamentary groups | electionsbg.com",
+      description:
+        "Pick two parliamentary groups and see the items they voted opposite ways on, from the National Assembly roll-call votes.",
+      breadcrumbName: "Compare two groups",
+    },
+  }),
+  staticPage({
     // Split out of /votes, which is an archive. Prerendered like its siblings: the page is
     // a standing analysis, not a per-request view, so a crawler should get the real head
     // tags rather than the SPA shell.
