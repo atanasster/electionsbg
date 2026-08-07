@@ -55,6 +55,9 @@ A figure whose basis you cannot state in one clause is not ready to ship.
 | **A projection quoted as the roll** | Map tile says 270 members; the map plots 255 | Quote what the destination DRAWS |
 | **Structural zero** | `Общини 0` under an MP filter | Hide a figure that cannot vary; do not print 0 |
 | **Undeclared "not derivable"** | `0% присъствие` on a day with no roll call | NULL means "cannot derive"; render it as absent, never as 0 |
+| **A ROLL-UP PARTITION inside the table** | `1 994 автомобила` on a registry of 621 — the table carries one partition per parliament PLUS an `'all'` row, so `count(*)` counts each car once per parliament its owner sat in | `GROUP BY` the partition key and READ the row; never `count(*)` a table you have not grouped |
+| **The destination's DEFAULT SCOPE** | Tile shows the lifetime 621; `/mp-cars` opens `scope="ns"` on the 52nd's 65 — and the tile carries `?elections` forward, guaranteeing the mismatch on every parliament | Key the blob by the destination's scope and resolve it through the SAME helper that screen filters with |
+| **The right subject, the wrong corpus** | Tile counts `company_politicians` (346) over `/mp/companies`, which renders `companies-index.json` (2,781) | When the destination fetches a FILE, count that file — not a table about the same subject |
 
 **Corollary that has bitten twice:** if a number is computed in two places, it will drift.
 Compute it ONCE and have both consumers read that. Where two implementations are
@@ -230,6 +233,11 @@ matrix scaled on its diagonal is a chart about group size. Exclude the diagonal 
 ramp, draw it in neutral ink, and keep it — it is worth reading, it is just not the ranked
 quantity.
 
+**No backtick inside SQL held in a template literal.** Quoting an identifier the way SQL
+comments usually do — `` -- the `person` table `` — terminates the literal. This has now
+recurred four times, in `.js` routes and in a `.ts` generator, so it is not a
+route-file quirk: it is any SQL written inside backticks anywhere. Write the identifier bare.
+
 **A count that links somewhere must be nameable there.** A card saying "50 of 240 MPs did
 not vote" that lands on a page which cannot name the fifty is worse than no card.
 
@@ -280,6 +288,17 @@ Not optional, and each exists because its absence shipped something:
 history: a gate asserted `max(id) >= count(*)`, true of any gap-free sequence — the very
 symptom it named; another matched a `timeZone: "UTC"` string inside the COMMENT explaining
 the fix, so deleting the option left it green. Both read as real tests.
+
+**A figure gate must assert against something the GENERATOR DOES NOT USE.** The strongest
+version of this failure is a gate that re-runs the generator's own SQL and compares it to
+the generator's own output: it proves only that the file was freshly written, and it
+inherits every misunderstanding it was meant to catch. The declarations hub's first gate did
+exactly that and then *pinned the bug* — asserting `mpAssetYears == count(*)` on a
+partitioned table, and `cars > carOwners`, which is true whether cars is the real 621 or the
+1,994 that counts each vehicle once per parliament. Assert against the destination screen's
+own filter, the partition structure, or the file the destination fetches — and write the
+alternatives you rejected as explicit `notEqual`s, because a wrong basis is usually one word
+away from the right one.
 
 ---
 
