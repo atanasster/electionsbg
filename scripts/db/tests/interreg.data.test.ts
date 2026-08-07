@@ -791,6 +791,65 @@ test.skipIf(skip)(
   },
 );
 
+// ── 20. The alert feed's obshtina vocabulary ──────────────────────────────
+test.skipIf(skip)(
+  "every alert obshtina is a municipality, bar the declared one",
+  async () => {
+    // build_alerts writes one file per data/municipalities.json row, and that
+    // file has NO Sofia-city row — only the 24 S23xx rayons — while
+    // interreg_partners places every Sofia partner under the synthetic SFO_CITY.
+    // So SFO_CITY's 231 operations and €88.7m have nowhere to land, and the
+    // builder says so on every run rather than fanning them across rayons, which
+    // would invent an attribution keep.eu never published.
+    //
+    // This gate holds the exception list at exactly that one code. A NEW unmatched
+    // code is real vocabulary drift and would silently drop a municipality's
+    // Interreg alerts with every row count reconciling.
+    const DECLARED_ORPHANS = new Set(["SFO_CITY"]);
+    const { readInterregByObshtina } = await import("../lib/interreg_alerts");
+    const munis: { obshtina: string }[] = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, "../../../data/municipalities.json"),
+        "utf8",
+      ),
+    );
+    const known = new Set(munis.map((m) => m.obshtina));
+    const byObshtina = await readInterregByObshtina();
+    assert.ok(byObshtina.size > 100, `only ${byObshtina.size} municipalities`);
+    const orphans = [...byObshtina.keys()].filter(
+      (k) => !known.has(k) && !DECLARED_ORPHANS.has(k),
+    );
+    assert.deepEqual(
+      orphans,
+      [],
+      "Interreg alerts keyed to unknown obshtina(s)",
+    );
+
+    // And the invariant, at the alert grain: what a municipality sees is its own
+    // partners' budget, never the cross-border project total. Малко Търново's
+    // top operation is €357,183.12 against a €1,419,207.76 project.
+    const mt = byObshtina.get("BGS12") ?? [];
+    assert.ok(mt.length > 0, "Малко Търново should have Interreg alerts");
+    const top = mt[0];
+    assert.ok(
+      (top.budgetEur ?? 0) < 400_000,
+      `Малко Търново's top alert is €${top.budgetEur} — that is the operation ` +
+        "total, not the partner's share",
+    );
+
+    // One row per (place, operation): a municipality with two partners on one
+    // operation must not list it twice, which would double-count it in the feed.
+    for (const [code, rows] of byObshtina) {
+      const ids = rows.map((r) => r.keepId);
+      assert.equal(
+        new Set(ids).size,
+        ids.length,
+        `${code} lists an operation more than once`,
+      );
+    }
+  },
+);
+
 // ── The stage-merge semantics the parity guard cannot see ──────────────────
 test.skipIf(skip)("the loader left no stage table behind", async () => {
   const rows = await allRows<{ relname: string }>(

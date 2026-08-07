@@ -20,6 +20,12 @@
 // never computes prose numbers — narrate() reads env.facts. Mirrors the social/transport tools.
 
 import { fetchDb } from "./dataClient";
+import {
+  tryInterregOverview,
+  interregForOblast,
+  interregNote,
+  absorptionScopeNote,
+} from "./interregArm";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import type { Envelope, Row, ToolArgs, ToolContext } from "./types";
 import type { GroupModelPayload } from "@/lib/awarderModel";
@@ -177,6 +183,13 @@ export const cohesionAbsorption = async (
       note: bg
         ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20%. Разходите трябва да са извършени и платени до 31 декември ${ELIGIBILITY_END_YEAR} г., за да са допустими (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060). А по правилото n+3 (чл. 105) неусвоеното се губи на траншове всяка година — ангажиментите за 2021-${LAST_N3_COMMITMENT_YEAR} г.; траншът за 2027 г. се урежда при закриването.`
         : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed. Expenditure must be incurred and paid by 31 December ${ELIGIBILITY_END_YEAR} to be eligible (Art. 63(2) of Reg. (EU) 2021/1060). And under the n+3 rule (Art. 105) unspent money is forfeited tranche by tranche each year — commitments 2021-${LAST_N3_COMMITMENT_YEAR}; the 2027 tranche settles at closure.`,
+      // Interreg CANNOT be added to an absorption rate, and that is a stronger
+      // statement than "we do not have it": keep.eu publishes no expenditure
+      // field at all (total_expenditure and eu_funding_expenditure are NULL on
+      // every sampled partnership), so the number is not derivable rather than
+      // merely unavailable. Every other EU-money tool now carries the Interreg
+      // arm, which makes an unqualified absorption rate read as covering it.
+      scope: absorptionScopeNote(ctx.lang),
     },
     provenance: ["db:fund-payload (ИСУН absorption)"],
   };
@@ -198,17 +211,39 @@ export const regionalInvestment = async (
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const f = await fetchDb<MuniMapFile>("fund-payload", { kind: "muni-map" });
+  // ИСУН holds ZERO Interreg projects — a system boundary (Interreg runs on
+  // Jems), not a filter — and Interreg is cross-border by definition, so every
+  // euro of it lands on a border oblast: Видин, Монтана, Добрич, Кюстендил,
+  // Хасково. Ranking oblasts per capita on ИСУН alone therefore ranks them on a
+  // corpus that structurally excludes the one instrument aimed at them. Fails
+  // soft: a database without the corpus keeps today's answer.
+  const interreg = await tryInterregOverview();
   const oblasts = aggregateRegionalOblasts(f.munis ?? [], {}, bg)
     // Rank by per-capita (the honest cut); drop Sofia — a wealth-axis outlier whose
     // €35,400 GDP/capita is 3.6× the oblast median, not a data artefact.
     .filter((o) => o.canon !== "SOFIA_CITY" && o.population > 0)
+    .map((o) => {
+      const ir = interregForOblast(interreg, o.canon);
+      const contractedEur = o.contractedEur + ir;
+      return {
+        ...o,
+        interregEur: ir,
+        contractedEur,
+        // Recomputed, not scaled: perCapitaEur is the sort key AND the printed
+        // figure, so leaving the old one would order the table by one number
+        // and label it with another.
+        perCapitaEur: o.population > 0 ? contractedEur / o.population : 0,
+      };
+    })
     .sort((a, b) => b.perCapitaEur - a.perCapitaEur);
+  const interregTotal = oblasts.reduce((a, o) => a + o.interregEur, 0);
 
   const top = oblasts.slice(0, 10);
   const rows: Row[] = top.map((o) => ({
     oblast: o.name,
     per_capita: `${fmtEurCompact(o.perCapitaEur, ctx.lang)}/${bg ? "жит." : "cap"}`,
     total: fmtEurCompact(o.contractedEur, ctx.lang),
+    interreg: o.interregEur > 0 ? fmtEurCompact(o.interregEur, ctx.lang) : "—",
   }));
 
   const hiPc = oblasts[0];
@@ -218,9 +253,18 @@ export const regionalInvestment = async (
     tool: "regionalInvestment",
     domain: "indicators",
     kind: "table",
+    // CONDITIONAL, because migration 138 is a serving-FUNCTION change and
+    // `deploy:db` does not carry it — a Cloud SQL that has not had
+    // apply_functions.ts run against it returns an overview with no `oblasts`,
+    // every Interreg cell reads "—", and an unconditional title would claim a
+    // corpus the table does not contain.
     title: bg
-      ? "Европейски средства (ИСУН) по област"
-      : "EU funds (ИСУН) by oblast",
+      ? interregTotal > 0
+        ? "Европейски средства (ИСУН + Interreg) по област"
+        : "Европейски средства (ИСУН) по област"
+      : interregTotal > 0
+        ? "EU funds (ИСУН + Interreg) by oblast"
+        : "EU funds (ИСУН) by oblast",
     subtitle: bg
       ? "На жител, топ 10 области (столицата отпада — БВП на човек 3,6 пъти над медианата)"
       : "Per capita, top 10 oblasts (the capital is dropped — its GDP/capita is 3.6× the median)",
@@ -228,6 +272,9 @@ export const regionalInvestment = async (
       { key: "oblast", label: bg ? "Област" : "Oblast" },
       { key: "per_capita", label: bg ? "На жител" : "Per capita", numeric: true }, // prettier-ignore
       { key: "total", label: bg ? "Общо" : "Total", numeric: true },
+      ...(interregTotal > 0
+        ? [{ key: "interreg", label: bg ? "от които Interreg" : "of which Interreg", numeric: true }] // prettier-ignore
+        : []),
     ],
     rows,
     viz: "none",
@@ -238,10 +285,28 @@ export const regionalInvestment = async (
       lowest_per_capita: loPc
         ? `${loPc.name} (${fmtEurCompact(loPc.perCapitaEur, ctx.lang)}/${bg ? "жит." : "cap"})`
         : "—",
-      note: bg
-        ? "Всички фондове по ИСУН (вкл. ПВУ), отнесени към декларираното място на изпълнение по общини и обобщени по област; проектите с национален обхват не се разпределят по области. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption."
-        : "All ИСУН funds (incl. the RRF), attributed to the declared place of implementation by municipality and aggregated to oblast; nationally-scoped projects are not apportioned to any oblast. The two МРРБ regional programmes specifically are in cohesionAbsorption.",
+      // The basis sentence has to describe the column it sits beside, and that
+      // column now holds two bases: ИСУН money is ATTRIBUTED (a contract naming
+      // N общини contributes 1/N to each) while an Interreg figure is one
+      // partner's own published budget at one address. Leaving the ИСУН-only
+      // wording would put two contradicting basis claims in one envelope, and
+      // narrate() reads facts.
+      note:
+        (bg
+          ? "Всички фондове по ИСУН (вкл. ПВУ), отнесени към декларираното място на изпълнение по общини и обобщени по област; проектите с национален обхват не се разпределят по области. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption."
+          : "All ИСУН funds (incl. the RRF), attributed to the declared place of implementation by municipality and aggregated to oblast; nationally-scoped projects are not apportioned to any oblast. The two МРРБ regional programmes specifically are in cohesionAbsorption.") +
+        (interregTotal > 0
+          ? bg
+            ? " Колоната „Общо“ включва и Interreg, но на друга основа: сумите по ИСУН са разпределени между общините на проекта, а по Interreg е собственият бюджет на българския партньор."
+            : " The Total column also includes Interreg, on a different basis: ИСУН amounts are split across the municipalities a contract names, while an Interreg figure is the Bulgarian partner's own budget."
+          : ""),
+      ...(interregTotal > 0
+        ? { interreg_note: interregNote(interregTotal, ctx.lang, bg) }
+        : {}),
     },
-    provenance: ["db:fund-payload (ИСУН muni-map)"],
+    provenance: [
+      "db:fund-payload (ИСУН muni-map)",
+      ...(interregTotal > 0 ? ["db:interreg-overview (keep.eu)"] : []),
+    ],
   };
 };

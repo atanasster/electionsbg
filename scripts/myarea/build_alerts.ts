@@ -39,6 +39,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { readMunicipalAwardersByEkatte } from "../db/lib/muni_awarders";
+import {
+  readInterregByObshtina,
+  type InterregAlertRow,
+} from "../db/lib/interreg_alerts";
+import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 
 type MunicipalityInfo = {
   ekatte: string;
@@ -510,6 +515,38 @@ const buildFundsEvents = (obshtina: string): AlertEvent[] => {
   return [...changeEvents, ...inProgressEvents];
 };
 
+// Interreg operations for one municipality.
+//
+// These are `eu_funds` events like the ИСУН ones and are LABELLED Interreg,
+// because they are a different corpus on a different basis: ИСУН holds zero
+// Interreg projects (a system boundary — Interreg runs on Jems), and since
+// Interreg is cross-border by definition its money lands almost entirely on
+// border municipalities. Those are exactly the places whose feed was an
+// undercount, so an unlabelled row would silently change what "еврофонд" has
+// meant here.
+//
+// `budgetEur` is the BULGARIAN PARTNER's own budget, summed over that
+// municipality's partners on the operation — never the cross-border project
+// total, which on BSB00963 is €1,419,208 against Малко Търново's €357,183.
+const buildInterregEvents = (rows: InterregAlertRow[]): AlertEvent[] =>
+  rows.map((r) => {
+    const title = r.titleBg ?? r.titleEn;
+    const amount = r.budgetEur != null ? ` · ${formatEur(r.budgetEur)}` : "";
+    return {
+      // The operation's own start date where keep.eu published one. Unlike the
+      // ИСУН in-progress rows — whose dates are inferred from a programme
+      // period and so are deliberately unlabelled in the tile — this is a real
+      // per-project date.
+      date: r.startDate ?? `${r.period.slice(0, 4)}-01-01`,
+      kind: "eu_funds",
+      headline_bg: `Interreg: „${title}"${amount}`,
+      headline_en: `Interreg: "${title}"${amount}`,
+      ...(r.budgetEur != null ? { amountEur: r.budgetEur } : {}),
+      detail: r.programmeName ?? undefined,
+      programPeriod: r.period,
+    };
+  });
+
 // New / modified EU contracts the snapshot-diff flagged in the most-recent
 // ingest (data/funds/projects/changes/<obshtina>.json). Unlike the in-progress
 // rows, these carry a real detectedAt date so they surface at the top of the
@@ -743,6 +780,10 @@ const main = async () => {
   // One query for every settlement — procurement_settlement_detail() re-runs the whole
   // per-settlement aggregation per call, and this walks ~265 municípios.
   const muniAwardersByEkatte = await readMunicipalAwardersByEkatte();
+  // One query for all ~265 municipalities, like the line above. Fails soft to
+  // an empty map on a database without the corpus, so an alerts run never
+  // depends on Interreg having been loaded.
+  const interregByObshtina = await readInterregByObshtina();
   fs.mkdirSync(OUT_DIR, { recursive: true });
   // Rebuild place_tenders/ from scratch so a município that dropped to zero open
   // tenders doesn't keep (and re-upload) a stale summary (F-008; mirrors the
@@ -751,6 +792,25 @@ const main = async () => {
   fs.mkdirSync(PLACE_TENDERS_DIR, { recursive: true });
   let placeTenderFiles = 0;
   const munis = readJson<MunicipalityInfo[]>(MUNICIPALITIES_FILE);
+  // STATED, NOT SILENT: data/municipalities.json has no Sofia-city row at all —
+  // only the 24 S23xx rayons — while interreg_partners places every Sofia
+  // partner under the synthetic SFO_CITY. So the single largest bucket in that
+  // map, 231 operations and €88,655,624, has no municipality file to land in.
+  // Fanning it across the rayons would be inventing an attribution keep.eu
+  // never published (the corpus places to the municipality, not the rayon), so
+  // the honest behaviour is to leave it out and say so on every run. Any other
+  // unmatched key is a real vocabulary drift and shows up in the same line.
+  const alertMuniCodes = new Set(
+    (munis ?? []).map((m) => canonicalObshtina(m.obshtina) ?? m.obshtina),
+  );
+  const orphanInterreg = [...interregByObshtina.keys()].filter(
+    (k) => !alertMuniCodes.has(k),
+  );
+  if (orphanInterreg.length)
+    console.warn(
+      `alerts: ${orphanInterreg.length} Interreg obshtina code(s) have no ` +
+        `municipality file and emit no events: ${orphanInterreg.join(", ")}`,
+    );
   if (!munis) {
     console.error(`failed to read municipalities`);
     process.exit(1);
@@ -779,6 +839,14 @@ const main = async () => {
       ...buildProcurementEvents(muniAwarders),
       ...buildTenderEvents(muniAwarders),
       ...buildFundsEvents(m.obshtina),
+      // canonicalObshtina folds SOF/SOF00 → SFO_CITY, the spelling
+      // interreg_partners uses. It is a no-op for every code in
+      // municipalities.json today (see the SFO_CITY note in main()) but it is
+      // the correct fold, and without it a future Sofia-city row would miss.
+      ...buildInterregEvents(
+        interregByObshtina.get(canonicalObshtina(m.obshtina) ?? m.obshtina) ??
+          [],
+      ),
       ...buildCapitalProgramEvents(m.obshtina),
       ...buildPlenaryKeywordEvents(m.obshtina, m.name),
     ];

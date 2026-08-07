@@ -2,6 +2,7 @@
 // headline index/rollup files; amounts are in EUR.
 
 import { fetchData, fetchDb } from "./dataClient";
+import { tryInterregOverview, interregNote } from "./interregArm";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import { round2 } from "./dataset";
 import { fuzzyBestMatch } from "./resolve";
@@ -661,6 +662,15 @@ export const fundsOverview = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const f = await fetchDb<FundsIndex>("fund-payload", { kind: "index" });
+  // The national ИСУН total is not the national EU-money total: ИСУН holds ZERO
+  // Interreg projects, because Interreg runs on Jems. €396m against €44bn is
+  // +0.9% nationally — small enough to disappear in this headline and decisive
+  // in a per-capita ranking of border municipalities, which is exactly why the
+  // gap survived. The two are NOT summed: they are different corpora on
+  // different bases (ИСУН money is attributed across the общини a contract
+  // names; an Interreg figure is one partner's own published budget), so this
+  // states the second beside the first rather than merging them.
+  const interreg = await tryInterregOverview();
   const top = f.topByContracted.slice(0, 8);
   return {
     tool: "fundsOverview",
@@ -688,8 +698,24 @@ export const fundsOverview = async (
       contracted: fmtEurCompact(f.totals.contractedEur, ctx.lang),
       paid: fmtEurCompact(f.totals.paidEur, ctx.lang),
       top: top[0]?.name ?? "—",
+      ...(interreg && interreg.budgetEur > 0
+        ? {
+            interreg_contracted: fmtEurCompact(interreg.budgetEur, ctx.lang),
+            interreg_operations: fmtInt(interreg.operationCount, ctx.lang),
+            interreg_note: interregNote(
+              interreg.budgetEur,
+              ctx.lang,
+              ctx.lang === "bg",
+            ),
+          }
+        : {}),
     },
-    provenance: ["db:fund-payload (ИСУН index)"],
+    provenance: [
+      "db:fund-payload (ИСУН index)",
+      ...(interreg && interreg.budgetEur > 0
+        ? ["db:interreg-overview (keep.eu)"]
+        : []),
+    ],
   };
 };
 

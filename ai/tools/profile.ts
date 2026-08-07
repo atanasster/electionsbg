@@ -2,6 +2,7 @@
 // for a place (the "about my area" place-ladder dashboard).
 
 import { fetchData, fetchDb } from "./dataClient";
+import { tryInterregPlace, interregNote } from "./interregArm";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import {
   fetchLocalMuni,
@@ -691,7 +692,47 @@ export const placeEuProjects = async (
     obshtina,
   );
   const changes = await tryFundPayload<FundsChangesFeed>("changes", obshtina);
+  // The Interreg arm needs a THIRD spelling of Sofia, which is the trap this
+  // whole tier keeps re-setting. Three vocabularies meet here:
+  //   resolvePlaceForData → "SOF"       (synthetic; municipalities.json has no
+  //                                      Sofia-city row, only the 24 rayons)
+  //   the ИСУН funds tree → "S22"
+  //   interreg_partners   → "SFO_CITY"
+  // Passing the raw `place.obshtina` looks right and is not: "SOF" fails the
+  // route's shape gate outright, so the fetch 400s, tryInterregPlace swallows
+  // it, and Столична община's 231 operations / €88,655,624 — 22.6% of the
+  // placed corpus — vanish at a 200 with the ИСУН answer unchanged.
+  // canonicalObshtina is the fold the governance cards already use.
+  const interregKey = canonicalObshtina(place.obshtina) ?? place.obshtina;
+  const interreg = await tryInterregPlace(interregKey);
   if (!summary) {
+    // "No EU-funds projects" was only ever true of ИСУН, and ИСУН holds no
+    // Interreg at all. Answering it for a border municipality that has
+    // cross-border money is the exact failure this arm exists to end.
+    if (interreg) {
+      return {
+        tool: "placeEuProjects",
+        domain: "place",
+        kind: "scalar",
+        title: bg
+          ? `Само трансгранични проекти (Interreg) — ${place.name}`
+          : `Cross-border (Interreg) projects only — ${place.nameEn}`,
+        viz: "none",
+        facts: {
+          place: place.name,
+          interreg_eur: fmtEurCompact(interreg.budgetEur, ctx.lang),
+          interreg_projects: fmtInt(interreg.operationCount, ctx.lang),
+          note: interregNote(interreg.budgetEur, ctx.lang, bg),
+          isun: bg
+            ? "Няма проекти по ИСУН за тази община."
+            : "No ИСУН projects for this municipality.",
+        },
+        provenance: [
+          `db:fund-payload (ИСУН muni-summary ${obshtina})`,
+          `db:interreg-place (keep.eu ${interregKey})`,
+        ],
+      };
+    }
     return {
       tool: "placeEuProjects",
       domain: "place",
@@ -716,6 +757,27 @@ export const placeEuProjects = async (
   // `total` below is this муни's attributed share while a row's value is the
   // whole contract, so a row can read larger than the total. Say which rows
   // are shared and what lands here — otherwise the answer contradicts itself.
+  const interregRows: Row[] = (interreg?.operations ?? [])
+    .slice(0, 4)
+    .map((o) => ({
+      // Labelled Interreg on every row: these sit in the same table as ИСУН
+      // contracts and an unlabelled row would read as one. The value shown is the
+      // BULGARIAN PARTNER's budget, never the operation total — on BSB00963 those
+      // are €357,183 and €1,419,208, and using the second would put four times
+      // the true money on a municipality of 2,628 people.
+      project: bg
+        ? `[Interreg] ${o.titleBg ?? o.titleEn} (${o.period})`
+        : `[Interreg] ${o.titleBg ?? o.titleEn} (${o.period})`,
+      value:
+        o.localBudgetEur != null
+          ? fmtEurCompact(o.localBudgetEur, ctx.lang)
+          : bg
+            ? "без публикуван бюджет"
+            : "no published budget",
+      // keep.eu publishes no expenditure field at all, so this is "not derivable"
+      // rather than "nothing paid" — an em dash, never a zero.
+      paid: "—",
+    }));
   const rows: Row[] = top.map((c) => ({
     project:
       c.muniCount != null && c.muniCount > 1
@@ -740,7 +802,7 @@ export const placeEuProjects = async (
       ? `Проекти от еврофондове — ${place.name}`
       : `EU-funds projects — ${place.nameEn}`,
     columns,
-    rows,
+    rows: [...rows, ...interregRows],
     viz: "none",
     geo: muniLocator(
       place.obshtina,
@@ -750,14 +812,28 @@ export const placeEuProjects = async (
     facts: {
       place: place.name,
       contracts: fmtInt(summary.rollup.contractCount, ctx.lang),
+      // `total` stays the ИСУН figure and keeps its name. The two arms are NOT
+      // summed into one number here: ИСУН money is attributed (a contract
+      // naming N общини contributes 1/N to each) while an Interreg budget is a
+      // partner's own published figure at one address, so a single "EU money"
+      // total would silently merge two bases. The combined figure lives on
+      // /api/db/funds-muni-combined, where both arms travel beside it.
       total: fmtEurCompact(summary.rollup.totalEur, ctx.lang),
       paid: fmtEurCompact(summary.rollup.paidEur, ctx.lang),
       new_projects: fmtInt(newCount, ctx.lang),
       modified_projects: fmtInt(modCount, ctx.lang),
+      ...(interreg
+        ? {
+            interreg_eur: fmtEurCompact(interreg.budgetEur, ctx.lang),
+            interreg_projects: fmtInt(interreg.operationCount, ctx.lang),
+            interreg_note: interregNote(interreg.budgetEur, ctx.lang, bg),
+          }
+        : {}),
     },
     provenance: [
       `funds/projects/by-muni/${obshtina}-summary.json`,
       `funds/projects/changes/${obshtina}.json`,
+      ...(interreg ? [`db:interreg-place (keep.eu ${interregKey})`] : []),
     ],
   };
 };

@@ -275,6 +275,24 @@ SELECT jsonb_build_object(
                count(*) FILTER (WHERE eik IS NOT NULL)::int    AS linked
           FROM bg GROUP BY period
       ) z), '{}'::jsonb),
+  -- Per-OBLAST, for the regional per-capita answers. Those rank oblasts on
+  -- ИСУН money alone, and ИСУН holds no Interreg at all — so the border oblasts
+  -- (Видин, Монтана, Добрич, Кюстендил, Хасково) were being ranked on a corpus
+  -- that structurally excludes the one instrument aimed at them. Keyed by the
+  -- 3-letter oblast code the funds muni-map aggregates on.
+  'oblasts', COALESCE((
+    SELECT jsonb_object_agg(oblast, jsonb_build_object(
+             'budgetEur', eur, 'partnerCount', n, 'operationCount', ops))
+      FROM (
+        SELECT p.oblast,
+               COALESCE(SUM(p.budget_eur), 0)::double precision AS eur,
+               count(*)::int                                    AS n,
+               count(DISTINCT p.keep_id)::int                   AS ops
+          FROM interreg_partners p
+         WHERE p.oblast IS NOT NULL
+           AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')
+         GROUP BY p.oblast
+      ) y), '{}'::jsonb),
   'programmes', COALESCE((
     SELECT jsonb_agg(x ORDER BY (x->>'budgetEur')::double precision DESC NULLS LAST,
                                 x->>'code')

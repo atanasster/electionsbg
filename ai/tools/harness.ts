@@ -442,6 +442,18 @@ const run = async () => {
     euSofia.kind === "table" && (euSofia.rows?.length ?? 0) > 0,
     "placeEuProjects resolves Sofia via the S22 key bridge",
   );
+  // THREE spellings of Sofia meet in this tool and the Interreg one is the
+  // easiest to get wrong: resolvePlaceForData returns the synthetic "SOF",
+  // the ИСУН funds tree keys S22, and interreg_partners uses SFO_CITY. The
+  // first draft passed the raw "SOF", which fails the route's shape gate, so
+  // 231 operations and €88.7m — 22.6% of the placed corpus — vanished at a 200
+  // with the ИСУН answer unchanged and nothing red. This is the assertion that
+  // catches that; it needs the Interreg corpus loaded.
+  assert(
+    euSofia.facts?.interreg_eur != null,
+    "placeEuProjects carries the Interreg arm for Sofia (canonicalObshtina " +
+      "must fold SOF → SFO_CITY; raw SOF silently returns nothing)",
+  );
 
   const awP = (await runTool(
     "awarderProcurement",

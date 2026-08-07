@@ -15,6 +15,7 @@
 
 import { fetchDb, fetchData } from "./dataClient";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
+import { absorptionScopeNote } from "./interregArm";
 import type { Envelope, Row, ToolArgs, ToolContext } from "./types";
 import type { GroupModelPayload } from "@/lib/awarderModel";
 import {
@@ -195,6 +196,13 @@ export const environmentFunds = async (
       note: bg
         ? "Сумите са за целия програмен период (ОП/Програма „Околна среда“), не по избран парламент. Водният цикъл се брои и в изгледа „Води“."
         : "Figures are programme-period totals (ОП/Programme „Околна среда“), not scoped to a parliament. The water-cycle also appears in the Water view.",
+      // Interreg CANNOT be added to an absorption rate, and that is a stronger
+      // statement than "we do not have it": keep.eu publishes no expenditure
+      // field at all (total_expenditure and eu_funding_expenditure are NULL on
+      // every sampled partnership), so the number is not derivable rather than
+      // merely unavailable. Every other EU-money tool now carries the Interreg
+      // arm, which makes an unqualified absorption rate read as covering it.
+      scope: absorptionScopeNote(ctx.lang),
     },
     provenance: ["db:fund-payload (ИСУН absorption)"],
   };
