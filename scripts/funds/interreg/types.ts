@@ -261,6 +261,15 @@ export interface InterregPartner {
   budgetEur: number | null;
   euFundingEur: number | null;
   budgetBasis: BudgetBasis;
+  /**
+   * The town, as keep.eu publishes it in Latin — "Nikopol", "Ruse". Present on
+   * all 1,493 Bulgarian rows, and the ONLY clean place signal: `locationRaw`
+   * is a full street address ("ul. \"Ekzarh Yosif\" 1, 7100, 7001 Vezhdata,
+   * Ruse, Bulgaria") whose town is neither the first nor a fixed segment.
+   * Prefers the department's town — that is where the work happens.
+   */
+  town: string | null;
+  /** The full published address. Kept for audit and display, NOT for matching. */
   locationRaw: string | null;
   postcode: string | null;
   lat: number | null;

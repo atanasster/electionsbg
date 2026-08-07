@@ -299,8 +299,12 @@ export const parseOperation = (raw: KeepProjectRaw): ParsedOperation | null => {
         `project ${keepId} partner ${i} co-financing`,
       ),
       budgetBasis: budgetBasisOf(budgetEur),
-      // Prefer the department's address: it is where the work happens, which is
-      // the place this corpus is attributing money to.
+      // The town is its own field, because `location_address` is a full street
+      // address whose town sits at no fixed offset — resolving from it by
+      // splitting on commas picked up `ul. "Ekzarh Yosif" 1` and placed 304 of
+      // 1,493 Bulgarian rows nowhere. Department first: that is where the work
+      // happens, which is the place this corpus attributes money to.
+      town: str(p.town_department) ?? str(p.town),
       locationRaw:
         str(p.location_address) ?? str(p.town_department) ?? str(p.town),
       postcode: str(p.postcode_department) ?? str(p.postcode),
