@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-05T12:52:20.390Z",
+  "generatedAt": "2026-08-06T22:40:06.148Z",
   "nodes": [
     {
       "id": "src:water",
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -432,7 +432,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-08-04T06:09:28.809Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         },
         {
           "id": "egov_budget_execution",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-05T06:08:51.162Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         }
       ],
       "x": 28,
@@ -753,7 +753,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -844,7 +844,7 @@
           "label": "НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg)",
           "url": "https://www.nhif.bg/bg/hospitals/bmp",
           "cadence": "monthly",
-          "freshness": "2026-07-08T06:09:00.761Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         },
         {
           "id": "nzok_drug_quarterly",
@@ -1004,7 +1004,7 @@
       "url": "https://www.nsi.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-08T06:09:00.761Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-indicators",
         "update-landuse",
@@ -1038,7 +1038,7 @@
           "label": "НСИ regional open-data (BG): 4 oblast datasets",
           "url": "https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c",
           "cadence": "monthly",
-          "freshness": "2026-07-08T06:09:00.761Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         },
         {
           "id": "static:https://census2021.bg/",
@@ -1158,7 +1158,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1170,7 +1170,7 @@
           "label": "Eurostat macro (BG): 26 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-05T06:08:51.162Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         },
         {
           "id": "eurostat_policy",
@@ -1485,7 +1485,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-06T06:09:24.570Z",
       "skills": [
         "update-prices"
       ],
@@ -1495,7 +1495,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-05T06:08:51.162Z"
+          "freshness": "2026-08-06T06:09:24.570Z"
         }
       ],
       "x": 28,

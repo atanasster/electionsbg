@@ -1,6 +1,60 @@
 {
-  "updatedAt": "2026-08-05T14:58:49.505Z",
+  "updatedAt": "2026-08-06T22:39:05.387Z",
   "entries": [
+    {
+      "timestamp": "2026-08-06T22:39:05.387Z",
+      "date": "2026-08-06",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-06 (+2 daily archives; 1,379,301 store rows, 244 settlements, 208 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-06T22:32:47.834Z",
+      "date": "2026-08-06",
+      "skill": "update-nzok",
+      "summary": "Болнични плащания на НЗОК за юни 2026 г. — 392 лечебни заведения, €1,13 млрд. от началото на годината",
+      "source": "НЗОК (nhif.bg)"
+    },
+    {
+      "timestamp": "2026-08-06T22:18:55.052Z",
+      "date": "2026-08-06",
+      "skill": "update-regional",
+      "summary": "Регионални показатели по области обновени — смъртност, чуждестранни инвестиции, музеи и болнични легла",
+      "source": "НСИ (отворени данни) + Eurostat NUTS 3",
+      "links": [
+        {
+          "to": "/demographics/regions",
+          "labelKey": "data_changes_link_regions_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06T22:17:52.273Z",
+      "date": "2026-08-06",
+      "skill": "update-macro",
+      "summary": "Макро показатели обновени — промишлено производство и търговия на дребно до I тримесечие 2026 г., инфлация юли 2026 г. 4,1%",
+      "source": "Eurostat + Световна банка (WGI)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-06T22:14:19.085Z",
+      "date": "2026-08-06",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: 120 нови договора от 58 възложителя; 237 080 процедури; анекси +€2 265,1 млн.",
+      "source": "ЦАИС ЕОП (storage.eop.bg) + АОП"
+    },
+    {
+      "timestamp": "2026-08-06T22:07:11.540Z",
+      "date": "2026-08-06",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 63 333 лица, 120 341 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-08-05T14:58:49.505Z",
       "date": "2026-08-05",
