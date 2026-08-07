@@ -85,6 +85,15 @@ test("db:refresh exists and still chains npm run steps", () => {
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
     after: "db:load:interreg:pg",
+    before: "db:load:funds:pg",
+    why:
+      "it applies 139, whose funds_muni_combined_v SELECTs fund_payloads — and a " +
+      "view body is resolved at CREATE time, so on a database without that table " +
+      "the whole migration 42P01s, rolls back and aborts the loader before a " +
+      "single Interreg row is written. db:load:funds:pg is that table's only applier",
+  },
+  {
+    after: "db:load:interreg:pg",
     before: "db:load:awarder-seats:pg",
     why:
       "Tier L1 of its place cascade reads awarder_seats — 158 of 1,469 placed " +

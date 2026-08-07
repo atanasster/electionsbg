@@ -65,7 +65,18 @@ const SCHEMA_DIR = path.join(ROOT, "scripts/db/schema/pg");
 // changelog_days, and without it a COLD database fails with 42P01 after the
 // schema, the resolution and all three merges have already run — rolling every
 // one of them back. Same shape as load_funds_pg.ts and 13 other loaders.
-const SCHEMA_FILES = ["005_ingest_tracking.sql", "137_interreg.sql"];
+// 138/139 are SERVING code (functions and a view), not tables — they carry no
+// data and no other loader ships them. Applying them here is what keeps the
+// "applied, never loaded" family from drifting: without it, a function-body fix
+// is invisible to every row count and prod runs the previous body indefinitely.
+// 139 must follow 137 (its view reads interreg_partners) and can be applied to
+// any database that has fund_payloads, which every funds-serving database does.
+const SCHEMA_FILES = [
+  "005_ingest_tracking.sql",
+  "137_interreg.sql",
+  "138_interreg_serving.sql",
+  "139_funds_muni_combined.sql",
+];
 const CORPUS = path.join(ROOT, "data/funds/interreg");
 
 /** Below this the corpus is treated as damaged and nothing is written. Same

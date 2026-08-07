@@ -2901,6 +2901,69 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? empty };
   },
+  // The per-capita municipal EU-money ranking, WITH the Interreg arm (139).
+  //
+  // The ranking the site published before this was ИСУН-only, and ИСУН holds no
+  // Interreg project at all — a system boundary (Jems vs ИСУН), not a filter.
+  // Interreg is cross-border by definition, so the missing money landed on
+  // exactly the border municipalities: 213 of the 256 ranked общини change rank
+  // once it is counted, Генерал Тошево by 43 places.
+  //
+  // NULL, not a zero-shaped payload, for a municipality outside the ranked
+  // cohort — Столична община among them, on both arms, because ГРАО carries no
+  // Sofia city EKATTE. "Not ranked" and "no money" are different answers, and a
+  // €0 would read as the second while meaning the first.
+  //
+  // Served as 200 + null rather than a 404, matching the funds convention this
+  // sits beside (fetchFundPayload.ts: "a route returns the payload jsonb or null
+  // — HTTP 200, never 404"). Its shared getJson THROWS on any non-ok status, so
+  // a 404 here would surface as a query error on every Sofia dashboard instead
+  // of the empty state it actually is.
+  "funds-muni-combined": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina");
+    // Every key shape fund_payloads' `muni-summary` actually carries, which is
+    // NOT the same set as place_dim's: AAA99 (264), S#### (8) — and S22, the
+    // Sofia city rollup, which is the ONE key MyAreaProjectsMapTile sends for
+    // all ~25 Sofia rayon dashboards. The first draft copied the interreg-place
+    // regex, which has no S## alternative, so every one of those pages 400'd —
+    // four times over, since the hook throws on !ok and React Query retries.
+    // The rendered number was unaffected (S22 has no published rank either way),
+    // which is exactly why it would have gone unnoticed.
+    if (!/^([A-Z]{3}\d{2}|S\d{2,4}|SFO_CITY)$/.test(obshtina))
+      return { status: 400, body: { error: "missing or malformed obshtina" } };
+    const rows = await dbRows("SELECT funds_muni_combined($1) AS r", [
+      obshtina,
+    ]).catch(
+      missingMigrationLogged(
+        "funds-muni-combined",
+        null,
+        "db:load:interreg:pg:cloud (and apply 139)",
+      ),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // The leaderboard itself, plus what it does NOT cover — `excluded` carries the
+  // €88.7m of Столична община's Interreg money and the 24 honestly-unplaced
+  // rows, so a caption can never imply the ranking covers the whole country.
+  "funds-muni-rank": async (dbRows, q) => {
+    const empty = {
+      cohortSize: 0,
+      movedCount: 0,
+      withInterregCount: 0,
+      excluded: {},
+      munis: [],
+    };
+    const rows = await dbRows("SELECT funds_muni_combined_rank($1) AS r", [
+      clampInt(q.limit, 25, 1, 300),
+    ]).catch(
+      missingMigrationLogged(
+        "funds-muni-rank",
+        empty,
+        "db:load:interreg:pg:cloud (and apply 139)",
+      ),
+    );
+    return { body: rows[0]?.r ?? empty };
+  },
   "place-companies": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");
     const obshtina = s(q, "obshtina");

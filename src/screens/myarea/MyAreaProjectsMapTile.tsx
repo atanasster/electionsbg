@@ -18,6 +18,7 @@ import {
   type FundsGeoPin,
 } from "@/data/funds/useFundsGeoPins";
 import { useFundsForMuni } from "@/data/funds/useFundsForPlace";
+import { useFundsMuniCombined } from "@/data/funds/useFundsMuniCombined";
 import { isSofiaRayonObshtina } from "@/data/dataTypes";
 
 type Props = {
@@ -197,6 +198,7 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   // we fell back to S22 we read its summary for the same per-capita.
   const summaryKey = usingCityFallback ? SOFIA_CITY_KEY : obshtina;
   const { data: summary } = useFundsForMuni(summaryKey);
+  const { data: combined } = useFundsMuniCombined(summaryKey);
   const [view, setView] = useState<"list" | "map">("list");
 
   // All projects, largest money first — the scrollable list.
@@ -214,12 +216,43 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
 
   if (!data || data.contracts.length === 0) return null;
 
+  // The per-capita line prefers the COMBINED figure (ИСУН + Interreg, migration
+  // 139) and falls back to the ИСУН-only summary when it is unavailable — a
+  // database before 139, or a município outside the ranked cohort. ИСУН holds no
+  // Interreg project at all, so before this the number understated exactly the
+  // border municipalities Interreg exists to fund: 213 of 256 change rank once
+  // it is counted.
+  //
+  // `oblastRank`, NOT `rank`. Both are in the payload and they are different
+  // quantities — the line below says "в областта", which is the oblast cohort
+  // the ИСУН summary already published. Rendering the national rank under that
+  // label would be a silent redefinition.
+  // `> 0` on BOTH arms, not `??`. The ИСУН branch has always guarded zero, and
+  // `??` would have admitted a combined 0 — rendering "€0/жител · място N от M"
+  // where the old code rendered nothing at all. Live minimum is €810, so this is
+  // a guard against a future corpus rather than a fix to today's output.
   const perCapita =
-    summary?.perCapitaEur != null && summary.perCapitaEur > 0
-      ? summary.perCapitaEur
-      : null;
-  const rank = summary?.perCapitaRank ?? null;
-  const cohort = summary?.cohortSize ?? null;
+    combined != null && combined.perCapitaEur > 0
+      ? combined.perCapitaEur
+      : summary?.perCapitaEur != null && summary.perCapitaEur > 0
+        ? summary.perCapitaEur
+        : null;
+  // Rank and cohort come from the SAME source as perCapita above — never a
+  // combined per-capita beside an ИСУН-only rank, which would be two different
+  // measurements presented as one row.
+  const useCombined = combined != null && combined.perCapitaEur > 0;
+  const rank = useCombined
+    ? combined.oblastRank
+    : (summary?.perCapitaRank ?? null);
+  const cohort = useCombined
+    ? combined.oblastCohortSize
+    : (summary?.cohortSize ?? null);
+  // The Interreg arm's contribution TO THIS LINE — a per-capita figure, not the
+  // €6.9m total, because the line it annotates is €/жител. Derived from both
+  // payload figures rather than interregEur/population so it can never disagree
+  // with the number beside it by a rounding step.
+  const interregPerCapita =
+    combined != null ? combined.perCapitaEur - combined.perCapitaEurIsun : 0;
 
   return (
     // On lg the Card matches its row-track height (sibling-driven) by having
@@ -275,6 +308,19 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
                 {lang === "bg"
                   ? `място ${rank} от ${cohort} общини в областта`
                   : `rank ${rank} of ${cohort} in the province`}
+              </>
+            ) : null}
+            {/* The Interreg arm, named rather than folded in silently. ИСУН
+                does not hold these projects at all, so before they were counted
+                this figure understated exactly the border municipalities — and
+                a reader has no way to know a per-capita number changed basis
+                unless it says so. */}
+            {interregPerCapita > 0 ? (
+              <>
+                {" · "}
+                {lang === "bg"
+                  ? `вкл. ${formatPerCapita(interregPerCapita, lang)} по Interreg`
+                  : `incl. ${formatPerCapita(interregPerCapita, lang)} from Interreg`}
               </>
             ) : null}
           </div>

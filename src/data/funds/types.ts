@@ -361,3 +361,38 @@ export interface FundsProjectsSummaryFile {
   cohortSize: number | null;
   oblastCode: string | null;
 }
+
+/** One municipality's per-capita EU money with the Interreg arm counted
+ * (migration 139, /api/db/funds-muni-combined).
+ *
+ * TWO RANKS, and they are different quantities. `oblastRank` is the cohort the
+ * ИСУН summary already publishes and MyAreaProjectsMapTile already renders
+ * ("място N от 13 общини в областта"); `rank` is national over 256. A surface
+ * that swaps one for the other changes what its number means with nothing
+ * failing, so both carry their scope in the name.
+ *
+ * The two money arms are never collapsed into one: ИСУН money is *attributed*
+ * (a contract naming N общини contributes 1/N to each), Interreg money is a
+ * partner's own published budget at one address. */
+export interface FundsMuniCombined {
+  obshtina: string;
+  population: number;
+  isunEur: number;
+  interregEur: number;
+  totalEur: number;
+  interregPartnerCount: number;
+  interregOperationCount: number;
+  perCapitaEur: number;
+  /** The same figure with the Interreg arm removed — what the site showed
+   * before, kept so a surface can state the movement rather than assert it. */
+  perCapitaEurIsun: number;
+  rank: number;
+  rankBefore: number;
+  rankDelta: number;
+  cohortSize: number;
+  oblastCode: string | null;
+  oblastRank: number;
+  oblastRankBefore: number;
+  oblastRankDelta: number;
+  oblastCohortSize: number;
+}

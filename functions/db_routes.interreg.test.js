@@ -169,3 +169,68 @@ test("the sentinels carry the same keys as the functions", async () => {
     "unpublishedPartnerCount",
   ]);
 });
+
+// ── /api/db/funds-muni-combined — the per-capita ranking with Interreg in it ──
+//
+// This route's obshtina vocabulary is NOT the same as interreg-place's above.
+// It keys `fund_payloads`' muni-summary, which carries S22 — the Sofia city
+// rollup, and the one key MyAreaProjectsMapTile sends for all ~25 Sofia rayon
+// dashboards. The first draft copied the interreg-place regex, which has no S##
+// alternative, so every Sofia page 400'd four times over (the hook throws on
+// !ok, React Query retries) while rendering an identical number, because S22 has
+// no published rank on either arm. Invisible in the UI, live in the logs.
+
+const muni = DB_ROUTES["funds-muni-combined"];
+const rank = DB_ROUTES["funds-muni-rank"];
+
+test("S22 is accepted — it is the key the Sofia tile actually sends", async () => {
+  const db = stubDb(null);
+  const res = await muni(db, { obshtina: "S22" });
+  assert.equal(res.status, undefined);
+  assert.deepEqual(db.calls[0].params, ["S22"]);
+});
+
+test("every muni-summary key shape is accepted", async () => {
+  for (const code of ["BGS12", "DOB03", "S2417", "S22", "SFO_CITY"])
+    assert.equal(
+      (await muni(stubDb(null), { obshtina: code })).status,
+      undefined,
+      code,
+    );
+});
+
+test("a malformed obshtina is a 400", async () => {
+  for (const q of [{}, { obshtina: "" }, { obshtina: "EU" }, { obshtina: "s22" }])
+    assert.equal((await muni(stubDb(null), q)).status, 400, JSON.stringify(q));
+});
+
+// 200 + null, not 404: the funds convention this sits beside, and its shared
+// getJson throws on any non-ok status — so a 404 would surface as a query error
+// on every Sofia dashboard instead of the empty state it actually is.
+test("an unranked municipality is 200 with a null body", async () => {
+  const res = await muni(stubDb(null), { obshtina: "S22" });
+  assert.equal(res.status, undefined);
+  assert.equal(res.body, null);
+});
+
+test("the ranking degrades an absent migration but not a timeout", async () => {
+  const degraded = await rank(throwingDb("42P01"), {});
+  assert.deepEqual(degraded.body.munis, []);
+  assert.equal(degraded.body.cohortSize, 0);
+  assert.equal((await muni(throwingDb("42883"), { obshtina: "S22" })).body, null);
+  await assert.rejects(() => rank(throwingDb("57014"), {}));
+  await assert.rejects(() => muni(throwingDb("57014"), { obshtina: "S22" }));
+});
+
+test("the leaderboard limit is clamped", async () => {
+  for (const [q, want] of [
+    [{}, 25],
+    [{ limit: "300" }, 300],
+    [{ limit: "9999" }, 300],
+    [{ limit: "0" }, 1],
+  ]) {
+    const db = stubDb({ munis: [] });
+    await rank(db, q);
+    assert.equal(db.calls[0].params[0], want, JSON.stringify(q));
+  }
+});

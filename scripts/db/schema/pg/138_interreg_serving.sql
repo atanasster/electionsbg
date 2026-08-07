@@ -36,6 +36,12 @@
 
 SET check_function_bodies = off;
 
+-- GRANTS ARE ROLE-GUARDED, and that became load-bearing the moment this file
+-- joined load_interreg_pg.ts's SCHEMA_FILES: roles_readonly.sql is a one-time
+-- manual step, and a bare GRANT on a database without the role raises 42704 —
+-- which, because exec() sends a migration as one implicit transaction, rolls the
+-- whole file back and aborts the loader. Same shape as 117/130/137.
+
 -- Every Interreg euro attributed to one place, plus the operations behind it.
 --
 -- `p_ekatte` wins over `p_obshtina` when both are given, so the answer is always
@@ -138,7 +144,11 @@ SELECT jsonb_build_object(
       ) t), '[]'::jsonb)
 );
 $$;
-GRANT EXECUTE ON FUNCTION interreg_by_place(text, text, int) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT EXECUTE ON FUNCTION interreg_by_place(text, text, int) TO app_readonly;';
+  END IF;
+END $$;
 
 -- Every Interreg euro attributed to one company or institution, by EIK.
 --
@@ -217,5 +227,9 @@ SELECT jsonb_build_object(
       ) t), '[]'::jsonb)
 );
 $$;
-GRANT EXECUTE ON FUNCTION interreg_by_eik(text, int) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT EXECUTE ON FUNCTION interreg_by_eik(text, int) TO app_readonly;';
+  END IF;
+END $$;
 DROP FUNCTION IF EXISTS interreg_by_eik(text);
