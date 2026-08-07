@@ -25,7 +25,12 @@ import {
   EntitySearchTile,
   type SearchGroup,
 } from "@/ux/search/EntitySearchTile";
-import { fundSearchGroup, type FundRow } from "./fundSearchGroup";
+import {
+  fundSearchGroup,
+  interregSearchGroup,
+  type FundRow,
+  type InterregRow,
+} from "./fundSearchGroup";
 import {
   buildPersonGroups,
   EMPTY_PEOPLE,
@@ -61,6 +66,7 @@ interface DbResults {
   contracts: ContractRow[];
   tenders: TenderRow[];
   funds: FundRow[];
+  interreg: InterregRow[];
   // Total matches (bounded to 100 server-side; equals the shown length when the
   // preview isn't capped) — drives the "6 of N" hint on the "see all" links.
   contractsTotal: number;
@@ -73,6 +79,7 @@ const EMPTY: DbResults = {
   contracts: [],
   tenders: [],
   funds: [],
+  interreg: [],
   contractsTotal: 0,
   tendersTotal: 0,
 };
@@ -221,6 +228,11 @@ export const ProcurementSearchTile: FC = () => {
     // "no linkable rows → no empty header" guard is unit-tested.
     const fundGroup = fundSearchGroup(db.funds, bg);
     if (fundGroup) g.push(fundGroup);
+    // INTERREG — separate from ИСУН above because it is a separate corpus with
+    // no shared key, and because its amount is the Bulgarian partners' share of
+    // a cross-border project rather than a beneficiary's contract value.
+    const interregGroup = interregSearchGroup(db.interreg, bg);
+    if (interregGroup) g.push(interregGroup);
     // Footer on-ramp (§4.3b): turn the current search into a project file.
     if (term.length >= 2)
       g.push({

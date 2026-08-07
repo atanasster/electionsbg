@@ -435,6 +435,12 @@ END $$;
 -- Cyrillic query will not match an operation title — it will match the partner
 -- names, which ARE Cyrillic on 129 of 136 sampled rows, and that is the arm
 -- most Bulgarian searches will actually hit.
+--
+-- THREE arms, therefore, not two: the third folds both sides through
+-- translit_bg_latin so a LATIN-script query reaches those Cyrillic names.
+-- Without it "Malko Tarnovo" returns nothing here while every sibling group in
+-- the same dropdown answers it, since contracts, tenders and TR companies all
+-- carry a `*_fold` column. 137 has the matching expression index.
 CREATE OR REPLACE FUNCTION search_interreg_operations(q text, lim int DEFAULT 6)
 RETURNS TABLE (
   keep_id        int,
@@ -448,8 +454,15 @@ LANGUAGE sql STABLE PARALLEL SAFE
 SET pg_trgm.word_similarity_threshold = 0.5
 AS $$
   WITH hits AS (
+    -- `arm` ranks BELOW sim and above keep_id: 0 = a direct match on the text
+    -- as published, 1 = a match only after transliteration. At equal similarity
+    -- an exact hit must outrank a folded one. Without it the fold arm displaced
+    -- exact Cyrillic hits from a 6-row preview by id order alone — measured on
+    -- "Благоевград", where three Latin-named partners tie at 1.000 with
+    -- `Община Благоевград` and pushed it out.
+    --
     -- Title arm: the operation's own (English) title.
-    SELECT o.keep_id, word_similarity(q, o.title_en) AS sim,
+    SELECT o.keep_id, word_similarity(q, o.title_en) AS sim, 0 AS arm,
            NULL::text AS partner_hit
       FROM interreg_operations o
      WHERE o.title_en IS NOT NULL AND q <% o.title_en
@@ -458,22 +471,34 @@ AS $$
     -- rows so a query cannot surface an operation through a Romanian partner
     -- that happens to share a substring — the result would be a real project
     -- with no Bulgarian relevance behind a Bulgarian-language search.
-    SELECT p.keep_id, word_similarity(q, p.partner_name) AS sim,
+    SELECT p.keep_id, word_similarity(q, p.partner_name) AS sim, 0 AS arm,
            p.partner_name AS partner_hit
       FROM interreg_partners p
      WHERE p.partner_name IS NOT NULL
        AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')
        AND q <% p.partner_name
+    UNION ALL
+    -- Latin-fold arm. Both sides folded, so it is symmetric: a Cyrillic query
+    -- also reaches a Latin-named partner. It rides
+    -- idx_interreg_partners_name_fold_trgm (137).
+    SELECT p.keep_id,
+           word_similarity(translit_bg_latin(q), translit_bg_latin(p.partner_name)) AS sim,
+           1 AS arm,
+           p.partner_name AS partner_hit
+      FROM interreg_partners p
+     WHERE p.partner_name IS NOT NULL
+       AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')
+       AND translit_bg_latin(q) <% translit_bg_latin(p.partner_name)
   ), best AS (
     -- One row per operation: an operation matched through three partners is one
     -- result, not three. DISTINCT ON keeps the strongest arm and the name that
     -- produced it, so the UI can say WHY a row matched.
-    SELECT DISTINCT ON (keep_id) keep_id, sim, partner_hit
-      -- partner_hit breaks the tie: two partners of one operation with the
+    SELECT DISTINCT ON (keep_id) keep_id, sim, arm, partner_hit
+      -- arm then partner_hit break the tie: two partners of one operation with the
       -- same similarity — common for near-duplicate institutional names —
       -- would otherwise pick an arbitrary "why this matched" string that
       -- changes with the plan. The row SET is unaffected; the label is not.
-      FROM hits ORDER BY keep_id, sim DESC, partner_hit
+      FROM hits ORDER BY keep_id, sim DESC, arm, partner_hit
   )
   SELECT b.keep_id, o.title_en, g.name_bg, o.period,
          (SELECT COALESCE(SUM(p.budget_eur), 0)::double precision
@@ -484,7 +509,7 @@ AS $$
     FROM best b
     JOIN interreg_operations o USING (keep_id)
     JOIN interreg_programmes g ON g.code = o.programme_code
-   ORDER BY b.sim DESC, o.keep_id
+   ORDER BY b.sim DESC, b.arm, o.keep_id
    -- Clamped in the function, not only in the route: this is GRANTed to
    -- app_readonly, and a negative LIMIT raises rather than returning nothing.
    LIMIT GREATEST(lim, 1)

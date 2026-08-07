@@ -28,6 +28,7 @@ const {
   handleSpaPageRequest,
   contractPage,
   companyPage,
+  interregPage,
 } = require("./spa_page.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
@@ -582,6 +583,14 @@ const makeDb = () => {
               [key],
             );
             return rows[0]?.r ? contractPage(rows[0].r, lang, selfUrl) : null;
+          },
+          loadInterreg: async (keepId, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const { rows } = await p.query(
+              "SELECT interreg_operation($1) AS r",
+              [Number(keepId)],
+            );
+            return rows[0]?.r ? interregPage(rows[0].r, lang, selfUrl) : null;
           },
           loadCompany: async (eik, lang, selfUrl) => {
             const p = await getDbPool(DB_PASSWORD.value());

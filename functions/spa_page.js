@@ -71,6 +71,18 @@ const truncateAtWord = (text, max) => {
 const eur = (n, lang) =>
   `${Math.round(Number(n) || 0).toLocaleString(lang === "bg" ? "bg-BG" : "en-US").replace(/ /g, " ")} €`;
 
+/** eur(), but NULL/undefined yields "" so a caller's `.filter(([, v]) => v)`
+ *  can drop the row entirely.
+ *
+ *  eur() coerces null to "0 €", and "0 €" is truthy — so an absent figure
+ *  survived that filter and was published as a zero. Measured: keep_id 28171
+ *  has a NULL eu_funding_eur on a €1,407,400 project, and the crawlable body
+ *  asserted "Средства от ЕС: 0 €" while FundsInterregScreen, on the same URL,
+ *  rendered "—". A head that contradicts its own page is the one failure this
+ *  module exists to prevent. Note €0 is a REAL value here — 30 operations carry
+ *  a published total_budget_eur of 0 — so the test is on null, never on zero. */
+const eurOrBlank = (n, lang) => (n == null ? "" : eur(n, lang));
+
 /**
  * Parse a request path into the page we should render, or null when this
  * request is not ours.
@@ -101,7 +113,30 @@ const matchSpaPage = (path) => {
     if (!EIK.test(company[1])) return null;
     return { kind: "company", key: company[1], lang: en ? "en" : "bg" };
   }
+
+  // Interreg operations. ~1,954 of them, so prerendering is affordable in
+  // principle — but they land here for the same reason the contract family did:
+  // without a head of their own every one served the HOMEPAGE's title,
+  // description and canonical, so to a crawler they were all duplicates of "/".
+  // Worse than dormant, since the My-Area and company tiles link into them.
+  const interreg = /^\/funds\/interreg\/([1-9]\d{0,8})$/.exec(rest);
+  if (interreg) {
+    return { kind: "interreg", key: interreg[1], lang: en ? "en" : "bg" };
+  }
   return null;
+};
+
+/** The URL a match names, in one place. Three kinds with three path shapes was
+ *  already a two-branch ternary at the call site; a fourth would have made the
+ *  canonical and the og:url easy to get quietly out of step with each other. */
+const selfUrlFor = (match) => {
+  const path =
+    match.kind === "contract"
+      ? `/funds/contract/${encodeURIComponent(match.key)}`
+      : match.kind === "company"
+        ? `/company/${match.key}`
+        : `/funds/interreg/${match.key}`;
+  return match.lang === "en" ? `${SITE_URL}/en${path}` : `${SITE_URL}${path}`;
 };
 
 // True for every path the hosting rewrites send here. Load-bearing and separate
@@ -119,8 +154,10 @@ const isSpaPagePath = (path) => {
   return (
     stripped === "/funds/contract" ||
     stripped === "/company" ||
+    stripped === "/funds/interreg" ||
     rest.startsWith("/funds/contract/") ||
-    rest.startsWith("/company/")
+    rest.startsWith("/company/") ||
+    rest.startsWith("/funds/interreg/")
   );
 };
 
@@ -192,6 +229,108 @@ const contractPage = (row, lang, selfUrl) => {
 <p><strong>${escapeHtml(row.contractNumber)}</strong></p>
 <table><tbody>${rows}</tbody></table>
 <p>${links.join(" · ")}</p>`,
+  };
+};
+
+/** The <head> block and the crawlable body for one Interreg operation.
+ *
+ *  TWO MONEY FIGURES, both named. The operation total is the whole cross-border
+ *  project and the Bulgarian partners' share is a fraction of it — €1,419,208
+ *  against Малко Търново's €357,183 on BSB00963. A description carrying only
+ *  the first would tell a searcher the Bulgarian side received four times what
+ *  it did, which is the single error this whole corpus is designed to prevent.
+ *
+ *  The title PREFERS the Bulgarian one and falls back to English. keep.eu has a
+ *  `title_bg` for 272 of the 1,954 operations, so the fallback is the common
+ *  case rather than the only one — an earlier draft of this comment claimed the
+ *  corpus had none, from a 107-project sample. Inventing a translation for the
+ *  remaining 1,682 would be a fabrication the page itself then contradicts, so
+ *  they carry the English title and the description — which is Bulgarian and
+ *  names the programme, the period and both money figures — does the work of
+ *  making the result legible to a Bulgarian searcher. The same
+ *  `titleBg ?? titleEn` rule runs in FundsInterregScreen, so head and page
+ *  never disagree; the EN canonical points at the BG URL either way.
+ */
+const interregPage = (row, lang, selfUrl) => {
+  const bg = lang === "bg";
+  const title = truncateAtWord(row.titleBg || row.titleEn || "", 70);
+  const programme =
+    (bg ? row.programmeBg : row.programmeEn) || row.programmeCode || "";
+  const head = bg
+    ? `${title} — Interreg | Трансгранични проекти`
+    : `${title} — Interreg | Cross-border projects`;
+  const partners = row.partnerCount ?? (row.partners || []).length;
+  // A missing total is said to be unpublished rather than printed as zero — the
+  // description is the SERP snippet, so "0 €" there is a claim about the money.
+  const money = bg
+    ? row.totalBudgetEur == null
+      ? `бюджетът на целия проект не е публикуван; ${eur(row.bgBudgetEur, lang)} за ${row.bgPartnerCount} български партньор(а) от общо ${partners}`
+      : `целият проект ${eur(row.totalBudgetEur, lang)}, от които ${eur(row.bgBudgetEur, lang)} за ${row.bgPartnerCount} български партньор(а) от общо ${partners}`
+    : row.totalBudgetEur == null
+      ? `whole-project budget unpublished; ${eur(row.bgBudgetEur, lang)} to ${row.bgPartnerCount} Bulgarian partner(s) of ${partners}`
+      : `${eur(row.totalBudgetEur, lang)} whole project, of which ${eur(row.bgBudgetEur, lang)} to ${row.bgPartnerCount} Bulgarian partner(s) of ${partners}`;
+  const description = bg
+    ? `${programme} (${row.period}): ${money}. Данни от keep.eu (INTERACT) — Interreg не се управлява през ИСУН.`
+    : `${programme} (${row.period}): ${money}. Data from keep.eu (INTERACT) — Interreg is not run through ИСУН.`;
+  const base = bg ? SITE_URL : `${SITE_URL}/en`;
+  const rows = [
+    [bg ? "Програма" : "Programme", escapeHtml(programme)],
+    [bg ? "Период" : "Period", escapeHtml(row.period)],
+    [
+      bg ? "Целият проект" : "Whole project",
+      eurOrBlank(row.totalBudgetEur, lang),
+    ],
+    [
+      bg ? "Български партньори" : "Bulgarian partners",
+      eurOrBlank(row.bgBudgetEur, lang),
+    ],
+    [
+      bg ? "Средства от ЕС" : "EU funding",
+      eurOrBlank(row.euFundingEur, lang),
+    ],
+    [bg ? "Статус" : "Status", escapeHtml(row.status)],
+    [
+      bg ? "Държави" : "Countries",
+      escapeHtml((row.countries || []).join(", ")),
+    ],
+  ]
+    .filter(([, v]) => v)
+    .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${v}</td></tr>`)
+    .join("");
+  // Every partner, foreign ones included — a crawlable body describing a
+  // cross-border project as Bulgarian-only would describe a project that does
+  // not exist. Linked by EIK where keep.eu published one (2021-2027 only).
+  const partnerList = (row.partners || [])
+    .map((p) => {
+      const name = escapeHtml(p.name || p.nameEn || "");
+      const linked = p.eik
+        ? `<a href="${base}/company/${escapeHtml(p.eik)}">${name}</a>`
+        : name;
+      const money =
+        p.budgetEur != null
+          ? ` — ${eur(p.budgetEur, lang)}`
+          : bg
+            ? " — без публикуван бюджет"
+            : " — no published budget";
+      return `<li>${linked} (${escapeHtml(p.country)})${money}${
+        p.isLead ? (bg ? " · водещ" : " · lead") : ""
+      }</li>`;
+    })
+    .join("");
+  return {
+    title: head,
+    description,
+    selfUrl,
+    // keep.eu is English-only, so the two language pages differ in boilerplate
+    // alone. Same call the contract family makes: stay navigable on the English
+    // UI, point the canonical at the Bulgarian URL rather than compete with it.
+    canonicalUrl: bg ? selfUrl : selfUrl.replace(`${SITE_URL}/en`, SITE_URL),
+    lang,
+    bodyHtml: `<h1>${escapeHtml(row.titleBg || row.titleEn || "")}</h1>
+<p><strong>${escapeHtml(programme)}</strong>${row.operationId ? ` · ${escapeHtml(row.operationId)}` : ""}</p>
+<table><tbody>${rows}</tbody></table>
+<ul>${partnerList}</ul>
+<p><a href="${base}/funds">${bg ? "Европейски средства" : "EU funds"}</a> · <a href="https://keep.eu/">keep.eu</a></p>`,
   };
 };
 
@@ -400,17 +539,16 @@ const handleSpaPageRequest = async (req, res, deps) => {
   // — link checkers and half the crawlers use it.
   if (req.method !== "GET" && req.method !== "HEAD") return sendShell(null);
 
-  const selfUrl =
-    match.lang === "en"
-      ? `${SITE_URL}/en${match.kind === "contract" ? `/funds/contract/${encodeURIComponent(match.key)}` : `/company/${match.key}`}`
-      : `${SITE_URL}${match.kind === "contract" ? `/funds/contract/${encodeURIComponent(match.key)}` : `/company/${match.key}`}`;
+  const selfUrl = selfUrlFor(match);
 
   let page = null;
   try {
     page =
       match.kind === "contract"
         ? await deps.loadContract(match.key, match.lang, selfUrl)
-        : await deps.loadCompany(match.key, match.lang, selfUrl);
+        : match.kind === "company"
+          ? await deps.loadCompany(match.key, match.lang, selfUrl)
+          : await deps.loadInterreg(match.key, match.lang, selfUrl);
   } catch (e) {
     console.error("spa page lookup error", match.kind, match.key, e);
     // A database blip must not take the page down: serve the SPA, which fetches
@@ -423,6 +561,8 @@ const handleSpaPageRequest = async (req, res, deps) => {
 };
 
 module.exports = {
+  interregPage,
+  selfUrlFor,
   matchSpaPage,
   isSpaPagePath,
   renderIntoShell,

@@ -522,3 +522,194 @@ test("the fallback shell carries both marker blocks", () => {
   assert.ok(FALLBACK_SHELL.includes("<!-- BODY -->"));
   assert.ok(FALLBACK_SHELL.includes("<!-- /BODY -->"));
 });
+
+// ── Interreg operations (/funds/interreg/:keepId) ────────────────────────────
+//
+// These landed here rather than in the prerender for the reason the contract
+// family did: without a head of their own, all ~1,954 served the HOMEPAGE's
+// title, description and canonical, so to a crawler they were duplicates of
+// "/". Worse than dormant, because the My-Area and company tiles link into them.
+
+const { interregPage, selfUrlFor, SITE_URL } = require("./spa_page.js");
+
+const OPERATION = {
+  keepId: 33607,
+  operationId: "BSB00963",
+  programmeCode: "INTERREG-BSB-1420",
+  programmeBg: "Черноморски басейн 2014-2020",
+  programmeEn: "Black Sea Basin 2014-2020",
+  period: "2014-2020",
+  titleEn: "Cross-Border Cooperation for Promoting Bio-diversity",
+  titleBg: null,
+  status: "closed",
+  totalBudgetEur: 1419207.76,
+  euFundingEur: 1277287,
+  bgBudgetEur: 357183.12,
+  bgPartnerCount: 1,
+  partnerCount: 5,
+  countries: ["Bulgaria", "Turkey"],
+  partners: [
+    {
+      seq: 0,
+      name: "Община Малко Търново",
+      country: "Bulgaria",
+      isLead: false,
+      eik: "000057086",
+      budgetEur: 357183.12,
+    },
+    { seq: 1, name: "Lead X", country: "Turkey", isLead: true, eik: null, budgetEur: null },
+  ],
+};
+
+test("matchSpaPage owns /funds/interreg/:keepId in both languages", () => {
+  assert.deepEqual(matchSpaPage("/funds/interreg/33607"), {
+    kind: "interreg",
+    key: "33607",
+    lang: "bg",
+  });
+  assert.deepEqual(matchSpaPage("/en/funds/interreg/33607"), {
+    kind: "interreg",
+    key: "33607",
+    lang: "en",
+  });
+  // Not an operation id we can name → null, so the handler serves the plain
+  // shell rather than inventing a head.
+  for (const p of [
+    "/funds/interreg/0",
+    "/funds/interreg/abc",
+    "/funds/interreg/",
+    "/funds/interreg/33607/extra",
+  ])
+    assert.equal(matchSpaPage(p), null, p);
+});
+
+// isSpaPagePath must stay TRUE for everything the rewrite sends here, including
+// the ids matchSpaPage rejects — returning false would drop the request into the
+// /api/db gates below and answer a page URL with {"error":"GET only"}.
+test("isSpaPagePath covers the whole rewritten prefix", () => {
+  for (const p of [
+    "/funds/interreg",
+    "/funds/interreg/33607",
+    "/funds/interreg/abc",
+    "/en/funds/interreg/33607",
+  ])
+    assert.equal(isSpaPagePath(p), true, p);
+  assert.equal(isSpaPagePath("/funds/interregx"), false);
+});
+
+// THE defect this corpus exists to prevent, at the SERP layer: a description
+// carrying only the operation total tells a searcher the Bulgarian side got
+// €1,419,208 when it got €357,183 — four times over, on a 2,628-person
+// municipality.
+test("the description names BOTH money figures", () => {
+  const page = interregPage(OPERATION, "bg", "https://x/funds/interreg/33607");
+  assert.match(page.description, /1 419 208|1 419 207|1419208/);
+  assert.match(page.description, /357 183|357183/);
+  assert.ok(
+    page.description.indexOf("357") > -1 &&
+      page.description.indexOf("1 419") > -1,
+    "both figures must appear",
+  );
+});
+
+test("the crawlable body lists every partner, foreign ones included", () => {
+  const page = interregPage(OPERATION, "bg", "https://x/funds/interreg/33607");
+  assert.match(page.bodyHtml, /Община Малко Търново/);
+  assert.match(page.bodyHtml, /Lead X/);
+  // Linked by EIK where keep.eu published one; plain text where it did not.
+  assert.match(page.bodyHtml, /href="[^"]*\/company\/000057086"/);
+  // NULL budget is "no published budget", never €0 — the two are different
+  // facts and 137 tracks which.
+  assert.match(page.bodyHtml, /без публикуван бюджет/);
+});
+
+// keep.eu publishes no Bulgarian title for any of these, so the BG page carries
+// the English one rather than a fabricated translation.
+test("the EN page's canonical points at the BG url", () => {
+  const bgPage = interregPage(OPERATION, "bg", `${SITE_URL}/funds/interreg/33607`);
+  const enPage = interregPage(OPERATION, "en", `${SITE_URL}/en/funds/interreg/33607`);
+  assert.equal(bgPage.canonicalUrl, `${SITE_URL}/funds/interreg/33607`);
+  assert.equal(enPage.canonicalUrl, `${SITE_URL}/funds/interreg/33607`);
+  assert.match(bgPage.title, /Cross-Border Cooperation/);
+});
+
+// A NULL money figure must be ABSENT, not zero. eur() coerces null to "0 €" and
+// "0 €" is truthy, so it survived the row filter and the crawlable body asserted
+// "Средства от ЕС: 0 €" for keep_id 28171 — a €1,407,400 project — while
+// FundsInterregScreen on the same URL rendered "—". €0 is a real value here (30
+// operations publish a zero total), so the guard is on null, never on zero.
+test("an unpublished money figure is omitted, not rendered as zero", () => {
+  const page = interregPage(
+    { ...OPERATION, euFundingEur: null },
+    "bg",
+    "https://x/funds/interreg/33607",
+  );
+  assert.ok(
+    !/Средства от ЕС/.test(page.bodyHtml),
+    "the EU-funding row should be dropped entirely when unpublished",
+  );
+  assert.ok(!/>0 €</.test(page.bodyHtml), "a null figure rendered as 0 €");
+
+  // A published zero is a fact and must survive.
+  const zero = interregPage(
+    { ...OPERATION, euFundingEur: 0 },
+    "bg",
+    "https://x/funds/interreg/33607",
+  );
+  assert.match(zero.bodyHtml, /Средства от ЕС/);
+
+  // And the description says the total is unpublished rather than printing 0 €
+  // into the SERP snippet, where it would read as a claim about the money.
+  const noTotal = interregPage(
+    { ...OPERATION, totalBudgetEur: null },
+    "bg",
+    "https://x/funds/interreg/33607",
+  );
+  assert.match(noTotal.description, /не е публикуван/);
+  assert.ok(
+    !/целият проект 0 €/.test(noTotal.description),
+    "an unpublished total leaked into the description as zero",
+  );
+});
+
+// selfUrlFor replaced a two-branch ternary at the one call site that builds the
+// canonical and the og:url. Its only real risk is the encodeURIComponent
+// placement — inside the path segment, never across the SITE_URL/`/en` prefix.
+test("selfUrlFor is unchanged for every kind", () => {
+  const url = (kind, key, lang) => selfUrlFor({ kind, key, lang });
+  assert.equal(
+    url("contract", "BG16RFOP002-2.089-3686-C01", "bg"),
+    `${SITE_URL}/funds/contract/BG16RFOP002-2.089-3686-C01`,
+  );
+  assert.equal(
+    url("contract", "BG16RFOP002-2.089-3686-C01", "en"),
+    `${SITE_URL}/en/funds/contract/BG16RFOP002-2.089-3686-C01`,
+  );
+  // A space is legal in a contract number (CONTRACT_NUMBER allows \s) and must
+  // be escaped in the segment, leaving the prefix untouched.
+  assert.equal(
+    url("contract", "BG16 RFOP 1", "bg"),
+    `${SITE_URL}/funds/contract/BG16%20RFOP%201`,
+  );
+  assert.equal(url("company", "000057086", "bg"), `${SITE_URL}/company/000057086`);
+  assert.equal(
+    url("company", "000057086", "en"),
+    `${SITE_URL}/en/company/000057086`,
+  );
+  assert.equal(
+    url("interreg", "33607", "bg"),
+    `${SITE_URL}/funds/interreg/33607`,
+  );
+  assert.equal(
+    url("interreg", "33607", "en"),
+    `${SITE_URL}/en/funds/interreg/33607`,
+  );
+});
+
+// A path that decodes to something CONTRACT_NUMBER forbids is not ours: %2F
+// decodes to "/", so matchSpaPage returns null and the handler serves the plain
+// shell rather than inventing a head for a key it cannot trust.
+test("an encoded path separator is not matched as a contract", () => {
+  assert.equal(matchSpaPage("/funds/contract/BG16%2Fx"), null);
+  assert.ok(matchSpaPage("/funds/contract/BG16%20RFOP%201"));
+});

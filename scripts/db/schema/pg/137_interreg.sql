@@ -303,3 +303,13 @@ CREATE INDEX IF NOT EXISTS idx_interreg_operations_title_trgm
   ON interreg_operations USING gin (title_en gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_interreg_partners_name_trgm
   ON interreg_partners USING gin (partner_name gin_trgm_ops);
+
+-- The LATIN FOLD of the partner name, and the index over it. Without this a
+-- Latin-script query ("Malko Tarnovo", "Obshtina Haskovo") cannot reach the
+-- Cyrillic partner names at all — while every sibling group in the same search
+-- dropdown answers it, because contracts, tenders and TR companies all carry a
+-- `*_fold` column. Expression index rather than a generated column: nothing
+-- SELECTs the fold, only matches on it, and a stored column would have to be
+-- added to the stage twin and the merge.
+CREATE INDEX IF NOT EXISTS idx_interreg_partners_name_fold_trgm
+  ON interreg_partners USING gin (translit_bg_latin(partner_name) gin_trgm_ops);
