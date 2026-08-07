@@ -510,6 +510,63 @@ for the company page or `company_public_money`.
 a stable BG partner share across periods — plausible (same eligible areas, same programme
 pairs) but **unverified**; T0 replaces it with a measurement before any schema lands.
 
+### 5.1 T0 RESULT — the whole corpus, measured 2026-08-07
+
+The full crawl landed: **1,954 operations, 12,141 partnerships, 1,493 Bulgarian partner
+rows.** Every per-programme operation count reconciles to §1 exactly, all 22 of them.
+Crawl cost was well under budget — 40m22s for the 5,451-page index walk (§2.1 estimated
+~2 h) and 3m17s for 1,954 details (estimated ~40 min), with 0 missing and 0 failed.
+
+| period | ops | partnerships | BG rows | BG budget | BG w/ EIK | budget published | published_zero | unpublished |
+|---|---|---|---|---|---|---|---|---|
+| 2014-2020 | 1,251 | 6,843 | 1,080 | **€281.72m** | **0 (0%)** | 1,058 (98.0%) | 7 | 15 |
+| 2021-2027 | 703 | 5,298 | 413 | **€114.67m** | **359 (87%)** | 407 (98.5%) | 0 | 6 |
+| **total** | **1,954** | **12,141** | **1,493** | **€396.39m** | 359 (24%) | 1,465 (98.1%) | 7 | 21 |
+
+**§5's extrapolation holds — every band was right:**
+
+| §5 predicted | measured |
+|---|---|
+| ≈1,300–1,500 BG partner rows | **1,493** ✓ |
+| €300–450m BG partner budget | **€396.39m** ✓ |
+| €250–300m 2014-2020 / €80–120m 2021-2027 | **€281.72m / €114.67m** ✓ both |
+| ≈800–1,000 distinct operations | **1,115** ✗ — *above* the range |
+
+**The gate's two kill conditions, answered:**
+
+1. *"If the 2014-2020 BG partner share differs materially from the 2021-2027 one, §5 is
+   wrong."* The **blended** shares do differ — BG takes 34.7% of the operations it joins in
+   2014-2020 against 21.1% in 2021-2027 — but §5 never used a blended rate; it applied a
+   per-programme share (~48–52% bilateral CBC, ~17% BSB, ~4% Danube, ~2% Interreg Europe).
+   The difference is **mix**, not a broken assumption: 2021-2027 is proportionally more
+   multi-country and its bilateral programmes are still contracting. The totals landed
+   inside every predicted band, so the method stands. **PASS.**
+2. *"If 2014-2020 placement across the full corpus falls below the §9 floor."* Not yet
+   answerable — it needs the resolver (T2.2) — but the **inputs are stronger than the
+   30-row sample suggested**: town 100%, lat/lng 100%, postcode 95.6% (2014-2020) and 98.3%
+   (2021-2027). The §9.6 floor of ≥90% is reachable on signal availability alone. **Not
+   blocking; re-check at T2.2.**
+
+**Four corrections T0 makes to this document:**
+
+- **`co_financing_eur` is ALSO 2021-2027-only** — NULL on every sampled 2014-2020 partner
+  row, alongside `pic`, `beneficiary_id`, `organisation_type` and
+  `union_co_financing_rate`. §3.1 quotes it as a per-partner field without that caveat.
+  Partner-level EU funding therefore exists for 413 rows, not 1,493; `budget_eur` is the
+  only money the older period publishes per partner.
+- **Tier P is 71.1% of the money and 72.3% of the rows**, not the "roughly two-thirds" §5
+  states. The share attributable to a place but not a legal entity is slightly larger than
+  the plan assumed, which tightens T4's scope further.
+- **Budget coverage is far better than §2.5's fill-rate table implied**: 98.1% of BG rows
+  carry a published budget. The programme-level gaps are real but small in aggregate — the
+  two 0%-budget arms contribute 12 BG rows and €0.00m between them.
+- **`published_zero` is confirmed and rarer than the sample suggested**: 7 rows, all
+  2014-2020 (the sample found 2 of 30, implying ~72).
+
+**The four named gaps in §2.5 are all confirmed as stated**, and none is a surprise:
+BG-Serbia 21-27 → 0 operations; ESPON 2030 → 0; Greece-Bulgaria 21-27 → 3 operations, 6 BG
+rows, €0.00m; ESPON 2020 → 6 BG rows, €0.00m.
+
 ---
 
 ## 6. Which municipalities move
