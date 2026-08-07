@@ -28,7 +28,12 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - [Simulator](https://electionsbg.com/simulator): coalition + seat-allocation what-if tool.
 - [Polls](https://electionsbg.com/polls): polling-agency accuracy tracker, per-vote miss profile.
 - [Governance](https://electionsbg.com/governance): country node of the Governance view — parliament roll-calls, MP declarations, state budget execution, public procurement, party financing and macro/governance context; also the top of a place ladder that drills country → region (/governance/region/{oblast}) → município or settlement (/governance/{id}) for the local governance picture (the place's MPs, mayor & council, Чл.53 transfers, EU funds, local taxes, census, transparency).
-- [Parliament](https://electionsbg.com/parliament): MP roster, party seats, per-MP profiles.
+- [National Assembly](https://electionsbg.com/parliament): module front page for roll-call voting: sittings archive, attendance, group cohesion, MP similarity and the voting map. Coverage is the 44th-52nd National Assembly; earlier parliaments published no roll-call records, and the 44th is partial (Oct 2020 - Mar 2021).
+- [Roll-call votes](https://electionsbg.com/votes): every plenary sitting with a roll-call vote, per item and per MP. Per-sitting pages are `/votes/{YYYY-MM-DD}` and individual items are `/votes/{YYYY-MM-DD}/{item-slug}`; each names its tally (for / against / abstained) and outcome.
+- [Parliament attendance](https://electionsbg.com/parliament/attendance): per-MP participation in roll-call votes, weighted by the items each MP could have voted on.
+- [Parliament voting correlation](https://electionsbg.com/parliament/correlation): how closely each pair of parliamentary groups votes together — cosine similarity between the two groups' majority votes across every item, with the diagonal (ties within a group) excluded from the ranking.
+- [MP voting similarity](https://electionsbg.com/parliament/similarity): pick an MP and see who votes closest to them and who most differently; per-member rankings are `/parliament/similarity/{mpId}`.
+- [Two groups head to head](https://electionsbg.com/votes/between): pick two parliamentary groups and see the items they voted opposite ways on; a chosen pair is `/votes/between/{groupA}--{groupB}`.
 - [Parliament cohesion](https://electionsbg.com/parliament/cohesion): intra- and cross-party roll-call cohesion.
 - [Parliament embedding](https://electionsbg.com/parliament/embedding): 2-D embedding of MPs from roll-call voting behavior.
 - [MP business connections](https://electionsbg.com/connections): graph of declared business ties between MPs and companies.
