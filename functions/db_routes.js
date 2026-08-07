@@ -210,6 +210,22 @@ const missingMigration = (sentinel) => (e) =>
     ? [{ r: sentinel }]
     : Promise.reject(e);
 
+// Same again, but it LOGS. A zero-shaped sentinel is indistinguishable from a
+// place that genuinely received no Interreg money, so without this line the only
+// symptom of "deploy:db shipped before 138 was applied on Cloud SQL" is every
+// municipality in the country reading €0 — at a 200, for ever, with nothing red.
+// That is the reasoning CLAUDE.md already records for 123/124's `psp:`/`pp:`
+// prefixes; this is the Interreg one. Once per process per label, so a crawler
+// walking 265 municipalities produces one entry, not 265.
+const missingMigrationLogged = (label, sentinel, loader) => (e) => {
+  if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
+  logMissOnce(
+    `ir:not-built:${label}:${e.code}`,
+    `${label}: read failed (${e.code}) — serving an empty payload that reads as €0. Run ${loader}.`,
+  );
+  return [{ r: sentinel }];
+};
+
 // ── The per-scope procurement dashboard payloads (migration 124) ──────────────
 //
 // Six routes — procurement-{overview,flow,rankings,concentration,sectors,benchmarks} — used
@@ -2815,12 +2831,12 @@ const DB_ROUTES = {
       partnerCount: 0,
       operationCount: 0,
       budgetEur: 0,
-      unpublishedCount: 0,
+      unpublishedPartnerCount: 0,
       linkedCount: 0,
       operations: [],
     };
     // Every obshtina code shape place_dim actually carries, enumerated rather
-    // than guessed: BGS12 / SFO26 (3 letters + 2 digits, 259 of them), S2401
+    // than guessed: BGS12 / SFO26 (3 letters + 2 digits, 264 of them), S2401
     // (Sofia's 24 районы, 1 letter + 4 digits), and SFO_CITY — Столична
     // община, which alone holds 272 of the 1,469 placed Bulgarian partner
     // rows, so a `[A-Z]{2,3}\d{2}`-only check 400s the single largest place in
@@ -2840,7 +2856,13 @@ const DB_ROUTES = {
         /^\d{5}$/.test(ekatte) ? null : obshtina,
         clampInt(q.limit, 20, 1, 100),
       ],
-    ).catch(missingMigration(empty));
+    ).catch(
+      missingMigrationLogged(
+        "interreg-place",
+        empty,
+        "db:load:interreg:pg:cloud (and apply 138)",
+      ),
+    );
     return { body: rows[0]?.r ?? empty };
   },
   // Interreg money for ONE company or institution, by EIK.
@@ -2848,19 +2870,34 @@ const DB_ROUTES = {
   // TIER L ONLY, and the caller must say so: keep.eu's national-id field exists
   // only in the 2021-2027 template (0 of 1,080 Bulgarian 2014-2020 rows carry
   // one), so an empty answer here is "we cannot link it", NOT "no money".
+  //
+  // A NON-empty answer needs the same warning and that is the easier one to miss:
+  // an organisation active in both periods gets its 2021-2027 half back and
+  // nothing else. Община Гоце Делчев returns €712,599.55 while 7 further rows
+  // worth €1,665,237.72 sit under the identical partner_name with a NULL eik.
+  // `periods` is what lets a caption say WHICH window the figure covers instead
+  // of presenting a partial as a total.
   "interreg-company": async (dbRows, q) => {
     const eik = s(q, "eik");
     const empty = {
       partnerCount: 0,
       operationCount: 0,
       budgetEur: 0,
-      unpublishedCount: 0,
+      unpublishedPartnerCount: 0,
+      periods: {},
       operations: [],
     };
     if (!/^\d{9}$/.test(eik))
       return { status: 400, body: { error: "missing or malformed eik" } };
-    const rows = await dbRows("SELECT interreg_by_eik($1) AS r", [eik]).catch(
-      missingMigration(empty),
+    const rows = await dbRows("SELECT interreg_by_eik($1, $2) AS r", [
+      eik,
+      clampInt(q.limit, 50, 1, 200),
+    ]).catch(
+      missingMigrationLogged(
+        "interreg-company",
+        empty,
+        "db:load:interreg:pg:cloud (and apply 138)",
+      ),
     );
     return { body: rows[0]?.r ?? empty };
   },
@@ -2868,7 +2905,15 @@ const DB_ROUTES = {
     const ekatte = s(q, "ekatte");
     const obshtina = s(q, "obshtina");
     const empty = { count: 0, moneyCount: 0, politicalCount: 0, companies: [] };
-    if (!/^\d{5}$/.test(ekatte) && !/^[A-Z]{3}\d{2}$/.test(obshtina))
+    // Same code shapes as interreg-place above — Столична община's SFO_CITY and
+    // Sofia's 24 S#### районы were 400ing here, so the "фирми, регистрирани тук"
+    // tile could never load for the capital while every other municipality
+    // answered fine. The Interreg route was copied from this one and fixed; the
+    // original was not.
+    if (
+      !/^\d{5}$/.test(ekatte) &&
+      !/^([A-Z]{3}\d{2}|S\d{4}|SFO_CITY)$/.test(obshtina)
+    )
       return { status: 400, body: { error: "missing ekatte or obshtina" } };
     const rows = await dbRows(
       "SELECT place_companies($1, $2, $3) AS r",

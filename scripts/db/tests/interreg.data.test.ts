@@ -17,7 +17,7 @@ import assert from "node:assert/strict";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { allRows, dbReachable, end } from "../lib/pg";
+import { allRows, dbReachable, end, withClient } from "../lib/pg";
 import {
   haversineKm,
   GEO_CONFIRM_KM,
@@ -548,6 +548,245 @@ test.skipIf(skip)(
       share < 0.2,
       `${(100 * share).toFixed(1)}% placed outside their area:\n  ` +
         outside.slice(0, 10).join("\n  "),
+    );
+  },
+);
+
+// ── 15. The serving functions answer for BULGARIA only ─────────────────────
+test.skipIf(skip)(
+  "interreg_by_eik does not serve a foreign national id",
+  async () => {
+    // `eik` holds whatever national id keep.eu published, for EVERY country — the
+    // column is a namespace, not an identity. 321 distinct foreign values are
+    // exactly 9 digits, which is the route's only gate, and two collide with a
+    // live tr_companies.uic: 204426451 (a Georgian arts centre) and 204911337.
+    // Without the country predicate, /company/204426451 publishes a Georgian
+    // body's Interreg budget under a Bulgarian company's name — which is
+    // `feedback_name_match_not_identity` arrived at through a shared id namespace
+    // instead of a shared name.
+    const rows = await allRows<{ eik: string; n: string }>(
+      `SELECT p.eik, count(*) n FROM interreg_partners p
+      WHERE p.eik IS NOT NULL AND NOT (${BG}) AND p.eik ~ '^[0-9]{9}$'
+      GROUP BY 1 ORDER BY 2 DESC LIMIT 5`,
+    );
+    if (rows.length === 0) return; // no foreign 9-digit id in the corpus today
+    for (const r of rows) {
+      const got = await one<{ r: { partnerCount: number; budgetEur: number } }>(
+        `SELECT interreg_by_eik($1) AS r`,
+        [r.eik],
+      );
+      assert.equal(
+        got.r.partnerCount,
+        0,
+        `interreg_by_eik('${r.eik}') serves ${got.r.partnerCount} foreign row(s) ` +
+          `(€${got.r.budgetEur}) — a non-Bulgarian national id in the EIK namespace`,
+      );
+    }
+  },
+);
+
+// ── 16. The operation list is ordered, and the LIMIT keeps the right rows ───
+test.skipIf(skip)(
+  "the operation list is the true top-N, in order",
+  async () => {
+    // Two independent things, and the first draft got the first one wrong in a way
+    // no output could show: the jsonb_agg ORDER BY named `budgetEur`, a key the
+    // object does not carry (it is `localBudgetEur`), so both sort expressions
+    // were constant NULL and the ordering was inert. Output stayed descending only
+    // because tuplesort short-circuits on already-sorted input — an accident, not
+    // a guarantee.
+    const LIMIT = 100;
+    const got = await one<{
+      r: { operations: { keepId: number; localBudgetEur: number | null }[] };
+    }>(`SELECT interreg_by_place('68134', NULL, ${LIMIT}) AS r`);
+    const ops = got.r.operations;
+    assert.ok(ops.length > 1, "Sofia should return many operations");
+
+    for (const o of ops)
+      assert.ok(
+        "localBudgetEur" in o,
+        `an operation lacks localBudgetEur: ${JSON.stringify(o)}`,
+      );
+
+    let prev = Number.POSITIVE_INFINITY;
+    let seenNull = false;
+    for (const o of ops) {
+      if (o.localBudgetEur === null) {
+        seenNull = true;
+        continue;
+      }
+      assert.ok(!seenNull, "a published budget follows an unpublished one");
+      assert.ok(
+        o.localBudgetEur <= prev,
+        `not descending: ${o.localBudgetEur} follows ${prev}`,
+      );
+      prev = o.localBudgetEur;
+    }
+
+    // And the LIMIT kept the right N — derived independently of the function.
+    const want = await allRows<{ keep_id: number }>(
+      `SELECT p.keep_id FROM interreg_partners p
+      WHERE p.ekatte = '68134' AND ${BG}
+      GROUP BY p.keep_id
+      ORDER BY SUM(p.budget_eur) DESC NULLS LAST, p.keep_id
+      LIMIT ${LIMIT}`,
+    );
+    assert.deepEqual(
+      new Set(ops.map((o) => o.keepId)),
+      new Set(want.map((r) => r.keep_id)),
+      "the returned set is not the true top-N",
+    );
+  },
+);
+
+// ── 17. localBudgetBasis tells the truth about a mixed group ───────────────
+test.skipIf(skip)(
+  "a place+operation group mixing bases reports 'partial'",
+  async () => {
+    // SYNTHETIC, and that is the point: no group in today's corpus mixes published
+    // with unpublished at this grain, so the branch that matters most is the one
+    // real data cannot exercise. It is reachable — budget_basis is not a
+    // programme-level property; INTERREG-BSB-1420 carries both across its 46
+    // Bulgarian rows — and reporting 'published' for such a group would assert a
+    // figure is complete when a sibling partner's budget is simply unknown.
+    //
+    // Rolled back, so it never touches the corpus.
+    await withClient(async (c) => {
+      const q = async <T>(sql: string, params?: unknown[]): Promise<T[]> =>
+        (await c.query(sql, params as never)).rows as T[];
+      await c.query("BEGIN");
+      try {
+        await run(q);
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
+
+    async function run(
+      q: <T>(sql: string, params?: unknown[]) => Promise<T[]>,
+    ): Promise<void> {
+      const seed = await q<{
+        keep_id: number;
+        ekatte: string;
+        max_seq: number;
+      }>(
+        `SELECT keep_id, ekatte, max(partner_seq) max_seq
+         FROM interreg_partners
+        WHERE ekatte IS NOT NULL AND budget_basis = 'published'
+          AND (country = 'Bulgaria' OR country_department = 'Bulgaria')
+        GROUP BY 1, 2 ORDER BY keep_id LIMIT 1`,
+      );
+      assert.ok(seed.length === 1, "no published+placed row to seed from");
+      const { keep_id, ekatte, max_seq } = seed[0];
+
+      const basisOf = async (): Promise<string> => {
+        const r = await q<{ b: string }>(
+          `SELECT (o->>'localBudgetBasis') b
+           FROM jsonb_array_elements(interreg_by_place($1, NULL, 500)->'operations') o
+          WHERE (o->>'keepId')::int = $2`,
+          [ekatte, keep_id],
+        );
+        return r[0]?.b ?? "(absent)";
+      };
+      assert.equal(await basisOf(), "published");
+
+      // Add an unpublished sibling in the same place, on the same operation.
+      await q(
+        `INSERT INTO interreg_partners
+         (keep_id, partner_seq, is_lead, country, partner_name,
+          budget_eur, budget_basis, ekatte, place_basis)
+       VALUES ($1, $2, false, 'Bulgaria', 'TEST unpublished sibling',
+               NULL, 'unpublished', $3, 'roster')`,
+        [keep_id, Number(max_seq) + 1000, ekatte],
+      );
+      assert.equal(
+        await basisOf(),
+        "partial",
+        "a group with known AND unknown money must not claim 'published'",
+      );
+
+      // An all-unpublished group must be NULL money, never €0 — €0 is a published
+      // fact (published_zero) and this is an absence.
+      await q(
+        `UPDATE interreg_partners SET budget_basis = 'unpublished', budget_eur = NULL
+        WHERE keep_id = $1 AND ekatte = $2`,
+        [keep_id, ekatte],
+      );
+      const r = await q<{ basis: string; eur: number | null }>(
+        `SELECT (o->>'localBudgetBasis') basis, (o->>'localBudgetEur')::float eur
+         FROM jsonb_array_elements(interreg_by_place($1, NULL, 500)->'operations') o
+        WHERE (o->>'keepId')::int = $2`,
+        [ekatte, keep_id],
+      );
+      assert.equal(r[0].basis, "unpublished");
+      assert.equal(r[0].eur, null, "an unpublished group must be NULL, not 0");
+    }
+  },
+);
+
+// ── 18. The operation list drops nothing the aggregate counted ─────────────
+test.skipIf(skip)(
+  "when everything fits, the list sums to the headline",
+  async () => {
+    // The functions' four inner JOINs (operations, programmes) can silently drop
+    // an operation whose programme_code was evicted, while the headline aggregate
+    // — which reads `rows` alone — still counts it. One assertion catches that, a
+    // dropped join, and any future rewrite that starts crossing the grain.
+    const places = await allRows<{ obshtina: string }>(
+      `SELECT obshtina FROM interreg_partners p
+      WHERE obshtina IS NOT NULL AND ${BG}
+      GROUP BY 1 HAVING count(DISTINCT keep_id) BETWEEN 2 AND 40
+      ORDER BY 1 LIMIT 25`,
+    );
+    assert.ok(places.length > 0, "no municipality to check");
+    for (const { obshtina } of places) {
+      const got = await one<{
+        r: {
+          budgetEur: number;
+          operationCount: number;
+          operations: { localBudgetEur: number | null }[];
+        };
+      }>(`SELECT interreg_by_place(NULL, $1, 100) AS r`, [obshtina]);
+      const { budgetEur, operationCount, operations } = got.r;
+      assert.equal(
+        operations.length,
+        operationCount,
+        `${obshtina}: ${operationCount} counted, ${operations.length} listed`,
+      );
+      const summed = operations.reduce(
+        (a, o) => a + (o.localBudgetEur ?? 0),
+        0,
+      );
+      assert.ok(
+        Math.abs(summed - budgetEur) < 0.01,
+        `${obshtina}: list sums to €${summed}, headline says €${budgetEur}`,
+      );
+    }
+  },
+);
+
+// ── 19. Every obshtina code the corpus uses passes the route's gate ────────
+test.skipIf(skip)(
+  "the route regex admits every placed obshtina code",
+  async () => {
+    // The generalisable form of functions/db_routes.interreg.test.js. That file
+    // pins today's four shapes without a database; this one fails when a NEW code
+    // shape lands in the corpus and the route would 400 it — which is exactly how
+    // SFO_CITY (272 of 1,469 placed rows, the largest place in the corpus) was
+    // 400ing while every other municipality answered fine.
+    const ROUTE_RE = /^([A-Z]{3}\d{2}|S\d{4}|SFO_CITY)$/;
+    const codes = await allRows<{ obshtina: string; n: string }>(
+      `SELECT p.obshtina, count(*) n FROM interreg_partners p
+      WHERE p.obshtina IS NOT NULL AND ${BG} GROUP BY 1`,
+    );
+    assert.ok(codes.length > 0, "no placed obshtina codes");
+    const rejected = codes.filter((c) => !ROUTE_RE.test(c.obshtina));
+    assert.deepEqual(
+      rejected,
+      [],
+      `the route would 400 these placed codes: ${rejected
+        .map((c) => `${c.obshtina} (${c.n} rows)`)
+        .join(", ")}`,
     );
   },
 );

@@ -784,6 +784,71 @@ Downstream re-run chain: 127 → `load_graph_pg.ts` → `tr_company_place.money_
 13. **`fund_payloads` is untouched** — assert `interreg%` matches zero `kind` values, so a future shortcut into that table (which the next funds load would silently delete) goes red here.
 14. **Placed inside the programme's own eligible area** — for every placed BG partner of a CBC programme, the settlement's NUTS3 is inside that programme's declared `eligibleNuts` (`isEligibleNuts`, prefix semantics, so BSB's NUTS2 declaration matches). **Reported with a ceiling, not asserted at zero**: a partner may legitimately sit outside the area (a national body leading a border project), so the gate is a bound on the share plus a printed list. Zero would be the wrong assertion; unbounded would make it decoration. Added 2026-08-06 after the T0.1 review found `isEligibleNuts` had no consumer — a BG partner outside its own programme's area is either a placement error or a keep.eu error, and nothing else in this list would notice.
 
+**Gates 15-19 were added by T3.1's review**, which ran late (the first review subagent died
+mid-run) against the already-committed serving pair. Each one closes a defect that was live:
+
+15. **The serving functions answer for Bulgaria only** — `interreg_partners.eik` is a
+    NAMESPACE, not an identity: it holds whatever national id keep.eu published, for every
+    country. **196 distinct foreign ids sit in it, 321 values are exactly 9 digits** (the
+    route's only gate), and two collide *exactly* with a live `tr_companies.uic` —
+    `204426451` and `204911337`, both Georgian bodies. `interreg_by_eik` had no country
+    predicate, so `/company/204426451` would have published a Georgian arts centre's Interreg
+    budget under a Bulgarian company's name. That is `feedback_name_match_not_identity`
+    reached through a shared id namespace instead of a shared name, and `interreg_by_place`
+    already had the predicate — the asymmetry is what made it a defect rather than a choice.
+16. **The operation list is the true top-N, in order** — the `jsonb_agg` ORDER BY named
+    `budgetEur`, a key the object does not carry (it is `localBudgetEur`), so both sort
+    expressions were constant `NULL` and the entire outer ordering was **inert**. Output
+    stayed descending only because tuplesort short-circuits on already-sorted input: an
+    accident, not a guarantee. The gate asserts the sequence is non-increasing with nulls
+    last **and** that the returned set equals an independently-derived top-N.
+17. **`localBudgetBasis` tells the truth about a mixed group** — synthetic and rolled back,
+    *because* no group in today's corpus mixes `published` with `unpublished` at the
+    (place × operation) grain. It is reachable — `budget_basis` is not a programme-level
+    property; `INTERREG-BSB-1420` carries both across its 46 Bulgarian rows — and the
+    original CASE would have reported `published`, asserting a figure is complete while a
+    sibling partner's money is simply unknown. A fourth value, `partial`, now says so.
+18. **The operation list drops nothing the aggregate counted** — Σ of the listed
+    `localBudgetEur` equals the headline `budgetEur` whenever `operationCount ≤ limit`. One
+    assertion covering a dropped JOIN, an evicted programme, and any future rewrite that
+    starts crossing the grain.
+19. **Every obshtina code the corpus uses passes the route's gate** — the database-backed
+    form of the route test. `SFO_CITY` (272 of 1,469 placed rows, the largest place in the
+    corpus) was being 400'd while every other municipality answered fine.
+
+Plus `functions/db_routes.interreg.test.js` (**no database**, `node --test`): the four real
+obshtina shapes accepted, the abroad pseudo-codes and malformed input rejected, `limit`
+clamping on both routes, and the degrade contract — `42883`/`42P01` degrade, `57014`
+(the pool's own timeout) and everything else propagate. It also pins that each route's
+**sentinel carries the same keys as its function**, since a sentinel with the wrong key names
+yields `undefined` in exactly the deploy window the sentinel exists for.
+
+**Two API changes T3.1's review forced, worth carrying into T3.3-T3.5:**
+
+- `unpublishedCount` → **`unpublishedPartnerCount`** on both payloads. It counts partner
+  ROWS; the header described it as operations. A caption reading "8 unpublished operations"
+  built from a partner-row count is a wrong sentence made of a right number.
+- `interreg_by_eik` gained **`periods`** — a per-period `{operationCount, budgetEur}` map.
+  The Tier-L limitation is worse than "an empty answer means we cannot link": an
+  organisation active in **both** periods gets only its 2021-2027 half back, and `budgetEur`
+  reads as its whole Interreg total. Община Гоце Делчев (`000024745`) returns €712,599.55
+  while **7 further rows worth €1,665,237.72** sit under the identical `partner_name` with a
+  NULL `eik`. A caller that sees `{"2021-2027": …}` and no `"2014-2020"` key knows the answer
+  is period-limited by the source rather than by the organisation. Every surface in §8's
+  list must render that, not just the company tile.
+- Both routes now degrade through **`missingMigrationLogged`** (`ir:not-built:<route>:<code>`,
+  once per process), the Interreg analogue of 123/124's `psp:`/`pp:` contract. Degrading is
+  right — `deploy:db` can legitimately ship before 138 is applied on Cloud SQL — but a
+  zero-shaped payload is indistinguishable from a place that genuinely received no Interreg
+  money, so without the log the only symptom is every municipality in the country reading
+  €0 at a 200, for ever, with nothing red.
+
+**One pre-existing defect the review found four lines away**, fixed here rather than filed:
+`/api/db/place-companies` still carried the `^[A-Z]{3}\d{2}$` obshtina regex — the exact
+pattern T3.1 replaced — so the "фирми, регистрирани тук" tile could never load for Столична
+община or any of Sofia's 24 районы. T3.1's route was copied from it and fixed; the original
+was not.
+
 `scripts/funds/interreg/*.test.ts` (unit, no network):
 - `parse.ts` on fixtures: the four Малко Търново rows parse to the exact budgets in §3.1; every observed `beneficiary_id` shape yields the right EIK; `N.a.` yields NULL; a `0.00` budget becomes `published_zero`, never `unpublished`; a NULL `project_id` is accepted and `keep_id` carries the row.
 - `resolve_place.ts`: cascade order; an ambiguous postcode (e.g. 2060 → 13 settlements) resolves via geo or not at all; a >25 km geo contradiction drops to unresolved; the roster matcher matches `Община "Тунджа" - гр.Ямбол` and refuses a name outside the 265.

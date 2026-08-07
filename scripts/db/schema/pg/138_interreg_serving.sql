@@ -21,10 +21,16 @@
 -- COVERAGE IS PARTIAL BY CONSTRUCTION and every surface must be able to say so:
 --   * `placedShare` — 98.4% of Bulgarian partner rows carry an EKATTE; the rest
 --     are honestly unplaced rather than guessed.
---   * `unpublishedCount` — rows whose programme published no budget at all
---     (21 of 1,493). They count in operations and contribute ZERO to money.
---   * `linkedShare` on the EIK side — the 2014-2020 template carries NO national
---     id, so /company/:eik can only ever show the 2021-2027 third of the corpus.
+--   * `unpublishedPartnerCount` — PARTNER ROWS whose programme published no
+--     budget at all (21 of 1,493). They count in operations and contribute ZERO
+--     to money. The name says "partner" because it is not an operation count and
+--     a caption built from it as one is a wrong sentence.
+--   * `linkedCount` on the place side — how many of `partnerCount` carry an EIK.
+--   * `periods` on the EIK side — the 2014-2020 template carries NO national id
+--     (0 of 1,080 rows, against 336 of 413), so an EIK answer is at best the
+--     2021-2027 third of that organisation's Interreg money. `periods` names
+--     which period the returned € actually covers, so a caller can never render
+--     a Tier-L partial as a complete total.
 --
 -- Depends on 137. SELECT/EXECUTE → app_readonly.
 
@@ -51,7 +57,7 @@ WITH rows AS (
   SELECT count(*)::int                                        AS partner_count,
          count(DISTINCT keep_id)::int                         AS operation_count,
          COALESCE(SUM(budget_eur), 0)::double precision       AS budget_eur,
-         count(*) FILTER (WHERE budget_basis = 'unpublished')::int AS unpublished_count,
+         count(*) FILTER (WHERE budget_basis = 'unpublished')::int AS unpublished_partner_count,
          count(*) FILTER (WHERE eik IS NOT NULL)::int         AS linked_count
     FROM rows
 )
@@ -59,12 +65,20 @@ SELECT jsonb_build_object(
   'partnerCount',     (SELECT partner_count FROM agg),
   'operationCount',   (SELECT operation_count FROM agg),
   'budgetEur',        (SELECT budget_eur FROM agg),
-  -- Plan §3.1: every surface must be able to say "N operations, of which M
-  -- carry a published budget". This is the N minus M.
-  'unpublishedCount', (SELECT unpublished_count FROM agg),
+  -- PARTNER rows whose programme published no budget, NOT operations — the
+  -- name says which, because a caption reading "8 unpublished operations" off a
+  -- row count is a wrong sentence built from a right number.
+  'unpublishedPartnerCount', (SELECT unpublished_partner_count FROM agg),
   'linkedCount',      (SELECT linked_count FROM agg),
   'operations', COALESCE((
-    SELECT jsonb_agg(x ORDER BY x->>'budgetEur' IS NULL, (x->>'budgetEur')::double precision DESC NULLS LAST)
+    -- ORDER BY the key the object ACTUALLY has. The first draft sorted on
+    -- `budgetEur`, which this object does not carry (it is `localBudgetEur`),
+    -- so both sort expressions were constant NULL and the whole outer ordering
+    -- was inert — output stayed descending only because tuplesort short-circuits
+    -- on already-sorted input. The keepId tiebreak is not optional: Sofia's tail
+    -- is full of round €200,000 values that would otherwise tie arbitrarily.
+    SELECT jsonb_agg(x ORDER BY (x->>'localBudgetEur')::double precision DESC NULLS LAST,
+                                (x->>'keepId')::int)
       FROM (
         SELECT jsonb_build_object(
           'keepId',        o.keep_id,
@@ -98,7 +112,16 @@ SELECT jsonb_build_object(
                  -- 'published' if any row has money; else whichever single
                  -- basis they share. A place with one unpublished partner must
                  -- read as unpublished, not as €0.
-                 CASE WHEN bool_or(budget_basis = 'published') THEN 'published'
+                 -- 'partial' FIRST: a group holding both a published row and
+                 -- an unpublished one has money we can see and money we cannot,
+                 -- and reporting 'published' would assert the figure is complete
+                 -- when a sibling's budget is simply unknown. Not reachable in
+                 -- today's corpus at this grain, but budget_basis is not a
+                 -- programme-level property — INTERREG-BSB-1420 already mixes
+                 -- published and unpublished across its 46 Bulgarian rows.
+                 CASE WHEN bool_or(budget_basis = 'unpublished')
+                       AND bool_or(budget_basis <> 'unpublished') THEN 'partial'
+                      WHEN bool_or(budget_basis = 'published') THEN 'published'
                       WHEN bool_or(budget_basis = 'published_zero') THEN 'published_zero'
                       ELSE 'unpublished' END AS local_basis,
                  jsonb_agg(jsonb_build_object(
@@ -123,23 +146,53 @@ GRANT EXECUTE ON FUNCTION interreg_by_place(text, text, int) TO app_readonly;
 -- only in the 2021-2027 template — 0 of 1,080 Bulgarian 2014-2020 partner rows
 -- carry one, against 336 of 413 — so this answers for roughly a third of the
 -- corpus and returns nothing for the rest. That is not an absence of money.
-CREATE OR REPLACE FUNCTION interreg_by_eik(p_eik text)
+CREATE OR REPLACE FUNCTION interreg_by_eik(p_eik text, p_limit int DEFAULT 50)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH rows AS (
   SELECT p.keep_id, p.partner_name, p.budget_eur, p.budget_basis,
          p.is_lead, p.ekatte, p.obshtina
     FROM interreg_partners p
+    JOIN interreg_operations o USING (keep_id)
    WHERE p.eik = p_eik
+     -- SCOPED TO BULGARIA, exactly as interreg_by_place is. `eik` holds whatever
+     -- national id keep.eu published, for every country — 196 distinct foreign
+     -- ids, 321 of which are 9 digits and so indistinguishable from an EIK by
+     -- shape. Two collide EXACTLY with a live `tr_companies.uic`: 204426451 and
+     -- 204911337 are Georgian bodies whose budgets would otherwise publish on a
+     -- Bulgarian company's page under that company's name. That is
+     -- `feedback_name_match_not_identity` reached through a shared id namespace
+     -- instead of a shared name, and the fix is the same: scope, do not guess.
+     AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')
 )
 SELECT jsonb_build_object(
   'partnerCount',   (SELECT count(*)::int FROM rows),
   'operationCount', (SELECT count(DISTINCT keep_id)::int FROM rows),
   -- Again: SUM over the partner's OWN budget.
   'budgetEur',      (SELECT COALESCE(SUM(budget_eur), 0)::double precision FROM rows),
-  'unpublishedCount',
+  'unpublishedPartnerCount',
     (SELECT count(*) FILTER (WHERE budget_basis = 'unpublished')::int FROM rows),
+  -- THE TIER-L DISCRIMINATOR, and the reason this is not just a caption problem.
+  -- An organisation active in both periods gets only its 2021-2027 half back —
+  -- Община Гоце Делчев (000024745) has 7 further 2014-2020 rows worth
+  -- €1,665,237.72 under the identical partner_name with a NULL eik. Serving
+  -- `budgetEur` alone would understate it by that much and call it a total. A
+  -- caller that sees {"2021-2027": …} and no "2014-2020" key knows the answer is
+  -- period-limited by the SOURCE, not by the organisation.
+  'periods', COALESCE((
+    SELECT jsonb_object_agg(period, jsonb_build_object(
+             'operationCount', op_count, 'budgetEur', budget))
+      FROM (
+        SELECT o.period,
+               count(DISTINCT r.keep_id)::int                  AS op_count,
+               COALESCE(SUM(r.budget_eur), 0)::double precision AS budget
+          FROM rows r JOIN interreg_operations o USING (keep_id)
+         GROUP BY o.period
+      ) z), '{}'::jsonb),
   'operations', COALESCE((
-    SELECT jsonb_agg(jsonb_build_object(
+    SELECT jsonb_agg(x ORDER BY (x->>'budgetEur')::double precision DESC NULLS LAST,
+                                (x->>'keepId')::int)
+      FROM (
+        SELECT jsonb_build_object(
              'keepId',        o.keep_id,
              'operationId',   o.operation_id,
              'programmeCode', o.programme_code,
@@ -153,10 +206,16 @@ SELECT jsonb_build_object(
              'isLead',        r.is_lead,
              'budgetEur',     r.budget_eur,
              'budgetBasis',   r.budget_basis
-           ) ORDER BY r.budget_eur DESC NULLS LAST, o.keep_id)
-      FROM rows r
-      JOIN interreg_operations o USING (keep_id)
-      JOIN interreg_programmes g ON g.code = o.programme_code), '[]'::jsonb)
+           ) AS x
+        FROM rows r
+        JOIN interreg_operations o USING (keep_id)
+        JOIN interreg_programmes g ON g.code = o.programme_code
+        -- Bounded like the place side. 13 is today's worst case, so this is a
+        -- ceiling against a future re-import rather than a live truncation.
+        ORDER BY r.budget_eur DESC NULLS LAST, o.keep_id
+        LIMIT GREATEST(p_limit, 1)
+      ) t), '[]'::jsonb)
 );
 $$;
-GRANT EXECUTE ON FUNCTION interreg_by_eik(text) TO app_readonly;
+GRANT EXECUTE ON FUNCTION interreg_by_eik(text, int) TO app_readonly;
+DROP FUNCTION IF EXISTS interreg_by_eik(text);
