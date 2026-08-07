@@ -125,6 +125,24 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
       "per-MP participation in roll-call votes, weighted by the items each MP could have voted on",
   },
   {
+    url: "/parliament/correlation",
+    label: "Parliament voting correlation",
+    description:
+      "how closely each pair of parliamentary groups votes together — cosine similarity between the two groups' majority votes across every item, with the diagonal (ties within a group) excluded from the ranking",
+  },
+  {
+    url: "/parliament/similarity",
+    label: "MP voting similarity",
+    description:
+      "pick an MP and see who votes closest to them and who most differently; per-member rankings are `/parliament/similarity/{mpId}`",
+  },
+  {
+    url: "/votes/between",
+    label: "Two groups head to head",
+    description:
+      "pick two parliamentary groups and see the items they voted opposite ways on; a chosen pair is `/votes/between/{groupA}--{groupB}`",
+  },
+  {
     url: "/parliament/cohesion",
     label: "Parliament cohesion",
     description: "intra- and cross-party roll-call cohesion",
