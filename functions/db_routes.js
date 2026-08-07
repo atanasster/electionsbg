@@ -2801,6 +2801,69 @@ const DB_ROUTES = {
   // tile renders them as such. That distinction is the whole point of the
   // route: its predecessor showed a place's companies only when an MP name
   // matched one, which published 319 namesake companies as one MP's.
+  // Interreg money attributed to ONE place, served live from the two fact
+  // tables (137) — never from fund_payloads, which the next db:load:funds:pg
+  // would silently erase.
+  //
+  // Every € here is a sum of PARTNER budgets. The operation total travels as a
+  // per-operation scalar for context and is never aggregated: on BSB00963 it is
+  // €1,419,207.76 against Малко Търново's €357,183.12.
+  "interreg-place": async (dbRows, q) => {
+    const ekatte = s(q, "ekatte");
+    const obshtina = s(q, "obshtina");
+    const empty = {
+      partnerCount: 0,
+      operationCount: 0,
+      budgetEur: 0,
+      unpublishedCount: 0,
+      linkedCount: 0,
+      operations: [],
+    };
+    // Every obshtina code shape place_dim actually carries, enumerated rather
+    // than guessed: BGS12 / SFO26 (3 letters + 2 digits, 259 of them), S2401
+    // (Sofia's 24 районы, 1 letter + 4 digits), and SFO_CITY — Столична
+    // община, which alone holds 272 of the 1,469 placed Bulgarian partner
+    // rows, so a `[A-Z]{2,3}\d{2}`-only check 400s the single largest place in
+    // the corpus while every other municipality answers fine. The 6 two-letter
+    // abroad pseudo-obshtini (EU, NA, AF…) are deliberately NOT admitted: no
+    // Interreg partner is placed there.
+    if (
+      !/^\d{5}$/.test(ekatte) &&
+      !/^([A-Z]{3}\d{2}|S\d{4}|SFO_CITY)$/.test(obshtina)
+    )
+      return { status: 400, body: { error: "missing ekatte or obshtina" } };
+    const rows = await dbRows(
+      "SELECT interreg_by_place($1, $2, $3) AS r",
+      // ekatte wins when both are sent, so the answer is always one place.
+      [
+        /^\d{5}$/.test(ekatte) ? ekatte : null,
+        /^\d{5}$/.test(ekatte) ? null : obshtina,
+        clampInt(q.limit, 20, 1, 100),
+      ],
+    ).catch(missingMigration(empty));
+    return { body: rows[0]?.r ?? empty };
+  },
+  // Interreg money for ONE company or institution, by EIK.
+  //
+  // TIER L ONLY, and the caller must say so: keep.eu's national-id field exists
+  // only in the 2021-2027 template (0 of 1,080 Bulgarian 2014-2020 rows carry
+  // one), so an empty answer here is "we cannot link it", NOT "no money".
+  "interreg-company": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    const empty = {
+      partnerCount: 0,
+      operationCount: 0,
+      budgetEur: 0,
+      unpublishedCount: 0,
+      operations: [],
+    };
+    if (!/^\d{9}$/.test(eik))
+      return { status: 400, body: { error: "missing or malformed eik" } };
+    const rows = await dbRows("SELECT interreg_by_eik($1) AS r", [eik]).catch(
+      missingMigration(empty),
+    );
+    return { body: rows[0]?.r ?? empty };
+  },
   "place-companies": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");
     const obshtina = s(q, "obshtina");
