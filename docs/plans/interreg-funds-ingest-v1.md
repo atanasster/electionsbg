@@ -623,6 +623,10 @@ carries it, and `/data/sources` gains an entry.
 an outage). Applies `137_interreg.sql`; resolves place (§3.2); stage-merges both tables;
 `recordIngestBatch({ source: 'interreg_partner' })`.
 
+After place resolution it also **reports** how many BG partners landed outside their own
+programme's eligible area (`isEligibleNuts` from `programmes.ts`, against the settlement's
+NUTS3). A warning, not a failure — see §9 gate 14 for why zero is the wrong assertion.
+
 **`db:refresh` position.** After `db:load:funds:pg` and — critically — **after both
 `db:load:awarder-seats:pg` and `db:load:tr-company-place:pg`**, which the place cascade
 reads. Add both as `ORDER_PAIRS` entries in `scripts/db/refresh_coverage.test.ts:85-115`
@@ -700,6 +704,7 @@ Downstream re-run chain: 127 → `load_graph_pg.ts` → `tr_company_place.money_
 11. **Programme admission** — every `programme_code` exists in the curated map; a keep.eu programme id absent from the map produced zero rows, not silent ones.
 12. **Serving latency** — `interreg_by_place()` on the worst-case entity (Столична) under a stated ceiling, EXPLAIN-backed (`feedback_db_query_perf`).
 13. **`fund_payloads` is untouched** — assert `interreg%` matches zero `kind` values, so a future shortcut into that table (which the next funds load would silently delete) goes red here.
+14. **Placed inside the programme's own eligible area** — for every placed BG partner of a CBC programme, the settlement's NUTS3 is inside that programme's declared `eligibleNuts` (`isEligibleNuts`, prefix semantics, so BSB's NUTS2 declaration matches). **Reported with a ceiling, not asserted at zero**: a partner may legitimately sit outside the area (a national body leading a border project), so the gate is a bound on the share plus a printed list. Zero would be the wrong assertion; unbounded would make it decoration. Added 2026-08-06 after the T0.1 review found `isEligibleNuts` had no consumer — a BG partner outside its own programme's area is either a placement error or a keep.eu error, and nothing else in this list would notice.
 
 `scripts/funds/interreg/*.test.ts` (unit, no network):
 - `parse.ts` on fixtures: the four Малко Търново rows parse to the exact budgets in §3.1; every observed `beneficiary_id` shape yields the right EIK; `N.a.` yields NULL; a `0.00` budget becomes `published_zero`, never `unpublished`; a NULL `project_id` is accepted and `keep_id` carries the row.
