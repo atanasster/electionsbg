@@ -162,16 +162,38 @@ const PARTNER_SPEC: StageMergeSpec = {
   ],
 };
 
-/** ekatte → NUTS3, for the eligible-area report. settlements.json carries it. */
-const nuts3ByEkatte = (): Map<string, string> => {
-  const rows: { ekatte: string; nuts3?: string }[] = JSON.parse(
-    readFileSync(path.join(ROOT, "data/settlements.json"), "utf8"),
-  );
-  const m = new Map<string, string>();
-  for (const r of rows) if (r.nuts3) m.set(r.ekatte, r.nuts3);
-  // Sofia is absent from settlements.json (the capital is 24 district shards);
-  // resolve_place seeds a synthetic row for it, so the report needs one too.
-  m.set("68134", "BG411");
+/**
+ * ekatte → the CANONICAL place codes, read from `place_dim` (117).
+ *
+ * Not from settlements.json, which is where `resolve_place` gets them and where
+ * they are raw: гр. Пловдив's row carries `"oblast":"PDV-00"`, a shard code
+ * `place_dim` normalises to `PDV` and that `place_dim` itself cannot resolve —
+ * 17 partner rows carried it. `place_dim` is also the only source of NUTS3 in
+ * Postgres, and it already seeds the two settlements the EKATTE master omits
+ * (68134 София, 63183 Рудник), so one read answers all three questions.
+ */
+interface PlaceDimRow {
+  obshtina: string | null;
+  oblast: string | null;
+  nuts3: string | null;
+}
+const readPlaceDim = async (): Promise<Map<string, PlaceDimRow>> => {
+  await requireRelation("place_dim", "npm run db:load:place-dim:pg");
+  const m = new Map<string, PlaceDimRow>();
+  for (const r of await allRows<{
+    code: string;
+    obshtina_code: string | null;
+    oblast_code: string | null;
+    nuts3: string | null;
+  }>(
+    `SELECT code, obshtina_code, oblast_code, nuts3
+       FROM place_dim WHERE kind = 'settlement'`,
+  ))
+    m.set(r.code, {
+      obshtina: r.obshtina_code,
+      oblast: r.oblast_code,
+      nuts3: r.nuts3,
+    });
   return m;
 };
 
@@ -294,6 +316,10 @@ const copyOperations = async (
     ]),
   );
 
+const EMPTY_DIM: PlaceDimRow = { obshtina: null, oblast: null, nuts3: null };
+const dimOf = (dim: Map<string, PlaceDimRow>, ekatte: string): PlaceDimRow =>
+  dim.get(ekatte) ?? EMPTY_DIM;
+
 const copyPartners = async (
   c: PoolClient,
   partners: InterregPartner[],
@@ -306,6 +332,7 @@ const copyPartners = async (
       placeBasis: string | null;
     }
   >,
+  dim: Map<string, PlaceDimRow>,
 ): Promise<number> =>
   copyRows(
     c,
@@ -335,8 +362,15 @@ const copyPartners = async (
         p.lat,
         p.lng,
         place?.ekatte ?? null,
-        place?.obshtina ?? null,
-        place?.oblast ?? null,
+        // place_dim's codes WIN over the raw settlements.json ones the cascade
+        // carried: it is the dimension every other table joins, and it is the
+        // only place PDV-00 is normalised to PDV.
+        (place?.ekatte ? dimOf(dim, place.ekatte).obshtina : null) ??
+          place?.obshtina ??
+          null,
+        (place?.ekatte ? dimOf(dim, place.ekatte).oblast : null) ??
+          place?.oblast ??
+          null,
         place?.placeBasis ?? null,
       ];
     }),
@@ -419,6 +453,7 @@ export const loadInterregPg = async (): Promise<{
   // Only Bulgarian rows are resolved: a Romanian partner has no EKATTE by
   // construction, and running the cascade on one could only place it wrongly.
   const lookups = await readLookups();
+  const dim = await readPlaceDim();
   const { places, stats } = resolveAll(bg, lookups, buildPlaceContext());
   console.log(
     `interreg: placed ${stats.placed}/${stats.total} Bulgarian partner rows ` +
@@ -451,7 +486,14 @@ export const loadInterregPg = async (): Promise<{
         `Nothing was written.`,
     );
 
-  reportEligibleArea(bg, places, operations, nuts3ByEkatte());
+  reportEligibleArea(
+    bg,
+    places,
+    operations,
+    new Map(
+      [...dim].flatMap(([k, v]) => (v.nuts3 ? [[k, v.nuts3] as const] : [])),
+    ),
+  );
 
   await withTx(async (c) => {
     // Order is forced by the foreign keys, in both directions: a stage merge
@@ -462,7 +504,7 @@ export const loadInterregPg = async (): Promise<{
 
     await copyProgrammes(c);
     await copyOperations(c, operations, index.fetchedAt);
-    await copyPartners(c, partners, places);
+    await copyPartners(c, partners, places, dim);
 
     // Parent → child. mergeChainFromStage upserts in this order and deletes in
     // reverse, because the coupled per-table form raises 23503 the first time a

@@ -108,6 +108,16 @@ END $$;
 -- (and the widened kind check below) land before the new column values / oblast rows do.
 ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS loc             text;
 ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS settlement_type text;
+--   nuts3            the NUTS3 region a settlement sits in, from settlements.json.
+--                    Here rather than derived, because it is the ONLY place the
+--                    repo can answer "is this settlement inside a programme's
+--                    eligible area" in SQL — the Interreg gates had to read the
+--                    JSON off disk without it, and `oblast_code` cannot stand in
+--                    (Пловдив's settlements.json row carries the shard code
+--                    PDV-00, which this table already normalises to PDV).
+ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS nuts3 text;
+CREATE INDEX IF NOT EXISTS idx_place_dim_nuts3
+  ON place_dim (nuts3) WHERE nuts3 IS NOT NULL;
 
 -- Widen the kind check to admit kind='oblast'. The inline CHECK above already lists it for a
 -- COLD bootstrap; this guarded swap is what migrates an EXISTING table (where CREATE TABLE IF

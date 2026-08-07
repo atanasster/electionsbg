@@ -79,6 +79,7 @@ type SettlementRow = {
   // "lon,lat" centroid + the т.в.м. marker (с./гр./…) — for the place hero.
   loc?: string | null;
   t_v_m?: string | null;
+  nuts3?: string | null;
 };
 type MunicipalityRow = {
   obshtina: string;
@@ -103,6 +104,8 @@ const SEEDED_SETTLEMENTS: Array<{
   // left NULL (the hero simply drops the thumbnail rather than inventing coords).
   settlementType: string | null;
   loc: string | null;
+  /** Seeded like the rest: the master carries no row, so no NUTS3 either. */
+  nuts3: string | null;
 }> = [
   // Sofia the city spans three constituencies (S23/S24/S25), so it has no single МИР.
   //
@@ -120,6 +123,8 @@ const SEEDED_SETTLEMENTS: Array<{
     mir: null,
     settlementType: "гр.",
     loc: null,
+    // Sofia city is BG411 — the master carries no row for it at all.
+    nuts3: "BG411",
   },
   {
     ekatte: "63183",
@@ -130,6 +135,8 @@ const SEEDED_SETTLEMENTS: Array<{
     mir: "BGS",
     settlementType: "с.",
     loc: null,
+    // с. Рудник sits in Бургас oblast → BG341.
+    nuts3: "BG341",
   },
 ];
 
@@ -163,6 +170,7 @@ type Row = [
   string | null, // price_code
   string | null, // loc  ("lon,lat")
   string | null, // settlement_type (т.в.м.)
+  string | null, // nuts3
 ];
 
 export const buildPlaceDimRows = (
@@ -194,6 +202,9 @@ export const buildPlaceDimRows = (
       // cannot honestly use. Real 5-digit and composite (Sofia-район) codes keep their loc.
       r.ekatte.length === 2 ? null : r.loc || null,
       r.t_v_m || null,
+      // Same guard as `loc`: an out-of-country ISO pseudo-settlement has no
+      // Bulgarian NUTS3, and a consumer must not inherit one it cannot honour.
+      r.ekatte.length === 2 ? null : r.nuts3 || null,
     ]);
   }
   for (const s of SEEDED_SETTLEMENTS) {
@@ -213,6 +224,7 @@ export const buildPlaceDimRows = (
       null,
       s.loc,
       s.settlementType,
+      s.nuts3,
     ]);
   }
 
@@ -240,6 +252,7 @@ export const buildPlaceDimRows = (
       // No centroid for the synthetic city-wide obshtina (it spans three МИР).
       muniLoc.get(code) ?? null,
       null,
+      null, // nuts3 — only settlements carry one
     ]);
   }
 
@@ -258,6 +271,7 @@ export const buildPlaceDimRows = (
       null,
       null,
       null,
+      null, // nuts3 — only settlements carry one
     ]);
   }
 
@@ -280,6 +294,7 @@ export const buildPlaceDimRows = (
       null,
       null,
       null,
+      null, // nuts3 — only settlements carry one
     ]);
   }
 
@@ -342,6 +357,7 @@ const main = async (): Promise<void> => {
         "price_code",
         "loc",
         "settlement_type",
+        "nuts3",
       ],
       rows,
     );
