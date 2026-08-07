@@ -141,16 +141,26 @@ export const PersonsAnalysisStrip: FC<{
             </span>
           </div>
         </StatCard>
-        <StatCard label={t("persons_kpi_obshtini", { defaultValue: "Общини" })}>
-          <div className="flex items-baseline gap-2">
-            <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
-            <span className="text-lg font-bold tabular-nums md:text-xl">
-              {obshtinaCount != null
-                ? obshtinaCount.toLocaleString(locale)
-                : "—"}
-            </span>
-          </div>
-        </StatCard>
+        {/* HIDDEN WHEN ZERO, rather than shown as „Общини 0".
+            A zero here is almost always STRUCTURAL rather than newsworthy: under
+            ?role=mp no member can hold a municipal seat, so the card could not read
+            anything else, and a hard 0 beside three live figures reads as a broken
+            number rather than as "not applicable to this group". Unfiltered the count
+            is 289, so the card is present exactly when it can vary. */}
+        {obshtinaCount !== 0 ? (
+          <StatCard
+            label={t("persons_kpi_obshtini", { defaultValue: "Общини" })}
+          >
+            <div className="flex items-baseline gap-2">
+              <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <span className="text-lg font-bold tabular-nums md:text-xl">
+                {obshtinaCount != null
+                  ? obshtinaCount.toLocaleString(locale)
+                  : "—"}
+              </span>
+            </div>
+          </StatCard>
+        ) : null}
       </div>
 
       <MixBar
