@@ -36,6 +36,10 @@ export interface ParliamentTile {
 
 export interface ParliamentBand {
   labelKey: string;
+  /** One line under the heading saying what is in the band. A heading names where you are;
+   *  this says what you will find — „В залата" alone is a location, not a table of
+   *  contents. */
+  descKey: string;
   tiles: ParliamentTile[];
 }
 
@@ -56,6 +60,7 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     //
     // Ordering WITHIN a band is still by measured demand (§2.7) — that part was right.
     labelKey: "nsh_band_chamber",
+    descKey: "nsh_band_chamber_desc",
     tiles: [
       {
         // The records. §2.7: 107 views across 51 distinct paths, engagement 15.6% ABOVE
@@ -99,6 +104,7 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     // returns nothing, so it has no destination. It stays a band-2 news card (H2), where
     // it needs none, and returns as a tile if /parliament/dissents is ever built.
     labelKey: "nsh_band_alignment",
+    descKey: "nsh_band_alignment_desc",
     tiles: [
       {
         // Split out of /votes, which is an archive and had grown an analysis above its
@@ -148,6 +154,7 @@ export const PARLIAMENT_BANDS: ParliamentBand[] = [
     // the link rather than claiming the ownership. This band is what makes /parliament a
     // module rather than a vote-analytics silo.
     labelKey: "nsh_band_people",
+    descKey: "nsh_band_people_desc",
     tiles: [
       {
         id: "declarations",

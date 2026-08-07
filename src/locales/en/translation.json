@@ -5633,5 +5633,15 @@
   "connections_matrix_cell_action": "{{detail}} — show these groups in the graph",
   "connections_matrix_pick_hint": "Click a cell to leave only those two groups in the graph below. The graph draws a 150-company sample; the number in the cell is for the whole corpus.",
   "connections_matrix_cell_action_self": "{{detail}} — show this group in the graph",
-  "connections_graph_empty_filter": "No connections drawn for this selection. The graph shows a 150-company sample — the pair may exist in the full corpus without appearing in the sample."
+  "connections_graph_empty_filter": "No connections drawn for this selection. The graph shows a 150-company sample — the pair may exist in the full corpus without appearing in the sample.",
+  "nsh_band_chamber_desc": "What happens in plenary — how much gets voted on, who turns up, and how tightly the groups hold together.",
+  "nsh_band_alignment_desc": "Who votes close to whom — by group and by individual MP, past the party labels.",
+  "nsh_band_people_desc": "What MPs declare outside the chamber — assets, interests, companies and business ties.",
+  "nsh_metric2_bills_one": "{{count}} bill at second reading",
+  "nsh_metric2_bills_other": "{{count}} bills at second reading",
+  "nsh_metric2_groups_one": "{{count}} parliamentary group",
+  "nsh_metric2_groups_other": "{{count}} parliamentary groups",
+  "nsh_metric2_least": "least unified: {{group}} {{value}}",
+  "nsh_metric2_voting_one": "{{count}} MP voted",
+  "nsh_metric2_voting_other": "{{count}} MPs voted"
 }

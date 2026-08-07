@@ -10,6 +10,8 @@ import { SectionHeading, SectionAction } from "./SectionHeading";
 export interface TileHubSection {
   /** Section heading, already localized — rendered as an <h2> landmark. */
   heading: string;
+  /** One line under the heading saying what is in the band. */
+  description?: string;
   /** optional trailing "see all →" link in the section header. */
   action?: SectionAction;
   tiles: InfographicTileProps[];
@@ -28,6 +30,7 @@ export const TileHubGrid: FC<{
             <SectionHeading
               id={headingId}
               heading={section.heading}
+              description={section.description}
               action={section.action}
             />
             <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">

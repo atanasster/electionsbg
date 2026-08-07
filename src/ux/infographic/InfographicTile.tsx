@@ -35,6 +35,15 @@ export interface InfographicTileProps {
   /** Optional one-word caption under the number naming what it measures
    *  (бюджет 2025 / изплатено / поръчки …) — keeps mixed metric kinds honest. */
   metricCaption?: string;
+  /** A SECOND figure, smaller, under the caption — the one other thing worth knowing about
+   *  this destination. The headline number answers "how much"; this answers "and what about
+   *  it". Kept to one short line: it competes with the scene for the same corner, and a
+   *  third figure would be a table rather than a tile.
+   *
+   *  Pass the whole phrase already composed ("най-разединена: ГЕРБ-СДС 0,93"), because the
+   *  useful shape varies per tile and splitting it into value + caption would force every
+   *  caller into the same grammar. */
+  metricSecondary?: string;
 }
 
 // The big number is legible via a currentColor-tuned fill + a card-coloured halo
@@ -82,6 +91,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   cta,
   metric,
   metricCaption,
+  metricSecondary,
 }) => (
   <Link
     to={useTileHref(to)}
@@ -123,6 +133,14 @@ export const InfographicTile: FC<InfographicTileProps> = ({
                 style={{ color: captionColor, textShadow: metricShadow }}
               >
                 {metricCaption}
+              </span>
+            ) : null}
+            {metricSecondary ? (
+              <span
+                className="mt-1 max-w-[13rem] truncate text-[11px] leading-none"
+                style={{ color: captionColor, textShadow: metricShadow }}
+              >
+                {metricSecondary}
               </span>
             ) : null}
           </span>

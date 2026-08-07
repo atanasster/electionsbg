@@ -88,23 +88,43 @@ export const ParliamentHubScreen: FC = () => {
   // cannot be — leading with the chamber's 240 and landing on 2,120 rows is the same
   // "show one window, count another" failure the plan spent three audits removing.
   const metrics = useMemo<
-    Record<string, { metric: string; caption: string }>
+    Record<string, { metric: string; caption: string; secondary?: string }>
   >(() => {
-    const out: Record<string, { metric: string; caption: string }> = {};
+    const out: Record<
+      string,
+      { metric: string; caption: string; secondary?: string }
+    > = {};
     if (!stats) return out;
     const tiles = stats.tiles;
     Object.assign(out, {
       votes: {
         metric: nf.format(tiles.sessions),
         caption: t("nsh_metric_sessions") || "sittings",
+        // „законопроекти на второ четене", NOT „приети закони". The corpus has no adoption
+        // marker (§4.2), which is why the phrase names the READING rather than an outcome.
+        secondary: t("nsh_metric2_bills", {
+          count: tiles.billsSecondReading,
+        }),
       },
       embedding: {
         metric: nf.format(tiles.membersProjected),
         caption: t("nsh_metric_projected") || "MPs projected",
+        secondary: t("nsh_metric2_groups", { count: tiles.groups }),
       },
       cohesion: {
         metric: dec2.format(tiles.cohesionMean),
         caption: t("nsh_metric_cohesion") || "mean cohesion",
+        // The MINIMUM beside the mean, which is the pairing the tile has needed since an
+        // earlier draft printed 0.94 as „средна кохезия" when 0.934 was the min and the mean
+        // was 0.970. One number cannot wear both labels; two numbers can.
+        ...(tiles.leastUnifiedGroup && tiles.leastUnifiedValue != null
+          ? {
+              secondary: t("nsh_metric2_least", {
+                group: tiles.leastUnifiedGroup,
+                value: dec2.format(tiles.leastUnifiedValue),
+              }),
+            }
+          : {}),
       },
       // NO metric on Депутати, deliberately. /persons?role=mp is not NS-scoped and cannot
       // be — person_role rows for `mp` carry ref = mpId with no term column — so the
@@ -114,6 +134,9 @@ export const ParliamentHubScreen: FC = () => {
       attendance: {
         metric: pct.format(tiles.attendanceWeighted),
         caption: t("nsh_metric_attendance") || "attendance (weighted)",
+        // The DENOMINATOR's population, so the weighted percentage above it has a stated
+        // basis on the tile rather than only in the caption.
+        secondary: t("nsh_metric2_voting", { count: tiles.membersVoting }),
       },
     });
     return out;
@@ -213,6 +236,7 @@ export const ParliamentHubScreen: FC = () => {
     () =>
       PARLIAMENT_BANDS.map((band) => ({
         heading: t(band.labelKey),
+        description: t(band.descKey),
         tiles: band.tiles.flatMap((tile) => {
           const to = resolveDestination(tile, seeds);
           // An unresolved seed omits the tile. Rendering it with the raw `:mpId` pattern
@@ -233,7 +257,12 @@ export const ParliamentHubScreen: FC = () => {
               // the prop stays optional rather than being removed from the kit.
               ...(metrics[tile.id] ?? {}),
               ...(metrics[tile.id]
-                ? { metricCaption: metrics[tile.id].caption }
+                ? {
+                    metricCaption: metrics[tile.id].caption,
+                    ...(metrics[tile.id].secondary
+                      ? { metricSecondary: metrics[tile.id].secondary }
+                      : {}),
+                  }
                 : {}),
             },
           ];
