@@ -84,7 +84,12 @@ const SKILL_FILE = path.join(
   ROOT,
   ".claude/skills/update-procurement/SKILL.md",
 );
-const STATE_FILE = path.join(ROOT, "state/ingest/proc-stale-base-keys.json");
+// NOT under state/ingest/. That directory is the orchestrator's SKILL-marker
+// registry: `readAllIngestStates` keys every file there by its `skill` field,
+// so a record without one lands under an `undefined` key, and
+// ingest-state.test.ts fails on the missing `skill`/`lastSuccessfulIngest`.
+// This is a one-shot script's completion record, not a skill's watermark.
+const STATE_FILE = path.join(ROOT, "state/oneoff/proc-stale-base-keys.json");
 const ONE_TIME_ID = "stale-base-keys";
 
 /** RETIRE THE STEP. A one-shot against a finite backlog must stop being an instruction once the
