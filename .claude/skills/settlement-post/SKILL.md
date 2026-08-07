@@ -91,6 +91,17 @@ node -e "const c=Object.values(require('./data/census_2021_settlements.json'));c
 **This band is the reliable half of the card.** Unlike the school and
 procurement blocks, it renders for every settlement in Bulgaria.
 
+**We hold no AREA figure, at either grain.** `settlements.json` and
+`municipalities.json` carry `loc` (a centroid) and nothing else, so every
+"X кв. км" or "N души на кв. км" claim is necessarily external — and the public
+sources disagree. For община Малко Търново the Бургас oblast administration
+publishes **798,5 кв. км** (3rd largest in the oblast) and Уикипедия
+**783,67 кв. км** (4th) — different measurements, not rounding, since the ranks
+differ too. Either cross-check an area against two independent sources and name
+the one you used, or leave it out. It is almost always decorative: a post about
+money per resident does not need the square kilometres, and "на границата с
+Турция" carries the same sense of remoteness with nothing to verify.
+
 ```bash
 psql "postgres://postgres:postgres@localhost:5433/electionsbg" -t -A -F' | ' -c "
 select count(*), round(sum(coalesce(total_eur,0))::numeric,0) from fund_projects where ekatte in ('…');"
