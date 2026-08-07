@@ -29,6 +29,36 @@ vi.mock("@/data/parliament/useCompanyIndex", () => ({
   useCompanyIndex: () => ({ companies: [], bySlug, isLoading: false }),
 }));
 
+// Only the two data hooks are stubbed — FILING_STATUSES and the rest stay
+// real, so PartyAnnualReportPanel renders its true markup.
+type Shard = import("@/data/financing/useFinancingReports").PartyShard;
+let financingShard: Shard | null | undefined;
+vi.mock("@/data/financing/useFinancingReports", async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import("@/data/financing/useFinancingReports")
+  >()),
+  useFinancingPartyReport: () => ({ data: financingShard }),
+  useFinancingReportsSummary: () => ({ data: { years: [{ year: 2025 }] } }),
+}));
+
+const shard = (): Shard => ({
+  slug: "vazrazhdane",
+  name: "Възраждане",
+  firstYear: 2021,
+  lastYear: 2025,
+  counts: { on_time: 5, late: 0, non_compliant: 0, not_filed: 0 },
+  complianceRate: 1,
+  filings: [
+    {
+      year: 2025,
+      deadline: "2026-03-31",
+      status: "on_time",
+      reportDocId: "1",
+      reportUrl: "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=1",
+    },
+  ],
+});
+
 import { MpCompanyScreen } from "./MpCompanyScreen";
 
 const trOnly = (): CompanyEntry => ({
@@ -482,5 +512,56 @@ describe("MpCompanyScreen — declared roles vs declared stakes", () => {
     expect(
       screen.getByText(/company_stakes_held_by_mps \(1\)/),
     ).toBeInTheDocument();
+  });
+});
+
+// The commit's central claim is "render no panel rather than borrow someone
+// else's record", and until now it was tested only at the build layer
+// (enrichWithFinancing) — never at the layer that decides what a reader sees.
+describe("MpCompanyScreen — the party financing panel", () => {
+  const financingParty = (): CompanyEntry => ({
+    ...party(),
+    financing: { slug: "vazrazhdane" },
+  });
+
+  it("shows the heading and the panel once the shard has arrived", () => {
+    financingShard = shard();
+    renderCompany(financingParty());
+    expect(screen.getByText("annual_reports_panel_title")).toBeInTheDocument();
+    expect(screen.getByText("annual_reports_panel_entity")).toBeInTheDocument();
+  });
+
+  // The heading used to be gated on `financing` alone while the panel returns
+  // null until its query resolves — so every first paint of five party pages
+  // drew a heading over empty space.
+  it("shows no heading while the shard is still loading", () => {
+    financingShard = undefined;
+    renderCompany(financingParty());
+    expect(
+      screen.queryByText("annual_reports_panel_title"),
+    ).not.toBeInTheDocument();
+  });
+
+  // Permanent version of the same thing: the link stores a slug resolved at
+  // build time, the shards come from a separate scraper run, so a re-slug
+  // leaves a 404 behind.
+  it("shows no heading when the shard 404s", () => {
+    financingShard = null;
+    renderCompany(financingParty());
+    expect(
+      screen.queryByText("annual_reports_panel_title"),
+    ).not.toBeInTheDocument();
+  });
+
+  // A coalition, or a party predating the 2011 register: no link was ever
+  // resolved. It must render nothing rather than borrow a neighbour's record.
+  it("shows no heading for a party the register does not carry", () => {
+    financingShard = shard();
+    const unlinked = party();
+    expect(unlinked.financing).toBeUndefined();
+    renderCompany(unlinked);
+    expect(
+      screen.queryByText("annual_reports_panel_title"),
+    ).not.toBeInTheDocument();
   });
 });

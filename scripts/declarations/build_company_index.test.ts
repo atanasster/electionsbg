@@ -112,9 +112,29 @@ describe("looksLikeParty — is this entry a party at all?", () => {
       true,
     );
     expect(looksLikeParty(["ПП Възраждане"])).toBe(true);
+  });
+
+  // A coalition is NOT a party: it has no ЗПП filing obligation of its own,
+  // and the grouping fold strips its prefix so its normalized name is its
+  // lead party's. Since `isParty` is the only condition enrichWithFinancing
+  // tests, accepting one publishes that party's filing record as the
+  // coalition's — the Величие АД false claim through the other door, with no
+  // commercial legal form available to veto it.
+  it("rejects a coalition, however party-like it reads", () => {
     expect(
       looksLikeParty(["Коалиция Демократична България - Обединение"]),
-    ).toBe(true);
+    ).toBe(false);
+    expect(looksLikeParty(["Коалиция Възраждане"])).toBe(false);
+    expect(looksLikeParty(["КП Продължаваме промяната"])).toBe(false);
+  });
+
+  // The grouping fold must still see the coalition prefix — narrowing the
+  // IDENTITY predicate must not narrow the GROUPING one, or the coalition
+  // splits back into one index entry per spelling.
+  it("narrowing identity did not narrow the grouping fold", () => {
+    expect(normalizeCompanyName("Коалиция Продължаваме промяната")).toBe(
+      normalizeCompanyName("КП Продължаваме промяната"),
+    );
   });
 
   it("a commercial legal form vetoes, even alongside a party spelling", () => {
@@ -202,5 +222,39 @@ describe("enrichWithFinancing — the party↔gfopp link", () => {
     const c = [entry({ displayName: "ПП Възраждане", isParty: true })];
     expect(enrichWithFinancing(c, "/nonexistent/reports.json")).toBe(0);
     expect(c[0].financing).toBeUndefined();
+  });
+});
+
+// The safety of the whole design rests on a property neither the fold nor the
+// veto states on its own: anything `stripLegalFormSuffix` would strip as a
+// commercial suffix, `COMPANY_FORM` must also veto. It holds today because
+// both use the same "preceded by a non-letter" rule and COMPANY_FORM lacks
+// the fold's extra length condition, so it is strictly more permissive. Let
+// the two diverge and a name folds onto a register party while the veto
+// misses it — silently, inside a build step.
+describe("the veto and the grouping fold stay in step", () => {
+  const SUFFIXES = ["ад", "еад", "оод", "еоод", "ет", "кд", "сд", "адсиц"];
+
+  it("vetoes every suffix the grouping fold would strip", () => {
+    for (const f of SUFFIXES) {
+      const raw = `ПП Проба ${f.toUpperCase()}`;
+      // The fold strips it, so this name WOULD reach a register lookup…
+      expect(normalizeCompanyName(raw)).toBe("проба");
+      // …therefore the veto must fire.
+      expect(looksLikeParty([raw])).toBe(false);
+    }
+  });
+
+  it("vetoes the glued spelling the fold also strips", () => {
+    // `"Проба 2000"ООД` — a digit before the suffix is the fold's glued case.
+    expect(normalizeCompanyName("ПП Проба 2000ООД")).toBe("проба 2000");
+    expect(looksLikeParty(["ПП Проба 2000ООД"])).toBe(false);
+  });
+
+  it("does not veto a word that merely ends in those letters", () => {
+    // "ПОЛЕТ" ends in ЕТ but is one word — the fold leaves it, so the veto
+    // must too, or a real party named e.g. "ПП Полет" is silently unlinkable.
+    expect(normalizeCompanyName("ПП Полет")).toBe("полет");
+    expect(looksLikeParty(["ПП Полет"])).toBe(true);
   });
 });

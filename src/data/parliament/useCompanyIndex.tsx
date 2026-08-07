@@ -58,13 +58,18 @@ export type CompanyEntry = {
   /** Phase 5 TR enrichment — present only when the company name matched a
    * row in the reconstructed Commerce Registry SQLite. */
   tr?: TrCompanyEnrichment;
-  /** The entity is a registered political party, not a company. */
-  isParty?: true;
   /** The party's entry in the Court-of-Audit annual-report register, resolved
-   * at build time. Present only when `isParty` AND the register has it — a
-   * coalition (which files nothing of its own) and a party that predates the
-   * 2011 register are both legitimately absent. */
-  financing?: { slug: string; name: string };
+   * at build time. Present only on an entry that IS a party and that the
+   * register carries — a coalition (which files nothing of its own) and a
+   * party predating the 2011 register are both legitimately absent.
+   *
+   * Only `slug` is declared, though the artifact also stores the register's
+   * name: the panel re-reads that from the fetched shard, so a second copy
+   * here would be a field that looks like the label the page shows and is
+   * not. The build artifact keeps it for debugging. Likewise the artifact's
+   * `isParty` flag is deliberately not declared — nothing in the client reads
+   * it. */
+  financing?: { slug: string };
 };
 
 type IndexFile = {

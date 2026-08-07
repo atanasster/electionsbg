@@ -20,6 +20,7 @@ import {
   type CompanyStakeEntry,
 } from "@/data/parliament/useCompanyIndex";
 import { PartyAnnualReportPanel } from "@/screens/dashboard/PartyAnnualReportPanel";
+import { useFinancingPartyReport } from "@/data/financing/useFinancingReports";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -233,8 +234,14 @@ const groupStakes = (stakes: CompanyStakeEntry[]): StakeGroup[] => {
   for (const g of map.values()) {
     // sourceUrl breaks the tie so two filings of the same year and body always
     // collapse to the SAME one, whatever order the index listed them in.
+    // Byte order, not localeCompare: this sort runs at render in the visitor's
+    // browser, and localeCompare with no explicit locale resolves against the
+    // runtime's default — which would make the guarantee a property of the
+    // reader's environment rather than of the code.
     g.filings.sort(
-      (a, b) => b.year - a.year || a.sourceUrl.localeCompare(b.sourceUrl),
+      (a, b) =>
+        b.year - a.year ||
+        (a.sourceUrl < b.sourceUrl ? -1 : a.sourceUrl > b.sourceUrl ? 1 : 0),
     );
     g.filings = onePerYearAndBody(g.filings);
   }
@@ -410,6 +417,11 @@ export const MpCompanyScreen: FC = () => {
     () => (slug ? bySlug.get(slug) : undefined),
     [bySlug, slug],
   );
+  // Same query the panel runs, so React Query serves both from one fetch.
+  // Read here only to know whether the panel will have anything to draw.
+  const { data: financingShard } = useFinancingPartyReport(
+    company?.financing?.slug,
+  );
   const mpRoleGroups = useMemo(
     () => groupRolesByMp(company?.mpRoles ?? []),
     [company],
@@ -460,8 +472,17 @@ export const MpCompanyScreen: FC = () => {
        * entry (see `enrichWithFinancing`) — the join is by name, because no
        * registry we ingest issues a party an EIK, so it is settled once in
        * the pipeline under a test rather than guessed here per render. The
-       * panel is the same one the /party dashboard uses. */}
-      {company.financing && (
+       * panel is the same one the /party dashboard uses.
+       *
+       * Gated on the SHARD, not on `company.financing`: the panel returns
+       * null until its query resolves, and for the whole of that first paint
+       * a heading gated on the link alone stands over empty space. It is not
+       * only the loading window — the link stores a slug resolved at build
+       * time while the shards come from a separate scraper run, so a re-slug
+       * leaves a 404 and the emptiness becomes permanent. Wrapping the panel
+       * in DashboardSection does NOT cover this: its `isRenderable` guard
+       * tests the child ELEMENT, which is always valid, not what it renders. */}
+      {financingShard && company.financing && (
         <div className="my-4">
           <div className="text-base font-semibold flex items-center gap-2 mb-2">
             <FileCheck2 className="h-4 w-4" />

@@ -95,10 +95,12 @@ export type CompanyIndexEntry = {
   /** Filled in by Phase 5 TR integration when the declared company name
    * matches a row in raw_data/tr/state.sqlite. */
   tr?: TrCompanyEnrichment;
-  /** The declared entity is a registered POLITICAL PARTY, not a company —
-   * decided from the raw declared names by `looksLikeParty`. Set independently
-   * of `financing` below, which additionally requires a register match: a
-   * party we cannot find in gfopp is still a party. */
+  /** The declared entity is a registered POLITICAL PARTY — not a company and
+   * not a COALITION, which is a different kind of thing with no filing
+   * obligation of its own. Decided from the raw declared names by
+   * `looksLikeParty`. Set independently of `financing` below, which
+   * additionally requires a register match: a party we cannot find in gfopp
+   * is still a party. Build-side only — nothing in `src/` reads it. */
   isParty?: true;
   /** Set only on entries that ARE a registered political party and that match
    * one in the Court-of-Audit annual-report register (gfopp). Resolved here,
@@ -167,6 +169,16 @@ const stripLegalFormSuffix = (lowered: string): string => {
 // name merely begins with those letters ("ПП Сервиз") is untouched.
 const PARTY_FORM_PREFIX = /^(политическа партия|коалиция|пп|кп)\s+/;
 
+// The same vocabulary, narrowed, for the one question the fold cannot answer:
+// is this thing a PARTY? A coalition is not. It carries no ЗПП filing
+// obligation of its own, and — because the fold above strips its prefix — its
+// normalized name is usually its lead party's, so "Коалиция Възраждане" would
+// resolve to the party Възраждане's filing record and publish it as the
+// coalition's own. That is the Величие АД false claim arriving through the
+// other door, with no commercial legal form available to veto it.
+// Wide enough to GROUP, deliberately too narrow to IDENTIFY.
+const PARTY_ONLY_PREFIX = /^(политическа партия|пп)\s+/;
+
 export const normalizeCompanyName = (raw: string): string =>
   stripLegalFormSuffix(
     raw
@@ -188,18 +200,24 @@ const COMPANY_FORM = new RegExp(
  *
  * Decided from the raw names declarants wrote, never from the folded key —
  * `normalizeCompanyName` strips the party prefix, so by then the evidence is
- * gone. Both halves are load-bearing, and the second is what stops a name
- * match from becoming an identity claim: "Величие АД" is a joint-stock
- * company whose stripped name is exactly the party "Величие", and matching it
- * would publish a party's financing record on a private firm's page. Its own
- * АД says it is not a party, so the presence of a commercial form vetoes. */
+ * gone. All three clauses are load-bearing, and the last two are what stop a
+ * name match from becoming an identity claim:
+ *
+ *  - "Величие АД" is a joint-stock company whose stripped name is exactly the
+ *    party "Величие". Its own АД says it is not a party, so a commercial form
+ *    vetoes outright.
+ *  - A COALITION is excluded by using the narrow prefix: see PARTY_ONLY_PREFIX.
+ *
+ * This is the ONLY condition `enrichWithFinancing` tests, so anything it lets
+ * through can be published as that entity's own financing record. Widen it
+ * only alongside a narrower condition there. */
 export const looksLikeParty = (rawNames: string[]): boolean => {
   const prepped = rawNames.map((r) =>
     r.replace(QUOTES, "").replace(/\s+/g, " ").trim().toLowerCase(),
   );
   if (prepped.length === 0) return false;
   if (prepped.some((s) => COMPANY_FORM.test(s))) return false;
-  return prepped.some((s) => PARTY_FORM_PREFIX.test(s));
+  return prepped.some((s) => PARTY_ONLY_PREFIX.test(s));
 };
 
 // URL-safe slug. We keep Cyrillic but strip quotes, replace spaces with -,
