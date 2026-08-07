@@ -268,10 +268,36 @@ Portrait buys 270px, not a licence to stack everything: four zones + cells +
 benchmark rows (fold two rows that tell the same story — "еднооферни поръчки"
 and "средно оферти на поръчка" are one claim about competition), or drop a zone.
 
-Ranks and medians are computed over the **265 общини** — fold Sofia's 24 `S**`
-district codes into one Столична община and drop the six abroad pseudo-codes
-(`OC`/`EU`/`NA`/`SA`/`AS`/`AF`), or the universe comes out at 272 and the
-denominator in the caption is wrong.
+### Ranking municipalities — group by the CENSUS's own `obshtina`, never by settlements.json
+
+`data/census_2021_settlements.json` carries an `obshtina` field per settlement
+and grouping on it yields **exactly the 265 общини with correct populations**,
+Столична община included as `SOF46` at 1 274 290. That is the universe. One line:
+
+```js
+const P={};Object.values(census).forEach(c=>P[c.obshtina]=(P[c.obshtina]||0)+c.population);
+```
+
+**Do not build it by joining through `settlements.json`.** That file has no row
+for гр. София (ekatte 68134) and represents the capital only as 24 `S**` district
+codes, so summing its settlements gives Sofia a population of **90 890** instead
+of 1 274 290 — a 14× understatement that silently makes Столична община the
+national leader on any per-capita money metric. It ranked #1 at €5 691/жител on
+2026-08-06; corrected, it is €397 and near the bottom. The tell is a top-5 that
+contains Sofia at all: the capital is a per-capita laggard on EU funds, not a
+leader. `municipalities.json` has the same 294-code shape and the same hole.
+
+Two further cautions on the funds side, both measured 2026-08-06:
+
+- **Beneficiary names must be matched case-insensitively and trimmed.** "Столична
+  Община" and "Столична община" are separate strings in `fund_projects`, and the
+  capital alone appears under **75** spellings. A case-sensitive lookup drops
+  them all, which is how Sofia stayed out of an earlier ranking and made it look
+  right for the wrong reason.
+- **~67 beneficiary strings (€341m) map to no municipality** — МИГ/LAG joint
+  bodies spanning two общини, and typos. They are excluded rather than
+  mis-assigned; say so if a total is quoted, and never attribute a shared LAG
+  (e.g. "МИГ Тервел-Крушари") to one of its municipalities.
 
 ### Marks must be count-independent
 
