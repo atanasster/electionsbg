@@ -1,0 +1,10 @@
+{
+  "completedAt": "2026-08-06T21:24:32.699Z",
+  "script": "scripts/procurement/dedup_stale_base_keys.ts",
+  "summary": "cleared 30 stale-base-key row(s), €2068182.74",
+  "plan": "docs/plans/procurement-same-feed-dedup-v1.md",
+  "followUps": [
+    "npm run db:load:annexes:pg (+ :cloud) — mandatory; evicted rows orphan their annexes and only this loader re-resolves them",
+    "delete KNOWN_STALE from scripts/db/tests/stale_base_keys.data.test.ts"
+  ]
+}

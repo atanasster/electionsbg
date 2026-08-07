@@ -81,44 +81,18 @@ afterAll(async () => {
   await end();
 });
 
-// The 30 orphans `dedup_stale_base_keys.ts` is written to remove, by evicted key. Every one is a
-// row whose key is the bare base key and whose identity-identical twin carries the current formula.
-// Measured 2026-08-04: €2,068,182.74, all in the 2020 shards.
+// EMPTY, and that is the intended end state. This held the 30 orphans
+// `dedup_stale_base_keys.ts` was written to remove — rows whose key was the bare base key while an
+// identity-identical twin carried the current formula (measured 2026-08-04: €2,068,182.74, all in
+// the 2020 shards). The sweep ran on 2026-08-06 (405,932 → 405,902 rows) and the entries were
+// deleted in that same commit, per the header contract.
 //
-// DELETE THESE ENTRIES once `npm run proc:dedup-stale-keys -- --apply` has run and the corpus is
-// reloaded. The "every allowlisted orphan still exists" test fails until you do.
-const KNOWN_STALE = new Set([
-  "8aec19ee3e23",
-  "5c9041b54402",
-  "6aa560193173",
-  "43dc6f4fbedf",
-  "230481e49c02",
-  "ead302ce1ecd",
-  "324f9f3ea727",
-  "aa5a147a9fd2",
-  "1e248d9a044f",
-  "567c647af11f",
-  "7cd3408882c8",
-  "0c81d658c736",
-  "2550f8083144",
-  "d4fd3279db7d",
-  "57e0f58a6eb2",
-  "a17f37e4da86",
-  "e0373edec6b4",
-  "5ad6bb8dffd3",
-  "5607442c0929",
-  "c402c857b2e2",
-  "08f5d01debe3",
-  "47c828de4f2a",
-  "f5d608992acc",
-  "43ba8200da44",
-  "a6fc92d6d693",
-  "8bb38bd1514d",
-  "80171dc238db",
-  "049a25a3f6da",
-  "462248956628",
-  "1f11afd6a17e",
-]);
+// Do NOT repopulate this to silence a failure. A new orphan means the class has recurred and the
+// "no NEW legacy row carries a superseded bare base key" test below is doing its job — run the
+// sweep, do not extend the list. Now that it is empty that test demands a true zero, which is why
+// the `preflightOrder()` assertion is load-bearing rather than decorative: it is the only thing
+// left proving the detector still works.
+const KNOWN_STALE = new Set<string>([]);
 
 // The two 2022/2023 groups where NO member carries the bare base key, so the sweep's rule cannot
 // name a survivor: their second key matches neither formula and its mint-time derivation could not
