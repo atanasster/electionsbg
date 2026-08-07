@@ -458,3 +458,52 @@ export interface FundsMuniRank {
     rankDelta: number;
   }[];
 }
+
+/** One Interreg operation with its full partnership
+ *  (migration 138, /api/db/interreg-operation).
+ *
+ *  THE ONE SURFACE WHERE THE OPERATION TOTAL IS THE HEADLINE. Everywhere else
+ *  `totalBudgetEur` is forbidden inside an aggregate — summing it per place puts
+ *  ~4x the true money on a municipality. Here the subject IS the whole
+ *  cross-border project, so it is the honest figure, and `bgBudgetEur` travels
+ *  beside it so neither stands in for the other. */
+export interface InterregOperationDetail {
+  keepId: number;
+  operationId: string | null;
+  programmeCode: string;
+  programmeBg: string | null;
+  programmeEn: string | null;
+  period: string;
+  titleEn: string;
+  titleBg: string | null;
+  /** Which language `titleEn` is actually in. keep.eu publishes English only
+   *  and its own detection files two operations under mt/it, so a BG page says
+   *  the title is foreign rather than implying a translation exists. */
+  titleLang: string | null;
+  summaryEn: string | null;
+  status: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  totalBudgetEur: number | null;
+  euFundingEur: number | null;
+  coFinancingRate: number | null;
+  partnerCount: number | null;
+  countries: string[] | null;
+  bgBudgetEur: number;
+  bgPartnerCount: number;
+  partners: {
+    seq: number;
+    name: string;
+    nameEn: string | null;
+    country: string;
+    isLead: boolean;
+    eik: string | null;
+    orgType: string | null;
+    budgetEur: number | null;
+    budgetBasis: string;
+    ekatte: string | null;
+    obshtina: string | null;
+    placeBasis: string | null;
+    locationRaw: string | null;
+  }[];
+}

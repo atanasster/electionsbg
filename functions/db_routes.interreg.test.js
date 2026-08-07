@@ -279,3 +279,39 @@ test("the overview sentinel carries the same keys as the function", async () => 
     "unpublishedPartnerCount",
   ]);
 });
+
+// ── /api/db/interreg-operation — the detail page's route ─────────────────────
+
+const operation = DB_ROUTES["interreg-operation"];
+
+test("a keepId must be a plain positive integer", async () => {
+  for (const k of ["", "0", "abc", "1e5", "-3", "12.5", "0017853"])
+    assert.equal(
+      (await operation(stubDb(null), { keepId: k })).status,
+      400,
+      JSON.stringify(k),
+    );
+  const db = stubDb(null);
+  assert.equal((await operation(db, { keepId: "17853" })).status, undefined);
+  // Bound as a NUMBER: the SQL parameter is int, and a string would cast-error
+  // rather than 400 at the edge where the message is useful.
+  assert.deepEqual(db.calls[0].params, [17853]);
+});
+
+// 200 + null, never 404 — the funds convention, and what lets the screen tell a
+// missing project from a failed request. The screen branches on isError first.
+test("an unknown operation is 200 with a null body", async () => {
+  const res = await operation(stubDb(null), { keepId: "999999999" });
+  assert.equal(res.status, undefined);
+  assert.equal(res.body, null);
+});
+
+test("the operation route degrades a missing migration, not a timeout", async () => {
+  assert.equal(
+    (await operation(throwingDb("42883"), { keepId: "17853" })).body,
+    null,
+  );
+  await assert.rejects(() =>
+    operation(throwingDb("57014"), { keepId: "17853" }),
+  );
+});

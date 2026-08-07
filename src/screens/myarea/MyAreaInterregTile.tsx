@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Globe } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { formatEur } from "@/lib/currency";
 
 const OPS_SHOWN = 6;
@@ -110,7 +111,10 @@ export const MyAreaInterregTile: FC<{ obshtina: string }> = ({ obshtina }) => {
           {data.operations.map((o) => (
             <li key={o.keepId} className="flex flex-col gap-0.5 py-2">
               <div className="flex flex-wrap items-baseline gap-x-2">
-                <span className="min-w-0 flex-1 font-medium">
+                <Link
+                  to={`/funds/interreg/${o.keepId}`}
+                  className="min-w-0 flex-1 font-medium underline"
+                >
                   {/* keep.eu publishes titles in English only — 107 of 107
                       sampled projects have no `bg` translation. Rendering the
                       English one with a marker is honest; inventing a Bulgarian
@@ -121,7 +125,7 @@ export const MyAreaInterregTile: FC<{ obshtina: string }> = ({ obshtina }) => {
                       {t("myarea_interreg_in_english")}
                     </span>
                   ) : null}
-                </span>
+                </Link>
                 <span className="shrink-0 tabular-nums font-semibold">
                   {o.localBudgetEur != null
                     ? formatEur(o.localBudgetEur, lang)

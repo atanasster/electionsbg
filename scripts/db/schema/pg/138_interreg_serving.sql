@@ -217,7 +217,28 @@ SELECT jsonb_build_object(
              'budgetEur',     r.budget_eur,
              'budgetBasis',   r.budget_basis
            ) AS x
-        FROM rows r
+        FROM (
+          -- ONE ROW PER OPERATION, not per partner row. A company can hold two
+          -- partner_seq rows in the SAME operation — measured: EIK 000080612 has
+          -- 10 partner rows across 8 operations — and listing the raw rows made
+          -- the payload contradict itself, `operationCount` saying 8 while
+          -- `operations` carried 10 entries, two of them the same project with
+          -- different budgets. It also duplicated the React key on the company
+          -- tile. Aggregating here rather than de-duplicating in the client is
+          -- the only fix that makes the two counts agree AND keeps the money
+          -- right: the company's stake in that operation is the SUM of its
+          -- partner rows, not either one of them.
+          SELECT keep_id,
+                 SUM(budget_eur)               AS budget_eur,
+                 bool_or(is_lead)              AS is_lead,
+                 CASE WHEN bool_or(budget_basis = 'unpublished')
+                       AND bool_or(budget_basis <> 'unpublished') THEN 'partial'
+                      WHEN bool_or(budget_basis = 'published') THEN 'published'
+                      WHEN bool_or(budget_basis = 'published_zero')
+                        THEN 'published_zero'
+                      ELSE 'unpublished' END   AS budget_basis
+            FROM rows GROUP BY keep_id
+        ) r
         JOIN interreg_operations o USING (keep_id)
         JOIN interreg_programmes g ON g.code = o.programme_code
         -- Bounded like the place side. 13 is today's worst case, so this is a
@@ -316,5 +337,160 @@ $$;
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     EXECUTE 'GRANT EXECUTE ON FUNCTION interreg_overview(int) TO app_readonly';
+  END IF;
+END $$;
+
+-- One operation, with its FULL partnership — the /funds/interreg/:keepId page.
+--
+-- ALL partners, not only the Bulgarian ones. This is the one surface where the
+-- foreign partners are the point: an Interreg operation is a partnership across
+-- a border, and a page listing only the Bulgarian side would describe a project
+-- that does not exist. It is also why 137 stores all ~12,141 partner rows
+-- rather than the ~1,493 Bulgarian ones.
+--
+-- Consequently this is the ONE function where `total_budget_eur` is the headline
+-- figure rather than a per-row scalar — here it is the honest number, because
+-- the subject IS the whole cross-border project. `bgBudgetEur` beside it is the
+-- Bulgarian share, so a reader can see both without either standing in for the
+-- other. Everywhere else in this file the operation total is forbidden inside an
+-- aggregate; the difference is the grain of the question.
+CREATE OR REPLACE FUNCTION interreg_operation(p_keep_id int)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+SELECT jsonb_build_object(
+  'keepId',        o.keep_id,
+  'operationId',   o.operation_id,
+  'programmeCode', o.programme_code,
+  'programmeBg',   g.name_bg,
+  'programmeEn',   g.name_en,
+  'period',        o.period,
+  'titleEn',       o.title_en,
+  'titleBg',       o.title_bg,
+  -- keep.eu publishes titles in English only and its own language detection
+  -- files two of them under mt/it, so this says which language title_en is
+  -- actually in rather than letting a BG page imply a translation exists.
+  'titleLang',     o.title_lang,
+  'summaryEn',     o.summary_en,
+  'status',        o.status,
+  'startDate',     o.start_date,
+  'endDate',       o.end_date,
+  'totalBudgetEur', o.total_budget_eur,
+  'euFundingEur',   o.eu_funding_eur,
+  'coFinancingRate', o.co_financing_rate,
+  'partnerCount',  o.partner_count,
+  'countries',     to_jsonb(o.countries),
+  -- The Bulgarian side, named separately so no caption has to derive it.
+  'bgBudgetEur', (
+    SELECT COALESCE(SUM(p.budget_eur), 0)::double precision
+      FROM interreg_partners p
+     WHERE p.keep_id = o.keep_id
+       AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')),
+  'bgPartnerCount', (
+    SELECT count(*)::int FROM interreg_partners p
+     WHERE p.keep_id = o.keep_id
+       AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')),
+  'partners', COALESCE((
+    SELECT jsonb_agg(jsonb_build_object(
+             'seq',        p.partner_seq,
+             'name',       p.partner_name,
+             'nameEn',     p.partner_name_en,
+             'country',    p.country,
+             'isLead',     p.is_lead,
+             'eik',        p.eik,
+             'orgType',    p.org_type,
+             'budgetEur',  p.budget_eur,
+             'budgetBasis', p.budget_basis,
+             'ekatte',     p.ekatte,
+             'obshtina',   p.obshtina,
+             'placeBasis', p.place_basis,
+             -- location_raw is the published street address, not a town: the
+             -- ingest's `town` field lives in the committed JSON and is not a
+             -- column here (137 stores the resolved EKATTE instead).
+             'locationRaw', p.location_raw)
+           -- Lead first, then by budget: the lead partner is a fact about the
+           -- partnership's shape, not merely its largest line.
+           ORDER BY p.is_lead DESC, p.budget_eur DESC NULLS LAST, p.partner_seq)
+      FROM interreg_partners p WHERE p.keep_id = o.keep_id), '[]'::jsonb)
+)
+FROM interreg_operations o
+JOIN interreg_programmes g ON g.code = o.programme_code
+WHERE o.keep_id = p_keep_id;
+$$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT EXECUTE ON FUNCTION interreg_operation(int) TO app_readonly';
+  END IF;
+END $$;
+
+-- Interreg operations for the combined search.
+--
+-- A SIBLING of search_fund_projects (086), NOT a widening of it. That function
+-- returns a `contract_number`-keyed ИСУН row, and an Interreg operation has no
+-- contract number at all — its only always-present key is the keep.eu id
+-- (`operation_id` is NULL for every 2014-2020 row). Folding the two would force
+-- a NULL key on 1,115 rows or a redefined column on 82,011, which is the exact
+-- failure mode §4 of the plan rejects for fund_projects itself.
+--
+-- SEARCHES THE ENGLISH TITLE, because that is the only title there is: keep.eu
+-- published no `bg` translation for any of the 107 sampled projects. So a
+-- Cyrillic query will not match an operation title — it will match the partner
+-- names, which ARE Cyrillic on 129 of 136 sampled rows, and that is the arm
+-- most Bulgarian searches will actually hit.
+CREATE OR REPLACE FUNCTION search_interreg_operations(q text, lim int DEFAULT 6)
+RETURNS TABLE (
+  keep_id        int,
+  title          text,
+  programme_bg   text,
+  period         text,
+  bg_budget_eur  double precision,
+  partner_hit    text
+)
+LANGUAGE sql STABLE PARALLEL SAFE
+SET pg_trgm.word_similarity_threshold = 0.5
+AS $$
+  WITH hits AS (
+    -- Title arm: the operation's own (English) title.
+    SELECT o.keep_id, word_similarity(q, o.title_en) AS sim,
+           NULL::text AS partner_hit
+      FROM interreg_operations o
+     WHERE o.title_en IS NOT NULL AND q <% o.title_en
+    UNION ALL
+    -- Partner arm: a Bulgarian partner's own name. Restricted to Bulgarian
+    -- rows so a query cannot surface an operation through a Romanian partner
+    -- that happens to share a substring — the result would be a real project
+    -- with no Bulgarian relevance behind a Bulgarian-language search.
+    SELECT p.keep_id, word_similarity(q, p.partner_name) AS sim,
+           p.partner_name AS partner_hit
+      FROM interreg_partners p
+     WHERE p.partner_name IS NOT NULL
+       AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')
+       AND q <% p.partner_name
+  ), best AS (
+    -- One row per operation: an operation matched through three partners is one
+    -- result, not three. DISTINCT ON keeps the strongest arm and the name that
+    -- produced it, so the UI can say WHY a row matched.
+    SELECT DISTINCT ON (keep_id) keep_id, sim, partner_hit
+      -- partner_hit breaks the tie: two partners of one operation with the
+      -- same similarity — common for near-duplicate institutional names —
+      -- would otherwise pick an arbitrary "why this matched" string that
+      -- changes with the plan. The row SET is unaffected; the label is not.
+      FROM hits ORDER BY keep_id, sim DESC, partner_hit
+  )
+  SELECT b.keep_id, o.title_en, g.name_bg, o.period,
+         (SELECT COALESCE(SUM(p.budget_eur), 0)::double precision
+            FROM interreg_partners p
+           WHERE p.keep_id = b.keep_id
+             AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')),
+         b.partner_hit
+    FROM best b
+    JOIN interreg_operations o USING (keep_id)
+    JOIN interreg_programmes g ON g.code = o.programme_code
+   ORDER BY b.sim DESC, o.keep_id
+   -- Clamped in the function, not only in the route: this is GRANTed to
+   -- app_readonly, and a negative LIMIT raises rather than returning nothing.
+   LIMIT GREATEST(lim, 1)
+$$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT EXECUTE ON FUNCTION search_interreg_operations(text, int) TO app_readonly';
   END IF;
 END $$;

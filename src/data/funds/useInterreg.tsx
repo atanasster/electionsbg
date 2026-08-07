@@ -11,7 +11,11 @@
 // db:load:funds:pg.
 
 import { useQuery } from "@tanstack/react-query";
-import type { InterregOverview, FundsMuniRank } from "./types";
+import type {
+  InterregOverview,
+  FundsMuniRank,
+  InterregOperationDetail,
+} from "./types";
 
 const getJson = async <T,>(url: string): Promise<T> => {
   const r = await fetch(url);
@@ -36,5 +40,22 @@ export const useFundsMuniRank = (limit = 25) =>
     queryKey: ["funds", "muni-rank", limit] as const,
     queryFn: () =>
       getJson<FundsMuniRank>(`/api/db/funds-muni-rank?limit=${limit}`),
+    staleTime: Infinity,
+  });
+
+/** One operation, for /funds/interreg/:keepId. `null` is an unknown id — the
+ *  route serves 200 + null rather than a 404, matching the funds convention, so
+ *  the page renders its not-found branch instead of erroring. */
+export const useInterregOperation = (keepId: string | undefined) =>
+  useQuery({
+    queryKey: ["interreg", "operation", keepId ?? ""] as const,
+    queryFn: async (): Promise<InterregOperationDetail | null> => {
+      const r = await fetch(
+        `/api/db/interreg-operation?keepId=${encodeURIComponent(keepId!)}`,
+      );
+      if (!r.ok) throw new Error(`interreg-operation failed: ${r.status}`);
+      return (await r.json()) as InterregOperationDetail | null;
+    },
+    enabled: !!keepId,
     staleTime: Infinity,
   });

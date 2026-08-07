@@ -294,3 +294,12 @@ DO $$ BEGIN
     GRANT SELECT ON interreg_partners TO app_readonly;
   END IF;
 END $$;
+
+-- Trigram indexes for search_interreg_operations (138). Without them BOTH arms
+-- seq-scan: measured 50-77 ms per call on 1,954 operations / 12,141 partners,
+-- paid on EVERY keystroke of the combined search and growing linearly with each
+-- keep.eu import. gin_trgm_ops is what serves the `<%` word-similarity operator.
+CREATE INDEX IF NOT EXISTS idx_interreg_operations_title_trgm
+  ON interreg_operations USING gin (title_en gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_interreg_partners_name_trgm
+  ON interreg_partners USING gin (partner_name gin_trgm_ops);

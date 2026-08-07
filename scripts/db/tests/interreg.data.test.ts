@@ -195,6 +195,40 @@ test.skipIf(skip)(
   },
 );
 
+// ── 4b. …and that gate still discriminates ────────────────────────────────
+test.skipIf(skip)(
+  "gate 4 fires on a body that DOES cross the join",
+  async () => {
+    // A positive control, and it became necessary at T3.5: 138 now ships
+    // `interreg_operation`, which legitimately RETURNS total_budget_eur beside
+    // place columns. The gate passes it because it does not SUM — but "no shipped
+    // function returns this figure" is no longer available as a backstop, so the
+    // regex itself has to be shown to still catch the real thing.
+    const bad = `CREATE OR REPLACE FUNCTION interreg_gate_probe()
+     RETURNS TABLE (obshtina text, eur double precision) LANGUAGE sql STABLE AS $x$
+       SELECT p.obshtina, sum(o.total_budget_eur)
+         FROM interreg_partners p JOIN interreg_operations o USING (keep_id)
+        GROUP BY p.obshtina $x$;`;
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        await c.query(bad);
+        const { rows } = await c.query<{ src: string }>(
+          `SELECT pg_get_functiondef(p.oid) src FROM pg_proc p
+          WHERE p.proname = 'interreg_gate_probe' AND p.prokind = 'f'`,
+        );
+        assert.equal(rows.length, 1, "the probe function was not created");
+        const body = rows[0].src.toLowerCase();
+        // The exact two conditions gate 4 conjoins.
+        assert.match(body, /sum\s*\(\s*[a-z_]*\.?total_budget_eur/);
+        assert.match(body, /(ekatte|obshtina|oblast|\beik\b)/);
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
+  },
+);
+
 // ── 5. EKATTE is never invented ─────────────────────────────────────────────
 test.skipIf(skip)(
   "every stored place is real and completely stated",
@@ -845,6 +879,126 @@ test.skipIf(skip)(
         new Set(ids).size,
         ids.length,
         `${code} lists an operation more than once`,
+      );
+    }
+  },
+);
+
+// ── 21. The entity payloads count what they list ──────────────────────────
+test.skipIf(skip)("interreg_by_eik lists one row per operation", async () => {
+  // It used to list one row per PARTNER row, and a company can hold two
+  // partner_seq rows in the same operation — EIK 000080612 has 10 across 8.
+  // The payload then contradicted itself (operationCount 8, operations 10, one
+  // project twice with two different budgets) and duplicated the React key on
+  // the company tile. Aggregating in SQL is the only fix that makes the counts
+  // agree AND keeps the money right: the company's stake is the SUM of its
+  // partner rows on that operation, not either one.
+  const eiks = await allRows<{ eik: string }>(
+    `SELECT p.eik FROM interreg_partners p
+      WHERE p.eik IS NOT NULL AND ${BG}
+      GROUP BY p.eik
+      HAVING count(*) > count(DISTINCT p.keep_id)
+      ORDER BY p.eik LIMIT 5`,
+  );
+  // Prove the shape this gate is about actually exists, so it cannot go vacuous.
+  assert.ok(
+    eiks.length > 0,
+    "no EIK holds two partner rows on one operation — gate is vacuous",
+  );
+  for (const { eik } of eiks) {
+    const got = await one<{
+      r: { operationCount: number; operations: { keepId: number }[] };
+    }>(`SELECT interreg_by_eik($1, 500) AS r`, [eik]);
+    const ids = got.r.operations.map((o) => o.keepId);
+    assert.equal(
+      new Set(ids).size,
+      ids.length,
+      `interreg_by_eik('${eik}') lists an operation twice`,
+    );
+    assert.equal(
+      ids.length,
+      got.r.operationCount,
+      `interreg_by_eik('${eik}') counts ${got.r.operationCount} and lists ${ids.length}`,
+    );
+  }
+});
+
+// ── 22. The operation page's 200+null contract ────────────────────────────
+test.skipIf(skip)(
+  "interreg_operation answers NULL for an unknown id",
+  async () => {
+    // The screen's not-found branch depends on this, and the route serves 200 +
+    // null rather than a 404 SO THAT a genuine failure stays distinguishable.
+    const r = await one<{ missing: boolean; present: boolean }>(
+      `SELECT interreg_operation(999999999) IS NULL missing,
+            interreg_operation((SELECT min(keep_id) FROM interreg_operations))
+              IS NOT NULL present`,
+    );
+    assert.equal(r.missing, true, "an unknown keepId should answer NULL");
+    assert.equal(r.present, true, "a known keepId should answer a payload");
+
+    // And the page's honesty claim: ALL partners, foreign ones included, lead
+    // first. A cross-border project shown as Bulgarian-only is a project that
+    // does not exist.
+    const multi = await one<{
+      r: {
+        partners: { country: string; isLead: boolean }[];
+        bgPartnerCount: number;
+      };
+    }>(
+      `SELECT interreg_operation(o.keep_id) AS r
+       FROM interreg_operations o
+      WHERE o.partner_count > 2 ORDER BY o.keep_id LIMIT 1`,
+    );
+    const countries = new Set(multi.r.partners.map((p) => p.country));
+    assert.ok(countries.size > 1, "a cross-border operation lists one country");
+    assert.equal(
+      multi.r.partners[0].isLead,
+      true,
+      "the lead partner is not first",
+    );
+  },
+);
+
+// ── 23. Search returns one row per operation ──────────────────────────────
+test.skipIf(skip)(
+  "search_interreg_operations de-duplicates its two arms",
+  async () => {
+    // The title arm and the partner arm are UNION ALL'd, so an operation matched
+    // through three partners must still be one result. Also checks the index is
+    // actually used — without gin_trgm both arms seq-scan, which was 76.7 ms per
+    // keystroke of the combined search before the indexes landed (now 5.5 ms).
+    for (const q of ["Малко Търново", "община", "biodiversity"]) {
+      const rows = await allRows<{ keep_id: number }>(
+        `SELECT keep_id FROM search_interreg_operations($1, 20)`,
+        [q],
+      );
+      const ids = rows.map((r) => r.keep_id);
+      assert.equal(
+        new Set(ids).size,
+        ids.length,
+        `"${q}" returned a duplicate`,
+      );
+    }
+    const rows = await allRows<{ keep_id: number }>(
+      `SELECT keep_id FROM search_interreg_operations('Малко Търново', 20)`,
+    );
+    assert.ok(rows.length > 0, "the Cyrillic partner arm found nothing");
+
+    // EXPLAIN on the function call shows a Function Scan, not the inlined body,
+    // so this plans the PREDICATE the index has to serve instead. Both arms.
+    for (const [table, col] of [
+      ["interreg_partners", "partner_name"],
+      ["interreg_operations", "title_en"],
+    ]) {
+      const plan = await allRows<{ "QUERY PLAN": string }>(
+        `EXPLAIN SELECT 1 FROM ${table} WHERE 'Малко Търново' <% ${col}`,
+      );
+      const text = plan.map((r) => r["QUERY PLAN"]).join("\n");
+      assert.ok(
+        /Bitmap Index Scan|Index Scan/.test(text),
+        `${table}.${col} has no usable gin_trgm index — the combined search ` +
+          `seq-scans it on every keystroke:\n${text}`,
       );
     }
   },

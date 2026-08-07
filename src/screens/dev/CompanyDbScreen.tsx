@@ -77,6 +77,7 @@ import {
   CompanyFundsTile,
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
+import { CompanyInterregTile } from "../components/procurement/CompanyInterregTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { CompanyPoliticalLinks } from "../components/CompanyPoliticalLinks";
 import { CompanyMagistratesTile } from "../components/procurement/CompanyMagistratesTile";
@@ -1602,6 +1603,11 @@ export const CompanyDbScreen: FC = () => {
           {funds && Number(funds.contracted_eur ?? 0) > 0 && (
             <CompanyFundsTile eik={eik} funds={funds} projects={fundProjects} />
           )}
+
+          {/* NOT gated on the ИСУН tile above: Interreg is a separate corpus,
+              and an organisation can have cross-border money with no ИСУН
+              projects at all. The tile self-hides on an empty answer. */}
+          {eik && <CompanyInterregTile eik={eik} />}
 
           {company && (
             <div className="flex items-center gap-2 pt-2">

@@ -606,6 +606,11 @@ const FundsContractScreen = lazy(() =>
     default: m.FundsContractScreen,
   })),
 );
+const FundsInterregScreen = lazy(() =>
+  import("./screens/funds/FundsInterregScreen").then((m) => ({
+    default: m.FundsInterregScreen,
+  })),
+);
 const FundsScreen = lazy(() =>
   import("./screens/FundsScreen").then((m) => ({
     default: m.FundsScreen,
@@ -2619,6 +2624,17 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <FundsContractScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Interreg operations sit under /funds/ but are a DIFFERENT corpus:
+              keep.eu / Jems, not ИСУН. The URL says funds because that is what a
+              reader is looking for; every page on it says which source. */}
+          <Route
+            path="funds/interreg/:keepId"
+            element={
+              <LayoutScreen>
+                <FundsInterregScreen />
               </LayoutScreen>
             }
           />

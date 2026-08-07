@@ -1945,10 +1945,22 @@ const DB_ROUTES = {
          FROM search_fund_projects($1, $2)`,
         [term, lim],
       ),
+      // INTERREG — its OWN group, not folded into the ИСУН one above. The two
+      // are different corpora with different keys: a fund project is keyed by
+      // contract_number, an Interreg operation only by its keep.eu id (its
+      // operation_id is NULL for every 2014-2020 row). Merging them would force
+      // a NULL key on one side. Degrades to [] on a database predating 138 via
+      // the allSettled below.
+      dbRows(
+        `SELECT keep_id AS "keepId", title, programme_bg AS "programmeBg",
+                period, bg_budget_eur AS "bgBudgetEur",
+                partner_hit AS "partnerHit"
+         FROM search_interreg_operations($1, $2)`,
+        [term, lim],
+      ),
     ]);
-    const [companies, awarders, contracts, tenders, funds] = settled.map((r) =>
-      r.status === "fulfilled" ? r.value : [],
-    );
+    const [companies, awarders, contracts, tenders, funds, interreg] =
+      settled.map((r) => (r.status === "fulfilled" ? r.value : []));
     // Total matches per "see all" group, so the dropdown can show "6 of N" and
     // the preview cap reads as a preview, not the whole result. Only paid when
     // the preview is actually capped (length === lim ⇒ there may be more), and
@@ -1989,6 +2001,7 @@ const DB_ROUTES = {
         contracts,
         tenders,
         funds,
+        interreg,
         contractsTotal,
         tendersTotal,
       },
@@ -2927,6 +2940,29 @@ const DB_ROUTES = {
       ),
     );
     return { body: rows[0]?.r ?? empty };
+  },
+  // One Interreg operation with its FULL partnership — /funds/interreg/:keepId.
+  //
+  // 200 + null for an unknown id (the funds convention this sits beside), so a
+  // deleted or mistyped keepId renders the page's not-found branch rather than
+  // surfacing as a fetch error.
+  "interreg-operation": async (dbRows, q) => {
+    const raw = s(q, "keepId");
+    // keep.eu ids are sparse but bounded (max 34,025 today at 32,702 projects),
+    // so a plain positive-integer gate is the right shape — a range check would
+    // have to be revised on every upstream import.
+    if (!/^[1-9]\d{0,8}$/.test(raw))
+      return { status: 400, body: { error: "missing or malformed keepId" } };
+    const rows = await dbRows("SELECT interreg_operation($1) AS r", [
+      Number(raw),
+    ]).catch(
+      missingMigrationLogged(
+        "interreg-operation",
+        null,
+        "db:load:interreg:pg:cloud (and apply 138)",
+      ),
+    );
+    return { body: rows[0]?.r ?? null };
   },
   // The per-capita municipal EU-money ranking, WITH the Interreg arm (139).
   //
