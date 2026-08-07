@@ -1,0 +1,122 @@
+{
+ "id": 25693,
+ "project_id": null,
+ "status": "closed",
+ "start_date": "2020-08-24",
+ "end_date": "2021-11-24",
+ "total_budget": "91667.00",
+ "eu_funding": "77916.95",
+ "union_co_financing_rate": null,
+ "__note": "Projection of raw_data/interreg/keep/25693.json for tests: programme trimmed, partner.country.id dropped, description truncated at 160 chars. Not a byte capture.",
+ "programme": {
+  "id": 66,
+  "title": "2014 - 2020 Interreg IPA CBC Bulgaria - Turkey",
+  "period": {
+   "title": "2014-2020"
+  }
+ },
+ "translations": {
+  "en": {
+   "name": "Cross- border Network for Accessible Tourism",
+   "description": "The major activities are as follow: proper management, coordination and reporting of the project and productive partnership developed; accessible Tourism for Al"
+  }
+ },
+ "partnerships": [
+  {
+   "id": 117596,
+   "type": "lead",
+   "legal_status": "n/a",
+   "organisation_type": null,
+   "pic": null,
+   "beneficiary_id": null,
+   "town": "Haskovo",
+   "town_department": null,
+   "postcode": "6300",
+   "postcode_department": null,
+   "location_address": "6300 Haskovo, Bulgaria",
+   "location_json": {
+    "lat": 41.9000366,
+    "lng": 25.5266578
+   },
+   "total_budget": "0.00",
+   "co_financing_eur": null,
+   "country_department": null,
+   "partner": {
+    "id": 81034,
+    "name": "Клуб на инвалидите с физически увреждания- Хасково",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Club of the Handicapped with Physical Disabilities- Haskovo"
+     }
+    }
+   }
+  },
+  {
+   "id": 117645,
+   "type": "partner",
+   "legal_status": "n/a",
+   "organisation_type": null,
+   "pic": null,
+   "beneficiary_id": null,
+   "town": "Kirklareli",
+   "town_department": null,
+   "postcode": "39100",
+   "postcode_department": null,
+   "location_address": "Hastane Cd., 39100 Kırklareli Merkez/Kırklareli, Turkey",
+   "location_json": {
+    "lat": 41.7382985,
+    "lng": 27.2174814
+   },
+   "total_budget": "0.00",
+   "co_financing_eur": null,
+   "country_department": null,
+   "partner": {
+    "id": 81065,
+    "name": "Türkiye Sakatlar Derneği Kırklareli Şubesi",
+    "country": {
+     "title": "Turkey"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Kirklareli Branch of Turkey Handicap Association"
+     }
+    }
+   }
+  },
+  {
+   "id": 117646,
+   "type": "partner",
+   "legal_status": "n/a",
+   "organisation_type": null,
+   "pic": null,
+   "beneficiary_id": null,
+   "town": "Haskovo",
+   "town_department": null,
+   "postcode": "6300",
+   "postcode_department": null,
+   "location_address": "pl. \"SVOBODA\" 19, 6300 Haskovo Center, Haskovo, Bulgaria",
+   "location_json": {
+    "lat": 41.9323188,
+    "lng": 25.5578086
+   },
+   "total_budget": "0.00",
+   "co_financing_eur": null,
+   "country_department": null,
+   "partner": {
+    "id": 68828,
+    "name": "Регионална библиотека Хасково",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Regional Library \"Hristo Smirnenski\"- Haskovo"
+     }
+    }
+   }
+  }
+ ]
+}

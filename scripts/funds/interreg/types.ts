@@ -85,6 +85,28 @@ export const PLACE_BASES: readonly PlaceBasis[] = [
 export const isLinkedBasis = (b: PlaceBasis | null): boolean =>
   b === "eik:awarder_seats" || b === "eik:tr";
 
+/** keep.eu's own name for Bulgaria. The only country string this corpus tests. */
+export const KEEP_COUNTRY_BG = "Bulgaria";
+
+/**
+ * Is this a Bulgarian partner row — one we place and count as BG money?
+ *
+ * Either side counts: an organisation seated in Bulgaria, or a department in
+ * Bulgaria belonging to an organisation seated elsewhere.
+ *
+ * The department arm is DEFENSIVE, and measured as such: in the 2026-08-07
+ * crawl 204 rows carry Bulgaria on both fields and 1,289 on `country` alone,
+ * while **0 of 12,141** are Bulgarian by department only — so the BG row count
+ * is 1,493 either way today. keep.eu does distinguish the two (7 rows have a
+ * department country differing from the organisation's), so the arm is what
+ * keeps that shape from silently dropping if it ever reaches Bulgaria.
+ */
+export const isBulgarianPartner = (p: {
+  country: string;
+  countryDepartment?: string | null;
+}): boolean =>
+  p.country === KEEP_COUNTRY_BG || p.countryDepartment === KEEP_COUNTRY_BG;
+
 /**
  * A programme we admit. The registry in ./programmes.ts is the ONLY place a
  * keep.eu programme becomes ingestable — an id with no entry here is skipped
@@ -139,8 +161,16 @@ export interface InterregOperation {
   operationId: string | null;
   programmeCode: string;
   period: InterregPeriod;
-  /** keep.eu publishes titles in English only — 107 of 107 sampled had no `bg`. */
+  /**
+   * The operation title. keep.eu is English-only in practice (0 of 1,954 carry
+   * a `bg`), but its language DETECTION is unreliable — two operations file a
+   * plainly-English title under `mt` and `it` — so this is "the title keep.eu
+   * published", and `titleLang` says which key it came from.
+   */
   titleEn: string;
+  /** The keep.eu translation key `titleEn` came from: "en" for 1,952 of 1,954,
+   *  otherwise whatever key held it. §7's honesty marker needs to know. */
+  titleLang: string;
   /** NULL until a Bulgarian source exists. Never machine-translated (plan §7). */
   titleBg: string | null;
   summaryEn: string | null;
@@ -151,7 +181,30 @@ export interface InterregOperation {
   euFundingEur: number | null;
   coFinancingRate: number | null;
   partnerCount: number | null;
-  /** ISO2 codes of every participating country, sorted. */
+  /**
+   * Σ of the partners' own budgets. Stored rather than derived so a gate can
+   * compare the two levels without re-reading every partner row.
+   *
+   * IT DOES NOT HAVE TO EQUAL `totalBudgetEur`, and on 68 of 1,954 operations
+   * (3.5%) it exceeds it — by 2% to 66%, median 12%, concentrated in the
+   * transnational programmes (39 Danube, 18 Euro-MED, 8 Black Sea Basin) and
+   * not explained by `euFundingEur`. keep.eu simply does not guarantee the two
+   * reconcile. Refusing those operations would drop 64 Bulgarian partner rows
+   * and €9.47m — a silent corpus shrink, which is the failure this whole plan
+   * is about.
+   */
+  partnerBudgetSumEur: number | null;
+  /**
+   * How many partner rows `partnerBudgetSumEur` is Σ over.
+   *
+   * Without it a sum short of the total cannot be told apart from a partnership
+   * we can only half see — plan §3.1 requires every surface to be able to say
+   * "N operations, of which M carry a published budget", and at the operation
+   * grain this is the M.
+   */
+  partnerBudgetPublishedCount: number;
+  /** Every participating country, as keep.eu names them, sorted. Verbatim —
+   *  see InterregPartner.country for why these are names and not ISO2. */
   countries: string[];
   sourceFetchedAt: string;
 }
@@ -159,17 +212,44 @@ export interface InterregOperation {
 /**
  * One partner on one operation. ALL partners are stored, not only Bulgarian
  * ones — the foreign partners are what make an operation legible as
- * cross-border. Only `country === "BG"` rows are ever placed or counted as
- * Bulgarian money.
+ * cross-border. Only rows `isBulgarianPartner()` admits are ever placed or
+ * counted as Bulgarian money — see `country` for why that is a name test and
+ * not an ISO2 one.
  */
 export interface InterregPartner {
   keepId: number;
-  /** Position within the operation's partnership array. Part of the PK. */
+  /**
+   * Position within the operation, ordered by `keepPartnershipId`. Half the
+   * primary key (§4), so it must be a function of the DATA and not of the order
+   * keep.eu happened to serialise the array in.
+   */
   partnerSeq: number;
+  /**
+   * keep.eu's own partnership id — present on all 12,141 rows and unique both
+   * within an operation and globally. `partnerSeq` is derived by sorting on it,
+   * so a keep.eu reordering cannot re-point a stage-merged row; keeping the raw
+   * value makes such a reorder detectable rather than merely survivable.
+   */
+  keepPartnershipId: number | null;
+  /** The partner ORGANISATION's id, which repeats across operations. Not a key. */
   keepPartnerId: number | null;
   isLead: boolean;
-  /** ISO2. */
+  /**
+   * The country as keep.eu publishes it — a NAME ("Bulgaria"), stored VERBATIM.
+   *
+   * keep.eu's `country` is `{id, title}` where the id is its own internal key,
+   * not an ISO code, so an ISO2 column would have to be minted from a curated
+   * name→code map. That map would be a second thing to maintain and a second
+   * place to be wrong, for no gain: the only question this corpus asks of a
+   * country is "is this partner Bulgarian", which the title answers exactly.
+   * Use `isBulgarianPartner()` rather than comparing the string at call sites.
+   */
   country: string;
+  /**
+   * The DEPARTMENT's country, where keep.eu distinguishes the organisation's
+   * seat from the unit actually doing the work. Usually equal to `country`.
+   */
+  countryDepartment: string | null;
   /** As published, Cyrillic where the programme publishes it (129 of 136 sampled). */
   partnerName: string;
   partnerNameEn: string | null;
@@ -211,7 +291,8 @@ export interface InterregIndex {
   fetchedAt: string;
   operationCount: number;
   partnerCount: number;
-  /** Partner rows with `country === "BG"` — the only ones that become money here. */
+  /** Partner rows `isBulgarianPartner()` admits — the only ones that become
+   *  money here. Country OR department, not `country` alone. */
   bgPartnerCount: number;
   programmes: {
     code: string;

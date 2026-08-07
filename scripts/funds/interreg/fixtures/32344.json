@@ -1,0 +1,161 @@
+{
+ "id": 32344,
+ "project_id": "BGTR0200044",
+ "status": "ongoing",
+ "start_date": "2025-06-24",
+ "end_date": "2027-03-23",
+ "total_budget": "947916.79",
+ "eu_funding": "805729.25",
+ "union_co_financing_rate": 85,
+ "programme": {
+  "id": 305,
+  "title": "2021 - 2027 Interreg VI-A IPA Bulgaria Türkiye",
+  "period": {
+   "title": "2021-2027"
+  }
+ },
+ "translations": {
+  "en": {
+   "name": "Gateway Through History: Mobility of Cross-Border Destination Exploring",
+   "description": "The MOBIGATE aims to create a sustainable joint tourist product that enables responsible travelers to embark on a cultural and natural heritage journey through "
+  }
+ },
+ "partnerships": [
+  {
+   "id": 153232,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": "Local public authority",
+   "pic": "876915794",
+   "beneficiary_id": "BG102826129 | 102826129 | BULSTAT (EN)",
+   "town": "Malko Tarnovo",
+   "town_department": "Malko Tarnovo",
+   "postcode": "8162",
+   "postcode_department": "8162",
+   "location_address": "8162 Malko Tarnovo, Bulgaria",
+   "location_json": {
+    "lat": 41.9797938,
+    "lng": 27.5250475
+   },
+   "total_budget": "261847.74",
+   "co_financing_eur": "222570.57",
+   "country_department": {
+    "title": "Bulgaria"
+   },
+   "partner": {
+    "id": 97357,
+    "name": "Исторически Музей Проф. Александър Фол - Малко Търново",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Historical museum Prof. Dr. Aleksandar Fol - Malko Tarnovo"
+     }
+    }
+   }
+  },
+  {
+   "id": 153231,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": "Regional public authority",
+   "pic": "883401214",
+   "beneficiary_id": "4700432326 | na | na (EN)",
+   "town": "Kirklareli",
+   "town_department": "Kirkalreli",
+   "postcode": "39100",
+   "postcode_department": "39100",
+   "location_address": "Pınarhisar Yolu, 39100 Kırklareli, Türkiye",
+   "location_json": {
+    "lat": 41.7304898,
+    "lng": 27.2384625
+   },
+   "total_budget": "39072.60",
+   "co_financing_eur": "33211.71",
+   "country_department": {
+    "title": "Turkey"
+   },
+   "partner": {
+    "id": 97397,
+    "name": "KIRKLARELİ DOĞA KORUMA VE MİLLİ PARKLAR İL ŞUBE MÜDÜRLÜĞÜ",
+    "country": {
+     "title": "Turkey"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Kirklareli Nature Conservation National Parks Division Directorate"
+     }
+    }
+   }
+  },
+  {
+   "id": 153230,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": "Local public authority",
+   "pic": "882233043",
+   "beneficiary_id": "5590055941 | na | na (EN)",
+   "town": "Kiyikoy",
+   "town_department": "Kiyikoy",
+   "postcode": "39400",
+   "postcode_department": "39400",
+   "location_address": "Cumhuriyet Cd, 39400 Kıyıköy/Vize/Kırklareli, Türkiye",
+   "location_json": {
+    "lat": 41.6351109,
+    "lng": 28.0961431
+   },
+   "total_budget": "321740.49",
+   "co_financing_eur": "273479.41",
+   "country_department": {
+    "title": "Turkey"
+   },
+   "partner": {
+    "id": 97396,
+    "name": "Kıyıköy Belediyesi",
+    "country": {
+     "title": "Turkey"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Municipality of Kiyikoy"
+     }
+    }
+   }
+  },
+  {
+   "id": 153229,
+   "type": "lead",
+   "legal_status": "public",
+   "organisation_type": "Local public authority",
+   "pic": "918571668",
+   "beneficiary_id": "BG000057001 | 000057001 | BULSTAT (EN)",
+   "town": "Kameno",
+   "town_department": "Kameno",
+   "postcode": "8120",
+   "postcode_department": "8120",
+   "location_address": "Tsentar, ul. Osvobozhdenie 101, 8120 Burgas, Bulgaria",
+   "location_json": {
+    "lat": 42.5740717,
+    "lng": 27.2962607
+   },
+   "total_budget": "325255.96",
+   "co_financing_eur": "276467.56",
+   "country_department": {
+    "title": "Bulgaria"
+   },
+   "partner": {
+    "id": 77205,
+    "name": "Община Камено",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Municipality of Kameno"
+     }
+    }
+   }
+  }
+ ]
+}

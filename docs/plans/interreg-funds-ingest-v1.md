@@ -406,6 +406,8 @@ CREATE TABLE interreg_operations (
   eu_funding_eur    double precision,
   co_financing_rate double precision,
   partner_count     integer,
+  partner_budget_sum_eur double precision, -- Σ partner budgets; NEED NOT equal total_budget_eur
+  partner_budget_published_count integer,  -- how many partners that Σ covers (§3.1's "N of which M")
   countries         text[],
   source_fetched_at timestamptz NOT NULL
 );
@@ -414,9 +416,11 @@ CREATE UNIQUE INDEX ON interreg_operations (operation_id) WHERE operation_id IS 
 CREATE TABLE interreg_partners (
   keep_id        integer NOT NULL REFERENCES interreg_operations(keep_id) ON DELETE CASCADE,
   partner_seq    integer NOT NULL,
+  keep_partnership_id integer,             -- keep.eu's stable partnership id; orders partner_seq
   keep_partner_id integer,
   is_lead        boolean NOT NULL,
-  country        text NOT NULL,            -- ISO2. BG rows are the ones we place.
+  country        text NOT NULL,            -- keep.eu's country NAME, verbatim ("Bulgaria")
+  country_department text,                 -- department's country, where it differs
   partner_name   text NOT NULL,            -- Cyrillic where published (129/136)
   partner_name_en text,                    -- 136/136
   eik            text,                     -- 2021-2027 only; NULL for 2014-2020
@@ -439,9 +443,16 @@ every sampled 2014-2020 project, and where present it is heterogeneous (`BSB0096
 unique across programmes or periods. `keep_id` is the only always-present, always-unique key,
 and it is also the refresh key.
 
+**`country` stores keep.eu's country NAME verbatim, not ISO2** — decided 2026-08-07.
+keep.eu's `country` is `{id, title}` where the id is its own internal key, so an ISO2
+column would have to be minted from a curated name→code map: a second thing to maintain
+and a second place to be wrong, for no gain. The only question this corpus asks of a
+country is "is this partner Bulgarian", which the title answers exactly.
+`isBulgarianPartner()` is the accessor, and it tests the department's country too.
+
 **All partners are stored, not only Bulgarian ones** (~12,100 rows for ~1,400 BG rows). The
 foreign partners are what make an operation legible as cross-border on its page, and the
-volume is trivial. Only `country = 'BG'` rows are ever placed or counted as Bulgarian money.
+volume is trivial. Only rows `isBulgarianPartner()` admits are ever placed or counted as Bulgarian money.
 
 `programme_code` is **curated**, in the register of `src/data/funds/programmeNamesEn.ts`
 ("CURATED, NOT TRANSLATED… add only names you can point at a source for"): a stable

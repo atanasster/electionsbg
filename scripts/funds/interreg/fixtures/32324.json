@@ -1,0 +1,161 @@
+{
+ "id": 32324,
+ "project_id": "BGTR0200100",
+ "status": "ongoing",
+ "start_date": "2025-08-02",
+ "end_date": "2027-08-01",
+ "total_budget": "975371.69",
+ "eu_funding": "782972.88",
+ "union_co_financing_rate": 80.27,
+ "programme": {
+  "id": 305,
+  "title": "2021 - 2027 Interreg VI-A IPA Bulgaria Türkiye",
+  "period": {
+   "title": "2021-2027"
+  }
+ },
+ "translations": {
+  "en": {
+   "name": "Maritsa Timeless Journey",
+   "description": "The main challenge addressed by the project with acronym Times the seasonality and lack of year-round tourism in the cross-border area of Bulgaria and Turkey. B"
+  }
+ },
+ "partnerships": [
+  {
+   "id": 153183,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": "Interest groups including NGOs",
+   "pic": "917141015",
+   "beneficiary_id": "3240371831 | 22-001-032 | N/A (EN)",
+   "town": "Edirne",
+   "town_department": "",
+   "postcode": "22020",
+   "postcode_department": "N/A",
+   "location_address": "Arif Paşa Cd., 22020 Edirne Merkez/Edirne, Türkiye",
+   "location_json": {
+    "lat": 41.6764935,
+    "lng": 26.5497364
+   },
+   "total_budget": "36961.67",
+   "co_financing_eur": "31417.41",
+   "country_department": {
+    "title": "Turkey"
+   },
+   "partner": {
+    "id": 97358,
+    "name": "Edirne Tanıtım ve Turizm Derneği",
+    "country": {
+     "title": "Turkey"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "The Association for Promoting and Tourism of Edirne"
+     }
+    }
+   }
+  },
+  {
+   "id": 153182,
+   "type": "partner",
+   "legal_status": "private",
+   "organisation_type": "Local public authority",
+   "pic": "939045361",
+   "beneficiary_id": "BG000903939 | 000903939 | N/A (EN)",
+   "town": "Harmanli",
+   "town_department": "Harmanli",
+   "postcode": "6450",
+   "postcode_department": "6450",
+   "location_address": "6450 Harmanli, Bulgaria",
+   "location_json": {
+    "lat": 41.9304124,
+    "lng": 25.9025865
+   },
+   "total_budget": "342699.12",
+   "co_financing_eur": "245201.22",
+   "country_department": {
+    "title": "Bulgaria"
+   },
+   "partner": {
+    "id": 22213,
+    "name": "община Харманли",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Municipality of Harmanli"
+     }
+    }
+   }
+  },
+  {
+   "id": 153181,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": "Higher education and research organisations",
+   "pic": "999616914",
+   "beneficiary_id": "8150409605 | N/A | N/A (EN)",
+   "town": "Edirne",
+   "town_department": "",
+   "postcode": "22030",
+   "postcode_department": "N/A",
+   "location_address": "İstasyon, Sanayi Sitesi 18. Sk., 22100 Edirne Merkez/Edirne, Türkiye",
+   "location_json": {
+    "lat": 41.6612628,
+    "lng": 26.5783587
+   },
+   "total_budget": "391474.42",
+   "co_financing_eur": "332753.25",
+   "country_department": {
+    "title": "Turkey"
+   },
+   "partner": {
+    "id": 68786,
+    "name": "Trakya Üniversitesi",
+    "country": {
+     "title": "Turkey"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Trakya University, Edirne"
+     }
+    }
+   }
+  },
+  {
+   "id": 153180,
+   "type": "lead",
+   "legal_status": "public",
+   "organisation_type": "Other",
+   "pic": "876915794",
+   "beneficiary_id": "BG102826129 | 102826129 | N/A (EN)",
+   "town": "Malko Tarnovo",
+   "town_department": "N/A",
+   "postcode": "8162",
+   "postcode_department": "N/A",
+   "location_address": "8162 Malko Tarnovo, Bulgaria",
+   "location_json": {
+    "lat": 41.9797938,
+    "lng": 27.5250475
+   },
+   "total_budget": "204236.48",
+   "co_financing_eur": "173601.00",
+   "country_department": {
+    "title": "Bulgaria"
+   },
+   "partner": {
+    "id": 97357,
+    "name": "Исторически Музей Проф. Александър Фол - Малко Търново",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Historical museum Prof. Dr. Aleksandar Fol - Malko Tarnovo"
+     }
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "id": 17853,
+ "project_id": null,
+ "status": "closed",
+ "start_date": "2017-03-31",
+ "end_date": "2023-12-30",
+ "total_budget": "5816165.49",
+ "eu_funding": "4943740.67",
+ "union_co_financing_rate": null,
+ "programme": {
+  "id": 35,
+  "title": "2014 - 2020 INTERREG V-A Romania - Bulgaria",
+  "period": {
+   "title": "2014-2020"
+  }
+ },
+ "translations": {
+  "en": {
+   "name": "An Integrated Approach for Improving the Sustainable Use of Nikopol-Turnu Magurele Cross-border Cultural Heritage",
+   "description": "Nikopol-Turnu Magurele region is characterized by remarkable natural and cultural heritage and landscape features. Nevertheless, poor accessibility to sites of "
+  }
+ },
+ "partnerships": [
+  {
+   "id": 80594,
+   "type": "partner",
+   "legal_status": "public",
+   "organisation_type": null,
+   "pic": null,
+   "beneficiary_id": null,
+   "town": "Turnu Măgurele",
+   "town_department": null,
+   "postcode": "145200",
+   "postcode_department": null,
+   "location_address": "Turnu Măgurele 145200, Romania",
+   "location_json": {
+    "lat": 43.7522092,
+    "lng": 24.8636975
+   },
+   "total_budget": "2439245.03",
+   "co_financing_eur": null,
+   "country_department": null,
+   "partner": {
+    "id": 57566,
+    "name": "Orașul Turnu Măgurele",
+    "country": {
+     "title": "Romania"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Turnu Măgurele Town"
+     }
+    }
+   }
+  },
+  {
+   "id": 80590,
+   "type": "lead",
+   "legal_status": "public",
+   "organisation_type": null,
+   "pic": null,
+   "beneficiary_id": null,
+   "town": "Nikopol",
+   "town_department": null,
+   "postcode": "5940",
+   "postcode_department": null,
+   "location_address": "5940 Nikopol, Bulgaria",
+   "location_json": {
+    "lat": 43.700859,
+    "lng": 24.8946628
+   },
+   "total_budget": "3376920.46",
+   "co_financing_eur": null,
+   "country_department": null,
+   "partner": {
+    "id": 27950,
+    "name": "Община Никопол",
+    "country": {
+     "title": "Bulgaria"
+    },
+    "translations": {
+     "en": {
+      "name_translated": "Nikopol Municipality"
+     }
+    }
+   }
+  }
+ ]
+}
