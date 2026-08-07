@@ -28,10 +28,22 @@ import type {
 
 /** Trimmed projection of MpOwnershipStake stored in companies-index.json.
  * Only the fields the /mp/company page actually renders. The per-MP
- * declarations under public/parliament/declarations/ keep the full record. */
+ * declarations under public/parliament/declarations/ keep the full record.
+ *
+ * `stakeKind` is NOT droppable, however small: without it the page cannot
+ * tell a shareholding from a directorship, and it rendered every интереси
+ * role under a "declared stakes" heading — the exact false statement about a
+ * named person the MpOwnershipStake doc warns against. It also fixes the
+ * `table: "11"` label, which reads "transferred" for a share but means "held
+ * before taking office, not since" for a role. */
 export type CompanyIndexStake = Pick<
   MpOwnershipStake,
-  "table" | "shareSize" | "valueEur" | "legalBasis" | "fundsOrigin"
+  | "table"
+  | "stakeKind"
+  | "shareSize"
+  | "valueEur"
+  | "legalBasis"
+  | "fundsOrigin"
 >;
 
 export type CompanyIndexEntryStake = {
@@ -132,9 +144,24 @@ const stripLegalFormSuffix = (lowered: string): string => {
   return lowered;
 };
 
+// The legal form of a POLITICAL PARTY is written as a prefix, not a suffix —
+// "Политическа партия «Движение ДА българия»" and "ПП Движение ДА българия"
+// are the same registered party, and the suffix stripper above cannot see it.
+// Left unfolded, the party splits into one entry per spelling and each holds
+// a different subset of the years (ДА България: the 2021 filings under one,
+// the 2023 filings under the other), so both pages under-report.
+// Anchored at the start and requiring a following space, so a company whose
+// name merely begins with those letters ("ПП Сервиз") is untouched.
+const PARTY_FORM_PREFIX = /^(политическа партия|коалиция|пп|кп)\s+/;
+
 export const normalizeCompanyName = (raw: string): string =>
   stripLegalFormSuffix(
-    raw.replace(QUOTES, "").replace(/\s+/g, " ").trim().toLowerCase(),
+    raw
+      .replace(QUOTES, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase()
+      .replace(PARTY_FORM_PREFIX, ""),
   );
 
 // URL-safe slug. We keep Cyrillic but strip quotes, replace spaces with -,
@@ -167,6 +194,24 @@ const pickDisplayName = (rawNames: string[]): string => {
   // case. Run the chosen display name through the shared org-name
   // normaliser so the same entity reads identically across the dashboard.
   return normaliseOrgName(best);
+};
+
+/** `shareSize` carries two unrelated things depending on the row's kind: a
+ * quantity for a shareholding ("50%", "40лв.") and a JOB TITLE for a role
+ * ("ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ"). Declarants type the title in whatever case
+ * they like, so one list mixes shouted and sentence-cased variants of the
+ * same office — the same de-shouting the display names already get fixes it,
+ * and it keeps УС / СД upright where a plain lowercase would not.
+ *
+ * Applied to roles ONLY: a quantity is not prose, and must stay verbatim. */
+export const roleLabel = (stake: MpOwnershipStake): string | null => {
+  if (stake.stakeKind !== "role" || !stake.shareSize) return stake.shareSize;
+  // normaliseOrgName leaves an already-lowercase word alone by design (it
+  // reads that as "somebody typed this properly"), which is right for a name
+  // and wrong for a title: "член на Изпълнителния съвет" then sits in a
+  // column of capitalised offices as the one row starting lower-case.
+  const s = normaliseOrgName(stake.shareSize);
+  return s.charAt(0).toLocaleUpperCase("bg-BG") + s.slice(1);
 };
 
 export type BuildCompanyIndexArgs = {
@@ -334,7 +379,8 @@ export const buildCompanyIndex = ({
           sourceUrl: decl.sourceUrl,
           stake: {
             table: stake.table,
-            shareSize: stake.shareSize,
+            stakeKind: stake.stakeKind,
+            shareSize: roleLabel(stake),
             valueEur: stake.valueEur,
             legalBasis: stake.legalBasis,
             fundsOrigin: stake.fundsOrigin,

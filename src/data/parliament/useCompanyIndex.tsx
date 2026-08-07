@@ -7,10 +7,20 @@ import { dataUrl } from "@/data/dataUrl";
  * The full per-MP declaration JSON keeps every field; here we ship only
  * what the company page reads — itemType / companyName / registeredOffice /
  * holderName / transfereeName are dropped to shrink the eagerly-loaded
- * companies-index.json (~10 KB brotli savings). */
+ * companies-index.json (~10 KB brotli savings).
+ *
+ * `stakeKind` is the one field that must NOT be traded for those bytes — it
+ * is what separates a shareholding from a directorship, and the page states
+ * which of the two it is about a named person. See the note on the builder's
+ * copy of this type. */
 export type CompanyIndexStake = Pick<
   MpOwnershipStake,
-  "table" | "shareSize" | "valueEur" | "legalBasis" | "fundsOrigin"
+  | "table"
+  | "stakeKind"
+  | "shareSize"
+  | "valueEur"
+  | "legalBasis"
+  | "fundsOrigin"
 >;
 
 export type CompanyStakeEntry = {

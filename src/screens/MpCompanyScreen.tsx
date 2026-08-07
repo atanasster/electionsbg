@@ -16,6 +16,7 @@ import {
   useCompanyIndex,
   type CompanyIndexStake,
   type CompanyMpRole,
+  type CompanyStakeEntry,
 } from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
@@ -23,11 +24,21 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { TrCompanyOfficer } from "@/data/dataTypes";
 import { formatEur } from "@/lib/currency";
 
-const StakeIcon: FC<{ stake: CompanyIndexStake }> = ({ stake }) =>
-  stake.table === "11" ? (
+/** What a `table: "11"` row means depends on which form it came from, and the
+ * two readings are not close: on the ASSET form the share was transferred to
+ * somebody, on the ИНТЕРЕСИ forms the role was held in the twelve months
+ * before taking office and not since. Labelling a directorship "transferred"
+ * describes a share sale that never happened. */
+const isShareKind = (stake: CompanyIndexStake): boolean =>
+  (stake.stakeKind ?? "share") === "share";
+
+const StakeIcon: FC<{ held: boolean; share: boolean }> = ({ held, share }) =>
+  !held && share ? (
     <ArrowRightLeft className="h-4 w-4 text-muted-foreground" />
-  ) : (
+  ) : share ? (
     <Briefcase className="h-4 w-4 text-muted-foreground" />
+  ) : (
+    <Users className="h-4 w-4 text-muted-foreground" />
   );
 
 const STATUS_CLASSES: Record<string, string> = {
@@ -99,6 +110,136 @@ const OfficerRow: FC<{ officer: TrCompanyOfficer }> = ({ officer }) => {
   );
 };
 
+/** One MP's one relationship with this company, however many filings declared
+ * it. A standing relationship is re-declared on EVERY entry into office, and
+ * the same filing can list it in both the held-now and the held-before table,
+ * so the raw stake list carries the same fact two to four times over with
+ * nothing on screen to tell the copies apart — Ивайло Мирчев's seat on the ДА
+ * България board appeared twice under one identical "Декларация 2021" caption,
+ * once for the 45th National Assembly and once for the 46th. Grouping keeps
+ * every filing reachable through `filings` rather than dropping any. */
+type StakeGroup = {
+  mpId: number;
+  declarantName: string;
+  share: boolean;
+  /** True when at least one filing declares it as still held (table 10). A
+   * group that is `false` was only ever declared in the past tense. */
+  held: boolean;
+  shareSize: string | null;
+  valueEur: number | null;
+  legalBasis: string | null;
+  fundsOrigin: string | null;
+  institution: string;
+  /** Every filing that declared this relationship, newest first. The
+   * institution rides along per filing because a re-declaration usually
+   * happens on entering a DIFFERENT body — Мирчев's two 2021 filings are the
+   * 45th and the 46th National Assembly, so two source links otherwise label
+   * themselves "2021" with nothing to tell them apart. */
+  filings: { year: number; institution: string; sourceUrl: string }[];
+};
+
+/** One source link per (year, body), newest first. Entering and leaving a
+ * mandate each triggers a filing, so one unchanged holding produces up to
+ * four documents a year — Димитър Аврамов's 50% carries fifteen, eight of
+ * them labelled "2021", which is a wall of identical links that helps nobody
+ * verify anything. Collapsing on the BODY as well as the year is what keeps
+ * the distinction that matters: Мирчев's two 2021 filings are the 45th and
+ * the 46th National Assembly and both stay. */
+const onePerYearAndBody = (
+  filings: StakeGroup["filings"],
+): StakeGroup["filings"] => {
+  const seen = new Set<string>();
+  return filings.filter((f) => {
+    const key = `${f.year}|${f.institution}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
+/** Distinct relationships, not distinct filings. Two DIFFERENT holdings in the
+ * same company by the same MP — a different declared size — stay separate rows.
+ *
+ * The key is deliberately the size alone, not size + value + legal basis:
+ * those three drift between filings of the SAME holding (an unpriced интереси
+ * filing next to a valued asset one, a legal basis typed in only some years),
+ * and folding them into the key splits one holding into a row per variant.
+ * Димитър Аврамов's single 50% of Гала-инвест-холдинг arrives as 28 stake rows
+ * across five years; on the value+basis key that is still four rows of the
+ * same 50%. Each varying field is instead taken from the most recent filing
+ * that declared one, so a year where the declarant left the value blank does
+ * not erase a figure they gave before. */
+const groupStakes = (stakes: CompanyStakeEntry[]): StakeGroup[] => {
+  const map = new Map<string, StakeGroup>();
+  // Newest first, so "the first non-null wins" IS "the most recent wins".
+  const ordered = [...stakes].sort(
+    (a, b) => b.declarationYear - a.declarationYear,
+  );
+  for (const e of ordered) {
+    const share = isShareKind(e.stake);
+    const key = [
+      e.mpId,
+      share,
+      (e.stake.shareSize ?? "").toLowerCase().replace(/\s+/g, " ").trim(),
+    ].join("|");
+    const held = e.stake.table === "10";
+    const existing = map.get(key);
+    if (!existing) {
+      map.set(key, {
+        mpId: e.mpId,
+        declarantName: e.declarantName,
+        share,
+        held,
+        shareSize: e.stake.shareSize,
+        valueEur: e.stake.valueEur,
+        legalBasis: e.stake.legalBasis,
+        fundsOrigin: e.stake.fundsOrigin,
+        institution: e.institution,
+        filings: [
+          {
+            year: e.declarationYear,
+            institution: e.institution,
+            sourceUrl: e.sourceUrl,
+          },
+        ],
+      });
+      continue;
+    }
+    // Held-now anywhere wins: a relationship declared as current in any
+    // filing is current, whatever an earlier past-tense row said.
+    if (held) existing.held = true;
+    existing.valueEur ??= e.stake.valueEur;
+    existing.legalBasis ??= e.stake.legalBasis;
+    existing.fundsOrigin ??= e.stake.fundsOrigin;
+    if (!existing.filings.some((f) => f.sourceUrl === e.sourceUrl)) {
+      existing.filings.push({
+        year: e.declarationYear,
+        institution: e.institution,
+        sourceUrl: e.sourceUrl,
+      });
+    }
+  }
+  for (const g of map.values()) {
+    g.filings.sort((a, b) => b.year - a.year);
+    g.filings = onePerYearAndBody(g.filings);
+  }
+  // Still-held first, then most recent filing, then name.
+  return Array.from(map.values()).sort((a, b) => {
+    if (a.held !== b.held) return a.held ? -1 : 1;
+    const ay = a.filings[0]?.year ?? 0;
+    const by = b.filings[0]?.year ?? 0;
+    if (ay !== by) return by - ay;
+    return a.declarantName.localeCompare(b.declarantName, "bg", {
+      sensitivity: "base",
+    });
+  });
+};
+
+/** The distinct years a group was declared in, newest first — "2023, 2021"
+ * rather than one row per filing. */
+const groupYears = (g: StakeGroup): number[] =>
+  Array.from(new Set(g.filings.map((f) => f.year)));
+
 /** One MP, all the TR roles they hold at this company. `mpRoles` carries one
  * row per (mpId, role) — a manager who is also the sole owner arrives as two —
  * so the page groups them the way the candidate page groups by company. */
@@ -169,8 +310,83 @@ const MpRoleRow: FC<{ group: MpRoleGroup }> = ({ group }) => {
   );
 };
 
-export const MpCompanyScreen: FC = () => {
+const StakeGroupRow: FC<{ group: StakeGroup }> = ({ group }) => {
   const { t, i18n } = useTranslation();
+  const years = groupYears(group);
+  return (
+    <div className="grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center py-3 border-b last:border-b-0">
+      <StakeIcon held={group.held} share={group.share} />
+      <MpAvatar name={group.declarantName} mpId={group.mpId} />
+      <div className="min-w-0">
+        <Link
+          to={
+            group.mpId != null
+              ? candidateUrlForMp(group.mpId)
+              : `/candidate/${encodeURIComponent(group.declarantName)}`
+          }
+          className="text-sm font-medium hover:underline truncate block"
+        >
+          {group.declarantName}
+        </Link>
+        <div className="text-xs text-muted-foreground">
+          {group.institution}
+          {" · "}
+          {t("declaration_year") || "Declaration"} {years.join(", ")}
+          {!group.held && (
+            <>
+              {" · "}
+              {group.share
+                ? t("stake_transferred") || "transferred"
+                : t("stake_role_before_office") || "before taking office"}
+            </>
+          )}
+        </div>
+        {group.legalBasis && (
+          <div className="text-xs text-muted-foreground">
+            {group.legalBasis}
+            {group.fundsOrigin ? ` · ${group.fundsOrigin}` : ""}
+          </div>
+        )}
+      </div>
+      <div className="text-right text-sm">
+        {/* Monospace suits a quantity ("50%", "40лв.") and fights a job
+         * title, which is prose — mono letter-spaces the shouted role
+         * labels so hard that two rows of the same list stop looking like
+         * the same column. */}
+        {group.shareSize && (
+          <div className={group.share ? "font-mono text-xs" : "text-xs"}>
+            {group.shareSize}
+          </div>
+        )}
+        {group.valueEur != null && (
+          <div className="text-xs text-muted-foreground">
+            {formatEur(group.valueEur, i18n.language)}
+          </div>
+        )}
+        {/* One link per filing — grouping must not cost a source. A single
+         * filing keeps the plain "source" label it always had. */}
+        <div className="flex flex-wrap justify-end gap-x-2">
+          {group.filings.map((f) => (
+            <a
+              key={f.sourceUrl}
+              href={f.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              title={`${f.institution} · ${f.year}`}
+              className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
+            >
+              {group.filings.length > 1 ? f.year : t("source") || "source"}
+              <ExternalLink className="h-2.5 w-2.5" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const MpCompanyScreen: FC = () => {
+  const { t } = useTranslation();
   const { slug: rawSlug } = useParams();
   const slug = rawSlug ? decodeURIComponent(rawSlug) : "";
   const { bySlug, isLoading } = useCompanyIndex();
@@ -182,6 +398,20 @@ export const MpCompanyScreen: FC = () => {
   const mpRoleGroups = useMemo(
     () => groupRolesByMp(company?.mpRoles ?? []),
     [company],
+  );
+  const stakeGroups = useMemo(
+    () => groupStakes(company?.stakes ?? []),
+    [company],
+  );
+  // Split by what the row IS. A directorship is not a shareholding, and the
+  // two carry different footnotes — the money one and the ЗПК one.
+  const declaredShares = useMemo(
+    () => stakeGroups.filter((g) => g.share),
+    [stakeGroups],
+  );
+  const declaredRoles = useMemo(
+    () => stakeGroups.filter((g) => !g.share),
+    [stakeGroups],
   );
 
   if (isLoading) {
@@ -316,16 +546,18 @@ export const MpCompanyScreen: FC = () => {
         </Card>
       )}
 
-      {/* Declared stakes. Suppressed when there are none AND the TR card is
-       * carrying the seat — an empty "(0)" card whose only content is a
-       * footnote about a list that isn't there reads as missing data. */}
-      {(company.stakes.length > 0 || !tr) && (
+      {/* Declared SHAREHOLDINGS. Suppressed when there are none AND the TR
+       * card is carrying the seat — an empty "(0)" card whose only content is
+       * a footnote about a list that isn't there reads as missing data. Roles
+       * get their own card below: they used to render here, so a party or an
+       * NGO board seat was published under a heading that said "дялове". */}
+      {(declaredShares.length > 0 || (!tr && declaredRoles.length === 0)) && (
         <Card className="my-4">
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
               <Briefcase className="h-4 w-4" />
               {t("company_stakes_held_by_mps") || "Stakes declared by MPs"} (
-              {company.stakes.length})
+              {declaredShares.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -337,73 +569,55 @@ export const MpCompanyScreen: FC = () => {
             )}
 
             <div>
-              {company.stakes.map((entry, i) => (
-                <div
-                  key={i}
-                  className="grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center py-3 border-b last:border-b-0"
-                >
-                  <StakeIcon stake={entry.stake} />
-                  <MpAvatar name={entry.declarantName} mpId={entry.mpId} />
-                  <div className="min-w-0">
-                    <Link
-                      to={
-                        entry.mpId != null
-                          ? candidateUrlForMp(entry.mpId)
-                          : `/candidate/${encodeURIComponent(entry.declarantName)}`
-                      }
-                      className="text-sm font-medium hover:underline truncate block"
-                    >
-                      {entry.declarantName}
-                    </Link>
-                    <div className="text-xs text-muted-foreground">
-                      {entry.institution}
-                      {" · "}
-                      {t("declaration_year") || "Declaration"}{" "}
-                      {entry.declarationYear}
-                      {entry.stake.table === "11" && (
-                        <>
-                          {" · "}
-                          {t("stake_transferred") || "transferred"}
-                        </>
-                      )}
-                    </div>
-                    {entry.stake.legalBasis && (
-                      <div className="text-xs text-muted-foreground">
-                        {entry.stake.legalBasis}
-                        {entry.stake.fundsOrigin
-                          ? ` · ${entry.stake.fundsOrigin}`
-                          : ""}
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-right text-sm">
-                    {entry.stake.shareSize && (
-                      <div className="font-mono text-xs">
-                        {entry.stake.shareSize}
-                      </div>
-                    )}
-                    {entry.stake.valueEur != null && (
-                      <div className="text-xs text-muted-foreground">
-                        {formatEur(entry.stake.valueEur, i18n.language)}
-                      </div>
-                    )}
-                    <a
-                      href={entry.sourceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
-                    >
-                      {t("source") || "source"}
-                      <ExternalLink className="h-2.5 w-2.5" />
-                    </a>
-                  </div>
-                </div>
+              {declaredShares.map((g) => (
+                <StakeGroupRow
+                  key={`${g.mpId}-${g.shareSize}-${g.valueEur}-${g.filings[0]?.sourceUrl}`}
+                  group={g}
+                />
               ))}
             </div>
 
             <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
               {t("source_declarations") ||
-                "Source: property and interest declarations filed with the Bulgarian Court of Audit (Сметна палата). Sitting MPs cannot legally hold management roles, so this list covers ownership stakes only."}
+                "Source: property and interest declarations filed with the Bulgarian Court of Audit (Сметна палата). This list covers declared ownership stakes."}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Declared MANAGEMENT ROLES — the интереси forms. Filed by executive
+       * and municipal officials as well as MPs, which is why they exist at
+       * all: ЗПК чл. 35 bars a sitting MP from holding one. */}
+      {declaredRoles.length > 0 && (
+        <Card className="my-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              {t("company_roles_declared") || "Management roles declared"} (
+              {declaredRoles.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {declaredShares.length === 0 &&
+              company.registeredOffices.length > 0 && (
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>{company.registeredOffices.join(" · ")}</span>
+                </div>
+              )}
+
+            <div>
+              {declaredRoles.map((g) => (
+                <StakeGroupRow
+                  key={`${g.mpId}-${g.shareSize}-${g.valueEur}-${g.filings[0]?.sourceUrl}`}
+                  group={g}
+                />
+              ))}
+            </div>
+
+            <div className="text-xs text-muted-foreground mt-4 pt-3 border-t">
+              {t("company_roles_declared_note") ||
+                "Source: interest declarations filed with the Bulgarian Court of Audit (Сметна палата). A management role is not an ownership stake — none of these rows says the declarant holds any share of this organisation."}
             </div>
           </CardContent>
         </Card>

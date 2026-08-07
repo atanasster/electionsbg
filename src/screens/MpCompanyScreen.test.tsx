@@ -165,3 +165,279 @@ describe("MpCompanyScreen — MPs linked via the Commerce Registry", () => {
     expect(screen.queryByText(/company_conn_former/)).not.toBeInTheDocument();
   });
 });
+
+// The ДА България case. A standing relationship is re-declared at every entry
+// into office, and one интереси filing can list it in BOTH the held-now and
+// the held-before table — so the index legitimately carries the same fact
+// three times for Ивайло Мирчев's board seat. Rendered one-row-per-filing it
+// read as three identical rows, two of them captioned "Декларация 2021" with
+// nothing to separate the 45th National Assembly from the 46th.
+const party = (): CompanyEntry => ({
+  slug: "Политическа-партия-Движение-ДА-българия",
+  displayName: 'Политическа партия "Движение ДА българия"',
+  registeredOffices: [],
+  stakes: [
+    {
+      mpId: 5244,
+      declarantName: "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
+      declarationYear: 2023,
+      fiscalYear: null,
+      institution: "49-то Народно събрание",
+      sourceUrl: "https://register.cacbg.bg/2023/…148665.xml",
+      stake: {
+        table: "10",
+        stakeKind: "role",
+        shareSize: "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        valueEur: null,
+        legalBasis: null,
+        fundsOrigin: null,
+      },
+    },
+    {
+      // Same filing, held-before table.
+      mpId: 5244,
+      declarantName: "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
+      declarationYear: 2023,
+      fiscalYear: null,
+      institution: "49-то Народно събрание",
+      sourceUrl: "https://register.cacbg.bg/2023/…148665.xml",
+      stake: {
+        table: "11",
+        stakeKind: "role",
+        shareSize: "ЧЛЕН НА УПРАВИТЕЛЕН СЪВЕТ",
+        valueEur: null,
+        legalBasis: null,
+        fundsOrigin: null,
+      },
+    },
+    {
+      // A separate 2021 filing — different mandate, casing differs too.
+      mpId: 5244,
+      declarantName: "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
+      declarationYear: 2021,
+      fiscalYear: null,
+      institution: "Народно събраниe",
+      sourceUrl: "https://register.cacbg.bg/2021_nc/…122967.xml",
+      stake: {
+        table: "10",
+        stakeKind: "role",
+        shareSize: "Член на управителен съвет",
+        valueEur: null,
+        legalBasis: null,
+        fundsOrigin: null,
+      },
+    },
+  ],
+});
+
+describe("MpCompanyScreen — declared roles vs declared stakes", () => {
+  it("collapses one relationship's repeated filings into a single row", () => {
+    renderCompany(party());
+    expect(screen.getAllByTestId("avatar")).toHaveLength(1);
+    expect(
+      screen.getByText(/company_roles_declared \(1\)/),
+    ).toBeInTheDocument();
+  });
+
+  const sourceLinks = () =>
+    screen
+      .getAllByRole("link")
+      .map((a) => a.getAttribute("href"))
+      .filter((h) => h?.startsWith("https://register.cacbg.bg"));
+
+  it("keeps a source link per year and body, never per filing", () => {
+    renderCompany(party());
+    // Three stake rows, two distinct filings from two bodies: the same-URL
+    // table-10/11 pair must not produce two links to the identical document.
+    expect(new Set(sourceLinks()).size).toBe(2);
+    expect(sourceLinks()).toHaveLength(2);
+  });
+
+  // Entering and leaving a mandate each triggers a filing, so one unchanged
+  // holding can carry four documents in a year. Аврамов's 50% arrives with
+  // eight for 2021 alone — a wall of identical "2021" links.
+  it("collapses a year's repeat filings from the same body to one link", () => {
+    const repeats = party();
+    const base = repeats.stakes[0];
+    repeats.stakes = [1, 2, 3, 4].map((n) => ({
+      ...base,
+      declarationYear: 2021,
+      institution: "Народно събраниe",
+      sourceUrl: `https://register.cacbg.bg/2021_nc/${n}.xml`,
+    }));
+    renderCompany(repeats);
+    expect(sourceLinks()).toHaveLength(1);
+  });
+
+  it("but keeps both bodies when one year spans two parliaments", () => {
+    const twoBodies = party();
+    const base = twoBodies.stakes[0];
+    twoBodies.stakes = [
+      {
+        ...base,
+        declarationYear: 2021,
+        institution: "45-то Народно събрание",
+        sourceUrl: "https://register.cacbg.bg/2021_nc/a.xml",
+      },
+      {
+        ...base,
+        declarationYear: 2021,
+        institution: "45-то Народно събрание",
+        sourceUrl: "https://register.cacbg.bg/2021_nc/b.xml",
+      },
+      {
+        ...base,
+        declarationYear: 2021,
+        institution: "46-то Народно събрание",
+        sourceUrl: "https://register.cacbg.bg/2021_nc/c.xml",
+      },
+    ];
+    renderCompany(twoBodies);
+    expect(sourceLinks()).toHaveLength(2);
+  });
+
+  it("names every year the relationship was declared in", () => {
+    renderCompany(party());
+    expect(screen.getByText(/declaration_year 2023, 2021/)).toBeInTheDocument();
+  });
+
+  it("files a directorship under roles, never under declared stakes", () => {
+    renderCompany(party());
+    expect(
+      screen.getByText(/company_roles_declared \(1\)/),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/company_stakes_held_by_mps/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("never labels a role 'transferred' — table 11 means something else", () => {
+    renderCompany(party());
+    expect(screen.queryByText(/stake_transferred/)).not.toBeInTheDocument();
+  });
+
+  it("still says transferred for a share that really was", () => {
+    const sold = party();
+    sold.stakes = [
+      {
+        ...sold.stakes[0],
+        stake: {
+          table: "11",
+          stakeKind: "share",
+          shareSize: "50%",
+          valueEur: 1000,
+          legalBasis: null,
+          fundsOrigin: null,
+        },
+      },
+    ];
+    renderCompany(sold);
+    expect(screen.getByText(/stake_transferred/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/company_stakes_held_by_mps \(1\)/),
+    ).toBeInTheDocument();
+  });
+
+  // Димитър Аврамов's single 50% of Гала-инвест-холдинг arrives as 28 rows
+  // across five years, and the value/basis fields are blank on some of them —
+  // so a key that includes those fields still leaves four rows of one holding.
+  it("keeps one holding on one row when only the value drifts", () => {
+    const holding = party();
+    const base = {
+      mpId: 4000,
+      declarantName: "Димитър Иванов Аврамов",
+      fiscalYear: null,
+      institution: "51-во Народно събрание",
+    };
+    holding.stakes = [
+      {
+        ...base,
+        declarationYear: 2025,
+        sourceUrl: "https://register.cacbg.bg/2025/a.xml",
+        stake: {
+          table: "10",
+          stakeKind: "share",
+          shareSize: "50%",
+          valueEur: 153387.56,
+          legalBasis: "покупка",
+          fundsOrigin: null,
+        },
+      },
+      {
+        ...base,
+        declarationYear: 2023,
+        sourceUrl: "https://register.cacbg.bg/2023/b.xml",
+        stake: {
+          table: "10",
+          stakeKind: "share",
+          shareSize: "50%",
+          valueEur: null,
+          legalBasis: null,
+          fundsOrigin: null,
+        },
+      },
+    ];
+    renderCompany(holding);
+    expect(
+      screen.getByText(/company_stakes_held_by_mps \(1\)/),
+    ).toBeInTheDocument();
+    // A year left blank must not erase a figure declared in another year.
+    expect(screen.getByText(/153/)).toBeInTheDocument();
+    expect(screen.getByText("покупка")).toBeInTheDocument();
+  });
+
+  it("still separates two genuinely different holdings", () => {
+    const two = party();
+    const base = {
+      mpId: 4000,
+      declarantName: "Димитър Иванов Аврамов",
+      fiscalYear: null,
+      institution: "51-во Народно събрание",
+      declarationYear: 2025,
+    };
+    two.stakes = [
+      {
+        ...base,
+        sourceUrl: "https://register.cacbg.bg/2025/a.xml",
+        stake: {
+          table: "10",
+          stakeKind: "share",
+          shareSize: "50%",
+          valueEur: 100,
+          legalBasis: null,
+          fundsOrigin: null,
+        },
+      },
+      {
+        ...base,
+        sourceUrl: "https://register.cacbg.bg/2025/b.xml",
+        stake: {
+          table: "10",
+          stakeKind: "share",
+          shareSize: "25%",
+          valueEur: 50,
+          legalBasis: null,
+          fundsOrigin: null,
+        },
+      },
+    ];
+    renderCompany(two);
+    expect(
+      screen.getByText(/company_stakes_held_by_mps \(2\)/),
+    ).toBeInTheDocument();
+  });
+
+  it("treats a stake with no stakeKind as a share (older index files)", () => {
+    const legacy = party();
+    legacy.stakes = [
+      {
+        ...legacy.stakes[0],
+        stake: { ...legacy.stakes[0].stake, stakeKind: undefined },
+      },
+    ];
+    renderCompany(legacy);
+    expect(
+      screen.getByText(/company_stakes_held_by_mps \(1\)/),
+    ).toBeInTheDocument();
+  });
+});
