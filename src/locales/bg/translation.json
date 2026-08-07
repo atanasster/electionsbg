@@ -5629,5 +5629,9 @@
   "connections_kpi_bridges": "Мостови фирми",
   "connections_kpi_edges": "Връзки",
   "connections_matrix_cell_self": "{{group}} — {{n}} връзки в рамките на групата (не е мост)",
-  "connections_matrix_cell_bridge": "{{a}} ↔ {{b}}: {{n}} общи фирми"
+  "connections_matrix_cell_bridge": "{{a}} ↔ {{b}}: {{n}} общи фирми",
+  "connections_matrix_cell_action": "{{detail}} — покажи тези групи в графа",
+  "connections_matrix_pick_hint": "Кликни клетка, за да оставиш само тези две групи в графа по-долу. Графът показва извадка от 150 фирми — числото в клетката е за целия корпус.",
+  "connections_matrix_cell_action_self": "{{detail}} — покажи тази група в графа",
+  "connections_graph_empty_filter": "Няма нарисувани връзки за този избор. Графът показва извадка от 150 фирми — възможно е двойката да съществува в целия корпус, но да не е в извадката."
 }

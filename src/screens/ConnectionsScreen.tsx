@@ -7,7 +7,7 @@
 // coloured, BFS path-finder, node-click → graph-ego drill-in with a Tier-V private toggle) · the
 // strongest person↔person connections (derived: pairs sharing a bridge company) · top people/companies.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Building2, Users, Network, Loader2 } from "lucide-react";
@@ -62,7 +62,12 @@ const Heatmap: FC<{
   get: (a: string, b: string) => number;
   label: (a: string) => string;
   color: (a: string) => string;
-}> = ({ axes, get, label, color }) => {
+  /** Optional. When given, a non-empty cell becomes a button that focuses the graph below
+   *  on those two groups. Facet mode only — the graph filters by FACET, so a party-axis
+   *  cell has nothing to hand it, and a click that silently did nothing would be worse than
+   *  a cell that is plainly static. */
+  onPick?: (a: string, b: string) => void;
+}> = ({ axes, get, label, color, onPick }) => {
   const { t } = useTranslation();
   // THE COLOUR SCALE IGNORES THE DIAGONAL — see offDiagonalMax in graphBlob.ts for why,
   // and graphBlob.test.ts for the cases that hold it.
@@ -144,13 +149,42 @@ const Heatmap: FC<{
                       b: label(col),
                       n,
                     });
+                const clickable = !!onPick && n > 0;
+                // A button when it does something, a plain image when it does not. Giving
+                // every cell a button role and having a third of them do nothing is the
+                // affordance version of the caption this page already had to fix.
+                const Cell = clickable ? "button" : "div";
                 return (
                   <td key={col} className="p-0">
-                    <div
-                      role="img"
-                      aria-label={n > 0 ? lbl : undefined}
+                    <Cell
+                      {...(clickable
+                        ? {
+                            type: "button" as const,
+                            onClick: () => onPick(row, col),
+                            // The diagonal picks ONE group, so it cannot promise two. The
+                            // first draft appended „покажи тези групи" to a label that had
+                            // just said „не е мост".
+                            "aria-label": t(
+                              self
+                                ? "connections_matrix_cell_action_self"
+                                : "connections_matrix_cell_action",
+                              { detail: lbl },
+                            ),
+                          }
+                        : {
+                            role: "img",
+                            "aria-label": n > 0 ? lbl : undefined,
+                          })}
                       title={n > 0 ? lbl : undefined}
                       className={`flex h-11 w-11 items-center justify-center rounded-sm text-xs tabular-nums ${
+                        clickable
+                          ? // focus-visible:ring, NOT an outline-transparent hover trick.
+                            // The first draft overrode the UA focus ring at author
+                            // specificity and revealed it only on hover, so ten new tab
+                            // stops had no keyboard indicator at all.
+                            "cursor-pointer ring-offset-background transition-shadow hover:ring-2 hover:ring-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
+                          : ""
+                      } ${
                         self
                           ? "text-muted-foreground"
                           : // 0.7, NOT 0.45. The threshold was calibrated against the old
@@ -177,7 +211,7 @@ const Heatmap: FC<{
                       }}
                     >
                       {n > 0 ? n : ""}
-                    </div>
+                    </Cell>
                   </td>
                 );
               })}
@@ -355,9 +389,44 @@ export const ConnectionsScreen: FC = () => {
 
   const [matrixMode, setMatrixMode] = useState<"facet" | "party">("facet");
   const [hiddenFacets, setHiddenFacets] = useState<Set<string>>(new Set());
+  // CLICKING A CELL FOCUSES THE GRAPH ON THOSE TWO GROUPS. It does NOT open a list of the
+  // companies behind the number, and that is a deliberate limit rather than a first cut:
+  // the matrix is computed server-side over all 1,823 bridge companies while the blob ships
+  // a 150-company sample, so a client-side list could not reproduce the cell. Measured, the
+  // gap is not marginal — executive↔politician is 358 in the matrix and 24 in the blob, and
+  // magistrate↔executive is 8 against ZERO. Three of the ten cells would have shown a number
+  // and opened an empty list, which is the same defect as a card that states a count and
+  // lands somewhere that cannot name it.
+  //
+  // Reuses the facet filter the legend already drives, so the resulting state is visible and
+  // clearable in the chips rather than being a hidden mode.
   const [selected, setSelected] = useState<GraphViewNode | null>(null);
   const [from, setFrom] = useState<GraphViewNode | null>(null);
   const [to, setTo] = useState<GraphViewNode | null>(null);
+
+  // Declared AFTER the three setters it closes over — a useCallback dep array naming a
+  // `const` above its declaration is a TDZ ReferenceError at render, not a lint nit.
+  const focusPair = useCallback(
+    (a: string, b: string) => {
+      const next = new Set(
+        FACET_ORDER.filter((f) => f !== "company" && f !== a && f !== b),
+      );
+      setHiddenFacets((prev) => {
+        // TOGGLES. Replacing unconditionally left no way back from the matrix: re-clicking
+        // the active cell did nothing, and recovery meant finding the right legend chips.
+        const same =
+          prev.size === next.size && [...next].every((f) => prev.has(f));
+        return same ? new Set() : next;
+      });
+      // The path-finder is cleared with the filter. bfsPath skips blocked nodes, so an
+      // endpoint in a facet this click just hid made the trail vanish while From and To
+      // still named both people — the page said „няма път" when what changed was the view.
+      setFrom(null);
+      setTo(null);
+      setSelected(null);
+    },
+    [setFrom, setTo, setSelected],
+  );
 
   const view = useMemo(() => (blob ? blobToView(blob) : null), [blob]);
   // Hidden person nodes — shared by the BFS (blocked) and the canvas (draw), so the path can never
@@ -437,6 +506,7 @@ export const ConnectionsScreen: FC = () => {
           setMatrixMode={setMatrixMode}
           hiddenFacets={hiddenFacets}
           toggleFacet={toggleFacet}
+          showOnlyFacets={focusPair}
           selected={selected}
           setSelected={setSelected}
           from={from}
@@ -464,6 +534,7 @@ const ConnectionsBody: FC<{
   setMatrixMode: (m: "facet" | "party") => void;
   hiddenFacets: Set<string>;
   toggleFacet: (f: string) => void;
+  showOnlyFacets: (a: string, b: string) => void;
   selected: GraphViewNode | null;
   setSelected: (n: GraphViewNode | null) => void;
   from: GraphViewNode | null;
@@ -484,6 +555,7 @@ const ConnectionsBody: FC<{
   setMatrixMode,
   hiddenFacets,
   toggleFacet,
+  showOnlyFacets,
   selected,
   setSelected,
   from,
@@ -499,6 +571,49 @@ const ConnectionsBody: FC<{
 }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language?.startsWith("bg") ? "bg-BG" : "en-GB";
+  const graphRef = useRef<HTMLDivElement>(null);
+  const [pickedPair, setPickedPair] = useState<[string, string] | null>(null);
+  // The state change is the parent's (it owns hiddenFacets); the scroll is ours, because the
+  // graph card is here. Without it the click filters a graph that is off-screen and the cell
+  // appears to do nothing.
+  // THE RIGHT EMPTINESS, and my first attempt measured the wrong one. Filtering to
+  // magistrate+executive leaves 205 people drawn, so a node count is never zero — what is
+  // missing is a COMPANY joining the two groups. The cell says 8 and the sample holds none,
+  // so the reader gets two clouds and no line between them unless the page says why.
+  const pairHasNoDrawnLink = useMemo(() => {
+    if (!view || !pickedPair) return false;
+    const [a, b] = pickedPair;
+    if (a === b) return false;
+    const facetOf = new Map(
+      view.nodes
+        .filter((n) => n.kind === "person")
+        .map((n) => [n.id, n.facet ?? ""]),
+    );
+    const sides = new Map<string, Set<string>>();
+    for (const e of view.edges) {
+      const f = facetOf.get(e.source) ?? facetOf.get(e.target);
+      const company = facetOf.has(e.source) ? e.target : e.source;
+      const person = facetOf.has(e.source) ? e.source : e.target;
+      if (f === undefined || blocked.has(person)) continue;
+      const set = sides.get(company) ?? new Set<string>();
+      set.add(facetOf.get(person) ?? "");
+      sides.set(company, set);
+    }
+    for (const set of sides.values())
+      if (set.has(a) && set.has(b)) return false;
+    return true;
+  }, [view, blocked, pickedPair]);
+
+  const pickPair = useCallback(
+    (a: string, b: string) => {
+      showOnlyFacets(a, b);
+      setPickedPair((prev) =>
+        prev && prev[0] === a && prev[1] === b ? null : [a, b],
+      );
+      graphRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+    [showOnlyFacets],
+  );
   const stats = blobStats(blob);
   const money = useMoney();
   const facetM = useMemo(() => buildMatrixLookup(blob.matrix), [blob]);
@@ -581,6 +696,7 @@ const ConnectionsBody: FC<{
               get={facetM.get}
               label={facetLabel}
               color={(a) => facetColor(a)}
+              onPick={pickPair}
             />
           ) : pAxes.length === 0 ? (
             <p className="text-sm text-muted-foreground">
@@ -605,11 +721,20 @@ const ConnectionsBody: FC<{
               ? t("connections_matrix_caption_facet")
               : t("connections_matrix_caption_party")}
           </p>
+          {/* The click affordance is spelled out ONLY where it exists — facet mode. It also
+              names the gap between the two numbers a reader is about to see: the cell is the
+              full corpus, the graph is a 150-company sample, and without saying so the
+              filtered graph reads as a contradiction of the cell that opened it. */}
+          {matrixMode === "facet" ? (
+            <p className="mt-1 text-xs text-muted-foreground">
+              {t("connections_matrix_pick_hint")}
+            </p>
+          ) : null}
         </CardContent>
       </Card>
 
       {/* Graph */}
-      <Card>
+      <Card ref={graphRef}>
         <CardContent className="pt-5">
           <div className="mb-3 flex flex-wrap items-center gap-3">
             <Network className="h-4 w-4 text-muted-foreground" />
@@ -657,6 +782,17 @@ const ConnectionsBody: FC<{
               {t("connections_find_no_path")}
             </p>
           )}
+
+          {/* EMPTY STATE. A facet filter can leave nothing drawn, and the matrix click is
+              the likeliest way in: the graph is a 150-of-1,823 sample, so a pair with a real
+              number in the matrix can have zero drawn nodes — magistrate↔executive is 8 in
+              the cell and 0 here. Without this the click scrolls the reader to a blank
+              canvas, which reads as a broken chart rather than as a thin sample. */}
+          {pairHasNoDrawnLink ? (
+            <p className="rounded-lg border border-dashed border-border px-3 py-6 text-center text-sm text-muted-foreground">
+              {t("connections_graph_empty_filter")}
+            </p>
+          ) : null}
 
           <GraphCanvas
             view={view}

@@ -5629,5 +5629,9 @@
   "connections_kpi_bridges": "Bridge companies",
   "connections_kpi_edges": "Connections",
   "connections_matrix_cell_self": "{{group}} — {{n}} ties within the group (not a bridge)",
-  "connections_matrix_cell_bridge": "{{a}} ↔ {{b}}: {{n}} shared companies"
+  "connections_matrix_cell_bridge": "{{a}} ↔ {{b}}: {{n}} shared companies",
+  "connections_matrix_cell_action": "{{detail}} — show these groups in the graph",
+  "connections_matrix_pick_hint": "Click a cell to leave only those two groups in the graph below. The graph draws a 150-company sample; the number in the cell is for the whole corpus.",
+  "connections_matrix_cell_action_self": "{{detail}} — show this group in the graph",
+  "connections_graph_empty_filter": "No connections drawn for this selection. The graph shows a 150-company sample — the pair may exist in the full corpus without appearing in the sample."
 }
