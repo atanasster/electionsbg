@@ -8,9 +8,14 @@ Status: **implementation plan, approved scope, no code yet.** Drafted 2026-08-05
 (open-calls implementation). Recover them from git history if needed; everything
 load-bearing is carried below.
 
-Still separate and still live: [funds-seo-geo-v1.md](funds-seo-geo-v1.md) — the procedure
-grain and prerender work, partly shipped. This plan depends on it (`/funds/procedure/:code`
-exists because of it) but does not absorb it.
+Still separate and still live:
+- [funds-seo-geo-v1.md](funds-seo-geo-v1.md) — the procedure grain and prerender work, partly
+  shipped. This plan depends on it (`/funds/procedure/:code` exists because of it).
+- [interreg-funds-ingest-v1.md](interreg-funds-ingest-v1.md) — **shipped** (migrations 137/138/139,
+  `db:load:interreg:pg`, `/funds/interreg/:keepId`, `InterregTile` on `/funds`). Its own doc's
+  "nothing implemented" header is stale. It is the authority on the Interreg corpus; this plan
+  covers only how the funds module *integrates and displays* it — see §2.3, §4.4, §5.3.
+
 Template source: [module-front-pages-v1.md](module-front-pages-v1.md).
 
 ---
@@ -142,7 +147,7 @@ objective, and **exact timestamps** — verified on `BG16RFPR001-1.011`:
 machine-fetchable at `/bg/s/Procedure/InfoDownload/<procGUID>?fileKey=<fileGUID>`.
 
 **Not on the page:** budget, co-financing %, min/max grant, eligible applicant type. All inside
-`Условия за кандидатстване`. See §2.3 and Stage 7.
+`Условия за кандидатстване`. See §2.4 and Stage 7.
 
 Two findings that shape the product, not just the pipeline:
 - **МИГ/МИРГ calls are included** — `#hide_lag_procedures` is a client-side checkbox
@@ -204,7 +209,40 @@ rows one level down) — what converts an indicative month range into a real ope
   **discovery tripwire** (if it reports a call our crawlers missed, we have a hole). Never a
   citation source.
 
-## 2.3 The structural finding
+## 2.3 Interreg — a second awarded corpus, and a third open-calls source we do not have
+
+Shipped since this plan was first drafted: **Interreg** (migrations 137/138/139,
+`db:load:interreg:pg`, ~1,954 operations / 12,141 partnerships / €396.39m), plan in
+[interreg-funds-ingest-v1.md](interreg-funds-ingest-v1.md). It changes three things here.
+
+**(a) The awarded corpus is now two corpora, and „EU money" needs a declared basis.**
+`fund_projects` (82,011 rows, €44bn, ИСУН + EEA/Norway) holds **zero** Interreg rows —
+Interreg runs on **Jems**, not ИСУН, so the gap is a system boundary, not a filter. Migration
+139 exists precisely to fold them: `funds_muni_combined_v` + a combined per-capita ranking.
+Consequence for every figure this plan puts on a tile: **state which basis.** Measured harm
+from getting it wrong — on a 5.5% sample, 29 municipalities gain money and **all 29 sit in a
+border oblast**; Ветово moves +18 places on €/жител, Сапарева баня +17. An ИСУН-only
+per-capita figure silently understates the poorest, most depopulated municipalities in the
+country.
+
+**(b) Interreg calls will never appear in ИСУН `/Active`** — same system boundary. So the
+canonical source in §2.2 is canonical *for ЕСИФ*, not for all EU money reaching Bulgaria.
+The programmes publish their own calls (Jems, and the МРРБ programme subdomains). This is a
+**known hole in v1's open-calls coverage**, and it falls disproportionately on the border
+municipalities — i.e. exactly the place-bound askers in §1.2. Two honest responses, in order:
+say so in band 6 (we cover ЕСИФ + agri, not Interreg calls), and treat a Jems/МРРБ calls
+scraper as the strongest **Stage 8** candidate alongside АХУ and АЗ. Do **not** let
+`/funds/calls` imply completeness it does not have.
+
+**(c) Interreg titles are English-only, and that constrains display.** keep.eu carried `{en}`
+for 107 of 107 sampled operations, no `bg`. The shipped rule (interreg plan §7): store
+`title_en` NOT NULL, `title_bg` NULL until a source exists, **never machine-translate**, and
+render the English title on BG pages with a visible marker plus the keep.eu attribution.
+Anything in this plan that mixes corpora — the resolver (Stage 4), the combined search tier,
+a leaderboard — inherits that rule: an English row in a Bulgarian list must be marked, not
+silently mixed and not invented into Bulgarian.
+
+## 2.4 The structural finding
 
 | | identity + dates | money + eligibility |
 |---|---|---|
@@ -218,7 +256,7 @@ Two consequences:
    81,910-contract corpus. Cheapest machine path is the short **`Обява за откриване на
    процедурата`** doc, not the multi-annex `Условия`. See Stage 7.
 
-## 2.4 The six reframings (what the awarded corpus answers)
+## 2.5 The six reframings (what the awarded corpus answers)
 
 | They ask | We answer, from data we already hold |
 |---|---|
@@ -303,9 +341,12 @@ displaying. All five derive from existing scar tissue.
 
 # PART IV — DATA MODEL
 
-## 4.1 Migration `134_open_calls.sql`
+## 4.1 Migration `142_open_calls.sql`
 
-Highest existing is `133_tr_company_place.sql`, so this is **134**.
+Highest existing is `141_shlyo_query_fold.sql`, so this is **142**. (An earlier draft of this
+plan said 134 — that number was taken by `134_rollcall.sql` while this plan sat unbuilt, and
+135–141 have since gone too. Re-check `ls scripts/db/schema/pg/ | tail -1` before creating the
+file; a plan is not a reservation.)
 
 ```sql
 CREATE TABLE IF NOT EXISTS open_calls (
@@ -417,11 +458,29 @@ CREATE OR REPLACE VIEW open_calls_table AS
 
 ## 4.4 Stage 4's precompute (the resolver)
 
-The „финансирано ли е нещо като моето" resolver aggregates over 81,910 awarded contracts. It
+The „финансирано ли е нещо като моето" resolver aggregates over the awarded corpus. It
 **must** follow the 123/124 pattern in `CLAUDE.md`: precompute into one `fund_payloads` kind
 (activity × place × org-form rollup at procedure grain), one PK seek per request, degrade to
 empty. A free-text aggregate computed live on a `db-g1-small` is the exact shape that produced
 the `procurement-overview` / `procurement-flow` 500s.
+
+**It must span BOTH corpora — `fund_projects` ∪ `interreg_operations`/`interreg_partners`** —
+and this is the one place where getting it wrong reintroduces the exact bias §2.3 measured. The
+resolver's whole promise is "has anything like mine been funded near me"; built on ИСУН only it
+answers **"no"** to a border-municipality asker whose neighbours have Interreg money, which is
+worse than not answering at all. Three constraints follow:
+
+- **Declare the basis in the payload**, not only in the UI — one field naming which corpora the
+  rollup covers, so no consumer can render a combined figure as ИСУН-only or the reverse.
+- **Tier L only for the EIK arm.** 2014-2020 Interreg carries no EIK (~a third of the money is
+  unreachable by company), so an org-form breakdown over the Interreg arm is partial. That
+  belongs in the caption, per the interreg plan's own rule.
+- **English titles carry the §2.3(c) marker** wherever an Interreg operation appears in a
+  Bulgarian result list. Never machine-translate to make the list look uniform.
+
+The interreg plan's §4 rule — *do not write Interreg into `fund_payloads`* — is about not
+polluting the **existing** ИСУН-basis payload kinds. A **new** kind whose declared basis is
+"combined" is the intended way to serve both; `funds_muni_combined_v` (139) is the precedent.
 
 ---
 
@@ -453,7 +512,7 @@ ai/tools/
   enrich-open-calls/SKILL.md    Stage 7 — LLM extraction → review queue, never a direct write
 
 scripts/db/
-  schema/pg/134_open_calls.sql
+  schema/pg/142_open_calls.sql
   load_open_calls_pg.ts
 
 scripts/watch/sources/
@@ -509,7 +568,7 @@ Target:
 | **1 Lead** | **two modules, side by side** — „Какво е отворено сега" (open calls, soonest first) + „Финансирано ли е нещо като моето" (the resolver) | 2, 4 |
 | **2 News rail** | най-големи нови договори · процедури, приключили наскоро · къде отидоха парите този месец · най-нисък % изплатени | 5 |
 | **3 Explore core** | Търси договори · Бенефициенти · По процедура · По място | 0 |
-| **4 Explore more** | today's seven sections, demoted intact | 0 |
+| **4 Explore more** | today's sections demoted intact — incl. the shipped **Interreg** section (`InterregTile`, `FundsScreen.tsx:421`), which stays here rather than moving up: it is a distinct corpus, not a competing lead | 0 |
 | **5 За теб** | Моята община · Моят сектор · Следя тази процедура | 9 |
 | **6 Данни и метод** | what ИСУН covers, **what it does not (open calls ≠ awarded)**, the `muni-share-even-split` caveat, ingest date | 2 |
 
@@ -549,18 +608,27 @@ draft can be withdrawn or changed.
 Apply module-front-pages §4. Each is one extra field in the existing offline generator; no live
 query.
 
-| Tile | stock | flow | change |
-|---|---|---|---|
-| Отворени процедури | 12 | €X общ бюджет | **N затварят до 7 дни** |
-| Договори | 81 910 | €43 млрд. · медиана €X | +N нови този месец |
-| Бенефициенти | ~30 000 | €X към топ 10 (=Y%) | +N нови |
-| Процедури | 2 137 | €X по 10-те най-големи | N приключили |
-| По място | 265 общини | €X на жител, медиана | — |
-| Свързани лица | `cr.mpCount` | €X договорени | +N нови връзки |
-| Интегритет | N сигнала | €X засегната стойност | +N нови |
+Every row also declares a **basis** — which corpus the figure is over — because since Interreg
+shipped (§2.3) „EU money" has two possible meanings and a tile that does not say which is
+`project_sector_hub_kpi_basis`'s exact failure mode.
 
-„N затварят до 7 дни" is the single most actionable figure on the page and is one
-`WHERE closes_at BETWEEN now() AND now()+7d` away.
+| Tile | stock | flow | change | basis |
+|---|---|---|---|---|
+| Отворени процедури | 12 | €X общ бюджет (`reviewed` only) | **N затварят до 7 дни** | ЕСИФ + agri (no Interreg — §2.3b) |
+| Договори | 82 011 | €44 млрд. · медиана €X | +N нови този месец | ИСУН + EEA |
+| Бенефициенти | ~30 000 | €X към топ 10 (=Y%) | +N нови | ИСУН + EEA |
+| Процедури | 2 137 | €X по 10-те най-големи | N приключили | ИСУН |
+| Interreg | 1 954 операции | €396,4 млн. · 1 493 БГ партньора | — | keep.eu / Jems |
+| **По място** | 265 общини | €X на жител, медиана | — | **combined (`funds_muni_combined_v`, 139)** |
+| Свързани лица | `cr.mpCount` | €X договорени | +N нови връзки | ИСУН |
+| Интегритет | N сигнала | €X засегната стойност | +N нови | ИСУН |
+
+Two notes that are easy to get wrong:
+- „N затварят до 7 дни" is the most actionable figure on the page and is one
+  `WHERE closes_at BETWEEN now() AND now()+7d` away.
+- **„По място" must use the combined basis.** It is the one tile where the ИСУН-only figure is
+  actively misleading (§2.3a: 29 of 29 gaining municipalities are in border oblasti), and it is
+  also the tile a border-municipality reader is most likely to check.
 
 ## 5.4 Stages
 
@@ -583,7 +651,7 @@ prefix (`project_seo_discovery_gap`).
    §2.2; all rows `date_precision='indicative'`; keep prose budgets („остатъчният бюджет след…")
    in `budget_note`.
 4. `write_snapshot.ts` → committed `data/opencalls/{isun,sp2023}.json`.
-5. `load_open_calls_pg.ts` — applies `005` + `134` itself so a cold DB needs nothing else.
+5. `load_open_calls_pg.ts` — applies `005` + `142` itself so a cold DB needs nothing else.
    **Stage merge, not TRUNCATE** (`scripts/db/lib/stage_merge.ts`,
    `reference_stage_merge_reload`). Then `recordIngestBatch({ source:'open_call',
    keyExpr:"t.source || ':' || t.source_key", … })` per `feedback_pg_changelog_required`, plus an
@@ -647,10 +715,16 @@ Then the wiring a new dataset needs and this plan originally omitted:
    add an `openCalls` tool (filter by audience/status, return soonest deadlines) in
    `ai/tools/funds.ts` + a harness test. „Има ли отворена програма за X" is the single most
    likely question the assistant will now be asked, and without a tool it will answer from the
-   awarded corpus and be wrong about what is open.
-3. **My-Area.** `scripts/myarea/build_alerts.ts` exists — open calls whose `territory` names the
-   user's obshtina (or that are national) are the most actionable alert we could add. Not full
-   subscriptions (out of scope), just the existing alert surface.
+   awarded corpus and be wrong about what is open. **Declare the tool's basis in its
+   description** — the interreg plan §8-T3(5) flags `placeEuProjects`, `ai/tools/fiscal.ts`,
+   `regional.ts` and `environment.ts` as reading `fund_payloads` and therefore still answering on
+   the ИСУН-only basis; do not add a sixth tool with an undeclared basis.
+3. **My-Area.** `scripts/myarea/build_alerts.ts` — open calls whose `territory` names the user's
+   obshtina (or that are national) are the most actionable alert we could add. Not full
+   subscriptions (out of scope), just the existing alert surface. ⚠ **This file is already known
+   to be on a stale basis**: interreg plan §8-T3(4) records that it reads the on-disk
+   `data/funds/projects/by-muni` + `changes/` rather than Postgres, so it misses Interreg
+   entirely. Add open calls from PG — and do not deepen the JSON path while doing it.
 4. **`/data` map + sources.** A `DatasetDef` in `scripts/data_map/model.ts` and a `/data/sources`
    row (`reference_two_changelogs`).
 5. **i18n / EN mirror.** BG + EN keys in `src/locales/` and `public/locales/`. Heed
@@ -714,8 +788,12 @@ The pipeline, per procedure with `enrichment='none'`:
 At ~55 rows this is a small job per run (only genuinely new procedures are touched), which is
 what makes a human gate affordable. Re-run when `update-open-calls` reports new GUIDs.
 
-**Stage 8 — АХУ + АЗ.** ~6 АХУ programme pages; АЗ needs a news-feed scrape plus a classifier
-and is the least reliable arm — label its provenance clearly.
+**Stage 8 — АХУ + АЗ + Interreg calls.** ~6 АХУ programme pages; АЗ needs a news-feed scrape
+plus a classifier and is the least reliable arm — label its provenance clearly. **Interreg
+calls (Jems / the МРРБ programme subdomains) belong here too and are arguably the highest-value
+of the three**, because they are the one gap that falls on a specific, identifiable population —
+the border municipalities §2.3a measured — rather than diffusely. Until it ships, band 6 must say
+that `/funds/calls` covers ЕСИФ + agri and not Interreg.
 
 **Stage 9 — За теб** (band 5).
 
@@ -821,7 +899,7 @@ Hosting-before-function is the one ordering that breaks a working page (`CLAUDE.
 migration must precede its writer:
 
 ```bash
-npm run db:load:open-calls:pg:cloud   # 1 — migration + first load (loader applies 005 + 134)
+npm run db:load:open-calls:pg:cloud   # 1 — migration + first load (loader applies 005 + 142)
 npm run deploy:db                     # 2 — the function that serves it
 npm run deploy                        # 3 — hosting (/funds/calls + the tile)
 ```
@@ -840,7 +918,7 @@ npm run db:load:open-calls:pg:cloud                        # prod — NOT automa
 | Stage | Deliverable | Depends on |
 |---|---|---|
 | 0 | tile grammar, band split/reorder, contracts search in band 3 | — |
-| 1a | `134_open_calls.sql` + `types.ts` | — |
+| 1a | `142_open_calls.sql` + `types.ts` | — |
 | 1b | `isun_parse.ts` + fixtures + tests | 1a |
 | 1c | `isun_fetch.ts` + `write_snapshot.ts` → committed `data/opencalls/isun.json` | 1b |
 | 1d | `sp2023_fetch/parse` + tests → `data/opencalls/sp2023.json` | 1a |
@@ -887,6 +965,8 @@ hammer it.
 | **A consultation read as an open call** | `kind` + CHECK, separate section, separate wording, default view excludes drafts (invariant 7) |
 | **An LLM-extracted figure ships unreviewed** | deterministic quote-in-source gate; `auto` barred from numeric columns (invariant 8); data test asserts it |
 | **Lev amount stored as euro (1.96× overstatement)** | Stage 1.8 conversion rule + a parser test |
+| **An „EU money" figure with an undeclared basis** (ИСУН-only vs combined) | every tile row declares a basis (§5.3); „По място" pinned to `funds_muni_combined_v`; the resolver payload carries its basis as a field |
+| **`/funds/calls` read as complete** while Interreg calls are absent | band 6 states the coverage boundary; Stage 8 closes it |
 | **A call closes earlier than published** | unavoidable from any source; daily cadence + per-row `source_url` + never presenting ourselves as the authority |
 | **Crawler dies silently** | invariant 1 self-hides expired rows; the freshness banner degrades the page; the watcher reports `error` |
 | **XLSX filename/URL rotates** | resolve via page scrape, fail loudly on 0 or >1 candidate |
@@ -934,6 +1014,14 @@ hammer it.
    before Stage 2 ships** — it determines whether `source_key` is stable across the lifecycle.
 6. **Which sitemap shard** does `/funds/calls` join — `sitemap_funds.xml` (topical, currently
    110 URLs) or the static-pages shard? Trivial, but `families.data.test.ts` needs to know.
+7. **Do we ingest Interreg calls, and from where?** Jems has no public calls API that we have
+   checked; the МРРБ programme subdomains publish them as pages. This is the one remaining
+   coverage hole that lands on an identifiable population (§2.3b). Needs the same source-research
+   pass §2.2 got — until then Stage 8 is a placeholder, not a plan.
+8. **Does the combined per-capita basis change the published Малко Търново post?** The interreg
+   plan says its figures move €4,105→€4,309/жител and №3→№2, and that the live draft is
+   conservative. If „По място" switches to the combined basis, the tile and the post should agree
+   — check before switching, not after.
 
 ## 8.5 Audit log — gaps found reviewing this plan, and what changed
 
@@ -947,11 +1035,18 @@ above; recorded here so the reasoning is not lost.
 | 2 | `first_seen_at` in the merge `cols` would be **reset on every run**, so „ново" would be permanently true | **high** | excluded from `cols`; data test asserts it never moves |
 | 3 | **Currency.** The agri XLSX header is `БЮДЖЕТ ЗА ПРИЕМ До левовата равностойност на:` — some amounts are lev. Storing them as euro **overstates by 1.96×** | **high** | convert at 1.95583, drop when ambiguous, keep raw in `budget_note` (Stage 1.8) |
 | 4 | **Timezone.** A fixed `+02:00` offset puts every summer deadline an hour early against a real `16:30` cut-off | medium | resolve per date; test one winter + one summer date |
-| 5 | `db_table.js` bound to `base: "open_calls_table"`, a **view the migration never created** | medium | view added to 134 (§4.3) |
+| 5 | `db_table.js` bound to `base: "open_calls_table"`, a **view the migration never created** | medium | view added to 142 (§4.3) |
 | 6 | **`bucket_sync_paths.ts` exclusion missing.** `data/` is walked wholesale; without an entry, every `bucket:sync` would publish a spare GCS copy of a Cloud-SQL-served dataset | medium | Stage 3.1 + a test |
 | 7 | **No AI chat tool.** `registry.ts` has `fundsOverview`/`fundsProjects`; without an `openCalls` tool the assistant answers „има ли отворена програма" from the *awarded* corpus — confidently wrong | medium | Stage 3.2 |
 | 8 | **No My-Area integration**, though `scripts/myarea/build_alerts.ts` exists and place-scoped calls are the most actionable alert available | low | Stage 3.3 |
 | 9 | **i18n/EN unspecified**, on a page family that has already shipped a Bulgarian-title/English-snippet SERP bug (`funds-seo-geo-v1` F3) | low | Stage 3.5 |
+
+A second pass on 2026-08-08, after Interreg shipped, found two more:
+
+| # | Gap | Severity | Fix |
+|---|---|---|---|
+| 10 | **Migration number was wrong.** The plan reserved `134`; `134_rollcall.sql` took it while this plan sat unbuilt, and 135–141 have since gone too. A plan is not a reservation | **high** (would have collided on creation) | renumbered to **142**, with a note to re-check before creating the file (§4.1) |
+| 11 | **Interreg unaccounted for on both sides.** The awarded corpus is now two corpora with a combined view (139), and Interreg calls run on Jems so they can never appear in ИСУН `/Active` — so the resolver would have answered „no" to border-municipality askers, „По място" would have understated 29-of-29 border municipalities, and `/funds/calls` would have implied completeness it lacks | **high** | new §2.3; resolver spans both corpora (§4.4); per-tile basis column (§5.3); coverage boundary in band 6; Interreg calls added to Stage 8 |
 
 Two claims checked and **dismissed** rather than patched: `type: "date"` *is* a valid
 `db_table.js` column type (8 existing uses), and `recordIngestBatch` handles the changelog
