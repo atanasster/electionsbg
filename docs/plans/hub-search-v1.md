@@ -76,9 +76,24 @@ So the client rule `4 → "h"` is correct client-side and **wrong server-side** 
 fold "4erven" to `herven` against a stored `cherven` and match nothing. Copying the table
 into SQL verbatim is the obvious move and it is a defect.
 
-The fix is to declare the table against the **Streamlined alphabet** (`4 → "ch"`) and have
-the client apply its own `ch`→`h` collapse *after* the rules, which is what it already does
-to both sides. One table, two consumers, one documented post-step.
+The fix is to declare the table against the **Streamlined alphabet** (`4 → "ch"`) and derive
+the client's copy from it. One table, two consumers.
+
+**And the derivation collapses each rule's REPLACEMENT, never the finished string.** T1.1
+shipped the finished-string version first and it is not equivalent — it also eats `ch`
+sequences no rule produced, and because the collapse *deletes* a character the rewritten
+needle becomes a subsequence rather than a substring, so it starts **losing** matches
+instead of only adding them. Two reachable sources:
+
+- `x → "h"` landing after a literal `c`: `"cx"` → `"ch"` correctly, `"h"` wrongly.
+- **`latinSkeleton` itself emits `ch`** — it collapses *before* stripping non-alphanumerics,
+  so any `c` and `h` separated by punctuation survive as a pair:
+  `latinSkeleton("Basic Holding") === "basicholding"`.
+
+Measured blast radius on the real corpus: ~1 name in 19,189, and every test in the tree
+passed. Only the ч rule's `to` contains `ch`, so collapsing replacements reproduces the old
+hand-written table exactly — `shlyoRules.test.ts` asserts that against a frozen copy of it
+over an exhaustive corpus rather than leaving it as a claim.
 
 ---
 

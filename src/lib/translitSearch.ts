@@ -12,11 +12,15 @@
 //   - It is QUERY-SIDE ONLY and strictly ADDITIVE. The alternate needle is
 //     tried only after the plain one misses, so it can add matches and never
 //     remove one. Applying these rules to the DATA side would be wrong.
-//   - It is CLIENT-SIDE ONLY. The server fold (`translit_bg_latin()` in
-//     pg/000_search_fns.sql, used by the DbDataTable resources) implements the
-//     Cyrillic→Latin half alone — it has neither these rules nor the ч/х
-//     collapse — so a server-filtered browser answers the same query
-//     differently. Closing that gap is a separate, deliberate decision.
+//   - The RULE TABLE is no longer private to this module. It is declared in
+//     `./shlyoRules` so a SQL `shlyo_query_fold()` can be generated from the
+//     same source and the server can stop answering the same query differently.
+//     This module consumes the CLIENT half of it (`applyShlyoRulesCollapsed`).
+//     The ч/х COLLAPSE stays client-side either way: it is deliberately lossy —
+//     it makes "arch" and "arh" one key — which is right for a substring filter
+//     over text a reader is scanning and wrong for a stored name index.
+
+import { SHLYO_TRIGGER, applyShlyoRulesCollapsed } from "./shlyoRules";
 
 const CYR_TO_LATIN: Record<string, string> = {
   а: "a",
@@ -66,43 +70,19 @@ export const latinSkeleton = (s: string): string => {
 // "jelezopyten" (железопътен), "plowdiw" (Пловдив), "sofiq" (София). Those fold
 // to themselves and miss.
 //
-// The rules below rewrite the QUERY into a SECOND needle, tried only after the
-// plain one misses — so this can only ever ADD matches, never remove one. That
-// additive property is the whole design: it is why no existing caller of
-// `searchMatches` / `skeletonMatches` can regress.
+// The rule table now lives in `./shlyoRules`, because Postgres needs it too: a
+// SQL `shlyo_query_fold()` is generated from that same declaration so a
+// server-filtered browser and a client-filtered one cannot answer differently.
+// Read that file's header before touching a rule: the table is written against the
+// STREAMLINED alphabet (`4 → "ch"`), which is what the server folds to, and this
+// module uses `applyShlyoRulesCollapsed` — the same table with each rule's
+// REPLACEMENT collapsed to this alphabet. Collapsing the finished string instead
+// is the trap, and it is not equivalent; see the comment in `shlyoOf`.
 //
-// Order matters: "6t"→"sht" must precede "6"→"sh", and the two "ya" producers
-// must precede the `y` rule (their `y` is followed by `a`, so the negative
-// lookahead then protects it).
-//
-// `c → ts` (ц) is DELIBERATELY ABSENT. It would refold every Latin trade name
-// carrying a "c" — Keytruda, Abemaciclib, "concentrate for solution" — away from
-// what the reader typed, and the НЗОК molecule/pack universes are majority
-// Latin. Bulgarians type "ts" for ц anyway. Do not "complete" this table.
-const SHLYO_RULES: [RegExp, string][] = [
-  [/6t/g, "sht"], // ще
-  [/6/g, "sh"], // ш
-  [/4/g, "h"], // ч — via the ч/х collapse latinSkeleton already applies
-  [/9/g, "ya"], // я
-  [/q/g, "ya"], // я
-  [/j/g, "zh"], // ж
-  [/w/g, "v"], // в
-  [/x/g, "h"], // х
-  [/y(?![aeiou])/g, "a"], // ъ typed as "y"; a real й/ю/я keeps its vowel
-];
-
-/** What `shlyoOf` can actually rewrite — the union of SHLYO_RULES' left-hand
- *  SIDES, not merely of the characters they mention. The distinction carries
- *  the fast exit in `searchMatches`: `y` rewrites only when NOT followed by a
- *  vowel, so "sofiya" / "yordanov" / "mariya" — a real й/ю/я, and the way every
- *  Latin-typed Bulgarian name is spelled — must test FALSE here. A plain
- *  `[…y]` character class costs a measured 3.2x on a filter pass, folding the
- *  whole table for a rewrite that provably cannot exist.
- *
- *  Sound as a pre-test because no rule can CREATE a trigger a rule-free string
- *  lacked: the only rules that emit `y` are 9→"ya" and q→"ya", whose `y` is
- *  always immediately followed by `a`. Non-global, so `.test()` is stateless. */
-const SHLYO_TRIGGER = /[469qjwx]|y(?![aeiou])/;
+// The rules rewrite the QUERY into a SECOND needle, tried only after the plain
+// one misses, so this can only ever ADD matches, never remove one. That additive
+// property is the whole design: it is why no existing caller of `searchMatches`
+// / `skeletonMatches` can regress.
 
 // The alternate needle is a pure function of the folded needle, which is
 // CONSTANT across a filter pass — but `searchMatches` runs per CELL (~178k
@@ -121,8 +101,13 @@ const shlyoOf = (base: string): string => {
   shlyoComputes++;
   let res = "";
   if (SHLYO_TRIGGER.test(base)) {
-    let out = base;
-    for (const [re, to] of SHLYO_RULES) out = out.replace(re, to);
+    // The COLLAPSED table — the rules re-expressed in this module's alphabet.
+    // Do NOT collapse the finished string instead: `base` can already contain a
+    // `ch` that `latinSkeleton` never collapsed (it collapses before stripping
+    // punctuation, so "Basic Holding" folds to "basicholding"), and collapsing
+    // it here would DELETE a character the old needle kept — turning an additive
+    // rewrite into one that loses matches. See shlyoRules.ts.
+    const out = applyShlyoRulesCollapsed(base);
     if (out !== base) res = out;
   }
   lastShlyoIn = base;
