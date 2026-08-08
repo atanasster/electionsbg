@@ -49,12 +49,14 @@ export const SectionsScreen = () => {
   // prefix only for real области — a Sofia МИР or the abroad district reads as
   // its own context ("София 23 МИР", "Извън страната").
   const oblastCode = settlement?.oblast ?? info?.oblast;
-  const oblastContext = regionName
+  const bareRegionName =
+    lang === "bg" ? regionName.replace(/^обл\.\s+/, "") : regionName;
+  const oblastContext = bareRegionName
     ? oblastCode === "32" || isSofiaMir(oblastCode)
-      ? `, ${regionName}`
+      ? `, ${bareRegionName}`
       : lang === "bg"
-        ? `, обл. ${regionName}`
-        : `, ${regionName}`
+        ? `, обл. ${bareRegionName}`
+        : `, ${bareRegionName}`
     : "";
   return (
     <>
