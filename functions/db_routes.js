@@ -158,6 +158,71 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// SHLIOKAVITSA — the second needle. Returns the folded query REWRITTEN into the spellings a
+// Bulgarian actually types (6umen, 4erven, sofiq), or null when the query has no rewrite.
+//
+// Measured before this existed: "Jelqzkov" returned 0 rows from person_search while
+// "Jelyazkov" returned 2. pg_trgm's %> absorbs the letter-for-letter variants and hides half
+// the gap; what it cannot absorb is a substitution that changes the letter COUNT, which is
+// every rule in shlyo_query_fold (migration 141, generated from src/lib/shlyoRules.ts).
+//
+// WHY A SEPARATE ROUND TRIP instead of ORing the rewrite into each query. Three reasons, and
+// the first is the one that decides it:
+//
+//   1. DEGRADATION. ORed inline, a database without migration 141 raises 42883 for the WHOLE
+//      query — so the route would return nothing at all rather than falling back to the plain
+//      probe. Here a failure yields null and the caller behaves exactly as it did before 141
+//      existed. That is the difference between "search is slightly worse on a stale database"
+//      and "search is broken on one".
+//   2. COST. NULLIF makes the common case explicit: a query with no trigger character gets
+//      null and NO second probe is issued at all. Inlining would pay for the alternate on
+//      every keystroke; the six procurement groups measured 390 buffers EACH for a query
+//      that folds to nothing.
+//   3. LATENCY. Callers run this concurrently with their main batch, so the extra trip costs
+//      nothing in the common case — the batch is always the slower of the two.
+//
+// The result is a FOLDED string, so pass it where a raw query would go: translit_bg_latin is
+// the identity on lowercase ASCII, and every search function folds its argument again.
+//
+// THE TRIGGER GATE IS NOT AN OPTIMISATION. Without it this fires on ordinary CYRILLIC, and
+// injects rows the reader never asked for.
+//
+// The `y(?![aeiou]) -> a` rule exists because a Bulgarian types „y" for ъ. It cannot tell
+// that apart from the „y" translit_bg_latin ITSELF emits for й and ь — so „Бойко Борисов"
+// folds to `boyko borisov` and rewrites to `boako borisov`. Measured: 13.64% of the 539,985
+// indexed names rewrite, and 97.4% of those contain no shliokavitsa character at all; 6 of 8
+// ordinary Cyrillic queries fired a full second batch and injected 31 unrelated rows.
+//
+// The client tolerates the same ambiguity because it is a SUBSTRING test — a nonsense needle
+// simply matches nothing. On the server the probe is `%>` trigram similarity, which is fuzzy
+// by design, so a nonsense needle matches plenty.
+//
+// So the gate gives the rewrite a reason to exist: one of the characters that has no other
+// use in a folded query. `y` alone is deliberately NOT a trigger — every Latin-typed
+// Bulgarian name has one. A genuine shliokavitsa query almost always carries another marker
+// („jelezopyten" has its j), and one that carries only a bare y is the case we decline.
+const SHLYO_TRIGGER_RAW = /[469qjwx]/i;
+
+const shlyoAlt = (dbRows, term) =>
+  !SHLYO_TRIGGER_RAW.test(term)
+    ? Promise.resolve(null)
+    : dbRows(
+        `SELECT NULLIF(shlyo_query_fold(translit_bg_latin($1)),
+                       translit_bg_latin($1)) AS alt`,
+        [term],
+      )
+        .then((r) => r[0]?.alt || null)
+        .catch(() => null);
+
+/** Append rows from the alternate needle that the plain probe did not already return.
+ *  ADDITIVE BY CONSTRUCTION: the plain rows keep their order and their positions, and the
+ *  alternate can only extend the tail. `keyOf` must identify a row across both probes. */
+const mergeAlt = (plain, alt, keyOf, lim) => {
+  if (!alt.length) return plain;
+  const seen = new Set(plain.map(keyOf));
+  return plain.concat(alt.filter((r) => !seen.has(keyOf(r)))).slice(0, lim);
+};
+
 // Reads of a MATERIALIZED VIEW, which fail two ways the helpers above do not cover.
 //
 //   55000 — object_not_in_prerequisite_state. A matview created WITH NO DATA does not
@@ -471,39 +536,75 @@ const DB_ROUTES = {
       "top_eik, firms_count, public_money_eur, has_photo, identity_confidence, href";
     // Each read degrades to [] if person_search has not been built on this DB (first cloud deploy,
     // before db:load:person-search:pg:cloud) — an empty result, never a 500.
-    const exactQ = (tier) =>
+    const exactQ = (tier, q) =>
       dbRows(
         `SELECT ${COLS} FROM person_search
           WHERE tier = $1 AND name_fold = translit_bg_latin($2)
           ORDER BY rank_static DESC LIMIT 3`,
-        [tier, term],
+        [tier, q],
       ).catch(missingMigrationRows);
-    const fuzzyQ = (tier, k) =>
+    const fuzzyQ = (tier, k, q) =>
       dbRows(
         `SELECT ${COLS} FROM person_search
           WHERE tier = $1 AND name_fold %> translit_bg_latin($2)
           ORDER BY rank_static DESC LIMIT $3`,
-        [tier, term, k],
+        [tier, q, k],
       ).catch(missingMigrationRows);
     // Per-tier: exact-fold hits (cheap eq lookup) float ahead of the fuzzy rank-ordered top-K.
     // The exact fetch is PER TIER — a single cross-tier exact query is dominated by high-rank P
     // rows on common names, so the V/N float would never fire.
-    const tierRows = async (tier, k) => {
-      const [ex, fz] = await Promise.all([exactQ(tier), fuzzyQ(tier, k)]);
+    const tierRows = async (tier, k, q) => {
+      const [ex, fz] = await Promise.all([exactQ(tier, q), fuzzyQ(tier, k, q)]);
       const seen = new Set(ex.map((r) => r.key));
       return [...ex, ...fz.filter((r) => !seen.has(r.key))];
     };
-    const [power, money, others] = await Promise.all([
-      tierRows("P", 6),
-      tierRows("V", 4),
-      tierRows("N", 4),
+    // The alternate needle runs CONCURRENTLY with the three tiers, so it adds no latency:
+    // the tier queries are always the slower half. It is null for any query with no
+    // shliokavitsa character in it, which is nearly all of them, and then nothing else runs.
+    const [power, money, others, alt] = await Promise.all([
+      tierRows("P", 6, term),
+      tierRows("V", 4, term),
+      tierRows("N", 4, term),
+      shlyoAlt(dbRows, term),
     ]);
+    // Captured BEFORE the merge. `people` is the pre-S2 back-compat array and it is built by
+    // concatenating the three tiers, so appending alt rows to `power` in place would push
+    // plain `money`/`others` rows past its slice — losing rows the plain probe had found.
+    // Measured on the first draft: 4 plain rows dropped at limit=6.
+    const plainPeople = [...power, ...money, ...others];
+    if (alt) {
+      // Strictly additive: each tier keeps every row and every position it already had, and
+      // the rewrite can only extend the tail. The caps are exact — 3 (the exact probe's
+      // LIMIT) + k — so the slice below can never truncate a plain row.
+      //
+      // allSettled, not all: the plain rows are already computed, so a failure in the
+      // ALTERNATE batch must not 500 a request that has an answer. tierRows only swallows
+      // 42883/42P01; a pool timeout (57014) or an admin shutdown would otherwise reject here.
+      const [p2, m2, o2] = (
+        await Promise.allSettled([
+          tierRows("P", 6, alt),
+          tierRows("V", 4, alt),
+          tierRows("N", 4, alt),
+        ])
+      ).map((r) => (r.status === "fulfilled" ? r.value : []));
+      const k = (r) => r.key;
+      power.splice(0, power.length, ...mergeAlt(power, p2, k, 9));
+      money.splice(0, money.length, ...mergeAlt(money, m2, k, 7));
+      others.splice(0, others.length, ...mergeAlt(others, o2, k, 7));
+    }
     // people (back-compat) spans ALL tiers so a public figure absent from the client's own roster
     // is never dropped from the pre-S2 combined search (S2 replaces this with the grouped shape).
-    const people = [...power, ...money, ...others]
-      .slice(0, lim)
-      .map((r) => ({ name: r.name, companies: r.firms_count }));
-    return { body: { power, money, others, people } };
+    const people = mergeAlt(
+      plainPeople,
+      [...power, ...money, ...others],
+      (r) => r.key,
+      lim,
+    ).map((r) => ({ name: r.name, companies: r.firms_count }));
+    // `altQuery` is the needle that actually produced the extra rows. A caller building a
+    // "see all" deep link must use it: the browse tables it lands on do their own search and
+    // do not carry this rewrite, so a link built from what the reader typed advertises rows
+    // the destination cannot find. Null whenever no rewrite fired.
+    return { body: { power, money, others, people, altQuery: alt || null } };
   },
   async company(dbRows, q) {
     const eik = s(q, "eik");
@@ -1926,21 +2027,23 @@ const DB_ROUTES = {
       ) d
       ORDER BY sim DESC, length(name), eik
       LIMIT $2`;
-    const settled = await Promise.allSettled([
-      dbRows(dedupByEik("search_contractors"), [term, lim]),
-      dbRows(dedupByEik("search_awarders"), [term, lim]),
+    // Every group as a function of the needle, so the shliokavitsa rewrite can re-run the
+    // SAME six without a second copy of the SQL drifting from the first.
+    const groupQueries = (needle) => [
+      dbRows(dedupByEik("search_contractors"), [needle, lim]),
+      dbRows(dedupByEik("search_awarders"), [needle, lim]),
       dbRows(
         `SELECT key, title, date, awarder_name AS "awarderName",
                 contractor_name AS "contractorName", amount_eur AS "amountEur"
          FROM search_contract_titles($1, $2)`,
-        [term, lim],
+        [needle, lim],
       ),
       dbRows(
         `SELECT unp, subject, publication_date AS "publicationDate",
                 buyer_name AS "buyerName",
                 estimated_value_eur AS "estimatedValueEur"
          FROM search_tender_subjects($1, $2)`,
-        [term, lim],
+        [needle, lim],
       ),
       // ЕВРОФОНДОВЕ · ИСУН projects (§4.1) — degrades to [] on a DB predating
       // migration 086 via the allSettled below. Only the tile-consumed columns
@@ -1952,7 +2055,7 @@ const DB_ROUTES = {
                 program_name AS "programName",
                 total_eur AS "totalEur"
          FROM search_fund_projects($1, $2)`,
-        [term, lim],
+        [needle, lim],
       ),
       // INTERREG — its OWN group, not folded into the ИСУН one above. The two
       // are different corpora with different keys: a fund project is keyed by
@@ -1965,17 +2068,48 @@ const DB_ROUTES = {
                 period, bg_budget_eur AS "bgBudgetEur",
                 partner_hit AS "partnerHit"
          FROM search_interreg_operations($1, $2)`,
-        [term, lim],
+        [needle, lim],
       ),
+    ];
+    // The rewrite resolves CONCURRENTLY with the six groups, so it costs nothing on a query
+    // that has no rewrite — which is nearly all of them, and then no second batch runs.
+    const [settled, alt] = await Promise.all([
+      Promise.allSettled(groupQueries(term)),
+      shlyoAlt(dbRows, term),
     ]);
-    const [companies, awarders, contracts, tenders, funds, interreg] =
-      settled.map((r) => (r.status === "fulfilled" ? r.value : []));
+    const groups = settled.map((r) => (r.status === "fulfilled" ? r.value : []));
+    if (alt) {
+      // Same six groups, same order, so the merge below can pair them by index. Each group
+      // keeps every row it already had; the rewrite only extends the tail.
+      const settled2 = await Promise.allSettled(groupQueries(alt));
+      const KEYS = [
+        (r) => r.eik,
+        (r) => r.eik,
+        (r) => r.key,
+        (r) => r.unp,
+        (r) => r.contractNumber,
+        (r) => r.keepId,
+      ];
+      settled2.forEach((r, i) => {
+        if (r.status === "fulfilled")
+          groups[i] = mergeAlt(groups[i], r.value, KEYS[i], lim);
+      });
+    }
+    const [companies, awarders, contracts, tenders, funds, interreg] = groups;
     // Total matches per "see all" group, so the dropdown can show "6 of N" and
     // the preview cap reads as a preview, not the whole result. Only paid when
     // the preview is actually capped (length === lim ⇒ there may be more), and
     // bounded to 100 so a very common word ("ремонт", ~35k hits) stays cheap —
     // the UI renders 100 as "99+". Mirrors the search fns' predicate (title/
     // subject FTS prefix-AND OR trigram fallback over the fold).
+    // COUNTS THE SAME NEEDLE THE ROWS CAME FROM. When the shliokavitsa rewrite fired, the
+    // preview can be filled entirely by rows the plain needle never matched — measured on
+    // q=6umen, where contracts merged to 6 while a plain-needle count returned 1 (the true
+    // total for "shumen" is 100) and tenders went 0 rows to 6 with a total of 0. The UI then
+    // renders no "N of M" at all rather than a wrong one, so it fails invisibly.
+    //
+    // $2 is the alternate or the plain needle again, so the predicate is a union of the two
+    // whenever a rewrite exists and a harmless duplicate of itself when it does not.
     const boundedTotal = async (table, foldCol, extra, shown) => {
       if (shown < lim) return shown; // preview wasn't capped → we have them all
       const rows = await dbRows(
@@ -1983,9 +2117,11 @@ const DB_ROUTES = {
            SELECT 1 FROM ${table}
            WHERE ${extra}
              AND (to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($1)
-                  OR ${foldCol} %> translit_bg_latin($1))
+                  OR ${foldCol} %> translit_bg_latin($1)
+                  OR to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($2)
+                  OR ${foldCol} %> translit_bg_latin($2))
            LIMIT 100) x`,
-        [term],
+        [term, alt || term],
       );
       return Number(rows[0]?.n ?? shown);
     };
@@ -2013,6 +2149,10 @@ const DB_ROUTES = {
         interreg,
         contractsTotal,
         tendersTotal,
+        // The needle the extra rows came from, or null. A "see all" link MUST use it: the
+        // browse tables it lands on run their own search and do not carry this rewrite, so
+        // a link built from what the reader typed advertises 6 rows and delivers 1.
+        altQuery: alt || null,
       },
     };
   },

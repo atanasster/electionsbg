@@ -71,6 +71,10 @@ interface DbResults {
   // preview isn't capped) — drives the "6 of N" hint on the "see all" links.
   contractsTotal: number;
   tendersTotal: number;
+  /** The shliokavitsa-rewritten needle the rows actually came from, or null. See the
+   *  `linkTerm` note below — a "see all" built from the typed query lands on a browse table
+   *  that cannot reproduce the preview. */
+  altQuery: string | null;
 }
 
 const EMPTY: DbResults = {
@@ -82,6 +86,7 @@ const EMPTY: DbResults = {
   interreg: [],
   contractsTotal: 0,
   tendersTotal: 0,
+  altQuery: null,
 };
 
 /** "6 of 12" suffix for a capped preview: the bounded total (100 → "99+") when
@@ -142,9 +147,15 @@ export const ProcurementSearchTile: FC = () => {
     // match contracts/procedures from any year, but the browse tables default to
     // the selected parliament's window — which would land on 0 rows for an older
     // topic. "See all" must mean all-time.
+    // `altQuery` when the server answered through the shliokavitsa rewrite. The browse
+    // tables these links land on run their own search and do NOT carry that rewrite, so a
+    // link built from what the reader typed advertises rows the destination cannot find —
+    // „6umen" previews 6 contracts and /procurement/contracts?q=6umen returns 1.
+    const linkTerm = db.altQuery || term;
+    const peopleLinkTerm = people.altQuery || term;
     const seeAllTo = (pathname: string): To => {
       const p = new URLSearchParams(params);
-      p.set("q", term);
+      p.set("q", linkTerm);
       p.set("pscope", "all");
       return { pathname, search: `?${p.toString()}` };
     };
@@ -152,7 +163,7 @@ export const ProcurementSearchTile: FC = () => {
     // S3 adds the private slice); pscope is a procurement param /persons does not read.
     const seeAllPersons: To = {
       pathname: "/persons",
-      search: `?q=${encodeURIComponent(term)}&sector=all`,
+      search: `?q=${encodeURIComponent(peopleLinkTerm)}&sector=all`,
     };
 
     // People — three ranked tiers (built by the pure, unit-tested helper).

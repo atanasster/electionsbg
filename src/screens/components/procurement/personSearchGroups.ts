@@ -27,11 +27,15 @@ export interface PersonSearchResult {
   power: PersonHit[];
   money: PersonHit[];
   others: PersonHit[];
+  /** The shliokavitsa-rewritten needle these rows came from, or null. /persons runs its own
+   *  search and does not carry the rewrite, so a "see all" must use this when present. */
+  altQuery: string | null;
 }
 export const EMPTY_PEOPLE: PersonSearchResult = {
   power: [],
   money: [],
   others: [],
+  altQuery: null,
 };
 
 // position_type CODE → display label (the route stores codes; the UI maps them). Covers the FULL

@@ -66,5 +66,14 @@ test("person-search: missing table degrades to empty tiers, not a 500", async ()
   // FINDING-001: first cloud deploy, before db:load:person-search:pg:cloud has run.
   const fn = () => Promise.reject({ code: "42P01" });
   const res = await route(fn, { q: "иван" });
-  assert.deepEqual(res.body, { power: [], money: [], others: [], people: [] });
+  // altQuery is null here for two independent reasons, and both matter: „иван" carries no
+  // shliokavitsa trigger so the rewrite is never asked for, and a database missing the
+  // table is also one missing migration 141.
+  assert.deepEqual(res.body, {
+    power: [],
+    money: [],
+    others: [],
+    people: [],
+    altQuery: null,
+  });
 });
