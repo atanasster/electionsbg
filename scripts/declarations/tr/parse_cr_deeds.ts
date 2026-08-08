@@ -19,7 +19,8 @@
  *     entity (ЕИК/ПИК or Идентификация inline) — the ownership chain (plan §8 A3).
  *   company meta — single value:
  *     CR_F_2_L name · CR_F_3_L legal form · CR_F_5_L/CR_F_5a_L seat · CR_F_6_L
- *     предмет на дейност · CR_F_6a_L НКИД · CR_F_31_L капитал.
+ *     предмет на дейност · CR_F_6a_L НКИД (parsed to a NACE code + 2-digit
+ *     division, the grain the CPV mismatch flag keys on) · CR_F_31_L капитал.
  */
 
 import { isDeedTree, minEntryDate } from "./lib/crDeedsClient";
@@ -82,7 +83,31 @@ export type CrDeedParsed = {
   capitalAmount: number | null;
   capitalCurrency: string | null;
   subjectOfActivity: string | null;
+  /** Raw CR_F_6a_L text ("Група по НКИД: 86.10 Клас по НКИД: …"). */
   nkid: string | null;
+  /** Parsed НКИД/КИД-2008 (NACE) code, e.g. "86.10" — null when absent/unparsable. */
+  naceCode: string | null;
+  /** The 2-digit NACE division, e.g. "86" — the grain the CPV crosswalk keys on. */
+  naceDivision: string | null;
+};
+
+/**
+ * Parse the НКИД code + 2-digit division out of a CR_F_6a_L text. The register
+ * writes the code two ways — dotted "86.10" and undotted "8690" — both of which
+ * reduce to division "86" (the first two digits). Returns nulls when no code is
+ * present (the description-only or empty forms).
+ */
+export const parseNace = (
+  text: string,
+): { code: string | null; division: string | null } => {
+  const m = text.match(/Група по НКИД:\s*([0-9][0-9.]*)/);
+  if (!m) return { code: null, division: null };
+  const code = m[1].replace(/\.$/, ""); // drop a trailing dot
+  // Division is the 2-digit NACE prefix — taken from the part BEFORE any dot so a
+  // malformed "8.10" reduces to "8" (→ null), never to the wrong "81".
+  const head = code.split(".")[0].replace(/\D/g, "");
+  const division = head.length >= 2 ? head.slice(0, 2) : null;
+  return { code: division ? code : null, division };
 };
 
 const NAMED_ENTITIES: Record<string, string> = {
@@ -277,6 +302,8 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
     capitalCurrency: null,
     subjectOfActivity: null,
     nkid: null,
+    naceCode: null,
+    naceDivision: null,
   };
 
   for (const sec of arrayProp(d, "sections")) {
@@ -309,9 +336,15 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
             case "CR_F_6_L":
               out.subjectOfActivity ??= text;
               break;
-            case "CR_F_6a_L":
-              out.nkid ??= text;
+            case "CR_F_6a_L": {
+              if (out.nkid == null) {
+                out.nkid = text;
+                const nace = parseNace(text);
+                out.naceCode = nace.code;
+                out.naceDivision = nace.division;
+              }
               break;
+            }
             case "CR_F_31_L": {
               // Record the currency only alongside a real amount — never a
               // currency with a null amount (FINDING-007).

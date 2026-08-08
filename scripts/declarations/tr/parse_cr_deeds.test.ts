@@ -10,6 +10,7 @@ import {
   parseCrDeed,
   parseParty,
   parseCapital,
+  parseNace,
   fieldRecords,
   stripHtml,
   decodeEntities,
@@ -174,6 +175,40 @@ describe("parseCapital", () => {
   });
 });
 
+describe("parseNace", () => {
+  it("reads a dotted code and its 2-digit division", () => {
+    expect(
+      parseNace("Група по НКИД: 86.10 Клас по НКИД: Дейност на болници"),
+    ).toEqual({ code: "86.10", division: "86" });
+  });
+  it("reads an undotted 4-digit code to the same division", () => {
+    expect(parseNace("Група по НКИД: 8690 Клас по НКИД: Други")).toEqual({
+      code: "8690",
+      division: "86",
+    });
+  });
+  it("returns nulls when the field carries no code (description only / empty)", () => {
+    expect(parseNace("Клас по НКИД: Дейност на болници")).toEqual({
+      code: null,
+      division: null,
+    });
+    expect(parseNace("")).toEqual({ code: null, division: null });
+  });
+  it("strips a trailing dot from the code", () => {
+    expect(parseNace("Група по НКИД: 41.")).toEqual({
+      code: "41",
+      division: "41",
+    });
+  });
+  it("rejects a sub-2-digit head rather than mis-deriving a division", () => {
+    // "8.10" must NOT become "81"; a division needs a 2-digit pre-dot head.
+    expect(parseNace("Група по НКИД: 8.10")).toEqual({
+      code: null,
+      division: null,
+    });
+  });
+});
+
 describe("parseCrDeed — against real fixtures", () => {
   it("rejects a non-answer body (never project from it)", () => {
     expect(parseCrDeed(null)).toBeNull();
@@ -233,6 +268,9 @@ describe("parseCrDeed — against real fixtures", () => {
     expect(d!.capitalAmount).toBeGreaterThan(5_000_000);
     expect(d!.capitalCurrency).toBe("EUR");
     expect(d!.foundingDate).toBe("2008-08-25");
+    // НКИД 27.12 → division 27 (electrical equipment manufacture).
+    expect(d!.naceCode).toBe("27.12");
+    expect(d!.naceDivision).toBe("27");
   });
 
   it("EOOD (МБАЛ Разлог): the recovered owner is a municipality, not a person", () => {
