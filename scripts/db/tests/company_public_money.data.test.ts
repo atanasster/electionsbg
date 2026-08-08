@@ -87,7 +87,28 @@ test.skipIf(skip)(
 // while 120/resolve keep their own copies (see the 127 header, "ADDITIVE for now"), the guard
 // against those three drifting apart is that they are byte-identical text, not this test. The true
 // single-source fix is the deferred 120/resolve→JOIN refactor.
+//
+// THE FOURTH (INTERREG) ARM DELIBERATELY BREAKS THAT BYTE-IDENTITY, so this test now pins TWO
+// things instead of one. 127 gained `interreg_partners.budget_eur`; the inline copies did NOT.
+// There are THREE of them, not the two 127's header names — 120's `nf_company`,
+// resolve_persons' `money_eik`, and load_person_search_pg.ts's own `money_eik` — and since the
+// entire drift defence IS "the text is identical", an uncounted copy is the precise failure that
+// note exists to prevent.
+//
+// Widening them is a separate decision with a different blast radius: `money_eik` decides who
+// counts as money-linked at Tier V, so an arm there changes WHICH PEOPLE are published, not merely
+// a figure. The observable consequence of leaving them: the ~71 companies whose ONLY public money
+// is Interreg carry money on graph_company_node while person_search classifies their officers as
+// money-less, so a person can appear on /connections with a figure and be absent from the
+// money-linked tier everywhere else.
+//
+// Both bases are therefore asserted: the THREE-arm subtotal still equals the inline basis
+// (120/resolve/person_search remain correct for their own definition), and the Interreg column
+// equals its own scoped source.
 test.skipIf(skip)("matches the canonical broad-money UNION spec", async () => {
+  // The three-arm basis — still byte-identical to 120's nf_company and
+  // resolve_persons' money_eik — must equal public_money_eur MINUS the Interreg
+  // column. A drift here means 127 changed one of the shared arms.
   const drift = await count(
     `WITH inline AS (
        SELECT eik, round(sum(eur)::numeric, 2)::double precision AS eur FROM (
@@ -99,12 +120,104 @@ test.skipIf(skip)("matches the canonical broad-money UNION spec", async () => {
      )
      SELECT count(*) n FROM company_public_money m
        FULL JOIN inline i ON i.eik = m.eik
-      WHERE m.eik IS NULL OR i.eik IS NULL
-         OR m.public_money_eur IS DISTINCT FROM i.eur`,
+      -- PRESENCE is tested by presence, never by amount: 3,520 matview rows sum
+      -- to exactly 0, and an "AND eur <> 0" guard would stop flagging a MISSING
+      -- one — losing the staleness detection this test exists for.
+      WHERE m.eik IS NULL
+         -- An eik present ONLY in the matview is legitimate now — a company
+         -- whose sole public money is Interreg has no row in the three-arm
+         -- basis — but only if its three-arm REMAINDER is zero. Testing
+         -- "interreg_eur > 0" instead would let a stale contract ride along
+         -- unnoticed on any company that also has Interreg money.
+         OR (i.eik IS NULL
+             AND abs(m.public_money_eur - m.interreg_eur) > 0.011)
+         -- 0.011, not exact: the remainder subtracts two independently-rounded
+         -- doubles, so a legitimate 1-cent gap is reachable (10.004 + 20.004 →
+         -- 30.01 - 20.00 = 10.01 against a 10.00 three-arm sum). Measured gap
+         -- today is 0.00; the tolerance is against a future corpus, and is far
+         -- below any real drift.
+         OR (m.eik IS NOT NULL AND i.eik IS NOT NULL
+             AND abs((m.public_money_eur - m.interreg_eur) - i.eur) > 0.011)`,
   );
   assert.equal(
     drift,
     0,
-    `${drift} eik(s) differ between company_public_money and the inline 120/resolve basis`,
+    `${drift} eik(s) differ between company_public_money's shared arms and the inline 120/resolve basis`,
+  );
+
+  // And the Interreg column must equal its own source, scoped to Bulgaria. The
+  // scope is the point: `interreg_partners.eik` is a NAMESPACE holding whatever
+  // national id each country published — 321 foreign values are exactly nine
+  // digits and two collide with a live tr_companies.uic — so an unscoped arm
+  // would publish a Georgian body's budget as a Bulgarian company's public
+  // money. interreg_by_eik shipped without this predicate once.
+  const hasInterreg = await count(
+    `SELECT count(*) n FROM pg_class
+      WHERE oid = to_regclass('public.interreg_partners')`,
+  );
+  if (hasInterreg === 0) return; // a database before 137: the arm is empty by design
+  const armDrift = await count(
+    `WITH src AS (
+       SELECT eik, round(sum(budget_eur)::numeric, 2)::double precision AS eur
+         FROM interreg_partners
+        WHERE eik IS NOT NULL
+          AND (country = 'Bulgaria' OR country_department = 'Bulgaria')
+          AND budget_eur IS NOT NULL
+        GROUP BY eik
+     )
+     SELECT count(*) n FROM company_public_money m
+       FULL JOIN src s ON s.eik = m.eik
+      WHERE (s.eik IS NOT NULL AND abs(COALESCE(m.interreg_eur, -1) - s.eur) > 0.011)
+         OR (s.eik IS NULL AND COALESCE(m.interreg_eur, 0) <> 0)`,
+  );
+  assert.equal(armDrift, 0, `${armDrift} eik(s) differ on the Interreg arm`);
+
+  // THE COLLIDERS, named. `interreg_partners.eik` holds every country's national
+  // id: 321 foreign values are exactly nine digits and two of them ARE live
+  // Bulgarian company UICs. Without the country predicate this matview would
+  // publish a Georgian body's budget as a Bulgarian company's public money —
+  // which interreg_by_eik shipped once, so it is a regression, not a hypothesis.
+  const georgian = await count(
+    `SELECT count(*) n FROM company_public_money
+      WHERE eik IN ('204426451', '204911337') AND interreg_eur <> 0`,
+  );
+  assert.equal(
+    georgian,
+    0,
+    "a foreign national id was attributed Interreg money",
+  );
+
+  // Floors on the arm itself. The re-derivation above follows the matview into
+  // any shared spec change; a floor does not, so it is what catches an arm that
+  // silently stopped contributing.
+  const armRows = await count(
+    `SELECT count(*) n FROM company_public_money WHERE interreg_eur > 0`,
+  );
+  assert.ok(armRows > 150, `only ${armRows} companies carry Interreg money`);
+  const armSum = await count(
+    `SELECT round(sum(interreg_eur))::bigint n FROM company_public_money`,
+  );
+  assert.ok(armSum > 90_000_000, `the Interreg arm is only €${armSum}`);
+
+  // NULL is not a value here: the column is COALESCEd to 0, so a consumer doing
+  // `public_money_eur - interreg_eur` never gets NULL.
+  const nulls = await count(
+    `SELECT count(*) n FROM company_public_money WHERE interreg_eur IS NULL`,
+  );
+  assert.equal(nulls, 0, "interreg_eur should be 0, never NULL");
+
+  // The ceiling, asserted so a source change that starts publishing 2014-2020
+  // national ids is NOTICED — every "Tier L only" caption on the site is
+  // calibrated on this arm covering the later period alone.
+  const older = await count(
+    `SELECT count(*) n FROM interreg_partners p
+       JOIN interreg_operations o USING (keep_id)
+      WHERE p.eik IS NOT NULL AND o.period = '2014-2020'
+        AND (p.country = 'Bulgaria' OR p.country_department = 'Bulgaria')`,
+  );
+  assert.equal(
+    older,
+    0,
+    "keep.eu is now publishing 2014-2020 national ids — the Tier L ceiling moved",
   );
 });

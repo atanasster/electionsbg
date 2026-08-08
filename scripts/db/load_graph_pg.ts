@@ -56,6 +56,16 @@ const MONEY = path.join(
   ROOT,
   "scripts/db/schema/pg/127_company_public_money.sql",
 );
+// 127 reads interreg_partners as its fourth (Interreg) money arm, and a matview
+// body is resolved at CREATE time — so on a database that has never run
+// db:load:interreg:pg, 127 would fail to create at all and take /connections
+// down with it. Applying 137's DDL first (CREATE TABLE IF NOT EXISTS, idempotent,
+// no data) guarantees the table exists and lets 127 stay a plain static
+// statement. The alternative — branching 127 on to_regclass — bakes the branch
+// into the STORED definition, so a database that built it Interreg-blind stays
+// blind through every REFRESH and only a re-apply fixes it. That is the worse
+// failure: invisible, and not repaired by the thing an operator would try.
+const INTERREG_DDL = path.join(ROOT, "scripts/db/schema/pg/137_interreg.sql");
 const GRAPH = path.join(ROOT, "scripts/db/schema/pg/128_graph.sql");
 const PAYLOADS = path.join(ROOT, "scripts/db/schema/pg/129_graph_payloads.sql");
 
@@ -127,6 +137,7 @@ const dropStages = async (): Promise<void> => {
 const main = async (): Promise<void> => {
   // 127 is DROP+CREATE MATERIALIZED VIEW (rebuilt fresh each load); 128 is CREATE TABLE/INDEX IF NOT
   // EXISTS. Statement-by-statement (execEach) so no lock spans the file.
+  await execEach(readFileSync(INTERREG_DDL, "utf8"));
   await execEach(readFileSync(MONEY, "utf8"));
   await execEach(readFileSync(GRAPH, "utf8"));
   await execEach(readFileSync(PAYLOADS, "utf8"));
