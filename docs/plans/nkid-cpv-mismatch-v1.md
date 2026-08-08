@@ -74,6 +74,15 @@ company has an NKID and ≥1 mismatch. Descriptive, not grade-affecting on its o
    unavailable/unmapped-NACE branches.
 5. **Scorer (SQL) + parity:** add the same flag to `112_contract_risk_cache.sql`
    reading `company_nkid`⋈`nace_cpv_allow`; extend `risk_parity.harness.ts` so TS≡SQL.
+   ⚠️ **Missing-relation on fresh clones:** `db:load:cr-nkid:pg` is a `REFRESH_EXCLUSIONS`
+   member (reads the gitignored CR store), so migration 140 — which creates
+   `nace_cpv_allow` / `nace_cpv_opinion` — is NOT applied by `db:refresh`. Step 3 shelled
+   `company_nkid` into `033` (applied by `db:refresh` via `load_pg`) precisely so the
+   `nkidByEik` matview can never miss it, but the two CROSSWALK tables have no such shell.
+   The moment 112 `LEFT JOIN`s them on a served path, they must exist on every DB
+   `db:refresh` touches — so **112 must itself `CREATE TABLE IF NOT EXISTS nace_cpv_allow /
+   nace_cpv_opinion` shells** (empty ⇒ every division unavailable ⇒ flag off, which is the
+   correct fresh-clone state), NOT assume 140 ran. Same idempotent-shell precedent as `033`.
 6. **UI:** `RiskBadges.tsx` (per-contract badge, careful copy) + `CompanyRiskChips.tsx`
    (company aggregate). Both carry the "declared activity" framing + a not-checkable
    state.

@@ -39,6 +39,12 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "reads the gitignored raw_data/tr/cr_deeds.sqlite crawl cache — absent on a fresh clone",
   },
+  "db:load:cr-nkid:pg": {
+    axes: ["uncommitted-input"],
+    ranBy: "npm run tr:daily-refresh (CLAUDE.md, CR Deeds / NKID §8 B1)",
+    reason:
+      "the company_nkid half reads the same gitignored raw_data/tr/cr_deeds.sqlite crawl cache — absent on a fresh clone. (The crosswalk tables it also seeds come from the committed src/lib/naceCpv.ts, but with an empty company_nkid the nkidMismatch flag is unavailable regardless, so seeding them in db:refresh would buy nothing.)",
+  },
   "db:load:company-founded:pg": {
     axes: ["uncommitted-input"],
     ranBy: "the founding-date ingest, by hand (CLAUDE.md, CR Deeds section)",

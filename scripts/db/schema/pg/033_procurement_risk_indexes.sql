@@ -51,6 +51,28 @@ ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS http_status int;
 ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS attempts    int;
 GRANT SELECT ON company_founded TO app_readonly;
 
+-- EIK → declared NACE (НКИД/КИД-2008) division, for the nkidMismatch flag (§8 B1).
+-- Same cross-loader ordering hazard as company_founded above: the matview below is
+-- recreated WITH DATA on every apply, so procurement_risk_indexes() runs at apply
+-- time and MUST find this table — but its authoritative definition + loader live in
+-- migration 140 / db:load:cr-nkid:pg, which may not have run yet (cold DB, or 033
+-- re-applied by load_pg before the NKID loader). So create an idempotent empty shell
+-- here (columns identical to 140 — whichever CREATE IF NOT EXISTS runs first wins,
+-- the other is a no-op). Empty by default → nkidByEik is '{}' → the flag is simply
+-- unavailable everywhere, which is correct until a CR Deeds crawl populates it.
+CREATE TABLE IF NOT EXISTS company_nkid (
+  eik       text PRIMARY KEY,
+  nace_code text,
+  nace_div  text NOT NULL,
+  label     text,
+  source    text NOT NULL DEFAULT 'registryagency:CR/Deeds'
+);
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON company_nkid TO app_readonly;
+  END IF;
+END $$;
+
 -- The cache matview depends on the function — drop it first so the
 -- DROP FUNCTION below doesn't fail on the dependency.
 DROP MATERIALIZED VIEW IF EXISTS procurement_risk_indexes_cache;
@@ -304,6 +326,21 @@ SELECT jsonb_build_object(
     WHERE f.founded_date IS NOT NULL
       AND EXISTS (SELECT 1 FROM contracts ct
                   WHERE ct.contractor_eik = f.eik)
+  ),
+  -- EIK → declared NACE 2-digit division, for the nkidMismatch flag (plan §8 B1).
+  -- The crosswalk itself (NACE→CPV allow-map + universals) is a committed CLIENT
+  -- artifact (src/lib/naceCpv.ts) the scorer imports directly, so only this per-eik
+  -- map is DB-derived. ⚠️ Same denominator discipline as foundedByEik above: the
+  -- availability bit is per-CONTRACTOR, so this MUST include every contractor with a
+  -- nace_div and NOTHING narrower (no tag filter, no sector filter) — 112 LEFT JOINs
+  -- company_nkid for every contract row, so any narrower predicate here drifts the
+  -- CRI denominator between browser and server. company_nkid may be empty (no crawl
+  -- yet) → '{}' → the flag is simply unavailable everywhere, which is correct.
+  'nkidByEik', (
+    SELECT COALESCE(jsonb_object_agg(n.eik, n.nace_div), '{}'::jsonb)
+    FROM company_nkid n
+    WHERE EXISTS (SELECT 1 FROM contracts ct
+                  WHERE ct.contractor_eik = n.eik)
   ),
   -- Split-purchase pair-years — keyed by buyer|supplier|cpvDiv|year in the
   -- scorer. "For review", not proof (see the split_src comment above).
