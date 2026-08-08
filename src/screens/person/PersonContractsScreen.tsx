@@ -91,7 +91,15 @@ export const PersonContractsScreen: FC = () => {
         }
         // Canonicalise to the profile page — this filtered browser is not its own indexable
         // destination (it is also absent from the sitemap / prerender set).
-        canonical={`https://electionsbg.com/person/${encodeURIComponent(name)}`}
+        //
+        // The RESOLVED slug, not the route param. `/person/*` is single-segment, so this
+        // child route is never redirected; on a retired slug the param names a URL that now
+        // 301s, and a declared canonical that redirects is exactly what tests/seo.spec.ts
+        // forbids elsewhere. profile.slug is the live identity when we have one; the param
+        // is the only thing to point at when we do not (a legacy name link, or a miss).
+        canonical={`https://electionsbg.com/person/${encodeURIComponent(
+          profile?.slug ?? name,
+        )}`}
       />
 
       <div className="mb-4">

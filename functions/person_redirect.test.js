@@ -7,11 +7,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert");
-const {
-  personPath,
-  handlePersonRequest,
-  PERSON_SLUG,
-} = require("./person_redirect.js");
+const { personPath, handlePersonRequest } = require("./person_redirect.js");
 
 /** Minimal express-ish response recorder. */
 const mkRes = () => {
@@ -73,7 +69,7 @@ test("personPath ignores everything that is not a /person page", () => {
   assert.equal(personPath(null), null);
 });
 
-test("a non-slug path under /person is claimed, with slug null", () => {
+test("a path with nothing to look up is claimed, with slug null", () => {
   // Claimed (not null) so the handler serves the shell rather than falling through to the
   // JSON routes — but slug null, so no lookup and no redirect.
   //
@@ -82,21 +78,36 @@ test("a non-slug path under /person is claimed, with slug null", () => {
   // (the shell) on the paths that DO reach it — the dev middleware among them.
   assert.deepEqual(personPath("/person"), { prefix: "", slug: null });
   assert.deepEqual(personPath("/person/a/b"), { prefix: "", slug: null });
-  assert.deepEqual(personPath("/person/%D0%98%D0%B2%D0%B0%D0%BD"), {
-    prefix: "",
-    slug: null,
-  });
+  // Undecodable percent-encoding cannot be any slug.
+  assert.deepEqual(personPath("/person/%E0%A4%A"), { prefix: "", slug: null });
 });
 
-test("PERSON_SLUG accepts base36 and collision suffixes, not just hex", () => {
-  // The officials minter used hex; this one does not. `[0-9a-f]` here would silently skip
-  // every slug carrying g-z — most of the corpus.
-  assert.ok(PERSON_SLUG.test("dimitr-georgiev-petrov-df346b")); // hex-looking
-  assert.ok(PERSON_SLUG.test("georgi-lazarov-jqfasq")); // base36
-  assert.ok(PERSON_SLUG.test("krum-krumov-i6x5hy"));
-  assert.ok(PERSON_SLUG.test("petko-petkov-17j32b-2")); // collision suffix
-  assert.ok(!PERSON_SLUG.test("Ivan-Petrov-A1B2C3")); // uppercase
-  assert.ok(!PERSON_SLUG.test("ivan"));
+test("every single-segment slug reaches the lookup — no shape pre-filter", () => {
+  // The regression this replaces: a `kebab + 6-char base36` pattern rejected the whole
+  // mp-<id>[-n] family, and 14 of 23,916 retired slugs with a dead source and a live target
+  // were refused BEFORE the lookup — serving the shell and noindexing themselves, which is
+  // the exact defect this module exists to remove. The database is the only authority on
+  // what is retired, so nothing may be filtered out ahead of it.
+  for (const slug of [
+    "mp-1070-2", // no disambiguator at all — the family the old pattern missed
+    "mp-825-3",
+    "mp-5249-2-2", // double collision suffix
+    "dimitr-georgiev-petrov-df346b",
+    "georgi-lazarov-jqfasq", // base36, not hex
+    "petko-petkov-17j32b-2",
+    "Ivan-Petrov-A1B2C3", // shape-odd: still asked, still just misses the index
+    "ivan",
+  ])
+    assert.equal(personPath(`/person/${slug}`).slug, slug);
+});
+
+test("a percent-encoded legacy name link is decoded before the lookup", () => {
+  // The stored slug is decoded text, so the comparison has to happen in that form. It will
+  // miss the index and fall to the shell — the same outcome as before, reached honestly.
+  assert.deepEqual(personPath("/person/%D0%98%D0%B2%D0%B0%D0%BD"), {
+    prefix: "",
+    slug: "Иван",
+  });
 });
 
 test("a retired slug 301s to its target", async () => {
@@ -174,6 +185,49 @@ test("a legacy name-keyed URL is served the shell, not redirected", async () => 
   assert.equal(handled, true);
   assert.equal(res.statusCode, 200);
   assert.equal(res.body, SHELL);
+});
+
+test("a rejecting resolve sends NOTHING — the caller owns the shell fallback", async () => {
+  // The contract between this module and index.js's catch. index.js answers a DB failure
+  // with a 200 shell rather than the officials branch's 500, because a person URL that
+  // works today must not start failing just because the retired lookup did — but that only
+  // holds if nothing has been sent by the time it catches. Pinned here because index.js
+  // itself cannot be imported (it runs defineSecret + makeDb at module load).
+  const res = mkRes();
+  await assert.rejects(() =>
+    handlePersonRequest(
+      { path: "/person/x-aaa111", originalUrl: "/person/x-aaa111" },
+      res,
+      {
+        resolve: async () => {
+          throw new Error("db down");
+        },
+        loadShell: async () => SHELL,
+      },
+    ),
+  );
+  assert.equal(res.statusCode, null, "must not have answered before throwing");
+  assert.equal(res.body, null);
+});
+
+test("a rejecting loadShell propagates rather than sending a broken 200", async () => {
+  // The docblock says loadShell "must not reject" and index.js honours that by catching to
+  // FALLBACK_SHELL. Nothing enforced it, so pin the failure mode: it throws to the caller,
+  // which still has headersSent === false and can serve the fallback.
+  const res = mkRes();
+  await assert.rejects(() =>
+    handlePersonRequest(
+      { path: "/person/live-ccc333", originalUrl: "/person/live-ccc333" },
+      res,
+      {
+        resolve: async () => null,
+        loadShell: async () => {
+          throw new Error("shell fetch 503");
+        },
+      },
+    ),
+  );
+  assert.equal(res.statusCode, null);
 });
 
 test("a non-/person request falls through untouched", async () => {

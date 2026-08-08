@@ -522,14 +522,35 @@ const resolveOfficialsTarget = async (pool, slug) => {
   return (rows[0] && rows[0].slug) || null;
 };
 
+// Per-instance memo for the retired-slug lookup, beside loadSpaShell's cache and for the
+// same reason: person_slug_retired only moves on a re-resolve, so it is effectively static
+// between loads.
+//
+// It is here because /person/* is now the LARGEST url family routed to this function (~101k
+// servable-but-not-prerendered people) AND sits ahead of the per-IP rate limit by design — a
+// 429 to a crawler would keep the retired URL indexed. Without a memo, a crawler sweep takes
+// a connection from the shared pool for every hit. NEGATIVE results are cached too, and
+// matter more: the overwhelming majority of /person urls are not retired, so caching only
+// the hits would leave the sweep hitting the database on almost every request.
+//
+// A bounded map cleared wholesale, not an LRU: the working set is one crawl's slugs, the
+// entries are two small strings, and a clear costs one extra probe per slug afterwards.
+const RETIRED_MEMO_TTL_MS = 10 * 60 * 1000;
+const RETIRED_MEMO_MAX = 20000;
+const retiredMemo = new Map();
+
 /** One indexed lookup: a RETIRED person slug -> the slug that replaced it, or null.
- *  Plain SQL rather than a serving function on purpose — person_slug_retired is a two-column
- *  table with a PK, and a new SQL function would need its own "applied, never loaded" step on
- *  Cloud SQL (CLAUDE.md) for no gain. Shared with vite/db-api.ts via RETIRED_TARGET_SQL so the
- *  dev server and the Cloud Function cannot answer differently. */
+ *  Shared with vite/db-api.ts via RETIRED_TARGET_SQL so the dev server and the Cloud Function
+ *  cannot answer differently. See person_redirect.js for why this is not 103's
+ *  person_slug_redirect(). */
 const resolveRetiredPersonTarget = async (pool, slug) => {
+  const hit = retiredMemo.get(slug);
+  if (hit && Date.now() - hit.at < RETIRED_MEMO_TTL_MS) return hit.target;
   const { rows } = await pool.query(RETIRED_TARGET_SQL, [slug]);
-  return (rows[0] && rows[0].slug) || null;
+  const target = (rows[0] && rows[0].slug) || null;
+  if (retiredMemo.size >= RETIRED_MEMO_MAX) retiredMemo.clear();
+  retiredMemo.set(slug, { target, at: Date.now() });
+  return target;
 };
 
 const makeDb = () => {

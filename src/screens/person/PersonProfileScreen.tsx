@@ -43,6 +43,7 @@ import {
   Scale,
   ShieldAlert,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -619,13 +620,13 @@ const PersonProfileUnavailable: FC = () => {
       <p className="text-muted-foreground mt-3">
         {t("person_profile_unavailable_hint")}
       </p>
-      <button
-        type="button"
-        onClick={() => window.location.reload()}
-        className="bg-primary text-primary-foreground mt-6 rounded-md px-4 py-2 text-sm"
-      >
+      {/* The shared primitive, not a hand-rolled button: this is the page's only control, and
+          the bare version dropped the focus-visible ring, so keyboard users had no indicator.
+          Note the honest limit — usePersonProfileState has no refetch, so a full reload is the
+          only recovery there is, and against a persistently failing endpoint this loops. */}
+      <Button className="mt-6" onClick={() => window.location.reload()}>
         {t("person_profile_retry")}
-      </button>
+      </Button>
     </div>
   );
 };

@@ -318,7 +318,8 @@
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+              "comment": "Unlike the /officials, /company and /funds entries above, this glob covers a large STATICALLY served family: 25,167 prerendered person pages the db function never sees, plus the ~101k it does. Function responses override this with their own header, so the value here is the one PRERENDERED pages hand to browsers — which is why it carries no browser max-age. `npm run deploy` replaces dist/, deleting the previous /assets/index-<hash>.js, and main.tsx's stale-chunk recovery only listens for dynamic-import failures: if the ENTRY bundle 404s no JS runs at all, so a browser-cached person page across a deploy is an unrecoverable white screen. s-maxage keeps the CDN caching (it is purged on deploy); must-revalidate keeps the browser asking.",
+              "value": "public, max-age=0, s-maxage=3600, must-revalidate"
             }
           ]
         },
@@ -327,7 +328,7 @@
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+              "value": "public, max-age=0, s-maxage=3600, must-revalidate"
             }
           ]
         },

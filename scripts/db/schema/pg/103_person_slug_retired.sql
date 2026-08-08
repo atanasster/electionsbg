@@ -76,8 +76,18 @@ LANGUAGE sql STABLE AS $$
     FROM hop h
    WHERE EXISTS (
      -- The target must be a person the profile route will actually SERVE. Existence alone
-     -- is too weak: 082 gates every person read on status='active' AND is_public_figure,
-     -- and 1,283 rows fail that — redirecting into one is a 301 into a 404.
+     -- is too weak — redirecting into an unservable person is a 301 into a 404.
+     --
+     -- NOT identical to 082, despite what this comment claimed until 2026-08-08. 082's
+     -- person_by_slug() gates on `status='active' AND (is_public_figure OR
+     -- identity_confidence='verified')`; this keeps the NARROWER `is_public_figure` alone,
+     -- so a verified-but-not-public person is servable at /person and is still refused as a
+     -- redirect target here. That is deliberate for now rather than merged, because this
+     -- function is also what officials_person_slug() (106) calls, so widening it moves the
+     -- live /officials 301 too. The /person redirect (functions/person_redirect.js) applies
+     -- 082's real rule inline; person_slug_redirect.data.test.ts asserts the two still agree
+     -- on every row (0 disagreements over all 23,916, measured 2026-08-08) so the divergence
+     -- stays measured rather than assumed.
      SELECT 1 FROM person p
       WHERE p.slug = h.target_slug
         AND p.status = 'active'

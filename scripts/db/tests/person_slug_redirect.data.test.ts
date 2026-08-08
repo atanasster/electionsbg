@@ -21,7 +21,10 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
-import { RETIRED_TARGET_SQL } from "../../../functions/person_redirect.js";
+import {
+  RETIRED_TARGET_SQL,
+  personPath,
+} from "../../../functions/person_redirect.js";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
@@ -119,6 +122,75 @@ test.skipIf(skip)(
         await c.query("ROLLBACK");
       }
     });
+  },
+);
+
+/** Every retired slug that WOULD resolve: dead source, servable target. The set that must
+ *  reach the database, and the set the URL parser is not allowed to filter. */
+const RESOLVABLE = `
+  SELECT r.slug FROM person_slug_retired r
+    JOIN person p ON p.slug = r.target_slug
+   WHERE p.status = 'active'
+     AND (p.is_public_figure OR p.identity_confidence = 'verified')
+     AND NOT EXISTS (SELECT 1 FROM person o WHERE o.slug = r.slug)`;
+
+test.skipIf(skip)(
+  "personPath filters NOTHING out of the resolvable retired corpus",
+  async () => {
+    // The regression this replaces. personPath used to pre-filter on a shape test
+    // (`kebab + 6-char base36 [+ -N]`), which was not a description of the slug space — the
+    // mp-<id>[-n] family has no disambiguator. It refused 14 of these, each with a live
+    // target, and a refused slug is served the shell and noindexes itself: the exact defect
+    // the redirect exists to remove. The pre-filter is gone; this gate is what keeps any
+    // future one honest, and it is deliberately regex-free so it still holds if one returns.
+    //
+    // Precedent: officials_redirect.data.test.ts's "the JS slug regex accepts every officials
+    // ref in the corpus".
+    const rows = await allRows<{ slug: string }>(RESOLVABLE);
+    assert.ok(
+      rows.length > 10000,
+      `only ${rows.length} resolvable retired slugs — the corpus looks unloaded`,
+    );
+    const refused = rows
+      .map((r) => r.slug)
+      .filter(
+        (s) => personPath(`/person/${encodeURIComponent(s)}`)?.slug !== s,
+      );
+    assert.deepEqual(
+      refused.slice(0, 5),
+      [],
+      `${refused.length}/${rows.length} resolvable retired slugs never reach the lookup — ` +
+        `each one serves the shell and noindexes itself`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the inline SQL and 103's person_slug_redirect() agree on every row",
+  async () => {
+    // The repo holds two definitions of this rule (see RETIRED_TARGET_SQL's docblock). They
+    // differ deliberately — this one applies 082's real servability predicate, 103's applies
+    // is_public_figure alone and follows chains — and 103 is ALSO what officials_person_slug()
+    // calls, so they cannot simply be merged from this side. Keeping the divergence measured
+    // is the price of keeping both: at 0 it is latent, and a non-zero count means a re-resolve
+    // has made the /person and /officials redirects answer differently for the same slug.
+    //
+    // $1 is substituted rather than re-typed so the comparison can never drift from the
+    // string the Cloud Function actually runs. The inline query's aliases (r/p/old) do not
+    // collide with q.
+    const [r] = await allRows<{ n: string; sample: string | null }>(
+      `SELECT count(*)::text AS n,
+              min(q.slug) AS sample
+         FROM person_slug_retired q
+         LEFT JOIN LATERAL (${RETIRED_TARGET_SQL.replace("$1", "q.slug")}) inline ON true
+        WHERE person_slug_redirect(q.slug) IS DISTINCT FROM inline.slug`,
+    );
+    assert.equal(
+      r.n,
+      "0",
+      `${r.n} slugs resolve differently through the two implementations (e.g. ${r.sample}) — ` +
+        `/person and /officials would redirect the same slug to different people`,
+    );
   },
 );
 

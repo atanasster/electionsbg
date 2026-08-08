@@ -83,6 +83,26 @@ Deploying the hosting rewrite BEFORE the function is the one ordering that break
 that works today: the rewrite would route every contract and company URL to a function
 with no handler for it. `deploy:db` first, then `deploy`.
 
+**`/person/*` is a fourth member of that family, and the one easiest to get wrong.** The
+`/person/*` + `/en/person/*` rewrites (`functions/person_redirect.js`) serve the 301 from
+`person_slug_retired` — 23,916 slugs a re-resolve retired, which before 2026-08-08 returned
+200 with the homepage's title and canonical and then noindexed themselves client-side. Same
+ordering rule, `deploy:db` first. Three ways it differs from the three above:
+
+- **It is only PARTLY function-served.** 25,167 person pages are prerendered and Firebase
+  ranks exact-match static content above rewrites, so the function only ever sees the other
+  ~101k. A missing rewrite therefore DEGRADES rather than breaks — which makes it easier to
+  miss, not safer.
+- **The rewrite must stay single-segment (`*`, never `**`)**, and the `/person/**` HEADER
+  entry must carry no browser `max-age`: that value is read by the 25,167 static pages, and a
+  browser-cached one pointing at a deleted `/assets/index-<hash>.js` is a white screen
+  `main.tsx`'s stale-chunk recovery cannot reach (it only fires on dynamic-import failures).
+  `scripts/deploy/firebase_person_rewrite.test.ts` holds both.
+- **The handler owns every `/person` URL the rewrite reaches**, so anything it does not
+  redirect it serves as the SPA shell — never a 404, or the ~101k non-prerendered people go
+  with it. Those still serve the homepage's head; giving them their own via a `loadPerson`
+  arm on `spa_page.js` is open work.
+
 The function fetches the SPA shell from `https://electionsbg.com/` once per instance and
 swaps the prerender's `<!-- SEO -->` / `<!-- BODY -->` marker blocks, so the hashed asset
 script tags always match what hosting is actually serving and nothing needs re-deploying
