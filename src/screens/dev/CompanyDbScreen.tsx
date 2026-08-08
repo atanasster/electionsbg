@@ -398,6 +398,7 @@ export const CompanyDbScreen: FC = () => {
     null,
   );
   const [sectors, setSectors] = useState<SectorRank[] | null>(null);
+  const [naceDivision, setNaceDivision] = useState<string | null>(null);
   const [related, setRelated] = useState<RelatedCompany[] | null>(null);
   const [institution, setInstitution] = useState<Institution | null>(null);
   const [geography, setGeography] = useState<CompanyGeography | null>(null);
@@ -502,6 +503,7 @@ export const CompanyDbScreen: FC = () => {
           setFundProjects(j.fundProjects ?? []);
           setRelationships(j.relationships ?? null);
           setSectors(j.sectors ?? null);
+          setNaceDivision(j.nkid?.nace_div ?? null);
           setRelated(j.related ?? null);
           setInstitution(
             j.institution
@@ -768,6 +770,7 @@ export const CompanyDbScreen: FC = () => {
             relationships={relationships}
             politicianCount={politicians.length}
             fundsContractedEur={Number(funds?.contracted_eur ?? 0)}
+            declaredNaceDivision={naceDivision}
           />
         )}
         {!loading && !error && retailChain && (

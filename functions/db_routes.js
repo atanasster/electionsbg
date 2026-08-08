@@ -536,6 +536,7 @@ const DB_ROUTES = {
       retailChain,
       ngoSignals,
       ngoBoardLinks,
+      nkid,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -675,6 +676,13 @@ const DB_ROUTES = {
          WHERE eik = $1 AND confidence = 'high' ORDER BY person LIMIT 50`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
+      // Declared НКИД (КИД-2008) division + label, for the "off-profile" chip
+      // (does the firm win outside its declared line of business?). Guarded on
+      // the missing-migration case (140 / company_nkid absent) so the page still
+      // renders on a DB that never ran db:load:cr-nkid:pg.
+      dbRows("SELECT nace_div, label FROM company_nkid WHERE eik = $1", [
+        eik,
+      ]).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);
     return {
       body: {
@@ -706,6 +714,7 @@ const DB_ROUTES = {
         retailChain: retailChain[0] ?? null,
         ngoSignals: ngoSignals[0]?.r ?? null,
         ngoBoardLinks,
+        nkid: nkid[0] ?? null,
       },
     };
   },

@@ -6,10 +6,21 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Ban, BarChart3, Crosshair, Landmark, Euro } from "lucide-react";
+import {
+  Ban,
+  BarChart3,
+  Briefcase,
+  Crosshair,
+  Landmark,
+  Euro,
+} from "lucide-react";
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import type { BuyerRelationships } from "./CompanyBuyerCaptureTile";
 import type { SectorRank } from "./CompanySectorRankTile";
+import {
+  offProfileShare,
+  OFF_PROFILE_CHIP_THRESHOLD,
+} from "./companyOffProfile";
 
 type Tone = "red" | "amber" | "violet" | "emerald";
 const toneClass: Record<Tone, string> = {
@@ -33,12 +44,16 @@ export const CompanyRiskChips: FC<{
   relationships: BuyerRelationships | null;
   politicianCount: number;
   fundsContractedEur: number;
+  /** Declared НКИД (КИД-2008) 2-digit division from company_nkid, for the
+   *  off-profile chip. Null/absent when uncrawled — the chip simply doesn't show. */
+  declaredNaceDivision?: string | null;
 }> = ({
   debarredCount,
   sectors,
   relationships,
   politicianCount,
   fundsContractedEur,
+  declaredNaceDivision,
 }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
@@ -67,6 +82,17 @@ export const CompanyRiskChips: FC<{
         topSector.division,
         i18n.language,
       )}`,
+    });
+
+  // Off-profile — a majority-ish share of value won outside the declared НКИД.
+  const offShare = offProfileShare(declaredNaceDivision, sectors);
+  if (offShare != null && offShare >= OFF_PROFILE_CHIP_THRESHOLD)
+    chips.push({
+      tone: "amber",
+      icon: Briefcase,
+      label: bg
+        ? `${pct(offShare)} извън обявената дейност`
+        : `${pct(offShare)} outside declared activity`,
     });
 
   // Single-buyer dependence — ≥60% of revenue from one buyer.
