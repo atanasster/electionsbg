@@ -12,10 +12,15 @@
 // seeded band-4 tiles resolve from small precomputed shards (4.3 KB + 17 KB), never from
 // the 11.7 MB aggregate they summarise, and OMIT themselves when their seed is missing.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { parliamentSearchSources } from "./parliament/parliamentSearch";
+import { useMps } from "@/data/parliament/useMps";
+import { useElectionContext } from "@/data/ElectionContext";
+import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { LeadCard, NewsRail } from "@/ux/feed";
 import type { NewsCardProps } from "@/ux/feed";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
@@ -59,6 +64,22 @@ export const ParliamentHubScreen: FC = () => {
   // split costs no latency; it exists because this one carries Bulgarian bill titles and
   // only the parliament on screen needs them.
   const { feed } = useParliamentHubFeed();
+
+  // The roster is ~2,120 rows and only the finder needs it, so it is fetched on the first
+  // focus or keystroke rather than on page load — a reader who never searches pays nothing.
+  const [searchArmed, setSearchArmed] = useState(false);
+  const { mps } = useMps(searchArmed);
+  const { selected } = useElectionContext();
+  const searchNs = useMemo(() => electionToNsFolder(selected), [selected]);
+  const searchSources = useMemo(
+    () =>
+      parliamentSearchSources({
+        mps: searchArmed ? mps : undefined,
+        ns: searchNs ?? null,
+        bg: i18n.language === "bg",
+      }),
+    [searchArmed, mps, searchNs, i18n.language],
+  );
 
   const nf = useMemo(
     () => new Intl.NumberFormat(i18n.language === "bg" ? "bg-BG" : "en-GB"),
@@ -300,6 +321,25 @@ export const ParliamentHubScreen: FC = () => {
         {t("nsh_hub_intro") ||
           "Roll-call voting in the Bulgarian National Assembly — every sitting, every item, and how each MP voted."}
       </p>
+
+      {/* Directly under the intro and above the first band: the fastest route to a
+          destination, where the tiles are the slow one. The roster is fetched only once the
+          reader signals intent — a visitor who never searches pays nothing for it. */}
+      <HubSearch
+        sources={searchSources}
+        idPrefix="parliament-search"
+        className="mt-4 max-w-2xl"
+        onArm={() => setSearchArmed(true)}
+        title={{ bg: "Търсене в парламента", en: "Search parliament" }}
+        placeholder={{
+          bg: "депутат или тема на гласуване…",
+          en: "an MP or a voted item…",
+        }}
+        hint={{
+          bg: "Депутати и гласувани теми — в избраното НС и в останалите.",
+          en: "MPs and voted items — in the selected Assembly and the others.",
+        }}
+      />
 
       {/* data-og is the OG capture's anchor (scripts/og/capture-screens.ts). The previous
           capture selected a party-correlation heatmap cell inside a tile this rebuild
