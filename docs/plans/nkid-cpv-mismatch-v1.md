@@ -91,7 +91,60 @@ company has an NKID and ≥1 mismatch. Descriptive, not grade-affecting on its o
 
 ## Cloud
 
-`company_nkid` + `nace_cpv_allow` follow the `company_founded` shape: LOCAL-authored
-from the CR store, shipped via a `:cloud` loader; the migration applied to Cloud SQL
-first; `procurement_risk_indexes_cache` refreshed after. No auto path — operator step,
-documented in CLAUDE.md alongside the CR Deeds note.
+`company_nkid` + the crosswalk tables follow the `company_founded` shape: LOCAL-authored
+from the CR store, shipped via a `:cloud` loader; the migrations applied to Cloud SQL
+first; the risk caches refreshed after. No auto path — operator step. Concrete sequence:
+
+```bash
+# 1. migrations (company_nkid shell + nkidByEik payload; crosswalk shells + bit-12)
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  033_procurement_risk_indexes.sql 112_contract_risk_cache.sql
+# 2. data: company_nkid (from the CR store) + the crosswalk (from src/lib/naceCpv.ts)
+npm run db:load:cr-nkid:pg:cloud
+# 3. rebuild the two caches the flag reads (nkidByEik payload + contract mask bit 12)
+#    — db:load:cr-nkid:pg refreshes procurement_risk_indexes_cache itself; the
+#    contract cache needs a rebuild:
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  psql "$CLOUD_URL" -c "SELECT rebuild_contract_risk_cache();"
+# 4. the /api/db/company nkid field ships in functions/ → deploy:db (additive; the
+#    company page renders without it, so ordering is cosmetic).
+npm run deploy:db
+```
+
+## Status — SHIPPED 2026-08-08 (steps 1–7)
+
+Built end to end and committed to main. Key outcome and the one finding that reshaped it:
+
+- **The CR НКИД field mixes НКИД-2003 (NACE Rev.1.1) and КИД-2008 (Rev.2) codes**, which
+  reuse division numbers for DIFFERENT sectors (45 = construction in Rev.1.1 vs motor-trade
+  in Rev.2; 51 = wholesale vs air transport; 74 = all business services vs other-professional).
+  A code-based division parse (the original Steps 1/2 design) fired **~20,306** flags on the
+  real corpus, thousands FALSE — construction firms flagged for winning construction, wholesale
+  pharma flagged for medical. Caught only when the flag was run against real crawled data in
+  Step 5, not by inspection.
+- **Fix (operator-approved 2026-08-08): classify the КИД-2008 division from the Bulgarian
+  LABEL text, not the code** (`src/lib/naceLabel.ts`, ordered keyword→division, conservative
+  null default). The external Rev.1.1→Rev.2 concordance was not cleanly fetchable (RAMON
+  retired, Eurostat behind a JS viewer), and every crawled company carries an authoritative
+  sector label, so a label classifier validated against all 8,311 rows was the accurate path.
+  Result: **5,468** fired (13% of the 44,370 available), egregious FPs gone, 89% corpus
+  coverage, unmatched → unavailable.
+- `parse_cr_deeds.parseNace` now returns the RAW code for provenance only; `naceDivision`
+  comes from `naceDivisionFromLabel`. Two substring-bleed traps found + guarded: `спорт`
+  inside `транспорт` (66 haulers → sports), `масла` swallowing `етерични масла`.
+- Persistence: `company_nkid` + `nace_cpv_allow` + `nace_cpv_opinion` + `nace_cpv_universal`
+  (migration 140, loader `db:load:cr-nkid:pg`, a `REFRESH_EXCLUSIONS` member). 033 shells
+  `company_nkid`; 112 shells the three crosswalk tables — both self-sufficient on a cold DB.
+- Scorer: `nkidMismatch` in `computeProcurementRisk.ts` (bit 12) + SQL `112`, held equal by
+  `risk_parity.harness.ts` (0 mismatches over 120k). UI: per-contract `RiskBadges` chip +
+  the company `CompanyRiskChips` "% outside declared activity" chip (≥40% threshold).
+- Gates: `naceLabel.test.ts` (unit), `naceLabel.data.test.ts` (corpus + version-bug + fire-rate
+  guards), `computeProcurementRisk.components.test.ts`, `CompanyRiskChips.test.ts`,
+  `contractRiskMask.test.ts`, `risk_parity.data.test.ts`.
+- **No separate changelog row**: this is a derived serving layer on the CR-Deeds/TR family
+  (whose updates are already stamped by the `update-connections` / `tr:daily-refresh` skill),
+  and derived serving layers take no `data-changes.json` entry (the graph / person-search
+  precedent).
+- **Follow-up (open):** coverage is the Tier-1 crawl subset; widening the crawl widens the
+  flag's availability. The crosswalk is intentionally generous — tune `NACE_CPV_ALLOW` if
+  editorial review of fired pairs surfaces a systematic legitimate pattern.

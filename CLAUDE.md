@@ -133,6 +133,21 @@ read that cache offline, no re-fetch:
   `npm run db:load:tr:pg:cloud` and `npm run db:load:company-founded:pg:cloud` (the latter
   ships local `company_founded` → Cloud SQL, 033 applied there first). Nothing on the cloud
   side is automatic.
+- **declared activity (НКИД→CPV mismatch)** → `db:load:cr-nkid:pg` (in `tr:daily-refresh`,
+  a `REFRESH_EXCLUSIONS` member) parses each capture's `CR_F_6a_L` into `company_nkid`
+  (eik→КИД-2008 division) and reseeds the `nace_cpv_*` crosswalk from the committed
+  `src/lib/naceCpv.ts`. It backs the `nkidMismatch` risk flag (bit 12 of
+  `contract_risk_cache`) + the `/company` "% outside declared activity" chip. **The division
+  is classified from the LABEL, not the code** (`src/lib/naceLabel.ts`) — the НКИД field mixes
+  НКИД-2003 and КИД-2008 codes that reuse division numbers for different sectors, so a
+  code-based parse fired ~20k flags, thousands false (see `docs/plans/nkid-cpv-mismatch-v1.md`).
+  Cloud publish, in order: apply `033`+`112` (company_nkid shell + nkidByEik payload + bit-12
+  mask + crosswalk shells) via `apply_functions.ts`; `npm run db:load:cr-nkid:pg:cloud`
+  (fills company_nkid + crosswalk, refreshes `procurement_risk_indexes_cache`); then
+  `SELECT rebuild_contract_risk_cache();` on Cloud SQL so bit 12 reaches the served masks;
+  then `npm run deploy:db` for the `/api/db/company` `nace_div` field (additive — the page
+  renders without it). Nothing on the cloud side is automatic. Skipping the rebuild leaves the
+  contracts browser's risk column without the flag while local has it.
 
 `procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
 against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run

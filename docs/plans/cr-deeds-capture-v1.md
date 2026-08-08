@@ -543,12 +543,15 @@ corpus is a story on its own.
 
 ### 8.2 Tier B — fields nothing else in the repo has
 
-**B1. ⭐⭐⭐ НКИД vs CPV mismatch.** `CR_F_6a_L` gives the declared activity class
-(`Група по НКИД: 27.12`). Cross it with the contract's CPV division: *does this winner do
-this for a living?* A firm whose only declared activity is retail winning a €4M road
-contract is a first-class risk signal — cheap, corpus-wide, and it drops into the existing
-risk index and `CompanyRiskChips` / `EntityRiskGradeCard` with no new surface. **If one thing
-ships from this plan, it is this.**
+**B1. ⭐⭐⭐ НКИД vs CPV mismatch. ✅ SHIPPED 2026-08-08** — `docs/plans/nkid-cpv-mismatch-v1.md`.
+`CR_F_6a_L` gives the declared activity class (`Група по НКИД: 27.12`). Cross it with the
+contract's CPV division: *does this winner do this for a living?* Shipped as the `nkidMismatch`
+risk check (bit 12 of `contract_risk_cache`, parity-gated TS≡SQL) + a per-contract `RiskBadges`
+chip + a company `CompanyRiskChips` "% outside declared activity" chip.
+⚠️ **Load-bearing finding:** the НКИД field mixes НКИД-2003 (NACE Rev.1.1) and КИД-2008 (Rev.2)
+codes that reuse division numbers for different sectors, so the division is classified from the
+LABEL text (`src/lib/naceLabel.ts`), NOT the code — a code-based parse fired ~20k flags, thousands
+false. See that plan's "Status — SHIPPED" for the full account + the cloud-publish sequence.
 
 **B2. Thin capitalisation.** `CR_F_31/32/33_L`, already denominated in €. "Капитал 2 €,
 спечелени договори 12 млн. €" — a ratio chip on the contract detail page and a sortable

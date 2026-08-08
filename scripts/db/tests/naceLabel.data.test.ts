@@ -111,3 +111,66 @@ test.skipIf(!haveDb)(
     );
   },
 );
+
+// PG-backed gate: nkidMismatch (bit 12) is ALIVE and DISCRIMINATING in the served
+// contract_risk_cache — it fires on genuinely-disjoint contracts, is available-and-
+// not-fired on plausible ones, and its fire rate stays in a conservative band. The
+// parity harness proves SQL≡TS; this proves the flag actually does something and
+// hasn't collapsed to always-fire (the false-accusation failure) or never-fire.
+test.skipIf(!haveDb)(
+  "nkidMismatch fires sensibly in contract_risk_cache (alive + conservative)",
+  async () => {
+    const cache = await allRows<{ n: number }>(
+      "SELECT count(*)::int AS n FROM contract_risk_cache",
+    );
+    if (!cache[0]?.n) return; // cache not built on this machine
+
+    const [{ available, fired }] = await allRows<{
+      available: number;
+      fired: number;
+    }>(
+      `SELECT count(*) FILTER (WHERE (available_mask >> 12) & 1 = 1)::int AS available,
+              count(*) FILTER (WHERE (fired_mask >> 12) & 1 = 1)::int     AS fired
+       FROM contract_risk_cache`,
+    );
+
+    // Alive: the check is available on a meaningful set (contractors we crawled)
+    // and fires on some of them — a degenerate all-0 mask would pass parity yet
+    // ship a dead feature.
+    assert.ok(
+      available > 0,
+      "nkidMismatch is available on 0 contracts — dead check",
+    );
+    assert.ok(fired > 0, "nkidMismatch fires on 0 contracts — dead check");
+
+    // Conservative: firing on a MAJORITY of available contracts would mean the
+    // crosswalk is too tight (the 42%-fire code-version bug looked like this). The
+    // label-based build measured ~12%. Hold it well under half.
+    const fireRate = fired / available;
+    assert.ok(
+      fireRate < 0.35,
+      `nkidMismatch fires on ${Math.round(fireRate * 100)}% of available contracts ` +
+        `(${fired}/${available}) — implausibly high; the crosswalk may be too tight ` +
+        `or the version bug has returned`,
+    );
+
+    // Every fired row must be genuinely disjoint per the SSOT — no universal CPV,
+    // no allowed pairing slipped through into the fired set.
+    const [{ leaks }] = await allRows<{ leaks: number }>(
+      `SELECT count(*)::int AS leaks
+         FROM contract_risk_cache rc
+         JOIN contracts c   ON c.key = rc.key
+         JOIN company_nkid n ON n.eik = c.contractor_eik
+        WHERE (rc.fired_mask >> 12) & 1 = 1
+          AND ( EXISTS (SELECT 1 FROM nace_cpv_universal u WHERE u.cpv_div = left(c.cpv, 2))
+             OR EXISTS (SELECT 1 FROM nace_cpv_allow a
+                         WHERE a.nace_div = n.nace_div AND a.cpv_div = left(c.cpv, 2)) )`,
+    );
+    assert.equal(
+      leaks,
+      0,
+      `${leaks} fired nkidMismatch rows are actually universal or allowed pairings — ` +
+        `the SQL fired-test disagrees with the crosswalk`,
+    );
+  },
+);
