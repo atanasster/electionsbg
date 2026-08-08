@@ -6,12 +6,12 @@
 // judicial bodies with no finder. The destination pages already exist and are
 // already served; they were simply unreachable from the page that is about them.
 //
-// THIS IS A THIN ADAPTER over `@/ux/search/EntitySearchTile`, the repo's generic
-// "one box, grouped dropdown" shell — the same relationship ProcurementSearchTile
-// and ConsumptionSearchTile have with it. The shell owns the card, the
-// combobox/listbox ARIA, keyboard navigation, highlight + scroll-into-view and
-// the loading/empty states; this file owns only what is sector-specific: groups
-// backed by a pre-folded `EntityIndex` rather than by a debounced fetch.
+// SINCE THE HUB-SEARCH WORK THIS IS A ~30-LINE ADAPTER over `@/ux/search/HubSearch`,
+// which is itself the generic adapter over `EntitySearchTile`. It used to own a
+// copy of the query state, the deferred-value handling, the arm-on-first-focus
+// trick and the "searched in: …" empty state — all of which HubSearch now owns,
+// and all of which had to be got right twice. What is left here is the only thing
+// that is sector-specific: the `EntitySearchGroup` shape its eight callers pass.
 //
 // Four things about its behaviour are decisions, not accidents:
 //
@@ -24,28 +24,19 @@
 //      entities with activity in the selected window — is wrong: a finder must
 //      find. "Your hospital does not exist" is a far worse answer than "your
 //      hospital has no contracts in this window", and the destination page does
-//      its own scoping anyway.
+//      its own scoping anyway. (HubSearch generalises this as "scope ranks, it
+//      never filters"; a sector box has no scope to rank BY, so it renders one
+//      group per subject and no split.)
 //   4. IT IS CLIENT-ONLY. The prerendered HTML ships an inert input that
 //      hydrates, so this contributes nothing to crawlability — discovery comes
 //      from the prerendered pages and the sitemap, not from here.
 //
 // Matching and ranking live in `@/lib/entitySearchIndex`; this file is the glue.
 
-import { FC, useDeferredValue, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Search } from "lucide-react";
-import {
-  EntitySearchTile,
-  type SearchGroup,
-} from "@/ux/search/EntitySearchTile";
-import { searchIndex } from "@/lib/entitySearchIndex";
+import { FC, useMemo } from "react";
+import { HubSearch } from "@/ux/search/HubSearch";
+import type { HubSearchSource } from "@/ux/search/hubSearchSources";
 import type { EntitySearchGroup } from "./entityGroups";
-
-/** Below this the dropdown stays closed — a one-character query matches most of
- *  a corpus, so it is noise rather than a result set. Same floor the other
- *  EntitySearchTile adapters use. */
-const MIN_QUERY = 2;
-const DEFAULT_LIMIT = 8;
 
 export const SectorEntitySearch: FC<{
   /** MEMOIZE THIS. A new array identity re-runs every group's scan; the
@@ -68,90 +59,31 @@ export const SectorEntitySearch: FC<{
    *  caller debounces. Client-indexed callers ignore it. */
   onQueryChange?: (q: string) => void;
 }> = ({ groups, title, placeholder, hint, idPrefix, onArm, onQueryChange }) => {
-  const { i18n } = useTranslation();
-  const bg = i18n.language === "bg";
-  const [query, setQuery] = useState("");
-  const armed = useRef(false);
-  // Arm on focus OR on the first keystroke. Focus alone is the natural trigger
-  // but not a reliable one: a browser that is not the frontmost window may
-  // never deliver a focus event, and a reader arriving with the box already
-  // focused (autofill, back-navigation, a screen reader moving the caret) can
-  // type without one. Missing the arm leaves every index null and the box
-  // silently answers "no matches" — so take whichever signal comes first.
-  const arm = () => {
-    if (armed.current) return;
-    armed.current = true;
-    onArm?.();
-  };
-  // The query the RESULTS reflect: typing stays responsive while a large index
-  // is scanned, because React renders the input with the new value first and
-  // re-renders the (expensive) list afterwards at lower priority.
-  const deferred = useDeferredValue(query);
-
-  const searchGroups = useMemo<SearchGroup[]>(() => {
-    if (deferred.trim().length < MIN_QUERY) return [];
-    return groups.flatMap((g) => {
-      const rows = searchIndex(g.index, deferred, g.limit ?? DEFAULT_LIMIT);
-      if (rows.length === 0) return [];
-      return [
-        {
-          key: g.id,
-          label: bg ? g.label.bg : g.label.en,
-          items: rows.map((row) => ({
-            id: `${g.id}:${row.id}`,
-            to: row.href,
-            primary: row.label,
-            secondary: row.sub,
-            icon: g.icon ?? Search,
-          })),
-        },
-      ];
-    });
-  }, [groups, deferred, bg]);
-
-  // "Loading" only counts groups that could still gain rows. A group whose
-  // index is genuinely absent (the caller has nothing to build from) must not
-  // hold the whole box in a loading state for ever.
-  const loading = groups.some((g) => g.loading);
-
-  // Name what was searched — a bare "no results" leaves the reader unsure
-  // whether the box even covers the entity they wanted. Groups with no index
-  // are omitted: they were not searched, so claiming they were is a false
-  // negative. When NONE has an index the sentence would trail off after the
-  // colon, so fall back to the plain form.
-  const searched = groups
-    .filter((g) => g.index)
-    .map((g) => (bg ? g.label.bg : g.label.en).toLowerCase());
-  const noResultsLabel = searched.length
-    ? bg
-      ? `Няма съвпадения в: ${searched.join(", ")}`
-      : `No matches in: ${searched.join(", ")}`
-    : bg
-      ? "Няма съвпадения."
-      : "No matches.";
+  // EntitySearchGroup is IndexSource minus `kind` — the two shapes were written
+  // for the same job a year apart. The mapping is the whole adapter.
+  const sources = useMemo<HubSearchSource[]>(
+    () =>
+      groups.map((g) => ({
+        kind: "index",
+        id: g.id,
+        label: g.label,
+        index: g.index,
+        limit: g.limit,
+        loading: g.loading,
+        icon: g.icon,
+      })),
+    [groups],
+  );
 
   return (
-    <EntitySearchTile
+    <HubSearch
+      sources={sources}
+      title={title}
+      placeholder={placeholder}
+      hint={hint}
       idPrefix={idPrefix}
-      title={bg ? title.bg : title.en}
-      placeholder={bg ? placeholder.bg : placeholder.en}
-      hint={bg ? hint.bg : hint.en}
-      loadingLabel={bg ? "Зареждане…" : "Loading…"}
-      // Name what was searched — a bare "no results" leaves the reader unsure
-      // whether the box even covers the entity they wanted. Groups with no
-      // index are omitted: they were not searched, so claiming they were is a
-      // false negative.
-      noResultsLabel={noResultsLabel}
-      lang={i18n.language}
-      value={query}
-      onChange={(v) => {
-        arm();
-        setQuery(v);
-        onQueryChange?.(v);
-      }}
-      onFocus={arm}
-      loading={loading}
-      groups={searchGroups}
+      onArm={onArm}
+      onQueryChange={onQueryChange}
     />
   );
 };

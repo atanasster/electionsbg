@@ -87,8 +87,21 @@ export const HubSearch: FC<{
   /** Fired once, on first focus or first keystroke. Lets a caller defer building a large
    *  index until the reader has signalled intent. */
   onArm?: () => void;
+  /** Every keystroke, RAW and undebounced. For a caller that drives something outside this
+   *  box from the query — the subsidies box seeds a server fetch of its own this way. A
+   *  source's `fetch` is the better route for anything this component can render itself. */
+  onQueryChange?: (q: string) => void;
   className?: string;
-}> = ({ sources, title, placeholder, hint, idPrefix, onArm, className }) => {
+}> = ({
+  sources,
+  title,
+  placeholder,
+  hint,
+  idPrefix,
+  onArm,
+  onQueryChange,
+  className,
+}) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const [query, setQuery] = useState("");
@@ -232,6 +245,7 @@ export const HubSearch: FC<{
         onChange={(v) => {
           arm();
           setQuery(v);
+          onQueryChange?.(v);
         }}
         onFocus={arm}
         loading={loading}
