@@ -52,6 +52,9 @@ export type RiskIndexesPayload = {
   /** Contractor EIK → incorporation date (ISO), for firms founded 2018+ that
    *  appear as a contractor. Backs the newFirmWinner flag. */
   foundedByEik?: Record<string, string>;
+  /** Contractor EIK → declared НКИД (NACE) 2-digit division, for contractors in
+   *  company_nkid. Backs the nkidMismatch flag. */
+  nkidByEik?: Record<string, string>;
   /** (buyer, supplier, CPV-div, year) groups matching the split-purchase
    *  pattern. Backs the splitPurchase flag. */
   splitPurchase?: SplitPurchaseEntry[];

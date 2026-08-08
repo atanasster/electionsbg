@@ -337,3 +337,87 @@ describe("score — the additive cap", () => {
     expect(r.cri).toBe(Math.round((100 * r.firedCount) / r.availableCount));
   });
 });
+
+describe("nkidMismatch — declared-activity availability gating", () => {
+  it("is UNAVAILABLE when the nkid map is absent (payload in flight)", () => {
+    // Absent map = "we don't know the declared activity yet", NOT "matches".
+    const r = computeProcurementRisk(contract({ cpv: "45000000" }), baseArgs());
+    expect(comp(r, "nkidMismatch")).toMatchObject({
+      available: false,
+      fired: false,
+    });
+  });
+
+  it("is UNAVAILABLE when the contractor is absent from a loaded map", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: "45000000" }),
+      baseArgs({ nkidByEik: new Map([["999", "47"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")?.available).toBe(false);
+  });
+
+  it("is UNAVAILABLE when the contract has no CPV, even with a known NACE", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: undefined }),
+      baseArgs({ nkidByEik: new Map([["222", "47"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")?.available).toBe(false);
+  });
+
+  it("is UNAVAILABLE for an unmapped NACE division (no opinion, never a flag)", () => {
+    // "12" (tobacco) is absent from the crosswalk — no opinion, so unavailable
+    // rather than a manufactured mismatch.
+    const r = computeProcurementRisk(
+      contract({ cpv: "45000000" }),
+      baseArgs({ nkidByEik: new Map([["222", "12"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")).toMatchObject({
+      available: false,
+      fired: false,
+    });
+  });
+
+  it("FIRES: a retail firm (47) winning construction work (45)", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: "45000000" }),
+      baseArgs({ nkidByEik: new Map([["222", "47"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")).toMatchObject({
+      available: true,
+      fired: true,
+    });
+    expect(r.flags.nkidMismatch).toBe(true);
+    expect(r.flags.nkidDivision).toBe("47");
+  });
+
+  it("available-and-not-fired: a construction firm (42) winning road work (45)", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: "45000000" }),
+      baseArgs({ nkidByEik: new Map([["222", "42"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")).toMatchObject({
+      available: true,
+      fired: false,
+    });
+    expect(r.flags.nkidDivision).toBe("42");
+  });
+
+  it("available-and-not-fired: any NACE winning a universal CPV (office supplies)", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: "30000000" }), // office & computing — universal
+      baseArgs({ nkidByEik: new Map([["222", "47"]]) }),
+    );
+    expect(comp(r, "nkidMismatch")).toMatchObject({
+      available: true,
+      fired: false,
+    });
+  });
+
+  it("nkidDivision is null when the check is unavailable", () => {
+    const r = computeProcurementRisk(
+      contract({ cpv: undefined }),
+      baseArgs({ nkidByEik: new Map([["222", "47"]]) }),
+    );
+    expect(r.flags.nkidDivision).toBeNull();
+  });
+});

@@ -28,6 +28,7 @@ import { useCpvCompetition } from "./useCpvCompetition";
 import { usePepConnectedEikSet } from "./usePepConnectedByEik";
 import { useNgoForeignFundedByEik } from "./usePepConnectedByEik";
 import { useCompanyFoundedByEik } from "./useCompanyFoundedByEik";
+import { useCompanyNkidByEik } from "./useCompanyNkidByEik";
 import { useSplitPurchase } from "./useSplitPurchase";
 
 // Re-export the scorer types + function so existing import sites
@@ -64,6 +65,7 @@ export const useContractRiskFlags = (
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
+  const { byEik: nkidByEik, isLoaded: nkidLoaded } = useCompanyNkidByEik();
   const { byKey: splitPurchaseByKey } = useSplitPurchase();
   const { byEik: ngoForeignFundedByEik } = useNgoForeignFundedByEik();
 
@@ -78,6 +80,7 @@ export const useContractRiskFlags = (
       structuralSingleBidShare: cpv.structuralSingleBidShare,
       cpvBidderMedian: cpv.bidderMedianByCpv5,
       foundedByEik: foundedLoaded ? foundedByEik : undefined,
+      nkidByEik: nkidLoaded ? nkidByEik : undefined,
       splitPurchaseByKey,
       ngoForeignFundedByEik,
       normalizeName: normalizeContractorName,
@@ -94,6 +97,8 @@ export const useContractRiskFlags = (
     cpv.structuralSingleBidShare,
     foundedByEik,
     foundedLoaded,
+    nkidByEik,
+    nkidLoaded,
     splitPurchaseByKey,
     ngoForeignFundedByEik,
   ]);
@@ -119,6 +124,7 @@ export const useContractRiskScorer = (): {
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
+  const { byEik: nkidByEik, isLoaded: nkidLoaded } = useCompanyNkidByEik();
   const { byKey: splitPurchaseByKey } = useSplitPurchase();
   const { byEik: ngoForeignFundedByEik } = useNgoForeignFundedByEik();
 
@@ -133,6 +139,7 @@ export const useContractRiskScorer = (): {
         structuralSingleBidShare: cpv.structuralSingleBidShare,
         cpvBidderMedian: cpv.bidderMedianByCpv5,
         foundedByEik: foundedLoaded ? foundedByEik : undefined,
+        nkidByEik: nkidLoaded ? nkidByEik : undefined,
         splitPurchaseByKey,
         ngoForeignFundedByEik,
         normalizeName: normalizeContractorName,
@@ -149,6 +156,8 @@ export const useContractRiskScorer = (): {
     foundedByEik,
     ngoForeignFundedByEik,
     foundedLoaded,
+    nkidByEik,
+    nkidLoaded,
     splitPurchaseByKey,
   ]);
 

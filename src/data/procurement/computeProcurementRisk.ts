@@ -23,6 +23,7 @@ import type {
   SplitPurchaseEntry,
 } from "@/data/dataTypes";
 import { procedureBucket } from "@/lib/cpvSectors";
+import { naceCpvMismatch } from "@/lib/naceCpv";
 
 /** One evaluable red-flag check. `available` = we had the data to evaluate it;
  *  `fired` = the check tripped. */
@@ -37,6 +38,7 @@ export type RiskComponentKey =
   | "amendment"
   | "annexGrowth"
   | "newFirmWinner"
+  | "nkidMismatch"
   | "splitPurchase"
   | "appealUpheld";
 
@@ -89,6 +91,16 @@ export type ContractRiskFlags = {
   newFirmWinner: boolean;
   /** Months between the contractor's incorporation and the award (tooltip). */
   newFirmMonths: number | null;
+  /** The contract's CPV division is clearly disjoint from the contractor's
+   *  DECLARED activity (НКИД/КИД-2008 = NACE division). A conservative "does the
+   *  winner plausibly do this for a living?" signal — for REVIEW, not proof: firms
+   *  lawfully diversify, so the crosswalk is generous and universals never fire.
+   *  Available only when we have both the declared NACE (from company_nkid) and a
+   *  CPV, and the crosswalk has an opinion on that NACE. See src/lib/naceCpv.ts. */
+  nkidMismatch: boolean;
+  /** The contractor's declared NACE division (e.g. "47") when known — tooltip
+   *  copy ("declared activity: retail trade"). Null when unavailable. */
+  nkidDivision: string | null;
   /** This contract is part of a split-purchase pattern (all-direct, each ≤ the
    *  ЗОП чл.20 ал.4 ceiling, together over it, same buyer+supplier+CPV+year).
    *  Carries the group detail for the tooltip; "for review", not proof. */
@@ -146,6 +158,10 @@ const WEIGHT_ANNEX_GROWTH = 30;
 // New-firm winner — a company barely older than the contract it won. Structural,
 // editorially legible (K-Index P4).
 const WEIGHT_NEW_FIRM = 30;
+// Declared-activity mismatch — the winner's НКИД is disjoint from the contract's
+// CPV. A "for review" structural signal (firms lawfully diversify), so it sits
+// at the light end, level with direct award.
+const WEIGHT_NKID_MISMATCH = 20;
 // Split-purchase pattern — a "for review" structural signal, weighted below the
 // authoritative flags (debarred/appeal) and concentration given its
 // irreducible false-positive floor (a legal recurring-need pattern looks the same).
@@ -171,6 +187,8 @@ export const emptyContractRiskFlags = (): ContractRiskFlags => ({
   annexGrowthPct: null,
   newFirmWinner: false,
   newFirmMonths: null,
+  nkidMismatch: false,
+  nkidDivision: null,
   splitPurchase: null,
   weakCompetition: false,
   directAward: false,
@@ -199,6 +217,7 @@ const scoreFromFlags = (
     | "isAmendment"
     | "annexGrowth"
     | "newFirmWinner"
+    | "nkidMismatch"
     | "splitPurchase"
     | "appealUpheld"
   >,
@@ -214,6 +233,7 @@ const scoreFromFlags = (
   if (f.isAmendment) score += WEIGHT_AMENDMENT;
   if (f.annexGrowth) score += WEIGHT_ANNEX_GROWTH;
   if (f.newFirmWinner) score += WEIGHT_NEW_FIRM;
+  if (f.nkidMismatch) score += WEIGHT_NKID_MISMATCH;
   if (f.splitPurchase) score += WEIGHT_SPLIT_PURCHASE;
   if (f.appealUpheld) score += WEIGHT_APPEAL_UPHELD;
   return Math.min(100, score);
@@ -257,6 +277,13 @@ export type RiskScoreArgs = {
    *  contractor is missing from it, newFirmWinner is unavailable (excluded from
    *  the CRI denominator, not scored 0). */
   foundedByEik?: Map<string, string>;
+  /** Contractor EIK → declared NACE 2-digit division. From the served risk-indexes
+   *  `nkidByEik` map (CR Deeds capture). Optional — when absent, or a contractor is
+   *  missing from it, or the NACE division is one the crosswalk has no opinion on,
+   *  nkidMismatch is unavailable (excluded from the CRI denominator, not scored 0).
+   *  ⚠️ Availability MUST match SQL 112 exactly: present here ⟺ company_nkid has the
+   *  eik AND nace_div ∈ nace_cpv_opinion AND the contract has a CPV. */
+  nkidByEik?: Map<string, string>;
   /** `awarderEik|contractorEik|cpvDiv|year` → split-purchase group. From the
    *  served risk-indexes `splitPurchase` list. Always present (empty when the
    *  payload is absent), like `concentrationByPair`. */
@@ -343,6 +370,20 @@ export const computeProcurementRisk = (
   } else {
     add("newFirmWinner", false, false);
   }
+
+  // Declared-activity mismatch — the contract's CPV division is clearly disjoint
+  // from the contractor's declared НКИД (NACE) division. naceCpvMismatch is the
+  // SSOT (src/lib/naceCpv.ts), shared with SQL 112 via the parity harness. Its
+  // three verdicts map straight onto the available/fired axes: "unavailable"
+  // (missing NACE/CPV or an unmapped NACE — no opinion) is excluded from the CRI
+  // denominator, never scored 0; "match"/"mismatch" are available, only the
+  // latter fires. Conservative by construction: universals never fire, so a firm
+  // legitimately diversifying is not flagged.
+  const nkidDivision = args.nkidByEik?.get(contract.contractorEik) ?? null;
+  const cpvDivision = contract.cpv ? contract.cpv.slice(0, 2) : null;
+  const nkidVerdict = naceCpvMismatch(nkidDivision, cpvDivision);
+  const nkidMismatch = nkidVerdict === "mismatch";
+  add("nkidMismatch", nkidVerdict !== "unavailable", nkidMismatch);
 
   // Split-purchase pattern — this contract's (buyer, supplier, CPV-div, year)
   // group is an all-direct, each-sub-threshold, sum-over-ceiling split. Always
@@ -448,6 +489,7 @@ export const computeProcurementRisk = (
     isAmendment,
     annexGrowth,
     newFirmWinner,
+    nkidMismatch,
     splitPurchase,
     appealUpheld,
   });
@@ -473,6 +515,8 @@ export const computeProcurementRisk = (
       annexGrowthPct,
       newFirmWinner,
       newFirmMonths,
+      nkidMismatch,
+      nkidDivision: nkidVerdict === "unavailable" ? null : nkidDivision,
       splitPurchase,
       weakCompetition,
       directAward,
@@ -538,6 +582,10 @@ export function mergeContractRisk(
             ? s.newFirmMonths
             : Math.min(f.newFirmMonths, s.newFirmMonths);
     }
+    f.nkidMismatch ||= s.nkidMismatch;
+    // The declared NACE is entity-level (one per contractor), so keep the first
+    // non-null for the tooltip regardless of which contract fired.
+    f.nkidDivision ??= s.nkidDivision;
     if (s.bidCount != null)
       f.bidCount =
         f.bidCount == null ? s.bidCount : Math.min(f.bidCount, s.bidCount);

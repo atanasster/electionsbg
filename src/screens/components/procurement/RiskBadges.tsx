@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
   Ban,
+  Briefcase,
   Check,
   Gavel,
   Globe,
@@ -131,6 +132,14 @@ const CHECK_CATALOG = [
     whyKey: "risk_flag_split_hint",
     naReasonKey: "risk_na_generic",
     ref: "ЗОП чл.20 ал.4",
+  },
+  {
+    key: "nkidMismatch",
+    icon: Briefcase,
+    labelKey: "risk_flag_nkid_long",
+    whyKey: "risk_flag_nkid_hint",
+    naReasonKey: "risk_na_nkid",
+    ref: "НКИД / CPV",
   },
   {
     key: "directAward",
@@ -735,6 +744,33 @@ export const RiskBadges: FC<Props> = ({
         </Tooltip>
       ) : null}
 
+      {flags.nkidMismatch ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_nkid_long") ||
+                  "Contract outside the winner's declared line of business"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_nkid_hint") ||
+                  "The subject (CPV) sits far from the contractor's declared НКИД activity. Firms lawfully diversify, so this is a signal for review, not proof — cross-cutting supplies (office, print, consulting) are never flagged."}
+              </div>
+              {flags.nkidDivision ? (
+                <div className="text-xs tabular-nums">
+                  {t("risk_flag_nkid_declared") || "Declared (НКИД)"}:{" "}
+                  {flags.nkidDivision}
+                </div>
+              ) : null}
+            </div>
+          }
+        >
+          <SignalPill tone="amber" icon={<Briefcase className="h-3 w-3" />}>
+            {t("risk_flag_nkid") || "Off-profile"}
+          </SignalPill>
+        </Tooltip>
+      ) : null}
+
       {flags.ngoForeignFunded ? (
         <Tooltip
           content={
@@ -793,6 +829,10 @@ export const RiskBadges: FC<Props> = ({
       case "splitPurchase":
         return flags.splitPurchase
           ? `${flags.splitPurchase.contractCount}×`
+          : null;
+      case "nkidMismatch":
+        return flags.nkidDivision
+          ? `${t("risk_flag_nkid_declared_abbr") || "НКИД"} ${flags.nkidDivision}`
           : null;
       default:
         return null;
