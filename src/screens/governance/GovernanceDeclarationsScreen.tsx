@@ -25,12 +25,20 @@ import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useDeclarationsHubStats } from "@/data/governance/useDeclarationsHubStats";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { declarationsSearchSources } from "./declarationsSearch";
 import { DECLARATION_BANDS, DECLARATION_TILES } from "./declarationsRegistry";
 import { DECLARATION_SCENES } from "./declarationsScenes";
 
 export const GovernanceDeclarationsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { stats, nsStats } = useDeclarationsHubStats();
+  // Stable identity: the sources close over nothing that changes, and a new array on every
+  // render would re-issue every fetch.
+  const searchSources = useMemo(
+    () => declarationsSearchSources(i18n.language === "bg"),
+    [i18n.language],
+  );
   const title = t("menu_group_declarations") || "Declarations";
 
   const nf = useMemo(
@@ -158,6 +166,24 @@ export const GovernanceDeclarationsScreen: FC = () => {
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         {t("decl_hub_intro")}
       </p>
+
+      {/* Directly under the intro and ABOVE the first band: it is the fastest route to a
+          destination and the tiles are the slow one. A reader who already knows the name
+          should not have to guess which of six tiles contains it. */}
+      <HubSearch
+        sources={searchSources}
+        idPrefix="decl-search"
+        className="mt-4 max-w-2xl"
+        title={{ bg: "Търсене на човек", en: "Find a person" }}
+        placeholder={{
+          bg: "име на депутат, министър, кмет…",
+          en: "an MP, a minister, a mayor…",
+        }}
+        hint={{
+          bg: "Хората в регистъра на Сметната палата — и тези без подадена декларация.",
+          en: "People in the Court of Audit register — and those with no filing on record.",
+        }}
+      />
 
       <div data-og="declarations-hub">
         <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />

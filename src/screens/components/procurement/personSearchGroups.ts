@@ -74,7 +74,10 @@ const POSITION_LABEL: Record<"bg" | "en", Record<string, string>> = {
   },
 };
 
-const positionLabel = (code: string | null, bg: boolean): string =>
+/** Exported so the declarations hub's finder uses the SAME map. Two copies would mean one
+ *  box shows „Изпълнителна власт" and the other shows `executive`, which is the raw-code
+ *  leak this table exists to prevent. */
+export const positionLabel = (code: string | null, bg: boolean): string =>
   (code && POSITION_LABEL[bg ? "bg" : "en"][code]) || code || "";
 
 // href from the route is '/person/<slug>' (P, url-safe) or '/person/<raw name>' (V/N) — re-encode
