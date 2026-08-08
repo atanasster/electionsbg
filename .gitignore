@@ -362,3 +362,9 @@ data/procurement/.contracts_backup_*
 # the blind compare page, regenerable with `npm run video:bakeoff`. The passage
 # itself is committed source (scripts/video/passage.ts); the audio is not.
 /raw_data/video/
+
+# Open-calls raw HTML cache — one file per ИСУН listing tier and per procedure detail
+# page (~57/run). Purely a debugging aid for a parse regression: the DURABLE artifact is
+# the committed snapshot at data/opencalls/<source>.json, which is small, sorted and
+# diffable on purpose. Re-created by `npm run opencalls:isun`.
+/raw_data/opencalls/

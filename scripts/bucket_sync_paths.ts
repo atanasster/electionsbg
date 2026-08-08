@@ -54,6 +54,12 @@ export const isExcluded = (rel: string): string | null => {
     return "_cache/ is a local build cache";
   if (rel === "funds" || rel.startsWith("funds/"))
     return "funds/ is served from Cloud SQL (db:load:funds:pg:cloud)";
+  // Open calls are Cloud-SQL-served (open_calls, migration 142) exactly like funds/. The
+  // committed data/opencalls/<source>.json is the LOADER'S SOURCE and the archive of what was
+  // open when — never a serving artifact. Uploading it would create a second copy on a GCS
+  // path nothing reads, i.e. a spare serving surface free to go stale.
+  if (rel === "opencalls" || rel.startsWith("opencalls/"))
+    return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
   // Per-MP bio profile shards: served from Cloud SQL (mp_profile_detail, schema 110,

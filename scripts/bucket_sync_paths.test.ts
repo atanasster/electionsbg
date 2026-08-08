@@ -28,6 +28,16 @@ const RETIRED = [
 ];
 
 describe("bucket exclusion lockstep (package.json ↔ isExcluded)", () => {
+  // opencalls/ is PG-served (open_calls, migration 142). The committed
+  // data/opencalls/<source>.json is the loader's SOURCE and the archive of what was open
+  // when — uploading it would mint a second, staleable copy on a path nothing reads.
+  it("excludes opencalls/ in both the -x regexes and isExcluded()", () => {
+    expect(pkg["bucket:sync"]).toContain("^opencalls/.*");
+    expect(pkg["bucket:sync:dry"]).toContain("^opencalls/.*");
+    expect(isExcluded("opencalls")).toBeTruthy();
+    expect(isExcluded("opencalls/isun.json")).toBeTruthy();
+  });
+
   it("both bucket:sync and bucket:sync:dry -x regexes exclude the officials families", () => {
     for (const frag of RETIRED) {
       expect(pkg["bucket:sync"]).toContain(frag);
