@@ -195,6 +195,44 @@ raw `:param` in its href is a dead link that also passes any "destination is abs
 
 ---
 
+### A hub needs a finder, not only tiles
+
+Tiles are a fixed set of curated destinations. A reader who arrives already knowing what they
+want („Желязков", „бюджет 2026", „моята болница") cannot say so — they have to guess which
+tile contains their subject. Give the hub one search box over its own subjects.
+
+Do NOT build a new one. `src/ux/search/EntitySearchTile.tsx` is the generic shell — card,
+combobox/listbox ARIA, keyboard nav, highlight, scroll-into-view, loading/empty states,
+per-group `seeAll`. Adapters exist for a client-side pre-folded index
+(`src/lib/entitySearchIndex.ts`) and for server-backed fetches. Plan:
+`docs/plans/hub-search-v1.md`.
+
+**SCOPE RANKS, IT NEVER FILTERS.** This is the rule that decides the shape. A hub has a
+selector (`?elections`, `?pscope`), and the tempting move is to restrict results to it — but
+a finder must find: „your hospital does not exist" is a far worse answer than „your hospital
+has no contracts in this window", and the destination page scopes itself anyway. So in-scope
+hits become the first group and out-of-scope hits a second, labeled one. Four consequences,
+each a way to reintroduce filtering by accident:
+
+- **Each scoped source yields TWO groups.** Build the partition into the shared component,
+  or the second group is forgotten on the third hub that uses it.
+- **The cap is PER GROUP.** One shared cap lets the in-scope group eat the whole budget,
+  which is filtering with extra steps — the same failure `rankedFilter` documents, where
+  fold-matches early in source order pushed 17 real Вълчев entries out of view.
+- **Name the second group for the scope it is outside** („депутати от други НС"), never
+  „други" — same reason a band is never called „Още".
+- **Server sources rank in SQL, per group.** Ranking once and partitioning the result
+  silently empties the narrower tier: measured, ZERO of a trailing week's rows appeared in
+  a global top-200.
+
+**Shliokavitsa must work, and on the server it does not.** `src/lib/translitSearch.ts` folds
+Latin-typed Bulgarian („6umen", „4erven", „sofiq") client-side; `translit_bg_latin()` in
+Postgres is Streamlined-only. `pg_trgm` hides half of it — „Jelyazkov" finds Желязков on
+fuzzy tolerance alone, while „Jelqzkov" returns zero. And the client rule table is NOT
+portable as written: it targets an alphabet that has already collapsed `ch`→`h`, so `4 → "h"`
+is right in the browser and wrong in SQL. One table, one generator, one cross-implementation
+gate.
+
 ## 5. Language
 
 Write the target language, not a translation of the English. This is a repo convention

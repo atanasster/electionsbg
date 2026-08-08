@@ -128,9 +128,19 @@ client officials; parliament: client MPs + server topics).
 
 ```ts
 // src/ux/search/HubSearch.tsx
-type HubSearchSource =
-  | { kind: "index";  id: string; label: I18nPair; index: EntityIndex | null; limit?: number }
-  | { kind: "server"; id: string; label: I18nPair; fetch: (q: string, signal: AbortSignal) => Promise<SearchItem[]>; limit?: number };
+type HubSearchSource = {
+  id: string;
+  /** Two labels because scope RANKS (D1): in-scope rows first, out-of-scope second. */
+  label: I18nPair;
+  outLabel?: I18nPair;
+  /** Absent = the source has no scope, so it renders one group. */
+  partition?: (row: SearchItem) => "in" | "out";
+  /** PER GROUP, not shared — a shared cap is filtering with extra steps. */
+  limit?: number;
+} & (
+  | { kind: "index";  index: EntityIndex | null }
+  | { kind: "server"; fetch: (q: string, signal: AbortSignal) => Promise<SearchItem[]> }
+);
 ```
 
 It owns: `MIN_QUERY = 2`, `useDeferredValue` for index sources, a **250 ms debounce +
@@ -196,24 +206,42 @@ the standing one.
 
 ---
 
-## 4. Decisions that need your call before T2
+## 4. Decisions
 
-**D1 — Does scope FILTER or RANK?** `SectorEntitySearch` documents "it ignores `?pscope` — a
-finder must find", and „your hospital does not exist" is a worse answer than „your hospital
-has no contracts in this window". But you asked for topics "in the parliament in scope".
+**D1 — SCOPE RANKS, IT NEVER FILTERS. Settled 2026-08-08.**
 
-*Recommendation: scope RANKS, it never filters.* In-scope hits become the first group,
-out-of-scope hits a second labeled group („други НС", „без декларация"). The reader always
-finds the person; the scope decides what they see first. Cost: two groups per source instead
-of one.
+In-scope hits become the first group; out-of-scope hits a second labeled group („други НС",
+„без декларация"). The reader always finds the person or the topic; the scope decides only
+what they see first. This keeps `SectorEntitySearch`'s founding principle — "a finder must
+find", because „your hospital does not exist" is a far worse answer than „your hospital has
+no contracts in this window" — while still honouring the selected parliament.
 
-**D2 — Where does the box sit on the page?** Above the first band (it is the fastest route
-to a destination and the tiles are the slow one), or between the intro and the bands.
-*Recommendation: directly under the intro paragraph, above the first `SectionHeading`.*
+Four consequences that are easy to get wrong, and that the implementation must carry:
 
-**D3 — Do declarations results respect the election selector?** `/mp-assets` and `/mp-cars`
-open scoped to `?elections`; `/persons` does not. *Recommendation: no — the people groups
-are lifetime, matching `/persons`.*
+1. **Each source yields TWO groups, not one.** `HubSearchSource` therefore needs a
+   `partition?: (row) => "in" | "out"` and two labels, rather than callers hand-rolling the
+   split per hub. Building this into `S3` is what stops the second group from being
+   forgotten on the third hub.
+2. **The per-group limit applies PER GROUP**, so an in-scope group of 8 does not consume the
+   out-of-scope budget. Ranking that shares one cap is filtering with extra steps — the same
+   trap `rankedFilter` documents, where fold-matches early in source order ate the whole
+   budget and pushed 17 real Вълчев entries out of view.
+3. **The out-of-scope group renders only when it is non-empty**, and its label must NAME the
+   scope it is outside („депутати от други НС"), never „други" — a band called „Още" is the
+   defect the hub work already fixed once.
+4. **The server sources must rank in SQL, not fetch-then-split.** Ranking once and
+   partitioning afterwards silently empties the narrower tier — measured on
+   `contested-votes`, where ZERO of a trailing week's rows appeared in a global top-200.
+   Each group gets its own `LIMIT`, `UNION ALL`-style, exactly as `person-search` already
+   does per tier.
+
+**D2 — Placement: directly under the intro paragraph, above the first `SectionHeading`.**
+Adopted as the default; cheap to move, and no hub depends on it.
+
+**D3 — Declarations results do NOT respect the election selector.** `/mp-assets` and
+`/mp-cars` open scoped to `?elections`, but `/persons` does not, and the people groups here
+land on `/persons`. Lifetime, matching the destination. (This is D1 applied: there is no
+in/out partition for these groups because there is no scope to partition on.)
 
 ---
 
@@ -257,6 +285,8 @@ gets a finder"), and note the three hubs left without one.
 | `EXPLAIN` buffers under budget on the worst key | A search route that 500s at the 10 s timeout |
 | Every `seeAll` target is a routed path | Dead links |
 | Every vote-item search filters `superseded_by` | Annulled re-votes surfacing as standing |
+| A scoped source returns out-of-scope rows for a query that has them | Scope silently filtering — the D1 regression, invisible because the page still shows results |
+| Each group's cap is independent | An in-scope group eating the out-of-scope budget |
 
 Then **break each gate and watch it fire** — per the skill, a gate that shares the
 implementation's misunderstanding is not a gate.
