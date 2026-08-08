@@ -5,6 +5,7 @@ import {
   NACE_CPV_ALLOW,
   naceCpvAllowRows,
   naceCpvOpinionDivisions,
+  naceCpvUniversalDivisions,
 } from "./naceCpv";
 
 describe("naceCpvMismatch — the conservative signal", () => {
@@ -123,6 +124,15 @@ describe("crosswalk artifact integrity", () => {
       expect(nace).toMatch(/^\d{2}$/);
       for (const cpv of cpvs) expect(cpv).toMatch(/^\d{2}$/);
     }
+  });
+
+  it("naceCpvUniversalDivisions serializes the universal set for the PG seed", () => {
+    // SQL 112 reads this from a loader-seeded table; it MUST equal UNIVERSAL_CPV
+    // exactly, or the SQL fired-test diverges from the TS scorer and parity breaks.
+    expect(new Set(naceCpvUniversalDivisions())).toEqual(UNIVERSAL_CPV);
+    expect(naceCpvUniversalDivisions().every((d) => /^\d{2}$/.test(d))).toBe(
+      true,
+    );
   });
 
   it("naceCpvAllowRows flattens to (nace,cpv) pairs excluding universals", () => {

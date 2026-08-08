@@ -132,8 +132,8 @@ export const NACE_CPV_ALLOW: Readonly<Record<string, readonly string[]>> = {
   // — Professional / scientific / technical —
   "69": [], // legal & accounting — output is 79/66 (universal)
   "70": ["73"], // head offices / management consultancy
-  "71": ["71", "73", "45"], // architecture & engineering
-  "72": ["73", "71"], // R&D
+  "71": ["71", "73", "45", "44"], // architecture & engineering (supply structures/materials)
+  "72": ["73", "71", "72"], // R&D (research/IT services overlap; CPV 72 = IT services)
   "73": ["92"], // advertising & market research (79 universal; events → 92)
   "74": ["92"], // other professional (design, photography, events)
   "75": ["85"], // veterinary
@@ -207,3 +207,11 @@ export const naceCpvAllowRows = (): Array<[string, string]> =>
       .filter((cpv) => !UNIVERSAL_CPV.has(cpv))
       .map((cpv) => [nace, cpv] as [string, string]),
   );
+
+/** The universal CPV divisions as rows for the PG `nace_cpv_universal` seed. The
+ * TS scorer applies UNIVERSAL_CPV in-process; SQL 112 cannot, so it reads this
+ * loader-seeded table at rebuild time — same "applied at query time" semantics,
+ * one serialization point (this artifact). Keeping SQL data-driven from here (not
+ * a hardcoded set in the migration) is what makes the parity gate hold by
+ * construction rather than by two lists happening to agree. */
+export const naceCpvUniversalDivisions = (): string[] => [...UNIVERSAL_CPV];

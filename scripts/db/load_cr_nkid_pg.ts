@@ -4,9 +4,10 @@
 //
 // Two data sources, ONE loader:
 //   • company_nkid  ← the cached CR Deeds store (parse CR_F_6a_L per company).
-//   • nace_cpv_allow + nace_cpv_opinion  ← the committed TS crosswalk artifact
-//     (src/lib/naceCpv.ts), the single source of truth the SQL cache + TS scorer
-//     both read. Seeded every run so a crosswalk edit ships by re-running the loader.
+//   • nace_cpv_allow + nace_cpv_opinion + nace_cpv_universal  ← the committed TS
+//     crosswalk artifact (src/lib/naceCpv.ts), the single source of truth the SQL
+//     cache (112) + TS scorer both read. Seeded every run so a crosswalk edit ships
+//     by re-running the loader.
 //
 //   npm run db:load:cr-nkid:pg          # local, from the CR store + artifact
 //   (then) npm run db:load:cr-nkid:pg:cloud   # ship to Cloud SQL
@@ -25,6 +26,7 @@ import { parseCrDeed } from "../declarations/tr/parse_cr_deeds";
 import {
   naceCpvAllowRows,
   naceCpvOpinionDivisions,
+  naceCpvUniversalDivisions,
 } from "../../src/lib/naceCpv";
 import { exec, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
@@ -35,11 +37,18 @@ const MIGRATION = path.join(__dirname, "schema/pg/140_nkid_cpv.sql");
 const FOLD_MARKER = `${CR_DEEDS_DB}.nkid`;
 
 /** Reseed the crosswalk tables from the TS artifact — the single source of truth. */
-const seedCrosswalk = async (): Promise<{ allow: number; opinion: number }> => {
+const seedCrosswalk = async (): Promise<{
+  allow: number;
+  opinion: number;
+  universal: number;
+}> => {
   const allow = naceCpvAllowRows();
   const opinion = naceCpvOpinionDivisions();
+  const universal = naceCpvUniversalDivisions();
   await withTx(async (c) => {
-    await c.query("TRUNCATE nace_cpv_allow, nace_cpv_opinion");
+    await c.query(
+      "TRUNCATE nace_cpv_allow, nace_cpv_opinion, nace_cpv_universal",
+    );
     for (const [nace, cpv] of allow)
       await c.query(
         "INSERT INTO nace_cpv_allow (nace_div, cpv_div) VALUES ($1,$2)",
@@ -49,8 +58,16 @@ const seedCrosswalk = async (): Promise<{ allow: number; opinion: number }> => {
       await c.query("INSERT INTO nace_cpv_opinion (nace_div) VALUES ($1)", [
         div,
       ]);
+    for (const div of universal)
+      await c.query("INSERT INTO nace_cpv_universal (cpv_div) VALUES ($1)", [
+        div,
+      ]);
   });
-  return { allow: allow.length, opinion: opinion.length };
+  return {
+    allow: allow.length,
+    opinion: opinion.length,
+    universal: universal.length,
+  };
 };
 
 const main = async () => {
@@ -59,7 +76,7 @@ const main = async () => {
 
   const cw = await seedCrosswalk();
   console.log(
-    `✓ crosswalk: ${cw.allow} allow rows, ${cw.opinion} opinion divisions (from src/lib/naceCpv.ts)`,
+    `✓ crosswalk: ${cw.allow} allow rows, ${cw.opinion} opinion divisions, ${cw.universal} universal divisions (from src/lib/naceCpv.ts)`,
   );
 
   if (!fs.existsSync(CR_DEEDS_DB)) {

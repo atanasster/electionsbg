@@ -70,6 +70,7 @@ const EXPECTED_CHECK_ORDER = [
   "weakCompetition",
   "directAward",
   "shortTenderPeriod",
+  "nkidMismatch",
 ] as const;
 
 if (
@@ -114,6 +115,7 @@ type Payload = {
   };
   cpvBidderMedians?: Record<string, number>;
   foundedByEik?: Record<string, string>;
+  nkidByEik?: Record<string, string>;
   splitPurchase?: {
     awarderEik?: string;
     contractorEik?: string;
@@ -224,6 +226,7 @@ export const runParity = async ({
       ]),
     ),
     foundedByEik: new Map(Object.entries(payload.foundedByEik ?? {})),
+    nkidByEik: new Map(Object.entries(payload.nkidByEik ?? {})),
     splitPurchaseByKey: new Map(
       (payload.splitPurchase ?? []).map((s) => [
         `${s.awarderEik}|${s.contractorEik}|${s.cpvDiv}|${s.year}`,

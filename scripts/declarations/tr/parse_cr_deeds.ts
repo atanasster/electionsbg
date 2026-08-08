@@ -24,6 +24,7 @@
  */
 
 import { isDeedTree, minEntryDate } from "./lib/crDeedsClient";
+import { naceDivisionFromLabel } from "../../../src/lib/naceLabel";
 
 /** The roles this scraper recognises. A subset of TrRole (see types.ts) — the
  * ones the CR Deeds body carries — so projected rows drop straight into the
@@ -85,29 +86,35 @@ export type CrDeedParsed = {
   subjectOfActivity: string | null;
   /** Raw CR_F_6a_L text ("Група по НКИД: 86.10 Клас по НКИД: …"). */
   nkid: string | null;
-  /** Parsed НКИД/КИД-2008 (NACE) code, e.g. "86.10" — null when absent/unparsable. */
+  /** Raw НКИД code as written, e.g. "86.10" or "8690" — provenance/display only.
+   *  ⚠️ NOT usable to derive the division: the field mixes НКИД-2003 (NACE Rev.1.1)
+   *  and КИД-2008 (Rev.2) codes, which reuse the same division numbers for different
+   *  sectors — see src/lib/naceLabel.ts. */
   naceCode: string | null;
-  /** The 2-digit NACE division, e.g. "86" — the grain the CPV crosswalk keys on. */
+  /** The КИД-2008 (Rev.2) 2-digit division the CPV crosswalk keys on, classified
+   *  from the LABEL text (naceDivisionFromLabel), NOT the ambiguous code. Null when
+   *  the label yields no confident sector. */
   naceDivision: string | null;
 };
 
 /**
- * Parse the НКИД code + 2-digit division out of a CR_F_6a_L text. The register
- * writes the code two ways — dotted "86.10" and undotted "8690" — both of which
- * reduce to division "86" (the first two digits). Returns nulls when no code is
+ * Extract the RAW НКИД code out of a CR_F_6a_L text, for provenance/display only
+ * (`naceCode`). The register writes it dotted ("86.10") or undotted ("8690").
+ *
+ * ⚠️ The code's 2-digit prefix is DELIBERATELY NOT used as the division: the field
+ * mixes НКИД-2003 (NACE Rev.1.1) and КИД-2008 (Rev.2) codes and the two reuse
+ * division numbers for different sectors (45 = construction vs motor-trade; 51 =
+ * wholesale vs air transport). The division is classified from the LABEL instead —
+ * see naceDivisionFromLabel (src/lib/naceLabel.ts). Returns null when no code is
  * present (the description-only or empty forms).
  */
-export const parseNace = (
-  text: string,
-): { code: string | null; division: string | null } => {
+export const parseNace = (text: string): { code: string | null } => {
   const m = text.match(/Група по НКИД:\s*([0-9][0-9.]*)/);
-  if (!m) return { code: null, division: null };
+  if (!m) return { code: null };
   const code = m[1].replace(/\.$/, ""); // drop a trailing dot
-  // Division is the 2-digit NACE prefix — taken from the part BEFORE any dot so a
-  // malformed "8.10" reduces to "8" (→ null), never to the wrong "81".
+  // Require at least a 2-digit head so a stray single digit is not stored as a code.
   const head = code.split(".")[0].replace(/\D/g, "");
-  const division = head.length >= 2 ? head.slice(0, 2) : null;
-  return { code: division ? code : null, division };
+  return { code: head.length >= 2 ? code : null };
 };
 
 const NAMED_ENTITIES: Record<string, string> = {
@@ -339,9 +346,8 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
             case "CR_F_6a_L": {
               if (out.nkid == null) {
                 out.nkid = text;
-                const nace = parseNace(text);
-                out.naceCode = nace.code;
-                out.naceDivision = nace.division;
+                out.naceCode = parseNace(text).code; // raw code, provenance only
+                out.naceDivision = naceDivisionFromLabel(text); // Rev.2, from label
               }
               break;
             }

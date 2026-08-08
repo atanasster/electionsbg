@@ -28,7 +28,7 @@ const row = (over: Partial<RiskMaskRow> = {}): RiskMaskRow => ({
 describe("bit order matches 112_contract_risk_cache.sql", () => {
   // Renumbering this list silently re-maps every mask already in the table, so
   // pin the literal order rather than trusting the array's own contents.
-  it("is the documented 12-check order", () => {
+  it("is the documented 13-check order", () => {
     expect([...RISK_MASK_BITS]).toEqual([
       "debarred",
       "mpConnected",
@@ -42,14 +42,16 @@ describe("bit order matches 112_contract_risk_cache.sql", () => {
       "weakCompetition",
       "directAward",
       "shortTenderPeriod",
+      "nkidMismatch",
     ]);
   });
 
   it("decodes a real row from contract_risk_cache", () => {
-    // The worst row in the corpus, taken verbatim from the table:
+    // The worst row in the corpus, taken verbatim from the table (pre-nkid vintage):
     //   fired=6 available=11 cri=55 fired_mask=1582 available_mask=2047
-    // available_mask 2047 = 0b011111111111 — every check except shortTenderPeriod
-    // (bit 11), which is 0% populated corpus-wide.
+    // available_mask 2047 = 0b0111111111111 — every check except shortTenderPeriod
+    // (bit 11, 0% populated) AND nkidMismatch (bit 12, absent from this old mask), so
+    // availableCount stays 11 across the 13-check widening.
     const r = contractRiskFromMasks(
       row({ riskFiredMask: 1582, riskAvailableMask: 2047 }),
     );
@@ -67,7 +69,7 @@ describe("bit order matches 112_contract_risk_cache.sql", () => {
       ].sort(),
     );
     expect(r!.components.filter((c) => !c.available).map((c) => c.key)).toEqual(
-      ["shortTenderPeriod"],
+      ["shortTenderPeriod", "nkidMismatch"],
     );
 
     // The counts and cri the server stored for this row, reproduced exactly.

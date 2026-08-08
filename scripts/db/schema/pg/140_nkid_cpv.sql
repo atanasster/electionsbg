@@ -13,8 +13,13 @@
 -- still fire a mismatch on any non-universal win. So "do we have an opinion?" is
 -- `nace_div ∈ nace_cpv_opinion`, NEVER "≥1 row in nace_cpv_allow" (that test would
 -- silently make ~10 divisions unavailable and diverge from the TS scorer — the exact
--- SSOT break naceCpv.ts documents). The UNIVERSAL_CPV set lives in the crosswalk
--- artifact + is applied at query time; it is deliberately NOT stored here.
+-- SSOT break naceCpv.ts documents).
+--
+-- The UNIVERSAL_CPV set (cross-cutting divisions allowed for EVERY NACE) lives in
+-- the crosswalk artifact and the TS scorer applies it in-process. SQL 112 cannot,
+-- so it is materialized into `nace_cpv_universal` here and seeded from the SAME
+-- artifact by the loader — "applied at query time" (in the rebuild query), one
+-- serialization point. This is what lets the parity gate hold by construction.
 
 SET check_function_bodies = off;
 
@@ -42,8 +47,15 @@ CREATE TABLE IF NOT EXISTS nace_cpv_opinion (
   nace_div text PRIMARY KEY
 );
 
+-- The cross-cutting CPV divisions allowed for every NACE (office supplies, print,
+-- repair, consulting, finance…). Seeded from naceCpvUniversalDivisions().
+CREATE TABLE IF NOT EXISTS nace_cpv_universal (
+  cpv_div text PRIMARY KEY
+);
+
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
-    GRANT SELECT ON company_nkid, nace_cpv_allow, nace_cpv_opinion TO app_readonly;
+    GRANT SELECT ON company_nkid, nace_cpv_allow, nace_cpv_opinion, nace_cpv_universal
+      TO app_readonly;
   END IF;
 END $$;

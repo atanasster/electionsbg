@@ -1,7 +1,7 @@
 // Decode the SERVER's per-contract risk masks into the same ContractRiskResult
 // the browser scorer produces.
 //
-// WHY: contract_risk_cache (migration 112) already evaluates all 12 checks for
+// WHY: contract_risk_cache (migration 112) already evaluates all 13 checks for
 // every contract, and /api/db/table ships the result on every row
 // (riskCri / riskGrade / riskFired / riskAvailable / riskFiredMask /
 // riskAvailableMask — functions/db_table.js). The browser was nevertheless
@@ -31,7 +31,7 @@ import {
 } from "@/data/procurement/computeProcurementRisk";
 
 /**
- * Bit positions, verbatim from 112_contract_risk_cache.sql:90-96.
+ * Bit positions, verbatim from 112_contract_risk_cache.sql.
  *
  * ⚠️ "This ORDER IS A CONTRACT with every reader — append new checks at the end,
  * never renumber, or historic masks silently re-map." The SQL side decodes the
@@ -55,6 +55,7 @@ export const RISK_MASK_BITS: readonly RiskComponentKey[] = [
   "weakCompetition", // 9
   "directAward", // 10
   "shortTenderPeriod", // 11
+  "nkidMismatch", // 12
 ] as const;
 
 /** The row fields the decoder needs. A structural subset of the `contracts`
@@ -126,6 +127,11 @@ export const contractRiskFromMasks = (
   flags.directAward = isFired("directAward");
   flags.appealUpheld = isFired("appealUpheld");
   flags.shortTenderPeriod = isFired("shortTenderPeriod");
+  // nkidMismatch: the mask carries only the bit. nkidDivision (the declared NACE
+  // for the tooltip) is not on the row, so it stays null here and the chip renders
+  // with the generic hint; the code arrives with the per-contract fetch, same as
+  // debarred/concentration detail.
+  flags.nkidMismatch = isFired("nkidMismatch");
 
   // debarred / awarderConcentration / splitPurchase are deliberately NOT set.
   // They are object-valued because the tooltip renders their contents (debarment
