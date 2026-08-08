@@ -357,3 +357,8 @@ cloud-sql-proxy
 
 # One-shot shard backup taken by dedup_stale_base_keys.ts --apply (993MB).
 data/procurement/.contracts_backup_*
+
+# TTS bake-off output (docs/plans/explainer-video-v1.md, phase 0) — MP3 clips +
+# the blind compare page, regenerable with `npm run video:bakeoff`. The passage
+# itself is committed source (scripts/video/passage.ts); the audio is not.
+/raw_data/video/

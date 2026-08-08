@@ -17,7 +17,7 @@ paying twice:
 | Asset | Where | Why it matters for video |
 |---|---|---|
 | Card renderer + brand palette | `scripts/posts/cardKit.ts` | Navy `#0b1224` / coral `#df6b43` theme, wordmark, bar/line/table renderers — already tuned for Cyrillic. A video frame is the same design problem at 1920×1080×30. |
-| Live-page screenshotting | `scripts/capture-*.mjs` (6 files, Playwright, 2× DPI, clip-by-heading) | Already the way article images are made. The same code records the real dashboard as video frames. |
+| Live-page screenshotting | `scripts/capture-*.mjs` (7 files, Playwright, 2× DPI, clip-by-heading) | Already the way article images are made. The same code records the real dashboard as video frames. |
 | The post skill's discipline | `.claude/skills/naiasno-post/SKILL.md` (312 lines) | Grounding gate, dup-check, non-partisan/no-emoji rules, draft-never-publish, `post_tool.ts save`. The video skill should be this skill's sibling, not a new invention. |
 | The GCS bucket | `gs://data-electionsbg-com` (`scripts/bucket_sync_paths.ts`) | Somewhere to put MP4s that is **not** `dist/`. See §4 — this is load-bearing. |
 
@@ -67,15 +67,89 @@ being true.
 explainer script is ~2,600 characters. That is **~380 free videos a month** before
 a cent is spent. Cost is not a factor in this decision — quality is.
 
+*(Pricing above is from a third-party summary; Google's own pricing page truncated
+on fetch. Confirm the $30/1M rate and the 1M free allowance in the Cloud console
+before relying on the number. It does not change the recommendation — Chirp 3 HD
+would still win at 3× that price.)*
+
+### Chirp 3 HD's Bulgarian is more limited than its voice count suggests
+
+Verified against Google's own Chirp 3 HD page. Two capability tables list locale
+exclusions, and **`bg-bg` is in both**:
+
+- **No pause control.** The `[pause]` / `[pause short]` / `[pause long]` markup is
+  unsupported for `bg-bg` (excluded alongside cs, el, et, he, hr, hu, lt, lv, pa,
+  ro, sk, sl, sr, yue).
+- **No custom pronunciations.** `bg-bg` is excluded there too (a longer list of 27
+  locales). There is **no phoneme override** for Bulgarian.
+
+Plus the model-wide limits: SSML support is a restricted tag subset on synchronous
+requests only (nothing on streaming). `speaking_rate` (0.25×–2×) *is* available for
+all locales, so global pacing is controllable.
+
+Three consequences, all of which tighten the design rather than break it:
+
+1. **Per-scene synthesis is mandatory, not merely convenient.** Since the API
+   cannot insert a pause in Bulgarian, every pause must come from the *edit* —
+   scene boundaries and inserted silence. §5's per-scene approach was already the
+   plan; this removes the alternative.
+2. **The "spell numbers out" fix is now the only lever, not one of several.**
+   There is no `<phoneme>` fallback for Bulgarian, so orthographic rewriting in the
+   script is the sole way to correct anything the model says wrong.
+3. **The bake-off must test the hard cases, not a generic paragraph** (below).
+
 ### Decide by bake-off, not by table
 
-Bulgarian TTS quality claims are unverifiable from documentation. The only honest
-method: synthesize **one identical paragraph** — one containing money, a percent,
-a year and an institution name — across Chirp 3 HD (3–4 voice picks), Azure Kalina
-+ Borislav, and ElevenLabs v3, and listen. Budget: under $1 and one afternoon.
-This should be the **first** thing built, and it should be a committed script
-(`scripts/video/tts_bakeoff.ts`) so the test is repeatable when a provider ships
-a new model.
+Bulgarian TTS quality claims are unverifiable from documentation. Synthesize **one
+identical passage** across Chirp 3 HD (3–4 voice picks), Azure Kalina + Borislav,
+and ElevenLabs v3, and listen.
+
+Because Bulgarian has no pronunciation override, the passage must be built from the
+things that have **no fix if they come out wrong** — not a generic sentence:
+
+- **Institution acronyms:** АОП, НЗОК, ЦАИС ЕОП, ДФЗ, КЗК, ЕИК, ДЗИ, НВО.
+- **Hard place names** from real posts: Ружинци, Неделино, Крушари, Малко Търново, Самуил, Безмер.
+- **Money in euro, decimal comma:** 6,79 €/глас · 4,23 млн. евро · €1,2 млрд.
+- **Percent with decimals and a year:** 43,4% · 2024 г. · 5,38.
+- **A digit string that must not be read as a number:** ЕИК 000695089.
+
+Budget: under $1 and one afternoon. Commit it as `scripts/video/tts_bakeoff.ts` so
+the test is repeatable when a provider ships a new model — and so the *same* passage
+can be sent to a human narrator for an apples-to-apples comparison (§2b).
+
+### 2b. The option the first draft of this plan missed: a human narrator
+
+This plan initially considered only synthetic voices. That was a gap, and at this
+volume the omission is not obviously the right call.
+
+For a brand whose entire proposition is credibility and whose stated voice is
+"let the number be the point", a real Bulgarian narrator is the reference standard —
+and it dissolves every problem in §2 at once: no verbalization rules, no acronym
+mispronunciation, no missing pause control, no uncanny-valley risk on a serious
+subject.
+
+**Cost, honestly held:** general freelance narration runs roughly $50–500/hour
+depending on experience, and Bulgarian rates sit well below Western European ones
+(ERI puts the average Bulgarian voice actor at ~€17k/year). A 40-second short is
+plausibly **€15–40 per script**, so 8 shorts/month lands somewhere near
+**€120–320/month**. That figure is an estimate from thin public data, not a quote —
+**get two real quotes before treating it as fact.**
+
+**The real cost is not money, it is latency.** TTS turns a script into audio in
+seconds, so a finding can go from watcher report to published video the same day.
+A human introduces a turnaround of hours-to-days and a dependency on one person's
+availability, which kills the "post the thing that moved today" use case that makes
+this worth doing at all.
+
+**Recommendation:** treat it as a *tier*, not an either/or —
+
+- **TTS** for time-sensitive shorts, where same-day beats better-sounding.
+- **A human** for the long-form explainers (§5) and any evergreen pillar video,
+  where the piece has a long shelf life and the quality difference compounds.
+
+Put a human read of the bake-off passage next to the three synthetic ones. If the
+gap is small, TTS wins everywhere on latency alone; if it is large, you have learned
+that before building a pipeline around the wrong voice.
 
 ### The problem that will actually bite: Bulgarian number verbalization
 
@@ -316,8 +390,18 @@ New, and specific to video:
    verbalization of `onScreen`'s number. This is a genuinely new failure class:
    the card renderer can only be wrong once, but a video can say one figure while
    displaying another, and that is the single most damaging error this brand could
-   ship. Assert it mechanically where the mapping is derivable; require explicit
-   operator sign-off on the script otherwise.
+   ship.
+
+   **This cannot be fully automated, and the first draft of this plan over-claimed
+   that it could.** Once numbers are spelled out as Bulgarian words (§2) the two
+   sides are a digit string and a prose phrase — comparing them mechanically means
+   writing the Bulgarian number-verbalizer the spell-out approach exists to avoid.
+   So the gate is a **review gate with a machine assist**: extract every numeric
+   token from `onScreen` and every number-word span from `voiceOver`, print them
+   side by side per scene, and require explicit operator sign-off at gate 1. What
+   *is* fully mechanical: asserting `onScreen` matches its `grounding` path in
+   `data/`. Do that automatically; leave the spoken half to the human, and make the
+   diff small enough to be read in seconds.
 7. **Glyph check.** naiasno-post learned this the hard way: a missing glyph renders
    as a tofu box, silently, because nothing throws — and `→` is *not* in the card
    font. Same renderer family, same trap, now across ~900 frames instead of one
@@ -327,6 +411,51 @@ New, and specific to video:
    sidecar for the YouTube/on-site version.
 9. **Duration guard.** Refuse a short over ~60 s and an explainer over ~6 min
    rather than silently shipping something no one finishes.
+
+### The deliverables around the video, which are not optional
+
+The first draft of this plan stopped at "an MP4 exists". Four things ship with it,
+and two of them are free because the pipeline already holds the material:
+
+- **Thumbnail (1280×720).** On YouTube this is the single biggest lever on whether
+  anyone watches at all — plausibly more than the video's own content. `cardKit`
+  already renders the brand at 1080×1080; a 16:9 variant is a small addition to an
+  existing renderer, not new work. Auto-render one per video from the same spec.
+- **Transcript on the page.** It is the script — already written, already reviewed,
+  zero marginal cost. It gives accessibility, a text surface for the crawler that a
+  video embed does not provide, and it directly serves the known SEO discovery gap.
+  Render it under the embed.
+- **Captions, two forms.** Burned-in for social cuts (Facebook autoplays muted, so
+  an uncaptioned Bulgarian voice-over reaches nobody there); a `.vtt` sidecar for
+  YouTube and the on-site player, where burned-in text blocks translation and
+  looks worse.
+- **Registry + cross-link.** `brand/videos/index.json`, mirroring
+  `brand/posts/index.json` (46 entries today). A finding that yields both a card
+  and a video should carry each other's slug, so the pair can be published together
+  and neither is later mistaken for a duplicate of the other.
+
+### Aspect ratios: two placements, not one
+
+The first draft said "9:16" as if social were one target. It is two:
+
+| Placement | Ratio | Note |
+|---|---|---|
+| FB / IG **Reels**, YouTube **Shorts** | 9:16 | Vertical, ≤60 s, burned-in captions |
+| FB **feed** | 1:1 or 4:5 | The feed is not Reels; a 9:16 posted to feed is letterboxed and reads as a repost |
+| YouTube, on-site embed | 16:9 | The long form |
+
+Remotion renders all three from one composition by parameterizing the canvas —
+provided the layout is authored responsively from the start. Retrofitting a
+fixed-width composition to a second ratio is the expensive version of this.
+
+### Language scope
+
+BG only for v1 — that is the user's stated requirement and it is the right call:
+the audience is Bulgarian and a second voice track doubles every step of the
+pipeline. If EN is ever wanted, the cheap path is an **English `.vtt` on the same
+video**, not a second narration. The site's EN articles already exist as the
+translation source. Decide this once and write it down, so it does not get
+re-litigated per video.
 
 ### Caption timing
 
@@ -388,15 +517,26 @@ Ordered by how likely they are to cost you a weekend:
 
 ## 8. Recommended phasing
 
-**Phase 0 — decide the voice (½ day).** `scripts/video/tts_bakeoff.ts`: one BG
-paragraph containing money, a percent, a year and an institution, across Chirp 3 HD
-(3–4 voices), Azure Kalina + Borislav, and ElevenLabs v3. Listen. Pick. Commit the
-script so it is repeatable.
+**Phase 0 — decide the voice (½ day).** `scripts/video/tts_bakeoff.ts`: the
+hard-case passage from §2 (acronyms, hard place names, euro decimals, an ЕИК),
+across Chirp 3 HD (3–4 voices), Azure Kalina + Borislav, and ElevenLabs v3 — plus
+a human read of the same passage if a quote comes back in time (§2b). Listen. Pick.
+Commit the script so it is repeatable.
 
-**Phase 1 — one short, by hand (1–2 days).** Remotion project, `cardKit` palette
-ported to CSS tokens, 4 scenes, chosen TTS, burned BG captions. Render one video
-about a finding you have already posted. Prove the whole chain end to end before
-automating any of it.
+**Phase 1 — three shorts, by hand (2–3 days).** Not one. Remotion project,
+`cardKit` palette ported to CSS tokens, chosen voice, burned BG captions. Build the
+three topics in §9 — they are chosen to test three different unknowns, and one
+video cannot tell you whether the format works or whether that particular topic did.
+**Measure the render time** here; it is currently unmeasured and it constrains every
+later automation decision.
+
+**⛔ Decision gate — do not skip to phase 2 by default.** After three videos, with
+real numbers in hand: did they get watched? Was the per-video effort after the
+pipeline exists plausibly under an hour? Did the voice hold up? If shorts do not
+land, the correct outcome is to **stop here** — three hand-made videos cost a few
+days; a skill plus SEO wiring plus long-form is a couple of weeks, and this repo has
+a documented history of building the pipeline first and discovering the audience
+later. Write the answer down either way.
 
 **Phase 2 — the skill (2–3 days).** `.claude/skills/naiasno-video/SKILL.md` +
 `scripts/video/video_tool.ts` (`check` / `save`, mirroring `post_tool.ts`), the
@@ -415,10 +555,136 @@ command, never automatic.
 
 ---
 
+## 9. Test topics — the first three shorts
+
+Chosen from **already-published posts** (`brand/posts/index.json`, 46 entries), for
+one reason that saves a day each: their figures are already grounded in `data/` and
+already confirmed against a primary source. A test of the *video* pipeline should
+not also be a test of the research pipeline.
+
+Each tests a different unknown. Build all three before deciding anything.
+
+### T1 — «6,79 € за глас, и пак извън парламента» — the baseline
+
+- **Post:** `2026-08-02-cost-per-vote-april-2026` · link `/financing?elections=2026_04_19`
+- **Fact:** ИТН отчете 161 919 € разходи за 23 861 гласа (6,79 €/глас) и не влезе в
+  парламента; ПрБ отчете 0,58 €/глас и 131 мандата.
+- **Why first:** the simplest possible video that is still interesting — two
+  numbers, one comparison, understood in four seconds, and the arithmetic *is* the
+  story so it stays non-partisan without effort. Visual is two bars, which
+  `cardKit` already knows how to draw.
+- **Tests:** the end-to-end chain; euro-with-decimal-comma verbalization
+  («шест цяло седемдесет и девет евро на глас»); party acronyms (ИТН, ПрБ) with no
+  pronunciation override available.
+- **Format:** 9:16, ~35 s, 4 scenes.
+
+### T2 — «236 от 265 общини смениха победителя си» — the map
+
+- **Post:** `2026-07-31-municipalities-changed-winner` · link `/?elections=2026_04_19`
+- **Fact:** между октомври 2024 и април 2026 победителят се смени в 236 от 265
+  общини (89%); само 29 запазиха първата си партия.
+- **Why second:** one number, and the country map filling in municipality by
+  municipality is the most motion-native asset this site owns. A still card cannot
+  do it, so this is the first topic where video earns its cost instead of merely
+  matching a card.
+- **Tests:** whether an animated map is worth the build; whether a Playwright
+  capture of the live map beats a re-drawn Remotion one (build both, pick).
+- **Format:** 9:16, ~30 s, 3 scenes.
+
+### T3 — «Не сме първи по инфлация в ЕС» — the correction
+
+- **Post:** `2026-08-03-inflation-eu-rank` · link `/indicators/compare`
+- **Fact:** през юни 2026 Евростат отчита Румъния 9,2%, Литва 5,4%, България 5,2% —
+  България е трета в ЕС, при средно 2,9% за ЕС.
+- **Why third:** correcting a widely-held belief is the highest-retention hook
+  there is, and it is the format this brand can do that no one else in the market
+  can. Also exercises the EU-peer bar + flag components, which already exist.
+- **Tests:** whether the myth-correction hook outperforms the fact-delivery hook of
+  T1 — the one audience question worth answering early, since it determines how
+  every future topic gets framed.
+- **Format:** 9:16, ~40 s, 5 scenes.
+
+### Held back — and why it is worth saying out loud
+
+`2026-08-04-ruzhintsi-matura-nula-vzeli` (СУ „Никола Й. Вапцаров", с. Ружинци —
+среден успех 2,00 при 12 зрелостници) is the **best TTS stress test in the
+registry**: a hard place name, a school name with an initial, and a decimal grade,
+all unfixable if mispronounced since `bg-bg` has no pronunciation override.
+
+Put that text in the **phase-0 bake-off passage**, where it is exactly the right
+input. Do not make it one of the first videos. It names a single identifiable school
+and its result belongs to twelve named-in-principle minors; a video travels further
+and lands harder than the card did, and that is an editorial call to make
+deliberately rather than inherit from "the post already exists". The card was a
+defensible publication; the video is a different decision, not the same one at a
+larger size.
+
+### First long-form, when phase 4 arrives
+
+`public/articles/2026-06-20-following-public-money-bg.md` (2,979 words) → a ~3-minute
+"how to follow public money on Наясно". It is a **product** explainer, so its factual
+risk is far lower than an analysis piece, it is evergreen, it is the natural landing
+page for the SEO discovery gap, and `scripts/capture-procurement-shots.mjs` already
+captures most of its visuals.
+
+---
+
+## 10. Audit log — what this review changed (2026-08-08)
+
+Full re-check of v1 against primary sources. Findings, by severity:
+
+**Material — changed a recommendation:**
+
+1. **Chirp 3 HD has no pause control and no custom pronunciation for `bg-bg`.**
+   Verified verbatim in both of Google's locale-exclusion lists. v1 recommended
+   Chirp 3 HD without checking its Bulgarian *capability* surface, only its voice
+   *count*. Recommendation stands, but per-scene synthesis is now mandatory rather
+   than preferred, orthographic rewriting is the only correction lever, and the
+   bake-off passage is now specified as hard cases rather than a generic paragraph.
+2. **A human narrator was never considered.** The whole of §2 evaluated synthetic
+   voices only. Added as §2b with a tiering recommendation (TTS for time-sensitive
+   shorts, human for evergreen long-form) and an honest flag that the cost estimate
+   comes from thin data and needs two real quotes.
+
+**Over-claim, walked back:**
+
+3. **"Spoken ≡ shown" was described as mechanically assertable.** It is not — once
+   numbers are spelled out as Bulgarian words, checking them mechanically requires
+   the very verbalizer the design avoids. Downgraded to a review gate with a
+   machine-printed diff; the `onScreen`-vs-`data/` half stays fully automatic.
+
+**Gaps — added:**
+
+4. Thumbnails (1280×720 from `cardKit`), on-page transcript, two caption forms,
+   `brand/videos/index.json` + post↔video cross-link.
+5. FB feed (1:1 / 4:5) is a different placement from Reels (9:16); v1 said "9:16"
+   as though social were one target. Costly to retrofit, cheap to author for.
+6. EN scope stated explicitly (BG only; subtitles, never a second VO).
+7. A **decision gate after phase 1**, and phase 1 widened from one video to three.
+   v1 flowed from "one short by hand" straight into building the skill regardless
+   of the result, which is the failure mode this repo already has history with.
+8. Render time assigned to phase 1 rather than left as an unowned risk.
+
+**Corrections:**
+
+9. `scripts/capture-*.mjs` is **7** files, not 6.
+10. The Google TTS price came from a third-party summary (the official page
+    truncated on fetch); flagged inline as needing console confirmation.
+
+**Checked and unchanged:** Azure's two bg-BG voices; Google's 30 Chirp 3 HD bg-BG
+voices; Remotion's free license at ≤3 employees with free local rendering; YouTube's
+1,600-unit upload cost against a 10,000/day default; the `dist/` file-count hazard;
+`VideoObject` / video-sitemap guidance. `scripts/prerender/jsonLd.ts` exists and is
+confirmed as the right home for the schema work in phase 3.
+
+---
+
 ## Sources
 
 - [Azure Speech language & voice support](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts) — bg-BG: Kalina + Borislav only, no HD/multilingual/styles
 - [Google Cloud TTS voice list](https://docs.cloud.google.com/text-to-speech/docs/list-voices-and-types) — bg-BG: 30 Chirp 3 HD + 1 Standard
+- [Chirp 3 HD voices](https://docs.cloud.google.com/text-to-speech/docs/chirp3-hd) — **`bg-bg` excluded from BOTH pause control and custom pronunciations**; SSML is a restricted subset, synchronous only; `speaking_rate` 0.25×–2× all locales
+- [Bulgarian voice actor pay (ERI)](https://www.salaryexpert.com/salary/job/voice-actor/bulgaria) · [freelance VO rates](https://www.sidestackers.com/rates/voice-over-artist) — thin data; get real quotes
 - [Google Cloud TTS pricing](https://cloud.google.com/text-to-speech/pricing) · [pricing breakdown](https://texttolab.com/blog/google-cloud-tts-pricing) — Chirp 3 HD $30/1M chars, 1M/mo free
 - [ElevenLabs models](https://elevenlabs.io/docs/overview/models) · [languages](https://help.elevenlabs.io/hc/en-us/articles/13313366263441-What-languages-do-you-support) · [v3 review](https://inworld.ai/resources/elevenlabs-v3-review) · [pricing](https://flexprice.io/blog/elevenlabs-pricing-breakdown)
 - [Remotion licensing](https://www.remotion.dev/docs/license/pricing) · [terms](https://www.remotion.dev/docs/license/terms) · [license FAQ](https://www.remotion.dev/docs/license/faq)

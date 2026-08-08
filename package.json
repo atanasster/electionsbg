@@ -246,7 +246,8 @@
     "prices:catalog": "NODE_OPTIONS=--max-old-space-size=4096 tsx ./scripts/prices/rebuild_catalog.ts",
     "prices:payloads": "NODE_OPTIONS=--max-old-space-size=8192 tsx ./scripts/prices/build_payloads.ts",
     "prices:slugs": "tsx ./scripts/prices/export_slugs.ts",
-    "prices:product-days": "NODE_OPTIONS=--max-old-space-size=4096 tsx ./scripts/prices/build_product_days.ts"
+    "prices:product-days": "NODE_OPTIONS=--max-old-space-size=4096 tsx ./scripts/prices/build_product_days.ts",
+    "video:bakeoff": "tsx scripts/video/tts_bakeoff.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
