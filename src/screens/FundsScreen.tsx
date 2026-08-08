@@ -9,15 +9,12 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
-  AlertTriangle,
   Banknote,
   Building2,
   Coins,
   ExternalLink,
   Gauge,
   Layers,
-  Map,
-  PiggyBank,
   ShieldAlert,
   Users,
 } from "lucide-react";
@@ -38,6 +35,7 @@ import { FundsFocusTile } from "./funds/FundsFocusTile";
 import { RrfTeaserTile } from "./funds/RrfTeaserTile";
 import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
 import { InterregTile } from "./funds/InterregTile";
+import { FundsFinder } from "./funds/FundsFinder";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -227,6 +225,13 @@ export const FundsScreen: FC = () => {
             "Every organisation that has signed an EU-funds contract recorded in ИСУН 2020 — the 2014-2020 and 2021-2027 programmes plus the Recovery Plan."}
         </p>
 
+        {/* LOOK-UP BEFORE READ. The finder sits above the KPI strip deliberately: most
+            arrivals want to find a thing (their company, their town, a contract), and an
+            aggregate is a destination you reach AFTER the look-up, not an entry point. The
+            KPI strip below used to be the first thing on the page — that ordering is what
+            docs/plans/funds-module-v2.md §5.2 calls out as analysis-first. */}
+        <FundsFinder className="mb-4" />
+
         {/* HERO: 4 clickable KPI cards then the choropleth map. */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <KpiLink
@@ -351,55 +356,60 @@ export const FundsScreen: FC = () => {
           />
         </div>
 
-        {/* Spending: absorption + money flow. */}
+        {/* BAND ORDER — look-up, then checks, then analysis.
+            Bands are named for the QUESTION they answer, not „Разгледай"/„Още": „Още"
+            announces only that the band above it mattered more, so everything under it reads
+            as offcuts (dashboard-hub skill §3). The previous order opened with absorption and
+            red flags — i.e. the analysis nobody asked for above the look-up everybody did.
+            See docs/plans/funds-module-v2.md §5.2. */}
+
+        {/* BAND 3 — „Кой получи парите". The look-up band: who the recipients are, which
+            programmes carry the money, and where it lands. */}
         {projectsIndex ? (
           <DashboardSection
             id="funds"
-            title={t("funds_section_spending") || "Spending over time"}
-            icon={Gauge}
+            title={t("funds_band_recipients") || "Кой получи парите"}
+            subtitle={
+              t("funds_band_recipients_sub") ||
+              "Най-големите получатели, програмите и разпределението по места."
+            }
+            icon={Layers}
           >
-            <div id="absorption" className="scroll-mt-20">
-              <AbsorptionByPeriodTile />
+            <div id="top-beneficiaries" className="scroll-mt-20">
+              <TopBeneficiariesCard rows={index.topByContracted} />
             </div>
-            <div id="money-flow" className="scroll-mt-20">
-              <FundsSankeyTile />
+            <TopProgramsTile index={projectsIndex} />
+            <div className="grid gap-4 xl:grid-cols-2">
+              <ProjectsStatusMixTile index={projectsIndex} />
+              <GeographyMixTile index={projectsIndex} />
             </div>
           </DashboardSection>
         ) : null}
 
-        {/* Recovery Plan — its own section because it's a separate envelope. */}
-        <DashboardSection
-          id="finances"
-          title={t("funds_section_rrf") || "Recovery & Resilience Plan"}
-          icon={PiggyBank}
-        >
-          <RrfTeaserTile />
-        </DashboardSection>
-
-        {/* Red flags — political-economy + concentration. */}
+        {/* BAND 4 — „Проверки и връзки". Signals and cross-corpus links. Every item here is
+            a СИГНАЛ, not a finding — see the tiles' own captions. */}
         <DashboardSection
           id="funds"
-          title={t("funds_section_red_flags") || "Red flags"}
+          title={t("funds_band_checks") || "Проверки и връзки"}
+          subtitle={
+            t("funds_band_checks_sub") ||
+            "Сигнали за проверка, връзки с политици и пресичане с обществените поръчки."
+          }
           icon={ShieldAlert}
         >
           <div className="grid gap-4 xl:grid-cols-2">
             <PoliticalConflictsTile />
             <IntegrityTeaserTile />
           </div>
-        </DashboardSection>
-
-        {/* Editorial focus stories. */}
-        <DashboardSection
-          id="funds"
-          title={t("funds_section_focus") || "Focus stories"}
-          icon={AlertTriangle}
-        >
           <FundsFocusTile />
+          <RrfTeaserTile />
         </DashboardSection>
 
-        {/* Cross-corpus: firms that both won ЗОП contracts and drew EU grants.
-            Independent of projectsIndex (its own DB hook), so it renders even if
-            the projects index is still loading. */}
+        {/* Dual-corpus keeps its OWN heading rather than being folded into the band above.
+            DualCorpusLeaderboardTile renders no CardTitle of its own, so the section header is
+            its only label — without it the table reads as an unexplained list of companies, and
+            the one thing a reader must know is what the two columns are (ЗОП contracts vs EU
+            grants). Merging it into the band cost exactly that caption. */}
         <DashboardSection
           id="funds"
           title={t("dual_corpus_title") || "Договори и грантове"}
@@ -412,38 +422,32 @@ export const FundsScreen: FC = () => {
           <DualCorpusLeaderboardTile />
         </DashboardSection>
 
-        {/* Interreg — the corpus ИСУН does not hold at all. It sits in its own
-            section rather than inside the ИСУН tiles above precisely because it
-            is a different source with a different grain: an operation is
-            cross-border and the money shown is the BULGARIAN partner's share of
-            it, never the project total. Self-suppresses when the corpus is
-            absent (a database before migration 137). */}
+        {/* Interreg — the corpus ИСУН does not hold at all. It sits in its own section rather
+            than inside the ИСУН tiles above precisely because it is a different source with a
+            different grain: an operation is cross-border and the money shown is the BULGARIAN
+            partner's share of it, never the project total. keep.eu publishes these titles in
+            English only. Self-suppresses when the corpus is absent (a database before
+            migration 137). */}
         <InterregTile />
 
-        {/* Leaderboards — top beneficiaries + top programmes side by side. */}
+        {/* Analysis last — a dashboard is where you arrive after the look-up. */}
         {projectsIndex ? (
           <DashboardSection
             id="funds"
-            title={t("funds_section_leaderboards") || "Leaderboards"}
-            icon={Layers}
+            title={
+              t("funds_band_absorption") || "Усвояване и движение на парите"
+            }
+            subtitle={
+              t("funds_band_absorption_sub") ||
+              "Колко от договореното е реално изплатено и по какъв път стига до получателя."
+            }
+            icon={Gauge}
           >
-            <div id="top-beneficiaries" className="scroll-mt-20">
-              <TopBeneficiariesCard rows={index.topByContracted} />
+            <div id="absorption" className="scroll-mt-20">
+              <AbsorptionByPeriodTile />
             </div>
-            <TopProgramsTile index={projectsIndex} />
-          </DashboardSection>
-        ) : null}
-
-        {/* Details: status + geography mix (kept low because they're niche). */}
-        {projectsIndex ? (
-          <DashboardSection
-            id="funds"
-            title={t("funds_section_details") || "Details"}
-            icon={Map}
-          >
-            <div className="grid gap-4 xl:grid-cols-2">
-              <ProjectsStatusMixTile index={projectsIndex} />
-              <GeographyMixTile index={projectsIndex} />
+            <div id="money-flow" className="scroll-mt-20">
+              <FundsSankeyTile />
             </div>
           </DashboardSection>
         ) : null}
