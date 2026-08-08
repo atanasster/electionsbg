@@ -85,30 +85,69 @@ export type PersonProfile = {
   aliases: string[];
 };
 
-// Fetch a person profile by slug (or a unique folded name). `undefined` = loading,
-// `null` = miss (unknown / review-status / private).
-export const usePersonProfile = (
-  key: string,
-): PersonProfile | null | undefined => {
-  const [profile, setProfile] = useState<PersonProfile | null | undefined>(
-    undefined,
-  );
+/** The four states a profile lookup can be in. `missing` and `failed` are DELIBERATELY
+ *  distinct, and conflating them is what this type exists to prevent.
+ *
+ *  The bug it closes: the hook used to map every rejection to `null`, so a 500, a dropped
+ *  connection or a non-JSON body was indistinguishable from "no such person" — and
+ *  PersonProfileScreen answers `null` with the name-keyed portfolio fallback, which calls
+ *  useNoindex(). One blip on /api/db/person-profile while Googlebot was rendering therefore
+ *  de-indexed a perfectly good prerendered person page until the next recrawl, with nothing
+ *  failing anywhere. That endpoint is documented in CLAUDE.md as having 500'd on prod (a
+ *  point lookup full-scanning `person`, fixed in 082), and Google reported the resulting
+ *  noindex on pages that resolve fine today.
+ *
+ *  A failed lookup must therefore never reach a noindex branch: unknown is a fact about the
+ *  person, failed is a fact about the request. */
+export type PersonProfileState =
+  | { status: "loading" }
+  | { status: "ok"; profile: PersonProfile }
+  | { status: "missing" }
+  | { status: "failed" };
+
+// Fetch a person profile by slug (or a unique folded name), distinguishing a miss from a
+// failed lookup. An empty key is a `missing` — there is nothing to ask for.
+export const usePersonProfileState = (key: string): PersonProfileState => {
+  const [state, setState] = useState<PersonProfileState>({ status: "loading" });
   useEffect(() => {
     let live = true;
-    setProfile(undefined);
+    setState({ status: "loading" });
     if (!key) {
-      setProfile(null);
+      setState({ status: "missing" });
       return;
     }
     fetch(`/api/db/person-profile?slug=${encodeURIComponent(key)}`)
-      .then((r) => r.json())
-      .then((j: PersonProfile | null) => {
-        if (live) setProfile(j && j.slug ? j : null);
+      .then((r) => {
+        // A non-2xx is a failed lookup, not an answer. Without this the route's error body
+        // parses as JSON, yields no `slug`, and reads as "no such person".
+        if (!r.ok) throw new Error(`person-profile ${r.status}`);
+        return r.json();
       })
-      .catch(() => live && setProfile(null));
+      .then((j: PersonProfile | null) => {
+        if (!live) return;
+        // A 200 with a null/slugless body IS the route's way of saying "nobody" — that one
+        // is a genuine miss.
+        setState(
+          j && j.slug ? { status: "ok", profile: j } : { status: "missing" },
+        );
+      })
+      .catch(() => live && setState({ status: "failed" }));
     return () => {
       live = false;
     };
   }, [key]);
-  return profile;
+  return state;
+};
+
+// The original tri-state view, kept for the callers that cannot act on the difference:
+// `undefined` = loading, `null` = miss. A failed lookup reads as a miss here, which is safe
+// only because none of these callers noindex on it — CandidateScreen and
+// CandidateProfileHeader just omit the person block, and PersonContractsScreen falls back to
+// filtering by name. The screen that DOES noindex uses usePersonProfileState above.
+export const usePersonProfile = (
+  key: string,
+): PersonProfile | null | undefined => {
+  const state = usePersonProfileState(key);
+  if (state.status === "loading") return undefined;
+  return state.status === "ok" ? state.profile : null;
 };

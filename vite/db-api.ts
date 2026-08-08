@@ -22,6 +22,13 @@ import {
   officialsPath,
   NOT_FOUND_HTML,
 } from "../functions/officials_redirect.js";
+// Same again for the /person retired-slug 301. In production an `/person/*` hosting rewrite
+// hands this to the Cloud Function; the dev server has no rewrite layer, so the middleware
+// below mounts the same parser against the same SQL.
+import {
+  personPath,
+  RETIRED_TARGET_SQL,
+} from "../functions/person_redirect.js";
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
@@ -103,6 +110,34 @@ export const dbApi = (): Plugin => ({
         },
         // A dev database that has never had 106 applied should show the SPA, not a wall —
         // OfficialProfileScreen still exists until it is deleted alongside the rewrite.
+        () => next(),
+      );
+    });
+
+    // /person/<retired-slug> -> /person/<current-slug>, 301. Production reaches this through
+    // the `/person/*` rewrite; here it is middleware for the same reason as above.
+    //
+    // Every non-redirect path calls next() and lets Vite serve the SPA — the dev-server
+    // equivalent of the Cloud Function's "hand back the shell", and the reason this cannot
+    // 404: a current slug, a legacy name link and a dead slug all still have to render.
+    server.middlewares.use((req, res, next) => {
+      const url = new URL(req.url ?? "/", "http://localhost");
+      const hit = personPath(url.pathname);
+      if (!hit || !hit.slug) return next();
+      allRows<{ slug: string | null }>(RETIRED_TARGET_SQL, [hit.slug]).then(
+        (rows) => {
+          const target = rows[0]?.slug;
+          if (!target) return next();
+          res.statusCode = 301;
+          // Query string carried over: ?elections= is real cross-page state, ?utm_* is
+          // attribution.
+          res.setHeader(
+            "Location",
+            `${hit.prefix}/person/${target}${url.search}`,
+          );
+          res.end();
+        },
+        // A dev database with no person_slug_retired table just shows the SPA.
         () => next(),
       );
     });

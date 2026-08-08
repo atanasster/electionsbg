@@ -10,7 +10,7 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PersonProfile, usePersonProfile } from "./usePersonProfile";
+import { PersonProfile, usePersonProfileState } from "./usePersonProfile";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
@@ -601,13 +601,45 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   );
 };
 
+// A lookup that FAILED — not a person who does not exist. Deliberately does NOT call
+// useNoindex: the URL may well be a healthy, prerendered, indexable profile whose one API
+// call happened to fall over, and answering a transient 500 by telling the crawler to drop
+// the page is the failure this branch exists to prevent. The prerendered HTML already
+// carries `index, follow`; leaving it untouched is the whole fix.
+const PersonProfileUnavailable: FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-16 text-center">
+      {/* No `t(key) || "fallback"` here: i18next renders the KEY when a string is missing,
+          and a key is truthy, so that idiom never falls back — it just ships the identifier.
+          The keys live in both bundles and src/locales/parity.test.ts holds them there. */}
+      <h1 className="text-xl font-semibold">
+        {t("person_profile_unavailable")}
+      </h1>
+      <p className="text-muted-foreground mt-3">
+        {t("person_profile_unavailable_hint")}
+      </p>
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        className="bg-primary text-primary-foreground mt-6 rounded-md px-4 py-2 text-sm"
+      >
+        {t("person_profile_retry")}
+      </button>
+    </div>
+  );
+};
+
 export const PersonProfileScreen: FC = () => {
   const { name } = useParams<{ name: string }>();
-  const profile = usePersonProfile(name ?? "");
+  const state = usePersonProfileState(name ?? "");
 
-  if (profile === undefined) return null;
+  if (state.status === "loading") return null;
+  // A failed lookup is NOT a miss. Routing it to PersonScreen below would noindex the page
+  // — see the PersonProfileState docblock for the outage that caused.
+  if (state.status === "failed") return <PersonProfileUnavailable />;
   // Legacy name-keyed links (magistrate holdings, connection checks, associates) fall
   // through to the portfolio dashboard so nothing breaks.
-  if (profile === null) return <PersonScreen />;
-  return <PersonDashboard p={profile} />;
+  if (state.status === "missing") return <PersonScreen />;
+  return <PersonDashboard p={state.profile} />;
 };

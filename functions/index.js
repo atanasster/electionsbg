@@ -25,10 +25,15 @@ const { runDbTable, runDbFacets } = require("./db_table.js");
 const { sendJson } = require("./send_json.js");
 const { handleOfficialsRequest } = require("./officials_redirect.js");
 const {
+  handlePersonRequest,
+  RETIRED_TARGET_SQL,
+} = require("./person_redirect.js");
+const {
   handleSpaPageRequest,
   contractPage,
   companyPage,
   interregPage,
+  FALLBACK_SHELL,
 } = require("./spa_page.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
@@ -517,6 +522,16 @@ const resolveOfficialsTarget = async (pool, slug) => {
   return (rows[0] && rows[0].slug) || null;
 };
 
+/** One indexed lookup: a RETIRED person slug -> the slug that replaced it, or null.
+ *  Plain SQL rather than a serving function on purpose — person_slug_retired is a two-column
+ *  table with a PK, and a new SQL function would need its own "applied, never loaded" step on
+ *  Cloud SQL (CLAUDE.md) for no gain. Shared with vite/db-api.ts via RETIRED_TARGET_SQL so the
+ *  dev server and the Cloud Function cannot answer differently. */
+const resolveRetiredPersonTarget = async (pool, slug) => {
+  const { rows } = await pool.query(RETIRED_TARGET_SQL, [slug]);
+  return (rows[0] && rows[0].slug) || null;
+};
+
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
@@ -564,6 +579,43 @@ const makeDb = () => {
       } catch (e) {
         console.error("officials redirect error", e);
         return res.status(500).type("text/plain").send("redirect error");
+      }
+
+      // ---- /person/<retired-slug> -> /person/<current-slug>, 301 -------------------
+      //
+      // Ahead of the API gates for exactly the reasons the officials block lists: these
+      // are PAGE urls, and the origin allowlist / GET-only / per-IP limit are all wrong
+      // for a browser navigation — and a 429 instead of a 301 to a crawler sweeping the
+      // 23,916 retired URLs would keep every one of them in the index.
+      //
+      // Unlike officials this branch owns EVERY /person url the rewrite reaches, because
+      // nothing downstream can serve one. Non-retired slugs get the SPA shell, which is
+      // what hosting returned for them before the rewrite existed.
+      try {
+        const handled = await handlePersonRequest(req, res, {
+          resolve: async (slug) =>
+            resolveRetiredPersonTarget(
+              await getDbPool(DB_PASSWORD.value()),
+              slug,
+            ),
+          // The shell fetch is the one dependency that can fail on a healthy database, and
+          // a person URL that already works must not start 500ing because of it. Degrade
+          // to the static fallback shell: the SPA still boots and renders the profile.
+          loadShell: () => loadSpaShell().catch(() => FALLBACK_SHELL),
+        });
+        if (handled) return;
+      } catch (e) {
+        // A DB failure means we cannot tell "retired" from "current". Serving the shell is
+        // the safe answer — a current slug renders normally, and a retired one is no worse
+        // off than it was before this branch existed. A 500 would break both.
+        console.error("person redirect error", e);
+        if (!res.headersSent) {
+          return res
+            .status(200)
+            .type("text/html; charset=utf-8")
+            .send(await loadSpaShell().catch(() => FALLBACK_SHELL));
+        }
+        return;
       }
 
       // ---- /funds/contract/<n> and /company/<eik>: server-rendered head + body -----

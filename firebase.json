@@ -152,6 +152,20 @@
           }
         },
         {
+          "source": "/person/*",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/en/person/*",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
           "source": "/en/**",
           "destination": "/en/index.html"
         },
@@ -292,6 +306,24 @@
         },
         {
           "source": "/en/officials/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/person/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/en/person/**",
           "headers": [
             {
               "key": "Cache-Control",
