@@ -107,7 +107,25 @@ RETURNS TABLE (
   amount_eur double precision
 )
 LANGUAGE sql STABLE AS $$
-  WITH cutoff AS (SELECT now() - make_interval(days => days) AS ts),
+  -- NOT MATERIALIZED IS LOAD-BEARING, AND ITS ABSENCE IS WHY THE 0.15 s BELOW STOPPED
+  -- BEING TRUE. Postgres 12+ inlines a CTE referenced ONCE and MATERIALISES one referenced
+  -- several times; `cutoff` is referenced by five branches, so it was materialised. A
+  -- materialised CTE's value is opaque at plan time, so `changed_at >= cutoff.ts` could not
+  -- become an Index Cond on ANY branch — every one of them walked its whole index backwards
+  -- and applied the cutoff afterwards.
+  --
+  -- That cost NOTHING while the recent window was busy: the per-branch LIMIT filled from the
+  -- first few index entries and the walk stopped. It becomes catastrophic when the window is
+  -- QUIET, because a branch with fewer than `lim` qualifying rows never fills its limit and
+  -- walks to the end of the index. Measured 2026-08-08 at the route default (1, 200), which
+  -- matched 2 rows in total: ingest_first_seen emitted 17,795,799 rows, tr_companies
+  -- 1,020,707 and tr_officers 793,949 — for zero output each. 23.8 s locally and 166.9 s on
+  -- Cloud SQL, against a 10 s statement_timeout, so /api/db/recent was a hard 500.
+  --
+  -- Isolated: one reference 0.134 ms, two references 175 ms, two + NOT MATERIALIZED
+  -- 0.060 ms — same rows, same indexes. Do not remove it, and do not add a sixth reference
+  -- believing the count no longer matters.
+  WITH cutoff AS NOT MATERIALIZED (SELECT now() - make_interval(days => days) AS ts),
   -- The (source, day) pairs that render as ONE summary line instead of per-row.
   -- Two ways in:
   --   • the day's coalesced new-row total crossed the threshold (a cold load, a
