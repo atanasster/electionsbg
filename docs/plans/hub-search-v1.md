@@ -1,6 +1,21 @@
 # Hub search v1 — one finder per hub, and a shliokavitsa fold that reaches the server
 
-**Status:** plan, not started. 2026-08-08.
+**Status:** IMPLEMENTED 2026-08-08, T1–T5. Live on `/governance/declarations` and
+`/parliament`; migration 141 needs applying on Cloud SQL before the `deploy:db` that ships
+the routes (see §5 T1 and CLAUDE.md's "applied, never loaded" section).
+
+Three things the plan called for and the implementation deliberately did NOT do, each with
+its reason recorded in the commit that decided it:
+
+- **`ProcurementSearchTile` was not migrated onto `HubSearch`** (T2.6). It composes nine
+  groups with bespoke per-group rendering and two cross-referencing fetches; the duplication
+  the step existed to remove — a second copy of the query/arm/empty-state machinery — went
+  with `SectorEntitySearch` either way.
+- **The declarations hub has no officials group** (T3.8). Its content, its label and its
+  destination were three different sets, and `/officials/assets` does not read `?q`.
+- **The parliament hub's topics group has no "see all"** (T4.10). `SessionsIndexScreen`
+  reads only `?topic`, so `/votes?q=` is a dead end; nothing lists matching items across
+  days.
 
 A dashboard hub is a page whose entire job is to point somewhere else. Every hub today
 points with TILES only — a fixed set of curated destinations — so a reader who arrives

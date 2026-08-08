@@ -201,37 +201,55 @@ Tiles are a fixed set of curated destinations. A reader who arrives already know
 want („Желязков", „бюджет 2026", „моята болница") cannot say so — they have to guess which
 tile contains their subject. Give the hub one search box over its own subjects.
 
-Do NOT build a new one. `src/ux/search/EntitySearchTile.tsx` is the generic shell — card,
-combobox/listbox ARIA, keyboard nav, highlight, scroll-into-view, loading/empty states,
-per-group `seeAll`. Adapters exist for a client-side pre-folded index
-(`src/lib/entitySearchIndex.ts`) and for server-backed fetches. Plan:
-`docs/plans/hub-search-v1.md`.
+**Do NOT build a new one.** `src/ux/search/HubSearch.tsx` is the hub adapter: it takes a list
+of sources, each either a client-side `EntityIndex` (`src/lib/entitySearchIndex.ts`) or a
+server `fetch`, and renders them through `EntitySearchTile` — which owns the card, the
+combobox/listbox ARIA, keyboard nav, highlight and the empty states. Declare the sources in a
+`<topic>Search.ts` beside the tile registry. Plan: `docs/plans/hub-search-v1.md`.
 
-**SCOPE RANKS, IT NEVER FILTERS.** This is the rule that decides the shape. A hub has a
-selector (`?elections`, `?pscope`), and the tempting move is to restrict results to it — but
-a finder must find: „your hospital does not exist" is a far worse answer than „your hospital
-has no contracts in this window", and the destination page scopes itself anyway. So in-scope
-hits become the first group and out-of-scope hits a second, labeled one. Four consequences,
-each a way to reintroduce filtering by accident:
+Live on `/governance/declarations` and `/parliament`. `/procurement` and `/consumption` have
+their own older boxes (`ProcurementSearchTile`, `ConsumptionSearchTile`) — not yet on this
+adapter, because the first composes nine groups with bespoke per-group rendering. **Still
+with no finder at all: `/governance`, `/governance/sectors`, `/analysis`, `/indicators`,
+`/reports`.** Each is a hub whose reader can only arrive by guessing a tile.
 
-- **Each scoped source yields TWO groups.** Build the partition into the shared component,
-  or the second group is forgotten on the third hub that uses it.
-- **The cap is PER GROUP.** One shared cap lets the in-scope group eat the whole budget,
-  which is filtering with extra steps — the same failure `rankedFilter` documents, where
-  fold-matches early in source order pushed 17 real Вълчев entries out of view.
+**SCOPE RANKS, IT NEVER FILTERS.** A hub has a selector (`?elections`, `?pscope`), and the
+tempting move is to restrict results to it. A finder must find: „your hospital does not
+exist" is a far worse answer than „your hospital has no contracts in this window", and the
+destination page scopes itself anyway. So in-scope hits are the first group and out-of-scope
+hits a second, labelled one — `scopedSources()` mints the pair so a hub cannot declare one
+half and forget the other.
+
+**The two halves must be independent SOURCES, not one source plus a partition.** This is the
+part that looks like an implementation detail and is not. A partition applied to the rows
+that came back can only see an out-of-scope row if the ranked scan REACHED one — so with 240
+in-scope MPs ranked above 1,880 others, any cap that is a multiple of the display limit
+returns nothing but in-scope rows, the second group renders empty, and the box has silently
+become a filter. Each half needs its own corpus and its own cap. Server sources rank per
+group in SQL for the same reason; ranking once and splitting the result empties the narrower
+tier (measured: ZERO of a trailing week's rows appeared in a global top-200).
+
+Three more, each shipped once:
+
 - **Name the second group for the scope it is outside** („депутати от други НС"), never
-  „други" — same reason a band is never called „Още".
-- **Server sources rank in SQL, per group.** Ranking once and partitioning the result
-  silently empties the narrower tier: measured, ZERO of a trailing week's rows appeared in
-  a global top-200.
+  „други" — the same reason a band is never called „Още".
+- **A "see all" must land on a page that can serve the query.** `/votes?q=` is discarded by
+  a screen that reads only `?topic`; `/officials/assets?q=` is discarded entirely. Both
+  advertise a filtered destination and deliver an unfiltered one. Grep the destination for
+  the param before linking, and if no page can serve it, ship no see-all.
+- **A group's content, its label and its destination must be the same set.** A group built by
+  re-querying the group above it, labelled „Класация на длъжностните лица" and linking to an
+  `is_exec`-filtered page, was three different sets and one duplicated request per keystroke.
 
-**Shliokavitsa must work, and on the server it does not.** `src/lib/translitSearch.ts` folds
-Latin-typed Bulgarian („6umen", „4erven", „sofiq") client-side; `translit_bg_latin()` in
-Postgres is Streamlined-only. `pg_trgm` hides half of it — „Jelyazkov" finds Желязков on
-fuzzy tolerance alone, while „Jelqzkov" returns zero. And the client rule table is NOT
-portable as written: it targets an alphabet that has already collapsed `ch`→`h`, so `4 → "h"`
-is right in the browser and wrong in SQL. One table, one generator, one cross-implementation
-gate.
+**Shliokavitsa must work, and on the server it used to not.** `src/lib/shlyoRules.ts` is the
+one rule table; `translitSearch.ts` consumes the client half and `pg/141_shlyo_query_fold.sql`
+is GENERATED from it (`npm run gen:shlyo-sql`). A search route composes it with
+`translit_bg_latin()` on the QUERY side only, as a SECOND probe issued after the plain one —
+never ORed inline, because a database without 141 then raises 42883 for the whole statement
+and returns nothing at all. Two traps if you touch it: the client table has already collapsed
+`ch`→`h`, so `4 → "h"` is right in the browser and wrong in SQL; and the rewrite must be
+gated on an unambiguous Latin trigger, because `y → ъ` cannot tell a typed „y" from the one
+`translit_bg_latin` emits for й — ungated it fired on 13.6% of ordinary Cyrillic names.
 
 ## 5. Language
 
@@ -321,6 +339,9 @@ Not optional, and each exists because its absence shipped something:
 | Every figure recomputed from its declared basis | The six-of-six class |
 | Every written file appears in `--upload` | Green locally, stale on prod |
 | Calendar days formatted in UTC | Off-by-one dates |
+| A scoped source returns out-of-scope rows for a query that has them | Scope silently filtering — invisible, because the page still shows results |
+| Each search group's cap is independent | An in-scope group eating the out-of-scope budget |
+| Every see-all param is read by its destination | A link advertising a filtered page and delivering an unfiltered one |
 
 **Then check the gate can fail.** Break each clause and watch it fire. In this pattern's
 history: a gate asserted `max(id) >= count(*)`, true of any gap-free sequence — the very
