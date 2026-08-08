@@ -901,6 +901,42 @@ period and the plan needs revising before any schema lands.
 
 ---
 
+## 12b. What the measurement harness corrected, after the fact
+
+`scripts/funds/interreg/measure.ts` (T0.3) landed LAST rather than first — the
+tiers were built against the sampled figures in §3/§5/§6 and the harness was
+written at the end. That inversion is worth recording, because two of this
+document's stated facts turn out to be wrong at full scale, and both were
+sampled claims that a harness run at T0 would have caught before anything shipped:
+
+1. **§7's "keep.eu holds English only" is false.** It was measured on 107
+   projects, all of which lacked a `bg` translation. Across the full 1,954,
+   **272 (13.9%) publish a Bulgarian title**. The code was already right —
+   `titleBg ?? titleEn` everywhere — so nothing shipped broken; what shipped was
+   a comment justifying the fallback as the *only* case rather than the common
+   one, which is the kind of note that invites a later "simplification".
+
+2. **§3.1's Малко Търново table has FOUR rows; the corpus has FIVE.** The fifth
+   (`keepId 22474`, €168,208) is a partner keep.eu names in LATIN — "Malko
+   Tarnovo Municipality" — so the Cyrillic search that built the table could not
+   find it. That is the same blind spot that later made
+   `search_interreg_operations` need a `translit_bg_latin` arm, discovered twice
+   independently.
+
+Everything else re-derives: 1,954 operations / 12,141 partner rows / 1,493
+Bulgarian / €396,391,983; the period split (€281.7m vs €114.7m); the Tier L
+ceiling (0 of 1,080 vs 336 of 413); placement 98.4% in 2014-2020 and 98.3% in 2021-2027; and §6's
+movement, which the full corpus makes far larger than the 5.5% sample predicted —
+**213 of 256 ranked общини move, best gain +43 places**, against §6's estimate of
+10-18.
+
+`--source=corpus` needs no database and answers §1, §3.1, §5 and §7. §3.2 and §6
+are Postgres-only by design: the committed tree carries no EKATTE, because place
+resolution runs in the loader (§8), and §6 additionally needs `fund_payloads` as
+its ИСУН baseline.
+
+---
+
 ## 12. What the audit corrected in the first draft
 
 Recorded because each was a real defect, and because two of them would have shipped silently.
@@ -929,8 +965,12 @@ psql "postgres://postgres:postgres@localhost:5433/electionsbg" -c \
   "select count(*) from fund_projects where contract_number ~ '^(BSB|BGTR|ROBG|GRBG)';"
 ```
 ```bash
-# 2. T0 — measure the whole corpus before writing anything
-npx tsx scripts/funds/interreg/measure.ts --full
+# 2. Re-derive every figure in this document. READ-ONLY — no --apply, no write
+#    path, safe to point at production through the Cloud SQL proxy.
+npm run funds:measure-interreg                        # every section
+npm run funds:measure-interreg -- --source=corpus     # no database needed
+npm run funds:measure-interreg -- --ranking-delta     # §6 only
+npm run funds:measure-interreg -- --json              # machine-readable
 ```
 ```bash
 # 3. T1 — ingest
@@ -960,7 +1000,7 @@ psql "postgres://postgres:postgres@localhost:5433/electionsbg" -c \
 ```
 ```bash
 # 7. The ranking, before and after
-npx tsx scripts/funds/interreg/measure.ts --ranking-delta
+npm run funds:measure-interreg -- --ranking-delta
 ```
 ```bash
 # 8. Full gates

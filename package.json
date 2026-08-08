@@ -211,6 +211,7 @@
     "funds:ingest-projects": "tsx ./scripts/funds/projects_ingest.ts",
     "funds:crawl-interreg": "tsx ./scripts/funds/interreg/crawl.ts",
     "funds:ingest-interreg": "tsx ./scripts/funds/interreg/ingest.ts",
+    "funds:measure-interreg": "tsx ./scripts/funds/interreg/measure.ts",
     "funds:procedures": "tsx ./scripts/funds/procedures.ts",
     "funds:themes": "tsx ./scripts/funds/themes.ts",
     "funds:political-links": "tsx ./scripts/funds/political_links.ts",

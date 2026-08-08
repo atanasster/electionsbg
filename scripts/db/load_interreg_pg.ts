@@ -27,7 +27,7 @@
 // ships a `--programme` flag and refuses to write under it for the same reason;
 // this loader has no such flag at all, deliberately.
 
-import { readFileSync, existsSync } from "fs";
+import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { PoolClient } from "pg";
@@ -53,10 +53,10 @@ import {
 } from "../funds/interreg/resolve_place";
 import {
   isBulgarianPartner,
-  type InterregIndex,
   type InterregOperation,
   type InterregPartner,
 } from "../funds/interreg/types";
+import { readCorpus } from "../funds/interreg/corpus";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
@@ -77,7 +77,6 @@ const SCHEMA_FILES = [
   "138_interreg_serving.sql",
   "139_funds_muni_combined.sql",
 ];
-const CORPUS = path.join(ROOT, "data/funds/interreg");
 
 /** Below this the corpus is treated as damaged and nothing is written. Same
  *  discipline (and the same measured basis) as the ingest's own floors. */
@@ -206,28 +205,6 @@ const readPlaceDim = async (): Promise<Map<string, PlaceDimRow>> => {
       nuts3: r.nuts3,
     });
   return m;
-};
-
-const readCorpus = (): {
-  index: InterregIndex;
-  operations: InterregOperation[];
-  partners: InterregPartner[];
-} => {
-  for (const f of ["index.json", "operations.json", "partners.json"])
-    if (!existsSync(path.join(CORPUS, f)))
-      throw new Error(
-        `interreg: ${path.relative(ROOT, path.join(CORPUS, f))} is missing. ` +
-          `Run \`npm run funds:ingest-interreg\` first.`,
-      );
-  return {
-    index: JSON.parse(readFileSync(path.join(CORPUS, "index.json"), "utf8")),
-    operations: JSON.parse(
-      readFileSync(path.join(CORPUS, "operations.json"), "utf8"),
-    ),
-    partners: JSON.parse(
-      readFileSync(path.join(CORPUS, "partners.json"), "utf8"),
-    ),
-  };
 };
 
 /**
