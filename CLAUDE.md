@@ -602,6 +602,24 @@ those two tables and not merely on their existence. Re-run it after:
 - **`db:load:awarder-seats:pg:cloud`** — 158 placements;
 - **`db:load:tr-company-place:pg:cloud`** — 41 placements.
 
+**`place_dim` is a hard PREREQUISITE, not a trigger, and it is the one that bites on a
+first cloud deploy.** The loader reads it for the obshtina/oblast label on every placed row,
+including the `nuts3` column — so a database whose `place_dim` predates 117's `nuts3` fails
+with `42703 column "nuts3" does not exist` AFTER applying 137/138/139 and before writing a
+single row. Measured on the 2026-08-08 production deploy, which is exactly how this note
+came to exist: prod's `place_dim` had the right ROW COUNT (5,720, matching local) and the
+wrong columns, so a count-based preflight passed it.
+
+```bash
+npm run db:load:place-dim:pg:cloud   # BEFORE db:load:interreg:pg:cloud
+```
+
+Budget for it: the rows change, so its fingerprint check fires the refresh it guards and
+rebuilds `procurement_settlement_rank`, `procurement_geo_payloads` and
+`procurement_settlement_payloads` — 46 s locally, minutes on a db-g1-small, and a plain
+`REFRESH` takes an AccessExclusiveLock, so `/procurement/by-settlement` and every settlement
+page block for the duration.
+
 Skipping it after either crosswalk moves is the usual silent shape: the corpus keeps the
 previous placements at a 200. `refresh_coverage.test.ts` carries both as `ORDER_PAIRS`
 entries, which covers the local chain; nothing covers the cloud side.
