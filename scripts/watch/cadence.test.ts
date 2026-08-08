@@ -121,7 +121,7 @@ describe("SOURCES cadence vs. upstream publication", () => {
     // so nothing stops a NEW source shipping without one — which re-opens the
     // exact hole this file exists to close. Bump this upward as sources are
     // annotated; never downward.
-    const DECLARED_FLOOR = 11;
+    const DECLARED_FLOOR = 12;
     const declaredNow = SOURCES.filter((s) => s.publishes).length;
     expect(
       declaredNow,

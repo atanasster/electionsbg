@@ -18,6 +18,7 @@ import { kzkDecisions } from "./kzk_decisions";
 import { monRiRegister } from "./mon_ri_register";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
+import { keepEuInterreg } from "./keep_eu_interreg";
 import { dfzSubsidies } from "./dfz_subsidies";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { egovMunicipalExecution } from "./egov_municipal_execution";
@@ -145,6 +146,7 @@ export const SOURCES: WatchSource[] = [
   monRiRegister,
   isunEuFunds,
   isunEuFundsProjects,
+  keepEuInterreg,
   dfzSubsidies,
   egovBudgetExecution,
   egovMunicipalExecution,

@@ -425,6 +425,30 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "local"],
   },
   {
+    id: "keep_eu",
+    label: { bg: "keep.eu (INTERACT)", en: "keep.eu (INTERACT)" },
+    detail: {
+      bg: "трансгранични проекти по Interreg",
+      en: "Interreg cross-border projects",
+    },
+    desc: {
+      // Its own entry rather than a member of `isun`, because the whole point is
+      // that the two corpora are disjoint: Interreg runs on Jems, not on ИСУН,
+      // so no ИСУН query would ever return these — and since Interreg money is
+      // cross-border by definition, the gap fell entirely on border
+      // municipalities.
+      bg: "Базата на INTERACT за програмите Interreg — проекти, партньорства и бюджети по трансграничното сътрудничество. Interreg не минава през ИСУН (управлява се на Jems), затова тези проекти липсват в останалата част от корпуса с европейски средства.",
+      en: "INTERACT's database for the Interreg programmes — cross-border projects, partnerships and budgets. Interreg does not run through ИСУН (it is managed on Jems), which is why these projects are absent from the rest of the EU-funds corpus.",
+    },
+    url: "https://keep.eu/",
+    // Not "state": INTERACT is the Interreg programmes' own coordination body,
+    // an EU-level institution rather than a Bulgarian authority.
+    origin: "eu",
+    members: ["keep_eu_interreg"],
+    skills: ["update-funds"],
+    tags: ["fiscal", "local"],
+  },
+  {
     id: "dfz",
     label: { bg: "ДФ „Земеделие“", en: "State Fund Agriculture" },
     detail: {
@@ -1895,6 +1919,12 @@ export const EDGES: [string, string][] = [
   ["src:aop", "ds:procurement"],
   ["src:kzk", "ds:procurement"],
   ["src:isun", "ds:funds"],
+  // keep.eu → the SAME dataset node, because a reader looking for "European
+  // money for my municipality" is looking in one place — but it is a separate
+  // SOURCE edge, because ИСУН and Interreg are disjoint corpora on different
+  // systems, and the whole reason this ingest exists is that the ИСУН edge alone
+  // was silently missing every cross-border euro.
+  ["src:keep_eu", "ds:funds"],
   ["src:dfz", "ds:agri"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],

@@ -618,6 +618,51 @@ filter that refuses to write, and the loader has no such flag at all, because
 `stageDeleteSql` is an unscoped anti-join: a partial stage deletes every other programme's
 operations, `ON DELETE CASCADE` takes their partners, and the parity guard passes again.
 
+**The corpus is only half of a publish.** Loading `interreg_partners` moves nothing on the
+money surfaces by itself, because `company_public_money` (127) — the ONE reusable per-EIK
+broad-money basis — grew an Interreg arm, and the GRAPH loader is 127's only applier and
+refresher. So the cloud order is:
+
+```bash
+npm run db:load:interreg:pg:cloud          # the corpus
+npm run db:load:graph:pg:cloud             # 127's 4th arm reads it; nothing else applies 127
+npm run db:load:tr-company-place:pg:cloud  # money_eur is denormalized from 127
+```
+
+Skipping the second leaves every Interreg euro out of `/connections`, out of the governance
+"фирми, регистрирани тук" ranking and out of `/company/:eik`'s money, with the corpus itself
+fully loaded and every row count reconciling.
+
+**That arm closes a dependency CYCLE, and `db:refresh` therefore runs one vintage behind.**
+The local chain is graph (47) → tr-company-place (49) → interreg (50), and the order is
+forced from both ends: `tr_company_place` denormalizes 127, while the Interreg place cascade
+reads `tr_company_place`'s EKATTE. Adding the arm made 127 read `interreg_partners`, so no
+`ORDER_PAIRS` entry can express it — the three form a loop. Consequence, stated rather than
+hidden: the Interreg arm is built from the PREVIOUS run's corpus, and a first-ever Interreg
+load contributes no money until graph runs again. Re-run `db:load:graph:pg` after an Interreg
+reload to close it in one pass. (`load_graph_pg.ts` applies 137's DDL before 127 so a
+database that never loaded Interreg still builds the matview — see 127's header for why a
+`to_regclass` branch was the wrong fix.)
+
+**The serving layer is "applied, never loaded" and needs its own command.** 138
+(`interreg_by_place` / `interreg_by_eik` / `interreg_overview` / `interreg_operation` /
+`search_interreg_operations`) and 139 (`funds_muni_combined_v` + the per-capita ranking) are
+FUNCTIONS and a VIEW — they carry no data, and `deploy:db` ships `functions/` code, which is
+a different thing from a Postgres function. `db:load:interreg:pg[:cloud]` applies both, so a
+corpus reload carries them; a function-body fix on its own does not wait for one:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  138_interreg_serving.sql 139_funds_muni_combined.sql
+```
+
+**`/funds/interreg/**` is a page URL served by the `db` function** (`functions/spa_page.js`),
+like `/funds/contract/**` and `/company/**` — so the same ordering rule applies and it is the
+one that breaks a working page: **`npm run deploy:db` BEFORE `npm run deploy`**. Hosting
+first points all ~1,954 operation URLs at a function with no handler for them. They are not
+prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
+`<title>` and canonical, which is the duplicate-content shape this handler exists to end.
+
 `nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
 behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
 the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by
@@ -872,8 +917,9 @@ npm run db:load:graph:pg:cloud
 **AFTER `db:load:persons-browse:pg:cloud`** (it reads `person_browse_table` facets for the person
 nodes) and after **each** of `db:resolve:persons:cloud`, `db:load:person-elections:pg:cloud` (the
 `party`/`party_color` source for the party×party matrix, `person_election_stats`),
-`db:load:tr:pg:cloud` (the `company_politicians` procurement arm), and **any contracts/agri/funds
-reload** (127's money basis).
+`db:load:tr:pg:cloud` (the `company_politicians` procurement arm), **`db:load:interreg:pg:cloud`**
+(127 gained an Interreg arm and this loader is 127's only applier — see the Interreg section),
+and **any contracts/agri/funds reload** (127's money basis).
 `db:refresh` sequences the local equivalent right after `persons-browse`/`person-search`; nothing runs
 it on the cloud side, so it is wired into the `update-persons` (last step) and `update-procurement`
 (after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod. It

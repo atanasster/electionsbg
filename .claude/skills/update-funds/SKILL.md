@@ -123,6 +123,81 @@ Distils each município's heavy `by-muni/{обshtina}.json` corpus into a slim `
 
 This one slim file backs the My-Area **"Проекти от еврофондовете"** tile: it renders the full `contracts` list (scrollable) and, on demand, a Leaflet map of just the subset carrying `lat`/`lon`. Always re-run after Step 3 rewrites `by-muni/` — the `isun_eu_funds_projects` watcher flips both together. Output is idempotent except the `generatedAt` stamp.
 
+## Step 3c — Interreg (keep.eu)
+
+**Interreg is a different corpus, not a slice of the one above.** `fund_projects`
+holds ZERO Interreg operations, and that is a system boundary rather than a
+filter: Interreg runs on **Jems** while the Bulgarian operational programmes run
+on ИСУН 2020. No re-query of the ИСУН export will ever surface them. Since
+Interreg is cross-border by definition, everything it funds sits on a border — so
+before this corpus existed, every per-capita EU-money figure the site published
+understated exactly the poorest, most depopulated border municipalities.
+Measured: **213 of the 256 ranked общини change rank** once it is counted,
+Генерал Тошево by 43 places.
+
+Triggered by the `keep_eu_interreg` watcher, which probes each programme's
+`date_of_data_import` and NAMES the ones that moved. **Naming them is diagnosis,
+not scoping** — `crawl.ts` has no programme filter, so the action is still a
+`--full` walk; what the names buy is knowing that a re-import happened at all,
+which the id-descending index cannot tell you. (`ingest.ts` does take
+`--programme`, but only as a debugging filter that refuses to write.)
+
+The watcher sees **11 of the 22** programmes: the rest publish no
+`date_of_data_import`, so a re-import of one of those is invisible to it. "No
+change" therefore means "none of the 11 moved", not "nothing moved".
+
+```bash
+# 1. Crawl — RATE-LIMITED AND OPERATOR-RUN. One index page first, to gauge the
+#    block state cheaply; there is no --probe flag, and unknown flags are
+#    SILENTLY IGNORED, so a mistyped one runs the full default crawl.
+npm run funds:crawl-interreg -- --index-only --max-pages 1
+npm run funds:crawl-interreg            # incremental: stop at a known keep.eu id
+npm run funds:crawl-interreg -- --full  # ~2 h at 8-way; needed for RE-IMPORTS
+
+# 2. Ingest the raw cache into the committed corpus (no network, no Postgres)
+npm run funds:ingest-interreg -- --dry-run
+npm run funds:ingest-interreg
+
+# 3. Load
+npm run db:load:interreg:pg
+```
+
+**`--full` is not optional after a re-import.** keep.eu's index is
+id-DESCENDING and exposes no `modified`, so the incremental walk finds NEW
+operations and is blind to REVISED ones — and a programme re-import rewrites
+existing rows in place. That is exactly what the watcher detects, so a report
+naming a re-imported programme means `--full`, not the default.
+
+**Never build the stage from one programme.** `ingest.ts`'s `--programme` is a
+debugging filter that refuses to write, and the loader has no such flag at all:
+`stageDeleteSql` is an unscoped anti-join, so a partial stage deletes every other
+programme's operations, `ON DELETE CASCADE` takes their partners, and the
+row-count parity guard passes.
+
+### Publishing to prod, in this order
+
+```bash
+npm run db:load:interreg:pg:cloud          # the corpus
+npm run db:load:graph:pg:cloud             # company_public_money's 4th arm reads it
+npm run db:load:tr-company-place:pg:cloud  # its money_eur is denormalized from that
+```
+
+The last two are the non-obvious half. `company_public_money` (127) gained an
+Interreg arm, and the graph loader is its only applier and refresher — so
+without step 2 the new corpus contributes nothing to any money figure. Step 3
+follows because `tr_company_place.money_eur` is a denormalized copy of 127, and
+it ranks the governance "фирми, регистрирани тук" tile.
+
+**Attribution is required, not courtesy.** keep.eu's terms oblige crediting
+keep.eu with a link, and every Interreg surface carries it. Do not remove it.
+
+**Scope of what an EIK can answer: Tier L only.** keep.eu publishes a partner's
+national id in the 2021-2027 template alone — 0 of 1,080 Bulgarian 2014-2020
+rows carry one, against 336 of 413 — so `/company/:eik` and
+`company_public_money` reach about a quarter of the €396m corpus and are blind
+to the rest BY SOURCE. Place attribution has no such ceiling (98.4% placed), so
+the per-capita ranking and the place tiles cover both periods.
+
 ### New / modified contract detection (runs inside `funds:ingest-projects`)
 
 `scripts/funds/projects_ingest.ts` calls `scripts/funds/projects_diff.ts` automatically (step 7c). ИСУН carries **no** native new-vs-amendment field — one `status` per contract — so the only way to surface a "new project" / "value or status changed" signal is to diff successive ingests on the stable `contractNumber`. The diff:
