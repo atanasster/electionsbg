@@ -619,6 +619,56 @@ const DB_ROUTES = {
     // the destination cannot find. Null whenever no rewrite fired.
     return { body: { power, money, others, people, altQuery: alt || null } };
   },
+  // One parliament's voted TOPICS, for the /parliament hub's finder.
+  //
+  // WHY A ROUTE AND NOT AN INDEX. topic_index.json is 8 MB and the session files are 482 KB
+  // on an average day; a hub that has to point somewhere cannot download either to answer a
+  // two-character query. Measured on the 52nd:
+  //   ns-scoped, superseded_by filtered, LIKE over the fold -> 182 buffers / 12.6 ms,
+  // carried by idx_vote_item_ns_date. An NS holds ~1,400-1,900 standing items, so no
+  // expression index is needed; an UNSCOPED version over all 16,741 would want one.
+  //
+  // superseded_by IS NULL IS MANDATORY, and not only for the usual over-counting reason:
+  // dedupeRevotes keeps the LAST of a repeated vote, so an annulled first attempt returned
+  // here would send a reader to an item the chamber decided not to stand by.
+  "vote-item-search": async (dbRows, q) => {
+    const term = s(q, "q");
+    if (!term) return { status: 400, body: { error: "missing q" } };
+    const ns = clampInt(q.ns, 0, 1, 99);
+    const lim = clampInt(q.limit, 8, 1, 25);
+    // scope=out searches every parliament EXCEPT the selected one. That is the hub's
+    // out-of-scope group: scope ranks and never filters, so a reader on the 52nd still finds
+    // a 47th-NS budget vote — below the in-scope ones, in a group that names why.
+    const out = q.scope === "out";
+    if (!ns && out) return { body: { items: [] } };
+    // $2 is referenced in EVERY branch, with an explicit cast. A clause that drops it — the
+    // obvious "true" for the unscoped case — leaves the parameter untyped and Postgres
+    // rejects the whole statement with "could not determine data type of parameter $2",
+    // which is a 500 rather than an unscoped search.
+    const nsClause = out ? "ns <> $2::int" : "($2::int = 0 OR ns = $2::int)";
+
+    const run = (needle) =>
+      dbRows(
+        `SELECT item_id AS "itemId", ns, date::text AS date, item_no AS "itemNo",
+                title, topic, yes, no, abstain
+           FROM vote_item
+          WHERE ${nsClause}
+            AND superseded_by IS NULL
+            AND translit_bg_latin(title) LIKE '%' || translit_bg_latin($1) || '%'
+          ORDER BY date DESC, item_no
+          LIMIT $3`,
+        [needle, ns || 0, lim],
+      ).catch(missingMigrationRows);
+
+    // Same two-probe shape as the person and procurement searches, and additive for the same
+    // reason: the plain rows are computed first and the rewrite can only extend them.
+    const [rows, alt] = await Promise.all([run(term), shlyoAlt(dbRows, term)]);
+    const merged = alt
+      ? mergeAlt(rows, await run(alt), (r) => String(r.itemId), lim)
+      : rows;
+    return { body: { items: merged, altQuery: alt || null } };
+  },
+
   async company(dbRows, q) {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
