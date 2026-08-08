@@ -74,7 +74,8 @@ const main = async (): Promise<void> => {
     await c.query(
       `INSERT INTO person_search
          (key, name, tier, position_type, primary_role, party, place_label, top_eik,
-          firms_count, public_money_eur, has_photo, identity_confidence, href, rank_static)
+          firms_count, public_money_eur, has_photo, identity_confidence, href, rank_static,
+          has_declaration)
        SELECT 'slug:' || slug,
               name,
               'P',
@@ -88,7 +89,10 @@ const main = async (): Promise<void> => {
               photo_url IS NOT NULL,
               'resolved',
               '/person/' || slug,
-              1000 + prominence + ln(1 + greatest(0, coalesce(public_money_eur, 0)))
+              1000 + prominence + ln(1 + greatest(0, coalesce(public_money_eur, 0))),
+              -- Straight from person_browse_table, which is what /persons?decl=1 filters on,
+              -- so the hub's group and its destination cannot disagree.
+              coalesce(has_declaration, false)
          FROM person_browse_table
         -- tier='P' ONLY: since S3, person_browse_table UNIONs a name-fold private arm (tier V).
         -- Those are person_search's OWN V/N territory (built below from tr_officers) — reading
@@ -102,6 +106,10 @@ const main = async (): Promise<void> => {
     // tr_officers arm and route by /person/<name> with a 'name_fold' badge despite being verified.
     await c.query(
       `INSERT INTO person_search
+        -- No has_declaration here, and none in the V/N arm below: both are PRIVATE owners,
+        -- who are not in the declarations register at all. The column's NOT NULL DEFAULT
+        -- false is the honest value, and writing one explicitly would invite someone to
+        -- "fix" it by joining a register that has no row for them.
          (key, name, tier, position_type, primary_role, party, place_label, top_eik,
           firms_count, public_money_eur, has_photo, identity_confidence, href, rank_static)
        SELECT 'slug:' || slug, name, 'V', position_type, NULL, NULL, NULL, NULL,

@@ -77,3 +77,71 @@ test("person-search: missing table degrades to empty tiers, not a 500", async ()
     altQuery: null,
   });
 });
+
+// ?decl — the /governance/declarations hub's two groups.
+//
+// It is a RANKING device, not a filter: the hub asks for decl=1 and decl=0 as two calls and
+// shows the declared group first. A single filtered call would mean a reader searching for a
+// minister who has not filed is told they do not exist.
+// The PREDICATE, not the word: has_declaration is now in the returned column list too, so
+// a bare `includes("has_declaration")` matches every query and asserts nothing.
+const hasDeclPredicate = (sql) => /AND (NOT )?has_declaration/.test(sql);
+
+test("person-search: ?decl is absent by default — the combined box is unrestricted", async () => {
+  const seen = [];
+  const fn = async (sql) => {
+    seen.push(sql);
+    return [];
+  };
+  await route(fn, { q: "иван" });
+  assert.ok(
+    !seen.some(hasDeclPredicate),
+    "no decl predicate should appear without the param",
+  );
+});
+
+test("person-search: ?decl=1 restricts to filers, ?decl=0 to the rest", async () => {
+  for (const [decl, needle] of [
+    ["1", "AND has_declaration"],
+    ["0", "AND NOT has_declaration"],
+  ]) {
+    const seen = [];
+    const fn = async (sql) => {
+      seen.push(sql);
+      return [];
+    };
+    await route(fn, { q: "иван", decl });
+    const probes = seen.filter((s) => s.includes("person_search"));
+    assert.ok(probes.length > 0, "expected person_search probes");
+    assert.ok(
+      probes.every((s) => s.includes(needle)),
+      `decl=${decl} should put "${needle}" on every probe`,
+    );
+  }
+});
+
+test("person-search: an unrecognised ?decl restricts nothing", async () => {
+  // The param is read from a URL. "yes", "true" and "" must not silently become a filter —
+  // an unrecognised value that filtered would hide people with no way to tell.
+  for (const decl of ["yes", "true", "", "2", "01"]) {
+    const seen = [];
+    const fn = async (sql) => {
+      seen.push(sql);
+      return [];
+    };
+    await route(fn, { q: "иван", decl });
+    assert.ok(
+      !seen.some(hasDeclPredicate),
+      `decl=${JSON.stringify(decl)} must not restrict`,
+    );
+  }
+});
+
+test("person-search: has_declaration is returned so the UI can label a row", async () => {
+  const fn = async (sql) =>
+    sql.includes("person_search")
+      ? [{ key: "k", name: "n", tier: "P", firms_count: 0, href: "/p/k", has_declaration: true }]
+      : [];
+  const res = await route(fn, { q: "иван" });
+  assert.equal(res.body.power[0].has_declaration, true);
+});

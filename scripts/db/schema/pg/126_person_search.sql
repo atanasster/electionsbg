@@ -36,6 +36,21 @@ CREATE TABLE IF NOT EXISTS person_search (
   rank_static         double precision NOT NULL  -- query-independent relevance; route adds match score
 );
 
+-- The declarations hub searches PEOPLE WHO HAVE FILED, and ranks the rest below them rather
+-- than hiding them (scope ranks, never filters). That needs the flag ON THIS TABLE: the
+-- alternative is joining person_browse_table per hit, and person_search exists precisely so
+-- the search path touches one relation.
+--
+-- ADD COLUMN, not a rewrite of the CREATE above: this file is CREATE TABLE IF NOT EXISTS, so
+-- on every database that already has the table the column list is never re-read. Without the
+-- ALTER the flag would appear only on a database built from scratch.
+--
+-- FALSE for the V/N tiers by construction — they are name-fold rows for private owners, who
+-- are not in the declarations register at all. A NULL would read as "unknown" and make the
+-- hub's second group ("no declaration on record") a claim it cannot support.
+ALTER TABLE person_search
+  ADD COLUMN IF NOT EXISTS has_declaration boolean NOT NULL DEFAULT false;
+
 -- Fuzzy/substring (the %> word-similarity filter the route uses).
 CREATE INDEX IF NOT EXISTS idx_person_search_fold
   ON person_search USING gin (name_fold gin_trgm_ops);
@@ -43,3 +58,7 @@ CREATE INDEX IF NOT EXISTS idx_person_search_fold
 CREATE INDEX IF NOT EXISTS idx_person_search_fold_eq ON person_search (name_fold);
 -- No-query "top people" ordering + the per-tier ranked pages.
 CREATE INDEX IF NOT EXISTS idx_person_search_rank ON person_search (tier, rank_static DESC, key);
+-- The declarations hub's two groups: filed first, then the rest. A partial index rather than
+-- a column in the one above, because only the P tier can ever carry a true.
+CREATE INDEX IF NOT EXISTS idx_person_search_declared
+  ON person_search (tier, rank_static DESC, key) WHERE has_declaration;

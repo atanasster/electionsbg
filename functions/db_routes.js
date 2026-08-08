@@ -533,20 +533,33 @@ const DB_ROUTES = {
     const lim = clampInt(q.limit, 20, 1, 50);
     const COLS =
       "key, name, tier, position_type, primary_role, party, place_label, " +
-      "top_eik, firms_count, public_money_eur, has_photo, identity_confidence, href";
+      "top_eik, firms_count, public_money_eur, has_photo, identity_confidence, href, " +
+      "has_declaration";
+    // decl=1 restricts to people with a filing on record; decl=0 to the rest. The
+    // /governance/declarations hub asks for BOTH, as two separate calls, because scope ranks
+    // and never filters — the declared group is shown first and the rest below it, so a
+    // reader searching for a minister who has not filed still finds them.
+    //
+    // Absent = no restriction, which is what /procurement's combined box wants.
+    const declFilter =
+      q.decl === "1"
+        ? " AND has_declaration"
+        : q.decl === "0"
+          ? " AND NOT has_declaration"
+          : "";
     // Each read degrades to [] if person_search has not been built on this DB (first cloud deploy,
     // before db:load:person-search:pg:cloud) — an empty result, never a 500.
     const exactQ = (tier, q) =>
       dbRows(
         `SELECT ${COLS} FROM person_search
-          WHERE tier = $1 AND name_fold = translit_bg_latin($2)
+          WHERE tier = $1 AND name_fold = translit_bg_latin($2)${declFilter}
           ORDER BY rank_static DESC LIMIT 3`,
         [tier, q],
       ).catch(missingMigrationRows);
     const fuzzyQ = (tier, k, q) =>
       dbRows(
         `SELECT ${COLS} FROM person_search
-          WHERE tier = $1 AND name_fold %> translit_bg_latin($2)
+          WHERE tier = $1 AND name_fold %> translit_bg_latin($2)${declFilter}
           ORDER BY rank_static DESC LIMIT $3`,
         [tier, q, k],
       ).catch(missingMigrationRows);
