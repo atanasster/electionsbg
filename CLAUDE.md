@@ -1046,6 +1046,28 @@ keeps running the previous body indefinitely, and nothing reports a difference. 
 does NOT carry it — that ships function *code* in `functions/`, which is a different thing
 from a Postgres function.
 
+**`shlyo_query_fold()` (141) is one of these, with one difference: it is GENERATED.** It is the
+shliokavitsa half of search — the Latin-side spellings a Bulgarian actually types (`6umen`,
+`4erven`, `sofiq`), which `translit_bg_latin()` alone cannot reach, so before it „Jelqzkov"
+returned 0 rows from `person_search` while „Jelyazkov" returned 2. The `/api/db/*-search`
+routes compose it with `translit_bg_latin()` on the QUERY side only; nothing stores its output.
+
+Never hand-edit `141_shlyo_query_fold.sql`. It is emitted from `src/lib/shlyoRules.ts` — the
+same table the browser's client-side filter uses — by `npm run gen:shlyo-sql`, and
+`gen_sql/shlyo_query_fold.test.ts` fails when the two drift. That is the whole point: a rule
+copied by hand into SQL means the browser finds „6umen" and the server does not, with both
+looking like they work.
+
+`db:load:person-search:pg` applies it, so `db:refresh` and
+`npm run db:load:person-search:pg:cloud` carry it. But that loader is only the cheapest applier
+in the chain, **not the only interested party** — `procurement-search` rides the same fold and
+reads none of `person_search`'s tables, so a database where that loader has never run raises
+42883 on it. Ship a rule change on its own with the usual escape hatch:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
+```
+
 **Three more of these are outstanding as of 2026-08-04.** Two were found because data tests kept
 timing out under load — the tests were the symptom, the serving path was the defect; the third is
 the molecule-page widening below.

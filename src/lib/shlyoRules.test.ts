@@ -101,12 +101,18 @@ describe("the table's stated exclusions", () => {
   });
 
   it("every `find` is a valid pattern in both engines' shared subset", () => {
-    // Postgres ARE supports (?!…); a rule using a JS-only construct would
-    // compile here and fail at migration time.
+    // Postgres ARE supports (?!…), so the lookahead rule is safe in both — verified
+    // against the live database. Two constructs are NOT safe and would ship green,
+    // because both engines accept them and then disagree:
+    //   - alternation: POSIX ARE prefers the LONGEST overall match, ECMAScript the
+    //     FIRST alternative, so /a|ab/ on "ab" replaces "a" here and "ab" there;
+    //   - \b: a word boundary in ECMAScript, a BACKSPACE character in ARE.
+    // Everything in \\[dswbDSWB] covers the second; `|` is checked separately.
     const JS_ONLY = /\\[dswbDSWB]|\\p\{|\(\?<|\\k</;
     for (const r of SHLYO_RULES) {
       expect(() => new RegExp(r.find, "g")).not.toThrow();
       expect(JS_ONLY.test(r.find)).toBe(false);
+      expect(r.find).not.toContain("|");
     }
   });
 });

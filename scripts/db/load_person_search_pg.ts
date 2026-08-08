@@ -38,6 +38,20 @@ const ROOT = path.resolve(
   "..",
 );
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/126_person_search.sql");
+// The shliokavitsa query fold the /api/db/*-search routes compose with translit_bg_latin().
+// It is a FUNCTION, so no loader would otherwise ship it and every database would keep
+// whatever body it happened to have — the "applied, never loaded" trap CLAUDE.md names.
+// This loader is the CHEAPEST applier in db:refresh, not the only interested party:
+// procurement-search rides the same fold and reads search_contractors / search_awarders /
+// search_contract_titles / search_tender_subjects / search_fund_projects — none of them
+// person_search. So on a database where this loader has never run, that route raises 42883.
+// The standalone fix is the usual one for a function:
+//   npx tsx scripts/db/apply_functions.ts 141_shlyo_query_fold.sql
+// GENERATED from src/lib/shlyoRules.ts; never hand-edit the .sql.
+const SHLYO_FN = path.join(
+  ROOT,
+  "scripts/db/schema/pg/141_shlyo_query_fold.sql",
+);
 
 // position_type CODE from person_browse_table.primary_facet. The five governance facets keep
 // their code; company/concession collapse to private_sector; every other facet (ngo/donor/ds/
@@ -50,6 +64,7 @@ const main = async (): Promise<void> => {
   // Idempotent DDL (CREATE TABLE / INDEX IF NOT EXISTS): statement-by-statement so no lock is
   // held across the file (execEach), matching the other search-index loaders.
   await execEach(readFileSync(SCHEMA, "utf8"));
+  await execEach(readFileSync(SHLYO_FN, "utf8"));
 
   await withTx(async (c) => {
     await c.query("SELECT similarity('', '')"); // pg_trgm preload (as exec does)
