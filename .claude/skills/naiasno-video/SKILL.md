@@ -30,7 +30,7 @@ Remotion project, which may not exist yet:
 | Step | State | Depends on |
 |---|---|---|
 | 1–4 · topic → grounding → script → **gate 1** | ✅ works now | nothing |
-| 5 · per-scene TTS | ✅ works now | `scripts/video/tts_bakeoff.ts` provider adapters |
+| 5 · per-scene TTS | ✅ works now — voice chosen | `GEMINI_API_KEY` (already in `.env.local`) |
 | 6–7 · render → captions → **gate 2** → draft | ⚠️ needs `video/` Remotion project | phase 1 of the plan |
 
 Check with `ls video/remotion.config.ts`. If it is absent, run steps 1–5, hand the
@@ -149,6 +149,12 @@ digit-by-digit, acronym handling) and the reason they cannot be fixed after the 
 `scripts/video/passage.ts` holds six worked `raw`→`spoken` pairs built from real
 published facts — the canonical examples, not invented ones.
 
+**Budget the length here, not after the render.** Measured on the chosen voice:
+**13.0 chars/s, 137 wpm**. A 40 s short is **~520 characters of `voiceOver` total,
+~105 per scene** across five scenes. Budget from the spelled-out text — it runs
+substantially longer than the on-screen figure it replaces (716 vs 433 chars on the
+reference passage), so counting the digits under-estimates every time.
+
 Structure a `short` as: hook (the surprising number) → context (what it is measured
 against) → the twist → CTA. Structure an `explainer` as one thread through the
 article, not a summary of it.
@@ -174,19 +180,26 @@ explicit operator sign-off.
 
 ## Step 5 — Voice
 
+**The voice is already decided: `gemini` · `Rasalgethi` ·
+`gemini-3.1-flash-tts-preview`** (`CHOSEN_VOICE` in `scripts/video/tts_bakeoff.ts`).
+Put it in the spec's `voice` block and do not vary it between videos. It needs no
+GCP setup — it runs on the `GEMINI_API_KEY` already in `.env.local`.
+
 Per scene, one clip. Not one clip for the whole video — `bg-BG` has no pause control
-on Chirp 3 HD, so pauses come from the edit, and per-scene clips are also what the
-composition measures its own length from.
+on any provider we use, so pauses come from the edit, and per-scene clips are also
+what the composition measures its own length from.
 
-Provider adapters and bg-BG voice listing already exist:
+Three things that are not optional here, all learned the hard way — full detail in
+`references/voice.md`:
 
-```bash
-npm run video:bakeoff -- --list        # bg-BG voices per provider
-npm run video:bakeoff -- --dry-run     # the hard-case passage, no API calls
-```
-
-Then trim leading/trailing silence adaptively (`loudnorm` → `silencedetect`), or the
-cuts sag. Details and the provider decision: `references/voice.md`.
+- **Retry the transients and then assert one file per scene.** A 200 can carry no
+  audio, and a connection can drop mid-generation; both lose a scene's narration
+  while the run still reports success.
+- **Trim leading/trailing silence adaptively** (`loudnorm` → `silencedetect`), or the
+  cuts sag.
+- **Budget the script by the measured rate — 13.0 chars/s, 137 wpm.** A 40 s short is
+  ~520 characters of `voiceOver`, ~105 per scene across five. Check this at step 3,
+  not after the render.
 
 ## Step 6 — Render, caption, thumbnail
 
@@ -217,7 +230,7 @@ where the file is. Remind them it is unpublished.
   "link": "https://electionsbg.com/financing?elections=2026_04_19",
   "postSlug": "2026-08-02-cost-per-vote-april-2026",   // when a card exists
   "sources": ["data/financing/…json", "https://erik.bulnao.government.bg/…"],
-  "voice": { "provider": "google", "voiceId": "bg-BG-Chirp3-HD-…" },
+  "voice": { "provider": "gemini", "voiceId": "Rasalgethi" },
   "scenes": [
     {
       "id": 1,

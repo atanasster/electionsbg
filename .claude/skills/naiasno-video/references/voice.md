@@ -79,30 +79,76 @@ taking a risk a script about a national aggregate is not. If a place name is cen
 and the model gets it wrong, the options are a different phrasing that avoids the
 vocative position, a different provider, or a human read.
 
-## Provider state (verified 2026-08-08)
+## How much text fits — measured, not estimated
+
+Rasalgethi reads the 716-character `spoken` passage in **55.0 s** → **13.0 chars/s,
+137 wpm**. Use it to size a script *before* synthesizing anything:
+
+| Target | voiceOver budget |
+|---|---|
+| 30 s short | ~390 chars / ~70 words |
+| **40 s short** | **~520 chars / ~90 words** |
+| 50 s short | ~650 chars / ~115 words |
+| per scene, 5 scenes in 40 s | **~105 chars** |
+
+A scene whose `voiceOver` runs much past ~105 characters will not fit the beat it was
+written for. Rewrite the line rather than discovering it after the render.
+
+Note this is the **`spoken`** rate — the whole point of the rule above is that
+`spoken` runs *longer* than the same facts as digits (716 vs 433 chars here). Budget
+from the spelled-out text, never from the on-screen figure.
+
+## Provider state (verified 2026-08-08 — all figures measured, not documented)
 
 | Provider | bg-BG | Notes |
 |---|---|---|
-| **Google Chirp 3 HD** ⭐ | **30 voices** | $30/1M chars, 1M/mo free. **No pause control, no custom pronunciation for `bg-bg`** — both confirmed in Google's own locale-exclusion tables. `speaking_rate` 0.25×–2× does work. |
-| Azure | **2** (`bg-BG-KalinaNeural`, `bg-BG-BorislavNeural`) | No HD variant, no styles, no multilingual. The reflexive choice and the weakest one. |
+| **Gemini** ⭐ **chosen** | **30 voices** (16 M / 14 F) | `gemini-3.1-flash-tts-preview`. **No GCP setup** — reuses `GEMINI_API_KEY`. Returns headerless L16 PCM (needs a WAV wrapper). No pace control. ~55 s on the passage. |
+| Google Chirp 3 HD | **31** (30 HD + 1 Standard) | $30/1M chars, 1M/mo free. **No pause control, no custom pronunciation for `bg-bg`** — Google's own locale-exclusion tables. `speaking_rate` 0.25×–2× works. ~46 s on the passage (**~16% faster**). Enabled on project `elections-bg`. |
+| Azure | **2** (`KalinaNeural`, `BorislavNeural`) | No HD variant, no styles, no multilingual. The reflexive choice and the weakest one. |
 | ElevenLabs v3 | supported (`bul`) | ~10× Google's rate; quality on lower-traffic languages is uneven by the vendor's own framing. |
 | **Human narrator** | — | Dissolves every problem on this page. ~€15–40 per short (estimate, needs real quotes). Cost is **latency**, not money — it breaks same-day publishing. |
 
 **Tiering:** TTS for time-sensitive shorts, a human for evergreen long-form.
 
-**The decision is the bake-off's, not this file's:**
+Worth knowing that Chirp 3 HD lost on ear despite winning on voice count, pace
+control and speed. Do not re-litigate it from the table — re-litigate it by listening.
+
+### Cloud TTS auth is not an API key
+
+Chirp 3 HD **rejects API-key auth outright** — `401 · "API keys are not supported by
+this API. Expected OAuth2 access token"`. There is no `GOOGLE_TTS_API_KEY` and its
+absence is deliberate. Two operator steps, both already done for `elections-bg`:
 
 ```bash
-npm run video:bakeoff -- --list        # what bg-BG voices each provider actually has
-npm run video:bakeoff -- --dry-run     # passage + plan + cost, no API calls
-npm run video:bakeoff                  # synthesize everything configured
+gcloud services enable texttospeech.googleapis.com --project elections-bg
+export GOOGLE_TTS_ACCESS_TOKEN=$(gcloud auth print-access-token)
+export GOOGLE_CLOUD_PROJECT=elections-bg   # user creds carry no project → 403 without it
 ```
 
-It renders a blind compare page (Проба A/B/C) so the ear goes before the price list,
-and it synthesizes both `raw` and `spoken` variants of the same six facts — comparing
-those two **is** the experiment that decides whether the spell-out rule above is
-necessary, sufficient, or ceremony. Drop a human recording in as
-`human__<name>__spoken.mp3` and it joins the comparison with no code change.
+The token is short-lived; mint it in the same shell as the run.
+
+## Re-running the bake-off
+
+Phase 0 is closed, so this is now for **re-validation** — a provider ships a model, or
+a voice grates after real scripts — not for selection.
+
+```bash
+npm run video:bakeoff -- --list                     # bg-BG voices per provider
+npm run video:bakeoff -- --dry-run                  # passage + cost, no API calls
+npm run video:bakeoff -- --only=Rasalgethi,<x> --variants=spoken   # challenger vs incumbent
+npm run video:bakeoff -- --providers=google --gender=male --voices=6
+```
+
+It renders a blind compare page (Проба A/B/C) so the ear goes before the price list.
+Drop a human recording in as `human__<name>__spoken.mp3` (or `.wav`/`.m4a`) and it
+joins the comparison with no code change.
+
+**The duration delta is a cheap pre-screen.** Both variants say the same words, so a
+`raw` clip much shorter than its `spoken` twin means the engine swallowed the numbers
+rather than reading them. Measured: Rasalgethi **−4.0 s** is already audible as
+rushing; `bg-BG-Chirp3-HD-Achird` was **−16.0 s**. It varies *by voice within one
+engine*, so it ranks candidates before you listen — it is not a production gate, since
+only `spoken` is ever synthesized for a real video.
 
 ## Synthesis mechanics
 
@@ -115,3 +161,15 @@ necessary, sufficient, or ceremony. Drop a human recording in as
   Use the measured threshold, not a fixed dB floor.
 - **Keep the voice fixed across a series.** Store `voice.provider` + `voice.voiceId`
   in the spec. A channel that changes narrator between videos reads as unserious.
+- **⚠️ Retry, and verify every clip exists before rendering.** Two transient
+  failures were observed on 2026-08-08, and **both lose a scene's narration while the
+  run still reports success**:
+  - **HTTP 200 with an empty candidate** (`finishReason: "OTHER"`, no parts) instead
+    of an error — roughly once in seven requests.
+  - **A dropped connection** (`fetch failed`) on a ~50 s generation.
+
+  `tts_bakeoff.ts` retries both (3 attempts) and does *not* retry genuine HTTP
+  errors, since a 400 says the same thing three times. Any per-scene synthesis step
+  must do the same — and then **assert one audio file per scene** before handing off
+  to the render. A silently missing clip becomes a silent scene, which `calculateMetadata`
+  will happily size to zero frames.
