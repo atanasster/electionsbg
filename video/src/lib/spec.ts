@@ -78,6 +78,11 @@ export type ExplainerScene = {
   voiceOver: string;
   grounding?: { file: string; path: string };
   canvas?: Partial<CanvasState>;
+  /**
+   * Show a captured REAL page in the chart column for this scene instead of the
+   * drawn canvas. The "this is the actual tool" beat.
+   */
+  screen?: { name: string; zoomAt?: number; cursor?: boolean };
 };
 
 export type ExplainerSpec = {

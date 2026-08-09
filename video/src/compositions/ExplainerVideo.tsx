@@ -11,6 +11,7 @@ import {
 } from "remotion";
 import { Stage16x9, STAGE } from "../components/Stage16x9";
 import { InflationCanvas } from "../scenes/InflationCanvas";
+import { ScreenPlate } from "../scenes/ScreenPlate";
 import { Captions } from "../components/Captions";
 import { THEME } from "../theme";
 import { audioPath, type ExplainerSpec } from "../lib/spec";
@@ -150,6 +151,21 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
   const chartW = width - STAGE.padX * 2 - STAGE.railW - STAGE.gap;
   const chartH = height - STAGE.headerH - STAGE.footerH - 48;
 
+  // Which scene is on screen right now — the chart column swaps to a captured
+  // page for scenes that declare one. Computed from absolute time for the same
+  // reason the canvas is: this lives outside every <Sequence>.
+  const starts: number[] = [];
+  {
+    let acc = 0;
+    for (const d of sceneDurations) {
+      starts.push(acc);
+      acc += d;
+    }
+  }
+  let active = 0;
+  while (active + 1 < starts.length && frame >= starts[active + 1]!) active++;
+  const activeScreen = spec.scenes[active]?.screen;
+
   let from = 0;
   return (
     <>
@@ -158,7 +174,17 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
         period={spec.period}
         source={spec.sourceLine}
         chart={
-          <InflationCanvas state={canvas} width={chartW} height={chartH} />
+          activeScreen ? (
+            <ScreenPlate
+              name={activeScreen.name as never}
+              width={chartW}
+              height={chartH}
+              zoomAt={activeScreen.zoomAt}
+              cursor={activeScreen.cursor}
+            />
+          ) : (
+            <InflationCanvas state={canvas} width={chartW} height={chartH} />
+          )
         }
         rail={null}
       />
