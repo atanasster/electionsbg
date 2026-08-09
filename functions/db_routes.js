@@ -1084,6 +1084,33 @@ const DB_ROUTES = {
   // `place` RANKS, IT NEVER FILTERS (see 143): „в твоята област няма, но в страната има 340" is a
   // usable answer and „нищо подобно не е финансирано" is not, and for a resolver that exists to
   // tell someone whether to bother applying, the false negative is the expensive error.
+  // The /funds hub's ONE stat call (migration 145). Replaces four per-tile fetches totalling
+  // 277 KB, of which /api/db/dual-corpus-rankings alone was 247 KB pulled to draw a preview.
+  //
+  // Reads the one-row matview, never the live aggregate: measured, that aggregate is 18,855
+  // buffers and spills to temp, against the dashboard-hub skill's ~2,000 ceiling for anything
+  // served live. The seek is 40.
+  //
+  // DEGRADES TO NULL on the narrow set only. 42883/42P01 mean 145 was never applied, 55000 that
+  // the matview exists WITH NO DATA (the first cloud deploy — 145 creates it that way on
+  // purpose), and 55P03 that a REFRESH holds the lock. That last one is not hypothetical here:
+  // every funds and Interreg reload refreshes this matview, so its absence made the hub 500 for
+  // the duration of each reload's lock window — every sibling route already includes it.
+  //
+  // 57014 is the pool's own timeout and 42501 a permanent missing GRANT on a plain function:
+  // both must 500 rather than render a hub whose every figure is silently absent for ever.
+  "funds-hub-stats": async (dbRows) => {
+    const rows = await dbRows("SELECT funds_hub_stats() AS r").catch((e) => {
+      if (!["42883", "42P01", "55000", "55P03"].includes(e?.code))
+        return Promise.reject(e);
+      logMissOnce(
+        `fhs:not-built:${e.code}`,
+        `funds-hub-stats: read failed (${e.code}) — the hub will render without its figures. Run npm run db:load:funds:pg (applies + refreshes 145).`,
+      );
+      return [{ r: null }];
+    });
+    return { body: rows[0]?.r ?? null };
+  },
   "funds-fit": async (dbRows, q) => {
     const query = (s(q, "q") || "").trim();
     // VALIDATED, not just upper-cased. The value reaches a jsonb key probe and an equality test,

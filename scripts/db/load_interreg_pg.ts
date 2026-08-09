@@ -518,6 +518,35 @@ export const loadInterregPg = async (): Promise<{
       await c.query(`DROP TABLE IF EXISTS ${spec.source}`);
   });
 
+  // ── The /funds hub's stat cache (145) — the OTHER end of a cycle ──────────────────────────
+  //
+  // 145 reads `interreg_operations`/`interreg_partners`, which this loader rebuilds, but its
+  // primary input is the funds corpus — so `db:load:funds-fit:pg` applies it 41 steps earlier
+  // in `db:refresh` and refreshes it with the PREVIOUS Interreg vintage. Without the refresh
+  // here, every Interreg reload leaves the hub's Interreg tile on that previous vintage at a
+  // 200, with every row count reconciling: the standard silent-staleness shape.
+  //
+  // Guarded on the matview existing rather than applying 145 itself: applying it would DROP and
+  // recreate the matview (145 is DROP+CREATE so a body fix can actually land), which would
+  // blank the hub until the refresh finished.
+  const [mv] = await allRows<{ ispopulated: boolean }>(
+    `SELECT ispopulated FROM pg_matviews WHERE matviewname = 'funds_hub_stats_cache'`,
+  );
+  if (mv) {
+    await exec(
+      mv.ispopulated
+        ? "REFRESH MATERIALIZED VIEW CONCURRENTLY funds_hub_stats_cache"
+        : "REFRESH MATERIALIZED VIEW funds_hub_stats_cache",
+    );
+    console.log(
+      "interreg: refreshed funds_hub_stats_cache (the hub's Interreg arm)",
+    );
+  } else {
+    console.warn(
+      "interreg: funds_hub_stats_cache absent — run db:load:funds-fit:pg to apply migration 145.",
+    );
+  }
+
   return {
     programmes: INTERREG_PROGRAMMES.length,
     operations: operations.length,

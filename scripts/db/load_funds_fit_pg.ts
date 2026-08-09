@@ -40,6 +40,16 @@ const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/143_funds_fit.sql");
 // not applied 144 by hand. It also carries `idx_ifs_source_seen`, without which the wire is a
 // 30,105-buffer scan on every /funds view.
 const SCHEMA_WIRE = path.join(ROOT, "scripts/db/schema/pg/144_funds_wire.sql");
+// 145 IS APPLIED HERE, AND THIS IS THE ONLY PLACE IT CAN BE. It is the /funds hub's one stat
+// call, and its primary input is the funds corpus — so `load_funds_pg.ts` looks like its home
+// and is not: `CREATE MATERIALIZED VIEW` resolves its query at creation, 145 needs
+// `canon_oblast`, and 143 (which defines it) is applied by THIS loader, one `db:refresh` step
+// later. Applied from there it failed with `function canon_oblast(text) does not exist` and
+// rolled back a 57-step chain at step 10.
+const SCHEMA_HUB = path.join(
+  ROOT,
+  "scripts/db/schema/pg/145_funds_hub_stats.sql",
+);
 
 /** Has the matview ever been populated? CONCURRENTLY refuses an unpopulated one. */
 const isPopulated = async (): Promise<boolean> => {
@@ -118,7 +128,9 @@ const main = async (): Promise<void> => {
   // transaction), so it holds a write lock on that table for the duration — seconds locally,
   // longer on Cloud SQL. That is why it lives at the END of this loader rather than at the start
   // of the chain: nothing else is waiting on it.
-  console.log("funds-fit: applying 144 (wire + news rail, + idx_ifs_source_seen)");
+  console.log(
+    "funds-fit: applying 144 (wire + news rail, + idx_ifs_source_seen)",
+  );
   await exec(readFileSync(SCHEMA_WIRE, "utf8"));
   const [wire] = await allRows<{ checked_on: string | null }>(
     `SELECT checked_on FROM funds_wire(30)`,
@@ -126,6 +138,40 @@ const main = async (): Promise<void> => {
   console.log(
     `funds-fit: wire reports last ingest ${wire?.checked_on ?? "(never)"}`,
   );
+
+  // ── 145, the /funds hub's stat cache ─────────────────────────────────────────────────────
+  //
+  // GUARDED ON THE INTERREG TABLES, because 145 reads them and they land 41 steps later
+  // (`db:load:interreg:pg`). That is a real cycle — 145's primary input is the funds corpus
+  // here at step 11, its Interreg arm is at step 52 — so it is refreshed from BOTH ends and
+  // `db:load:interreg:pg` refreshes it again. On a FIRST-EVER run this branch skips and step 52
+  // populates it; on later runs this refreshes with the previous Interreg vintage and step 52
+  // corrects it. Stated in 145's header too, because a reader of either file needs it.
+  const [deps] = await allRows<{ ops: string | null; parts: string | null }>(
+    `SELECT to_regclass('public.interreg_operations')::text AS ops,
+            to_regclass('public.interreg_partners')::text   AS parts`,
+  );
+  if (!deps?.ops || !deps?.parts) {
+    console.warn(
+      "funds-fit: skipping 145 (hub stats) — interreg_operations/interreg_partners absent. " +
+        "db:load:interreg:pg applies and refreshes it; the /funds hub renders without figures until then.",
+    );
+  } else {
+    console.log("funds-fit: applying 145 (hub stats) + refreshing");
+    await exec(readFileSync(SCHEMA_HUB, "utf8"));
+    // 145 creates WITH NO DATA, so the first refresh cannot be CONCURRENT. Probed rather than
+    // caught: an error catch here is how the previous draft hid a PERMANENT CONCURRENTLY
+    // failure (its unique index was on an expression, which does not qualify) behind what
+    // looked like a first-run fallback.
+    const [mv] = await allRows<{ ispopulated: boolean }>(
+      `SELECT ispopulated FROM pg_matviews WHERE matviewname = 'funds_hub_stats_cache'`,
+    );
+    await exec(
+      mv?.ispopulated
+        ? "REFRESH MATERIALIZED VIEW CONCURRENTLY funds_hub_stats_cache"
+        : "REFRESH MATERIALIZED VIEW funds_hub_stats_cache",
+    );
+  }
 
   // The basis, printed — this is what the page declares to a reader, so an operator should see it
   // change. A sudden zero on the Interreg side means 137 was never applied to this database and

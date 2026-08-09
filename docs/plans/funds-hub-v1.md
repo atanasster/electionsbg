@@ -93,7 +93,30 @@ footer, and it owns the fetch its tiles need — which is what takes those fetch
 
 ## 4. The stat blob
 
-One artifact, per the skill §1 — **`data/funds/derived/hub_stats.json`**, budgeted and gated.
+**SHIPPED as a PG function, not the JSON artifact this section originally specified** —
+migration 145, `funds_hub_stats_cache` + `funds_hub_stats()`, behind `/api/db/funds-hub-stats`.
+
+Two repo conventions outrank the plan text: `feedback_no_json_from_pg` (PG is for live serving,
+not for generating committed JSON) and `reference_funds_pg_only` (every `/funds` page already
+reads PG; the static funds tree is retired as a serving surface, so a blob would be a SECOND
+one). CLAUDE.md records that procurement's committed-but-PG-derived `hub_stats.json` went stale
+in the repo for two months while still serving 200s. Verified during review: nothing in the
+repo reads `data/funds/derived/hub_stats.json`, and `bucket_sync_paths.ts` allowlists only the
+procurement one.
+
+The skill's anti-drift property survives the swap — it asks that the hub's numbers share a
+source with its sub-pages', which here means one SQL definition the route and the gates both
+read. Three defects the review caught in the first draft, each invisible on a warm machine:
+`REFRESH … CONCURRENTLY` could never succeed (the unique index was on an expression, which does
+not qualify a matview, so the loader's `55000` catch silently took the locking path for ever);
+`CREATE MATERIALIZED VIEW IF NOT EXISTS` made `apply_functions.ts` print „applied" while
+changing nothing, so the documented escape hatch for a body fix was a no-op that reported
+success; and applying it from `db:load:funds:pg` killed `db:refresh` at step 10 of 57 on a cold
+database, because `CREATE MATERIALIZED VIEW` resolves its query and `canon_oblast` arrives at
+step 11.
+
+*(Original text, kept because §5's step list refers to it: one artifact, per the skill §1 —
+`data/funds/derived/hub_stats.json`, budgeted and gated.)*
 
 It replaces the hub's per-tile fetches. Today the grid's numbers would come from
 `projects-index` (17 KB), `index` (9 KB), `dual-corpus-rankings` (247 KB) and

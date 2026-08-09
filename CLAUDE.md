@@ -734,6 +734,41 @@ publishes no rejected applications, so the denominator for „одобрен л�
 `ProcedureBaseRates.test.tsx` fails if the word „одобрен" appears anywhere except inside the
 disclaimer that rules it out.
 
+`funds_hub_stats_cache` + `funds_hub_stats()` (migration 145) is the `/funds` HUB's one stat
+call — the figures on its tile grid, behind `/api/db/funds-hub-stats`. **`db:load:funds-fit:pg`
+applies and refreshes it**, and that placement is not where it looks like it belongs: its
+primary input is the funds corpus, but `CREATE MATERIALIZED VIEW` resolves its query at
+creation and 145 needs `canon_oblast` — which 143 defines, applied by that same loader one
+`db:refresh` step after `db:load:funds:pg`. Applied from the funds loader it fails with
+`function canon_oblast(text) does not exist` and rolls back a 57-step chain at step 10.
+
+```bash
+npm run db:load:funds-fit:pg:cloud
+```
+
+**It is materialised because the live aggregate cannot be served.** Measured: 18,855 buffers
+with a spill to temp, against the ~2,000 the dashboard-hub skill allows for a call every view
+makes. The seek is 40.
+
+Three things about it are easy to get backwards:
+
+- **Its Interreg arm closes a CYCLE, so it is refreshed from BOTH ends.** 145 reads
+  `interreg_operations`/`interreg_partners` (step 52) while its primary input is at step 10/11,
+  so `db:load:funds-fit:pg` refreshes it with the PREVIOUS Interreg vintage and
+  `db:load:interreg:pg` refreshes it again. Consequence, stated rather than hidden: a
+  first-ever run is populated by step 52, and after any complete `db:refresh` the numbers are
+  current. Skipping the interreg-side refresh leaves the hub's Interreg tile a vintage behind
+  at a 200 with every row count reconciling.
+- **Every key names its BASIS, and that is load-bearing rather than verbose.**
+  `absorptionPctOfGrant` (53.8%) and `absorptionPctOfContracted` (41.1%) are both true and 12.7
+  points apart; `beneficiaryCount` (47,599, EIK-or-name) and `beneficiaryCountEikOnly` (46,174)
+  differ by 1,425 organisations; `bgPartnerOrgCount` (983) and `bgPartnerRowCount` (1,493) by
+  52%. A key called `absorptionPct` invites a consumer to pick a denominator by accident.
+- **`placedMoneyPct` is a MONEY share, never a row share, and the two are 45 points apart.**
+  Only 4.6% of rows carry no oblast — but they hold **50.05% of the money**, because the
+  national-scope programmes have no single oblast to sit in. „4.6% от договорите нямат място"
+  is true and misleading; a place surface declares the money coverage.
+
 `funds_wire()` / `funds_news()` (migration 144) are the `/funds` band-0 wire and band-2 news
 rail. **`db:load:funds-fit:pg` applies 144 as its last step**, so a corpus reload carries it —
 `funds_news`'s third card reads `fund_fit`, which is why that loader is its home. Nothing else

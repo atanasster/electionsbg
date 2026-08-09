@@ -490,6 +490,12 @@ export const loadFundsPg = async (
   if (canRefreshDual)
     await exec("REFRESH MATERIALIZED VIEW dual_corpus_rankings_cache");
 
+  // The /funds hub's stat cache (145) is deliberately NOT applied here, though this loader
+  // rebuilds its primary input. `CREATE MATERIALIZED VIEW` resolves its query at creation, and
+  // 145 needs `canon_oblast` (143) — which lands one step LATER in `db:refresh`, so applying it
+  // here failed with `function canon_oblast(text) does not exist` and rolled back a 57-step
+  // chain at step 10. Its applier is `load_funds_fit_pg.ts`; see 145's header for the cycle.
+
   return { rows: rows.length, projects, payloads: payloadRows.length };
 };
 
