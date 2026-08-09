@@ -66,9 +66,7 @@ const run = async (): Promise<void> => {
       await page
         .waitForSelector("#sector-awarders", { timeout: 20_000 })
         .catch(() => {
-          console.log(
-            "  ⚠ #sector-awarders didn't resolve — capturing anyway",
-          );
+          console.log("  ⚠ #sector-awarders didn't resolve — capturing anyway");
         });
       await page.waitForTimeout(1800);
       // Scroll the dashboard (h1 + KPIs + charts) to the top so the OG clip

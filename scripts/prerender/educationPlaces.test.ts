@@ -417,9 +417,8 @@ describe("every sub-city place resolves onto a parent that has data", () => {
   // Each must alias to a parent the corpus actually carries — the Пловдив/Варна
   // family was missed on the first pass and 11 live pages lost their section.
   it("aliases every Sofia район and city район onto a parent blob", async () => {
-    const { resolveEducationPlaceKey } = await import(
-      "@/data/schools/educationPlaceKey"
-    );
+    const { resolveEducationPlaceKey } =
+      await import("@/data/schools/educationPlaceKey");
     const { CITY_RAYONS } = await import("@/data/local/cityRayonCatalog");
     const munis = JSON.parse(
       readFileSync(path.join(ROOT, "data/municipalities.json"), "utf-8"),
@@ -448,9 +447,8 @@ describe("every sub-city place resolves onto a parent that has data", () => {
 
 describe("the two rules the loader and the prerender share", () => {
   it("keys Sofia's município to the МИР the corpus uses, not to a SOF oblast", async () => {
-    const { oblastOfObshtina, latestYearOf, dziSeriesOf } = await import(
-      "../db/lib/school_places"
-    );
+    const { oblastOfObshtina, latestYearOf, dziSeriesOf } =
+      await import("../db/lib/school_places");
     expect(oblastOfObshtina("SOF00")).toBe("S23");
     expect(oblastOfObshtina("SML10")).toBe("SML");
 

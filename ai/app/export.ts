@@ -279,9 +279,8 @@ export const downloadPdf = async (msgs: ChatMsg[], lang: Lang) => {
         // the geographic answer keeps its picture and not just the numbers.
         if (m.env.geo) {
           try {
-            const { buildGeoSvg, svgToPng } = await import(
-              "../render/staticGeoMap"
-            );
+            const { buildGeoSvg, svgToPng } =
+              await import("../render/staticGeoMap");
             const svg = await buildGeoSvg(m.env.geo, lang);
             if (svg) {
               const { dataUrl, width, height } = await svgToPng(svg);

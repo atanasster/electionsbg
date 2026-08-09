@@ -736,9 +736,8 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
     // Guarded on the 041 schema being present on this DB.
     {
       const { getPool: pool, withClient: wc } = await import("../db/lib/pg");
-      const { rebuildRiskGradeScoped } = await import(
-        "../db/lib/riskGradeScoped"
-      );
+      const { rebuildRiskGradeScoped } =
+        await import("../db/lib/riskGradeScoped");
       // No blanket .catch: to_regclass returns NULL (not an error) for a missing
       // table, so a thrown query here is a real PG fault — let it surface rather
       // than silently skip the rebuild and serve a stale leaderboard.

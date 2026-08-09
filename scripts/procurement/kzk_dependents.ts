@@ -99,9 +99,8 @@ export const refreshAppealDependents = async (): Promise<void> => {
     .query("SELECT to_regclass('public.awarder_risk_grade_scoped') AS t")
     .then((r) => r.rows[0]?.t != null);
   if (hasScoped) {
-    const { rebuildRiskGradeScoped } = await import(
-      "../db/lib/riskGradeScoped"
-    );
+    const { rebuildRiskGradeScoped } =
+      await import("../db/lib/riskGradeScoped");
     await withClient((c) => rebuildRiskGradeScoped(c));
   }
 };

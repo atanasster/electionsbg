@@ -91,9 +91,8 @@ describe("fetchPersonsCsv", () => {
     const sent = JSON.parse(
       decodeURIComponent(
         new URL(
-          (
-            globalThis.fetch as unknown as { mock: { calls: string[][] } }
-          ).mock.calls[0][0],
+          (globalThis.fetch as unknown as { mock: { calls: string[][] } }).mock
+            .calls[0][0],
           "http://x",
         ).searchParams.get("q")!,
       ),

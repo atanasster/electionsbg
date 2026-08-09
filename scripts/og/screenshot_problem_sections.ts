@@ -37,9 +37,7 @@ const run = async (): Promise<void> => {
     await page
       .waitForSelector(".leaflet-container", { timeout: 20_000 })
       .catch(() => {
-        console.log(
-          "  ⚠ .leaflet-container didn't resolve — capturing anyway",
-        );
+        console.log("  ⚠ .leaflet-container didn't resolve — capturing anyway");
       });
     await page.waitForTimeout(2500);
     // Frame the OG clip on the dashboard (KPI cards + map + top parties).
