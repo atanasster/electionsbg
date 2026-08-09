@@ -540,11 +540,51 @@ Ordered by how likely they are to cost you a weekend:
 
 ## 8. Recommended phasing
 
-**Phase 0 — decide the voice (½ day).** `scripts/video/tts_bakeoff.ts`: the
-hard-case passage from §2 (acronyms, hard place names, euro decimals, an ЕИК),
-across Chirp 3 HD (3–4 voices), Azure Kalina + Borislav, and ElevenLabs v3 — plus
-a human read of the same passage if a quote comes back in time (§2b). Listen. Pick.
-Commit the script so it is repeatable.
+**Phase 0 — decide the voice. ✅ DONE 2026-08-08.**
+
+**Chosen: `gemini` · `Rasalgethi` · `gemini-3.1-flash-tts-preview`** —
+`CHOSEN_VOICE` in `scripts/video/tts_bakeoff.ts`.
+
+Run: 18 clips over two rounds on the §2 hard-case passage — round 1 across Chirp 3
+HD and Gemini in both variants, round 2 a 6-way male comparison on `spoken`.
+Total spend **~1.1% of one month's free tier**.
+
+Three things the run settled that the research had wrong or open:
+
+- **Cloud TTS refuses API keys outright** (401 · "API keys are not supported by
+  this API"). It needs an OAuth token *and* `texttospeech.googleapis.com` enabled
+  on the project — two operator steps §2 did not know about. Both are now done and
+  Chirp 3 HD is live with all 31 bg-BG voices confirmed (30 Chirp3-HD + 1 Standard).
+- **Gemini TTS is a fourth viable provider**, reachable with the `GEMINI_API_KEY`
+  already in `.env.local` and no GCP setup at all. Its `gemini-3.1-flash-tts-preview`
+  speaks Bulgarian; §2 missed it because the model postdates the docs consulted.
+- **The winner was not the favourite.** Chirp 3 HD had 30 bg-BG voices,
+  `speaking_rate` control, and ran ~16% faster (46.3 s vs 55.3 s mean on identical
+  text) — and lost on ear. That is the whole reason this was a listening test and
+  not a table.
+
+Also measured, and useful later: raw-vs-spoken **duration delta** is a cheap proxy
+for whether an engine is swallowing numbers rather than reading them. Both variants
+say the same words, so they should run to similar lengths; `bg-BG-Chirp3-HD-Achird`
+came in **16 s shorter** on `raw`, and the delta varied by voice *within* the same
+engine (Achernar +1.8 s vs Achird −16.0 s). If that holds up, voice choice is partly
+a correctness decision and not only an aesthetic one.
+
+**The spell-out rule is CONFIRMED necessary** (judged on Rasalgethi, 2026-08-08):
+`spoken` sounds natural, `raw` is **audibly accelerated**. Rule 7 stands, unrelaxed.
+
+The mechanism is worth stating because it is not the one §2 predicted. The
+anticipated failure was *mispronunciation* — a decimal comma read as a pause, an
+ЕИК read as a number. What actually degrades is **pacing**: handed digits, the
+engine compresses them and rushes, and the result is wrong-sounding without being
+wrong. That is a harder defect to catch than a mangled number, because nothing in
+the output is identifiably incorrect — it just does not sound like a person.
+
+It also promotes the raw-vs-spoken **duration delta** from a speculative proxy to a
+measured one: Rasalgethi's −4.0 s is already audible as rushing, so Achird's
+−16.0 s is a different order of problem. The delta is a bake-off diagnostic, not a
+production gate — nothing but `spoken` is ever synthesized for a real video — but it
+is the cheapest way to rank candidates on this axis before listening.
 
 **Phase 1 — three shorts, by hand (2–3 days).** Not one. Remotion project,
 `cardKit` palette ported to CSS tokens, chosen voice, burned BG captions. Build the

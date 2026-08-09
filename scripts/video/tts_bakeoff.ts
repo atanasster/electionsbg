@@ -10,6 +10,11 @@
  *   npm run video:bakeoff                      # synthesize everything available
  *   npm run video:bakeoff -- --providers=google --voices=6
  *
+ * Narrowing a SECOND pass once a first round has shortlisted a timbre:
+ *
+ *   … --providers=gemini --gender=male --voices=6      # the other male voices
+ *   … --only=Charon,Puck --variants=spoken             # named finalists only
+ *
  * WHY THIS EXISTS AS A COMMITTED SCRIPT rather than a few curl calls: the
  * decision it makes (which voice narrates everything this brand publishes) has to
  * be re-made whenever a provider ships a model, and re-running the SAME passage
@@ -20,12 +25,26 @@
  * WHY BLIND BY DEFAULT: you will have read the plan and you know which one costs
  * 10x. Labels are hidden behind a reveal button so the ear goes first.
  *
- * Credentials — every provider is optional and missing keys SKIP-AND-WARN rather
- * than throw, so a run with one key configured still produces a usable page:
+ * Credentials — `.env.local` is loaded automatically. Every provider is optional
+ * and missing keys SKIP-AND-WARN rather than throw, so a run with one configured
+ * still produces a usable page:
  *
- *   GOOGLE_TTS_API_KEY        (or GOOGLE_TTS_ACCESS_TOKEN for a Bearer token)
+ *   GEMINI_API_KEY            → gemini  (already in .env.local for OCR/images)
+ *   GOOGLE_TTS_ACCESS_TOKEN   → google  (+ optional GOOGLE_CLOUD_PROJECT)
  *   AZURE_SPEECH_KEY + AZURE_SPEECH_REGION      e.g. westeurope
  *   ELEVENLABS_API_KEY        (ELEVENLABS_MODEL_ID overrides the default model)
+ *
+ * THERE IS NO `GOOGLE_TTS_API_KEY`, and that is not an omission. Cloud
+ * Text-to-Speech rejects API-key auth outright — measured 2026-08-08:
+ *
+ *   401 · "API keys are not supported by this API. Expected OAuth2 access token
+ *          or other authentication credentials that assert a principal."
+ *
+ * So Chirp 3 HD needs a Bearer token and an enabled API, both operator actions:
+ *
+ *   gcloud services enable texttospeech.googleapis.com --project <proj>
+ *   export GOOGLE_TTS_ACCESS_TOKEN=$(gcloud auth print-access-token)
+ *   export GOOGLE_CLOUD_PROJECT=<proj>     # user creds need a quota project
  *
  * NOTE ON bg-BG's limits, since they shape what this test can even ask: Chirp 3 HD
  * supports neither pause control nor custom pronunciations for `bg-bg`, so there
@@ -34,7 +53,13 @@
  *
  * Output (gitignored, regenerable): raw_data/video/tts_bakeoff/
  */
-import { mkdirSync, writeFileSync, readdirSync, existsSync } from "node:fs";
+import {
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+  readFileSync,
+  existsSync,
+} from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import {
@@ -57,9 +82,54 @@ type Provider = {
   missingHint: string;
   listVoices: () => Promise<Voice[]>;
   synthesize: (voice: Voice, text: string) => Promise<Buffer>;
+  /** Container the clips are written in. Gemini returns raw PCM, not MP3. */
+  ext?: "mp3" | "wav";
 };
 
+/**
+ * `.env.local` holds GEMINI_API_KEY (see CLAUDE.md) but nothing in a plain `tsx`
+ * run populates process.env from it — without this the script reports "no
+ * providers configured" on a machine that is, in fact, configured. Real env vars
+ * win, so `GEMINI_API_KEY=… npm run video:bakeoff` still overrides the file.
+ */
+const loadEnvLocal = () => {
+  const f = resolve(".env.local");
+  if (!existsSync(f)) return;
+  for (const line of readFileSync(f, "utf8").split("\n")) {
+    const m = /^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/.exec(line);
+    if (!m || line.trimStart().startsWith("#")) continue;
+    const [, k, rawVal] = m;
+    if (process.env[k!] !== undefined) continue;
+    process.env[k!] = rawVal!.trim().replace(/^(['"])(.*)\1$/, "$2");
+  }
+};
+loadEnvLocal();
+
 const env = (k: string) => process.env[k]?.trim() || "";
+
+/**
+ * Minimal RIFF/WAVE header for 16-bit mono PCM. Gemini returns
+ * `audio/L16;codec=pcm;rate=24000` — headerless samples that no browser will
+ * play, so the compare page would show a silent control with nothing to explain
+ * why.
+ */
+const pcmToWav = (pcm: Buffer, rate: number): Buffer => {
+  const h = Buffer.alloc(44);
+  h.write("RIFF", 0);
+  h.writeUInt32LE(36 + pcm.length, 4);
+  h.write("WAVE", 8);
+  h.write("fmt ", 12);
+  h.writeUInt32LE(16, 16);
+  h.writeUInt16LE(1, 20); // PCM
+  h.writeUInt16LE(1, 22); // mono
+  h.writeUInt32LE(rate, 24);
+  h.writeUInt32LE(rate * 2, 28); // byte rate
+  h.writeUInt16LE(2, 32); // block align
+  h.writeUInt16LE(16, 34); // bits per sample
+  h.write("data", 36);
+  h.writeUInt32LE(pcm.length, 40);
+  return Buffer.concat([h, pcm]);
+};
 
 /** Fail loudly with the provider's own message — a 401 body says more than a code. */
 const ensureOk = async (res: Response, what: string) => {
@@ -76,9 +146,12 @@ const ensureOk = async (res: Response, what: string) => {
 const google: Provider = {
   name: "google",
   note: "Chirp 3 HD — 30 bg-BG voices, $30/1M chars, 1M/month free",
-  configured: () =>
-    !!(env("GOOGLE_TTS_API_KEY") || env("GOOGLE_TTS_ACCESS_TOKEN")),
-  missingHint: "set GOOGLE_TTS_API_KEY (or GOOGLE_TTS_ACCESS_TOKEN)",
+  configured: () => !!env("GOOGLE_TTS_ACCESS_TOKEN"),
+  missingHint:
+    "Cloud TTS refuses API keys — needs OAuth. " +
+    "`gcloud services enable texttospeech.googleapis.com --project <proj>` once, then " +
+    "`export GOOGLE_TTS_ACCESS_TOKEN=$(gcloud auth print-access-token)` " +
+    "(+ GOOGLE_CLOUD_PROJECT=<proj> for user credentials)",
   listVoices: async () => {
     const res = await fetch(googleUrl("voices", { languageCode: LANG }), {
       headers: googleAuthHeaders(),
@@ -117,7 +190,12 @@ const google: Provider = {
 /**
  * Built with URL/URLSearchParams rather than string concatenation: `voices`
  * already carries a `?languageCode=` and `text:synthesize` does not, so a
- * hand-rolled `?key=` suffix is right on one endpoint and broken on the other.
+ * hand-rolled query suffix is right on one endpoint and broken on the other.
+ *
+ * Deliberately carries NO credential. Cloud TTS rejects `?key=` with a 401
+ * (see the header) — auth is the Bearer header below and nothing else. A future
+ * reader reaching for an API key here should read that 401 first; the test
+ * asserts no key ever reappears in the URL.
  */
 export const googleUrl = (
   path: string,
@@ -125,13 +203,22 @@ export const googleUrl = (
 ): string => {
   const u = new URL(`https://texttospeech.googleapis.com/v1/${path}`);
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v);
-  const key = env("GOOGLE_TTS_API_KEY");
-  if (key) u.searchParams.set("key", key);
   return u.toString();
 };
+
+/**
+ * A token minted from USER credentials (`gcloud auth print-access-token`) has no
+ * project of its own, so Cloud TTS bills it to nothing and 403s unless a quota
+ * project is named. Service-account tokens carry theirs and ignore the header.
+ */
 const googleAuthHeaders = (): Record<string, string> => {
   const token = env("GOOGLE_TTS_ACCESS_TOKEN");
-  return token ? { authorization: `Bearer ${token}` } : {};
+  if (!token) return {};
+  const project = env("GOOGLE_CLOUD_PROJECT");
+  return {
+    authorization: `Bearer ${token}`,
+    ...(project ? { "x-goog-user-project": project } : {}),
+  };
 };
 
 // ---------------------------------------------------------------------------
@@ -245,7 +332,175 @@ const eleven: Provider = {
   },
 };
 
-const PROVIDERS: Provider[] = [google, azure, eleven];
+// ---------------------------------------------------------------------------
+// Gemini TTS — the one that works with the GEMINI_API_KEY already in .env.local
+// ---------------------------------------------------------------------------
+
+/**
+ * The current TTS model. 2.5 variants also speak Bulgarian — an earlier note here
+ * claimed they did not, on the strength of ONE empty response, and re-measuring
+ * disproved it (5/5 identical BG requests produced audio on both 2.5 and 3.1).
+ * The pin is simply "use the newest", not a workaround.
+ *
+ * What the false alarm did uncover is real and is handled in `synthesize`: the
+ * API intermittently answers **HTTP 200 with an empty candidate**
+ * (`finishReason: "OTHER"`, no parts) instead of erroring. Observed once in ~7
+ * requests. In a per-scene pipeline that shape is dangerous — a scene silently
+ * loses its narration while the run reports success — so it is retried, and only
+ * a persistent empty is treated as a failure.
+ */
+export const GEMINI_TTS_MODEL = "gemini-3.1-flash-tts-preview";
+
+/**
+ * Retries for the two transient failures seen on 2026-08-08 — the empty-candidate
+ * 200 above, and a dropped connection ("fetch failed"). Both lose a scene's
+ * narration in a per-scene pipeline while the run still looks like it succeeded,
+ * so both are retried; genuine HTTP errors are not.
+ */
+const GEMINI_EMPTY_RETRIES = 3;
+
+/**
+ * PHASE-0 OUTCOME (2026-08-08) — the voice this brand narrates in.
+ *
+ * Chosen by ear from a 6-way male comparison on the `spoken` passage, after a
+ * first round across Chirp 3 HD and Gemini in both variants. Durations across the
+ * six males spanned 51.4–53.3 s, so pacing was not a differentiator and the pick
+ * is timbre plus how each handled the acronyms and place names.
+ *
+ * NOT chosen for reach or price: Chirp 3 HD has 30 bg-BG voices, `speaking_rate`
+ * control and ran ~16% faster, and it lost anyway. Re-run the bake-off before
+ * overriding this — `--only=Rasalgethi,<challenger> --variants=spoken` puts a
+ * candidate next to the incumbent on the same six facts.
+ */
+export const CHOSEN_VOICE = {
+  provider: "gemini",
+  voiceId: "Rasalgethi",
+  model: GEMINI_TTS_MODEL,
+} as const;
+
+/**
+ * All 30 prebuilt voices. The names are constants in the API with no list
+ * endpoint to call, so this is a literal rather than a discovered set.
+ *
+ * The GENDERS are not guesses: Cloud TTS publishes `bg-BG-Chirp3-HD-<Name>` for
+ * these same 30 names and returns `ssmlGender` for each, so they were read out of
+ * a live `voices.list` response (2026-08-08, 16 male / 14 female). An earlier
+ * draft carried eight hand-labelled voices flagged "best-effort"; this replaces
+ * both the guessing and the truncation.
+ */
+const GEMINI_VOICES: Voice[] = (
+  [
+    ["Achernar", "FEMALE"],
+    ["Achird", "MALE"],
+    ["Algenib", "MALE"],
+    ["Algieba", "MALE"],
+    ["Alnilam", "MALE"],
+    ["Aoede", "FEMALE"],
+    ["Autonoe", "FEMALE"],
+    ["Callirrhoe", "FEMALE"],
+    ["Charon", "MALE"],
+    ["Despina", "FEMALE"],
+    ["Enceladus", "MALE"],
+    ["Erinome", "FEMALE"],
+    ["Fenrir", "MALE"],
+    ["Gacrux", "FEMALE"],
+    ["Iapetus", "MALE"],
+    ["Kore", "FEMALE"],
+    ["Laomedeia", "FEMALE"],
+    ["Leda", "FEMALE"],
+    ["Orus", "MALE"],
+    ["Puck", "MALE"],
+    ["Pulcherrima", "FEMALE"],
+    ["Rasalgethi", "MALE"],
+    ["Sadachbia", "MALE"],
+    ["Sadaltager", "MALE"],
+    ["Schedar", "MALE"],
+    ["Sulafat", "FEMALE"],
+    ["Umbriel", "MALE"],
+    ["Vindemiatrix", "FEMALE"],
+    ["Zephyr", "FEMALE"],
+    ["Zubenelgenubi", "MALE"],
+  ] as const
+).map(([id, gender]) => ({ id, label: id, gender }));
+
+const gemini: Provider = {
+  name: "gemini",
+  note: `${GEMINI_TTS_MODEL} — reuses GEMINI_API_KEY, no GCP setup`,
+  configured: () => !!env("GEMINI_API_KEY"),
+  missingHint: "set GEMINI_API_KEY (already in .env.local for OCR/images)",
+  ext: "wav",
+  listVoices: async () => GEMINI_VOICES,
+  synthesize: async (voice, text) => {
+    const model = env("GEMINI_TTS_MODEL") || GEMINI_TTS_MODEL;
+    let lastReason = "none";
+
+    for (let attempt = 1; attempt <= GEMINI_EMPTY_RETRIES; attempt++) {
+      let res: Response;
+      try {
+        res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(env("GEMINI_API_KEY"))}`,
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text }] }],
+              generationConfig: {
+                responseModalities: ["AUDIO"],
+                speechConfig: {
+                  voiceConfig: { prebuiltVoiceConfig: { voiceName: voice.id } },
+                },
+              },
+            }),
+          },
+        );
+      } catch (err) {
+        // Transport failure ("fetch failed") — a ~50 s audio generation is a long
+        // connection to hold, and one dropped on the 2026-08-08 run. Same cost as
+        // the empty-200 in a per-scene pipeline (a scene loses its narration), so
+        // it gets the same treatment rather than only the response-shape case.
+        lastReason = `fetch: ${(err as Error).message}`;
+        if (attempt === GEMINI_EMPTY_RETRIES) break;
+        console.warn(
+          `    … ${voice.label} transport error (${(err as Error).message}); retry ${attempt}/${GEMINI_EMPTY_RETRIES - 1}`,
+        );
+        continue;
+      }
+      // A real HTTP error is not retried here — ensureOk throws with the body,
+      // and a 400/403 will say the same thing three times.
+      await ensureOk(res, `gemini synthesize ${voice.label}`);
+
+      const json = (await res.json()) as {
+        candidates?: {
+          finishReason?: string;
+          content?: {
+            parts?: { inlineData?: { data: string; mimeType: string } }[];
+          };
+        }[];
+      };
+      const candidate = json.candidates?.[0];
+      const inline = candidate?.content?.parts?.[0]?.inlineData;
+      if (inline) {
+        const rate = Number(/rate=(\d+)/.exec(inline.mimeType)?.[1] ?? 24000);
+        return pcmToWav(Buffer.from(inline.data, "base64"), rate);
+      }
+
+      // 200 with an empty candidate — transient, see GEMINI_TTS_MODEL.
+      lastReason = candidate?.finishReason ?? "none";
+      if (attempt < GEMINI_EMPTY_RETRIES) {
+        console.warn(
+          `    … ${voice.label}/${model} returned no audio (finishReason=${lastReason}); retry ${attempt}/${GEMINI_EMPTY_RETRIES - 1}`,
+        );
+      }
+    }
+
+    throw new Error(
+      `gemini produced no audio for ${voice.label} after ${GEMINI_EMPTY_RETRIES} attempts ` +
+        `(last=${lastReason}, model=${model}) — persistent, so not the usual transient`,
+    );
+  },
+};
+
+const PROVIDERS: Provider[] = [gemini, google, azure, eleven];
 
 // ---------------------------------------------------------------------------
 // Voice selection
@@ -437,7 +692,7 @@ const arg = (name: string): string | undefined => {
 const flag = (name: string) => process.argv.includes(`--${name}`);
 
 const main = async () => {
-  const wanted = (arg("providers") || "google,azure,eleven")
+  const wanted = (arg("providers") || PROVIDERS.map((p) => p.name).join(","))
     .split(",")
     .map((s) => s.trim());
   const variants = (arg("variants") || VARIANTS.join(","))
@@ -446,6 +701,14 @@ const main = async () => {
   const perProvider = Number(arg("voices") || 4);
   const listOnly = flag("list");
   const dryRun = flag("dry-run");
+  // Narrowing filters for the SECOND pass, once a first round has shortlisted a
+  // timbre: `--gender=male` to hear the alternatives, `--only=Charon,Puck` to
+  // re-render named finalists. Both are matched case-insensitively.
+  const genderFilter = (arg("gender") || "").trim().toUpperCase();
+  const onlyVoices = (arg("only") || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
 
   const active = PROVIDERS.filter((p) => wanted.includes(p.name));
   if (!active.length) {
@@ -497,16 +760,42 @@ const main = async () => {
       continue;
     }
 
-    const picked = pickVoices(voices, perProvider);
+    // `--only` names finalists exactly, so it also overrides the count; `--gender`
+    // narrows the pool and lets pickVoices sample within it.
+    let pool = voices;
+    if (onlyVoices.length) {
+      pool = voices.filter((v) =>
+        onlyVoices.some(
+          (want) =>
+            v.label.toLowerCase() === want ||
+            v.id.toLowerCase() === want ||
+            v.label.toLowerCase().endsWith(`-${want}`),
+        ),
+      );
+    } else if (genderFilter) {
+      pool = voices.filter(
+        (v) => (v.gender ?? "").toUpperCase() === genderFilter,
+      );
+    }
+    if (!pool.length) {
+      // Silently falling back to the full pool would hand back the voices the
+      // filter was written to exclude, which reads as the filter being ignored.
+      console.warn(
+        `  [skip] no voice matches ${onlyVoices.length ? `--only=${onlyVoices.join(",")}` : `--gender=${genderFilter}`}`,
+      );
+      continue;
+    }
+
+    const picked = onlyVoices.length ? pool : pickVoices(pool, perProvider);
     console.log(
-      `  using ${picked.length}: ${picked.map((v) => v.label).join(", ")}`,
+      `  using ${picked.length}${genderFilter ? ` ${genderFilter.toLowerCase()}` : ""}: ${picked.map((v) => v.label).join(", ")}`,
     );
 
     for (const voice of picked) {
       for (const variant of variants) {
         const text = passageText(variant);
         const safe = voice.label.replace(/[^\w.-]+/g, "-");
-        const file = `${provider.name}__${safe}__${variant}.mp3`;
+        const file = `${provider.name}__${safe}__${variant}.${provider.ext ?? "mp3"}`;
         charsBilled += text.length;
         if (dryRun) {
           clips.push({
@@ -543,11 +832,14 @@ const main = async () => {
   }
 
   // Any human recording dropped into the folder joins the comparison for free.
+  // Accept whatever a phone or recorder produced — insisting on MP3 would make
+  // the §2b human leg fail silently on the most likely input.
   if (existsSync(OUT_DIR)) {
     for (const f of readdirSync(OUT_DIR)) {
-      if (!f.startsWith("human__") || !f.endsWith(".mp3")) continue;
+      if (!f.startsWith("human__") || !/\.(mp3|wav|m4a|ogg|opus)$/i.test(f))
+        continue;
       const [, name = "human", variant = "spoken"] = f
-        .replace(/\.mp3$/, "")
+        .replace(/\.(mp3|wav|m4a|ogg|opus)$/i, "")
         .split("__");
       if (!clips.some((c) => c.file === f)) {
         clips.push({

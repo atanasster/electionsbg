@@ -12,7 +12,7 @@ import {
   coveredCases,
   type HardCase,
 } from "./passage";
-import { blindLabel, googleUrl } from "./tts_bakeoff";
+import { blindLabel, googleUrl, GEMINI_TTS_MODEL } from "./tts_bakeoff";
 
 const ALL_CASES: HardCase[] = ["acronym", "place", "money", "percent", "idnum"];
 
@@ -85,19 +85,44 @@ describe("compare-page helpers", () => {
   });
 });
 
+describe("gemini tts model pin", () => {
+  it("names a TTS-capable model, since the audio path depends on it", () => {
+    // Deliberately NOT asserting "not 2.5". A first draft did, on the strength
+    // of a single empty response; re-measuring showed 5/5 identical Bulgarian
+    // requests produce audio on both 2.5 and 3.1, so that gate would have
+    // enshrined a transient as a fact. The real hazard it uncovered — an
+    // intermittent 200 with an empty candidate — is handled by retry in
+    // `synthesize`, not by pinning a version.
+    expect(GEMINI_TTS_MODEL).toMatch(
+      /^gemini-[\d.]+-[a-z]+-(tts|native-audio)/,
+    );
+  });
+});
+
 describe("google url builder", () => {
-  it("appends the key as a real param on an endpoint that already has a query", () => {
-    process.env.GOOGLE_TTS_API_KEY = "test-key";
+  it("composes params without doubling the query separator", () => {
     const u = new URL(googleUrl("voices", { languageCode: "bg-BG" }));
     expect(u.searchParams.get("languageCode")).toBe("bg-BG");
-    expect(u.searchParams.get("key")).toBe("test-key");
     // The bug this replaced produced "?languageCode=bg-BG?key=…".
     expect(u.toString().match(/\?/g)?.length).toBe(1);
-    delete process.env.GOOGLE_TTS_API_KEY;
   });
 
-  it("omits the key entirely when only a bearer token is configured", () => {
-    delete process.env.GOOGLE_TTS_API_KEY;
-    expect(googleUrl("text:synthesize")).not.toContain("key=");
+  it("never puts a credential in the URL, even if an API key is in the env", () => {
+    // Cloud TTS answers `?key=` with 401 "API keys are not supported by this
+    // API" (measured 2026-08-08), so a key here is not merely redundant — it is
+    // a request that cannot succeed. Auth is the Bearer header, and this asserts
+    // nobody reintroduces the key param after reading the old docs.
+    process.env.GOOGLE_TTS_API_KEY = "test-key";
+    try {
+      for (const url of [
+        googleUrl("text:synthesize"),
+        googleUrl("voices", { languageCode: "bg-BG" }),
+      ]) {
+        expect(url).not.toContain("key=");
+        expect(url).not.toContain("test-key");
+      }
+    } finally {
+      delete process.env.GOOGLE_TTS_API_KEY;
+    }
   });
 });

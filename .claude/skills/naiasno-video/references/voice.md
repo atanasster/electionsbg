@@ -3,6 +3,23 @@
 Load when writing any `voiceOver`, or when choosing/configuring a TTS provider.
 Rationale and the provider comparison: `docs/plans/explainer-video-v1.md` §2.
 
+## The voice is decided — use it
+
+**`gemini` · `Rasalgethi` · `gemini-3.1-flash-tts-preview`.** Phase 0 closed
+2026-08-08; the constant is `CHOSEN_VOICE` in `scripts/video/tts_bakeoff.ts`.
+
+Put it in every spec's `voice` block and **do not vary it between videos** — a
+channel that changes narrator reads as unserious. It needs no GCP setup: it runs
+on the `GEMINI_API_KEY` already in `.env.local`.
+
+Chirp 3 HD stays configured and is the fallback (30 bg-BG voices, `speaking_rate`
+control, ~16% faster). To put a challenger next to the incumbent on the same six
+facts:
+
+```bash
+npm run video:bakeoff -- --only=Rasalgethi,<challenger> --variants=spoken
+```
+
 ## The rule that drives everything
 
 **Every number in the voice track is spelled out in Bulgarian words. Digits and
@@ -13,10 +30,19 @@ onScreen:  "€1,2 млрд."
 voiceOver: "един цяло и два милиарда евро"
 ```
 
-This is not stylistic. `bg-BG` has **no pronunciation override** on any provider we
-would use, so there is no `<phoneme>`, no `<say-as>`, no lexicon. Rewriting the text
-is the only correction lever that exists. Spelling numbers out also means a human can
-verify the spoken form by *reading* it at gate 1, before any audio is generated.
+**Confirmed by listening test, not assumed** (Rasalgethi, 2026-08-08): the same six
+facts as `spoken` sound natural; as `raw` they are **audibly accelerated**.
+
+The failure mode is **pacing, not pronunciation** — and that is the part worth
+remembering, because it is the harder one to catch. Handed digits, the engine
+compresses them and rushes; nothing in the output is identifiably *wrong*, it simply
+does not sound like a person. A reviewer scanning for a mangled number will pass it.
+
+Two reinforcing reasons the rule is not merely stylistic: `bg-BG` has **no
+pronunciation override** on any provider we would use — no `<phoneme>`, no
+`<say-as>`, no lexicon — so rewriting the text is the only correction lever that
+exists; and spelling numbers out lets a human verify the spoken form by *reading* it
+at gate 1, before any audio is generated.
 
 `scripts/video/passage.ts` holds six worked `raw` → `spoken` pairs built from real
 published facts. **Read it rather than re-deriving the patterns** — it is the

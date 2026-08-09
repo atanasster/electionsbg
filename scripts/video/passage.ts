@@ -30,6 +30,13 @@
  * two variants stay in step and that no category quietly loses its coverage.
  */
 
+/**
+ * OUTCOME (2026-08-08, judged on gemini/Rasalgethi): `spoken` sounds natural,
+ * `raw` is audibly ACCELERATED — the engine compresses digits and rushes them.
+ * The defect is pacing rather than mispronunciation, which is the harder kind to
+ * catch: nothing in the output is identifiably wrong, it just does not sound like
+ * a person. The spell-out mitigation is therefore load-bearing, not ceremony.
+ */
 export type HardCase = "acronym" | "place" | "money" | "percent" | "idnum";
 
 export type PassageLine = {
