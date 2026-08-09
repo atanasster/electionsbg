@@ -145,17 +145,25 @@ cat data/<cycle>/_unmatched_coalitions.json
 
 If the file has entries, each key is a raw local_party_name from `local_parties.txt` whose fragment lookup against `data/canonical_parties.json` failed. Add overrides to `scripts/parsers_local/local_coalition_overrides.ts`:
 
+**Every canonicalId must ALREADY EXIST in `data/canonical_parties.json`.** Look it up — it is
+normally `p_<n>` (ВМРО is `p_51`, БДЦ is `p_100`). Do **not** invent a readable slug: an id the
+canonical table does not carry is not ignored and does not resolve to null, it **mints a second
+party**, which then renders as its own raw latin token beside the real one in the `/persons`
+ПАРТИЯ facet with no colour dot. That is a live bug this file used to teach — the example below
+said `"vmro"`, and 424 councillor/mayor rows carried it.
+`scripts/parsers_local/local_coalition_overrides.test.ts` now fails on an unknown id.
+
 ```ts
 // In localCoalitionRawOverrides
 {
   rawName: "Местна коалиция Граждани за X (ВМРО-БНД, БДЦ)",
-  primaryCanonicalId: "vmro",
-  memberCanonicalIds: ["vmro", "bdc"],
+  primaryCanonicalId: "p_51",
+  memberCanonicalIds: ["p_51", "p_100"],   // ВМРО, БДЦ
 },
 
 // Or, if a fragment recurs across many local coalitions, in
 // localCoalitionFragmentOverrides:
-{ fragment: "ВМРО-БНД", canonicalId: "vmro" },
+{ fragment: "ВМРО-БНД", canonicalId: "p_51" },
 ```
 
 Re-run the parser only (skip the download/extract steps):

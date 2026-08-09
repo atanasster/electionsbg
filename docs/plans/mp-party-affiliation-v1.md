@@ -260,6 +260,32 @@ preference:
 Shipping T2 without this means 21 MPs — every defector, the most editorially interesting rows
 in the dataset — display an English word where their party should be.
 
+**§0g RESULT (2026-08-09) — done, with one residue tracked.** Option 1 was taken, and `vmro`
+turned out to be a **wrong id rather than a missing entry**: ВМРО is a real generated lineage
+`p_51` (displayName, displayNameEn, colour), so
+[`local_coalition_overrides.ts`](../../scripts/parsers_local/local_coalition_overrides.ts)
+naming `"vmro"` was minting a **second ВМРО** — the §0e facet split, already live. Shipped:
+
+- the override now names `p_51`; `independent` is a real `manualCanonicals` entry
+  (Независим / Independent, **empty history** so the sentinel cannot enter cross-election party
+  series, and the colour is pinned to the `rgb(148, 163, 184)` the local pipeline already bakes
+  in 392 bundles);
+- gates: `local_coalition_overrides.test.ts` (every override id must exist — the check that
+  would have caught this), `manualCanonicals.test.ts` (sentinel shape, source **and** artifact,
+  deliberately DB-free so CI runs it), and `party_labels.data.test.ts` = **gate 5.8**, covering
+  `party_primary`, `party_codes` **and** `official_candidate_link.party_canonical_id`;
+- cleaned: `person_role` (424 rows folded `vmro` → `p_51`, now 0) and
+  `official_candidate_link` (27 rows, cleared by re-running its loader).
+
+**Residue, tracked not fixed: 3,697 committed artifacts still carry `vmro`** —
+`data/<cycle>/sections/*.json` (`primaryCanonicalId`) and `data/local_place_trends/**`
+(`bucketId`). `--resolve-local-canonicals` cannot reach them:
+[`resolveCanonicalsForCycle`](../../scripts/parsers_local/resolve_canonicals.ts) walks only
+`municipalities/`. Closing it needs a `reapplyToSections` pass or a full `--local` re-parse of
+the 2007/2011/2015/2019 `_mi` cycles — a local-elections parser change, which is why it is not
+bundled into a canonical-table fix. It does **not** block T1–T4: nothing in the MP-party chain
+reads those files. Verify with `grep -rl '"vmro"' data/ | wc -l` (expect 0 when done).
+
 ## 1. The crosswalk — group short name → canonical id
 
 ### 1a. It is mostly mechanical (measured)

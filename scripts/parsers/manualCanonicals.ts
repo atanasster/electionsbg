@@ -4,10 +4,12 @@
 // registered legal entities that turn up as `localPartyName` strings in
 // chmi/mi partial-mayor races.
 //
-// Without an entry here, findCanonicalIdByLocalName (in
-// src/data/parties/useCanonicalParties.tsx) has no history.name to match
-// against, and rows on /local/chmi render as plain text instead of a
-// recognised party. Folding such parties into a host coalition's lineage via
+// Without an entry here, the local-name resolution in
+// scripts/parsers_local/local_coalitions.ts (`resolveLocalParty`, via the
+// canonical `byNickName` index) has no history.nickName to match against, so
+// the bundle bakes `primaryCanonicalId: null` and rows on /local/chmi render as
+// plain text instead of a recognised party. Folding such parties into a host
+// coalition's lineage via
 // partyOverrides isn't an option — that would conflate distinct legal
 // entities (e.g. ССД ≠ БНС ≠ КП-СИ even though ССД shows up as a member of
 // both coalitions in 2005 and 2024_10_27 respectively).
@@ -49,5 +51,42 @@ export const manualCanonicals: ManualCanonical[] = [
         nameEn: "Union of Free Democrats",
       },
     ],
+  },
+  // NOT a party — the SENTINEL for "stood without one". `local_coalitions.ts`
+  // mints it (INDEPENDENT_CANONICAL_ID) for every „Инициативен комитет", and
+  // mp-party-affiliation-v1 §1b WILL route the parliamentary НЕЗ / НЕЧЛ В ПГ /
+  // НЕЧЛ ПГ group shorts here too (not implemented yet — T1/T2 of that plan), so
+  // that one `?party=independent` covers independents across councillors and MPs
+  // instead of two half-sets.
+  //
+  // It needs an entry for the same reason a real party does: `displayNameForId`
+  // is a `byId` lookup, and the ПАРТИЯ column falls through to
+  // `|| p.partyPrimary` on a miss — so without this, 484 people rendered the
+  // latin token "independent" in a Bulgarian UI with no colour dot, and the
+  // facet dropdown listed it that way too (§0g). `colorFor` misses the same way.
+  //
+  // `history` is deliberately EMPTY, and every consumer tolerates that: the
+  // reads are `.find` (fullNameFor in useCanonicalParties.tsx, usePartyScope,
+  // ChmiPartyBadge) or `.forEach` / `.length` (PartyPollingDeltaTile, which
+  // already guards on `history.length < 2`). A sentinel has no lineage, and
+  // giving it a fake election row would enter „Независим" into cross-election
+  // party series as though it had contested them. Nothing enumerates
+  // `canonical_parties.json` to mint `/party` pages — the SPA, the prerender and
+  // the sitemap all walk the per-election `cik_parties.json` — so a historyless
+  // entry cannot produce an empty party page either.
+  //
+  // The colour is NOT a free choice: `rgb(148, 163, 184)` is what the local
+  // pipeline has already baked for `independent` in 392 committed bundles
+  // (verified in data/2023_10_29_mi/index.json), so anything else would make
+  // `colorFor` disagree with the artifacts. Note it is near-identical to the
+  // "#9CA3AF" unresolved-party fallback used in build_index_json.ts and the
+  // council tiles; the distinction between "stood as an independent" and "could
+  // not resolve this" is therefore real in the data but imperceptible on screen.
+  {
+    id: "independent",
+    displayName: "Независим",
+    displayNameEn: "Independent",
+    color: "rgb(148, 163, 184)",
+    history: [],
   },
 ];
