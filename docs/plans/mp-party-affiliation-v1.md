@@ -588,6 +588,53 @@ prize is the 296 roles that gain a *correct* group, not the blanks.
 **Verify:** a written answer in this file, with the endpoint or the evidence there isn't one.
 Timebox hard; do not let it block T1.
 
+#### T0 RESULT (2026-08-09) — narrowed, not closed. Unblocked; T1 proceeds.
+
+**Live probing was not possible here**, so the roster question is **not settled by measurement**
+— but the corpus answers most of it, and what remains open is much smaller than the spike
+assumed.
+
+**Environment, stated precisely so nobody re-derives a wrong cause.** `www.parliament.bg`
+returns **no HTTP response at all** (`curl` → 000; `WebFetch` → `ECONNRESET`). Control probes
+from the same shell: `www.nsi.bg` → **200**, `data.egov.bg` → **403**. So a Bulgarian government
+host IS reachable, and egov's 403 is the documented egress block
+([[reference_egov_api_endpoints]]) — a *live server refusing us*, a different failure class.
+**Do not record this as "needs Bulgarian egress"; that is unproven.** parliament.bg alone fails
+to answer. (The in-app browser also refused the origin, but that is a harness policy, not a
+network result, and is not evidence either way.)
+
+**What the code establishes, without any probe:**
+
+- [`scrape_mps.ts`](../../scripts/parliament/scrape_mps.ts) uses four endpoints —
+  `GET /api/v1/coll-list-ns/bg` (**current** NS only, `:22`), `GET /api/v1/mp-profile/bg/{id}`
+  (`:569`), `GET /api/v1/mp-profile/en/{id}` (`:593`, EN name backfill) and the photo path. **No
+  per-NS roster is among them.**
+- **The profile DOES carry a group short name** — `A_ns_CL_value_short`, the very field this
+  spike is hunting (`RawProfile = RawMp &`, `:86-87,94`). But **one per person, not one per
+  term**, and it is stripped from the committed shards by `PROFILE_KEEP` (`:423-446`). That is
+  why §1c can say the shards carry "no party field at all" while the scraper header says the
+  profile gives "only ONE region/party per person" — raw endpoint vs trimmed artifact, both true.
+- **The per-NS structure exists in the profile and has no party slot.** `oldnsList` is retained
+  with `OLDNS_KEEP = {A_nsL_value, A_nsL_value_short, A_ns_folder}` (`:448`), and a real shard
+  confirms the shape: `{"A_nsL_value":"Седмо Велико Народно събрание","A_nsL_value_short":"7
+  ВНС","A_ns_folder":""}`. Parliament names and folders only. **This is the strongest negative
+  result available offline** — the endpoint that knows which parliaments a member sat in does
+  not record what they sat as.
+- **A network probe is already on record** (§1c): the obvious variant
+  `/coll-list-ns/bg/{44,47,51}` returns the site's HTML shell rather than JSON.
+- The scraper names the alternative — *"For per-term, election-day seat detail use the CIK seat
+  page (Cloudflare-protected)"* — but that is a **BALLOT** source. It recovers the ballot party,
+  not the parliamentary group, i.e. the `mp_party.json` fallback §1c already rejects for this
+  column. **A CIK-based "fix" would re-introduce defect 0c-1 at scale.**
+
+**So the open question is narrow:** does a roster live at some *other*, undocumented path? The
+profile route and the obvious roster variant are both ruled out. Re-run against a host that can
+reach parliament.bg.
+
+**Consequence for the rest of the plan: none, by design.** Every later phase is written against
+the 563 that exist today, and the crosswalk consumes any new seats unchanged. Until the probe
+runs, the coverage table above stands at its "today" column.
+
 ### T1 — the crosswalk AND the seat resolver, standalone and testable (1–1.5 days)
 
 Two pure modules, no DB, no writes.
