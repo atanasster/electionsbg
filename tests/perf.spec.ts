@@ -503,9 +503,26 @@ test.describe("performance", () => {
     // would leave English ~16% of slack, so the stated +5% policy would hold
     // for one language only. Exactly one of these is ever fetched, in parallel
     // with the entry.
+    //
+    // Re-ratcheted 2026-08-08 from 177_000 / 161_000, which both went ~0.45%
+    // over. This is the one budget in this test that does NOT measure chunk
+    // composition — it measures a translation corpus that grows with every
+    // feature, so it burns headroom on a schedule the others do not. The +5%
+    // set on 2026-07-29 was gone in ten days; the 38 keys that finally crossed
+    // it (Interreg, the /funds bands, the НКИД risk flags, the
+    // person-unavailable view) are all real strings, no regression, and nothing
+    // that can be split out of the chunk. Measured at the commit that moved
+    // these: bg 177_837, en 161_690.
+    //
+    // Note EN tripped at the same time but one commit later than BG, so a run
+    // that only reports Bulgarian is not evidence English has room.
+    //
+    // A third bump is the wrong answer. bg is 947 KB raw and every page loads
+    // all of it; the lever is an i18next namespace split so a screen pulls only
+    // the strings it uses. Do that instead of widening this again.
     const LOCALE_BUDGETS: Record<string, number> = {
-      bg: 177_000,
-      en: 161_000,
+      bg: 186_000,
+      en: 169_000,
     };
     const locales = fs
       .readdirSync(`${DIST_DIR}/assets`)

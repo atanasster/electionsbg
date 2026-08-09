@@ -9,6 +9,10 @@
 // the render path both ways: data present → the section renders; data absent → it self-hides
 // while the page still boots. Section presence is checked by DashboardSection's stable DOM
 // id, not localized copy.
+//
+// Since 034ff0b32e the PAGE is in that same position: firebase.json rewrites `/person/*` to
+// the `db` function, so the emulator forwards the navigation itself to the deployed one. See
+// serveLocalShell below for why that is fatal here rather than merely slow.
 
 import { test, expect, type Page } from "@playwright/test";
 
@@ -113,6 +117,43 @@ async function mockDb(page: Page, overrides: Record<string, unknown>) {
   });
 }
 
+// Serve the LOCAL shell for a /person navigation — what the emulator's `**` fallback did
+// before the `/person/*` rewrite existed.
+//
+// Without this the emulator proxies the navigation to the DEPLOYED function, which answers
+// with PRODUCTION's SPA shell. That shell names production's /assets/index-<hash>.js and a
+// freshly built dist/ has a different hash — so the entry bundle is missing. It does not even
+// 404: /assets/** falls through hosting's `**` rewrite to index.html, so the module script is
+// served 200 as text/html and the browser refuses it on MIME. NO JS runs at all.
+//
+// The failure is quiet in the worst way. A refused module script raises no uncaught exception,
+// so `pageerror` never fires, the errs assertions below stay empty, and every locator simply
+// times out against a blank page — the symptom reads as "the section did not render" rather
+// than "the app never started". Measured 2026-08-08: the emulator served /person/e2e-person
+// with production's index-Bm_mdOqi.js while the local dist/ was index-DPgK6LaA.js.
+//
+// It is also unstable rather than merely broken: the hashes coincide for exactly as long as
+// the deployed bundle matches the local build, so the suite would go green on a checkout of
+// whatever was last deployed and red again on the next source change.
+//
+// Nothing about the function's real behaviour is lost by stubbing it: whether it 301s a
+// retired slug or serves the shell is held by functions/person_redirect.test.js, and the
+// rewrite's shape by scripts/deploy/firebase_person_rewrite.test.ts. What is under test here
+// is what the SPA renders once it boots.
+async function serveLocalShell(page: Page) {
+  await page.route("**/person/**", async (route) => {
+    // Only the navigation; anything else under /person/ goes to its normal handler.
+    if (route.request().resourceType() !== "document") return route.fallback();
+    // page.request is not itself intercepted, so this cannot recurse.
+    const shell = await page.request.get("/");
+    await route.fulfill({
+      status: 200,
+      contentType: "text/html; charset=utf-8",
+      body: await shell.text(),
+    });
+  });
+}
+
 const pageErrors = (page: Page): string[] => {
   const errs: string[] = [];
   page.on("pageerror", (e) => errs.push(String(e)));
@@ -122,6 +163,7 @@ const pageErrors = (page: Page): string[] => {
 test.describe("person declaration sections (D3 smoke)", () => {
   test("render when their endpoint returns data", async ({ page }) => {
     const errs = pageErrors(page);
+    await serveLocalShell(page);
     await mockDb(page, {
       "person-profile": PROFILE,
       "person-stake-procurement": STAKE,
@@ -143,6 +185,7 @@ test.describe("person declaration sections (D3 smoke)", () => {
     page,
   }) => {
     const errs = pageErrors(page);
+    await serveLocalShell(page);
     await mockDb(page, { "person-profile": PROFILE }); // sections default to []
     await page.goto("/person/e2e-person", { waitUntil: "domcontentloaded" });
 
@@ -238,6 +281,7 @@ test.describe("electoral block (CLS)", () => {
   test("a candidacy with no results does not collapse the page", async ({
     page,
   }) => {
+    await serveLocalShell(page);
     await page.route("**/api/db/**", async (route) => {
       const path = new URL(route.request().url()).pathname.replace(
         "/api/db/",
