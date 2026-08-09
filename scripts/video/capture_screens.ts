@@ -138,7 +138,9 @@ const main = async () => {
             c.getBoundingClientRect(),
           )
         : [];
-      const left = cells.length ? Math.min(...cells.map((c) => c.left)) : r.left;
+      const left = cells.length
+        ? Math.min(...cells.map((c) => c.left))
+        : r.left;
       const right = cells.length
         ? Math.max(...cells.map((c) => c.right))
         : r.right;
