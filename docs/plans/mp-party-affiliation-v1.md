@@ -1,6 +1,7 @@
 # MP party affiliation in `person_role` (v1)
 
-**Status:** ready to implement (design 2026-08-07, audited + corrected 2026-08-07). Goal:
+**Status:** ready to implement — all decisions approved 2026-08-08 (§7), nothing blocking T1.
+Design 2026-08-07, audited twice and corrected 2026-08-08. Goal:
 `person_role.party` stops being unconditionally NULL for `role = 'mp'`, and MP rows carry the
 **parliamentary group they actually sat in, per parliament**, in the same canonical vocabulary
 every other role already speaks.
@@ -17,7 +18,7 @@ Builds on / does not duplicate:
 > `person_role.ref = mp_seat.mp_id::text`. That join is invalid (§0f) and every headline number
 > derived from it was wrong: coverage 843 → **563**, blanks filled 149 → **0**, multi-party
 > careers 158 → **132**. The design decision in §2 survives unchanged; the *reason to do the
-> work* changed, and §7's question got much easier to answer.
+> work* changed.
 >
 > **Second audit (2026-08-08).** Re-measured with the class-B aliases actually RESOLVED
 > (§1b) rather than guessed: the flip count is **124**, not the 224 the first audit reported —
@@ -90,6 +91,24 @@ blank; it is **wrong in a way that looks right**, which is worse. The real defec
    party mid-term** — that fact is in `vote_cast` and exists **nowhere** in `person_role`.
    **This is the whole plan.** After the corrections in §0f it is the *only* defect this work
    fixes, and it is worth fixing on its own.
+
+   **Defection is not even the sharpest case — a COALITION SPLITTING is** (confirmed by the
+   operator 2026-08-08). One ballot entity can become several parliamentary groups, and
+   `party_dim` records ПП-ДБ doing exactly that:
+
+   | NS | how ПП-ДБ sat |
+   |---|---|
+   | 49, 50 | **one** group, `ПП-ДБ` (74 seats in the 49th) |
+   | 51 | one group (both spacings of the same short) |
+   | 52 | **two** groups — `ДБ` 33 seats, `ПП` 18 |
+
+   For those 51 members of the 52nd, the ballot label cannot answer which group they sit in,
+   because it is the same label for both. Measured against what `/persons` shows them as today:
+   11 display `p_6`, the coalition (they will correctly become `p_72`/`p_67`); 7 display a
+   *component* party (`p_103`, `p_97`, `p_113`, `p_52`); and **3 members who sit in the ДБ
+   group display `p_67` — ПП, the OTHER group of their own coalition**: Богомил Иванов Петков,
+   Татяна Славова Султанова-Сивева, Бойко Илиев Рашков. That is not a coarse label, it is the
+   wrong one, and no amount of ballot data fixes it.
 2. **724 MPs show a blank ПАРТИЯ, and NONE of them are fixable.** The first draft claimed 149
    were. They are not: every MP whose seat can be honestly confirmed already carries a ballot
    party from a candidacy (§0f). A plan that promises to fill this column is promising
@@ -269,10 +288,17 @@ not internally consistent about coalitions, and that is approved rather than acc
 | `ПП - ДБ` | `p_6` | the **coalition**, kept as itself |
 | `ПБ` | `p_20` | the **coalition**, kept as itself |
 
-The consequence to accept knowingly: `?party=gerb` returns ГЕРБ-СДС members, while
-`?party=p_67` (ПП) does **not** return ПП-ДБ members. Do not "fix" this asymmetry while
-implementing — it is the approved behaviour, it matches how the rest of the site already reads
-these labels, and changing it would silently move every existing `?party=` deep link.
+The consequence to accept knowingly: `?party=gerb` returns ГЕРБ-СДС members. Do not "fix" this
+asymmetry while implementing — it is the approved behaviour, it matches how the rest of the site
+already reads these labels, and changing it would silently move every existing `?party=` deep
+link.
+
+**One thing the split (§0c-1) changes about how to read that.** Because `party_codes` is the
+union over ALL roles, a member elected on the ПП-ДБ ballot who sits in the ПП group carries
+**both** `p_6` (candidacy) and `p_67` (mp role) — so `?party=p_6` and `?party=p_67` both return
+them, correctly. The multi-row design is what makes that work; a career-scalar row would have to
+pick one and lose the other. The asymmetry above is only about the *representative* scalar
+(`party_primary`), never about membership.
 
 Note this is a different question from the one [`620df404bd`](../../) settled („a coalition is
 not a party"). That commit was about *evidence* — treating a coalition as the holder of a ЗПП
@@ -821,32 +847,42 @@ Ordered by how long it would survive unnoticed. Every one of these is green on r
 
 ---
 
-## 7. Open question for the operator
+## 7. Decisions — all resolved, nothing blocking
 
-**One decision genuinely needs an answer before T2 ships**, because it is editorial rather than
-technical and no measurement settles it:
+Every editorial question this plan raised has an answer. **No decision is outstanding; T1 can
+start.** Recorded here so the implementer does not re-open them, and so a future reader knows
+they were chosen rather than defaulted into.
+
+**D1 — the ПАРТИЯ column means the PARLIAMENTARY GROUP.** *(approved 2026-08-08.)*
 
 > When an MP was elected on the ГЕРБ list and sat in the ГЕРБ-СДС group, `/persons` can show
 > **one** party. Today it shows the ballot list (`gerb`, via the candidacy). After this change
-> it shows the parliamentary group. **Which does the ПАРТИЯ column mean?**
+> it shows the group.
 
-Both are defensible. The plan assumes **parliamentary group wins**, because that is what
-`role_prominence` already encodes (`mp` = 100) and because the group is what the person actually
-did rather than what a party list said.
+Approved as the plan assumed. It is what `role_prominence` already encodes (`mp` = 100), and it
+is what the person actually did rather than what a party list said. It changes **124** rows.
 
-**The stakes are much lower than the first draft implied.** It changes what **124** rows display,
-not ~1,396 — for the other 438 MPs the ballot list and the group fold to the same canonical id,
-so nothing moves. 124 is small enough to review by hand, which is exactly what T2 does. If the
-intended reading is "the party they ran for", the correct fix is the opposite of this plan: leave
-`person_role.party` alone and add a **separate** group column, which is a different and smaller
-piece of work.
+The operator's reason is stronger than the plan's original one and is now §0c-1: a coalition can
+**split into several groups after entering parliament** — ПП-ДБ sat as one group in the 49th and
+50th and as two (`ДБ` 33, `ПП` 18) in the 52nd. For those members the ballot label is *incapable*
+of naming the group, since it is the same label for both, and three of them currently display
+the sibling group's party outright. That is not a preference between two defensible readings; it
+is one reading that can be wrong and one that cannot.
 
-Second, lower stakes: **should the unfillable MPs render „—" or „няма данни"?** They are not
-partyless; the corpus predates the source. Today they are indistinguishable from a genuine
-independent — and after this change, `independent` becomes a real value in that column, which
-makes the ambiguity newly harmful.
+Consequence accepted: the ballot party is not lost. It stays in `party_codes` via the candidacy
+row, so `?party=` still matches it — only the representative scalar changes.
 
-This now covers **all 724 blanks**, not a 575 residue, since §1c fills none of them — and **633
-of those 724 are permanent** even if T0 succeeds (§3, T0). A column that will show „—" for 633
-people for the foreseeable future is worth labelling honestly rather than leaving to look like
-an answer.
+**D2 — the coalition fold stays as `byNickName` has it.** *(approved 2026-08-08; full table and
+rationale in §1a.)* `ГЕРБ - СДС`→`gerb` and `БСП - ОЛ`→`bsp` fold to the lead party while
+`ПП - ДБ`→`p_6` and `ПБ`→`p_20` stay as the coalition. The asymmetry is deliberate. Do not
+"fix" it during implementation.
+
+**D3 — unfillable MPs render „—".** *(approved 2026-08-08.)* No „няма данни" variant, no second
+empty state. The 724 blanks stay visually identical to a genuine absence of party.
+
+Worth stating what is being accepted, since it does not go away: §1c fills **none** of the 724,
+and **633 are permanent** even if T0 succeeds (§3, T0). After this change `independent` becomes a
+real value in the column, so „—" and „независим" are two different things on the same page that a
+reader cannot tell apart by their absence. That is the approved trade — a simpler column over a
+more explicit one — and it is the reason gate 5.8 (§0g) matters more, not less: if „—" carries no
+information, the values that DO appear must at least be legible.
