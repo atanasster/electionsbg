@@ -2,7 +2,13 @@ import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import { FONT, SAFE, THEME, TYPE, scale } from "../theme";
 import { timePages } from "../lib/captions";
-import { WORDMARK_BAND } from "./Frame";
+
+/**
+ * Clearance above the frame's bottom furniture — the explainer's source footer.
+ * Owned here rather than imported from a stage component, so the captions do not
+ * depend on which stage is mounted.
+ */
+const BOTTOM_BAND = 108;
 
 /**
  * Burned-in Bulgarian captions for the social cuts.
@@ -40,8 +46,8 @@ export const Captions: React.FC<{
         position: "absolute",
         left: SAFE.x * s,
         right: SAFE.x * s,
-        // Sits above the wordmark band so the two never collide, in any aspect.
-        bottom: (SAFE.y + WORDMARK_BAND) * s,
+        // Above the frame's bottom furniture, in any aspect.
+        bottom: (SAFE.y + BOTTOM_BAND) * s,
         display: "flex",
         justifyContent: "center",
       }}

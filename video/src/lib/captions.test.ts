@@ -6,7 +6,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { paginate, timePages, toVtt, vttTime } from "./captions";
-import { t1 } from "../specs/t1-cost-per-vote";
+import { e1 } from "../specs/e1-inflation";
 
 const SCENE = "Разликата между най-скъпия и най-евтиния глас е над десет пъти.";
 
@@ -86,9 +86,9 @@ describe("toVtt", () => {
   });
 });
 
-describe("the T1 script itself", () => {
+describe("the E1 script itself", () => {
   it("paginates every scene without losing a word", () => {
-    for (const scene of t1.scenes) {
+    for (const scene of e1.scenes) {
       const joined = paginate(scene.voiceOver).join(" ");
       expect(joined.split(/\s+/)).toEqual(scene.voiceOver.split(/\s+/));
     }
@@ -97,7 +97,7 @@ describe("the T1 script itself", () => {
   it("carries no digits in any voiceOver — rule 7", () => {
     // Duplicated from the synthesize-time check on purpose: that one fires only
     // when audio is generated, and a spec can be committed long before.
-    for (const scene of t1.scenes) {
+    for (const scene of e1.scenes) {
       expect(scene.voiceOver).not.toMatch(/\d/);
     }
   });

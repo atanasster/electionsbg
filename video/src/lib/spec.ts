@@ -1,4 +1,3 @@
-import type { PeerGeo } from "../components/Flag";
 import type { CanvasState } from "./canvasState";
 
 /**
@@ -10,58 +9,6 @@ import type { CanvasState } from "./canvasState";
  * the skill (spoken must equal shown) is a property of this pair, and rule 7 is
  * why `voiceOver` may not contain digits at all.
  */
-
-export type Bar = {
-  label: string;
-  /** Plotted magnitude. */
-  value: number;
-  /** Pre-formatted display string — keeps Bulgarian decimal commas exact. */
-  display: string;
-  /** Second line under the label, e.g. a seat count. */
-  note?: string;
-  /** Draws in `accent` instead of `cool` — at most one or two per chart. */
-  emphasis?: boolean;
-  /**
-   * Renders the country flag before the label. Inline SVG, never emoji — an
-   * emoji flag depends on the render host having an emoji font, which headless
-   * Chromium often lacks.
-   */
-  geo?: PeerGeo;
-};
-
-export type Visual =
-  | { type: "stat"; value: string; label: string; sub?: string }
-  | { type: "bars"; title: string; bars: Bar[]; unit?: string }
-  | {
-      type: "map";
-      title: string;
-      sweepSeconds?: number;
-      legend?: { changed: string; kept: string };
-    }
-  | { type: "outro"; title: string; cta: string; url: string };
-
-export type Scene = {
-  id: number;
-  visual: Visual;
-  /** The figure exactly as a reader sees it. Asserted against `grounding`. */
-  onScreen: string;
-  /** Natural spoken Bulgarian, every number as words. Never contains digits. */
-  voiceOver: string;
-  /** Where `onScreen` came from — checked mechanically at gate 1. */
-  grounding?: { file: string; path: string };
-};
-
-export type VideoSpec = {
-  slug: string;
-  kind: "short" | "explainer";
-  title: string;
-  link: string;
-  /** The `brand/posts` entry this shares a finding with, when there is one. */
-  postSlug?: string;
-  sources: string[];
-  voice: { provider: string; voiceId: string };
-  scenes: Scene[];
-};
 
 /**
  * The 16:9 explainer. Unlike a short, scenes do not own a full-screen visual:
@@ -108,4 +55,4 @@ export const audioPath = (slug: string, sceneId: number) =>
  * What the voice/caption scripts need from a spec, regardless of format — they
  * only ever touch the slug, kind, voice and each scene's id + voiceOver.
  */
-export type VoiceableSpec = VideoSpec | ExplainerSpec;
+export type VoiceableSpec = ExplainerSpec;
