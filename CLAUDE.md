@@ -856,6 +856,47 @@ through the function would otherwise saturate at its own `LEAST(p_limit, 2000)` 
 through the function rather than with a second WHERE is what keeps the tile's heading count and
 the rows beneath it on one predicate.
 
+**Enrichment (money + eligibility) is a SEPARATE, human-gated skill** — `enrich-open-calls`,
+never part of the daily refresh. `update-open-calls` gives a call its title, deadline and link;
+ИСУН publishes the budget, aid rate, grant range and eligibility only inside each procedure's own
+PDF/DOCX. That skill reads one document, extracts each field **paired with a verbatim quote**, and
+puts both through `scripts/opencalls/enrich_gate.ts` before anything is stored — **two checks,
+not one**: the quote occurs in the extracted text (a plain normalised substring), *and* the quote
+states the value. A field failing either is dropped and reported. Nothing about that guarantee
+comes from trusting the model.
+
+The second check is the one that looks redundant and is not. Checking the citation is not
+checking the claim: with only the substring test, a fabricated `budget_eur: 999 000 000` attached
+to a real unrelated sentence from the document passed with no rejection, and so did a 100×
+magnitude error (`aid_rate_pct: 0.6` cited from „…60 %…"). Both are the shape a model produces
+when it answers from memory and then hunts for a sentence to cite. Neither check can judge
+whether the quoted sentence is the *right* one — a sub-component's „максимален размер" cited
+against the whole procedure's budget is a real number, correctly attributed and still wrong —
+which is why `auto` may not reach a money column at all.
+
+Two things about it are easy to get backwards:
+
+- **`enrichment='auto'` publishes no number.** It may write the verbatim eligibility text and the
+  provenance blob; 142's `open_calls_money_needs_provenance` CHECK bars it from all four money
+  columns. Only `npm run opencalls:enrich-review -- --promote <key>`, one row at a time after a
+  human reads the quotes, promotes to `'reviewed'` and lets a figure into sorting, range filters
+  and the tile's total. There is deliberately no `--promote-all`.
+- **The crawl must not own an enriched column.** `load_open_calls_pg.ts` splits its upsert into
+  `SOURCE_OWNED` (bare assignment) and `FILL_NEVER_BLANK` (COALESCE), and `enrichment` never
+  downgrades from any stored value to an incoming `'none'`. Measured 2026-08-09, before the
+  split: one ordinary `db:load:open-calls:pg` took a promoted row from its eligibility text to
+  NULL while leaving `enrichment='reviewed'` and the quotes in the meta — a row asserting a human
+  signed off on text that was gone, at 66 → 66 rows with nothing red.
+  `load_open_calls_pg.test.ts` derives the protected set from the writer's own `MONEY_FIELDS`, so
+  a new money column cannot be added on one side only.
+
+**Enrichment lives only in Postgres — it is NOT in `data/opencalls/*.json`.** So it does not
+travel with `db:load:open-calls:pg:cloud`; enrich against the database you intend to serve.
+Measured on today's corpus, the money yield is near zero and that is the gate working: 0 of 4
+readable ИСУН documents stated a euro amount, 3 stated levs, and the currency rule correctly
+refuses a lev figure offered as euro. The eligibility text is the real yield until the documents
+are re-tabled in euro.
+
 `/funds/calls` is PRERENDERED (`scripts/prerender/routes.ts`) and has a sitemap `<loc>`, but
 **there are no per-call `<loc>`s and the prerendered body lists no calls** — a static snapshot of
 live deadlines would serve expired calls as open. An individual procedure has no page here; every

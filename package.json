@@ -77,6 +77,8 @@
     "db:load:funds-fit:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:funds-fit:pg",
     "opencalls:isun": "tsx scripts/opencalls/isun_fetch.ts",
     "opencalls:sp2023": "tsx scripts/opencalls/sp2023_fetch.ts",
+    "opencalls:enrich": "tsx scripts/opencalls/enrich_extract.ts",
+    "opencalls:enrich-review": "tsx scripts/opencalls/enrich_apply.ts",
     "db:load:open-calls:pg": "tsx scripts/db/load_open_calls_pg.ts",
     "db:load:open-calls:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:open-calls:pg",
     "db:load:funds:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_funds_pg.ts",

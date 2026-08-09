@@ -858,6 +858,38 @@ The pipeline, per procedure with `enrichment='none'`:
 At ~55 rows this is a small job per run (only genuinely new procedures are touched), which is
 what makes a human gate affordable. Re-run when `update-open-calls` reports new GUIDs.
 
+**SHIPPED 2026-08-09.** `scripts/opencalls/{enrich_fetch,enrich_extract,enrich_gate,enrich_apply}.ts`
++ `.claude/skills/enrich-open-calls/SKILL.md`, npm `opencalls:enrich` / `opencalls:enrich-review`.
+Four things the live probe changed against what is written above:
+
+1. **The document format.** The `InfoDownload?fileKey=` URL is a 302 to a signed short-lived blob
+   URL; `Content-Type` is always `application/octet-stream`, so the format comes from the magic
+   bytes. There are THREE, not two — PDF, DOCX and **legacy OLE2 `.doc`** (arriving as „Покана",
+   unreadable by the docx reader). And „Условия за кандидатстване" is **not** an archive: all four
+   sampled were single 50–52-page PDFs or DOCX. Archive handling stays as a skip-with-reason and
+   did fire — on „Насоки за кандидатстване".
+2. **Document choice is a preference order**, not the single „Обява" label above: measured over
+   the 55 live procedures „Обява" exists on 7 while „Условия за кандидатстване" is on 26, so a
+   single-label rule would leave four fifths of the corpus untouched.
+3. **The money yield today is ~0, and that is the gate working.** Of 4 readable documents, 0
+   stated a euro amount, 3 stated levs (e.g. `91 072 240 лв.`) and 1 stated none. The §8.1
+   currency rule correctly rejects every lev budget offered as euro; converting it here would be
+   inventing a number the document does not state. The eligibility text is the yield until ИСУН
+   re-tables in euro. The skill says so at the top so nobody runs it expecting budgets.
+4. **The gate needed a SECOND half.** Step 3 above specifies a quote-in-source check and that is
+   what shipped first — but it grounds the citation, not the claim: a fabricated `budget_eur`
+   attached to a real unrelated sentence was accepted with no rejection, as was a 100× magnitude
+   error. `valueSupportedByQuote` now parses the numbers out of the quote (space/NBSP thousands,
+   comma decimals, the ambiguous dot read BOTH ways, `млн.`/`млрд.` multipliers) and requires the
+   value to be among them; for the string field the phrase must appear in its own quote. The
+   promotion step re-runs it, since the meta is hand-editable and can predate a gate change.
+5. **A crawl was silently erasing enrichment**, which would have made the whole stage pointless.
+   `beneficiaries_raw` — the one column `auto` may fill — was in the loader's source-owned set, so
+   one ordinary `db:load:open-calls:pg` blanked it while leaving `enrichment='reviewed'` and the
+   quotes in the meta. `'auto'` also downgraded to `'none'`, orphaning its extraction and
+   re-queueing the document. Both fixed (`FILL_NEVER_BLANK`; `enrichment <> 'none'`) and gated in
+   `load_open_calls_pg.test.ts`, which derives the protected set from the writer's `MONEY_FIELDS`.
+
 **Stage 8 — АХУ + АЗ + Interreg calls.** ~6 АХУ programme pages; АЗ needs a news-feed scrape
 plus a classifier and is the least reliable arm — label its provenance clearly. **Interreg
 calls (Jems / the МРРБ programme subdomains) belong here too and are arguably the highest-value

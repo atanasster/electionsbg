@@ -102,7 +102,7 @@ const SPEC: StageMergeSpec = {
 };
 
 /** Columns the SOURCE is authoritative for: always overwritten from the incoming row. */
-const SOURCE_OWNED = [
+export const SOURCE_OWNED = [
   "code",
   "kind",
   "title",
@@ -113,7 +113,6 @@ const SOURCE_OWNED = [
   "opens_at",
   "closes_at",
   "period_label",
-  "beneficiaries_raw",
   "audience",
   "territory",
   "source_url",
@@ -122,34 +121,70 @@ const SOURCE_OWNED = [
   "checked_at",
 ] as const;
 
-/** Money columns, which a crawl may FILL but must never BLANK.
+/** Columns a crawl may FILL but must never BLANK.
  *
- *  Stage 7 writes a human-reviewed figure into these. A generic upsert would reset them to the
- *  incoming NULL on the very next crawl — silently, with `enrichment_meta` (not in this list)
- *  left behind as evidence of a promotion that no longer exists, and every row count
- *  reconciling. COALESCE keeps the stored value when the source offers nothing. */
-const MONEY_COLS = [
+ *  Stage 7 (`enrich-open-calls`) writes a human-reviewed figure into these. A generic upsert
+ *  would reset them to the incoming NULL on the very next crawl — silently, with
+ *  `enrichment_meta` (not in this list) left behind as evidence of a promotion that no longer
+ *  exists, and every row count reconciling. COALESCE keeps the stored value when the source
+ *  offers nothing.
+ *
+ *  `beneficiaries_raw` IS IN THIS LIST AND LOOKS LIKE IT SHOULD NOT BE. It is the one column an
+ *  `enrichment='auto'` extraction may fill, so it is enrichment-written for ИСУН — but the ДФЗ
+ *  (`sp2023`) snapshot carries a real eligibility line of its own, so it is ALSO source-written.
+ *  Neither owner can be given the column outright, and fill-never-blank is the rule that suits
+ *  both: ДФЗ keeps overwriting its own value, and ИСУН's NULL stops erasing the enriched one.
+ *  MEASURED 2026-08-09, which is why this note exists: with it in SOURCE_OWNED, a single
+ *  ordinary `db:load:open-calls:pg` took a promoted row from its eligibility text to NULL while
+ *  leaving `enrichment='reviewed'` and the quotes in the meta — a row asserting that a human
+ *  signed off on text that is no longer there. */
+export const FILL_NEVER_BLANK = [
   "budget_eur",
   "budget_note",
   "aid_rate_pct",
   "grant_min_eur",
   "grant_max_eur",
+  "beneficiaries_raw",
 ] as const;
+
+/** Provenance strength, as SQL. A crawl may RAISE a row's provenance and may never LOWER it.
+ *
+ *  A rank rather than a list of names, because the first two drafts of this rule were both
+ *  incomplete in a way that reads as correct. Guarding only `IN ('reviewed','source')` let an
+ *  'auto' row fall back to 'none', orphaning its extraction. Guarding only `EXCLUDED = 'none'`
+ *  then left two live holes: `reviewed → source` is a silent downgrade of a human's decision to
+ *  a machine's, and `reviewed → auto` would set 'auto' on a row that still holds money, which
+ *  142's open_calls_money_needs_provenance CHECK rejects — aborting the WHOLE load, not the row.
+ *  A total order cannot have a hole. */
+const rank = (col: string): string =>
+  `CASE ${col} WHEN 'reviewed' THEN 3 WHEN 'source' THEN 2 WHEN 'auto' THEN 1 ELSE 0 END`;
 
 /** The upsert, written out because this table's columns have three different update rules.
  *
  *  `enrichment` is the subtle one: it must not downgrade. A human 'reviewed' promotion survives
  *  a crawl, and so does a 'source' provenance whose figures we are COALESCE-preserving — if the
  *  flag fell to 'none' while the money stayed, migration 142's
- *  open_calls_money_needs_provenance CHECK would reject the row outright. */
-const upsertSql = (): string => {
+ *  open_calls_money_needs_provenance CHECK would reject the row outright.
+ *
+ *  'auto' is preserved for a different reason: it has no money to violate the CHECK, but it does
+ *  have a gated extraction in `enrichment_meta`, and downgrading the flag alone would leave the
+ *  meta orphaned, put the row back in the review queue, and spend the tokens to read the same
+ *  document again. See `rank()` above for why the comparison is an order and not a name list.
+ *
+ *  THE LIMIT OF THIS, STATED: the crawl carries no signal that a procedure's DOCUMENT changed
+ *  (ИСУН re-issues „Условия за кандидатстване - изменени" under the same GUID), so a preserved
+ *  extraction can outlive the text it was drawn from. Detecting that needs a `docs` hash the
+ *  crawler does not yet store. Preserving matches what 'reviewed' already does — a human's
+ *  decision outlives a re-issue until someone re-checks it — but it is a choice, not a
+ *  guarantee. */
+export const upsertSql = (): string => {
   const sets = [
     ...SOURCE_OWNED.map((c) => `${c} = EXCLUDED.${c}`),
-    ...MONEY_COLS.map((c) => `${c} = COALESCE(EXCLUDED.${c}, open_calls.${c})`),
-    `enrichment = CASE
-        WHEN open_calls.enrichment IN ('reviewed', 'source')
-             AND EXCLUDED.enrichment = 'none' THEN open_calls.enrichment
-        ELSE EXCLUDED.enrichment END`,
+    ...FILL_NEVER_BLANK.map(
+      (c) => `${c} = COALESCE(EXCLUDED.${c}, open_calls.${c})`,
+    ),
+    `enrichment = CASE WHEN ${rank("open_calls.enrichment")} > ${rank("EXCLUDED.enrichment")}
+                       THEN open_calls.enrichment ELSE EXCLUDED.enrichment END`,
   ];
   return `INSERT INTO ${SPEC.table} (${SPEC.cols.join(", ")})
           SELECT ${SPEC.cols.join(", ")} FROM ${SPEC.source}
