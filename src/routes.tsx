@@ -591,6 +591,16 @@ const CandidateFundsScreen = lazy(() =>
     default: m.CandidateFundsScreen,
   })),
 );
+const FundsBeneficiariesScreen = lazy(() =>
+  import("./screens/funds/FundsBeneficiariesScreen").then((m) => ({
+    default: m.FundsBeneficiariesScreen,
+  })),
+);
+const FundsProgrammesScreen = lazy(() =>
+  import("./screens/funds/FundsProgrammesScreen").then((m) => ({
+    default: m.FundsProgrammesScreen,
+  })),
+);
 const OpenCallsScreen = lazy(() =>
   import("./screens/funds/OpenCallsScreen").then((m) => ({
     default: m.OpenCallsScreen,
@@ -2581,6 +2591,24 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <OpenCallsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/beneficiaries"
+            element={
+              <LayoutScreen>
+                <FundsBeneficiariesScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The index AND the picker for `funds/programme/:code`, which had no landing page
+              beside it. See the screen's header for why a parameterised route needs one. */}
+          <Route
+            path="funds/programmes"
+            element={
+              <LayoutScreen>
+                <FundsProgrammesScreen />
               </LayoutScreen>
             }
           />

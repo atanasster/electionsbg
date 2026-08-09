@@ -267,9 +267,10 @@ export const MySectorTile: FC = () => {
         ))}
       </ul>
       <div className="mt-3 text-xs">
-        {/* Band 3's programme ranking, on this same page — there is no `/funds/programs` index
-            route, and the anchor is where the full list actually lives. */}
-        <Link to="/funds#programs" className="text-primary hover:underline">
+        {/* `/funds/programmes` — the real picker, which now exists. This used to be a
+            `#programs` fragment on /funds, i.e. a link into a section of the page the hub
+            rework was about to move. */}
+        <Link to="/funds/programmes" className="text-primary hover:underline">
           {t("funds_foryou_sector_all") || "Всички програми"}
         </Link>
       </div>

@@ -38,6 +38,7 @@ import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
 import { InterregTile } from "./funds/InterregTile";
 import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
+import { TopBeneficiariesCard } from "./funds/TopBeneficiariesCard";
 import { FitResolverTile } from "./funds/FitResolverTile";
 import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
 import { MyMunicipalityTile, MySectorTile } from "./funds/ForYouTiles";
@@ -45,7 +46,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { formatEur } from "@/lib/currency";
-import type { FundsBreakdownRow, FundsTopRow } from "@/data/funds/types";
+import type { FundsBreakdownRow } from "@/data/funds/types";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -111,50 +112,6 @@ const BreakdownStrip: FC<{
             )
             .join(" · ")}
         </span>
-      </CardContent>
-    </Card>
-  );
-};
-
-const TopBeneficiariesCard: FC<{ rows: FundsTopRow[] }> = ({ rows }) => {
-  const { t, i18n } = useTranslation();
-  const visible = rows.slice(0, 15);
-  return (
-    <Card>
-      <CardContent className="p-3 md:p-4 text-sm">
-        <ul className="flex flex-col divide-y divide-border">
-          {visible.map((r, i) => (
-            <li
-              key={r.eik ?? `${r.name}-${i}`}
-              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-2 first:pt-0 last:pb-0"
-            >
-              <span className="w-5 shrink-0 text-xs tabular-nums text-muted-foreground">
-                {i + 1}
-              </span>
-              {r.eik ? (
-                <Link
-                  to={`/company/${r.eik}`}
-                  className="font-medium hover:underline"
-                >
-                  {r.name}
-                </Link>
-              ) : (
-                <span className="font-medium">{r.name}</span>
-              )}
-              <span className="text-xs text-muted-foreground">
-                {orgTypeLabel(r.orgType, i18n.language)}
-              </span>
-              {r.mpTied ? (
-                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
-                  {t("funds_mp_badge") || "MP-connected"}
-                </span>
-              ) : null}
-              <span className="ml-auto text-sm font-medium tabular-nums">
-                {formatEur(r.contractedEur)}
-              </span>
-            </li>
-          ))}
-        </ul>
       </CardContent>
     </Card>
   );
