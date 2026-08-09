@@ -517,6 +517,16 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Европейски средства: договорени ${f(env, "contracted")}, изплатени ${f(env, "paid")}. Топ бенефициент: ${f(env, "top")}.`
         : `EU funds: ${f(env, "contracted")} contracted, ${f(env, "paid")} paid. Top beneficiary: ${f(env, "top")}.`;
+    // WITHOUT THIS CASE the reader gets a bare title and ten rows of deadlines. The envelope is
+    // `kind: "table"`, and AnswerView renders the `facts` list only for scalar envelopes — so the
+    // „checked at", the indicative/consultation split and the coverage boundary have no other route
+    // to the page. „A list of deadlines with no checked-at" is precisely what invariant 3 defines as
+    // a claim that the list is current, so the narration is load-bearing here rather than cosmetic.
+    case "openCalls":
+      if (!env.facts.calls) return env.title;
+      return lang === "bg"
+        ? `${f(env, "calls")} процедури приемат проекти сега (проверено на ${f(env, "checked")}). Отделно: ${f(env, "indicative")} очаквани приема — период, не краен срок — и ${f(env, "consultations")} проекта на насоки за обсъждане. ${f(env, "coverage")}`
+        : `${f(env, "calls")} procedures are accepting applications (checked ${f(env, "checked")}). Separately: ${f(env, "indicative")} expected intakes — a month range, not a deadline — and ${f(env, "consultations")} draft guidance documents out for consultation. ${f(env, "coverage")}`;
     case "subsidiesOverview":
       if (!env.facts.paid) return env.title;
       return lang === "bg"

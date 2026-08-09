@@ -20,7 +20,12 @@ import * as XLSX from "xlsx";
 import { parseSp2023 } from "./sp2023_parse";
 import { writeSnapshot } from "./write_snapshot";
 
-const PAGE = "https://www.sp2023.bg/index.php/bg/proceduri/indikativen-grafik";
+/** The schedule page. EXPORTED so the watcher (scripts/watch/sources/sp2023_indicative.ts) probes
+ *  the same URL this fetcher downloads from — two copies of a CMS path is how a watcher ends up
+ *  reporting „unchanged" about a page nothing reads any more. */
+export const SP2023_PAGE =
+  "https://www.sp2023.bg/index.php/bg/proceduri/indikativen-grafik";
+const PAGE = SP2023_PAGE;
 const ORIGIN = "https://www.sp2023.bg";
 const UA = "electionsbg-opencalls/1.0 (+https://electionsbg.com)";
 const TIMEOUT_MS = 90_000;

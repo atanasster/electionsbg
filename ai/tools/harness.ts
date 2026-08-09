@@ -212,6 +212,42 @@ const run = async () => {
   printEnvelope(funds);
   assert((funds.rows?.length ?? 0) > 0, "fundsOverview returns rows");
 
+  // Open calls — the OPEN half of the same register. The assertions are about what the model
+  // must not be able to say: that an indicative forecast is an open call, that an unpublished
+  // budget is €0, or that a list of deadlines is current when nothing has been crawled.
+  const oc = (await runTool("openCalls", {}, ctxEn)) as Envelope;
+  printEnvelope(oc);
+  assert((oc.rows?.length ?? 0) > 0, "openCalls returns rows");
+  assert(
+    !!oc.facts.calls && !!oc.facts.indicative && !!oc.facts.consultations,
+    "openCalls names the three groups SEPARATELY — a single total would imply a forecast is a call",
+  );
+  assert(
+    oc.facts.open === undefined,
+    "the open+upcoming sum must NOT be called `open` — facts carries no per-row marker, so a model would state a count of things you can apply to that includes ones you cannot yet",
+  );
+  assert(
+    !!oc.facts.checked,
+    "openCalls states when the register was last crawled",
+  );
+  assert(
+    String(oc.facts.coverage).includes("Interreg"),
+    "openCalls declares its coverage boundary — Interreg runs in Jems and is in neither register",
+  );
+  assert(
+    !(oc.rows ?? []).some((r) => String(r.budget) === "€0"),
+    "openCalls never renders an unpublished budget as zero",
+  );
+  const ocFarmer = (await runTool(
+    "openCalls",
+    { audience: "farmer" },
+    ctxEn,
+  )) as Envelope;
+  assert(
+    ocFarmer.facts.audience === "farmer",
+    "openCalls resolves an audience alias and reports which facet it applied",
+  );
+
   // Farm subsidies (ДФ „Земеделие", CAP). All-years overview + a scheme split +
   // a per-recipient rollup, all off the agri_payloads blobs.
   const subs = (await runTool("subsidiesOverview", {}, ctxEn)) as Envelope;

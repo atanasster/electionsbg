@@ -4285,6 +4285,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <h2>Coverage</h2>
 <p>ИСУН 2020 (the 2021-2027 programmes and the Recovery Plan) and the Agriculture Strategic Plan 2023-2027. Interreg runs in a separate system (Jems) and is not tracked here — see the <a href="${SITE_URL}/en/funds">EU-funds overview</a>.</p>
+<p><strong>Procedure titles on this page are the official Bulgarian names.</strong> ИСУН and ДФ „Земеделие“ publish them in Bulgarian only, and we do not machine-translate them — a mistranslated procedure name is unsearchable in the register you have to apply in.</p>
 <p>Applications are submitted in the source register — every row links to it. Sources: <a href="https://eumis2020.government.bg/bg/s/Procedure/Active" rel="nofollow noopener">ИСУН 2020</a> and <a href="https://sp2023.bg" rel="nofollow noopener">sp2023.bg</a> (State Fund Agriculture).</p>`.trim(),
     },
   }),

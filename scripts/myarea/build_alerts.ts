@@ -27,6 +27,13 @@
 
 //   5. Capital programmes — one event per município that has a current-
 //      year capital programme line
+//   5b. Open calls — EU-programme / ДФЗ procedures still accepting applications
+//      whose territory names THIS obshtina. Read from Postgres (open_calls,
+//      migration 142), because "open" is derived at query time from closes_at
+//      and does not exist in the committed snapshot. Deliberately excludes
+//      NATIONAL calls: /funds/calls already serves those, and 265 identical
+//      copies would drown the events that are genuinely local. Returns nothing
+//      today — see opencalls_alerts.ts for exactly why, and what fills it.
 //   6. Plenary roll-call mentions — when the MPs from this município's
 //      MIR voted on a bill whose title contains the município name, emit
 //      a "Your MP voted on…" event (keyword-alerts, simulated)
@@ -43,6 +50,10 @@ import {
   readInterregByObshtina,
   type InterregAlertRow,
 } from "../db/lib/interreg_alerts";
+import {
+  readOpenCallsByObshtina,
+  type OpenCallAlertRow,
+} from "../db/lib/opencalls_alerts";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 
 type MunicipalityInfo = {
@@ -167,7 +178,8 @@ type AlertEvent = {
     | "local_election"
     | "capital_program"
     | "plenary_keyword"
-    | "council_resolution";
+    | "council_resolution"
+    | "open_call";
   headline_bg: string;
   headline_en: string;
   amountEur?: number;
@@ -547,6 +559,57 @@ const buildInterregEvents = (rows: InterregAlertRow[]): AlertEvent[] =>
     };
   });
 
+// OPEN CALLS — the only FORWARD-LOOKING events in this feed, which is why they need their own
+// kind rather than riding `eu_funds`.
+//
+// THE EVENT DATE IS `first_seen_at`, NOT THE DEADLINE, and that is the whole reason this is
+// expressible as a feed event at all. Every other row here is "something happened, on this date",
+// and the feed sorts by date desc; dating a call by its closing date would park it permanently at
+// the top and quietly redefine the axis. „We first saw this procedure" IS a past event, and it
+// sorts naturally beside a contract award. Stated plainly because `first_seen_at` is when WE
+// looked, not when ИСУН published — neither register publishes a publication date on its listing,
+// so this is the best available proxy and the deadline goes in the headline where it belongs.
+//
+// The deadline is the actionable fact, so it leads the headline. `daysLeft` comes from the same
+// query-time derivation the page uses, so an expired call cannot reach here.
+export const buildOpenCallEvents = (rows: OpenCallAlertRow[]): AlertEvent[] =>
+  rows.map((r) => {
+    const day = r.closesAt.slice(0, 10);
+    const left = r.daysLeft !== null ? ` (${r.daysLeft} дни)` : "";
+    const leftEn = r.daysLeft !== null ? ` (${r.daysLeft}d)` : "";
+    // NULL money is „not published in the register", never zero — ИСУН's procedure page carries
+    // no budget at all. An amount is only ever shown when the source published one.
+    const amount = r.budgetEur != null ? ` · ${formatEur(r.budgetEur)}` : "";
+    return {
+      date: r.firstSeenAt.slice(0, 10),
+      kind: "open_call" as const,
+      headline_bg: `Отворена процедура до ${day}${left}: „${r.title}"${amount}`,
+      headline_en: `Open call, deadline ${day}${leftEn}: "${r.title}"${amount}`,
+      ...(r.budgetEur != null ? { amountEur: r.budgetEur } : {}),
+      detail: r.programmeName ?? r.code ?? undefined,
+      link: r.sourceUrl,
+    };
+  });
+
+/** municipality NAME → the obshtina CODE(s) it denotes, excluding Sofia rayons. Extracted so the
+ *  rayon exclusion and the fan-out are testable — see the header at the call site for why each is
+ *  what it is. */
+export const buildCodesByName = (
+  munis: { name: string; obshtina: string }[],
+): Map<string, string[]> => {
+  const out = new Map<string, string[]>();
+  for (const m of munis) {
+    // S2*** is a Sofia RAYON, not a municipality. A territory is written at municipality grain, so
+    // it never denotes one — and Искър/Средец each collide with a rayon, so without this a Pleven
+    // or Burgas call lands in a Sofia district's feed.
+    if (/^S2\d/u.test(m.obshtina)) continue;
+    const list = out.get(m.name) ?? [];
+    list.push(m.obshtina);
+    out.set(m.name, list);
+  }
+  return out;
+};
+
 // New / modified EU contracts the snapshot-diff flagged in the most-recent
 // ingest (data/funds/projects/changes/<obshtina>.json). Unlike the in-progress
 // rows, these carry a real detectedAt date so they surface at the top of the
@@ -815,6 +878,40 @@ const main = async () => {
     console.error(`failed to read municipalities`);
     process.exit(1);
   }
+  // OPEN CALLS need the reverse map: the reader matches a free-text `territory` against
+  // municipality NAMES (the only place binding either register publishes), while every feed is
+  // keyed by CODE.
+  //
+  // THREE names collide in this file, and only ONE of them is a genuine cross-oblast ambiguity:
+  //   Бяла   → VAR05 (Варна)  + RSE04 (Русе)   — two real municipalities
+  //   Искър  → PVN23 (Плевен) + S2414          — the second is a SOFIA RAYON
+  //   Средец → BGS06 (Бургас) + S2401          — the second is a SOFIA RAYON
+  // A territory is written at MUNICIPALITY grain („на територията на община Средец"), so it never
+  // denotes a Sofia district — and fanning out to the rayon would put a Burgas call in a Sofia feed,
+  // a place it has nothing to do with. The S2*** codes are therefore excluded from the name map
+  // outright; the neighbouring Interreg arm documents the same rayons-are-not-municipalities point.
+  // `Бяла` genuinely cannot be disambiguated from the name alone, so it fans out to both — the
+  // alternative, picking one, is silently wrong half the time.
+  const codesByName = buildCodesByName(munis);
+  const openCallsByName = await readOpenCallsByObshtina([
+    ...codesByName.keys(),
+  ]);
+  const openCallsByObshtina = new Map<string, OpenCallAlertRow[]>();
+  for (const [name, rows] of openCallsByName)
+    for (const code of codesByName.get(name) ?? [])
+      openCallsByObshtina.set(code, [
+        ...(openCallsByObshtina.get(code) ?? []),
+        ...rows,
+      ]);
+  if (openCallsByName.size === 0)
+    // NOT silent. Zero is the correct answer on today's corpus (see opencalls_alerts.ts: all 55
+    // ИСУН rows carry no territory at all), but it is also what a database missing migration 142
+    // looks like, and the two must not be indistinguishable on the console.
+    console.warn(
+      "alerts: no place-scoped open calls — expected while ИСУН publishes no " +
+        "territory (Stage 7 enrichment fills it); also what an unloaded open_calls looks like.",
+    );
+
   // Single read of the council index — feeds all 265 município iterations.
   const councilIndex = readJson<CouncilIndexFile>(COUNCIL_INDEX);
   const resolutionsByObshtina = councilIndex?.resolutionsByObshtina ?? null;
@@ -847,6 +944,7 @@ const main = async () => {
         interregByObshtina.get(canonicalObshtina(m.obshtina) ?? m.obshtina) ??
           [],
       ),
+      ...buildOpenCallEvents(openCallsByObshtina.get(m.obshtina) ?? []),
       ...buildCapitalProgramEvents(m.obshtina),
       ...buildPlenaryKeywordEvents(m.obshtina, m.name),
     ];

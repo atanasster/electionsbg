@@ -114,6 +114,38 @@ const AGENCY_TOKENS = [
 // procurementBySettlement — these target the institutional buyers that aren't
 // places: schools (incl. the ЦАИС ЕОП gap-fill), ministries, agencies,
 // hospitals, universities, directorates.
+// The APPLICANT's vocabulary — what someone asking „can I get money for X" actually types. Used by
+// the `openCalls` arm AND by the `isLocal` guard above it, from one place so the two cannot drift.
+//
+// Deliberately excludes the FUNDER's vocabulary („еврофонд", „исун", „фондове"): those belong to the
+// awarded-corpus arm, and repeating them here would swallow „колко еврофондове усвои X".
+//
+// „кандидатств" and not „кандидат": the noun is an election candidate („кандидати за кмет"), the verb
+// is an applicant. „прием" does prefix-match „приемане на бюджета", but the budget and local-election
+// arms are both checked BEFORE this one, so those questions never reach it — verified.
+const APPLY_TOKENS = [
+  "отворен",
+  "кандидатств",
+  "прием",
+  "покан",
+  "насоки за кандидатстване",
+  "open call",
+  "calls for proposals",
+  "call for proposals",
+  "apply for",
+  "can i apply",
+  "can we apply",
+  // „Is there an open programme/scheme/grant…" — the natural English phrasing carries no APPLY verb
+  // at all, so „open" has to be paired with the thing being open. Bare „open" is not a token here:
+  // it would swallow „open data", „open tender" and „openness".
+  "open programme",
+  "open program",
+  "open scheme",
+  "open grant",
+  "open funding",
+  "currently open",
+] as const;
+
 const AWARDER_TOKENS = [
   "училищ",
   "гимназ",
@@ -1920,7 +1952,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const place = extractPlace(q);
     if (place) return { tool: "councilResolutions", args: { place } };
   }
-  if (isLocal) {
+  // „What can a municipality apply for right now?" is not a local-ELECTIONS question, but `isLocal`
+  // matches on „municipality" / „община" and this block would answer it with a mayoral result. The
+  // open-calls arm further down is the right destination, so an applicant question falls through.
+  // Narrow on purpose: it takes an APPLY verb, so „кандидати за кмет" (a candidate, not an applicant)
+  // and „кой се кандидатира" are untouched — verified against both.
+  if (isLocal && !has(q, ...APPLY_TOKENS)) {
     const place = extractPlace(q);
     // A named year selects that local cycle ("2019" -> 2019_10_27_mi, via
     // resolveLocalCycle). Mayor history & partials span cycles, so they stay
@@ -3456,6 +3493,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
       return { tool: "procurementBySettlement", args: { place } };
     return { tool: "procurementTotals", args: {} };
   }
+  // OPEN CALLS, BEFORE the EU-funds arm below — and the order is the whole point. That arm answers
+  // from the AWARDED corpus (`fundsOverview` / `fundsProjects` read fund_payloads: contracts already
+  // signed), and it claims the entire vocabulary of the domain: „европейск", „еврофонд", „фондове",
+  // „исун". So „има ли отворена процедура по еврофондове за фирма" routed to `fundsOverview` and was
+  // answered with a list of who has already received money — confidently wrong about what a reader
+  // can do today, which is the single most common funds question we get (~68% of a measured sample,
+  // docs/plans/funds-module-v2.md §1).
+  //
+  // Keyed on the APPLICANT's vocabulary rather than the funder's, so it does not need to repeat the
+  // funder tokens and cannot swallow „колко еврофондове усвои X".
+  //
+  // This matters most on the RULES-FIRST providers: webllm.ts consults the model only when `route()`
+  // returns null, and provider.ts is rules-only. Without this arm `openCalls` is unreachable there.
+  if (has(q, ...APPLY_TOKENS))
+    return { tool: "openCalls", args: { query: question } };
   if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове")) {
     // place-scoped EU projects ("европроекти в община X") -> placeEuProjects,
     // before the national register/rollup split below.

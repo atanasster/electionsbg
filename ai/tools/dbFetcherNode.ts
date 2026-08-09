@@ -6,6 +6,17 @@
 //
 // NEVER import this from browser/tool code — it pulls in node-pg + the CJS
 // functions bundle. Only *.harness.ts / *.test.ts entrypoints import it.
+//
+// ⚠ "THE SAME HANDLERS" IS TRUE OF THE CODE, NOT OF THE WIRE FORMAT. This returns the handler's
+// `body` OBJECT in-process; production serialises it to JSON over HTTP. The two differ wherever a
+// value has no JSON representation of its own — most often a Postgres `timestamptz`, which
+// node-postgres hands back as a `Date` here and as an ISO STRING in prod. A tool that types such a
+// field `string` compiles, works in production, and throws `x.slice is not a function` the moment
+// the harness runs it — which is how `openCalls` shipped with six assertions that never executed.
+//
+// So a tool reading a timestamp must accept `string | Date` (see `Stamp` in ai/tools/fiscal.ts),
+// and a hermetic test whose fixture uses strings does NOT cover the harness path. The same applies
+// to `numeric` (string over the wire, string here) and `bigint`.
 
 import { createRequire } from "node:module";
 import {

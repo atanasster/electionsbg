@@ -19,6 +19,7 @@ import {
   contractSearch,
   procurementAppeals,
   fundsOverview,
+  openCalls,
   awarderProcurement,
   procurementNormalcy,
   roadsSpending,
@@ -3220,6 +3221,49 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: tenderLookup,
+  },
+  {
+    // Placed next to fundsOverview on purpose: the two are the OPEN and the AWARDED halves of
+    // the same register, and „има ли програма за X" must not be answered from the awarded one.
+    name: "openCalls",
+    domain: "fiscal",
+    description: {
+      bg: "Отворени процедури по еврофондове — по какво МОЖЕ ДА СЕ КАНДИДАТСТВА сега: краен срок, бюджет, допустими кандидати. Основа: ИСУН 2020 (програми 2021-2027 + ПВУ) и индикативният график на ДФ „Земеделие“. НЕ е корпусът с вече сключени договори (за него: fundsOverview / fundsProjects), и НЕ включва Interreg (управлява се в Jems). Показва отделно очакваните приеми (период, не краен срок) и проектите на насоки за обсъждане.",
+      en: "Open EU-funds calls — what you can APPLY FOR right now: deadline, budget, eligible applicants. Basis: ИСУН 2020 (the 2021-2027 programmes + the Recovery Plan) and the ДФЗ CAP Strategic-Plan indicative schedule. NOT the awarded-contracts corpus (that is fundsOverview / fundsProjects), and NOT Interreg (which runs in Jems). Reports expected intakes (a month range, not a deadline) and draft guidance out for consultation as separate counts.",
+    },
+    params: [
+      {
+        name: "audience",
+        type: "metric",
+        description: {
+          bg: "Кой кандидатства — фирма/МСП, земеделец, община, НПО, физическо лице, училище, институция (по избор)",
+          en: "Who is applying — business/SME, farmer, municipality, NGO, individual, school, institution (optional)",
+        },
+      },
+      {
+        // DECLARED so it is REACHABLE. `coerceArgs` (ai/orchestrator/toolSchema.ts) drops every key
+        // that is not in `params`, so the tool's free-text fallback — and the deterministic router's
+        // `args: { query: question }` — would silently be stripped without this. The audience is read
+        // out of it only when no explicit `audience` was given.
+        name: "query",
+        type: "text",
+        description: {
+          bg: "Свободен текст на въпроса, от който се разчита кой кандидатства (по избор)",
+          en: "The question's free text, used to infer who is applying (optional)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Има ли отворена програма за малка фирма?",
+        en: "Is there an open programme for a small business?",
+      },
+      {
+        bg: "По какво може да кандидатства община сега?",
+        en: "What can a municipality apply for right now?",
+      },
+    ],
+    run: openCalls,
   },
   {
     name: "fundsOverview",

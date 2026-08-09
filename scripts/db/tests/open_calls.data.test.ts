@@ -17,6 +17,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, dbReachable, withClient, end } from "../lib/pg";
 import type { OpenCallsSnapshot } from "../../opencalls/types";
+// The PRODUCTION predicate, so a gate cannot pass against a query nothing runs.
+import { OPEN_CALLS_BY_OBSHTINA_SQL } from "../lib/opencalls_alerts";
 
 const haveDb = await dbReachable();
 const skip = !haveDb ? "Postgres unreachable" : false;
@@ -437,5 +439,186 @@ test.skipIf(skip)(
     assert.equal(byName.get("grant_max_eur"), "double precision");
     // `days_left` is computed in the view; integer keeps `count`-based pluralisation honest.
     assert.equal(byName.get("days_left"), "integer");
+  },
+);
+
+// ── The My-Area alert predicate ────────────────────────────────────────────────────────────
+//
+// `readOpenCallsByObshtina` correctly returns NOTHING on today's corpus — all 55 ИСУН rows carry
+// `territory = NULL`, and every ДФЗ territory is national. That makes the live behaviour useless as
+// evidence: a predicate that never matched anything would look identical. So these gates plant a
+// territory in a sandbox and prove what the SQL actually has to get right.
+//
+// They run `OPEN_CALLS_BY_OBSHTINA_SQL` — the PRODUCTION query, imported — rather than a hand-typed
+// copy. The first version of this block re-typed it, which meant deleting the national exclusion or
+// the status filter from the real query left all three gates green.
+
+test.skipIf(skip)(
+  "open-call alerts: today's corpus really is place-less, as documented",
+  async () => {
+    // If this ever fails, the documentation in opencalls_alerts.ts is out of date and the arm has
+    // started producing events — which is the intended outcome of Stage 7, not a defect. Asserted so
+    // that transition cannot happen unnoticed.
+    const [row] = await allRows<{ placed: number; national: number }>(
+      `SELECT count(*) FILTER (WHERE territory IS NOT NULL
+                                 AND territory !~* 'цялата (страна|територия)')::int AS placed,
+              count(*) FILTER (WHERE territory ~* 'цялата (страна|територия)')::int  AS national
+         FROM open_calls`,
+    );
+    assert.equal(
+      row.placed,
+      1,
+      `expected exactly the one broad-category ДФЗ territory ("Селски райони"); got ${row.placed}. ` +
+        "If territories are now published per obshtina, update opencalls_alerts.ts's header — it " +
+        "documents this arm as emitting nothing.",
+    );
+    assert.ok(
+      row.national >= 1,
+      "the ДФЗ national territories should be present",
+    );
+  },
+);
+
+/** Plant a territory on one open call and run the PRODUCTION predicate over it, in a sandbox. */
+const matchTerritory = async (
+  c: import("pg").PoolClient,
+  territory: string,
+  names: string[],
+): Promise<string[]> => {
+  await c.query(
+    `UPDATE open_calls SET territory = $1::text
+      WHERE id = (SELECT id FROM open_calls_table
+                   WHERE status = 'open' AND kind = 'call' ORDER BY id LIMIT 1)`,
+    [territory],
+  );
+  const { rows } = await c.query<{ obshtina: string }>(
+    OPEN_CALLS_BY_OBSHTINA_SQL,
+    [names, 3],
+  );
+  return rows.map((r) => r.obshtina).sort();
+};
+
+test.skipIf(skip)(
+  "open-call alerts: matches an obshtina named ADMINISTRATIVELY",
+  async () => {
+    await inSandbox(async (c) => {
+      const got = await matchTerritory(
+        c,
+        "Допустими са проекти на територията на община Своге и община Мездра",
+        ["Мездра", "Свищов", "Своге"],
+      );
+      assert.deepEqual(
+        got,
+        ["Мездра", "Своге"],
+        "expected exactly the two named obshtini",
+      );
+    });
+  },
+);
+
+test.skipIf(skip)(
+  "open-call alerts: a municipality name used as an ordinary NOUN is not a place match",
+  async () => {
+    // This is the failure that will actually occur once Stage 7 fills `territory` from guidance
+    // prose. Dozens of municipality names are common Bulgarian nouns, and a boundary-only predicate
+    // matched every one of these — measured before the administrative qualifier was required.
+    await inSandbox(async (c) => {
+      const got = await matchTerritory(
+        c,
+        "Изграждане на отоплителен котел и водна кула по поречието на река Искър, в Родопите и по Марица",
+        ["Котел", "Кула", "Искър", "Марица", "Завет"],
+      );
+      assert.deepEqual(
+        got,
+        [],
+        `prose matched as places: ${got.join(", ")} — the „община"/„област" qualifier is what prevents this`,
+      );
+    });
+  },
+);
+
+test.skipIf(skip)(
+  "open-call alerts: the word boundary still holds inside the qualifier form",
+  async () => {
+    // „община Родопи" must not match a needle that is a PREFIX of the name, and vice versa.
+    await inSandbox(async (c) => {
+      const got = await matchTerritory(c, "Проекти в община Родопите", [
+        "Родопи",
+        "Ро",
+      ]);
+      assert.deepEqual(got, [], "a prefix is not a name");
+    });
+  },
+);
+
+test.skipIf(skip)(
+  "open-call alerts: a NATIONAL call is never emitted as a place event",
+  async () => {
+    // /funds/calls already serves the national list. Copying it into 265 municipal feeds would
+    // drown every event that is genuinely local — the reason the exclusion exists.
+    await inSandbox(async (c) => {
+      const got = await matchTerritory(
+        c,
+        "Цялата територия на Република България, включително община Своге",
+        ["Своге"],
+      );
+      assert.deepEqual(
+        got,
+        [],
+        "a territory naming the whole country must be excluded even when it also names an obshtina",
+      );
+    });
+  },
+);
+
+test.skipIf(skip)(
+  "open-call alerts: an EXPIRED call can never reach an alert",
+  async () => {
+    // Asserted SEPARATELY from the consultation case below, because the two are excluded by
+    // different clauses and a combined assertion passes on either one alone.
+    await inSandbox(async (c) => {
+      await c.query(
+        `INSERT INTO open_calls
+           (source, source_key, title, kind, date_precision, closes_at, territory, source_url)
+         VALUES ('isun', 'sandbox-expired', 'Изтекла', 'call', 'exact',
+                 now() - interval '3 days', 'община Своге', 'https://x')`,
+      );
+      const { rows } = await c.query<{ obshtina: string }>(
+        OPEN_CALLS_BY_OBSHTINA_SQL,
+        [["Своге"], 3],
+      );
+      assert.equal(
+        rows.length,
+        0,
+        "a call whose deadline has passed is the one thing an alert must never point at",
+      );
+    });
+  },
+);
+
+test.skipIf(skip)(
+  "open-call alerts: a CONSULTATION can never reach an alert",
+  async () => {
+    await inSandbox(async (c) => {
+      await c.query(
+        `INSERT INTO open_calls
+           (source, source_key, title, kind, date_precision, closes_at, territory, source_url)
+         VALUES ('isun', 'sandbox-consult', 'Насоки', 'consultation', 'exact',
+                 now() + interval '9 days', 'община Своге', 'https://x')`,
+      );
+      const { rows } = await c.query<{ obshtina: string }>(
+        OPEN_CALLS_BY_OBSHTINA_SQL,
+        [["Своге"], 3],
+      );
+      assert.equal(
+        rows.length,
+        0,
+        "an alert is a thing you can act on; a draft you may comment on is not",
+      );
+    });
+    // NOTE the `kind = 'call'` clause in the production SQL is belt-and-braces: 142's status CASE
+    // returns 'consultation' before it could ever return 'open', so `status = 'open'` already
+    // excludes this row. Removing `kind` would not fail this gate — it is kept as defence against a
+    // future edit to that CASE, and this note is here so nobody reads the gate as proving it.
   },
 );

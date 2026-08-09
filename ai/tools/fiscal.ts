@@ -3124,3 +3124,233 @@ export const exciseWarehouses = async (
     provenance: ["db:excise-warehouses"],
   };
 };
+
+// ---- open calls (what you can still APPLY to) --------------------------------
+//
+// THE BASIS, DECLARED. Every other funds tool here answers from the AWARDED corpus:
+// `fundsOverview` and `fundsProjects` read `fund_payloads` (ИСУН contracts already signed),
+// which is why they carry the Interreg caveat. This one answers from `open_calls` — procedures
+// still accepting applications — and the distinction is not academic. „Има ли отворена програма
+// за X" is the single most common question the assistant gets about funds (measured on a
+// 113K-member EU-funds group: ~68% of questions, docs/plans/funds-module-v2.md §1), and without
+// this tool the model answers it from the awarded corpus and is confidently wrong about what a
+// reader can do TODAY.
+//
+// COVERAGE, ALSO DECLARED, because the honest answer to „is there a programme for X" sometimes
+// has to be „not in what we track": ИСУН 2020 (the 2021-2027 programmes + the Recovery Plan) and
+// the ДФЗ CAP Strategic Plan. NOT Interreg (it runs on Jems, so it is in neither register), and
+// not the АХУ/АЗ national schemes yet.
+
+/** A timestamp as it arrives, which is NOT always a string.
+ *
+ *  Over HTTP the route's `timestamptz` is serialized to an ISO string. But `dbFetcherNode` hands the
+ *  handler's body back IN-PROCESS with no JSON round-trip, so on that path — the `ai/tools/harness.ts`
+ *  path — the very same field is a `Date`. Typing it `string` compiles and then throws
+ *  `r.closesAt.slice is not a function` on the harness, which is where this tool's assertions run, so
+ *  the assertions never executed at all. */
+type Stamp = string | Date;
+
+/** The calendar day, from either wire shape. */
+const stampDay = (v: Stamp): string =>
+  (v instanceof Date ? v.toISOString() : String(v)).slice(0, 10);
+
+/** Comparable ISO form, for max-by. Sorting raw `Stamp`s is the second half of the same bug:
+ *  `Date.prototype.toString` starts with the WEEKDAY, so a lexical sort over Dates orders by
+ *  „Fri" < „Mon" < „Sat" rather than by time — and this is what picks the freshest crawl. */
+const stampIso = (v: Stamp): string =>
+  v instanceof Date ? v.toISOString() : String(v);
+
+interface OpenCallApiRow {
+  code: string | null;
+  title: string;
+  programmeName: string | null;
+  status: string;
+  kind: string;
+  closesAt: Stamp | null;
+  periodLabel: string | null;
+  daysLeft: number | null;
+  budgetEur: number | null;
+  aidRatePct: number | null;
+  grantMaxEur: number | null;
+  audience: string[];
+  sourceUrl: string;
+  source: string;
+}
+interface OpenCallsApi {
+  calls: OpenCallApiRow[];
+  indicative: OpenCallApiRow[];
+  consultations: OpenCallApiRow[];
+  crawl: { source: string; crawledAt: Stamp; ok: boolean }[];
+  totals: { calls: number; indicative: number; consultations: number };
+}
+
+const OC_AUDIENCE_ALIASES: Record<string, string> = {
+  бизнес: "business",
+  фирма: "business",
+  фирми: "business",
+  предприятие: "business",
+  мсп: "business",
+  business: "business",
+  company: "business",
+  sme: "business",
+  земеделец: "farmer",
+  фермер: "farmer",
+  farmer: "farmer",
+  agriculture: "farmer",
+  община: "municipality",
+  общини: "municipality",
+  municipality: "municipality",
+  нпо: "ngo",
+  сдружение: "ngo",
+  ngo: "ngo",
+  физическо: "individual",
+  гражданин: "individual",
+  individual: "individual",
+  училище: "school",
+  школа: "school",
+  school: "school",
+  институция: "institution",
+  институции: "institution",
+  institution: "institution",
+};
+
+// TWO TIERS, and the order between them is the whole point. A substring scan returns the first hit,
+// so whatever is checked first wins — and in declaration order the GENERIC token won: „земеделска
+// фирма" contains „фирма", the business aliases are declared first, and a farmer was handed a list of
+// SME calls.
+//
+// The rule is not "longest key" (that was the first attempt and it fails: „предприятие" is 11
+// characters and „земеделск" is 9, so „земеделско предприятие" still resolved to business). It is
+// that a SECTOR qualifier outranks an ORGANISATION-FORM noun — „земеделска фирма" and „земеделско
+// предприятие" are both farmers, whatever legal form they take. These are STEMS, because Bulgarian
+// inflects adjectives for gender and „земеделски" alone misses „земеделска".
+const OC_SECTOR_QUALIFIERS: [string, string][] = [
+  ["земеделск", "farmer"],
+  ["селскостопанск", "farmer"],
+  ["общинск", "municipality"],
+];
+
+// Within each tier, longest first — „малко предприятие" should not be decided by declaration order
+// either.
+const OC_ALIASES_BY_LENGTH = Object.entries(OC_AUDIENCE_ALIASES).sort(
+  (a, b) => b[0].length - a[0].length,
+);
+
+/** Map ONE free-text field to one of `open_calls.audience`'s eight values, or undefined.
+ *
+ *  Undefined means „no facet" — every call — which is the right default: a wrong facet returns an
+ *  empty list, and „за теб няма нищо" is a far worse answer than a broad one.
+ *
+ *  Deliberately takes a SINGLE field. Concatenating the explicit `audience` arg with the free-text
+ *  query and scanning the result lets a stray noun in the question override the facet the caller
+ *  actually asked for — `audience:"farmer"` plus „фирми" resolved to `business`. The call site
+ *  resolves the two in order of authority instead. */
+export const resolveCallAudience = (raw: string): string | undefined => {
+  const t = raw.toLowerCase().trim();
+  if (!t) return undefined;
+  if (OC_AUDIENCE_ALIASES[t]) return OC_AUDIENCE_ALIASES[t];
+  for (const [k, v] of OC_SECTOR_QUALIFIERS) if (t.includes(k)) return v;
+  for (const [k, v] of OC_ALIASES_BY_LENGTH) if (t.includes(k)) return v;
+  return undefined;
+};
+
+export const openCalls = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  // THE EXPLICIT ARG WINS, and it is resolved on its own. The free-text query is consulted only when
+  // the caller named no audience — „има ли нещо за община" arrives that way.
+  const audience =
+    resolveCallAudience(String(args.audience ?? "")) ??
+    resolveCallAudience(String(args.query ?? args.metric ?? ""));
+  const d = await fetchDb<OpenCallsApi>("open-calls", {
+    limit: 12,
+    ...(audience ? { audience } : {}),
+  });
+
+  // THE THREE GROUPS STAY SEPARATE, here as on the page. An indicative ДФЗ window is a MONTH
+  // RANGE and a consultation is a comment deadline; folding either into „open now" would make
+  // the assistant assert a deadline that does not exist. The rows below are the real calls; the
+  // other two groups are stated as counts in `facts` and as an explicit note.
+  const rows: Row[] = d.calls.slice(0, 10).map((r) => ({
+    title: r.title,
+    code: r.code ?? "—",
+    deadline:
+      r.status === "upcoming" && r.closesAt
+        ? bg
+          ? `предстои · ${stampDay(r.closesAt)}`
+          : `upcoming · ${stampDay(r.closesAt)}`
+        : r.closesAt
+          ? `${stampDay(r.closesAt)}${r.daysLeft !== null ? (bg ? ` (${r.daysLeft} дни)` : ` (${r.daysLeft}d)`) : ""}`
+          : "—",
+    // NULL is „not published in the register", NOT zero — ИСУН's procedure page carries no
+    // budget at all; it lives in the „Условия" documents. Saying €0 would be a fabrication.
+    budget:
+      r.budgetEur !== null
+        ? fmtEurCompact(r.budgetEur, ctx.lang)
+        : bg
+          ? "не е публикуван"
+          : "not published",
+  }));
+
+  // Max over the ISO form, never over the raw value — see `stampIso`.
+  const newest = d.crawl
+    .filter((c) => c.ok)
+    .map((c) => stampIso(c.crawledAt))
+    .sort()
+    .pop();
+
+  // Exact whenever the group fits under the limit, which it does at the default of 12 against 0
+  // upcoming rows today. It can only ever UNDER-state, and it is only used to decide whether the
+  // split is worth surfacing at all.
+  const upcomingN = d.calls.filter((r) => r.status === "upcoming").length;
+
+  const columns: Column[] = [
+    { key: "title", label: bg ? "Процедура" : "Procedure" },
+    { key: "code", label: bg ? "Код" : "Code" },
+    { key: "deadline", label: bg ? "Краен срок" : "Deadline" },
+    { key: "budget", label: bg ? "Бюджет" : "Budget", numeric: true },
+  ];
+
+  return {
+    tool: "openCalls",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Отворени процедури — по какво може да се кандидатства"
+      : "Open calls — what you can apply for",
+    subtitle: bg
+      ? "ИСУН 2020 и Стратегическия план на ДФ „Земеделие“"
+      : "ИСУН 2020 and the ДФЗ CAP Strategic Plan",
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      // `calls`, NOT `open`. The route's `totals.calls` is deliberately open + upcoming, because the
+      // page renders them in one section with a per-row marker — but `facts` is a flat key→string map
+      // with no marker, and it is the only thing the narrator and the grounding gate ever see. Calling
+      // that sum „open" would let a model state a count of things you can apply to that includes ones
+      // you cannot yet. Harmless today only because upcoming is 0.
+      calls: fmtInt(d.totals.calls, ctx.lang),
+      // Split out whenever non-zero, so the difference is visible rather than folded away.
+      ...(upcomingN > 0 ? { upcoming: fmtInt(upcomingN, ctx.lang) } : {}),
+      // Named separately rather than added: a forecast window and a draft guidance document are
+      // not procedures you can apply to, and a single „N отворени" would imply they are.
+      indicative: fmtInt(d.totals.indicative, ctx.lang),
+      consultations: fmtInt(d.totals.consultations, ctx.lang),
+      ...(audience ? { audience } : {}),
+      // FRESHNESS IS PART OF THE ANSWER. A list of deadlines with no „checked at" is a claim
+      // that it is current; the register is crawled daily and can lag.
+      ...(newest
+        ? { checked: newest.slice(0, 10) }
+        : {
+            checked: bg ? "няма зареждане" : "never loaded",
+          }),
+      coverage: bg
+        ? "ИСУН 2020 + ДФЗ Стратегически план. Interreg се управлява в Jems и не е включен."
+        : "ИСУН 2020 + the ДФЗ Strategic Plan. Interreg runs in Jems and is not included.",
+    },
+    provenance: ["db:open-calls (ИСУН /Active + ДФЗ индикативен график)"],
+  };
+};

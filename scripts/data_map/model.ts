@@ -425,6 +425,28 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "local"],
   },
   {
+    id: "opencalls",
+    label: { bg: "Отворени процедури", en: "Open calls" },
+    detail: {
+      bg: "по какво може да се кандидатства сега",
+      en: "what you can apply for right now",
+    },
+    desc: {
+      // Its own entry rather than a member of `isun`, for the reason keep.eu is: the register is
+      // DISJOINT from the awarded corpus. ИСУН's /Active listing and ДФЗ's indicative schedule
+      // describe procedures that have not produced a contract yet, so no query over the
+      // beneficiary/project corpus would ever return them — and „има ли програма за мен" is the
+      // question most readers actually arrive with, which the awarded corpus cannot answer.
+      bg: "Процедурите, по които все още може да се кандидатства — активните покани в ИСУН 2020 и проектите на насоки за обществено обсъждане, плюс индикативния график на приемите по Стратегическия план на ДФ „Земеделие“. Статусът не се съхранява: изчислява се при всяка заявка спрямо крайния срок, така че изтекла процедура не може да се покаже като отворена.",
+      en: "The procedures you can still apply to — the live calls in ИСУН 2020 and the draft guidance out for public consultation, plus the indicative intake schedule under the ДФЗ CAP Strategic Plan. Status is never stored: it is derived per request from the closing date, so an expired procedure cannot be shown as open.",
+    },
+    url: "https://eumis2020.government.bg/bg/s/Procedure/Active",
+    origin: "state",
+    members: ["isun_procedures", "sp2023_indicative"],
+    skills: ["update-open-calls"],
+    tags: ["fiscal", "local"],
+  },
+  {
     id: "keep_eu",
     label: { bg: "keep.eu (INTERACT)", en: "keep.eu (INTERACT)" },
     detail: {
@@ -1131,6 +1153,20 @@ export const DATASETS: DatasetDef[] = [
       en: "EU-funds contracts and beneficiaries with geocoded projects per municipality and integrity checks against declarations and debarment lists.",
     },
     path: "data/funds/",
+    tags: ["fiscal", "local"],
+  },
+  {
+    id: "opencalls",
+    label: { bg: "Отворени процедури", en: "Open calls" },
+    detail: {
+      bg: "краен срок, бюджет, кой може да кандидатства",
+      en: "deadline, budget, who may apply",
+    },
+    desc: {
+      bg: "Регистър на процедурите, приемащи проекти сега — с краен срок, бюджет и допустими кандидати, доколкото източникът ги публикува. Три отделни неща, които никога не се смесват: отворена процедура с публикуван краен срок, очакван прием по индикативен график (период, не срок) и проект на насоки за обсъждане (още не се кандидатства). Съхранява се в Postgres (open_calls); зареждащият никога не изтрива, така че затворените процедури остават като архив.",
+      en: "A register of procedures currently accepting applications — with the deadline, budget and eligible applicants, as far as the source publishes them. Three separate things that are never mixed: an open call with a published deadline, an expected intake from an indicative schedule (a period, not a deadline), and draft guidance out for consultation (you cannot apply yet). Stored in Postgres (open_calls); the loader never deletes, so closed calls remain as an archive.",
+    },
+    path: "data/opencalls/",
     tags: ["fiscal", "local"],
   },
   {
@@ -1919,6 +1955,10 @@ export const EDGES: [string, string][] = [
   ["src:aop", "ds:procurement"],
   ["src:kzk", "ds:procurement"],
   ["src:isun", "ds:funds"],
+  ["src:opencalls", "ds:opencalls"],
+  // Renders on /funds (the band-1 tile) and /funds/calls, both of which live under the `funds`
+  // feature node — there is no separate feature for the browse page.
+  ["ds:opencalls", "f:funds"],
   // keep.eu → the SAME dataset node, because a reader looking for "European
   // money for my municipality" is looking in one place — but it is a separate
   // SOURCE edge, because ИСУН and Interreg are disjoint corpora on different

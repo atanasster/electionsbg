@@ -1335,6 +1335,42 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 5,
   },
+  // ---- open calls: the OPEN half of the same register ------------------------
+  // These pin the arm that intercepts the applicant's vocabulary BEFORE the awarded-corpus arm.
+  // Without it „има ли отворена процедура по еврофондове" routed to `fundsOverview` and was answered
+  // with who has already received money — the one wrong basis this tool exists to prevent, and
+  // unreachable on the rules-first providers (webllm consults the model only when route() is null).
+  {
+    q: "Има ли отворена програма за малка фирма?",
+    tool: "openCalls",
+    kind: "table",
+    // `calls`, not `open`: the route's total is open + upcoming, and `facts` carries no per-row
+    // marker to distinguish them.
+    facts: {
+      calls: /\d/,
+      indicative: /\d/,
+      checked: /\S/,
+      coverage: /Interreg/,
+    },
+  },
+  {
+    q: "По какво може да кандидатства община сега?",
+    tool: "openCalls",
+    kind: "table",
+  },
+  {
+    q: "What can a municipality apply for right now?",
+    tool: "openCalls",
+    kind: "table",
+  },
+  // The awarded corpus must STILL win when the question is about money already spent — the arm is
+  // keyed on the applicant's vocabulary precisely so it cannot swallow this.
+  {
+    q: "Колко европейски средства са усвоени по програма?",
+    tool: "fundsProjects",
+    kind: "table",
+    minRows: 3,
+  },
   // ---- НЗОК health pack (budget line / drugs / hospitals) --------------------
   {
     q: "Къде отиват парите на НЗОК?",

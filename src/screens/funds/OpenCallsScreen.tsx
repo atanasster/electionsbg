@@ -285,6 +285,18 @@ export const OpenCallsScreen: FC = () => {
             />
           }
         />
+        {/* EN-ONLY, and it is an SEO correctness fix rather than a courtesy. The funds pages have
+            already shipped an English mirror carrying Bulgarian names, and Google paired a
+            Bulgarian title with an English snippet (funds-seo-geo-v1 F3). ИСУН and ДФЗ publish
+            procedure titles in Bulgarian ONLY, so the English page has to say that the titles are
+            the official Bulgarian names — the alternative the plan allows is not having the page
+            at all. Machine-translating them is not on the table: a mistranslated procedure name
+            is unsearchable in the register a reader has to apply in. */}
+        {i18n.language !== "bg" ? (
+          <p className="mt-3 text-[11px] text-muted-foreground/80">
+            {t("oc_titles_bg")}
+          </p>
+        ) : null}
         <p className="mt-3 text-[11px] text-muted-foreground/80">
           {t("oc_coverage") ||
             "Обхват: ИСУН (европейски програми) и ДФ „Земеделие“. Interreg не се следи тук."}
