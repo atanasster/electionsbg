@@ -143,12 +143,27 @@ const RailCard: FC<{
                 key={`${r.card}:${r.rank}`}
                 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-2 first:pt-0 last:pb-0"
               >
+                {/* CLAMPED TO TWO LINES, with the full text on `title`. ИСУН procedure names
+                    run to 200+ characters („Инфраструктура за посетители… Компонент № 3:
+                    Рехабилитация на сгради № 1 и № 2 в комплекс „Саръгьол""), and one of them
+                    took this card to six lines while its two neighbours sat at one — so the
+                    rail read as three cards of unequal importance rather than three of equal
+                    rank. */}
                 {r.href ? (
-                  <Link to={r.href} className="min-w-0 flex-1 hover:underline">
+                  <Link
+                    to={r.href}
+                    title={display(r, labelOf)}
+                    className="line-clamp-2 min-w-0 flex-1 hover:underline"
+                  >
                     {display(r, labelOf)}
                   </Link>
                 ) : (
-                  <span className="min-w-0 flex-1">{display(r, labelOf)}</span>
+                  <span
+                    title={display(r, labelOf)}
+                    className="line-clamp-2 min-w-0 flex-1"
+                  >
+                    {display(r, labelOf)}
+                  </span>
                 )}
                 <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">
                   {render(r)}

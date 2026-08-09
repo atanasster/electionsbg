@@ -1,4 +1,4 @@
-// „Какво е отворено сега" — the /funds band-1 companion to the finder.
+// „Отворени процедури" — the /funds band-1 companion to the finder.
 //
 // This is the module's answer to the question the audience actually asks. Measured on a
 // 113K-member EU-funds group (docs/plans/funds-module-v2.md §1): ~68% of questions are „има ли
@@ -6,9 +6,9 @@
 // answers the second question.
 //
 // THREE SECTIONS, NEVER ONE LIST. The distinction is not cosmetic:
-//   Отворено сега      — a real deadline. Apply.
-//   Очаквани приеми    — a ДФЗ month range. A forecast; prepare, do not count on a date.
-//   Проекти на насоки  — draft guidance out for comment. You cannot apply; you CAN comment.
+//   Отворени              — a real deadline. Apply.
+//   Очаквани              — a ДФЗ month range. A forecast; prepare, do not count on a date.
+//   Обществено обсъждане  — draft guidance out for comment. You cannot apply; you CAN comment.
 // A countdown on a forecast, or a draft rendered beside a real call, is the harm invariants 2
 // and 7 exist to prevent.
 //
@@ -228,9 +228,10 @@ export const OpenCallsTile: FC = () => {
   return (
     <DashboardSection
       id="funds"
-      title={t("oc_band_title") || "Какво е отворено сега"}
+      title={t("oc_band_title") || "Отворени процедури"}
       subtitle={
-        t("oc_band_sub") || "Процедури, по които може да се кандидатства."
+        t("oc_band_sub") ||
+        "По какво може да се кандидатства сега и какво предстои."
       }
       icon={CalendarClock}
     >
@@ -257,7 +258,7 @@ export const OpenCallsTile: FC = () => {
 
       <div className="grid gap-4 xl:grid-cols-3">
         <Section
-          title={t("oc_open_title") || "Отворено сега"}
+          title={t("oc_open_title") || "Отворени"}
           hint={t("oc_open_hint") || "Публикуван краен срок."}
           icon={CalendarClock}
           rows={d.calls}
@@ -267,7 +268,7 @@ export const OpenCallsTile: FC = () => {
           }
         />
         <Section
-          title={t("oc_indicative_title") || "Очаквани приеми"}
+          title={t("oc_indicative_title") || "Очаквани"}
           hint={
             t("oc_indicative_hint") ||
             "Индикативен график — период, не краен срок."
@@ -279,7 +280,7 @@ export const OpenCallsTile: FC = () => {
           emptyLabel={t("oc_indicative_empty") || "Няма обявен график."}
         />
         <Section
-          title={t("oc_consult_title") || "Проекти на насоки"}
+          title={t("oc_consult_title") || "Обществено обсъждане"}
           hint={
             t("oc_consult_hint") ||
             "Още не се кандидатства — може да се дадат коментари."
@@ -289,7 +290,7 @@ export const OpenCallsTile: FC = () => {
           total={d.totals.consultations}
           emptyLabel={
             t("oc_consult_empty") ||
-            "В момента няма проекти на насоки за обсъждане."
+            "В момента няма процедури в обществено обсъждане."
           }
         />
       </div>

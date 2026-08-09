@@ -8,14 +8,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import {
-  Banknote,
-  Building2,
-  Coins,
-  ExternalLink,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { Banknote, Building2, Coins, ExternalLink, Users } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
@@ -23,9 +16,7 @@ import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
 import { FitResolverTile } from "./funds/FitResolverTile";
 import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
-import { MyMunicipalityTile, MySectorTile } from "./funds/ForYouTiles";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
-import { DashboardSection } from "./dashboard/DashboardSection";
 import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
 import { FUNDS_BANDS } from "./funds/fundsRegistry";
 import { FUNDS_SCENES } from "./funds/fundsScenes";
@@ -415,33 +406,11 @@ export const FundsScreen: FC = () => {
             preview leaderboard. Each of those tiles now lives on its own page and the hub
             fronts it, per the dashboard-hub pattern.
 
-            Bands 1 and 5 stay LIVE above and below this grid: /parliament keeps a lead card and
-            a news rail around its own grid too, and funds-module-v2 measured that ~68% of this
-            audience arrives asking „can I get money" — which band 1 answers. */}
+            Band 1 stays LIVE above this grid: /parliament keeps a lead card and a news rail
+            around its own grid too, and funds-module-v2 measured that ~68% of this audience
+            arrives asking „can I get money" — which band 1 answers. Band 5 („За теб") was
+            removed on 2026-08-09; /funds/places is the place question's home now. */}
         <TileHubGrid sections={sections} className="mt-6 sm:mt-8" />
-
-        {/* BAND 5 — „За теб". The personalised entry points, LAST because they are navigation
-            rather than an answer: a reader who arrived with „what can I apply to" is served by
-            band 1, and a reader who arrived with „what about my place" finds this after the
-            national picture that gives it context.
-
-            TWO tiles, not the plan's three. „Следя тази процедура" is the alerts feature, and
-            the plan's own out-of-scope list puts it behind an account system this site does not
-            have — see ForYouTiles.tsx's header. */}
-        <DashboardSection
-          id="funds"
-          title={t("funds_band_foryou") || "За теб"}
-          subtitle={
-            t("funds_band_foryou_sub") ||
-            "Вашето място и вашият сектор — откъде да продължите."
-          }
-          icon={MapPin}
-        >
-          <div className="grid gap-4 xl:grid-cols-2">
-            <MyMunicipalityTile />
-            <MySectorTile />
-          </div>
-        </DashboardSection>
 
         <SourceFooter />
       </section>

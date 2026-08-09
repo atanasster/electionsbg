@@ -4451,9 +4451,9 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Кои процедури приемат проекти в момента — с краен срок, бюджет и допустими кандидати, доколкото съответният регистър ги публикува. Списъкът се обновява ежедневно.</p>
 <h2>Три различни неща, които не се смесват</h2>
 <ul>
-<li><strong>Отворено сега</strong> — процедура с публикуван краен срок. По нея се кандидатства.</li>
-<li><strong>Очаквани приеми</strong> — индикативният график по Стратегическия план на ДФ „Земеделие“: период (например „в периода март-май“), а не краен срок. Прогноза, по която може да се подготвяте.</li>
-<li><strong>Проекти на насоки</strong> — насоки за кандидатстване, публикувани за обществено обсъждане. Още не се кандидатства, но може да се подават коментари.</li>
+<li><strong>Отворени</strong> — процедура с публикуван краен срок. По нея се кандидатства.</li>
+<li><strong>Очаквани</strong> — индикативният график по Стратегическия план на ДФ „Земеделие“: период (например „в периода март-май“), а не краен срок. Прогноза, по която може да се подготвяте.</li>
+<li><strong>Обществено обсъждане</strong> — насоките за кандидатстване са публикувани за коментари. Още не се кандидатства, но може да се подават предложения.</li>
 </ul>
 <h2>Обхват</h2>
 <p>ИСУН 2020 (програмите 2021-2027 и Планът за възстановяване) и Стратегическият план за развитие на земеделието 2023-2027. Interreg се управлява в отделна система (Jems) и не се следи тук — виж <a href="${SITE_URL}/funds">прегледа на европейските средства</a>.</p>
@@ -4469,9 +4469,9 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Which procedures are accepting applications right now — with the deadline, budget and eligible applicants, as far as the source register publishes them. Refreshed daily.</p>
 <h2>Three different things, never mixed together</h2>
 <ul>
-<li><strong>Open now</strong> — a procedure with a published deadline. You can apply.</li>
-<li><strong>Expected intakes</strong> — the indicative schedule under the CAP Strategic Plan: a month range ("March-May"), not a deadline. A forecast to prepare against.</li>
-<li><strong>Draft guidance</strong> — application guidance published for public consultation. You cannot apply yet, but you can comment.</li>
+<li><strong>Open</strong> — a procedure with a published deadline. You can apply.</li>
+<li><strong>Expected</strong> — the indicative schedule under the CAP Strategic Plan: a month range ("March-May"), not a deadline. A forecast to prepare against.</li>
+<li><strong>Public consultation</strong> — the application guidance is published for comment. You cannot apply yet, but you can respond.</li>
 </ul>
 <h2>Coverage</h2>
 <p>ИСУН 2020 (the 2021-2027 programmes and the Recovery Plan) and the Agriculture Strategic Plan 2023-2027. Interreg runs in a separate system (Jems) and is not tracked here — see the <a href="${SITE_URL}/en/funds">EU-funds overview</a>.</p>

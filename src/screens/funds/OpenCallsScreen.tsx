@@ -128,17 +128,31 @@ export const OpenCallsScreen: FC = () => {
         accessorFn: (r) => r.title,
         header: t("oc_col_title") || "Процедура",
         cell: ({ row }) => (
-          <div className="flex min-w-0 flex-col">
+          // WRAPS, never `truncate`, and capped at three lines. Both halves are load-bearing.
+          // A one-line cell sized itself to the longest title in the page — 917 characters on
+          // BG65ISPR001-1.003 — and pushed the table past the viewport. Wrapping alone then took
+          // that row to 229px. Three lines at this width is ~180 characters, which is well past
+          // the „Процедура № 3 „Специфична цел 1…"" prefix that makes these names ambiguous when
+          // cut short; the full text stays on `title` for the reader who needs it.
+          <div className="flex min-w-0 max-w-[52rem] flex-col">
             {/* Every row links to the register it came from — we are an index, and the
                 application happens there. */}
             <a
               href={row.original.sourceUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 font-medium hover:underline"
+              title={row.original.title}
+              className="flex items-start gap-1 font-medium hover:underline"
             >
-              <span className="min-w-0 truncate">{row.original.title}</span>
-              <ExternalLink className="h-3 w-3 shrink-0 opacity-60" />
+              {/* The clamp goes on the TEXT, never on the anchor: `-webkit-line-clamp` cuts
+                  everything past line three, so an icon inside the box disappears on exactly
+                  the long titles the clamp exists for — losing the „opens in a new tab" cue
+                  where it is needed most. Sibling + `shrink-0`, as at the repo's six other
+                  ExternalLink call sites. */}
+              <span className="line-clamp-3 min-w-0 [overflow-wrap:anywhere]">
+                {row.original.title}
+              </span>
+              <ExternalLink className="mt-1 h-3 w-3 shrink-0 opacity-60" />
             </a>
             <span className="text-[11px] text-muted-foreground">
               {[row.original.code, row.original.programmeName]

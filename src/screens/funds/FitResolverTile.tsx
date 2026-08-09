@@ -1,4 +1,4 @@
-// „Финансирано ли е нещо като моето" — the /funds resolver.
+// „Финансирани ли са проекти като твоя" — the /funds resolver.
 //
 // THE QUESTION. Measured on a 113K-member EU-funds group (docs/plans/funds-module-v2.md §1 and
 // Appendix A): ~68% of posts are „има ли програма за X" — a guest house, photovoltaics, a young
@@ -225,7 +225,7 @@ export const FitResolverTile: FC = () => {
   return (
     <DashboardSection
       id="funds"
-      title={t("fit_title") || "Финансирано ли е нещо като моето"}
+      title={t("fit_title") || "Финансирани ли са проекти като твоя"}
       subtitle={
         t("fit_sub") ||
         "Опиши дейността си с две-три думи и виж дали подобни проекти са получавали пари — колко пъти, по колко и къде."
@@ -246,7 +246,7 @@ export const FitResolverTile: FC = () => {
                   "къща за гости, фотоволтаици, млад фермер…"
                 }
                 aria-label={
-                  t("fit_title") || "Финансирано ли е нещо като моето"
+                  t("fit_title") || "Финансирани ли са проекти като твоя"
                 }
                 className="h-9 w-full rounded-md border border-input bg-transparent pl-8 pr-3 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
               />

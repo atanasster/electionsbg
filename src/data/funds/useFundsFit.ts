@@ -1,4 +1,4 @@
-// /api/db/funds-fit — „финансирано ли е нещо като моето" (migration 143).
+// /api/db/funds-fit — „финансирани ли са проекти като твоя" (migration 143).
 //
 // TWO ARMS, NEVER SUMMED. `isun` is the ИСУН corpus at PROCEDURE grain; `interreg` is the keep.eu
 // corpus at operation grain. They are different bases — an ИСУН figure is a contract's own value,

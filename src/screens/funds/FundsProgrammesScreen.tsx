@@ -6,8 +6,9 @@
 // omits itself entirely whenever no seed is produced. `/funds/programme/:code` had no landing
 // page beside it — this is it.
 //
-// It is also where `MySectorTile` on the hub's „За теб" band sends „всички програми". That link
-// previously pointed at a `#programs` anchor on /funds, which is exactly the kind of
+// It was also where `MySectorTile` on the hub's „За теб" band sent „всички програми" — a band
+// removed on 2026-08-09 along with that component. The link is worth recording anyway: before
+// this page existed it pointed at a `#programs` anchor on /funds, which is exactly the kind of
 // same-page-fragment destination that stops working the moment the section moves.
 
 import { type FC } from "react";

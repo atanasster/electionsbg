@@ -9,12 +9,13 @@ Status: **implementation plan, approved scope, no code yet.** Drafted 2026-08-05
 load-bearing is carried below.
 
 Still separate and still live:
+
 - [funds-seo-geo-v1.md](funds-seo-geo-v1.md) — the procedure grain and prerender work, partly
   shipped. This plan depends on it (`/funds/procedure/:code` exists because of it).
 - [interreg-funds-ingest-v1.md](interreg-funds-ingest-v1.md) — **shipped** (migrations 137/138/139,
   `db:load:interreg:pg`, `/funds/interreg/:keepId`, `InterregTile` on `/funds`). Its own doc's
   "nothing implemented" header is stale. It is the authority on the Interreg corpus; this plan
-  covers only how the funds module *integrates and displays* it — see §2.3, §4.4, §5.3.
+  covers only how the funds module _integrates and displays_ it — see §2.3, §4.4, §5.3.
 
 Template source: [module-front-pages-v1.md](module-front-pages-v1.md).
 
@@ -23,8 +24,8 @@ Template source: [module-front-pages-v1.md](module-front-pages-v1.md).
 ## 0. The plan in one page
 
 We measured what an EU-funds audience actually asks (a 113K-member Facebook group, 2026) and
-found a clean mismatch: **their demand is forward-looking and personal — "can *I* get money?" —
-while `/funds` is backward-looking and institutional — "who *got* money."** Not one of 47
+found a clean mismatch: **their demand is forward-looking and personal — "can _I_ get money?" —
+while `/funds` is backward-looking and institutional — "who _got_ money."** Not one of 47
 question posts asked who received EU money.
 
 Two things follow, and this plan does both:
@@ -34,11 +35,11 @@ Two things follow, and this plan does both:
    plus a structured ДФЗ agriculture calendar that carries the money and eligibility fields
    ИСУН omits. Neither alone answers a single question; together they answer most.
 2. **Rebuild `/funds` as a module front page** on the five-band template — because the awarded
-   corpus (81,910 contracts) supplies the thing an open call cannot: *base rates*. "Има ли
+   corpus (81,910 contracts) supplies the thing an open call cannot: _base rates_. "Има ли
    одобрени?" is a statistical question asked socially because no statistical answer exists.
 
-Open calls answer *what you can apply to now*; awarded history answers *what gets funded and
-at what odds*. **The pair is the product.** Shipping either alone leaves the audience where the
+Open calls answer _what you can apply to now_; awarded history answers _what gets funded and
+at what odds_. **The pair is the product.** Shipping either alone leaves the audience where the
 Facebook group already is.
 
 ---
@@ -58,7 +59,8 @@ What worked: **in-group search with `Date posted = 2026`** as a URL filter — 1
 the domain vocabulary. Yield: **~56 distinct 2026 posts — ~47 questions, ~9 supply-side.**
 
 Three limits:
-- Facebook caps group search at ~5 results/query — counts are of *distinct posts surfaced*, not
+
+- Facebook caps group search at ~5 results/query — counts are of _distinct posts surfaced_, not
   group volume;
 - ranking is recency-biased — this is recent 2026, not Jan–Aug evenly;
 - the query set deliberately spanned both "can I get money" **and** "who got the money", so the
@@ -70,15 +72,15 @@ Three limits:
 
 Categories overlap (a post can be A + C). Shares are of the ~47 question posts.
 
-| # | Category | n | share | Answerable from our data? |
-|---|---|---|---|---|
-| **A** | **„Има ли програма за X?"** — activity × place × org form | **32** | **~68%** | **Not as asked. Adjacently, yes — and uniquely** |
-| **C** | „Препоръчайте консултант" | 10 | ~21% | Partly, and carefully (§3.2 rule 5) |
-| **B** | Eligibility mechanics (need a company first? barred 365 days?) | 7 | ~15% | As an empirical proxy, yes |
-| **E** | **„Има ли одобрени?"** — base rates asked socially | 4 | ~9% | **Yes, fully. Nobody publishes this** |
-| **F** | „Има ли въобще списък?" — navigation failure | 3 | ~6% | Yes for awarded; open calls after Stage 1 |
-| **D** | „Реални ли са тези цифри?" — price/trust | 1–2 | ~3% | Convertible to arithmetic |
-| **G** | **„Кой получи парите?"** — accountability | **0** | **0%** | Yes — and nobody asked |
+| #     | Category                                                       | n      | share    | Answerable from our data?                        |
+| ----- | -------------------------------------------------------------- | ------ | -------- | ------------------------------------------------ |
+| **A** | **„Има ли програма за X?"** — activity × place × org form      | **32** | **~68%** | **Not as asked. Adjacently, yes — and uniquely** |
+| **C** | „Препоръчайте консултант"                                      | 10     | ~21%     | Partly, and carefully (§3.2 rule 5)              |
+| **B** | Eligibility mechanics (need a company first? barred 365 days?) | 7      | ~15%     | As an empirical proxy, yes                       |
+| **E** | **„Има ли одобрени?"** — base rates asked socially             | 4      | ~9%      | **Yes, fully. Nobody publishes this**            |
+| **F** | „Има ли въобще списък?" — navigation failure                   | 3      | ~6%      | Yes for awarded; open calls after Stage 1        |
+| **D** | „Реални ли са тези цифри?" — price/trust                       | 1–2    | ~3%      | Convertible to arithmetic                        |
+| **G** | **„Кой получи парите?"** — accountability                      | **0**  | **0%**   | Yes — and nobody asked                           |
 
 Verbatim evidence for each category is in [Appendix A](#appendix-a--verbatim-demand-evidence).
 
@@ -96,15 +98,15 @@ consultancy blog.
 ## 1.4 Competitive context (the ~9 supply-side posts)
 
 - The **group's own admin** launched **Konsultiram.eu**, an AI pre-eligibility scorer, pitched
-  on exactly categories A+B: *„Допустим ли е кандидатът? Какъв резултат при оценяването? Има ли
-  реален шанс да бъде финансиран?"* The owner has already productised the demand.
+  on exactly categories A+B: _„Допустим ли е кандидатът? Какъв резултат при оценяването? Има ли
+  реален шанс да бъде финансиран?"_ The owner has already productised the demand.
 - Consultancies post scheme announcements as marketing (HumanConsulting on the Стратегически
-  план processing measure; Astra Solutions on МИГ innovation, *„до 102 500 евро… до 75%"*).
+  план processing measure; Astra Solutions on МИГ innovation, _„до 102 500 евро… до 75%"_).
 - A lawyer posts ЗОП/ЗУСЕСФУ explainers (методика за оценка, финансова корекция).
 - **A member built a free monitor of „13+ официални сайта… ИСУН, ЦАИС ЕОП, ДФЗ"**
   (`tools.gdprcheck.bg`) with e-mail alerts.
 
-**Read:** the *alerting* layer is being built by others. The unmet piece is the **historic
+**Read:** the _alerting_ layer is being built by others. The unmet piece is the **historic
 outcome corpus** — which is ours and hard to copy.
 
 ---
@@ -127,13 +129,13 @@ is **no open-calls feed anywhere in the repo**. Stage 1 fixes that. What it does
 
 **ИСУН 2020 — the open-procedures register.** `https://eumis2020.government.bg/bg/s/Procedure/Active`
 
-| Property | Verified |
-|---|---|
-| Auth | none |
-| Rendering | **server-side HTML** — no JS |
-| Row selector | `li[data-href^="/bg/s/Procedure/Info/<GUID>"]`, text `CODE - NAME` |
-| Open procedures | **55** · page 81 KB |
-| Covers | 2021–2027 programmes (BG05SFPR*, BG14MFPR*, BG16FFPR*, BG16RFPR*, BG65*) |
+| Property        | Verified                                                                  |
+| --------------- | ------------------------------------------------------------------------- |
+| Auth            | none                                                                      |
+| Rendering       | **server-side HTML** — no JS                                              |
+| Row selector    | `li[data-href^="/bg/s/Procedure/Info/<GUID>"]`, text `CODE - NAME`        |
+| Open procedures | **55** · page 81 KB                                                       |
+| Covers          | 2021–2027 programmes (BG05SFPR*, BG14MFPR*, BG16FFPR*, BG16RFPR*, BG65\*) |
 
 Tiers: `/Active` 81 KB (**open**) · `/PublicDiscussion` 24 KB (draft guidance out for
 consultation = **upcoming**, our earliest possible signal) · `/Ended` 2.4 MB ·
@@ -150,15 +152,16 @@ machine-fetchable at `/bg/s/Procedure/InfoDownload/<procGUID>?fileKey=<fileGUID>
 `Условия за кандидатстване`. See §2.4 and Stage 7.
 
 Two findings that shape the product, not just the pipeline:
+
 - **МИГ/МИРГ calls are included** — `#hide_lag_procedures` is a client-side checkbox
   (unchecked by default), so the 55 contain them, including `BG16RFPR001-1.011`, **the exact
   call a consultancy was advertising in the group**. The source validates against observed
   demand. Whether each МИГ's own sub-call is listed, or only the parent, is unverified.
 - **Most of the 55 are not for the public** — `Техническа помощ` ×4, `Бюджетни линии`, rail and
   road TEN-T, `Морско наблюдение`, `Контрол и правоприлагане`, border-police objectives,
-  municipal desegregation programmes. These are *конкретни бенефициенти*. Publishing all 55
-  undifferentiated reproduces the group's own complaint — *„от бизнес с чушкопеци до баничарници
-  на Луната"*. Hence `audience` (§4.2) is a requirement, not polish.
+  municipal desegregation programmes. These are _конкретни бенефициенти_. Publishing all 55
+  undifferentiated reproduces the group's own complaint — _„от бизнес с чушкопеци до баничарници
+  на Луната"_. Hence `audience` (§4.2) is a requirement, not polish.
 
 **ДФЗ / Стратегически план 2023–27 — the agriculture forward calendar.**
 `sp2023.bg/.../indikativen-grafik-za-priemi-prez-2026-g` → `Актуализиран_ИГГ_2026.xlsx`
@@ -166,18 +169,18 @@ Two findings that shape the product, not just the pipeline:
 parsed clean. Columns:
 
 `№ · ИНТЕРВЕНЦИЯ · ПРИНОС КЪМ СПЕЦИФИЧНА ЦЕЛ · ВИД НА ПОДКРЕПАТА · БЮДЖЕТ ЗА ПРИЕМ ·`
-**`БЕНЕФИЦИЕНТИ`** ` · ТЕРИТОРИАЛЕН ОБХВАТ · ` **`ПЕРИОД НА ПРИЕМ`** ` · `
-**`РАЗМЕР НА ФИНАНСОВАТА ПОМОЩ`** ` · ` **`РАЗМЕР НА РАЗХОДИТЕ ЗА ЕДИН ПРОЕКТ`**
+**`БЕНЕФИЦИЕНТИ`** `· ТЕРИТОРИАЛЕН ОБХВАТ ·` **`ПЕРИОД НА ПРИЕМ`** `·`
+**`РАЗМЕР НА ФИНАНСОВАТА ПОМОЩ`** `·` **`РАЗМЕР НА РАЗХОДИТЕ ЗА ЕДИН ПРОЕКТ`**
 
 This is the structure ИСУН lacks. The decisive row, verbatim:
 
 > **II.Д.1 — Стартова помощ за установяване на млади земеделски стопани** — budget
-> €68,716,487.50 · *„Земеделски стопани на възраст от 18 до 40 години"* · whole country ·
+> €68,716,487.50 · _„Земеделски стопани на възраст от 18 до 40 години"_ · whole country ·
 > **октомври–декември, не по-кратък от 60 дни** · aid **100%** · **40 000 евро, две плащания
 > по 20 000 евро**
 
-A complete answer to „*Програмата Млад фермер отворена ли е?*", asked three times.
-⚠ The date is a **month range**, and the file is already an *„Актуализиран"* revision — it
+A complete answer to „_Програмата Млад фермер отворена ли е?_", asked three times.
+⚠ The date is a **month range**, and the file is already an _„Актуализиран"_ revision — it
 moves. Forecast, never a deadline.
 
 **ДФЗ прием announcements.** `dfz.bg/bg/web/guest/open-support-measures` (per-year nav shell;
@@ -185,10 +188,10 @@ rows one level down) — what converts an indicative month range into a real ope
 
 ### Tier 2 — needed for coverage, one scraper each
 
-| Source | Answers | Shape | Evidence |
-|---|---|---|---|
-| **АХУ** `ahu.mlsp.government.bg` | ТЕЛК/disability self-employment — **5 posts** | `/portal/page/4` + ~6 `Проекти/програми` subpages | 2026 конкурс opened **06.02.2026** |
-| **Агенция по заетостта** `az.government.bg` | Youth / 55+ employment — **4 posts** | published as **news items**, not a register → feed scrape + classifier | „Младежка заетост+ Комп.2" from **16.02.2026**; repo already touches this host |
+| Source                                      | Answers                                       | Shape                                                                  | Evidence                                                                       |
+| ------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **АХУ** `ahu.mlsp.government.bg`            | ТЕЛК/disability self-employment — **5 posts** | `/portal/page/4` + ~6 `Проекти/програми` subpages                      | 2026 конкурс opened **06.02.2026**                                             |
+| **Агенция по заетостта** `az.government.bg` | Youth / 55+ employment — **4 posts**          | published as **news items**, not a register → feed scrape + classifier | „Младежка заетост+ Комп.2" from **16.02.2026**; repo already touches this host |
 
 ### Tier 3 — supplementary, and one useful negative
 
@@ -226,7 +229,7 @@ per-capita figure silently understates the poorest, most depopulated municipalit
 country.
 
 **(b) Interreg calls will never appear in ИСУН `/Active`** — same system boundary. So the
-canonical source in §2.2 is canonical *for ЕСИФ*, not for all EU money reaching Bulgaria.
+canonical source in §2.2 is canonical _for ЕСИФ_, not for all EU money reaching Bulgaria.
 The programmes publish their own calls (Jems, and the МРРБ programme subdomains). This is a
 **known hole in v1's open-calls coverage**, and it falls disproportionately on the border
 municipalities — i.e. exactly the place-bound askers in §1.2. Two honest responses, in order:
@@ -244,28 +247,29 @@ silently mixed and not invented into Bulgarian.
 
 ## 2.4 The structural finding
 
-| | identity + dates | money + eligibility |
-|---|---|---|
-| **ИСУН `/Active`** | ✅ exact, to the minute | ❌ absent — inside DOCX/PDF |
+|                     | identity + dates          | money + eligibility                             |
+| ------------------- | ------------------------- | ----------------------------------------------- |
+| **ИСУН `/Active`**  | ✅ exact, to the minute   | ❌ absent — inside DOCX/PDF                     |
 | **СП 2023–27 XLSX** | ⚠️ indicative month range | ✅ budget · beneficiaries · % · max per project |
 
 Two consequences:
+
 1. **Neither source alone answers a Facebook question.** A v1 shipping only ИСУН produces
    institutional procedure names with dates and no money — no improvement for the asker.
 2. **55 rows is small enough for a curated enrichment layer** — the opposite of the
    81,910-contract corpus. Cheapest machine path is the short **`Обява за откриване на
-   процедурата`** doc, not the multi-annex `Условия`. See Stage 7.
+процедурата`** doc, not the multi-annex `Условия`. See Stage 7.
 
 ## 2.5 The six reframings (what the awarded corpus answers)
 
-| They ask | We answer, from data we already hold |
-|---|---|
-| „Има ли програма за X?" (A) | **„Финансирано ли е нещо като X"** — N contracts, which procedures, which firms, what sums: full-text over contract titles × org form × place |
-| „Има ли одобрени?" (E) | **Base rates per procedure** — beneficiaries, median grant, status mix (приключен/прекратен), disbursement rate |
-| „Трябва ли ми фирма?" (B) | **Org-form mix of actual winners** — „96% ЕООД/ООД, 3% ЕТ, 0 физически лица". Empirical proxy, labelled as such |
-| „4000 € + 5% реални ли са?" (D) | **Median grant per procedure** → „5% от медианния грант тук = €X". Unanswerable trust question → arithmetic |
-| „Кой може да ми помогне?" (C) | **Peers, not consultants** — who in *my* obshtina already won under this procedure (§3.2 rule 5) |
-| Place-bound asks (Ямбол, Бургас, В. Търново, Перник/Кюстендил/Благоевград, „малко населено място") | Per-muni and per-EKATTE attribution + per-capita rank, already in `muni-map.json` |
+| They ask                                                                                           | We answer, from data we already hold                                                                                                          |
+| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| „Има ли програма за X?" (A)                                                                        | **„Финансирано ли е нещо като X"** — N contracts, which procedures, which firms, what sums: full-text over contract titles × org form × place |
+| „Има ли одобрени?" (E)                                                                             | **Base rates per procedure** — beneficiaries, median grant, status mix (приключен/прекратен), disbursement rate                               |
+| „Трябва ли ми фирма?" (B)                                                                          | **Org-form mix of actual winners** — „96% ЕООД/ООД, 3% ЕТ, 0 физически лица". Empirical proxy, labelled as such                               |
+| „4000 € + 5% реални ли са?" (D)                                                                    | **Median grant per procedure** → „5% от медианния грант тук = €X". Unanswerable trust question → arithmetic                                   |
+| „Кой може да ми помогне?" (C)                                                                      | **Peers, not consultants** — who in _my_ obshtina already won under this procedure (§3.2 rule 5)                                              |
+| Place-bound asks (Ямбол, Бургас, В. Търново, Перник/Кюстендил/Благоевград, „малко населено място") | Per-muni and per-EKATTE attribution + per-capita rank, already in `muni-map.json`                                                             |
 
 ---
 
@@ -279,10 +283,10 @@ and the editorial rules for an automated front page.
 
 **Invariant 1 — `open` is computed at QUERY time from `closes_at`, never stored at crawl time.**
 
-| If… | Stored-status design | Query-time design (chosen) |
-|---|---|---|
+| If…                     | Stored-status design                          | Query-time design (chosen)                                                  |
+| ----------------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
 | crawler dies for a week | expired calls keep showing as **open** → harm | expired calls **vanish on their own**; new ones missing → merely incomplete |
-| a call closes early | wrong until next crawl | wrong until next crawl (unavoidable; mitigated by §6.2) |
+| a call closes early     | wrong until next crawl                        | wrong until next crawl (unavoidable; mitigated by §6.2)                     |
 
 The worst failure mode becomes **under-reporting** — safe, and visible via the freshness stamp.
 This is why the feature is publishable at all. Derived inside `open_calls_list()` so no
@@ -308,7 +312,7 @@ against the official `Условия`, never a determination. Say it once, near 
 (decision §8.3.6) but `kind='consultation'` never appears in the same list as `kind='call'`.
 A consultation's date is a **comment** deadline, not an application deadline; its figures are
 **draft**; and it can be withdrawn or materially changed before opening. Its section says so,
-and says what you *can* do now — comment on the draft guidance. The default view is
+and says what you _can_ do now — comment on the draft guidance. The default view is
 `kind='call'`.
 
 **Invariant 8 — an unreviewed figure never enters a sortable or filterable numeric column.**
@@ -322,7 +326,7 @@ range filters.
 The moment a feed puts a named company or person on a front page we are publishing, not
 displaying. All five derive from existing scar tissue.
 
-1. **Signal ≠ finding.** Every risk item carries *сигнал* and links to methodology
+1. **Signal ≠ finding.** Every risk item carries _сигнал_ and links to methodology
    (`reference_risk_score_circularity`).
 2. **Event date, not ingest date.** The awarded corpus lags: median **33 days**, p90 **51**,
    between `contracts.date` and first-seen (n=11,381). A card shows the event date; the rail's
@@ -332,9 +336,9 @@ displaying. All five derive from existing scar tissue.
    one line); never re-derive the threshold.
 4. **Named private individuals never auto-headline.** Public-figure roles yes; a company officer
    surfaced by a ТР delta, no — the company headlines, the person is one click in.
-5. **A beneficiary is not a suspect, and „peers" must not become a directory.** Showing *„7
-   фирми в община Бургас са получили по тази процедура"* with names publishes a fact from a
-   public register. Framing it as *„обърнете се към тях"* builds lead-gen on named private
+5. **A beneficiary is not a suspect, and „peers" must not become a directory.** Showing _„7
+   фирми в община Бургас са получили по тази процедура"_ with names publishes a fact from a
+   public register. Framing it as _„обърнете се към тях"_ builds lead-gen on named private
    companies without consent. **Ship the fact; never the solicitation.**
 
 ---
@@ -478,7 +482,7 @@ worse than not answering at all. Three constraints follow:
 - **English titles carry the §2.3(c) marker** wherever an Interreg operation appears in a
   Bulgarian result list. Never machine-translate to make the list look uniform.
 
-The interreg plan's §4 rule — *do not write Interreg into `fund_payloads`* — is about not
+The interreg plan's §4 rule — _do not write Interreg into `fund_payloads`_ — is about not
 polluting the **existing** ИСУН-basis payload kinds. A **new** kind whose declared basis is
 "combined" is the intended way to serve both; `funds_muni_combined_v` (139) is the precedent.
 
@@ -537,7 +541,7 @@ objection driving PG-only for 81,910 contracts does not apply); **git history th
 free archive of what was open when**, which nobody in Bulgaria publishes and which makes the
 corpus reproducible after a source rotates a GUID; and it keeps the parse reviewable in a diff,
 which matters most in the first months. It does **not** violate `feedback_no_json_from_pg` —
-that forbids generating JSON *from* Postgres; here JSON is the ingest artifact and Postgres the
+that forbids generating JSON _from_ Postgres; here JSON is the ingest artifact and Postgres the
 serving layer, the same direction as every other loader.
 
 ## 5.2 The `/funds` front page, in bands
@@ -545,35 +549,35 @@ serving layer, the same direction as every other loader.
 `FundsScreen.tsx` today is the object [module-front-pages-v1.md](module-front-pages-v1.md) §1
 diagnoses, plus one extra problem:
 
-| Template band | `/funds` today |
-|---|---|
-| 0 Wire | **absent** |
-| 1 Lead | 4 KPI cards — *an aggregate, i.e. analysis-first* |
-| 2 News rail | **absent** |
+| Template band    | `/funds` today                                           |
+| ---------------- | -------------------------------------------------------- |
+| 0 Wire           | **absent**                                               |
+| 1 Lead           | 4 KPI cards — _an aggregate, i.e. analysis-first_        |
+| 2 News rail      | **absent**                                               |
 | 3 Explore — core | **absent as a band. No search box anywhere on the page** |
-| 4 Explore — more | 7 `DashboardSection`s in array order |
-| 5 For you | **absent** |
-| 6 Data & method | one-line `SourceFooter` ✅ |
+| 4 Explore — more | 7 `DashboardSection`s in array order                     |
+| 5 For you        | **absent**                                               |
+| 6 Data & method  | one-line `SourceFooter` ✅                               |
 
-Three failures: **look-up is impossible** (the ranking rule is *search a record > my thing >
-ranked list > risk view > analytical dashboard*; `/funds` opens with the dashboard);
+Three failures: **look-up is impossible** (the ranking rule is _search a record > my thing >
+ranked list > risk view > analytical dashboard_; `/funds` opens with the dashboard);
 **the order is arbitrary** (Red flags and Focus outrank the leaderboards and the place split —
 the 0%-demand framing outranking the 68% one); **every number is all-time and static**.
 
 Target:
 
-| Band | Content | Stage |
-|---|---|---|
-| **0 Wire** | `обновено 31 юли · N нови договора · €X новоподписани · N отворени процедури` → `/data/updates` | 5 |
-| **1 Lead** | **two modules, side by side** — „Какво е отворено сега" (open calls, soonest first) + „Финансирано ли е нещо като моето" (the resolver) | 2, 4 |
-| **2 News rail** | най-големи нови договори · процедури, приключили наскоро · къде отидоха парите този месец · най-нисък % изплатени | 5 |
-| **3 Кой получи парите** | Договори · Бенефициенти · Процедури · По място | 0 |
-| **4 Проверки и връзки** | today's sections demoted intact — интегритет · свързани лица · Плана за възстановяване · договори и грантове · фокус · плюс вече внедрената **Interreg** секция (`InterregTile`, `FundsScreen.tsx:421`), която остава тук: отделен корпус, а не втори водещ модул | 0 |
-| **5 За теб** | Моята община · Моят сектор · Следя тази процедура | 9 |
-| **6 Данни и метод** | what ИСУН covers, **what it does not (open calls ≠ awarded)**, the `muni-share-even-split` caveat, ingest date | 2 |
+| Band                    | Content                                                                                                                                                                                                                                                           | Stage |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **0 Wire**              | `обновено 31 юли · N нови договора · €X новоподписани · N отворени процедури` → `/data/updates`                                                                                                                                                                   | 5     |
+| **1 Lead**              | **two modules, side by side** — „Какво е отворено сега" (open calls, soonest first) + „Финансирано ли е нещо като моето" (the resolver)                                                                                                                           | 2, 4  |
+| **2 News rail**         | най-големи нови договори · процедури, приключили наскоро · къде отидоха парите този месец · най-нисък % изплатени                                                                                                                                                 | 5     |
+| **3 Кой получи парите** | Договори · Бенефициенти · Процедури · По място                                                                                                                                                                                                                    | 0     |
+| **4 Проверки и връзки** | today's sections demoted intact — интегритет · свързани лица · Плана за възстановяване · договори и грантове · фокус · плюс вече внедрената **Interreg** секция (`InterregTile`, `FundsScreen.tsx:421`), която остава тук: отделен корпус, а не втори водещ модул | 0     |
+| **5 За теб**            | Моята община · Моят сектор · Следя тази процедура                                                                                                                                                                                                                 | 9     |
+| **6 Данни и метод**     | what ИСУН covers, **what it does not (open calls ≠ awarded)**, the `muni-share-even-split` caveat, ingest date                                                                                                                                                    | 2     |
 
-The band-1 lead is the whole thesis rendered: *what can I apply to* next to *what actually gets
-funded*.
+The band-1 lead is the whole thesis rendered: _what can I apply to_ next to _what actually gets
+funded_.
 
 ```
 ┌──────────────────────────────────────┬──────────────────────────────────────┐
@@ -630,11 +634,11 @@ returns zero).
 
 **Three sections, never one list** (invariants 2 and 7):
 
-| Section | Rows | Wording | What the reader can do |
-|---|---|---|---|
-| **Отворено сега** | `kind='call'`, status `open`/`upcoming` | `краен срок` + countdown | apply |
-| **Очаквани приеми** | `date_precision='indicative'` (agri) | `очаква се` — no countdown | prepare |
-| **Проекти на насоки — обсъждане** | `kind='consultation'` | `коментари до` | **comment on the draft** |
+| Section                           | Rows                                    | Wording                    | What the reader can do   |
+| --------------------------------- | --------------------------------------- | -------------------------- | ------------------------ |
+| **Отворено сега**                 | `kind='call'`, status `open`/`upcoming` | `краен срок` + countdown   | apply                    |
+| **Очаквани приеми**               | `date_precision='indicative'` (agri)    | `очаква се` — no countdown | prepare                  |
+| **Проекти на насоки — обсъждане** | `kind='consultation'`                   | `коментари до`             | **comment on the draft** |
 
 The consultation section is the one nobody else offers, and it is why `/PublicDiscussion` is
 worth publishing: it appears weeks before a call opens, it directly answers „предстоящи мерки?",
@@ -651,16 +655,16 @@ Every row also declares a **basis** — which corpus the figure is over — beca
 shipped (§2.3) „EU money" has two possible meanings and a tile that does not say which is
 `project_sector_hub_kpi_basis`'s exact failure mode.
 
-| Tile | stock | flow | change | basis |
-|---|---|---|---|---|
-| Отворени процедури | 12 | **„€X по N от 12 с публикуван бюджет"** — never a bare „€X общ бюджет" | **N затварят до 7 дни** | ЕСИФ + agri (no Interreg — §2.3b) |
-| Договори | 82 011 | €44 млрд. · медиана €X | +N нови този месец | ИСУН + EEA |
-| Бенефициенти | ~30 000 | €X към топ 10 (=Y%) | +N нови | ИСУН + EEA |
-| Процедури | 2 137 | €X по 10-те най-големи | N приключили | ИСУН |
-| Interreg | 1 954 операции | €396,4 млн. · 1 493 БГ партньора | — | keep.eu / Jems |
-| **По място** | 265 общини | €X на жител, медиана | — | **combined (`funds_muni_combined_v`, 139)** |
-| Свързани лица | `cr.mpCount` | €X договорени | +N нови връзки | ИСУН |
-| Интегритет | N сигнала | €X засегната стойност | +N нови | ИСУН |
+| Tile               | stock          | flow                                                                   | change                  | basis                                       |
+| ------------------ | -------------- | ---------------------------------------------------------------------- | ----------------------- | ------------------------------------------- |
+| Отворени процедури | 12             | **„€X по N от 12 с публикуван бюджет"** — never a bare „€X общ бюджет" | **N затварят до 7 дни** | ЕСИФ + agri (no Interreg — §2.3b)           |
+| Договори           | 82 011         | €44 млрд. · медиана €X                                                 | +N нови този месец      | ИСУН + EEA                                  |
+| Бенефициенти       | ~30 000        | €X към топ 10 (=Y%)                                                    | +N нови                 | ИСУН + EEA                                  |
+| Процедури          | 2 137          | €X по 10-те най-големи                                                 | N приключили            | ИСУН                                        |
+| Interreg           | 1 954 операции | €396,4 млн. · 1 493 БГ партньора                                       | —                       | keep.eu / Jems                              |
+| **По място**       | 265 общини     | €X на жител, медиана                                                   | —                       | **combined (`funds_muni_combined_v`, 139)** |
+| Свързани лица      | `cr.mpCount`   | €X договорени                                                          | +N нови връзки          | ИСУН                                        |
+| Интегритет         | N сигнала      | €X засегната стойност                                                  | +N нови                 | ИСУН                                        |
 
 **Where these numbers come from — one small blob, not per-tile fetches** (`dashboard-hub` §1).
 The parliament hub's seven mini-tiles pulled ~1.65 MB between them to draw three rows each.
@@ -685,6 +689,7 @@ timeline with a cut-off, not generic bars). Accents are unique **per page**, sin
 render together and a repeat reads as "these two are the same kind of thing". Both are gated.
 
 Two notes that are easy to get wrong:
+
 - „N затварят до 7 дни" is the most actionable figure on the page and is one
   `WHERE closes_at BETWEEN now() AND now()+7d` away.
 - **„По място" must use the combined basis.** It is the one tile where the ИСУН-only figure is
@@ -708,6 +713,7 @@ Biggest visible gain per line changed, and it ships crawlable body text on a zer
 prefix (`project_seo_discovery_gap`).
 
 **Stage 1 — the open-calls spine** (ИСУН + agri). The only stage that must ship whole.
+
 1. `isun_parse.ts` — pure. Listing: `li[data-href^="/bg/s/Procedure/Info/"]`, programme from the
    enclosing group node. Detail: `Начален/Краен срок` (`DD.MM.YYYY г. HH:MM ч.` → timestamptz,
    Europe/Sofia), objective, docs `a[href*="/Procedure/InfoDownload/"]`.
@@ -724,7 +730,7 @@ prefix (`project_seo_discovery_gap`).
 5. `load_open_calls_pg.ts` — applies `005` + `142` itself so a cold DB needs nothing else.
    **Stage merge, not TRUNCATE** (`scripts/db/lib/stage_merge.ts`,
    `reference_stage_merge_reload`). Then `recordIngestBatch({ source:'open_call',
-   keyExpr:"t.source || ':' || t.source_key", … })` per `feedback_pg_changelog_required`, plus an
+keyExpr:"t.source || ':' || t.source_key", … })` per `feedback_pg_changelog_required`, plus an
    `open_calls_crawl` upsert.
 
 6. **UPSERT ONLY — no anti-join DELETE.** This is the one place where copying
@@ -734,7 +740,7 @@ prefix (`project_seo_discovery_gap`).
    - invariant 1 already hides closed rows at query time, so keeping them costs nothing;
    - they are the base-rate and „затвори наскоро" material (Stage 6);
    - it is the archive the committed snapshot only half-provides (git has the JSON, but the
-     *table* would forget).
+     _table_ would forget).
 
    So: `stageUpsertSql` only, and **`first_seen_at` must be excluded from the merge `cols`** or
    every run would reset it. `last_seen_at` is set to the crawl time for rows present in this
@@ -747,7 +753,7 @@ prefix (`project_seo_discovery_gap`).
    overwriting good rows: **shrink guard** — abort if the crawl yields >25% fewer rows for a
    source than its last successful crawl (`open_calls_crawl.rows_seen`), unless
    `--allow-shrink`; **parse-rate guard** — abort if >15% of listing rows yield no detail parse.
-   Both fail *before* the transaction opens.
+   Both fail _before_ the transaction opens.
 
 8. **Two parsing hazards that will silently produce wrong data if unhandled:**
    - **Timezone.** `DD.MM.YYYY г. HH:MM ч.` is Sofia **local** time, and Sofia observes
@@ -849,7 +855,7 @@ The pipeline, per procedure with `enrichment='none'`:
    **not** from trusting the model. Also re-run the §8.1 currency rule here — a lev figure
    quoted correctly is still wrong if stored as euro.
 4. **Store as `enrichment='auto'`** with `enrichment_meta = {model, extracted_at, doc_url,
-   quotes:{…}}`. Per **invariant 8**, `auto` may render its verbatim quote plus the document
+quotes:{…}}`. Per **invariant 8**, `auto` may render its verbatim quote plus the document
    link, but **must not populate the sortable/filterable numeric columns**.
 5. **Human review promotes to `'reviewed'`**, which is what lets the figure into `budget_eur` &
    co. and therefore into sorting, range filters and the tile's „€X общ бюджет". The skill's
@@ -859,8 +865,9 @@ At ~55 rows this is a small job per run (only genuinely new procedures are touch
 what makes a human gate affordable. Re-run when `update-open-calls` reports new GUIDs.
 
 **SHIPPED 2026-08-09.** `scripts/opencalls/{enrich_fetch,enrich_extract,enrich_gate,enrich_apply}.ts`
-+ `.claude/skills/enrich-open-calls/SKILL.md`, npm `opencalls:enrich` / `opencalls:enrich-review`.
-Four things the live probe changed against what is written above:
+
+- `.claude/skills/enrich-open-calls/SKILL.md`, npm `opencalls:enrich` / `opencalls:enrich-review`.
+  Four things the live probe changed against what is written above:
 
 1. **The document format.** The `InfoDownload?fileKey=` URL is a 302 to a signed short-lived blob
    URL; `Content-Type` is always `application/octet-stream`, so the format comes from the magic
@@ -901,14 +908,14 @@ that `/funds/calls` covers ЕСИФ + agri and not Interreg.
 reachable.** Probed live before writing anything, from two independent clients (curl and a
 browser), DNS resolving in every case:
 
-| arm | reachable | calls found | OPEN on 2026-08-09 |
-|---|---|---|---|
-| **Interreg VI-A Greece-Bulgaria** | yes | 7 listed, **5 publishable** | **0** — latest closed 2026-06-22 |
-| **Interreg NEXT Black Sea Basin** | answered ONCE, then refused ~10 consecutive attempts | 2 | **0** — both closed 2024-06-28 |
-| Interreg Romania-Bulgaria | homepage only; no calls index at any path tried | — | — |
-| Interreg BG-RS / BG-MK / BG-TR | **no** — connection reset on :443 AND :80 | — | — |
-| **АХУ** `ahu.mlsp.government.bg` | **no** — same, reset on both ports | — | — |
-| **АЗ** `az.government.bg` | yes | — | **no deadlines published at all** |
+| arm                               | reachable                                            | calls found                 | OPEN on 2026-08-09                |
+| --------------------------------- | ---------------------------------------------------- | --------------------------- | --------------------------------- |
+| **Interreg VI-A Greece-Bulgaria** | yes                                                  | 7 listed, **5 publishable** | **0** — latest closed 2026-06-22  |
+| **Interreg NEXT Black Sea Basin** | answered ONCE, then refused ~10 consecutive attempts | 2                           | **0** — both closed 2024-06-28    |
+| Interreg Romania-Bulgaria         | homepage only; no calls index at any path tried      | —                           | —                                 |
+| Interreg BG-RS / BG-MK / BG-TR    | **no** — connection reset on :443 AND :80            | —                           | —                                 |
+| **АХУ** `ahu.mlsp.government.bg`  | **no** — same, reset on both ports                   | —                           | —                                 |
+| **АЗ** `az.government.bg`         | yes                                                  | —                           | **no deadlines published at all** |
 
 So Stage 8 ships as **the Interreg arm only**: `interreg_parse.ts` (one parser per programme
 shape) + `interreg_fetch.ts` + `npm run opencalls:interreg`, `source='interreg'` added to 142's
@@ -954,6 +961,7 @@ Four things worth carrying forward:
    ```
 
    `open_calls.data.test.ts` fails until it has run on whichever database it is pointed at.
+
 7. **АХУ and АЗ are NOT done.** АХУ needs the host to become reachable — nothing else about it
    is known, because no page was ever read. АЗ is reachable but publishes a static catalogue of
    national programmes (Старт на кариерата, Заетост и обучение на хора с трайни увреждания, the
@@ -961,7 +969,12 @@ Four things worth carrying forward:
    source with a `period_label` — which is a different parser from the one the plan assumed, and
    worth building only once someone confirms those schemes have intake windows at all.
 
-**Stage 9 — За теб** (band 5).
+**Stage 9 — За теб** (band 5). **REMOVED 2026-08-09** — shipped in `1c35147194`, then taken off
+`/funds` at the author's call as not currently relevant, together with `ForYouTiles.tsx`, its test
+and its sixteen i18n keys. The two tiles were navigation rather than an answer, and the hub grid
+that landed after them (`docs/plans/funds-hub-v1.md`) already carries `/funds/places` for the
+place question. Restoring it is a `git revert` of the removal commit plus a `TileHubGrid` slot.
+The description below is what was built.
 
 **SHIPPED 2026-08-09 — with TWO of the three tiles, and the third named rather than faked.**
 `src/screens/funds/ForYouTiles.tsx`, mounted last on `/funds` (it is navigation, so it follows
@@ -1016,7 +1029,7 @@ must not carry an Interreg line implying a programme it cannot use.
 **Out of scope, noted so they are not designed out:** alerts/subscriptions (the most-wanted
 thing in that group; needs an account system), SEDIA (§2.2 Tier 3), and **per-call pages —
 deliberately never**: a prerendered page that becomes actively misleading on a known date is
-exactly the harm invariant 3 exists to prevent. Only the *index* is prerendered.
+exactly the harm invariant 3 exists to prevent. Only the _index_ is prerendered.
 
 ---
 
@@ -1078,7 +1091,7 @@ rail of ephemeral links).
 
 ## 7.1 Chain membership
 
-`db:load:open-calls:pg` reads a **committed** JSON, so it belongs *in* `db:refresh` (not in
+`db:load:open-calls:pg` reads a **committed** JSON, so it belongs _in_ `db:refresh` (not in
 `REFRESH_EXCLUSIONS`). Insert after `db:load:funds:pg`. No `ORDER_PAIRS` entry is needed —
 `open_calls` has no cross-table input. `refresh_coverage.test.ts` enforces membership
 automatically once the script exists.
@@ -1092,18 +1105,18 @@ db:load:open-calls:pg:cloud  DATABASE_URL=…5434… npm run db:load:open-calls:
 
 ## 7.2 Tests
 
-| Layer | File | Asserts |
-|---|---|---|
-| unit | `isun_parse.test.ts` | committed HTML fixtures → exact timestamps; **one winter + one summer date** (EET/EEST, §5.4 Stage 1.8); doc links; codes; a fixture missing `Краен срок` is **rejected, not defaulted**; a `/PublicDiscussion` fixture yields `kind='consultation'` |
-| unit | `sp2023_parse.test.ts` | the 11 rows; `II.Д.1` → €68,716,487.50 / 18–40 / 100% / €40,000; every row `indicative`; **a lev-denominated amount converts at 1.95583, an ambiguous one is dropped** |
-| unit | `audience.test.ts` | `Техническа помощ`→institution · `земеделски стопани`→farmer · unmapped→`unknown`; **and `unknown` ≤40% of live rows** — a keyword map that resolves nothing makes the facet useless, so this is an acceptance threshold, not a unit assertion |
-| unit | `enrich_gate.test.ts` | a fabricated quote is rejected; a whitespace-differing real quote is accepted; a field without a quote never reaches output |
-| **data** | `scripts/db/tests/open_calls.data.test.ts` | **no row where computed status = `open` and `closes_at < now()`** (invariant 1) · **no `consultation` row in a `kind='call'` result** (invariant 7) · **no `enrichment != 'reviewed'` row with a non-NULL `budget_eur`/`grant_max_eur`/`aid_rate_pct`** (invariant 8) · every row has `source_url` · exact ⇒ `closes_at` present · indicative ⇒ `closes_at` NULL · `isun` source non-empty · `first_seen_at` never moves for an existing key across two loads · `open_calls_crawl` fresher than the SLA · `open_calls_list` under a buffer ceiling (`reference_pg_query_performance`) |
-| functions | `db_routes.opencalls.test.js` | degrades on 42P01/55000/42501/55P03; **rethrows 57014**; logs once per process. Runs under `npm run functions:test` (`node --test`), not vitest |
-| chain | `refresh_coverage.test.ts` | `db:load:open-calls:pg` is in `db:refresh` |
-| cadence | `watch/cadence.test.ts` | daily vs irregular sampling invariant |
-| bucket | `bucket_sync_paths` test | `opencalls/` is excluded from GCS sync (Stage 3.1) |
-| SEO | `sitemap/families.data.test.ts` | `/funds/calls` `<loc>` resolves to real `dist/` HTML; **no per-call `<loc>` exists** |
+| Layer     | File                                       | Asserts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| --------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| unit      | `isun_parse.test.ts`                       | committed HTML fixtures → exact timestamps; **one winter + one summer date** (EET/EEST, §5.4 Stage 1.8); doc links; codes; a fixture missing `Краен срок` is **rejected, not defaulted**; a `/PublicDiscussion` fixture yields `kind='consultation'`                                                                                                                                                                                                                                                                                                                                  |
+| unit      | `sp2023_parse.test.ts`                     | the 11 rows; `II.Д.1` → €68,716,487.50 / 18–40 / 100% / €40,000; every row `indicative`; **a lev-denominated amount converts at 1.95583, an ambiguous one is dropped**                                                                                                                                                                                                                                                                                                                                                                                                                |
+| unit      | `audience.test.ts`                         | `Техническа помощ`→institution · `земеделски стопани`→farmer · unmapped→`unknown`; **and `unknown` ≤40% of live rows** — a keyword map that resolves nothing makes the facet useless, so this is an acceptance threshold, not a unit assertion                                                                                                                                                                                                                                                                                                                                        |
+| unit      | `enrich_gate.test.ts`                      | a fabricated quote is rejected; a whitespace-differing real quote is accepted; a field without a quote never reaches output                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **data**  | `scripts/db/tests/open_calls.data.test.ts` | **no row where computed status = `open` and `closes_at < now()`** (invariant 1) · **no `consultation` row in a `kind='call'` result** (invariant 7) · **no `enrichment != 'reviewed'` row with a non-NULL `budget_eur`/`grant_max_eur`/`aid_rate_pct`** (invariant 8) · every row has `source_url` · exact ⇒ `closes_at` present · indicative ⇒ `closes_at` NULL · `isun` source non-empty · `first_seen_at` never moves for an existing key across two loads · `open_calls_crawl` fresher than the SLA · `open_calls_list` under a buffer ceiling (`reference_pg_query_performance`) |
+| functions | `db_routes.opencalls.test.js`              | degrades on 42P01/55000/42501/55P03; **rethrows 57014**; logs once per process. Runs under `npm run functions:test` (`node --test`), not vitest                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| chain     | `refresh_coverage.test.ts`                 | `db:load:open-calls:pg` is in `db:refresh`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| cadence   | `watch/cadence.test.ts`                    | daily vs irregular sampling invariant                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| bucket    | `bucket_sync_paths` test                   | `opencalls/` is excluded from GCS sync (Stage 3.1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| SEO       | `sitemap/families.data.test.ts`            | `/funds/calls` `<loc>` resolves to real `dist/` HTML; **no per-call `<loc>` exists**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 The data test deliberately does **not** skip on an empty `isun` source — that is one of the two
 states it exists to catch.
@@ -1119,7 +1132,7 @@ states it exists to catch.
   consultations; including indicative).
 - **Then check the gate can fail.** Break each clause and watch it fire. Prior art in this repo:
   a gate asserted `max(id) >= count(*)` (true of any gap-free sequence — the very symptom it
-  named), and another matched a `timeZone: "UTC"` string inside the *comment* explaining the fix,
+  named), and another matched a `timeZone: "UTC"` string inside the _comment_ explaining the fix,
   so deleting the option left it green.
 
 **Local verification before each commit** (`reference_typecheck_tsc_build` — `tsc --noEmit`
@@ -1150,7 +1163,7 @@ say so rather than imply completion.
 
 **One SQL-in-template-literal rule** that has recurred four times in this repo, in `.js` routes
 and a `.ts` generator alike: **no backtick inside SQL held in a template literal.** Quoting an
-identifier the way SQL comments usually do — `` -- the `open_calls` table `` — terminates the
+identifier the way SQL comments usually do — ``-- the `open_calls` table`` — terminates the
 literal. Write the identifier bare.
 
 ## 7.3 Deploy order
@@ -1175,6 +1188,7 @@ The route degrades a missing table to an empty list, so 1–2 are safe in either
 deploy — but step 1 first keeps the page non-empty from the moment it is reachable.
 
 Recurring, per `update-open-calls`:
+
 ```bash
 npm run opencalls:isun && npm run db:load:open-calls:pg   # local
 npm run db:load:open-calls:pg:cloud                        # prod — NOT automatic
@@ -1182,29 +1196,29 @@ npm run db:load:open-calls:pg:cloud                        # prod — NOT automa
 
 ## 7.4 Sequencing
 
-| Stage | Deliverable | Depends on |
-|---|---|---|
-| 0 | tile grammar, band split/reorder, contracts search in band 3 | — |
-| 1a | `142_open_calls.sql` + `types.ts` | — |
-| 1b | `isun_parse.ts` + fixtures + tests | 1a |
-| 1c | `isun_fetch.ts` + `write_snapshot.ts` → committed `data/opencalls/isun.json` | 1b |
-| 1d | `sp2023_fetch/parse` + tests → `data/opencalls/sp2023.json` | 1a |
-| 1e | `load_open_calls_pg.ts` (stage merge, both guards, changelog, crawl stamp) | 1c, 1d |
-| 1f | npm scripts + `db:refresh` membership + `open_calls.data.test.ts` | 1e |
-| 2a | `/api/db/open-calls` + degrade test | 1f |
-| 2b | `db_table.js` entry + `open_calls_table` view | 1f |
-| 2c | `OpenCallsTile` (band 1) + the **three sections** (call / indicative / consultation) + `/funds/calls` + freshness banner + band 6 copy | 2a, 2b |
-| 2d | prerender/sitemap for `/funds/calls` + SEO gate | 2c |
-| 3 | watcher sources + `update-open-calls` skill (**with `:cloud`**) + process-watch-report rows, **plus the five integrations**: bucket-sync exclusion · `openCalls` AI tool · My-Area alerts · `/data` map · i18n/EN | 1f, 1d |
-| 4 | the resolver + its `fund_payloads` kind (**parallelisable with 1–3**) | 0 |
-| 5 | wire (band 0) + news rail (band 2) | 2c, 4 |
-| 6 | base-rate cards on `/funds/procedure/:code` + reference price | 4 |
-| 7 | enrichment — `enrich-open-calls` skill: extract → quote gate → review queue → `reviewed` | 1f |
-| 8 | Interreg calls SHIPPED; АХУ + АЗ blocked (host unreachable / no deadlines published) | 3 |
-| 9 | За теб (band 5) — 2 tiles SHIPPED; alerts need accounts (out of scope) | 2c, 4 |
+| Stage | Deliverable                                                                                                                                                                                                       | Depends on |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 0     | tile grammar, band split/reorder, contracts search in band 3                                                                                                                                                      | —          |
+| 1a    | `142_open_calls.sql` + `types.ts`                                                                                                                                                                                 | —          |
+| 1b    | `isun_parse.ts` + fixtures + tests                                                                                                                                                                                | 1a         |
+| 1c    | `isun_fetch.ts` + `write_snapshot.ts` → committed `data/opencalls/isun.json`                                                                                                                                      | 1b         |
+| 1d    | `sp2023_fetch/parse` + tests → `data/opencalls/sp2023.json`                                                                                                                                                       | 1a         |
+| 1e    | `load_open_calls_pg.ts` (stage merge, both guards, changelog, crawl stamp)                                                                                                                                        | 1c, 1d     |
+| 1f    | npm scripts + `db:refresh` membership + `open_calls.data.test.ts`                                                                                                                                                 | 1e         |
+| 2a    | `/api/db/open-calls` + degrade test                                                                                                                                                                               | 1f         |
+| 2b    | `db_table.js` entry + `open_calls_table` view                                                                                                                                                                     | 1f         |
+| 2c    | `OpenCallsTile` (band 1) + the **three sections** (call / indicative / consultation) + `/funds/calls` + freshness banner + band 6 copy                                                                            | 2a, 2b     |
+| 2d    | prerender/sitemap for `/funds/calls` + SEO gate                                                                                                                                                                   | 2c         |
+| 3     | watcher sources + `update-open-calls` skill (**with `:cloud`**) + process-watch-report rows, **plus the five integrations**: bucket-sync exclusion · `openCalls` AI tool · My-Area alerts · `/data` map · i18n/EN | 1f, 1d     |
+| 4     | the resolver + its `fund_payloads` kind (**parallelisable with 1–3**)                                                                                                                                             | 0          |
+| 5     | wire (band 0) + news rail (band 2)                                                                                                                                                                                | 2c, 4      |
+| 6     | base-rate cards on `/funds/procedure/:code` + reference price                                                                                                                                                     | 4          |
+| 7     | enrichment — `enrich-open-calls` skill: extract → quote gate → review queue → `reviewed`                                                                                                                          | 1f         |
+| 8     | Interreg calls SHIPPED; АХУ + АЗ blocked (host unreachable / no deadlines published)                                                                                                                              | 3          |
+| 9     | За теб (band 5) — 2 tiles shipped, then REMOVED (see Stage 9); alerts need accounts                                                                                                                               | 2c, 4      |
 
-**Stages 0–4 are the shippable unit.** They answer *what can I apply to right now*, *what's
-coming in agriculture*, and *what actually gets funded and at what odds* — with correct dates,
+**Stages 0–4 are the shippable unit.** They answer _what can I apply to right now_, _what's
+coming in agriculture_, and _what actually gets funded and at what odds_ — with correct dates,
 honest gaps, and a page that leads with look-up instead of an aggregate.
 
 ---
@@ -1213,12 +1227,12 @@ honest gaps, and a page that leads with look-up instead of an aggregate.
 
 ## 8.1 Crawl politeness (verified 2026-08-05)
 
-| Host | robots.txt | Verdict |
-|---|---|---|
-| `eumis2020.government.bg` | none (404 → SPA shell) | no restrictions |
-| `www.sp2023.bg` | Joomla defaults (`/administrator/`, `/api/`, `/cache/`…) | our paths (`/index.php/bg/…`, `/images/IGG/*.xlsx`) allowed |
-| `ahu.mlsp.government.bg` | none (404) | no restrictions |
-| `www.az.government.bg` | CMS defaults (`/admin/`, `/core/`…) | `/bg/news/` allowed |
+| Host                      | robots.txt                                               | Verdict                                                     |
+| ------------------------- | -------------------------------------------------------- | ----------------------------------------------------------- |
+| `eumis2020.government.bg` | none (404 → SPA shell)                                   | no restrictions                                             |
+| `www.sp2023.bg`           | Joomla defaults (`/administrator/`, `/api/`, `/cache/`…) | our paths (`/index.php/bg/…`, `/images/IGG/*.xlsx`) allowed |
+| `ahu.mlsp.government.bg`  | none (404)                                               | no restrictions                                             |
+| `www.az.government.bg`    | CMS defaults (`/admin/`, `/core/`…)                      | `/bg/news/` allowed                                         |
 
 Nothing we need is disallowed. Still: ≤56 requests/day, serial, ≥1 s apart, identifying UA,
 conditional detail fetches. A government host being technically crawlable is not a licence to
@@ -1226,22 +1240,22 @@ hammer it.
 
 ## 8.2 Risk register
 
-| Risk | Mitigation |
-|---|---|
-| **ИСУН markup change → 0 rows parsed** | no anti-join delete, so the previous vintage survives (Stage 1.6); shrink + parse-rate guards abort before the tx; data test asserts a non-empty `isun` source |
-| **A consultation read as an open call** | `kind` + CHECK, separate section, separate wording, default view excludes drafts (invariant 7) |
-| **An LLM-extracted figure ships unreviewed** | deterministic quote-in-source gate; `auto` barred from numeric columns (invariant 8); data test asserts it |
-| **Lev amount stored as euro (1.96× overstatement)** | Stage 1.8 conversion rule + a parser test |
-| **An „EU money" figure with an undeclared basis** (ИСУН-only vs combined) | every tile row declares a basis (§5.3); „По място" pinned to `funds_muni_combined_v`; the resolver payload carries its basis as a field |
-| **`/funds/calls` read as complete** while Interreg calls are absent | band 6 states the coverage boundary; Stage 8 closes it |
-| **A call closes earlier than published** | unavoidable from any source; daily cadence + per-row `source_url` + never presenting ourselves as the authority |
-| **Crawler dies silently** | invariant 1 self-hides expired rows; the freshness banner degrades the page; the watcher reports `error` |
-| **XLSX filename/URL rotates** | resolve via page scrape, fail loudly on 0 or >1 candidate |
-| **`indicative` mistaken for a deadline** | CHECKs forbid `closes_at` on indicative rows; separate section; separate wording |
-| **Institutional procedures shown as opportunities** | `audience` facet; `unknown` never claimed as eligible |
-| **Prod stale while local is green** | the cloud publish step is written into the skill (Stage 3) — the `reference_migrated_family_watch_reload` failure class, and the single most likely way this rots |
-| **Enrichment publishes an unverified € figure** | `enrichment='auto'` never renders as a figure (Stage 7) |
-| **Live resolver aggregate 500s on prod** | precompute per §4.4 — the `procurement-overview`/`-flow` failure |
+| Risk                                                                      | Mitigation                                                                                                                                                        |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **ИСУН markup change → 0 rows parsed**                                    | no anti-join delete, so the previous vintage survives (Stage 1.6); shrink + parse-rate guards abort before the tx; data test asserts a non-empty `isun` source    |
+| **A consultation read as an open call**                                   | `kind` + CHECK, separate section, separate wording, default view excludes drafts (invariant 7)                                                                    |
+| **An LLM-extracted figure ships unreviewed**                              | deterministic quote-in-source gate; `auto` barred from numeric columns (invariant 8); data test asserts it                                                        |
+| **Lev amount stored as euro (1.96× overstatement)**                       | Stage 1.8 conversion rule + a parser test                                                                                                                         |
+| **An „EU money" figure with an undeclared basis** (ИСУН-only vs combined) | every tile row declares a basis (§5.3); „По място" pinned to `funds_muni_combined_v`; the resolver payload carries its basis as a field                           |
+| **`/funds/calls` read as complete** while Interreg calls are absent       | band 6 states the coverage boundary; Stage 8 closes it                                                                                                            |
+| **A call closes earlier than published**                                  | unavoidable from any source; daily cadence + per-row `source_url` + never presenting ourselves as the authority                                                   |
+| **Crawler dies silently**                                                 | invariant 1 self-hides expired rows; the freshness banner degrades the page; the watcher reports `error`                                                          |
+| **XLSX filename/URL rotates**                                             | resolve via page scrape, fail loudly on 0 or >1 candidate                                                                                                         |
+| **`indicative` mistaken for a deadline**                                  | CHECKs forbid `closes_at` on indicative rows; separate section; separate wording                                                                                  |
+| **Institutional procedures shown as opportunities**                       | `audience` facet; `unknown` never claimed as eligible                                                                                                             |
+| **Prod stale while local is green**                                       | the cloud publish step is written into the skill (Stage 3) — the `reference_migrated_family_watch_reload` failure class, and the single most likely way this rots |
+| **Enrichment publishes an unverified € figure**                           | `enrichment='auto'` never renders as a figure (Stage 7)                                                                                                           |
+| **Live resolver aggregate 500s on prod**                                  | precompute per §4.4 — the `procurement-overview`/`-flow` failure                                                                                                  |
 
 ## 8.3 Decisions taken as read (flag now if wrong)
 
@@ -1270,8 +1284,8 @@ Seven of the eight are now decided; the evidence is recorded so the reasoning su
    (`InfoDownload/<procGUID>?fileKey=<fileGUID>`), so a link stays correct as long as the
    procedure exists and is always the current revision — which matters more than surviving a
    reorganisation, because a mirrored `Условия` that has since been amended is worse than a dead
-   link. Stage 7 fetches documents to *read*; it does not republish them.
-2. **МИГ granularity → the umbrella only.** *Measured 2026-08-08:* of the 55 open procedures,
+   link. Stage 7 fetches documents to _read_; it does not republish them.
+2. **МИГ granularity → the umbrella only.** _Measured 2026-08-08:_ of the 55 open procedures,
    exactly **one** is the МИГ innovation umbrella (`BG16RFPR001-1.011`). Per-МИГ sub-calls are
    not in ИСУН's Active list — if they were, there would be dozens across ~64 territories. So we
    cover the umbrella and say so; the ~64 local selections are a Stage 8 question alongside
@@ -1286,8 +1300,8 @@ Seven of the eight are now decided; the evidence is recorded so the reasoning su
    fair fee is Y" — we have no fee corpus, and the figure's usefulness is that a reader can do
    the division themselves. It positions us against the consultancies either way; being
    demonstrably arithmetic is the defensible posture.
-5. **Consultation → call continuity → cannot be verified yet, and design for both.** *Measured
-   2026-08-08: `/PublicDiscussion` returns **0 rows**,* so there is no transitioned example to
+5. **Consultation → call continuity → cannot be verified yet, and design for both.** _Measured
+   2026-08-08: `/PublicDiscussion` returns **0 rows**,_ so there is no transitioned example to
    test and the GUID question stays open. Two consequences that are actionable now: the
    consultation section needs a **named empty state** (§5.3), and `source_key` must not be assumed
    stable across the lifecycle — join on `code` as well, and treat a `kind` flip in place as an
@@ -1296,15 +1310,15 @@ Seven of the eight are now decided; the evidence is recorded so the reasoning su
    and `/funds/calls` is a funds page; putting it in the static-pages shard would split the
    family across two shards for no benefit. `families.data.test.ts` asserts the `<loc>` resolves
    to real `dist/` HTML.
-7. **Interreg calls → no aggregated source exists; it is ~12 per-programme scrapers.** *Checked
-   2026-08-08:* the МРРБ 2021-2027 index is a **directory, not a calls aggregator** — 12
+7. **Interreg calls → no aggregated source exists; it is ~12 per-programme scrapers.** _Checked
+   2026-08-08:_ the МРРБ 2021-2027 index is a **directory, not a calls aggregator** — 12
    programmes (INTERREG VI-A/VI-B/VI-C, INTERREG NEXT, URBACT IV, ESPON 2030, INTERACT IV), each
    with its own page, and no central покани list. Jems has no public calls API we have found.
    That cost is exactly why this stays **Stage 8** rather than v1, and why band 6 must state the
    coverage boundary meanwhile.
 8. **Малко Търново post vs the combined basis → still open, and it is a sequencing constraint.**
    The draft exists (`brand/posts/drafts/2026-08-06-malko-tarnovo-eu-projects.md`). The interreg
-   plan says the figures move €4,105→€4,309/жител and №3→№2 — i.e. the post gets *stronger*, not
+   plan says the figures move €4,105→€4,309/жител and №3→№2 — i.e. the post gets _stronger_, not
    wrong. But if „По място" switches to the combined basis while the post still quotes the
    ИСУН-only ranking, a reader comparing them sees two different №s for the same municipality.
    **Reconcile the post and the tile in the same change**, not in whichever ships first.
@@ -1315,38 +1329,38 @@ A pass over the consolidated plan against the repo on 2026-08-05 (after folding 
 `/PublicDiscussion` and LLM-enrichment decisions) found nine real gaps. All are now patched
 above; recorded here so the reasoning is not lost.
 
-| # | Gap | Severity | Fix |
-|---|---|---|---|
-| 1 | **The loader would have deleted its own history.** `mergeFromStage`'s anti-join DELETE, copied from `load_kzk_decisions_pg.ts`, removes every live row the build did not produce — but the crawler reads `/Active`, so a call that closes is *absent by design*. Every closed call would have been silently erased, destroying the base-rate and archive value the plan claims. | **high** | Upsert only, no delete; `last_seen_at` records absence (§5.4 Stage 1.6) |
-| 2 | `first_seen_at` in the merge `cols` would be **reset on every run**, so „ново" would be permanently true | **high** | excluded from `cols`; data test asserts it never moves |
-| 3 | **Currency.** The agri XLSX header is `БЮДЖЕТ ЗА ПРИЕМ До левовата равностойност на:` — some amounts are lev. Storing them as euro **overstates by 1.96×** | **high** | convert at 1.95583, drop when ambiguous, keep raw in `budget_note` (Stage 1.8) |
-| 4 | **Timezone.** A fixed `+02:00` offset puts every summer deadline an hour early against a real `16:30` cut-off | medium | resolve per date; test one winter + one summer date |
-| 5 | `db_table.js` bound to `base: "open_calls_table"`, a **view the migration never created** | medium | view added to 142 (§4.3) |
-| 6 | **`bucket_sync_paths.ts` exclusion missing.** `data/` is walked wholesale; without an entry, every `bucket:sync` would publish a spare GCS copy of a Cloud-SQL-served dataset | medium | Stage 3.1 + a test |
-| 7 | **No AI chat tool.** `registry.ts` has `fundsOverview`/`fundsProjects`; without an `openCalls` tool the assistant answers „има ли отворена програма" from the *awarded* corpus — confidently wrong | medium | Stage 3.2 |
-| 8 | **No My-Area integration**, though `scripts/myarea/build_alerts.ts` exists and place-scoped calls are the most actionable alert available | low | Stage 3.3 |
-| 9 | **i18n/EN unspecified**, on a page family that has already shipped a Bulgarian-title/English-snippet SERP bug (`funds-seo-geo-v1` F3) | low | Stage 3.5 |
+| #   | Gap                                                                                                                                                                                                                                                                                                                                                                             | Severity | Fix                                                                            |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------ |
+| 1   | **The loader would have deleted its own history.** `mergeFromStage`'s anti-join DELETE, copied from `load_kzk_decisions_pg.ts`, removes every live row the build did not produce — but the crawler reads `/Active`, so a call that closes is _absent by design_. Every closed call would have been silently erased, destroying the base-rate and archive value the plan claims. | **high** | Upsert only, no delete; `last_seen_at` records absence (§5.4 Stage 1.6)        |
+| 2   | `first_seen_at` in the merge `cols` would be **reset on every run**, so „ново" would be permanently true                                                                                                                                                                                                                                                                        | **high** | excluded from `cols`; data test asserts it never moves                         |
+| 3   | **Currency.** The agri XLSX header is `БЮДЖЕТ ЗА ПРИЕМ До левовата равностойност на:` — some amounts are lev. Storing them as euro **overstates by 1.96×**                                                                                                                                                                                                                      | **high** | convert at 1.95583, drop when ambiguous, keep raw in `budget_note` (Stage 1.8) |
+| 4   | **Timezone.** A fixed `+02:00` offset puts every summer deadline an hour early against a real `16:30` cut-off                                                                                                                                                                                                                                                                   | medium   | resolve per date; test one winter + one summer date                            |
+| 5   | `db_table.js` bound to `base: "open_calls_table"`, a **view the migration never created**                                                                                                                                                                                                                                                                                       | medium   | view added to 142 (§4.3)                                                       |
+| 6   | **`bucket_sync_paths.ts` exclusion missing.** `data/` is walked wholesale; without an entry, every `bucket:sync` would publish a spare GCS copy of a Cloud-SQL-served dataset                                                                                                                                                                                                   | medium   | Stage 3.1 + a test                                                             |
+| 7   | **No AI chat tool.** `registry.ts` has `fundsOverview`/`fundsProjects`; without an `openCalls` tool the assistant answers „има ли отворена програма" from the _awarded_ corpus — confidently wrong                                                                                                                                                                              | medium   | Stage 3.2                                                                      |
+| 8   | **No My-Area integration**, though `scripts/myarea/build_alerts.ts` exists and place-scoped calls are the most actionable alert available                                                                                                                                                                                                                                       | low      | Stage 3.3                                                                      |
+| 9   | **i18n/EN unspecified**, on a page family that has already shipped a Bulgarian-title/English-snippet SERP bug (`funds-seo-geo-v1` F3)                                                                                                                                                                                                                                           | low      | Stage 3.5                                                                      |
 
 A second pass on 2026-08-08, after Interreg shipped, found two more:
 
-| # | Gap | Severity | Fix |
-|---|---|---|---|
-| 10 | **Migration number was wrong.** The plan reserved `134`; `134_rollcall.sql` took it while this plan sat unbuilt, and 135–141 have since gone too. A plan is not a reservation | **high** (would have collided on creation) | renumbered to **142**, with a note to re-check before creating the file (§4.1) |
-| 11 | **Interreg unaccounted for on both sides.** The awarded corpus is now two corpora with a combined view (139), and Interreg calls run on Jems so they can never appear in ИСУН `/Active` — so the resolver would have answered „no" to border-municipality askers, „По място" would have understated 29-of-29 border municipalities, and `/funds/calls` would have implied completeness it lacks | **high** | new §2.3; resolver spans both corpora (§4.4); per-tile basis column (§5.3); coverage boundary in band 6; Interreg calls added to Stage 8 |
+| #   | Gap                                                                                                                                                                                                                                                                                                                                                                                             | Severity                                   | Fix                                                                                                                                      |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 10  | **Migration number was wrong.** The plan reserved `134`; `134_rollcall.sql` took it while this plan sat unbuilt, and 135–141 have since gone too. A plan is not a reservation                                                                                                                                                                                                                   | **high** (would have collided on creation) | renumbered to **142**, with a note to re-check before creating the file (§4.1)                                                           |
+| 11  | **Interreg unaccounted for on both sides.** The awarded corpus is now two corpora with a combined view (139), and Interreg calls run on Jems so they can never appear in ИСУН `/Active` — so the resolver would have answered „no" to border-municipality askers, „По място" would have understated 29-of-29 border municipalities, and `/funds/calls` would have implied completeness it lacks | **high**                                   | new §2.3; resolver spans both corpora (§4.4); per-tile basis column (§5.3); coverage boundary in band 6; Interreg calls added to Stage 8 |
 
 A third pass on 2026-08-08 against the `dashboard-hub` skill (and the now-implemented
 `HubSearch`) found six more:
 
-| # | Gap | Severity | Fix |
-|---|---|---|---|
-| 12 | **`42501` was in the degrade set.** Copied from the 123/124 matview precedent, but `open_calls` is a **plain table** — a missing GRANT there is permanent, so degrading would serve an empty page for ever instead of failing once | **high** | 42501 now 500s; only 42P01/55000/55P03 degrade (§6) |
-| 13 | **„€X общ бюджет" would have summed only `reviewed` rows** and read as the total across all open calls — the „sums read as totals" + „NULL rendered as 0" classes at once | **high** | the figure now carries its denominator: „€X по N от 12 с публикуван бюджет" |
-| 14 | **`npm run build` was missing from the deploy order.** `npm run deploy` does not build, so the sequence as written shipped a stale `dist/` | **high** | build inserted as step 3 (§7.3) |
-| 15 | **Search was specified as a hand-rolled box.** `HubSearch` is implemented (no callers yet) and carries the SCOPE-RANKS-NEVER-FILTERS contract, `scopedSources()`, per-group caps and shliokavitsa via `shlyo_query_fold` (141). Hand-rolling would have re-introduced scope-as-filter — the resolver's obshtina input is exactly that trap | **high** | §5.2 "The finder" — use `HubSearch`; obshtina ranks, never filters |
-| 16 | **Deadline labels had no timezone rule.** `Intl.DateTimeFormat` with no `timeZone` renders the previous day west of UTC; on a countdown it is an off-by-one on the number the reader acts on | medium | shared day-label hook + the existing repo grep gate |
-| 17 | **Bands were named „Explore core" / „Explore more"**, and no new tile declared a scene or an accent — a missing scene is a **white screen**, not a blank vignette | medium | bands renamed „Кой получи парите" / „Проверки и връзки"; scene + unique-accent requirement in §5.3 |
+| #   | Gap                                                                                                                                                                                                                                                                                                                                        | Severity | Fix                                                                                                |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------- |
+| 12  | **`42501` was in the degrade set.** Copied from the 123/124 matview precedent, but `open_calls` is a **plain table** — a missing GRANT there is permanent, so degrading would serve an empty page for ever instead of failing once                                                                                                         | **high** | 42501 now 500s; only 42P01/55000/55P03 degrade (§6)                                                |
+| 13  | **„€X общ бюджет" would have summed only `reviewed` rows** and read as the total across all open calls — the „sums read as totals" + „NULL rendered as 0" classes at once                                                                                                                                                                  | **high** | the figure now carries its denominator: „€X по N от 12 с публикуван бюджет"                        |
+| 14  | **`npm run build` was missing from the deploy order.** `npm run deploy` does not build, so the sequence as written shipped a stale `dist/`                                                                                                                                                                                                 | **high** | build inserted as step 3 (§7.3)                                                                    |
+| 15  | **Search was specified as a hand-rolled box.** `HubSearch` is implemented (no callers yet) and carries the SCOPE-RANKS-NEVER-FILTERS contract, `scopedSources()`, per-group caps and shliokavitsa via `shlyo_query_fold` (141). Hand-rolling would have re-introduced scope-as-filter — the resolver's obshtina input is exactly that trap | **high** | §5.2 "The finder" — use `HubSearch`; obshtina ranks, never filters                                 |
+| 16  | **Deadline labels had no timezone rule.** `Intl.DateTimeFormat` with no `timeZone` renders the previous day west of UTC; on a countdown it is an off-by-one on the number the reader acts on                                                                                                                                               | medium   | shared day-label hook + the existing repo grep gate                                                |
+| 17  | **Bands were named „Explore core" / „Explore more"**, and no new tile declared a scene or an accent — a missing scene is a **white screen**, not a blank vignette                                                                                                                                                                          | medium   | bands renamed „Кой получи парите" / „Проверки и връзки"; scene + unique-accent requirement in §5.3 |
 
-Two claims checked and **dismissed** rather than patched: `type: "date"` *is* a valid
+Two claims checked and **dismissed** rather than patched: `type: "date"` _is_ a valid
 `db_table.js` column type (8 existing uses), and `recordIngestBatch` handles the changelog
 correctly as specified. One item was reclassified from a gap to an **acceptance threshold**: the
 `audience` keyword map needs a measured `unknown` rate (≤40%), since a map that resolves nothing
