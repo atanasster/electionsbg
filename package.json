@@ -256,7 +256,8 @@
     "video:check": "tsc -p video/tsconfig.json",
     "video:studio": "remotion studio --config=video/remotion.config.ts video/src/index.ts",
     "video:render": "remotion render --config=video/remotion.config.ts video/src/index.ts",
-    "video:voice": "tsx scripts/video/synthesize.ts"
+    "video:voice": "tsx scripts/video/synthesize.ts",
+    "video:vtt": "tsx scripts/video/emit_vtt.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

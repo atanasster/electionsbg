@@ -8,6 +8,7 @@ import {
 import { BarsScene } from "../scenes/BarsScene";
 import { OutroScene } from "../scenes/OutroScene";
 import { StatScene } from "../scenes/StatScene";
+import { Captions } from "../components/Captions";
 import { audioPath, type VideoSpec } from "../lib/spec";
 import { sceneFrames } from "../lib/audio";
 
@@ -15,6 +16,13 @@ export type ShortProps = {
   spec: VideoSpec;
   /** Filled by calculateMetadata from the real audio — never hand-entered. */
   sceneDurations: number[];
+  /**
+   * Burn Bulgarian captions into the frame. ON for the social cuts (Facebook and
+   * Instagram autoplay muted, so an uncaptioned BG voice track reaches nobody in
+   * the feed); OFF for the YouTube/on-site cut, which takes the `.vtt` sidecar
+   * instead — burned-in text there blocks translation and looks worse.
+   */
+  captions: boolean;
 };
 
 /**
@@ -55,7 +63,11 @@ const SceneVisual: React.FC<{ spec: VideoSpec; index: number }> = ({
   }
 };
 
-export const ShortVideo: React.FC<ShortProps> = ({ spec, sceneDurations }) => {
+export const ShortVideo: React.FC<ShortProps> = ({
+  spec,
+  sceneDurations,
+  captions,
+}) => {
   let from = 0;
   return (
     <>
@@ -74,6 +86,12 @@ export const ShortVideo: React.FC<ShortProps> = ({ spec, sceneDurations }) => {
           >
             <SceneVisual spec={spec} index={i} />
             <Audio src={staticFile(audioPath(spec.slug, scene.id))} />
+            {captions ? (
+              <Captions
+                text={scene.voiceOver}
+                durationInFrames={durationInFrames}
+              />
+            ) : null}
           </Sequence>
         );
       })}

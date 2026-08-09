@@ -31,7 +31,9 @@ export const RemotionRoot: React.FC = () => {
           fps={30}
           width={1080}
           height={1920}
-          defaultProps={{ spec, sceneDurations: [] } as ShortProps}
+          defaultProps={
+            { spec, sceneDurations: [], captions: true } as ShortProps
+          }
           calculateMetadata={calculateShortMetadata}
         />,
         <Composition
@@ -42,9 +44,24 @@ export const RemotionRoot: React.FC = () => {
           fps={30}
           width={1080}
           height={1350}
-          defaultProps={{ spec, sceneDurations: [] } as ShortProps}
+          defaultProps={
+            { spec, sceneDurations: [], captions: true } as ShortProps
+          }
           calculateMetadata={calculateShortMetadata}
         />,
+        // A 1920x1080 cut was declared here and REMOVED after rendering it —
+        // shipping it broken would have been worse than not shipping it.
+        //
+        // Landscape is not a rescale of portrait. `scale()` is width-derived, so
+        // at 1920 wide every element renders 1.78x larger inside a frame that is
+        // 840px SHORTER, and six bars overflowed the composition entirely. The
+        // vertical-fit factor cannot rescue it: it compresses spacing only, and at
+        // 16:9 the TYPE alone exceeds the height. Shrinking type below the ~84/44px
+        // floor is precisely the trade that floor exists to prevent.
+        //
+        // The fix is a landscape LAYOUT — wider bars, fewer rows, or two columns —
+        // that spends the extra width instead of fighting it. That belongs with the
+        // `explainer` format in phase 4, not smuggled into the shorts.
       ])}
     </>
   );

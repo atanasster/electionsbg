@@ -48,10 +48,16 @@ export default defineConfig({
           // preload-locale). They are ordinary Node modules with real logic, and
           // a test placed there would be collected by no project and pass
           // vacuously by never running.
+          // video/** is the Remotion project (docs/plans/explainer-video-v1.md).
+          // It sits outside the app's `tsc -b` graph on purpose, so it is doubly
+          // easy to leave uncollected here — and per the note above that means a
+          // test passing by never running. Only its pure logic is tested; the
+          // compositions are verified by rendering and reading frames.
           include: [
             "scripts/**/*.test.ts",
             "ai/**/*.test.ts",
             "vite/**/*.test.ts",
+            "video/**/*.test.ts",
           ],
           testTimeout: 120_000,
           hookTimeout: 120_000,
