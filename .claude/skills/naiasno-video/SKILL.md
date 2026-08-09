@@ -303,6 +303,41 @@ writerly:
 | а **върхът** — 77 | а **най-голямата** — 77 |
 | последният **цикъл** | последните **избори** |
 
+### Say the disclosure ONCE
+
+A screening caveat — "this is not an accusation", "every signal has an innocent
+explanation" — belongs at the **start**, stated properly, and then not again. E2's
+first cut repeated it in five scenes and the operator's note was to cut it back to
+one. Repetition does not make a caveat stronger; it makes the video sound defensive,
+and it spends beats that could carry a finding.
+
+The distinction to hold: a **disclosure** is generic and belongs once. What a
+specific signal MEANS is not a disclosure and stays — «тези гласове не са сгрешени,
+просто не могат да се проверят» is the definition of that signal, and «може да е
+нормално, може и да не е» is the whole reason concentration is measured. Rewrite
+those as statements about the metric rather than as apologies for it, and the
+repetition disappears on its own.
+
+### Put every figure in its own series
+
+E2's integrity signals were compared against seven prior cycles from the first
+draft; the five CONTEXT signals were presented bare, and the operator asked for the
+same treatment. A number with no series behind it is not yet a finding — the viewer
+has nothing to judge "is 39 a lot?" against.
+
+Rank each against ITS OWN available set, not the headline's. Availability differs
+per signal (Benford needs a qualifying party, a swing needs a prior cycle, polling
+error needs agencies that published), so E2 ranks each across 9, 11 or 13 cycles and
+carries the count in the sentence.
+
+**⚠️ Derive the summary, never count it by eye.** The draft of E2's closing scene
+said "two of the five are unusually high" — the two the script had dwelt on. Four of
+five actually rank in the top two of their own series, and gate 1 caught it only
+because the claim was grounded. Note also that a rank can be true and misleading:
+Benford ranks 2nd of 13 while scoring 8 out of 100, because 11 of the 13 score zero.
+When that happens, say what actually connects the high ones instead of leaning on
+the count.
+
 ### Two editorial patterns worth reusing
 
 **When the subject is an ABUSABLE number, turn it on itself.** A risk index over an

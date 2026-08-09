@@ -233,6 +233,41 @@ const main = () => {
     `/${SUBJECT}/reports/benford.json`,
   );
 
+  /**
+   * Where a CONTEXT signal stands against every cycle that has it.
+   *
+   * The integrity track gets its history from the seven comparable cycles; the
+   * context track cannot reuse that set, because each of these five has its own
+   * availability (Benford needs a qualifying party, the махала swing needs a
+   * prior cycle, polling needs agencies that published). So each is ranked
+   * against ITS OWN available set and the count is carried, not assumed.
+   *
+   * `rank` is 1 = highest. `zeroes` matters for the ones whose usual reading is
+   * nothing at all — «единайсет от тринайсет са нула» is the sentence that makes
+   * a low score meaningful.
+   */
+  const contextHistory = (id: RiskCompositeComponentId) => {
+    const avail = rows.filter((r) => r.components[id].available);
+    const sorted = [...avail].sort(
+      (a, b) => b.components[id].value - a.components[id].value,
+    );
+    const mine = subject!.components[id];
+    return {
+      rank: sorted.findIndex((r) => r.election === SUBJECT) + 1,
+      cycles: avail.length,
+      zeroes: avail.filter((r) => r.components[id].value === 0).length,
+      /** The cycle directly above it, for "почти колкото през …". */
+      aboveLabel:
+        sorted[sorted.findIndex((r) => r.election === SUBJECT) - 1]?.label ??
+        null,
+      aboveDetail:
+        sorted[sorted.findIndex((r) => r.election === SUBJECT) - 1]?.components[
+          id
+        ].detail ?? null,
+      score: Math.round(mine.value),
+    };
+  };
+
   const facts = {
     election: SUBJECT,
     /** Ten: five integrity + five context. Counted, not restated. */
@@ -323,6 +358,7 @@ const main = () => {
           : Math.round(subject!.contextScore),
       benford: {
         score: Math.round(c.benford.value),
+        history: contextHistory("benford"),
         detail: c.benford.detail,
         strong: Number(c.benford.detail?.split("/")[0]?.trim() ?? "NaN"),
         qualifying: Number(c.benford.detail?.split("/")[1]?.trim() ?? "NaN"),
@@ -331,6 +367,7 @@ const main = () => {
       },
       neighborhoodsSwing: {
         score: Math.round(c.neighborhoodsSwing.value),
+        history: contextHistory("neighborhoodsSwing"),
         tracked:
           grab<ProblemSectionsReport>(`/${SUBJECT}/problem_sections.json`)
             ?.neighborhoods?.length ?? null,
@@ -341,6 +378,7 @@ const main = () => {
       },
       polls: {
         score: Math.round(c.polls.value),
+        history: contextHistory("polls"),
         maePp: Number(c.polls.detail?.replace(/[^\d.]/g, "") ?? "NaN"),
         floorPp: POLLS_FLOOR_PP,
         capPp: POLLS_CAP_PP,
@@ -348,6 +386,7 @@ const main = () => {
       },
       clusters: {
         score: Math.round(c.clusters.value),
+        history: contextHistory("clusters"),
         pct: pctOf(c.clusters.detail),
         clustered: intsOf(c.clusters.detail)?.[0] ?? null,
         flagged: intsOf(c.clusters.detail)?.[1] ?? null,
@@ -357,6 +396,7 @@ const main = () => {
       },
       voteSwitching: {
         score: Math.round(c.voteSwitching.value),
+        history: contextHistory("voteSwitching"),
         pedersen,
         /** 1 = highest volatility we have ever measured. */
         rank: pedersenRank,
@@ -373,6 +413,39 @@ const main = () => {
         measuredCycles: rows.filter((r) => r.components.voteSwitching.available)
           .length,
       },
+    },
+    /**
+     * How the five context signals sit in their OWN series — the closing beat.
+     *
+     * Derived rather than hand-counted because the intuitive answer is wrong: it
+     * looks like two are unusually high (the махала swing and volatility, the two
+     * the script dwells on), and in fact FOUR of the five rank in the top two of
+     * their own history. Benford is one of them on rank while scoring 8 out of
+     * 100, which is the "arithmetically right, false as a sentence" shape — so
+     * the scene states the count and then says what actually connects them.
+     */
+    contextStanding: {
+      nearTop: (
+        [
+          "benford",
+          "neighborhoodsSwing",
+          "voteSwitching",
+          "polls",
+          "clusters",
+        ] as const
+      ).filter((k) => contextHistory(k).rank <= 2).length,
+      nearBottom: (
+        [
+          "benford",
+          "neighborhoodsSwing",
+          "voteSwitching",
+          "polls",
+          "clusters",
+        ] as const
+      ).filter((k) => {
+        const h = contextHistory(k);
+        return h.rank >= h.cycles - 2;
+      }).length,
     },
     /**
      * The one comparison the video's spine rests on, as ONE object — so the
@@ -548,6 +621,47 @@ const main = () => {
   eq(facts.context.clusters.clustered, 108, "clustered sections");
   eq(facts.context.clusters.flagged, 1263, "flagged geolocatable sections");
   eq(facts.context.clusters.pct, 8.6, "clustered share");
+  // ── Where each context signal stands historically ────────────────────────
+  const ch = facts.context;
+  eq(
+    facts.contextStanding.nearTop,
+    4,
+    "context signals in the top 2 of their series",
+  );
+  eq(facts.contextStanding.nearBottom, 1, "context signals near the bottom");
+  eq(ch.benford.history.rank, 2, "Benford rank");
+  eq(ch.benford.history.cycles, 13, "Benford measured cycles");
+  eq(ch.benford.history.zeroes, 11, "cycles with no deviating party");
+  eq(ch.neighborhoodsSwing.history.rank, 2, "neighbourhood-swing rank");
+  eq(ch.neighborhoodsSwing.history.cycles, 11, "neighbourhood-swing cycles");
+  eq(
+    ch.neighborhoodsSwing.history.aboveLabel,
+    "06.2024",
+    "the only higher swing",
+  );
+  eq(ch.polls.history.rank, 2, "polling-error rank");
+  eq(ch.polls.history.cycles, 9, "polling-error cycles");
+  eq(ch.polls.history.zeroes, 5, "cycles under the polling floor");
+  eq(ch.polls.history.aboveLabel, "11.2021", "the only worse polling cycle");
+  eq(ch.clusters.history.rank, 11, "cluster rank");
+  eq(ch.clusters.history.cycles, 13, "cluster cycles");
+  // The volatility SCORE saturates — six cycles share the cap, so the score
+  // cannot rank them and the script uses the raw Pedersen instead. If that ever
+  // stops being true the scene's whole point changes.
+  if (ch.voteSwitching.history.rank !== 1)
+    fail(
+      `volatility no longer ties for top score (rank ${ch.voteSwitching.history.rank})`,
+    );
+  if (
+    rows.filter(
+      (r) =>
+        r.components.voteSwitching.available &&
+        r.components.voteSwitching.value === 100,
+    ).length < 3
+  )
+    fail(
+      `volatility score no longer saturates across cycles — scene 52 loses its point`,
+    );
   eq(facts.componentCount, 10, "component count");
   eq(
     facts.integrity.concentration.turnoutMln,
