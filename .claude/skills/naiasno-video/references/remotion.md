@@ -28,6 +28,21 @@ Pass the per-scene durations into the component as a prop so scenes know their o
 length. This is Remotion's documented voice-over pattern — useful corroboration,
 since `bg-BG`'s missing pause control forces the same architecture on us anyway.
 
+## ⚠️ `staticFile()` resolves against the wrong `public/` by default
+
+`Config.setPublicDir("video/public")` is mandatory, and the config must be passed
+explicitly (`--config=video/remotion.config.ts`) because Remotion looks for the file
+in the CWD, not next to the entry point. Both `video:render` and `video:studio` do.
+
+Without it Remotion finds the **site's** `public/` — ~248k files of election JSON and
+none of the voice-over. The failure is loud for audio (a 404 aborts the render) and
+**silent for fonts**: a missing face falls back to whatever headless Chromium has, and
+Cyrillic can come out as tofu with nothing in the logs.
+
+Fonts are the site's own Cyrillic Inter, mirrored by `npm run video:fonts` (which
+refuses to write if no Cyrillic unicode-range survives its filter). The woff2 files
+are committed despite being derived, precisely because their absence fails silently.
+
 ## Markup practices
 
 - **`premountFor` on every `<Sequence>`.** Remotion's own instruction is literally
@@ -112,6 +127,19 @@ exactly these reasons, but the rules generalize.
   while validating.
 - **Distinguish the failure modes:** repeating shimmer = the live renderer is moving;
   steadily soft during a push = the plate is underspecified or being scaled above 1.
+
+## Testing
+
+`video/**` is in `vitest.config.ts`'s **node** project — it had to be added. The
+config's own comment warns that a test in an uncollected directory "would be
+collected by no project and pass vacuously by never running", and `video/` sits
+outside the app's `tsc -b` graph by design, which makes it doubly easy to miss.
+
+Test the **pure logic** (caption pagination, timing, VTT formatting) there. Verify
+the **compositions** by rendering and reading frames — a component test that mounts a
+Remotion scene proves far less than one extracted frame.
+
+`npm run build` does NOT typecheck `video/`. `npm run video:check` does.
 
 ## Verify the artefact, not the preview
 

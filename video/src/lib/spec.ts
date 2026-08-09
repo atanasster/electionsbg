@@ -23,6 +23,12 @@ export type Bar = {
 export type Visual =
   | { type: "stat"; value: string; label: string; sub?: string }
   | { type: "bars"; title: string; bars: Bar[]; unit?: string }
+  | {
+      type: "map";
+      title: string;
+      sweepSeconds?: number;
+      legend?: { changed: string; kept: string };
+    }
   | { type: "outro"; title: string; cta: string; url: string };
 
 export type Scene = {

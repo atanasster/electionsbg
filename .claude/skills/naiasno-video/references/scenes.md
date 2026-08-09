@@ -28,6 +28,21 @@ Colour, palette and theme come from `cardKit`'s `THEME` (navy `#0b1224` / coral
 direction survives greyscale; a share/count/amount sets `signed: false` so values do
 not gain a misleading `+`.
 
+## Lessons from the first rendered scenes (T1, 2026-08-08)
+
+- **A bar's note belongs on its own line.** Name + note + value inline nearly
+  collided on the first render ("БСП — Обединена левица" · "0 мандата" · "2,90 €"),
+  and a longer party name would have overlapped outright. `BarsScene` now puts the
+  note under the name, with ellipsis on the name as a backstop.
+- **The wordmark needs a reserved band.** It is absolutely positioned, so tall
+  content runs underneath it — six bars did, in the 4:5 cut. `Frame` pads the content
+  area clear of it.
+- **Compress spacing to fit, never type** (`fit` factor in `BarsScene`). The ~84/44px
+  minimums are a legibility floor on a phone.
+- **A decoration that does not render is worse than none.** A hairline rule at 0.55
+  opacity in `rule` on `bg` was invisible in every extracted frame; it was a DOM node
+  per frame that drew nothing.
+
 ## Legibility minimums
 
 A card is viewed at full size; a Reel is viewed on a phone at arm's length. Scaled
@@ -49,13 +64,34 @@ so it is checked at gate 2 by extracting frames and Reading them.
 
 ## Maps — build them in SVG, not with a tile provider
 
-For a Bulgarian administrative map (municipalities, oblasts, settlements), use
-`d3-geo` directly: `cardKit` already imports `geoMercator` + `geoPath`, so shapes
-become React `<path>` elements with an animated `fill`.
+**Built and working: `MapScene` + `scripts/video/build_map_t2.ts`.**
 
-No API key, no WebGL, no headless-render shimmer, no 4096 px renderbuffer ceiling,
-and deterministic frame to frame. The basemap carries no information in this
-content — **the data is the map** — so a tile layer is cost with no payload.
+Use `d3-geo` directly — `cardKit` already imports `geoMercator` + `geoPath`, so
+shapes become React `<path>` elements with an animated `fill`. No API key, no WebGL,
+no headless-render shimmer, no 4096 px renderbuffer ceiling, deterministic frame to
+frame. The basemap carries no information in this content — **the data is the map** —
+so a tile layer is cost with no payload.
+
+**Project once, offline, into `video/src/generated/`.** A build script reads
+`data/maps/regions/*.json` (municipality polygons keyed by `nuts4`), projects with
+`fitExtent` into a fixed viewBox, rounds coordinates to 0.1px and emits path strings
+with their per-feature verdict. The scene then **imports** the JSON: no per-frame
+projection, and no `delayRender` around a fetch. 288 polygons ≈ 122 KB.
+
+**⚠️ Size the `<svg>` with CSS, never with width/height attributes.** In a flex
+column the attributes lose to the flex algorithm — the first map render came out at
+about a third of its intended size in an ocean of empty frame. The robust shape,
+which also removes any hand-computed height estimate:
+
+```tsx
+<div style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center" }}>
+  <svg viewBox={MAP.viewBox} preserveAspectRatio="xMidYMid meet"
+       style={{ width: "100%", height: "100%" }}>
+```
+
+**⚠️ Put a legend ABOVE the map, not below.** Burned-in captions occupy the bottom
+band; a legend there collides with them. (Reading the key before the map is better
+anyway.) The same applies to any bottom-anchored scene content.
 
 ### ⚠️ The per-item timing rule
 

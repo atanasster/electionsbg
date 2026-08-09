@@ -3,18 +3,34 @@
 Load when preparing the deliverables around a render. The skill **never publishes**;
 this file describes what the draft must contain so the operator can.
 
-## Aspect cuts — three placements, not one
+## Aspect cuts — and the one that is NOT a rescale
 
-| Placement | Ratio | Notes |
+| Placement | Ratio | State |
 |---|---|---|
-| FB / IG **Reels**, YouTube **Shorts** | 9:16 | ≤60 s, burned-in captions mandatory |
-| FB **feed** | 1:1 or 4:5 | the feed is **not** Reels — a 9:16 posted to feed is letterboxed and reads as a repost |
-| YouTube, on-site embed | 16:9 | the `explainer` format |
+| FB / IG **Reels**, YouTube **Shorts** | 9:16 · 1080×1920 | ✅ built, burned-in captions |
+| FB **feed** | 4:5 · 1080×1350 | ✅ built — the feed is **not** Reels; a 9:16 posted to feed is letterboxed and reads as a repost |
+| YouTube, on-site embed | 16:9 · 1920×1080 | ❌ **not built** — needs its own layout |
 
-Remotion renders all three from one composition by parameterizing the canvas —
-**provided the layout is authored responsively from the start**. Retrofitting a
-fixed-width composition to a second ratio is the expensive version of this, so decide
-the target cuts before writing the first scene.
+The two portrait-ish cuts genuinely do come from one composition: scenes are authored
+against a 1080-wide base and multiplied by `scale(width)`, and `BarsScene` compresses
+its vertical rhythm to fit the shorter frame.
+
+**⚠️ Landscape is not a rescale of portrait, and an earlier draft of this file
+claimed it was.** A 1920×1080 composition was built, rendered and deleted: `scale()`
+is width-derived, so at 1920 wide every element renders **1.78× larger inside a frame
+840px shorter**, and six bars overflowed the composition entirely. The vertical-fit
+factor cannot rescue it — it compresses *spacing*, and at 16:9 the **type alone**
+exceeds the height. Shrinking type below the ~84/44px floor is exactly the trade that
+floor exists to prevent.
+
+A 16:9 cut needs a landscape **layout** — wider bars, fewer rows, or two columns —
+that spends the extra width instead of fighting it. That is `explainer`-format work
+(phase 4). Until it exists, ship shorts in the two portrait cuts and give YouTube the
+9:16 as a Short.
+
+**Vertical fit, when adding a scene type:** compress *spacing* to fit, never type. The
+legibility minimums are a floor on a phone screen, so shrinking text to fit trades a
+visible defect for an unreadable one.
 
 ## Captions — two forms, both required
 
@@ -23,21 +39,31 @@ the target cuts before writing the first scene.
 - **`.vtt` sidecar** for YouTube and the on-site player, where burned-in text blocks
   translation and looks worse.
 
-Three tiers of timing, cheapest first:
+**Built and in use: derived timing, no transcriber** (`video/src/lib/captions.ts`).
 
-1. **Per-scene** — the spine. Each scene's clip duration is already measured for
-   `calculateMetadata`, so scene-level caption timing is free and exact.
-2. **Word-level** via `@remotion/install-whisper-cpp` — `transcribe()` with
-   `tokenLevelTimestamps: true`, then `toCaptions()`. Local whisper.cpp, installed by
-   the package; no Python, no separate toolchain. Transcribe each scene clip
-   individually.
-   **Caveat:** the documented example uses `medium.en`, English-only. Bulgarian needs
-   a multilingual model (`medium` / `large-v3`) — bigger, slower, and BG WER is
-   undocumented. Cheap to try; validate on a real clip before relying on it.
-3. **Rendering them** — `@remotion/captions` gives `createTikTokStyleCaptions()`
-   (page grouping via `combineTokensWithinMilliseconds`) and per-token highlighting.
-   **Gotcha:** captions are whitespace-sensitive — keep the leading space in each
-   token's `text` and set `whiteSpace: "pre"`, or the words run together.
+Two things are already known exactly — the **text** of every scene (the spec's
+`voiceOver`, signed off at gate 1) and the **duration** of every clip (measured for
+`calculateMetadata`). Distributing the first across the second needs no model and
+**cannot mis-transcribe**. Pages split on **characters, not words**: Bulgarian word
+lengths vary enough to drift over an 8-second scene, while characters track the
+measured ~13 chars/s closely.
+
+What it costs, and the design that follows from it: the timing is *derived*, so a
+page boundary can sit a beat early. Pages therefore render **whole, with no per-word
+highlight** — a highlight subtly out of sync reads as broken, while a whole page
+slightly early just reads as a caption. Do not add karaoke highlighting on top of
+derived timing.
+
+**Whisper is the upgrade, not the starting point.** `@remotion/install-whisper-cpp`
+gives real word-level timestamps with no Python toolchain, but its documented model
+is `medium.en` (English-only); Bulgarian needs a multilingual one whose BG accuracy
+is undocumented and which is a large download to validate. Only worth it if word-level
+karaoke is genuinely wanted — and validate on a real Bulgarian clip first.
+
+**⚠️ Captions render as a SIBLING of `<Frame>`, so they inherit nothing from it.**
+Set `fontFamily` explicitly. The first captioned render came out in Chromium's
+default serif — readable, on-brand for nobody, and it will not reproduce on a
+machine that happens to have Inter installed.
 
 ## Thumbnail (1280×720)
 

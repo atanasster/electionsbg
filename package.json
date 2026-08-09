@@ -257,7 +257,8 @@
     "video:studio": "remotion studio --config=video/remotion.config.ts video/src/index.ts",
     "video:render": "remotion render --config=video/remotion.config.ts video/src/index.ts",
     "video:voice": "tsx scripts/video/synthesize.ts",
-    "video:vtt": "tsx scripts/video/emit_vtt.ts"
+    "video:vtt": "tsx scripts/video/emit_vtt.ts",
+    "video:map-t2": "tsx scripts/video/build_map_t2.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

@@ -24,9 +24,10 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { CHOSEN_VOICE, gemini } from "./tts_bakeoff";
 import { t1 } from "../../video/src/specs/t1-cost-per-vote";
+import { t2 } from "../../video/src/specs/t2-changed-winner";
 import type { VideoSpec } from "../../video/src/lib/spec";
 
-const SPECS: Record<string, VideoSpec> = { t1 };
+const SPECS: Record<string, VideoSpec> = { t1, t2 };
 const OUT_ROOT = resolve("video/public/voiceover");
 
 const ffmpeg = (args: string[]): string => {

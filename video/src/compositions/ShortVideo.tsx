@@ -6,6 +6,7 @@ import {
   type CalculateMetadataFunction,
 } from "remotion";
 import { BarsScene } from "../scenes/BarsScene";
+import { MapScene } from "../scenes/MapScene";
 import { OutroScene } from "../scenes/OutroScene";
 import { StatScene } from "../scenes/StatScene";
 import { Captions } from "../components/Captions";
@@ -58,6 +59,14 @@ const SceneVisual: React.FC<{ spec: VideoSpec; index: number }> = ({
       return <StatScene value={v.value} label={v.label} sub={v.sub} />;
     case "bars":
       return <BarsScene title={v.title} bars={v.bars} unit={v.unit} />;
+    case "map":
+      return (
+        <MapScene
+          title={v.title}
+          sweepSeconds={v.sweepSeconds}
+          legend={v.legend}
+        />
+      );
     case "outro":
       return <OutroScene title={v.title} cta={v.cta} url={v.url} />;
   }

@@ -6,19 +6,22 @@ import {
   type ShortProps,
 } from "./compositions/ShortVideo";
 import { t1 } from "./specs/t1-cost-per-vote";
+import { t2 } from "./specs/t2-changed-winner";
 
 /**
- * One composition per (spec × aspect). The aspects are NOT interchangeable
- * placements: Reels/Shorts are 9:16, the Facebook feed is 1:1 or 4:5 — a 9:16
- * posted to feed is letterboxed and reads as a repost — and YouTube is 16:9.
- * Scenes are authored against a 1080-wide base and scaled, so all three come from
- * the same components rather than a second layout.
+ * One composition per (spec × aspect). The two are NOT interchangeable placements:
+ * Reels/Shorts are 9:16 and the Facebook feed is 4:5 — a 9:16 posted to feed is
+ * letterboxed and reads as a repost. Both come from the same components: scenes
+ * are authored against a 1080-wide base and multiplied by `scale(width)`, and the
+ * taller-than-it-fits scenes compress their vertical rhythm.
+ *
+ * There is deliberately no 16:9 here — see the note at the bottom of the list.
  *
  * `durationInFrames` here is a placeholder; `calculateMetadata` replaces it with
  * the real length measured from the narration.
  */
 export const RemotionRoot: React.FC = () => {
-  const specs = [t1];
+  const specs = [t1, t2];
 
   return (
     <>

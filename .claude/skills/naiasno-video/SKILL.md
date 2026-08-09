@@ -22,21 +22,28 @@ review and publish by hand** — this skill never uploads to YouTube or Facebook
 Sibling of `naiasno-post`. Same brand, same discipline, same refusal to publish.
 Plan and full rationale: `docs/plans/explainer-video-v1.md`.
 
-## Build state — read this first
+## Build state — the whole chain runs
 
-The scripting and voice halves work today. The render half needs the phase-1
-Remotion project, which may not exist yet:
+The `video/` Remotion project exists and T1 renders end to end (phase 1, 2026-08-08).
 
-| Step | State | Depends on |
-|---|---|---|
-| 1–4 · topic → grounding → script → **gate 1** | ✅ works now | nothing |
-| 5 · per-scene TTS | ✅ works now — voice chosen | `GEMINI_API_KEY` (already in `.env.local`) |
-| 6–7 · render → captions → **gate 2** → draft | ⚠️ needs `video/` Remotion project | phase 1 of the plan |
+```bash
+npm run video:voice  -- <spec>     # per-scene TTS into video/public/voiceover/
+npm run video:vtt    -- <spec>     # .vtt sidecar + transcript
+npm run video:render -- <id> <out> # e.g. 2026-08-08-cost-per-vote--reel
+npm run video:check                # typecheck video/ (NOT covered by `npm run build`)
+npm run video:studio               # Remotion Studio, for retiming by hand
+npm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
+```
 
-Check with `ls video/remotion.config.ts`. If it is absent, run steps 1–5, hand the
-operator the script + audio, and say plainly that the render step is not built yet.
-**Do not invent a render command.** A skill that names a command that does not exist
-is worse than one that admits a gap.
+A new short means a new spec in `video/src/specs/`, registered in
+`video/src/Root.tsx` and in the `SPECS` maps of `scripts/video/synthesize.ts` and
+`emit_vtt.ts`.
+
+**Aspect cuts that work: 9:16 (1080×1920) and 4:5 (1080×1350).** 16:9 does not —
+see `references/publish.md`. Do not add a landscape composition expecting a rescale
+to work.
+
+Measured on T1: **~2 min per cut** to render, 885 frames, ~2 MB.
 
 ## Two formats
 
@@ -131,6 +138,27 @@ Find the exact value and the on-site deep link. Data homes are the same table as
 
 Record per figure: exact value, dataset path, JSON path, deep link. These become the
 scene's `grounding` block, and step 4 asserts against them.
+
+**Reproduce the figure, do not copy it.** Both test videos found something by
+recomputing from source rather than trusting the card:
+
+- **T1** — the card called ПрБ the cheap pole at €0,58/vote. ГЕРБ-СДС is cheaper
+  (€0,54). The scene now states the ratio to ИТН, which holds.
+- **T2** — three attempts before the number matched. See the trap below.
+
+**⚠️ Entity identity across time is the trap to expect.** `partyNum` in the election
+data is a **ballot position, reassigned every election** — number 1 was ДОСТ in 2024
+and ИТН in 2026. Comparing it across cycles compares different parties and reported
+that ~100% of municipalities changed hands. Compare on party NAME, then fold renames
+(`ДПС-НН → ДПС`, `БСП → БСП-ОЛ`) or the answer is 256 instead of 236.
+
+**Check the denominator too.** The obshtina code list contains 24 Sofia районa and 6
+abroad "continents"; Bulgaria has **265** municipalities, and Sofia's winner is the
+sum of its районa. A denominator that is not 265 means the filter is wrong. Assert it
+in the build script and refuse to write — `build_map_t2.ts` does.
+
+When a published card exists, matching its figure **and its breakdown** is the
+strongest available check that the recomputation is right.
 
 ## Step 3 — Write the scene script
 
