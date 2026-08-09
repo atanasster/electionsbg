@@ -383,3 +383,75 @@ test("logs the miss ONCE per process, naming the loader", async () => {
   assert.match(warned[0], /ff:not-built/);
   assert.match(warned[0], /db:load:funds-fit:pg/);
 });
+
+// ── /api/db/funds-procedure-rates ──────────────────────────────────────────────────────────
+//
+// The base-rate card on /funds/procedure/:code. Its contract is small and two parts of it are
+// load-bearing: an unknown code must yield NULL (a card of zeroes on that page reads as „nobody
+// applied"), and the payload must carry the MEDIAN and nothing derived from it — the reference
+// price is computed in the open, client-side, because we have no fee corpus to justify a verdict.
+
+const ratesRoute = DB_ROUTES["funds-procedure-rates"];
+
+const RATE_ROW = {
+  procedureCode: "BG16RFPR001-1.004",
+  projectCount: 1869,
+  grantMedian: 56564,
+  paidProjectCount: 1023,
+};
+
+test("returns the row for a known code", async () => {
+  const seen = [];
+  const dbRows = async (sql, params) => {
+    seen.push({ sql, params });
+    return [RATE_ROW];
+  };
+  const { body } = await ratesRoute(dbRows, { code: "BG16RFPR001-1.004" });
+  assert.deepEqual(body, RATE_ROW);
+  assert.match(seen[0].sql, /funds_fit_procedure\(/);
+  assert.deepEqual(seen[0].params, ["BG16RFPR001-1.004"]);
+});
+
+test("an unknown code yields NULL, not an empty object", async () => {
+  // A `{}` would render a card of zeroes — „nobody applied and nothing was paid" — which on a
+  // procedure page is a statement rather than an absence.
+  const { body } = await ratesRoute(async () => [], { code: "NOPE-1.001" });
+  assert.equal(body, null);
+});
+
+test("a blank code does not query at all", async () => {
+  let called = false;
+  const { body } = await ratesRoute(async () => {
+    called = true;
+    return [];
+  }, {});
+  assert.equal(body, null);
+  assert.equal(called, false);
+});
+
+test("the payload carries the MEDIAN, never a fee", async () => {
+  // „A fair fee is Y" is a verdict we cannot support — there is no fee corpus. The server ships
+  // the denominator and the client does the division in the open.
+  const { body } = await ratesRoute(async () => [RATE_ROW], { code: "X" });
+  assert.ok("grantMedian" in body);
+  for (const k of Object.keys(body))
+    assert.ok(
+      !/fee|price|consult/i.test(k),
+      `the payload carries ${k} — the fee arithmetic belongs in the UI, in the open`,
+    );
+});
+
+for (const code of ["42883", "42P01", "55000", "55P03"]) {
+  test(`procedure rates degrade to null on ${code}`, async () => {
+    const { body } = await ratesRoute(failing(code), { code: "X" });
+    assert.equal(body, null);
+  });
+}
+
+test("procedure rates do NOT degrade on 57014 or 42501", async () => {
+  for (const code of ["57014", "42501"])
+    await assert.rejects(
+      () => ratesRoute(failing(code), { code: "X" }),
+      new RegExp(`simulated ${code}`),
+    );
+});

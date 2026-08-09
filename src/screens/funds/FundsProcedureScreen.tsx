@@ -15,6 +15,7 @@ import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent } from "@/ux/Card";
 import { useFundsProcedureSummary } from "@/data/funds/useFundsProcedureSummary";
+import { ProcedureBaseRates } from "./ProcedureBaseRates";
 import {
   HeaderKpis,
   StatusBreakdown,
@@ -114,6 +115,11 @@ export const FundsProcedureScreen: FC = () => {
             <HeaderKpis rollup={data.rollup} />
           </CardContent>
         </Card>
+
+        {/* Directly under the totals, because „what usually happens here" is what somebody
+            deciding whether to apply needs — the breakdowns below answer where the money went,
+            which is the second question. */}
+        <ProcedureBaseRates code={data.procedureCode} />
 
         <div className="grid gap-4 xl:grid-cols-2">
           <StatusBreakdown rows={data.statusBreakdown} />

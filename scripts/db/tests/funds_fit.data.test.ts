@@ -461,3 +461,77 @@ test.skipIf(skip)(
     );
   },
 );
+
+// ── The per-procedure base rates (the /funds/procedure/:code card) ─────────────────────────
+
+test.skipIf(skip)(
+  "funds_fit_procedure is a PK seek and agrees with the rollup",
+  async () => {
+    // The whole reason `fund_fit` is materialised. If this ever stopped being an index seek the
+    // card would be a full scan on a page with 2,206 URLs.
+    const [row] = await allRows<{
+      procedure_code: string;
+      project_count: number;
+      grant_median: number | null;
+      paid_project_count: number;
+    }>(`SELECT * FROM funds_fit_procedure($1)`, ["BG16RFPR001-1.004"]);
+    assert.ok(row, "no row for a procedure that certainly exists");
+    const [ff] = await allRows<{
+      project_count: number;
+      grant_median: number | null;
+      paid_project_count: number;
+    }>(
+      `SELECT project_count, grant_median, paid_project_count
+         FROM fund_fit WHERE procedure_code = $1`,
+      ["BG16RFPR001-1.004"],
+    );
+    assert.equal(row.project_count, ff.project_count);
+    assert.equal(row.grant_median, ff.grant_median);
+    assert.equal(row.paid_project_count, ff.paid_project_count);
+
+    const plan = await withClient(async (c) => {
+      const { rows } = await c.query<{ "QUERY PLAN": string }>(
+        `EXPLAIN (ANALYZE, BUFFERS, FORMAT TEXT)
+           SELECT * FROM funds_fit_procedure('BG16RFPR001-1.004')`,
+      );
+      return rows.map((r) => r["QUERY PLAN"]).join("\n");
+    });
+    assert.match(
+      plan,
+      /ux_fund_fit_code/,
+      "the base-rate card is not using the unique index — it is scanning the matview",
+    );
+  },
+);
+
+test.skipIf(skip)("an unknown procedure code returns no row", async () => {
+  // The route turns this into `null`, which is what stops the page rendering a card of zeroes.
+  const rows = await allRows(`SELECT * FROM funds_fit_procedure($1)`, [
+    "NO-SUCH-PROCEDURE-9.999",
+  ]);
+  assert.equal(rows.length, 0);
+});
+
+test.skipIf(skip)(
+  "the median a reader divides is a real median of REAL grants",
+  async () => {
+    // The reference price is arithmetic on this number, so it has to be the thing it claims: the
+    // 50th percentile of grants that actually exist, not of a set padded with zeroes and NULLs.
+    const [row] = await allRows<{ bad: number }>(
+      `WITH src AS (
+         SELECT regexp_replace(contract_number, '-[0-9]+$', '') AS pc,
+                percentile_cont(0.5) WITHIN GROUP (ORDER BY grant_eur)
+                  FILTER (WHERE grant_eur > 0) AS med
+           FROM fund_projects GROUP BY 1
+       )
+       SELECT count(*)::int AS bad
+         FROM src JOIN fund_fit ff ON ff.procedure_code = src.pc
+        WHERE ff.grant_median IS DISTINCT FROM src.med`,
+    );
+    assert.equal(
+      row.bad,
+      0,
+      `${row.bad} procedures disagree with the corpus on the median`,
+    );
+  },
+);

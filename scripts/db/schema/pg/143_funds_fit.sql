@@ -76,7 +76,15 @@ agg AS (
          mode() WITHIN GROUP (ORDER BY p.program_code) AS program_code,
          mode() WITHIN GROUP (ORDER BY p.program_name) AS program_name,
          count(*)::int                                  AS project_count,
-         count(DISTINCT p.beneficiary_eik)::int         AS beneficiary_count,
+         -- COALESCE, not a bare EIK. 8.83% of ИСУН rows carry no EIK — физически лица — and
+         -- `count(DISTINCT eik)` drops every one of them: measured, wrong on 118 of 2,206
+         -- procedures and rendering a flat ZERO on 16. On BG-RRP-4.026 the page's own header said
+         -- „499 бенефициента" while this card said „Бенефициенти 0 · по 1 513 проекта", with the
+         -- org mix directly beneath it reading „Физическо лице 1 513 (100%)". The committed
+         -- by-procedure shard the header renders already folds on the name, so this matches it
+         -- rather than inventing a second definition of „beneficiary".
+         count(DISTINCT COALESCE(p.beneficiary_eik, 'name:' || p.beneficiary_name))::int
+                                                        AS beneficiary_count,
          COALESCE(sum(p.total_eur), 0)                  AS total_eur,
          COALESCE(sum(p.grant_eur), 0)                  AS grant_eur,
          COALESCE(sum(p.paid_eur), 0)                   AS paid_eur,
@@ -294,6 +302,47 @@ AS $$
    LIMIT GREATEST(1, LEAST(p_limit, 50));
 $$;
 
+-- ── Serving: ONE procedure's base rates ────────────────────────────────────────────────────
+--
+-- The /funds/procedure/:code page's „what usually happens here" card. A PK seek on
+-- `ux_fund_fit_code` — the whole reason the rollup is materialised.
+--
+-- THE REFERENCE PRICE IS ARITHMETIC, NOT ADVICE, and the split of responsibility matters. This
+-- returns `grant_median` and nothing else; the five-percent figure is computed in the UI from it,
+-- in the open, so a reader can do the division themselves. Measured demand (Appendix A, category
+-- D): „поискаха ми 4000 € предварително и 5% от сумата — това реални цифри ли са?", answered in
+-- the same thread by the supply side. There is no fee corpus anywhere, so the only honest thing
+-- we can publish is the denominator. „A fair fee is Y" would be a verdict we cannot support and
+-- is explicitly out (plan §8.4-4).
+CREATE OR REPLACE FUNCTION funds_fit_procedure(p_code text)
+RETURNS TABLE (
+  procedure_code    text,
+  procedure_name    text,
+  sample_title      text,
+  program_name      text,
+  project_count     int,
+  beneficiary_count int,
+  paid_project_count int,
+  total_eur         double precision,
+  grant_eur         double precision,
+  paid_eur          double precision,
+  grant_p25         double precision,
+  grant_median      double precision,
+  grant_p75         double precision,
+  org_forms         jsonb,
+  org_kinds         jsonb,
+  oblasti           jsonb
+)
+LANGUAGE sql STABLE PARALLEL SAFE AS $$
+  SELECT procedure_code, procedure_name, sample_title, program_name,
+         project_count, beneficiary_count, paid_project_count,
+         total_eur, grant_eur, paid_eur,
+         grant_p25, grant_median, grant_p75,
+         org_forms, org_kinds, oblasti
+    FROM fund_fit
+   WHERE procedure_code = p_code;
+$$;
+
 -- ── Serving: the Interreg arm ──────────────────────────────────────────────────────────────
 --
 -- Live, not precomputed — 1,954 operations against 82,011 contracts. Returns the BULGARIAN
@@ -402,6 +451,7 @@ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON fund_fit TO app_readonly;
     GRANT EXECUTE ON FUNCTION funds_fit_isun(text, text, int) TO app_readonly;
+    GRANT EXECUTE ON FUNCTION funds_fit_procedure(text) TO app_readonly;
     GRANT EXECUTE ON FUNCTION funds_fit_interreg(text, text, int) TO app_readonly;
     GRANT EXECUTE ON FUNCTION funds_fit_basis() TO app_readonly;
   END IF;

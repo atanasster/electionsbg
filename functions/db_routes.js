@@ -955,6 +955,43 @@ const DB_ROUTES = {
   //   42501 is a missing GRANT on a PLAIN TABLE, which is permanent, not a refresh artifact
   //         (the 123/124 precedent includes it because those are matviews). Degrading would
   //         serve an empty page for ever instead of failing loudly once.
+  // /api/db/funds-procedure-rates — the base-rate card on /funds/procedure/:code (143).
+  //
+  // A PK seek on `fund_fit` (0.05 ms, 201 buffers), separate from the page's existing
+  // `fund-payload` blob because that blob is loaded from committed JSON and this is derived from
+  // Postgres — writing one into the other would be generating JSON from PG.
+  //
+  // Returns the MEDIAN and nothing derived from it. The reference price („5% от медианния грант")
+  // is computed client-side, in the open, so a reader can do the division themselves — we have no
+  // fee corpus, so „a fair fee is Y" is a verdict we cannot support (plan §8.5-4).
+  "funds-procedure-rates": async (dbRows, q) => {
+    const code = (s(q, "code") || "").trim();
+    if (!code) return { body: null };
+    const rows = await dbRows(
+      `SELECT procedure_code AS "procedureCode", procedure_name AS "procedureName",
+              sample_title AS "sampleTitle", program_name AS "programName",
+              project_count AS "projectCount", beneficiary_count AS "beneficiaryCount",
+              paid_project_count AS "paidProjectCount",
+              total_eur AS "totalEur", grant_eur AS "grantEur", paid_eur AS "paidEur",
+              grant_p25 AS "grantP25", grant_median AS "grantMedian", grant_p75 AS "grantP75",
+              org_forms AS "orgForms", org_kinds AS "orgKinds", oblasti
+         FROM funds_fit_procedure($1)`,
+      [code],
+    ).catch((e) => {
+      if (FIT_DEGRADE.includes(e?.code)) {
+        logMissOnce(
+          "fpr:not-built",
+          "fund_fit is absent or unpopulated — procedure base rates are not being served. Run db:load:funds-fit:pg.",
+        );
+        return [];
+      }
+      throw e;
+    });
+    // NULL, not an empty object: a procedure with no rollup (a code the matview has never seen)
+    // must render nothing rather than a card of zeroes, which would read as „nobody applied".
+    return { body: rows[0] ?? null };
+  },
+
   // /api/db/funds-wire — the /funds band-0 wire and band-2 news rail (migration 144).
   //
   // ONE ROUTE, TWO SURFACES, because they share the backfill exclusion and are always rendered

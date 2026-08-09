@@ -716,6 +716,24 @@ first points all ~1,954 operation URLs at a function with no handler for them. T
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
 
+`funds_fit_procedure(code)` (also 143) is the base-rate card on `/funds/procedure/:code` —
+beneficiaries, the grant MEDIAN with its quartiles, org-kind mix, and the disbursed share. A PK
+seek on `ux_fund_fit_code` (0.05 ms), which is the whole reason `fund_fit` is materialised. It
+ships with the same loader.
+
+**The reference price („5% от медианния грант тук = €X") is arithmetic, and the split is
+deliberate.** The route returns the MEDIAN and nothing derived from it; the division happens
+client-side, in the open, at three percentages so no single one reads as an endorsement. There is
+no consultancy-fee corpus in Bulgaria, so „a fair fee is Y" is a verdict we cannot support and is
+explicitly out (plan §8.4-4) — what we publish is the denominator, and the card says so. The
+measured demand is Appendix A category D: „поискаха ми 4000 € и 5% от сумата — това реални цифри
+ли са?".
+
+**Nothing on that card is an approval rate.** `paid_project_count` is DISBURSEMENT — ИСУН
+publishes no rejected applications, so the denominator for „одобрен ли е бил" does not exist.
+`ProcedureBaseRates.test.tsx` fails if the word „одобрен" appears anywhere except inside the
+disclaimer that rules it out.
+
 `funds_wire()` / `funds_news()` (migration 144) are the `/funds` band-0 wire and band-2 news
 rail. **`db:load:funds-fit:pg` applies 144 as its last step**, so a corpus reload carries it —
 `funds_news`'s third card reads `fund_fit`, which is why that loader is its home. Nothing else
