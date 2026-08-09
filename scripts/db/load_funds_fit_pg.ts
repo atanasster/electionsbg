@@ -34,6 +34,12 @@ const ROOT = path.resolve(
   "..",
 );
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/143_funds_fit.sql");
+// 144 IS APPLIED HERE TOO, and it needs an applier or nothing ever runs it. `funds_news` reads
+// `fund_fit` — 144's whole third card comes out of this matview — so this loader is the natural
+// home, and without it `db:refresh` fails at its final `test:data` step on any machine that has
+// not applied 144 by hand. It also carries `idx_ifs_source_seen`, without which the wire is a
+// 30,105-buffer scan on every /funds view.
+const SCHEMA_WIRE = path.join(ROOT, "scripts/db/schema/pg/144_funds_wire.sql");
 
 /** Has the matview ever been populated? CONCURRENTLY refuses an unpopulated one. */
 const isPopulated = async (): Promise<boolean> => {
@@ -104,6 +110,21 @@ const main = async (): Promise<void> => {
   console.log(
     `funds-fit: ${post.rows} procedures · ${post.named} named · ` +
       `${post.with_median} with a median grant · ${post.with_place} placed`,
+  );
+
+  // 144 AFTER the refresh: `funds_news` reads `fund_fit`, and on a first build the matview does
+  // not exist until the statement above has run. The index it creates is ~122 MB on a full
+  // `ingest_first_seen` and cannot be CONCURRENT here (apply_functions runs the file as one
+  // transaction), so it holds a write lock on that table for the duration — seconds locally,
+  // longer on Cloud SQL. That is why it lives at the END of this loader rather than at the start
+  // of the chain: nothing else is waiting on it.
+  console.log("funds-fit: applying 144 (wire + news rail, + idx_ifs_source_seen)");
+  await exec(readFileSync(SCHEMA_WIRE, "utf8"));
+  const [wire] = await allRows<{ checked_on: string | null }>(
+    `SELECT checked_on FROM funds_wire(30)`,
+  );
+  console.log(
+    `funds-fit: wire reports last ingest ${wire?.checked_on ?? "(never)"}`,
   );
 
   // The basis, printed — this is what the page declares to a reader, so an operator should see it

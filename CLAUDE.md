@@ -716,6 +716,50 @@ first points all ~1,954 operation URLs at a function with no handler for them. T
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
 
+`funds_wire()` / `funds_news()` (migration 144) are the `/funds` band-0 wire and band-2 news
+rail. **`db:load:funds-fit:pg` applies 144 as its last step**, so a corpus reload carries it —
+`funds_news`'s third card reads `fund_fit`, which is why that loader is its home. Nothing else
+applies it, and it needed an applier: `db:refresh` ends with `test:data`, so an unapplied 144 makes
+a full reload fail at its final step. A body fix ships on its own with the usual escape hatch:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 144_funds_wire.sql
+```
+
+**144 must DROP `funds_wire` before recreating it**, and the line is load-bearing: `checked_on` is
+`text` rather than `date`, so the signature changed and `CREATE OR REPLACE` cannot alter a
+function's OUT-parameter row type. The type is `text` because node-postgres converts a PG `date`
+using the SERVER PROCESS's timezone — under `TZ=Europe/Sofia`, `2026-08-09` leaves as
+`2026-08-08T21:00:00Z` and the page renders the day BEFORE. Prod is correct only because Cloud Run
+leaves `TZ` unset, which is luck rather than design.
+
+**144 also creates `idx_ifs_source_seen (source, first_seen_at)`, and that index is the whole
+reason the wire is servable.** `idx_ifs_seen` carries only `first_seen_at`, so a time-range
+predicate over `ingest_first_seen` pulls every dataset's rows out of a 15M-row table: measured at
+30,105 buffers and 1,046 ms for one figure, on a function that runs on **every** /funds view. With
+it, 2.3 ms. Any future „what did source X first see in window W" query wants the same index.
+
+**Three things the corpus cannot do, which shape every label on those surfaces:**
+
+- **`fund_projects` has NO date columns** — no signing, start or end date; ИСУН's beneficiary
+  export publishes none. So every figure is an INGEST window and the copy says „нови в ИСУН",
+  never „нови договори". The plan's „event date, not ingest date" rule was written for the
+  procurement corpus, which has `contracts.date`.
+- **„Процедури, приключили наскоро" is therefore not buildable** — there is no completion date to
+  order by, and using the ingest date would present the crawl order as the finishing order. The
+  rail ships three cards, not the four the plan lists, and `funds_wire.data.test.ts` asserts
+  exactly those three so the omission stays a decision.
+- **The disbursement card is restricted to the CLOSED 2014-2020 period** (`program_code LIKE
+  '2014%'`). Without that restriction a procedure at 0% is indistinguishable from one signed last
+  month — measured, the top three were all 0% and all 2021-2027, i.e. recency rendered as
+  underperformance.
+
+**A backfill is not news, and the threshold is NOT re-derived here.** The `summarised` rule from
+`007_query_builders.sql` (`rows_new > 500`, or any batch in summary mode) is applied in both
+functions, so the wire and `/data/updates` cannot disagree about what counted. Backfill days are
+reported SEPARATELY rather than dropped — on a freshly loaded corpus that is the difference
+between „quiet" and „broken pipeline".
+
 `fund_fit` (migration 143, `db:load:funds-fit:pg`) is the „финансирано ли е нещо като моето"
 resolver behind the `/funds` tile and `/api/db/funds-fit` — a per-PROCEDURE rollup over the ИСУН
 corpus (project count, grant quartiles, org-form mix, oblast breakdown) that answers the question

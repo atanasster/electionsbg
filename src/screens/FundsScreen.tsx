@@ -38,6 +38,7 @@ import { InterregTile } from "./funds/InterregTile";
 import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
 import { FitResolverTile } from "./funds/FitResolverTile";
+import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -232,6 +233,11 @@ export const FundsScreen: FC = () => {
             aggregate is a destination you reach AFTER the look-up, not an entry point. The
             KPI strip below used to be the first thing on the page — that ordering is what
             docs/plans/funds-module-v2.md §5.2 calls out as analysis-first. */}
+        {/* BAND 0 — the wire. One line, above everything, because a returning reader's first
+            question is „did anything happen". It renders nothing on a failure: a wire is itself
+            a claim that the page is current. */}
+        <FundsWireLine className="mb-3" />
+
         <FundsFinder className="mb-4" />
 
         {/* BAND 1, second half. The finder answers „намери нещо конкретно"; this answers
@@ -246,6 +252,11 @@ export const FundsScreen: FC = () => {
             It sits after the open calls because a live deadline outranks a base rate: if
             something is open now, that is the more actionable fact. */}
         <FitResolverTile />
+
+        {/* BAND 2 — the news rail, after the two band-1 lead modules and before the „кой получи
+            парите" band. What is open and whether anything like mine was funded both outrank
+            what merely changed. */}
+        <FundsNewsRail />
 
         {/* HERO: 4 clickable KPI cards then the choropleth map. */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

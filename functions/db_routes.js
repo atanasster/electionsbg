@@ -955,6 +955,85 @@ const DB_ROUTES = {
   //   42501 is a missing GRANT on a PLAIN TABLE, which is permanent, not a refresh artifact
   //         (the 123/124 precedent includes it because those are matviews). Degrading would
   //         serve an empty page for ever instead of failing loudly once.
+  // /api/db/funds-wire — the /funds band-0 wire and band-2 news rail (migration 144).
+  //
+  // ONE ROUTE, TWO SURFACES, because they share the backfill exclusion and are always rendered
+  // together — two routes would let the page show a wire saying „372 нови" beside a rail built
+  // from a different window.
+  //
+  // EVERY FIGURE HERE IS AN INGEST WINDOW, and the payload says so. `fund_projects` carries no
+  // date columns at all (no signing, start or end date — ИСУН's export publishes none), so „нови"
+  // can only ever mean „new to us". The plan's §3.2 rule 2 („event date, not ingest date") was
+  // written for the procurement corpus, which has `contracts.date`; here there is nothing to
+  // prefer, and the labels have to carry that instead of implying a zero lag.
+  "funds-wire": async (dbRows, q) => {
+    const days = clampInt(q.days, 30, 1, 365);
+    const newsDays = clampInt(q.newsDays, 60, 1, 365);
+    const lim = clampInt(q.limit, 4, 1, 10);
+
+    const [wireRows, newsRows, newsBackfill] = await Promise.all([
+      dbRows(
+        `SELECT checked_on AS "checkedOn", last_change_on AS "lastChangeOn",
+                new_projects AS "newProjects", new_eur AS "newEur",
+                backfill_days AS "backfillDays", backfill_rows AS "backfillRows",
+                open_calls AS "openCalls"
+           FROM funds_wire($1)`,
+        [days],
+      ),
+      dbRows(
+        `SELECT card, rank, label, sublabel, href,
+                amount_eur AS "amountEur", pct
+           FROM funds_news($1, $2)`,
+        [newsDays, lim],
+      ),
+      // THE RAIL'S OWN BACKFILL FIGURE, over the RAIL's window. The wire's is over its own, and
+      // the two windows differ (30 vs 60 days by default) — measured, the real 81,616-row load
+      // sits inside the rail's and outside the wire's, so without this the rail quietly drops
+      // 81,616 rows from cards that claim to cover 60 days and nothing on the page says why.
+      dbRows(
+        `SELECT backfill_days AS "backfillDays", backfill_rows AS "backfillRows"
+           FROM funds_backfill($1)`,
+        [newsDays],
+      ),
+    ]).catch((e) => {
+      // Same narrow set as the resolver: 42883 first (both are FUNCTIONS, so a database without
+      // 144 raises undefined_function), and 57014/42501 deliberately absent.
+      if (FIT_DEGRADE.includes(e?.code)) {
+        logMissOnce(
+          "fw:not-built",
+          "funds_wire/funds_news are absent — the /funds wire and news rail are serving nothing. Apply 144_funds_wire.sql.",
+        );
+        return [[], [], []];
+      }
+      throw e;
+    });
+
+    // Grouped server-side so a consumer cannot render two cards and silently drop the third.
+    const news = { newContracts: [], byPlace: [], lowestPaid: [] };
+    const KEY = {
+      new_contracts: "newContracts",
+      by_place: "byPlace",
+      lowest_paid: "lowestPaid",
+    };
+    for (const r of newsRows) {
+      const k = KEY[r.card];
+      if (k) news[k].push(r);
+    }
+
+    return {
+      body: {
+        wire: wireRows[0] ?? null,
+        news,
+        // THE WINDOW, DECLARED. „372 нови" means nothing without „за 30 дни", and a caller that
+        // hard-coded the label would drift the first time the default changed.
+        windowDays: days,
+        newsWindowDays: newsDays,
+        // Belongs to the NEWS window, not the wire's — see the query above.
+        newsBackfill: newsBackfill[0] ?? { backfillDays: 0, backfillRows: 0 },
+      },
+    };
+  },
+
   // /api/db/funds-fit — „финансирано ли е нещо като моето" (migration 143).
   //
   // (`FIT_DEGRADE` and `OBLAST_CODES` are defined above the registry.)
