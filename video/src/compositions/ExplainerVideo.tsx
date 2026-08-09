@@ -11,15 +11,30 @@ import {
 } from "remotion";
 import { Stage16x9, STAGE } from "../components/Stage16x9";
 import { InflationCanvas } from "../scenes/InflationCanvas";
+import { RiskCanvas } from "../scenes/RiskCanvas";
 import { ScreenPlate } from "../scenes/ScreenPlate";
 import { Captions } from "../components/Captions";
 import { THEME } from "../theme";
 import { audioPath, type ExplainerSpec } from "../lib/spec";
 import { sceneFrames } from "../lib/audio";
-import { resolveCanvas } from "../lib/canvasState";
+import { resolveCanvas, type CanvasState } from "../lib/canvasState";
+import {
+  resolveRiskCanvas,
+  type RiskCanvasState,
+} from "../lib/riskCanvasState";
+
+/**
+ * Every explainer spec, whatever canvas it drives. The composition reads the
+ * language fields uniformly and narrows to a canvas state only at the one switch
+ * below — which is why the spec is generic rather than carrying a union of every
+ * canvas's fields.
+ */
+export type AnyExplainerSpec =
+  | ExplainerSpec<CanvasState>
+  | ExplainerSpec<RiskCanvasState>;
 
 export type ExplainerProps = {
-  spec: ExplainerSpec;
+  spec: AnyExplainerSpec;
   sceneDurations: number[];
   captions: boolean;
 };
@@ -143,11 +158,6 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
 
-  // ABSOLUTE frame — this is the whole reason the canvas is not inside a
-  // <Sequence>: useCurrentFrame() is sequence-local, and a persistent visual
-  // needs the global clock to accrete across scene boundaries.
-  const canvas = resolveCanvas(spec.scenes, sceneDurations, frame, fps);
-
   const chartW = width - STAGE.padX * 2 - STAGE.railW - STAGE.gap;
   const chartH = height - STAGE.headerH - STAGE.footerH - 48;
 
@@ -173,6 +183,9 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
         topic={spec.topic}
         period={spec.period}
         source={spec.sourceLine}
+        // ABSOLUTE frame — this is the whole reason the canvas is not inside a
+        // <Sequence>: useCurrentFrame() is sequence-local, and a persistent
+        // visual needs the global clock to accrete across scene boundaries.
         chart={
           activeScreen ? (
             <ScreenPlate
@@ -182,8 +195,28 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
               zoomAt={activeScreen.zoomAt}
               cursor={activeScreen.cursor}
             />
+          ) : spec.canvasKind === "risk" ? (
+            <RiskCanvas
+              state={resolveRiskCanvas(
+                spec.scenes as { canvas?: Partial<RiskCanvasState> }[],
+                sceneDurations,
+                frame,
+                fps,
+              )}
+              width={chartW}
+              height={chartH}
+            />
           ) : (
-            <InflationCanvas state={canvas} width={chartW} height={chartH} />
+            <InflationCanvas
+              state={resolveCanvas(
+                spec.scenes as { canvas?: Partial<CanvasState> }[],
+                sceneDurations,
+                frame,
+                fps,
+              )}
+              width={chartW}
+              height={chartH}
+            />
           )
         }
         rail={null}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { e1 } from "./specs/e1-inflation";
+import { e2 } from "./specs/e2-risk";
 import { v3 } from "./specs/v3-real-screen";
 import {
   ExplainerVideo,
@@ -30,6 +31,20 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         defaultProps={
           { spec: e1, sceneDurations: [], captions: false } as ExplainerProps
+        }
+        calculateMetadata={calculateExplainerMetadata}
+      />
+      {/* E2 — long-form (~10 min). `durationInFrames` here is a placeholder like
+          the others; calculateMetadata measures the real length from 59 clips. */}
+      <Composition
+        id={`${e2.slug}--yt`}
+        component={ExplainerVideo}
+        durationInFrames={18600}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={
+          { spec: e2, sceneDurations: [], captions: false } as ExplainerProps
         }
         calculateMetadata={calculateExplainerMetadata}
       />

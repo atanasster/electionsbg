@@ -1,5 +1,3 @@
-import type { CanvasState } from "./canvasState";
-
 /**
  * The video spec — the same shape the `naiasno-video` skill writes and the
  * operator signs off at gate 1.
@@ -11,11 +9,25 @@ import type { CanvasState } from "./canvasState";
  */
 
 /**
+ * Which persistent canvas the spec drives. Each has its OWN state shape, so the
+ * spec is generic over it and the composition switches on this discriminant.
+ *
+ * It is a string rather than a component reference because Remotion's
+ * `defaultProps` must survive JSON serialization — a component cannot travel in
+ * props, so the composition resolves the name to one.
+ */
+export type CanvasKind = "inflation" | "risk";
+
+/**
  * The 16:9 explainer. Unlike a short, scenes do not own a full-screen visual:
  * ONE canvas persists for the whole video and each scene declares only what it
  * CHANGES about it (`canvas`), plus the rail copy for its own beat.
+ *
+ * `C` is that canvas's state type. It defaults to `unknown` so a consumer that
+ * only reads the language fields — `gate1`, `synthesize`, `emit_vtt` — can hold
+ * specs with different canvases in one map without caring which.
  */
-export type ExplainerScene = {
+export type ExplainerScene<C = unknown> = {
   id: number;
   kicker?: string;
   stat?: string;
@@ -24,7 +36,7 @@ export type ExplainerScene = {
   onScreen: string;
   voiceOver: string;
   grounding?: { file: string; path: string };
-  canvas?: Partial<CanvasState>;
+  canvas?: Partial<C>;
   /**
    * Show a captured REAL page in the chart column for this scene instead of the
    * drawn canvas. The "this is the actual tool" beat.
@@ -32,9 +44,11 @@ export type ExplainerScene = {
   screen?: { name: string; zoomAt?: number; cursor?: boolean };
 };
 
-export type ExplainerSpec = {
+export type ExplainerSpec<C = unknown> = {
   slug: string;
   kind: "explainer";
+  /** Which persistent canvas this spec drives. */
+  canvasKind: CanvasKind;
   title: string;
   /**
    * Declared narration window in seconds, `[min, max]`, enforced by gate 1.
@@ -55,7 +69,7 @@ export type ExplainerSpec = {
   postSlug?: string;
   sources: string[];
   voice: { provider: string; voiceId: string };
-  scenes: ExplainerScene[];
+  scenes: ExplainerScene<C>[];
 };
 
 /** Where a spec's per-scene audio lives, relative to `video/public/`. */
@@ -64,6 +78,7 @@ export const audioPath = (slug: string, sceneId: number) =>
 
 /**
  * What the voice/caption scripts need from a spec, regardless of format — they
- * only ever touch the slug, kind, voice and each scene's id + voiceOver.
+ * only ever touch the slug, kind, voice and each scene's id + voiceOver, so the
+ * canvas type is irrelevant to them and stays unresolved.
  */
 export type VoiceableSpec = ExplainerSpec;

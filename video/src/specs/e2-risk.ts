@@ -1,4 +1,5 @@
 import type { ExplainerSpec } from "../lib/spec";
+import type { RiskCanvasState } from "../lib/riskCanvasState";
 
 /**
  * E2 — the election-risk explainer. 16:9, ~12 min long-form, accreting canvas.
@@ -79,9 +80,10 @@ import type { ExplainerSpec } from "../lib/spec";
  * The collapse is the one moment the canvas changes KIND, and it is the argument:
  * five measurements becoming the single number the video opened on.
  */
-export const e2: ExplainerSpec = {
+export const e2: ExplainerSpec<RiskCanvasState> = {
   slug: "2026-08-09-election-risk-explainer",
   kind: "explainer",
+  canvasKind: "risk",
   runtimeSeconds: [600, 900],
   title: "Индексът на изборния риск: какво значи 47",
   topic: "Изборен риск",
@@ -104,6 +106,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 1 · Числото ─────────────────────────────────────────────────────
     {
       id: 1,
+      canvas: { rows: 1 },
       kicker: "Числото",
       stat: "47",
       headline: "«Висок»",
@@ -155,6 +158,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 2 · Сигнал 1 — секционен скрининг ───────────────────────────────
     {
       id: 5,
+      canvas: { focus: 1 },
       kicker: "Сигнал 1",
       headline: "Секционен скрининг",
       body: "Всяка секция получава\nсобствена оценка по седем признака.",
@@ -168,6 +172,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 6,
+      canvas: { inset: 1, insetKind: "sections" },
       kicker: "Колко секции",
       stat: "12 705",
       headline: "секции в четири нива",
@@ -217,6 +222,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 10,
+      canvas: { inset: 0, m1: 1 },
       kicker: "Резултатът",
       stat: "2,03%",
       headline: "65 790 от 3 233 136 гласа",
@@ -231,6 +237,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 11,
+      canvas: { scaleTag: 1 },
       kicker: "Оценка",
       stat: "41",
       headline: "Скалата свършва на 5%",
@@ -247,6 +254,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 3 · Сигнал 2 — машинна цялост ───────────────────────────────────
     {
       id: 12,
+      canvas: { focus: 2, scaleTag: 0 },
       kicker: "Сигнал 2",
       headline: "Машинна цялост",
       body: "Най-високият показател\nв тези избори.",
@@ -279,6 +287,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 15,
+      canvas: { m2: 1 },
       kicker: "От колко",
       stat: "0,18%",
       headline: "от 1 542 553 машинни гласа",
@@ -293,6 +302,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 16,
+      canvas: { scaleTag: 1 },
       kicker: "Защо тогава 90",
       stat: "90",
       headline: "Границата е 0,2%",
@@ -307,6 +317,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 17,
+      canvas: { scaleTag: 0 },
       kicker: "Поуката",
       headline: "Висока оценка\nне значи голямо число",
       body: "Значи, че малкото число е близо\nдо нарочно строга граница.",
@@ -318,6 +329,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 4 · Сигнал 3 — липсваща флаш памет ──────────────────────────────
     {
       id: 18,
+      canvas: { focus: 3 },
       kicker: "Сигнал 3",
       headline: "Липсваща флаш памет",
       body: "Не дали записите се разминават,\nа дали изобщо има с какво да се сравни.",
@@ -336,6 +348,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 20,
+      canvas: { m3: 1 },
       kicker: "Колко",
       stat: "9 104",
       headline: "машинни гласа · 0,59%",
@@ -350,6 +363,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 21,
+      canvas: { scaleTag: 1 },
       kicker: "Оценка",
       stat: "59",
       headline: "Скалата свършва на 1%",
@@ -366,6 +380,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 5 · Сигнал 4 — концентрация ─────────────────────────────────────
     {
       id: 22,
+      canvas: { focus: 4, scaleTag: 0 },
       kicker: "Сигнал 4",
       headline: "Концентрация на гласове",
       body: "Населени места, в които една партия\nвзема над 80%.",
@@ -388,6 +403,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 24,
+      canvas: { m4: 1 },
       kicker: "Колко",
       stat: "145",
       headline: "населени места · 18 537 гласа",
@@ -402,6 +418,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 25,
+      canvas: { scaleTag: 1 },
       kicker: "Оценка",
       stat: "29",
       headline: "Скалата свършва на 2%",
@@ -415,6 +432,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 26,
+      canvas: { scaleTag: 0, inset: 1, insetKind: "concentration" },
       kicker: "Голямата промяна",
       headline: "592 → 145",
       body: "Толкова са били тези населени места\nпрез юни 2024.",
@@ -441,6 +459,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 28,
+      canvas: { inset: 0 },
       kicker: "Изводът",
       headline: "Спадът е факт.\nПричината — не.",
       body: "Повече гласоподаватели правят 80%\nпо-труден за постигане сам по себе си.",
@@ -452,6 +471,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 6 · Сигнал 5 — процедурни аномалии ──────────────────────────────
     {
       id: 29,
+      canvas: { focus: 5 },
       kicker: "Сигнал 5",
       headline: "Процедурни аномалии",
       body: "Недействителни бюлетини и дописани\nизбиратели там, където делът им е висок.",
@@ -461,6 +481,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 30,
+      canvas: { m5: 1 },
       kicker: "Колко",
       stat: "11 336",
       headline: "гласа · 0,36%",
@@ -489,6 +510,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 7 · Сборът ──────────────────────────────────────────────────────
     {
       id: 32,
+      canvas: { focus: null },
       kicker: "Петте заедно",
       headline: "41 · 90 · 59 · 29 · 18",
       body: "Секции · машини · флаш памет\nконцентрация · процедури",
@@ -502,6 +524,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 33,
+      canvas: { mode: 1, avg: 1 },
       kicker: "Средното",
       stat: "47",
       headline: "Средното от петте е 47",
@@ -530,6 +553,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 35,
+      canvas: { history: 1 },
       kicker: "Назад във времето",
       headline: "13 измерени избора,\nно 7 сравними",
       voiceOver:
@@ -576,6 +600,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 39,
+      canvas: { meanLine: 1 },
       kicker: "Средната стойност",
       stat: "54",
       headline: "средно за седемте",
@@ -589,6 +614,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 40,
+      canvas: { peakTag: 1 },
       kicker: "Най-голямата",
       stat: "77",
       headline: "юни 2024",
@@ -631,6 +657,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 9 · Защо «Висок» ────────────────────────────────────────────────
     {
       id: 43,
+      canvas: { peakTag: 0 },
       kicker: "Остава един въпрос",
       headline: "Щом е под средното,\nзащо пише «висок»?",
       voiceOver:
@@ -639,6 +666,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 44,
+      canvas: { bands: 1 },
       kicker: "Границите",
       headline: "20 · 40 · 60",
       body: "Спокоен · повишен · висок · критичен",
@@ -652,6 +680,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 45,
+      canvas: { bandRule: 1 },
       kicker: "Значи",
       stat: "40",
       headline: "47 е малко над границата",
@@ -668,6 +697,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 10 · Контекстните пет ───────────────────────────────────────────
     {
       id: 46,
+      canvas: { ctx: 1 },
       kicker: "Другите пет",
       stat: "40",
       headline: "Контекст, не оценка",
@@ -691,6 +721,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 48,
+      canvas: { c1: 1 },
       kicker: "Контекст 1",
       stat: "8",
       headline: "Бенфорд · 1 от 12 партии",
@@ -714,6 +745,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 50,
+      canvas: { c2: 1 },
       kicker: "Контекст 2",
       stat: "39",
       headline: "Махалите · +5,9 пункта",
@@ -728,6 +760,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 51,
+      canvas: { c3: 1 },
       kicker: "Контекст 3",
       stat: "100",
       headline: "Електорална волатилност",
@@ -764,6 +797,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 54,
+      canvas: { c4: 1 },
       kicker: "Контекст 4",
       stat: "29",
       headline: "Социологическа грешка\n2,51 пункта",
@@ -778,6 +812,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 55,
+      canvas: { c5: 1 },
       kicker: "Контекст 5",
       stat: "24",
       headline: "Клъстери · 108 от 1 263",
@@ -803,6 +838,7 @@ export const e2: ExplainerSpec = {
     // ── ЧАСТ 11 · Какво не казва ─────────────────────────────────────────────
     {
       id: 57,
+      canvas: { dim: 0.45, bandRule: 0 },
       kicker: "Какво не казва",
       headline: "Всеки сигнал има\nи невинно обяснение",
       body: "Малка секция, еднородно население,\nкъсна кампания за вписване, законно преброяване.",
@@ -825,6 +861,7 @@ export const e2: ExplainerSpec = {
     },
     {
       id: 59,
+      canvas: { dim: 1 },
       kicker: "Проверете сами",
       headline: "Разбивката е на сайта",
       body: "По секция, по населено място\nи по партия.",

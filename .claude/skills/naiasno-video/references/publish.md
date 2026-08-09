@@ -9,7 +9,7 @@ this file describes what the draft must contain so the operator can.
 |---|---|---|
 | FB / IG **Reels**, YouTube **Shorts** | 9:16 · 1080×1920 | ✅ built, burned-in captions |
 | FB **feed** | 4:5 · 1080×1350 | ✅ built — the feed is **not** Reels; a 9:16 posted to feed is letterboxed and reads as a repost |
-| YouTube, on-site embed | 16:9 · 1920×1080 | ❌ **not built** — needs its own layout |
+| YouTube, on-site embed | 16:9 · 1920×1080 | ✅ built — `Stage16x9`, its OWN layout (E1, E2) |
 
 The two portrait-ish cuts genuinely do come from one composition: scenes are authored
 against a 1080-wide base and multiplied by `scale(width)`, and `BarsScene` compresses

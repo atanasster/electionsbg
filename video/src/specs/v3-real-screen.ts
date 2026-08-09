@@ -1,4 +1,5 @@
 import type { ExplainerSpec } from "../lib/spec";
+import type { CanvasState } from "../lib/canvasState";
 
 /**
  * V3 — the real-screen treatment, as a short standalone piece for comparison
@@ -23,9 +24,10 @@ import type { ExplainerSpec } from "../lib/spec";
  * The conclusion the pair is meant to support: use captures for beats about the
  * TOOL, and the drawn canvas for beats about a FIGURE. Not one or the other.
  */
-export const v3: ExplainerSpec = {
+export const v3: ExplainerSpec<CanvasState> = {
   slug: "2026-08-08-v3-real-screen",
   kind: "explainer",
+  canvasKind: "inflation",
   runtimeSeconds: [30, 120],
   title: "Инфлацията в реалния екран",
   topic: "Инфлация",

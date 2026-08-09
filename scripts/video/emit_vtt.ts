@@ -14,12 +14,13 @@ import { existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { e1 } from "../../video/src/specs/e1-inflation";
+import { e2 } from "../../video/src/specs/e2-risk";
 import { v3 } from "../../video/src/specs/v3-real-screen";
 import { audioPath, type VoiceableSpec } from "../../video/src/lib/spec";
 import { toVtt } from "../../video/src/lib/captions";
 
 /** Shorts and explainers share the fields these scripts touch (slug, kind, voice, scenes[].id/voiceOver). */
-const SPECS: Record<string, VoiceableSpec> = { e1, v3 };
+const SPECS: Record<string, VoiceableSpec> = { e1, e2, v3 };
 
 /** Must match `sceneFrames`' default in video/src/lib/audio.ts. */
 const TAIL_SECONDS = 0.35;

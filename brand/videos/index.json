@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "2026-08-09-election-risk-explainer",
+    "date": "2026-08-09",
+    "kind": "explainer",
+    "status": "draft",
+    "title": "Индексът на изборния риск: какво значи 47",
+    "durationSeconds": 640,
+    "aspect": ["16:9"],
+    "tags": ["elections", "изборен риск", "ЦИК", "машинно гласуване", "анализ"],
+    "entities": ["ЦИК", "Прогресивна България"],
+    "keyFact": "Индексът на изборния риск за 19 април 2026 е 47 («висок») — под средното 54 за седемте сравними избора и най-ниският от октомври 2022; най-високият му компонент (машинна цялост, 90) стои зад 2 788 гласа разлика при 1 542 553 машинни, или 0,18% срещу скала, свършваща на 0,2%",
+    "link": "https://electionsbg.com/risk-analysis?elections=2026_04_19",
+    "postSlug": null,
+    "sources": [
+      "data/2026_04_19/reports/section/risk_score_summary.json (votesByBand, totalActualVoters, missingFlashMachineVotes, counts)",
+      "data/2026_04_19/region_votes.json (machineVotes vs suemgVotes, per party)",
+      "data/2026_04_19/dashboard/suspicious_settlements.json (concentrated 145 @ ≥80%, invalidBallots + additionalVoters)",
+      "data/2026_04_19/reports/section/risk_clusters.json (108 / 1 263)",
+      "data/2026_04_19/reports/benford.json (1 of 12 parties, 2BL, MAD ≥ 0,08)",
+      "data/2026_04_19/problem_sections.json (8 tracked neighbourhoods)",
+      "data/polls/accuracy.json (mean agency MAE 2,51 pp)",
+      "https://results.cik.bg/pe202604/rezultati/index.html"
+    ],
+    "artifacts": {
+      "spec": "video/src/specs/e2-risk.ts",
+      "data": "video/src/generated/risk.json",
+      "builder": "scripts/video/build_risk.ts",
+      "mp4": "raw_data/video/out/2026-08-09-election-risk-explainer--yt.mp4",
+      "thumb": "raw_data/video/out/2026-08-09-election-risk-explainer--thumb.png",
+      "vtt": "raw_data/video/out/2026-08-09-election-risk-explainer.vtt",
+      "transcript": "raw_data/video/out/2026-08-09-election-risk-explainer.transcript.txt",
+      "voiceover": "video/public/voiceover/2026-08-09-election-risk-explainer/",
+      "draft": "brand/videos/drafts/2026-08-09-election-risk-explainer.md"
+    },
+    "notes": "First long-form explainer. The MP4 and thumbnail are gitignored (raw_data/video/) — regenerate with `npm run video:render` after `npm run video:voice -- e2`. Every figure is asserted by the builder, which refuses to write if one moves."
+  }
+]

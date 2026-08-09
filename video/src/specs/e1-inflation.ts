@@ -1,4 +1,5 @@
 import type { ExplainerSpec } from "../lib/spec";
+import type { CanvasState } from "../lib/canvasState";
 
 /**
  * E1 — the inflation explainer. 16:9, ~85s, accreting canvas.
@@ -30,9 +31,10 @@ import type { ExplainerSpec } from "../lib/spec";
  *
  * voiceOver carries NO digits — rule 7.
  */
-export const e1: ExplainerSpec = {
+export const e1: ExplainerSpec<CanvasState> = {
   slug: "2026-08-08-inflation-explainer",
   kind: "explainer",
+  canvasKind: "inflation",
   runtimeSeconds: [60, 120],
   title: "Какво стана с инфлацията след еврото",
   topic: "Инфлация",
