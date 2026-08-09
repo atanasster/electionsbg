@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { placeViewUrl } from "@/data/local/placeViews";
+import { shortOblastName } from "@/lib/oblastName";
 import { SettlementProcurementLink } from "@/screens/components/procurement/SettlementProcurementLink";
 
 export type SeatPlace = {
@@ -44,12 +45,11 @@ export const PlaceSeatLine: FC<{ place: SeatPlace; className?: string }> = ({
     null;
   const oblastRaw =
     (lang === "bg" ? place.oblast : place.oblastEn || place.oblast) ?? null;
-  // Strip the tautological "област"/"region" suffix (e.g. SFO → "Софийска област").
-  const oblast = oblastRaw
-    ? lang === "bg"
-      ? oblastRaw.replace(/\s+област$/u, "").trim()
-      : oblastRaw.replace(/\s+region$/iu, "").trim()
-    : null;
+  // A standalone segment in the place path, so the tier word is implied by
+  // position — "…· общ. Карлово · Пловдив". `shortOblastName` drops it from
+  // either end, which also covers PDV's "обл." PREFIX that the local strip this
+  // replaced could not see.
+  const oblast = oblastRaw ? shortOblastName(oblastRaw) : null;
 
   const settlementLabel =
     lang === "bg" && place.settlementType && settlement

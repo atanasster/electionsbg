@@ -14,6 +14,8 @@ vi.mock("react-i18next", () => ({
 }));
 
 import { renderPlaceNarrative, PlaceNarrativeContext } from "./placeNarrative";
+import regions from "@/data/json/regions.json";
+import { oblastNameIsSelfTyped, shortOblastName } from "@/lib/oblastName";
 import { PlaceHeaderView } from "./PlaceHeaderView";
 
 // A neutral base — every flag false, no names. Each case overrides the slice it
@@ -399,5 +401,88 @@ describe("PlaceHeaderView", () => {
     expect(
       container.querySelector('a[href="#myarea-projects-map"]'),
     ).toBeNull();
+  });
+});
+
+// The breadcrumb writes ", област {region}" itself, so it doubles for any region
+// name that already carries its tier. Six of the 32 rows in regions.json do —
+// PDV ("обл. Пловдив", a PREFIX, which PlaceHeader's old trailing-only strip
+// could not see), SFO ("София област"), S23–S25 ("София N МИР") and 32 ("Извън
+// страната"). Every fixture above uses "Варна", which is why this was invisible:
+// the breadcrumb on every settlement and município page in Пловдив province read
+// "област обл. Пловдив" with the suite green.
+describe("region names that already carry their tier are named once", () => {
+  // The two values PlaceHeader and settlementHero derive and pass down, from the
+  // same helpers. `shortOblastName` (not `bareOblastName`) is what they use, so
+  // SFO keeps the existing "област София" wording rather than gaining a new one.
+  const fromRegionsJson = (code: string) => {
+    const row = regions.find((r) => r.oblast === code);
+    if (!row) throw new Error(`no regions.json row for ${code}`);
+    const raw = row.long_name || row.name;
+    const regionName = shortOblastName(raw);
+    return {
+      raw,
+      regionName,
+      regionIsSelfTyped: oblastNameIsSelfTyped(regionName),
+    };
+  };
+
+  const DOUBLED =
+    /обл\.\s*обл\.|област\s+обл\.|област\s+\S+\s+област|област\s+София област|област\s+София \d+ МИР|област\s+Извън страната/;
+
+  it.each([
+    ["PDV", "област Пловдив"],
+    ["SFO", "област София"],
+    ["S24", "София 24 МИР"],
+    ["32", "Извън страната"],
+    ["BLG", "област Благоевград"],
+  ])('settlement in %s reads "%s"', (code, expected) => {
+    const { regionName, regionIsSelfTyped } = fromRegionsJson(code);
+    const out = text(
+      base({
+        isSettlement: true,
+        name: "Карлово",
+        settlementType: "гр.",
+        muniName: "Карлово",
+        muniHref: "/settlement/PDV13",
+        regionName,
+        regionIsSelfTyped,
+        regionHref: `/municipality/${code}`,
+      }),
+    );
+    expect(out).toContain(expected);
+    expect(out).not.toMatch(DOUBLED);
+  });
+
+  it.each([
+    ["PDV", "област Пловдив"],
+    ["SFO", "област София"],
+    ["32", "Извън страната"],
+  ])('município in %s reads "%s"', (code, expected) => {
+    const { regionName, regionIsSelfTyped } = fromRegionsJson(code);
+    const out = text(
+      base({
+        name: "Карлово",
+        regionName,
+        regionIsSelfTyped,
+        regionHref: `/municipality/${code}`,
+      }),
+    );
+    expect(out).toContain(expected);
+    expect(out).not.toMatch(DOUBLED);
+  });
+
+  // The flag is what suppresses the prefix — prove it discriminates rather than
+  // the bare name happening to read correctly either way.
+  it("still writes 'област' when the flag is not set", () => {
+    const out = text(
+      base({
+        name: "Карлово",
+        regionName: "Пловдив",
+        regionIsSelfTyped: false,
+        regionHref: "/municipality/PDV",
+      }),
+    );
+    expect(out).toContain("област Пловдив");
   });
 });

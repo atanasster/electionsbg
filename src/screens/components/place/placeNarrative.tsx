@@ -35,6 +35,11 @@ export type PlaceNarrativeContext = {
   muniName: string | null;
   regionName: string | null;
   regionNameRaw: string | null;
+  /** True when `regionName` already reads as its own tier ("София област",
+   *  "София 24 МИР", "Извън страната"), so the three ", област {region}"
+   *  segments below must render it verbatim. `PlaceHeader` derives it from
+   *  `oblastNameIsSelfTyped`; `regionName` itself always arrives bare. */
+  regionIsSelfTyped?: boolean;
   settlementName?: string;
   settlementType?: string | null;
   displaySettlementType?: string | null;
@@ -77,6 +82,7 @@ export const renderPlaceNarrative = (c: PlaceNarrativeContext): ReactNode => {
     muniName,
     regionName,
     regionNameRaw,
+    regionIsSelfTyped,
     settlementName,
     settlementType,
     displaySettlementType,
@@ -244,7 +250,7 @@ export const renderPlaceNarrative = (c: PlaceNarrativeContext): ReactNode => {
           ) : null}
           {regionName && regionHref ? (
             <>
-              , област{" "}
+              , {regionIsSelfTyped ? null : "област "}
               <Link to={regionHref} underline>
                 {regionName}
               </Link>
@@ -372,7 +378,7 @@ export const renderPlaceNarrative = (c: PlaceNarrativeContext): ReactNode => {
           Община {name}
           {regionName && regionHref ? (
             <>
-              , област{" "}
+              , {regionIsSelfTyped ? null : "област "}
               <Link to={regionHref} underline>
                 {regionName}
               </Link>
@@ -452,7 +458,7 @@ export const renderPlaceNarrative = (c: PlaceNarrativeContext): ReactNode => {
         ) : null}
         {regionName && regionHref ? (
           <>
-            , област{" "}
+            , {regionIsSelfTyped ? null : "област "}
             <Link to={regionHref} underline>
               {regionName}
             </Link>

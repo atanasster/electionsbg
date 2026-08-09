@@ -18,6 +18,7 @@
 import { renderPlaceNarrative } from "@/screens/components/place/placeNarrative";
 import { placeViewUrl } from "@/data/local/placeViews";
 import { parseLoc } from "@/lib/geo";
+import { oblastNarrativeName } from "@/lib/oblastName";
 import type { ProcurementBySettlementFile } from "@/data/dataTypes";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
@@ -35,12 +36,12 @@ export const settlementHero = (
   const oblastRaw =
     (lang === "bg" ? data.oblastName : data.oblastNameEn || data.oblastName) ??
     null;
-  // Strip the tautological "област"/"region" suffix the narrative re-adds (e.g. SFO).
-  const oblastName = oblastRaw
-    ? lang === "bg"
-      ? oblastRaw.replace(/\s+област$/u, "").trim()
-      : oblastRaw.replace(/\s+region$/iu, "").trim()
-    : null;
+  // Same contract as PlaceHeader: the narrative writes the tier word, so strip
+  // any the name already carries — from EITHER end. The trailing-only strip this
+  // replaced left PDV's "обл." prefix in place, so every Пловдив settlement hero
+  // read "област обл. Пловдив".
+  const { name: oblastName, isSelfTyped: oblastIsSelfTyped } =
+    oblastNarrativeName(oblastRaw);
   const muniHref = data.obshtinaCode
     ? placeViewUrl("governance", {
         level: "municipality",
@@ -65,6 +66,7 @@ export const settlementHero = (
     muniName,
     regionName: oblastName,
     regionNameRaw: oblastRaw,
+    regionIsSelfTyped: oblastIsSelfTyped,
     settlementType: data.settlementType ?? null,
     displaySettlementType: data.settlementType ?? null,
     oblastCode: data.oblastCode ?? undefined,

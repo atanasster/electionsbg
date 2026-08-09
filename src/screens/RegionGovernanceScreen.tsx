@@ -17,6 +17,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
 import { useRegions } from "@/data/regions/useRegions";
+import { oblastLabel } from "@/lib/oblastName";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { RegionGovernanceCards } from "./dashboard/RegionGovernanceCards";
 
@@ -30,16 +31,21 @@ export const RegionGovernanceScreen: FC = () => {
   }
 
   const info = findRegion(oblast);
+  const lang = i18n.language === "bg" ? "bg" : "en";
   const name = info
-    ? (i18n.language === "bg"
+    ? (lang === "bg"
         ? info.long_name || info.name
         : info.long_name_en || info.name_en) || oblast
     : oblast;
+  // The prerendered HTML for this same URL says "Управление — област Пловдив",
+  // so the tab must too — and passing the code is what keeps PDV and PDV-00
+  // apart here as well.
+  const seoTitle = oblastLabel(name, lang, "leading", oblast);
 
   return (
     <>
       <SEO
-        title={name}
+        title={seoTitle}
         description="Regional governance — transfers, indicators and representation for an oblast in Bulgaria"
       />
       <section className="my-4 space-y-6">

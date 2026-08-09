@@ -34,6 +34,7 @@ import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
+import { oblastNarrativeName } from "@/lib/oblastName";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { parseLoc } from "@/lib/geo";
@@ -146,18 +147,20 @@ export const PlaceHeader: FC<Props> = ({
     : undefined;
   const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
 
-  // Strip the tautological "област"/"region" suffix some region names carry
-  // (SFO = "София област") — the narrative template re-adds it.
+  // The narrative template writes the tier word itself, so hand it a name with
+  // any tier word of its own removed. `shortOblastName` strips it from EITHER
+  // end: the local strip this replaced took only a TRAILING one, so SFO's "София
+  // област" shortened correctly while PDV's "обл. Пловдив" — a PREFIX — sailed
+  // through and every settlement and município breadcrumb in the province read
+  // "област обл. Пловдив". `regionIsSelfTyped` covers what neither can shorten
+  // ("София 24 МИР", "Извън страната"), which the narrative renders verbatim.
   const regionNameRaw = region
     ? lang === "bg"
       ? region.long_name || region.name
       : region.long_name_en || region.name_en
     : null;
-  const regionName = regionNameRaw
-    ? lang === "bg"
-      ? regionNameRaw.replace(/\s+област$/u, "").trim()
-      : regionNameRaw.replace(/\s+region$/iu, "").trim()
-    : null;
+  const { name: regionName, isSelfTyped: regionIsSelfTyped } =
+    oblastNarrativeName(regionNameRaw);
 
   // The h1 text, per level.
   const resolvedName = isSettlement
@@ -236,6 +239,7 @@ export const PlaceHeader: FC<Props> = ({
     muniName,
     regionName,
     regionNameRaw,
+    regionIsSelfTyped,
     settlementName,
     settlementType,
     displaySettlementType,

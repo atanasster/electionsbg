@@ -351,6 +351,7 @@ const buildGovernanceRegionBrowse = (lang: "bg" | "en"): string => {
             r.name,
             en ? "en" : "bg",
             "prose",
+            r.oblast,
           )}</a></li>`,
       )
       .join("");

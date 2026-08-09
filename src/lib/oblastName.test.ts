@@ -4,6 +4,8 @@ import {
   bareOblastName,
   oblastLabel,
   oblastNameIsSelfTyped,
+  oblastNarrativeName,
+  shortOblastName,
   type OblastLabelForm,
 } from "./oblastName";
 
@@ -70,6 +72,75 @@ describe("oblastNameIsSelfTyped", () => {
   });
 });
 
+describe("shortOblastName", () => {
+  it("removes a tier word from either end", () => {
+    expect(shortOblastName("обл. Пловдив")).toBe("Пловдив");
+    expect(shortOblastName("София област")).toBe("София");
+    expect(shortOblastName("Софийска област")).toBe("Софийска");
+    expect(shortOblastName("prov. Plovdiv")).toBe("Plovdiv");
+    expect(shortOblastName("Sofia region")).toBe("Sofia");
+  });
+
+  it("leaves a name whose tier word is not at either end", () => {
+    // "МИР" and "страната" are not strippable — the breadcrumb renders these
+    // verbatim instead, via `oblastNarrativeName`'s flag.
+    expect(shortOblastName("София 24 МИР")).toBe("София 24 МИР");
+    expect(shortOblastName("Извън страната")).toBe("Извън страната");
+  });
+});
+
+// The one derivation both place breadcrumbs feed their context from. Each used to
+// carry its own trailing-only strip; PDV's PREFIX passed through both.
+describe("oblastNarrativeName", () => {
+  it("shortens what can be shortened and flags what cannot", () => {
+    expect(oblastNarrativeName("обл. Пловдив")).toEqual({
+      name: "Пловдив",
+      isSelfTyped: false,
+    });
+    // SFO keeps the wording the codebase already shipped — "област София", not
+    // "София област". Three tests encode that; this is the contract they rest on.
+    expect(oblastNarrativeName("София област")).toEqual({
+      name: "София",
+      isSelfTyped: false,
+    });
+    expect(oblastNarrativeName("Софийска област")).toEqual({
+      name: "Софийска",
+      isSelfTyped: false,
+    });
+    expect(oblastNarrativeName("София 24 МИР")).toEqual({
+      name: "София 24 МИР",
+      isSelfTyped: true,
+    });
+    expect(oblastNarrativeName("Извън страната")).toEqual({
+      name: "Извън страната",
+      isSelfTyped: true,
+    });
+  });
+
+  it("handles an absent name without inventing one", () => {
+    for (const v of [null, undefined, ""])
+      expect(oblastNarrativeName(v)).toEqual({
+        name: null,
+        isSelfTyped: false,
+      });
+  });
+
+  // The breadcrumb writes ", област {name}" unless the flag is set, so for every
+  // real row exactly one of the two must hold: the name is shortened to something
+  // that takes a tier word, or it is flagged. Neither → a doubled label.
+  it("never yields a name that would double for any region in regions.json", () => {
+    for (const r of regions) {
+      const { name, isSelfTyped } = oblastNarrativeName(nameOf(r));
+      expect(name, r.oblast).toBeTruthy();
+      const rendered = isSelfTyped ? name! : `област ${name}`;
+      for (const bad of DOUBLED) expect(rendered, r.oblast).not.toMatch(bad);
+      expect(rendered, `${r.oblast}: "${rendered}"`).not.toMatch(
+        /област\s+(обл\.|София област|София \d+ МИР|Извън страната)/,
+      );
+    }
+  });
+});
+
 describe("oblastLabel", () => {
   it("composes the tier word in the right position per form", () => {
     expect(oblastLabel("Пловдив", "bg", "compact")).toBe("обл. Пловдив");
@@ -127,10 +198,10 @@ describe("oblastLabel", () => {
       }
   });
 
-  // The regression this file exists for: six of the 31 regions (PDV, SFO, S23,
-  // S24, S25 and the abroad district 32) hold a name that already reads as its
-  // own tier, and ~1.2k prerendered pages named one of them with a tier word of
-  // their own — "гр. Карлово, обл. обл. Пловдив", "Област Извън страната".
+  // The regression this file exists for: six of the 32 rows in regions.json (PDV,
+  // SFO, S23, S24, S25 and the abroad district 32) hold a name that already reads
+  // as its own tier, and ~1.2k prerendered pages named one of them with a tier
+  // word of their own — "гр. Карлово, обл. обл. Пловдив", "Област Извън страната".
   it("never doubles a tier word for any region in regions.json", () => {
     for (const form of FORMS)
       for (const r of regions) {
@@ -142,6 +213,25 @@ describe("oblastLabel", () => {
           for (const bad of DOUBLED) expect(label).not.toMatch(bad);
         }
       }
+  });
+
+  // The uniqueness sweep above passes `code` for every row — but four call sites
+  // that label a region-scale page omit it, which is how the PDV/PDV-00 <title>
+  // collision shipped. This pins the consequence as an assertion rather than a
+  // comment: WITHOUT the code, exactly one pair is indistinguishable, so a new
+  // region page that forgets the argument has one documented way to be wrong.
+  it("without the code, PDV and PDV-00 are the only indistinguishable pair", () => {
+    for (const form of FORMS) {
+      const byLabel = new Map<string, string[]>();
+      for (const r of regions) {
+        const label = oblastLabel(nameOf(r), "bg", form);
+        byLabel.set(label, [...(byLabel.get(label) ?? []), r.oblast]);
+      }
+      const collisions = [...byLabel.values()]
+        .filter((codes) => codes.length > 1)
+        .map((codes) => [...codes].sort().join("+"));
+      expect(collisions).toEqual(["PDV+PDV-00"]);
+    }
   });
 
   it("returns an empty label for an empty name rather than a bare tier word", () => {

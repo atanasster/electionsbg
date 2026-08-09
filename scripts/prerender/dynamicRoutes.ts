@@ -45,7 +45,11 @@ import {
   judicialNum,
   judicialTierAdjective,
 } from "@/lib/judicialKind";
-import { bareOblastName, oblastLabel } from "@/lib/oblastName";
+import {
+  bareOblastName,
+  oblastLabel,
+  type OblastLabelForm,
+} from "@/lib/oblastName";
 import { kfnFundName } from "@/lib/kfnFundSlug";
 import { kfnSharePct } from "@/lib/kfnPeriod";
 import {
@@ -825,16 +829,24 @@ export const buildGovernanceRegionRoutes = (
   return regions
     .filter((r) => r.oblast !== "32")
     .map((r) => {
-      const displayName = bareOblastName(r.long_name || r.name);
-      const displayNameEn = bareOblastName(
-        r.long_name_en || r.name_en || r.name,
-      );
+      // This set is filtered on `oblast !== "32"` only, so it holds BOTH PDV (the
+      // province) and PDV-00 (the градски МИР inside it) — two different pages.
+      // Every label here therefore takes the code, or the two share a <title>.
+      const bg = (form: OblastLabelForm) =>
+        oblastLabel(r.long_name || r.name, "bg", form, r.oblast);
+      const en = (form: OblastLabelForm) =>
+        oblastLabel(
+          r.long_name_en || r.name_en || r.name,
+          "en",
+          form,
+          r.oblast,
+        );
       const url = `${SITE_URL}/governance/region/${r.oblast}`;
       const enUrl = `${SITE_URL}/en/governance/region/${r.oblast}`;
-      const title = `Управление — ${oblastLabel(displayName, "bg", "prose")} | electionsbg.com`;
-      const description = `Регионален разрез на управлението в ${oblastLabel(displayName, "bg", "prose")}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
-      const titleEn = `Governance — ${oblastLabel(displayNameEn, "en", "prose")} | electionsbg.com`;
-      const descriptionEn = `A regional cut of governance in ${oblastLabel(displayNameEn, "en", "prose")}: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
+      const title = `Управление — ${bg("prose")} | electionsbg.com`;
+      const description = `Регионален разрез на управлението в ${bg("prose")}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
+      const titleEn = `Governance — ${en("prose")} | electionsbg.com`;
+      const descriptionEn = `A regional cut of governance in ${en("prose")}: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
       const munis = munisByOblast.get(r.oblast) ?? [];
       return {
         path: `governance/region/${r.oblast}`,
@@ -852,7 +864,7 @@ export const buildGovernanceRegionRoutes = (
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
             { name: "Управление", url: `${SITE_URL}/governance` },
-            { name: oblastLabel(displayName, "bg", "leading"), url },
+            { name: bg("leading"), url },
           ]),
         ],
         english: {
@@ -874,7 +886,7 @@ export const buildGovernanceRegionRoutes = (
             buildBreadcrumbLd([
               { name: "Home", url: EN_HOME },
               { name: "Governance", url: `${SITE_URL}/en/governance` },
-              { name: oblastLabel(displayNameEn, "en", "leading"), url: enUrl },
+              { name: en("leading"), url: enUrl },
             ]),
           ],
         },
@@ -4355,19 +4367,23 @@ export const buildLocalRegionRoutes = (
     const date = formatLocalCycleDate(cycle);
     for (const r of rs.regions ?? []) {
       if (r.oblast === "SOF") continue; // redirects to the município page
-      const display = nameOf.get(r.oblast) ?? r.oblast;
-      const displayEn = nameEnOf.get(r.oblast) ?? r.oblast;
+      // PDV-00 is present in every cycle's regions_summary alongside PDV, so
+      // these labels take the code for the same reason the governance ones do.
+      const bg = (form: OblastLabelForm) =>
+        oblastLabel(nameOf.get(r.oblast) ?? r.oblast, "bg", form, r.oblast);
+      const en = (form: OblastLabelForm) =>
+        oblastLabel(nameEnOf.get(r.oblast) ?? r.oblast, "en", form, r.oblast);
       const url = `${SITE_URL}/local/${cycle}/region/${r.oblast}`;
-      const title = `Местни избори ${date} — ${oblastLabel(display, "bg", "prose")} | electionsbg.com`;
-      const description = `Резултати от местните избори на ${date} в ${oblastLabel(display, "bg", "prose")} — кметове по общини и места в общинските съвети по партии.`;
-      const titleEn = `Local Elections ${date} — ${displayEn} | electionsbg.com`;
-      const descriptionEn = `${date} Bulgarian local-election results in ${oblastLabel(displayEn, "en", "prose")} — mayors by municipality and council seats by party.`;
+      const title = `Местни избори ${date} — ${bg("prose")} | electionsbg.com`;
+      const description = `Резултати от местните избори на ${date} в ${bg("prose")} — кметове по общини и места в общинските съвети по партии.`;
+      const titleEn = `Local Elections ${date} — ${en("prose")} | electionsbg.com`;
+      const descriptionEn = `${date} Bulgarian local-election results in ${en("prose")} — mayors by municipality and council seats by party.`;
       out.push({
         path: `local/${cycle}/region/${r.oblast}`,
         title,
         description,
         ogImage: `/og/local/region/${cycle}/${r.oblast}.png`,
-        bodyHtml: `<h1>Местни избори ${date} — ${escapeHtmlSimple(oblastLabel(display, "bg", "prose"))}</h1><p>Кметове по общини и разпределение на местата в общинските съвети по партии.</p>`,
+        bodyHtml: `<h1>Местни избори ${date} — ${escapeHtmlSimple(bg("prose"))}</h1><p>Кметове по общини и разпределение на местата в общинските съвети по партии.</p>`,
         jsonLd: [
           buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd([
@@ -4376,13 +4392,13 @@ export const buildLocalRegionRoutes = (
               name: `Местни избори ${date}`,
               url: `${SITE_URL}/local/${cycle}`,
             },
-            { name: display, url },
+            { name: bg("leading"), url },
           ]),
         ],
         english: {
           title: titleEn,
           description: descriptionEn,
-          bodyHtml: `<h1>Local elections ${date} — ${escapeHtmlSimple(displayEn)}</h1><p>Mayors by municipality and council-seat distribution by party.</p>`,
+          bodyHtml: `<h1>Local elections ${date} — ${escapeHtmlSimple(en("prose"))}</h1><p>Mayors by municipality and council-seat distribution by party.</p>`,
           jsonLd: [
             buildWebPageLd({
               title: titleEn,

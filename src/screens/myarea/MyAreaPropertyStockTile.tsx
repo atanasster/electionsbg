@@ -22,6 +22,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { oblastLabel } from "@/lib/oblastName";
 import {
   useLandUse,
   type CategoryKey,
@@ -71,7 +72,10 @@ const formatDensity = (v: number, lang: "bg" | "en"): string => {
 const categoryLabel = (c: LandUseCategory, lang: "bg" | "en"): string =>
   lang === "bg" ? c.bg : c.en;
 
-const oblastLabel = (r: LandUseOblast, lang: "bg" | "en"): string =>
+// NOT the shared `oblastLabel` — this only picks the localized name off a
+// land-use row. Named apart from it so the two cannot be confused: the shared
+// one composes the tier word, this one must be fed INTO it.
+const landUseOblastName = (r: LandUseOblast, lang: "bg" | "en"): string =>
   lang === "bg" ? r.nameBg : r.nameEn;
 
 // Comparison line: how the oblast's urbanized share compares to the
@@ -144,8 +148,8 @@ export const MyAreaPropertyStockTile: FC<Props> = ({ oblast }) => {
 
       <div className="text-xs text-muted-foreground mb-2">
         {lang === "bg"
-          ? `Земеползване в област ${oblastLabel(oblastRow, "bg")} — ${formatKm2(oblastRow.totalKm2, lang)}, гъстота ${formatDensity(oblastRow.popDensityTotal, lang)}.`
-          : `Land use in ${oblastLabel(oblastRow, "en")} district — ${formatKm2(oblastRow.totalKm2, lang)}, density ${formatDensity(oblastRow.popDensityTotal, lang)}.`}
+          ? `Земеползване в ${oblastLabel(landUseOblastName(oblastRow, "bg"), "bg", "prose")} — ${formatKm2(oblastRow.totalKm2, lang)}, гъстота ${formatDensity(oblastRow.popDensityTotal, lang)}.`
+          : `Land use in ${landUseOblastName(oblastRow, "en")} district — ${formatKm2(oblastRow.totalKm2, lang)}, density ${formatDensity(oblastRow.popDensityTotal, lang)}.`}
       </div>
 
       {/* Stacked composition bar */}

@@ -7,7 +7,11 @@ import type { PlaceAliasReason } from "@/data/schools/educationPlaceKey";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
 import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
-import { bareOblastName, oblastLabel } from "@/lib/oblastName";
+import {
+  bareOblastName,
+  oblastLabel,
+  type OblastLabelForm,
+} from "@/lib/oblastName";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
@@ -1344,26 +1348,27 @@ export const buildGovernanceRegionBody = (
       ? region.long_name_en || region.name_en || region.name
       : region.long_name || region.name,
   );
+  // This builder is called for BOTH PDV (the province) and PDV-00 (the градски
+  // МИР inside it), whose names both bare to "Пловдив" — so every label takes
+  // the code, or the two pages emit an identical <h1> and lede.
+  const label = (form: OblastLabelForm) =>
+    oblastLabel(displayName, en ? "en" : "bg", form, region.oblast);
   const parts: string[] = [];
   if (en) {
+    parts.push(`<h1>Governance — ${escapeHtml(label("prose"))}</h1>`);
     parts.push(
-      `<h1>Governance — ${escapeHtml(oblastLabel(displayName, "en", "prose"))}</h1>`,
+      `<p>A regional cut of governance for ${escapeHtml(label("prose"))}: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), the state matura result of its schools, regional indicators (GDP per head, migration, registered unemployment), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
     );
     parts.push(
-      `<p>A regional cut of governance for ${escapeHtml(oblastLabel(displayName, "en", "prose"))}: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), the state matura result of its schools, regional indicators (GDP per head, migration, registered unemployment), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
-    );
-    parts.push(
-      `<p><a href="${SITE_URL}/en/governance">Governance (country)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Election results in ${escapeHtml(displayName)}</a></p>`,
+      `<p><a href="${SITE_URL}/en/governance">Governance (country)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Election results in ${escapeHtml(label("prose"))}</a></p>`,
     );
   } else {
+    parts.push(`<h1>Управление — ${escapeHtml(label("prose"))}</h1>`);
     parts.push(
-      `<h1>Управление — ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}</h1>`,
+      `<p>Регионален разрез на управлението за ${escapeHtml(label("prose"))}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), успехът на матурата в училищата, регионални индикатори (БВП на човек, миграция, регистрирана безработица), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
     );
     parts.push(
-      `<p>Регионален разрез на управлението за ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), успехът на матурата в училищата, регионални индикатори (БВП на човек, миграция, регистрирана безработица), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
-    );
-    parts.push(
-      `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в ${escapeHtml(oblastLabel(displayName, "bg", "compact"))}</a></p>`,
+      `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в ${escapeHtml(label("compact"))}</a></p>`,
     );
   }
   // Education before the municipality list: it is the substance of the page,
@@ -1375,8 +1380,8 @@ export const buildGovernanceRegionBody = (
       en ? m.name_en || m.name : m.name;
     parts.push(
       en
-        ? `<h2>Municipalities in ${escapeHtml(oblastLabel(displayName, "en", "prose"))}</h2>`
-        : `<h2>Общини в ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}</h2>`,
+        ? `<h2>Municipalities in ${escapeHtml(label("prose"))}</h2>`
+        : `<h2>Общини в ${escapeHtml(label("prose"))}</h2>`,
     );
     const sorted = [...munis].sort((a, b) =>
       muniLabel(a).localeCompare(muniLabel(b), en ? "en" : "bg"),
