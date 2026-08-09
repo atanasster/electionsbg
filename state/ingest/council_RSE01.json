@@ -1,6 +1,22 @@
 {
   "skill": "council_RSE01",
-  "lastSuccessfulIngest": "2026-08-09T08:54:34.118Z",
+  "lastSuccessfulIngest": "2026-08-09T14:27:18.192Z",
   "summary": "0 prot(s) → 0+/0=/211 total",
-  "sinceDate": "2026-07-16"
+  "sinceDate": "2026-07-16",
+  "deferred": [
+    {
+      "url": "https://obs.ruse-bg.eu/wp-content/uploads/2025/07/протокол_23_на_PDF.pdf",
+      "message": "PDF variant skipped (use --include-pdf when supported)",
+      "firstSeen": "2026-08-09T14:09:10.184Z",
+      "attempts": 3,
+      "givenUp": true
+    },
+    {
+      "url": "https://obs.ruse-bg.eu/wp-content/uploads/2025/09/протокол-24-16.09.pdf",
+      "message": "PDF variant skipped (use --include-pdf when supported)",
+      "firstSeen": "2026-08-09T14:09:10.184Z",
+      "attempts": 3,
+      "givenUp": true
+    }
+  ]
 }
