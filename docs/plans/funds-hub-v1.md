@@ -126,6 +126,83 @@ The funds corpus has at least four live basis traps, all of which have already b
 
 Each tile's figure is stated in one clause in the registry comment, or it does not ship.
 
+### 4.2 The basis table — MEASURED 2026-08-09 against local Postgres
+
+Every figure the hub may show, with its denominator and the alternatives rejected. A gate
+asserts each of these, **with the rejected value as an explicit `notEqual`** — a wrong basis
+is usually one word away from the right one.
+
+| figure | **value** | basis | rejected, and why |
+|---|---|---|---|
+| beneficiaries | **47 599** | `DISTINCT COALESCE(beneficiary_eik, 'n:'‖beneficiary_name)` | **46 174** = EIK only. The two differ by **1 425 organisations** — the EIK-less rows are 7 240 (8.8% of rows) but they collapse onto far fewer distinct names, so quote 1 425 as the gap and 7 240 as the row count, never one as the other. This trap shipped once already, on the procedure base-rate card |
+| programmes | **47** | `DISTINCT program_code` | — |
+| contracted | **€44.07 bn** | `SUM(total_eur)` — contract value, incl. the beneficiary's own co-finance | grant €33.63 bn; paid €18.11 bn |
+| grant | **€33.63 bn** | `SUM(grant_eur)` — the public contribution | |
+| paid | **€18.11 bn** | `SUM(paid_eur)` | |
+| **absorption** | **53.8%** | paid ÷ **grant** | **41.1%** = paid ÷ contracted. Both are defensible sentences and they differ by 12.7 points; „усвояване" means the public money disbursed against the public money committed, so it is the grant denominator |
+| oblasti | **28** | `DISTINCT canon_oblast(oblast)` | **31 raw** — `S22/S23/S24/S25` split Sofia city four ways. Bulgaria has 28 |
+| settlements | 3 279 | `DISTINCT ekatte` (70 700 of 82 011 rows carry one) | not municipalities |
+| **place-map money** | **€22.01 bn** | `SUM(total_eur) WHERE oblast IS NOT NULL` | **NOT €44.07 bn.** See the coverage note below — this is the single most dangerous cell in the table |
+| RRF | **€17.74 bn** / 14 180 | `program_code LIKE '2021BG-RRP%'` | its absorption is **29.98%** on grant and 21.14% on contracted — a single unlabelled RRF percentage inherits the same 8.8-point fork as the corpus figure |
+| Interreg operations | **1 954** | `interreg_operations` | |
+| Interreg BG partners | **1 493 rows / 983 orgs** | rows = partnership entries; orgs = `DISTINCT COALESCE(eik,'n:'‖partner_name)` | An organisation partnering on five operations is five rows. „1 493 партньора" over-counts by 52%; use the one the sentence means, and the SAME DISTINCT discipline this table applies to ИСУН beneficiaries |
+| Interreg BG money | **€396.39 m** | `SUM(budget_eur)` for BG partners — a **published partner budget** | **NOT summable with the ИСУН figures**: those are contract values. Two quantities, never one total |
+| dual-corpus companies | **5 689** | firms in BOTH corpora, matched EIK-to-EIK | the cached blob renders a **top-1 000**, so a tile leading with 5 689 lands on a page listing 1 000 — see the note below. Its denominator is the **EIK-only** arm (`fund_beneficiaries`, 46 164), the arm this table's first row rejects — so if a share is ever shown it is **12.32%** of 46 164, never 11.95% of 47 599 |
+| dual-corpus combined | €39.58 bn | funds + procurement | |
+| politically-linked EIKs | **852** | `mpOnly 189 + officialOnly 606 + both 57` (reconciles exactly) | 521 = `company_politicians` rows, a different set |
+| politically-linked money | €7.52 bn contracted | | paid €3.04 bn |
+| high-concentration programmes | **18** of 47 | | moderate 7 — do not add them into one „25" |
+| focus dossiers | **5** | `themes.json` | |
+
+**THE PLACE COVERAGE IS A ROW/MONEY INVERSION, and it is the finding of this step.** Only
+**3 779 rows (4.6%) carry no oblast** — a coverage figure that sounds like a rounding error and
+is how the omission gets waved through. Those rows hold **€22.06 bn, or 50.05% of all the
+money.** So `/funds/places` maps €22.01 bn while the hub's headline says €44.07 bn: both
+correct, and side by side without a label they say the map lost half the money to nothing.
+
+Two rules follow, and they bind every place surface in this plan:
+
+1. **A place figure declares MONEY coverage, never row coverage.** „4.6% от договорите нямат
+   място" is true and misleading; „картата покрива 50% от парите" is the fact.
+2. **The map's total and the hub's total are different figures and may never sit unlabelled in
+   the same band.** The map is „€22.01 млрд., разпределени по области"; the corpus is
+   „€44.07 млрд. договорени".
+
+The cause is worth knowing rather than guessing at: the unplaced money is concentrated in the
+national-scope programmes (transport corridors, RRF instruments, technical assistance) that
+have no single oblast to sit in. That is a property of the money, not a gap in the ingest, so
+it will not improve with a better parser — the label is the fix.
+
+**The destination-basis rule bites on dual-corpus.** `companyCount` is 5 689 while the cached
+payload carries 1 000 rows. Per the skill, the tile must lead with what the destination can
+show — so either the page renders all 5 689, or the tile says „топ 1 000". Decided at step 5.
+
+**Two documentation corrections, found by this measurement.** Both are in
+`docs/plans/funds-module-v2.md` — **not** in CLAUDE.md, which contains no such text; naming the
+wrong file would have sent step 2 looking for something that is not there.
+
+1. **`funds-module-v2.md:219`** describes `fund_projects` as „ИСУН + EEA/Norway". The corpus is
+   wider: 570 rows (**0.94% of the money, €413.6 m**) sit outside the `2014BG*`/`2021BG*` codes
+   and include ФНИ (Фонд Научни изследвания, 116 rows), Цифрова Европа (65), the 2023 CAP
+   Strategic Plan (97) and SBRP, alongside the EEA/Norway programmes (BGENERGY / BGLD /
+   BGCULTURE / BGENVIRONMENT / BGHOMEAFFAIRS / BGJUSTICE).
+
+   **Do not overstate this.** ФНИ is the only genuinely national money in the set and it is
+   **€1.06 m — 0.0024% of the corpus.** It does not move any figure. What it changes is the
+   LABEL: „договори в ИСУН 2020" is exactly right and „европейски средства" is very slightly
+   wrong, so the tile copy uses the former. That is the whole finding.
+2. **`funds-module-v2.md:658`** carries a stale „Бенефициенти ~30 000" in its tile-basis table
+   against the measured **47 599** — a 59% understatement that any hub tile copying it inherits.
+
+Both are corrected at step 2, in that file.
+
+### 4.3 One incidental integrity note, unrelated to the hub
+
+`fund_beneficiaries` holds **46 164** rows against **46 174** distinct non-null
+`beneficiary_eik` in `fund_projects` — **10 EIKs short**, with no malformed EIK to explain it.
+Too small to move any figure on this hub, and out of scope for it, but it means the two tables
+disagree about who exists. Worth a look when the funds loader is next touched.
+
 ---
 
 ## 5. Steps
