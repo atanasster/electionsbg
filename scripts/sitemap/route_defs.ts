@@ -112,6 +112,7 @@ export const ENGLISH_STATIC_PAGES = [
   "procurement/by-settlement",
   "subsidies",
   "funds",
+  "funds/calls",
   "funds/political",
   "funds/integrity",
   "funds/rrf",
@@ -400,6 +401,12 @@ export const routeDefs = (year: string): RouteDefs => [
 
   // EU funds — ИСУН 2020 corpus.
   { path: "funds", file: `data/funds/index.json` },
+  // The page is a live register served from Postgres, so its lastmod is stamped from the
+  // SNAPSHOT the loader reads rather than from a derived artifact — that file moves on every
+  // crawl, which is exactly the cadence a crawler should see. (`sp2023.json` moves far more
+  // rarely, so the ИСУН one is the honest signal.) No per-call `<loc>`: an individual procedure
+  // has no page here, every row links out to the source register.
+  { path: "funds/calls", file: `data/opencalls/isun.json` },
   { path: "funds/political", file: `data/funds/derived/political_links.json` },
   { path: "funds/integrity", file: `data/funds/derived/integrity.json` },
   { path: "funds/rrf", file: `data/funds/rrf_context.json` },

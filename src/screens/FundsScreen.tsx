@@ -36,6 +36,7 @@ import { RrfTeaserTile } from "./funds/RrfTeaserTile";
 import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
 import { InterregTile } from "./funds/InterregTile";
 import { FundsFinder } from "./funds/FundsFinder";
+import { OpenCallsTile } from "./funds/OpenCallsTile";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -231,6 +232,12 @@ export const FundsScreen: FC = () => {
             KPI strip below used to be the first thing on the page — that ordering is what
             docs/plans/funds-module-v2.md §5.2 calls out as analysis-first. */}
         <FundsFinder className="mb-4" />
+
+        {/* BAND 1, second half. The finder answers „намери нещо конкретно"; this answers
+            „какво мога да подам сега" — the question ~68% of the measured demand actually asks.
+            Both sit above the KPI strip, because an aggregate is where you arrive AFTER a
+            look-up, not an entry point. */}
+        <OpenCallsTile />
 
         {/* HERO: 4 clickable KPI cards then the choropleth map. */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

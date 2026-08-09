@@ -30,6 +30,10 @@ const ok =
   async () =>
     rows;
 
+/** The ONE totals query — four scalar subqueries in a single round trip. Distinguished by its
+ *  `count(*)`; a group SELECT never has one. */
+const isTotals = (sql) => /count\(\*\)/.test(sql);
+
 /** A dbRows that always fails with `code`. */
 const failing = (code) => async () => {
   const e = new Error(`simulated ${code}`);
@@ -58,12 +62,62 @@ test("returns the three groups plus the crawl stamp", async () => {
   assert.equal(body.calls.length, 2);
 });
 
+test("group totals count the GROUP, not the page returned", async () => {
+  // The tile shows this number beside each heading and links to /funds/calls. Counting the
+  // returned array announced „отворено сега: 20" (the limit) beside a browse page showing 45.
+  // The stub answers every count query with n=45, so a correct route reports 45 while returning
+  // one row per group — the very divergence the totals exist to survive.
+  // The stub answers the totals query with 45/11/0 while every group SELECT returns one row, so
+  // a correct route reports the totals — the very divergence they exist to survive.
+  const dbRows = async (sql) =>
+    isTotals(sql) ? [{ calls: 45, indicative: 11, consultations: 0 }] : [CALL];
+  const { body } = await route(dbRows, { limit: "1" });
+  assert.equal(body.totals.calls, 45);
+  assert.equal(body.totals.indicative, 11);
+  assert.equal(body.totals.consultations, 0);
+  // open + upcoming, one row each from the stub.
+  assert.equal(body.calls.length, 2, "the ROWS are still the limited page");
+});
+
+test("a totals row the database did not return degrades to zero, not NaN", async () => {
+  // `totalRows[0]` is undefined on the degrade path and on any future shape change. The tile
+  // reads `totals.calls` straight into a heading, so `undefined` would render „NaN".
+  const dbRows = async (sql) => (isTotals(sql) ? [] : [CALL]);
+  const { body } = await route(dbRows, {});
+  assert.deepEqual(body.totals, { calls: 0, indicative: 0, consultations: 0 });
+});
+
+test("totals are counted through open_calls_list, with the audience filter", async () => {
+  // A second WHERE over the view would drift from the list's own predicate — the count would
+  // then describe a different set from the rows beneath it, which is the bug in a new place.
+  const counts = [];
+  const dbRows = async (sql, params) => {
+    if (isTotals(sql)) counts.push({ sql, params });
+    return isTotals(sql) ? [{ calls: 0, indicative: 0, consultations: 0 }] : [];
+  };
+  await route(dbRows, { audience: "farmer" });
+  assert.equal(counts.length, 1, "one round trip, not one per group");
+  const { sql, params } = counts[0];
+  // Four subqueries — one per group — all through the list function.
+  assert.equal((sql.match(/open_calls_list\(/gu) ?? []).length, 4);
+  assert.deepEqual(params, ["farmer"], "the audience filter must reach the count");
+  // NULL is the UNBOUNDED limit (142). A number would be clamped by the function's own
+  // LEAST(p_limit, 2000) and every total would silently saturate there.
+  assert.equal((sql.match(/, NULL\)\)/gu) ?? []).length, 4);
+  assert.ok(!/1000000|\b2000\b/.test(sql), "no numeric ceiling on a count");
+});
+
 test("groups are never merged — each is its own query", async () => {
   // If the route ranked once and partitioned afterwards, a stub that returns a single row per
   // query could not produce four independently-populated groups.
   const seen = [];
   const dbRows = async (sql, params) => {
-    seen.push(params ? params.slice(0, 2) : null);
+    // The single totals query and the crawl-stamp query are not group SELECTs.
+    seen.push(
+      !isTotals(sql) && params && params.length === 4
+        ? params.slice(0, 2)
+        : null,
+    );
     return [];
   };
   await route(dbRows, {});
@@ -83,11 +137,14 @@ test("groups are never merged — each is its own query", async () => {
 for (const code of ["42883", "42P01", "55000", "55P03"]) {
   test(`degrades to an empty page on ${code}`, async () => {
     const { body } = await route(failing(code), {});
+    // The totals must be ZERO rather than absent: the tile reads `totals.calls` directly, so an
+    // undefined here would render „NaN" on exactly the first-deploy path this branch serves.
     assert.deepEqual(body, {
       calls: [],
       indicative: [],
       consultations: [],
       crawl: [],
+      totals: { calls: 0, indicative: 0, consultations: 0 },
     });
   });
 }
@@ -120,16 +177,23 @@ test("an unexpected error still propagates", async () => {
 });
 
 test("limit is clamped and audience is passed through", async () => {
-  const params = [];
-  const dbRows = async (_sql, p) => {
-    if (p) params.push(p);
-    return [];
+  const calls = [];
+  const dbRows = async (sql, p) => {
+    if (p) calls.push({ isCount: isTotals(sql), p });
+    return [{ calls: 0, indicative: 0, consultations: 0 }];
   };
   await route(dbRows, { limit: "9999", audience: "farmer" });
-  for (const p of params) {
-    assert.equal(p[2], "farmer", "audience must reach the function");
-    assert.ok(p[3] <= 200, `limit ${p[3]} exceeds the ceiling`);
+  const lists = calls.filter((c) => !c.isCount);
+  const counts = calls.filter((c) => c.isCount);
+  assert.equal(lists.length, 4);
+  assert.equal(counts.length, 1);
+  for (const c of lists) {
+    assert.equal(c.p[2], "farmer", "audience must reach every group query");
+    assert.ok(c.p[3] <= 200, `limit ${c.p[3]} exceeds the ceiling`);
   }
+  // The totals query takes the audience and NOTHING else: a total clamped to the caller's page
+  // size is the bug the totals were added to fix, one layer down.
+  assert.deepEqual(counts[0].p, ["farmer"]);
 });
 
 test("a blank audience becomes NULL, not an empty string", async () => {
@@ -141,7 +205,9 @@ test("a blank audience becomes NULL, not an empty string", async () => {
     return [];
   };
   await route(dbRows, { audience: "  " });
-  for (const p of params) assert.equal(p[2], null);
+  // The group queries carry it at index 2, the single totals query at index 0 — in BOTH the
+  // blank must have become NULL.
+  for (const p of params) assert.equal(p.length === 4 ? p[2] : p[0], null);
 });
 
 // ── Registry contract (db_table.js), which the browse page depends on ──────────────────

@@ -935,20 +935,52 @@ const DB_ROUTES = {
     // narrower tiers — the same failure the hub-search rule documents.
     const group = (status, kind) =>
       dbRows(
+        // PROJECTION IS DELIBERATELY NARROW. `docs` (a jsonb array) and `objective` were 37%
+        // and 19% of this response respectively and are rendered by nothing — neither the tile
+        // nor /funds/calls, whose registry `select` already omits both. This is a HUB payload,
+        // paid by every visitor. `status` and `opensAt` stay because the tile marks a
+        // not-yet-open call from them; `enrichment` stays because it is the provenance a money
+        // figure is only shown under. Add a field back when a consumer renders it.
         `SELECT id, source, source_key AS "sourceKey", code, kind, title,
                 programme_name AS "programmeName",
-                objective, status, date_precision AS "datePrecision",
-                opens_at AS "opensAt", closes_at AS "closesAt",
+                status, opens_at AS "opensAt", closes_at AS "closesAt",
                 period_label AS "periodLabel", days_left AS "daysLeft",
-                budget_eur AS "budgetEur", budget_note AS "budgetNote",
+                budget_eur AS "budgetEur",
                 aid_rate_pct AS "aidRatePct", grant_max_eur AS "grantMaxEur",
-                beneficiaries_raw AS "beneficiariesRaw", audience, territory,
-                source_url AS "sourceUrl", docs, enrichment
+                audience, source_url AS "sourceUrl", enrichment
          FROM open_calls_list($1, $2, $3, NULL, $4)`,
         [status, kind, audience, lim],
       );
 
-    const [calls, upcoming, indicative, consultations, crawl] = await Promise.all([
+    // GROUP TOTALS, and they are not decoration. The tile shows a count beside each section
+    // heading and links to /funds/calls; without this it counted the returned ARRAY, so with
+    // `limit=20` it announced „отворено сега: 20" next to a browse page showing 45 — two numbers
+    // for one fact, and the smaller one on the page a reader sees first.
+    //
+    // Counted THROUGH open_calls_list() rather than with a second WHERE over the view, so the
+    // count and the list cannot disagree: they run the identical predicate, including the
+    // audience filter.
+    //
+    // NULL as the limit means UNBOUNDED (142). A number would be clamped by the function's own
+    // `LEAST(p_limit, 2000)` and the total would silently saturate there once a group grew —
+    // which on a table the loader never deletes from is a question of when, not if.
+    //
+    // ONE round trip, four scalar subqueries. As four separate queries this route issued nine
+    // against a pool of four, so they ran in ~3 waves; the counts are also the cheap half, so
+    // paying a wave for them was the wrong trade.
+    const totalsQuery = dbRows(
+      `SELECT (SELECT count(*) FROM open_calls_list('open', 'call', $1, NULL, NULL))::int
+                + (SELECT count(*) FROM open_calls_list('upcoming', 'call', $1, NULL, NULL))::int
+                AS calls,
+              (SELECT count(*) FROM open_calls_list('indicative', 'call', $1, NULL, NULL))::int
+                AS indicative,
+              (SELECT count(*) FROM open_calls_list('consultation', 'consultation', $1, NULL, NULL))::int
+                AS consultations`,
+      [audience],
+    );
+
+    const [calls, upcoming, indicative, consultations, crawl, totalRows] =
+      await Promise.all([
       group("open", "call"),
       group("upcoming", "call"),
       group("indicative", "call"),
@@ -957,6 +989,7 @@ const DB_ROUTES = {
         `SELECT source, crawled_at AS "crawledAt", rows_seen AS "rowsSeen", ok, note
          FROM open_calls_crawl ORDER BY source`,
       ),
+      totalsQuery,
     ]).catch((e) => {
       // 42883 FIRST, and it is the one that matters: the four group queries call
       // open_calls_list(), a FUNCTION, so a database without migration 142 raises
@@ -970,18 +1003,31 @@ const DB_ROUTES = {
           "oc:not-built",
           "open_calls is absent, empty or locked — serving an empty page. Run db:load:open-calls:pg (and :cloud on prod).",
         );
-        return [[], [], [], [], []];
+        // One empty array per destructured position — four groups, the crawl stamps and the
+        // totals row. A short array would leave `totalRows` undefined and throw on `[0]`,
+        // turning the degrade path into the 500 it exists to avoid.
+        return [[], [], [], [], [], []];
       }
       throw e;
     });
 
+    const tot = totalRows[0] ?? {};
     return {
       body: {
-        // open first, then not-yet-opened: both are real calls and share a section.
+        // open first, then not-yet-opened: both are real calls and share a section. Each row
+        // carries its own `status`, so the client marks the not-yet-open ones rather than
+        // letting them read as open — the merge is a layout decision, not a claim.
         calls: [...calls, ...upcoming],
         indicative,
         consultations,
         crawl,
+        // The `calls` total sums the two statuses that group merges, so the heading count and
+        // the rows under it describe the same set.
+        totals: {
+          calls: tot.calls ?? 0,
+          indicative: tot.indicative ?? 0,
+          consultations: tot.consultations ?? 0,
+        },
       },
     };
   },

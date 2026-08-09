@@ -591,6 +591,11 @@ const CandidateFundsScreen = lazy(() =>
     default: m.CandidateFundsScreen,
   })),
 );
+const OpenCallsScreen = lazy(() =>
+  import("./screens/funds/OpenCallsScreen").then((m) => ({
+    default: m.OpenCallsScreen,
+  })),
+);
 const FundsProgramScreen = lazy(() =>
   import("./screens/funds/FundsProgramScreen").then((m) => ({
     default: m.FundsProgramScreen,
@@ -1081,9 +1086,9 @@ const MunicipalitiesConcentration = lazy(() =>
   ),
 );
 const MunicipalitiesAdditionalVoters = lazy(() =>
-  import(
-    "./screens/reports/municipalities/MunicipalitiesAdditionalVoters"
-  ).then((m) => ({ default: m.MunicipalitiesAdditionalVoters })),
+  import("./screens/reports/municipalities/MunicipalitiesAdditionalVoters").then(
+    (m) => ({ default: m.MunicipalitiesAdditionalVoters }),
+  ),
 );
 const MunicipalitiesInvalidBallots = lazy(() =>
   import("./screens/reports/municipalities/MunicipalitiesInvalidBallots").then(
@@ -2568,6 +2573,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <FundsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/calls"
+            element={
+              <LayoutScreen>
+                <OpenCallsScreen />
               </LayoutScreen>
             }
           />

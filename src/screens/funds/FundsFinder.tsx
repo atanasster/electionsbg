@@ -80,7 +80,7 @@ const joinSub = (parts: (string | null | undefined)[]): string | undefined => {
  *  that runs 9–15 statements.
  *
  *  It deliberately does NOT swallow errors. `HubSearch` tracks a `failed` set built from sources
- *  whose `fetch` THROWS, and drops failed sources from the „търсено в: …" line rather than
+ *  whose `fetch` THROWS, and drops failed sources from the „търсено в: …“ line rather than
  *  reporting them as searched-and-empty. Returning `{}` on a 500 would assert an empty corpus.
  *  Both sibling modules (`parliamentSearch.ts`, `declarationsSearch.ts`) throw for the same
  *  reason.
@@ -88,8 +88,8 @@ const joinSub = (parts: (string | null | undefined)[]): string | undefined => {
  *  Two consequences of sharing, both accepted:
  *  - a failure fails BOTH groups, since there is only one request. That is honest here: the two
  *    groups come from one endpoint, so its being down really does mean neither was searched.
- *  - verified 2026-08-08 by forcing a 500: the sources leave the „търсено в" list as intended,
- *    but HubSearch's all-failed empty state still renders a bare „Няма съвпадения." Making that
+ *  - verified 2026-08-08 by forcing a 500: the sources leave the „търсено в“ list as intended,
+ *    but HubSearch's all-failed empty state still renders a bare „Няма съвпадения.“ Making that
  *    say "search failed" is a change to the SHARED component (it would also affect /parliament
  *    and /governance/declarations), so it is flagged rather than made here. */
 const makeSharedFetch = (): ((

@@ -64,6 +64,15 @@ const specs: Spec[] = [
     settleMs: 1500,
   },
   {
+    // The open-calls register. `waitFor` is the TABLE and not `h1`, because the rows arrive from
+    // /api/db/table after the shell paints — shooting on the heading alone would capture the
+    // empty skeleton, which is the one thing this card must not show.
+    route: "/funds/calls?elections=2026_04_19",
+    file: "funds-calls.png",
+    waitFor: "table tbody tr",
+    settleMs: 1500,
+  },
+  {
     route: "/funds/focus/guest-houses?elections=2026_04_19",
     file: "funds-focus.png",
     waitFor: "h1",

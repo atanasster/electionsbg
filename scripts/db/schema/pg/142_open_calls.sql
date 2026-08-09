@@ -70,11 +70,20 @@ CREATE TABLE IF NOT EXISTS open_calls (
   closes_at       timestamptz,
   period_label    text,                    -- "В периода октомври-декември, не по-кратък от 60 дни"
 
-  budget_eur      numeric,
+  -- `double precision`, NOT `numeric`, and that is a SERVING requirement rather than a
+  -- precision preference. node-postgres serializes PG `numeric` as a STRING, so a numeric
+  -- money column arrives in JSON as "10000000" — `formatEur()` gets a string, returns nothing,
+  -- and every money cell on /funds/calls and the /funds tile renders BLANK while the number is
+  -- sitting right there in the response. Measured on the ДФЗ rows before this change. Every
+  -- money column in this schema that reaches JSON is `double precision` for the same reason
+  -- (contracts.amount_eur, graph_edge.total_eur, person_browse_table.net_worth_eur …); see
+  -- CLAUDE.md on migration 120's column types. Headline budgets are millions of euro, far
+  -- inside float64's exact-integer range.
+  budget_eur      double precision,
   budget_note     text,                    -- the raw source string, incl. prose budgets
-  aid_rate_pct    numeric,
-  grant_min_eur   numeric,
-  grant_max_eur   numeric,
+  aid_rate_pct    double precision,
+  grant_min_eur   double precision,
+  grant_max_eur   double precision,
   beneficiaries_raw text,                  -- verbatim eligibility text, always kept
   audience        text[] NOT NULL DEFAULT '{}',
   territory       text,
@@ -113,6 +122,39 @@ CREATE TABLE IF NOT EXISTS open_calls (
     CHECK (audience <@ ARRAY['business','farmer','municipality','ngo','individual',
                              'school','institution','unknown']::text[])
 );
+
+-- RECONCILE THE MONEY COLUMN TYPES ON EVERY APPLY.
+--
+-- Same reason as the CHECK reconcile below: `CREATE TABLE IF NOT EXISTS` is a no-op on a warm
+-- database, so the numeric→double change above would never reach one — and a stale `numeric`
+-- is INVISIBLE to every row count and every test that reads the value through SQL. It shows up
+-- only in the browser, as an empty money cell. `USING` is an implicit numeric→float8 cast, so
+-- this is a rewrite with no data loss; on a table already holding `double precision` it is a
+-- no-op guarded by the catalog lookup.
+DO $$
+DECLARE
+  col text;
+  stale int;
+BEGIN
+  SELECT count(*) INTO stale
+    FROM information_schema.columns
+   WHERE table_name = 'open_calls' AND data_type = 'numeric'
+     AND column_name IN ('budget_eur', 'aid_rate_pct', 'grant_min_eur', 'grant_max_eur');
+  IF stale = 0 THEN RETURN; END IF;
+
+  -- `open_calls_table` SELECTs these columns, and Postgres refuses to retype a column a view
+  -- depends on ("cannot alter type of a column used by a view or rule"). The view is recreated
+  -- unconditionally further down this same file, so dropping it here costs nothing — but it must
+  -- happen BEFORE the ALTERs, not at its own definition site further down.
+  DROP VIEW IF EXISTS open_calls_table;
+
+  FOREACH col IN ARRAY ARRAY['budget_eur', 'aid_rate_pct', 'grant_min_eur', 'grant_max_eur']
+  LOOP
+    EXECUTE format(
+      'ALTER TABLE open_calls ALTER COLUMN %I TYPE double precision USING %I::double precision',
+      col, col);
+  END LOOP;
+END $$;
 
 -- RECONCILE THE CHECKS ON EVERY APPLY.
 --
@@ -235,8 +277,8 @@ CREATE FUNCTION open_calls_list(
   programme_code text, programme_name text, objective text,
   status text, date_precision text, opens_at timestamptz, closes_at timestamptz,
   period_label text, days_left int,
-  budget_eur numeric, budget_note text, aid_rate_pct numeric,
-  grant_min_eur numeric, grant_max_eur numeric,
+  budget_eur double precision, budget_note text, aid_rate_pct double precision,
+  grant_min_eur double precision, grant_max_eur double precision,
   beneficiaries_raw text, audience text[], territory text,
   source_url text, docs jsonb, enrichment text,
   first_seen_at timestamptz, last_seen_at timestamptz, checked_at timestamptz
@@ -257,7 +299,14 @@ CREATE FUNCTION open_calls_list(
          OR code ILIKE '%' || p_q || '%')
   -- Soonest deadline first; rows without one (indicative, consultation) after them.
   ORDER BY closes_at ASC NULLS LAST, id ASC
-  LIMIT GREATEST(1, LEAST(p_limit, 2000));
+  -- NULL p_limit means UNBOUNDED, and it exists for the COUNT path. `LEAST(p_limit, 2000)` is
+  -- the right ceiling for a served list, but a `count(*)` taken through this function would
+  -- SATURATE at 2000 — silently, and only once a group grew past it, which on an append-only
+  -- archive is a matter of time. Counting through the function rather than with a second WHERE
+  -- is what keeps the /funds tile's heading count and the rows beneath it on ONE predicate, so
+  -- the fix is to let the count opt out of the ceiling rather than to duplicate the filter.
+  -- A NULL from the caller cannot be accidental: the DEFAULT is 100.
+  LIMIT CASE WHEN p_limit IS NULL THEN NULL ELSE GREATEST(1, LEAST(p_limit, 2000)) END;
 $$;
 
 -- Role-guarded: roles_readonly.sql is a one-time manual step, and an unguarded GRANT

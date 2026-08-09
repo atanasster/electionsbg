@@ -388,3 +388,54 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "money columns are double precision, so the API serves NUMBERS not strings",
+  async () => {
+    // node-postgres serializes PG `numeric` as a STRING. Shipped exactly that way once: the ДФЗ
+    // rows carried real budgets, `/api/db/table` returned "10000000", `formatEur()` got a string
+    // and every money cell on /funds/calls and the /funds tile rendered BLANK — at a 200, with
+    // the number present in the payload. No SQL-side assertion can see it, because through SQL
+    // the value reads correctly either way; only the wire format differs.
+    //
+    // The type therefore has to be asserted from the CATALOG. 142 carries a reconcile ALTER for
+    // this, since `CREATE TABLE IF NOT EXISTS` cannot retype a warm table's column.
+    const rows = await allRows<{ column_name: string; data_type: string }>(
+      `SELECT column_name, data_type
+         FROM information_schema.columns
+        WHERE table_name = 'open_calls'
+          AND column_name IN ('budget_eur','aid_rate_pct','grant_min_eur','grant_max_eur')
+        ORDER BY column_name`,
+    );
+    assert.equal(rows.length, 4, "expected four money columns on open_calls");
+    for (const r of rows)
+      assert.equal(
+        r.data_type,
+        "double precision",
+        `open_calls.${r.column_name} is ${r.data_type}; node-postgres serializes numeric as a string, which blanks every money cell`,
+      );
+  },
+);
+
+test.skipIf(skip)(
+  "the view exposes the same money types as the table it reads",
+  async () => {
+    // The reconcile ALTER has to DROP the view to retype the columns, and the view is recreated
+    // later in the same file. A reconcile that dropped it without the recreate landing would
+    // leave `open_calls_table` missing — and both the registry resource and every route read it,
+    // so this asserts the pair converged rather than only the table half.
+    const rows = await allRows<{ column_name: string; data_type: string }>(
+      `SELECT column_name, data_type
+         FROM information_schema.columns
+        WHERE table_name = 'open_calls_table'
+          AND column_name IN ('budget_eur','aid_rate_pct','grant_max_eur','days_left')
+        ORDER BY column_name`,
+    );
+    const byName = new Map(rows.map((r) => [r.column_name, r.data_type]));
+    assert.equal(byName.get("budget_eur"), "double precision");
+    assert.equal(byName.get("aid_rate_pct"), "double precision");
+    assert.equal(byName.get("grant_max_eur"), "double precision");
+    // `days_left` is computed in the view; integer keeps `count`-based pluralisation honest.
+    assert.equal(byName.get("days_left"), "integer");
+  },
+);

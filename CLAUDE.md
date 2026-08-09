@@ -716,6 +716,49 @@ first points all ~1,954 operation URLs at a function with no handler for them. T
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
 
+`open_calls` / `open_calls_crawl` (migration 142, `db:load:open-calls:pg`) is the open-calls
+register behind the `/funds` band-1 tile and `/funds/calls` — what a reader can APPLY to, from
+ИСУН's `/Active` + `/PublicDiscussion` and ДФЗ's indicative Strategic-Plan schedule. In
+`db:refresh` (after `db:load:funds:pg`); on the cloud side:
+
+```bash
+npm run db:load:open-calls:pg:cloud
+```
+
+Re-run after every `npm run opencalls:isun` / `opencalls:sp2023` crawl. Nothing runs it on the
+cloud side, and the failure is the usual one: prod keeps the previous vintage at a 200.
+
+**Four things about this family invert the rules the rest of this file states, all for the same
+reason — here a stale number is a MISSED DEADLINE rather than a wrong figure:**
+
+- **Nothing stores a status.** `open_calls_table` derives it by comparing `closes_at` to `now()`,
+  and every consumer reads that view. Stored-at-crawl-time would show expired calls as open all
+  weekend after a Friday failure; query-time derivation makes the worst case UNDER-reporting.
+- **The loader must NEVER anti-join delete.** The crawler reads `/Active`, so a call that closes
+  is absent BY DESIGN — deleting absent rows would erase exactly the closed calls that make base
+  rates possible. It is upsert-only, and records absence via `last_seen_at`.
+- **Money needs a provenance** (`enrichment`: `none`/`source`/`auto`/`reviewed`). A CHECK bars the
+  numeric columns unless it is `source` or `reviewed`, so an unreviewed LLM extraction cannot
+  drive the page's sort or range filters; it rides in `enrichment_meta` with its verbatim quote.
+  The loader's upsert deliberately does NOT downgrade a `reviewed` row back to `none`.
+- **The money columns are `double precision`, not `numeric`**, and 142 carries a reconcile ALTER
+  because `CREATE TABLE IF NOT EXISTS` cannot retype a warm table's column. node-postgres
+  serializes `numeric` as a STRING, which blanks every money cell on the page while the number is
+  present in the payload — invisible to every row count and to any assertion made through SQL.
+  The ALTER has to DROP `open_calls_table` first (Postgres refuses to retype a column a view
+  reads); the file recreates it further down.
+
+`open_calls_list(status, kind, audience, q, limit)` is the one serving function, and **a NULL
+limit means unbounded** — that exists for the `/api/db/open-calls` count path, since a `count(*)`
+through the function would otherwise saturate at its own `LEAST(p_limit, 2000)` ceiling. Counting
+through the function rather than with a second WHERE is what keeps the tile's heading count and
+the rows beneath it on one predicate.
+
+`/funds/calls` is PRERENDERED (`scripts/prerender/routes.ts`) and has a sitemap `<loc>`, but
+**there are no per-call `<loc>`s and the prerendered body lists no calls** — a static snapshot of
+live deadlines would serve expired calls as open. An individual procedure has no page here; every
+row links out to ИСУН or ДФЗ, which is where you apply.
+
 `nzok_pathway_tariffs` (migration 059, `db:load:nzok-tariffs:pg`) is the НРД price factor
 behind the pathway-spend tree and the case-mix signal on `/awarder/121858220`. Its source is
 the НРД **contract body** (чл. 368/369/370, re-tabled by each amendment), parsed by

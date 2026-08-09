@@ -615,7 +615,13 @@ const REGISTRY = {
       // common (many procedures share a cut-off date).
       id: { type: "int" },
       title: { type: "text", sort: true, filter: "text", search: true },
-      code: { type: "text", filter: "text" },
+      // SEARCHABLE, because a reader searching this table types a procedure code. Measured on
+      // the live corpus: all 45 open rows carry a code and ZERO have it in the title, so with
+      // title-only search every code query returned nothing at a 200 — while the placeholder
+      // („заглавие или код на процедура") promised otherwise, and `open_calls_list`'s own p_q
+      // DOES match code. Two search surfaces over one table disagreeing is the defect; this
+      // makes the browse match the function.
+      code: { type: "text", filter: "text", search: true },
       status: { type: "text", sort: true, filter: "in" },
       kind: { type: "text", filter: "in" },
       // text[] — the engine's `in` filter matches a scalar, so the AUDIENCE facet is served by
