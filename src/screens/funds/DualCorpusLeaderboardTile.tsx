@@ -18,6 +18,8 @@ import {
 } from "@/data/funds/useDualCorpusRankings";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
+// The hub preview's cap. `/funds/dual-corpus` overrides it — that page IS the ranking, and a
+// dedicated page showing the same 15 rows as the card that linked to it has added nothing.
 const ROWS_SHOWN = 15;
 
 const HeadlineStat: FC<{ label: string; value: string }> = ({
@@ -88,14 +90,16 @@ const Row: FC<{ rank: number; row: DualCorpusRow }> = ({ rank, row }) => {
   );
 };
 
-export const DualCorpusLeaderboardTile: FC = () => {
+export const DualCorpusLeaderboardTile: FC<{ rowCount?: number }> = ({
+  rowCount = ROWS_SHOWN,
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data } = useDualCorpusRankings();
 
   if (!data || data.rows.length === 0) return null;
 
-  const visible = data.rows.slice(0, ROWS_SHOWN);
+  const visible = data.rows.slice(0, rowCount);
 
   return (
     <Card>

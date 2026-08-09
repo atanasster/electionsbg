@@ -97,7 +97,7 @@ export const FundsBeneficiariesScreen: FC = () => {
             }
           >
             <div className="text-2xl font-bold tabular-nums">
-              {totals ? formatEur(totals.contractedEur) : "—"}
+              {totals ? formatEur(totals.contractedEur, i18n.language) : "—"}
             </div>
             {totals ? (
               <div className="text-xs tabular-nums text-muted-foreground">
@@ -114,7 +114,7 @@ export const FundsBeneficiariesScreen: FC = () => {
             }
           >
             <div className="text-2xl font-bold tabular-nums">
-              {totals ? formatEur(totals.paidEur) : "—"}
+              {totals ? formatEur(totals.paidEur, i18n.language) : "—"}
             </div>
           </StatCard>
         </div>

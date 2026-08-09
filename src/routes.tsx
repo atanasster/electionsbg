@@ -591,6 +591,21 @@ const CandidateFundsScreen = lazy(() =>
     default: m.CandidateFundsScreen,
   })),
 );
+const FundsFocusIndexScreen = lazy(() =>
+  import("./screens/funds/FundsFocusIndexScreen").then((m) => ({
+    default: m.FundsFocusIndexScreen,
+  })),
+);
+const FundsInterregIndexScreen = lazy(() =>
+  import("./screens/funds/FundsInterregIndexScreen").then((m) => ({
+    default: m.FundsInterregIndexScreen,
+  })),
+);
+const FundsDualCorpusScreen = lazy(() =>
+  import("./screens/funds/FundsDualCorpusScreen").then((m) => ({
+    default: m.FundsDualCorpusScreen,
+  })),
+);
 const FundsPlacesScreen = lazy(() =>
   import("./screens/funds/FundsPlacesScreen").then((m) => ({
     default: m.FundsPlacesScreen,
@@ -2601,6 +2616,33 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <OpenCallsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Three PICKERS for parameterised routes that had no landing page. The
+              dashboard-hub skill §4: a tile pointing at /x/:id lands the reader on a subject
+              somebody else chose, and omits itself entirely when the generator has no seed. */}
+          <Route
+            path="funds/focus"
+            element={
+              <LayoutScreen>
+                <FundsFocusIndexScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/interreg"
+            element={
+              <LayoutScreen>
+                <FundsInterregIndexScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/dual-corpus"
+            element={
+              <LayoutScreen>
+                <FundsDualCorpusScreen />
               </LayoutScreen>
             }
           />

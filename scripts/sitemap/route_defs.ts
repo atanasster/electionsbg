@@ -117,6 +117,9 @@ export const ENGLISH_STATIC_PAGES = [
   "funds/programmes",
   "funds/places",
   "funds/absorption",
+  "funds/focus",
+  "funds/interreg",
+  "funds/dual-corpus",
   "funds/political",
   "funds/integrity",
   "funds/rrf",
@@ -174,6 +177,31 @@ export const routeDefs = (year: string): RouteDefs => [
   // settlement consumption nodes are intentionally omitted from the sitemap for
   // now (most settlements have no price data; the place pages still resolve in
   // the SPA), matching the bounded-URL discipline used elsewhere.
+  // The /funds sub-pages the hub rework split out. These go in BOTH lists: only
+  // ENGLISH_STATIC_PAGES was updated first, so /en/funds/dual-corpus got a <loc> while the
+  // canonical /funds/dual-corpus did not.
+  {
+    path: "funds/beneficiaries",
+    file: `src/screens/funds/FundsBeneficiariesScreen.tsx`,
+  },
+  {
+    path: "funds/programmes",
+    file: `src/screens/funds/FundsProgrammesScreen.tsx`,
+  },
+  { path: "funds/places", file: `src/screens/funds/FundsPlacesScreen.tsx` },
+  {
+    path: "funds/absorption",
+    file: `src/screens/funds/FundsAbsorptionScreen.tsx`,
+  },
+  { path: "funds/focus", file: `src/screens/funds/FundsFocusIndexScreen.tsx` },
+  {
+    path: "funds/interreg",
+    file: `src/screens/funds/FundsInterregIndexScreen.tsx`,
+  },
+  {
+    path: "funds/dual-corpus",
+    file: `src/screens/funds/FundsDualCorpusScreen.tsx`,
+  },
   { path: "consumption", file: `src/screens/ConsumptionScreen.tsx` },
   {
     path: "consumption/overview",

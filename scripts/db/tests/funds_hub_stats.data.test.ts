@@ -52,6 +52,7 @@ interface Stats {
   };
   interreg: {
     operationCount: number;
+    bgOperationCount: number;
     bgPartnerRowCount: number;
     bgPartnerOrgCount: number;
     bgBudgetEur: number;
@@ -296,6 +297,25 @@ test.skipIf(skip)(
       "145's Interreg predicate has dropped the country_department clause",
     );
     assert.ok(Number(t.both) >= Number(t.one));
+  },
+);
+
+test.skipIf(skip)(
+  "Interreg operations are counted both corpus-wide and BG-filtered, and they differ",
+  async () => {
+    // 1 954 vs 1 115. The page about Bulgarian participation must not show the corpus-wide
+    // count beside a tile that filters — that shipped once, both labelled „Operations".
+    const s = await stats();
+    const [t] = await allRows<{ all: string; bg: string }>(`
+      SELECT (SELECT count(*) FROM interreg_operations)::text AS all,
+             (SELECT count(DISTINCT keep_id) FROM interreg_partners
+               WHERE country = 'Bulgaria' OR country_department = 'Bulgaria')::text AS bg`);
+    assert.equal(s.interreg.operationCount, Number(t.all));
+    assert.equal(s.interreg.bgOperationCount, Number(t.bg));
+    assert.ok(
+      s.interreg.bgOperationCount < s.interreg.operationCount,
+      "the BG-filtered count can only be the smaller of the two",
+    );
   },
 );
 

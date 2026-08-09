@@ -82,9 +82,9 @@ export const FundsProgrammesScreen: FC = () => {
             </div>
             {stats ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {formatEur(stats.isun.paidEur)}{" "}
+                {formatEur(stats.isun.paidEur, i18n.language)}{" "}
                 {t("funds_programmes_of") || "от"}{" "}
-                {formatEur(stats.isun.grantEur)}
+                {formatEur(stats.isun.grantEur, i18n.language)}
               </div>
             ) : null}
           </StatCard>
@@ -96,7 +96,7 @@ export const FundsProgrammesScreen: FC = () => {
             }
           >
             <div className="text-2xl font-bold tabular-nums">
-              {stats ? formatEur(stats.rrf.contractedEur) : "—"}
+              {stats ? formatEur(stats.rrf.contractedEur, i18n.language) : "—"}
             </div>
             {stats ? (
               <div className="text-xs tabular-nums text-muted-foreground">
@@ -137,7 +137,7 @@ export const FundsProgrammesScreen: FC = () => {
                       {p.programCode}
                     </span>
                     <span className="ml-auto shrink-0 text-sm font-medium tabular-nums">
-                      {formatEur(p.rollup.totalEur)}
+                      {formatEur(p.rollup.totalEur, i18n.language)}
                     </span>
                   </li>
                 ))}

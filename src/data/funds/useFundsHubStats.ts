@@ -62,7 +62,12 @@ export interface FundsHubStats {
     absorptionPctOfGrant: number;
   };
   interreg: {
+    /** Every operation in the corpus, Bulgarian participation or not. */
     operationCount: number;
+    /** Operations with at least one Bulgarian partner — 1 115 of 1 954. A surface about
+     *  Bulgarian participation wants THIS one; publishing the other beside a tile that filters
+     *  gives one page two „operations" counts 800 apart. */
+    bgOperationCount: number;
     /** Partnership ENTRIES. An organisation on five operations is five rows. */
     bgPartnerRowCount: number;
     /** DISTINCT organisations — 983 against 1 493 rows. Use this for „партньори". */

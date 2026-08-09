@@ -4239,6 +4239,83 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "funds/focus",
+    title: "Тематични досиета по европейските средства | electionsbg.com",
+    description:
+      "Досиета по теми — къщи за гости, пътища, земеделие, училища, общинска инфраструктура: какво показват договорите по всяка.",
+    breadcrumbName: "Фокус",
+    bodyHtml: `
+<h1>Тематични досиета</h1>
+<p>Всяко досие събира договорите по една тема и показва какво се вижда в тях.</p>
+<p>Темите са <strong>подбрани, не изчерпателни</strong>. Досието е начало на проверка, не заключение: то показва кой е получил колко по дадена тема, а не дали нещо е нередно.</p>`.trim(),
+    english: {
+      title: "Thematic EU-funds dossiers | electionsbg.com",
+      description:
+        "Dossiers by theme — guest houses, roads, agriculture, schools, municipal infrastructure: what the contracts show under each.",
+      breadcrumbName: "Focus",
+      bodyHtml: `
+<h1>Thematic dossiers</h1>
+<p>Each dossier gathers the contracts on one theme and shows what is visible in them.</p>
+<p>The themes are <strong>selected, not exhaustive</strong>. A dossier is a place to start checking, not a conclusion: it shows who received how much under a theme, not whether anything is irregular.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/interreg",
+    title:
+      "Interreg — трансграничните проекти, които ИСУН не съдържа | electionsbg.com",
+    description:
+      "Трансграничните проекти по Interreg: колко са, кои български организации участват и защо тези пари падат основно по границите.",
+    breadcrumbName: "Interreg",
+    bodyHtml: `
+<h1>Interreg — трансграничните проекти</h1>
+<p>Проектите по Interreg с български участник, по данни на keep.eu.</p>
+<h2>Защо ги няма на останалите страници</h2>
+<p>Interreg се управлява през <strong>Jems</strong>, а българските оперативни програми — през ИСУН 2020. Затова регистърът на ИСУН съдържа <strong>нула</strong> проекта по Interreg. Това е системна граница, а не филтър: колкото и да се пита ИСУН, тези проекти не са там.</p>
+<h2>Двете суми не се събират</h2>
+<p>По ИСУН показваме <strong>договорена стойност</strong>; тук — <strong>публикувания бюджет на българския партньор</strong>. Различни величини, затова никъде няма общ сбор.</p>
+<p>Понеже Interreg е трансграничен по определение, парите му падат почти изцяло върху <strong>граничните общини</strong> — същите, които класация само по ИСУН подценява.</p>`.trim(),
+    english: {
+      title:
+        "Interreg — the cross-border projects ИСУН does not hold | electionsbg.com",
+      description:
+        "Interreg cross-border projects: how many, which Bulgarian organisations take part, and why this money lands on the borders.",
+      breadcrumbName: "Interreg",
+      bodyHtml: `
+<h1>Interreg — cross-border projects</h1>
+<p>Interreg projects with a Bulgarian participant, from keep.eu.</p>
+<h2>Why they are absent from the other pages</h2>
+<p>Interreg runs on <strong>Jems</strong> while the Bulgarian operational programmes run on ИСУН 2020. The ИСУН register therefore contains <strong>zero</strong> Interreg projects. That is a system boundary, not a filter: no amount of re-querying ИСУН would find them.</p>
+<h2>The two sums do not add</h2>
+<p>For ИСУН we show <strong>contracted value</strong>; here, the <strong>published budget of the Bulgarian partner</strong>. Different quantities, so there is no combined total anywhere.</p>
+<p>Because Interreg is cross-border by definition, its money lands almost entirely on <strong>border municipalities</strong> — the ones an ИСУН-only ranking understates.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/dual-corpus",
+    title: "Фирми с обществени поръчки и европейски грантове | electionsbg.com",
+    description:
+      "Кои фирми печелят и обществени поръчки, и европейски средства — подредени по сбора на двете, със сигнала за връзка с депутат.",
+    breadcrumbName: "Договори и грантове",
+    bodyHtml: `
+<h1>Фирми в двата корпуса</h1>
+<p>Фирмите, които се появяват едновременно в регистъра на обществените поръчки и в този на европейските средства.</p>
+<h2>Свързването е по ЕИК</h2>
+<p>Съвпадението е точно по ЕИК, а не по име. Организациите без вписан ЕИК не могат да бъдат сверени и затова изобщо не участват в тази класация — присъствието в нея е факт за фирмата, отсъствието не е.</p>
+<p>Етикетът „свързан с депутат“ е <strong>сигнал за проверка, не заключение</strong>.</p>`.trim(),
+    english: {
+      title: "Firms with both public contracts and EU grants | electionsbg.com",
+      description:
+        "Which firms win both public procurement and EU funds — ranked by the sum of the two, with the MP-link signal.",
+      breadcrumbName: "Contracts and grants",
+      bodyHtml: `
+<h1>Firms in both corpora</h1>
+<p>Firms appearing in both the public-procurement register and the EU-funds register.</p>
+<h2>The join is on EIK</h2>
+<p>The match is an exact EIK match, not a name match. Organisations with no recorded EIK cannot be reconciled and so do not enter this ranking at all — presence in it is a fact about the firm, absence is not.</p>
+<p>The „linked to an MP" label is a <strong>signal to check, not a conclusion</strong>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "funds/places",
     title:
       "Европейските средства по места — общини и области | electionsbg.com",

@@ -67,7 +67,9 @@ export const FundsPlacesScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
               <span className="text-2xl font-bold tabular-nums">
-                {stats ? formatEur(stats.isun.placedContractedEur) : "—"}
+                {stats
+                  ? formatEur(stats.isun.placedContractedEur, i18n.language)
+                  : "—"}
               </span>
             </div>
             {/* THE COVERAGE, AS MONEY. This sub-line is the reason the page is honest: without
@@ -76,7 +78,7 @@ export const FundsPlacesScreen: FC = () => {
               <div className="text-xs tabular-nums text-muted-foreground">
                 {pctFmt.format(stats.isun.placedMoneyPct)}%{" "}
                 {t("funds_places_of_corpus") || "от"}{" "}
-                {formatEur(stats.isun.contractedEur)}
+                {formatEur(stats.isun.contractedEur, i18n.language)}
               </div>
             ) : null}
           </StatCard>

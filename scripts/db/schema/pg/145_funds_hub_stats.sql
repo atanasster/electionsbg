@@ -116,6 +116,11 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
   ), interreg AS (
     SELECT
       (SELECT count(*) FROM interreg_operations) AS operation_count,
+      -- OPERATIONS WITH A BULGARIAN PARTNER — 1,115 of the 1,954 in the corpus. The two are
+      -- different questions and a surface about Bulgarian participation wants this one; the
+      -- /funds/interreg page rendered 1,954 directly above a tile showing 1,115, both labelled
+      -- „Operations" in English.
+      count(DISTINCT keep_id) AS bg_operation_count,
       -- ROWS and ORGS both, because they differ by 52% (1,493 vs 983): an organisation
       -- partnering on five operations is five rows. Publishing one as the other over-counts
       -- the partner base by half.
@@ -162,6 +167,7 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
     -- consumer cannot sum them into one unlabelled total by reaching for a shared key.
     'interreg', jsonb_build_object(
       'operationCount',           n.operation_count,
+      'bgOperationCount',         n.bg_operation_count,
       'bgPartnerRowCount',        n.partner_row_count,
       'bgPartnerOrgCount',        n.partner_org_count,
       'bgBudgetEur',              round(n.bg_budget_eur::numeric, 2)

@@ -33,7 +33,7 @@ import { formatEur } from "@/lib/currency";
 const pctFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 1 });
 
 export const FundsAbsorptionScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: projectsIndex } = useFundsProjectsIndex();
   const { data: stats } = useFundsHubStats();
 
@@ -70,9 +70,9 @@ export const FundsAbsorptionScreen: FC = () => {
             </div>
             {stats ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {formatEur(stats.isun.paidEur)}{" "}
+                {formatEur(stats.isun.paidEur, i18n.language)}{" "}
                 {t("funds_absorption_of") || "от"}{" "}
-                {formatEur(stats.isun.grantEur)}
+                {formatEur(stats.isun.grantEur, i18n.language)}
               </div>
             ) : null}
           </StatCard>
@@ -100,9 +100,9 @@ export const FundsAbsorptionScreen: FC = () => {
             </div>
             {stats ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {formatEur(stats.isun.paidEur)}{" "}
+                {formatEur(stats.isun.paidEur, i18n.language)}{" "}
                 {t("funds_absorption_of") || "от"}{" "}
-                {formatEur(stats.isun.contractedEur)}
+                {formatEur(stats.isun.contractedEur, i18n.language)}
               </div>
             ) : null}
           </StatCard>
@@ -120,7 +120,7 @@ export const FundsAbsorptionScreen: FC = () => {
             </div>
             {stats ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {formatEur(stats.rrf.contractedEur)}{" "}
+                {formatEur(stats.rrf.contractedEur, i18n.language)}{" "}
                 {t("funds_absorption_contracted_word") || "договорени"}
               </div>
             ) : null}

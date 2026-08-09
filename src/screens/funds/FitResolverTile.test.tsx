@@ -209,7 +209,9 @@ describe("the declared basis", () => {
     mount();
     await type("къща за гости");
     expect(
-      screen.getByText(/не е проверка за допустимост|а не проверка за допустимост/u),
+      screen.getByText(
+        /не е проверка за допустимост|а не проверка за допустимост/u,
+      ),
     ).toBeTruthy();
   });
 });
@@ -223,7 +225,9 @@ describe("the Interreg arm explains itself", () => {
     });
     mount();
     await type("туризъм");
-    expect(screen.getByText(/Търсено на английски като „tourism“/u)).toBeTruthy();
+    expect(
+      screen.getByText(/Търсено на английски като „tourism“/u),
+    ).toBeTruthy();
   });
 
   it("marks each English title", async () => {
@@ -239,7 +243,9 @@ describe("the Interreg arm explains itself", () => {
     hook.data = payload({ isun: [isun()], interreg: [], interregQuery: null });
     mount();
     await type("къща за гости");
-    expect(screen.getByText(/трансграничните проекти по Interreg не са претърсени/u)).toBeTruthy();
+    expect(
+      screen.getByText(/трансграничните проекти по Interreg не са претърсени/u),
+    ).toBeTruthy();
   });
 
   it("says in-your-province rather than a raw obshtina code", async () => {
