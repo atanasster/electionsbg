@@ -15,10 +15,18 @@ Builds on / does not duplicate:
 
 > **Audit note (2026-08-07).** The first draft of this plan measured coverage by joining
 > `person_role.ref = mp_seat.mp_id::text`. That join is invalid (§0f) and every headline number
-> derived from it was wrong: coverage 843 → **563**, blanks filled 149 → **0**, flips ~1,396 →
-> **224**, multi-party careers 158 → **132**. The design decision in §2 survives unchanged; the
-> *reason to do the work* changed, and §7's question got much easier to answer. Numbers below are
-> the corrected ones, all re-measured against local PG :5433 on 2026-08-07.
+> derived from it was wrong: coverage 843 → **563**, blanks filled 149 → **0**, multi-party
+> careers 158 → **132**. The design decision in §2 survives unchanged; the *reason to do the
+> work* changed, and §7's question got much easier to answer.
+>
+> **Second audit (2026-08-08).** Re-measured with the class-B aliases actually RESOLVED
+> (§1b) rather than guessed: the flip count is **124**, not the 224 the first audit reported —
+> mapping `ПБ` to its real id `p_20` instead of a placeholder `p_6` halved it, because 97 of the
+> 130 ПБ members already display `p_20` from their candidacy. Four further gaps found, all in
+> §2b/§2d/§5.7 and none of them party columns: migration 120 **does** need edits under T3, a
+> `functions/` route breaks, `independent` renders as a raw Latin token, and the crosswalk
+> already exists client-side. Numbers below are the corrected ones, all measured against local
+> PG :5433.
 
 ---
 
@@ -86,12 +94,12 @@ blank; it is **wrong in a way that looks right**, which is worse. The real defec
    were. They are not: every MP whose seat can be honestly confirmed already carries a ballot
    party from a candidacy (§0f). A plan that promises to fill this column is promising
    something the corpus cannot deliver — see §1c.
-3. **`party_primary` will change for 224 people the moment MP party is populated.**
+3. **`party_primary` will change for 124 people the moment MP party is populated.**
    `role_prominence('mp', …) = 100`, the highest value in the function — above
    `official_exec` (90) and far above `candidate` (30) — and `top_party` is
    `DISTINCT ON (person_id) … ORDER BY prom DESC, …`. So an MP-sourced party **always** wins.
-   562 MPs gain an mp-sourced party; for 338 of them it folds to the same canonical id they
-   already display, so **224 visibly change**. This is the largest silent-change risk in the
+   562 MPs gain an mp-sourced party; for 438 of them it folds to the same canonical id they
+   already display, so **124 visibly change**. This is the largest silent-change risk in the
    plan and §5 gates it. (The first draft said ~1,396, which is simply the count of MPs holding
    any party at all — not the set that changes.)
 4. **The `top_party` tiebreaker is dead.** `ORDER BY person_id, prom DESC, start_date DESC
@@ -113,10 +121,12 @@ blank; it is **wrong in a way that looks right**, which is worse. The real defec
 | `person_resolve.data.test.ts:79-82` | **YES** — the party-office merge-licence gate | see §5.4 — this one is a *hazard*, not a consumer |
 
 Both 120 columns are built from `person_role.party` with **no MP-specific branch**, so they
-pick up the change automatically and **migration 120 needs no edit**.
+pick up the change automatically and **migration 120 needs no edit for the party work**.
 
-**This table covers T1/T2 only.** T3 changes the `ref` FORMAT and the ROW COUNT, which has a
-completely different and much wider blast radius — §2b.
+**Read that last clause narrowly. This table covers T1/T2 only** — the change to the VALUE.
+T3 changes the `ref` FORMAT and the ROW COUNT, and under T3 **migration 120 DOES need two
+edits**, neither of them a party column: the photo join (`:250`) and the company bridge
+(`:314`), both of which key on the bare ref and both of which fail silently. Full list in §2b.
 
 ### 0e. Five party vocabularies, and only one is the target
 
@@ -139,7 +149,8 @@ options for the same party** — the exact "makes them look comparable" failure
 Note two ids already live in the column that are **not** in `canonical_parties.json` —
 `independent` (517 rows) and `vmro` (424), both minted by
 [`local_coalitions.ts:21`](../../scripts/parsers_local/local_coalitions.ts). There is
-precedent for an out-of-file id, and §1b uses it.
+precedent for an out-of-file id, and §1b uses it — **but the precedent is a BROKEN one, and
+§1b inherits the breakage.** See §0g.
 
 ### 0f. THE BLOCKER — `person_role.ref` and `mp_seat.mp_id` are different id spaces
 
@@ -188,11 +199,47 @@ does**." The real exposure is not 26 rows; it is 309 of 1,831 pairs.
 |---|---|---|
 | 843 MP roles covered | **563** | 280 refs were "covered" only via another person's seats |
 | 149 blanks filled (724 → 575) | **0** (stays 724) | 100% artifact — see §1c |
-| ~1,396 `party_primary` flips | **224** visible (562 gain a party, 338 identical) | |
+| ~1,396 `party_primary` flips | **124** visible (562 gain a party, 438 identical) | |
 | 158 multi-party careers | **132** | separate error — §2 |
 | §5.1 gate floor `≥ 843` | **`≥ 563`** | the old floor *fails* a correct build and *passes* the broken one |
 
 ---
+
+### 0g. `independent` renders as the literal string "independent"
+
+`displayNameForId(id)` is `byId.get(id)` over `canonical_parties.json`
+([`useCanonicalParties.tsx:140`](../../src/data/parties/useCanonicalParties.tsx)), and neither
+`independent` nor `vmro` is in that file — verified, both absent from `parties[]` and from
+`byNickName`. So:
+
+- **The cell** renders `displayNameForId(p.partyPrimary) || p.partyPrimary`
+  ([`PersonsBrowserScreen.tsx:515`](../../src/screens/persons/PersonsBrowserScreen.tsx)) →
+  falls through to the raw value: a Latin-script **"independent"** in a Bulgarian UI.
+- **The colour dot** is `colorFor(...)` → `byId.get()` then `resolveCanonicalId()`, both miss →
+  no dot, so the row also loses the visual party cue every other row has.
+- **The facet dropdown** builds `partyOptions` from `facets.party_primary` — the real data —
+  with `label: displayNameForId(o.value) || o.value`
+  ([`PersonsBrowserScreen.tsx:319-325`](../../src/screens/persons/PersonsBrowserScreen.tsx)),
+  so `independent` and `vmro` already appear as options **labelled in Latin**.
+
+This is **live today for 879 people** (`party_primary`: `independent` 484, `vmro` 395) and is
+therefore a pre-existing defect, not one this plan creates. But §1b deliberately routes the
+three class-A sentinels into `independent` at `role_prominence = 100` — the highest value in
+the function — so it puts **21 more people** there, and puts them at the top of the ordering
+where they cannot be outranked.
+
+**Decision: fix the render before T2 ships, not after.** Two lines of work, in order of
+preference:
+
+1. Add `independent` (and `vmro`) to `canonical_parties.json` as real entries with
+   `displayName: "Независим"` / `displayNameEn: "Independent"` and a neutral grey. That fixes
+   all 879 existing rows, the dropdown, and the colour dot in one place, and makes §5.2's
+   "documented exceptions" clause unnecessary.
+2. Failing that, special-case the two ids in `displayNameForId`/`colorFor` — cheaper, but it
+   puts a second party vocabulary in the client, which is the thing §0e exists to prevent.
+
+Shipping T2 without this means 21 MPs — every defector, the most editorially interesting rows
+in the dataset — display an English word where their party should be.
 
 ## 1. The crosswalk — group short name → canonical id
 
@@ -211,6 +258,27 @@ values**:
 The normalisation is load-bearing on its own: `ГЕРБ-СДС` and `ГЕРБ - СДС` are **separate
 `party_dim` rows by design** (the key is `(ns, short)`), and any cross-NS series that joins on
 `short` splits that party in two.
+
+**DECIDED 2026-08-08 — the coalition fold stays exactly as `byNickName` has it.** The fold is
+not internally consistent about coalitions, and that is approved rather than accidental:
+
+| group short | → | and that id is |
+|---|---|---|
+| `ГЕРБ - СДС` | `gerb` | the **lead party**, coalition discarded |
+| `БСП - ОЛ` | `bsp` | the **lead party**, coalition discarded |
+| `ПП - ДБ` | `p_6` | the **coalition**, kept as itself |
+| `ПБ` | `p_20` | the **coalition**, kept as itself |
+
+The consequence to accept knowingly: `?party=gerb` returns ГЕРБ-СДС members, while
+`?party=p_67` (ПП) does **not** return ПП-ДБ members. Do not "fix" this asymmetry while
+implementing — it is the approved behaviour, it matches how the rest of the site already reads
+these labels, and changing it would silently move every existing `?party=` deep link.
+
+Note this is a different question from the one [`620df404bd`](../../) settled („a coalition is
+not a party"). That commit was about *evidence* — treating a coalition as the holder of a ЗПП
+filing obligation it does not have. This column is *membership*, where naming the group a member
+actually sat in is the point, so the same phrase does not carry over. T2's hand-review judges
+the entry-vs-ballot rule only; the coalition fold is settled and not up for review there.
 
 ### 1b. The 7 that miss split into two classes — and conflating them is a defect
 
@@ -237,10 +305,35 @@ against `canonical_parties.json`; this is the literal override map to ship:
 | `ИСМВ` | **`p_81`** | ПП ИСМВ | `byNickName['ПП ИСМВ']` |
 | `ДПС - ДПС` | **`p_16`** | ДПС | same party, doubled short; `byNickName['ДПС']` |
 
-These go in an explicit override map beside
-[`parliament_groups.json`](../../data/parliament_groups.json), which already uses the canonical
-namespace (`parentCoalitionId: "p_6"`). Do **not** reach them by loosening the normaliser —
-each is a genuine alias, and a looser fold would start colliding real parties.
+Do **not** reach them by loosening the normaliser — each is a genuine alias, and a looser fold
+would start colliding real parties.
+
+**Where the map lives is a decision, and the obvious answer is wrong.** A parliament-group
+alias table **already exists** —
+[`PARLIAMENT_GROUP_ALIASES` in `useCanonicalParties.tsx:20-25`](../../src/data/parties/useCanonicalParties.tsx):
+
+```ts
+const PARLIAMENT_GROUP_ALIASES: Record<string, string> = {
+  ПБ: "ПрБ",
+  "Демократична България": "ДБ",
+  "Прогресивна България": "ПрБ",
+  "Продължаваме Промяната": "ПП",
+};
+```
+
+It already carries `ПБ`, one of the four, and `resolveCanonicalId` consults it. Authoring a
+second map server-side would put the same knowledge in two places that can drift — and this
+repo has a documented, named precedent for why that is a defect: `shlyo_query_fold()` is
+**generated** from `src/lib/shlyoRules.ts` by `npm run gen:shlyo-sql`, with a test that fails
+on drift, precisely so "the browser finds „6umen" and the server does not" cannot happen. The
+same failure here is quieter: the client resolves a group to a party for the `/party/<nick>`
+link while the resolver writes NULL into the ПАРТИЯ column, and both look like they work.
+
+**Decision: one table, in `scripts/person/partyGroups.ts`, and `useCanonicalParties.tsx`
+imports it** (it is plain data, no server deps). If that import proves awkward, generate one
+from the other and gate it with a lockstep test — but do not hand-maintain two. The three
+class-A sentinels stay server-side only: they are not display aliases and the client has no
+use for them.
 
 **The map must be exhaustive and must fail loudly.** An unmapped group short name silently
 becomes NULL, which is indistinguishable from "this parliament predates the corpus" — so the
@@ -274,7 +367,7 @@ a fact column.
 **So the honest outcome of this plan is:**
 
 > Blanks on `/persons` stay at **724**. Not one is filled. 562 MPs gain a **time-correct
-> parliamentary group** where they previously showed a ballot list, of which **224 visibly
+> parliamentary group** where they previously showed a ballot list, of which **124 visibly
 > change**. The group-switch signal enters the corpus for the first time.
 
 That is the win. "Fills the column" is not, and never was — the first draft's 149 filled blanks
@@ -346,14 +439,24 @@ throws.** The single loud tripwire is a test.
 | `mp_serving.data.test.ts:305,312` | excludes people with `count(*) mp roles ≠ 1` | under T3 that excludes **every multi-term MP**; `rows.length > 100` still passes, so the test's scope collapses silently |
 | `mp_declarations_assets.data.test.ts:73,154`, `graph.data.test.ts:101`, `person_browse.data.test.ts:479,519,596,602`, `person_role_place.data.test.ts:252` | `ref = m.mp_id::text` or `source='mp'` | row-count changes |
 | **120 `roles_n`** | `count(*)` over roles | **inflates for every multi-term MP** — a visible `/persons` column, not mentioned in the first draft |
+| **[`120_person_browse.sql:250`](../../scripts/db/schema/pg/120_person_browse.sql)** `photo` CTE | `JOIN mp_profile m ON r.source='mp' AND m.mp_id::text = r.ref` | **no match → `photo_url` NULL for all 2,120 MPs.** Every MP photo disappears from `/persons` |
+| **[`120_person_browse.sql:314-315`](../../scripts/db/schema/pg/120_person_browse.sql)** `bridge_a` | `pr.ref = replace(cp.ref, '/candidate/mp-', '')` | MP arm of the company bridge breaks → MP↔company links drop out of the browser |
+| **[`functions/db_routes.js:394`](../../functions/db_routes.js)** `mpSlugFromQuery` | `r.source='mp' AND r.ref = $1` (bare id) | returns null → the candidate screens' **assets / declarations panels serve their empty body** |
+| [`105_mp_serving.sql:298`](../../scripts/db/schema/pg/105_mp_serving.sql) | `r.ref = m.mp_id::text AND p.slug = p_slug` | bare equality, no match |
 
 `097_cohort_benchmark.sql:71,80` and `accountability_gate.data.test.ts:48,75` key on
 `source='mp'` only, never on the ref shape, so they are unaffected by the format change (but do
 see more rows).
 
-T3's migration is therefore **not** "add `split_part` in ~10 places". It is: decide per site
-whether it wants the *person's mp id* (`split_part(ref,':',1)`) or the *seat*, then fix the
-`^[0-9]+$` guards, then re-assert cardinality everywhere that assumed one MP row per person.
+**Two corrections to §0d this forces, both worth stating loudly:**
+
+- **"Migration 120 needs no edit" is true for T1/T2 and FALSE for T3.** 120 joins
+  `mp_profile` on the bare ref for photos and `company_politicians` on it for the company
+  bridge. Neither is a party column, so nothing about the ПАРТИЯ work points at them, and both
+  fail silently: missing photos and missing company links, on the very page this plan is for.
+- **T3 changes `functions/` code, so it needs `npm run deploy:db`.** §4a lists only `db:load:*`
+  loaders. A T3 publish that runs the whole loader chain and skips `deploy:db` leaves the route
+  keyed on the old ref format against a database that no longer has it.
 
 ### 2c. The writer cannot read `mp_seat` — an ordering constraint
 
@@ -390,6 +493,35 @@ the very inputs `db:load:rollcall:pg` itself consumes:
 Do not move `db:load:rollcall:pg` ahead of the resolver to avoid this. That reorders a 53-step
 chain whose ordering is separately gated by `refresh_coverage.test.ts`'s `ORDER_PAIRS`, to buy
 nothing the file read does not already give.
+
+### 2d. T3 and the МИР place column — one seat, N parliaments
+
+`person_role` for MPs is **100% populated** with `place_kind='mir'` (2,122 of 2,122), and
+[`person_role_place.data.test.ts:244-262`](../../scripts/db/tests/person_role_place.data.test.ts)
+asserts exactly that: `coded === total`, on the argument that "parliament.bg carries a seat on
+every profile it holds".
+
+But the МИР comes from `seatedMirByMpId`, built from `index.json`'s **`seatedRegion` — a single
+object per mp id, with no per-NS variant** (the file's fields are `currentRegion`,
+`seatedRegion`, `nsFolders`; only `nsFolders` is per-parliament). So under T3 every one of a
+person's N seat rows gets the **same** МИР, including for a member who was seated from a
+different МИР in a different parliament.
+
+The gate still passes green — every row has a code, it is just the same code N times. Decide
+explicitly and write it into the code:
+
+- **replicate** the single МИР across all NS rows (keeps the 100% gate, knowingly wrong for
+  movers, and `?oblast=` gains nothing from the extra rows); or
+- **populate only the row matching `isCurrent`** and leave historical rows' place NULL (honest,
+  but breaks the `coded === total` gate, which then needs re-scoping to one row per person).
+
+Whichever is chosen, `person_role_place.data.test.ts` must be updated deliberately rather than
+left to pass by accident — a gate that cannot distinguish "seated there" from "replicated
+there" is not testing the thing its name claims.
+
+T3's migration is therefore **not** "add `split_part` in ~10 places". It is: decide per site
+whether it wants the *person's mp id* (`split_part(ref,':',1)`) or the *seat*, then fix the
+`^[0-9]+$` guards, then re-assert cardinality everywhere that assumed one MP row per person.
 
 ### Deliberately out of scope
 
@@ -462,13 +594,20 @@ real before/after distribution against a live `person_browse_table` rather than 
 - `mp` roles with party = **563** (not ≥843);
 - blanks stay at **724** — assert *no* MP gains a party from blank, which is the corrected
   §1c prediction and the cheapest possible check that the §0f guard is actually on;
-- `party_primary` diff before/after: **224** people change, 338 unchanged. Hand-review a sample
-  of 30 of the 224 — every one should be defensible as "their parliamentary group rather than
+- `party_primary` diff before/after: **124** people change, 438 unchanged. Hand-review a sample
+  of 30 of the 124 — every one should be defensible as "their parliamentary group rather than
   their ballot list".
+- **§0g is done first**: the 21 MPs landing on `independent` render „Независим" with a colour
+  dot, not a Latin token. Gate 5.8 is green — which means `vmro`'s 395 existing rows are fixed
+  too, since the same gate covers them.
+
+The hand-review judges **only** the entry-vs-ballot rule. The coalition fold is settled (§1a,
+decided 2026-08-08) — a reviewer who flags `?party=gerb` matching ГЕРБ-СДС members is
+re-opening an approved decision, not finding a defect.
 
 **Stop here and look at that diff before starting T3.** If the flip reads worse than the status
 quo to a human, the vocabulary or the entry rule is wrong, and T3 would multiply the error by
-2,366. 224 is a reviewable number; the first draft's ~1,396 was not, which is part of why this
+2,366. 124 is a reviewable number; the first draft's ~1,396 was not, which is part of why this
 gate was theatre before.
 
 ### T3 — the ref widening and per-NS rows (3–4 days)
@@ -487,9 +626,14 @@ Deriving `start_date` from the votes would date every NS-44 seat three years lat
 - row count rises from 2,122 to 2,122 + (in-`nsFolders` seats − 1 per multi-NS MP);
 - every widened ref's `split_part(ref,':',1)` matches the old value, and row counts on all
   affected data tests move only as predicted;
-- `mp_person_link` is non-empty and `082`'s `mpId` is non-NULL for a sampled MP — the two silent
-  failures in §2b;
+- every row of §2b's table has an assertion behind it (gate 5.6) — in particular
+  `person_browse_table.photo_url` is still non-NULL for ≥ 2,000 MPs and `mpSlugFromQuery`
+  still resolves, the two that §0d's "120 needs no edit" points away from;
+- §2d's МИР decision is implemented and `person_role_place.data.test.ts` re-scoped to match it;
 - `start_date` is non-NULL on every MP row and no NS's start precedes its election.
+
+**T3 ships `functions/` code**, so its publish is `deploy:db` **then** the loader chain in §4a
+— not §4a alone.
 
 ### T4 — publish (see §4)
 
@@ -606,11 +750,26 @@ that check passes today only because an arbitrary choice is *stable*, so it must
 once the ordering key actually changes.
 
 **5.6 — T3 only: the ref format did not silently empty anything.**
-Assert `mp_person_link` is non-empty and its row count matches distinct MP persons; assert
-`082`'s `mpId` is non-NULL for a sampled MP. Both are guarded by `ref ~ '^[0-9]+$'` and both go
-quietly to nothing under the widened ref (§2b). Also re-assert that
-`mp_serving.data.test.ts:312`'s `count(*) = 1` exclusion has been rewritten — under T3 it
-silently narrows to single-term MPs while still passing.
+Walk §2b's table and assert one thing per row. At minimum: `mp_person_link` is non-empty and its
+row count matches distinct MP persons; `082`'s `mpId` is non-NULL for a sampled MP;
+**`person_browse_table.photo_url` is non-NULL for ≥ 2,000 MPs** (120:250); the `bridge_a` MP arm
+still yields its current company count (120:314); and `mpSlugFromQuery` resolves a known mp id
+(`functions/db_routes.js:394` — a `node --test` case in the `functions/` gate, since the Vitest
+suites do not cover that file). Also re-assert that `mp_serving.data.test.ts:312`'s
+`count(*) = 1` exclusion has been rewritten — under T3 it silently narrows to single-term MPs
+while still passing.
+
+**5.7 — the group→party map has exactly one copy.**
+Assert `PARLIAMENT_GROUP_ALIASES` and the server-side override map are the same table (§1b) —
+either by importing one into the other, or, if they are generated, by a drift test in the shape
+of [`gen_sql/shlyo_query_fold.test.ts`](../../scripts/db/tests). Without this the client can
+resolve a group the resolver writes NULL for, and both look correct in isolation.
+
+**5.8 — every value the ПАРТИЯ column can hold has a Bulgarian label.**
+For every distinct `party_primary` in `person_browse_table`, assert `displayNameForId` resolves
+it — i.e. it is in `canonical_parties.json`'s `byId`. This is the §0g gate. It **fails today**
+on `independent` (484) and `vmro` (395), which is the point: it should fail until they are given
+real entries, and it stops the class-A sentinels from quietly adding a 3rd Latin token later.
 
 ---
 
@@ -622,7 +781,7 @@ Ordered by how long it would survive unnoticed. Every one of these is green on r
    parliamentary group. It is the *convenient* join, it looks correct, `mp_seat` is right there
    in Postgres, and the only thing standing against it is gate 5.0. It already got through one
    full plan review. **This is #1 for a reason.**
-2. **The `party_primary` change (0c-3) goes unreviewed.** 224 people change displayed party from
+2. **The `party_primary` change (0c-3) goes unreviewed.** 124 people change displayed party from
    ballot list to parliamentary group in one deploy. Both values are "correct"; only one answers
    the question the column asks. No test can adjudicate this — **T2's hand-reviewed diff is the
    control**, which is why T2 exists as its own phase despite shipping a design this plan
@@ -634,19 +793,30 @@ Ordered by how long it would survive unnoticed. Every one of these is green on r
    Gate 5.3.
 5. **The merge licence widens (5.4).** Wrong *people*, not wrong parties. 61 exposed. Survives
    indefinitely.
-6. **T3 empties `mp_person_link` or `082`'s `mpId` (§2b).** Every numeric-cast site is guarded by
-   `^[0-9]+$`, so nothing throws — person links and MP avatars just stop appearing. Gate 5.6.
-7. **`НЕЗ` mapped to a party id, or to NULL.** To an id: invents a membership. To NULL:
-   indistinguishable from "NS 39–43, no data", so the defection signal — arguably the most
-   valuable thing this plan adds — vanishes into the 1,559 known-blank roles.
-8. **Group shorts written raw (vocabulary 2).** Visible immediately in the facet dropdown as
-   `gerb` and `ГЕРБ - СДС` side by side, but only to someone who opens it. Gate 5.2.
-9. **`start_date` derived from `vote_item`.** Dates every NS-44 seat three years late; the only
-   symptom is `top_party` picking the wrong parliament for multi-term MPs. §T3.
-10. **`ГЕРБ-СДС` and `ГЕРБ - СДС` treated as two parties.** Halves both counts; each half looks
+6. **T3 empties something that is not a party column (§2b).** Every numeric-cast site is guarded
+   by `^[0-9]+$`, so nothing throws. The ones that bite hardest are the ones §0d's "migration 120
+   needs no edit" actively points away from: **all 2,120 MP photos** (120:250) and the MP company
+   bridge (120:314), plus `mp_person_link`, `082`'s `mpId`, and `mpSlugFromQuery` in
+   `functions/`. Gate 5.6 — and remember T3 needs `deploy:db`, not just loaders.
+7. **`independent` ships as an English word (§0g).** 21 defectors — the rows this plan exists to
+   surface — render a Latin token with no colour dot, in a Bulgarian UI, at the top of the
+   prominence order. Visible to anyone who looks, invisible to every test until gate 5.8 exists.
+8. **The group→party map gets a second copy (§1b).** `PARLIAMENT_GROUP_ALIASES` already has `ПБ`.
+   A divergent server map means the client links to `/party/ПрБ` while the column reads „—".
+   Gate 5.7.
+9. **T3 replicates one МИР across N parliaments (§2d).** The 100%-fill gate passes on N copies of
+   the same code, so a member who changed МИР is silently filed under one of them.
+10. **`НЕЗ` mapped to a party id, or to NULL.** To an id: invents a membership. To NULL:
+    indistinguishable from "NS 39–43, no data", so the defection signal — arguably the most
+    valuable thing this plan adds — vanishes into the 1,559 known-blank roles.
+11. **Group shorts written raw (vocabulary 2).** Visible immediately in the facet dropdown as
+    `gerb` and `ГЕРБ - СДС` side by side, but only to someone who opens it. Gate 5.2.
+12. **`start_date` derived from `vote_item`.** Dates every NS-44 seat three years late; the only
+    symptom is `top_party` picking the wrong parliament for multi-term MPs. §T3.
+13. **`ГЕРБ-СДС` and `ГЕРБ - СДС` treated as two parties.** Halves both counts; each half looks
     plausible. This one already bit the first draft — it is what turned 132 multi-party careers
     into 158.
-11. **A future NS introduces an unmapped group short.** Silent NULL for a whole parliament, in
+14. **A future NS introduces an unmapped group short.** Silent NULL for a whole parliament, in
     the one year nobody re-reads this file. Gate 5.1 is specifically shaped to catch this.
 
 ---
@@ -664,14 +834,14 @@ Both are defensible. The plan assumes **parliamentary group wins**, because that
 `role_prominence` already encodes (`mp` = 100) and because the group is what the person actually
 did rather than what a party list said.
 
-**The stakes are much lower than the first draft implied.** It changes what **224** rows display,
-not ~1,396 — for the other 338 MPs the ballot list and the group fold to the same canonical id,
-so nothing moves. 224 is small enough to review by hand, which is exactly what T2 does. If the
+**The stakes are much lower than the first draft implied.** It changes what **124** rows display,
+not ~1,396 — for the other 438 MPs the ballot list and the group fold to the same canonical id,
+so nothing moves. 124 is small enough to review by hand, which is exactly what T2 does. If the
 intended reading is "the party they ran for", the correct fix is the opposite of this plan: leave
 `person_role.party` alone and add a **separate** group column, which is a different and smaller
 piece of work.
 
-Secondary, lower stakes: **should the unfillable MPs render „—" or „няма данни"?** They are not
+Second, lower stakes: **should the unfillable MPs render „—" or „няма данни"?** They are not
 partyless; the corpus predates the source. Today they are indistinguishable from a genuine
 independent — and after this change, `independent` becomes a real value in that column, which
 makes the ambiguity newly harmful.
