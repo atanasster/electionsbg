@@ -57,14 +57,21 @@ export const connectionUrl = (): string => urlOverride ?? DATABASE_URL;
 const CLOUD_SQL_PROXY_HOST = "127.0.0.1";
 const CLOUD_SQL_PROXY_PORT = "5434";
 
-/** True only when the live connection is the Cloud SQL proxy — i.e. the database that
- *  SERVES production. An ALLOWLIST on purpose: its callers gate writes to committed
- *  artifacts, so every unrecognised target (a second local instance, a staging proxy, a
- *  malformed URL) must read as "not serving" and block the write. A denylist of the local
- *  URL would pass all three. */
-export const isServingDatabase = (): boolean => {
+/** True only when `url` names the Cloud SQL proxy — i.e. the database that SERVES production.
+ *
+ *  An ALLOWLIST on purpose: its callers gate writes to committed artifacts and prod-write
+ *  warnings, so every unrecognised target (a second local instance, a staging proxy, a
+ *  malformed URL) must read as "not serving". A denylist of the local URL would pass all three.
+ *
+ *  Takes a URL rather than reading the ambient connection because not every caller HAS an
+ *  ambient connection: `sync_enrichment.ts` dials two databases at once and must ask about the
+ *  one it is writing to. Before this existed that caller carried its own full-string equality
+ *  check against a re-declared URL — the weakest of what were then four spellings of this
+ *  question, and the one gating the only "you are about to write to prod" banner in a CLI whose
+ *  target is a free-form flag. */
+export const isServingUrl = (url: string): boolean => {
   try {
-    const u = new URL(connectionUrl());
+    const u = new URL(url);
     return (
       u.hostname === CLOUD_SQL_PROXY_HOST && u.port === CLOUD_SQL_PROXY_PORT
     );
@@ -72,6 +79,11 @@ export const isServingDatabase = (): boolean => {
     return false;
   }
 };
+
+/** The same question about the connection `getPool()` will actually dial — `urlOverride`
+ *  included, so a process that called `pinLocalDatabase()` reads "not serving" even with a
+ *  cloud DATABASE_URL in its shell. */
+export const isServingDatabase = (): boolean => isServingUrl(connectionUrl());
 
 let pool: Pool | null = null;
 

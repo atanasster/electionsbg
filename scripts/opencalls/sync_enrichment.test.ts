@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 import {
+  applyPlan,
   CARRIED,
   PAYLOAD_COLS,
   planSync,
@@ -124,6 +125,17 @@ describe("the crawl owns row existence", () => {
     expect(plan[0].from).toBeNull();
   });
 
+  it("the same source_key under a DIFFERENT source is a different row", () => {
+    // `(source, source_key)` is 142's unique key. updateSql's WHERE is asserted on it below;
+    // planSync's key() composition is the other half, and getting it wrong would pair an ИСУН
+    // extraction with a ДФЗ row — reported as a clean update, with the wrong overlay written.
+    const plan = planSync(
+      [row("reviewed", { source: "isun", source_key: "shared-key" })],
+      [row("auto", { source: "sp2023", source_key: "shared-key" })],
+    );
+    expect(plan[0].action).toBe("missing");
+  });
+
   it("the write statement is an UPDATE with no INSERT path at all", () => {
     const sql = updateSql();
     expect(sql).toMatch(/^UPDATE open_calls/);
@@ -185,6 +197,64 @@ describe("the write statement's guards", () => {
 
   it("RETURNS, so the caller counts writes that landed", () => {
     expect(sql).toContain("RETURNING source_key");
+  });
+});
+
+describe("applyPlan counts writes that LANDED", () => {
+  const source = [row("reviewed", { budget_eur: 127_000_000 })];
+  const todo = planSync(source, [row("none")]);
+
+  it("the plan under test really is an update — otherwise the loop never runs", () => {
+    expect(todo[0].action).toBe("update");
+  });
+
+  it("a row the SQL guard refuses is reported, never counted as written", async () => {
+    // THE branch this extraction exists for. It fires only when the target's provenance rose
+    // between the read and the write, so a real run will essentially never reach it again —
+    // and it is the branch that decides whether „Wrote N" is a true sentence.
+    const { written, refused } = await applyPlan(todo, source, async () => ({
+      rowCount: 0,
+    }));
+    expect(written).toBe(0);
+    expect(refused).toEqual(["isun/005e2518-07ea-410b-8995-cae8ae47f351"]);
+  });
+
+  it("a row that lands is counted once and not reported as refused", async () => {
+    const { written, refused } = await applyPlan(todo, source, async () => ({
+      rowCount: 1,
+    }));
+    expect(written).toBe(1);
+    expect(refused).toEqual([]);
+  });
+
+  it("passes the FULL key first, then the payload in PAYLOAD_COLS order", async () => {
+    // The parameter order IS the contract with updateSql()'s `$n` numbering; a shift here writes
+    // one column's value into another's, which no row count would show.
+    const seen: unknown[][] = [];
+    await applyPlan(todo, source, async (_sql, p) => {
+      seen.push(p);
+      return { rowCount: 1 };
+    });
+    expect(seen[0].slice(0, 2)).toEqual([
+      "isun",
+      "005e2518-07ea-410b-8995-cae8ae47f351",
+    ]);
+    expect(seen[0]).toHaveLength(2 + PAYLOAD_COLS.length);
+    // enrichment_meta is serialized for the `$n::jsonb` cast; everything else goes as-is.
+    expect(seen[0][2 + PAYLOAD_COLS.indexOf("enrichment")]).toBe("reviewed");
+    expect(typeof seen[0][2 + PAYLOAD_COLS.indexOf("enrichment_meta")]).toBe(
+      "string",
+    );
+    expect(seen[0][2 + PAYLOAD_COLS.indexOf("budget_eur")]).toBe(127_000_000);
+  });
+
+  it("issues exactly one statement per row, and it is updateSql()", async () => {
+    const statements: string[] = [];
+    await applyPlan(todo, source, async (sql) => {
+      statements.push(sql);
+      return { rowCount: 1 };
+    });
+    expect(statements).toEqual([updateSql()]);
   });
 });
 

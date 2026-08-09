@@ -23,12 +23,29 @@
 import { Pool } from "pg";
 import { pipeline } from "node:stream/promises";
 import { from as copyFrom, to as copyTo } from "pg-copy-streams";
-import { LOCAL_DATABASE_URL, withClient, getPool } from "./pg";
+import {
+  LOCAL_DATABASE_URL,
+  withClient,
+  getPool,
+  isServingDatabase,
+} from "./pg";
 
-/** True when the current DATABASE_URL points at the Cloud SQL proxy (:5434)
- *  rather than local docker (:5433). Only the port distinguishes them. */
-export const targetIsCloud = (): boolean =>
-  /:5434\b/.test(process.env.DATABASE_URL ?? "");
+/** True when the database this process will ship INTO is the Cloud SQL proxy rather than
+ *  local docker.
+ *
+ *  Delegates rather than re-testing the URL, so there is ONE definition of "serves
+ *  production" (pg.ts's `isServingUrl`). Two things changed when it stopped being its own
+ *  `/:5434\b/` regex over `process.env.DATABASE_URL`, and both are tightenings:
+ *
+ *  - it is now host+port, so a staging proxy on some other host at :5434 reads as NOT cloud.
+ *    The cost of that is speed, never correctness — a false `false` runs the build SQL in
+ *    place (slow on a shared core, ~40 min for procurement_normalcy_cache) instead of
+ *    shipping, and every `:cloud` npm script spells the target 127.0.0.1:5434 anyway;
+ *  - it now reads the connection `getPool()` will actually dial instead of the raw env var,
+ *    which is the connection `shipTable` COPYs into. A process that called
+ *    `pinLocalDatabase()` with a cloud DATABASE_URL in its shell used to read "cloud" here
+ *    and would have shipped local into local. */
+export const targetIsCloud = (): boolean => isServingDatabase();
 
 /**
  * Copy every row of `table` from local Postgres into the connected database,

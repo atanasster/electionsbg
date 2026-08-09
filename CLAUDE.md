@@ -1004,7 +1004,9 @@ Three things about it are easy to get backwards:
 - **It never INSERTs.** The crawl owns row existence; a source row missing on the target is
   reported, and the fix is `db:load:open-calls:pg:cloud` first, then re-run. It also reports rows
   enriched on the TARGET only, so a divergence between the two databases is visible rather than
-  inferred from a silence.
+  inferred from a silence. **A missing or refused row exits non-zero** — including on a dry run,
+  whose job is to report whether a full sync is possible — so a wrapper can tell a complete sync
+  from a partial one without parsing stdout.
 - **The overlay moves as a UNIT, NULLs included** — never a per-column COALESCE. `enrichment` is a
   claim about the whole set of figures, so merging two provenances under one flag is exactly the
   thing it exists to prevent.

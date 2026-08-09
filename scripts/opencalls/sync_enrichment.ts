@@ -53,12 +53,9 @@ import { Pool } from "pg";
 // Imported for LOCAL_DATABASE_URL *and* for its import side effect: it points node-pg's .pgpass
 // lookup at the repo-local file, which is the only way the password-less Cloud SQL proxy URL
 // authenticates. Dialing the proxy without importing this fails with a bare SASL error.
-import { LOCAL_DATABASE_URL } from "../db/lib/pg";
+import { LOCAL_DATABASE_URL, isServingUrl } from "../db/lib/pg";
 import { ENRICHMENT_RANK, enrichmentRank } from "../db/load_open_calls_pg";
 import { MONEY_FIELDS } from "./enrich_apply";
-
-/** The proxy every `:cloud` npm script targets — the database that SERVES production. */
-const CLOUD_SQL_PROXY_URL = "postgres://postgres@127.0.0.1:5434/electionsbg";
 
 /** The provenances worth carrying. 'source' is excluded because the loader already carries it
  *  (the crawler parses it out of the committed snapshot, so both databases derive it from the
@@ -214,6 +211,39 @@ const params = (r: EnrichmentRow): unknown[] => [
   ),
 ];
 
+/**
+ * Run the approved plan, counting writes that LANDED.
+ *
+ * Extracted from the CLI and given an injected `query` for one reason: the `refused` branch is
+ * the branch that decides whether „Wrote N" is truthful, and it fires only when the SQL guard
+ * rejects a row the plan approved — i.e. under a race between the read and the write. A real
+ * run will essentially never exercise it again, so without a test it is asserted by nothing.
+ * An over-counting version of exactly this loop has existed before: see `updateSql`'s note on
+ * why the statement RETURNs at all.
+ */
+export const applyPlan = async (
+  todo: PlanRow[],
+  sourceRows: EnrichmentRow[],
+  query: (sql: string, p: unknown[]) => Promise<{ rowCount: number | null }>,
+): Promise<{ written: number; refused: string[] }> => {
+  let written = 0;
+  const refused: string[] = [];
+  const sql = updateSql();
+  for (const p of todo) {
+    const row = sourceRows.find(
+      (r) => r.source === p.source && r.source_key === p.sourceKey,
+    );
+    if (!row) continue;
+    const res = await query(sql, params(row));
+    // RETURNING, not an optimistic counter: a row the plan approved can still be refused by the
+    // SQL guard if the target moved. That is the rule working, but it must be REPORTED — a
+    // silent skip here is the same class of failure as the one this whole tool exists to end.
+    if (res.rowCount) written++;
+    else refused.push(`${p.source}/${p.sourceKey}`);
+  }
+  return { written, refused };
+};
+
 const SELECT_ENRICHED = `SELECT ${ALL_COLS.join(", ")}
     FROM open_calls
    WHERE enrichment = ANY($1::text[])
@@ -239,9 +269,21 @@ export const redact = (url: string): string => {
   }
 };
 
+/** A flag's value, REFUSING the two shapes that silently mean something else.
+ *
+ *  `--from` as the last argument yields undefined, which falls back to LOCAL_DATABASE_URL: the
+ *  operator asked for one source and got another, with nothing said. `--to --apply` yields
+ *  "--apply" as a connection string, which surfaces as an obscure node-pg dial error rather
+ *  than as „you forgot the URL". */
 const flagValue = (argv: string[], name: string): string | undefined => {
   const i = argv.indexOf(name);
-  return i >= 0 ? argv[i + 1] : undefined;
+  if (i < 0) return undefined;
+  const v = argv[i + 1];
+  if (!v || v.startsWith("--"))
+    throw new Error(
+      `${name} needs a connection URL, e.g. ${name} ${LOCAL_DATABASE_URL}`,
+    );
+  return v;
 };
 
 const tableExists = async (pool: Pool, label: string): Promise<void> => {
@@ -255,6 +297,33 @@ const tableExists = async (pool: Pool, label: string): Promise<void> => {
     );
 };
 
+/** WHICH DATABASE IS THIS, REGARDLESS OF HOW IT WAS SPELLED.
+ *
+ *  `system_identifier` distinguishes CLUSTERS (it is stamped at initdb), `current_database()`
+ *  distinguishes databases within one. Asked over the connection itself, so `localhost` vs
+ *  `127.0.0.1`, a `?sslmode=` suffix and a trailing slash all resolve to the same answer — which
+ *  a string comparison of the two URLs cannot do.
+ *
+ *  Verified against Cloud SQL 2026-08-09: `pg_control_system()` is readable there even though
+ *  its `postgres` role is NOT a superuser (`usesuper = false`), so this does not need a
+ *  privilege the serving database withholds.
+ *
+ *  Returns null rather than throwing when it cannot be read, because `--to` is free-form and a
+ *  managed Postgres that restricts `pg_control_system()` would otherwise make this guard abort
+ *  every legitimate sync. Degrading is right here and only here: the caller SAYS the check was
+ *  skipped, so the operator loses a safety net loudly rather than silently — which is the
+ *  opposite of the failure the guard exists to prevent. */
+const identity = async (pool: Pool): Promise<string | null> => {
+  try {
+    const { rows } = await pool.query<{ id: string }>(
+      "SELECT system_identifier::text || '/' || current_database() id FROM pg_control_system()",
+    );
+    return rows[0]?.id ?? null;
+  } catch {
+    return null;
+  }
+};
+
 export const syncEnrichment = async (argv: string[]): Promise<void> => {
   const apply = argv.includes("--apply");
   const from = flagValue(argv, "--from") ?? LOCAL_DATABASE_URL;
@@ -266,6 +335,8 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
     );
   // A same-database sync is a no-op that reports „0 rows to update" — indistinguishable from
   // „the target is already current", which is the answer an operator is hoping for. Refuse.
+  // This cheap form fails before opening any connection; the authoritative one is below, since
+  // the same database has many spellings and a guard defeated by spelling is not a guard.
   if (from === to)
     throw new Error(
       `source and target are the same database (${redact(from)}). ` +
@@ -274,13 +345,45 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
 
   const src = new Pool({ connectionString: from, max: 2 });
   const tgt = new Pool({ connectionString: to, max: 2 });
+  // A Pool with no 'error' listener CRASHES the process ("Unhandled 'error' event") when an
+  // IDLE backend connection drops — the Cloud SQL proxy does exactly this, and getPool()
+  // carries the same handler for the same reason. It matters more here than anywhere else in
+  // the repo: this is the only raw-pool site that issues a SEQUENCE OF WRITES to the serving
+  // database while holding a second idle pool open, so a drop mid-loop would kill the process
+  // after some rows had already committed — losing the „Wrote N row(s)" line that is this
+  // tool's entire report of what landed.
+  for (const [label, p] of [
+    ["source", src],
+    ["target", tgt],
+  ] as const)
+    p.on("error", (err) =>
+      console.error(
+        `[pg] ${label}: idle client error (dropped, pool recovered):`,
+        err.message,
+      ),
+    );
   try {
     console.log(`source: ${redact(from)}`);
     console.log(
-      `target: ${redact(to)}${to === CLOUD_SQL_PROXY_URL ? "   ← SERVES PRODUCTION" : ""}\n`,
+      `target: ${redact(to)}${isServingUrl(to) ? "   ← SERVES PRODUCTION" : ""}\n`,
     );
     await tableExists(src, "source");
     await tableExists(tgt, "target");
+
+    // The authoritative same-database check: ask both connections who they are.
+    const [srcId, tgtId] = await Promise.all([identity(src), identity(tgt)]);
+    if (srcId && tgtId && srcId === tgtId)
+      throw new Error(
+        `source and target are the same database — ${redact(from)} and ${redact(to)} ` +
+          `both resolve to ${tgtId}. Nothing would be copied, and the report would read as ` +
+          "success.",
+      );
+    if (!srcId || !tgtId)
+      console.log(
+        "note: could not read pg_control_system() on " +
+          `${!srcId ? "the source" : "the target"} — the two URLs differ as strings, but ` +
+          "whether they name the same database was NOT verified.\n",
+      );
 
     const carried = [...CARRIED];
     const sourceRows = (
@@ -314,8 +417,15 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
             `           Run db:load:open-calls:pg:cloud first, then re-run this.`,
         );
       else if (p.action === "preserved")
+        // The payload difference is printed HERE and nowhere else, because a preserved row is
+        // exactly the row where it is interesting: a 'reviewed' target against an 'auto' source
+        // carrying newly re-gated quotes means the source holds fresher evidence than the
+        // promotion was made from, and the operator is the only one who can act on that.
         console.log(
-          `  KEPT     ${head}   target '${p.from}' outranks source '${p.to}' — left alone`,
+          `  KEPT     ${head}   target '${p.from}' outranks source '${p.to}' — left alone` +
+            (p.changed.length
+              ? `   (source differs on: ${p.changed.join(", ")})`
+              : ""),
         );
       else if (p.action === "unchanged")
         console.log(`  same     ${head}   '${p.to}', already identical`);
@@ -349,6 +459,12 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
         `${of("preserved").length} preserved, ${of("missing").length} missing on the target.`,
     );
 
+    // INCOMPLETE IS NOT SUCCESS. Both outcomes mean the sync did not fully happen, so a wrapper
+    // or a watch-skill step can tell them apart without parsing stdout. This fires on a DRY RUN
+    // too, and deliberately: a dry run's job is to report whether a full sync is POSSIBLE, and
+    // a missing row means it is not until the loader has run against the target.
+    if (of("missing").length) process.exitCode = 1;
+
     if (!apply) {
       console.log(
         todo.length
@@ -362,26 +478,14 @@ export const syncEnrichment = async (argv: string[]): Promise<void> => {
       return;
     }
 
-    let written = 0;
-    const refused: string[] = [];
-    const sql = updateSql();
-    for (const p of todo) {
-      const row = sourceRows.find(
-        (r) => r.source === p.source && r.source_key === p.sourceKey,
-      );
-      if (!row) continue;
-      const res = await tgt.query<{ source_key: string }>(sql, params(row));
-      // RETURNING, not an optimistic counter: the SQL guard can refuse a row the plan approved
-      // if the target moved between the read and the write. That is the rule working, but it
-      // must be REPORTED — a silent skip here is the same class of failure as the one this
-      // whole tool exists to end.
-      if (res.rowCount) written++;
-      else refused.push(`${p.source}/${p.sourceKey}`);
-    }
+    const { written, refused } = await applyPlan(todo, sourceRows, (sql, p) =>
+      tgt.query(sql, p),
+    );
     for (const r of refused)
       console.log(
         `  REFUSED  ${r}   the target's provenance rose between the read and the write`,
       );
+    if (refused.length) process.exitCode = 1;
     console.log(`\nWrote ${written} row(s) to ${redact(to)}.`);
   } finally {
     await Promise.all([src.end(), tgt.end()]);
