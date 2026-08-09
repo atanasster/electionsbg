@@ -26,6 +26,7 @@ import type { ExplainerSpec } from "../lib/spec";
 export const v3: ExplainerSpec = {
   slug: "2026-08-08-v3-real-screen",
   kind: "explainer",
+  runtimeSeconds: [30, 120],
   title: "Инфлацията в реалния екран",
   topic: "Инфлация",
   period: "2 тримесечие 2026 · ЕС-27",

@@ -1,6 +1,6 @@
 ---
 name: naiasno-video
-description: Draft a Наясно explainer video and save a reviewable draft (never auto-publishes). Two formats — EXPLAINER (the default: 60–120 s, 16:9, one accreting chart, for YouTube + on-site) and SHORT (25–50 s, 9:16, a cutdown for Reels). Grounds every figure in data/, writes a Bulgarian scene script with numbers spelled out for the voice track, synthesizes per-scene TTS, renders with Remotion and burns BG captions. Use when the user asks to "make a video", "create an explainer video", "turn this post into a video", "видео за <тема>", "направи видео", "запиши обяснение", to script a walkthrough of a site feature, or to turn a data finding / article / watcher report into a video.
+description: Draft a Наясно explainer video and save a reviewable draft (never auto-publishes). Two formats — EXPLAINER (the default: 16:9, one accreting chart, 10–15 min for a multi-part subject or 60–120 s for a single finding, for YouTube + on-site) and SHORT (25–50 s, 9:16, a cutdown for Reels). Grounds every figure in data/, writes a conversational Bulgarian scene script with numbers spelled out for the voice track, synthesizes per-scene TTS, renders with Remotion and burns BG captions. Use when the user asks to "make a video", "create an explainer video", "turn this post into a video", "видео за <тема>", "направи видео", "запиши обяснение", to script a walkthrough of a site feature, or to turn a data finding / article / watcher report into a video.
 allowed-tools:
   - Read
   - Grep
@@ -35,27 +35,39 @@ npm run video:studio               # Remotion Studio, for retiming by hand
 npm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
 npm run video:screens              # capture real app pages (needs `npm run dev`)
 npm run video:data-inflation       # rebuild a spec's data layer + assert its claims
+npm run video:data-risk            # ditto, for the election-risk explainer
+npm run video:gate1  -- <spec>     # ⛔ GATE 1 — print the script + check what is checkable
 ```
 
-A new short means a new spec in `video/src/specs/`, registered in
-`video/src/Root.tsx` and in the `SPECS` maps of `scripts/video/synthesize.ts` and
-`emit_vtt.ts`.
+A new video means a new spec in `video/src/specs/`, registered in
+`video/src/Root.tsx` and in the `SPECS` maps of `scripts/video/synthesize.ts`,
+`emit_vtt.ts` and `gate1.ts`.
 
 **16:9 (1920×1080) is the explainer, via `Stage16x9` — its own layout, not a
 rescale.** The shorts use 9:16 (1080×1920) and 4:5 (1080×1350) via `Frame`. Never
 try to serve landscape by rescaling a portrait scene; see `references/publish.md`.
 
-Measured on T1: **~2 min per cut** to render, 885 frames, ~2 MB.
+Measured on T1: **~2 min per cut** to render, 885 frames, ~2 MB. Render cost scales
+with frame count, so budget a long-form cut at roughly its ratio — a 10-min video
+is ~20× T1's frames. Synthesis scales with SCENE COUNT (one request each), and at
+~50 scenes the transient-failure retries stop being theoretical.
 
 ## Two formats — the EXPLAINER is the flagship
 
 | | **`explainer`** ⭐ | **`short`** |
 |---|---|---|
-| Length | 60–120 s | 25–50 s |
+| Length | **10–15 min** (or 60–120 s for a single finding) | 25–50 s |
 | Aspect | **16:9** (1920×1080) | 9:16 · also 4:5 for FB feed |
 | Layout | `Stage16x9` — persistent chrome, chart + rail | `Frame` — one full-bleed visual |
 | Visual | **ONE canvas that accretes** across scenes | a new visual per scene |
-| Scenes | 8–12 | 4–6 |
+| Scenes | 40–60 long-form · 8–12 short-form | 4–6 |
+
+**Length is declared per spec (`runtimeSeconds`), not inferred from `kind`**, and
+gate 1 enforces the declared window. An explainer covering a topic with SEVERAL
+components — an index built from five signals, a budget with eight lines — should
+run long-form: at 90 s each component gets one sentence and the video becomes a
+list of numbers, which is the failure the explainer format exists to fix. Reserve
+the 60–120 s form for a single finding with one thread through it (E1).
 
 **Default to `explainer`.** Decided 2026-08-08 after the shorts were judged too
 simplistic: the card style is right for a thumb-scroll and wrong for a video, where
@@ -92,9 +104,9 @@ Rules 1–5 are inherited from `naiasno-post` unchanged. 6–9 are video-specifi
    that post's `sources` already carry the confirmation. Reuse them and say so; do
    not re-confirm what is already recorded.
 3. **No duplicates.** Dup-check before composing (step 1).
-4. **Non-partisan, no emojis, plain Bulgarian.** Let the number be the point — no
-   adjectives, no outrage, no party-side framing. This binds the voice-over and the
-   on-screen text equally.
+4. **Non-partisan, no emojis, conversational Bulgarian.** Let the number be the
+   point — no adjectives, no outrage, no party-side framing. This binds the
+   voice-over and the on-screen text equally. Register table in step 3.
 5. **Draft only.** Never upload, never post, never publish.
 6. **Spoken ≡ shown.** Every scene's `voiceOver` figure must be the Bulgarian
    verbalization of the same scene's `onScreen` figure. A video that narrates one
@@ -192,31 +204,82 @@ digit-by-digit, acronym handling) and the reason they cannot be fixed after the 
 published facts — the canonical examples, not invented ones.
 
 **Budget the length here, not after the render.** Measured on the chosen voice:
-**13.0 chars/s, 137 wpm**. A 40 s short is **~520 characters of `voiceOver` total,
-~105 per scene** across five scenes. Budget from the spelled-out text — it runs
-substantially longer than the on-screen figure it replaces (716 vs 433 chars on the
-reference passage), so counting the digits under-estimates every time.
+**13.0 chars/s, 137 wpm**. Declare the window as `runtimeSeconds` on the spec and
+let `video:gate1` enforce it:
 
-Structure a `short` as: hook (the surprising number) → context (what it is measured
-against) → the twist → CTA. Structure an `explainer` as one thread through the
-article, not a summary of it.
+| Target | `runtimeSeconds` | `voiceOver` total | scenes | per scene |
+|---|---|---|---|---|
+| 40 s short | `[25, 50]` | ~520 chars | 5 | ~105 |
+| 90 s explainer | `[60, 120]` | ~1 200 chars | 10 | ~120 |
+| **12 min explainer** | `[600, 900]` | **~9 400 chars** | 50–60 | ~160 |
 
-Writing rules: no emojis; non-partisan; natural Bulgarian, never a word-for-word
-translation from English; close with the share line —
-«Споделете, за да стигне Наясно до повече хора.»
+Budget from the spelled-out text — it runs substantially longer than the on-screen
+figure it replaces (716 vs 433 chars on the reference passage), so counting the
+digits under-estimates every time.
+
+**Structure.** A `short` is hook → context → twist → CTA. A **90 s explainer** is
+one thread through the finding. A **long-form explainer is parts, not scenes** —
+name each part, and inside a part say what the thing MEASURES before you say what
+it scored. The failure mode long-form removes is a video that recites numbers; the
+failure mode it introduces is a video that lists sections. What prevents the second
+is that each part has to *earn* its place by changing what the viewer believes.
+
+Two things long-form buys that are worth spending scenes on, because at 90 s they
+are the first casualties:
+
+- **The confound in the same breath as the finding.** E2's concentration drop
+  (592 → 145 settlements) is only publishable alongside the turnout rise that
+  partly explains it. Three scenes: the drop, the confound, the refusal. At 90 s
+  this had to be cut entirely rather than shipped half-stated.
+- **The lesson, not just the number.** E2 spends a whole scene on «висока оценка не
+  значи голямо число» — the thing a viewer needs in order to read the NEXT figure
+  without you.
+
+Writing rules: no emojis; non-partisan; **conversational** Bulgarian, never a
+word-for-word translation from English and never compressed newspaper register.
+No share line — a video ends on the finding and the deep link. (Sharing is a
+platform button; asking for it out loud reads as begging and costs a beat.)
+
+**Conversational means the phrasing a person would use out loud**, which is not
+the phrasing that fits a chart caption. Prefer the plain verb and the full noun
+phrase over the compact one, and drop metaphors that read fine but sound
+writerly:
+
+| Not this | This |
+|---|---|
+| индексът **показва** 47 | индексът **е** 47 |
+| до него **пише** «висок» | до него **е отбелязано** «висок» |
+| опират в **таван** от 0,2 | са близо до **границата** от 0,2 |
+| **другаде** се задейства преброяване | **в някои държави** се задейства преброяване |
+| средното от петте **прави** 47 | средното от петте **е** 47 |
+| седем избора са **мерени** | седем избора са **оценявани** |
+| **средното им** е 54 | **средната стойност** е 54 |
+| а **върхът** — 77 | а **най-голямата** — 77 |
+| последният **цикъл** | последните **избори** |
 
 ## Step 4 — ⛔ GATE 1: the operator reads the script
 
-Print, per scene, a three-column table: `onScreen` · `voiceOver` · `grounding`.
+```bash
+npm run video:gate1 -- <spec>
+```
 
-Assert mechanically (this half **is** automatable): every `onScreen` value equals the
-value at its `grounding` path in `data/`. Fail the gate on any mismatch.
+`scripts/video/gate1.ts` prints every scene as `onScreen` · numeric tokens ·
+number-word spans · `voiceOver` · `grounding`, and **fails** on: a digit anywhere in
+a `voiceOver` (rule 7), a shown figure that does not resolve at its `grounding`
+path, a shown figure with no `grounding` block at all, a scene over the char
+ceiling, and a total outside the spec's `runtimeSeconds`.
 
 Do **not** claim to check `voiceOver` against `onScreen` mechanically — once numbers
 are Bulgarian words, comparing them by machine needs the very verbalizer this design
-avoids. Print both, extract the numeric tokens from `onScreen` and the number-word
-spans from `voiceOver` beside each other so the check takes seconds, and require
-explicit operator sign-off.
+avoids. The gate prints the two columns side by side and the **operator** signs off
+on rule 6.
+
+**Read those two columns yourself before handing over.** The recurring defect is a
+scene that DISPLAYS a figure the narration never speaks — it passes every
+mechanical check, because the figure is grounded and the voice track is clean; the
+two just never meet. Ten of E2's fifty-nine scenes had it on first draft. Either
+speak the figure or move it out of `onScreen` into `body`, where it reads as
+chart detail rather than as the scene's claim.
 
 **Stop here and wait.** Nothing is spent yet.
 
@@ -239,9 +302,9 @@ Three things that are not optional here, all learned the hard way — full detai
   while the run still reports success.
 - **Trim leading/trailing silence adaptively** (`loudnorm` → `silencedetect`), or the
   cuts sag.
-- **Budget the script by the measured rate — 13.0 chars/s, 137 wpm.** A 40 s short is
-  ~520 characters of `voiceOver`, ~105 per scene across five. Check this at step 3,
-  not after the render.
+- **Budget the script by the measured rate — 13.0 chars/s, 137 wpm.** The table is
+  in step 3; `video:gate1` enforces the spec's declared `runtimeSeconds`. Check it
+  at step 3, not after the render.
 
 ## Step 6 — Render, caption, thumbnail
 
@@ -264,31 +327,49 @@ where the file is. Remind them it is unpublished.
 
 ## Spec shape
 
+The authority is `ExplainerSpec` in `video/src/lib/spec.ts` — read it rather than
+this sketch if the two disagree.
+
 ```jsonc
 {
-  "slug": "2026-08-10-cost-per-vote",
-  "kind": "short",                        // short | explainer
+  "slug": "2026-08-09-election-risk-explainer",
+  "kind": "explainer",
+  "runtimeSeconds": [600, 900],           // gate 1 enforces this window
   "title": "…",
-  "link": "https://electionsbg.com/financing?elections=2026_04_19",
-  "postSlug": "2026-08-02-cost-per-vote-april-2026",   // when a card exists
-  "sources": ["data/financing/…json", "https://erik.bulnao.government.bg/…"],
+  "topic": "Изборен риск",                // persistent header chrome
+  "period": "юли 2021 — април 2026 · 7 сравними избора",
+  "sourceLine": "Източник: ЦИК … · naiasno.bg",
+  "link": "https://electionsbg.com/risk-analysis?elections=2026_04_19",
+  "postSlug": "…",                        // when a card carries the same finding
+  "sources": ["data/…json", "https://results.cik.bg/…"],
   "voice": { "provider": "gemini", "voiceId": "Rasalgethi" },
   "scenes": [
     {
-      "id": 1,
-      "visual": { "type": "stat", "value": "6,79 €", "label": "на глас" },
-      "onScreen": "6,79 €",
-      "voiceOver": "шест цяло седемдесет и девет евро на глас",
-      "grounding": { "file": "data/financing/…json", "path": "$.itn.eurPerVote" }
+      "id": 16,
+      "kicker": "Защо тогава 90",          // rail copy for this beat
+      "stat": "90",
+      "headline": "Границата е 0,2%",
+      "body": "Прагът, при който в някои държави\nсе задейства преброяване.",
+      "onScreen": "0,18% спрямо 0,2%",     // the scene's CLAIM — must be spoken
+      "voiceOver": "Защо тогава деветдесет? Защото нула цяло осемнайсет процента …",
+      "grounding": { "file": "video/src/generated/risk.json", "path": "$.facts…" },
+      "canvas": { /* what this scene CHANGES about the one persistent visual */ }
     }
-  ],
-  "cta": { "text": "Виж разбивката", "url": "…" }
+  ]
 }
 ```
 
-`visual.type` mirrors `cardKit`'s renderer selection (`bars` → infographic,
-`series` → line, `rows` → table, `stat` → single number) so video and card share one
-design vocabulary. → `references/scenes.md`
+`onScreen` is the scene's declared claim and gate 1 checks it both ways. `body` is
+supporting detail — an exact denominator too long to say aloud belongs there, not in
+`onScreen`. Scenes do not own a visual: they declare a `canvas` delta.
+→ `references/scenes.md`
+
+**Ground every figure in a generated data layer, not in `data/` directly.** A build
+script (`scripts/video/build_risk.ts`, `build_inflation.ts`) recomputes the story
+from source, **asserts every claim the narration makes, and refuses to write** when
+one moves. Where the site already computes the figure, call the site's own function
+rather than re-deriving it — a video explaining a number must not own a second
+definition of that number.
 
 ## References — load on demand
 

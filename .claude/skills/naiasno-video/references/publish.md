@@ -125,9 +125,12 @@ The draft states, for the operator:
 
 ## Copy conventions
 
-Inherited from `naiasno-post` and unchanged: no emojis, non-partisan, natural
-Bulgarian. Close the description and the final scene with the share line —
-«Споделете, за да стигне Наясно до повече хора.»
+Inherited from `naiasno-post`: no emojis, non-partisan, conversational Bulgarian
+(the register table is in `SKILL.md` step 3).
+
+**No share line** — not in the description, not in the final scene. A video ends
+on the finding and the deep link; sharing is a platform button, and asking for it
+out loud reads as begging and costs a beat that could carry a fact.
 
 For a YouTube description: the deep link goes in the body (unlike a Facebook post,
 where it goes in the first comment because FB throttles link posts).

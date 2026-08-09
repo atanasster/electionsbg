@@ -84,15 +84,22 @@ vocative position, a different provider, or a human read.
 Rasalgethi reads the 716-character `spoken` passage in **55.0 s** → **13.0 chars/s,
 137 wpm**. Use it to size a script *before* synthesizing anything:
 
-| Target | voiceOver budget |
-|---|---|
-| 30 s short | ~390 chars / ~70 words |
-| **40 s short** | **~520 chars / ~90 words** |
-| 50 s short | ~650 chars / ~115 words |
-| per scene, 5 scenes in 40 s | **~105 chars** |
+| Target | voiceOver budget | scenes | per scene |
+|---|---|---|---|
+| 30 s short | ~390 chars / ~70 words | 4 | ~100 |
+| **40 s short** | **~520 chars / ~90 words** | 5 | **~105** |
+| 50 s short | ~650 chars / ~115 words | 5–6 | ~115 |
+| 90 s explainer | ~1 200 chars / ~205 words | 10 | ~120 |
+| **12 min explainer** | **~9 400 chars / ~1 600 words** | 50–60 | **~160** |
 
-A scene whose `voiceOver` runs much past ~105 characters will not fit the beat it was
-written for. Rewrite the line rather than discovering it after the render.
+A scene whose `voiceOver` overruns its per-scene budget will not fit the beat it was
+written for. Rewrite the line rather than discovering it after the render. The
+per-scene figure rises with total length because a long-form beat carries a whole
+idea rather than a single number — but past ~260 characters (~20 s) a scene is
+holding one canvas state for too long and wants splitting.
+
+The spec declares its own window as `runtimeSeconds` and `npm run video:gate1`
+enforces it. Length is a property of the VIDEO, not of the format.
 
 Note this is the **`spoken`** rate — the whole point of the rule above is that
 `spoken` runs *longer* than the same facts as digits (716 vs 433 chars here). Budget

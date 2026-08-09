@@ -33,6 +33,7 @@ import type { ExplainerSpec } from "../lib/spec";
 export const e1: ExplainerSpec = {
   slug: "2026-08-08-inflation-explainer",
   kind: "explainer",
+  runtimeSeconds: [60, 120],
   title: "Какво стана с инфлацията след еврото",
   topic: "Инфлация",
   period: "2005 — 2026 · тримесечно",

@@ -107,6 +107,12 @@ export const BAND = (score: number): RiskCompositeBand =>
         ? "high"
         : "critical";
 
+// EXPORTED because they are the SCALE, and any consumer that explains a
+// sub-score has to state the cap to be truthful — 0,18% reads as 90 only
+// because MACHINE_DRIFT_CAP_PCT is 0,2. A consumer that re-declares its own
+// copy (the explainer video's data layer did, for one commit) can drift from
+// the number it is describing with nothing failing.
+//
 // Cap calibration — vote-weighted integrity components live on a single
 // denominator (national turnout, or total machine votes for the machine-
 // only signals). Tweak after observing 2009–2026 backtest distributions
@@ -115,44 +121,44 @@ export const BAND = (score: number): RiskCompositeBand =>
 // Section screening — band-weighted votes (1.0×crit + 0.5×high + 0.2×elev)
 // run ~1.5–2% of turnout for typical post-2021 cycles; cap at 5% so the
 // component lands mid-range without saturating on a typical election.
-const SECTION_CAP_PCT = 5;
+export const SECTION_CAP_PCT = 5;
 // Machine drift — Σ|partyDrift| ÷ total machine votes. Tighter than the
 // original 0.5% because international audit-trigger thresholds (US recount
 // rules, Mexico INE) fire at well under 0.5% margins; 0.2% is conservative.
-const MACHINE_DRIFT_CAP_PCT = 0.2;
+export const MACHINE_DRIFT_CAP_PCT = 0.2;
 // Missing-flash machine votes as % of all machine votes. Article shows
 // ~0.27% in 2026 (peak so far ~0.6% in 2024-06); cap at 1% for headroom.
-const MISSING_FLASH_CAP_PCT = 1;
+export const MISSING_FLASH_CAP_PCT = 1;
 // Concentration — top-party votes in ≥80% settlements; ~0.5–1% of turnout
 // is typical, cap at 2% lets a doubling register as max.
-const CONCENTRATION_CAP_PCT = 2;
+export const CONCENTRATION_CAP_PCT = 2;
 // Procedural anomalies — invalid + additional voters in flagged settlements;
 // ~0.3–0.5% of turnout typical, cap at 2%.
-const PROCEDURAL_CAP_PCT = 2;
+export const PROCEDURAL_CAP_PCT = 2;
 // Risk-neighborhood EXCESS swing — pp of swing in the aggregate top-party
 // share inside the eight tracked communities, ABOVE the same party's
 // national swing. >10pp excess swing is the canonical broker-managed-
 // turnout fingerprint (Stokes et al. 2013). Cap at 15pp = 100.
-const NEIGHBORHOOD_SWING_CAP_PP = 15;
+export const NEIGHBORHOOD_SWING_CAP_PP = 15;
 // Pedersen electoral-volatility index (national). Floor at 5pp (typical
 // stable-democracy churn) so well-anchored cycles read 0; cap at 30
 // (BG 2021–2022 hyper-volatile cycles hit ~40+, so this saturates fast).
-const VOTE_SWITCHING_FLOOR_PP = 5;
-const VOTE_SWITCHING_CAP_PP = 30;
+export const VOTE_SWITCHING_FLOOR_PP = 5;
+export const VOTE_SWITCHING_CAP_PP = 30;
 // Polls — pollster mean MAE in pp. Floor below the international ~1.5 pp
 // baseline so well-polled elections score 0; cap at 5 pp. Polls are in
 // the CONTEXT track because high MAE measures forecast failure, not
 // election irregularity.
-const POLLS_FLOOR_PP = 1.5;
-const POLLS_CAP_PP = 5;
+export const POLLS_FLOOR_PP = 1.5;
+export const POLLS_CAP_PP = 5;
 // Spatial risk clusters — share of geolocatable elevated+ sections that
 // fall into a same-party geographic cluster (scripts/reports/risk_score.ts
 // buildRiskClusters). The 2005–2026 backtest sits in a narrow 8–17% band;
 // floor at 5% (irreducible structural clustering reads calm cycles low),
 // cap at 20% (a fifth of all flagged sections clustering is a strong
 // spatial-concentration signal — above the 16.7% historical peak).
-const CLUSTER_SHARE_FLOOR_PCT = 5;
-const CLUSTER_SHARE_CAP_PCT = 20;
+export const CLUSTER_SHARE_FLOOR_PCT = 5;
+export const CLUSTER_SHARE_CAP_PCT = 20;
 
 // Match a party across cycles by canonical-name overlap, falling back to
 // nickname equality. commonName arrays carry the rename/coalition history

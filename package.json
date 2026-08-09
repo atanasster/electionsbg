@@ -262,6 +262,8 @@
     "video:vtt": "tsx scripts/video/emit_vtt.ts",
     "video:map-t2": "tsx scripts/video/build_map_t2.ts",
     "video:data-inflation": "tsx scripts/video/build_inflation.ts",
+    "video:data-risk": "tsx scripts/video/build_risk.ts",
+    "video:gate1": "tsx scripts/video/gate1.ts",
     "video:screens": "tsx scripts/video/capture_screens.ts"
   },
   "dependencies": {

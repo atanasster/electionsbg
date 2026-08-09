@@ -228,11 +228,10 @@ const main = async () => {
   console.log(
     `\n  total narration: ${total.toFixed(1)}s across ${written.length} scenes`,
   );
-  if (spec.kind === "short" && total > 60) {
-    console.warn(
-      `  [warn] ${total.toFixed(1)}s exceeds the 60s Reels/Shorts ceiling`,
-    );
-  }
+  // The length window is the SPEC's (`runtimeSeconds`) and gate 1 enforces it
+  // before anything is synthesized — there is deliberately no ceiling here. The
+  // branch that used to live at this line compared `kind` against "short", a
+  // member the type lost when the shorts were removed, so `tsc -b` failed on it.
   console.log(`  → ${outDir}\n`);
 };
 
