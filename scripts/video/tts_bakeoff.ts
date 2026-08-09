@@ -81,7 +81,20 @@ type Provider = {
   configured: () => boolean;
   missingHint: string;
   listVoices: () => Promise<Voice[]>;
-  synthesize: (voice: Voice, text: string) => Promise<Buffer>;
+  /**
+   * `direction` is a natural-language delivery note ("read this as a calm
+   * documentary narrator…"). It is NOT part of the transcript and must never be
+   * spoken — each provider applies it its own way, because they disagree about
+   * where it goes: Gemini takes it as leading text in the same input, OpenAI has
+   * an `instructions` field, ElevenLabs uses inline audio tags instead. A
+   * provider with no equivalent should ignore it rather than prepend it, or the
+   * note gets read aloud.
+   */
+  synthesize: (
+    voice: Voice,
+    text: string,
+    direction?: string,
+  ) => Promise<Buffer>;
   /** Container the clips are written in. Gemini returns raw PCM, not MP3. */
   ext?: "mp3" | "wav";
 };
@@ -439,8 +452,14 @@ export const gemini: Provider = {
   missingHint: "set GEMINI_API_KEY (already in .env.local for OCR/images)",
   ext: "wav",
   listVoices: async () => GEMINI_VOICES,
-  synthesize: async (voice, text) => {
+  synthesize: async (voice, text, direction) => {
     const model = env("GEMINI_TTS_MODEL") || GEMINI_TTS_MODEL;
+    // Gemini takes the delivery note as leading text in the SAME input and
+    // consumes it as direction rather than reading it. Measured 2026-08-09 on
+    // scene 15 of E2: bare transcript 12,5 ch/s, directed 10,3 ch/s — the ~18%
+    // the engine was rushing by. The note itself is not spoken (142 chars at
+    // 10,3 ch/s is 13,8 s; the note would have added ~13 s and did not).
+    const input = direction ? `${direction}\n\n${text}` : text;
     let lastReason = "none";
 
     for (let attempt = 1; attempt <= GEMINI_EMPTY_RETRIES; attempt++) {
@@ -452,7 +471,7 @@ export const gemini: Provider = {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-              contents: [{ parts: [{ text }] }],
+              contents: [{ parts: [{ text: input }] }],
               generationConfig: {
                 responseModalities: ["AUDIO"],
                 speechConfig: {

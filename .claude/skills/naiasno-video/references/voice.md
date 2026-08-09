@@ -40,9 +40,13 @@ does not sound like a person. A reviewer scanning for a mangled number will pass
 
 Two reinforcing reasons the rule is not merely stylistic: `bg-BG` has **no
 pronunciation override** on any provider we would use — no `<phoneme>`, no
-`<say-as>`, no lexicon — so rewriting the text is the only correction lever that
-exists; and spelling numbers out lets a human verify the spoken form by *reading* it
-at gate 1, before any audio is generated.
+`<say-as>`, no lexicon — so rewriting the text is the only lever on WHICH SOUNDS
+come out; and spelling numbers out lets a human verify the spoken form by *reading*
+it at gate 1, before any audio is generated.
+
+That is a statement about pronunciation only. **Pacing has a separate lever** —
+the delivery note below — and conflating the two is what left the first cut
+sounding machine-made for a day.
 
 `scripts/video/passage.ts` holds six worked `raw` → `spoken` pairs built from real
 published facts. **Read it rather than re-deriving the patterns** — it is the
@@ -81,22 +85,53 @@ vocative position, a different provider, or a human read.
 
 ## How much text fits — measured, not estimated
 
-Rasalgethi reads the 716-character `spoken` passage in **55.0 s** → **13.0 chars/s,
-137 wpm**. Use it to size a script *before* synthesizing anything:
+Rasalgethi reads the 716-character `spoken` passage in **55.0 s** → **13.5 chars/s**
+*undirected*. With a delivery note (below) it slows to **11.0 chars/s** — measured
+across E2's 59 clips, 597.9 s → 729.2 s. **Budget at the directed rate**, because
+every new video should carry a direction:
 
 | Target | voiceOver budget | scenes | per scene |
 |---|---|---|---|
-| 30 s short | ~390 chars / ~70 words | 4 | ~100 |
-| **40 s short** | **~520 chars / ~90 words** | 5 | **~105** |
-| 50 s short | ~650 chars / ~115 words | 5–6 | ~115 |
-| 90 s explainer | ~1 200 chars / ~205 words | 10 | ~120 |
-| **12 min explainer** | **~9 400 chars / ~1 600 words** | 50–60 | **~160** |
+| 30 s short | ~330 chars / ~60 words | 4 | ~85 |
+| **40 s short** | **~440 chars / ~75 words** | 5 | **~90** |
+| 50 s short | ~550 chars / ~95 words | 5–6 | ~100 |
+| 90 s explainer | ~1 000 chars / ~170 words | 10 | ~100 |
+| **12 min explainer** | **~7 900 chars / ~1 350 words** | 50–60 | ~135 |
 
 A scene whose `voiceOver` overruns its per-scene budget will not fit the beat it was
 written for. Rewrite the line rather than discovering it after the render. The
 per-scene figure rises with total length because a long-form beat carries a whole
-idea rather than a single number — but past ~260 characters (~20 s) a scene is
+idea rather than a single number — but past ~260 characters (~24 s) a scene is
 holding one canvas state for too long and wants splitting.
+
+## The delivery note — the setting that was never used
+
+**Gemini TTS takes a natural-language director's note in the same input and does
+not speak it.** Declared as `voice.direction` on the spec, so the operator sees the
+register at gate 1 next to the words it shapes.
+
+Measured 2026-08-09, E2 scene 15 (a long run of spelled-out digits — the worst
+case), same voice:
+
+| Direction | Rate |
+|---|---|
+| bare transcript | 12.5 chars/s |
+| director's note, Bulgarian | 10.1 chars/s |
+| **director's note, English** ⭐ | **10.3 chars/s** |
+| English note + `[measured]` tag | 7.7 chars/s — too slow |
+
+Across all 59 clips the note is **22.0% slower** overall. That acceleration is the
+defect this page already described as "audibly accelerated… it simply does not
+sound like a person" — and it had a setting the whole time.
+
+**English rather than Bulgarian** on Google's own guidance that English delivery
+tags work best even on a non-English transcript; the two measured the same, so the
+choice rests on the vendor's advice, not on evidence of our own.
+
+**End the note with an explicit "do not read this aloud".** Verify it worked by
+ARITHMETIC rather than by ear: E2's note is 239 characters, so a spoken note would
+add ~22 s to every clip. The largest single change was ×1.46 (7.5 s → 11.0 s), so
+it was not spoken. A duration ratio past ~2.2× is the signature of a leak.
 
 The spec declares its own window as `runtimeSeconds` and `npm run video:gate1`
 enforces it. Length is a property of the VIDEO, not of the format.
@@ -109,7 +144,7 @@ from the spelled-out text, never from the on-screen figure.
 
 | Provider | bg-BG | Notes |
 |---|---|---|
-| **Gemini** ⭐ **chosen** | **30 voices** (16 M / 14 F) | `gemini-3.1-flash-tts-preview`. **No GCP setup** — reuses `GEMINI_API_KEY`. Returns headerless L16 PCM (needs a WAV wrapper). No pace control. ~55 s on the passage. |
+| **Gemini** ⭐ **chosen** | **30 voices** (16 M / 14 F) | `gemini-3.1-flash-tts-preview`. **No GCP setup** — reuses `GEMINI_API_KEY`. Returns headerless L16 PCM (needs a WAV wrapper). **Takes a natural-language delivery note and inline tags** (see above) — an earlier version of this row said "no pace control", which was our omission rather than the engine's limit. ~55 s on the passage. |
 | Google Chirp 3 HD | **31** (30 HD + 1 Standard) | $30/1M chars, 1M/mo free. **No pause control, no custom pronunciation for `bg-bg`** — Google's own locale-exclusion tables. `speaking_rate` 0.25×–2× works. ~46 s on the passage (**~16% faster**). Enabled on project `elections-bg`. |
 | Azure | **2** (`KalinaNeural`, `BorislavNeural`) | No HD variant, no styles, no multilingual. The reflexive choice and the weakest one. |
 | ElevenLabs v3 | supported (`bul`) | ~10× Google's rate; quality on lower-traffic languages is uneven by the vendor's own framing. |

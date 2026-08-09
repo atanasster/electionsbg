@@ -5,7 +5,7 @@
     "kind": "explainer",
     "status": "draft",
     "title": "Индексът на изборния риск: какво значи 47",
-    "durationSeconds": 640,
+    "durationSeconds": 771,
     "aspect": ["16:9"],
     "tags": ["elections", "изборен риск", "ЦИК", "машинно гласуване", "анализ"],
     "entities": ["ЦИК", "Прогресивна България"],
@@ -33,6 +33,6 @@
       "voiceover": "video/public/voiceover/2026-08-09-election-risk-explainer/",
       "draft": "brand/videos/drafts/2026-08-09-election-risk-explainer.md"
     },
-    "notes": "First long-form explainer. The MP4 and thumbnail are gitignored (raw_data/video/) — regenerate with `npm run video:render` after `npm run video:voice -- e2`. Every figure is asserted by the builder, which refuses to write if one moves."
+    "notes": "First long-form explainer. Narrated with a `voice.direction` delivery note — without it the engine rushes (measured 22% faster and it reads as machine-made). The MP4 and thumbnail are gitignored (raw_data/video/) — regenerate with `npm run video:render` after `npm run video:voice -- e2`. Every figure is asserted by the builder, which refuses to write if one moves."
   }
 ]

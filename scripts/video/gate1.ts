@@ -12,7 +12,8 @@
  *   • every numeric token in an `onScreen` is findable at that scene's
  *     `grounding` path in the generated data layer — so a data refresh that
  *     moves a figure fails HERE rather than in a rendered video.
- *   • the length budget, at the measured 13,0 chars/s.
+ *   • the length budget, at the measured rate for this spec — 11,0 chars/s
+ *     with a delivery note, 13,5 without (references/voice.md).
  *
  * NOT asserted, deliberately: that `voiceOver` says the same number as
  * `onScreen`. Once a figure is Bulgarian words, comparing it by machine needs
@@ -30,8 +31,15 @@ import type { ExplainerSpec } from "../../video/src/lib/spec";
 
 const SPECS: Record<string, ExplainerSpec> = { e1, e2, v3 };
 
-/** Measured on Rasalgethi — references/voice.md. */
-const CHARS_PER_SEC = 13.0;
+/**
+ * Measured on Rasalgethi — references/voice.md.
+ *
+ * A delivery note slows the read by ~22%, so the estimate has to know whether the
+ * spec carries one: 8 043 chars of E2 ran 598 s bare and 729 s directed, and a
+ * single constant would be wrong by two minutes on a long-form video.
+ */
+const CHARS_PER_SEC_BARE = 13.5;
+const CHARS_PER_SEC_DIRECTED = 11.0;
 /** An explainer beat much past this reads as rushed against its canvas change. */
 const SCENE_CHAR_CEILING = 260;
 
@@ -88,6 +96,10 @@ const main = () => {
     process.exit(1);
   }
 
+  const rate = spec.voice.direction
+    ? CHARS_PER_SEC_DIRECTED
+    : CHARS_PER_SEC_BARE;
+
   const dataCache = new Map<string, unknown>();
   const load = (file: string): unknown => {
     if (!dataCache.has(file))
@@ -100,7 +112,12 @@ const main = () => {
 
   console.log(`\n${spec.title}`);
   console.log(`${spec.slug} · ${spec.kind} · ${spec.scenes.length} scenes`);
-  console.log(`${spec.link}\n`);
+  console.log(`${spec.link}`);
+  console.log(
+    spec.voice.direction
+      ? `\ndirection  ${spec.voice.direction}\n`
+      : `\ndirection  — none. The engine rushes without one; see references/voice.md.\n`,
+  );
 
   for (const s of spec.scenes) {
     const chars = s.voiceOver.length;
@@ -153,14 +170,15 @@ const main = () => {
     console.log(`   voiceOver  ${s.voiceOver}`);
     console.log(`   grounding  ${groundLine}`);
     console.log(
-      `   length     ${chars} chars · ${(chars / CHARS_PER_SEC).toFixed(1)}s\n`,
+      `   length     ${chars} chars · ${(chars / rate).toFixed(1)}s\n`,
     );
   }
 
-  const secs = totalChars / CHARS_PER_SEC;
+  const secs = totalChars / rate;
   const [lo, hi] = spec.runtimeSeconds;
   console.log(
     `TOTAL ${totalChars} chars → ~${secs.toFixed(0)}s (${(secs / 60).toFixed(1)} min) narration` +
+      ` at ${rate} ch/s ${spec.voice.direction ? "(directed)" : "(no direction — the engine will RUSH)"}` +
       ` · declared window ${lo}–${hi}s`,
   );
   // The window is the SPEC's, not the format's — see `runtimeSeconds` in spec.ts.

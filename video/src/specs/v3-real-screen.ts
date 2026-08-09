@@ -28,7 +28,10 @@ export const v3: ExplainerSpec<CanvasState> = {
   slug: "2026-08-08-v3-real-screen",
   kind: "explainer",
   canvasKind: "inflation",
-  runtimeSeconds: [30, 120],
+  // V3 is a three-scene comparison probe, not a publishable video — it measures
+  // ~25 s. The [30, 120] first written here was a guess made when the field was
+  // introduced, and gate 1 correctly rejected it.
+  runtimeSeconds: [20, 120],
   title: "Инфлацията в реалния екран",
   topic: "Инфлация",
   period: "2 тримесечие 2026 · ЕС-27",

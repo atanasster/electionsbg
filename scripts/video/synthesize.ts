@@ -5,10 +5,15 @@
  *   npm run video:voice -- t1 --force    # re-synthesize clips that already exist
  *
  * ONE CLIP PER SCENE, never one for the whole video. Two independent reasons:
- * `bg-BG` has no pause control on any provider we use, so every pause between
- * sentences is made in the edit by holding a scene past its narration; and the
+ * `bg-BG` has no SSML break tag on any provider we use, so the pause BETWEEN
+ * scenes is made in the edit by holding a scene past its narration; and the
  * composition measures its own length from these files (`calculateMetadata`), so
  * scene timing and voice can never drift apart.
+ *
+ * Pacing WITHIN a scene is a separate lever — `spec.voice.direction`, a delivery
+ * note the engine consumes without speaking. Measured 22% slower across E2 and
+ * the single biggest quality change this pipeline has had; see
+ * `.claude/skills/naiasno-video/references/voice.md`.
  *
  * Reuses the bake-off's Gemini adapter rather than reimplementing it — that is
  * where the retries live, and both failures they cover (a 200 carrying no audio,
@@ -178,6 +183,7 @@ const main = async () => {
     const audio = await gemini.synthesize(
       { id: spec.voice.voiceId, label: spec.voice.voiceId },
       scene.voiceOver,
+      spec.voice.direction,
     );
     writeFileSync(file, audio);
 

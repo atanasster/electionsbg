@@ -68,7 +68,19 @@ export type ExplainerSpec<C = unknown> = {
   link: string;
   postSlug?: string;
   sources: string[];
-  voice: { provider: string; voiceId: string };
+  voice: {
+    provider: string;
+    voiceId: string;
+    /**
+     * Delivery note handed to the engine, never spoken and never captioned.
+     *
+     * It lives on the SPEC rather than in the synthesis script because it is an
+     * editorial choice — the register a video is narrated in — and because the
+     * operator should see it at gate 1 next to the words it will shape.
+     * Providers apply it differently; see `Provider.synthesize`.
+     */
+    direction?: string;
+  };
   scenes: ExplainerScene<C>[];
 };
 

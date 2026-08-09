@@ -114,7 +114,8 @@ Rules 1–5 are inherited from `naiasno-post` unchanged. 6–9 are video-specifi
    Enforced at gate 1 by a printed side-by-side — see step 4.
 7. **Every number in the voice track is spelled out in Bulgarian words.** Digits and
    symbols stay on screen only. This is not a style preference; `bg-BG` has no
-   pronunciation override, so it is the only correction lever that exists.
+   pronunciation override, so rewriting is the only lever on WHICH SOUNDS come out.
+   Pacing is a separate lever (`voice.direction`) — do not conflate them.
    → `references/voice.md`
 8. **Caption everything.** Facebook autoplays muted; an uncaptioned Bulgarian voice
    track reaches nobody there. Burned-in for social, `.vtt` sidecar for YouTube.
@@ -204,18 +205,26 @@ digit-by-digit, acronym handling) and the reason they cannot be fixed after the 
 published facts — the canonical examples, not invented ones.
 
 **Budget the length here, not after the render.** Measured on the chosen voice:
-**13.0 chars/s, 137 wpm**. Declare the window as `runtimeSeconds` on the spec and
-let `video:gate1` enforce it:
+**13,5 chars/s bare, 11,0 chars/s with a delivery note** — and every video should
+carry a note, so budget at the directed rate. Declare the window as
+`runtimeSeconds` on the spec and let `video:gate1` enforce it:
 
 | Target | `runtimeSeconds` | `voiceOver` total | scenes | per scene |
 |---|---|---|---|---|
-| 40 s short | `[25, 50]` | ~520 chars | 5 | ~105 |
-| 90 s explainer | `[60, 120]` | ~1 200 chars | 10 | ~120 |
-| **12 min explainer** | `[600, 900]` | **~9 400 chars** | 50–60 | ~160 |
+| 40 s short | `[25, 50]` | ~440 chars | 5 | ~90 |
+| 90 s explainer | `[60, 120]` | ~1 000 chars | 10 | ~100 |
+| **12 min explainer** | `[600, 900]` | **~7 900 chars** | 50–60 | ~135 |
 
 Budget from the spelled-out text — it runs substantially longer than the on-screen
 figure it replaces (716 vs 433 chars on the reference passage), so counting the
 digits under-estimates every time.
+
+**Set `voice.direction`.** A natural-language delivery note ("read this as a calm
+documentary narrator…") is the difference between a read that sounds like a person
+and one that sounds like a machine — measured at **22% slower** across E2's 59
+clips, which is exactly the rushing `references/voice.md` identifies as the core
+defect. E2 shipped without one for a day and the operator's first note on the
+render was that it sounded AI-generated. It is not optional polish.
 
 **Structure.** A `short` is hook → context → twist → CTA. A **90 s explainer** is
 one thread through the finding. A **long-form explainer is parts, not scenes** —
@@ -290,9 +299,11 @@ chart detail rather than as the scene's claim.
 Put it in the spec's `voice` block and do not vary it between videos. It needs no
 GCP setup — it runs on the `GEMINI_API_KEY` already in `.env.local`.
 
-Per scene, one clip. Not one clip for the whole video — `bg-BG` has no pause control
-on any provider we use, so pauses come from the edit, and per-scene clips are also
-what the composition measures its own length from.
+Per scene, one clip. Not one clip for the whole video — `bg-BG` has no SSML break
+tag on any provider we use, so the pause BETWEEN scenes comes from the edit, and
+per-scene clips are also what the composition measures its own length from. Pauses
+WITHIN a scene come from `voice.direction`, which is a different lever and the one
+that was missed.
 
 Three things that are not optional here, all learned the hard way — full detail in
 `references/voice.md`:

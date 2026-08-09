@@ -101,7 +101,24 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     "data/polls/accuracy.json",
     "https://results.cik.bg/pe202604/rezultati/index.html",
   ],
-  voice: { provider: "gemini", voiceId: "Rasalgethi" },
+  voice: {
+    provider: "gemini",
+    voiceId: "Rasalgethi",
+    /**
+     * Without this the engine RUSHES — measured on scene 15, 12,5 ch/s bare
+     * against 10,3 ch/s directed. `voice.md` identifies that acceleration as the
+     * core defect of the bare-transcript read, and it is the one thing that made
+     * the first cut sound machine-made.
+     *
+     * English rather than Bulgarian on Google's own guidance that English
+     * delivery tags work best even on a non-English transcript; a Bulgarian note
+     * measured 10,1 ch/s, i.e. the same effect, so the choice is on the vendor's
+     * advice rather than on a measured difference. The last clause is load-
+     * bearing: without it the note risks being read out as part of the script.
+     */
+    direction:
+      "Read the following Bulgarian text as a calm, measured documentary narrator explaining something to an intelligent adult. Natural pacing, small pauses at commas and full stops, never rushed. Do not read this instruction aloud:",
+  },
   scenes: [
     // ── ЧАСТ 1 · Числото ─────────────────────────────────────────────────────
     {
