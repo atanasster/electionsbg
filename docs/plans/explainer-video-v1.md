@@ -459,16 +459,39 @@ re-litigated per video.
 
 ### Caption timing
 
-Chirp 3 HD does not return word-level timestamps. Two ways to get them:
+*(Revised after reviewing `remotion-dev/skills` — see §11. Word-level captions are
+available immediately, not "later", and the duration mechanism is Remotion-native.)*
 
-- **Per-scene synthesis** (recommended): synthesize each scene separately, measure
-  each clip's duration with ffprobe, and time captions per scene. Coarse but exact,
-  zero extra dependencies, and it is *also* how Remotion learns each scene's length.
-- **WhisperX forced alignment** if word-level karaoke captions are wanted later —
-  wav2vec2 alignment, <100 ms accuracy. Bulgarian WER for Whisper is not
-  well-documented, so treat this as an upgrade to validate, not a starting point.
+Chirp 3 HD does not return word-level timestamps. Three tiers, and the first two
+are both cheaper than v1 assumed:
 
-Start with per-scene. It is sufficient and it has no failure mode.
+- **Per-scene durations** (the spine, always): synthesize each scene separately and
+  measure each clip. Use `getAudioDuration()` (mediabunny, works in Node) inside
+  Remotion's `calculateMetadata`, **not ffprobe** — the composition then sizes
+  itself from the audio, so scene lengths and narration cannot drift apart by
+  construction. This is Remotion's own documented voice-over pattern, which is
+  useful corroboration: the architecture bg-BG's missing pause control *forced* on
+  us is the one Remotion recommends anyway.
+- **Word-level captions** via `@remotion/install-whisper-cpp` — `transcribe()` with
+  `tokenLevelTimestamps: true`, then `toCaptions()`. Local whisper.cpp, installed by
+  the package itself; **no Python, no WhisperX, no separate toolchain**, which is
+  most of why v1 deferred this. Transcribe each scene clip individually.
+  **The caveat that survives:** the documented example uses `medium.en`, an
+  English-only model. Bulgarian needs a multilingual one (`medium` / `large-v3`) —
+  bigger, slower, and with Bulgarian WER still undocumented. So it is cheap to
+  *try* now rather than proven to work; validate on a real clip in phase 1.
+- **Rendering them**: `@remotion/captions` provides `createTikTokStyleCaptions()`
+  (page grouping via `combineTokensWithinMilliseconds`) and per-token highlighting —
+  i.e. the standard Reels caption treatment is a package, not a build.
+  **Gotcha:** captions are whitespace-sensitive; keep the leading space in each
+  token's `text` and set `whiteSpace: "pre"`, or the words run together.
+
+**Also trim the silence.** TTS clips routinely carry leading/trailing silence, which
+makes per-scene concatenation feel slack. Detect it adaptively rather than with a
+fixed dB floor: run ffmpeg `loudnorm=print_format=json` to get `input_thresh`, feed
+that into `silencedetect=noise=${thresh}dB:d=0.5`, and apply the result as
+`trimBefore` / `trimAfter`. Cheap, and it is the difference between a cut that lands
+and one that sags.
 
 ---
 
@@ -590,6 +613,21 @@ Each tests a different unknown. Build all three before deciding anything.
 - **Tests:** whether an animated map is worth the build; whether a Playwright
   capture of the live map beats a re-drawn Remotion one (build both, pick).
 - **Format:** 9:16, ~30 s, 3 scenes.
+- **Build it in SVG with `d3-geo`, not a tile provider.** `cardKit.ts` already
+  imports `geoMercator` + `geoPath`, so the municipality shapes can be React `<path>`
+  elements with an animated `fill` — no Mapbox/MapLibre/MapTiler key, no WebGL, no
+  headless-render shimmer, no 4096 px renderbuffer ceiling, and deterministic frame
+  to frame. Remotion's own maps guidance says to pick exactly one technique and
+  rates the no-tile route "smallest, fastest, most deterministic"; here the basemap
+  carries no information at all — the *data* is the map — so the tile layer would be
+  cost with no payload.
+- **⚠️ The timing bug to avoid, borrowed from §11:** do **not** drive each
+  municipality's fill from a slice of one global 0→1 reveal. Remotion's map-explainer
+  reference is explicit that per-item animation must run on **time since that item's
+  trigger**, with a constant per-item duration — otherwise short items "flash by in a
+  fraction of a second". With 265 municipalities on a ~30 s timeline that failure is
+  near-certain: each fill would get ~110 ms and the whole map would read as noise
+  rather than as a sweep. Trigger by arrival, hold each fill for a constant ~600 ms.
 
 ### T3 — «Не сме първи по инфлация в ЕС» — the correction
 
@@ -679,6 +717,224 @@ confirmed as the right home for the schema work in phase 3.
 
 ---
 
+## 11. Borrowed from `remotion-dev/skills` (reviewed 2026-08-08)
+
+**Verified as genuine and current:** `github.com/remotion-dev/skills`, the Remotion
+team's own agent-skill repo — 4,246 stars, last pushed 2026-08-07, skills pinned to
+Remotion `4.0.507`. Not a third-party interpretation; this is the vendor documenting
+its own product for agents. Reviewed the voice-over, timing, sequencing,
+silence-detection, captions, multimedia, maps and layout skills.
+
+### What it confirms (worth knowing the design is not idiosyncratic)
+
+**Per-scene TTS → measure → size the composition is Remotion's own documented
+voice-over pattern.** §5 arrived at that architecture because bg-BG has no pause
+control and pauses must come from the edit. Remotion recommends it for everyone.
+Two independent reasons for the same design is the good case.
+
+Their default provider is ElevenLabs, but the skill states plainly that any TTS that
+"can produce an audio file" substitutes. So §2's Google recommendation drops in with
+no friction — the pipeline is provider-agnostic and the bake-off decides.
+
+### What it changes
+
+1. **`calculateMetadata` + mediabunny's `getAudioDuration()` replaces ffprobe.**
+   The composition computes its own length from the audio at render time. Removes a
+   dependency and makes narration/scene drift structurally impossible.
+2. **Word-level captions move from "later" to "now"** — `@remotion/install-whisper-cpp`
+   installs whisper.cpp itself. The Python toolchain that made v1 defer this does not
+   exist. (Bulgarian model caveat retained — see §5.)
+3. **`@remotion/captions` supplies the Reels caption treatment** —
+   `createTikTokStyleCaptions()` + token highlighting — rather than it being a build.
+4. **T2's map should be `d3-geo` SVG, and its timing model changes.** See §9.
+5. **Adaptive silence trimming** via `loudnorm` → `silencedetect` → `trimBefore` /
+   `trimAfter`, added to §5.
+
+### Render-stability rules to adopt before writing any animation
+
+These are hard-won and none are guessable:
+
+- **Never move a WebGL map camera per frame.** `map.jumpTo()` each frame makes the
+  basemap shimmer in headless renders. Render one oversized static plate and move it
+  with CSS `translate`/`scale`. *(Applies only if a tile map is ever used; §9 avoids
+  it for T2, but the rule generalizes to any WebGL canvas.)*
+- **Keep any canvas dimension ≤ 4096 px.** The skill warns specifically against
+  reflexively rendering at 3×: 1920 × 3 = 5760, and Chromium may silently downsample
+  it — the symptom is soft output with nothing in the logs.
+- **The async-content harness is `delayRender → mutate → once('idle') →
+  continueRender → triggerRepaint`.** Generalizes past maps to anything imperative
+  or asynchronous, which includes fetching a `data/` file at render time.
+- **WebGL renders want `preserveDrawingBuffer: true`, `--gl=angle`, concurrency 1.**
+- **Time-based timing.** Key animation off `t = frame / fps` with constant per-item
+  durations, never off a slice of a global progress value.
+- **Verify by rendering an MP4, not by watching the Studio preview** — "do not
+  approve it as a minor preview artefact." This is the same lesson as §5's glyph
+  gate, arrived at independently: **the preview lies, so check the artefact.**
+
+### Markup gotchas for phase 1
+
+- **`premountFor` on every `<Sequence>`.** The skill's instruction is literally
+  "Always premount any `<Sequence>`!" — without it a scene's assets pop in on entry.
+- **`useCurrentFrame()` is LOCAL inside a `<Sequence>`** (0-based, not timeline
+  absolute). Classic off-by-a-scene bug.
+- **`<Series>` with negative `offset` for overlapping scenes** — exactly §5's scene
+  model, already a primitive.
+- **`output: 'perceptual-scale'`** on scale interpolations; linear scale reads as
+  decelerating to the eye.
+- **Studio-editability is a code style**, and it matters here: keep `interpolate()`
+  inline in the `style` prop and use individual CSS transform properties
+  (`scale` / `translate` / `rotate`) rather than `transform` strings, and Remotion
+  Studio can write timing tweaks back to code. That turns §5's gate-2 review from
+  "operator reports a problem, I fix it" into "operator nudges the timing directly."
+- **Video layout minimums** (their §video-layout, scaled from 1080 px wide): headline
+  ≥ 84 px, supporting text ≥ 44 px, key content ≥ 80 px from the sides and ≥ 100 px
+  from top and bottom. Worth adopting verbatim as `cardKit`'s video-side tokens —
+  `cardKit` is tuned for a 1080×1080 still viewed at full size, and a phone-screen
+  Reel is a different legibility problem.
+
+### Skill-design patterns worth copying into `naiasno-video`
+
+- **Router + self-contained leaves.** Their top-level `SKILL.md` is a dispatcher that
+  loads one sub-skill on demand, and each technique directory "may be removed without
+  breaking the others." If `naiasno-video` grows a second format, that is the shape —
+  and it is how the 312-line `naiasno-post` should probably split too.
+- **"Preserve user changes"** — their first rule: if code changed unexpectedly
+  mid-conversation, assume it was deliberate and ask rather than overwrite. That is
+  directly load-bearing in *this* repo, where a concurrent auto-committer touches the
+  tree mid-session.
+- **Pin the skill to a library version** in frontmatter (`version: 4.0.507`), so a
+  stale skill is visible rather than silently wrong.
+
+---
+
+## 12. GSAP, and how to build walkthrough videos (2026-08-08)
+
+Two questions that arrived together but resolve separately.
+
+### 12a. Should we install GSAP? — **No, not now.** Revisit on a named trigger.
+
+The licensing objection is dead: Webflow made GSAP **100% free in April 2025**,
+including every former Club plugin (SplitText, MorphSVG, DrawSVG, MotionPath).
+Cost is not the reason to decline.
+
+Nor is bundle weight, and it is worth killing that reflex explicitly: the Remotion
+project is a **separate bundle from the site's**. This repo has a live critical-path
+problem (`bundle-critical-path-v1.md` — ~1,015 KB br before the route renders), but
+a video-only dependency never enters it. Judge GSAP on the video pipeline alone.
+
+**The real cost is determinism plumbing plus a lost workflow.**
+
+Remotion renders each frame as a pure function of `frame`, potentially out of order
+and across parallel browser instances. GSAP is driven by its own wall-clock ticker,
+so the two only meet through a bridge: build the timeline `paused: true` and
+`tl.seek(frame / fps)` on every frame. That works. Skip it and the documented
+failure is stark — the ticker races ahead, a 4-second animation renders in ~1 second
+and the rest of the composition comes out black.
+
+Two things then follow that are easy to miss:
+
+- **You now maintain two timing systems** — Remotion frames and GSAP seconds — with
+  `<Sequence>`'s local-frame semantics interacting between them.
+- **Remotion Studio can no longer edit the animation.** §11 established that keeping
+  `interpolate()` inline in `style` lets Studio write timing tweaks back to code —
+  the thing that turns gate-2 review from "operator reports a problem, I fix it" into
+  "operator nudges the pacing directly." A GSAP timeline is opaque to Studio. For a
+  solo operator tuning pacing against a Bulgarian voice track, that is the most
+  valuable property in the whole pipeline, and GSAP trades it away.
+
+**And the payoff is smaller than GSAP's reputation suggests _for this content_.**
+What a data explainer would actually use it for, against the native cost:
+
+| GSAP | Native equivalent here | Winner |
+|---|---|---|
+| `stagger` (265 municipalities) | `interpolate(frame, [i*s, i*s+d], …)` in a `.map()` | **native** — and §9's constant-per-item rule *is* a manual stagger anyway |
+| DrawSVG | `strokeDasharray` / `strokeDashoffset` + `interpolate`, ~4 lines | **native** |
+| MotionPath (cursor) | `path.getPointAtLength(t * getTotalLength())` — native SVG API | **native** |
+| SplitText | `[...text].map()` + staggered `interpolate` | **native**, and more inspectable for Cyrillic given this repo's glyph history |
+| CustomEase / CustomBounce | `Easing.bezier`, `spring()`, plus **`d3-ease` already installed** | **native** |
+| Timeline labels / relative offsets | `<Series>` + negative `offset` | tie |
+| **MorphSVG** (shape tweening) | genuinely hard to hand-roll | **GSAP** |
+| **Flip** (layout transitions) | genuinely hard | GSAP — but the most seek-fragile thing in the library |
+
+Six of eight are a handful of lines against native APIs. The two GSAP clearly wins
+are the two a data explainer does not need — and `Flip` measures live DOM state,
+which is exactly what a seeked, parallel, out-of-order renderer handles worst.
+
+**The tie-breaker:** `remotion-dev/skills` is ~60 files of the vendor's own animation
+guidance — timing, sequencing, transitions, easing, maps, text highlights — and it
+**never mentions GSAP once**. The people who know the renderer best do not reach for
+it.
+
+**Revisit if any of these becomes true** (the decision is cheap to reverse — GSAP is
+free, and it can be adopted for a single scene without restructuring anything):
+
+- a video genuinely needs **shape morphing** (a bar literally becoming the country outline);
+- a **motion designer who thinks in GSAP timelines** joins — then the Studio-editability argument inverts, because Studio was never their tool;
+- native `interpolate` demonstrably fails a specific shot, with the shot named.
+
+Absent one of those, `interpolate` + `spring` + `Easing` + `d3-ease` is the stack.
+
+### 12b. Walkthrough videos — four approaches, and GSAP is irrelevant to all four
+
+"Walkthrough" here means showing the real product: cursor moving, panels opening,
+a zoom onto the thing being discussed. Note that **none** of these options is made
+easier by GSAP — the cursor is an `interpolate` along a path, the zoom is a plate
+transform, the highlight is opacity and scale.
+
+**A. A screen-recording app** (Screen Studio, Tella). Auto-zoom on click, smoothed
+cursor, good defaults, no build at all. Fastest route to something polished.
+Not reproducible, not data-driven, and a UI change means re-recording by hand.
+→ *Right for the single "how to use Наясно" pillar video if it is wanted this month.*
+
+**B. Playwright-driven capture → composited in Remotion** ⭐ **the pipeline answer.**
+The repo already has **7** Playwright capture scripts, so this extends an existing
+capability rather than adding one. Script the journey, capture deterministically,
+composite in Remotion with a synthetic cursor, captions and the TTS track.
+
+The idea that makes this better than a screen recorder rather than merely
+reproducible: **have the Playwright script emit an action log** —
+`{tMs, type: "click" | "scroll" | "hover", x, y, selector}` — and let Remotion
+consume that log as the **zoom and cursor choreography**. That is exactly Screen
+Studio's auto-zoom-on-click, except the automation script *is* the storyboard, it is
+diffable, and it re-runs when the UI moves. The zoom itself is §11's **fixed-plate**
+pattern: capture oversized (≤4096 px), then translate/scale the plate — never
+re-render the page per frame.
+
+**C. Mount the site's real React components inside Remotion.** The site is React 19;
+Remotion is React. Import the actual component and drive its props across frames.
+Pixel-perfect, **vector text** (crisp Cyrillic at any scale, no canvas-font tofu
+risk), deterministic by construction, no browser automation at all.
+The cost is providing the context stack with fixtures instead of network — React
+Query (prefilled cache), Router, i18n, `ElectionContext`, `cabinetAnchorContext`,
+`useScope`. Bounded and known, but real.
+→ *Right for component-level beats ("here is the risk index tile"), not whole journeys.*
+
+**D. iframe the live site inside Remotion.** Cross-origin, `delayRender` and
+determinism problems. Not recommended.
+
+**Recommendation: C for component beats, B for journeys, A as an escape hatch** when
+a good video this week beats a reproducible one next month.
+
+### 12c. The staleness property that only walkthroughs have
+
+Worth stating because it is specific to this site and does not apply to the
+card-based videos in §9.
+
+A walkthrough records **real pages showing real numbers**. Those numbers move: a
+`db:refresh`, a contracts reload, a new ИСУН ingest, and `/procurement/contract/…`
+now shows a different figure than the recording does. The video keeps asserting the
+old one, at a 200, with nothing failing — the same silent-staleness shape this
+repo's CLAUDE.md documents for a dozen loaders.
+
+That is an argument for **what walkthroughs should be about**: the mechanics of the
+tool ("how to trace a contract to its buyer"), which are evergreen, rather than a
+specific contract's value, which is not. Where a figure must appear on screen, note
+it in the spec's `grounding` block so a corpus reload can flag the video for
+re-recording — and prefer §9's card-based format for anything whose *point* is a
+number.
+
+---
+
 ## Sources
 
 - [Azure Speech language & voice support](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts) — bg-BG: Kalina + Borislav only, no HD/multilingual/styles
@@ -694,3 +950,6 @@ confirmed as the right home for the schema work in phase 3.
 - [HeyGen API pricing](https://www.heygen.com/api-pricing) · [HeyGen vs Synthesia](https://www.ngram.com/blog/heygen-vs-synthesia)
 - [Cloudflare Stream vs Mux vs Bunny](https://www.pkgpulse.com/guides/mux-vs-cloudflare-stream-vs-bunny-stream-video-cdn-2026)
 - [WhisperX word-level timestamps](https://github.com/m-bain/whisperx) · [guide](https://localaimaster.com/blog/whisperx-guide)
+- [GSAP is now 100% free](https://webflow.com/blog/gsap-becomes-free) (Webflow, April 2025) · [standard license](https://gsap.com/community/standard-license/) · [CSS-Tricks writeup](https://css-tricks.com/gsap-is-now-completely-free-even-for-commercial-use/) — all former Club plugins included
+- [Remotion↔GSAP bridge and its failure mode](https://hyperframes.mintlify.app/guides/hyperframes-vs-remotion) — paused timeline + `seek(frame/fps)`; without it the ticker runs at wall-clock and the render blacks out
+- [remotion-dev/skills](https://github.com/remotion-dev/skills) — the Remotion team's own agent skills (4.2k★, pinned to 4.0.507). Reviewed: `remotion-markup/{voiceover,timing,sequencing,silence-detection}.md`, `remotion-captions/{display,transcribe,import-srt}-captions.md`, `remotion-multimedia/get-audio-duration.md`, `remotion-maps/**` (incl. `render-stability.md`, `map-explainer-architecture.md`), `remotion-create/video-layout.md`
