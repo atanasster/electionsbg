@@ -616,6 +616,11 @@ shipped because it is a small change at
 [`:1650`](../../scripts/person/resolve_persons.ts), needs no ref migration, and produces the
 real before/after distribution against a live `person_browse_table` rather than an estimate.
 
+**Apply the crosswalk at `:1650` (the write) and NOWHERE ELSE** — specifically not at
+[`:674`](../../scripts/person/resolve_persons.ts), where `cParty` is set. That one-line
+difference decides whether this phase changes the ПАРТИЯ column or also changes who is who.
+§8c has the argument; gate 5.9 proves it.
+
 **Verify:**
 - `mp` roles with party = **563** (not ≥843);
 - blanks stay at **724** — assert *no* MP gains a party from blank, which is the corrected
@@ -799,6 +804,15 @@ real entries, and it stops the class-A sentinels from quietly adding a 3rd Latin
 
 ---
 
+**5.9 — identity did not move (the consolidation guard, §8c).**
+The plan converts the group short to a canonical id at the WRITE, so `cParty` stays raw at the
+mention and the merge scoring sees exactly what it sees today. Prove it rather than assume it:
+assert `count(*) FROM person WHERE status='active'` is unchanged across the change, and that the
+3,459 multi-person name folds / 9,826 rows measured in §8a do not move in either direction. A
+DROP in that count means the crosswalk leaked into `corroborants.party` and started merging
+people; a RISE means something split. Both are identity changes shipped inside a display change,
+which is what §5.4 and this gate exist to prevent.
+
 ## 6. What can go wrong silently
 
 Ordered by how long it would survive unnoticed. Every one of these is green on row counts.
@@ -832,6 +846,13 @@ Ordered by how long it would survive unnoticed. Every one of these is green on r
    Gate 5.7.
 9. **T3 replicates one МИР across N parliaments (§2d).** The 100%-fill gate passes on N copies of
    the same code, so a member who changed МИР is silently filed under one of them.
+10. **The crosswalk is applied at the MENTION instead of the WRITE (§8c).** `cParty` already
+    feeds `corroborants.party`; today it carries a raw group short that can never equal a
+    canonical id, so the MP↔candidate party corroborant is inert. Converting it at
+    [`:674`](../../scripts/person/resolve_persons.ts) rather than
+    [`:1650`](../../scripts/person/resolve_persons.ts) silently switches it ON and starts
+    merging people — an identity change shipped as a display change, with `independent`
+    (which MEANS "no party") as the value most likely to do it. Gate 5.9.
 10. **`НЕЗ` mapped to a party id, or to NULL.** To an id: invents a membership. To NULL:
     indistinguishable from "NS 39–43, no data", so the defection signal — arguably the most
     valuable thing this plan adds — vanishes into the 1,559 known-blank roles.
@@ -886,3 +907,117 @@ real value in the column, so „—" and „независим" are two differen
 reader cannot tell apart by their absence. That is the approved trade — a simpler column over a
 more explicit one — and it is the reason gate 5.8 (§0g) matters more, not less: if „—" carries no
 information, the values that DO appear must at least be legible.
+
+---
+
+## 8. Consolidation — one person, all their parties
+
+**Requirement (operator, 2026-08-08).** A person who stood for several parties across several
+elections must be **ONE** person carrying all of those affiliations — not one row per party.
+
+The two reference cases, both live on `localhost:5173` today:
+
+| | | |
+|---|---|---|
+| **Явор Руменов Божанков** — `/person/mp-4720` | **CORRECT** | one person, one page, preference history 2017→2024 with the bars changing colour as he moves **БСП → ПП-ДБ** |
+| **Жаклин Ваклуш Толева** — `/person/zhaklin-toleva-u44ajh` | **WRONG** | **four** separate people, four search hits, badged `СБ` / `Десните` / `РБ-ГН` / `НО Десницата`. Her page shows one candidacy |
+
+### 8a. Why one consolidates and the other does not — it is the REF, not the party
+
+Measured. Божанков's candidacy refs carry his **mp id**; Толева's carry a **name slug**:
+
+```
+person 36429  Явор Божанков   2017_03_26:mp-4720   bsp  VTR
+                              2023_04_02:mp-4720   p_6  S23
+                              2024_10_27:mp-4720   p_6  BGS     ← party AND place both change
+                              4720 (mp role)             BGS       and it still merges
+
+person 62431  Жаклин Толева   2014_10_05:c-17-zhaklin-vaklush-toleva  p_116  SZR
+person 62433                  2017_03_26:c-21-zhaklin-vaklush-toleva  p_106  S24
+person 62434                  2021_07_11:c-19-zhaklin-vaklush-toleva  p_86   PDV-00
+person 62432                  2024_06_09:c-3-zhaklin-vaklush-toleva   p_2    S23
+                              2024_10_27:c-16-zhaklin-vaklush-toleva  p_2    S23  ← only these two merged
+```
+
+Божанков merges on a **Tier-0 gold key** (the mp id inside the ref, plus `birthDate`), which is
+name-independent — so it holds across a party change and three different МИР.
+
+Толева has no gold key, so the only route is `shareCorroborant`'s weak arm in
+[`cluster.ts:99`](../../scripts/person/cluster.ts):
+
+```ts
+const weakBoth = !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
+```
+
+**Party alone never merges — it needs party AND place.** Her five candidacies have five
+different (party, place) pairs except the two 2024 ones, which share `(p_2, S23)`. Hence 4
+people. This is deliberate under the file's stated *zero-false-public-merge invariant*: "two
+different «Георги Иванов» in the same party is common". There is **no party-based veto** — party
+is purely additive evidence, so nothing here can ever split a person who is already merged.
+
+**Scale: 3,459 name folds hold more than one active person, across 9,826 person rows.** That is
+an upper bound on the fragmentation, not a defect count — some of those genuinely are namesakes,
+and telling the two apart is the whole problem.
+
+### 8b. What this plan does, and does not, do about it
+
+Stated plainly so nothing is over-promised:
+
+- **For MPs, consolidation already works** — the gold key does it, which is exactly why
+  Божанков renders correctly. This plan's per-NS rows (§2) then hang the *right* party on each
+  parliament of an already-consolidated person. Nothing more is needed for the MP case.
+- **The Толева case is candidate-only fragmentation and this plan does NOT fix it.** She has no
+  `mp` role at all, so no amount of work on `person_role.party` reaches her. The fix lives in
+  `cluster.ts`'s weak-evidence rules — a change to *identity*, with a much higher blast radius
+  than a display column, and it belongs in its own plan (`person-consolidation-v2`). Fixing it
+  here would mean shipping an identity change inside a party change, which is the exact thing
+  §5.4 exists to prevent.
+- **What this plan owes the requirement is: DO NOT MAKE IT WORSE**, and that is a live risk —
+  §8c.
+
+### 8c. DECISION — apply the crosswalk at WRITE, not at the corroborant
+
+This is the gap the requirement surfaced, and it is not obvious.
+
+`cParty` for an MP mention is **already fed into the merge scoring today**
+([`resolve_persons.ts:1281`](../../scripts/person/resolve_persons.ts) —
+`corroborants: { party: r.cParty, … }`), carrying the RAW group short from
+[`:674`](../../scripts/person/resolve_persons.ts) (`ПГ на ВЪЗРАЖДАНЕ`, `НЕЗ`). Because a raw
+Cyrillic group label can never equal a canonical id, the MP↔candidate party corroborant is
+**dead today** — it always mismatches, so it contributes nothing.
+
+T1's crosswalk changes that, and **where it is applied decides whether identity moves**:
+
+| apply at | effect on the ПАРТИЯ column | effect on WHO IS WHO |
+|---|---|---|
+| **write, [`:1650`](../../scripts/person/resolve_persons.ts)** — CHOSEN | full | **none** — `cParty` stays raw, `weakBoth` keeps mismatching exactly as today |
+| mention, [`:674`](../../scripts/person/resolve_persons.ts) | same | MP mentions start speaking canonical ids, so `weakBoth` can newly fire between an mp mention and a candidacy — **new merges, as a side effect of a display fix** |
+
+**Chosen: convert at the WRITE.** v1 ships a display change with provably zero identity
+movement, consistent with §5.4's discipline. Converting at the mention is the more interesting
+option and it would help consolidation — but it is an identity change and needs its own plan,
+its own before/after merge diff, and the guard below.
+
+**And when that follow-up is taken, `independent` MUST be excluded from `weakBoth`.** It is the
+canonical id §1b assigns to `НЕЗ` / `НЕЧЛ В ПГ` — i.e. it means *the absence of a party*. Two
+different MPs seated from the same МИР who both left their groups would share
+`(independent, <mir>)` and merge into one person on evidence that is the opposite of evidence.
+The blast radius is bounded — MP `cPlace` is `currentRegion`, populated for only the ~240
+sitting members — but it is concentrated in exactly the defectors this plan exists to surface.
+
+### 8d. Follow-up: `person-consolidation-v2`
+
+Not this plan, but named here so the requirement has a home rather than being lost:
+
+- **Problem:** 3,459 folds / 9,826 rows, of which an unknown share are one person split by a
+  party or МИР change between elections. Толева is 5 candidacies → 4 people.
+- **Why it is hard, in one line:** the only cheap corroborants are party and place, and both
+  are exactly what changes when a candidate switches party — so the evidence disappears
+  precisely when it is needed. `weakBoth` is not a bug; it is the conservative choice.
+- **Where the leverage probably is:** the CIK `regId` bridge that gives Божанков `mp-4720`
+  inside his candidate ref already exists — extending an equivalent stable candidate id to
+  non-MP candidates would consolidate by gold key rather than by weak evidence, with no change
+  to the merge rules at all.
+- **What must not happen:** relaxing `weakBoth` to party-OR-place. On a common name that merges
+  strangers, and the invariant it would break — zero false public merges — is the one
+  [[feedback_name_match_not_identity]] is about.
