@@ -287,6 +287,7 @@ export const scrapeSOF = async (
       } catch (err) {
         errors.push({
           url: sess.pageUrl,
+          date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
         continue;
@@ -308,6 +309,8 @@ export const scrapeSOF = async (
           if (looksLikeScannedPdf(text)) {
             errors.push({
               url: ref.pdfUrl,
+              date: sess.date,
+              kind: "content",
               message: "PDF has no text layer — skipped",
             });
             continue;
@@ -320,6 +323,7 @@ export const scrapeSOF = async (
         } catch (err) {
           errors.push({
             url: ref.pdfUrl,
+            date: sess.date,
             message: err instanceof Error ? err.message : String(err),
           });
         }
@@ -376,6 +380,8 @@ export const scrapeSOF = async (
         } catch (err) {
           errors.push({
             url: arts.protokolUrl,
+            date: sess.date,
+            kind: "enrich",
             message: `protokol OCR failed: ${err instanceof Error ? err.message : String(err)}`,
           });
         }

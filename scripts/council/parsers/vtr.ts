@@ -231,6 +231,8 @@ export const scrapeVTR = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: p.pdfUrl,
+            date: p.date,
+            kind: "content",
             message: "looks like a scanned PDF — skipped (route to Phase 3)",
           });
           continue;
@@ -251,6 +253,7 @@ export const scrapeVTR = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

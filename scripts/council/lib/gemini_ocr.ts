@@ -20,6 +20,13 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { muniBudgetSignal } from "./fetch";
+
+/** Compose a call's own deadline with the open município budget, if any. */
+const withMuniBudget = (own: AbortSignal): AbortSignal => {
+  const budget = muniBudgetSignal();
+  return budget ? AbortSignal.any([own, budget]) : own;
+};
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -125,8 +132,10 @@ export const ocrPdfWithGemini = async (
     }),
     // Node's native fetch picks up the global agent's keep-alive +
     // timeout settings. For long-running OCR (multi-minute calls) we
-    // need an AbortController-based deadline.
-    signal: AbortSignal.timeout(900_000),
+    // need an AbortController-based deadline — composed with the
+    // município's wall-clock budget so a 15-minute OCR call cannot
+    // outlive the município the orchestrator has already given up on.
+    signal: withMuniBudget(AbortSignal.timeout(900_000)),
   });
   if (!res.ok) {
     const txt = await res.text();

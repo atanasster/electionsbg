@@ -27,7 +27,14 @@
 // ОТНОСНО clauses inside docket descriptions ("ОС_NNN/DD.MM.YYYY г. -
 // <title>"). findResolutionMarkers's ОТНОСНО fallback catches these.
 
-import { fetchToFile } from "../lib/fetch";
+import {
+  fetchHead,
+  fetchJson,
+  fetchToFile,
+  BudgetExhaustedError,
+  HostThrottledError,
+  HostUnreachableError,
+} from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import {
   classifyResult,
@@ -90,12 +97,12 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
   return { pdfUrl: url, session, date };
 };
 
+const CDX_UA = "Mozilla/5.0 electionsbg-council/1.0";
+
 const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const r = await fetch(cdxUrl, {
-    headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
+  const arr = await fetchJson<string[][]>(cdxUrl, {
+    headers: { "User-Agent": CDX_UA },
   });
-  if (!r.ok) throw new Error(`wayback CDX ${r.status}`);
-  const arr = (await r.json()) as string[][];
   const out: SessionRef[] = [];
   const seen = new Set<string>();
   for (const row of arr.slice(1)) {
@@ -111,8 +118,15 @@ const fetchCdxIndex = async (): Promise<SessionRef[]> => {
 
 /** Focused brute-force probe: for each (year, month) tuple in the
  *  requested year range, try Protokol_{N}_SAIT.pdf for N=1..60. Cheap
- *  because most slots 404 fast and we move on. Limited to the current +
- *  previous year so the probe terminates inside ~3 minutes worst case. */
+ *  because most slots 404 fast and we move on — 1,440 URLs across two
+ *  years, which is ~3 minutes when the host answers.
+ *
+ *  It is the WORST case in this repo when the host does NOT answer: at
+ *  the 5 s per-probe timeout those same 1,440 URLs are two hours, which
+ *  is how obs.kazanlak.bg wedged the whole run on 2026-08-09. So a
+ *  HostUnreachableError (the fetch layer's circuit breaker, after 5
+ *  consecutive transport failures) or an exhausted município budget
+ *  aborts the entire probe rather than being swallowed per URL. */
 const bruteForceProbe = async (
   startYear: number,
   endYear: number,
@@ -130,10 +144,14 @@ const bruteForceProbe = async (
         const url = `${BASE}${DOCS_PREFIX}${dir}/${filename}`;
         if (known.has(url)) continue;
         try {
-          const r = await fetch(url, {
-            method: "HEAD",
-            headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
-            signal: AbortSignal.timeout(5000),
+          const r = await fetchHead(url, {
+            timeoutMs: 5000,
+            headers: { "User-Agent": CDX_UA },
+            // Speculative: nearly all 1,440 of these are expected 404s, so
+            // a failure is cheap and a retry is not. Retrying would also
+            // spend three attempts per URL before the circuit breaker
+            // could trip, which is the two-hour hang this probe caused.
+            retries: 0,
           });
           if (r.status === 200) {
             out.push({
@@ -143,8 +161,17 @@ const bruteForceProbe = async (
             });
             known.add(url);
           }
-        } catch {
-          // ignore single-URL failures — keep walking
+        } catch (err) {
+          // A single timeout is a fact about one URL — keep walking, and
+          // let the strike accrue. A tripped breaker, a 429 back-off or a
+          // blown budget is a fact about every REMAINING url, so stop and
+          // let the caller record it as one fetch error.
+          if (
+            err instanceof HostUnreachableError ||
+            err instanceof HostThrottledError ||
+            err instanceof BudgetExhaustedError
+          )
+            throw err;
         }
       }
     }
@@ -316,6 +343,8 @@ export const scrapeSZRK = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: p.pdfUrl,
+            date: p.date,
+            kind: "content",
             message: "scanned PDF — route to Phase 3 OCR",
           });
           continue;
@@ -337,6 +366,7 @@ export const scrapeSZRK = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

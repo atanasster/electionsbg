@@ -195,6 +195,8 @@ export const scrapeSLV = async (
           if (!opts.ocr) {
             errors.push({
               url: sess.pdfUrl,
+              date: sess.date,
+              kind: "content",
               message:
                 "scanned PDF — pass --ocr to fall back to Gemini Vision (most Sliven PDFs are FineReader 15 text, so this is rare)",
             });
@@ -215,6 +217,7 @@ export const scrapeSLV = async (
       } catch (err) {
         errors.push({
           url: sess.pdfUrl,
+          date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

@@ -28,7 +28,7 @@
 // pull it via a forward-look helper since Gabrovo doesn't use an
 // "ОТНОСНО:" clause that findResolutionMarkers expects.
 
-import { fetchToFile } from "../lib/fetch";
+import { fetchJson, fetchToFile } from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import {
   classifyResult,
@@ -84,11 +84,9 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
 };
 
 const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const r = await fetch(cdxUrl, {
+  const arr = await fetchJson<string[][]>(cdxUrl, {
     headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
   });
-  if (!r.ok) throw new Error(`wayback CDX ${r.status}`);
-  const arr = (await r.json()) as string[][];
   // First row is header.
   const out: SessionRef[] = [];
   const seen = new Set<string>();
@@ -284,6 +282,8 @@ export const scrapeGAB = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: p.pdfUrl,
+            date: p.date,
+            kind: "content",
             message: "scanned PDF — route to Phase 3 OCR",
           });
           continue;
@@ -305,6 +305,7 @@ export const scrapeGAB = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

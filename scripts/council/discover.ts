@@ -60,14 +60,23 @@ const probe = async (url: string, timeoutMs = 25000): Promise<ProbeResult> => {
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
-    const res = await fetch(url, {
-      method: "GET",
-      headers: { "User-Agent": UA, Accept: "*/*" },
-      signal: ctrl.signal,
-      redirect: "follow",
-    });
-    clearTimeout(timer);
-    const buf = await res.arrayBuffer();
+    let buf: ArrayBuffer;
+    let res: Response;
+    try {
+      res = await fetch(url, {
+        method: "GET",
+        headers: { "User-Agent": UA, Accept: "*/*" },
+        signal: ctrl.signal,
+        redirect: "follow",
+      });
+      // The deadline has to span the BODY read too. Clearing it once the
+      // headers land leaves arrayBuffer() unbounded, which is the same
+      // hang the scraper hit on obs.kazanlak.bg — a server that answers
+      // and then stops sending.
+      buf = await res.arrayBuffer();
+    } finally {
+      clearTimeout(timer);
+    }
     return {
       url,
       status: res.status,

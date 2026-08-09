@@ -228,6 +228,7 @@ export const scrapeSZR = async (
       } catch (err) {
         errors.push({
           url: sess.pageUrl,
+          date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
         continue;
@@ -248,6 +249,7 @@ export const scrapeSZR = async (
         } catch (err) {
           errors.push({
             url: ref.pdfUrl,
+            date: sess.date,
             message: err instanceof Error ? err.message : String(err),
           });
         }

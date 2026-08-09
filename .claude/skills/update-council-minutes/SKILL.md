@@ -68,7 +68,23 @@ npm run council:scrape -- --only VTR01 --dry       # parse, don't write index/sh
    - Updates `resolutionsByObshtina[<obshtina>]` with the latest 200 (slim — `tally.perCouncillor` stripped to keep the index lean);
    - Writes per-município **votes shards** to `data/council/votes/<obshtina>.json` carrying the per-councillor breakdown keyed by resolution id (only for munis with named-vote data — VTR01 + SOF today). These power the "Как гласуваха в съвета" MyArea tile (`MyAreaCouncilVotesTile`);
    - Writes per-resolution shards at `data/council/{obshtina}/{YYYY}/<id>.json` carrying the full record including perCouncillor (durable history).
-4. Writes the watermark to `state/ingest/council_<obshtina>.json` with the latest seen date.
+4. Writes the watermark to `state/ingest/council_<obshtina>.json`.
+
+   **Not "the latest seen date" — the latest date everything below it was ingested** (`scripts/council/lib/watermark.ts`). Parsers filter candidates on `date > sinceDate`, so advancing past a protocol that failed to download removes it from consideration for ever; it is reported once among the "N fetch error(s)" and then it is gone. A failed download therefore caps the watermark strictly below its own date, and a failed *index* — which could have hidden anything — freezes it entirely.
+
+   Which of those happens is set by the parser via `MuniScrapeError.kind`:
+
+   | kind | meaning | watermark | ledger |
+   | --- | --- | --- | --- |
+   | `fetch` (default) | couldn't retrieve it; the protocol is missing | capped below its `date`, or frozen when it has none (a discovery step) | only while it keeps recurring |
+   | `content` | retrieved but unusable as-is (scanned PDF, unsupported variant) — retrying identically will never help | not held | **kept until the URL is ingested** |
+   | `enrich` | the protocol landed; only an extra failed (per-councillor protokol, OCR unlock, roster join) | not held | not kept |
+
+   **A new per-protocol `errors.push` MUST carry `date`**, or it freezes that município's watermark. Omit `date` only for a genuine discovery step (a year index, a CDX query).
+
+   `deferred` in the state file is the durable list of what we know is missing — it is what stops a `content` skip from silently becoming "forgotten" once the watermark has passed it. A `fetch` failure that survives `MAX_BLOCKING_ATTEMPTS` (5) consecutive runs stops holding the line and stays on the ledger flagged `givenUp`, so one dead URL cannot wedge a município's ingest for ever.
+
+5. A município that touched 0 protocols **and** had a failed lookup is reported `UNVERIFIED` and is **neither merged nor stamped** — "0 new protocols" is a claim we have no basis for when we never managed to read the source. It is retried on the next run.
 
 ### Expected output (one município)
 
@@ -174,7 +190,10 @@ npx tsx scripts/council/rebuild_shards.ts
 - **`pdftotext` ENOENT**: install poppler-utils.
 - **OCR not invoked on a known-scanned PDF**: `--ocr` flag not passed, or pdftotext is producing >200 chars of garbage. Lower the `looksLikeScannedPdf` threshold in `lib/pdf_text.ts` if needed.
 - **Roster join rate <50%**: `data/officials/municipal/index.json` is stale (replacements not declared yet) OR the município name string doesn't exactly match the cacbg `municipality` field. Check `buildMuniLookup` in `lib/roster_join.ts`.
-- **Watermark stuck**: delete `state/ingest/council_<obshtina>.json` to force a fresh `--since-year` walk.
+- **Watermark stuck**: check the run output for `watermark held at …` first — that is the design working, and the named URL is what to fix. Deleting `state/ingest/council_<obshtina>.json` forces a fresh `--since-year` walk, but also drops the `deferred` ledger.
+- **`deferred` entry that never clears**: expected for a `content` skip whose URL is not a resolution's `sourceUrl` — RSE01's "PDF variant skipped" and the "no .docx link on session page" cases. The ledger is the record that they are missing; picking one up after the source is fixed needs an explicit `--since-date` behind it.
+- **`UNVERIFIED` município**: the source was unreadable, so nothing was merged or stamped. Not a failure to fix here unless it persists — re-run with `--only <key>` once the council's site is back.
+- **A run that hangs**: it should not any more (`--budget-min`, default 20, caps each município's wall clock; `--ocr` raises it to 60). If one does, the status table on SIGINT names exactly how far it got.
 
 ## See also
 

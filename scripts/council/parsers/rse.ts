@@ -208,6 +208,7 @@ export const scrapeRSE = async (
           // surface as a soft error so the operator can wire it later.
           errors.push({
             url: ref.url,
+            kind: "content",
             message: "PDF variant skipped (use --include-pdf when supported)",
           });
           continue;

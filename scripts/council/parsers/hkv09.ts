@@ -43,7 +43,7 @@
 // metadata + tally + adopted/rejected), equivalent to HKV34 / SZR /
 // RSE / Pleven / Добрич.
 
-import { fetchToFile } from "../lib/fetch";
+import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
 import { extractDocxText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
@@ -74,13 +74,11 @@ type ProtokolDoc = SessionRef & {
 
 const UA = "Mozilla/5.0 electionsbg-council/1.0";
 
-const fetchHtml = async (url: string): Promise<string> => {
-  const r = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
-  });
-  if (!r.ok) throw new Error(`fetch ${url} → ${r.status}`);
-  return r.text();
-};
+// Shared helper, pre-bound to this council's UA. The wrapper exists so the
+// per-request deadlines + the município budget in lib/fetch.ts cover this
+// site too — a bare fetch() here has no timeout at all.
+const fetchHtml = (url: string): Promise<string> =>
+  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Session URL pattern: /bg/protokoli-ot-zasedaniyata-na-obshtinskiya-savet/
 //   protokol-{N}-ot-{type}-zasedanie-na-{D}-{M}-{YYYY}-godina
@@ -412,6 +410,8 @@ export const scrapeHKV09 = async (
         if (!docUrl) {
           errors.push({
             url: p.pageUrl,
+            date: p.date,
+            kind: "content",
             message: "no .doc/.docx/.pdf link found on session page",
           });
           continue;
@@ -428,6 +428,8 @@ export const scrapeHKV09 = async (
           if (looksLikeScannedPdf(text)) {
             errors.push({
               url: docUrl,
+              date: p.date,
+              kind: "content",
               message: "scanned PDF — route to Phase 3 OCR",
             });
             continue;
@@ -447,6 +449,7 @@ export const scrapeHKV09 = async (
       } catch (err) {
         errors.push({
           url: p.pageUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

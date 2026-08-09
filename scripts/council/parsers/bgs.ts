@@ -372,8 +372,12 @@ export const scrapeBGS = async (
         `  [${OBSHTINA}] discovered ${protokols.size} protokol(s); ${matched}/${sessions.length} of in-window sessions matched`,
       );
     } catch (err) {
+      // Phase-2 only: this index attaches per-councillor protokols to
+      // sessions already discovered above. Losing it costs detail, not
+      // coverage, so it must not hold the watermark back.
       errors.push({
         url: VIDEO_INDEX_URL,
+        kind: "enrich",
         message: err instanceof Error ? err.message : String(err),
       });
     }
@@ -391,6 +395,8 @@ export const scrapeBGS = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: sess.pdfUrl,
+            date: sess.date,
+            kind: "content",
             message: "scanned PDF — route to Phase 3 OCR",
           });
           continue;
@@ -412,6 +418,8 @@ export const scrapeBGS = async (
             if (looksLikeScannedPdf(protokolText)) {
               errors.push({
                 url: sess.protokolUrl,
+                date: sess.date,
+                kind: "enrich",
                 message:
                   "protokol PDF looks scanned — skipped (would need OCR)",
               });
@@ -428,6 +436,8 @@ export const scrapeBGS = async (
           } catch (err) {
             errors.push({
               url: sess.protokolUrl,
+              date: sess.date,
+              kind: "enrich",
               message: err instanceof Error ? err.message : String(err),
             });
           }
@@ -441,6 +451,7 @@ export const scrapeBGS = async (
       } catch (err) {
         errors.push({
           url: sess.pdfUrl,
+          date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

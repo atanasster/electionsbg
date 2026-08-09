@@ -32,7 +32,7 @@
 // totals only. Coverage tier B (decision metadata + tally + adopted/
 // rejected), equivalent to HKV09 / DOB28 / HKV34 / SZR / RSE / Pleven.
 
-import { fetchToFile } from "../lib/fetch";
+import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
 import { extractDocxText, extractOdtText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
@@ -62,13 +62,11 @@ type ProtokolDoc = SessionRef & {
   docxUrl: string;
 };
 
-const fetchHtml = async (url: string): Promise<string> => {
-  const r = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
-  });
-  if (!r.ok) throw new Error(`fetch ${url} → ${r.status}`);
-  return r.text();
-};
+// Shared helper, pre-bound to this council's UA. The wrapper exists so the
+// per-request deadlines + the município budget in lib/fetch.ts cover this
+// site too — a bare fetch() here has no timeout at all.
+const fetchHtml = (url: string): Promise<string> =>
+  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Index entry: /protokoli-i-zapisi-na-zasedania-na-obsinski-s-vet/protokol-no34
 const INDEX_LINK_RE =
@@ -421,6 +419,7 @@ export const scrapeRAZ = async (
         if (!ref) {
           errors.push({
             url: e.pageUrl,
+            kind: "content",
             message: "no .docx link found on session page",
           });
           continue;
@@ -441,6 +440,8 @@ export const scrapeRAZ = async (
           if (looksLikeScannedPdf(text)) {
             errors.push({
               url: ref.docxUrl,
+              date: ref.date,
+              kind: "content",
               message: "scanned PDF — route to Phase 3 OCR",
             });
             continue;

@@ -30,7 +30,7 @@
 // tier B (decision metadata + tally + adopted/rejected, no
 // perCouncillor), equivalent to SZR / RSE / Pleven / Хасково.
 
-import { fetchToFile } from "../lib/fetch";
+import { fetchJson, fetchToFile } from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
@@ -73,11 +73,9 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
 };
 
 const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const r = await fetch(cdxUrl, {
+  const arr = await fetchJson<string[][]>(cdxUrl, {
     headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
   });
-  if (!r.ok) throw new Error(`wayback CDX ${r.status}`);
-  const arr = (await r.json()) as string[][];
   const out: SessionRef[] = [];
   const seen = new Set<string>();
   for (const row of arr.slice(1)) {
@@ -223,6 +221,8 @@ export const scrapeDOB = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: p.pdfUrl,
+            date: p.date,
+            kind: "content",
             message: "scanned PDF — route to Phase 3 OCR",
           });
           continue;
@@ -236,6 +236,7 @@ export const scrapeDOB = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

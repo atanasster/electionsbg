@@ -33,7 +33,7 @@
 // councillor block), comparable to VTR01 / SZR12 / BGS01 / SOF /
 // GAB05 (the latter 2025+ only).
 
-import { fetchToFile } from "../lib/fetch";
+import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
 import { extractDocxText } from "../lib/docx";
 import {
   classifyResult,
@@ -71,13 +71,11 @@ type ProtokolDoc = SessionRef & {
   docxUrl: string;
 };
 
-const fetchHtml = async (url: string): Promise<string> => {
-  const r = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
-  });
-  if (!r.ok) throw new Error(`fetch ${url} → ${r.status}`);
-  return r.text();
-};
+// Shared helper, pre-bound to this council's UA. The wrapper exists so the
+// per-request deadlines + the município budget in lib/fetch.ts cover this
+// site too — a bare fetch() here has no timeout at all.
+const fetchHtml = (url: string): Promise<string> =>
+  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Post slug: /протокол-№-{N}-{DD}-{MM}-{YYYY}г/
 // The Cyrillic slug is rendered both as percent-encoded (linkedin
@@ -375,6 +373,7 @@ export const scrapePER = async (
     } catch (err) {
       errors.push({
         url: "buildMuniLookup",
+        kind: "enrich",
         message: err instanceof Error ? err.message : String(err),
       });
     }
@@ -392,6 +391,8 @@ export const scrapePER = async (
         if (!docxUrl) {
           errors.push({
             url: p.postUrl,
+            date: p.date,
+            kind: "content",
             message: "no .docx link on post page",
           });
           continue;
@@ -417,6 +418,7 @@ export const scrapePER = async (
       } catch (err) {
         errors.push({
           url: p.postUrl,
+          date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

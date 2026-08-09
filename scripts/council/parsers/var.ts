@@ -205,6 +205,8 @@ export const scrapeVAR = async (
         if (looksLikeScannedPdf(text)) {
           errors.push({
             url: sess.pdfUrl,
+            date: sess.date,
+            kind: "content",
             message: "scanned PDF — route to Phase 3 OCR",
           });
           continue;
@@ -218,6 +220,7 @@ export const scrapeVAR = async (
       } catch (err) {
         errors.push({
           url: sess.pdfUrl,
+          date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
       }

@@ -178,6 +178,7 @@ export const scrapePVN = async (
         if (!sittingDate) {
           errors.push({
             url: ref.url,
+            kind: "content",
             message: "could not parse sitting date from header",
           });
           continue;
