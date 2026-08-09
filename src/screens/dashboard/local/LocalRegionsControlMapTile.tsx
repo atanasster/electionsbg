@@ -57,6 +57,7 @@ import {
 import { SOFIA_RAYONS } from "@/data/budget/sofiaRayons";
 import { StatCard } from "../StatCard";
 import { LocalSofiaCityLink } from "./LocalSofiaCityLink";
+import { bareOblastName } from "@/lib/oblastName";
 
 export type LocalMapMetric = "mayor" | "council";
 
@@ -290,7 +291,7 @@ export const LocalRegionsControlMapTile: FC<{
     if (code === "SOF") return "СФ";
     if (code === "SFO") return "СО";
     // Strip an "обл." prefix some region names carry (e.g. "обл. Пловдив").
-    const name = regionName(code).replace(/^обл\.?\s*/i, "");
+    const name = bareOblastName(regionName(code));
     const words = name.split(/\s+/).filter(Boolean);
     return words.length >= 2
       ? words

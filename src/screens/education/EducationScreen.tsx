@@ -31,6 +31,7 @@ import { MaturaTrendChart } from "./MaturaTrendChart";
 import { OblastTrendTable } from "./OblastTrendTable";
 import { buildOblastRows } from "./oblastRows";
 import { EducationSearchBox } from "./EducationSearchBox";
+import { bareOblastName } from "@/lib/oblastName";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
 // the map actually renders.
@@ -76,9 +77,11 @@ export const EducationScreen: FC = () => {
   const regionName = useMemo(() => {
     // regions.json uniquely prefixes Пловдив with "обл./prov."; strip it so the
     // oblast column reads consistently with the others.
-    const clean = (s: string) => s.replace(/^(обл\.|prov\.)\s*/i, "");
     const m = new Map(
-      (regions ?? []).map((r) => [r.oblast, clean(bg ? r.name : r.name_en)]),
+      (regions ?? []).map((r) => [
+        r.oblast,
+        bareOblastName(bg ? r.name : r.name_en),
+      ]),
     );
     // regions.json labels Sofia-city (S23) as "23"; give it a real name.
     m.set("S23", bg ? "София (град)" : "Sofia (city)");

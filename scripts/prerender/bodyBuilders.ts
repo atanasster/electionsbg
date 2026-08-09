@@ -7,6 +7,7 @@ import type { PlaceAliasReason } from "@/data/schools/educationPlaceKey";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
 import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
+import { bareOblastName, oblastLabel } from "@/lib/oblastName";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
@@ -786,7 +787,7 @@ export const buildSectionBody = (input: SectionBodyInput): string => {
   const { section, settlement, oblastName, address, ekatte, oblastCode } =
     input;
   const placeLabel = oblastName
-    ? `${settlement}, обл. ${oblastName}`
+    ? `${settlement}, ${oblastLabel(oblastName, "bg", "compact")}`
     : settlement;
   const parts: string[] = [];
   parts.push(`<h1>Избирателна секция №${escapeHtml(section)}</h1>`);
@@ -878,7 +879,7 @@ export const buildSectionBody = (input: SectionBodyInput): string => {
   }
   if (oblastCode && oblastName) {
     navLinks.push(
-      `<a href="${SITE_URL}/municipality/${oblastCode}">обл. ${escapeHtml(oblastName)}</a>`,
+      `<a href="${SITE_URL}/municipality/${oblastCode}">${escapeHtml(oblastLabel(oblastName, "bg", "compact"))}</a>`,
     );
   }
   if (navLinks.length) {
@@ -920,7 +921,7 @@ export const buildSectionsListBody = (input: SectionsListInput): string => {
   const placeLabel =
     input.isDiaspora || !input.oblastName
       ? input.displayName
-      : `${input.displayName}, обл. ${input.oblastName}`;
+      : `${input.displayName}, ${oblastLabel(input.oblastName, "bg", "compact")}`;
   const heading = input.isDiaspora
     ? `Избирателни секции в ${input.displayName} — Парламентарни избори в България`
     : `Избирателни секции в ${placeLabel}`;
@@ -1024,7 +1025,7 @@ export const buildSectionsListBody = (input: SectionsListInput): string => {
 
   if (input.oblastCode && input.oblastName && !input.isDiaspora) {
     parts.push(
-      `<p>Виж и: <a href="${SITE_URL}/settlement/${input.ekatte}">${escapeHtml(input.displayName)}</a> · <a href="${SITE_URL}/municipality/${input.oblastCode}">обл. ${escapeHtml(input.oblastName)}</a>.</p>`,
+      `<p>Виж и: <a href="${SITE_URL}/settlement/${input.ekatte}">${escapeHtml(input.displayName)}</a> · <a href="${SITE_URL}/municipality/${input.oblastCode}">${escapeHtml(oblastLabel(input.oblastName, "bg", "compact"))}</a>.</p>`,
     );
   }
 
@@ -1045,7 +1046,7 @@ type SettlementBodyInput = {
 export const buildSettlementBody = (input: SettlementBodyInput): string => {
   const { ekatte, settlement, oblastName, oblastCode } = input;
   const placeLabel = oblastName
-    ? `${settlement}, обл. ${oblastName}`
+    ? `${settlement}, ${oblastLabel(oblastName, "bg", "compact")}`
     : settlement;
   const parts: string[] = [];
   parts.push(`<h1>${escapeHtml(placeLabel)}</h1>`);
@@ -1063,7 +1064,7 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
   ];
   if (oblastCode && oblastName) {
     navLinks.unshift(
-      `<a href="${SITE_URL}/municipality/${oblastCode}">обл. ${escapeHtml(oblastName)}</a>`,
+      `<a href="${SITE_URL}/municipality/${oblastCode}">${escapeHtml(oblastLabel(oblastName, "bg", "compact"))}</a>`,
     );
   }
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
@@ -1093,7 +1094,7 @@ export const buildGovernancePlaceBody = (
 ): string => {
   const { ekatte, settlement, oblastName, oblastCode, education } = input;
   const placeLabel = oblastName
-    ? `${settlement}, обл. ${oblastName}`
+    ? `${settlement}, ${oblastLabel(oblastName, "bg", "compact")}`
     : settlement;
   const parts: string[] = [];
   parts.push(`<h1>Управление — ${escapeHtml(placeLabel)}</h1>`);
@@ -1105,7 +1106,7 @@ export const buildGovernancePlaceBody = (
   ];
   if (oblastCode && oblastName) {
     navLinks.push(
-      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — обл. ${escapeHtml(oblastName)}</a>`,
+      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — ${escapeHtml(oblastLabel(oblastName, "bg", "compact"))}</a>`,
     );
   }
   navLinks.push(
@@ -1142,8 +1143,8 @@ export const buildGovernanceMuniBody = (input: GovernanceMuniInput): string => {
   ];
   if (oblastCode && oblastName) {
     navLinks.push(
-      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — обл. ${escapeHtml(oblastName)}</a>`,
-      `<a href="${SITE_URL}/municipality/${oblastCode}">Резултати в обл. ${escapeHtml(oblastName)}</a>`,
+      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — ${escapeHtml(oblastLabel(oblastName, "bg", "compact"))}</a>`,
+      `<a href="${SITE_URL}/municipality/${oblastCode}">Резултати в ${escapeHtml(oblastLabel(oblastName, "bg", "compact"))}</a>`,
     );
   }
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
@@ -1245,13 +1246,15 @@ const governancePlaceEducation = (
   // page is the parent — "Матура в Столична община" on Лозенец's page.
   const placeBg = escapeHtml(
     edu.placePhrase?.bg ??
-      (grain === "muni" ? `община ${displayName}` : `област ${displayName}`),
+      (grain === "muni"
+        ? `община ${displayName}`
+        : oblastLabel(displayName, "bg", "prose")),
   );
   const placeEn = escapeHtml(
     edu.placePhrase?.en ??
       (grain === "muni"
         ? `${displayName} municipality`
-        : `${displayName} province`),
+        : oblastLabel(displayName, "en", "prose")),
   );
   // The same disclosures the live tile carries, wording for wording — a static
   // page that states a broader place's numbers under this one's name is the
@@ -1336,25 +1339,31 @@ export const buildGovernanceRegionBody = (
   education?: EducationPlaceBody,
 ): string => {
   const en = lang === "en";
-  const displayName = en
-    ? region.long_name_en || region.name_en || region.name
-    : region.long_name || region.name;
+  const displayName = bareOblastName(
+    en
+      ? region.long_name_en || region.name_en || region.name
+      : region.long_name || region.name,
+  );
   const parts: string[] = [];
   if (en) {
-    parts.push(`<h1>Governance — ${escapeHtml(displayName)} province</h1>`);
     parts.push(
-      `<p>A regional cut of governance for ${escapeHtml(displayName)} province: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), the state matura result of its schools, regional indicators (GDP per head, migration, registered unemployment), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
+      `<h1>Governance — ${escapeHtml(oblastLabel(displayName, "en", "prose"))}</h1>`,
+    );
+    parts.push(
+      `<p>A regional cut of governance for ${escapeHtml(oblastLabel(displayName, "en", "prose"))}: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), the state matura result of its schools, regional indicators (GDP per head, migration, registered unemployment), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
     );
     parts.push(
       `<p><a href="${SITE_URL}/en/governance">Governance (country)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Election results in ${escapeHtml(displayName)}</a></p>`,
     );
   } else {
-    parts.push(`<h1>Управление — област ${escapeHtml(displayName)}</h1>`);
     parts.push(
-      `<p>Регионален разрез на управлението за област ${escapeHtml(displayName)}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), успехът на матурата в училищата, регионални индикатори (БВП на човек, миграция, регистрирана безработица), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
+      `<h1>Управление — ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}</h1>`,
     );
     parts.push(
-      `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в обл. ${escapeHtml(displayName)}</a></p>`,
+      `<p>Регионален разрез на управлението за ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), успехът на матурата в училищата, регионални индикатори (БВП на човек, миграция, регистрирана безработица), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
+    );
+    parts.push(
+      `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в ${escapeHtml(oblastLabel(displayName, "bg", "compact"))}</a></p>`,
     );
   }
   // Education before the municipality list: it is the substance of the page,
@@ -1366,8 +1375,8 @@ export const buildGovernanceRegionBody = (
       en ? m.name_en || m.name : m.name;
     parts.push(
       en
-        ? `<h2>Municipalities in ${escapeHtml(displayName)} province</h2>`
-        : `<h2>Общини в област ${escapeHtml(displayName)}</h2>`,
+        ? `<h2>Municipalities in ${escapeHtml(oblastLabel(displayName, "en", "prose"))}</h2>`
+        : `<h2>Общини в ${escapeHtml(oblastLabel(displayName, "bg", "prose"))}</h2>`,
     );
     const sorted = [...munis].sort((a, b) =>
       muniLabel(a).localeCompare(muniLabel(b), en ? "en" : "bg"),
@@ -1393,11 +1402,16 @@ export const buildGovernanceRegionBody = (
 // ------------------------------------------------------------------
 
 export const buildOblastBody = (region: RegionInfo): string => {
-  const displayName = region.long_name || region.name;
+  const displayName = oblastLabel(
+    region.long_name || region.name,
+    "bg",
+    "prose",
+    region.oblast,
+  );
   const parts: string[] = [];
-  parts.push(`<h1>Резултати в област ${escapeHtml(displayName)}</h1>`);
+  parts.push(`<h1>Резултати в ${escapeHtml(displayName)}</h1>`);
   parts.push(
-    `<p>Подробни резултати от парламентарните избори в България в област ${escapeHtml(displayName)} — гласуване по партии, преференции, машинно и хартиено гласуване, повторно преброяване и отклонения по секции.</p>`,
+    `<p>Подробни резултати от парламентарните избори в България в ${escapeHtml(displayName)} — гласуване по партии, преференции, машинно и хартиено гласуване, повторно преброяване и отклонения по секции.</p>`,
   );
   const code = region.oblast;
   parts.push(

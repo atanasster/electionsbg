@@ -65,6 +65,7 @@ import {
 } from "./bodyBuilders";
 import { getLatestElection } from "./dynamicRoutes";
 import { electionYearSuffix } from "./electionYear";
+import { oblastLabel } from "@/lib/oblastName";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import { readIndexableProcedures } from "../funds/procedures_index";
@@ -346,9 +347,11 @@ const buildGovernanceRegionBrowse = (lang: "bg" | "en"): string => {
     const lis = items
       .map(
         (r) =>
-          `<li><a href="${base}/governance/region/${r.oblast}">${
-            en ? `${r.name} province` : `област ${r.name}`
-          }</a></li>`,
+          `<li><a href="${base}/governance/region/${r.oblast}">${oblastLabel(
+            r.name,
+            en ? "en" : "bg",
+            "prose",
+          )}</a></li>`,
       )
       .join("");
     return en

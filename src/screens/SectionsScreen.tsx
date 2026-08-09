@@ -4,7 +4,8 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
-import { typedSettlementName, isSofiaMir } from "@/data/dataTypes";
+import { typedSettlementName } from "@/data/dataTypes";
+import { bareOblastName, oblastLabel } from "@/lib/oblastName";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -45,18 +46,14 @@ export const SectionsScreen = () => {
   // ("кв. Лозенец") to match the page <h1>, not "Секции {name}".
   const typed = typedSettlementName(info, lang, settlementName);
   // Rich document <title> matching the prerendered crawler HTML:
-  // "Резултати в кв. Лозенец, обл. София — …". The oblast carries an "обл."
-  // prefix only for real области — a Sofia МИР or the abroad district reads as
-  // its own context ("София 23 МИР", "Извън страната").
-  const oblastCode = settlement?.oblast ?? info?.oblast;
-  const bareRegionName =
-    lang === "bg" ? regionName.replace(/^обл\.\s+/, "") : regionName;
-  const oblastContext = bareRegionName
-    ? oblastCode === "32" || isSofiaMir(oblastCode)
-      ? `, ${bareRegionName}`
-      : lang === "bg"
-        ? `, обл. ${bareRegionName}`
-        : `, ${bareRegionName}`
+  // "Резултати в кв. Лозенец, обл. София — …". `oblastLabel` adds the "обл."
+  // only where it belongs — a Sofia МИР or the abroad district already reads as
+  // its own context ("София 23 МИР", "Извън страната"), and PDV's own name
+  // carries the prefix already. English names the region without a tier word.
+  const oblastContext = regionName
+    ? lang === "bg"
+      ? `, ${oblastLabel(regionName, "bg", "compact")}`
+      : `, ${bareOblastName(regionName)}`
     : "";
   return (
     <>

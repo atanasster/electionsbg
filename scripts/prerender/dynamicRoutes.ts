@@ -45,6 +45,7 @@ import {
   judicialNum,
   judicialTierAdjective,
 } from "@/lib/judicialKind";
+import { bareOblastName, oblastLabel } from "@/lib/oblastName";
 import { kfnFundName } from "@/lib/kfnFundSlug";
 import { kfnSharePct } from "@/lib/kfnPeriod";
 import {
@@ -161,9 +162,14 @@ export const getLatestElection = (electionsFile: string): string => {
   return elections[0].name;
 };
 
-const oblastDisplayName = (r: RegionInfo): string => r.long_name || r.name;
+// Bare, i.e. with PDV's "обл." / "prov." tier prefix removed — every consumer
+// below composes its own tier word ("обл. X", "Област X", "X province") and
+// would otherwise emit "обл. обл. Пловдив". `oblastLabel` also leaves the
+// self-typed names ("София област", "София 23 МИР", "Извън страната") alone.
+const oblastDisplayName = (r: RegionInfo): string =>
+  bareOblastName(r.long_name || r.name);
 const oblastDisplayNameEn = (r: RegionInfo): string =>
-  r.long_name_en || r.name_en || r.name;
+  bareOblastName(r.long_name_en || r.name_en || r.name);
 
 const buildOblastNameMap = (regions: RegionInfo[]): Map<string, string> => {
   const map = new Map<string, string>();
@@ -303,8 +309,8 @@ export const buildOblastRoutes = (
     .map((r) => {
       const displayName = oblastDisplayName(r);
       const url = `${SITE_URL}/municipality/${r.oblast}`;
-      const title = `Резултати в ${displayName} — Парламентарни избори | electionsbg.com`;
-      const description = `Подробни резултати, машинно гласуване, повторно преброяване и отклонения по секции в област ${displayName} на парламентарните избори в България.`;
+      const title = `Резултати в ${oblastLabel(displayName, "bg", "prose", r.oblast)} — Парламентарни избори | electionsbg.com`;
+      const description = `Подробни резултати, машинно гласуване, повторно преброяване и отклонения по секции в ${oblastLabel(displayName, "bg", "prose", r.oblast)} на парламентарните избори в България.`;
       return {
         path: `municipality/${r.oblast}`,
         title,
@@ -315,7 +321,10 @@ export const buildOblastRoutes = (
           buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
-            { name: `Област ${displayName}`, url },
+            {
+              name: oblastLabel(displayName, "bg", "leading", r.oblast),
+              url,
+            },
           ]),
         ],
       };
@@ -451,7 +460,7 @@ export const buildSettlementRoutes = (
       const fullName = `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
       const oblastName = s.oblast ? oblastNames.get(s.oblast) : undefined;
       const labelWithOblast = oblastName
-        ? `${fullName}, обл. ${oblastName}`
+        ? `${fullName}, ${oblastLabel(oblastName, "bg", "compact")}`
         : fullName;
       const url = `${SITE_URL}/settlement/${s.ekatte}`;
       // Front-load the settlement name — that is the query users type, and Google
@@ -464,7 +473,7 @@ export const buildSettlementRoutes = (
         ? [
             { name: "Начало", url: `${SITE_URL}/` },
             {
-              name: `Област ${oblastName}`,
+              name: oblastLabel(oblastName, "bg", "leading"),
               url: `${SITE_URL}/municipality/${s.oblast}`,
             },
             { name: fullName, url },
@@ -530,7 +539,7 @@ export const buildGovernancePlaceRoutes = (
       const fullName = `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
       const oblastName = s.oblast ? oblastNames.get(s.oblast) : undefined;
       const labelWithOblast = oblastName
-        ? `${fullName}, обл. ${oblastName}`
+        ? `${fullName}, ${oblastLabel(oblastName, "bg", "compact")}`
         : fullName;
       const url = `${SITE_URL}/governance/${s.ekatte}`;
       // Entity-first title (place name at the head) — the governance door leads
@@ -543,7 +552,7 @@ export const buildGovernancePlaceRoutes = (
             { name: "Начало", url: `${SITE_URL}/` },
             { name: "Управление", url: `${SITE_URL}/governance` },
             {
-              name: `Област ${oblastName}`,
+              name: oblastLabel(oblastName, "bg", "leading"),
               url: `${SITE_URL}/governance/region/${s.oblast}`,
             },
             { name: fullName, url },
@@ -648,7 +657,7 @@ export const buildGovernanceMuniRoutes = (
           { name: "Начало", url: `${SITE_URL}/` },
           { name: "Управление", url: `${SITE_URL}/governance` },
           {
-            name: `Област ${oblastName}`,
+            name: oblastLabel(oblastName, "bg", "leading"),
             url: `${SITE_URL}/governance/region/${m.oblast}`,
           },
           { name: `Община ${m.name}`, url },
@@ -790,23 +799,19 @@ export const buildGovernanceRegionRoutes = (
   // Region names too: an aliased region (Sofia's three МИР, PDV-00) must name
   // the place its numbers describe, not itself.
   const muniNames = readMuniNames(projectRoot);
-  // regions.json prefixes Пловдив alone with "обл." / "prov." to tell the
-  // province apart from the city МИР; the phrase adds its own "област", so
-  // strip it or the page reads "област обл. Пловдив".
-  const bare = (s: string) => s.replace(/^(обл\.|prov\.)\s*/i, "");
   const placeNames = {
     bg: new Map([
       ...(muniNames.bg ?? []),
       ...regions.map((r): [string, string] => [
         r.oblast,
-        bare(r.long_name || r.name),
+        bareOblastName(r.long_name || r.name),
       ]),
     ]),
     en: new Map([
       ...(muniNames.en ?? []),
       ...regions.map((r): [string, string] => [
         r.oblast,
-        bare(r.long_name_en || r.name_en || r.name),
+        bareOblastName(r.long_name_en || r.name_en || r.name),
       ]),
     ]),
   };
@@ -820,14 +825,16 @@ export const buildGovernanceRegionRoutes = (
   return regions
     .filter((r) => r.oblast !== "32")
     .map((r) => {
-      const displayName = r.long_name || r.name;
-      const displayNameEn = r.long_name_en || r.name_en || r.name;
+      const displayName = bareOblastName(r.long_name || r.name);
+      const displayNameEn = bareOblastName(
+        r.long_name_en || r.name_en || r.name,
+      );
       const url = `${SITE_URL}/governance/region/${r.oblast}`;
       const enUrl = `${SITE_URL}/en/governance/region/${r.oblast}`;
-      const title = `Управление — област ${displayName} | electionsbg.com`;
-      const description = `Регионален разрез на управлението в област ${displayName}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
-      const titleEn = `Governance — ${displayNameEn} province | electionsbg.com`;
-      const descriptionEn = `A regional cut of governance in ${displayNameEn} province: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
+      const title = `Управление — ${oblastLabel(displayName, "bg", "prose")} | electionsbg.com`;
+      const description = `Регионален разрез на управлението в ${oblastLabel(displayName, "bg", "prose")}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
+      const titleEn = `Governance — ${oblastLabel(displayNameEn, "en", "prose")} | electionsbg.com`;
+      const descriptionEn = `A regional cut of governance in ${oblastLabel(displayNameEn, "en", "prose")}: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
       const munis = munisByOblast.get(r.oblast) ?? [];
       return {
         path: `governance/region/${r.oblast}`,
@@ -845,7 +852,7 @@ export const buildGovernanceRegionRoutes = (
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
             { name: "Управление", url: `${SITE_URL}/governance` },
-            { name: `Област ${displayName}`, url },
+            { name: oblastLabel(displayName, "bg", "leading"), url },
           ]),
         ],
         english: {
@@ -867,7 +874,7 @@ export const buildGovernanceRegionRoutes = (
             buildBreadcrumbLd([
               { name: "Home", url: EN_HOME },
               { name: "Governance", url: `${SITE_URL}/en/governance` },
-              { name: `${displayNameEn} province`, url: enUrl },
+              { name: oblastLabel(displayNameEn, "en", "leading"), url: enUrl },
             ]),
           ],
         },
@@ -1276,7 +1283,7 @@ export const buildSectionsListRoutes = (
     });
 
     const placeLabel = oblastName
-      ? `${displayName}, обл. ${oblastName}`
+      ? `${displayName}, ${oblastLabel(oblastName, "bg", "compact")}`
       : displayName;
     const url = `${SITE_URL}/sections/${ekatte}`;
     const sectionCount = sortedSections.length;
@@ -1296,7 +1303,7 @@ export const buildSectionsListRoutes = (
         ? [
             { name: "Начало", url: `${SITE_URL}/` },
             {
-              name: `Област ${oblastName}`,
+              name: oblastLabel(oblastName, "bg", "leading"),
               url: `${SITE_URL}/municipality/${agg.oblastCode}`,
             },
             { name: `Секции в ${displayName}`, url },
@@ -1436,7 +1443,7 @@ const buildCandidateFaqBg = (
   if (f) {
     items.push({
       question: `Колко преференции получи ${name}?`,
-      answer: `${name} получи общо ${formatNumber(f.totalPreferences)} преференции на изборите на ${formatElectionDateBg(f.electionDate)} — най-много в област ${f.topOblastName} (${formatNumber(f.topOblastPreferences)}).`,
+      answer: `${name} получи общо ${formatNumber(f.totalPreferences)} преференции на изборите на ${formatElectionDateBg(f.electionDate)} — най-много в ${oblastLabel(f.topOblastName, "bg", "prose")} (${formatNumber(f.topOblastPreferences)}).`,
     });
     items.push({
       question: `За коя партия се кандидатира ${name}?`,
@@ -1445,7 +1452,7 @@ const buildCandidateFaqBg = (
   } else if (card.candidacy) {
     items.push({
       question: `За коя партия се кандидатира ${name}?`,
-      answer: `${name} се кандидатира от ${card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} в област ${card.candidacy.oblastName}.`,
+      answer: `${name} се кандидатира от ${card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} в ${oblastLabel(card.candidacy.oblastName, "bg", "prose")}.`,
     });
   }
   items.push({
@@ -1464,7 +1471,7 @@ const buildCandidateFaqEn = (
   if (f) {
     items.push({
       question: `How many preference votes did ${name} get?`,
-      answer: `${name} received ${formatNumber(f.totalPreferences)} preference votes in the ${formatElectionDateEn(f.electionDate)} election — most in ${f.topOblastNameEn} (${formatNumber(f.topOblastPreferences)}).`,
+      answer: `${name} received ${formatNumber(f.totalPreferences)} preference votes in the ${formatElectionDateEn(f.electionDate)} election — most in ${oblastLabel(f.topOblastNameEn, "en", "prose")} (${formatNumber(f.topOblastPreferences)}).`,
     });
     items.push({
       question: `Which party did ${name} run for?`,
@@ -1593,7 +1600,7 @@ const buildCandidateBodyEn = (
   if (cardData?.facts) {
     const f = cardData.facts;
     parts.push(
-      `<p>In their most recent candidacy (${formatElectionDateEn(f.electionDate)}), ${escapeHtmlSimple(nameEn)} received ${formatNumber(f.totalPreferences)} preference votes — most in ${escapeHtmlSimple(f.topOblastNameEn)} (${formatNumber(f.topOblastPreferences)}).</p>`,
+      `<p>In their most recent candidacy (${formatElectionDateEn(f.electionDate)}), ${escapeHtmlSimple(nameEn)} received ${formatNumber(f.totalPreferences)} preference votes — most in ${escapeHtmlSimple(oblastLabel(f.topOblastNameEn, "en", "prose"))} (${formatNumber(f.topOblastPreferences)}).</p>`,
     );
   }
 
@@ -1711,7 +1718,7 @@ const buildCandidateBody = (
   if (cardData?.facts) {
     const f = cardData.facts;
     parts.push(
-      `<p>На последните избори, в които се кандидатира (${formatElectionDateBg(f.electionDate)}), ${escapeHtmlSimple(name)} получи общо ${formatNumber(f.totalPreferences)} преференции — най-много в област ${escapeHtmlSimple(f.topOblastName)} (${formatNumber(f.topOblastPreferences)}).</p>`,
+      `<p>На последните избори, в които се кандидатира (${formatElectionDateBg(f.electionDate)}), ${escapeHtmlSimple(name)} получи общо ${formatNumber(f.totalPreferences)} преференции — най-много в ${escapeHtmlSimple(oblastLabel(f.topOblastName, "bg", "prose"))} (${formatNumber(f.topOblastPreferences)}).</p>`,
     );
   }
 
@@ -1921,10 +1928,10 @@ export const buildCandidateRoutes = (
     const nameEn = indexEntry?.name_en?.trim() || name;
     const cardData = candidateCardSet.byNormalizedName.get(normalizeName(name));
     const factsClauseBg = cardData?.facts
-      ? ` ${formatNumber(cardData.facts.totalPreferences)} преференции на изборите на ${formatElectionDateBg(cardData.facts.electionDate)}, най-силно представяне в област ${cardData.facts.topOblastName}.`
+      ? ` ${formatNumber(cardData.facts.totalPreferences)} преференции на изборите на ${formatElectionDateBg(cardData.facts.electionDate)}, най-силно представяне в ${oblastLabel(cardData.facts.topOblastName, "bg", "prose")}.`
       : "";
     const factsClauseEn = cardData?.facts
-      ? ` ${formatNumber(cardData.facts.totalPreferences)} preference votes in the ${formatElectionDateEn(cardData.facts.electionDate)} election, strongest in ${cardData.facts.topOblastNameEn}.`
+      ? ` ${formatNumber(cardData.facts.totalPreferences)} preference votes in the ${formatElectionDateEn(cardData.facts.electionDate)} election, strongest in ${oblastLabel(cardData.facts.topOblastNameEn, "en", "prose")}.`
       : "";
 
     const isMp = !!indexEntry;
@@ -2311,7 +2318,7 @@ export const buildSectionRoutes = (
     const ekatte = info?.ekatte;
     const address = info?.address;
     const placeLabel = oblastName
-      ? `${settlement}, обл. ${oblastName}`
+      ? `${settlement}, ${oblastLabel(oblastName, "bg", "compact")}`
       : settlement;
     const title = `Избирателна секция №${section} — ${placeLabel} | electionsbg.com`;
     const description = address
@@ -2322,7 +2329,7 @@ export const buildSectionRoutes = (
     ];
     if (oblastCode && oblastName) {
       breadcrumb.push({
-        name: `Област ${oblastName}`,
+        name: oblastLabel(oblastName, "bg", "leading"),
         url: `${SITE_URL}/municipality/${oblastCode}`,
       });
     }
@@ -2459,15 +2466,15 @@ const buildOblastSubTabRoutes = (
       const url = `${SITE_URL}/municipality/${r.oblast}/${tab.slug}`;
       result.push({
         path: `municipality/${r.oblast}/${tab.slug}`,
-        title: `${displayName} — ${tab.bg} | Парламентарни избори | electionsbg.com`,
-        description: `Резултати ${tab.bg} в област ${displayName} на парламентарните избори в България.`,
+        title: `${oblastLabel(displayName, "bg", "leading", r.oblast)} — ${tab.bg} | Парламентарни избори | electionsbg.com`,
+        description: `Резултати ${tab.bg} в ${oblastLabel(displayName, "bg", "prose", r.oblast)} на парламентарните избори в България.`,
         ogImage: parent.ogImage,
         bodyHtml: parent.bodyHtml,
         jsonLd: [
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
             {
-              name: `Област ${displayName}`,
+              name: oblastLabel(displayName, "bg", "leading", r.oblast),
               url: `${SITE_URL}/municipality/${r.oblast}`,
             },
             { name: tab.bg, url },
@@ -4351,16 +4358,16 @@ export const buildLocalRegionRoutes = (
       const display = nameOf.get(r.oblast) ?? r.oblast;
       const displayEn = nameEnOf.get(r.oblast) ?? r.oblast;
       const url = `${SITE_URL}/local/${cycle}/region/${r.oblast}`;
-      const title = `Местни избори ${date} — област ${display} | electionsbg.com`;
-      const description = `Резултати от местните избори на ${date} в област ${display} — кметове по общини и места в общинските съвети по партии.`;
+      const title = `Местни избори ${date} — ${oblastLabel(display, "bg", "prose")} | electionsbg.com`;
+      const description = `Резултати от местните избори на ${date} в ${oblastLabel(display, "bg", "prose")} — кметове по общини и места в общинските съвети по партии.`;
       const titleEn = `Local Elections ${date} — ${displayEn} | electionsbg.com`;
-      const descriptionEn = `${date} Bulgarian local-election results in ${displayEn} region — mayors by municipality and council seats by party.`;
+      const descriptionEn = `${date} Bulgarian local-election results in ${oblastLabel(displayEn, "en", "prose")} — mayors by municipality and council seats by party.`;
       out.push({
         path: `local/${cycle}/region/${r.oblast}`,
         title,
         description,
         ogImage: `/og/local/region/${cycle}/${r.oblast}.png`,
-        bodyHtml: `<h1>Местни избори ${date} — област ${escapeHtmlSimple(display)}</h1><p>Кметове по общини и разпределение на местата в общинските съвети по партии.</p>`,
+        bodyHtml: `<h1>Местни избори ${date} — ${escapeHtmlSimple(oblastLabel(display, "bg", "prose"))}</h1><p>Кметове по общини и разпределение на местата в общинските съвети по партии.</p>`,
         jsonLd: [
           buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd([

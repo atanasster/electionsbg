@@ -23,6 +23,7 @@
 
 import fs from "fs";
 import path from "path";
+import { oblastLabel } from "@/lib/oblastName";
 import {
   buildPlacePayloads,
   buildSettlementIndex,
@@ -196,7 +197,10 @@ const placePhraseOf = (
     return { bg, en };
   return grain === "muni"
     ? { bg: `община ${bg}`, en: `${en} municipality` }
-    : { bg: `област ${bg}`, en: `${en} province` };
+    : {
+        bg: oblastLabel(bg, "bg", "prose"),
+        en: oblastLabel(en, "en", "prose"),
+      };
 };
 
 /** EKATTE → its município code, so a settlement body can fall back to the

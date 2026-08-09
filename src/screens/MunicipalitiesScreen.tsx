@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
 import { isSofiaMir } from "@/data/dataTypes";
+import { bareOblastName, oblastNameIsSelfTyped } from "@/lib/oblastName";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
@@ -56,20 +57,20 @@ export const MunicipalitiesScreen = () => {
       <NotFound />
     );
   }
-  const title =
+  // Bare: PDV's own name is "обл. Пловдив" (it tells the province apart from
+  // the PDV-00 city МИР), and every label below adds its own tier word.
+  const title = bareOblastName(
     (lang === "bg"
       ? info?.long_name || info?.name
-      : info?.long_name_en || info?.name_en) || "";
+      : info?.long_name_en || info?.name_en) || "",
+  );
   // The /municipality/:id route is actually a REGION (oblast) dashboard — the
   // historical "off-by-one" route naming (see placeViews.ts). Title it
   // "Област {name}" so the browser tab is self-describing. Two kinds of region
   // are NOT области and already carry a self-describing name, so we leave them
   // verbatim: Sofia's three МИР (S23/24/25 → "София N МИР") and the abroad МИР
   // (32 → "Извън страната" / "Abroad"). SFO already reads "София област".
-  const alreadyTyped =
-    lang === "bg"
-      ? /област|МИР|страна/i.test(title)
-      : /\b(region|MMR|abroad)\b/i.test(title);
+  const alreadyTyped = oblastNameIsSelfTyped(title);
   const seoTitle =
     isSofiaMir(region) || alreadyTyped
       ? title

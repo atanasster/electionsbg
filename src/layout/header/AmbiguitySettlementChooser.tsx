@@ -10,6 +10,11 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import {
+  bareOblastName,
+  oblastLabel,
+  oblastNameIsSelfTyped,
+} from "@/lib/oblastName";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -69,9 +74,18 @@ export const AmbiguitySettlementChooser: FC<Props> = ({
         ? r.long_name || r.name
         : r.long_name_en || r.name_en
       : null;
+    // A region name may already carry its tier — "обл. Пловдив" (PDV, to tell
+    // the province from the city МИР), "София 24 МИР", "Извън страната" — so the
+    // tier word is added only where one is missing, never twice.
+    const regionLabel = !regionName
+      ? null
+      : lang === "bg"
+        ? oblastLabel(regionName, "bg", "compact")
+        : oblastNameIsSelfTyped(regionName)
+          ? bareOblastName(regionName)
+          : `${bareOblastName(regionName)} oblast`;
     if (isOwnMunicipality) {
-      if (!regionName) return "";
-      return lang === "bg" ? `обл. ${regionName}` : `${regionName} oblast`;
+      return regionLabel ?? "";
     }
     const m = findMunicipality(settlement.obshtina);
     const muniName = m ? (lang === "bg" ? m.name : m.name_en) : null;
@@ -79,13 +93,13 @@ export const AmbiguitySettlementChooser: FC<Props> = ({
       const parts = [
         settlement.t_v_m,
         muniName ? `общ. ${muniName}` : null,
-        regionName ? `обл. ${regionName}` : null,
+        regionLabel,
       ].filter(Boolean);
       return parts.join(" · ");
     }
     const parts = [
       muniName ? `${muniName} municipality` : null,
-      regionName ? `${regionName} oblast` : null,
+      regionLabel,
     ].filter(Boolean);
     return parts.join(" · ");
   };
