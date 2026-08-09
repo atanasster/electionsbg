@@ -38,20 +38,10 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
 import { TopBeneficiariesCard } from "./TopBeneficiariesCard";
-import { formatEur } from "@/lib/currency";
-
-// `useGrouping: "always"`, because Bulgarian CLDR sets `minimumGroupingDigits: 2` — so a
-// four-digit number renders as „1425" with no separator, directly beside „53 108" which has
-// one. The inconsistency reads as a different kind of quantity.
-const numFmt = new Intl.NumberFormat("bg-BG", {
-  // Cast because `"always"` is ES2023 and this project's lib target predates it. Every browser
-  // the site supports honours it; older engines fall back to their default grouping, which is
-  // the behaviour we have today.
-  useGrouping: "always",
-} as unknown as Intl.NumberFormatOptions);
+import { formatEur, formatInt } from "@/lib/currency";
 
 export const FundsBeneficiariesScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: index, isLoading } = useFundsIndex();
   const totals = index?.totals;
 
@@ -83,7 +73,7 @@ export const FundsBeneficiariesScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
               <span className="text-2xl font-bold tabular-nums">
-                {totals ? numFmt.format(totals.beneficiaries) : "—"}
+                {totals ? formatInt(totals.beneficiaries, i18n.language) : "—"}
               </span>
             </div>
             {/* THE GAP, STATED — from THIS blob's own `withEik`, not from a second corpus.
@@ -91,7 +81,10 @@ export const FundsBeneficiariesScreen: FC = () => {
                 name alone, which is also why those rows have no /company page to link to. */}
             {totals ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {numFmt.format(totals.beneficiaries - totals.withEik)}{" "}
+                {formatInt(
+                  totals.beneficiaries - totals.withEik,
+                  i18n.language,
+                )}{" "}
                 {t("funds_benef_no_eik") || "само по име, без ЕИК"}
               </div>
             ) : null}
@@ -108,7 +101,7 @@ export const FundsBeneficiariesScreen: FC = () => {
             </div>
             {totals ? (
               <div className="text-xs tabular-nums text-muted-foreground">
-                {numFmt.format(totals.contractCount)}{" "}
+                {formatInt(totals.contractCount, i18n.language)}{" "}
                 {t("funds_benef_contracts") || "договора"}
               </div>
             ) : null}

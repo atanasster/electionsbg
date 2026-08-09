@@ -591,6 +591,16 @@ const CandidateFundsScreen = lazy(() =>
     default: m.CandidateFundsScreen,
   })),
 );
+const FundsPlacesScreen = lazy(() =>
+  import("./screens/funds/FundsPlacesScreen").then((m) => ({
+    default: m.FundsPlacesScreen,
+  })),
+);
+const FundsAbsorptionScreen = lazy(() =>
+  import("./screens/funds/FundsAbsorptionScreen").then((m) => ({
+    default: m.FundsAbsorptionScreen,
+  })),
+);
 const FundsBeneficiariesScreen = lazy(() =>
   import("./screens/funds/FundsBeneficiariesScreen").then((m) => ({
     default: m.FundsBeneficiariesScreen,
@@ -2591,6 +2601,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <OpenCallsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/places"
+            element={
+              <LayoutScreen>
+                <FundsPlacesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/absorption"
+            element={
+              <LayoutScreen>
+                <FundsAbsorptionScreen />
               </LayoutScreen>
             }
           />

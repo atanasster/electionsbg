@@ -4239,6 +4239,63 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "funds/places",
+    title:
+      "Европейските средства по места — общини и области | electionsbg.com",
+    description:
+      "Къде са стигнали договорите по ИСУН 2020 — карта по общини, разпределение по области, и защо картата покрива около половината от парите.",
+    breadcrumbName: "По място",
+    bodyHtml: `
+<h1>Европейските средства по места</h1>
+<p>Договорите по ИСУН 2020, разпределени по община и по област.</p>
+<h2>Картата покрива около половината от парите, и това не е грешка</h2>
+<p>Само <strong>4,6% от договорите</strong> нямат посочена област — но точно те носят <strong>около половината от цялата договорена стойност</strong>. Това са националните програми: транспортни коридори, инструменти по Плана за възстановяване, техническа помощ. Те не се падат на едно място, защото не са проект на едно място.</p>
+<p>Затова сборът на картата е по-малък от общия за корпуса, и затова покритието е изписано в пари, а не в брой договори — „4,6% липсващи договори“ е вярно и подвеждащо едновременно.</p>
+<p>Столична община се брои като едно място. ИСУН я разделя на четири районни кода; тук те са сгънати, за да не изглежда столицата като четири различни области.</p>`.trim(),
+    english: {
+      title: "EU funds by place — municipalities and oblasti | electionsbg.com",
+      description:
+        "Where ИСУН 2020 contracts landed — a municipal choropleth, the oblast split, and why the map covers about half the money.",
+      breadcrumbName: "By place",
+      bodyHtml: `
+<h1>EU funds by place</h1>
+<p>ИСУН 2020 contracts distributed by municipality and oblast.</p>
+<h2>The map covers about half the money, and that is not an error</h2>
+<p>Only <strong>4.6% of contracts</strong> carry no oblast — but those are exactly the ones holding <strong>about half the total contracted value</strong>. They are the national programmes: transport corridors, Recovery Plan instruments, technical assistance. They do not fall on a single place because they are not a project in a single place.</p>
+<p>So the map's total is smaller than the corpus total, and the coverage is stated in money rather than in contract counts — „4.6% of contracts missing" is true and misleading at the same time.</p>
+<p>Sofia city counts as one place. ИСУН splits it across four district codes; here they are folded, so the capital does not read as four separate oblasti.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/absorption",
+    title:
+      "Усвояване на европейските средства — колко е изплатено | electionsbg.com",
+    description:
+      "Каква част от договорената безвъзмездна помощ е реално изплатена, по програмни периоди, и по какъв път парите стигат до получателя.",
+    breadcrumbName: "Усвояване",
+    bodyHtml: `
+<h1>Усвояване и движение на парите</h1>
+<p>Колко от договореното по ИСУН 2020 е реално изплатено.</p>
+<h2>„Усвояване“ има два знаменателя и те се разминават с 12,7 пункта</h2>
+<p>Изплатеното спрямо <strong>договорената безвъзмездна помощ</strong> е едно число. Изплатеното спрямо <strong>цялата договорена стойност</strong> — която включва и собственото съфинансиране на бенефициента — е друго, и е чувствително по-ниско.</p>
+<p>И двете са верни изречения за един и същ корпус. В българския публичен дебат „усвояване“ означава първото, затова то е водещото тук; второто стои до него, а не се оставя на читателя да го извади сам и да реши, че страницата греши.</p>
+<p>Планът за възстановяване е най-новият инструмент, затова усвояването по него е под средното за корпуса — това е възраст, а не изпълнение.</p>`.trim(),
+    english: {
+      title:
+        "EU-funds absorption — how much has actually been paid | electionsbg.com",
+      description:
+        "What share of the contracted grant has actually been disbursed, by programming period, and by what route the money reaches the recipient.",
+      breadcrumbName: "Absorption",
+      bodyHtml: `
+<h1>Absorption and the flow of the money</h1>
+<p>How much of what was contracted under ИСУН 2020 has actually been paid.</p>
+<h2>„Absorption" has two denominators, 12.7 points apart</h2>
+<p>Paid against the <strong>contracted grant</strong> is one number. Paid against the <strong>full contract value</strong> — which includes the beneficiary's own co-financing — is another, and materially lower.</p>
+<p>Both are true of the same corpus. In Bulgarian public debate „усвояване" means the first, so that is the headline here; the second sits beside it rather than being left for a reader to derive and conclude the page is wrong.</p>
+<p>The Recovery and Resilience Plan is the newest instrument, so its absorption is below the corpus average — that is age, not performance.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "funds/beneficiaries",
     title:
       "Бенефициенти по европейските програми (ИСУН 2020) | electionsbg.com",
@@ -4252,6 +4309,19 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Договорено</strong> е стойността на договорите, включително собственото съфинансиране на бенефициента — тя е по-голяма от безвъзмездната помощ. <strong>Изплатено</strong> е реално преведеното по тези договори.</p>
 <p>Част от бенефициентите са вписани само по име, без ЕИК. За тях няма фирмена страница, към която да препратим, и не могат да бъдат сверени с търговския регистър.</p>
 <p>Етикетът „свързан с депутат“ е <strong>сигнал за проверка, не заключение</strong>: означава съвпадение по ЕИК с деклариран интерес, а не че договорът е нередовен.</p>`.trim(),
+    english: {
+      title: "EU-funds beneficiaries (ИСУН 2020) | electionsbg.com",
+      description:
+        "Which organisations hold ИСУН 2020 contracts — the largest recipients by contracted value, how many carry an EIK, and how many are linked to politicians.",
+      breadcrumbName: "Beneficiaries",
+      bodyHtml: `
+<h1>EU-funds beneficiaries</h1>
+<p>Organisations with at least one contract in the ИСУН 2020 beneficiary register, ranked by contracted value.</p>
+<h2>What the numbers mean</h2>
+<p><strong>Contracted</strong> is the value of the contracts including the beneficiary's own co-financing, so it exceeds the grant. <strong>Paid</strong> is what has actually been disbursed under them.</p>
+<p>Some beneficiaries are recorded by name only, with no EIK. Those have no company page to link to and cannot be reconciled against the Commerce Registry.</p>
+<p>The „linked to an MP" label is a <strong>signal to check, not a conclusion</strong>: it marks an EIK match against a declared interest, not an irregular contract.</p>`.trim(),
+    },
   }),
   staticPage({
     path: "funds/programmes",
@@ -4266,6 +4336,19 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>„Усвояване“ има два знаменателя</h2>
 <p>Делът, който показваме, е <strong>изплатено спрямо договорената безвъзмездна помощ</strong>. Разделено на цялата договорена стойност — тоест заедно със собственото съфинансиране — процентът е чувствително по-нисък. И двете са верни изречения за един и същ корпус, затова знаменателят е винаги изписан.</p>
 <p>Корпусът включва оперативните програми 2014-2020 и 2021-2027, Плана за възстановяване, ЕИП/Норвежкия финансов механизъм и няколко национални фонда — затова „договори в ИСУН 2020“, а не „европейски средства“.</p>`.trim(),
+    english: {
+      title:
+        "Operational programmes in ИСУН 2020 — contracted and absorbed | electionsbg.com",
+      description:
+        "Every programme in ИСУН 2020 — how much is contracted under each, what share has been paid, and where the Recovery Plan sits.",
+      breadcrumbName: "Programmes",
+      bodyHtml: `
+<h1>The operational programmes</h1>
+<p>The programmes in ИСУН 2020, ranked by contracted value. Pick one to see its procedures and contracts.</p>
+<h2>„Absorption" has two denominators</h2>
+<p>The share shown is <strong>paid against the contracted grant</strong>. Divided by the full contract value — that is, including the beneficiary's own co-financing — the percentage is materially lower. Both are true sentences about the same corpus, which is why the denominator is always written out.</p>
+<p>The corpus covers the 2014-2020 and 2021-2027 operational programmes, the Recovery and Resilience Plan, the EEA/Norway financial mechanism and several national funds — hence „ИСУН 2020 contracts" rather than „EU funds".`.trim(),
+    },
   }),
   staticPage({
     // /funds/calls — the ONE page in this module whose content is a moving target. The

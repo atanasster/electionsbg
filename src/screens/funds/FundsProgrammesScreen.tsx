@@ -20,13 +20,12 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { Card, CardContent } from "@/ux/Card";
 import { useFundsProjectsIndex } from "@/data/funds/useFundsProjectsIndex";
 import { useFundsHubStats } from "@/data/funds/useFundsHubStats";
-import { formatEur } from "@/lib/currency";
+import { formatEur, formatInt } from "@/lib/currency";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
 const pctFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 1 });
 
 export const FundsProgrammesScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: index, isLoading } = useFundsProjectsIndex();
   const { data: stats } = useFundsHubStats();
 
@@ -61,7 +60,9 @@ export const FundsProgrammesScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Layers className="h-5 w-5 shrink-0 text-muted-foreground" />
               <span className="text-2xl font-bold tabular-nums">
-                {stats ? numFmt.format(stats.isun.programmeCount) : "—"}
+                {stats
+                  ? formatInt(stats.isun.programmeCount, i18n.language)
+                  : "—"}
               </span>
             </div>
           </StatCard>
