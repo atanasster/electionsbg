@@ -375,6 +375,25 @@ test.skipIf(skip)(
   },
 );
 
+test.skipIf(skip)("the payload stays under its byte budget", async () => {
+  // THE PAYLOAD RULE, measured rather than asserted. The SQL-shape gate in
+  // fundsHubCoverage.test.ts runs without a database and catches an aggregate creeping in; this
+  // is the figure that one only claims. 768 bytes today against a 4 KB ceiling — the hub fetches
+  // this on EVERY view, and it exists because the page used to pull 390 KB to draw previews.
+  const [r] = await allRows<{ n: string }>(
+    "SELECT octet_length(funds_hub_stats()::text)::text AS n",
+  );
+  const bytes = Number(r.n);
+  assert.ok(
+    bytes > 200,
+    `payload is ${bytes} bytes — suspiciously small, is it populated?`,
+  );
+  assert.ok(
+    bytes < 4096,
+    `payload is ${bytes} bytes, over the 4 KB budget for a call made on every hub view`,
+  );
+});
+
 test.skipIf(skip)(
   "the served call is a SEEK, not the live aggregate",
   async () => {

@@ -509,7 +509,7 @@ const enumerateCabinets = (
 // /funds/focus/{slug} — one URL per editorial theme listed in
 // data/funds/themes.json. The shard build re-runs on every funds ingest, so
 // the file's mtime is a reasonable lastmod for the whole set. Themes with
-// zero matches are skipped (see FundsFocusTile.tsx — it also hides them).
+// zero matches are skipped (the /funds/focus picker lists the same set).
 const enumerateFundsThemes = (rootUrl: string, routes: string[]) => {
   const file = `${projectPath}/data/funds/themes.json`;
   if (!fs.existsSync(file)) return;

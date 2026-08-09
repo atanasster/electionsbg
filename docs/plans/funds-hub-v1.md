@@ -76,10 +76,15 @@ Every tile currently rendered inline needs a destination. Six do not have one ye
 | `AbsorptionByPeriodTile` + `FundsSankeyTile` + `ProjectsStatusMixTile` | **`/funds/absorption`** | NEW |
 | `DualCorpusLeaderboardTile` | **`/funds/dual-corpus`** | NEW — retires the 247 KB hub fetch |
 | `InterregTile` | **`/funds/interreg`** | NEW — the picker for `/funds/interreg/:keepId` |
-| `PoliticalConflictsTile` | `/funds/political` | exists |
-| `IntegrityTeaserTile` | `/funds/integrity` | exists |
-| `RrfTeaserTile` | `/funds/rrf` | exists |
-| `FundsFocusTile` | `/funds/focus` | NEW picker; `/funds/focus/:slug` exists |
+| `PoliticalConflictsTile` | `/funds/political` | page existed; **tile DELETED in step 8** |
+| `IntegrityTeaserTile` | `/funds/integrity` | page existed; **tile DELETED in step 8** |
+| `RrfTeaserTile` | `/funds/rrf` | page existed; tile kept (still rendered) |
+| `FundsFocusTile` | `/funds/focus` | NEW picker; **tile DELETED in step 8** |
+
+Three of those teaser tiles are gone rather than moved: their destinations already render their
+own content, so once the hub stopped rendering them inline nothing imported them. Twelve i18n
+keys went with them. A `fundsHubCoverage.test.ts` gate now fails on any unimported file in
+`src/screens/funds/`, so the next half-finished move is caught rather than left as sediment.
 
 **`/funds/focus` is a picker, not a seed.** The skill §4 is explicit: a tile pointing at
 `/x/:id` lands the reader on a subject somebody else chose and omits itself entirely when
