@@ -428,6 +428,173 @@ chain, risk caches, NZOK and prices are all outside it.
 
 ---
 
+## Measured deploy profile (2026-08-09) — the first COMPLETE publish, 5 h 13 m
+
+Second per-step profile, same method as 2026-08-05 (external wrapper, chain
+granular, halts on first non-zero exit). Three differences from that run:
+
+- it is the **complete** publish for a `/process-watch-report` day — it adds
+  `db:refresh:risk:cloud` and `prices:ingest:cloud`, the steps F13 flagged as
+  missing from the cost model;
+- it **omits** `db:load:procurement-scopes:pg:cloud` on F8's recommendation
+  (verified safe — see F20);
+- `db:load:funds:pg:cloud` is absent (no ИСУН change that day).
+
+Ingest published: ЦАИС ЕОП +209 contracts / 106 buyers, councils +68
+resolutions, macro, policy baseline, ИИСДА services, prices ×2 days.
+`db-g1-small`, proxy on `127.0.0.1:5434`, no competing load on the machine.
+
+| # | step | seconds | | vs 2026-08-05 |
+|--:|---|--:|---|---|
+| 1 | `contracts` | **5005** | 83.4 min | 3878 → **+29%** |
+| 2 | `annexes` | 61 | | 41 → +49% |
+| 3 | `tenders` | **1168** | 19.5 min | 1049 → +11% |
+| 4 | `awarder-seats` | **933** | 15.6 min | 776 → +20% |
+| 5 | `tr` | **2886** | 48.1 min | 2092 (F11) → **+38%** |
+| 6 | `transport-project` | 217 | | 247 → −12% |
+| 7 | `water-operator` | 4 | | 4 → = |
+| 8 | `mvr-directorate` | 16 | | 17 → = |
+| 9 | `admin-services` | 6 | | not in that run |
+| 10 | `persons-browse` | 137 | | 362 → **−62%** |
+| 11 | `person-search` | 505 | 8.4 min | 421 → +20% |
+| 12 | `graph` | 201 | | 167 → +20% |
+| 13 | `tr-company-place` | 78 | | 61 → +28% |
+| 14 | `risk` | **1005** | 16.8 min | **never measured** |
+| 15 | `prices` | **6546** | 109.1 min | **never measured** |
+| | **total** | **18768** | **5 h 13 m** | |
+
+The GCS half the same day, scoped to 12 paths: **180 s** for ~82 objects. F3
+holds — the bucket is not the problem, and is now 1.0% of the publish.
+
+Verified afterwards, cloud vs local: `contracts` 408,759 = 408,759 (latest
+2026-08-08 both), `tenders` 237,243, `tr_companies` 1,020,707, `admin_services`
+2,672, `price_grid_days` max 2026-08-08, `contract_risk_cache` 408,759.
+`/api/db/procurement-overview` 200 in 1.03 s, `/api/db/price-payload` 200 in
+0.69 s.
+
+One caveat on the verification recipe: `SUM(amount_eur)` came back
+€99,492,258,005.**63** on cloud and €99,492,258,005.**64** local. That is float
+summation order on a `double precision` column, not a data difference — so the
+2026-08-05 note "cloud = local **to the cent**" is not a reliable gate. Compare
+`round(sum(...)::numeric, 2)` with a ±0.01 tolerance, or sum in `numeric`.
+
+### F15 — `prices` is the second-largest step in the deploy and was never in the cost model
+
+6546 s is **34.9% of the whole publish** — larger than `tr`, second only to
+`contracts`. F13 named two absent steps; this is a third, and the biggest.
+
+It is absent because it does not look like a loader. Prices publish by
+**re-running the entire ingest against the cloud URL** (`prices:ingest:cloud` =
+`DATABASE_URL=<proxy> npm run prices`) — the same "the ingest IS the loader"
+shape as `agri:ingest` and the КЗК crawl, and the same class G17 flags. So the
+full pipeline runs twice, once per database: 2 days × ~1.5M store rows of SCD-2
+delta, the 116,622-product catalogue rebuild, the 653,660-row `product_days`
+build, 753 payload blobs and the slug export.
+
+Local cost of the identical work the same morning: **~600 s**. Cloud: 6546 s —
+**10.9×**. Nothing in it is delta-aware or ship-aware.
+
+Two cheap observations before any Phase-3 work:
+
+- the 753 payload blobs total **2.6 MB** and are pure derived output computed
+  identically on both sides — the Phase-2 ship-don't-compute pattern applies
+  directly, and 2.6 MB is nothing to transfer;
+- `product_days` (653,660 rows) is likewise recomputed rather than shipped.
+
+### F16 — `db:refresh:risk` duplicates `db:load:pg`, and only the chain ORDER makes it necessary
+
+`load_pg.ts:527,531` runs `REFRESH MATERIALIZED VIEW
+procurement_risk_indexes_cache` then `SELECT rebuild_contract_risk_cache()`.
+`refresh_risk.ts:28,39` runs exactly those two statements again.
+
+`db:load:pg` emits **no log line for either** — it only logs `risk-grade scoped:
+N scopes precomputed`, which is the unrelated `awarder_risk_grade_scoped`. That
+is why the duplication is invisible in a transcript. It was found here only by
+catching `SELECT rebuild_contract_risk_cache()` in `pg_stat_activity`, 11 minutes
+into step 1.
+
+In THIS chain the second rebuild was **not** waste: `tr` ran at step 5, after
+contracts, and `db:load:tr:pg` rebuilds `company_politicians`, which the
+`mpConnected` bit of `contract_risk_cache` reads (CLAUDE.md documents this from
+the other side). Step 1's rebuild was therefore stale by step 14.
+
+But that is an artifact of the ORDER, not a real dependency:
+
+> **Run `tr` BEFORE `contracts` and `db:refresh:risk:cloud` becomes redundant.**
+> `db:load:pg`'s internal rebuild then sees fresh `company_politicians` and fresh
+> `contracts` in a single pass. Free saving: **1005 s ≈ 16.8 min**, no code
+> change, same guarantees.
+
+Cross-check before adopting: `db:load:tr:pg` also refreshes matviews 122 and 124,
+which read `contracts`, so running it first refreshes them against the previous
+corpus — but step 1 then refreshes all six again (`scoped precomputes: refreshed
+6/6`, observed), so the end state is identical. The cost is one extra 3/3 refresh
+inside `tr`, which is already being paid today.
+
+### F17 — four steps are 82% of the publish
+
+`contracts` 5005 + `prices` 6546 + `tr` 2886 + `risk` 1005 = **15,442 s of
+18,768 = 82.3%**. The other eleven steps together are 3,326 s (17.7%), and six of
+them are under 220 s.
+
+This re-frames the plan's target. Phases 2/3 are aimed almost entirely at the
+procurement corpus; on this profile the same effort spent on `prices` (F15) and
+the ordering fix (F16) is worth **7,551 s ≈ 2 h 6 m**, versus F1/F8's ~1,600 s.
+
+It also means the F14 success criterion covers **42%** of this deploy, down from
+52% — the criterion's denominator keeps shrinking as more of the real publish
+gets measured.
+
+### F18 — the client is idle; the cost is entirely server-side dependent recompute
+
+During the 5005 s `contracts` step the local Node process accumulated **9.3 s of
+CPU** (`ps -o time=`) while holding one ESTABLISHED socket to the proxy. Over
+83 minutes that is 0.19% duty cycle: the client is waiting, not working.
+
+Sampling `pg_stat_activity` through the step showed why — a single
+`SELECT rebuild_contract_risk_cache()` held **11+ minutes** on its own, and the
+six scoped-matview refreshes ran serially after it.
+
+This is direct evidence for F2's "cost is decoupled from data volume": the step
+shipped **406,097 rows to change 199** (`batch 865: 199 new`) and spent its time
+on dependent recompute, not transfer. Any plan that optimises transfer alone
+cannot touch the majority of this step.
+
+Corollary for Phase 0: in-loader instrumentation should time **server-side
+statements**, not client wall-clock per phase — the wall-clock is already known
+to be ~100% server.
+
+### F19 — the deploy's own connect timeout needs raising, and 15 s is not enough
+
+A cold `psql`/node-pg connect to the proxy **timed out at
+`PGCONNECT_TIMEOUT=15`** and succeeded at 60 s, repeatedly, on an idle instance
+before the deploy started. The proxy had been up since 29 Jul; the port accepted
+TCP immediately (`nc -z` succeeded), so a port check is not a readiness check.
+
+Relevant to Phase 5 orchestration and to F5 (no 1-hour cap): any automated deploy
+wrapper that pre-flights the connection must use a ≥60 s connect timeout and must
+probe with a real query, or it will fail closed against a healthy database.
+
+### F20 — F8 re-confirmed live, and dropping `procurement-scopes` is verified safe
+
+Two independent confirmations in this run:
+
+- `db:load:pg:cloud` logged `scoped precomputes: refreshed 6/6` (step 1) and
+  `db:load:awarder-seats:pg:cloud` logged `refreshed 4/4 (changed:
+  awarder_seats)` (step 4) — the same duplicate F8 describes, reproduced.
+- `db:load:procurement-scopes:pg:cloud` was **omitted entirely**, and afterwards
+  all six matviews were `ispopulated = true` with sane cardinality on cloud:
+  `contractor_rank` 431,327 · `procurement_settlement_payloads` 26,130 ·
+  `procurement_settlement_rank` 10,242 · `procurement_payloads` 180 ·
+  `procurement_geo_payloads` 30 · `contractor_scope_kpis` 29.
+
+So F8's "free ~945 s" is now measured as taken, not proposed: this deploy did not
+pay it and lost nothing. **Remove `db:load:procurement-scopes:pg:cloud` from the
+documented publish chain** (it remains correct standalone, e.g. for the January
+calendar rollover, which is its real trigger).
+
+---
+
 ## Root causes
 
 ### RC1 — Five caches are built twice per load, the first time against stale data
