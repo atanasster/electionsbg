@@ -716,6 +716,46 @@ first points all ~1,954 operation URLs at a function with no handler for them. T
 prerendered and carry no sitemap `<loc>`; without the function they serve the homepage's
 `<title>` and canonical, which is the duplicate-content shape this handler exists to end.
 
+`fund_fit` (migration 143, `db:load:funds-fit:pg`) is the „финансирано ли е нещо като моето"
+resolver behind the `/funds` tile and `/api/db/funds-fit` — a per-PROCEDURE rollup over the ИСУН
+corpus (project count, grant quartiles, org-form mix, oblast breakdown) that answers the question
+~68% of the measured audience actually asks, and which every other funds surface ignores. In
+`db:refresh` right after `db:load:funds:pg`; on the cloud side:
+
+```bash
+npm run db:load:funds-fit:pg:cloud
+```
+
+**Its only staleness trigger is a funds reload** — `fund_projects` plus the procedure NAMES in
+`fund_payloads(kind='procedure')`, both rebuilt by `db:load:funds:pg`. That pairing is in
+`refresh_coverage.test.ts`'s `ORDER_PAIRS`. The Interreg arm needs nothing here (see below).
+
+**Four things about it are easy to get backwards:**
+
+- **BOTH corpora, served as SEPARATE arms.** ИСУН holds zero Interreg projects, and Interreg money
+  is cross-border so it lands almost entirely on BORDER municipalities — an ИСУН-only resolver
+  answers „нищо подобно не е финансирано наблизо" to exactly the readers whose neighbours hold
+  grants. They are never summed: an ИСУН figure is a contract's own value, an Interreg figure one
+  partner's published budget. `funds_fit_basis()` returns the declaration IN THE PAYLOAD so a
+  consumer cannot render one arm as the whole corpus.
+- **Only the ИСУН arm is a matview.** `funds_fit_interreg()` is a plain function — 1,954 operations
+  against 82,011 contracts, which any index scan answers live. So an Interreg reload does NOT need
+  a `funds-fit` refresh.
+- **The Interreg arm is reached through a BG→EN query bridge** (`functions/interreg_topics.js`).
+  keep.eu publishes 86% of these titles in English only (272 of 1,954 carry a Bulgarian one), so
+  without it a Bulgarian query matches almost nothing there and the arm that exists to fix the
+  border bias is invisible to the audience it is for. It bridges the QUERY only, never the ИСУН
+  arm, and the route returns `interregQuery` so the page can say which English term it used.
+- **`paid_project_count` is DISBURSEMENT, not approval.** ИСУН publishes no rejected applications,
+  so an approval rate has no denominator and is not computable from this corpus. Any UI that
+  relabels it („N% одобрени") is making a claim the data cannot support.
+
+The route degrades a missing 143 to empty arms and logs `ff:not-built` once per process, so first-deploy
+ordering is cosmetic — but a STALE matview still serves the previous vintage's answer at a 200.
+`funds_fit.data.test.ts` fails on an unbuilt matview, on a rollup that disagrees with
+`fund_projects`, on a place filter that has stopped ranking, on a truncated oblast breakdown, and
+on an empty Interreg arm.
+
 `open_calls` / `open_calls_crawl` (migration 142, `db:load:open-calls:pg`) is the open-calls
 register behind the `/funds` band-1 tile and `/funds/calls` — what a reader can APPLY to, from
 ИСУН's `/Active` + `/PublicDiscussion` and ДФЗ's indicative Strategic-Plan schedule. In

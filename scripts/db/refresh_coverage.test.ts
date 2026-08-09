@@ -84,6 +84,17 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:funds-fit:pg",
+    before: "db:load:funds:pg",
+    why:
+      "fund_fit aggregates fund_projects and reads the procedure NAMES out of " +
+      "fund_payloads(kind='procedure'); db:load:funds:pg rebuilds both. Running " +
+      "first republishes the previous vintage's answer to „финансирано ли е нещо " +
+      "като моето" +
+      '" — a project count and a median grant, at a 200, with every ' +
+      "row count reconciling",
+  },
+  {
     after: "db:load:interreg:pg",
     before: "db:load:funds:pg",
     why:

@@ -37,6 +37,7 @@ import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
 import { InterregTile } from "./funds/InterregTile";
 import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
+import { FitResolverTile } from "./funds/FitResolverTile";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -238,6 +239,13 @@ export const FundsScreen: FC = () => {
             Both sit above the KPI strip, because an aggregate is where you arrive AFTER a
             look-up, not an entry point. */}
         <OpenCallsTile />
+
+        {/* BAND 1, third module. The finder answers „намери нещо конкретно"; the tile above
+            answers „какво мога да подам сега"; this answers the question that comes BEFORE both
+            and is the one most readers actually arrive with — „има ли изобщо нещо за мен".
+            It sits after the open calls because a live deadline outranks a base rate: if
+            something is open now, that is the more actionable fact. */}
+        <FitResolverTile />
 
         {/* HERO: 4 clickable KPI cards then the choropleth map. */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

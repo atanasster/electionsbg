@@ -7,6 +7,33 @@
 // All values are bound parameters; identifiers never come from the client.
 
 const { runDbTable, runDbFacets, DbRequestError } = require("./db_table.js");
+const { interregQueryFor } = require("./interreg_topics.js");
+
+// Shared by the fit resolver's three queries. 42883 FIRST — the arms are FUNCTIONS, so a database
+// without 143 raises undefined_function and never 42P01. 55000 is a matview created WITH NO DATA,
+// i.e. every first cloud deploy. 57014 (the pool's own statement_timeout) and 42501 (a permanent
+// missing GRANT) are deliberately ABSENT: the first means the budget is already spent so a retry
+// cannot finish, the second is not a refresh artifact and degrading hides it for ever.
+const FIT_DEGRADE = ["42883", "42P01", "55000", "55P03"];
+
+// Below this a trigram query matches noise and scans widely. Mirrors FIT_MIN_QUERY in
+// src/data/funds/useFundsFit.ts — the client stops asking and the server stops answering, so
+// neither depends on the other getting it right.
+const FIT_MIN_QUERY = 3;
+
+// The 28 canonical oblast codes (src/lib/regionalOblast.ts OBLAST_NAME) plus the folded capital.
+// `fund_fit.oblasti` is keyed in this namespace by `canon_oblast()` in 143 — the raw S22/S23/S24/S25
+// shards `fund_projects` stores are NOT valid here, and passing one would quietly return zero.
+// Hand-copied because `functions/` is CommonJS and cannot import the TS module — so
+// `db_routes.fundsfit.test.js` asserts this set EQUALS OBLAST_NAME's keys. The first draft of this
+// list had a typo („VidIN") and a missing code (RAZ), which is the argument for the gate rather
+// than for care.
+const OBLAST_CODES = new Set([
+  "BGS", "BLG", "DOB", "GAB", "HKV", "JAM", "KNL", "KRZ", "LOV", "MON",
+  "PAZ", "PDV", "PER", "PVN", "RAZ", "RSE", "SFO", "SHU", "SLS", "SLV",
+  "SML", "SOFIA_CITY", "SZR", "TGV", "VAR", "VID", "VRC", "VTR",
+]);
+
 
 const clampInt = (v, def, lo, hi) => {
   // trunc so a fractional query param (?limit=12.5) becomes a valid int rather
@@ -928,6 +955,118 @@ const DB_ROUTES = {
   //   42501 is a missing GRANT on a PLAIN TABLE, which is permanent, not a refresh artifact
   //         (the 123/124 precedent includes it because those are matviews). Degrading would
   //         serve an empty page for ever instead of failing loudly once.
+  // /api/db/funds-fit — „финансирано ли е нещо като моето" (migration 143).
+  //
+  // (`FIT_DEGRADE` and `OBLAST_CODES` are defined above the registry.)
+  //
+  // TWO ARMS, NEVER SUMMED, and the BASIS TRAVELS WITH THEM. ИСУН holds zero Interreg projects
+  // (Interreg runs on Jems), and Interreg money lands almost entirely on border municipalities —
+  // so an ИСУН-only answer tells exactly those readers „nothing like that has been funded near
+  // you" while their neighbours hold grants. The `basis` block is returned in the payload rather
+  // than left to UI copy, so a consumer that renders one arm cannot present it as the whole corpus.
+  //
+  // `place` RANKS, IT NEVER FILTERS (see 143): „в твоята област няма, но в страната има 340" is a
+  // usable answer and „нищо подобно не е финансирано" is not, and for a resolver that exists to
+  // tell someone whether to bother applying, the false negative is the expensive error.
+  "funds-fit": async (dbRows, q) => {
+    const query = (s(q, "q") || "").trim();
+    // VALIDATED, not just upper-cased. The value reaches a jsonb key probe and an equality test,
+    // so an unrecognised one cannot inject anything — but it CAN silently produce `local_count: 0`
+    // on every row, which reads as „nothing near you" rather than as „that is not a place". A
+    // rejected value becomes NULL, i.e. „nationwide", which is the honest fallback.
+    const rawOblast = (s(q, "oblast") || "").trim().toUpperCase();
+    const oblast = OBLAST_CODES.has(rawOblast) ? rawOblast : null;
+    const lim = clampInt(q.limit, 6, 1, 20);
+    const interregTerm = interregQueryFor(query);
+
+    // The basis degrades on the SAME narrow set as the arms below — not on everything. A bare
+    // `.catch(() => [null])` swallowed 57014 (the pool's own timeout) and 42501 (a permanent
+    // missing GRANT), so the route would render a resolver with no declared basis instead of
+    // failing once and loudly.
+    const [basis] = await dbRows(`SELECT * FROM funds_fit_basis()`).catch((e) => {
+      if (FIT_DEGRADE.includes(e?.code)) return [null];
+      throw e;
+    });
+    const basisBody = basis
+      ? {
+          isunProjects: basis.isun_projects,
+          isunProcedures: basis.isun_procedures,
+          interregOperations: basis.interreg_operations,
+          interregPartners: basis.interreg_partners,
+          // The Tier-L caveat as a RATIO rather than a sentence, so the caption cannot drift from
+          // the data: 2014-2020 Interreg carries no EIK, so an org breakdown over that arm is
+          // partial and the page has to say by how much.
+          interregWithEik: basis.interreg_with_eik,
+        }
+      : null;
+
+    if (query.length < FIT_MIN_QUERY)
+      return {
+        body: {
+          q: query,
+          isun: [],
+          interreg: [],
+          interregQuery: null,
+          basis: basisBody,
+        },
+      };
+
+    const [isun, interreg] = await Promise.all([
+      dbRows(
+        `SELECT procedure_code AS "procedureCode", procedure_name AS "procedureName",
+                sample_title AS "sampleTitle", program_name AS "programName",
+                project_count AS "projectCount", beneficiary_count AS "beneficiaryCount",
+                paid_project_count AS "paidProjectCount",
+                total_eur AS "totalEur", grant_median AS "grantMedian",
+                grant_p25 AS "grantP25", grant_p75 AS "grantP75",
+                org_kinds AS "orgKinds", oblasti, local_count AS "localCount", score
+           FROM funds_fit_isun($1, $2, $3)`,
+        [query, oblast, lim],
+      ),
+      dbRows(
+        `SELECT keep_id AS "keepId", title, title_is_english AS "titleIsEnglish",
+                programme_name AS "programmeName", period,
+                bg_budget_eur AS "bgBudgetEur", partner_count AS "partnerCount",
+                oblast, obshtina, is_local AS "isLocal", score
+           FROM funds_fit_interreg($1, $2, $3)`,
+        // BRIDGED, and only on this arm. keep.eu publishes 86% of these titles in English only
+        // (272 of 1,954 carry a Bulgarian one), so a Bulgarian query matches almost nothing here —
+        // which would make the arm that exists to stop border municipalities being told „nothing
+        // near you" invisible to the readers it is for. The bridge is one direction, query only,
+        // and `interregQuery` below tells the reader which English term was used.
+        [interregTerm.term, oblast, Math.min(lim, 4)],
+      ),
+    ]).catch((e) => {
+      // 42883 first: both arms are FUNCTIONS, so a database without 143 raises undefined_function,
+      // never 42P01. 55000 is a matview created WITH NO DATA — the first cloud deploy, before the
+      // loader runs. 57014 is deliberately absent: that is the pool's own timeout, so the budget is
+      // already spent and a retry cannot finish either.
+      if (FIT_DEGRADE.includes(e?.code)) {
+        logMissOnce(
+          "ff:not-built",
+          "fund_fit is absent, empty or locked — the resolver is serving nothing. Run db:load:funds-fit:pg (and :cloud on prod).",
+        );
+        return [[], []];
+      }
+      throw e;
+    });
+
+    return {
+      body: {
+        q: query,
+        oblast,
+        isun,
+        interreg,
+        // NAMED, not silent. An English row appearing under a Bulgarian query needs an
+        // explanation, and a reader who sees „търсено и като „tourism"" can tell the bridge picked
+        // the wrong topic — which they cannot do if it happens invisibly. Null when the query was
+        // already Latin or no topic matched.
+        interregQuery: interregTerm.bridged,
+        basis: basisBody,
+      },
+    };
+  },
+
   "open-calls": async (dbRows, q) => {
     const lim = clampInt(q.limit, 20, 1, 200);
     const audience = s(q, "audience") || null;
@@ -4399,4 +4538,4 @@ const DB_ROUTES = {
   },
 };
 
-module.exports = { DB_ROUTES, __resetMissLog };
+module.exports = { DB_ROUTES, __resetMissLog, OBLAST_CODES };
