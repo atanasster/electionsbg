@@ -9,11 +9,21 @@ for and how it decided.
 
 **Decision taken 2026-08-03: ingest everything reachable. Display is a later decision.**
 
-**Status: audited twice (2026-08-03).** Audit 1 (§8) found the source understated. Audit 2
-(§9–§11) hunted bulk routes and closed the measured unknowns; it changed the byte budget by
-~1.5×, found a **bulk route that removes ~400k API calls**, found that **~50% of протоколи
-are scans needing OCR**, and surfaced **an unrelated 69-day hole in the existing tenders
-corpus** (§11). Every number below is post-audit-2.
+**Status: audited three times, scope settled at A + B, ingest layer built (2026-08-03).**
+Audit 1 (§8) found the source understated. Audit 2 (§9–§11) hunted bulk routes, closed the
+measured unknowns, and surfaced an unrelated 69-day hole in the existing tenders corpus.
+§12 killed the blob tier on storage grounds; the cost/value review then cut the download to
+one file per tender (§5). **Audit 3 (§13) reviews the built code and carries three defects,
+one of them fatal at full scale.**
+
+**Shipped since:** the 69-day hole is backfilled and deployed to Cloud SQL (§11); a latent
+`cais_id` bug it exposed is fixed in both loaders; `day_coverage.ts` now refuses to rebuild
+from a holed cache; tier A and tier B are written and probe-verified.
+
+**Current corpus (2026-08-03, post-backfill):** 237,243 tenders, **131,716 ЦАИС-era**
+(the tier-A addressable set), cache 2,412 days 2020-01-01 → 2026-08-08, zero interior gaps.
+Figures below that say 127,199 predate the backfill and are left as-is where they date a
+measurement; the addressable set is now 131,716.
 
 ## 0. Why now — the gap this closes
 
@@ -468,6 +478,9 @@ draft's ~40 GB (one 137 KB sample) was **17× low**. Export ZIPs: §2.3.
 Two populations behave completely differently:
 
 - **Tender documentation PDFs: 15/15 have a clean Cyrillic text layer.** No OCR needed.
+  ⚠️ **Superseded — 15/15 was too small and too optimistic.** The tier-B probe extracted
+  142 real specs and **12 (8.5%) had no text layer** (§13.1). Still an order of magnitude
+  better than протоколи, so the conclusion (no OCR here) holds; the rate does not.
 - **Протоколи / доклади: 4 of 8 have no usable text.** Two returned literally 0 characters
   over 3 and 5 pages; two more returned 522 chars over 51 pages and 462 over 9 — a scanned
   document with a cover stamp. Measure by **chars per page**, not total chars, or these read
@@ -608,3 +621,104 @@ the text-layer rate is 15/15 and OCR would be near-pure waste.
 - **Whether to keep any bytes at all, on GCS.** Default is no.
 - **`--max-bytes` for the first pass** — a bandwidth/time choice, not a storage one, and
   freely revisable later since it only changes which files get re-fetched.
+
+## 13. Audit 3 — review of the built ingest layer (2026-08-03)
+
+Tier A (`eop_api.ts`, `eop_dossier_store.ts`, `ingest_eop_dossier.ts`) and tier B
+(`eop_doc_kind.ts`, `ingest_eop_spec_text.ts`) are committed and probe-verified. This audit
+reviews them against the plan and against full-corpus scale.
+
+### 13.1 What the probes actually measured
+
+| | Plan said | Probe measured |
+|---|---|---|
+| Tier A store size | ~5 GB | **4.3 GB** (81.0 MB raw → 6.7 MB gz over 200 tenders, 8.3%) |
+| Tier A reliability | 1.3% transient | **1,145 answers / 0 failures** over 200 tenders |
+| Spec hit rate | 68% (n=56) | **71%** (142/200) |
+| Spec extraction | — | **142/142 succeeded**, 0.09 GB pulled and discarded |
+| Spec text-layer | 15/15 clean (§10.3) | **8.5% have NO text layer** (12/142) |
+
+The 8.5% is the one that moved. It does not change the no-OCR decision for specs — протоколи
+were ~50% — but any UI that says "we have the specification" is wrong for one spec in twelve,
+and the `chars = 0` column is what distinguishes them.
+
+### 13.2 ⚠️ FATAL AT SCALE — `EopDossierStore.iterate()` materialises the whole kind
+
+```ts
+*iterate<T>(kind) {
+  const rows = this.db.prepare("SELECT … WHERE kind = ?").all(kind);   // ← .all()
+  for (const r of rows) { … yield … }
+}
+```
+
+Its own doc comment claims "without materialising them all", and `.all()` does exactly that.
+At 131,716 `details` rows averaging ~34 KB gzipped that is **~4.5 GB of Buffers resident
+before the first yield**, and tier B's work-set build is its only caller. It passed the
+200-row probe and will OOM on the real corpus.
+
+Fix is a keyset-paged cursor (`WHERE kind = ? AND subject_id > ? ORDER BY subject_id LIMIT n`),
+not `LIMIT/OFFSET` — offset re-scans. **Not yet done.**
+
+### 13.3 ⚠️ `eopCall` has no 429 / Retry-After handling
+
+A 429 falls into the generic `http` branch: three tries at a fixed 400/800 ms backoff, then
+give up and record a failure. No `Retry-After` is read, and there is no global slow-down —
+so if the register does start throttling, the crawl answers by hammering it and then writing
+830k failure rows.
+
+No 429 was observed in ~1,700 requests, which is why this was not caught: the plan's §2.1
+measurement says "no throttling" and the client was written to that. That is evidence about
+a 300-call burst, not about a 26-hour crawl. **Not yet done.**
+
+### 13.4 Smaller defects and unclosed edges
+
+- **`md5 || \`id:${doc.Id}\`` fallback** in tier B. When the register omits `MD5Hash`, resume
+  keys on the documentId instead, so the same bytes under a second id are re-fetched. Benign
+  (a little wasted transfer), but it silently weakens the dedup the store's PK implies.
+- **Tier B concurrency 4 is unmeasured.** Tier A's 6 is measured; 4 was chosen by analogy
+  because each unit is a file transfer rather than a 500 KB JSON. Never benchmarked.
+- **No refresh policy is implemented.** §4 says rows past `offer_phase_end` are immutable and
+  open ones need a refresh pass. Nothing does this; `--refresh` is all-or-nothing.
+- **`eop_doc_text` has no extractor VERSION**, only a name. A `pdftotext` upgrade that changes
+  output cannot be detected, and with the bytes discarded (§12) re-extraction means re-crawl.
+- **Migration 132 is still only *assumed* free.** A concurrent workstream is active in this
+  repo; verify at branch time.
+- **The store is never vacuumed or size-capped.** 4.5 GB of SQLite on a disk with 25 GB free
+  (§12.1) leaves less headroom than it looks once WAL and a rebuild are in flight.
+
+### 13.5 Coverage limits the UI will have to state
+
+- **The pre-2020 РОП half — 105,527 tenders — has no dossier at all.** The ЦАИС API does not
+  serve it (no `tenderId`). `/tenders/:unp` must therefore distinguish "no documents
+  published" from "this era has no document API", and today's plan does not say which
+  component owns that.
+- **`pickSpec` returning null (~30%) is not evidence of a missing specification.** The buyer
+  may have named it "Част II" or "Приложение № 1.1". A9's "no technical specification
+  published" signal must be derived from the full manifest plus a reviewed sample — never
+  from the classifier. This is in the code comment; it belongs here too.
+- **The 3.4% missing-procedure rate (§9.3) is stale.** It was measured before the 69-day
+  backfill, which was its dominant cause. A4 (the id-space walk) is the only way to get the
+  residual, and it is unbuilt — so corpus completeness is currently *unmeasured*, not zero.
+
+### 13.6 Serving-side gaps the plan under-specifies
+
+`A7` says downloads go through `/api/db/tender-document?id=…`, which mints a signed URL and
+302-redirects. Three things that route needs and the plan does not mention:
+
+- **It is an unauthenticated indirection to a third-party host, parameterised by an integer
+  the caller supplies.** Any `documentId` in the register becomes fetchable through our
+  domain. It needs the id validated against `tender_document` before signing, or it is an
+  open redirect with our name on it.
+- **Every click costs an outbound call to `service.eop.bg`** from the Cloud Function — a
+  latency and failure dependency on each download, with no caching. The signed URL is valid
+  30 minutes, so a short server-side cache is nearly free and was never specified.
+- **No rate limit.** The same route is a convenient way to make our function drive traffic at
+  the register.
+
+### 13.7 Adjacent defect found while testing the site (not this plan's)
+
+**Global search does not cover `tenders.unp`.** Searching the live site for
+`05947-2023-0042` returns `total: 0` while the tender exists and its page renders. A
+procedure number is the most natural thing to paste into a search box. It also invalidated
+the first before/after check during the cloud deploy — it returned 0 in *both* states.
+Worth folding into B3, which already touches that search path.
