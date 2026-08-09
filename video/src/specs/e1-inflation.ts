@@ -161,9 +161,31 @@ export const e1: ExplainerSpec = {
       headline: "Скокът е факт.\nПричината — не още.",
       body: "Едно тримесечие не доказва причина.\nСледете следващите.",
       voiceOver:
-        "Скокът е факт. Причината за него не е. Едно тримесечие не доказва причина — затова следете следващите. Всички данни са на сайта.",
-      onScreen: "electionsbg.com/indicators/compare",
+        "Скокът е факт. Причината за него не е. Едно тримесечие не доказва причина — затова следете следващите.",
+      onScreen: "—",
       canvas: { band: [84, 85] },
+    },
+    {
+      id: 10,
+      kicker: "Проверете сами",
+      headline: "Таблицата е на сайта",
+      body: "Десет показателя, шест държави\nи мястото ни в ЕС-27.",
+      voiceOver:
+        "Всичко това е на сайта, в същата таблица — десет показателя и мястото ни в Европейския съюз. Отворете я и проверете сами.",
+      onScreen: "electionsbg.com/indicators/compare",
+      /**
+       * The ONE capture beat, and deliberately the last one.
+       *
+       * A screen plate suits a claim about the TOOL and not about a figure: it
+       * cannot animate data, it goes stale with nothing asserting it, and at a
+       * legible zoom a wide table crops columns the narration might cite. Here it
+       * carries none of that risk — the line is "go and look", the numbers have
+       * already been made on the canvas, and what the plate has to prove is only
+       * that the page exists.
+       *
+       * It also does not displace the 21-year view, which is scene 8's payoff.
+       */
+      screen: { name: "eu-compare-peers", zoomAt: 2.6 },
     },
   ],
 };

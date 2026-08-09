@@ -112,6 +112,25 @@ const p = clamp01((t - trigger(i)) / FILL_S); // time since trigger, not global 
 
 The same rule governs any staggered set: bars appearing, rows filling, dots landing.
 
+## ⭐ Capture vs canvas — the rule
+
+Both are built (`ScreenPlate` + `npm run video:screens`, and the drawn canvas).
+Decided by building the same subject twice, 2026-08-08:
+
+| | **Drawn canvas** | **Captured screen** |
+|---|---|---|
+| Claims about a **figure** | ✅ | ❌ |
+| Claims about the **tool** | ❌ | ✅ |
+| Can animate the data | ✅ window, markers, series | ❌ it is a still |
+| Staleness | regenerates from committed data, **asserted** | real numbers baked into a PNG, nothing guards them |
+| Breadth on screen | what you drew | the whole page — 10 indicators at once |
+
+**Use ONE capture beat per explainer, on a "go and check it yourself" line — not
+on a number.** At a legible zoom a wide table crops columns, so a capture beat
+that cites a specific value risks saying something the frame does not show, which
+is rule 6. E1's scene 10 is the worked example: the figures were all made on the
+canvas first, and the plate only has to prove the page exists.
+
 ## Walkthroughs — showing the real product
 
 Four approaches. **None of them needs GSAP** — the cursor is an `interpolate` along a

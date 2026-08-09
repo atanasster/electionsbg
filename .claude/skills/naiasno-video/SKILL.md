@@ -1,6 +1,6 @@
 ---
 name: naiasno-video
-description: Draft a Наясно explainer video and save a reviewable draft (never auto-publishes). Two formats — SHORT (30–50 s, 9:16, one data point, for Reels/Shorts) and EXPLAINER (2.5–5 min, 16:9, from an article, for YouTube + on-site). Grounds every figure in data/, writes a Bulgarian scene script with numbers spelled out for the voice track, synthesizes per-scene TTS, renders with Remotion and burns BG captions. Use when the user asks to "make a video", "create an explainer video", "turn this post into a video", "видео за <тема>", "направи видео", "запиши обяснение", to script a walkthrough of a site feature, or to turn a data finding / article / watcher report into a video.
+description: Draft a Наясно explainer video and save a reviewable draft (never auto-publishes). Two formats — EXPLAINER (the default: 60–120 s, 16:9, one accreting chart, for YouTube + on-site) and SHORT (25–50 s, 9:16, a cutdown for Reels). Grounds every figure in data/, writes a Bulgarian scene script with numbers spelled out for the voice track, synthesizes per-scene TTS, renders with Remotion and burns BG captions. Use when the user asks to "make a video", "create an explainer video", "turn this post into a video", "видео за <тема>", "направи видео", "запиши обяснение", to script a walkthrough of a site feature, or to turn a data finding / article / watcher report into a video.
 allowed-tools:
   - Read
   - Grep
@@ -33,36 +33,50 @@ npm run video:render -- <id> <out> # e.g. 2026-08-08-cost-per-vote--reel
 npm run video:check                # typecheck video/ (NOT covered by `npm run build`)
 npm run video:studio               # Remotion Studio, for retiming by hand
 npm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
+npm run video:screens              # capture real app pages (needs `npm run dev`)
+npm run video:data-inflation       # rebuild a spec's data layer + assert its claims
 ```
 
 A new short means a new spec in `video/src/specs/`, registered in
 `video/src/Root.tsx` and in the `SPECS` maps of `scripts/video/synthesize.ts` and
 `emit_vtt.ts`.
 
-**Aspect cuts that work: 9:16 (1080×1920) and 4:5 (1080×1350).** 16:9 does not —
-see `references/publish.md`. Do not add a landscape composition expecting a rescale
-to work.
+**16:9 (1920×1080) is the explainer, via `Stage16x9` — its own layout, not a
+rescale.** The shorts use 9:16 (1080×1920) and 4:5 (1080×1350) via `Frame`. Never
+try to serve landscape by rescaling a portrait scene; see `references/publish.md`.
 
 Measured on T1: **~2 min per cut** to render, 885 frames, ~2 MB.
 
-## Two formats
+## Two formats — the EXPLAINER is the flagship
 
-| | **`short`** | **`explainer`** |
+| | **`explainer`** ⭐ | **`short`** |
 |---|---|---|
-| Length | 30–50 s | 2.5–5 min |
-| Aspect | 9:16 (Reels/Shorts) · also cut 1:1 for FB feed | 16:9 |
-| Input | one data point — same input as a `naiasno-post` `data` post | one `public/articles/*-bg.md` |
-| Scenes | 4–6 | 10–18 |
-| Voice | TTS (same-day turnaround is the point) | prefer a human read — long shelf life |
+| Length | 60–120 s | 25–50 s |
+| Aspect | **16:9** (1920×1080) | 9:16 · also 4:5 for FB feed |
+| Layout | `Stage16x9` — persistent chrome, chart + rail | `Frame` — one full-bleed visual |
+| Visual | **ONE canvas that accretes** across scenes | a new visual per scene |
+| Scenes | 8–12 | 4–6 |
 
-**Default to `short`.** It shares an input with `naiasno-post`, so one finding yields
-a card *and* a video; it is cheap to iterate on; and it is where the audience is.
-An `explainer` is roughly 6× the work for a fraction of the reach — build one only
-when asked, or when the topic is evergreen product education.
+**Default to `explainer`.** Decided 2026-08-08 after the shorts were judged too
+simplistic: the card style is right for a thumb-scroll and wrong for a video, where
+the audience has given you a minute and expects to be shown the working.
 
-**Never read an article aloud.** At Bulgarian narration pace (~135 wpm) the median
-BG article (~3,400 words) is 25 minutes. An `explainer` is a *derived* script that
-picks one thread, not a narration of the text.
+A `short` is now best understood as a **cutdown** — pick three scenes of the
+explainer and re-cut them 9:16 — rather than as its own production.
+
+### What makes an explainer not a slideshow
+
+- **One canvas, mounted for the whole video**, which each scene only *changes* (a
+  series fades in, the window widens, a marker drops). Information accretes. This
+  forces the canvas OUTSIDE every `<Sequence>` — see `references/remotion.md`.
+- **Chrome the social cards strip**: axis units, gridlines, year labels, a
+  benchmark line, and the dataset id on screen throughout. That is what lets a
+  viewer *check* the claim rather than take it.
+- **Depth.** The shorts used six numbers where the dataset held 86 quarters. If the
+  data has history, the history is usually the story.
+
+**Never read an article aloud.** At ~135 wpm the median BG article (~3,400 words)
+is 25 minutes. An `explainer` is a *derived* script that picks one thread.
 
 ## Non-negotiable rules
 
