@@ -963,6 +963,56 @@ Four things worth carrying forward:
 
 **Stage 9 — За теб** (band 5).
 
+**SHIPPED 2026-08-09 — with TWO of the three tiles, and the third named rather than faked.**
+`src/screens/funds/ForYouTiles.tsx`, mounted last on `/funds` (it is navigation, so it follows
+the national picture that gives it context).
+
+- **Моята община** reads the global `?area=` anchor — the same one the header pill and
+  MyAreaScreen use, so a place chosen anywhere on the site is already chosen here — and shows the
+  **combined ИСУН + Interreg** figure from migration 139. With no anchor it asks the reader to
+  pick rather than defaulting: a default place is a wrong answer that looks like a right one.
+- **Моят сектор** lists the first five programmes as links into `/funds/programme/:code`. No
+  money on it, and capped at five: band 3 already ranks programmes, and repeating that here
+  would make the whole band read as offcuts of the one above it.
+- **The third tile is NOT built.** It is the alerts feature, and this plan's own out-of-scope
+  list puts it behind an account system the site does not have. There is no honest no-account
+  version — a follow button that forgets you on reload is worse than none, because the reader
+  believes they are covered.
+
+The one design point worth carrying: **Моята община shows AWARDED money, not open calls**, and
+that is measured rather than aesthetic. `opencalls_alerts.ts` established it — of the 66 loaded
+rows, every ИСУН row has `territory = NULL` and every ДФЗ row is national, so not one names an
+obshtina. Open calls for your municipality would render either nothing at all or the same eleven
+national forecasts in all 265 municipalities. The awarded corpus IS per-place, and the combined
+basis is exactly the figure whose absence understated the border municipalities.
+
+Four defects the review found, all in the same class — a figure attributed to the wrong place,
+or an absence presented as a fact:
+
+- **The settlement's name over the municipality's money.** The common anchor shape IS a
+  settlement, and the figure is a municipal total, so the card read „с. Микрево received €10m".
+  It now names the municipality and keeps the settlement as context beneath. When the code
+  cannot yet be resolved to a name it falls back to the CODE, never the settlement name — that
+  fallback window is exactly as long as a fetch, which is the hardest kind of bug to see.
+- **`rank === 0` is not what 139 emits.** It returns NULL for a cohort non-member (`rank()` is
+  never 0 for a row it emits), so the `> 0` guard never fired and the not-ranked copy was
+  stranded on the `!data` branch — which is ALSO the loading state and the missing-migration
+  degrade, so the tile asserted „не е в класацията" on every cold load. Now null-checked, with
+  three separate sentences for three separate states. Same class fixed in `MySectorTile`.
+- **The rank was the NATIONAL one under a bare label**, while `MyAreaProjectsMapTile` renders
+  the OBLAST rank under „в областта" — its own comment calls the swap „a silent redefinition".
+  Now labelled „в страната".
+- **Two anchor shapes could never work.** Sofia's районы need the city key `S22` (the funds
+  corpus is published citywide, and `MyAreaProjectsMapTile` already established it) — but the
+  governance link must keep the район, or a reader who chose Средец lands on the whole city.
+  Пловдив/Варна район ids have no funds key at all and were producing a 400, a retry and a
+  permanent error card; the tile now sends nothing and shows the pick-a-place invitation.
+
+Every branch above is gated in `ForYouTiles.test.tsx` and mutation-checked. Three more: a failed fetch
+must not render as a zero; a cohort non-member (Столична община has no ГРАО city EKATTE) must not
+be given a rank, which would put the country's largest recipient last; and an inland municipality
+must not carry an Interreg line implying a programme it cannot use.
+
 **Out of scope, noted so they are not designed out:** alerts/subscriptions (the most-wanted
 thing in that group; needs an account system), SEDIA (§2.2 Tier 3), and **per-call pages —
 deliberately never**: a prerendered page that becomes actively misleading on a known date is
@@ -1151,7 +1201,7 @@ npm run db:load:open-calls:pg:cloud                        # prod — NOT automa
 | 6 | base-rate cards on `/funds/procedure/:code` + reference price | 4 |
 | 7 | enrichment — `enrich-open-calls` skill: extract → quote gate → review queue → `reviewed` | 1f |
 | 8 | Interreg calls SHIPPED; АХУ + АЗ blocked (host unreachable / no deadlines published) | 3 |
-| 9 | За теб (band 5) | 2c, 4 |
+| 9 | За теб (band 5) — 2 tiles SHIPPED; alerts need accounts (out of scope) | 2c, 4 |
 
 **Stages 0–4 are the shippable unit.** They answer *what can I apply to right now*, *what's
 coming in agriculture*, and *what actually gets funded and at what odds* — with correct dates,

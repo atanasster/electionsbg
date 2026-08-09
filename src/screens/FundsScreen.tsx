@@ -15,6 +15,7 @@ import {
   ExternalLink,
   Gauge,
   Layers,
+  MapPin,
   ShieldAlert,
   Users,
 } from "lucide-react";
@@ -39,6 +40,7 @@ import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
 import { FitResolverTile } from "./funds/FitResolverTile";
 import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
+import { MyMunicipalityTile, MySectorTile } from "./funds/ForYouTiles";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
@@ -404,7 +406,9 @@ export const FundsScreen: FC = () => {
             <div id="top-beneficiaries" className="scroll-mt-20">
               <TopBeneficiariesCard rows={index.topByContracted} />
             </div>
-            <TopProgramsTile index={projectsIndex} />
+            <div id="programs" className="scroll-mt-20">
+              <TopProgramsTile index={projectsIndex} />
+            </div>
             <div className="grid gap-4 xl:grid-cols-2">
               <ProjectsStatusMixTile index={projectsIndex} />
               <GeographyMixTile index={projectsIndex} />
@@ -477,6 +481,29 @@ export const FundsScreen: FC = () => {
             </div>
           </DashboardSection>
         ) : null}
+
+        {/* BAND 5 — „За теб". The personalised entry points, LAST because they are navigation
+            rather than an answer: a reader who arrived with „what can I apply to" is served by
+            band 1, and a reader who arrived with „what about my place" finds this after the
+            national picture that gives it context.
+
+            TWO tiles, not the plan's three. „Следя тази процедура" is the alerts feature, and
+            the plan's own out-of-scope list puts it behind an account system this site does not
+            have — see ForYouTiles.tsx's header. */}
+        <DashboardSection
+          id="funds"
+          title={t("funds_band_foryou") || "За теб"}
+          subtitle={
+            t("funds_band_foryou_sub") ||
+            "Вашето място и вашият сектор — откъде да продължите."
+          }
+          icon={MapPin}
+        >
+          <div className="grid gap-4 xl:grid-cols-2">
+            <MyMunicipalityTile />
+            <MySectorTile />
+          </div>
+        </DashboardSection>
 
         <SourceFooter />
       </section>

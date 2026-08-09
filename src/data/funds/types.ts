@@ -386,9 +386,13 @@ export interface FundsMuniCombined {
   /** The same figure with the Interreg arm removed — what the site showed
    * before, kept so a surface can state the movement rather than assert it. */
   perCapitaEurIsun: number;
-  rank: number;
-  rankBefore: number;
-  rankDelta: number;
+  /** NULL for a municipality outside the ranked cohort — `rank()` never returns 0 for a row
+   *  migration 139 emits, so a `> 0` test silently never fires and the caller renders its
+   *  ranked branch for a place that has no rank. Столична община is the live case: no ГРАО city
+   *  EKATTE, hence no per-capita figure on either arm. */
+  rank: number | null;
+  rankBefore: number | null;
+  rankDelta: number | null;
   cohortSize: number;
   oblastCode: string | null;
   oblastRank: number;
