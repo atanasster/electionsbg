@@ -13,6 +13,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
+  ENRICHMENT_RANK,
   FILL_NEVER_BLANK,
   SOURCE_OWNED,
   upsertSql,
@@ -92,6 +93,10 @@ describe("open_calls upsert — crawl vs enrichment ownership", () => {
       source: 2,
       reviewed: 3,
     };
+    // Restated on purpose (an independent statement of the values), and now also the PIN on the
+    // exported map: `ENRICHMENT_RANK` is what generates the SQL above and what
+    // scripts/opencalls/sync_enrichment.ts compares with, so an edit there has to come here too.
+    expect(ENRICHMENT_RANK).toEqual(RANK);
     const result = (stored: string, incoming: string) =>
       RANK[stored] > RANK[incoming] ? stored : incoming;
 

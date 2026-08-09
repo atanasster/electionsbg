@@ -978,6 +978,42 @@ readable ИСУН documents stated a euro amount, 3 stated levs, and the currenc
 refuses a lev figure offered as euro. The eligibility text is the real yield until the documents
 are re-tabled in euro.
 
+**When it happened on the wrong database anyway, `opencalls:sync-enrichment` carries it over.**
+Dry-run by default; `--apply` writes:
+
+```bash
+npm run opencalls:sync-enrichment:cloud -- --apply
+```
+
+It copies the overlay — `enrichment`, `enrichment_meta`, `beneficiaries_raw` and the four money
+columns, the payload derived from `enrich_apply.MONEY_FIELDS` so a new money column cannot be
+added on one side only — for rows at `enrichment IN ('auto','reviewed')`. `source` rows are
+excluded because the loader already reproduces them from the committed snapshot. Source defaults
+to local, target to `DATABASE_URL` (`--from`/`--to` override); a same-database sync is refused
+rather than reported as a no-op.
+
+Three things about it are easy to get backwards:
+
+- **It NEVER downgrades**, on the same total order the loader's upsert uses (`ENRICHMENT_RANK`,
+  exported from `load_open_calls_pg.ts` and imported here rather than restated — it is now the one
+  definition, rendered as SQL by `enrichmentRank()` and compared in TypeScript by `outranks()`).
+  A row a human promoted **on the target** outranks a local `auto` and is kept, and the guard is
+  in the UPDATE's WHERE as well as in the plan, so a promotion landing between the read and the
+  write cannot be overwritten by a stale decision. A TIE is not a downgrade: the source wins it,
+  which is what lets a re-gated `auto` refresh its own meta.
+- **It never INSERTs.** The crawl owns row existence; a source row missing on the target is
+  reported, and the fix is `db:load:open-calls:pg:cloud` first, then re-run. It also reports rows
+  enriched on the TARGET only, so a divergence between the two databases is visible rather than
+  inferred from a silence.
+- **The overlay moves as a UNIT, NULLs included** — never a per-column COALESCE. `enrichment` is a
+  claim about the whole set of figures, so merging two provenances under one flag is exactly the
+  thing it exists to prevent.
+
+`sync_enrichment.test.ts` mutation-checks the never-downgrade rule: it asserts a `reviewed` target
+survives an `auto` source, then re-runs the same input with the rank predicate stubbed out and
+asserts it flips to an update — otherwise the first assertion is satisfied by any plan that
+happens not to write.
+
 `/funds/calls` is PRERENDERED (`scripts/prerender/routes.ts`) and has a sitemap `<loc>`, but
 **there are no per-call `<loc>`s and the prerendered body lists no calls** — a static snapshot of
 live deadlines would serve expired calls as open. An individual procedure has no page here; every

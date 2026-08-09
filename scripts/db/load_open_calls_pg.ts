@@ -153,7 +153,7 @@ export const FILL_NEVER_BLANK = [
   "beneficiaries_raw",
 ] as const;
 
-/** Provenance strength, as SQL. A crawl may RAISE a row's provenance and may never LOWER it.
+/** PROVENANCE STRENGTH — THE TOTAL ORDER, DECLARED ONCE.
  *
  *  A rank rather than a list of names, because the first two drafts of this rule were both
  *  incomplete in a way that reads as correct. Guarding only `IN ('reviewed','source')` let an
@@ -161,9 +161,30 @@ export const FILL_NEVER_BLANK = [
  *  then left two live holes: `reviewed → source` is a silent downgrade of a human's decision to
  *  a machine's, and `reviewed → auto` would set 'auto' on a row that still holds money, which
  *  142's open_calls_money_needs_provenance CHECK rejects — aborting the WHOLE load, not the row.
- *  A total order cannot have a hole. */
-const rank = (col: string): string =>
-  `CASE ${col} WHEN 'reviewed' THEN 3 WHEN 'source' THEN 2 WHEN 'auto' THEN 1 ELSE 0 END`;
+ *  A total order cannot have a hole.
+ *
+ *  Exported because this loader is no longer the only writer that must respect it:
+ *  `scripts/opencalls/sync_enrichment.ts` copies the enrichment overlay between databases and
+ *  needs the SAME order, on both sides of a `>` — in SQL for the write guard and in TypeScript
+ *  for the dry-run plan. Three copies of „reviewed beats source" is three chances to write one
+ *  of them backwards, and the two that live outside a CHECK constraint fail silently. */
+export const ENRICHMENT_RANK: Record<string, number> = {
+  none: 0,
+  auto: 1,
+  source: 2,
+  reviewed: 3,
+};
+
+/** The same order, rendered as SQL over `col`. GENERATED from ENRICHMENT_RANK rather than
+ *  written out, so the two renderings cannot disagree: `ELSE 0` is what makes it total, and it
+ *  is also what keeps the comparison NULL-free — a NULL rank would make `a > b` NULL, and a NULL
+ *  guard skips the row instead of failing. */
+export const enrichmentRank = (col: string): string =>
+  `CASE ${col} ${Object.entries(ENRICHMENT_RANK)
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1])
+    .map(([v, n]) => `WHEN '${v}' THEN ${n}`)
+    .join(" ")} ELSE 0 END`;
 
 /** The upsert, written out because this table's columns have three different update rules.
  *
@@ -189,7 +210,7 @@ export const upsertSql = (): string => {
     ...FILL_NEVER_BLANK.map(
       (c) => `${c} = COALESCE(EXCLUDED.${c}, open_calls.${c})`,
     ),
-    `enrichment = CASE WHEN ${rank("open_calls.enrichment")} > ${rank("EXCLUDED.enrichment")}
+    `enrichment = CASE WHEN ${enrichmentRank("open_calls.enrichment")} > ${enrichmentRank("EXCLUDED.enrichment")}
                        THEN open_calls.enrichment ELSE EXCLUDED.enrichment END`,
   ];
   return `INSERT INTO ${SPEC.table} (${SPEC.cols.join(", ")})

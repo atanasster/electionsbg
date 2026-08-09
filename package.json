@@ -80,6 +80,8 @@
     "opencalls:interreg": "tsx scripts/opencalls/interreg_fetch.ts",
     "opencalls:enrich": "tsx scripts/opencalls/enrich_extract.ts",
     "opencalls:enrich-review": "tsx scripts/opencalls/enrich_apply.ts",
+    "opencalls:sync-enrichment": "tsx scripts/opencalls/sync_enrichment.ts",
+    "opencalls:sync-enrichment:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run opencalls:sync-enrichment --",
     "db:load:open-calls:pg": "tsx scripts/db/load_open_calls_pg.ts",
     "db:load:open-calls:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:open-calls:pg",
     "db:load:funds:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_funds_pg.ts",
