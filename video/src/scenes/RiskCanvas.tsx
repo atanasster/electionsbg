@@ -65,6 +65,7 @@ const METERS = [
   {
     key: "m1",
     label: "Секционен скрининг",
+    what: "Гласове в секции, маркирани за проверка",
     value: F.integrity.sections.score,
     pct: F.integrity.sections.pct,
     capPct: F.integrity.sections.capPct,
@@ -72,6 +73,7 @@ const METERS = [
   {
     key: "m2",
     label: "Машинна цялост",
+    what: "Протоколът срещу флаш паметта на машината",
     value: F.integrity.machine.score,
     pct: F.integrity.machine.pct,
     capPct: F.integrity.machine.capPct,
@@ -79,6 +81,7 @@ const METERS = [
   {
     key: "m3",
     label: "Липсваща флаш памет",
+    what: "Машинни гласове без втори запис",
     value: F.integrity.missingFlash.score,
     pct: F.integrity.missingFlash.pct,
     capPct: F.integrity.missingFlash.capPct,
@@ -86,6 +89,7 @@ const METERS = [
   {
     key: "m4",
     label: "Концентрация",
+    what: "Места, където една партия взема над 80%",
     value: F.integrity.concentration.score,
     pct: F.integrity.concentration.pct,
     capPct: F.integrity.concentration.capPct,
@@ -93,26 +97,32 @@ const METERS = [
   {
     key: "m5",
     label: "Процедурни аномалии",
+    what: "Недействителни бюлетини и дописани избиратели",
     value: F.integrity.procedural.score,
     pct: F.integrity.procedural.pct,
     capPct: F.integrity.procedural.capPct,
   },
 ] as const;
 
-/** The four screening bands, for the sections callout. */
+/**
+ * The four screening bands, for the sections callout — ordered LOW → CRITICAL to
+ * match the rail's own «ниско · повишено · високо · критично». The bar read
+ * worst-first while the words beside it read best-first, which is a free way to
+ * make a reader mistrust both.
+ */
 const SECTION_BANDS = [
-  {
-    label: "критични",
-    n: F.integrity.sections.counts.critical,
-    c: BAND_COLOR_CRIT,
-  },
-  { label: "високи", n: F.integrity.sections.counts.high, c: BAND_COLOR_HIGH },
+  { label: "ниски", n: F.integrity.sections.counts.low, c: BAND_COLOR_CALM },
   {
     label: "повишени",
     n: F.integrity.sections.counts.elevated,
     c: BAND_COLOR_ELEV,
   },
-  { label: "ниски", n: F.integrity.sections.counts.low, c: BAND_COLOR_CALM },
+  { label: "високи", n: F.integrity.sections.counts.high, c: BAND_COLOR_HIGH },
+  {
+    label: "критични",
+    n: F.integrity.sections.counts.critical,
+    c: BAND_COLOR_CRIT,
+  },
 ] as const;
 
 type CtxPoint = { label: string; value: number; subject: boolean };
@@ -216,8 +226,12 @@ export const RiskCanvas: React.FC<{
   // ── act 1 geometry: horizontal meters ──────────────────────────────────────
   const mRowH = plotH / METERS.length;
   const mBarH = Math.min(58, mRowH * 0.42);
-  const mTrackX = PAD.l + 430;
-  const mTrackW = Math.max(120, plotW - 430 - 130);
+  // The text column has to clear the longest description at 22px, or the track
+  // is drawn straight through it — measured against «Недействителни бюлетини и
+  // дописани избиратели», the longest of the five.
+  const mTextW = 520;
+  const mTrackX = PAD.l + mTextW;
+  const mTrackW = Math.max(120, plotW - mTextW - 130);
 
   // ── act 2 geometry: columns ────────────────────────────────────────────────
   const subjectIdx = CYCLES.findIndex((c) => c.election === F.election);
@@ -267,9 +281,11 @@ export const RiskCanvas: React.FC<{
           })
         : null}
 
-      {/* gridlines + score axis */}
+      {/* Gridlines + score axis — COLUMNS ONLY. On the horizontal meters the
+          value is encoded by bar LENGTH, so a vertical 0–100 scale behind them
+          invites a reading that does not exist; it fades in with the columns. */}
       {ticks.map((v) => (
-        <g key={v} opacity={fade}>
+        <g key={v} opacity={fade * state.mode}>
           <line
             x1={PAD.l}
             x2={PAD.l + plotW}
@@ -300,29 +316,42 @@ export const RiskCanvas: React.FC<{
             const cy = plotTop + mRowH * i + mRowH / 2;
             const lit = state.focus == null || state.focus === i + 1;
             const o = (lit ? 1 : 0.3) * state.rows;
+            const filled = p > 0.005;
             const fillW = mTrackW * (m.value / 100) * Math.min(1, p);
             return (
               <g key={m.key} opacity={o}>
                 <text
                   x={PAD.l}
-                  y={cy + 10}
+                  y={cy - 6}
                   fill={pal.text}
                   fontSize={30}
                   fontWeight={600}
                 >
                   {m.label}
                 </text>
-                <rect
-                  x={mTrackX}
-                  y={cy - mBarH / 2}
-                  width={mTrackW}
-                  height={mBarH}
-                  rx={6}
-                  fill={pal.rule}
-                  opacity={0.55}
-                />
-                {p > 0.005 ? (
+                {/* What the signal MEASURES. Before this the row was a label
+                    beside an empty track, which reads as a chart plotting
+                    nothing — the bars looked like data and were placeholders. */}
+                <text
+                  x={PAD.l}
+                  y={cy + 28}
+                  fill={pal.muted}
+                  fontSize={22}
+                  fontWeight={500}
+                >
+                  {m.what}
+                </text>
+                {filled ? (
                   <>
+                    <rect
+                      x={mTrackX}
+                      y={cy - mBarH / 2}
+                      width={mTrackW}
+                      height={mBarH}
+                      rx={6}
+                      fill={pal.rule}
+                      opacity={0.55}
+                    />
                     <rect
                       x={mTrackX}
                       y={cy - mBarH / 2}
@@ -421,35 +450,64 @@ export const RiskCanvas: React.FC<{
                 const barX = PAD.l + 26;
                 const barW = plotW - 52;
                 const barY = plotTop + mRowH * 1.16 + 62;
+                /**
+                 * SCHEMATIC, and the caption below says so.
+                 *
+                 * At true proportion the six critical sections are 0.05% of the
+                 * bar — one pixel, invisible — and the whole point of the panel
+                 * is that they exist. Each band gets a floor and the remainder is
+                 * shared proportionally, so the ordering and the rough shape
+                 * survive while the small groups stay visible. A non-proportional
+                 * stacked bar that does not admit it is a lie, hence the note.
+                 */
+                const floor = barW * 0.035;
+                const free = barW - floor * SECTION_BANDS.length;
                 let acc = 0;
                 return SECTION_BANDS.map((b) => {
-                  const x0 = barX + (acc / total) * barW;
-                  const bw = Math.max(3, (b.n / total) * barW);
-                  acc += b.n;
+                  const bw = floor + free * (b.n / total);
+                  const x0 = barX + acc;
+                  acc += bw;
                   return (
-                    <g key={b.label}>
-                      <rect
-                        x={x0}
-                        y={barY}
-                        width={bw}
-                        height={26}
-                        fill={b.c}
-                        opacity={0.9}
-                      />
-                    </g>
+                    <rect
+                      key={b.label}
+                      x={x0}
+                      y={barY}
+                      width={bw}
+                      height={26}
+                      fill={b.c}
+                      opacity={0.9}
+                    />
                   );
                 });
               })()}
+              {/* A four-colour bar with no legend leaves the reader guessing
+                  which colour is which — and the biggest band here is the SAFE
+                  one, so the guess that goes wrong is the alarming one. */}
               <text
                 x={PAD.l + 26}
                 y={plotTop + mRowH * 1.16 + 128}
-                fill={pal.text}
-                fontSize={27}
+                fontSize={26}
                 fontWeight={600}
               >
-                {SECTION_BANDS.map((b) => `${num(b.n)} ${b.label}`).join(
-                  "   ·   ",
-                )}
+                {SECTION_BANDS.map((b, i) => (
+                  <React.Fragment key={b.label}>
+                    {i ? <tspan fill={pal.muted}>{"   ·   "}</tspan> : null}
+                    <tspan fill={b.c}>{"\u25A0 "}</tspan>
+                    <tspan fill={pal.text}>{`${num(b.n)} ${b.label}`}</tspan>
+                  </React.Fragment>
+                ))}
+              </text>
+              {/* The bar is NOT to scale (see the floors above) and has to say
+                  so — a stacked bar that silently exaggerates its small groups
+                  is exactly the chart this video spends twelve minutes against. */}
+              <text
+                x={PAD.l + 26}
+                y={plotTop + mRowH * 1.16 + 166}
+                fill={pal.muted}
+                fontSize={21}
+                fontWeight={500}
+              >
+                схематично — малките групи са увеличени, за да се виждат
               </text>
             </g>
           ) : null}

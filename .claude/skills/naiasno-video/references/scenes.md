@@ -113,6 +113,40 @@ clipped into the header.
 and then never re-read — which is exactly why it goes stale when a later section
 changes what is on screen.
 
+### An empty track is not a placeholder — it reads as data
+
+E2's five integrity meters showed a label beside an empty bar for the whole first
+act, with a 0–100 axis behind them. The operator read it as a chart plotting
+nothing. Two fixes, both general:
+
+- **Say what each row MEASURES while it has no value yet.** One muted line under
+  the label — «Гласове в секции, маркирани за проверка» — turns dead furniture
+  into the explanation the narration is giving anyway. The track appears only
+  with a number.
+- **An axis belongs to the chart it describes.** A vertical 0–100 scale behind
+  HORIZONTAL meters invites a reading that does not exist, since those encode
+  value by length. Gate the axis on the mode that uses it.
+
+And **measure the text column against the longest string**, not a typical one: the
+descriptions were drawn straight through the track until the column was sized off
+the longest of the five.
+
+### A tiny category has to survive the chart that contains it
+
+Six critical sections in 12 705 is 0.05% — one pixel of a stacked bar, invisible,
+and their existence is the entire reason the panel is on screen. Give each segment
+a floor (E2 uses 3.5% each, sharing the remainder proportionally) so the ordering
+and rough shape survive while the small groups stay visible.
+
+**Then say that you did.** «схематично — малките групи са увеличени, за да се
+виждат». A stacked bar that silently exaggerates its small groups is the exact
+chart this kind of video exists to argue against, and the caption costs one line.
+
+**Bind colour to word with an inline legend**, and **order the segments the way the
+words beside them are ordered.** E2's bar ran critical→low while its rail listed
+low→critical, and the largest band was the SAFE one — so the guess a reader makes
+about which colour means what is the alarming one.
+
 ## Legibility minimums
 
 A card is viewed at full size; a Reel is viewed on a phone at arm's length. Scaled

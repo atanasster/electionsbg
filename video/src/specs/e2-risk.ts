@@ -86,8 +86,8 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
   canvasKind: "risk",
   runtimeSeconds: [600, 900],
   title: "Индексът на изборния риск: какво значи 47",
-  topic: "Изборен риск",
-  period: "2005 — 2026 · 13 измерени избора, 7 сравними",
+  topic: "Изборен риск · 19 април 2026",
+  period: "сравнено с предишните избори, 2005 — 2026",
   sourceLine:
     "Източник: ЦИК, секционни протоколи · Индекс на изборния риск (експериментален) · naiasno.bg",
   link: "https://electionsbg.com/risk-analysis?elections=2026_04_19",
