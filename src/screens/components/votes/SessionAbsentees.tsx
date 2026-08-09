@@ -7,16 +7,9 @@
 // extra to show. A card that states a count and lands on a page that cannot name it is worse
 // than no card.
 //
-// THE DEFINITION IS "ABSENT FROM EVERY ITEM THEY WERE ON THE ROLL FOR", and it is the same
-// one the hub's card counts, deliberately — the number in the heading here and the number on
-// the card must be the same claim. „Missed at least one item" is a different and much larger
-// set: on a 219-item budget day it is most of the chamber, since anyone who stepped out for
-// one procedural vote qualifies, and it would say nothing about attendance.
-//
-// A member who appears on SOME of the day's items and is absent on all of those is NOT
-// counted. They were recorded present for part of the sitting; the roll simply does not list
-// them for the rest, and calling that a full absence would put a claim on the page the
-// corpus does not support.
+// The rule itself — and why it is "absent from every item they were on the roll for" rather
+// than "missed at least one" — lives in ./fullyAbsent, so a test can import it without this
+// file exporting anything but the component.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,50 +17,15 @@ import { Link } from "@/ux/Link";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PartyTag } from "@/screens/components/party/PartyTag";
 import { firstLastName, titleCaseName } from "@/lib/utils";
+import {
+  fullyAbsent,
+  type AbsentMp,
+} from "@/screens/components/votes/fullyAbsent";
 import type { SessionFile } from "@/data/parliament/votes/types";
 
 type Props = {
   session: SessionFile;
   candidateUrl: (mpId: number, name: string) => string;
-};
-
-export interface AbsentMp {
-  mpId: number;
-  name: string;
-  party: string;
-}
-
-/** Members absent from every one of the day's items, grouped by party.
- *
- *  Exported for the test: the count this renders has to equal the one the hub card states,
- *  and both are derived from the same rule rather than from each other. */
-export const fullyAbsent = (session: SessionFile): AbsentMp[] => {
-  const dayItems = session.sessions.length;
-  if (dayItems === 0) return [];
-  const onRoll = new Map<number, number>();
-  const missed = new Map<number, number>();
-  for (const item of session.sessions) {
-    for (const v of item.votes ?? []) {
-      onRoll.set(v.mpId, (onRoll.get(v.mpId) ?? 0) + 1);
-      if (v.vote === "absent")
-        missed.set(v.mpId, (missed.get(v.mpId) ?? 0) + 1);
-    }
-  }
-  const out: AbsentMp[] = [];
-  for (const [mpId, items] of onRoll) {
-    // Both clauses matter. `items === dayItems` keeps a member who is on the roll for only
-    // part of the sitting out of the set; `missed === items` is the absence itself.
-    if (items !== dayItems) continue;
-    if ((missed.get(mpId) ?? 0) !== items) continue;
-    out.push({
-      mpId,
-      name: session.mpNames?.[String(mpId)] ?? `MP ${mpId}`,
-      party: session.mpParty?.[String(mpId)] ?? "",
-    });
-  }
-  return out.sort(
-    (a, b) => a.party.localeCompare(b.party) || a.name.localeCompare(b.name),
-  );
 };
 
 export const SessionAbsentees: FC<Props> = ({ session, candidateUrl }) => {

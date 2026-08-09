@@ -7,7 +7,6 @@ import {
   staticFile,
   useCurrentFrame,
   useVideoConfig,
-  type CalculateMetadataFunction,
 } from "remotion";
 import { Stage16x9, STAGE } from "../components/Stage16x9";
 import { InflationCanvas } from "../scenes/InflationCanvas";
@@ -15,48 +14,13 @@ import { RiskCanvas } from "../scenes/RiskCanvas";
 import { ScreenPlate } from "../scenes/ScreenPlate";
 import { Captions } from "../components/Captions";
 import { THEME } from "../theme";
-import { audioPath, type ExplainerSpec } from "../lib/spec";
-import { EXPLAINER_TAIL_SECONDS, sceneFrames } from "../lib/audio";
+import { audioPath } from "../lib/spec";
 import { resolveCanvas, type CanvasState } from "../lib/canvasState";
 import {
   resolveRiskCanvas,
   type RiskCanvasState,
 } from "../lib/riskCanvasState";
-
-/**
- * Every explainer spec, whatever canvas it drives. The composition reads the
- * language fields uniformly and narrows to a canvas state only at the one switch
- * below — which is why the spec is generic rather than carrying a union of every
- * canvas's fields.
- */
-export type AnyExplainerSpec =
-  | ExplainerSpec<CanvasState>
-  | ExplainerSpec<RiskCanvasState>;
-
-export type ExplainerProps = {
-  spec: AnyExplainerSpec;
-  sceneDurations: number[];
-  captions: boolean;
-};
-
-export const calculateExplainerMetadata: CalculateMetadataFunction<
-  ExplainerProps
-> = async ({ props }) => {
-  const fps = 30;
-  const { durations, total } = await sceneFrames(
-    props.spec.scenes.map((s) => staticFile(audioPath(props.spec.slug, s.id))),
-    fps,
-    // A longer tail than the shorts: an explainer breathes between points, and
-    // the canvas transition needs room to land before the next line starts.
-    EXPLAINER_TAIL_SECONDS,
-    props.spec.voice.tempo ?? 1,
-  );
-  return {
-    durationInFrames: total,
-    fps,
-    props: { ...props, sceneDurations: durations },
-  };
-};
+import type { ExplainerProps } from "./explainerMetadata";
 
 /** The right-hand rail: the one thing this scene is saying. */
 const Rail: React.FC<{

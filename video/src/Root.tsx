@@ -3,11 +3,11 @@ import { Composition } from "remotion";
 import { e1 } from "./specs/e1-inflation";
 import { e2 } from "./specs/e2-risk";
 import { v3 } from "./specs/v3-real-screen";
+import { ExplainerVideo } from "./compositions/ExplainerVideo";
 import {
-  ExplainerVideo,
   calculateExplainerMetadata,
   type ExplainerProps,
-} from "./compositions/ExplainerVideo";
+} from "./compositions/explainerMetadata";
 
 /**
  * The 16:9 explainer is the format (decided 2026-08-08). The portrait shorts that
