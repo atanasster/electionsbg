@@ -124,10 +124,15 @@ const Row: FC<{ row: OpenCallRow; showPeriod?: boolean }> = ({
       href={row.sourceUrl}
       target="_blank"
       rel="noreferrer"
-      className="min-w-0 flex-1 font-medium hover:underline"
-      // We are an INDEX, not the authority: every row links to the register it came from, and
-      // the application itself happens there.
-      title={row.sourceUrl}
+      // CLAMPED TO TWO LINES. ИСУН titles are not headlines — they are the procedure's full
+      // legal name, and the longest live one („Процедура № 2, Специфична цел 1 „Европейско
+      // интегрирано управление на границите" и специфична цел 2 „Обща визова политика"") is
+      // 150+ characters. In a third-width column that wrapped to ten lines and made one row
+      // taller than the five beneath it, so the card's height was set by its worst title
+      // rather than by its content. `title` keeps the whole string one hover away, and the
+      // row links out to the register that owns the authoritative name anyway.
+      className="line-clamp-2 min-w-0 flex-1 font-medium hover:underline"
+      title={`${row.title} — ${row.sourceUrl}`}
     >
       {row.title}
     </a>
