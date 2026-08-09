@@ -115,12 +115,50 @@ const SECTION_BANDS = [
   { label: "ниски", n: F.integrity.sections.counts.low, c: BAND_COLOR_CALM },
 ] as const;
 
+type CtxPoint = { label: string; value: number; subject: boolean };
+const CS = F.contextSeries as unknown as Record<string, CtxPoint[]>;
+
+/**
+ * The five context signals. `series` and `rank` are what let the MAIN PLOT show
+ * the signal being talked about instead of the index — the scene that says
+ * "second of twelve" now draws those twelve.
+ */
 const CONTEXT = [
-  { key: "c1", label: "Бенфорд", value: F.context.benford.score },
-  { key: "c2", label: "Махали", value: F.context.neighborhoodsSwing.score },
-  { key: "c3", label: "Волатилност", value: F.context.voteSwitching.score },
-  { key: "c4", label: "Социология", value: F.context.polls.score },
-  { key: "c5", label: "Клъстери", value: F.context.clusters.score },
+  {
+    key: "c1",
+    label: "Бенфорд",
+    value: F.context.benford.score,
+    series: CS.benford!,
+    rank: F.context.benford.history,
+  },
+  {
+    key: "c2",
+    label: "Махали",
+    value: F.context.neighborhoodsSwing.score,
+    series: CS.neighborhoodsSwing!,
+    rank: F.context.neighborhoodsSwing.history,
+  },
+  {
+    key: "c3",
+    label: "Волатилност",
+    value: F.context.voteSwitching.score,
+    series: CS.voteSwitching!,
+    rank: F.context.voteSwitching.history,
+  },
+  {
+    key: "c4",
+    label: "Социология",
+    value: F.context.polls.score,
+    series: CS.polls!,
+    rank: F.context.polls.history,
+  },
+  {
+    key: "c5",
+    label: "Клъстери",
+    value: F.context.clusters.score,
+    series: CS.clusters!,
+    rank: F.context.clusters.history,
+  },
 ] as const;
 
 /** The seven comparable elections, chronological. */
@@ -157,10 +195,17 @@ export const RiskCanvas: React.FC<{
 
   const ctxRoom = CTX_H * state.ctx;
   const plotW = w - PAD.l - PAD.r;
-  const plotH = h - PAD.t - PAD.b - ctxRoom;
+  /**
+   * A focused context series gets a title band above the bars. Drawn as an
+   * overlay it landed ON the columns — and the 100-value bars, of which the
+   * volatility series has six, reach the very top of the plot.
+   */
+  const titleBand = state.ctxFocus != null ? 46 : 0;
+  const plotTop = PAD.t + titleBand;
+  const plotH = h - plotTop - PAD.b - ctxRoom;
 
   /** Score 0..100 → y. Shared by both acts, which is what makes them one axis. */
-  const y = (v: number) => PAD.t + plotH - (v / 100) * plotH;
+  const y = (v: number) => plotTop + plotH - (v / 100) * plotH;
 
   const fade = 1 - 0.55 * state.dim;
   const metersOpacity = (1 - state.mode) * fade;
@@ -175,19 +220,37 @@ export const RiskCanvas: React.FC<{
   const mTrackW = Math.max(120, plotW - 430 - 130);
 
   // ── act 2 geometry: columns ────────────────────────────────────────────────
-  const colGap = 26;
-  const colW = Math.min(
-    150,
-    (plotW - colGap * (CYCLES.length - 1)) / CYCLES.length,
-  );
-  const colsW = colW * CYCLES.length + colGap * (CYCLES.length - 1);
-  const colX = (i: number) => PAD.l + (plotW - colsW) / 2 + i * (colW + colGap);
   const subjectIdx = CYCLES.findIndex((c) => c.election === F.election);
+
+  /**
+   * What the main plot is charting right now. While a context signal is focused
+   * the columns are ITS series — different length, its own subject column, and
+   * none of the index's calibration furniture, which describes the composite and
+   * says nothing about a component.
+   */
+  const focusedCtx =
+    state.ctxFocus != null ? CONTEXT[state.ctxFocus - 1] : undefined;
+  const plotted: { label: string; value: number; subject: boolean }[] =
+    focusedCtx
+      ? focusedCtx.series.map((p) => ({ ...p }))
+      : CYCLES.map((c, i) => ({
+          label: c.label,
+          value: Math.round(c.score),
+          subject: i === subjectIdx,
+        }));
+  const nCols = plotted.length;
+
+  // Sized from the CURRENT column set — a context series can be 9, 11 or 13 wide
+  // against the index's 7, and a gap tuned for seven leaves 13 overlapping.
+  const colGap = nCols > 9 ? 12 : 26;
+  const colW = Math.min(150, (plotW - colGap * (nCols - 1)) / nCols);
+  const colsW = colW * nCols + colGap * (nCols - 1);
+  const colX = (i: number) => PAD.l + (plotW - colsW) / 2 + i * (colW + colGap);
 
   return (
     <svg width={w} height={h} style={{ display: "block" }}>
       {/* band backgrounds — behind everything, act 3 */}
-      {state.bands > 0.01
+      {state.bands > 0.01 && !focusedCtx
         ? BAND_FLOORS.map((floor, i) => {
             const top = BAND_FLOORS[i + 1] ?? 100;
             return (
@@ -234,7 +297,7 @@ export const RiskCanvas: React.FC<{
         <g opacity={metersOpacity}>
           {METERS.map((m, i) => {
             const p = state[m.key as keyof RiskCanvasState] as number;
-            const cy = PAD.t + mRowH * i + mRowH / 2;
+            const cy = plotTop + mRowH * i + mRowH / 2;
             const lit = state.focus == null || state.focus === i + 1;
             const o = (lit ? 1 : 0.3) * state.rows;
             const fillW = mTrackW * (m.value / 100) * Math.min(1, p);
@@ -290,7 +353,7 @@ export const RiskCanvas: React.FC<{
             ? (() => {
                 const m = METERS[state.focus - 1];
                 if (!m) return null;
-                const cy = PAD.t + mRowH * (state.focus - 1) + mRowH / 2;
+                const cy = plotTop + mRowH * (state.focus - 1) + mRowH / 2;
                 return (
                   <g opacity={state.scaleTag}>
                     <line
@@ -336,7 +399,7 @@ export const RiskCanvas: React.FC<{
             <g opacity={state.inset}>
               <rect
                 x={PAD.l}
-                y={PAD.t + mRowH * 1.16}
+                y={plotTop + mRowH * 1.16}
                 width={plotW}
                 height={mRowH * 1.62}
                 rx={12}
@@ -346,7 +409,7 @@ export const RiskCanvas: React.FC<{
               />
               <text
                 x={PAD.l + 26}
-                y={PAD.t + mRowH * 1.16 + 42}
+                y={plotTop + mRowH * 1.16 + 42}
                 fill={pal.muted}
                 fontSize={24}
                 fontWeight={600}
@@ -357,7 +420,7 @@ export const RiskCanvas: React.FC<{
                 const total = F.integrity.sections.totalSections;
                 const barX = PAD.l + 26;
                 const barW = plotW - 52;
-                const barY = PAD.t + mRowH * 1.16 + 62;
+                const barY = plotTop + mRowH * 1.16 + 62;
                 let acc = 0;
                 return SECTION_BANDS.map((b) => {
                   const x0 = barX + (acc / total) * barW;
@@ -379,7 +442,7 @@ export const RiskCanvas: React.FC<{
               })()}
               <text
                 x={PAD.l + 26}
-                y={PAD.t + mRowH * 1.16 + 128}
+                y={plotTop + mRowH * 1.16 + 128}
                 fill={pal.text}
                 fontSize={27}
                 fontWeight={600}
@@ -395,7 +458,7 @@ export const RiskCanvas: React.FC<{
             <g opacity={state.inset}>
               <rect
                 x={PAD.l}
-                y={PAD.t + mRowH * 3.86}
+                y={plotTop + mRowH * 3.86}
                 width={plotW}
                 height={mRowH * 1.1}
                 rx={12}
@@ -405,7 +468,7 @@ export const RiskCanvas: React.FC<{
               />
               <text
                 x={PAD.l + 26}
-                y={PAD.t + mRowH * 4.2}
+                y={plotTop + mRowH * 4.2}
                 fill={pal.muted}
                 fontSize={24}
                 fontWeight={600}
@@ -414,7 +477,7 @@ export const RiskCanvas: React.FC<{
               </text>
               <text
                 x={PAD.l + 26}
-                y={PAD.t + mRowH * 4.66}
+                y={plotTop + mRowH * 4.66}
                 fill={pal.text}
                 fontSize={40}
                 fontWeight={700}
@@ -424,7 +487,7 @@ export const RiskCanvas: React.FC<{
               </text>
               <text
                 x={PAD.l + plotW - 26}
-                y={PAD.t + mRowH * 4.2}
+                y={plotTop + mRowH * 4.2}
                 textAnchor="end"
                 fill={pal.muted}
                 fontSize={24}
@@ -434,7 +497,7 @@ export const RiskCanvas: React.FC<{
               </text>
               <text
                 x={PAD.l + plotW - 26}
-                y={PAD.t + mRowH * 4.66}
+                y={plotTop + mRowH * 4.66}
                 textAnchor="end"
                 fill={pal.accent}
                 fontSize={40}
@@ -456,43 +519,50 @@ export const RiskCanvas: React.FC<{
       {/* ── ACT 2 · the seven comparable elections ────────────────────────── */}
       {columnsOpacity > 0.01 ? (
         <g opacity={columnsOpacity}>
-          {CYCLES.map((c, i) => {
-            // The subject column is gated by `avg`; the other six by `history`,
-            // so the collapse lands on ONE column before the peers arrive.
-            const p = i === subjectIdx ? state.avg : state.history;
+          {plotted.map((c, i) => {
+            // The subject column is gated by `avg`; the others by `history`, so
+            // the collapse lands on ONE column before the peers arrive. A focused
+            // context series has already accreted, so it comes in whole.
+            const p = focusedCtx ? 1 : c.subject ? state.avg : state.history;
             if (p < 0.005) return null;
-            const score = Math.round(c.score);
-            const barH = (score / 100) * plotH * Math.min(1, p);
-            const isSubject = i === subjectIdx;
+            const barH = (c.value / 100) * plotH * Math.min(1, p);
+            const wide = nCols <= 9;
             return (
-              <g key={c.election}>
+              <g key={`${focusedCtx?.key ?? "idx"}-${c.label}`}>
                 <rect
                   x={colX(i)}
-                  y={PAD.t + plotH - barH}
+                  y={plotTop + plotH - barH}
                   width={colW}
                   height={Math.max(2, barH)}
                   rx={7}
-                  fill={bandColor(c.score)}
-                  opacity={isSubject ? 1 : 0.62}
+                  fill={focusedCtx ? pal.cool : bandColor(c.value)}
+                  opacity={c.subject ? 1 : 0.62}
                 />
+                {/* Above the bar normally; INSIDE it when the bar is tall
+                    enough that the label would leave the plot — the volatility
+                    series has six columns at the 100 ceiling. */}
                 <text
                   x={colX(i) + colW / 2}
-                  y={PAD.t + plotH - barH - 16}
+                  y={
+                    barH > plotH - 46
+                      ? plotTop + plotH - barH + 40
+                      : plotTop + plotH - barH - 14
+                  }
                   textAnchor="middle"
-                  fill={pal.text}
-                  fontSize={isSubject ? 40 : 32}
+                  fill={barH > plotH - 46 ? THEME.dark.bg : pal.text}
+                  fontSize={c.subject ? 36 : wide ? 30 : 24}
                   fontWeight={700}
                   opacity={Math.min(1, p)}
                 >
-                  {score}
+                  {c.value}
                 </text>
                 <text
                   x={colX(i) + colW / 2}
-                  y={PAD.t + plotH + 36}
+                  y={plotTop + plotH + 34}
                   textAnchor="middle"
-                  fill={isSubject ? pal.text : pal.muted}
-                  fontSize={24}
-                  fontWeight={isSubject ? 700 : 600}
+                  fill={c.subject ? pal.text : pal.muted}
+                  fontSize={wide ? 24 : 17}
+                  fontWeight={c.subject ? 700 : 600}
                 >
                   {c.label}
                 </text>
@@ -500,8 +570,23 @@ export const RiskCanvas: React.FC<{
             );
           })}
 
+          {/* Which series this is, and how many cycles carry it — the sentence
+              the narration is speaking, on the chart. */}
+          {focusedCtx ? (
+            <text
+              x={PAD.l}
+              y={PAD.t + 28}
+              fill={pal.cool}
+              fontSize={27}
+              fontWeight={700}
+            >
+              {focusedCtx.label} · {focusedCtx.rank.cycles} измервания ·{" "}
+              {focusedCtx.rank.rank}-о място
+            </text>
+          ) : null}
+
           {/* seven-cycle mean */}
-          {state.meanLine > 0.01 ? (
+          {state.meanLine > 0.01 && !focusedCtx ? (
             <g opacity={state.meanLine}>
               <line
                 x1={PAD.l}
@@ -525,7 +610,7 @@ export const RiskCanvas: React.FC<{
           ) : null}
 
           {/* the 06.2024 peak */}
-          {state.peakTag > 0.01 ? (
+          {state.peakTag > 0.01 && !focusedCtx ? (
             <text
               x={colX(CYCLES.findIndex((c) => c.label === F.history.peakLabel))}
               y={y(F.history.peakScore) - 54}
@@ -543,7 +628,7 @@ export const RiskCanvas: React.FC<{
       {/* the «Висок» boundary — act 3's whole point. Drawn AFTER the
           columns, like the mean line: the columns are opaque, so a rule label
           painted before them comes out looking clipped rather than layered. */}
-      {state.bandRule > 0.01 ? (
+      {state.bandRule > 0.01 && !focusedCtx ? (
         <g opacity={state.bandRule * fade}>
           <line
             x1={PAD.l}
@@ -573,14 +658,14 @@ export const RiskCanvas: React.FC<{
           <line
             x1={PAD.l}
             x2={PAD.l + plotW}
-            y1={PAD.t + plotH + CTX_TOP}
-            y2={PAD.t + plotH + CTX_TOP}
+            y1={plotTop + plotH + CTX_TOP}
+            y2={plotTop + plotH + CTX_TOP}
             stroke={pal.rule}
             strokeWidth={1}
           />
           <text
             x={PAD.l}
-            y={PAD.t + plotH + CTX_TOP + 34}
+            y={plotTop + plotH + CTX_TOP + 34}
             fill={pal.muted}
             fontSize={23}
             fontWeight={700}
@@ -592,7 +677,7 @@ export const RiskCanvas: React.FC<{
             const p = state[c.key as keyof RiskCanvasState] as number;
             const cw = (plotW - 18 * (CONTEXT.length - 1)) / CONTEXT.length;
             const cx = PAD.l + i * (cw + 18);
-            const top = PAD.t + plotH + CTX_TOP + 56;
+            const top = plotTop + plotH + CTX_TOP + 56;
             const trackH = 14;
             return (
               <g key={c.key} opacity={0.35 + 0.65 * Math.min(1, p)}>
@@ -602,8 +687,8 @@ export const RiskCanvas: React.FC<{
                 <text
                   x={cx}
                   y={top + 22}
-                  fill={pal.muted}
-                  fontSize={21}
+                  fill={state.ctxFocus === i + 1 ? pal.cool : pal.muted}
+                  fontSize={19}
                   fontWeight={600}
                 >
                   {c.label}
@@ -613,7 +698,7 @@ export const RiskCanvas: React.FC<{
                   y={top + 22}
                   textAnchor="end"
                   fill={pal.text}
-                  fontSize={26}
+                  fontSize={23}
                   fontWeight={700}
                 >
                   {Math.round(c.value * Math.min(1, p))}
@@ -635,6 +720,21 @@ export const RiskCanvas: React.FC<{
                   rx={4}
                   fill={pal.cool}
                 />
+                {/* Rank UNDER the track, not beside the label: inline it
+                    collided with the value on the narrowest column. By the
+                    summary scene the strip reads "four near the top, one near
+                    the bottom" on its own. */}
+                {p > 0.5 ? (
+                  <text
+                    x={cx}
+                    y={top + 72}
+                    fill={pal.muted}
+                    fontSize={19}
+                    fontWeight={600}
+                  >
+                    {c.rank.rank}-о от {c.rank.cycles}
+                  </text>
+                ) : null}
               </g>
             );
           })}

@@ -81,6 +81,38 @@ the spec, the spec generic over its state (`ExplainerSpec<C>`, defaulting to
 map), and the shared timeline machinery in `canvasTimeline.ts`. Duplicating the
 Stage/Rail/Audio/Captions wiring per canvas is the wrong seam.
 
+### The canvas must chart the series the narration is naming
+
+E2 held the composite index's seven columns on screen through the entire context
+section while the narration talked about a component's own history — "второто
+най-високо от дванайсет измервания" over a chart of seven. Nothing was false; the
+chart was simply answering a different question, and a viewer trusts the picture
+over the words.
+
+The fix is a `ctxFocus`-style field that swaps the plotted SERIES, not just its
+styling, and three consequences follow:
+
+- **Suppress the furniture that belonged to the old series.** The band
+  backgrounds, the mean line and the «висок» threshold describe the composite's
+  calibration and mean nothing on a component. Left up, they silently assert that
+  a component score of 39 is "elevated".
+- **Re-size geometry from the CURRENT column count.** Seven columns and thirteen
+  are different layouts: a gap tuned for seven overlaps at thirteen, and a label
+  that fits at seven has to shrink. Derive `colW` and the gap from `plotted.length`.
+- **Give the swapped series a title band, not an overlay caption.** A caption drawn
+  over the plot lands on the bars — and the series most worth showing is usually
+  the one with bars at the ceiling. Reserve the height instead.
+
+**A value label above a full-height bar leaves the plot.** Draw it INSIDE the bar,
+in the background colour, once the bar is within ~45px of the top. E2's volatility
+series has six columns at the 100 ceiling and every one of their labels was
+clipped into the header.
+
+**And check the persistent chrome still tells the truth.** The header read «7
+сравними избора» above a 12-cycle chart. Chrome is written once for the whole video
+and then never re-read — which is exactly why it goes stale when a later section
+changes what is on screen.
+
 ## Legibility minimums
 
 A card is viewed at full size; a Reel is viewed on a phone at arm's length. Scaled

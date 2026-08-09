@@ -68,6 +68,20 @@ export type RiskCanvasState = {
   bandRule: number;
   /** The context strip below the main plot. */
   ctx: number;
+  /**
+   * Which context signal (1..5) the MAIN PLOT is showing the history of, or null
+   * for the integrity index's own seven columns.
+   *
+   * Without this the index columns stayed up through the whole context section
+   * while the narration talked about a different series entirely — "второто
+   * най-високо от дванайсет измервания" over a chart of seven. Discrete, so it
+   * snaps rather than cross-fading two unrelated column sets through each other.
+   *
+   * While it is set, the index-specific furniture (band backgrounds, the mean
+   * line, the «висок» rule, the peak callout) is suppressed: those describe the
+   * composite's calibration and mean nothing on a component's series.
+   */
+  ctxFocus: number | null;
   /** Context meters: Бенфорд · махали · волатилност · социология · клъстери. */
   c1: number;
   c2: number;
@@ -103,6 +117,7 @@ export const RISK_CANVAS_ZERO: RiskCanvasState = {
   bands: 0,
   bandRule: 0,
   ctx: 0,
+  ctxFocus: null,
   c1: 0,
   c2: 0,
   c3: 0,
@@ -113,12 +128,30 @@ export const RISK_CANVAS_ZERO: RiskCanvasState = {
   dim: 0,
 };
 
-/** Numerics tween; `focus` and `insetKind` snap at the midpoint. */
+/**
+ * Numerics tween. Everything else snaps — but WHEN it snaps depends on what it
+ * selects, and the two cases are easy to conflate:
+ *
+ * • **Emphasis** on something already drawn — `focus`, which dims the meters that
+ *   are not the subject — may snap at the transition MIDPOINT. Arriving half a
+ *   beat late reads as easing.
+ *
+ * • **What is drawn at all** — `ctxFocus` (which SERIES the main plot charts) and
+ *   `insetKind` (which callout the panel holds) — must snap at the scene
+ *   BOUNDARY. At the midpoint the canvas spends ~0.45 s showing the previous
+ *   chart while the rail already names the new signal, which is a visible flicker
+ *   of the wrong data and reads as a rendering fault. Taking them from `b`
+ *   unconditionally cuts them on the boundary instead, in step with the narration.
+ */
 export const blendRiskCanvas = (
   a: RiskCanvasState,
   b: RiskCanvasState,
   t: number,
-): RiskCanvasState => blendNumeric(a, b, t);
+): RiskCanvasState => ({
+  ...blendNumeric(a, b, t),
+  ctxFocus: b.ctxFocus,
+  insetKind: b.insetKind,
+});
 
 export const resolveRiskCanvas = (
   scenes: { canvas?: Partial<RiskCanvasState> }[],

@@ -87,7 +87,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
   runtimeSeconds: [600, 900],
   title: "Индексът на изборния риск: какво значи 47",
   topic: "Изборен риск",
-  period: "юли 2021 — април 2026 · 7 сравними избора",
+  period: "2005 — 2026 · 13 измерени избора, 7 сравними",
   sourceLine:
     "Източник: ЦИК, секционни протоколи · Индекс на изборния риск (експериментален) · naiasno.bg",
   link: "https://electionsbg.com/risk-analysis?elections=2026_04_19",
@@ -745,7 +745,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     },
     {
       id: 48,
-      canvas: { c1: 1 },
+      canvas: { c1: 1, ctxFocus: 1 },
       kicker: "Контекст 1",
       stat: "8",
       headline: "Бенфорд · 1 от 12 партии",
@@ -769,7 +769,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     },
     {
       id: 50,
-      canvas: { c2: 1 },
+      canvas: { c2: 1, ctxFocus: 2 },
       kicker: "Контекст 2",
       stat: "39",
       headline: "Махалите · +5,9 пункта",
@@ -784,7 +784,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     },
     {
       id: 51,
-      canvas: { c3: 1 },
+      canvas: { c3: 1, ctxFocus: 3 },
       kicker: "Контекст 3",
       stat: "100",
       headline: "Електорална волатилност",
@@ -821,7 +821,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     },
     {
       id: 54,
-      canvas: { c4: 1 },
+      canvas: { c4: 1, ctxFocus: 4 },
       kicker: "Контекст 4",
       stat: "29",
       headline: "Социологическа грешка\n2,51 пункта",
@@ -836,7 +836,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     },
     {
       id: 55,
-      canvas: { c5: 1 },
+      canvas: { c5: 1, ctxFocus: 5 },
       kicker: "Контекст 5",
       stat: "24",
       headline: "Клъстери · 108 от 1 263",
@@ -862,7 +862,7 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
     // ── ЧАСТ 11 · Какво не казва ─────────────────────────────────────────────
     {
       id: 57,
-      canvas: { dim: 0.45, bandRule: 0 },
+      canvas: { dim: 0.45, bandRule: 0, ctxFocus: null },
       kicker: "Контекстът накратко",
       headline: "Четири стоят високо,\nклъстерите — ниско",
       body: "Три от високите описват едно и също:\nпартия, която разбърква вота.",

@@ -27,6 +27,13 @@ export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
  * bug, and a highlighted range whose edges tween looks like the data changing.
  * Anything discrete (a marker index, a band tuple, a focused item) belongs on the
  * non-numeric side.
+ *
+ * ⚠️ The midpoint is right for EMPHASIS and wrong for SELECTION. A field that
+ * chooses which series or which panel is drawn must change on the scene boundary,
+ * or the canvas spends half the transition showing the previous thing while the
+ * narration already names the new one — a visible flicker of the wrong data. Those
+ * fields belong in a per-canvas override that takes them from `b` outright; see
+ * `blendRiskCanvas`.
  */
 export const blendNumeric = <T extends object>(a: T, b: T, t: number): T => {
   const out = {} as Record<string, unknown>;

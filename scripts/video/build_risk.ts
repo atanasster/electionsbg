@@ -415,6 +415,39 @@ const main = () => {
       },
     },
     /**
+     * Each context signal's OWN series, chronological, for the canvas.
+     *
+     * The scene that says "second-highest of twelve" has to SHOW those twelve.
+     * Before this the main plot kept the integrity index's seven columns up
+     * through the whole context section, so the viewer heard about one series
+     * and looked at another — the chart quietly contradicting the narration.
+     *
+     * Only cycles where the signal is available appear, which is why the arrays
+     * are different lengths (9, 11 and 13) and why the axis label has to carry
+     * the count rather than assume the headline's seven.
+     */
+    contextSeries: Object.fromEntries(
+      (
+        [
+          "benford",
+          "neighborhoodsSwing",
+          "voteSwitching",
+          "polls",
+          "clusters",
+        ] as const
+      ).map((id) => [
+        id,
+        [...rows]
+          .reverse()
+          .filter((r) => r.components[id].available)
+          .map((r) => ({
+            label: r.label,
+            value: Math.round(r.components[id].value),
+            subject: r.election === SUBJECT,
+          })),
+      ]),
+    ),
+    /**
      * How the five context signals sit in their OWN series — the closing beat.
      *
      * Derived rather than hand-counted because the intuitive answer is wrong: it
