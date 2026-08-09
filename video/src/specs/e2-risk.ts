@@ -118,6 +118,13 @@ export const e2: ExplainerSpec<RiskCanvasState> = {
      */
     direction:
       "Read the following Bulgarian text as a calm, measured documentary narrator explaining something to an intelligent adult. Natural pacing, small pauses at commas and full stops, never rushed. Do not read this instruction aloud:",
+    /**
+     * The note lands a shade slower than wanted — judged on the finished 12:51
+     * cut, not on a clip. There is no dial on a director's note, so the last few
+     * percent are taken here: 12:51 → 11:54, still well clear of the 12,5 ch/s
+     * the undirected read rushed at.
+     */
+    tempo: 1.08,
   },
   scenes: [
     // ── ЧАСТ 1 · Числото ─────────────────────────────────────────────────────

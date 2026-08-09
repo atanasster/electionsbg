@@ -133,6 +133,38 @@ ARITHMETIC rather than by ear: E2's note is 239 characters, so a spoken note wou
 add ~22 s to every clip. The largest single change was ×1.46 (7.5 s → 11.0 s), so
 it was not spoken. A duration ratio past ~2.2× is the signature of a leak.
 
+## `voice.tempo` — the last few percent
+
+A director's note has no dial. You cannot ask for "8% faster than that", and on E2
+the note landed a shade slow — judged on the finished 12:51 cut, which is the only
+place a pacing verdict is worth anything. `voice.tempo` is the dial: a pitch-preserved
+playback rate applied at RENDER time.
+
+**Applied in the composition, never baked into the WAVs.** Re-tuning then costs a
+re-render and never a re-synthesis — the clips are the expensive artifact (59 API
+calls, ~12 minutes) and the tempo is the cheap opinion. E2 ships at **1.08**, taking
+12:51 → 11:54.
+
+Keep it inside roughly 0.9–1.15; past that the pitch preservation smears consonants.
+
+**Three places must divide by it or they drift apart**, and all three now read it
+from the spec: the scene length in `sceneFrames`, the `<Audio playbackRate>`, and the
+caption cue length in `emit_vtt`. The tail is edit silence rather than narration, so
+it is added AFTER the division and never scaled.
+
+### ⚠️ The tail constant belongs to ONE file
+
+`emit_vtt` kept its own `TAIL_SECONDS = 0.35` beside a comment claiming it matched
+the composition, which passed `0.7`. Over 59 scenes that is **21 seconds of drift** —
+the captions ran a third of a minute ahead of the voice by the end of E2, invisible
+in the first minute and useless in the last. It is now `EXPLAINER_TAIL_SECONDS`,
+exported from `video/src/lib/audio.ts` and imported by both.
+
+The general rule this is an instance of: **anything the render and the caption track
+both compute must come from one place.** They are built by different scripts, nobody
+watches a caption track next to a video for twelve minutes, and the failure is
+gradual rather than obvious.
+
 The spec declares its own window as `runtimeSeconds` and `npm run video:gate1`
 enforces it. Length is a property of the VIDEO, not of the format.
 

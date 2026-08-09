@@ -25,14 +25,33 @@ export const getAudioDuration = async (src: string): Promise<number> => {
  * voice stops. Without it the cuts land on the final syllable and the video feels
  * like it is being read at you.
  */
+/**
+ * Tail held after each scene's narration, in seconds.
+ *
+ * EXPORTED because two things must agree on it — the composition, which sizes
+ * each `<Sequence>`, and `emit_vtt`, which lays out the caption cues. They did
+ * not: the composition passed 0.7 while the VTT script had its own 0.35 next to
+ * a comment claiming it matched. Over 59 scenes that is 21 seconds of drift, so
+ * by the end of E2 the captions ran a third of a minute ahead of the voice —
+ * invisible in the first minute and useless by the last.
+ */
+export const EXPLAINER_TAIL_SECONDS = 0.7;
+
 export const sceneFrames = async (
   srcs: string[],
   fps: number,
   tailSeconds = 0.35,
+  /**
+   * Playback rate the composition will apply to the narration. The audio plays
+   * `tempo`× faster, so the scene holding it must be that much SHORTER — but the
+   * tail is silence added by the edit, not narration, so it is added after the
+   * division rather than scaled with it.
+   */
+  tempo = 1,
 ): Promise<{ durations: number[]; total: number }> => {
   const seconds = await Promise.all(srcs.map(getAudioDuration));
   const durations = seconds.map((s) =>
-    Math.max(1, Math.ceil((s + tailSeconds) * fps)),
+    Math.max(1, Math.ceil((s / tempo + tailSeconds) * fps)),
   );
   return { durations, total: durations.reduce((a, b) => a + b, 0) };
 };

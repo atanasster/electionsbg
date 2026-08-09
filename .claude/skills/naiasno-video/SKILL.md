@@ -250,12 +250,18 @@ Budget from the spelled-out text — it runs substantially longer than the on-sc
 figure it replaces (716 vs 433 chars on the reference passage), so counting the
 digits under-estimates every time.
 
-**Set `voice.direction`.** A natural-language delivery note ("read this as a calm
-documentary narrator…") is the difference between a read that sounds like a person
-and one that sounds like a machine — measured at **22% slower** across E2's 59
-clips, which is exactly the rushing `references/voice.md` identifies as the core
-defect. E2 shipped without one for a day and the operator's first note on the
-render was that it sounded AI-generated. It is not optional polish.
+**Set `voice.direction`, then tune with `voice.tempo`.** A natural-language delivery
+note ("read this as a calm documentary narrator…") is the difference between a read
+that sounds like a person and one that sounds like a machine — measured at **22%
+slower** across E2's 59 clips, exactly the rushing `references/voice.md` identifies
+as the core defect. E2 shipped without one for a day and the operator's first note on
+the render was that it sounded AI-generated. It is not optional polish.
+
+The note has no dial, so it will land a few percent off. `voice.tempo` is the dial —
+a pitch-preserved playback rate applied at render time, so re-tuning costs a
+re-render and never a re-synthesis. **Judge both on the finished cut, not on a
+clip:** pacing is the one property that only reveals itself over ten minutes, and
+both of E2's pacing corrections came from watching, not from listening to a sample.
 
 **Structure.** A `short` is hook → context → twist → CTA. A **90 s explainer** is
 one thread through the finding. A **long-form explainer is parts, not scenes** —

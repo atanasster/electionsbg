@@ -80,6 +80,20 @@ export type ExplainerSpec<C = unknown> = {
      * Providers apply it differently; see `Provider.synthesize`.
      */
     direction?: string;
+    /**
+     * Playback-rate correction applied at RENDER time, pitch preserved.
+     *
+     * A delivery note fixes the engine's rushing but overshoots slightly, and the
+     * note has no dial — you cannot ask for "8% faster than that". This is the
+     * dial. Applied in the composition rather than baked into the WAVs so that
+     * re-tuning costs a re-render and never a re-synthesis: the clips are the
+     * expensive artifact (59 API calls, ~12 min) and the tempo is the cheap
+     * opinion.
+     *
+     * Keep it inside roughly 0,9–1,15 — past that the pitch preservation starts
+     * to smear consonants. Default 1 (no correction).
+     */
+    tempo?: number;
   };
   scenes: ExplainerScene<C>[];
 };

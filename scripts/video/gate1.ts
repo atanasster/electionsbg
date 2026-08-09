@@ -96,9 +96,10 @@ const main = () => {
     process.exit(1);
   }
 
-  const rate = spec.voice.direction
-    ? CHARS_PER_SEC_DIRECTED
-    : CHARS_PER_SEC_BARE;
+  // Tempo is a render-time playback rate, so it multiplies the delivered rate.
+  const rate =
+    (spec.voice.direction ? CHARS_PER_SEC_DIRECTED : CHARS_PER_SEC_BARE) *
+    (spec.voice.tempo ?? 1);
 
   const dataCache = new Map<string, unknown>();
   const load = (file: string): unknown => {
@@ -178,7 +179,8 @@ const main = () => {
   const [lo, hi] = spec.runtimeSeconds;
   console.log(
     `TOTAL ${totalChars} chars → ~${secs.toFixed(0)}s (${(secs / 60).toFixed(1)} min) narration` +
-      ` at ${rate} ch/s ${spec.voice.direction ? "(directed)" : "(no direction — the engine will RUSH)"}` +
+      ` at ${rate.toFixed(1)} ch/s ${spec.voice.direction ? "(directed" : "(no direction — the engine will RUSH"}` +
+      `${spec.voice.tempo && spec.voice.tempo !== 1 ? `, ×${spec.voice.tempo}` : ""})` +
       ` · declared window ${lo}–${hi}s`,
   );
   // The window is the SPEC's, not the format's — see `runtimeSeconds` in spec.ts.

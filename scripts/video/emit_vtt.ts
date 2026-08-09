@@ -22,8 +22,13 @@ import { toVtt } from "../../video/src/lib/captions";
 /** Shorts and explainers share the fields these scripts touch (slug, kind, voice, scenes[].id/voiceOver). */
 const SPECS: Record<string, VoiceableSpec> = { e1, e2, v3 };
 
-/** Must match `sceneFrames`' default in video/src/lib/audio.ts. */
-const TAIL_SECONDS = 0.35;
+/**
+ * The tail and the tempo BOTH come from the same places the composition reads
+ * them, because a caption track that disagrees with the render is worse than no
+ * caption track. A local copy of the tail here said 0.35 against the
+ * composition's 0.7 and put the cues 21 s ahead by the end of a 59-scene video.
+ */
+import { EXPLAINER_TAIL_SECONDS } from "../../video/src/lib/audio";
 
 const durationOf = (file: string): number =>
   Number(
@@ -62,7 +67,11 @@ const main = () => {
       );
       process.exit(1);
     }
-    const durationSec = durationOf(file) + TAIL_SECONDS;
+    // Divided by tempo for the same reason the composition divides it: the clip
+    // plays faster, so its cue is shorter. The tail is edit silence, not
+    // narration, so it is added after the division rather than scaled.
+    const durationSec =
+      durationOf(file) / (spec.voice.tempo ?? 1) + EXPLAINER_TAIL_SECONDS;
     scenes.push({ text: scene.voiceOver, offsetSec: offset, durationSec });
     offset += durationSec;
   }

@@ -16,7 +16,7 @@ import { ScreenPlate } from "../scenes/ScreenPlate";
 import { Captions } from "../components/Captions";
 import { THEME } from "../theme";
 import { audioPath, type ExplainerSpec } from "../lib/spec";
-import { sceneFrames } from "../lib/audio";
+import { EXPLAINER_TAIL_SECONDS, sceneFrames } from "../lib/audio";
 import { resolveCanvas, type CanvasState } from "../lib/canvasState";
 import {
   resolveRiskCanvas,
@@ -48,7 +48,8 @@ export const calculateExplainerMetadata: CalculateMetadataFunction<
     fps,
     // A longer tail than the shorts: an explainer breathes between points, and
     // the canvas transition needs room to land before the next line starts.
-    0.7,
+    EXPLAINER_TAIL_SECONDS,
+    props.spec.voice.tempo ?? 1,
   );
   return {
     durationInFrames: total,
@@ -256,7 +257,10 @@ export const ExplainerVideo: React.FC<ExplainerProps> = ({
                 stat={scene.stat}
               />
             </div>
-            <Audio src={staticFile(audioPath(spec.slug, scene.id))} />
+            <Audio
+              src={staticFile(audioPath(spec.slug, scene.id))}
+              playbackRate={spec.voice.tempo ?? 1}
+            />
             {captions ? (
               <Captions
                 text={scene.voiceOver}
