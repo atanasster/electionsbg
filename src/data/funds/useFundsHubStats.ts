@@ -54,8 +54,25 @@ export interface FundsHubIsunStats {
   settlementCount: number;
 }
 
+/** Figures that exist only to be a hub tile's metric.
+ *
+ *  SEPARATE from `isun` on purpose. Each is read from the same payload its DESTINATION page
+ *  renders, so a tile cannot announce a number the page it links to disagrees with — and
+ *  `registerBeneficiaries` (53 108, ИСУН's beneficiary register) is a different population from
+ *  `isun.beneficiaryCount` (47 599, contract-derived). 5 509 organisations apart; folding them
+ *  into one object would invite exactly that swap. */
+export interface FundsHubTileStats {
+  /** /funds/beneficiaries ranks the REGISTER, so the tile quotes the register. */
+  registerBeneficiaries: number | null;
+  highConcentrationProgrammes: number | null;
+  politicalEiks: number | null;
+  focusDossiers: number | null;
+  dualCorpusCompanies: number | null;
+}
+
 export interface FundsHubStats {
   isun: FundsHubIsunStats;
+  tiles: FundsHubTileStats;
   rrf: {
     contractCount: number;
     contractedEur: number;

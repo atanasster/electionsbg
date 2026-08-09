@@ -147,14 +147,25 @@ const main = async (): Promise<void> => {
   // `db:load:interreg:pg` refreshes it again. On a FIRST-EVER run this branch skips and step 52
   // populates it; on later runs this refreshes with the previous Interreg vintage and step 52
   // corrects it. Stated in 145's header too, because a reader of either file needs it.
-  const [deps] = await allRows<{ ops: string | null; parts: string | null }>(
-    `SELECT to_regclass('public.interreg_operations')::text AS ops,
-            to_regclass('public.interreg_partners')::text   AS parts`,
+  // `dual_corpus_rankings_cache` belongs to migration 077 and is applied by the CONTRACTS
+  // loader, not by anything in the funds chain — so on a database without contracts it is
+  // absent, and `CREATE MATERIALIZED VIEW` resolving 145's query would raise 42P01 and kill
+  // `db:refresh` at step 11. That is precisely the abort this whole branch exists to prevent,
+  // reintroduced by a later edit to 145; the probe has to list every table 145 reads.
+  const [deps] = await allRows<{
+    ops: string | null;
+    parts: string | null;
+    dual: string | null;
+  }>(
+    `SELECT to_regclass('public.interreg_operations')::text        AS ops,
+            to_regclass('public.interreg_partners')::text          AS parts,
+            to_regclass('public.dual_corpus_rankings_cache')::text AS dual`,
   );
-  if (!deps?.ops || !deps?.parts) {
+  if (!deps?.ops || !deps?.parts || !deps?.dual) {
     console.warn(
-      "funds-fit: skipping 145 (hub stats) — interreg_operations/interreg_partners absent. " +
-        "db:load:interreg:pg applies and refreshes it; the /funds hub renders without figures until then.",
+      "funds-fit: skipping 145 (hub stats) — one of interreg_operations / interreg_partners / " +
+        "dual_corpus_rankings_cache is absent. db:load:pg (contracts) and db:load:interreg:pg " +
+        "create them; the /funds hub renders without figures until then.",
     );
   } else {
     console.log("funds-fit: applying 145 (hub stats) + refreshing");

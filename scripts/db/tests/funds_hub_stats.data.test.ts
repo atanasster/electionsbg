@@ -45,6 +45,13 @@ interface Stats {
     oblastCount: number;
     settlementCount: number;
   };
+  tiles: {
+    registerBeneficiaries: number | null;
+    highConcentrationProgrammes: number | null;
+    politicalEiks: number | null;
+    focusDossiers: number | null;
+    dualCorpusCompanies: number | null;
+  };
   rrf: {
     contractCount: number;
     contractedEur: number;
@@ -315,6 +322,55 @@ test.skipIf(skip)(
     assert.ok(
       s.interreg.bgOperationCount < s.interreg.operationCount,
       "the BG-filtered count can only be the smaller of the two",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "each tile figure equals what its DESTINATION renders, not the nearest lookalike",
+  async () => {
+    // The hub rule these five exist for: a tile must quote the basis of the page it links to.
+    // `registerBeneficiaries` is the sharp one — /funds/beneficiaries ranks ИСУН's beneficiary
+    // REGISTER, and the contract-derived count a careless edit would reach for instead is 5 509
+    // organisations away.
+    const s = await stats();
+    const [t] = await allRows<{
+      register: string;
+      conc: string;
+      pol: string;
+      dossiers: string;
+      dual: string;
+    }>(`
+      SELECT (SELECT payload->'totals'->>'beneficiaries' FROM fund_payloads
+               WHERE kind = 'index' AND key = '')                        AS register,
+             (SELECT payload->'totals'->>'highConcentrationCount' FROM fund_payloads
+               WHERE kind = 'integrity' AND key = '')                    AS conc,
+             (SELECT payload->'totals'->>'flaggedEiks' FROM fund_payloads
+               WHERE kind = 'political-links' AND key = '')              AS pol,
+             (SELECT jsonb_array_length(payload->'themes')::text FROM fund_payloads
+               WHERE kind = 'themes-index' AND key = '')                 AS dossiers,
+             (SELECT r->>'companyCount' FROM dual_corpus_rankings_cache)  AS dual`);
+    assert.equal(s.tiles.registerBeneficiaries, Number(t.register));
+    assert.equal(s.tiles.highConcentrationProgrammes, Number(t.conc));
+    assert.equal(s.tiles.politicalEiks, Number(t.pol));
+    assert.equal(s.tiles.focusDossiers, Number(t.dossiers));
+    assert.equal(s.tiles.dualCorpusCompanies, Number(t.dual));
+
+    // THE REJECTED BASIS, as an explicit notEqual — the whole design of this file.
+    assert.notEqual(
+      s.tiles.registerBeneficiaries,
+      s.isun.beneficiaryCount,
+      "the beneficiaries tile has fallen back to the contract-derived count; /funds/beneficiaries ranks the register",
+    );
+    // …and it must be the LARGER of the two: the register holds organisations that never
+    // reached a contract.
+    assert.ok(
+      (s.tiles.registerBeneficiaries ?? 0) > s.isun.beneficiaryCount,
+      "the register count can only exceed the contract-derived one",
+    );
+    // A concentrated-programme count cannot exceed the programme count it is a subset of.
+    assert.ok(
+      (s.tiles.highConcentrationProgrammes ?? 0) < s.isun.programmeCount,
     );
   },
 );

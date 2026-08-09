@@ -5,7 +5,7 @@
 // "MP-connected" card is dropped (duplicated by /funds/political), and the
 // breakdown table is collapsed into a single-row strip of chips.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
@@ -13,40 +13,27 @@ import {
   Building2,
   Coins,
   ExternalLink,
-  Gauge,
-  Layers,
   MapPin,
-  ShieldAlert,
   Users,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
-import { Card, CardContent } from "@/ux/Card";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
-import { useFundsProjectsIndex } from "@/data/funds/useFundsProjectsIndex";
-import { ProjectsStatusMixTile } from "./funds/ProjectsStatusMixTile";
-import { TopProgramsTile } from "./funds/TopProgramsTile";
-import { GeographyMixTile } from "./funds/GeographyMixTile";
-import { FundsMuniMapTile } from "./funds/FundsMuniMapTile";
-import { PoliticalConflictsTile } from "./funds/PoliticalConflictsTile";
-import { AbsorptionByPeriodTile } from "./funds/AbsorptionByPeriodTile";
-import { FundsSankeyTile } from "./funds/FundsSankeyTile";
-import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
-import { FundsFocusTile } from "./funds/FundsFocusTile";
-import { RrfTeaserTile } from "./funds/RrfTeaserTile";
-import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
-import { InterregTile } from "./funds/InterregTile";
 import { FundsFinder } from "./funds/FundsFinder";
 import { OpenCallsTile } from "./funds/OpenCallsTile";
-import { TopBeneficiariesCard } from "./funds/TopBeneficiariesCard";
 import { FitResolverTile } from "./funds/FitResolverTile";
 import { FundsWireLine, FundsNewsRail } from "./funds/FundsWire";
 import { MyMunicipalityTile, MySectorTile } from "./funds/ForYouTiles";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
-import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
-import { formatEur } from "@/lib/currency";
-import type { FundsBreakdownRow } from "@/data/funds/types";
+import { TileHubGrid, type TileHubSection } from "@/ux/infographic";
+import { FUNDS_BANDS } from "./funds/fundsRegistry";
+import { FUNDS_SCENES } from "./funds/fundsScenes";
+import {
+  useFundsHubStats,
+  type FundsHubStats,
+} from "@/data/funds/useFundsHubStats";
+import { formatEur, formatInt } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -76,47 +63,6 @@ const KpiLink: FC<{
 // Compact one-row breakdown strip — chips for the largest by-type buckets
 // plus a trailing "by legal form" mini-summary. Replaces the tall two-axis
 // table that previously dominated the page.
-const BreakdownStrip: FC<{
-  byOrgType: FundsBreakdownRow[];
-  byOrgForm: FundsBreakdownRow[];
-}> = ({ byOrgType, byOrgForm }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language;
-  const topTypes = byOrgType.slice(0, 4);
-  return (
-    <Card>
-      <CardContent className="flex flex-wrap items-baseline gap-x-3 gap-y-2 p-3 text-xs md:p-4">
-        <span className="font-medium uppercase tracking-wide text-muted-foreground">
-          {t("funds_breakdown_by_type") || "By organisation type"}
-        </span>
-        {topTypes.map((r) => (
-          <span
-            key={r.key}
-            className="inline-flex items-baseline gap-1 rounded-full border bg-muted/40 px-2 py-0.5"
-          >
-            <span className="font-medium">{orgTypeLabel(r.key, lang)}</span>
-            <span className="tabular-nums">{formatEur(r.contractedEur)}</span>
-            <span className="text-muted-foreground tabular-nums">
-              ({numFmt.format(r.beneficiaries)})
-            </span>
-          </span>
-        ))}
-        <span className="ml-auto text-muted-foreground">
-          <span className="font-medium uppercase tracking-wide">
-            {t("funds_breakdown_by_form") || "By legal form"}
-          </span>{" "}
-          {byOrgForm
-            .map(
-              (r) =>
-                `${orgFormLabel(r.key, lang)} ${formatEur(r.contractedEur)}`,
-            )
-            .join(" · ")}
-        </span>
-      </CardContent>
-    </Card>
-  );
-};
-
 const SourceFooter: FC = () => {
   const { t } = useTranslation();
   return (
@@ -135,10 +81,129 @@ const SourceFooter: FC = () => {
   );
 };
 
+/** One tile's metric, or nothing.
+ *
+ * EVERY FIGURE HERE IS THE DESTINATION'S OWN. That is the dashboard-hub skill's rule and this
+ * module has already broken it twice: the beneficiaries tile must quote 53 108 (ИСУН's
+ * REGISTER, which /funds/beneficiaries ranks) and not the 47 599 contract-derived count, and the
+ * Interreg tile must quote the BG-filtered 1 115 and not the corpus-wide 1 954.
+ *
+ * `undefined` when the figure is absent — a cold database, an unapplied migration. The tile then
+ * renders with no number, which is the honest state; a `0` would be a claim.
+ */
+const tileMetric = (
+  id: string,
+  s: FundsHubStats | null | undefined,
+  lang: string,
+  t: (k: string) => string,
+):
+  | { metric: string; metricCaption: string; metricSecondary?: string }
+  | undefined => {
+  if (!s) return undefined;
+  const int = (n: number | null | undefined) =>
+    n == null ? null : formatInt(n, lang);
+  const eur = (n: number | null | undefined) =>
+    n == null ? null : formatEur(n, lang);
+  // A DECIMAL COMMA in Bulgarian. `${53.8}%` renders „53.8%" whatever the page language is,
+  // which is the one formatting slip a template literal makes silently.
+  const pct = (n: number | null | undefined) =>
+    n == null
+      ? null
+      : `${new Intl.NumberFormat(lang === "en" ? "en-GB" : "bg-BG", {
+          maximumFractionDigits: 1,
+        }).format(n)}%`;
+  const m = (
+    metric: string | null,
+    metricCaption: string,
+    metricSecondary?: string,
+  ) =>
+    metric
+      ? {
+          metric,
+          metricCaption,
+          ...(metricSecondary ? { metricSecondary } : {}),
+        }
+      : undefined;
+
+  switch (id) {
+    case "beneficiaries":
+      // The REGISTER count — what /funds/beneficiaries ranks.
+      return m(int(s.tiles.registerBeneficiaries), t("funds_m_orgs"));
+    case "programmes":
+      return m(int(s.isun.programmeCount), t("funds_m_programmes"));
+    case "places":
+      // The PLACED money, with its coverage — never the corpus total, which is twice this.
+      return m(
+        eur(s.isun.placedContractedEur),
+        t("funds_m_placed"),
+        pct(s.isun.placedMoneyPct)
+          ? `${pct(s.isun.placedMoneyPct)} ${t("funds_m_of_corpus")}`
+          : undefined,
+      );
+    case "political":
+      return m(int(s.tiles.politicalEiks), t("funds_m_flagged"));
+    case "integrity":
+      return m(
+        int(s.tiles.highConcentrationProgrammes),
+        t("funds_m_concentrated"),
+        `${t("funds_m_of")} ${s.isun.programmeCount}`,
+      );
+    case "dualCorpus":
+      return m(int(s.tiles.dualCorpusCompanies), t("funds_m_both_corpora"));
+    case "focus":
+      return m(int(s.tiles.focusDossiers), t("funds_m_dossiers"));
+    case "absorption":
+      // The GRANT basis, named in the caption — the other answer is 41.1%.
+      return m(
+        pct(s.isun.absorptionPctOfGrant),
+        t("funds_m_paid_of_grant"),
+        eur(s.isun.paidEur) ?? undefined,
+      );
+    case "rrf":
+      return m(
+        eur(s.rrf.contractedEur),
+        t("funds_m_rrf_contracted"),
+        pct(s.rrf.absorptionPctOfGrant)
+          ? `${pct(s.rrf.absorptionPctOfGrant)} ${t("funds_m_paid")}`
+          : undefined,
+      );
+    case "interreg":
+      // The BG-FILTERED count, matching /funds/interreg's own headline.
+      return m(
+        int(s.interreg.bgOperationCount),
+        t("funds_m_bg_projects"),
+        eur(s.interreg.bgBudgetEur) ?? undefined,
+      );
+    default:
+      return undefined;
+  }
+};
+
 export const FundsScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: index, isLoading } = useFundsIndex();
-  const { data: projectsIndex } = useFundsProjectsIndex();
+  const { data: hubStats } = useFundsHubStats();
+
+  // The tile grid. Metrics come from ONE fetch (migration 145), and each is read from the same
+  // payload its DESTINATION renders — so a tile cannot announce a figure the page it links to
+  // disagrees with. A tile whose figure is absent renders without one rather than showing 0.
+  const sections: TileHubSection[] = useMemo(
+    () =>
+      FUNDS_BANDS.map((band) => ({
+        heading: t(band.labelKey),
+        description: t(band.descKey),
+        tiles: band.tiles.map((tile) => ({
+          to: tile.to,
+          title: t(tile.titleKey),
+          desc: t(tile.descKey),
+          accent: tile.accent,
+          scene: FUNDS_SCENES[tile.id],
+          // NO `cta`. „разгледай →" on every tile restates an affordance the card already has.
+          ...(tileMetric(tile.id, hubStats, i18n.language, t) ?? {}),
+        })),
+      })),
+    [t, hubStats, i18n.language],
+  );
 
   const title = t("funds_index_title") || "EU funds";
   const description =
@@ -219,8 +284,19 @@ export const FundsScreen: FC = () => {
 
         {/* HERO: 4 clickable KPI cards then the choropleth map. */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {/* PAGES, not fragments. These three used to target #top-beneficiaries, #money-flow
+              and #absorption — sections this rework moved onto their own pages, so all three
+              cards silently did nothing when clicked. A same-page anchor is exactly the link
+              that rots when a hub is reorganised.
+
+              THE STRIP AND THE GRID NOW OVERLAP, and that is a deliberate trade rather than an
+              oversight: this card and the „Бенефициенти" tile a screen below read the same
+              `fund_payloads` field, so they cannot disagree. The strip is the corpus at a
+              glance, the tile is a destination — the duplication is one number, and removing
+              the card would leave the strip with a hole where the module's headline count goes.
+              Worth revisiting if the strip grows. */}
           <KpiLink
-            to="#top-beneficiaries"
+            to="/funds/beneficiaries"
             ariaLabel={t("funds_index_beneficiaries") || "Beneficiaries"}
           >
             <StatCard
@@ -246,7 +322,7 @@ export const FundsScreen: FC = () => {
           </KpiLink>
 
           <KpiLink
-            to="#money-flow"
+            to="/funds/absorption"
             ariaLabel={t("funds_index_contracted") || "Funds contracted"}
           >
             <StatCard
@@ -267,7 +343,7 @@ export const FundsScreen: FC = () => {
           </KpiLink>
 
           <KpiLink
-            to="#absorption"
+            to="/funds/absorption"
             ariaLabel={t("funds_index_paid") || "Funds paid"}
           >
             <StatCard
@@ -326,118 +402,23 @@ export const FundsScreen: FC = () => {
           </KpiLink>
         </div>
 
-        {/* Map — promoted to hero position right under the KPI strip. */}
-        {projectsIndex ? (
-          <div className="mt-4">
-            <FundsMuniMapTile />
-          </div>
-        ) : null}
+        {/* THE MAP, THE BREAKDOWN STRIP AND THE „Кой получи парите" BAND ARE GONE FROM HERE.
+            All five tiles they held now live on /funds/places, /funds/beneficiaries and
+            /funds/programmes, and the grid below fronts them. The map was the single heaviest
+            thing on this page — Leaflet plus a nation-wide GeoJSON plus a per-municipality
+            payload — rendered to draw a preview nobody had asked for yet. */}
 
-        {/* Compact by-type / by-form strip. */}
-        <div className="mt-4">
-          <BreakdownStrip
-            byOrgType={index.byOrgType}
-            byOrgForm={index.byOrgForm}
-          />
-        </div>
+        {/* ── THE TILE GRID ────────────────────────────────────────────────────────────────
+            Bands 2-4 used to render fourteen analysis tiles inline. Measured before this
+            rework: /funds was 10 098 px tall and fetched 390 KB across 8 requests, of which
+            /api/db/dual-corpus-rankings alone was 247 KB — 63% of the page, pulled to draw a
+            preview leaderboard. Each of those tiles now lives on its own page and the hub
+            fronts it, per the dashboard-hub pattern.
 
-        {/* BAND ORDER — look-up, then checks, then analysis.
-            Bands are named for the QUESTION they answer, not „Разгледай"/„Още": „Още"
-            announces only that the band above it mattered more, so everything under it reads
-            as offcuts (dashboard-hub skill §3). The previous order opened with absorption and
-            red flags — i.e. the analysis nobody asked for above the look-up everybody did.
-            See docs/plans/funds-module-v2.md §5.2. */}
-
-        {/* BAND 3 — „Кой получи парите". The look-up band: who the recipients are, which
-            programmes carry the money, and where it lands. */}
-        {projectsIndex ? (
-          <DashboardSection
-            id="funds"
-            title={t("funds_band_recipients") || "Кой получи парите"}
-            subtitle={
-              t("funds_band_recipients_sub") ||
-              "Най-големите получатели, програмите и разпределението по места."
-            }
-            icon={Layers}
-          >
-            <div id="top-beneficiaries" className="scroll-mt-20">
-              <TopBeneficiariesCard rows={index.topByContracted} />
-            </div>
-            <div id="programs" className="scroll-mt-20">
-              <TopProgramsTile index={projectsIndex} />
-            </div>
-            <div className="grid gap-4 xl:grid-cols-2">
-              <ProjectsStatusMixTile index={projectsIndex} />
-              <GeographyMixTile index={projectsIndex} />
-            </div>
-          </DashboardSection>
-        ) : null}
-
-        {/* BAND 4 — „Проверки и връзки". Signals and cross-corpus links. Every item here is
-            a СИГНАЛ, not a finding — see the tiles' own captions. */}
-        <DashboardSection
-          id="funds"
-          title={t("funds_band_checks") || "Проверки и връзки"}
-          subtitle={
-            t("funds_band_checks_sub") ||
-            "Сигнали за проверка, връзки с политици и пресичане с обществените поръчки."
-          }
-          icon={ShieldAlert}
-        >
-          <div className="grid gap-4 xl:grid-cols-2">
-            <PoliticalConflictsTile />
-            <IntegrityTeaserTile />
-          </div>
-          <FundsFocusTile />
-          <RrfTeaserTile />
-        </DashboardSection>
-
-        {/* Dual-corpus keeps its OWN heading rather than being folded into the band above.
-            DualCorpusLeaderboardTile renders no CardTitle of its own, so the section header is
-            its only label — without it the table reads as an unexplained list of companies, and
-            the one thing a reader must know is what the two columns are (ЗОП contracts vs EU
-            grants). Merging it into the band cost exactly that caption. */}
-        <DashboardSection
-          id="funds"
-          title={t("dual_corpus_title") || "Договори и грантове"}
-          subtitle={
-            t("dual_corpus_subtitle") ||
-            "Фирми, спечелили обществени поръчки и получили европейски средства."
-          }
-          icon={Layers}
-        >
-          <DualCorpusLeaderboardTile />
-        </DashboardSection>
-
-        {/* Interreg — the corpus ИСУН does not hold at all. It sits in its own section rather
-            than inside the ИСУН tiles above precisely because it is a different source with a
-            different grain: an operation is cross-border and the money shown is the BULGARIAN
-            partner's share of it, never the project total. keep.eu publishes these titles in
-            English only. Self-suppresses when the corpus is absent (a database before
-            migration 137). */}
-        <InterregTile />
-
-        {/* Analysis last — a dashboard is where you arrive after the look-up. */}
-        {projectsIndex ? (
-          <DashboardSection
-            id="funds"
-            title={
-              t("funds_band_absorption") || "Усвояване и движение на парите"
-            }
-            subtitle={
-              t("funds_band_absorption_sub") ||
-              "Колко от договореното е реално изплатено и по какъв път стига до получателя."
-            }
-            icon={Gauge}
-          >
-            <div id="absorption" className="scroll-mt-20">
-              <AbsorptionByPeriodTile />
-            </div>
-            <div id="money-flow" className="scroll-mt-20">
-              <FundsSankeyTile />
-            </div>
-          </DashboardSection>
-        ) : null}
+            Bands 1 and 5 stay LIVE above and below this grid: /parliament keeps a lead card and
+            a news rail around its own grid too, and funds-module-v2 measured that ~68% of this
+            audience arrives asking „can I get money" — which band 1 answers. */}
+        <TileHubGrid sections={sections} className="mt-6 sm:mt-8" />
 
         {/* BAND 5 — „За теб". The personalised entry points, LAST because they are navigation
             rather than an answer: a reader who arrived with „what can I apply to" is served by

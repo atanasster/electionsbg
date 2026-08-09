@@ -68,8 +68,12 @@
 -- step 52 corrects it. After any complete `db:refresh` the numbers are current.
 -- ═══════════════════════════════════════════════════════════════════════════════════════════
 --
--- Depends on fund_projects (016), interreg_operations/interreg_partners (137) and
--- canon_oblast (143). EXECUTE → app_readonly, role-guarded for a cold bootstrap.
+-- Depends on fund_projects (016), fund_payloads (043), interreg_operations/interreg_partners
+-- (137), canon_oblast (143) and dual_corpus_rankings_cache (077 — applied by the CONTRACTS
+-- loader, NOT by anything in the funds chain). Every one of those must exist before this file
+-- is applied, and `load_funds_fit_pg.ts`'s guard probes all of them: a dependency added here
+-- and not added there aborts `db:refresh` at step 11.
+-- EXECUTE → app_readonly, role-guarded for a cold bootstrap.
 
 SET check_function_bodies = off;
 
@@ -133,10 +137,35 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
     -- country_department.
     FROM interreg_partners
     WHERE country = 'Bulgaria' OR country_department = 'Bulgaria'
+  ), tiles AS (
+    -- ── THE FIGURES THE HUB'S REMAINING TILES SHOW ────────────────────────────────────────
+    --
+    -- Each is read from the SAME payload its destination page renders, because the
+    -- dashboard-hub skill's rule is „lead with the DESTINATION's basis, or show no figure": a
+    -- tile saying 240 that lands on a page listing 2,120 is worse than a tile with no number.
+    -- That is also why `register_beneficiaries` is here rather than `isun.beneficiaryCount` —
+    -- /funds/beneficiaries ranks ИСУН's beneficiary REGISTER (53,108), not the contract-derived
+    -- 47,599, and the two are 5,509 organisations apart.
+    --
+    -- `to_jsonb(NULL)`-safe: a payload absent on a cold database yields NULL and the tile simply
+    -- renders without a metric, which is the honest state.
+    SELECT
+      (SELECT (payload->'totals'->>'beneficiaries')::int FROM fund_payloads
+        WHERE kind = 'index' AND key = '')                       AS register_beneficiaries,
+      (SELECT (payload->'totals'->>'highConcentrationCount')::int FROM fund_payloads
+        WHERE kind = 'integrity' AND key = '')                   AS high_concentration,
+      (SELECT (payload->'totals'->>'flaggedEiks')::int FROM fund_payloads
+        WHERE kind = 'political-links' AND key = '')             AS political_eiks,
+      -- `jsonb_typeof` guard: `jsonb_array_length` RAISES on a non-array, which would take the
+      -- whole matview down on a payload shape change. Its four siblings here degrade to NULL,
+      -- and so should this.
+      (SELECT CASE WHEN jsonb_typeof(payload->'themes') = 'array'
+                   THEN jsonb_array_length(payload->'themes') END
+         FROM fund_payloads WHERE kind = 'themes-index' AND key = '') AS focus_dossiers,
+      (SELECT (r->>'companyCount')::int FROM dual_corpus_rankings_cache) AS dual_companies
   )
-  -- `k` exists ONLY to carry the unique index. See the note on it below: an expression index
-  -- does not qualify a matview for REFRESH … CONCURRENTLY, so a constant column is the cheapest
-  -- thing that does.
+  -- `k` exists ONLY to carry the unique index: an expression index does not qualify a matview
+  -- for REFRESH … CONCURRENTLY, so a constant column is the cheapest thing that does.
   SELECT 1 AS k, jsonb_build_object(
     'isun', jsonb_build_object(
       'contractCount',            i.contract_count,
@@ -165,6 +194,17 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
     -- system boundary — Interreg runs on Jems), and the money is not the same quantity either:
     -- ИСУН publishes a contract value, this is a partner's published budget. Two arms, so a
     -- consumer cannot sum them into one unlabelled total by reaching for a shared key.
+    -- One object for the figures that exist only to be a tile's metric. Separate from `isun`
+    -- because their bases differ from it — `registerBeneficiaries` in particular is a different
+    -- population from `isun.beneficiaryCount`, and folding them together would invite exactly
+    -- the swap this whole file is arranged to prevent.
+    'tiles', jsonb_build_object(
+      'registerBeneficiaries',    x.register_beneficiaries,
+      'highConcentrationProgrammes', x.high_concentration,
+      'politicalEiks',            x.political_eiks,
+      'focusDossiers',            x.focus_dossiers,
+      'dualCorpusCompanies',      x.dual_companies
+    ),
     'interreg', jsonb_build_object(
       'operationCount',           n.operation_count,
       'bgOperationCount',         n.bg_operation_count,
@@ -173,7 +213,7 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       'bgBudgetEur',              round(n.bg_budget_eur::numeric, 2)
     )
   ) AS payload
-  FROM isun i, rrf r, interreg n;
+  FROM isun i, rrf r, interreg n, tiles x;
 
 -- ON A PLAIN COLUMN (`k`), NOT an expression. This is the whole reason `k` exists.
 --
