@@ -31,6 +31,7 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { buildTenders, type Tender } from "./normalize_eop_tender";
 import { tendersDayUrl, type EopTenderRecord } from "./eop_tender_types";
 import { canonicalJson } from "./validate";
+import { auditDayCoverage, totalMissingDays } from "./day_coverage";
 import type { TenderSearchRow } from "@/lib/tenderTopics";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -557,6 +558,8 @@ const main = async (args: {
   upload: boolean;
   force: boolean;
   delayMs: number;
+  allowGaps: boolean;
+  healGaps: boolean;
 }): Promise<void> => {
   // 1. Fetch the requested window into the cache.
   const days = enumerateDays(args.from, args.to);
@@ -580,6 +583,59 @@ const main = async (args: {
   console.log(
     `→ fetch window ${args.from}…${args.to}: ${published} with records / ${missing} empty day(s)`,
   );
+
+  // 1b. Day-coverage guard. Runs AFTER the fetch (so a window that just filled its
+  // own gap passes) and BEFORE the rebuild, because the rebuild is what launders a
+  // holed cache into a smaller-but-plausible corpus.
+  const gaps = auditDayCoverage([ROP_CACHE_DIR, CACHE_DIR]);
+  if (gaps.length) {
+    const total = totalMissingDays(gaps);
+    console.log(
+      `\n⚠ cache has ${total} missing interior day(s) in ${gaps.length} run(s):`,
+    );
+    for (const g of gaps.slice(0, 20))
+      console.log(
+        `    ${g.dir}  ${g.from} → ${g.to}  (${g.days} day${g.days > 1 ? "s" : ""})`,
+      );
+    if (gaps.length > 20) console.log(`    … and ${gaps.length - 20} more`);
+
+    if (args.healGaps) {
+      // Only the ЦАИС tree is re-fetchable here; the РОП cache is written by
+      // ingest_rop_tenders.ts from a different source and this loop cannot fill it.
+      const heal = gaps.filter((g) => g.dir === path.basename(CACHE_DIR));
+      const skipped = gaps.length - heal.length;
+      console.log(
+        `→ --heal-gaps: fetching ${totalMissingDays(heal)} ЦАИС day(s)` +
+          (skipped ? ` (${skipped} РОП run(s) NOT healable here)` : ""),
+      );
+      for (const g of heal)
+        for (const day of enumerateDays(g.from, g.to)) {
+          try {
+            await fetchDay(day, false);
+          } catch (e) {
+            console.log(`  ! ${day}: ${(e as Error).message}`);
+          }
+          if (args.delayMs > 0) await sleep(args.delayMs);
+        }
+      const left = auditDayCoverage([ROP_CACHE_DIR, CACHE_DIR]);
+      if (left.length && !args.allowGaps)
+        throw new Error(
+          `still ${totalMissingDays(left)} missing day(s) after --heal-gaps ` +
+            `(a 403 egress block is not cached, so those days stay unfetched). Re-run, or pass --allow-gaps.`,
+        );
+      console.log(`  ✓ coverage healed`);
+    } else if (!args.allowGaps) {
+      const worst = gaps.reduce((a, b) => (b.days > a.days ? b : a));
+      throw new Error(
+        `refusing to rebuild from a holed cache — the corpus would silently under-publish.\n` +
+          `  Fix:  npx tsx scripts/procurement/ingest_tenders.ts --backfill --from ${worst.from} --to ${worst.to} --apply\n` +
+          `  Or:   re-run this command with --heal-gaps (fetches every missing ЦАИС day first)\n` +
+          `  Or:   --allow-gaps to publish anyway (only when the gap is known-unpublishable).`,
+      );
+    } else {
+      console.log(`  (--allow-gaps: publishing anyway)`);
+    }
+  }
 
   // 2. Rebuild the whole tenders tree from ALL cached days.
   const { dated, cachedDays, months } = collectCachedRecords();
@@ -698,6 +754,19 @@ const cli = command({
       description: "Bypass the count-collapse sanity floor before --apply.",
       defaultValue: () => false,
     }),
+    allowGaps: flag({
+      type: optional(boolean),
+      long: "allow-gaps",
+      description:
+        "Rebuild even though the day cache has interior holes (under-publishes).",
+      defaultValue: () => false,
+    }),
+    healGaps: flag({
+      type: optional(boolean),
+      long: "heal-gaps",
+      description: "Fetch every missing interior ЦАИС day before rebuilding.",
+      defaultValue: () => false,
+    }),
     delayMs: option({
       type: optional(string),
       long: "delay-ms",
@@ -719,6 +788,8 @@ const cli = command({
       upload: !!args.upload,
       force: !!args.force,
       delayMs: Number.isFinite(parsedDelay) ? parsedDelay : 120,
+      allowGaps: !!args.allowGaps,
+      healGaps: !!args.healGaps,
     });
   },
 });
