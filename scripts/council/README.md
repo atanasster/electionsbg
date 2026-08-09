@@ -140,6 +140,57 @@ procurement / social / other). Can run independently of tallies; both
 write into the same resolution record. Hallucination guard: "summarise
 only what is in the input; respond with [no content] if unintelligible."
 
+## Reading a run — what UNVERIFIED means
+
+`npm run council:scrape` gives every município a terminal status and exits
+non-zero if any is NOT REACHED. The one that needs interpreting is
+**UNVERIFIED**: reached, zero protocols touched, and at least one lookup
+failed. It is neither merged nor stamped, because "0 new protocols" would
+be a claim we have no basis for — `lastSuccessfulIngest` staying put is
+what makes the município owe another run.
+
+**That status is almost never a bug in this repo.** Every parser here
+funnels through `lib/fetch.ts`, which counts a lookup failure only for a
+transport failure or a status that means the server did not serve it (5xx,
+429) — a 404 is a definitive answer and is not counted. So UNVERIFIED
+means a source did not answer, and the line beneath it names which and
+why. Read that before touching code.
+
+The three classes seen so far, all from the 2026-08-09 run where ten
+municipalities each reported "1 failed lookup" and the ten were three
+unrelated faults:
+
+| What the reason line says | What it is | What to do |
+|---|---|---|
+| `fetch failed (UND_ERR_CONNECT_TIMEOUT …)` or a `timeout (…)` phase | The host is not answering us. Confirm with `curl -sv https://<host>/` — if curl also stalls, it is not our code | Wait. If it persists across days from a different network, the site has changed or blocked us |
+| `HTTP 520` (or another 5xx) | A CDN reached us but its origin is down. Cloudflare's 520 is the common one | Wait — the council's own server is broken |
+| `HTTP 429 — rate-limited; backing off from <host>` | We are being throttled, usually `web.archive.org`, which DOB28/HKV34/GAB05/SZR12 all read | Stop re-running. The fetch layer now backs that host off process-wide for 2 min; repeated full runs are what earn the throttle |
+
+Two diagnoses that look plausible and were both wrong on 2026-08-09, kept
+here so nobody re-derives them:
+
+- **It is not the HEAD pre-flight.** `fetchHead` has exactly one caller —
+  Казанлък's brute-force probe in `parsers/szrk.ts`. No other parser
+  issues a HEAD, so a HEAD that municipal servers reject cannot explain a
+  failure anywhere else. (The hazard is real but different: a server that
+  405s HEAD would make that probe read "not there" for all 1,440 URLs and
+  report a genuinely quiet council. `fetchHead` now switches that host to
+  a one-byte ranged GET, so callers must test `ok`, not `status === 200` —
+  a server honouring the Range answers 206.)
+- **It is not the município budget aborting early.** A budget expiry
+  raises `BudgetExhaustedError` and the status becomes TIMED OUT, not
+  UNVERIFIED. A run of one município with a 20-minute budget that fails in
+  10 seconds has not run out of anything.
+
+The rule `protocolsTouched === 0 && lookupFailures > 0` is also not too
+strict, which is the third thing it is tempting to assume. If discovery
+succeeds and legitimately finds nothing new, no further request is made
+and the count stays 0 — so the rule can only fire when discovery itself
+failed, or when every discovered protocol failed to download. Both are
+genuinely "we could not look". It caught a real one on that run: VTR01
+printed `no new protocols` while BOTH of its year-index pages had failed,
+and pre-counter it would have stamped a successful ingest over it.
+
 ## Output layout
 
 - Per município: `data/council/{obshtina}/{year}/{resolution_id}.json`

@@ -153,7 +153,9 @@ const bruteForceProbe = async (
             // could trip, which is the two-hour hang this probe caused.
             retries: 0,
           });
-          if (r.status === 200) {
+          // `ok`, not `status === 200`: fetchHead falls back to a ranged
+          // GET on a host that rejects HEAD, and that answers 206.
+          if (r.ok) {
             out.push({
               pdfUrl: url,
               session: String(session),

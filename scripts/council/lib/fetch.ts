@@ -186,9 +186,12 @@ export const isUnreachable = (err: unknown): boolean =>
  *  municipalities, which is the whole reason this outlives one budget. */
 const cooldowns = new Map<string, number>();
 
-/** Test seam — a fresh process starts with no cooldowns, so nothing in
- *  the production path needs this. */
-export const resetHostCooldowns = (): void => cooldowns.clear();
+/** Test seam for every piece of process-wide per-host state. A fresh
+ *  process starts empty, so nothing in the production path needs this. */
+export const resetHostState = (): void => {
+  cooldowns.clear();
+  headUnsupported.clear();
+};
 
 const cooldownUntil = (host: string): number => {
   const until = cooldowns.get(host);

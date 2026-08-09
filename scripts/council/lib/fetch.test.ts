@@ -20,7 +20,7 @@ import {
   muniBudgetExpired,
   muniLookupFailureReasons,
   muniLookupFailures,
-  resetHostCooldowns,
+  resetHostState,
   BudgetExhaustedError,
   CONSECUTIVE_TIMEOUT_LIMIT,
   FetchTimeoutError,
@@ -34,7 +34,8 @@ type Behaviour =
   | "ok"
   | "not-found"
   | "server-error"
-  | "rate-limited";
+  | "rate-limited"
+  | "no-head";
 
 const servers: Server[] = [];
 
@@ -43,11 +44,25 @@ const servers: Server[] = [];
  *  fetch() hangs on for ever. */
 const startServer = async (
   behaviour: () => Behaviour,
-): Promise<{ base: string; hits: () => number }> => {
+): Promise<{
+  base: string;
+  hits: () => number;
+  methods: () => string[];
+}> => {
   let hits = 0;
+  const methods: string[] = [];
   const server = createServer((_req, res) => {
     hits++;
+    methods.push(_req.method ?? "?");
     const mode = behaviour();
+    // A server that serves GET happily and refuses the HEAD for the same
+    // URL — common on small municipal CMSes, and silently fatal to a
+    // speculative probe that reads 405 as "not there".
+    if (mode === "no-head" && _req.method === "HEAD") {
+      res.writeHead(405);
+      res.end();
+      return;
+    }
     if (mode === "silent") return; // headers never sent
     if (mode === "not-found") {
       res.writeHead(404, { "Content-Type": "text/html" });
@@ -73,14 +88,19 @@ const startServer = async (
   servers.push(server);
   await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
   const { port } = server.address() as AddressInfo;
-  return { base: `http://127.0.0.1:${port}`, hits: () => hits };
+  return {
+    base: `http://127.0.0.1:${port}`,
+    hits: () => hits,
+    methods: () => [...methods],
+  };
 };
 
 afterEach(async () => {
   endMuniBudget();
-  // Cooldowns are process-wide by design — they must outlive a budget, so
-  // only an explicit reset clears them between tests.
-  resetHostCooldowns();
+  // Cooldowns and the HEAD-unsupported memo are process-wide by design —
+  // they must outlive a budget, so only an explicit reset clears them
+  // between tests.
+  resetHostState();
   await Promise.all(
     servers.splice(0).map(
       (s) =>
@@ -269,6 +289,38 @@ describe("429 back-off", () => {
     await expect(fetchHtml(`${base}/cdx`)).resolves.toContain("ok");
     // A one-off 429 must not silence the host for the next three parsers.
     await expect(fetchHtml(`${base}/cdx2`)).resolves.toContain("ok");
+  });
+});
+
+describe("existence probe", () => {
+  // The dangerous failure mode this closes is a SILENT one: a server that
+  // 405s every HEAD makes a speculative probe read "not there" for every
+  // URL, so the município reports zero protocols with zero LOOKUP
+  // failures — indistinguishable from a council that published nothing.
+  it("falls back to a ranged GET on a host that refuses HEAD", async () => {
+    const { base, methods } = await startServer(() => "no-head");
+    beginMuniBudget("TEST", 60_000);
+
+    await expect(
+      fetchHead(`${base}/protokol-1.pdf`, { retries: 0 }),
+    ).resolves.toMatchObject({ ok: true });
+    expect(methods()).toEqual(["HEAD", "GET"]);
+
+    // And it must not re-probe with HEAD for the rest of the process —
+    // Казанлък's probe walks 1,440 URLs, so one wasted round trip each is
+    // the whole cost of the walk again.
+    await fetchHead(`${base}/protokol-2.pdf`, { retries: 0 });
+    expect(methods()).toEqual(["HEAD", "GET", "GET"]);
+    // Not counted as a failed lookup: the 405 was answered, then served.
+    expect(muniLookupFailures()).toBe(0);
+  });
+
+  it("still reports a genuine 404 as not-found", async () => {
+    const { base } = await startServer(() => "not-found");
+    beginMuniBudget("TEST", 60_000);
+    await expect(
+      fetchHead(`${base}/missing.pdf`, { retries: 0 }),
+    ).resolves.toMatchObject({ ok: false, status: 404 });
   });
 });
 
