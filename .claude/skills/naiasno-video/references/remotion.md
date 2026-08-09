@@ -110,6 +110,43 @@ is cheap to reverse — do not treat it as doctrine.
 
 Stack: `interpolate` + `spring` + `Easing` + `d3-ease`.
 
+## SVG drawing defects the frame check catches (E2, 2026-08-09)
+
+Five real ones from one canvas. **Every one of them looks fine in the Studio
+preview at 25% zoom** — they are why rule 9 is "extract frames and Read them".
+
+- **A callout over other content must be an OPAQUE card, not a tint.** A
+  translucent `fill` let the labels underneath show through as a second layer of
+  text. Use the palette's `bg2` with a `rule` stroke, and place the panel over rows
+  that are still EMPTY at that beat so it never hides a number in play.
+- **Layer order is the whole story for labels over opaque marks.** A rule drawn
+  BEFORE the columns had its label painted over by one, and the result reads as
+  *clipped text* rather than as a layering mistake — you go looking for a viewBox
+  bug. Draw annotations after the marks they annotate.
+- **Two horizontal rules want their labels on OPPOSITE sides.** A mean line and a
+  threshold line both labelled from the right collided with a column's value.
+- **Reserve geometry for a strip, then check what it lands on.** The context strip's
+  divider ran straight through the column date labels 36px under the plot floor.
+  Measure new furniture from the same origin as the furniture already there.
+- **A label + value sharing a line must be sized for the WIDEST label**, not the
+  average. «Волатилност» beside «100» overran its column and the two overlapped.
+
+### ⚠️ `toLocaleString("bg-BG")` groups inconsistently
+
+`bg-BG` sets `minimumGroupingDigits: 2`, so **10 773 comes out grouped and 1629
+does not** — the two sat in one sentence on the canvas while the hand-written rail
+beside them said «1 629». One number, three spellings on one screen.
+
+`useGrouping: "always"` is the documented fix but is ES2023, and this project's lib
+types it as a boolean. Group explicitly instead:
+
+```ts
+const num = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
+```
+
+Anything a canvas and a hand-written rail both render is worth checking for this
+class: the canvas formats, the rail is typed, and they drift.
+
 ## Render stability
 
 Mostly relevant to WebGL/canvas content. `references/scenes.md` avoids tile maps for

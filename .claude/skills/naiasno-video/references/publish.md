@@ -24,9 +24,9 @@ exceeds the height. Shrinking type below the ~84/44px floor is exactly the trade
 floor exists to prevent.
 
 A 16:9 cut needs a landscape **layout** — wider bars, fewer rows, or two columns —
-that spends the extra width instead of fighting it. That is `explainer`-format work
-(phase 4). Until it exists, ship shorts in the two portrait cuts and give YouTube the
-9:16 as a Short.
+that spends the extra width instead of fighting it. That layout now exists
+(`Stage16x9`: persistent chrome, chart left, callout rail right) and is what E1 and
+E2 render, so YouTube gets a real landscape cut rather than a Short.
 
 **Vertical fit, when adding a scene type:** compress *spacing* to fit, never type. The
 legibility minimums are a floor on a phone screen, so shrinking text to fit trades a
@@ -46,7 +46,7 @@ Two things are already known exactly — the **text** of every scene (the spec's
 `calculateMetadata`). Distributing the first across the second needs no model and
 **cannot mis-transcribe**. Pages split on **characters, not words**: Bulgarian word
 lengths vary enough to drift over an 8-second scene, while characters track the
-measured ~13 chars/s closely.
+measured rate closely — ~11 chars/s with a delivery note, ~13.5 without.
 
 What it costs, and the design that follows from it: the timing is *derived*, so a
 page boundary can sit a beat early. Pages therefore render **whole, with no per-word
@@ -110,10 +110,11 @@ existing bucket first (storage + egress only, no adaptive bitrate — fine for �
 
 ## The draft
 
-`brand/videos/drafts/<slug>.md` plus an entry in `brand/videos/index.json`, mirroring
+`brand/videos/<slug>/draft.md` plus an entry in `brand/videos/index.json`, mirroring
 `brand/posts/index.json`. Carry `postSlug` when the finding also shipped as a card, so
 the pair can be published together and neither is later mistaken for a duplicate of
-the other.
+the other. Everything else for that video sits in the same folder — see the layout
+section in `SKILL.md`.
 
 The draft states, for the operator:
 

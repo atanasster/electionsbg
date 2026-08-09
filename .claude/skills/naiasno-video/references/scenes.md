@@ -43,6 +43,44 @@ not gain a misleading `+`.
   opacity in `rule` on `bg` was invisible in every extracted frame; it was a DOM node
   per frame that drew nothing.
 
+## Designing the canvas for a MULTI-PART subject (E2)
+
+E1's canvas is one line chart whose window and series opacity tween for the whole
+run. That does not serve a subject built from ten components — five meters, a
+collapse, seven columns, band boundaries and a context strip. What does:
+
+**Three acts on ONE surface, and the canvas changes KIND exactly once.** Five
+integrity meters fill one at a time → they COLLAPSE into a single column → that
+column takes its place among seven comparable elections → the bands wash in behind
+it. The collapse is the argument, not a transition: five measurements becoming the
+one number the video opened on. Everything else accretes.
+
+**Do not morph — crossfade and re-gate.** The five meters fade as `mode` goes 0→1
+while the subject column grows in its FINAL position, then the other six arrive on a
+separate field. A real five-bars-into-one-column morph is a lot of work for a beat
+the narration already carries, and out-of-order frame rendering handles it worst.
+
+**Scalars, not arrays, for per-item progress.** `m1`…`m5`, not `meters: number[]`.
+The timeline merges each scene's PARTIAL onto the previous state, so a partial array
+would replace rather than merge (a scene lighting meter 3 would have to restate 1
+and 2); and the blend tweens numbers and SNAPS everything else, so an array would
+pop instead of growing.
+
+**Separate "the row exists" from "the row has a value"** (`rows` vs `m1`…`m5`). One
+field cannot express an empty labelled track — a fill of 0.02 renders as a score of
+1, which is a number the video never claims.
+
+**Give each part something to change.** A focused-but-empty row held for five scenes
+is a dead canvas. E2 added a per-meter scale-end annotation and a two-kind callout
+panel so the section and concentration parts had their own visual content; without
+them ~50 s of the video was a static frame with the rail doing all the work.
+
+**A second canvas means a discriminant, not a second composition.** `canvasKind` on
+the spec, the spec generic over its state (`ExplainerSpec<C>`, defaulting to
+`unknown` so gate1/synthesize/emit_vtt can hold specs with different canvases in one
+map), and the shared timeline machinery in `canvasTimeline.ts`. Duplicating the
+Stage/Rail/Audio/Captions wiring per canvas is the wrong seam.
+
 ## Legibility minimums
 
 A card is viewed at full size; a Reel is viewed on a phone at arm's length. Scaled

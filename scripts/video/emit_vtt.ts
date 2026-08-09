@@ -10,7 +10,7 @@
  * captions describe one timeline rather than two that drift.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { e1 } from "../../video/src/specs/e1-inflation";
@@ -67,14 +67,18 @@ const main = () => {
     offset += durationSec;
   }
 
-  const outDir = resolve("raw_data/video/out");
-  const vttPath = resolve(outDir, `${spec.slug}.vtt`);
+  // One folder per video under brand/videos/<slug>/ — draft, captions,
+  // transcript, cuts and thumbnail together. The folder already carries the
+  // slug, so the files inside are named by ROLE rather than repeating it.
+  const outDir = resolve("brand/videos", spec.slug);
+  mkdirSync(outDir, { recursive: true });
+  const vttPath = resolve(outDir, "captions.vtt");
   writeFileSync(vttPath, `${toVtt(scenes)}\n`, "utf8");
 
   // The transcript is the script — already written and already signed off at
   // gate 1, so it costs nothing and gives the crawler a text surface an embed
   // does not provide.
-  const txtPath = resolve(outDir, `${spec.slug}.transcript.txt`);
+  const txtPath = resolve(outDir, "transcript.txt");
   writeFileSync(
     txtPath,
     `${spec.title}\n${spec.link}\n\n${spec.scenes.map((s) => s.voiceOver).join("\n\n")}\n`,

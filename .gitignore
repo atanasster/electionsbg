@@ -319,6 +319,12 @@ ai/m0/.venv/
 # tracked.
 /brand/posts/
 
+# Videos — same rule as posts, one folder per video (brand/videos/<slug>/:
+# draft, captions, transcript, cuts, thumbnail). Local only: they are drafts
+# until an operator publishes them by hand, and the cuts are heavy (~49 MB for a
+# 13-minute explainer) and fully regenerable from the spec plus the voice-over.
+/brand/videos/
+
 # Local dev-only: symlink to serve the (bucket-only) procurement data tree in `npm run dev`.
 # Never commit; remove before `npm run build` (vite would bundle the whole tree).
 /public/procurement

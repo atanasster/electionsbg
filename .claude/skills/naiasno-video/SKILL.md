@@ -29,7 +29,7 @@ The `video/` Remotion project exists and T1 renders end to end (phase 1, 2026-08
 ```bash
 npm run video:voice  -- <spec>     # per-scene TTS into video/public/voiceover/
 npm run video:vtt    -- <spec>     # .vtt sidecar + transcript
-npm run video:render -- <id> <out> # e.g. 2026-08-08-cost-per-vote--reel
+npm run video:render -- <id> brand/videos/<slug>/yt.mp4
 npm run video:check                # typecheck video/ (NOT covered by `npm run build`)
 npm run video:studio               # Remotion Studio, for retiming by hand
 npm run video:fonts                # re-mirror Inter after scripts/fonts/fetch-fonts.mjs
@@ -51,6 +51,37 @@ Measured on T1: **~2 min per cut** to render, 885 frames, ~2 MB. Render cost sca
 with frame count, so budget a long-form cut at roughly its ratio — a 10-min video
 is ~20× T1's frames. Synthesis scales with SCENE COUNT (one request each), and at
 ~50 scenes the transient-failure retries stop being theoretical.
+
+## Where everything lives
+
+**One folder per video, `brand/videos/<slug>/`**, holding the draft, the cuts, the
+thumbnail, the captions and the transcript. The folder already carries the slug, so
+the files inside are named by ROLE and never repeat it:
+
+```
+brand/videos/
+  index.json                    the registry — dup-check reads this
+  <slug>/
+    draft.md                    the operator's review sheet
+    yt.mp4                      16:9 cut     (reel.mp4 / feed.mp4 for portrait)
+    thumb.png                   1280×720
+    captions.vtt                YouTube sidecar
+    transcript.txt              for the page under the embed
+```
+
+**`brand/videos/` is gitignored in full**, exactly like `brand/posts/` and for the
+same reason: these are drafts until an operator publishes them by hand, and a
+13-minute cut is ~49 MB against a repo that is already fighting a file-count ceiling.
+Everything in there regenerates from the spec plus the voice-over.
+
+Three things deliberately live OUTSIDE that folder, because a build step reads them
+from a fixed place:
+
+| Path | Why not in the video folder |
+|---|---|
+| `video/public/voiceover/<slug>/NN.wav` | Remotion's `staticFile()` resolves against `video/public` |
+| `video/src/specs/<id>.ts` + `generated/<id>.json` | the composition imports them |
+| `raw_data/video/tts_bakeoff/` | provider research, not a deliverable |
 
 ## Two formats — the EXPLAINER is the flagship
 
@@ -131,7 +162,7 @@ topic ─▶ dup-check ─▶ ground in data/ ─▶ confirm (or reuse a post's 
       ─▶ ⛔ GATE 1 — operator reads the script            (nothing spent yet)
       ─▶ per-scene TTS ─▶ trim silence ─▶ render ─▶ captions ─▶ thumbnail
       ─▶ ⛔ GATE 2 — operator watches the render          (before any publish)
-      ─▶ draft in brand/videos/drafts/<slug>.md
+      ─▶ draft in brand/videos/<slug>/draft.md
 ```
 
 Both gates are mandatory. Gate 1 is the cheap one and catches most errors — nothing
@@ -266,6 +297,24 @@ writerly:
 | а **върхът** — 77 | а **най-голямата** — 77 |
 | последният **цикъл** | последните **избори** |
 
+### Two editorial patterns worth reusing
+
+**When the subject is an ABUSABLE number, turn it on itself.** A risk index over an
+election is one number a reader can screenshot as proof of fraud. E2 is built so
+nobody can use it that way — the scariest-looking component (90/100) turns out to be
+under three thousand votes in one and a half million; the alarming label turns out to
+be a fixed threshold that knows nothing about the past; and the one reading actually
+maxed out is not an integrity signal at all. The video is *more* interesting for it,
+not less, and that is the point: the defensive framing IS the story.
+
+**Comparability across time is a claim, and usually the fragile one.** E2's index has
+13 elections of history but only 7 are comparable, because the headline averages the
+AVAILABLE signals and availability changed. A mean over three signals and a mean over
+five are different statistics wearing the same number. Whenever a video puts a figure
+next to its own past, ask what changed in the denominator, the coverage or the method
+— and assert the comparable set in the build script so a refresh cannot widen it
+silently.
+
 ## Step 4 — ⛔ GATE 1: the operator reads the script
 
 ```bash
@@ -330,8 +379,10 @@ timing model, the markup gotchas, layout minimums, and why we do **not** use GSA
 
 Extract 3–4 frames per render and **Read them** — look for tofu boxes, clipped text,
 and any figure that disagrees with the script. Then write the draft:
-`brand/videos/drafts/<slug>.md` + an entry in `brand/videos/index.json`, carrying the
-`postSlug` cross-link when the finding also shipped as a card.
+`brand/videos/<slug>/draft.md` + an entry in `brand/videos/index.json`, carrying the
+`postSlug` cross-link when the finding also shipped as a card. Paths inside the draft
+are relative to its own folder — the point of the layout is that "where is the MP4"
+has one answer.
 
 Show the operator: a frame or two, the BG script, the deep link, the sources, and
 where the file is. Remind them it is unpublished.
