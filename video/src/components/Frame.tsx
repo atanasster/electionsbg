@@ -1,36 +1,20 @@
 import React from "react";
-import { AbsoluteFill, staticFile, useVideoConfig } from "remotion";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import { FONT, SAFE, THEME, scale, type ThemeName } from "../theme";
+import { injectFonts } from "../lib/fonts";
 
-/**
- * Font loading. Remotion renders in headless Chromium, where `system-ui` is
- * whatever the host happens to have — so Cyrillic must not be left to it. The
- * faces are the site's own self-hosted Inter, mirrored by `npm run video:fonts`.
- *
- * Injected once at module scope rather than per-component: a <style> per scene
- * would be re-inserted on every frame of every scene.
- */
 /**
  * Vertical band the wordmark occupies, in base (1080-wide) pixels. Content is
  * padded clear of it — see the Frame body.
  */
 export const WORDMARK_BAND = 64;
 
-let fontsInjected = false;
-const injectFonts = () => {
-  if (fontsInjected || typeof document === "undefined") return;
-  fontsInjected = true;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = staticFile("fonts/inter.css");
-  document.head.appendChild(link);
-};
-
 /**
- * The shared stage: background wash, safe area, wordmark.
+ * The portrait stage for the SHORTS: background wash, safe area, wordmark.
  *
- * Every child positions itself against a 1080-wide base and is scaled by the real
- * composition width, so one set of scenes serves 9:16, 1:1 and 16:9.
+ * Children position against a 1080-wide base and scale by the real composition
+ * width, which serves 9:16 and 4:5. Landscape uses `Stage16x9` instead — it is a
+ * different layout, not a rescale.
  */
 export const Frame: React.FC<{
   theme?: ThemeName;

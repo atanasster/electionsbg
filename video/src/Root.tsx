@@ -8,6 +8,12 @@ import {
 import { t1 } from "./specs/t1-cost-per-vote";
 import { t2 } from "./specs/t2-changed-winner";
 import { t3 } from "./specs/t3-inflation-rank";
+import { e1 } from "./specs/e1-inflation";
+import {
+  ExplainerVideo,
+  calculateExplainerMetadata,
+  type ExplainerProps,
+} from "./compositions/ExplainerVideo";
 
 /**
  * One composition per (spec × aspect). The two are NOT interchangeable placements:
@@ -67,6 +73,19 @@ export const RemotionRoot: React.FC = () => {
         // that spends the extra width instead of fighting it. That belongs with the
         // `explainer` format in phase 4, not smuggled into the shorts.
       ])}
+      {/* 16:9 explainer — its OWN layout, not a rescale of the shorts. */}
+      <Composition
+        id={`${e1.slug}--yt`}
+        component={ExplainerVideo}
+        durationInFrames={2700}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={
+          { spec: e1, sceneDurations: [], captions: false } as ExplainerProps
+        }
+        calculateMetadata={calculateExplainerMetadata}
+      />
     </>
   );
 };

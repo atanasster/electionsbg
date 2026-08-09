@@ -1,4 +1,5 @@
 import type { PeerGeo } from "../components/Flag";
+import type { CanvasState } from "./canvasState";
 
 /**
  * The video spec — the same shape the `naiasno-video` skill writes and the
@@ -62,6 +63,44 @@ export type VideoSpec = {
   scenes: Scene[];
 };
 
+/**
+ * The 16:9 explainer. Unlike a short, scenes do not own a full-screen visual:
+ * ONE canvas persists for the whole video and each scene declares only what it
+ * CHANGES about it (`canvas`), plus the rail copy for its own beat.
+ */
+export type ExplainerScene = {
+  id: number;
+  kicker?: string;
+  stat?: string;
+  headline: string;
+  body?: string;
+  onScreen: string;
+  voiceOver: string;
+  grounding?: { file: string; path: string };
+  canvas?: Partial<CanvasState>;
+};
+
+export type ExplainerSpec = {
+  slug: string;
+  kind: "explainer";
+  title: string;
+  /** Persistent header chrome — provenance is part of the argument here. */
+  topic: string;
+  period: string;
+  sourceLine: string;
+  link: string;
+  postSlug?: string;
+  sources: string[];
+  voice: { provider: string; voiceId: string };
+  scenes: ExplainerScene[];
+};
+
 /** Where a spec's per-scene audio lives, relative to `video/public/`. */
 export const audioPath = (slug: string, sceneId: number) =>
   `voiceover/${slug}/${String(sceneId).padStart(2, "0")}.wav`;
+
+/**
+ * What the voice/caption scripts need from a spec, regardless of format — they
+ * only ever touch the slug, kind, voice and each scene's id + voiceOver.
+ */
+export type VoiceableSpec = VideoSpec | ExplainerSpec;
