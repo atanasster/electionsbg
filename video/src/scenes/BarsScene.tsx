@@ -3,6 +3,7 @@ import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Frame, WORDMARK_BAND } from "../components/Frame";
 import { BEAT, SAFE, THEME, TYPE, scale } from "../theme";
 import type { Bar } from "../lib/spec";
+import { Flag } from "../components/Flag";
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
@@ -93,6 +94,9 @@ export const BarsScene: React.FC<{
             >
               <div
                 style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 14 * s,
                   fontSize: TYPE.support * s,
                   fontWeight: 600,
                   color: b.emphasis ? pal.text : pal.muted,
@@ -104,7 +108,19 @@ export const BarsScene: React.FC<{
                   whiteSpace: "nowrap",
                 }}
               >
-                {b.label}
+                {b.geo ? (
+                  <Flag geo={b.geo} size={TYPE.support * 0.78 * s} />
+                ) : null}
+                <span
+                  style={{
+                    minWidth: 0,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {b.label}
+                </span>
               </div>
               <div
                 style={{

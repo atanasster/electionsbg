@@ -7,6 +7,7 @@ import {
 } from "./compositions/ShortVideo";
 import { t1 } from "./specs/t1-cost-per-vote";
 import { t2 } from "./specs/t2-changed-winner";
+import { t3 } from "./specs/t3-inflation-rank";
 
 /**
  * One composition per (spec × aspect). The two are NOT interchangeable placements:
@@ -21,7 +22,7 @@ import { t2 } from "./specs/t2-changed-winner";
  * the real length measured from the narration.
  */
 export const RemotionRoot: React.FC = () => {
-  const specs = [t1, t2];
+  const specs = [t1, t2, t3];
 
   return (
     <>

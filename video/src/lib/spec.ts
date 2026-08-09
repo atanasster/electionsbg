@@ -1,3 +1,5 @@
+import type { PeerGeo } from "../components/Flag";
+
 /**
  * The video spec — the same shape the `naiasno-video` skill writes and the
  * operator signs off at gate 1.
@@ -18,6 +20,12 @@ export type Bar = {
   note?: string;
   /** Draws in `accent` instead of `cool` — at most one or two per chart. */
   emphasis?: boolean;
+  /**
+   * Renders the country flag before the label. Inline SVG, never emoji — an
+   * emoji flag depends on the render host having an emoji font, which headless
+   * Chromium often lacks.
+   */
+  geo?: PeerGeo;
 };
 
 export type Visual =

@@ -15,10 +15,11 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { t1 } from "../../video/src/specs/t1-cost-per-vote";
 import { t2 } from "../../video/src/specs/t2-changed-winner";
+import { t3 } from "../../video/src/specs/t3-inflation-rank";
 import { audioPath, type VideoSpec } from "../../video/src/lib/spec";
 import { toVtt } from "../../video/src/lib/captions";
 
-const SPECS: Record<string, VideoSpec> = { t1, t2 };
+const SPECS: Record<string, VideoSpec> = { t1, t2, t3 };
 
 /** Must match `sceneFrames`' default in video/src/lib/audio.ts. */
 const TAIL_SECONDS = 0.35;
