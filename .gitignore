@@ -368,3 +368,11 @@ data/procurement/.contracts_backup_*
 # the committed snapshot at data/opencalls/<source>.json, which is small, sorted and
 # diffable on purpose. Re-created by `npm run opencalls:isun`.
 /raw_data/opencalls/
+
+# Per-scene voice-over for the video compositions (docs/plans/explainer-video-v1.md
+# phase 1). Regenerable with `npm run video:voice -- <spec>`; a 4-scene short is
+# ~2.5 MB of WAV and it changes whenever a line is reworded. The SPEC is committed
+# source (video/src/specs/), the audio is not.
+/video/public/voiceover/
+# Remotion's bundle cache.
+/video/.remotion/

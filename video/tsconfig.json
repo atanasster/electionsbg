@@ -1,0 +1,26 @@
+{
+  // Deliberately NOT referenced from the root tsconfig. `npm run build` runs
+  // `tsc -b`, whose app project includes only `src/**/*` and `scripts` — keeping
+  // the compositions out of that graph means a video never slows or breaks a site
+  // deploy. The cost is that `npm run build` does not check this code, so it has
+  // its own gate: `npm run video:check`.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*", "remotion.config.ts"]
+}

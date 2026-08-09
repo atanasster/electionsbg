@@ -423,7 +423,16 @@ const GEMINI_VOICES: Voice[] = (
   ] as const
 ).map(([id, gender]) => ({ id, label: id, gender }));
 
-const gemini: Provider = {
+/**
+ * Exported because the PRODUCTION synthesis step (`scripts/video/synthesize.ts`)
+ * uses the same adapter the bake-off judged. A second implementation would be a
+ * second set of retry semantics, and the retries here exist because both failures
+ * they cover lose a scene's narration silently.
+ *
+ * Importing this module is side-effect-safe: `loadEnvLocal()` runs (which is
+ * wanted) and the entrypoint guard at the bottom keeps `main()` from firing.
+ */
+export const gemini: Provider = {
   name: "gemini",
   note: `${GEMINI_TTS_MODEL} — reuses GEMINI_API_KEY, no GCP setup`,
   configured: () => !!env("GEMINI_API_KEY"),
