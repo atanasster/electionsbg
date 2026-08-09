@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-05T13:38:24.973Z",
-  "total": 67,
+  "generatedAt": "2026-08-09T06:17:39.215Z",
+  "total": 68,
   "entries": [
     {
       "mpId": 3271,
@@ -116,9 +116,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 354337099.37,
+      "totalEur": 354697619.37,
       "totalOther": {},
-      "contractCount": 352,
+      "contractCount": 353,
       "awardCount": 0,
       "byYear": [
         {
@@ -213,8 +213,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 31,
-          "totalEur": 29547870.3,
+          "contractCount": 32,
+          "totalEur": 29908390.3,
           "totalOther": {}
         }
       ],
@@ -222,8 +222,8 @@
         {
           "eik": "180680495",
           "name": "Министерство на електронното управление",
-          "contractCount": 63,
-          "totalEur": 80961145.24,
+          "contractCount": 64,
+          "totalEur": 81321665.24,
           "totalOther": {}
         },
         {
@@ -2839,7 +2839,7 @@
       "relations": [
         {
           "kind": "stake",
-          "shareSize": "член на УС",
+          "shareSize": "Член на УС",
           "valueEur": null,
           "fiscalYear": null,
           "declarationYear": 2021
@@ -4066,7 +4066,7 @@
       "relations": [
         {
           "kind": "stake",
-          "shareSize": "член на Съвета на директорите",
+          "shareSize": "Член на Съвета на директорите",
           "valueEur": null,
           "fiscalYear": null,
           "declarationYear": 2023
@@ -4090,6 +4090,45 @@
           "name": "Професионална гимназия по механоелектротехника \"ГЕН. Иван Бъчваров\"",
           "contractCount": 1,
           "totalEur": 43970.33,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 845,
+      "mpName": "Божидар Димитров Стоянов",
+      "contractorEik": "203903679",
+      "contractorName": "Ремс – МАР сървисиз ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 40227.17,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 40227.17,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "129010196",
+          "name": "Командване на военноморските сили",
+          "contractCount": 4,
+          "totalEur": 40227.17,
           "totalOther": {}
         }
       ]

@@ -1,7 +1,15 @@
 {
   "obshtina": "VRC27",
-  "generatedAt": "2026-08-06T22:39:56.182Z",
+  "generatedAt": "2026-08-09T08:48:02.693Z",
   "events": [
+    {
+      "date": "2026-08-06",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Мездра · Специализиран превоз на деца и ученици през учебната 2026–2027 г. на т · €149K (прогнозна)",
+      "headline_en": "Tender announced: Община Мездра · Специализиран превоз на деца и ученици през учебната 2026–2027 г. на т · €149K (estimated)",
+      "amountEur": 148614.45,
+      "link": "/tenders/00007-2026-0016"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -77,14 +85,6 @@
       "headline_en": "Tender announced: Община Мездра · Изпълнение на СМР за ремонт на детски градини на територията на град М · €323K (estimated)",
       "amountEur": 323065,
       "link": "/tenders/00007-2026-0011"
-    },
-    {
-      "date": "2026-05-05",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Мездра · Упражняване на строителен надзор при изпълнение на реконструкция и рех · €33K (прогнозна)",
-      "headline_en": "Tender announced: Община Мездра · Упражняване на строителен надзор при изпълнение на реконструкция и рех · €33K (estimated)",
-      "amountEur": 32722.68,
-      "link": "/tenders/00007-2026-0010"
     },
     {
       "date": "2025-12-05",
@@ -184,6 +184,33 @@
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на кметство Боденец — Яничка Методиева Бебева (ПП ГЕРБ)",
       "headline_en": "By-election: kmetstvo mayor (Боденец) elected — Яничка Методиева Бебева (ПП ГЕРБ)"
+    },
+    {
+      "date": "2018-09-28",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Welcome to the middle ages\" · €252K",
+      "headline_en": "Interreg: \"Welcome to the middle ages\" · €252K",
+      "amountEur": 251830.36,
+      "detail": "ИНТЕРРЕГ V-A Румъния - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2018-09-13",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Joint efforts against natural disasters\" · €453K",
+      "headline_en": "Interreg: \"Joint efforts against natural disasters\" · €453K",
+      "amountEur": 453175.58,
+      "detail": "ИНТЕРРЕГ V-A Румъния - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2017-07-31",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Българо - сръбско Гурме Влак\" · €13K",
+      "headline_en": "Interreg: \"Българо - сръбско Гурме Влак\" · €13K",
+      "amountEur": 13361.73,
+      "detail": "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
+      "programPeriod": "2014-2020"
     }
   ]
 }

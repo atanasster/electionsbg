@@ -1,7 +1,15 @@
 {
   "obshtina": "BGS13",
-  "generatedAt": "2026-08-06T22:40:03.265Z",
+  "generatedAt": "2026-08-09T08:48:09.520Z",
   "events": [
+    {
+      "date": "2026-08-06",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Царево · Изпълнение на инженеринг – изготвяне на инвестиционен проект, строител · €1.2M (прогнозна)",
+      "headline_en": "Tender announced: Община Царево · Изпълнение на инженеринг – изготвяне на инвестиционен проект, строител · €1.2M (estimated)",
+      "amountEur": 1217266.72,
+      "link": "/tenders/00079-2026-0017"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -67,14 +75,6 @@
       "headline_en": "Tender announced: Община Царево · Доставка на два броя фабрично нови мултифункционални метачни машини по · €235K (estimated)",
       "amountEur": 235000,
       "link": "/tenders/00079-2026-0012"
-    },
-    {
-      "date": "2026-03-30",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Царево · Възлагане на обществен превоз на пътници по автобусни линии от областн · €51K (прогнозна)",
-      "headline_en": "Tender announced: Община Царево · Възлагане на обществен превоз на пътници по автобусни линии от областн · €51K (estimated)",
-      "amountEur": 51129.19,
-      "link": "/tenders/00079-2026-0011"
     },
     {
       "date": "2026-01-19",
@@ -144,10 +144,55 @@
       "programPeriod": "2021-RRP"
     },
     {
+      "date": "2020-12-03",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Велосипедни алеи в Къркларели и Царево\" · €198K",
+      "headline_en": "Interreg: \"Велосипедни алеи в Къркларели и Царево\" · €198K",
+      "amountEur": 197813.26,
+      "detail": "ИНТЕРРЕГ - ИПП България - Турция 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2020-09-25",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Пътища към наследството\" · €192K",
+      "headline_en": "Interreg: \"Пътища към наследството\" · €192K",
+      "amountEur": 191984.8,
+      "detail": "ИНТЕРРЕГ - ИПП България - Турция 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2020-06-17",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Joint Monitoring for Environmental Protection in BSB countries\" · €200K",
+      "headline_en": "Interreg: \"Joint Monitoring for Environmental Protection in BSB countries\" · €200K",
+      "amountEur": 199839.17,
+      "detail": "Черноморски басейн 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2020-03-04",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Достъпно наследство - Устойчив туризъм, основан на културни активи (CAST)\" · €189K",
+      "headline_en": "Interreg: \"Достъпно наследство - Устойчив туризъм, основан на културни активи (CAST)\" · €189K",
+      "amountEur": 189457.58,
+      "detail": "ИНТЕРРЕГ - ИПП България - Турция 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
       "date": "2017-04-30",
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на кметство Лозенец — Женя Бориславова Гандиева (ПП ГЕРБ)",
       "headline_en": "By-election: kmetstvo mayor (Лозенец) elected — Женя Бориславова Гандиева (ПП ГЕРБ)"
+    },
+    {
+      "date": "2017-04-12",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Зелен парк – Природа, релаксация и туризъм в Царево и Къркларели\" · €206K",
+      "headline_en": "Interreg: \"Зелен парк – Природа, релаксация и туризъм в Царево и Къркларели\" · €206K",
+      "amountEur": 205785.43,
+      "detail": "ИНТЕРРЕГ - ИПП България - Турция 2014-2020",
+      "programPeriod": "2014-2020"
     }
   ]
 }

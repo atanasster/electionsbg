@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-09T03:39:24.352Z",
+  "generatedAt": "2026-08-09T08:48:18.036Z",
   "nodes": [
     {
       "id": "src:water",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-08T06:08:44.721Z",
+      "freshness": "2026-08-09T05:16:22.934Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-08T06:08:44.721Z"
+          "freshness": "2026-08-09T05:16:22.934Z"
         }
       ],
       "x": 28,
@@ -633,7 +633,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-05T06:08:51.162Z",
+      "freshness": "2026-08-09T06:09:32.970Z",
       "skills": [
         "update-funds"
       ],
@@ -650,7 +650,7 @@
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-08-02T22:15:14.695Z"
+          "freshness": "2026-08-09T06:09:32.970Z"
         }
       ],
       "x": 28,
@@ -680,6 +680,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
+      "freshness": "2026-08-09T05:16:22.934Z",
       "skills": [
         "update-open-calls"
       ],
@@ -688,13 +689,15 @@
           "id": "isun_procedures",
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-08-09T05:16:22.934Z"
         },
         {
           "id": "sp2023_indicative",
           "label": "ДФЗ — индикативен график (Стратегически план)",
           "url": "https://www.sp2023.bg/index.php/bg/proceduri/indikativen-grafik",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-08-09T05:16:22.934Z"
         }
       ],
       "x": 28,
@@ -837,7 +840,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-06T06:09:24.570Z",
+      "freshness": "2026-08-09T06:09:32.970Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -956,7 +959,7 @@
           "label": "НЗОК — брой случаи и ЗОЛ по клинични пътеки (месечно)",
           "url": "https://nhif.bg/bg/hospitalcare-report/activities/2026",
           "cadence": "monthly",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-08-09T06:09:32.970Z"
         },
         {
           "id": "nzok_nrd_tariffs",
@@ -1242,7 +1245,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-08T06:08:44.721Z",
+      "freshness": "2026-08-09T05:16:22.934Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1254,14 +1257,14 @@
           "label": "Eurostat macro (BG): 26 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-08T06:08:44.721Z"
+          "freshness": "2026-08-09T05:16:22.934Z"
         },
         {
           "id": "eurostat_policy",
           "label": "Eurostat policy-baseline (BG): consumption + tax aggregates",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table",
           "cadence": "monthly",
-          "freshness": "2026-07-10T06:08:57.396Z"
+          "freshness": "2026-08-09T05:16:22.934Z"
         },
         {
           "id": "eurostat_regional",
@@ -1569,7 +1572,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-08T06:08:44.721Z",
+      "freshness": "2026-08-09T05:16:22.934Z",
       "skills": [
         "update-prices"
       ],
@@ -1579,7 +1582,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-08T06:08:44.721Z"
+          "freshness": "2026-08-09T05:16:22.934Z"
         }
       ],
       "x": 28,
@@ -1905,7 +1908,7 @@
       "url": "https://iisda.government.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-08-02T22:15:14.695Z",
+      "freshness": "2026-08-09T05:16:22.934Z",
       "skills": [
         "update-administration"
       ],
@@ -1915,7 +1918,7 @@
           "label": "Административен регистър — услуги (IISDA)",
           "url": "https://iisda.government.bg/adm_services/services/from_all_administrations",
           "cadence": "weekly",
-          "freshness": "2026-08-02T22:15:14.695Z"
+          "freshness": "2026-08-09T05:16:22.934Z"
         },
         {
           "id": "eurostat_egov",

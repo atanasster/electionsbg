@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T13:38:29.703Z",
+  "generatedAt": "2026-08-09T06:17:43.689Z",
   "nodes": [
     {
       "id": "contractor:122055819",
@@ -40,11 +40,6 @@
       "id": "contractor:127003032",
       "type": "contractor",
       "label": "АЛ и КО АД"
-    },
-    {
-      "id": "contractor:115813904",
-      "type": "contractor",
-      "label": "Дестинация българия ЕООД"
     },
     {
       "id": "awarder:000093442",
@@ -219,7 +214,7 @@
     {
       "id": "awarder:000695406",
       "type": "awarder",
-      "label": "Министерство на финансите - централен орган за покупки"
+      "label": "Министерство на финансите"
     },
     {
       "id": "awarder:000696327",
@@ -240,6 +235,11 @@
       "id": "contractor:205677435",
       "type": "contractor",
       "label": "Транспортно строителство и възстановяване ЕАД"
+    },
+    {
+      "id": "contractor:115813904",
+      "type": "contractor",
+      "label": "Дестинация българия ЕООД"
     },
     {
       "id": "awarder:000903946",
@@ -389,7 +389,7 @@
     {
       "id": "awarder:175203478",
       "type": "awarder",
-      "label": "Представляващият Булгартрансгаз ЕАД, изпълнителен директор"
+      "label": "Булгартрансгаз ЕАД"
     },
     {
       "id": "awarder:175405647",
@@ -1011,27 +1011,27 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:121396123",
@@ -1136,7 +1136,7 @@
     {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
-      "valueEur": 80961145.24
+      "valueEur": 81321665.24
     },
     {
       "source": "contractor:831373560",

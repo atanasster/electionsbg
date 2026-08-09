@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T13:38:29.703Z",
+  "generatedAt": "2026-08-09T06:17:43.689Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -285,11 +285,6 @@
       "id": "contractor:130197330",
       "type": "contractor",
       "label": "Абак ДС ЕООД"
-    },
-    {
-      "id": "contractor:115813904",
-      "type": "contractor",
-      "label": "Дестинация българия ЕООД"
     },
     {
       "id": "awarder:000093442",
@@ -1479,7 +1474,7 @@
     {
       "id": "awarder:000695406",
       "type": "awarder",
-      "label": "Министерство на финансите - централен орган за покупки"
+      "label": "Министерство на финансите"
     },
     {
       "id": "awarder:000696327",
@@ -1720,6 +1715,11 @@
       "id": "awarder:000852633",
       "type": "awarder",
       "label": "ОБЩИНА ГЕНЕРАЛ ТОШЕВО"
+    },
+    {
+      "id": "contractor:115813904",
+      "type": "contractor",
+      "label": "Дестинация българия ЕООД"
     },
     {
       "id": "awarder:000852754",
@@ -3214,7 +3214,7 @@
     {
       "id": "awarder:175203478",
       "type": "awarder",
-      "label": "Представляващият Булгартрансгаз ЕАД, изпълнителен директор"
+      "label": "Булгартрансгаз ЕАД"
     },
     {
       "id": "awarder:175263817",
@@ -4162,6 +4162,16 @@
       "label": "АНДРЕЙ ИВАНОВ ЦЕКОВ"
     },
     {
+      "id": "contractor:203903679",
+      "type": "contractor",
+      "label": "Ремс – МАР сървисиз ЕООД"
+    },
+    {
+      "id": "mp:845",
+      "type": "mp",
+      "label": "Божидар Димитров Стоянов"
+    },
+    {
       "id": "contractor:105581560",
       "type": "contractor",
       "label": "Ауто Крез ЕООД"
@@ -5012,6 +5022,11 @@
       "label": "Любомир Стоянов Харалампиев"
     },
     {
+      "id": "official:ivan-iordanov-pushkarov-1f4cbb",
+      "type": "official",
+      "label": "Иван Йорданов Пушкаров"
+    },
+    {
       "id": "official:nikola-vaskov-vasilev-e57937",
       "type": "official",
       "label": "Никола Васков Василев"
@@ -5025,11 +5040,6 @@
       "id": "official:yuliya-evgenieva-varadinova-milkova-87dd19",
       "type": "official",
       "label": "Юлия Евгениева Варадинова-Милкова"
-    },
-    {
-      "id": "official:ivan-iordanov-pushkarov-1f4cbb",
-      "type": "official",
-      "label": "Иван Йорданов Пушкаров"
     },
     {
       "id": "official:anton-todorov-tonev-909ebe",
@@ -7532,11 +7542,6 @@
       "source": "awarder:000093435",
       "target": "contractor:130197330",
       "valueEur": 417210.65
-    },
-    {
-      "source": "awarder:000093435",
-      "target": "contractor:115813904",
-      "valueEur": 127818.36
     },
     {
       "source": "awarder:000093442",
@@ -10821,7 +10826,7 @@
     {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
-      "valueEur": 80961145.24
+      "valueEur": 81321665.24
     },
     {
       "source": "awarder:180742160",
@@ -11386,7 +11391,7 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:121396123",
@@ -11649,6 +11654,11 @@
       "valueEur": 43970.33
     },
     {
+      "source": "contractor:203903679",
+      "target": "mp:845",
+      "valueEur": 40227.17
+    },
+    {
       "source": "contractor:105581560",
       "target": "mp:5181",
       "valueEur": 39931.38
@@ -11751,22 +11761,22 @@
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 354337099.37
+      "valueEur": 354697619.37
     },
     {
       "source": "contractor:121396123",
@@ -12459,6 +12469,11 @@
       "valueEur": 1857841.94
     },
     {
+      "source": "contractor:837068284",
+      "target": "official:ivan-iordanov-pushkarov-1f4cbb",
+      "valueEur": 1856992.23
+    },
+    {
       "source": "contractor:130822878",
       "target": "official:nikola-vaskov-vasilev-e57937",
       "valueEur": 1840645.65
@@ -12472,11 +12487,6 @@
       "source": "contractor:130822878",
       "target": "official:yuliya-evgenieva-varadinova-milkova-87dd19",
       "valueEur": 1840645.65
-    },
-    {
-      "source": "contractor:837068284",
-      "target": "official:ivan-iordanov-pushkarov-1f4cbb",
-      "valueEur": 1836992.23
     },
     {
       "source": "contractor:123685800",
@@ -14057,6 +14067,11 @@
       "source": "awarder:000649348",
       "target": "contractor:203010795",
       "valueEur": 46578.69
+    },
+    {
+      "source": "awarder:129010196",
+      "target": "contractor:203903679",
+      "valueEur": 40227.17
     },
     {
       "source": "awarder:201617476",

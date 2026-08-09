@@ -1,7 +1,15 @@
 {
   "obshtina": "SML27",
-  "generatedAt": "2026-08-06T22:39:58.899Z",
+  "generatedAt": "2026-08-09T08:48:05.261Z",
   "events": [
+    {
+      "date": "2026-08-07",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Рудозем · „Сметосъбиране и сметоизвозване на твърди битови отпадъци и обслужване · €133K (прогнозна)",
+      "headline_en": "Tender announced: Община Рудозем · „Сметосъбиране и сметоизвозване на твърди битови отпадъци и обслужване · €133K (estimated)",
+      "amountEur": 133200,
+      "link": "/tenders/00254-2026-0017"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -96,14 +104,6 @@
       "link": "/tenders/00254-2026-0012"
     },
     {
-      "date": "2026-05-19",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Рудозем · \"Осъществяване на строителен надзор при реконструкция на улици и при р · €24K (прогнозна)",
-      "headline_en": "Tender announced: Община Рудозем · \"Осъществяване на строителен надзор при реконструкция на улици и при р · €24K (estimated)",
-      "amountEur": 24343.64,
-      "link": "/tenders/00254-2026-0011"
-    },
-    {
       "date": "2026-02-20",
       "kind": "procurement",
       "noticeType": "awarded",
@@ -169,6 +169,24 @@
       "amountEur": 1754753.74,
       "detail": "Национален план за възстановяване и устойчивост",
       "programPeriod": "2021-RRP"
+    },
+    {
+      "date": "2020-12-29",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Processing, pacaging and marketing of fruits and vegetables\" · €300K",
+      "headline_en": "Interreg: \"Processing, pacaging and marketing of fruits and vegetables\" · €300K",
+      "amountEur": 299992.57,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2017-10-31",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Enhancement of social entrepreneurship through the establishment of support structures in the CB area\" · €101K",
+      "headline_en": "Interreg: \"Enhancement of social entrepreneurship through the establishment of support structures in the CB area\" · €101K",
+      "amountEur": 100760,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
     }
   ]
 }

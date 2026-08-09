@@ -1,7 +1,15 @@
 {
   "obshtina": "BLG03",
-  "generatedAt": "2026-08-06T22:39:49.553Z",
+  "generatedAt": "2026-08-09T08:47:56.147Z",
   "events": [
+    {
+      "date": "2026-08-06",
+      "kind": "procurement",
+      "noticeType": "awarded",
+      "headline_bg": "Възложена поръчка: Община Благоевград → Булстрой - монтажи ЕООД · €3.1M",
+      "headline_en": "Contract awarded: Община Благоевград → Булстрой - монтажи ЕООД · €3.1M",
+      "amountEur": 3076708.56
+    },
     {
       "date": "2026-08-04",
       "kind": "tender",
@@ -112,12 +120,13 @@
       "amountEur": 1970350.07
     },
     {
-      "date": "2025-05-12",
-      "kind": "procurement",
-      "noticeType": "awarded",
-      "headline_bg": "Възложена поръчка: Община Благоевград → Ес Ер Технолоджис (Ес Ер Те) ООД · €1.4M",
-      "headline_en": "Contract awarded: Община Благоевград → Ес Ер Технолоджис (Ес Ер Те) ООД · €1.4M",
-      "amountEur": 1367748.6
+      "date": "2025-04-02",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Integrated crossborder tourism actions in Blagoevgrad-Delchevo region\" · €603K",
+      "headline_en": "Interreg: \"Integrated crossborder tourism actions in Blagoevgrad-Delchevo region\" · €603K",
+      "amountEur": 602941.16,
+      "detail": "ИНТЕРРЕГ VI-A ИПП България - Северна Македония 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2024-01-01",
@@ -147,6 +156,15 @@
       "programPeriod": "2021-2027"
     },
     {
+      "date": "2023-11-18",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „“ESTABLISHMENT OF A NEW BORDER CROSS CHECK POINT (BCCP) STRUMYANI-BEROVO (“KLEPALO”) BETWEEN BULGARIA AND NORTH MACEDONIA”\" · €7.5M",
+      "headline_en": "Interreg: \"“ESTABLISHMENT OF A NEW BORDER CROSS CHECK POINT (BCCP) STRUMYANI-BEROVO (“KLEPALO”) BETWEEN BULGARIA AND NORTH MACEDONIA”\" · €7.5M",
+      "amountEur": 7450694.62,
+      "detail": "ИНТЕРРЕГ VI-A ИПП България - Северна Македония 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
       "date": "2023-10-29",
       "kind": "local_election",
       "headline_bg": "Местни избори 2023: избран кмет — Методи Петров Байкушев (КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ)",
@@ -163,6 +181,33 @@
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на община — Илко Стоянов Стоянов (ПП ИМА ТАКЪВ НАРОД)",
       "headline_en": "By-election: municipal mayor elected — Илко Стоянов Стоянов (ПП ИМА ТАКЪВ НАРОД)"
+    },
+    {
+      "date": "2017-10-20",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Reinforcing protected areas capacity through an innovative methodology for sustainability\" · €501K",
+      "headline_en": "Interreg: \"Reinforcing protected areas capacity through an innovative methodology for sustainability\" · €501K",
+      "amountEur": 500609.49,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2017-09-22",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Promotion and Development of YMC(H)A-Youth Mobilization-Cultural Heritage and Athletic Valorization\" · €837K",
+      "headline_en": "Interreg: \"Promotion and Development of YMC(H)A-Youth Mobilization-Cultural Heritage and Athletic Valorization\" · €837K",
+      "amountEur": 836699.5,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2017-09-11",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Cross Border Planning and Infrastructure Measures for Flood Protection\" · €790K",
+      "headline_en": "Interreg: \"Cross Border Planning and Infrastructure Measures for Flood Protection\" · €790K",
+      "amountEur": 790000,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
     },
     {
       "date": "2017-01-01",

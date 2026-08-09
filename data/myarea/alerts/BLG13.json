@@ -1,7 +1,15 @@
 {
   "obshtina": "BLG13",
-  "generatedAt": "2026-08-06T22:39:52.100Z",
+  "generatedAt": "2026-08-09T08:47:58.594Z",
   "events": [
+    {
+      "date": "2026-08-07",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Гърмен · „Изграждане на рехабилитационен център към социален център“, находяща  · €118K (прогнозна)",
+      "headline_en": "Tender announced: Община Гърмен · „Изграждане на рехабилитационен център към социален център“, находяща  · €118K (estimated)",
+      "amountEur": 118432,
+      "link": "/tenders/00656-2026-0027"
+    },
     {
       "date": "2026-07-23",
       "kind": "tender",
@@ -41,14 +49,6 @@
       "headline_en": "Tender announced: Община Гърмен · „Реконструкция на улица в с. Скребатно между О.Т.38-О.Т.40-О.Т.42-О.Т. · €69K (estimated)",
       "amountEur": 69187.03,
       "link": "/tenders/00656-2026-0022"
-    },
-    {
-      "date": "2026-06-10",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Гърмен · „Реконструкция на улици между О.Т.25-О.Т.36, О.Т. 57 – О.Т. 82 и О.Т.7 · €53K (прогнозна)",
-      "headline_en": "Tender announced: Община Гърмен · „Реконструкция на улици между О.Т.25-О.Т.36, О.Т. 57 – О.Т. 82 и О.Т.7 · €53K (estimated)",
-      "amountEur": 53476.84,
-      "link": "/tenders/00656-2026-0021"
     },
     {
       "date": "2025-10-31",
@@ -117,12 +117,39 @@
       "programPeriod": "2021-RRP"
     },
     {
+      "date": "2021-06-02",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Development of joint products and expanding the market opportunities of companies working in the field of restaurant and catering\" · €270K",
+      "headline_en": "Interreg: \"Development of joint products and expanding the market opportunities of companies working in the field of restaurant and catering\" · €270K",
+      "amountEur": 270137.93,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2017-09-28",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Initiative for improving the capacity and accessibility of tourism destinations in the cross border area\" · €278K",
+      "headline_en": "Interreg: \"Initiative for improving the capacity and accessibility of tourism destinations in the cross border area\" · €278K",
+      "amountEur": 277767.45,
+      "detail": "ИНТЕРРЕГ V-A Гърция - България 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
       "date": "2017-01-01",
       "kind": "eu_funds",
       "headline_bg": "Еврофонд: „Изпълнение на на стратегия за Водено от общностите местно развие на територията на общините Гоце Делчев, Гърмен и Хаджидимово за периода 2023-2027, включително дейности за сътрудничество\" · €748K",
       "headline_en": "EU funds: \"Изпълнение на на стратегия за Водено от общностите местно развие на територията на общините Гоце Делчев, Гърмен и Хаджидимово за периода 2023-2027, включително дейности за сътрудничество\" · €748K",
       "amountEur": 747651.89,
       "detail": "Стратегически план за развитие на земеделието и селските райони на Република България - ПОДХОД ВОМР",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2016-10-17",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Развитие на туризма в трансграничния регион Босилово - Гърмен, чрез запазване на местните културни традиции\" · €182K",
+      "headline_en": "Interreg: \"Развитие на туризма в трансграничния регион Босилово - Гърмен, чрез запазване на местните културни традиции\" · €182K",
+      "amountEur": 182435.17,
+      "detail": "ИНТЕРРЕГ - ИПП България - Северна Македония 2014-2020",
       "programPeriod": "2014-2020"
     },
     {

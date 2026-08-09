@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-08-06T22:39:05.387Z",
+  "updatedAt": "2026-08-09T08:47:15.853Z",
   "entries": [
+    {
+      "timestamp": "2026-08-09T08:47:15.853Z",
+      "date": "2026-08-09",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-08-08 (+2 daily archives; 1,389,864 store rows, 237 settlements, 203 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-08-09T08:41:44.111Z",
+      "date": "2026-08-09",
+      "skill": "update-administration",
+      "summary": "Административен регистър: 2672 услуги в 4 нива (+3 нови)",
+      "source": "Административен регистър — услуги (ИИСДА)"
+    },
+    {
+      "timestamp": "2026-08-09T08:39:52.427Z",
+      "date": "2026-08-09",
+      "skill": "update-budget",
+      "summary": "Данъчният симулатор е пребазиран към новите данни на Евростат: базова 2025 г., ДДС коефициент 1.170",
+      "source": "Eurostat policy-baseline (BG)"
+    },
+    {
+      "timestamp": "2026-08-09T08:39:03.511Z",
+      "date": "2026-08-09",
+      "skill": "update-macro",
+      "summary": "Макро: индексът на промишленото производство добави 2026 Q2 (89.2); обновени и европейските сравнения и ценовите нива",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-08-09T08:19:07.751Z",
+      "date": "2026-08-09",
+      "skill": "update-council-minutes",
+      "summary": "Общински съвети: 68 нови решения — Пловдив +33 (протокол 12), Плевен +35 (протокол 47)",
+      "source": "Протоколи и решения на общински съвети"
+    },
+    {
+      "timestamp": "2026-08-09T07:15:40.634Z",
+      "date": "2026-08-09",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: 209 нови договора от 106 възложителя; 6,890 договора с актуализирана стойност след анекси; корпус 402,609 договора / €93.54 млрд",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-09T06:56:38.144Z",
+      "date": "2026-08-09",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 63 342 лица, 120 345 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-08-06T22:39:05.387Z",
       "date": "2026-08-06",

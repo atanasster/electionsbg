@@ -1,7 +1,15 @@
 {
   "obshtina": "PAZ19",
-  "generatedAt": "2026-08-06T22:39:57.363Z",
+  "generatedAt": "2026-08-09T08:48:03.879Z",
   "events": [
+    {
+      "date": "2026-08-07",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Пазарджик · „Доставка на контейнери за отпадъци във връзка с предоставяне на услуг · €110K (прогнозна)",
+      "headline_en": "Tender announced: Община Пазарджик · „Доставка на контейнери за отпадъци във връзка с предоставяне на услуг · €110K (estimated)",
+      "amountEur": 110000,
+      "link": "/tenders/00385-2026-0026"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -88,14 +96,6 @@
       "link": "/tenders/00385-2026-0021"
     },
     {
-      "date": "2026-06-15",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Пазарджик · Изготвяне на инвестиционни проекти във фаза „технически проект“ за изг · €20K (прогнозна)",
-      "headline_en": "Tender announced: Община Пазарджик · Изготвяне на инвестиционни проекти във фаза „технически проект“ за изг · €20K (estimated)",
-      "amountEur": 20000,
-      "link": "/tenders/00385-2026-0020"
-    },
-    {
       "date": "2026-02-22",
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на кметство Мало Конаре — Йордан Петков Пеев (КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ)",
@@ -132,10 +132,28 @@
       "amountEur": 2259718.38
     },
     {
+      "date": "2025-04-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Fostering innovative and sustainable bio-waste management and circular bio-economy in the Mediterranean area\" · €172K",
+      "headline_en": "Interreg: \"Fostering innovative and sustainable bio-waste management and circular bio-economy in the Mediterranean area\" · €172K",
+      "amountEur": 171746.9,
+      "detail": "ИНТЕРРЕГ VI-Б Евро-Средиземноморски басейн (EURO MED) 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
       "date": "2025-02-16",
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на кметство Драгор — Асен Димитров Чавдаров (ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ)",
       "headline_en": "By-election: kmetstvo mayor (Драгор) elected — Асен Димитров Чавдаров (ЗЕМЕДЕЛСКИ НАРОДЕН СЪЮЗ)"
+    },
+    {
+      "date": "2024-04-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Easing AGrophotovoltaics for EuRope\" · €190K",
+      "headline_en": "Interreg: \"Easing AGrophotovoltaics for EuRope\" · €190K",
+      "amountEur": 190106,
+      "detail": "ИНТЕРРЕГ VI-С Европа 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2024-01-01",
@@ -147,10 +165,28 @@
       "programPeriod": "2021-2027"
     },
     {
+      "date": "2024-01-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „INnovative FInancing solutions for climate planning of REsilient and carbon neutral living areas\" · €257K",
+      "headline_en": "Interreg: \"INnovative FInancing solutions for climate planning of REsilient and carbon neutral living areas\" · €257K",
+      "amountEur": 257200,
+      "detail": "ИНТЕРРЕГ VI-Б Евро-Средиземноморски басейн (EURO MED) 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
       "date": "2023-10-29",
       "kind": "local_election",
       "headline_bg": "Местни избори 2023: избран кмет — Петър Николаев Куленски (КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ)",
       "headline_en": "2023 local elections: mayor elected — Петър Николаев Куленски (КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ)"
+    },
+    {
+      "date": "2023-03-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Rural Proofing. Cooperation for better sparsely populated rural, coastal and mountain focused governance.\" · €188K",
+      "headline_en": "Interreg: \"Rural Proofing. Cooperation for better sparsely populated rural, coastal and mountain focused governance.\" · €188K",
+      "amountEur": 188309,
+      "detail": "ИНТЕРРЕГ VI-С Европа 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2023-01-01",
@@ -195,16 +231,19 @@
       "headline_en": "By-election: kmetstvo mayor (кметство Величково) elected — Мария Бориславова Загарьова (ПП ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ)"
     },
     {
+      "date": "2018-06-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „REGIONal Strategies 4 FOOD 4.0 Revolution\" · €171K",
+      "headline_en": "Interreg: \"REGIONal Strategies 4 FOOD 4.0 Revolution\" · €171K",
+      "amountEur": 170740,
+      "detail": "ИНТЕРРЕГ ЕВРОПА 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
       "date": "2017-02-19",
       "kind": "local_election",
       "headline_bg": "Извънредни местни избори: избран кмет на кметство Мирянци — Христо Стоянов Христов (Инициативен комитет)",
       "headline_en": "By-election: kmetstvo mayor (Мирянци) elected — Христо Стоянов Христов (Инициативен комитет)"
-    },
-    {
-      "date": "2012-10-07",
-      "kind": "local_election",
-      "headline_bg": "Извънредни местни избори: избран кмет на кметство Ивайло — Милчо Йорданов Донгов (ПП \"ГЕРБ\")",
-      "headline_en": "By-election: kmetstvo mayor (Ивайло) elected — Милчо Йорданов Донгов (ПП \"ГЕРБ\")"
     }
   ]
 }

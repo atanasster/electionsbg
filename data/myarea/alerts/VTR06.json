@@ -1,7 +1,15 @@
 {
   "obshtina": "VTR06",
-  "generatedAt": "2026-08-06T22:39:51.728Z",
+  "generatedAt": "2026-08-09T08:47:58.279Z",
   "events": [
+    {
+      "date": "2026-08-06",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Горна оряховица · „Изграждане на ПСОВ, напорна канализация и рехабилитация на водопровод · €42K (прогнозна)",
+      "headline_en": "Tender announced: Община Горна оряховица · „Изграждане на ПСОВ, напорна канализация и рехабилитация на водопровод · €42K (estimated)",
+      "amountEur": 42000,
+      "link": "/tenders/00413-2026-0018"
+    },
     {
       "date": "2026-08-03",
       "kind": "tender",
@@ -88,14 +96,6 @@
       "link": "/tenders/00413-2026-0013"
     },
     {
-      "date": "2026-05-20",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Горна оряховица · Доставка и монтаж на оборудване и обзавеждане за Домашен социален патр · €17K (прогнозна)",
-      "headline_en": "Tender announced: Община Горна оряховица · Доставка и монтаж на оборудване и обзавеждане за Домашен социален патр · €17K (estimated)",
-      "amountEur": 17127.85,
-      "link": "/tenders/00413-2026-0012"
-    },
-    {
       "date": "2026-03-26",
       "kind": "procurement",
       "noticeType": "awarded",
@@ -110,6 +110,15 @@
       "headline_bg": "Възложена поръчка: Община Горна оряховица → Джамбо 33 ООД · €2.6M",
       "headline_en": "Contract awarded: Община Горна оряховица → Джамбо 33 ООД · €2.6M",
       "amountEur": 2554283.4
+    },
+    {
+      "date": "2025-12-24",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Romanian-Bulgarian Cross-Border Natural Heritage in the Context of Climate Change: Monitoring and Sustainability\" · €613K",
+      "headline_en": "Interreg: \"Romanian-Bulgarian Cross-Border Natural Heritage in the Context of Climate Change: Monitoring and Sustainability\" · €613K",
+      "amountEur": 612576.49,
+      "detail": "ИНТЕРРЕГ VI-A Румъния - България 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2025-10-01",
@@ -169,6 +178,15 @@
       "amountEur": 14303633.75,
       "detail": "Национален план за възстановяване и устойчивост",
       "programPeriod": "2021-RRP"
+    },
+    {
+      "date": "2018-09-11",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „The Innovative Approach for Promotion of Cultural/Natural Heritage in the Bulgaria-Romania Cross-Border Region\" · €970K",
+      "headline_en": "Interreg: \"The Innovative Approach for Promotion of Cultural/Natural Heritage in the Bulgaria-Romania Cross-Border Region\" · €970K",
+      "amountEur": 969949.38,
+      "detail": "ИНТЕРРЕГ V-A Румъния - България 2014-2020",
+      "programPeriod": "2014-2020"
     }
   ]
 }

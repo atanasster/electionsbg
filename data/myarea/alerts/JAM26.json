@@ -1,7 +1,15 @@
 {
   "obshtina": "JAM26",
-  "generatedAt": "2026-08-06T22:40:04.124Z",
+  "generatedAt": "2026-08-09T08:48:10.359Z",
   "events": [
+    {
+      "date": "2026-08-07",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Тунджа · „Изготвяне на комплексен доклад относно оценка съответствието на инвес · €9K (прогнозна)",
+      "headline_en": "Tender announced: Община Тунджа · „Изготвяне на комплексен доклад относно оценка съответствието на инвес · €9K (estimated)",
+      "amountEur": 9166.66,
+      "link": "/tenders/00689-2026-0041"
+    },
     {
       "date": "2026-08-05",
       "kind": "tender",
@@ -152,14 +160,6 @@
       "link": "/tenders/00689-2026-0036"
     },
     {
-      "date": "2026-06-12",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Тунджа · „Проектиране, изпълнение на строителство и упражняване на авторски над · €108K (прогнозна)",
-      "headline_en": "Tender announced: Община Тунджа · „Проектиране, изпълнение на строителство и упражняване на авторски над · €108K (estimated)",
-      "amountEur": 107520.83,
-      "link": "/tenders/00689-2026-0035"
-    },
-    {
       "date": "2025-12-30",
       "kind": "procurement",
       "noticeType": "awarded",
@@ -182,6 +182,24 @@
       "headline_bg": "Възложена поръчка: Община Тунджа → Странджата БГ ЕООД · €575K",
       "headline_en": "Contract awarded: Община Тунджа → Странджата БГ ЕООД · €575K",
       "amountEur": 575483.15
+    },
+    {
+      "date": "2025-08-02",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Cross-Border Cooperation to Energy Efficiency in Tourism Sector and Environmentally-Friendly Bulgaria-Türkiye Region\" · €154K",
+      "headline_en": "Interreg: \"Cross-Border Cooperation to Energy Efficiency in Tourism Sector and Environmentally-Friendly Bulgaria-Türkiye Region\" · €154K",
+      "amountEur": 154425.6,
+      "detail": "ИНТЕРРЕГ VI-A ИПП България - Турция 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
+      "date": "2025-06-24",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „To preserve biodiversity and nature for our future\" · €525K",
+      "headline_en": "Interreg: \"To preserve biodiversity and nature for our future\" · €525K",
+      "amountEur": 525343.75,
+      "detail": "ИНТЕРРЕГ VI-A ИПП България - Турция 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2025-06-17",
@@ -219,28 +237,19 @@
       "programPeriod": "2021-2027"
     },
     {
+      "date": "2023-11-09",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Increasing capacity and improving cooperation of law enforcement authorities on the territories of Burgas, Haskovo and Yambol districts, Edirne and Kırklareli provinces in the field of migration\" · €205K",
+      "headline_en": "Interreg: \"Increasing capacity and improving cooperation of law enforcement authorities on the territories of Burgas, Haskovo and Yambol districts, Edirne and Kırklareli provinces in the field of migration\" · €205K",
+      "amountEur": 205260.04,
+      "detail": "ИНТЕРРЕГ VI-A ИПП България - Турция 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
       "date": "2023-10-29",
       "kind": "local_election",
       "headline_bg": "Местни избори 2023: избран кмет — Валентин Цветанов Ревански (ПРЯКА ДЕМОКРАЦИЯ)",
       "headline_en": "2023 local elections: mayor elected — Валентин Цветанов Ревански (ПРЯКА ДЕМОКРАЦИЯ)"
-    },
-    {
-      "date": "2023-01-01",
-      "kind": "eu_funds",
-      "headline_bg": "Еврофонд: „Широкомащабно разгръщане на цифрова инфраструктура на територията на Югоизточен район за планиране\" · €37.3M",
-      "headline_en": "EU funds: \"Широкомащабно разгръщане на цифрова инфраструктура на територията на Югоизточен район за планиране\" · €37.3M",
-      "amountEur": 37288536.83,
-      "detail": "Национален план за възстановяване и устойчивост",
-      "programPeriod": "2021-RRP"
-    },
-    {
-      "date": "2023-01-01",
-      "kind": "eu_funds",
-      "headline_bg": "Еврофонд: „Изграждане на система за съхранение на енергия в батерии (ССЕБ)\" · €7.4M",
-      "headline_en": "EU funds: \"Изграждане на система за съхранение на енергия в батерии (ССЕБ)\" · €7.4M",
-      "amountEur": 7436740.41,
-      "detail": "Национален план за възстановяване и устойчивост",
-      "programPeriod": "2021-RRP"
     }
   ]
 }

@@ -1,7 +1,15 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-08-06T22:39:51.412Z",
+  "generatedAt": "2026-08-09T08:47:57.967Z",
   "events": [
+    {
+      "date": "2026-08-07",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Габрово · ДОСТАВКА НА КАМИОН САМОСВАЛ ДО 3.5 ТОНА · €67K (прогнозна)",
+      "headline_en": "Tender announced: Община Габрово · ДОСТАВКА НА КАМИОН САМОСВАЛ ДО 3.5 ТОНА · €67K (estimated)",
+      "amountEur": 66666.67,
+      "link": "/tenders/00038-2026-0037"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -88,14 +96,6 @@
       "link": "/tenders/00038-2026-0033"
     },
     {
-      "date": "2026-07-02",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Габрово · Изпълнение на пилотен проект за оползотворяване на дъждовната вода за  · €152K (прогнозна)",
-      "headline_en": "Tender announced: Община Габрово · Изпълнение на пилотен проект за оползотворяване на дъждовната вода за  · €152K (estimated)",
-      "amountEur": 152000,
-      "link": "/tenders/00038-2026-0031"
-    },
-    {
       "date": "2025-06-30",
       "kind": "procurement",
       "noticeType": "awarded",
@@ -110,6 +110,15 @@
       "headline_bg": "Възложена поръчка: Община Габрово → \"Алтрам\" ЕООД · €2.2M",
       "headline_en": "Contract awarded: Община Габрово → \"Алтрам\" ЕООД · €2.2M",
       "amountEur": 2246286.66
+    },
+    {
+      "date": "2025-05-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Enhancing the competitiveness and innovation capacities of net-zero industry SMEs\" · €199K",
+      "headline_en": "Interreg: \"Enhancing the competitiveness and innovation capacities of net-zero industry SMEs\" · €199K",
+      "amountEur": 198984,
+      "detail": "ИНТЕРРЕГ VI-С Европа 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2024-12-23",
@@ -147,10 +156,28 @@
       "programPeriod": "2021-2027"
     },
     {
+      "date": "2024-01-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „New gOvernance for New spAces\" · €120K",
+      "headline_en": "Interreg: \"New gOvernance for New spAces\" · €120K",
+      "amountEur": 120040,
+      "detail": "ИНТЕРРЕГ VI-Б Дунавски регион 2021-2027",
+      "programPeriod": "2021-2027"
+    },
+    {
       "date": "2023-10-29",
       "kind": "local_election",
       "headline_bg": "Местни избори 2023: избран кмет — Таня Венкова Христова (ПП ГЕРБ)",
       "headline_en": "2023 local elections: mayor elected — Таня Венкова Христова (ПП ГЕРБ)"
+    },
+    {
+      "date": "2023-03-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Better cooperation governance to attain urban sustainable development\" · €201K",
+      "headline_en": "Interreg: \"Better cooperation governance to attain urban sustainable development\" · €201K",
+      "amountEur": 201248,
+      "detail": "ИНТЕРРЕГ VI-С Европа 2021-2027",
+      "programPeriod": "2021-2027"
     },
     {
       "date": "2023-01-01",
@@ -162,12 +189,30 @@
       "programPeriod": "2021-RRP"
     },
     {
+      "date": "2019-08-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „CReative Actions For Tailoring Smes' COmpetitive DEvelopment\" · €159K",
+      "headline_en": "Interreg: \"CReative Actions For Tailoring Smes' COmpetitive DEvelopment\" · €159K",
+      "amountEur": 159477,
+      "detail": "ИНТЕРРЕГ ЕВРОПА 2014-2020",
+      "programPeriod": "2014-2020"
+    },
+    {
       "date": "2017-01-01",
       "kind": "eu_funds",
       "headline_bg": "Еврофонд: „Национален център по мехатроника и чисти технологии\" · €35.4M",
       "headline_en": "EU funds: \"Национален център по мехатроника и чисти технологии\" · €35.4M",
       "amountEur": 35373488.4,
       "detail": "Наука и образование за интелигентен растеж",
+      "programPeriod": "2014-2020"
+    },
+    {
+      "date": "2016-04-01",
+      "kind": "eu_funds",
+      "headline_bg": "Interreg: „Efficient support services portfolios for SMEs\" · €125K",
+      "headline_en": "Interreg: \"Efficient support services portfolios for SMEs\" · €125K",
+      "amountEur": 124890,
+      "detail": "ИНТЕРРЕГ ЕВРОПА 2014-2020",
       "programPeriod": "2014-2020"
     }
   ]
