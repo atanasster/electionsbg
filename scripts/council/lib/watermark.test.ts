@@ -8,7 +8,11 @@
 // never in the data.
 
 import { describe, expect, it } from "vitest";
-import { computeWatermark, MAX_BLOCKING_ATTEMPTS } from "./watermark";
+import {
+  computeWatermark,
+  MAX_BLOCKING_ATTEMPTS,
+  MAX_DEFERRED_ENTRIES,
+} from "./watermark";
 import type { MuniScrapeError } from "./types";
 
 const res = (date: string, sourceUrl = `https://x/${date}.pdf`) => ({
@@ -21,12 +25,14 @@ const run = (over: {
   previous?: string;
   resolutions?: { date: string; sourceUrl: string }[];
   errors?: MuniScrapeError[];
+  candidatesDropped?: number;
   previousDeferred?: Parameters<typeof computeWatermark>[0]["previousDeferred"];
 }) =>
   computeWatermark({
     previous: over.previous,
     resolutions: over.resolutions ?? [],
     errors: over.errors ?? [],
+    candidatesDropped: over.candidatesDropped,
     previousDeferred: over.previousDeferred,
     now: NOW,
   });
@@ -47,7 +53,12 @@ describe("watermark advance", () => {
       previous: "2026-06-01",
       resolutions: [res("2026-07-15")],
       errors: [
-        { url: "https://x/07-01.pdf", date: "2026-07-01", message: "timeout" },
+        {
+          url: "https://x/07-01.pdf",
+          date: "2026-07-01",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     // Not 2026-07-15 — that would make 07-01 unreachable for ever.
@@ -60,7 +71,12 @@ describe("watermark advance", () => {
       previous: "2026-06-01",
       resolutions: [res("2026-06-10"), res("2026-07-15")],
       errors: [
-        { url: "https://x/07-01.pdf", date: "2026-07-01", message: "timeout" },
+        {
+          url: "https://x/07-01.pdf",
+          date: "2026-07-01",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     // 06-10 is safely complete; the next run's `date > 2026-06-10` filter
@@ -72,7 +88,9 @@ describe("watermark advance", () => {
     const d = run({
       previous: "2026-06-01",
       resolutions: [res("2026-07-15")],
-      errors: [{ url: "https://x/2026-index", message: "HTTP 520" }],
+      errors: [
+        { url: "https://x/2026-index", kind: "discovery", message: "HTTP 520" },
+      ],
     });
     // An un-enumerated index could have hidden anything, so no date after
     // `previous` can be claimed complete.
@@ -121,7 +139,12 @@ describe("watermark advance", () => {
       previous: "2026-07-01",
       resolutions: [],
       errors: [
-        { url: "https://x/06-01.pdf", date: "2026-06-01", message: "timeout" },
+        {
+          url: "https://x/06-01.pdf",
+          date: "2026-06-01",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     expect(d.next).toBe("2026-07-01");
@@ -132,12 +155,69 @@ describe("watermark advance", () => {
       previous: "2026-06-01",
       resolutions: [res("2026-06-05"), res("2026-06-20")],
       errors: [
-        { url: "https://x/b.pdf", date: "2026-06-25", message: "timeout" },
-        { url: "https://x/a.pdf", date: "2026-06-10", message: "timeout" },
+        {
+          url: "https://x/b.pdf",
+          date: "2026-06-25",
+          kind: "fetch",
+          message: "timeout",
+        },
+        {
+          url: "https://x/a.pdf",
+          date: "2026-06-10",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     expect(d.next).toBe("2026-06-05");
     expect(d.heldBy?.date).toBe("2026-06-10");
+  });
+});
+
+describe("a truncated candidate list", () => {
+  // F-001. `--max N` sorts newest-first and drops the rest; a dropped
+  // candidate raises NO error, so before this the run looked perfectly
+  // clean and the watermark jumped to the newest of the N it read —
+  // filtering everything older out of every future run. SKILL.md
+  // documented `--max 5` without `--dry`.
+  it("does not advance when candidates were dropped", () => {
+    const d = run({
+      previous: "2026-06-01",
+      resolutions: [res("2026-07-20"), res("2026-07-15")], // the 2 newest of 30
+      candidatesDropped: 28,
+    });
+    expect(d.next).toBe("2026-06-01");
+    expect(d.heldByTruncation).toBe(28);
+  });
+
+  it("advances normally when nothing was dropped", () => {
+    const d = run({
+      previous: "2026-06-01",
+      resolutions: [res("2026-07-20")],
+      candidatesDropped: 0,
+    });
+    expect(d.next).toBe("2026-07-20");
+    expect(d.heldByTruncation).toBeUndefined();
+  });
+
+  it("reports truncation rather than blaming an error", () => {
+    // Both are "we did not look at everything", but they send the operator
+    // to different places — one to a URL, one to their own command line.
+    const d = run({
+      previous: "2026-06-01",
+      resolutions: [res("2026-07-20")],
+      candidatesDropped: 3,
+      errors: [
+        {
+          url: "https://x/a.pdf",
+          date: "2026-07-01",
+          kind: "fetch",
+          message: "timeout",
+        },
+      ],
+    });
+    expect(d.heldByTruncation).toBe(3);
+    expect(d.heldBy).toBeUndefined();
   });
 });
 
@@ -146,6 +226,7 @@ describe("deferred ledger", () => {
     const err: MuniScrapeError = {
       url: "https://x/a.pdf",
       date: "2026-07-01",
+      kind: "fetch",
       message: "timeout",
     };
     const first = run({ previous: "2026-06-01", errors: [err] });
@@ -166,7 +247,12 @@ describe("deferred ledger", () => {
   it("clears an entry when the protocol finally lands", () => {
     const first = run({
       errors: [
-        { url: "https://x/a.pdf", date: "2026-07-01", message: "timeout" },
+        {
+          url: "https://x/a.pdf",
+          date: "2026-07-01",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     const second = computeWatermark({
@@ -186,7 +272,12 @@ describe("deferred ledger", () => {
     // it succeeded. Carrying it would leave a permanent phantom.
     const first = run({
       errors: [
-        { url: "https://x/a.pdf", date: "2026-07-01", message: "timeout" },
+        {
+          url: "https://x/a.pdf",
+          date: "2026-07-01",
+          kind: "fetch",
+          message: "timeout",
+        },
       ],
     });
     const second = computeWatermark({
@@ -223,11 +314,86 @@ describe("deferred ledger", () => {
     expect(second.deferred.map((d) => d.url)).toEqual(["https://x/scan.pdf"]);
   });
 
-  it("does not defer a discovery failure — nothing would ever clear it", () => {
+  it("defers a discovery failure, so the attempts valve can reach it", () => {
+    // It has to be on the ledger to accumulate `attempts` — otherwise a
+    // year index that 404s for ever freezes the município's watermark for
+    // ever, with nothing red anywhere.
     const d = run({
-      errors: [{ url: "https://x/index", message: "HTTP 520" }],
+      errors: [
+        { url: "https://x/index", kind: "discovery", message: "HTTP 520" },
+      ],
     });
-    expect(d.deferred).toEqual([]);
+    expect(d.deferred.map((x) => x.url)).toEqual(["https://x/index"]);
+    expect(d.deferred[0].givenUp).toBe(false);
+  });
+
+  it("clears a discovery entry by silence — it is re-attempted every run", () => {
+    // Unlike a `content` skip, a year index is read on every pass whatever
+    // the watermark says. So a run that does not report it has read it,
+    // and carrying it would leave a permanent phantom.
+    const first = run({
+      errors: [
+        { url: "https://x/index", kind: "discovery", message: "HTTP 520" },
+      ],
+    });
+    const second = computeWatermark({
+      previous: "2026-06-01",
+      resolutions: [res("2026-07-01")],
+      errors: [],
+      previousDeferred: first.deferred,
+      now: NOW,
+    });
+    expect(second.deferred).toEqual([]);
+    expect(second.next).toBe("2026-07-01");
+  });
+
+  it("keeps clearing a GIVEN-UP discovery entry by silence too", () => {
+    // The valve stops it blocking; it does not stop it being re-attempted,
+    // so silence still means the index came back.
+    let deferred = run({
+      errors: [
+        { url: "https://x/index", kind: "discovery", message: "HTTP 520" },
+      ],
+    }).deferred;
+    for (let i = 1; i < MAX_BLOCKING_ATTEMPTS; i++) {
+      deferred = computeWatermark({
+        previous: "2026-06-01",
+        resolutions: [],
+        errors: [
+          { url: "https://x/index", kind: "discovery", message: "HTTP 520" },
+        ],
+        previousDeferred: deferred,
+        now: NOW,
+      }).deferred;
+    }
+    expect(deferred[0].givenUp).toBe(true);
+    const recovered = computeWatermark({
+      previous: "2026-06-01",
+      resolutions: [res("2026-07-01")],
+      errors: [],
+      previousDeferred: deferred,
+      now: NOW,
+    });
+    expect(recovered.deferred).toEqual([]);
+  });
+
+  it("caps the ledger and reports what it evicted", () => {
+    // Several parsers defer a PAGE url while resolutions carry a DOCUMENT
+    // url, so those entries can never match and are immortal. Unbounded,
+    // the state file grows for the life of the município.
+    const many = Array.from({ length: MAX_DEFERRED_ENTRIES + 5 }, (_, i) => ({
+      url: `https://x/scan-${String(i).padStart(3, "0")}.pdf`,
+      kind: "content" as const,
+      date: `2026-01-${String((i % 28) + 1).padStart(2, "0")}`,
+      message: "scanned PDF",
+    }));
+    const d = run({ errors: many });
+    expect(d.deferred.length).toBe(MAX_DEFERRED_ENTRIES);
+    expect(d.evicted.length).toBe(5);
+    // Nothing vanishes without being named.
+    expect(d.evicted.every((e) => e.url.startsWith("https://x/scan-"))).toBe(
+      true,
+    );
   });
 });
 
@@ -236,6 +402,7 @@ describe("the escape valve", () => {
     const err: MuniScrapeError = {
       url: "https://x/dead.pdf",
       date: "2026-07-01",
+      kind: "fetch",
       message: "HTTP 404",
     };
     let deferred = run({ previous: "2026-06-01", errors: [err] }).deferred;
@@ -269,6 +436,7 @@ describe("the escape valve", () => {
     const err: MuniScrapeError = {
       url: "https://x/dead.pdf",
       date: "2026-07-01",
+      kind: "fetch",
       message: "HTTP 404",
     };
     let deferred = run({ errors: [err] }).deferred;

@@ -134,6 +134,10 @@ export const scrapePDV = async (
     : 25;
 
   const seenNumbers = new Set<string>();
+  // Whether the walk stopped because it ran OUT of listings rather than
+  // out of page budget. Exhausting the cap means there were more pages we
+  // never read, and an unread page raises no error — see candidatesDropped.
+  let reachedEnd = false;
   for (let page = 1; page <= maxPages; page++) {
     let html: string;
     try {
@@ -141,12 +145,16 @@ export const scrapePDV = async (
     } catch (err) {
       errors.push({
         url: categoryPageUrl(page),
+        kind: "discovery",
         message: err instanceof Error ? err.message : String(err),
       });
       break;
     }
     const entries = parseListingPage(html);
-    if (entries.length === 0) break;
+    if (entries.length === 0) {
+      reachedEnd = true;
+      break;
+    }
     pagesWalked++;
     let stopAfterThisPage = false;
     let added = 0;
@@ -173,13 +181,20 @@ export const scrapePDV = async (
       added++;
     }
     console.log(`    + page ${page}: ${added}/${entries.length} new`);
-    if (stopAfterThisPage) break;
+    if (stopAfterThisPage) {
+      reachedEnd = true;
+      break;
+    }
   }
 
   return {
     obshtinaCode: OBSHTINA,
     resolutions,
     protocolsTouched: pagesWalked,
+    // Plovdiv pages its listing rather than enumerating protocols, so it
+    // cannot count what it skipped — only that it stopped early. 1 is a
+    // lower bound, and the watermark only asks whether it is non-zero.
+    candidatesDropped: reachedEnd ? 0 : 1,
     errors,
   };
 };

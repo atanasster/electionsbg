@@ -32,7 +32,7 @@
 // totals only. Coverage tier B (decision metadata + tally + adopted/
 // rejected), equivalent to HKV09 / DOB28 / HKV34 / SZR / RSE / Pleven.
 
-import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
+import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
 import { extractDocxText, extractOdtText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
@@ -50,8 +50,6 @@ const BASE = "https://www.razgrad.bg";
 const INDEX_URL =
   "https://www.razgrad.bg/protokoli-i-zapisi-na-zasedania-na-obsinski-s-vet";
 
-const UA = "Mozilla/5.0 electionsbg-council/1.0";
-
 type SessionRef = {
   pageUrl: string;
   session: string;
@@ -61,12 +59,6 @@ type SessionRef = {
 type ProtokolDoc = SessionRef & {
   docxUrl: string;
 };
-
-// Shared helper, pre-bound to this council's UA. The wrapper exists so the
-// per-request deadlines + the município budget in lib/fetch.ts cover this
-// site too — a bare fetch() here has no timeout at all.
-const fetchHtml = (url: string): Promise<string> =>
-  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Index entry: /protokoli-i-zapisi-na-zasedania-na-obsinski-s-vet/protokol-no34
 const INDEX_LINK_RE =
@@ -389,6 +381,7 @@ export const scrapeRAZ = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   let entries: { session: string; pageUrl: string }[] = [];
   try {
@@ -396,23 +389,44 @@ export const scrapeRAZ = async (
   } catch (err) {
     errors.push({
       url: INDEX_URL,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
 
   if (entries.length === 0) {
     console.log(`  [${OBSHTINA}] no session pages found`);
-    return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+    return {
+      obshtinaCode: OBSHTINA,
+      resolutions,
+      protocolsTouched,
+      candidatesDropped,
+      errors,
+    };
   }
 
   // Sort newest first by numeric session
   entries.sort((a, b) => parseInt(b.session, 10) - parseInt(a.session, 10));
-  if (opts.maxProtocols) entries = entries.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && entries.length > opts.maxProtocols) {
+    candidatesDropped = entries.length - opts.maxProtocols;
+    entries = entries.slice(0, opts.maxProtocols);
+  }
 
   console.log(`  [${OBSHTINA}] inspecting ${entries.length} session page(s)`);
   const dir = await mkdtemp(join(tmpdir(), "council-raz26-"));
   try {
     for (const e of entries) {
+      // Hoisted out of the try so the catch can report WHICH sitting
+      // failed. The index gives us only { session, pageUrl }; the date
+      // lives in the document href, discovered below. Undated, the
+      // orchestrator has to freeze this município's watermark entirely
+      // rather than cap it at the failure — correct, but it stalls every
+      // later protocol behind one flaky download.
+      let refDate: string | undefined;
+      let refUrl = e.pageUrl;
       try {
         const sessionHtml = await fetchHtml(e.pageUrl);
         const ref = findDocxRef(sessionHtml, e.session, e.pageUrl);
@@ -424,6 +438,8 @@ export const scrapeRAZ = async (
           });
           continue;
         }
+        refDate = ref.date;
+        refUrl = ref.docxUrl;
         if (opts.sinceDate && ref.date <= opts.sinceDate) continue;
         const currentYear = new Date().getUTCFullYear();
         const startYear = opts.sinceYear ?? currentYear - 1;
@@ -459,7 +475,10 @@ export const scrapeRAZ = async (
         );
       } catch (err) {
         errors.push({
-          url: e.pageUrl,
+          url: refUrl,
+          // undefined only when we never got as far as the document href.
+          date: refDate,
+          kind: "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }
@@ -468,5 +487,11 @@ export const scrapeRAZ = async (
     await rm(dir, { recursive: true, force: true });
   }
 
-  return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+  return {
+    obshtinaCode: OBSHTINA,
+    resolutions,
+    protocolsTouched,
+    candidatesDropped,
+    errors,
+  };
 };

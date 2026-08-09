@@ -140,6 +140,7 @@ export const scrapePVN = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   let refs: ProtocolRef[];
   try {
@@ -152,17 +153,34 @@ export const scrapePVN = async (
       errors: [
         {
           url: INDEX_URL,
+          kind: "discovery",
           message: err instanceof Error ? err.message : String(err),
         },
       ],
     };
   }
 
-  if (opts.maxProtocols) refs = refs.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+
+  // candidate raises NO error — so the count has to reach the
+
+  // watermark, or it advances past protocols this run never looked at.
+
+  if (opts.maxProtocols && refs.length > opts.maxProtocols) {
+    candidatesDropped = refs.length - opts.maxProtocols;
+
+    refs = refs.slice(0, opts.maxProtocols);
+  }
 
   if (refs.length === 0) {
     console.log(`  [${OBSHTINA}] no new protocols`);
-    return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+    return {
+      obshtinaCode: OBSHTINA,
+      resolutions,
+      protocolsTouched,
+      candidatesDropped,
+      errors,
+    };
   }
 
   console.log(`  [${OBSHTINA}] fetching ${refs.length} protocol(s)`);
@@ -170,11 +188,14 @@ export const scrapePVN = async (
   try {
     for (const ref of refs) {
       const localPath = join(dir, `prot_${ref.session}.docx`);
+      // Pleven's index carries no sitting date either — it comes out of
+      // the DOCX header. Hoisted so the catch can date the failure.
+      let sittingDate: string | undefined;
       try {
         await fetchToFile(ref.url, localPath);
         const buf = await readFile(localPath);
         const text = await extractDocxText(buf);
-        const sittingDate = extractSittingDate(text);
+        sittingDate = extractSittingDate(text) ?? undefined;
         if (!sittingDate) {
           errors.push({
             url: ref.url,
@@ -202,6 +223,9 @@ export const scrapePVN = async (
       } catch (err) {
         errors.push({
           url: ref.url,
+          // undefined only when the document never parsed far enough.
+          date: sittingDate,
+          kind: "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }
@@ -210,5 +234,11 @@ export const scrapePVN = async (
     await rm(dir, { recursive: true, force: true });
   }
 
-  return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+  return {
+    obshtinaCode: OBSHTINA,
+    resolutions,
+    protocolsTouched,
+    candidatesDropped,
+    errors,
+  };
 };

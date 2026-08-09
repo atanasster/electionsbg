@@ -181,6 +181,7 @@ export const scrapeVTR = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   // Walk year indexes. Default: current + previous year.
   const currentYear = new Date().getUTCFullYear();
@@ -195,6 +196,7 @@ export const scrapeVTR = async (
     } catch (err) {
       errors.push({
         url: yearIndexUrl(year),
+        kind: "discovery",
         message: err instanceof Error ? err.message : String(err),
       });
     }
@@ -205,7 +207,13 @@ export const scrapeVTR = async (
   }
   // Newest first.
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -215,6 +223,7 @@ export const scrapeVTR = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -253,6 +262,7 @@ export const scrapeVTR = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

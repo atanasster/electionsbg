@@ -33,7 +33,7 @@
 // councillor block), comparable to VTR01 / SZR12 / BGS01 / SOF /
 // GAB05 (the latter 2025+ only).
 
-import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
+import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
 import { extractDocxText } from "../lib/docx";
 import {
   classifyResult,
@@ -59,7 +59,6 @@ type RosterLookup = Awaited<ReturnType<typeof buildMuniLookup>>;
 const OBSHTINA = "PER32";
 const BASE = "https://www.obs-pernik.bg";
 const CATEGORY_PATH = "/category/заседания/протоколи-заседания/";
-const UA = "Mozilla/5.0 electionsbg-council/1.0";
 
 type SessionRef = {
   postUrl: string;
@@ -70,12 +69,6 @@ type SessionRef = {
 type ProtokolDoc = SessionRef & {
   docxUrl: string;
 };
-
-// Shared helper, pre-bound to this council's UA. The wrapper exists so the
-// per-request deadlines + the município budget in lib/fetch.ts cover this
-// site too — a bare fetch() here has no timeout at all.
-const fetchHtml = (url: string): Promise<string> =>
-  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Post slug: /протокол-№-{N}-{DD}-{MM}-{YYYY}г/
 // The Cyrillic slug is rendered both as percent-encoded (linkedin
@@ -332,6 +325,7 @@ export const scrapePER = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   let sessions: SessionRef[] = [];
   try {
@@ -339,6 +333,7 @@ export const scrapePER = async (
   } catch (err) {
     errors.push({
       url: `${BASE}${CATEGORY_PATH}`,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -351,7 +346,13 @@ export const scrapePER = async (
   });
   if (opts.sinceDate) all = all.filter((r) => r.date > opts.sinceDate!);
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -361,6 +362,7 @@ export const scrapePER = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -418,6 +420,7 @@ export const scrapePER = async (
       } catch (err) {
         errors.push({
           url: p.postUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

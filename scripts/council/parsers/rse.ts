@@ -167,6 +167,7 @@ export const scrapeRSE = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   let refs: ProtocolRef[];
   try {
@@ -179,6 +180,7 @@ export const scrapeRSE = async (
       errors: [
         {
           url: INDEX_URL,
+          kind: "discovery",
           message: err instanceof Error ? err.message : String(err),
         },
       ],
@@ -188,11 +190,23 @@ export const scrapeRSE = async (
   if (opts.sinceYear) refs = refs.filter((r) => r.year >= opts.sinceYear!);
   // Newest first.
   refs.sort((a, b) => b.year - a.year);
-  if (opts.maxProtocols) refs = refs.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && refs.length > opts.maxProtocols) {
+    candidatesDropped = refs.length - opts.maxProtocols;
+    refs = refs.slice(0, opts.maxProtocols);
+  }
 
   if (refs.length === 0) {
     console.log(`  [${OBSHTINA}] no new protocols`);
-    return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+    return {
+      obshtinaCode: OBSHTINA,
+      resolutions,
+      protocolsTouched,
+      candidatesDropped,
+      errors,
+    };
   }
 
   console.log(`  [${OBSHTINA}] fetching ${refs.length} protocol(s)`);
@@ -200,6 +214,11 @@ export const scrapeRSE = async (
   try {
     for (const ref of refs) {
       const localPath = join(dir, ref.filename.replace(/[^a-z0-9_.-]/gi, "_"));
+      // Ruse's index carries only a year, never a sitting date — that is
+      // parsed out of the DOCX body below. Hoisted so a failure AFTER the
+      // parse can still be dated; a download failure genuinely cannot be,
+      // and then the orchestrator freezes rather than caps.
+      let sittingDate: string | undefined;
       try {
         await fetchToFile(ref.url, localPath);
         const buf = await readFile(localPath);
@@ -215,7 +234,7 @@ export const scrapeRSE = async (
         }
         if (!/\.docx?$/i.test(ref.filename)) continue;
         const text = await extractDocxText(buf);
-        const sittingDate = extractSittingDate(text);
+        sittingDate = extractSittingDate(text) ?? undefined;
         const dateFiltered =
           opts.sinceDate && sittingDate && sittingDate <= opts.sinceDate;
         if (dateFiltered) continue;
@@ -234,6 +253,9 @@ export const scrapeRSE = async (
       } catch (err) {
         errors.push({
           url: ref.url,
+          // undefined only when the document never parsed far enough.
+          date: sittingDate,
+          kind: "fetch",
           message: err instanceof Error ? err.message : String(err),
         });
       }
@@ -242,5 +264,11 @@ export const scrapeRSE = async (
     await rm(dir, { recursive: true, force: true });
   }
 
-  return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+  return {
+    obshtinaCode: OBSHTINA,
+    resolutions,
+    protocolsTouched,
+    candidatesDropped,
+    errors,
+  };
 };

@@ -48,7 +48,7 @@ Reports HTTP status + content-type + byte count per município index URL + sampl
 ```bash
 npm run council:scrape                             # all wired munis, since last ingest
 npm run council:scrape -- --only VTR01             # one município
-npm run council:scrape -- --only VTR01 --since-year 2025 --max 5
+npm run council:scrape -- --only VTR01 --since-year 2025 --max 5 --dry
 npm run council:scrape -- --only VTR01 --per-councillor   # Phase 2 join to roster
 npm run council:scrape -- --only SZR01 --ocr       # Phase 3 — enable Gemini OCR fallback
 npm run council:scrape -- --only VTR01 --dry       # parse, don't write index/shards
@@ -76,11 +76,14 @@ npm run council:scrape -- --only VTR01 --dry       # parse, don't write index/sh
 
    | kind | meaning | watermark | ledger |
    | --- | --- | --- | --- |
-   | `fetch` (default) | couldn't retrieve it; the protocol is missing | capped below its `date`, or frozen when it has none (a discovery step) | only while it keeps recurring |
+   | `discovery` | an enumeration step failed — a year index, a CDX query. Carries no date by construction | **frozen** — we cannot know what it hid | while it recurs (it is re-read every run, so silence means it recovered) |
+   | `fetch` | couldn't retrieve one protocol; it is missing | capped strictly below its `date`, or frozen when it has none | while it recurs |
    | `content` | retrieved but unusable as-is (scanned PDF, unsupported variant) — retrying identically will never help | not held | **kept until the URL is ingested** |
    | `enrich` | the protocol landed; only an extra failed (per-councillor protokol, OCR unlock, roster join) | not held | not kept |
 
-   **A new per-protocol `errors.push` MUST carry `date`**, or it freezes that município's watermark. Omit `date` only for a genuine discovery step (a year index, a CDX query).
+   `kind` is REQUIRED and the union is discriminated, so the compiler makes every new call site choose. **A per-protocol `fetch` site should also carry `date`** — without one the watermark freezes the whole município instead of capping at the failure. When the date is only known inside the `try` (the sitting date comes out of the document), hoist a `let` above it; `parsers/error_sites.test.ts` enforces this and holds the (currently empty) list of exemptions.
+
+   **`--max N` freezes it too, and that is why the example above pairs it with `--dry`.** Every parser sorts newest-first and drops the rest, and a dropped candidate raises no error at all — so a non-`--dry` run with `--max` would otherwise advance the watermark past protocols it never looked at, permanently. Parsers report `candidatesDropped`; the orchestrator also treats the bare presence of `--max` as truncation for any parser that does not.
 
    `deferred` in the state file is the durable list of what we know is missing — it is what stops a `content` skip from silently becoming "forgotten" once the watermark has passed it. A `fetch` failure that survives `MAX_BLOCKING_ATTEMPTS` (5) consecutive runs stops holding the line and stays on the ledger flagged `givenUp`, so one dead URL cannot wedge a município's ingest for ever.
 

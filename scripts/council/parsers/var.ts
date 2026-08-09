@@ -162,6 +162,7 @@ export const scrapeVAR = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   let sessions: SessionRef[];
   try {
@@ -174,6 +175,7 @@ export const scrapeVAR = async (
       errors: [
         {
           url: INDEX_URL,
+          kind: "discovery",
           message: err instanceof Error ? err.message : String(err),
         },
       ],
@@ -186,11 +188,23 @@ export const scrapeVAR = async (
     );
   if (opts.sinceDate)
     sessions = sessions.filter((s) => s.date > opts.sinceDate!);
-  if (opts.maxProtocols) sessions = sessions.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && sessions.length > opts.maxProtocols) {
+    candidatesDropped = sessions.length - opts.maxProtocols;
+    sessions = sessions.slice(0, opts.maxProtocols);
+  }
 
   if (sessions.length === 0) {
     console.log(`  [${OBSHTINA}] no new sessions`);
-    return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+    return {
+      obshtinaCode: OBSHTINA,
+      resolutions,
+      protocolsTouched,
+      candidatesDropped,
+      errors,
+    };
   }
 
   console.log(`  [${OBSHTINA}] fetching ${sessions.length} session(s)`);
@@ -220,6 +234,7 @@ export const scrapeVAR = async (
       } catch (err) {
         errors.push({
           url: sess.pdfUrl,
+          kind: "fetch",
           date: sess.date,
           message: err instanceof Error ? err.message : String(err),
         });
@@ -229,5 +244,11 @@ export const scrapeVAR = async (
     await rm(dir, { recursive: true, force: true });
   }
 
-  return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
+  return {
+    obshtinaCode: OBSHTINA,
+    resolutions,
+    protocolsTouched,
+    candidatesDropped,
+    errors,
+  };
 };

@@ -39,15 +39,22 @@
 //   3. this status table + a non-zero exit when anything is unreached,
 //      so a truncated run cannot read as a quiet one.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rename } from "node:fs/promises";
 import { join } from "node:path";
 import { command, flag, number, optional, option, run, string } from "cmd-ts";
-import type { MuniRecipe, SourcesFile, MuniScrapeResult } from "./lib/types";
+import type {
+  MuniRecipe,
+  SourcesFile,
+  MuniScrapeResult,
+  MuniScrapeError,
+} from "./lib/types";
 import { computeWatermark, type DeferredProtocol } from "./lib/watermark";
+import { classify, STATUS_LABEL, type RunStatus } from "./lib/status";
 import { mergeMuniResult } from "./lib/index_writer";
 import {
-  beginMuniBudget,
+  createMuniBudget,
   endMuniBudget,
+  runInMuniBudget,
   muniBudgetExpired,
   muniLookupFailureReasons,
   muniLookupFailures,
@@ -145,11 +152,17 @@ const writeIngestStamp = async (
     sinceDate,
     ...(deferred.length > 0 ? { deferred } : {}),
   };
-  await writeFile(
-    join(STATE_DIR, `council_${obshtina}.json`),
-    JSON.stringify(state, null, 2) + "\n",
-    "utf8",
-  );
+  // Temp + rename, because the SIGINT handler exits the moment it fires
+  // and a plain writeFile is not atomic. A Ctrl-C landing mid-write leaves
+  // truncated JSON, `readIngestState` swallows the parse failure and
+  // returns null, and the next run silently loses BOTH the watermark (a
+  // full --since-year re-walk) and the deferred ledger. The window is
+  // small; the handler exists precisely for a run someone is impatiently
+  // killing.
+  const path = join(STATE_DIR, `council_${obshtina}.json`);
+  const tmp = `${path}.tmp`;
+  await writeFile(tmp, JSON.stringify(state, null, 2) + "\n", "utf8");
+  await rename(tmp, path);
 };
 
 /**
@@ -170,45 +183,43 @@ const OCR_BUDGET_MIN = 60;
 const HARD_STOP_GRACE_MS = 60_000;
 
 class AbandonedError extends Error {
-  constructor(key: string, ms: number) {
+  constructor(key: string, budgetMs: number, graceMs: number) {
+    // Both numbers, and each labelled. Built from budget + grace and
+    // printed as "after its budget", this said "still running 1260s after
+    // its budget" for a dispatcher 60s past it — a 21x overstatement in a
+    // diagnostic whose entire job is to be trusted.
     super(
-      `${key}: still running ${Math.round(ms / 1000)}s after its budget — abandoned (a non-HTTP stall: pdftotext, Playwright, or similar)`,
+      `${key}: still running ${Math.round((budgetMs + graceMs) / 1000)}s in total — ${Math.round(graceMs / 1000)}s past its ${Math.round(budgetMs / 1000)}s budget, abandoned (a non-HTTP stall: pdftotext, Playwright, or similar)`,
     );
     this.name = "AbandonedError";
   }
 }
 
 /**
- * Terminal state per município. `not-reached` is the initial value for
- * every target and is never set explicitly — anything still carrying it
- * when the run ends is a município the loop never got to.
+ * The error note, bucketed by kind. `enrich` is named separately and last
+ * because it is the one that did NOT cost a protocol.
  */
-type RunStatus =
-  | "not-reached"
-  | "ok"
-  | "no-new"
-  | "unverified"
-  | "dry"
-  | "failed"
-  | "timed-out"
-  | "abandoned"
-  | "skipped";
+const describeErrors = (errors: MuniScrapeResult["errors"]): string => {
+  const n = { discovery: 0, fetch: 0, content: 0, enrich: 0 };
+  for (const e of errors) n[e.kind]++;
+  const parts = [
+    n.discovery && `${n.discovery} index unreadable`,
+    n.fetch && `${n.fetch} missing`,
+    n.content && `${n.content} unusable`,
+    n.enrich && `${n.enrich} enrichment`,
+  ].filter(Boolean);
+  return parts.length > 0 ? ` · ${parts.join(" · ")}` : "";
+};
 
-const STATUS_LABEL: Record<RunStatus, string> = {
-  "not-reached": "NOT REACHED",
-  ok: "ok",
-  "no-new": "no new",
-  // Reached, touched zero protocols, and at least one LOOKUP failed —
-  // absence of evidence, not evidence of absence, so it is neither merged
-  // nor stamped. Казанлък on 2026-08-09 is the case: the Wayback index
-  // 429'd and the council host refused every connection, so "0 new
-  // protocols" would have been a claim we had no basis for.
-  unverified: "UNVERIFIED",
-  dry: "dry",
-  failed: "FAILED",
-  "timed-out": "TIMED OUT",
-  abandoned: "ABANDONED",
-  skipped: "skipped",
+/**
+ * Why the watermark stopped where it did. A `discovery` failure and an
+ * undated protocol download are both "no date to cap at", but they send
+ * the operator to different URLs, so they must not print the same words.
+ */
+const describeHeldBy = (e: MuniScrapeError): string => {
+  if (e.kind === "discovery") return `an un-enumerated index — ${e.url}`;
+  if (!e.date) return `a protocol we could not date — ${e.url}`;
+  return `${e.date} — ${e.url}`;
 };
 
 type RunRow = { key: string; name: string; status: RunStatus; detail: string };
@@ -402,47 +413,61 @@ const cli = command({
 
       const startedAt = Date.now();
       let hardTimer: NodeJS.Timeout | undefined;
-      beginMuniBudget(key, budgetMs);
+      // The budget is an OBJECT this loop owns, entered as an async
+      // context around the dispatcher. An abandoned dispatcher's later
+      // requests then still see their own (closed) budget instead of the
+      // next município's — see lib/fetch.ts.
+      const budget = createMuniBudget(key, budgetMs);
       try {
         const hardStop = new Promise<never>((_, reject) => {
           hardTimer = setTimeout(
-            () =>
-              reject(new AbandonedError(key, budgetMs + HARD_STOP_GRACE_MS)),
+            () => reject(new AbandonedError(key, budgetMs, HARD_STOP_GRACE_MS)),
             budgetMs + HARD_STOP_GRACE_MS,
           );
           hardTimer.unref?.();
         });
         const result = await Promise.race([
-          dispatcher(recipe, {
-            sinceYear: args.sinceYear,
-            sinceDate,
-            maxProtocols: args.max,
-            perCouncillor: args.perCouncillor,
-            ocr: args.ocr,
-          }),
+          runInMuniBudget(budget, () =>
+            dispatcher(recipe, {
+              sinceYear: args.sinceYear,
+              sinceDate,
+              maxProtocols: args.max,
+              perCouncillor: args.perCouncillor,
+              ocr: args.ocr,
+            }),
+          ),
           hardStop,
         ]);
         for (const e of result.errors) errors.push({ key, ...e });
-        const errNote =
-          result.errors.length > 0
-            ? ` · ${result.errors.length} fetch error(s)`
-            : "";
+        // Bucketed by kind, never "N fetch error(s)": that phrasing counts
+        // an `enrich` failure — which means the protocol landed FINE and
+        // only an optional extra did not — as a lost protocol, the exact
+        // reading the kinds exist to prevent.
+        const errNote = describeErrors(result.errors);
         // Asked of the fetch layer, not counted from result.errors — that
         // array also carries a parser's deliberate skips ("PDF variant
         // skipped"), which are not a failure to look.
-        const lookupFailures = muniLookupFailures();
-        if (args.dry) {
+        const lookupFailures = muniLookupFailures(budget);
+        // One rule, one place — see lib/status.ts. Reading it back here
+        // rather than re-deriving each branch is what makes the extracted
+        // gate a gate on the behaviour and not just on a copy of it.
+        const status = classify({
+          protocolsTouched: result.protocolsTouched,
+          lookupFailures,
+          dry: args.dry,
+        });
+        if (status === "dry") {
           console.log(
             `  [DRY] ${key}: ${result.resolutions.length} resolution(s) parsed across ${result.protocolsTouched} protocol(s); index/shards NOT written`,
           );
           setStatus(
             key,
-            "dry",
+            status,
             `${result.resolutions.length} resolution(s) across ${result.protocolsTouched} protocol(s)${errNote}`,
           );
           continue;
         }
-        if (result.protocolsTouched === 0 && lookupFailures > 0) {
+        if (status === "unverified") {
           // Neither merged nor stamped. `lastSuccessfulIngest` is what the
           // orchestrator reads to decide whether this município still owes
           // a run — stamping it here would record "checked, nothing new"
@@ -456,14 +481,14 @@ const cli = command({
           // web.archive.org shared by the rest. The count cannot tell them
           // apart, and which one it is decides whether you fix code, wait,
           // or back off.
-          const why = muniLookupFailureReasons();
+          const why = muniLookupFailureReasons(budget);
           console.log(
             `  ${key}: source unreadable (${lookupFailures} failed lookup(s)) — NOT stamping lastSuccessfulIngest`,
           );
           for (const line of why) console.log(`      ${line}`);
           setStatus(
             key,
-            "unverified",
+            status,
             `reached, but ${lookupFailures} lookup(s) failed — 0 protocol(s) is NOT a finding${errNote}` +
               (why.length > 0
                 ? `\n${" ".repeat(16)}${why.join(`\n${" ".repeat(16)}`)}`
@@ -479,14 +504,22 @@ const cli = command({
           previous: sinceDate,
           resolutions: result.resolutions,
           errors: result.errors,
+          // A parser that honours --max reports what it dropped. One that
+          // does not cannot be assumed not to have truncated, and --max is
+          // the only thing that causes it — so the flag itself is the
+          // conservative fallback.
+          candidatesDropped:
+            result.candidatesDropped ?? (args.max !== undefined ? 1 : 0),
           previousDeferred: prev?.deferred,
           now: new Date().toISOString(),
         });
-        if (mark.heldBy) {
+        if (mark.heldByTruncation) {
           console.log(
-            `  ${key}: watermark held at ${mark.next || "(start)"} by ${
-              mark.heldBy.date ?? "an un-enumerated index"
-            } — ${mark.heldBy.url}`,
+            `  ${key}: watermark held at ${mark.next || "(start)"} — --max dropped ${mark.heldByTruncation} in-window candidate(s) this run never looked at`,
+          );
+        } else if (mark.heldBy) {
+          console.log(
+            `  ${key}: watermark held at ${mark.next || "(start)"} by ${describeHeldBy(mark.heldBy)}`,
           );
         }
         for (const d of mark.resolved)
@@ -494,6 +527,10 @@ const cli = command({
         for (const d of mark.gaveUp)
           console.log(
             `  ! ${key}: giving up on ${d.url} after ${d.attempts} attempts since ${d.firstSeen.slice(0, 10)} — it no longer holds the watermark, but stays on the deferred list`,
+          );
+        for (const d of mark.evicted)
+          console.log(
+            `  ! ${key}: deferred ledger is full — dropping ${d.url} (first seen ${d.firstSeen.slice(0, 10)}). It is no longer tracked.`,
           );
         await writeIngestStamp(
           key,
@@ -511,12 +548,13 @@ const cli = command({
         if (mark.deferred.length > 0) deferredByMuni.set(key, mark.deferred);
         const deferNote =
           mark.deferred.length > 0 ? ` · ${mark.deferred.length} deferred` : "";
-        const heldNote = mark.heldBy
-          ? ` · watermark held at ${mark.next || "(start)"}`
-          : "";
+        const heldNote =
+          mark.heldBy || mark.heldByTruncation
+            ? ` · watermark held at ${mark.next || "(start)"}`
+            : "";
         setStatus(
           key,
-          result.protocolsTouched > 0 ? "ok" : "no-new",
+          status,
           (result.protocolsTouched > 0
             ? `+${merge.added} new · ${merge.updated} updated · ${result.protocolsTouched} protocol(s)`
             : `reached · 0 new protocol(s)`) +
@@ -527,14 +565,15 @@ const cli = command({
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);
         const secs = Math.round((Date.now() - startedAt) / 1000);
-        // muniBudgetExpired() is still readable here — endMuniBudget()
-        // runs in the finally, which is after this catch.
-        const status: RunStatus =
-          err instanceof AbandonedError
-            ? "abandoned"
-            : muniBudgetExpired()
-              ? "timed-out"
-              : "failed";
+        const status = classify({
+          threw: true,
+          abandoned: err instanceof AbandonedError,
+          // Still readable here — endMuniBudget() runs in the finally,
+          // which is after this catch.
+          budgetExpired: muniBudgetExpired(budget),
+          protocolsTouched: 0,
+          lookupFailures: muniLookupFailures(budget),
+        });
         if (err instanceof AbandonedError) abandoned++;
         console.error(
           `! ${key} ${STATUS_LABEL[status]} after ${secs}s: ${msg}`,
@@ -543,7 +582,7 @@ const cli = command({
         setStatus(key, status, `after ${secs}s — ${msg}`);
       } finally {
         if (hardTimer) clearTimeout(hardTimer);
-        endMuniBudget();
+        endMuniBudget(budget);
       }
     }
 

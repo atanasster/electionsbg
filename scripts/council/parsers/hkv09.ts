@@ -43,7 +43,7 @@
 // metadata + tally + adopted/rejected), equivalent to HKV34 / SZR /
 // RSE / Pleven / Добрич.
 
-import { fetchHtml as fetchHtmlShared, fetchToFile } from "../lib/fetch";
+import { councilFetchHtml as fetchHtml, fetchToFile } from "../lib/fetch";
 import { extractDocxText } from "../lib/docx";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
@@ -71,14 +71,6 @@ type SessionRef = {
 type ProtokolDoc = SessionRef & {
   docUrl: string;
 };
-
-const UA = "Mozilla/5.0 electionsbg-council/1.0";
-
-// Shared helper, pre-bound to this council's UA. The wrapper exists so the
-// per-request deadlines + the município budget in lib/fetch.ts cover this
-// site too — a bare fetch() here has no timeout at all.
-const fetchHtml = (url: string): Promise<string> =>
-  fetchHtmlShared(url, { headers: { "User-Agent": UA }, accept: "text/html" });
 
 // Session URL pattern: /bg/protokoli-ot-zasedaniyata-na-obshtinskiya-savet/
 //   protokol-{N}-ot-{type}-zasedanie-na-{D}-{M}-{YYYY}-godina
@@ -366,6 +358,7 @@ export const scrapeHKV09 = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   const currentYear = new Date().getUTCFullYear();
   const startYear = opts.sinceYear ?? currentYear - 1;
@@ -376,6 +369,7 @@ export const scrapeHKV09 = async (
   } catch (err) {
     errors.push({
       url: INDEX_URL,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -386,7 +380,13 @@ export const scrapeHKV09 = async (
   });
   if (opts.sinceDate) all = all.filter((r) => r.date > opts.sinceDate!);
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -396,6 +396,7 @@ export const scrapeHKV09 = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -449,6 +450,7 @@ export const scrapeHKV09 = async (
       } catch (err) {
         errors.push({
           url: p.pageUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

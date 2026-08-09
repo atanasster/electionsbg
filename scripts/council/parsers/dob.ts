@@ -30,7 +30,8 @@
 // tier B (decision metadata + tally + adopted/rejected, no
 // perCouncillor), equivalent to SZR / RSE / Pleven / Хасково.
 
-import { fetchJson, fetchToFile } from "../lib/fetch";
+import { fetchToFile } from "../lib/fetch";
+import { fetchCdxIndex as fetchCdxRows } from "../lib/wayback";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import { classifyResult, findAllTallies } from "../lib/tally";
 import type {
@@ -72,21 +73,8 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
   };
 };
 
-const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const arr = await fetchJson<string[][]>(cdxUrl, {
-    headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
-  });
-  const out: SessionRef[] = [];
-  const seen = new Set<string>();
-  for (const row of arr.slice(1)) {
-    const ref = parseSessionRef(row[2]);
-    if (!ref) continue;
-    if (seen.has(ref.pdfUrl)) continue;
-    seen.add(ref.pdfUrl);
-    out.push(ref);
-  }
-  return out;
-};
+const fetchCdxIndex = (): Promise<SessionRef[]> =>
+  fetchCdxRows(cdxUrl, parseSessionRef, (r) => r.pdfUrl);
 
 /** Pre-process to swap the Dobrich-specific semicolon between tally
  *  groups for the canonical comma the shared SUMMARY_RE_LABEL_FIRST
@@ -173,6 +161,7 @@ export const scrapeDOB = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   const currentYear = new Date().getUTCFullYear();
   const startYear = opts.sinceYear ?? currentYear - 1;
@@ -183,6 +172,7 @@ export const scrapeDOB = async (
   } catch (err) {
     errors.push({
       url: cdxUrl,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -193,7 +183,13 @@ export const scrapeDOB = async (
   });
   if (opts.sinceDate) all = all.filter((r) => r.date > opts.sinceDate!);
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -203,6 +199,7 @@ export const scrapeDOB = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -236,6 +233,7 @@ export const scrapeDOB = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

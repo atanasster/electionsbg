@@ -9,12 +9,15 @@
 //
 // Every server here is a local http.Server. No network.
 
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createServer, type Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import {
-  beginMuniBudget,
+  createMuniBudget,
   endMuniBudget,
+  runInMuniBudget,
+  __enterMuniBudgetForTests,
+  __setTimingForTests,
   fetchHead,
   fetchHtml,
   muniBudgetExpired,
@@ -23,6 +26,14 @@ import {
   resetHostState,
   BudgetExhaustedError,
   CONSECUTIVE_TIMEOUT_LIMIT,
+  DEFAULT_HEADERS_MS,
+  DEFAULT_IDLE_MS,
+  DEFAULT_RETRIES,
+  FILE_TOTAL_MS,
+  HEAD_TOTAL_MS,
+  HTML_TOTAL_MS,
+  MAX_BODY_BYTES,
+  THROTTLE_COOLDOWN_MS,
   FetchTimeoutError,
   HostThrottledError,
   HostUnreachableError,
@@ -38,6 +49,18 @@ type Behaviour =
   | "no-head";
 
 const servers: Server[] = [];
+
+/** The budget the current test is running under, so assertions can read
+ *  its counters the way the orchestrator does. */
+let budget: ReturnType<typeof createMuniBudget> | undefined;
+
+/** Open a budget and enter it for the rest of the test body. */
+const enterBudget = (label: string, ms: number) => {
+  if (budget) endMuniBudget(budget);
+  budget = createMuniBudget(label, ms);
+  __enterMuniBudgetForTests(budget);
+  return budget;
+};
 
 /** Start a server whose behaviour the test picks per request. `silent`
  *  completes the handshake and then never writes — the shape a plain
@@ -95,8 +118,19 @@ const startServer = async (
   };
 };
 
+beforeEach(() => {
+  // The behaviour under test is ordering and accounting, not duration.
+  __setTimingForTests({ politeDelayMs: 0, retryBackoffMs: [1, 1] });
+  // A generous budget by default, so a test that does not care about the
+  // wall clock cannot inherit an expired one from the test before it —
+  // enterWith persists down the async context.
+  enterBudget("DEFAULT", 60_000);
+});
+
 afterEach(async () => {
-  endMuniBudget();
+  __setTimingForTests({ politeDelayMs: 250, retryBackoffMs: [1_000, 3_000] });
+  if (budget) endMuniBudget(budget);
+  budget = undefined;
   // Cooldowns and the HEAD-unsupported memo are process-wide by design —
   // they must outlive a budget, so only an explicit reset clears them
   // between tests.
@@ -151,7 +185,7 @@ describe("per-request deadlines", () => {
 describe("host circuit breaker", () => {
   it("stops dialling a dead host after N consecutive failures", async () => {
     const { base, hits } = await startServer(() => "silent");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
 
     // retries: 0 mirrors the brute-force probe, the caller this exists for.
     for (let i = 0; i < CONSECUTIVE_TIMEOUT_LIMIT; i++) {
@@ -173,7 +207,7 @@ describe("host circuit breaker", () => {
 
   it("does not trip on 404s — the brute-force probes expect them", async () => {
     const { base } = await startServer(() => "not-found");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     for (let i = 0; i < CONSECUTIVE_TIMEOUT_LIMIT + 3; i++) {
       const r = await fetchHead(`${base}/missing-${i}`, { timeoutMs: 2000 });
       expect(r.status).toBe(404);
@@ -183,7 +217,7 @@ describe("host circuit breaker", () => {
   it("resets the strike count once the host answers again", async () => {
     let mode: Behaviour = "silent";
     const { base } = await startServer(() => mode);
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
 
     for (let i = 0; i < CONSECUTIVE_TIMEOUT_LIMIT - 1; i++) {
       await expect(
@@ -213,26 +247,26 @@ describe("retry", () => {
     const { base } = await startServer(() =>
       ++calls === 1 ? "server-error" : "ok",
     );
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await expect(fetchHtml(`${base}/index`)).resolves.toContain("ok");
     // Recovered, so nothing was ever unreadable.
-    expect(muniLookupFailures()).toBe(0);
+    expect(muniLookupFailures(budget!)).toBe(0);
   });
 
   it("counts ONE lookup failure per lookup, however many attempts it took", async () => {
     const { base, hits } = await startServer(() => "server-error");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
 
     await expect(fetchHtml(`${base}/gone`)).rejects.toThrow(/520/);
     // Three attempts, one failure: the count the orchestrator reads must
     // stay a count of things we could not SEE, not of times we tried.
     expect(hits()).toBe(3);
-    expect(muniLookupFailures()).toBe(1);
+    expect(muniLookupFailures(budget!)).toBe(1);
   });
 
   it("does not retry when the caller opts out", async () => {
     const { base, hits } = await startServer(() => "server-error");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await expect(
       fetchHead(`${base}/probe`, { retries: 0 }),
     ).resolves.toMatchObject({ status: 520 });
@@ -241,11 +275,11 @@ describe("retry", () => {
 
   it("does not retry once the município budget is blown", async () => {
     const { base, hits } = await startServer(() => "server-error");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await fetchHead(`${base}/a`, { retries: 0 });
     const before = hits();
 
-    beginMuniBudget("TINY", 40);
+    enterBudget("TINY", 40);
     await new Promise((r) => setTimeout(r, 90));
     await expect(fetchHtml(`${base}/b`)).rejects.toBeInstanceOf(
       BudgetExhaustedError,
@@ -262,22 +296,22 @@ describe("429 back-off", () => {
   // which is both futile and the reason the throttle never lifts.
   it("stops dialling a rate-limited host, ACROSS municipalities", async () => {
     const { base, hits } = await startServer(() => "rate-limited");
-    beginMuniBudget("DOB28", 60_000);
+    enterBudget("DOB28", 60_000);
     await expect(fetchHtml(`${base}/cdx`)).rejects.toThrow(/429/);
     const dialled = hits();
-    expect(muniLookupFailures()).toBe(1);
+    expect(muniLookupFailures(budget!)).toBe(1);
 
     // The next município must not re-dial it. A per-município breaker
     // cannot do this job — it is reset by beginMuniBudget, and each of the
     // four parsers makes exactly ONE CDX call.
-    beginMuniBudget("HKV34", 60_000);
+    enterBudget("HKV34", 60_000);
     await expect(fetchHtml(`${base}/cdx2`)).rejects.toBeInstanceOf(
       HostThrottledError,
     );
     expect(hits()).toBe(dialled);
     // Still recorded as a failed lookup — skipping is not seeing, so the
     // município is UNVERIFIED rather than quietly stamped.
-    expect(muniLookupFailures()).toBe(1);
+    expect(muniLookupFailures(budget!)).toBe(1);
   });
 
   it("retries a 429 before writing the host off", async () => {
@@ -285,7 +319,7 @@ describe("429 back-off", () => {
     const { base } = await startServer(() =>
       ++calls === 1 ? "rate-limited" : "ok",
     );
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await expect(fetchHtml(`${base}/cdx`)).resolves.toContain("ok");
     // A one-off 429 must not silence the host for the next three parsers.
     await expect(fetchHtml(`${base}/cdx2`)).resolves.toContain("ok");
@@ -299,7 +333,7 @@ describe("existence probe", () => {
   // failures — indistinguishable from a council that published nothing.
   it("falls back to a ranged GET on a host that refuses HEAD", async () => {
     const { base, methods } = await startServer(() => "no-head");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
 
     await expect(
       fetchHead(`${base}/protokol-1.pdf`, { retries: 0 }),
@@ -312,12 +346,12 @@ describe("existence probe", () => {
     await fetchHead(`${base}/protokol-2.pdf`, { retries: 0 });
     expect(methods()).toEqual(["HEAD", "GET", "GET"]);
     // Not counted as a failed lookup: the 405 was answered, then served.
-    expect(muniLookupFailures()).toBe(0);
+    expect(muniLookupFailures(budget!)).toBe(0);
   });
 
   it("still reports a genuine 404 as not-found", async () => {
     const { base } = await startServer(() => "not-found");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await expect(
       fetchHead(`${base}/missing.pdf`, { retries: 0 }),
     ).resolves.toMatchObject({ ok: false, status: 404 });
@@ -329,10 +363,10 @@ describe("failure reasons", () => {
     // The count alone cost an hour on 2026-08-09: ten municipalities each
     // reported "1 failed lookup" and the ten were three unrelated faults.
     const { base } = await startServer(() => "server-error");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await fetchHead(`${base}/down`, { retries: 0 });
 
-    const why = muniLookupFailureReasons();
+    const why = muniLookupFailureReasons(budget!);
     expect(why).toHaveLength(1);
     expect(why[0]).toContain("/down");
     expect(why[0]).toContain("520");
@@ -340,11 +374,11 @@ describe("failure reasons", () => {
 
   it("names a timeout's phase, so a dead host reads differently from a stalled one", async () => {
     const { base } = await startServer(() => "silent");
-    beginMuniBudget("TEST", 60_000);
+    enterBudget("TEST", 60_000);
     await expect(
       fetchHtml(`${base}/x`, { headersMs: 100, timeoutMs: 500, retries: 0 }),
     ).rejects.toBeInstanceOf(FetchTimeoutError);
-    expect(muniLookupFailureReasons()[0]).toMatch(/no response headers/);
+    expect(muniLookupFailureReasons(budget!)[0]).toMatch(/no response headers/);
   });
 });
 
@@ -357,45 +391,88 @@ describe("lookup-failure counter", () => {
     let mode: Behaviour = "not-found";
     const { base } = await startServer(() => mode);
 
-    beginMuniBudget("QUIET", 60_000);
+    enterBudget("QUIET", 60_000);
     for (let i = 0; i < 3; i++)
       await fetchHead(`${base}/missing-${i}`, { retries: 0 });
     // A 404 is a definitive answer — the source spoke.
-    expect(muniLookupFailures()).toBe(0);
+    expect(muniLookupFailures(budget!)).toBe(0);
 
     mode = "server-error";
     await fetchHead(`${base}/down`, { retries: 0 });
-    expect(muniLookupFailures()).toBe(1);
+    expect(muniLookupFailures(budget!)).toBe(1);
 
     mode = "silent";
     await expect(
       fetchHead(`${base}/dead`, { timeoutMs: 100, retries: 0 }),
     ).rejects.toBeInstanceOf(FetchTimeoutError);
-    expect(muniLookupFailures()).toBe(2);
+    expect(muniLookupFailures(budget!)).toBe(2);
   });
 
   it("resets per município", async () => {
     const { base } = await startServer(() => "server-error");
-    beginMuniBudget("A", 60_000);
+    enterBudget("A", 60_000);
     await fetchHead(`${base}/x`, { retries: 0 });
-    expect(muniLookupFailures()).toBe(1);
-    beginMuniBudget("B", 60_000);
-    expect(muniLookupFailures()).toBe(0);
-    expect(muniLookupFailureReasons()).toEqual([]);
+    expect(muniLookupFailures(budget!)).toBe(1);
+    enterBudget("B", 60_000);
+    expect(muniLookupFailures(budget!)).toBe(0);
+    expect(muniLookupFailureReasons(budget!)).toEqual([]);
+  });
+});
+
+describe("a straggler crossing a município boundary", () => {
+  // F-002. The budget used to be a module singleton, so an ABANDONED
+  // dispatcher — one the orchestrator gave up on but which is still
+  // running, which is the entire purpose of the hard stop — resumed later,
+  // read the global, and found the NEXT município's budget. Its failures
+  // were charged there: a município whose source read perfectly reported
+  // UNVERIFIED, declined to stamp, and printed the previous one's URLs.
+  it("charges the failure to the município that owns it, not the next one", async () => {
+    const { base } = await startServer(() => "silent");
+
+    const slow = createMuniBudget("SLOW", 60_000);
+    // Started inside SLOW and deliberately never awaited — the zombie.
+    const straggler = runInMuniBudget(slow, () =>
+      fetchHead(`${base}/x`, { timeoutMs: 300, retries: 0 }),
+    ).catch(() => undefined);
+
+    // The orchestrator abandons SLOW and opens the next município.
+    endMuniBudget(slow);
+    const next = enterBudget("NEXT", 60_000);
+
+    await straggler;
+
+    expect(muniLookupFailures(next)).toBe(0);
+    expect(muniLookupFailureReasons(next)).toEqual([]);
+    // …and it landed where it belongs.
+    expect(muniLookupFailures(slow)).toBe(1);
+  });
+
+  it("stops a zombie dialling once its budget is closed", async () => {
+    const { base, hits } = await startServer(() => "ok");
+    const slow = createMuniBudget("SLOW", 60_000);
+    endMuniBudget(slow);
+    const before = hits();
+    // A closed budget is the abandoned case: the dispatcher is still
+    // running, and every request it makes from here would otherwise spend
+    // the NEXT município's wall clock.
+    await expect(
+      runInMuniBudget(slow, () => fetchHtml(`${base}/x`)),
+    ).rejects.toBeInstanceOf(BudgetExhaustedError);
+    expect(hits()).toBe(before);
   });
 });
 
 describe("município budget", () => {
   it("aborts the in-flight request and short-circuits every later one", async () => {
     const { base, hits } = await startServer(() => "silent");
-    beginMuniBudget("SZR12", 250);
+    enterBudget("SZR12", 250);
 
     // Long per-request timeout on purpose: the budget, not the request
     // deadline, has to be what ends this.
     await expect(
       fetchHtml(`${base}/slow`, { timeoutMs: 30_000 }),
     ).rejects.toBeInstanceOf(BudgetExhaustedError);
-    expect(muniBudgetExpired()).toBe(true);
+    expect(muniBudgetExpired(budget!)).toBe(true);
 
     const after = hits();
     const t0 = Date.now();
@@ -410,13 +487,52 @@ describe("município budget", () => {
 
   it("does not leak across municipalities", async () => {
     const { base } = await startServer(() => "ok");
-    beginMuniBudget("SZR12", 50);
+    enterBudget("SZR12", 50);
     await new Promise((r) => setTimeout(r, 120));
-    expect(muniBudgetExpired()).toBe(true);
+    expect(muniBudgetExpired(budget!)).toBe(true);
 
     // The next município gets a clean budget — and a clean strike map.
-    beginMuniBudget("GAB05", 60_000);
-    expect(muniBudgetExpired()).toBe(false);
+    enterBudget("GAB05", 60_000);
+    expect(muniBudgetExpired(budget!)).toBe(false);
     await expect(fetchHtml(`${base}/x`)).resolves.toContain("ok");
+  });
+});
+
+describe("the tuning surface", () => {
+  // These constants have no importer — they exist so an operator can find
+  // and change them. Pinning them here is what makes them worth exporting:
+  // without a gate they read as dead code, and the next cleanup deletes
+  // them; with one, a change is a deliberate edit in two places.
+  //
+  // Each number is a claim about a failure mode, so the assertion carries
+  // the claim rather than just the value.
+  it("bounds a request the three ways the layer promises", () => {
+    // Connect + first byte, matched to the undici Agent's own connect
+    // timeout — the two disagreeing is what made headersMs a lie.
+    expect(DEFAULT_HEADERS_MS).toBe(30_000);
+    // A stalled body, which is the failure a single total deadline
+    // cannot tell apart from a slow one.
+    expect(DEFAULT_IDLE_MS).toBe(30_000);
+    // A protokol PDF gets longer than a listing page; a HEAD probe is
+    // speculative and gets much less.
+    expect(HTML_TOTAL_MS).toBe(60_000);
+    expect(FILE_TOTAL_MS).toBe(180_000);
+    expect(HEAD_TOTAL_MS).toBe(15_000);
+    expect(HEAD_TOTAL_MS).toBeLessThan(HTML_TOTAL_MS);
+    expect(HTML_TOTAL_MS).toBeLessThan(FILE_TOTAL_MS);
+  });
+
+  it("keeps a dead host cheap and a 429 respected", () => {
+    // limit × headersMs is what a dead host costs — Казанлък's probe is
+    // 1,440 URLs, so this is the difference between 25 s and two hours.
+    expect(CONSECUTIVE_TIMEOUT_LIMIT).toBe(5);
+    // Longer than any one município's share of a run, because the host
+    // that does this to us is shared by four parsers.
+    expect(THROTTLE_COOLDOWN_MS).toBe(120_000);
+    expect(DEFAULT_RETRIES).toBe(2);
+  });
+
+  it("caps a body well above a real protokol and well below memory", () => {
+    expect(MAX_BODY_BYTES).toBe(256 * 1024 * 1024);
   });
 });

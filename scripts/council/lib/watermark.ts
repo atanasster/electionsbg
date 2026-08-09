@@ -10,11 +10,15 @@
 // The rule here: the watermark may only reach a date such that EVERY
 // protocol at or below it was ingested. Per `MuniScrapeError.kind` —
 //
-//   * a DISCOVERY failure (a `fetch` with no `date`) freezes it entirely.
-//     An un-enumerated year means we cannot know what we did not see, so
-//     there is no date we can honestly claim to be complete through.
+//   * a `discovery` failure — a year index, a CDX query — freezes it
+//     entirely. An un-enumerated year means we cannot know what we did not
+//     see, so no date in that window can be claimed complete.
 //   * a per-protocol `fetch` failure caps it strictly below that
-//     protocol's date, so the next run rediscovers and retries it.
+//     protocol's date, so the next run rediscovers and retries it. An
+//     UNDATED one (three parsers learn the sitting date from inside the
+//     document, so a download failure precedes it) has to freeze instead
+//     of capping — correct, but coarse, which is why parsers hoist the
+//     date wherever it is in scope.
 //   * a `content` failure (a scanned PDF, an unsupported variant) does
 //     NOT cap it. Retrying identically will never help, and freezing on
 //     one un-OCRable protocol would re-download everything after it on
@@ -23,28 +27,50 @@
 //     an optional extra (a per-councillor protokol, an OCR unlock, the
 //     roster join) failed, so nothing is missing to come back for.
 //
+// A TRUNCATED candidate list freezes it too, and that one is the trap the
+// rest of this file would otherwise miss entirely. `--max N` makes every
+// parser sort newest-first and drop the rest; a dropped candidate raises
+// no error at all, so without `candidatesDropped` the run looks clean and
+// the watermark jumps to the newest of the N it did read. Everything older
+// in that window is then filtered out by `date > sinceDate` for ever —
+// the same permanent loss a failed download causes, with not even the one
+// line of output. `SKILL.md` documented `--max 5` without `--dry`.
+//
 // The deferred ledger, in state/ingest/council_<key>.json, is the durable
 // record of what we know we are missing. It carries exactly the entries
 // the watermark can no longer bring back:
 //
 //   * `content` skips, and `fetch` failures that have exhausted their
-//     attempts, persist until the URL is finally ingested. Not re-reporting
-//     one proves nothing, because nothing will re-attempt it.
-//   * a still-blocking `fetch` failure persists only while it keeps being
-//     reported. The watermark is already holding the line for it, and a
-//     run that stops reporting it has fetched it.
+//     attempts, persist until the URL is finally ingested. The watermark
+//     has moved past them, so nothing will re-attempt them and silence
+//     proves nothing.
+//   * everything still being retried — a blocking `fetch`, and ANY
+//     `discovery` step, given up on or not — persists only while it keeps
+//     being reported. A discovery step runs on every pass regardless of
+//     the watermark, so a run that stops reporting it has read it.
 //
-// `attempts` is the escape valve. A protocol that fails for ever — the
-// município renamed or deleted the file — would otherwise hold the
-// watermark for ever, and every daily run would re-walk the whole window
-// to retry one dead URL. After MAX_BLOCKING_ATTEMPTS it stops blocking and
-// stays on the ledger, with its count, until it succeeds or an operator
-// forces it with --since-date.
+// `attempts` is the escape valve, and it covers every kind. A URL that
+// fails for ever — the município renamed the file, or restructured the
+// site out from under a year index — would otherwise hold the watermark
+// for ever, with every daily run re-walking the whole window to retry it.
+// After MAX_BLOCKING_ATTEMPTS it stops blocking and stays on the ledger,
+// with its count, until it succeeds or an operator forces it with
+// --since-date. The undated case needs this MORE than the dated one, not
+// less: a dead year index is not masked by UNVERIFIED, because a parser
+// walking several indexes with one dead still touches protocols, so the
+// run is stamped green while the watermark silently never moves again.
 //
 // The watermark never moves BACKWARDS: rewinding to retry one protocol
 // would re-walk everything since, and the parser surfaces nothing new for
 // it anyway. A blocking failure older than the current watermark is
 // recorded on the ledger and left for that operator.
+//
+// The ledger is CAPPED. Several parsers defer a page URL while the
+// resolutions carry a document URL, so those entries can never match
+// `ingestedUrls` and are immortal by construction; without a cap the state
+// file grows for the lifetime of the município. Over the cap the OLDEST
+// are dropped and the drop is reported, because a ledger that silently
+// forgets is the thing this module exists to prevent.
 
 import type { CouncilResolution, MuniScrapeError } from "./types";
 
@@ -56,8 +82,23 @@ import type { CouncilResolution, MuniScrapeError } from "./types";
  */
 export const MAX_BLOCKING_ATTEMPTS = 5;
 
+/**
+ * Ceiling on stored ledger entries per município. Far above any healthy
+ * value — a município with 100 known-missing protocols has a source
+ * problem, not a bookkeeping problem — so hitting it is itself a signal.
+ */
+export const MAX_DEFERRED_ENTRIES = 100;
+
 export type DeferredProtocol = {
   url: string;
+  /**
+   * Which class of failure put it here. Load-bearing for the carry rule
+   * below, not decoration: a `discovery` step is re-attempted on EVERY
+   * run whatever the watermark says, so silence means it recovered — but
+   * a `fetch` or `content` entry the watermark has moved past is never
+   * re-attempted, so silence there means nothing at all.
+   */
+  kind: MuniScrapeError["kind"];
   date?: string;
   message: string;
   /** ISO timestamp of the run that first deferred it — how long it's been stuck. */
@@ -74,6 +115,12 @@ export type WatermarkInput = {
   /** Everything successfully parsed this run. */
   resolutions: Pick<CouncilResolution, "date" | "sourceUrl">[];
   errors: MuniScrapeError[];
+  /**
+   * In-window candidates the run deliberately never looked at (`--max`).
+   * Non-zero freezes the watermark: "we did not look at everything" is the
+   * same fact as an un-enumerated index, and it raises no error of its own.
+   */
+  candidatesDropped?: number;
   /** Carried over from the state file. */
   previousDeferred?: DeferredProtocol[];
   /** ISO timestamp stamped onto newly deferred entries. */
@@ -85,12 +132,16 @@ export type WatermarkDecision = {
   next: string;
   /** Set when the watermark was held below the newest date ingested. */
   heldBy?: MuniScrapeError;
+  /** Set instead of `heldBy` when a truncated candidate list froze it. */
+  heldByTruncation?: number;
   /** The "known missing" ledger to store. */
   deferred: DeferredProtocol[];
   /** Entries this run cleared because the protocol finally landed. */
   resolved: DeferredProtocol[];
   /** Entries that crossed MAX_BLOCKING_ATTEMPTS on this run. */
   gaveUp: DeferredProtocol[];
+  /** Entries dropped because the ledger hit MAX_DEFERRED_ENTRIES. */
+  evicted: DeferredProtocol[];
 };
 
 const maxDate = (dates: string[]): string | undefined =>
@@ -115,23 +166,32 @@ export const computeWatermark = (input: WatermarkInput): WatermarkDecision => {
   );
   const ledger = new Map<string, DeferredProtocol>();
   for (const d of input.previousDeferred ?? []) {
-    // Only entries nothing will re-attempt are carried on their own. A
-    // still-blocking one has to earn its place by being re-reported below.
-    if (!ingestedUrls.has(d.url) && d.givenUp) ledger.set(d.url, d);
+    if (ingestedUrls.has(d.url)) continue;
+    // Carried on its own only when nothing will re-attempt it, so silence
+    // could not have cleared it. Everything else — a still-blocking
+    // failure, and any discovery step, given up on or not — has to earn
+    // its place by being re-reported below.
+    if (d.givenUp && d.kind !== "discovery") ledger.set(d.url, d);
   }
 
   const gaveUp: DeferredProtocol[] = [];
   for (const e of missing) {
-    // A discovery step is not an artefact — its URL is a year index, so
-    // nothing would ever clear it. It freezes the watermark instead, which
-    // is both sufficient and self-clearing.
-    if (!e.date && e.kind !== "content") continue;
     if (ingestedUrls.has(e.url)) continue; // another variant of it did land
     const before = prior.get(e.url);
     const attempts = (before?.attempts ?? 0) + 1;
+    // `content` is given up on immediately — nothing will re-attempt it.
+    // Everything else, INCLUDING an undated failure and a discovery step,
+    // gets the same attempts valve: the module's argument for the valve
+    // ("a protocol that fails for ever would otherwise hold the watermark
+    // for ever") applies exactly as hard to a year index that 404s after a
+    // site restructure, and that case is not even masked by UNVERIFIED —
+    // a parser walking several year indexes with one permanently dead
+    // still touches protocols, so the run is stamped green while the
+    // watermark never moves again.
     const givenUp = e.kind === "content" || attempts >= MAX_BLOCKING_ATTEMPTS;
     const entry: DeferredProtocol = {
       url: e.url,
+      kind: e.kind,
       date: e.date ?? before?.date,
       message: e.message,
       // Keep the ORIGINAL sighting — that is what says "stuck for three
@@ -143,10 +203,25 @@ export const computeWatermark = (input: WatermarkInput): WatermarkDecision => {
     if (givenUp && !before?.givenUp && e.kind !== "content") gaveUp.push(entry);
     ledger.set(e.url, entry);
   }
-  const deferred = [...ledger.values()].sort(
+  const ordered = [...ledger.values()].sort(
     (a, b) =>
       (a.date ?? "").localeCompare(b.date ?? "") || a.url.localeCompare(b.url),
   );
+  // Over the cap, drop the entries first seen longest ago — they are the
+  // ones an operator has had the most chances to act on — and hand them
+  // back so the run can say what it dropped.
+  const evicted: DeferredProtocol[] = [];
+  let deferred = ordered;
+  if (ordered.length > MAX_DEFERRED_ENTRIES) {
+    const byAge = [...ordered].sort((a, b) =>
+      a.firstSeen.localeCompare(b.firstSeen),
+    );
+    const drop = new Set(
+      byAge.slice(0, ordered.length - MAX_DEFERRED_ENTRIES).map((d) => d.url),
+    );
+    evicted.push(...ordered.filter((d) => drop.has(d.url)));
+    deferred = ordered.filter((d) => !drop.has(d.url));
+  }
 
   // ---- how far the watermark may go ---------------------------------------
   const blocking = missing.filter(
@@ -158,9 +233,12 @@ export const computeWatermark = (input: WatermarkInput): WatermarkDecision => {
     .reduce<
       MuniScrapeError | undefined
     >((a, b) => (a && a.date! <= b.date! ? a : b), undefined);
+  const dropped = input.candidatesDropped ?? 0;
 
   let next: string;
-  if (undated) {
+  if (dropped > 0 || undated) {
+    // Either way the honest statement is the same: we did not look at
+    // everything in this window, so no date in it can be claimed complete.
     next = previous;
   } else if (earliest) {
     // Advance only to the newest protocol strictly OLDER than the earliest
@@ -172,11 +250,14 @@ export const computeWatermark = (input: WatermarkInput): WatermarkDecision => {
   }
   if (previous && next < previous) next = previous;
 
+  const held = next < newest;
   return {
     next,
-    heldBy: next < newest ? (undated ?? earliest) : undefined,
+    heldBy: held && !(dropped > 0) ? (undated ?? earliest) : undefined,
+    heldByTruncation: held && dropped > 0 ? dropped : undefined,
     deferred,
     resolved,
     gaveUp,
+    evicted,
   };
 };

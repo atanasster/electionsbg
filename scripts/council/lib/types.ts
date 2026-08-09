@@ -96,42 +96,50 @@ export type SourcesFile = {
 };
 
 /**
- * One protocol (or one discovery step) that did not make it into the
- * result. These are not merely log lines: the orchestrator reads `date`
- * and `kind` to decide how far the per-município `sinceDate` watermark may
- * advance, so getting them wrong silently loses a protocol for ever.
+ * One protocol — or one enumeration step — that did not make it into the
+ * result. These are not merely log lines: the orchestrator reads `kind`
+ * and `date` to decide how far the per-município `sinceDate` watermark may
+ * advance, and parsers filter candidates on `date > sinceDate`. Get them
+ * wrong and the protocol is dropped from every future run, silently.
+ *
+ * `kind` is REQUIRED, and the union is discriminated, precisely because
+ * the two are easy to get wrong invisibly: when it was optional, three
+ * parsers shipped per-protocol failures with neither field and froze their
+ * own watermark for months without anything going red. Choosing the
+ * variant forces the call site to answer the question the watermark asks.
  */
-export type MuniScrapeError = {
-  url: string;
-  message: string;
+export type MuniScrapeError =
   /**
-   * ISO date of the protocol this failure belongs to, when the parser
-   * knows it. **Omit it only when the failure is a DISCOVERY step** (a
-   * year index, a CDX query, a session page) — an undated failure means
-   * "we do not know what we did not see", and the watermark is frozen
-   * entirely rather than advanced past an unknown gap.
+   * An ENUMERATION step failed — a year index, a CDX query, a category
+   * page. It carries no date by construction: what it hid is unknowable,
+   * so the watermark freezes rather than advancing past an unknown gap.
    */
-  date?: string;
+  | { kind: "discovery"; url: string; message: string; date?: never }
   /**
-   * `fetch` (the default) — transient: the artefact could not be
-   * retrieved, so the protocol is MISSING. Holds the watermark below
-   * `date`, and the next run rediscovers and retries it naturally.
-   *
-   * `content` — retrieved, but unusable by this parser as it stands (a
-   * scanned PDF with no text layer, an unsupported file variant). The
-   * protocol is missing and retrying identically will never help, so the
-   * watermark is allowed past it and it goes on the state file's
-   * `deferred` list instead — that list is what keeps "skipped" from
-   * quietly becoming "forgotten".
-   *
-   * `enrich` — the protocol ITSELF was ingested; only an optional
-   * enrichment failed (the per-councillor protokol, an OCR unlock, the
-   * roster join). Nothing is missing from the resolution set, so this
-   * neither holds the watermark nor defers. It is reported in the run
-   * output and nowhere else.
+   * One protocol could not be RETRIEVED, so it is missing. Holds the
+   * watermark strictly below `date` and the next run rediscovers it.
+   * `date` is optional only because some parsers learn the sitting date
+   * from inside the document — an undated one freezes rather than caps,
+   * which is correct but coarse, so supply it whenever it is in scope.
    */
-  kind?: "fetch" | "content" | "enrich";
-};
+  | { kind: "fetch"; url: string; date?: string; message: string }
+  /**
+   * Retrieved, but unusable by this parser as it stands — a scanned PDF
+   * with no text layer, an unsupported file variant. The protocol is
+   * still missing, but retrying identically will never help, so the
+   * watermark is allowed past it and it goes on the deferred ledger
+   * instead. That ledger is what keeps "skipped" from becoming
+   * "forgotten".
+   */
+  | { kind: "content"; url: string; date?: string; message: string }
+  /**
+   * The protocol ITSELF was ingested; only an optional enrichment failed
+   * (a per-councillor protokol, an OCR unlock, the roster join). Nothing
+   * is missing from the resolution set, so this neither holds the
+   * watermark nor defers — it is reported in the run output and nowhere
+   * else.
+   */
+  | { kind: "enrich"; url: string; date?: string; message: string };
 
 /** Output of one município scrape, before the index merger consolidates. */
 export type MuniScrapeResult = {
@@ -141,6 +149,20 @@ export type MuniScrapeResult = {
   protocolsTouched: number;
   /** Protocols that did not make it in — see MuniScrapeError. */
   errors: MuniScrapeError[];
+  /**
+   * How many in-window candidates this run deliberately did NOT look at,
+   * because `--max` truncated the list. A dropped candidate raises no
+   * error, so without this the watermark would advance past protocols
+   * nobody ever fetched — the same permanent loss a failed download
+   * causes, minus even the one line of output. Any parser honouring
+   * `maxProtocols` must report it.
+   *
+   * A LOWER BOUND, not necessarily exact: a parser that pages its source
+   * rather than enumerating protocols (Plovdiv) can only tell that it
+   * stopped early, not by how much. The watermark only asks whether it is
+   * non-zero; the number is for the operator.
+   */
+  candidatesDropped?: number;
 };
 
 /** Shape of the existing data/council/index.json that the React hook reads. */

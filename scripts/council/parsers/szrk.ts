@@ -27,14 +27,8 @@
 // ОТНОСНО clauses inside docket descriptions ("ОС_NNN/DD.MM.YYYY г. -
 // <title>"). findResolutionMarkers's ОТНОСНО fallback catches these.
 
-import {
-  fetchHead,
-  fetchJson,
-  fetchToFile,
-  BudgetExhaustedError,
-  HostThrottledError,
-  HostUnreachableError,
-} from "../lib/fetch";
+import { fetchHead, fetchToFile, isHostLevelFailure } from "../lib/fetch";
+import { fetchCdxIndex as fetchCdxRows } from "../lib/wayback";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import {
   classifyResult,
@@ -97,24 +91,8 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
   return { pdfUrl: url, session, date };
 };
 
-const CDX_UA = "Mozilla/5.0 electionsbg-council/1.0";
-
-const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const arr = await fetchJson<string[][]>(cdxUrl, {
-    headers: { "User-Agent": CDX_UA },
-  });
-  const out: SessionRef[] = [];
-  const seen = new Set<string>();
-  for (const row of arr.slice(1)) {
-    const ref = parseSessionRef(row[2]);
-    if (!ref) continue;
-    const key = ref.pdfUrl;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(ref);
-  }
-  return out;
-};
+const fetchCdxIndex = (): Promise<SessionRef[]> =>
+  fetchCdxRows(cdxUrl, parseSessionRef, (r) => r.pdfUrl);
 
 /** Focused brute-force probe: for each (year, month) tuple in the
  *  requested year range, try Protokol_{N}_SAIT.pdf for N=1..60. Cheap
@@ -146,7 +124,6 @@ const bruteForceProbe = async (
         try {
           const r = await fetchHead(url, {
             timeoutMs: 5000,
-            headers: { "User-Agent": CDX_UA },
             // Speculative: nearly all 1,440 of these are expected 404s, so
             // a failure is cheap and a retry is not. Retrying would also
             // spend three attempts per URL before the circuit breaker
@@ -165,15 +142,10 @@ const bruteForceProbe = async (
           }
         } catch (err) {
           // A single timeout is a fact about one URL — keep walking, and
-          // let the strike accrue. A tripped breaker, a 429 back-off or a
-          // blown budget is a fact about every REMAINING url, so stop and
-          // let the caller record it as one fetch error.
-          if (
-            err instanceof HostUnreachableError ||
-            err instanceof HostThrottledError ||
-            err instanceof BudgetExhaustedError
-          )
-            throw err;
+          // let the strike accrue. Anything host-level is a fact about
+          // every REMAINING url, so stop and let the caller record it as
+          // one fetch error.
+          if (isHostLevelFailure(err)) throw err;
         }
       }
     }
@@ -271,6 +243,7 @@ export const scrapeSZRK = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   const currentYear = new Date().getUTCFullYear();
   const startYear = opts.sinceYear ?? currentYear - 1;
@@ -282,6 +255,7 @@ export const scrapeSZRK = async (
   } catch (err) {
     errors.push({
       url: cdxUrl,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -300,6 +274,7 @@ export const scrapeSZRK = async (
   } catch (err) {
     errors.push({
       url: `${BASE} brute-force probe`,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -317,7 +292,13 @@ export const scrapeSZRK = async (
     return true;
   });
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -327,6 +308,7 @@ export const scrapeSZRK = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -368,6 +350,7 @@ export const scrapeSZRK = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });

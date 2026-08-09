@@ -34,16 +34,22 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 import { Agent } from "undici";
+import { AsyncLocalStorage } from "node:async_hooks";
 
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15";
 
-const POLITE_DELAY_MS = 250;
+let politeDelayMs = 250;
+
+// The tuning surface. These are exported with no importer on purpose:
+// they are the numbers an operator changes, and the "tuning surface"
+// block in fetch.test.ts pins each one, so a change is a deliberate
+// edit to a gate rather than silent drift. Anything NOT in that gate
+// and not imported anywhere is dead and should go.
 
 /** Connect + first byte. Generous — some council CMSes are genuinely slow. */
 export const DEFAULT_HEADERS_MS = 30_000;
 
-/** Gap between body chunks before we call the response stalled. */
 export const DEFAULT_IDLE_MS = 30_000;
 /** Overall ceilings, per kind of request. */
 export const HTML_TOTAL_MS = 60_000;
@@ -88,7 +94,24 @@ export const DEFAULT_RETRIES = 2;
 
 /** Backoff before attempt 2 and attempt 3. Short: the município budget is
  *  the real ceiling and these are sequential. */
-const RETRY_BACKOFF_MS = [1_000, 3_000];
+let retryBackoffMs = [1_000, 3_000];
+
+/**
+ * Test seam for the two real-time waits. The behaviour under test in
+ * fetch.test.ts is ordering and accounting — how many dials, which host,
+ * what got counted — and none of it depends on the duration; only the
+ * three explicit `Date.now()` bounds do, and they stay valid because they
+ * assert an upper limit. Without this the file pays 5 × 250 ms of
+ * politeness in one test and two real backoffs (1 s + 3 s) in another, and
+ * a suite nobody runs locally is a suite that stops catching things.
+ */
+export const __setTimingForTests = (t: {
+  politeDelayMs?: number;
+  retryBackoffMs?: number[];
+}): void => {
+  if (t.politeDelayMs !== undefined) politeDelayMs = t.politeDelayMs;
+  if (t.retryBackoffMs !== undefined) retryBackoffMs = t.retryBackoffMs;
+};
 
 /**
  * How long a host that answered 429 is left alone, when it names no
@@ -107,9 +130,23 @@ export const THROTTLE_COOLDOWN_MS = 120_000;
 /** Ceiling on a server-supplied Retry-After, so one bad header cannot
  *  silence a host for the rest of the run. */
 const MAX_RETRY_AFTER_MS = 300_000;
+/** Floor, so "retry immediately" still leaves a beat between dials. */
+const MIN_RETRY_AFTER_MS = 250;
 
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+/**
+ * Body ceiling. Before the explicit chunk loop the only bound on memory
+ * was `totalMs` — a server trickling at 10 MB/s for 180 s is 1.8 GB — and
+ * the ranged-GET HEAD fallback makes an overrun likelier, since a host
+ * that rejects HEAD *and* ignores `Range` serves a whole PDF for every
+ * existence probe. Council protokols run to a few MB.
+ */
+export const MAX_BODY_BYTES = 256 * 1024 * 1024;
+/** The ranged existence probe wants only the first bytes, never a file. */
+const PROBE_MAX_BYTES = 2 * 1024 * 1024;
+
+/** Internal — the polite delay and the retry backoff. Not part of the
+ *  surface: nothing outside this file has a reason to sleep. */
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export type TimeoutPhase = "headers" | "idle" | "total";
 
@@ -156,6 +193,13 @@ export class HostUnreachableError extends Error {
   }
 }
 
+export class FetchTooLargeError extends Error {
+  constructor(url: string, maxBytes: number) {
+    super(`${url} → body exceeded ${maxBytes} bytes — aborted`);
+    this.name = "FetchTooLargeError";
+  }
+}
+
 export class HostThrottledError extends Error {
   readonly host: string;
   readonly untilMs: number;
@@ -169,10 +213,18 @@ export class HostThrottledError extends Error {
   }
 }
 
-/** True for the failures that mean "the far end is not answering", as
- *  opposed to a parse error or an HTTP status we understood. */
-export const isUnreachable = (err: unknown): boolean =>
-  err instanceof FetchTimeoutError ||
+/**
+ * True for failures that are a fact about every REMAINING url on this
+ * host, rather than about this one url — the predicate a speculative
+ * probe needs to know when to stop walking.
+ *
+ * A bare `FetchTimeoutError` is deliberately NOT one: Казанлък's
+ * brute-force probe must keep going past a single timeout and let the
+ * strike accrue, or one slow URL ends the probe. That distinction is why
+ * this is named for the scope of the failure and not for "unreachable",
+ * which read as if it included the timeout.
+ */
+export const isHostLevelFailure = (err: unknown): boolean =>
   err instanceof HostUnreachableError ||
   err instanceof HostThrottledError ||
   err instanceof BudgetExhaustedError;
@@ -191,6 +243,7 @@ const cooldowns = new Map<string, number>();
 export const resetHostState = (): void => {
   cooldowns.clear();
   headUnsupported.clear();
+  strikes.clear();
 };
 
 const cooldownUntil = (host: string): number => {
@@ -205,12 +258,16 @@ const cooldownUntil = (host: string): number => {
 
 /** Parse `Retry-After` in either of its two legal forms (delta-seconds or
  *  an HTTP-date), clamped. Wayback sends neither, hence the fallback. */
-const retryAfterMs = (raw: string | null): number => {
-  if (!raw) return THROTTLE_COOLDOWN_MS;
+const retryAfterMs = (raw: string | null): number | null => {
+  if (!raw) return null;
   const secs = Number(raw.trim());
   const ms = Number.isFinite(secs) ? secs * 1000 : Date.parse(raw) - Date.now();
-  if (!Number.isFinite(ms) || ms <= 0) return THROTTLE_COOLDOWN_MS;
-  return Math.min(ms, MAX_RETRY_AFTER_MS);
+  if (!Number.isFinite(ms)) return null;
+  // `Retry-After: 0` means "retry now", and a date already in the past
+  // means the same. Folding those into the 120 s fallback silenced a host
+  // for two minutes because it told us to go ahead.
+  if (ms <= 0) return MIN_RETRY_AFTER_MS;
+  return Math.min(Math.max(ms, MIN_RETRY_AFTER_MS), MAX_RETRY_AFTER_MS);
 };
 
 // ---------------------------------------------------------------------------
@@ -224,8 +281,8 @@ type MuniBudget = {
   deadline: number;
   ms: number;
   expired: boolean;
-  /** Consecutive transport failures per host; any response clears the host. */
-  strikes: Map<string, number>;
+  /** endMuniBudget() ran — a still-running dispatcher must stop dialling. */
+  closed: boolean;
   /**
    * Requests during this município that failed to yield a usable answer —
    * a transport failure, or a status that means "the server did not serve
@@ -261,16 +318,45 @@ const MAX_RECORDED_REASONS = 8;
 const isFailureStatus = (status: number): boolean =>
   status >= 500 || status === 429;
 
-let budget: MuniBudget | null = null;
-
 /**
- * Open a wall-clock budget around one município's scrape. Every request
- * made while it is open composes its abort signal, so expiry aborts the
- * in-flight request and short-circuits every later one. Idempotent —
- * opening a new budget closes any previous one.
+ * The open budget lives in async context, NOT in a module variable, and
+ * that is a correctness fix rather than tidiness.
+ *
+ * `AbandonedError` fires while a dispatcher is STILL RUNNING — that is its
+ * whole purpose, for the stalls this layer cannot abort (pdftotext,
+ * Playwright). The orchestrator then moves on and opens the next
+ * município's budget. With a module singleton, the abandoned dispatcher's
+ * pending continuations resume later, read the global, and find município
+ * B's budget: every one of their failures incremented B's lookup count,
+ * displaced B's reason lines, and recorded strikes against B — on hosts
+ * like web.archive.org that four parsers share. A município whose source
+ * read perfectly then reported UNVERIFIED, declined to stamp, and printed
+ * Казанлък's URLs underneath. Those two diagnostics are the ones this
+ * whole layer exists to make trustworthy.
+ *
+ * In async context a zombie's continuations keep seeing their OWN budget,
+ * which is closed, so they short-circuit immediately and are charged to
+ * the município that actually owns them.
  */
-export const beginMuniBudget = (label: string, ms: number): void => {
-  endMuniBudget();
+const budgets = new AsyncLocalStorage<MuniBudget>();
+
+const current = (): MuniBudget | undefined => budgets.getStore();
+
+/** True when the budget owning this async context is spent or closed —
+ *  a closed one is the abandoned-dispatcher case, and it must stop
+ *  dialling rather than spend the NEXT município's wall clock. */
+const blown = (): boolean => {
+  const b = current();
+  return !!b && (b.expired || b.closed);
+};
+
+/** Build a budget. It does nothing until `runInMuniBudget` enters it. */
+export const createMuniBudget = (label: string, ms: number): MuniBudget => {
+  // The strike map is process-wide (see `strikes`) but its LIFETIME is one
+  // município — a host that was dead for Казанлък deserves a fresh dial
+  // for Габрово. Cooldowns deliberately do NOT reset: a 429 is the host
+  // telling every município to back off.
+  strikes.clear();
   const ctrl = new AbortController();
   const b: MuniBudget = {
     label,
@@ -278,7 +364,7 @@ export const beginMuniBudget = (label: string, ms: number): void => {
     deadline: Date.now() + ms,
     ms,
     expired: false,
-    strikes: new Map(),
+    closed: false,
     lookupFailures: 0,
     reasons: [],
     // Replaced immediately below; typed non-optional so callers can't see
@@ -290,25 +376,50 @@ export const beginMuniBudget = (label: string, ms: number): void => {
     ctrl.abort(new BudgetExhaustedError(label, ms));
   }, ms);
   b.timer.unref?.();
-  budget = b;
+  return b;
 };
-
-export const endMuniBudget = (): void => {
-  if (budget) clearTimeout(budget.timer);
-  budget = null;
-};
-
-export const muniBudgetExpired = (): boolean => budget?.expired ?? false;
-
-export const muniBudgetRemainingMs = (): number =>
-  budget ? Math.max(0, budget.deadline - Date.now()) : Number.POSITIVE_INFINITY;
 
 /**
- * How many requests during the open município failed to yield the
- * resource. Zero alongside "0 new protocols" means the council genuinely
- * published nothing; non-zero means we could not see.
+ * Test seam: enter a budget for the CURRENT async context and everything
+ * downstream of it, without a callback. Production uses
+ * `runInMuniBudget`, which scopes the store to the dispatcher — that
+ * scoping is the whole point of F-002 and must not be bypassed. Tests
+ * need this because a test body is a flat sequence of awaits, not a
+ * callback, and wrapping every one would obscure what they assert.
  */
-export const muniLookupFailures = (): number => budget?.lookupFailures ?? 0;
+export const __enterMuniBudgetForTests = (b: MuniBudget): void => {
+  budgets.enterWith(b);
+};
+
+/** Run one município's dispatcher inside its budget. */
+export const runInMuniBudget = <T>(
+  b: MuniBudget,
+  fn: () => Promise<T>,
+): Promise<T> => budgets.run(b, fn);
+
+/**
+ * Close it. Also marks it closed, so a dispatcher that is still running —
+ * one we abandoned — stops dialling instead of spending the next
+ * município's wall clock.
+ */
+export const endMuniBudget = (b: MuniBudget): void => {
+  b.closed = true;
+  clearTimeout(b.timer);
+};
+
+export const muniBudgetExpired = (b: MuniBudget): boolean => b.expired;
+
+const muniBudgetRemainingMs = (): number => {
+  const b = current();
+  return b ? Math.max(0, b.deadline - Date.now()) : Number.POSITIVE_INFINITY;
+};
+
+/**
+ * How many requests during this município failed to yield the resource.
+ * Zero alongside "0 new protocols" means the council genuinely published
+ * nothing; non-zero means we could not see.
+ */
+export const muniLookupFailures = (b: MuniBudget): number => b.lookupFailures;
 
 /**
  * Why those lookups failed — one line each, capped at
@@ -316,14 +427,15 @@ export const muniLookupFailures = (): number => budget?.lookupFailures ?? 0;
  * so the operator can tell a blocked host from a rate-limited API from a
  * broken origin without re-running anything.
  */
-export const muniLookupFailureReasons = (): string[] =>
-  budget ? [...budget.reasons] : [];
+export const muniLookupFailureReasons = (b: MuniBudget): string[] => [
+  ...b.reasons,
+];
 
 /** The open budget's abort signal, for callers that own their own fetch
  *  (the Gemini OCR call, which needs a far longer deadline than anything
  *  here but must still stop when the município's time is up). */
 export const muniBudgetSignal = (): AbortSignal | undefined =>
-  budget?.ctrl.signal;
+  current()?.ctrl.signal;
 
 const hostOf = (url: string): string => {
   try {
@@ -334,25 +446,35 @@ const hostOf = (url: string): string => {
 };
 
 /**
+ * host → consecutive transport failures. Process-wide, like `cooldowns`,
+ * and NOT a field on the budget: hung off the budget, every one of these
+ * became a silent no-op for any caller that forgot to open one — a
+ * one-off backfill script or a parser harness would walk all 1,440 of
+ * Казанлък's probe URLs against a dead host with nothing stopping it,
+ * which is precisely the 2026-08-09 hang. Only the RESET is per-município.
+ */
+const strikes = new Map<string, number>();
+
+/**
  * Record one failed LOOKUP — never one failed attempt. `request` calls
  * this exactly once per call, after its retries are spent, so the count
  * the orchestrator reads stays a count of things we could not see rather
  * than of times we tried.
  */
 const noteFailure = (url: string, reason: string): void => {
-  if (!budget) return;
-  budget.lookupFailures++;
-  if (budget.reasons.length < MAX_RECORDED_REASONS)
-    budget.reasons.push(`${url} — ${reason}`);
-  else if (budget.reasons.length === MAX_RECORDED_REASONS)
-    budget.reasons.push("… further failures omitted");
+  const b = current();
+  if (!b) return;
+  b.lookupFailures++;
+  if (b.reasons.length < MAX_RECORDED_REASONS)
+    b.reasons.push(`${url} — ${reason}`);
+  else if (b.reasons.length === MAX_RECORDED_REASONS)
+    b.reasons.push("… further failures omitted");
 };
 
 /** A transport failure: counts toward the per-host breaker as well. */
 const recordStrike = (url: string, reason: string): void => {
-  if (!budget) return;
   const h = hostOf(url);
-  budget.strikes.set(h, (budget.strikes.get(h) ?? 0) + 1);
+  strikes.set(h, (strikes.get(h) ?? 0) + 1);
   noteFailure(url, reason);
 };
 
@@ -373,11 +495,10 @@ const describe = (err: unknown): Error => {
 };
 
 const clearStrikes = (url: string): void => {
-  budget?.strikes.delete(hostOf(url));
+  strikes.delete(hostOf(url));
 };
 
-const hostStrikes = (url: string): number =>
-  budget?.strikes.get(hostOf(url)) ?? 0;
+const hostStrikes = (url: string): number => strikes.get(hostOf(url)) ?? 0;
 
 // ---------------------------------------------------------------------------
 // The one request path
@@ -392,6 +513,8 @@ export type FetchOpts = {
   idleMs?: number;
   method?: string;
   accept?: string;
+  /** Abort once the body passes this many bytes. Defaults to MAX_BODY_BYTES. */
+  maxBytes?: number;
   /** Merged over the defaults, so a caller may override the User-Agent. */
   headers?: Record<string, string>;
   /**
@@ -407,8 +530,8 @@ const politeSleep = async (): Promise<void> => {
   // Once the budget is blown we are unwinding: the caller's loop still has
   // to walk its remaining URLs, and 250 ms of politeness each turns a
   // 1,440-URL probe into six more minutes of doing nothing.
-  if (budget?.expired) return;
-  await sleep(POLITE_DELAY_MS);
+  if (current()?.expired) return;
+  await sleep(politeDelayMs);
 };
 
 const decodeUtf8 = (buf: Buffer): string => {
@@ -434,13 +557,15 @@ const attempt = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
   const idleMs = Math.min(opts.idleMs ?? DEFAULT_IDLE_MS, totalMs);
 
   const ctrl = new AbortController();
-  const signal = budget
-    ? AbortSignal.any([ctrl.signal, budget.ctrl.signal])
+  const b = current();
+  const signal = b
+    ? AbortSignal.any([ctrl.signal, b.ctrl.signal])
     : ctrl.signal;
 
   // Which watchdog fired, recorded before the abort so the catch below can
   // name the phase rather than reporting a bare "AbortError".
   let phase: TimeoutPhase | null = null;
+  let tooLarge = false;
   const fire = (p: TimeoutPhase) => () => {
     phase ??= p;
     ctrl.abort();
@@ -476,11 +601,21 @@ const attempt = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
       const reader = res.body.getReader();
       idleTimer = setTimeout(fire("idle"), idleMs);
       try {
+        const maxBytes = opts.maxBytes ?? MAX_BODY_BYTES;
+        let bytes = 0;
         for (;;) {
           const { done, value } = await reader.read();
           if (done) break;
           clearTimeout(idleTimer);
-          if (value) chunks.push(Buffer.from(value));
+          if (value) {
+            bytes += value.byteLength;
+            if (bytes > maxBytes) {
+              tooLarge = true;
+              ctrl.abort();
+              break;
+            }
+            chunks.push(Buffer.from(value));
+          }
           idleTimer = setTimeout(fire("idle"), idleMs);
         }
       } finally {
@@ -498,8 +633,9 @@ const attempt = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
   } catch (err) {
     // Budget expiry aborts the same signal, so check it before the phase:
     // "the município ran out of time" is the more useful of the two.
-    if (budget?.expired)
-      throw new BudgetExhaustedError(budget.label, budget.ms);
+    if (tooLarge)
+      throw new FetchTooLargeError(url, opts.maxBytes ?? MAX_BODY_BYTES);
+    if (b?.expired) throw new BudgetExhaustedError(b.label, b.ms);
     if (phase)
       throw new FetchTimeoutError(
         url,
@@ -539,9 +675,10 @@ const request = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
   // All three short-circuits are deliberately BEFORE any attempt: they
   // must not pay the polite delay, because their whole purpose is a fast
   // unwind.
-  if (budget?.expired) {
+  if (blown()) {
     noteFailure(url, "município budget already exhausted");
-    throw new BudgetExhaustedError(budget.label, budget.ms);
+    const b = current()!;
+    throw new BudgetExhaustedError(b.label, b.ms);
   }
   const host = hostOf(url);
   const until = cooldownUntil(host);
@@ -557,7 +694,7 @@ const request = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
   const maxRetries = Math.max(0, opts.retries ?? DEFAULT_RETRIES);
 
   for (let i = 0; ; i++) {
-    const backoff = RETRY_BACKOFF_MS[Math.min(i, RETRY_BACKOFF_MS.length - 1)];
+    const backoff = retryBackoffMs[Math.min(i, retryBackoffMs.length - 1)];
     // Only the BACKOFF has to fit in what's left, not the attempt after
     // it: the retry composes the budget's abort signal, so an attempt that
     // outruns the budget is cut off rather than overrunning it. Requiring
@@ -565,9 +702,7 @@ const request = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
     // disabled retry altogether — with a 60 s HTML ceiling, any budget
     // under 60 s never retried once, and the guard read as if it did.
     const canRetry =
-      i < maxRetries &&
-      !budget?.expired &&
-      muniBudgetRemainingMs() > backoff + 1_000;
+      i < maxRetries && !blown() && muniBudgetRemainingMs() > backoff + 1_000;
 
     try {
       const res = await attempt(url, opts);
@@ -577,14 +712,29 @@ const request = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
       clearStrikes(url);
       if (!isFailureStatus(res.status)) return res;
       if (canRetry && isRetryableStatus(res.status)) {
-        await sleep(backoff);
-        continue;
+        // Obey the server on a 429. Sleeping our own 1 s / 3 s backoff
+        // against a host that asked for 30 makes both retries near-certain
+        // refusals — and then we conclude the host is throttling us, which
+        // it is, because we ignored it. Only when the wait still fits what
+        // is left of the budget; otherwise stop and let the cooldown below
+        // record it.
+        // NULL when the server named no delay — then our own backoff is
+        // the only number we have. Substituting THROTTLE_COOLDOWN_MS here
+        // would mean an unheadered 429 never retries at all, because two
+        // minutes never fits inside what is left of the budget.
+        const asked =
+          res.status === 429 ? (retryAfterMs(res.retryAfter) ?? 0) : 0;
+        const wait = Math.max(backoff, asked);
+        if (wait + 1_000 < muniBudgetRemainingMs()) {
+          await sleep(wait);
+          continue;
+        }
       }
       // Out of attempts. A 429 additionally silences the host process-wide
       // — it asked us to stop, and three parsers behind this one are about
       // to dial the very same API.
       if (res.status === 429) {
-        const waitMs = retryAfterMs(res.retryAfter);
+        const waitMs = retryAfterMs(res.retryAfter) ?? THROTTLE_COOLDOWN_MS;
         cooldowns.set(host, Date.now() + waitMs);
         noteFailure(
           url,
@@ -595,9 +745,10 @@ const request = async (url: string, opts: FetchOpts): Promise<RawResponse> => {
       }
       return res;
     } catch (err) {
-      if (budget?.expired) {
+      if (blown()) {
         noteFailure(url, "município budget exhausted mid-request");
-        throw new BudgetExhaustedError(budget.label, budget.ms);
+        const b = current()!;
+        throw new BudgetExhaustedError(b.label, b.ms);
       }
       if (canRetry) {
         await sleep(backoff);
@@ -673,6 +824,10 @@ export const fetchHead = async (
     // bytes=0-0 keeps the "cheap" property of a HEAD on a server that
     // honours it, and costs one body on a server that ignores it.
     headers: ranged ? { Range: "bytes=0-0", ...opts.headers } : opts.headers,
+    // A host that rejects HEAD *and* ignores Range serves the whole file
+    // for what is meant to be an existence check. We only ever need the
+    // status line.
+    maxBytes: opts.maxBytes ?? PROBE_MAX_BYTES,
     timeoutMs: opts.timeoutMs ?? HEAD_TOTAL_MS,
   });
   if (!ranged && (res.status === 405 || res.status === 501)) {
@@ -688,14 +843,46 @@ export const fetchToFile = async (
   filePath: string,
   opts: FetchOpts = {},
 ): Promise<void> => {
+  // A trickling body can burn the FULL ceiling on every attempt, so the
+  // defaults compound: 180 s × 3 attempts ≈ 9.1 minutes of a 20-minute
+  // budget, on one file. (A *silent* stall is still cut at idleMs, 30 s —
+  // this is the slow-trickle shape.) One retry rides out a dropped
+  // connection, and the ceiling is sized against what is actually left, so
+  // a single protocol can never consume more than a third of the run.
+  //
+  // Failing a protocol here is no longer terminal for it, which is what
+  // makes the smaller budget safe: the watermark now caps below a failed
+  // download instead of advancing past it, so tomorrow's run retries it.
   const res = await request(url, {
     ...opts,
-    timeoutMs: opts.timeoutMs ?? FILE_TOTAL_MS,
+    retries: opts.retries ?? 1,
+    timeoutMs:
+      opts.timeoutMs ?? Math.min(FILE_TOTAL_MS, muniBudgetRemainingMs() / 3),
   });
   if (!res.ok) throw new Error(`${url} → HTTP ${res.status}`);
   await mkdir(dirname(filePath), { recursive: true });
   await writeFile(filePath, res.body);
 };
+
+/**
+ * The council-scraper User-Agent. Distinct from the browser UA above: the
+ * municipal CMSes need a real Safari string to answer at all, while the
+ * aggregators (Wayback) are happier with something identifiable.
+ */
+export const COUNCIL_UA = "Mozilla/5.0 electionsbg-council/1.0";
+
+/**
+ * `fetchHtml` pre-bound to that UA. Three parsers had their own copy of
+ * this wrapper — same four lines, same six-line comment — each existing
+ * only to pin the header. The reason lives here now: a bare `fetch()` in a
+ * parser has no deadline, no budget and no circuit breaker, so everything
+ * goes through this layer.
+ */
+export const councilFetchHtml = (
+  url: string,
+  ua: string = COUNCIL_UA,
+): Promise<string> =>
+  fetchHtml(url, { headers: { "User-Agent": ua }, accept: "text/html" });
 
 /**
  * Resolve a (possibly relative) href against a base URL. Council CMSes

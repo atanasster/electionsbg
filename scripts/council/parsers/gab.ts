@@ -28,7 +28,8 @@
 // pull it via a forward-look helper since Gabrovo doesn't use an
 // "ОТНОСНО:" clause that findResolutionMarkers expects.
 
-import { fetchJson, fetchToFile } from "../lib/fetch";
+import { fetchToFile } from "../lib/fetch";
+import { fetchCdxIndex as fetchCdxRows } from "../lib/wayback";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import {
   classifyResult,
@@ -83,23 +84,10 @@ const parseSessionRef = (rawUrl: string): SessionRef | null => {
   return { pdfUrl: url, session, date };
 };
 
-const fetchCdxIndex = async (): Promise<SessionRef[]> => {
-  const arr = await fetchJson<string[][]>(cdxUrl, {
-    headers: { "User-Agent": "Mozilla/5.0 electionsbg-council/1.0" },
-  });
-  // First row is header.
-  const out: SessionRef[] = [];
-  const seen = new Set<string>();
-  for (const row of arr.slice(1)) {
-    const ref = parseSessionRef(row[2]);
-    if (!ref) continue;
-    const key = `${ref.date}|${ref.session}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(ref);
-  }
-  return out;
-};
+const fetchCdxIndex = (): Promise<SessionRef[]> =>
+  // Габрово keeps ONE snapshot per (date, session) rather than per
+  // URL — Wayback holds several captures of the same sitting.
+  fetchCdxRows(cdxUrl, parseSessionRef, (r) => `${r.date}|${r.session}`);
 
 // Brute-force discovery for current-year sessions is intentionally NOT
 // implemented in this parser. With ~25 candidate session numbers and
@@ -222,6 +210,7 @@ export const scrapeGAB = async (
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let candidatesDropped = 0;
 
   const currentYear = new Date().getUTCFullYear();
   const startYear = opts.sinceYear ?? currentYear - 1;
@@ -234,6 +223,7 @@ export const scrapeGAB = async (
   } catch (err) {
     errors.push({
       url: cdxUrl,
+      kind: "discovery",
       message: err instanceof Error ? err.message : String(err),
     });
   }
@@ -254,7 +244,13 @@ export const scrapeGAB = async (
   });
   // Newest first.
   all.sort((a, b) => (a.date < b.date ? 1 : -1));
-  if (opts.maxProtocols) all = all.slice(0, opts.maxProtocols);
+  // --max truncates the candidate list newest-first, and a dropped
+  // candidate raises NO error — so the count has to reach the
+  // watermark, or it advances past protocols this run never looked at.
+  if (opts.maxProtocols && all.length > opts.maxProtocols) {
+    candidatesDropped = all.length - opts.maxProtocols;
+    all = all.slice(0, opts.maxProtocols);
+  }
 
   if (all.length === 0) {
     console.log(
@@ -264,6 +260,7 @@ export const scrapeGAB = async (
       obshtinaCode: OBSHTINA,
       resolutions: [],
       protocolsTouched,
+      candidatesDropped,
       errors,
     };
   }
@@ -305,6 +302,7 @@ export const scrapeGAB = async (
       } catch (err) {
         errors.push({
           url: p.pdfUrl,
+          kind: "fetch",
           date: p.date,
           message: err instanceof Error ? err.message : String(err),
         });
