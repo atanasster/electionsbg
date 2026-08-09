@@ -207,9 +207,13 @@ CREATE VIEW open_calls_table AS
       WHEN c.opens_at IS NOT NULL AND c.opens_at > now()    THEN 'upcoming'
       ELSE 'open'
     END AS status,
+    -- NULL once the deadline has passed, NOT 0. Clamping an expired call to zero makes it
+    -- indistinguishable from one closing today, so a „closes within 30 days" range filter
+    -- returns the whole expired archive: measured `days_left <= 30` → 13 rows, 10 of them
+    -- already closed. A closed call has no days left; it has none, which is NULL.
     CASE
-      WHEN c.closes_at IS NULL THEN NULL
-      ELSE GREATEST(0, (c.closes_at::date - now()::date))::int
+      WHEN c.closes_at IS NULL OR c.closes_at < now() THEN NULL
+      ELSE (c.closes_at::date - now()::date)::int
     END AS days_left
   FROM open_calls c;
 

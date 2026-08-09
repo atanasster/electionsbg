@@ -596,6 +596,89 @@ const REGISTRY = {
   // services). One row per (service_id × provider tier); `name` is the free-text
   // search target (idx_admin_services_name_trgm), `tier` a facet filter. `id` is
   // the stable paging tiebreak (buildOrder appends select[0]).
+  // OPEN CALLS browse (/funds/calls) — the full register behind the /funds band-1 tile.
+  //
+  // `base` is the VIEW, not open_calls_list(): the engine composes WHERE/ORDER BY/LIMIT on top
+  // and runs its counts and facets over the same relation, so the base must be the FULL
+  // relation. The view carries no LIMIT for exactly that reason (see 142's header — an internal
+  // LIMIT plus `ORDER BY closes_at` would, on this never-deleted archive, retain the oldest
+  // EXPIRED calls and drop the currently open ones).
+  //
+  // `status` and `days_left` are derived columns of the view, so filtering on `status` here is
+  // filtering on the same query-time derivation every other consumer sees — there is no second
+  // implementation to drift.
+  open_calls: {
+    base: "open_calls_table",
+    scopeCols: [],
+    columns: {
+      // id is the stable paging tiebreak (buildOrder appends select[0]); closes_at ties are
+      // common (many procedures share a cut-off date).
+      id: { type: "int" },
+      title: { type: "text", sort: true, filter: "text", search: true },
+      code: { type: "text", filter: "text" },
+      status: { type: "text", sort: true, filter: "in" },
+      kind: { type: "text", filter: "in" },
+      // text[] — the engine's `in` filter matches a scalar, so the AUDIENCE facet is served by
+      // the route's own p_audience (array containment) rather than here. Exposed for display.
+      audience: { type: "text" },
+      source: { type: "text", sort: true, filter: "in" },
+      programme_name: { type: "text", filter: "text" },
+      closes_at: { type: "date", sort: true, filter: "range" },
+      days_left: { type: "int", sort: true, filter: "range" },
+      period_label: { type: "text" },
+      // Money is NULL unless enrichment is 'source' or 'reviewed' (142). Summing it would
+      // therefore total only the rows that happen to publish a budget, so there is no `agg`
+      // here — the tile states its denominator instead („€X по N от M с публикуван бюджет").
+      budget_eur: { type: "number", sort: true, filter: "range" },
+      aid_rate_pct: { type: "number", sort: true, filter: "range" },
+      grant_max_eur: { type: "number", sort: true, filter: "range" },
+      enrichment: { type: "text", filter: "in" },
+      source_url: { type: "text" },
+    },
+    select: [
+      "id",
+      "title",
+      "code",
+      "status",
+      "kind",
+      "audience",
+      "source",
+      "programme_name",
+      "closes_at",
+      "days_left",
+      "period_label",
+      "budget_eur",
+      "aid_rate_pct",
+      "grant_max_eur",
+      "enrichment",
+      "source_url",
+    ],
+    // Soonest deadline first — the only ordering a reader of this table wants. NULLS (indicative
+    // and consultation rows) sort after, which the engine's ASC default already does.
+    defaultSort: [["closes_at", "asc"]],
+    // THE FLOOR, and it is not cosmetic. This table is an ARCHIVE — the loader never deletes,
+    // so closed calls accumulate for ever. With `closes_at ASC` and no floor, the default
+    // request leads with the OLDEST EXPIRED rows (measured: 8 of the first 8 closed, the oldest
+    // from 2024-06-22) — i.e. the browse opens on the least useful page it could possibly show,
+    // and the /funds tile's count would disagree with what a reader sees on arrival.
+    //
+    // `kind` is floored too: consultations are draft guidance, and the moment ИСУН's
+    // /PublicDiscussion tier is non-empty they would otherwise share the list with real calls.
+    // Both are overridable — a caller asking for status=closed still gets the archive.
+    defaultFilters: [
+      { col: "kind", val: "call" },
+      { col: "status", val: "open" },
+    ],
+    aggregates: [
+      { fn: "count" },
+      // The DENOMINATOR for „€X по N от M с публикуван бюджет". A plain SUM would total only the
+      // rows that happen to publish a budget while reading as the total across all of them, so
+      // the count of non-NULL budgets ships alongside it rather than a bare sum.
+      { fn: "count", col: "budget_eur" },
+    ],
+    maxPageSize: 100,
+  },
+
   admin_services: {
     base: "admin_services",
     scopeCols: [],

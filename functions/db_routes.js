@@ -912,6 +912,80 @@ const DB_ROUTES = {
   // ~14ms: entity_class counts hit the index, the register total is the pg_class
   // reltuples estimate (exact enough for a headline, no 1M-row scan), and the
   // state-awarder count reads the awarder_totals matview (one row per awarder).
+  // OPEN CALLS — what a reader can apply to right now (open_calls, migration 142).
+  //
+  // Returns three groups in ONE response, because the page renders them as three separate
+  // sections and must never merge them (funds-module-v2 §5.2):
+  //   calls         — kind='call', status open or upcoming: a real application procedure
+  //   indicative    — the ДФЗ forecast window; NO deadline exists yet, so no countdown
+  //   consultations — draft guidance out for public COMMENT; applications are not open
+  // …plus `crawl`, the per-source freshness stamp the banner reads.
+  //
+  // DEGRADE SET, and the two codes deliberately NOT in it:
+  //   42883 absent FUNCTION · 42P01 absent table · 55000 unpopulated · 55P03 locked → empty page
+  //   57014 is the pool's OWN statement_timeout: the probe has already burned the budget, so
+  //         falling back cannot finish either and would turn a 10 s failure into a 20 s one.
+  //   42501 is a missing GRANT on a PLAIN TABLE, which is permanent, not a refresh artifact
+  //         (the 123/124 precedent includes it because those are matviews). Degrading would
+  //         serve an empty page for ever instead of failing loudly once.
+  "open-calls": async (dbRows, q) => {
+    const lim = clampInt(q.limit, 20, 1, 200);
+    const audience = s(q, "audience") || null;
+    // A per-group query, because ranking once and partitioning afterwards silently starves the
+    // narrower tiers — the same failure the hub-search rule documents.
+    const group = (status, kind) =>
+      dbRows(
+        `SELECT id, source, source_key AS "sourceKey", code, kind, title,
+                programme_name AS "programmeName",
+                objective, status, date_precision AS "datePrecision",
+                opens_at AS "opensAt", closes_at AS "closesAt",
+                period_label AS "periodLabel", days_left AS "daysLeft",
+                budget_eur AS "budgetEur", budget_note AS "budgetNote",
+                aid_rate_pct AS "aidRatePct", grant_max_eur AS "grantMaxEur",
+                beneficiaries_raw AS "beneficiariesRaw", audience, territory,
+                source_url AS "sourceUrl", docs, enrichment
+         FROM open_calls_list($1, $2, $3, NULL, $4)`,
+        [status, kind, audience, lim],
+      );
+
+    const [calls, upcoming, indicative, consultations, crawl] = await Promise.all([
+      group("open", "call"),
+      group("upcoming", "call"),
+      group("indicative", "call"),
+      group("consultation", "consultation"),
+      dbRows(
+        `SELECT source, crawled_at AS "crawledAt", rows_seen AS "rowsSeen", ok, note
+         FROM open_calls_crawl ORDER BY source`,
+      ),
+    ]).catch((e) => {
+      // 42883 FIRST, and it is the one that matters: the four group queries call
+      // open_calls_list(), a FUNCTION, so a database without migration 142 raises
+      // 42883 undefined_function — never 42P01. Only the crawl-stamp query reads a table
+      // directly, and with the pool at max 4 it has not even been dispatched when the first
+      // 42883 returns. Omitting 42883 therefore made this whole branch UNREACHABLE in exactly
+      // the case it exists for (first cloud deploy, loader not yet run). The repo's own
+      // missingMigrationEmpty pairs the two codes for this reason.
+      if (["42883", "42P01", "55000", "55P03"].includes(e?.code)) {
+        logMissOnce(
+          "oc:not-built",
+          "open_calls is absent, empty or locked — serving an empty page. Run db:load:open-calls:pg (and :cloud on prod).",
+        );
+        return [[], [], [], [], []];
+      }
+      throw e;
+    });
+
+    return {
+      body: {
+        // open first, then not-yet-opened: both are real calls and share a section.
+        calls: [...calls, ...upcoming],
+        indicative,
+        consultations,
+        crawl,
+      },
+    };
+  },
+
   "ngo-stats": async (dbRows) => {
     // NGOs carrying ≥1 signal runs as its OWN guarded query: a `FROM ngo_signals`
     // reference is resolved at parse time, so an in-SQL to_regclass CASE can't
