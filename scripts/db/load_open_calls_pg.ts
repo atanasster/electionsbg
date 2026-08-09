@@ -60,7 +60,13 @@ const SCHEMA_DIR = path.join(here, "schema", "pg");
 /** Which snapshots to load. A source with no file is SKIPPED WITH A WARNING rather than
  *  failing the run: ahu/az are Stage 8 and do not exist yet, and a fresh clone legitimately
  *  has only what is committed. */
-const SOURCES: OpenCall["source"][] = ["isun", "sp2023", "ahu", "az"];
+const SOURCES: OpenCall["source"][] = [
+  "isun",
+  "sp2023",
+  "ahu",
+  "az",
+  "interreg",
+];
 
 /** Above this share of structurally invalid rows, treat the snapshot as drift and refuse.
  *  Same posture as load_kzk_decisions_pg.ts. */

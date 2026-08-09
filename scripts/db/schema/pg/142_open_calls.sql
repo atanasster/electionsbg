@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS open_calls (
   -- and an unknown audience value never matches the `@>` facet filter, so the row simply
   -- disappears from the view it belongs in. Both are enumerated rather than free text.
   CONSTRAINT open_calls_source_known
-    CHECK (source IN ('isun', 'sp2023', 'ahu', 'az')),
+    CHECK (source IN ('isun', 'sp2023', 'ahu', 'az', 'interreg')),
   CONSTRAINT open_calls_audience_known
     CHECK (audience <@ ARRAY['business','farmer','municipality','ngo','individual',
                              'school','institution','unknown']::text[])
@@ -199,7 +199,7 @@ ALTER TABLE open_calls
            OR (budget_eur IS NULL AND aid_rate_pct IS NULL
                AND grant_min_eur IS NULL AND grant_max_eur IS NULL)),
   ADD CONSTRAINT open_calls_source_known
-    CHECK (source IN ('isun', 'sp2023', 'ahu', 'az')),
+    CHECK (source IN ('isun', 'sp2023', 'ahu', 'az', 'interreg')),
   ADD CONSTRAINT open_calls_audience_known
     CHECK (audience <@ ARRAY['business','farmer','municipality','ngo','individual',
                              'school','institution','unknown']::text[]);

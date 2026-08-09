@@ -17,7 +17,10 @@ Crawls two registers of things you can still apply to, and publishes them:
 - **ДФ „Земеделие"** — the indicative intake schedule under the CAP Strategic Plan
   2023-2027, into `data/opencalls/sp2023.json`.
 
-Both then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
+- **Interreg** — 2 of the 6 cross-border programmes, into `data/opencalls/interreg.json`
+  (`npm run opencalls:interreg`). See „What this skill does NOT do" for the other four.
+
+All three then load into `open_calls` (migration 142) and surface on the `/funds` band-1 tile,
 `/funds/calls`, and the `openCalls` AI tool.
 
 ## Read this before anything else: why this dataset is different
@@ -170,5 +173,14 @@ per its own rules. The two changelogs are separate — see `reference_two_change
   without human sign-off.
 - **It does not touch the awarded corpus.** `update-funds` does that. If the watch report
   flagged `isun_eu_funds` or `isun_eu_funds_projects`, you want that skill, not this one.
-- **It does not cover Interreg.** Interreg runs on Jems rather than ИСУН, so its calls are
-  not in either register here. `/funds/calls` states that boundary on the page.
+- **It covers only 2 of the 6 Interreg programmes**, and those come from a THIRD crawl:
+  `npm run opencalls:interreg` (Greece-Bulgaria + Black Sea Basin). Run it alongside the two
+  above; it writes `data/opencalls/interreg.json` and loads through the same
+  `db:load:open-calls:pg`. Romania-Bulgaria publishes no calls index, and BG-RS / BG-MK / BG-TR
+  were unreachable on 2026-08-09. `/funds/calls` states the 2-of-6 fraction on the page.
+
+  Two things about that crawl differ from these two. **Zero open calls is normal** — on
+  2026-08-09 all 7 rows were closed, and they load anyway, because „the last one closed on
+  22 June" is the answer a border municipality gets nowhere else. And **a programme being down
+  is not a failure**: the crawler keeps the programmes it could read and names the ones it could
+  not, so a partial run is expected output rather than something to re-run until it is clean.

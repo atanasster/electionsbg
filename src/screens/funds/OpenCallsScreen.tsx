@@ -76,6 +76,9 @@ const SOURCE_LABEL: Record<string, string> = {
   sp2023: "ДФЗ",
   ahu: "АХУ",
   az: "АЗ",
+  // Which of the six cross-border programmes is in `programmeName`, rendered beside the code in
+  // the title cell — this column is the REGISTER, and „Interreg" is the register.
+  interreg: "Interreg",
 };
 
 // Module-level so the identity is stable: DbDataTable seeds its `sorting` state from this and
@@ -299,7 +302,7 @@ export const OpenCallsScreen: FC = () => {
         ) : null}
         <p className="mt-3 text-[11px] text-muted-foreground/80">
           {t("oc_coverage") ||
-            "Обхват: ИСУН (европейски програми) и ДФ „Земеделие“. Interreg не се следи тук."}
+            "Обхват: ИСУН (европейски програми), ДФ „Земеделие“ и част от трансграничните програми (Interreg)."}
         </p>
       </section>
     </>

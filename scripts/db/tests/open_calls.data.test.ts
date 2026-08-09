@@ -622,3 +622,117 @@ test.skipIf(skip)(
     // future edit to that CASE, and this note is here so nobody reads the gate as proving it.
   },
 );
+
+// ── INTERREG (Stage 8) ──────────────────────────────────────────────────────────────────
+//
+// The arm that exists because Interreg runs on Jems and can never appear in ИСУН `/Active`
+// (plan §2.3b) — a system boundary that falls on the border municipalities, where 29 of 29
+// money-gaining municipalities sit. On 2026-08-09 it contributes 7 rows and ZERO open calls,
+// which is the arm's first honest result rather than a failure. These gates therefore assert
+// SHAPE, never „at least one is open": a year in which no cross-border call is open is a real
+// year, and a gate demanding otherwise would fail on the truth.
+
+test.skipIf(skip)("interreg rows load and keep their programme", async () => {
+  assert.ok(
+    (await count("source = 'interreg'")) > 0,
+    "no interreg rows — `npm run opencalls:interreg` then `db:load:open-calls:pg` never ran",
+  );
+  assert.equal(
+    await count("source = 'interreg' AND programme_code IS NULL"),
+    0,
+    "every interreg row belongs to a named programme; a NULL one cannot be attributed",
+  );
+});
+
+test.skipIf(skip)(
+  "interreg source_key is programme-scoped, so two programmes cannot collide",
+  async () => {
+    // Both sites number their calls „1st Call", „2nd Call" — un-prefixed slugs would make
+    // Greece-Bulgaria's first call and Black Sea's first call the same row.
+    assert.equal(
+      await count("source = 'interreg' AND source_key NOT LIKE 'interreg-%:%'"),
+      0,
+      "an interreg source_key must be `<programme>:<slug>`",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "no interreg row carries a deadline that is merely the programme period",
+  async () => {
+    // THE gate for this arm. Greece-Bulgaria's 6th call prints 31.12.2029 (the programme
+    // period, in a state-aid paragraph) three years after its real 22/06/2026 deadline, so a
+    // parser reading „the latest date on the page" would publish closed calls as open for years.
+    // 2028-01-01 is comfortably past every real cross-border submission window.
+    const rows = await allRows<{ source_key: string; closes_at: string }>(
+      `SELECT source_key, closes_at FROM open_calls
+        WHERE source = 'interreg' AND closes_at > '2028-01-01'`,
+    );
+    assert.equal(
+      rows.length,
+      0,
+      `interreg deadline(s) far in the future — the parser is probably reading a programme-period date: ${rows
+        .map((r) => `${r.source_key}=${r.closes_at}`)
+        .join(", ")}`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "every interreg row has a real deadline — undated pages are REJECTED, not filed as indicative",
+  async () => {
+    // Two of the seven live Greece-Bulgaria pages publish no labelled deadline (its 1st and 2nd
+    // calls, both long dead). The parser drops them with a reason. The alternative — the
+    // `indicative` bucket — is labelled „Очаквани приеми" in the UI, so filing a dead call there
+    // would turn „we could not read the date" into a forward-looking claim.
+    //
+    // This gate ALSO catches the migration half. `open_calls` never deletes (142's header), so
+    // the two rows an earlier parser created survived the fix and had to be removed by hand —
+    // see the plan's Stage 8 note for the one-off, which Cloud SQL still needs.
+    assert.equal(
+      await count("source = 'interreg' AND closes_at IS NULL"),
+      0,
+      "an interreg row with no deadline — either parseCall's rejection regressed, or the one-off cleanup never ran on this database",
+    );
+    assert.equal(
+      await count("source = 'interreg' AND date_precision <> 'exact'"),
+      0,
+      "every interreg row is exact by construction",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "interreg deadlines keep their time of day, so a call is not closed on its final morning",
+  async () => {
+    // Both programmes print a time („14.00 Eastern European Time", „14:00 hrs, Romania time").
+    // A bare date resolves to midnight, which marks the call closed for the whole of its last
+    // day and NULLs days_left a day early — the exact harm this dataset exists to prevent.
+    const [r] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM open_calls
+        WHERE source = 'interreg'
+          AND (closes_at AT TIME ZONE 'Europe/Sofia')::time = '00:00:00'`,
+    );
+    assert.equal(
+      Number(r?.n ?? 0),
+      0,
+      "an interreg deadline at Sofia midnight — the time of day was dropped",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "interreg money is only ever `source`-provenance, never guessed",
+  async () => {
+    // The programmes publish „Call Budget 3.000.000,00€" as a labelled structured field, which
+    // is the same standing as the ДФЗ XLSX columns. Anything else with money would mean the
+    // parser inferred a figure from prose — Stage 7's job, and it needs a human.
+    assert.equal(
+      await count(
+        "source = 'interreg' AND budget_eur IS NOT NULL AND enrichment <> 'source'",
+      ),
+      0,
+      "an interreg budget must carry 'source' provenance",
+    );
+  },
+);

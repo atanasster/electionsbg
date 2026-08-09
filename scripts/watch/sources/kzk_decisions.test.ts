@@ -38,9 +38,8 @@ afterEach(() => {
 
 describe("kzk_decisions watch source", () => {
   it("is registered, weekly, and points at the shared register URL", async () => {
-    const { DECISIONS_LIST_URL } = await import(
-      "../../procurement/kzk_decisions_store"
-    );
+    const { DECISIONS_LIST_URL } =
+      await import("../../procurement/kzk_decisions_store");
     expect(source).toBeDefined();
     expect(source.cadence).toBe("weekly");
     // Shared constant, not a second copy: if КЗК moves the register, the watcher

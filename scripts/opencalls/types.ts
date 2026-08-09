@@ -71,7 +71,7 @@ export interface CallDoc {
 
 export interface OpenCall {
   /** Which crawler produced this row. Half of the natural key. */
-  source: "isun" | "sp2023" | "ahu" | "az";
+  source: "isun" | "sp2023" | "ahu" | "az" | "interreg";
   /** Stable id WITHIN the source: an ИСУН GUID, an intervention code, a page slug. */
   sourceKey: string;
   /** The public procedure/intervention code, when the source publishes one. */

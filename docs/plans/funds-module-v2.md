@@ -897,6 +897,70 @@ of the three**, because they are the one gap that falls on a specific, identifia
 the border municipalities §2.3a measured — rather than diffusely. Until it ships, band 6 must say
 that `/funds/calls` covers ЕСИФ + agri and not Interreg.
 
+**SHIPPED (partly) 2026-08-09 — and the shape changed, because two of the three arms are not
+reachable.** Probed live before writing anything, from two independent clients (curl and a
+browser), DNS resolving in every case:
+
+| arm | reachable | calls found | OPEN on 2026-08-09 |
+|---|---|---|---|
+| **Interreg VI-A Greece-Bulgaria** | yes | 7 listed, **5 publishable** | **0** — latest closed 2026-06-22 |
+| **Interreg NEXT Black Sea Basin** | answered ONCE, then refused ~10 consecutive attempts | 2 | **0** — both closed 2024-06-28 |
+| Interreg Romania-Bulgaria | homepage only; no calls index at any path tried | — | — |
+| Interreg BG-RS / BG-MK / BG-TR | **no** — connection reset on :443 AND :80 | — | — |
+| **АХУ** `ahu.mlsp.government.bg` | **no** — same, reset on both ports | — | — |
+| **АЗ** `az.government.bg` | yes | — | **no deadlines published at all** |
+
+So Stage 8 ships as **the Interreg arm only**: `interreg_parse.ts` (one parser per programme
+shape) + `interreg_fetch.ts` + `npm run opencalls:interreg`, `source='interreg'` added to 142's
+CHECK and the loader, a per-programme watcher, and the band-6 coverage line changed from
+„Interreg не се следи тук" to the exact fraction — **2 of 6**.
+
+Four things worth carrying forward:
+
+1. **The deadline must be read from its LABEL, never from the latest date on the page.**
+   Greece-Bulgaria's 6th call prints `31.12.2029` (the programme period, in a state-aid
+   paragraph) alongside its real `22/06/2026` deadline. A max-date heuristic would have
+   published a closed call as open for three more years. A page with no labelled deadline
+   becomes an `indicative` row, never a guessed date — two of the seven are like that.
+2. **Zero open calls is the arm's first RESULT, not its failure.** The closed rows load
+   (`open_calls` accumulates by design), so a border municipality asking „is there an Interreg
+   call?" now gets „no, the last closed on 22 June, here is the programme" instead of silence —
+   and the arm has real rows to verify against on a day when nothing is open.
+3. **A down programme must not read as a change.** Black Sea Basin went down mid-crawl on the
+   very first real run; the crawler kept Greece-Bulgaria's 7 rather than aborting, and the
+   watcher excludes an unreachable programme from its fingerprint instead of reporting every one
+   of its calls as closed.
+4. **The committed snapshot holds Greece-Bulgaria only**, because Black Sea Basin answered once
+   and then refused every later attempt. The coverage line therefore says „част от
+   трансграничните програми" rather than a count: a hard-coded „2 от 6" is a claim about data
+   the component cannot see, and it is wrong when a programme is down AND wrong again when one
+   returns. The per-programme state lives in the crawl output and the watcher's detail line,
+   where it stays fresh. A new **completeness guard** in `interreg_fetch.ts` refuses to write
+   when a programme that HAD rows returns none — the three existing defences all missed that
+   case (the shrink guard is a per-source ratio, so 9 → 7 is 22%, under its 25% threshold and
+   arithmetically incapable of seeing one programme vanish).
+5. **The deadline keeps its TIME OF DAY.** Both programmes print one; a bare date resolves to
+   midnight, marking a call closed for the whole of its final day. `sofiaWallClockToUtc` is
+   reused from `isun_parse` (both zones are EET/EEST, and a fixed +02:00 is an hour wrong for
+   every summer deadline).
+6. **A page with no labelled deadline is REJECTED, not filed as `indicative`** — that bucket is
+   „Очаквани приеми" in the UI, and the two pages that reach it are Greece-Bulgaria's 1st and
+   2nd calls, both long dead. **This needed a one-off cleanup**, because `open_calls` never
+   deletes: the two rows an earlier parser had already written survived the fix. Local is done;
+   **Cloud SQL still needs it**:
+
+   ```sql
+   DELETE FROM open_calls WHERE source = 'interreg' AND closes_at IS NULL;
+   ```
+
+   `open_calls.data.test.ts` fails until it has run on whichever database it is pointed at.
+7. **АХУ and АЗ are NOT done.** АХУ needs the host to become reachable — nothing else about it
+   is known, because no page was ever read. АЗ is reachable but publishes a static catalogue of
+   national programmes (Старт на кариерата, Заетост и обучение на хора с трайни увреждания, the
+   state-aid schemes) with **no deadline anywhere**, so it can only ever be an `indicative`-tier
+   source with a `period_label` — which is a different parser from the one the plan assumed, and
+   worth building only once someone confirms those schemes have intake windows at all.
+
 **Stage 9 — За теб** (band 5).
 
 **Out of scope, noted so they are not designed out:** alerts/subscriptions (the most-wanted
@@ -1086,7 +1150,7 @@ npm run db:load:open-calls:pg:cloud                        # prod — NOT automa
 | 5 | wire (band 0) + news rail (band 2) | 2c, 4 |
 | 6 | base-rate cards on `/funds/procedure/:code` + reference price | 4 |
 | 7 | enrichment — `enrich-open-calls` skill: extract → quote gate → review queue → `reviewed` | 1f |
-| 8 | АХУ + АЗ | 3 |
+| 8 | Interreg calls SHIPPED; АХУ + АЗ blocked (host unreachable / no deadlines published) | 3 |
 | 9 | За теб (band 5) | 2c, 4 |
 
 **Stages 0–4 are the shippable unit.** They answer *what can I apply to right now*, *what's

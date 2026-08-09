@@ -856,6 +856,52 @@ through the function would otherwise saturate at its own `LEAST(p_limit, 2000)` 
 through the function rather than with a second WHERE is what keeps the tile's heading count and
 the rows beneath it on one predicate.
 
+**`/funds/calls` covers ИСУН + ДФЗ + 2 of 6 Interreg programmes, and the page says so.**
+Interreg runs on Jems rather than ИСУН, so an Interreg call can never appear in `/Active` — a
+system boundary that falls on the border municipalities. `npm run opencalls:interreg`
+(`interreg_parse.ts`, one parser per programme shape) covers Greece-Bulgaria and Black Sea Basin;
+Romania-Bulgaria publishes no calls index, and BG-RS / BG-MK / BG-TR reset the connection on both
+ports from two independent clients (measured 2026-08-09). Do not add a programme to `PROGRAMMES`
+without reading it first: a listed-but-unreadable programme makes a crawler report „0 calls" for
+a site it never fetched, which is a hole that looks like a finding.
+
+Two rules in that parser are load-bearing:
+
+- **The deadline comes from its LABEL, never from the latest date on the page.** Greece-Bulgaria's
+  6th call prints `31.12.2029` — the programme period, in a state-aid paragraph — next to its real
+  `22/06/2026` deadline. A max-date heuristic publishes closed calls as open for years. A page with
+  no labelled deadline becomes an `indicative` row with a period label; it never gets a guessed date.
+- **A down programme is not a change.** The crawler keeps the programmes it could read instead of
+  aborting, and the `interreg_calls` watcher excludes an unreachable programme from its fingerprint
+  — folding it in as „zero calls" would report every one of its calls as closed, then as new when
+  the site returned. Measured: Black Sea Basin went down mid-crawl on the first real run.
+
+Two more rules, both learned the hard way:
+
+- **The deadline keeps its TIME OF DAY.** Both programmes print one; a bare date resolves to
+  midnight, which marks a call closed for the whole of its final day and NULLs `days_left` a day
+  early. `sofiaWallClockToUtc` is reused from `isun_parse` — both zones are EET/EEST, and a fixed
+  +02:00 is an hour wrong for every summer deadline.
+- **A page with no labelled deadline is REJECTED**, the way `isun_fetch` rejects a procedure with
+  no Краен срок. The only bucket an undated row could reach is `indicative`, which the UI labels
+  „Очаквани приеми" — expected intakes — and the pages that reach it are dead calls.
+
+Zero open Interreg calls is a normal result (5 rows, 0 open on 2026-08-09) — the closed rows still
+load, because `open_calls` accumulates and „the last one closed on 22 June" is the answer a border
+municipality currently gets nowhere else. `open_calls.data.test.ts` asserts shape, never „at least
+one is open".
+
+**The coverage line says „част от", never a count.** It named „2 от 6" and „Черноморски басейн"
+for one draft while the committed snapshot held zero Black Sea rows — that site answered once and
+then refused every later attempt. A hard-coded fraction is a claim about data the component cannot
+see and goes stale in both directions. `interreg_fetch.ts` carries a **completeness guard** that
+refuses to write when a programme which HAD rows returns none; `writeSnapshot`'s shrink guard
+cannot do this job, being a per-source ratio for which 9 → 7 is 22% and under its threshold.
+
+**One-off, and Cloud SQL needs it by hand.** `open_calls` never deletes, so the two undated rows an
+earlier parser wrote survived the rejection fix:
+`DELETE FROM open_calls WHERE source = 'interreg' AND closes_at IS NULL;`
+
 **Enrichment (money + eligibility) is a SEPARATE, human-gated skill** — `enrich-open-calls`,
 never part of the daily refresh. `update-open-calls` gives a call its title, deadline and link;
 ИСУН publishes the budget, aid rate, grant range and eligibility only inside each procedure's own

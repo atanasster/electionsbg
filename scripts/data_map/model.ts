@@ -437,12 +437,12 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       // describe procedures that have not produced a contract yet, so no query over the
       // beneficiary/project corpus would ever return them — and „има ли програма за мен" is the
       // question most readers actually arrive with, which the awarded corpus cannot answer.
-      bg: "Процедурите, по които все още може да се кандидатства — активните покани в ИСУН 2020 и проектите на насоки за обществено обсъждане, плюс индикативния график на приемите по Стратегическия план на ДФ „Земеделие“. Статусът не се съхранява: изчислява се при всяка заявка спрямо крайния срок, така че изтекла процедура не може да се покаже като отворена.",
-      en: "The procedures you can still apply to — the live calls in ИСУН 2020 and the draft guidance out for public consultation, plus the indicative intake schedule under the ДФЗ CAP Strategic Plan. Status is never stored: it is derived per request from the closing date, so an expired procedure cannot be shown as open.",
+      bg: "Процедурите, по които все още може да се кандидатства — активните покани в ИСУН 2020 и проектите на насоки за обществено обсъждане, индикативния график на приемите по Стратегическия план на ДФ „Земеделие“ и поканите по 2 от 6-те трансгранични програми (Interreg). Статусът не се съхранява: изчислява се при всяка заявка спрямо крайния срок, така че изтекла процедура не може да се покаже като отворена.",
+      en: "The procedures you can still apply to — the live calls in ИСУН 2020 and the draft guidance out for public consultation, the indicative intake schedule under the ДФЗ CAP Strategic Plan, and the calls of 2 of the 6 cross-border Interreg programmes. Status is never stored: it is derived per request from the closing date, so an expired procedure cannot be shown as open.",
     },
     url: "https://eumis2020.government.bg/bg/s/Procedure/Active",
     origin: "state",
-    members: ["isun_procedures", "sp2023_indicative"],
+    members: ["isun_procedures", "sp2023_indicative", "interreg_calls"],
     skills: ["update-open-calls"],
     tags: ["fiscal", "local"],
   },

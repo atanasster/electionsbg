@@ -294,11 +294,21 @@ export const OpenCallsTile: FC = () => {
           {t("oc_see_all") || "Виж всички процедури"}
         </Link>
         {" · "}
-        {/* The coverage boundary, stated. ИСУН is the ЕСИФ register and ДФЗ the agricultural
-            schedule; Interreg runs on Jems and is NOT covered (funds-module-v2 §2.3b). Leaving
-            this out would let the page imply a completeness it does not have. */}
+        {/* The coverage boundary, stated — and kept EXACT rather than round. ИСУН is the ЕСИФ
+            register and ДФЗ the agricultural schedule; Interreg runs on Jems, so it needs its
+            own crawler per programme (funds-module-v2 §2.3b, Stage 8).
+
+            „ЧАСТ ОТ", NOT A COUNT — and the count is what the first draft got wrong. This
+            string named „2 от 6" and „Черноморски басейн" explicitly while the committed
+            snapshot held zero Black Sea rows, because that site answered once on 2026-08-09 and
+            then refused every subsequent attempt. A hard-coded fraction is a claim about data
+            this component cannot see, and it goes stale in BOTH directions: wrong when a
+            programme is down, wrong again when one comes back. „Част от" is true at 1, at 2 and
+            at 6, and still refuses the completeness the old „Interreg не се следи тук" denied
+            and a bare „Interreg се следи" would imply. The per-programme state lives where it
+            stays fresh: the crawl output and the `interreg_calls` watcher's detail line. */}
         {t("oc_coverage") ||
-          "Обхват: ИСУН (европейски програми) и ДФ „Земеделие“. Interreg не се следи тук."}
+          "Обхват: ИСУН (европейски програми), ДФ „Земеделие“ и част от трансграничните програми (Interreg)."}
       </p>
     </DashboardSection>
   );
