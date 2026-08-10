@@ -210,7 +210,12 @@ describe("computePayVsProductivityCallout", () => {
   });
 });
 
-describe("INDEX_BASE_YEAR vs the committed artifact", () => {
+// Gates over the committed data/macro.json for the productivity block. Each
+// asserts a property the CODE relies on but cannot enforce: a base year, a
+// level-vs-index distinction, a unit label carrying a caveat, a magnitude
+// scale. All of them fail loudly on an upstream redefinition that would
+// otherwise ship silently with every row count intact.
+describe("the productivity block's committed artifact", () => {
   // The JSDoc on INDEX_BASE_YEAR warns that changing it without changing the
   // fetched `unit` silently reframes the caption against a base the chart does
   // not use. This is the gate behind that warning: an upstream I15 → I20
@@ -237,6 +242,34 @@ describe("INDEX_BASE_YEAR vs the committed artifact", () => {
     const base = macro.series[key].find((p) => p.year === INDEX_BASE_YEAR);
     expect(base, `${key} has no ${INDEX_BASE_YEAR} point`).toBeTruthy();
     expect(base!.value).toBeCloseTo(100, 1);
+  });
+
+  it("taxWedge names its standardised case in both unit labels", () => {
+    // The indicator is publishable honestly only because the caveat travels
+    // with it: Eurostat computes a FIXED case (single, no children, 67% of
+    // average earnings), and read as "the average worker" this is simply a
+    // different number. The commit put that in the unitLabel rather than only
+    // in the page caption; this is what keeps it there.
+    const meta = macro.indicators.taxWedge;
+    expect(meta, "taxWedge missing from macro.json").toBeTruthy();
+    expect(meta.unitLabelEn).toMatch(/67%/);
+    expect(meta.unitLabelEn).toMatch(/single/i);
+    expect(meta.unitLabelBg).toMatch(/67%/);
+    expect(meta.unitLabelBg).toMatch(/самотен/);
+  });
+
+  it("taxWedge is a percentage of labour cost, not a fraction", () => {
+    // The fetcher's floors catch a COUNT regression (MIN_POINTS_ANNUAL,
+    // REGRESSION_THRESHOLD) but nothing catches a UNIT change. If Eurostat
+    // republished unit=RT as a fraction, 34.9 -> 0.349 would keep all 18
+    // points, pass every existing guard, and render a flat line at the axis
+    // with a tooltip reading "0.3%".
+    const series = macro.series.taxWedge;
+    expect(series.length).toBeGreaterThanOrEqual(12);
+    for (const p of series) {
+      expect(p.value, `taxWedge ${p.year}`).toBeGreaterThan(15);
+      expect(p.value, `taxWedge ${p.year}`).toBeLessThan(60);
+    }
   });
 
   it("compensationPerEmployee is a LEVEL, not an index", () => {

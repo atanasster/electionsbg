@@ -379,6 +379,16 @@ export const IndicatorsEconomyScreen = () => {
               label:
                 "Eurostat prc_hicp_aind (annual HICP index — the deflator behind the real-pay figure below)",
             },
+            {
+              // The tax-wedge sub-chart at the foot of this section. Its own
+              // dataset on its own release calendar (tax-and-contribution
+              // policy), so it is named separately — and that caption asserts
+              // the figure is published rather than derived, which is a claim
+              // the reader can only check if the link is here.
+              href: "https://ec.europa.eu/eurostat/databrowser/view/earn_nt_taxwedge/default/table",
+              label:
+                "Eurostat earn_nt_taxwedge (tax wedge on labour costs, annual — single person, no children, 67% of average earnings)",
+            },
           ]}
         />
         {/* Both lines share Eurostat's own 2015 = 100 base, so one axis is
@@ -433,8 +443,16 @@ export const IndicatorsEconomyScreen = () => {
           governments={governments}
           macro={macro}
           indicatorKeys={["taxWedge"]}
-          yAxisFormatter={(v) => `${v}`}
+          // A solo chart whose subject IS a share, so the axis carries the
+          // unit — the bare `${v}` form belongs to the mixed-unit charts above,
+          // where a % would be wrong for the 2015 = 100 indices. Without it the
+          // % shows only on hover, i.e. never on touch or in a screenshot.
+          yAxisFormatter={(v) => `${v}%`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          // One series, and its toggle pill would render the indicator title —
+          // the same string as the <h3> directly above. The only thing the pill
+          // can do here is blank the chart.
+          hideToggles
           height={260}
         />
       </section>
