@@ -743,3 +743,151 @@ misleading.
    Recommendation: fail — a live map claiming a join that returns nothing is worse than a red
    build. But `declaration_asset.ekatte` shows the greyed variant is genuinely informative
    about ingest gaps, and that is a real product surface (§4.4, "Data quality").
+
+---
+
+## 10. Gap audit — what this plan does not cover (2026-08-03, second pass)
+
+Re-audited after the corpus grew. Everything below is measured against local Postgres, and the
+map file as it stands now (100 nodes: 33 datasets, 41 sources, 163 edges — §1.3's "32 dataset
+nodes" is already stale).
+
+### 10.1 🔴 Interreg is in the database and on the map as a SOURCE, but has no dataset node
+
+```
+interreg_operations   1,954      interreg_partners  12,141      interreg_programmes  22
+```
+
+`src:keep_eu` exists and carries the right watchers (`keep_eu_interreg`, `interreg_calls`), and
+`update-funds` covers the ingest legs (15 references). But its only outgoing edge is:
+
+```
+src:keep_eu  ->  ds:funds   "EU funds"
+```
+
+**That fold is the one thing the corpus documentation forbids.** Interreg runs on Jems, not
+ИСУН, so `fund_projects` holds **zero** Interreg rows — a system boundary, not a filter. The two
+arms are never summed (an ИСУН figure is a contract's own value, an Interreg figure one
+partner's published budget), and `funds_fit_basis()` returns the basis declaration *inside the
+payload* specifically so a consumer cannot render one arm as the whole corpus. The map presents
+them as one dataset, which is exactly the claim the serving layer is built to prevent.
+
+Compounding it: Interreg money lands almost entirely on **border** municipalities, so a reader
+on the border sees `ds:funds` and is told, in effect, that the ИСУН corpus is what exists there.
+
+**Recommendation:** a `ds:interreg` node, edged from `src:keep_eu`, with a lateral link to
+`ds:funds` labelled with the basis difference rather than a shared join key. This is the case
+the lateral-edge feature exists for — two corpora that are related and must not be merged.
+
+### 10.2 🔴 `ds:opencalls` has a node and zero lateral edges — including the most valuable one
+
+`ds:opencalls` / `src:opencalls` exist (good — added since §8 was written). But §1.3's
+measured-overlap table has **12 links and not one touches it**. Two real joins, measured:
+
+| Candidate link | Key | Measured |
+|---|---|---|
+| `ds:opencalls` ↔ `ds:funds` (`open_calls.code` × `fund_fit.procedure_code`) | procedure code | **27 of 66** coded calls match exactly |
+| `ds:opencalls` ↔ `ds:funds` (`open_calls.programme_code` × `fund_projects.program_code`) | programme code | **0 of 14** exact — **12 of 14** after normalisation (below) |
+
+The first is the highest-value edge available on this map for the funds audience, and it needs
+no normalisation. It connects **"this call is open now"** to **"here is what happened to
+everyone who applied to this exact procedure before"** — `fund_fit` carries beneficiary count,
+grant median + quartiles, org-form mix and disbursed share per procedure. That is the measured
+demand (`can I get money`), not the supply-side question (`who got it`) the rest of the funds
+tree answers.
+
+### 10.3 🟡 The programme join is hidden by an encoding mismatch, not absent
+
+```
+open_calls.programme_code     BG16FFPR002    BG05SFPR001    SP2023
+fund_projects.program_code    2021BG16RFPR001    2014BG05M9OP001    2021BG-RRP
+```
+
+ИСУН's awarded corpus prefixes the 4-digit period; the open-calls crawl does not.
+`regexp_replace(program_code,'^[0-9]{4}','')` lifts the match from **0/14 to 12/14**.
+
+This is worth stating as a rule, because it generalises past this pair: **a 0-overlap
+measurement is not proof that no join exists.** §1.3 proposes failing the build on a declared
+link that measures 0 overlap — correct for `declaration_asset.ekatte` (genuinely 100% NULL
+across 258,723 rows), but it would also have rejected this real link. The build should
+distinguish *"key absent/NULL on one side"* (a true dead link) from *"both sides populated, no
+intersection"* (a probable normalisation gap), and report the second differently.
+
+### 10.4 🟡 The §1.3 baseline predates six PG families
+
+None of these existed when the overlap table was measured, and none appear in it:
+
+```
+interreg_* (137)   open_calls (142)   fund_fit (143)   bill (136)
+vote_item / vote_cast (134, 16,741 items / 4,017,519 casts)
+tr_company_place (133, 324,039)   procurement_annexes (114, 24,135)
+```
+
+`tr_company_place` matters most to this plan's own thesis: it is a company→EKATTE crosswalk at
+324k rows, i.e. a **place spine** joining the registry to every place-keyed dataset. §1.3's
+`ekatte` links (897 / 242 / 203) were measured without it. `vote_cast` at 4M rows changes the
+"map is wider than Postgres" ratio the section's whole argument rests on — re-measure before
+citing "roughly a third".
+
+### 10.5 🟡 The query library (§4.4) and `/db` samples have nothing for any of it
+
+`grep -c "interreg|open_calls|fund_fit" src/screens/dev/SqlBrowserScreen.tsx` → **0**. The
+serving functions already exist and are the natural library entries:
+
+```
+funds_fit_procedure(code)   funds_fit_interreg(...)   funds_wire()   funds_news()
+open_calls_list(status, kind, audience, q, limit)     interreg_by_place / _by_eik
+interreg_overview / interreg_operation / search_interreg_operations
+```
+
+Note `open_calls_list`'s **NULL limit means unbounded** — a library entry must show a bound, or
+the console's row cap becomes the only thing between a visitor and a full scan.
+
+### 10.6 Interreg's own lateral edges, measured
+
+| Link | Key | Measured |
+|---|---|---|
+| `ds:interreg` ↔ `ds:connections` (`interreg_partners` × `tr_companies`) | `eik` | 176 of 829 EIK-carrying rows |
+| `ds:interreg` ↔ `ds:procurement` (partner × contractor) | `eik` | 42 of 554 distinct EIKs |
+| `ds:interreg` ↔ `ds:geo` (`interreg_partners.ekatte` × `place_dim`) | `ekatte` | 1,469 of 1,469 resolve (160 distinct places) |
+
+The place link is **100% clean on the rows that carry a key** — but only 1,469 of 12,141
+partner rows carry one (12.1%), because keep.eu publishes no structured place and the loader
+resolves via `awarder_seats` / `tr_company_place`. A link labelled "12,141 partnerships" beside
+a place edge would be a §4.2-class error: the honest denominator is the placed subset, and the
+UI must show which.
+
+### 10.7 §8 is stale in the reader's favour
+
+The map has moved from 39 to 41 source groups since §8 was measured. `src:opencalls` and
+`src:keep_eu` were added, `update-open-calls` and `enrich-open-calls` are both in
+`process-watch-report`'s mapping, and `interreg_calls` / `isun_procedures` / `sp2023_indicative`
+are all placed. So §8.1's guarantees still hold and coverage is *better* than §8 describes.
+
+What survives unchanged, re-verified against the current file:
+
+- **§8.2** — `src:egov` still fans 9 sources → 6 skills → 8 datasets; `src:ministries` 23 → 5.
+  Freshness is still attributed at group grain, so `update-schools` still marks Water (ВиК).
+- **§8.3** — still exactly 8 groups with no skills. Note two of them (`src:ec_fts`,
+  `src:oil_bulletin`) carry `skills: null` rather than `[]`; the other six carry `[]`. Worth
+  normalising, since consumers must currently handle both.
+- **§8.4** — `ds:air`, `ds:tourism`, `ds:environment`, `ds:landuse` still have no dataset node.
+
+### 10.8 Correction to §6.4a, recorded here because it changed a committed claim
+
+§6.4a's classification table was built on `pg_stat_user_tables.n_live_tup` and was wrong; the
+`db-refresh-loader-gaps-v1.md` T0 pass retracted it, and re-measurement with `count(*)`
+confirms that retraction: `agri_subsidies` = 2,481,857, `agri_payloads` = 16,711,
+`ngo_funding` = 3,179, the `nzok_*` family loaded, `nzok_pathway_tariffs` = 410 (not 0),
+`transport_facility_geo` = 11 locally vs 0 on prod.
+
+The "proof" offered for the omitted-loader claim — running `db:load:nzok-hospital:pg` and
+watching 0 → 17,391 — was a **reload of already-populated data** read through a stale
+statistic, not a first population. Commit `b5c0847408`'s message asserts it and is wrong on
+that point.
+
+What survives is the code fact, which never depended on row counts: **`db:refresh` calls 26 of
+38 loaders**, agri has no `db:load:agri:pg`, `data/ngo/foreign_grants.json` is absent, and
+`transport_facility_geo` has zero code references. The rule to carry forward: **population is
+`count(*)`; `n_live_tup` is an estimate that reads 0 until autovacuum analyzes, and no audit —
+and no UI — may classify on it.**
