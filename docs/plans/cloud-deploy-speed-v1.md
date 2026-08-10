@@ -593,6 +593,86 @@ pay it and lost nothing. **Remove `db:load:procurement-scopes:pg:cloud` from the
 documented publish chain** (it remains correct standalone, e.g. for the January
 calendar rollover, which is its real trigger).
 
+### F21 — TR is now a SECOND instance of RC4, created 2026-08-10, and Phase 4 must cover it
+
+Measured while fixing an unrelated defect in the same loader
+([tr-loader-cascade-v1](tr-loader-cascade-v1.md): `003_tr_search.sql`'s
+`DROP TABLE … CASCADE` was silently deleting three matviews owned by other
+migrations on every run). Removing the DROP forced the loader to replace each
+table's CONTENTS instead — `TRUNCATE` inside the COPY's transaction — which is
+exactly the shape RC4 describes. **The availability profile got worse, and this
+plan's cost model needs to know.**
+
+**The old profile was not what it looks like, and F10's own mechanism is why.**
+`load_tr_pg.ts` applies 003 with `exec()`, which sends the file as one string, and
+the simple query protocol wraps that in a SINGLE implicit transaction (`lib/pg.ts`
+says so; 003 carried no explicit `BEGIN`/`COMMIT`). So the `DROP TABLE … CASCADE`
+and the `CREATE TABLE` beneath it **committed atomically** — under MVCC no reader
+could observe the tables absent, precisely as F10 established for 042. The
+AccessExclusive window was the DDL apply alone (sub-second). The four COPYs then
+ran in their own later transactions holding only `RowExclusiveLock`, which does
+**not** conflict with `AccessShare`.
+
+So under the old scheme readers were **never blocked** during the ~100 s COPY
+phase. They read an EMPTY, then progressively filling, table: a **200 with zero
+rows**. Search returned "no such company" for a minute and a half, confidently.
+
+**The new profile, measured on a live local `db:load:tr:pg`.** A second connection
+probing all three tables at `lock_timeout = 2000ms`, 180 probes across the load:
+
+```
+tr_companies      21 / 60 rejected 55P03      tr_officers  16 / 60 rejected
+tr_person_roles   13 / 60 rejected 55P03      (50 / 180 total, 28%)
+each blocked probe burned the full timeout: 2125-2359 ms
+```
+
+Rejected, not delayed — the same finding F9 made for `tenders`, on the same
+`55P03`, for the same reason. **28% is a local figure and understates cloud
+badly:** F11 measured `db:load:tr:pg:cloud` at **2092 s (34.9 min)** against
+112 s locally, and the blocking window is the COPY, so it scales with it.
+
+This trade was made deliberately and is still the right way round — an error a
+route can degrade on beats a silently-empty search result, and `55P03` is already
+in the documented degrade set. But it converts TR from "wrong answer, no error"
+to "no answer, correct error", and only Phase 4 removes the choice.
+
+**Phase 4's pattern does not drop in, and this is the blocker.** Of the four
+tables, only two can be stage-merged as written:
+
+| table | rows | key | stage-mergeable |
+|---|---|---|---|
+| `tr_companies` | 1,020,707 | `uic` PK | yes |
+| `ngo_details` | 12,282 | `uic` PK | yes |
+| `tr_officers` | 793,949 | deduped to `(uic, name)` by the loader's `GROUP BY`, but **no unique index** | needs one added |
+| `tr_person_roles` | 1,244,715 | none — genuinely one row per company × role | **no key exists** |
+
+`lib/stage_merge.ts` requires unique keys for its `ON CONFLICT` upsert and
+anti-join delete. `tr_person_roles` has no natural one (the same person can hold
+the same role at the same company across separate date ranges), so it needs either
+a synthetic key or a different shape — most likely delete-and-reinsert scoped to
+the `uic`s the delta touches, which is a per-company `RowExclusiveLock` rather
+than a whole-table `AccessExclusive`. Budget this as design work, not as a copy of
+the `contracts` fix.
+
+**One operational hazard, observed rather than predicted.** An interrupted TR load
+now leaves the tables **populated but missing all 11 secondary indexes** — the
+loader drops them up front so each is built once over the finished table. Observed
+when this measurement's own loader was killed mid-run: concurrent person queries
+that join `tr_officers.name_fold` (`money_eik`, the resolver's Tier-V money basis)
+went from sub-second to **>10 minutes**, and the next load's `TRUNCATE` then queued
+behind them — at which point every reader of all three tables queued behind the
+`TRUNCATE`, because a pending `AccessExclusive` blocks later `AccessShare`. One
+killed loader took the whole TR surface down until it was cleared.
+
+Under the old scheme the same interruption left an empty-but-indexed table, which
+is a different failure and a quieter one. Recovery needs **no reload**: the data
+commits per table, so recreating the 11 indexes from `LOAD_INDEXES` in
+`load_tr_pg.ts` is sufficient (verified — row counts were already complete and
+correct). Worth stating here because a cloud TR load is 35 minutes long and
+therefore the single most likely step in the publish to be interrupted, and
+because the resulting state — a fully-populated, unindexed, 1M-row table on prod —
+looks healthy to every row-count check in this document.
+
 ---
 
 ## Root causes
@@ -677,6 +757,14 @@ So the blocking window is ~11 min of an 18.9-min step, and the error a route see
 depends on which timeout trips first — `55P03` when `lock_timeout` is set (as the
 loaders set it), `57014` when only `statement_timeout` is. Any degrade-set that
 lists one and not the other will still 500. Not inferred any more.
+
+**RC4 now has a SECOND instance: `db:load:tr:pg`, as of 2026-08-10 — see F21.**
+Fixing 003's `DROP TABLE … CASCADE` (which was silently deleting three other
+migrations' matviews) required replacing the tables' contents instead, so TR
+acquired the identical `TRUNCATE`-inside-the-COPY shape. Measured: 50 of 180
+concurrent probes rejected with `55P03`. At 34.9 min on cloud (F11) it is the
+LARGER of the two instances, and unlike `tenders` it cannot simply copy the
+`contracts` fix — `tr_person_roles` has no unique key to merge on.
 
 ### RC6 — Every tenders load drops the serving view behind `/procurement/contracts`
 
@@ -1056,7 +1144,7 @@ ship-everything path. One flag returns to today's behaviour.
 
 ---
 
-### Phase 4 — Give `tenders` the staging-merge treatment (availability + speed)
+### Phase 4 — Give `tenders` (and now TR) the staging-merge treatment (availability + speed)
 
 Fixes RC4. Mirror what `contracts` already does in
 [`load_pg.ts:306-344`](../../scripts/db/load_pg.ts):
@@ -1079,6 +1167,25 @@ Phase 3 lands.
 **Verification.** Byte-parity before/after; 200+ concurrent tender reads during a
 cloud load with zero blocked (the check used for the contracts fix); confirm no
 `Lock/relation` waiters in `pg_stat_activity` behind a `COPY tenders` backend.
+
+**4b. The TR tables (F21).** Added 2026-08-10, and NOT a second copy of the above —
+scope it separately. `tr_companies` and `ngo_details` take the pattern unchanged
+(both are `uic`-keyed). `tr_officers` needs a unique index on `(uic, name)` first —
+the loader's `GROUP BY` already guarantees it, nothing declares it. `tr_person_roles`
+has **no key at all** and cannot get one naturally (same person, same role, same
+company, different date ranges), so it needs its own design: most likely
+delete-and-reinsert scoped to the `uic`s the delta touches, which costs a per-company
+`RowExclusiveLock` instead of a whole-table `AccessExclusive`.
+
+Sequence it against Phase 3 the same way — but note TR's delta-ship is separately
+gated on G21 (the flat key-digest does not scale to 1M+ keys), so 4b is the part
+that delivers on its own.
+
+Two verification items the `tenders` list does not cover: the one-shot index
+rebuild must survive the change (it is what makes the load fast, and `LOAD_INDEXES`
+drops all 11 up front), and an INTERRUPTED load must not leave the tables
+unindexed — F21's operational hazard, which is the state that looks healthy to
+every row-count check in this document.
 
 ---
 

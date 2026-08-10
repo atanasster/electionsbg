@@ -93,14 +93,64 @@ stale-in-one-column rather than missing, which `/persons` serves correctly, and
 `db:load:tr:pg[:cloud]` has been added to the trigger list for `db:load:persons-browse:pg[:cloud]`
 in CLAUDE.md.
 
-### Lock profile
+### Lock profile — a REGRESSION, measured
 
-Unchanged-to-better, and deliberately not improved further in this change. `TRUNCATE` takes an
-`AccessExclusiveLock` for the duration of the load — but so did the old `DROP TABLE` +
-`CREATE TABLE`, which additionally left the relations *missing* (a hard 42P01 for any reader)
-rather than merely locked. Converting to a stage merge (`lib/stage_merge.ts`) would remove the
-blocking entirely, but only `tr_companies` and `ngo_details` have a unique key to merge on;
-`tr_person_roles` has none. **Open work**, tracked here rather than folded in.
+> **Corrected 2026-08-10.** This section first claimed the profile was
+> "unchanged-to-better", on the reasoning that the old `DROP TABLE` + `CREATE TABLE` held an
+> `AccessExclusiveLock` for the whole load too and additionally left the relations missing.
+> **Both halves were wrong**, and `cloud-deploy-speed-v1.md`'s own F10 is what disproves them.
+> The claim was written from inference; what follows is measured.
+
+`exec()` sends 003 as ONE string, and the simple query protocol wraps a multi-statement string
+in a **single implicit transaction** (`lib/pg.ts` says so; 003 carried no explicit
+`BEGIN`/`COMMIT`). So the old `DROP … CASCADE` and the `CREATE TABLE` beneath it committed
+atomically — under MVCC no reader could ever observe a table absent, exactly as F10 established
+for `042_kzk_appeals.sql`. The AccessExclusive window was the DDL apply alone, sub-second. The
+four COPYs then ran in their own later transactions holding only `RowExclusiveLock`, which does
+**not** conflict with `AccessShare`.
+
+So under the old scheme readers were **never blocked** during the ~100 s COPY phase. They read
+an empty, then progressively filling, table: a **200 with zero rows** — search answering "no
+such company" with confidence for the length of the load.
+
+The new scheme puts `TRUNCATE` inside the COPY's transaction, so the lock is held for the whole
+COPY. Measured on a live local `db:load:tr:pg`, a second connection probing all three tables at
+`lock_timeout = 2000ms`:
+
+```
+tr_companies     21 / 60 rejected 55P03     tr_officers      16 / 60 rejected
+tr_person_roles  13 / 60 rejected 55P03     (50 / 180 total, 28%)
+blocked probes each burned the full timeout: 2125-2359 ms
+```
+
+That is the same shape, SQLSTATE and remedy as RC4/F9's `tenders` defect. It is a regression and
+it is still the right way round — an error a route can degrade on (`55P03` is already in the
+documented degrade set) beats a silently-empty search result — but it must not be described as
+neutral, and on cloud it is much larger: F11 measured `db:load:tr:pg:cloud` at 34.9 min against
+112 s locally, and the blocking window scales with the COPY.
+
+Removing the choice needs a stage merge (`lib/stage_merge.ts`), which does **not** drop in:
+`tr_companies` and `ngo_details` are `uic`-keyed and fine, `tr_officers` would need a unique
+index on `(uic, name)` declared (the loader's `GROUP BY` already guarantees it), and
+`tr_person_roles` has no natural key at all — the same person can hold the same role at the same
+company across separate date ranges. **Open work**, scoped as Phase 4b in
+[cloud-deploy-speed-v1](cloud-deploy-speed-v1.md) (F21) rather than folded in here.
+
+### Interrupted-load hazard (new, and it looks healthy)
+
+The loader drops all 11 secondary indexes up front so each is built once over the finished
+table. An interrupted run therefore leaves the tables **populated but unindexed** — which every
+row-count check reports as fine.
+
+Observed while taking the measurement above, when the harness killed the loader mid-run:
+concurrent person queries joining `tr_officers.name_fold` (`money_eik`, the resolver's Tier-V
+money basis) went from sub-second to **>10 minutes**, and the next load's `TRUNCATE` queued
+behind them — at which point every reader of all three tables queued behind the `TRUNCATE`,
+since a pending `AccessExclusive` blocks later `AccessShare`. One killed loader took the whole
+TR surface down until the orphaned backend was cancelled.
+
+Recovery needs **no reload** — each table commits on its own, so the data is complete and
+correct. Recreate the 11 indexes from `LOAD_INDEXES` in `load_tr_pg.ts` and `ANALYZE`. Verified.
 
 ## Recovery, if a database has already lost them
 

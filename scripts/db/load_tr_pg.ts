@@ -112,12 +112,26 @@ const copyTable = async <T = void>(
 //
 // This is what 003 used to get by dropping the tables, and it is why it no longer
 // may: the DROP took three matviews owned by other migrations with it (003's
-// header has the full account). The lock profile is unchanged-to-better — the old
-// DROP+CREATE held an AccessExclusiveLock for the whole load too, and additionally
-// left the relations MISSING (a hard 42P01 for any reader) rather than merely
-// locked. Moving these to a stage merge (lib/stage_merge.ts) would remove the
-// blocking entirely, but only tr_companies and ngo_details have a unique key to
-// merge on; tr_person_roles has none. That is separate work.
+// header has the full account).
+//
+// THE LOCK PROFILE IS A REGRESSION, and deliberately so — do not "restore" the old
+// one. Measured 2026-08-10 (docs/plans/cloud-deploy-speed-v1.md F21): 50 of 180
+// concurrent probes across a live load are now REJECTED with 55P03, because
+// TRUNCATE takes an AccessExclusiveLock held until the COPY commits.
+//
+// The old scheme did NOT block readers, contrary to how it looks. exec() sends 003
+// as one string and the simple query protocol wraps that in a SINGLE implicit
+// transaction, so the DROP and the CREATE committed atomically and no reader could
+// see the table absent; the COPYs then ran in their own later transactions holding
+// only RowExclusiveLock, which does not conflict with AccessShare. What readers got
+// instead was an EMPTY, then progressively filling, table — a 200 with zero rows for
+// the length of the load, i.e. search confidently answering "no such company".
+//
+// An error a route can degrade on (55P03 is already in the documented degrade set)
+// beats a silently-empty answer, so this is the right way round. Removing the choice
+// needs a stage merge (lib/stage_merge.ts) — but only tr_companies and ngo_details
+// have a unique key to merge on, tr_officers would need one declared, and
+// tr_person_roles has none available. Scoped as Phase 4b in that plan.
 const replaceTable = async <T = void>(
   table: string,
   cols: string[],
