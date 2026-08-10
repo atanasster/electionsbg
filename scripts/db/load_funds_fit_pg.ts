@@ -154,9 +154,10 @@ const main = async (): Promise<void> => {
   // reintroduced by a later edit to 145; the probe has to list every object 145 reads.
   //
   // It probes the FUNCTION, not `dual_corpus_rankings_cache`, and the two are not
-  // interchangeable. 077 DROPs that matview unconditionally on every apply, so 145 reads it
-  // through a plpgsql wrapper precisely so no pg_depend edge is recorded (a direct read aborted
-  // every `db:load:pg` with 2BP01 — see 077's header). The wrapper is therefore what 145's query
+  // interchangeable. 145 reads that matview through a plpgsql wrapper precisely so no pg_depend
+  // edge is recorded — 077 no longer DROPs it, but it did until 2026-08-10, and the direct read
+  // aborted every `db:load:pg` with 2BP01 (see 077's header, which also documents the one-time
+  // manual DROP the wrapper keeps safe). The wrapper is therefore what 145's query actually
   // resolves against, and the wrapper itself tolerates an absent or unpopulated cache. Probing
   // the matview here would be probing the wrong object in both directions: it can be present
   // while the function is missing (a database predating this migration's current text), and

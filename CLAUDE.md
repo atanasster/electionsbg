@@ -1383,10 +1383,16 @@ with nothing there to recreate it, blanking the `/funds` hub tiles indefinitely.
 to drop the DROPs (neither was needed — the matview is a fixed one-column wrapper over the
 function, and `CREATE OR REPLACE` rewrites the body in place) and to expose
 `dual_corpus_company_count()`, a **plpgsql** wrapper whose body is never parsed for
-dependencies, as the only supported way to read that cache. plpgsql specifically: a
-`LANGUAGE sql` string body records no edge today either, but the `BEGIN ATOMIC` form (PG14+)
-does, so modernising such a wrapper would silently restore the 2BP01.
-`dual_corpus_dependents.data.test.ts` gates both halves.
+dependencies, as the only supported way for another migration to read that cache **in a stored
+query** — a view, a matview, or a function body Postgres parses at definition time. An ad-hoc
+query records no dependency and needs no wrapper, which is why `/api/db/dual-corpus-rankings`
+selects from the matview directly and is fine. plpgsql specifically: a `LANGUAGE sql` string
+body records no edge today either, but the `BEGIN ATOMIC` form (PG14+) does, so modernising
+such a wrapper would silently restore the 2BP01 — and note that a `BEGIN ATOMIC` dependency is
+recorded through `pg_proc`, NOT `pg_rewrite`, so any "who depends on this?" probe must cover
+both classes or it is blind to exactly that vector.
+`dual_corpus_dependents.data.test.ts` gates both halves, for both matviews a loader-applied
+migration DROPs (077's and 145's).
 
 **The reason nothing caught it is worth generalising: `db:refresh`'s only verification is its
 LAST step.** `test:data` — which includes `pg_roundtrip.data.test.ts`, whose row-count assert

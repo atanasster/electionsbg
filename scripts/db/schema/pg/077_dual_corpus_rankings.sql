@@ -150,11 +150,16 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS dual_corpus_rankings_cache AS
   SELECT dual_corpus_rankings() AS r
   WITH NO DATA;
 
--- The ONLY supported way for another migration to read this cache — see the header
--- block. plpgsql bodies are not parsed at creation, so the reference below records no
--- pg_depend edge and the caller (today: `funds_hub_stats_cache`, 145) does not pin
--- the matview. That is what keeps the one-time manual DROP described up there safe to
--- perform, and what stops a restored DROP in this file from being fatal again.
+-- The ONLY supported way for another migration to read this cache IN A STORED QUERY —
+-- a view, a matview, or a function body Postgres parses at definition time. See the
+-- header block. An AD-HOC query is always fine and needs no wrapper, because it records
+-- no dependency: `/api/db/dual-corpus-rankings` (functions/db_routes.js) and
+-- funds_hub_stats.data.test.ts both select from the matview directly, legitimately.
+--
+-- plpgsql bodies are not parsed at creation, so the reference below records no pg_depend
+-- edge and the caller (today: `funds_hub_stats_cache`, 145) does not pin the matview.
+-- That is what keeps the one-time manual DROP described up there safe to perform, and
+-- what stops a restored DROP in this file from being fatal again.
 --
 -- MEASURED, because the obvious alternative looks equivalent and is not quite: a
 -- `LANGUAGE sql` wrapper with a string body ALSO records no edge today — but the

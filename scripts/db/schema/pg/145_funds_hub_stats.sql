@@ -96,7 +96,22 @@ DROP FUNCTION IF EXISTS funds_hub_stats();
 -- WITH NO DATA, so applying the file is instant and cannot be mistaken for a refresh. The
 -- loader REFRESHes immediately after, and until it does the route's 55000 arm degrades to null
 -- and the hub renders tiles without figures — the honest state, and the same posture 143 takes.
-DROP MATERIALIZED VIEW IF EXISTS funds_hub_stats_cache CASCADE;
+--
+-- NOT `CASCADE`, and that is the same lesson 077's header spells out, one file over. This is a
+-- migration a LOADER applies (`db:load:funds-fit:pg`, plus the apply_functions escape hatch), so
+-- if a later migration ever reads this cache in a stored definition, CASCADE would DELETE that
+-- dependent on every funds-fit load — silently, leaving the /funds hub quietly missing numbers
+-- with nothing red anywhere. A bare DROP raises 2BP01 and stops the loader instead, which is the
+-- failure you want: loud, and pointing at the real cause. Strictly better in both directions.
+--
+-- The keyword also bought nothing. `DROP FUNCTION funds_hub_stats()` above already removes the
+-- only object that could plausibly depend on this matview (and even that records no edge — its
+-- body is a string-bodied LANGUAGE sql), and the unique index below is an INTERNAL dependency
+-- that drops with the matview regardless. Measured on the live database: `funds_hub_stats_cache`
+-- has zero pg_rewrite and zero pg_proc dependents, so this change is a no-op today and a loud
+-- failure later. `dual_corpus_dependents.data.test.ts` gates the zero-dependents property for
+-- this matview as well as for 077's.
+DROP MATERIALIZED VIEW IF EXISTS funds_hub_stats_cache;
 
 CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
   WITH isun AS (
@@ -167,14 +182,15 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       (SELECT CASE WHEN jsonb_typeof(payload->'themes') = 'array'
                    THEN jsonb_array_length(payload->'themes') END
          FROM fund_payloads WHERE kind = 'themes-index' AND key = '') AS focus_dossiers,
-      -- THROUGH THE WRAPPER, NEVER `FROM dual_corpus_rankings_cache` DIRECTLY. 077 opens with
-      -- an unconditional CASCADE-free `DROP MATERIALIZED VIEW dual_corpus_rankings_cache`, so
-      -- a direct select here makes this matview a hard dependent and every `db:load:pg` aborts
-      -- 2BP01 in its apply phase — leaving `contracts` on the previous vintage while the ingest
-      -- reports success. That is not hypothetical: it is what this line did between 2026-08-09
-      -- and 2026-08-10, on prod as well as locally. The wrapper's plpgsql body records no
-      -- pg_depend edge, and unlike the direct read it degrades to NULL on an unpopulated cache
-      -- (55000) instead of taking the whole refresh down. Full account in 077's header.
+      -- THROUGH THE WRAPPER, NEVER `FROM dual_corpus_rankings_cache` DIRECTLY. 077 no longer
+      -- DROPs anything — but it DID until 2026-08-10, and a direct select here made this matview
+      -- a hard dependent, so every `db:load:pg` aborted 2BP01 in its apply phase and left
+      -- `contracts` on the previous vintage while the ingest reported success (2026-08-09 →
+      -- 2026-08-10, prod included). The wrapper is what keeps that unrepeatable: its plpgsql body
+      -- records no pg_depend edge, so neither the one-time manual DROP 077's header documents for
+      -- a return-type change nor a DROP restored by a later edit can be fatal — and unlike the
+      -- direct read it degrades to NULL on an unpopulated cache (55000) instead of taking the
+      -- whole refresh down. Full account in 077's header.
       dual_corpus_company_count()                                    AS dual_companies
   )
   -- `k` exists ONLY to carry the unique index: an expression index does not qualify a matview
