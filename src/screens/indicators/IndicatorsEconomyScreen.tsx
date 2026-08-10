@@ -417,6 +417,26 @@ export const IndicatorsEconomyScreen = () => {
             {t("indicators_pay_vs_productivity_basis")}
           </p>
         ) : null}
+
+        <h3 className="text-sm font-medium text-muted-foreground mt-6 mb-1">
+          {t("governments_chart_tax_wedge")}
+        </h3>
+        <p className="text-xs text-muted-foreground mb-2 max-w-3xl">
+          {t("governments_chart_tax_wedge_explainer")}
+        </p>
+        {/* Own sub-chart rather than a third line above: this is a share of
+            labour cost (0-100%), not an index on the 2015 = 100 base, so it
+            cannot share that axis. Published by Eurostat, never derived here —
+            see the indicator's comment in fetch_eurostat.ts for why pairing
+            our own compensation series with НОИ's gross wage does not work. */}
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["taxWedge"]}
+          yAxisFormatter={(v) => `${v}`}
+          unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          height={260}
+        />
       </section>
 
       <section className="mb-10">

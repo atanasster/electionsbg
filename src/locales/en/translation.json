@@ -1727,6 +1727,8 @@
   "indicators_pay_vs_productivity": "{{from}}–{{to}}: compensation per employee rose {{nominalPay}}% in nominal terms while prices rose {{prices}}%. In real terms that is {{realPay}}%, against {{productivity}}% growth in productivity.",
   "indicators_pay_vs_productivity_multiple": "Real pay grew roughly {{multiple}}× faster than productivity.",
   "indicators_pay_vs_productivity_basis": "The two have different denominators — pay is per employee, productivity per person employed (which includes the self-employed) — so the multiple is indicative. The measure that compares them correctly by construction is the unit-labour-cost line above.",
+  "governments_chart_tax_wedge": "Tax wedge on labour costs",
+  "governments_chart_tax_wedge_explainer": "How much of the cost of employing someone goes to tax and social contributions rather than to the worker. Eurostat computes it for a fixed case — a single person with no children on 67% of average earnings — so it is comparable across countries, but it is not \"the average worker\". Published by Eurostat, not derived here.",
   "governments_chart_inflation_breakdown": "Inflation breakdown: food, energy, services, core",
   "governments_chart_inflation_breakdown_explainer": "Quarterly mean of the monthly HICP year-on-year rates by ECOICOP group. Stacking is illustrative — each component is a separate YoY rate, not weighted by basket share — but it makes the dominant driver of any given period visually obvious (e.g. the energy spike in 2022).",
   "governments_chart_sentiment": "Sentiment: consumer confidence and ESI",

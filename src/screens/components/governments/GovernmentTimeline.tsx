@@ -126,6 +126,7 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   unitLabourCost: "#ea580c",
   compensationPerEmployee: "#b45309",
   priceIndex: "#9f1239",
+  taxWedge: "#7c3aed",
   // sentiment (different scales — own chart)
   consumerConfidence: "#38bdf8",
   economicSentiment: "#4f46e5",

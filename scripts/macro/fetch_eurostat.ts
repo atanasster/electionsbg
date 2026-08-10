@@ -1007,6 +1007,39 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     titleEn: "Consumer price level (HICP)",
     titleBg: "Ценово равнище (ХИПЦ)",
   },
+  {
+    // Tax + social contributions as a share of total labour cost — the gap
+    // between what an employer pays and what the worker keeps, published by
+    // Eurostat rather than derived here. Deriving it is the trap: pairing
+    // `compensationPerEmployee` (national accounts, ALL employees) with НОИ's
+    // average gross wage (employees on a labour contract) implies a ~25%
+    // employer contribution against a statutory ~19.5%, because the two count
+    // different populations.
+    //
+    // The case is FIXED and narrow — a single person, no children, at 67% of
+    // average earnings — so the unit label carries it. Read as "the average
+    // worker" it is simply a different number, which is why the label says so
+    // in both languages rather than leaving it to the chart caption.
+    source: "eurostat",
+    key: "taxWedge",
+    dataset: "earn_nt_taxwedge",
+    query: {
+      geo: "BG",
+      unit: "RT",
+      freq: "A",
+    },
+    cadence: "annual",
+    // Published from 2008, so ~18 points — comfortably over MIN_POINTS_ANNUAL
+    // (12) despite starting three years after START_YEAR.
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/earn_nt_taxwedge/default/table",
+    unitLabelEn:
+      "% of labour cost (single person, no children, 67% of average earnings)",
+    unitLabelBg:
+      "% от разхода за труд (самотен нает без деца, на 67% от средната заплата)",
+    titleEn: "Tax wedge on labour costs",
+    titleBg: "Данъчна тежест върху труда",
+  },
 ];
 
 const WORLD_BANK_INDICATORS: WorldBankIndicator[] = [

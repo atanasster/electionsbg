@@ -61,6 +61,10 @@ export type MacroIndicatorKey =
   | "unitLabourCost"
   | "compensationPerEmployee"
   | "priceIndex"
+  // Eurostat — tax + contributions as a share of labour cost (earn_nt_taxwedge,
+  // annual). A FIXED standardised case (single, no children, 67% of average
+  // earnings), not the average worker — see its unitLabel.
+  | "taxWedge"
   // Eurostat — social (quarterly / annual)
   | "youthUnemployment"
   | "housePricesYoY"

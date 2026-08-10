@@ -203,6 +203,16 @@ const DATASETS: { code: string; query: string }[] = [
     code: "prc_hicp_aind",
     query: "geo=BG&unit=INX_A_AVG&coicop=CP00&freq=A",
   },
+  // Tax wedge on labour costs (earn_nt_taxwedge, annual) — the /indicators
+  // /economy sub-chart under the productivity block. Its own entry for the
+  // same reason as the two above: it moves on tax-and-contribution policy,
+  // which is neither the national-accounts nor the HICP calendar. Worth
+  // watching precisely because it does NOT move — frozen at 34.9% since 2018,
+  // so a flip here is a genuine policy change rather than a revision.
+  {
+    code: "earn_nt_taxwedge",
+    query: "geo=BG&unit=RT&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
