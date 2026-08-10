@@ -722,9 +722,31 @@ rather than slow; it is 5 now, ≈155 s worst case.
   may have named it "Част II" or "Приложение № 1.1". A9's "no technical specification
   published" signal must be derived from the full manifest plus a reviewed sample — never
   from the classifier. This is in the code comment; it belongs here too.
-- **The 3.4% missing-procedure rate (§9.3) is stale.** It was measured before the 69-day
-  backfill, which was its dominant cause. A4 (the id-space walk) is the only way to get the
-  residual, and it is unbuilt — so corpus completeness is currently *unmeasured*, not zero.
+- ~~**The 3.4% missing-procedure rate (§9.3) is stale.**~~ **✅ RE-MEASURED.** A4 shipped
+  (`enumerate_eop_ids.ts`) and a 400-id sampled walk now reports **0.9% missing** (1 of 107
+  published procedures), down from 3.4% — the 69-day backfill was indeed the dominant cause.
+  A `--full` walk (~17 h) is still the authoritative figure; the sampled rate is an estimate.
+
+### 13.8 ⚠️ NEW — the tenders normalizer silently drops multi-EIK buyers
+
+Found by A4 on its first real run, which is what it is for. `00220-2022-0007` (ВиК ЕООД,
+2022-04-13) is published, its day IS cached, and the record IS in the day file with
+`isLot=Не` — yet it is absent from `tenders`.
+
+Cause: `buyerRegistryNumber` is `"811047831; 206086428"`, two EIKs in one field, and
+`normalize_eop_tender.ts` counts that as no EIK (`recordsSkippedNoBuyerEik`). Measured
+across the whole cache: **561 multi-EIK records, 304 of them procedures** — so ~304
+procedures have never been in the corpus, and no day-coverage check can see it because the
+day bucket is present and complete.
+
+**The contracts pipeline already solves exactly this** — `normalize_eop.ts`'s
+`resolvePrimaryBuyer` / `recoverToPrimary`, with `CONTROL_ORGAN_EIKS` to skip co-listed
+financial-control organs (АДФИ) so the row lands on the real buyer. CLAUDE.md records it
+recovering ~653 rows / €1.16bn on the contracts side. The tenders normalizer never got it.
+
+**Not fixed here** — it changes the corpus, so it needs a rebuild, a `db:load:tenders:pg`
+and a Cloud SQL redeploy, which is an operator action rather than a side effect of building
+an audit tool. Fix is to reuse `resolvePrimaryBuyer` rather than re-derive it.
 
 ### 13.6 Serving-side gaps the plan under-specifies
 
