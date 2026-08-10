@@ -2,6 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CanonicalPartiesIndex } from "./canonicalPartyTypes";
+// parliament.bg labels a party group differently from CEC's canonical nickname
+// — either a different abbreviation ("ПБ" vs "ПрБ") or the full party name
+// spelled out ("Демократична България" vs "ДБ"). Applied after dash/whitespace
+// normalization in `partyGroupShortLabel`. Shared with
+// scripts/person/partyGroups.ts — see that file's header for why there is
+// exactly one copy of this table.
+import {
+  resolveNicknameToId,
+  stripGroupPrefix,
+} from "./parliamentGroupAliases";
 import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
@@ -11,17 +21,6 @@ const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
     throw new Error(`fetch failed: ${response.status} ${response.url}`);
   }
   return response.json();
-};
-
-// parliament.bg labels a party group differently from CEC's canonical
-// nickname — either a different abbreviation ("ПБ" vs "ПрБ") or the full
-// party name spelled out ("Демократична България" vs "ДБ"). Mapping is
-// applied after dash/whitespace normalization in `partyGroupShortLabel`.
-const PARLIAMENT_GROUP_ALIASES: Record<string, string> = {
-  ПБ: "ПрБ",
-  "Демократична България": "ДБ",
-  "Прогресивна България": "ПрБ",
-  "Продължаваме Промяната": "ПП",
 };
 
 // Replaces useAllPartyColors with a single fetch (one canonical_parties.json
@@ -47,34 +46,20 @@ export const useCanonicalParties = () => {
     return map;
   }, [data]);
 
-  // Case-insensitive nickName → canonicalId index. Parliament group labels
-  // arrive uppercased (e.g. "ВЪЗРАЖДАНЕ") while canonical history nicknames
-  // are mixed-case ("Възраждане"), so an exact-match lookup misses them.
-  const byNickNameLower = useMemo(() => {
-    const map = new Map<string, string>();
-    if (data?.byNickName) {
-      for (const [nick, id] of Object.entries(data.byNickName)) {
-        const k = nick.toLocaleLowerCase("bg");
-        if (!map.has(k)) map.set(k, id);
-      }
-    }
-    return map;
-  }, [data]);
+  // The case-insensitive fold that used to live here moved into
+  // parliamentGroupAliases.ts, where it is memoised per byNickName object and
+  // shared with the server. Parliament group labels arrive uppercased
+  // ("ВЪЗРАЖДАНЕ") while canonical nicknames are mixed-case ("Възраждане"), so
+  // an exact-match lookup misses them — that fold is still applied, just once
+  // and in one place.
 
-  // Try the input directly, then via the parliament.bg→CEC alias map (e.g.
-  // "ПБ" → "ПрБ"). Case-insensitive lookup catches the all-caps parliament
-  // labels against mixed-case canonical nicknames.
-  const resolveCanonicalId = (input: string): string | undefined => {
-    if (!input) return undefined;
-    return (
-      data?.byNickName[input] ??
-      byNickNameLower.get(input.toLocaleLowerCase("bg")) ??
-      data?.byNickName[PARLIAMENT_GROUP_ALIASES[input] ?? ""] ??
-      byNickNameLower.get(
-        (PARLIAMENT_GROUP_ALIASES[input] ?? "").toLocaleLowerCase("bg"),
-      )
-    );
-  };
+  // The SHARED chain, identical to the one scripts/person/partyGroups.ts uses:
+  // exact → case-insensitive → alias → normalised fold. Hand-rolling it here
+  // is what made the browser and the resolver disagree on 5 of the 26 live
+  // group shorts (`ГЕРБ - СДС`, `БСП - ОЛ`, `ДПС - НН`, `ПП - ДБ` all resolved
+  // server-side and returned undefined here) while both looked correct.
+  const resolveCanonicalId = (input: string): string | undefined =>
+    resolveNicknameToId(input, data?.byNickName);
 
   // Accepts either a nickName ("ГЕРБ") or a canonical id ("gerb", "p_67").
   // Local-elections code stamps `primaryCanonicalId` as the canonical id, not a
@@ -165,16 +150,12 @@ export const useCanonicalParties = () => {
     partyGroupShort: string | null | undefined,
   ): string | null => {
     if (!partyGroupShort) return null;
-    const stripped = partyGroupShort
-      .replace(/^ПГ(\s+на)?\s+/, "")
-      .replace(/[–—]/g, "-")
-      .replace(/\s*-\s*/g, "-")
-      .trim();
+    // stripGroupPrefix also drops the QUOTES parliament.bg wraps some names in
+    // — `ПГ "Прогресивна България"` is the 52nd's largest group (143 of 240
+    // sitting MPs) and a prefix-only strip left it unresolvable.
+    const stripped = stripGroupPrefix(partyGroupShort);
     if (!stripped) return partyGroupShort;
-    const aliased = PARLIAMENT_GROUP_ALIASES[stripped] ?? stripped;
-    const id =
-      data?.byNickName[aliased] ??
-      byNickNameLower.get(aliased.toLocaleLowerCase("bg"));
+    const id = resolveNicknameToId(stripped, data?.byNickName);
     if (!id) return stripped;
     const party = byId.get(id);
     if (!party) return stripped;

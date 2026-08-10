@@ -11,6 +11,7 @@
 // aggregate them into _unmatched_coalitions.json for hand-curated overrides.
 
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
+import { INDEPENDENT_CANONICAL_ID } from "@/data/parties/parliamentGroupAliases";
 import {
   LocalCoalitionFragmentOverride,
   LocalCoalitionRawOverride,
@@ -18,7 +19,10 @@ import {
   localCoalitionRawOverrides,
 } from "./local_coalition_overrides";
 
-export const INDEPENDENT_CANONICAL_ID = "independent";
+// Re-exported, not re-declared — see the note on the declaration. Two hand-kept
+// copies of this id would let the local parser and the MP crosswalk drift onto
+// different sentinels, and the loser would render as a raw latin token.
+export { INDEPENDENT_CANONICAL_ID };
 
 export type CoalitionResolution = {
   primaryCanonicalId: string | null;

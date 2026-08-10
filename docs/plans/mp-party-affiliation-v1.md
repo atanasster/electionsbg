@@ -242,10 +242,16 @@ does**." The real exposure is not 26 rows; it is 309 of 1,831 pairs.
   so `independent` and `vmro` already appear as options **labelled in Latin**.
 
 This is **live today for 879 people** (`party_primary`: `independent` 484, `vmro` 395) and is
-therefore a pre-existing defect, not one this plan creates. But §1b deliberately routes the
-three class-A sentinels into `independent` at `role_prominence = 100` — the highest value in
-the function — so it puts **21 more people** there, and puts them at the top of the ordering
-where they cannot be outranked.
+therefore a pre-existing defect, not one this plan creates.
+
+**Correction (T1, measured 2026-08-09): this plan adds ZERO people to `independent`.** An
+earlier draft said 21, taken from a last-seen basis. Composed over the 1,522 guarded seats, the
+**entry** rule yields 18 distinct group shorts and **not one sentinel among them** — 25 seats
+*end* on one and 88 change group mid-term, but nobody *enters* a parliament as независим. So the
+sentinel branch of the crosswalk is exercised by gate 5.1's sweep over `party_dim.short`, never
+by a stored value, and §0g's fix is justified by the 879 rows that already exist rather than by
+anything T2 writes. `mpSeats.test.ts` asserts the zero, so if the entry rule ever changes it
+fails rather than quietly making §8c's hazard reachable.
 
 **Decision: fix the render before T2 ships, not after.** Two lines of work, in order of
 preference:
@@ -679,7 +685,26 @@ that mp's `nsFolders`**. This module is where §0f is fixed once, for every cons
   asserted by name; an invented short name throws.
 - `seatsForMp` returns **563** covered roles in total, **0** out-of-`nsFolders` seats, and
   specifically returns `[44]` — not `[44, 51]` — for mpId **3103**.
-- Ships nothing to any database. The browser is untouched.
+- Ships nothing to any database.
+
+#### T1 RESULT (2026-08-09) — shipped; both numbers reproduced exactly
+
+563 covered MPs / 1,522 seats / 0 out-of-`nsFolders` / `seatsForMp(3103) === [44]`, and every
+entry group resolves to a labellable id. Three things came out differently from the plan:
+
+- **"The browser is untouched" was wrong**, and correcting it fixed a live bug. Sharing the
+  alias table meant the client had to import it, and doing so exposed that client and server
+  shared the *data* but not the *matching rule* — they disagreed on **5 of the 26** live shorts
+  (`ГЕРБ - СДС`, `БСП - ОЛ`, `ДПС - НН`, `ПП - ДБ` resolved server-side and returned nothing in
+  the browser). The whole resolution chain now lives in `parliamentGroupAliases.ts` and both
+  call it, so gate 5.7 is behavioural rather than a name check.
+- **`ПГ "Прогресивна България"` never resolved** — parliament.bg wraps that one label in quotes
+  and the prefix strip left them, so the 52nd's largest group (143 of 240 sitting MPs) rendered
+  as a quoted Cyrillic string with no colour and no `/party` link. Pre-existing; fixed here
+  because `stripGroupPrefix` is the natural home.
+- **Normalisation is lossy in three real cases** — `НИЕ`/`Ние`, `БНС–НД`/`БНС-НД`, `Воля`/`ВОЛЯ`
+  collapse onto one key with different ids. First-writer-wins would have picked a lineage by
+  JSON key order; they now resolve to nothing so the choice has to be made explicitly.
 
 ### T2 — populate, career-scalar, as a measurement (1 day)
 
@@ -1075,8 +1100,14 @@ its own before/after merge diff, and the guard below.
 canonical id §1b assigns to `НЕЗ` / `НЕЧЛ В ПГ` — i.e. it means *the absence of a party*. Two
 different MPs seated from the same МИР who both left their groups would share
 `(independent, <mir>)` and merge into one person on evidence that is the opposite of evidence.
-The blast radius is bounded — MP `cPlace` is `currentRegion`, populated for only the ~240
-sitting members — but it is concentrated in exactly the defectors this plan exists to surface.
+
+**Not reachable in v1, and the reason matters.** T1 measured **0 of 1,522** entry groups as a
+sentinel (§0g), because the entry rule records the group a member *arrived* with — you become
+независим, you do not enter as one. So no MP row carries `independent` today and the hazard is
+latent, not live. It becomes real the moment v2 models mid-term spans, which is exactly when
+25 seats' worth of exit-groups start being stored. The blast radius is bounded either way — MP
+`cPlace` is `currentRegion`, populated for only the ~240 sitting members — but it is
+concentrated in exactly the defectors this plan exists to surface.
 
 ### 8d. Follow-up: `person-consolidation-v2`
 
