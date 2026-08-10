@@ -10,7 +10,7 @@
 
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { PersonHeader } from "./PersonHeader";
 import type { PersonProfile } from "./usePersonProfile";
@@ -31,8 +31,9 @@ vi.mock("@/screens/components/candidates/MpAvatar", () => ({
     <span data-testid="avatar">{name}</span>
   ),
 }));
+const mpEntry: { current: { name_en?: string } | null } = { current: null };
 vi.mock("@/data/parliament/useMpEntry", () => ({
-  useMpEntry: () => ({ entry: null }),
+  useMpEntry: () => ({ entry: mpEntry.current }),
 }));
 vi.mock("@/data/dashboard/usePersonElections", () => ({
   usePersonDataCycles: () => ({ rows: [], dataCycles: [] }),
@@ -60,6 +61,7 @@ const renderAt = (language: string) => {
 describe("PersonHeader", () => {
   beforeEach(() => {
     lang.current = "bg";
+    mpEntry.current = null;
   });
 
   it("keeps the Cyrillic name on the Bulgarian route", () => {
@@ -81,10 +83,28 @@ describe("PersonHeader", () => {
     expect(screen.getByTestId("avatar").textContent).toBe(
       "Иван Георгиев Такучев",
     );
-    screen.getByTestId("avatar").remove();
+    cleanup();
     renderAt("en");
     // Not the transliteration: the photo index is keyed on the Bulgarian form.
     expect(screen.getByTestId("avatar").textContent).toBe(
+      "Иван Георгиев Такучев",
+    );
+  });
+
+  // /en/candidate renders the curated parliament.bg spelling; without the hint /person would
+  // transliterate and the two /en pages for one MP would disagree on their <h1>.
+  it("prefers a curated parliament.bg name_en over the transliteration on /en", () => {
+    mpEntry.current = { name_en: "Ivan G. Takutchev" };
+    renderAt("en");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
+      "Ivan G. Takutchev",
+    );
+  });
+
+  it("ignores the curated name on the Bulgarian route", () => {
+    mpEntry.current = { name_en: "Ivan G. Takutchev" };
+    renderAt("bg");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "Иван Георгиев Такучев",
     );
   });

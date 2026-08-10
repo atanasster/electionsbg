@@ -1348,6 +1348,24 @@ committed manifest predated the cloud catch-up) is not established.
 from the stale side — warn and skip instead. Nothing else regenerates it: this command is
 the only way the manifest moves.
 
+**The `/en` person titles carry a BUILD-TIME dependency on two committed data files**, the
+same shape as the `/court/**` one above and quieter still. `scripts/prerender/placeNameEn.ts`
+resolves every English place name from `data/municipalities.json` + `data/settlements.json` at
+build time; a missing or unparseable file degrades to transliteration, which is valid Latin
+and therefore passes the "no Cyrillic" gate — 455 places (436 settlements + 19 municipalities
+whose curated `name_en` differs from the transliterated form) silently change spelling in
+indexed titles with nothing red. It warns on stderr; that warning is the only signal.
+
+That module is also a **second producer of a label `place_dim` already owns**, against the
+explicit "keep it that way" in `scripts/person/places.ts`. It has to be — the prerender is a
+Node build step with no database, while the runtime reads `place_dim.name_en` through
+`082_person_api.sql` — so the SAME page resolves the English place name twice, once per side
+of hydration. `placeNameEn.test.ts` fails if the two dictionaries disagree on any shared code.
+The single-producer fix is `pd.name_en` on the prerender card (the locals query in
+`emit_prerender_slugs.ts` already `LEFT JOIN place_dim`), and it takes effect only at the next
+`person:slugs:cloud` mint — the manifest is committed, so a card field changes nothing until
+the file is re-minted from the serving database.
+
 ### SQL functions and indexes — applied, never loaded
 
 A serving FUNCTION or an INDEX carries no data, so no `db:load:*` ships it. The person functions

@@ -94,7 +94,7 @@ import {
   readSettlementParents,
 } from "./educationPlaces";
 import { localOfficePhraseBg, localOfficePhraseEn } from "./localOfficePhrase";
-import { buildPlaceNameEn } from "./placeNameEn";
+import { buildPlaceNameEn, type PlaceNameEn } from "./placeNameEn";
 import { transliterateName } from "@/data/candidates/transliterateName";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
@@ -1512,6 +1512,21 @@ const escapeHtmlSimple = (s: string): string =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
+/** The Cyrillic alias line every /en person-shaped page carries, so a reader who arrived from
+ *  a Bulgarian source can match the person against a transliterated `<h1>`. One helper rather
+ *  than three copies: the candidate family and the two person families had drifted into two
+ *  shapes (with and without `<small>`, with and without a trailing period).
+ *
+ *  `lang="bg"` is not decoration. The surrounding document is `lang="en"`, so without it a
+ *  screen reader pronounces the Bulgarian with English phonemes, and the markup gives a
+ *  crawler no signal that the untranslated string is deliberate.
+ *
+ *  Omitted when the two forms are identical — a name already in Latin needs no alias. */
+const bulgarianAliasLine = (nameBg: string, nameEn: string): string =>
+  nameEn === nameBg
+    ? ""
+    : `<p><small>Bulgarian name: <span lang="bg">${escapeHtmlSimple(nameBg)}</span></small></p>`;
+
 const fmtBgDate = (iso: string | null | undefined): string | null => {
   if (!iso) return null;
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
@@ -1683,11 +1698,8 @@ const buildCandidateBodyEn = (
     parts.push(`</tbody></table>`);
   }
 
-  if (nameEn !== nameBg) {
-    parts.push(
-      `<p><small>Bulgarian name: ${escapeHtmlSimple(nameBg)}</small></p>`,
-    );
-  }
+  const alias = bulgarianAliasLine(nameBg, nameEn);
+  if (alias) parts.push(alias);
   if (indexEntry?.id) {
     parts.push(
       `<p><a href="https://www.parliament.bg/bg/MP/${indexEntry.id}" rel="nofollow noopener">parliament.bg</a></p>`,
@@ -1939,7 +1951,14 @@ export const buildCandidateRoutes = (
     const indexEntry = mpByName.get(normalizeName(name));
     const profile = indexEntry ? loadProfile(indexEntry.id) : null;
     const enUrl = `${SITE_URL}/en/candidate/${encodeURIComponent(name)}`;
-    const nameEn = indexEntry?.name_en?.trim() || name;
+    // A curated parliament.bg name_en when we have one, otherwise transliterate — never the
+    // Cyrillic form. `mpByName` is built from the parliament index, which covers MPs only, so
+    // falling back to `name` gave every non-MP candidate an English role suffix glued to a
+    // Cyrillic proper noun, byte-identical to its /bg twin in the name slot. That is the same
+    // defect fixed on the /person mirrors on 2026-08-10, and it was live on 25,024 of 26,386
+    // candidate titles — a larger family than the one that fix covered. The precedence order
+    // matches useCandidateName's on the runtime side.
+    const nameEn = indexEntry?.name_en?.trim() || transliterateName(name);
     const cardData = candidateCardSet.byNormalizedName.get(normalizeName(name));
     const factsClauseBg = cardData?.facts
       ? ` ${formatNumber(cardData.facts.totalPreferences)} преференции на изборите на ${formatElectionDateBg(cardData.facts.electionDate)}, най-силно представяне в ${oblastLabel(cardData.facts.topOblastName, "bg", "prose")}.`
@@ -4089,17 +4108,15 @@ const formatEurForPrerender = (n: number): string =>
 // Георгиев Такучев — Chief architect in Ивайловград" — which put the identical Cyrillic name
 // in both mirrors' <title>s, so they competed for one Bulgarian query and Google served the
 // English page for „Иван Георгиев Такучев".
-type PlaceNameEn = ReturnType<typeof buildPlaceNameEn>;
-
 const localPersonRoute = (
   c: PersonLocalCard,
   path_: string,
   url: string,
   enUrl: string,
   placeNameEn: PlaceNameEn,
+  nameEn: string,
 ): PrerenderRoute => {
   const name = escapeHtmlMinimal(c.name);
-  const nameEn = transliterateName(c.name);
   const nameEnSafe = escapeHtmlMinimal(nameEn);
   const placeRaw = c.placeLabel;
   const place = placeRaw ? escapeHtmlMinimal(placeRaw) : null;
@@ -4145,7 +4162,7 @@ const localPersonRoute = (
       bodyHtml: `
 <h1>${nameEnSafe}</h1>
 <p>${officeEnSafe}.</p>
-<p>Bulgarian name: ${name}.</p>
+${bulgarianAliasLine(c.name, nameEn)}
 <p>See the <a href="${SITE_URL}/en/local">local elections</a> and the profile for declarations, connections and public procurement.</p>`.trim(),
       jsonLd: [
         buildWebPageLd({
@@ -4194,12 +4211,12 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
     const path_ = `person/${entry.slug}`;
     const url = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
+    const nameEn = transliterateName(c.name);
     if (c.kind === "local") {
-      out.push(localPersonRoute(c, path_, url, enUrl, placeNameEn));
+      out.push(localPersonRoute(c, path_, url, enUrl, placeNameEn, nameEn));
       continue;
     }
     const name = escapeHtmlMinimal(c.name);
-    const nameEn = transliterateName(c.name);
     const nameEnSafe = escapeHtmlMinimal(nameEn);
     const institution = c.institution ? escapeHtmlMinimal(c.institution) : null;
     const position = c.positionTitle
@@ -4218,9 +4235,20 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
     // The institution and the position title stay Bulgarian on /en: there are 785 distinct
     // institutions and 140 position titles in this corpus and no English source for any of
     // them, and transliterating an institution name yields "Ministerstvo na otbranata" —
-    // strictly worse than the Bulgarian. The <title> (name + "declared assets") is fully
-    // English, which is the string that competes in search.
+    // strictly worse than the Bulgarian.
+    //
+    // Be precise about the SCOPE of that exemption, because the first version of this comment
+    // was not. It covers the /en BODY *and* the /en meta description — the description names
+    // the institution on 5,651 of these 5,661 pages, and `description` is emitted as both
+    // `<meta name="description">` and `og:description` (prerender/index.ts). Only the <title>
+    // is fully English. Keeping the institution in the description is the deliberate call: it
+    // is the sole place a reader learns WHICH body the person served, and dropping it would
+    // buy a monolingual snippet by deleting the fact the page exists to report.
+    // personRoutesEn.test.ts pins exactly this split.
     const instEn = institution ? ` at ${institution}` : "";
+    const instEnHtml = institution
+      ? ` at <span lang="bg">${institution}</span>`
+      : "";
     const description = netWorth
       ? `Декларирано нетно имущество ${netWorth}${yearBg} на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}. Източник: Сметна палата.`
       : `Профил на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}: декларации за имущество и интереси, връзки, обществени поръчки. Източник: Сметна палата.`;
@@ -4255,9 +4283,9 @@ ${netLineBg}
         description: descriptionEn,
         bodyHtml: `
 <h1>${nameEnSafe}</h1>
-<p>${categoryEn}${instEn}${position ? `. Position: ${position}` : ""}.</p>
+<p>${categoryEn}${instEnHtml}${position ? `. Position: <span lang="bg">${position}</span>` : ""}.</p>
 ${netLineEn}
-<p>Bulgarian name: ${name}.</p>
+${bulgarianAliasLine(c.name, nameEn)}
 <p>See also the <a href="${SITE_URL}/en/officials/assets">ranking of officials by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
         jsonLd: [
           buildWebPageLd({
