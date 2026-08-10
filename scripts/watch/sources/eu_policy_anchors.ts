@@ -18,6 +18,7 @@ import * as XLSX from "xlsx";
 
 import { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
+import { NATO_DEFEXP_PAGE } from "../../defense/sources";
 
 // ---------------------------------------------------------------------------
 // 1) PwC Worldwide Tax Summaries quick charts — the EU tax-rate comparators.
@@ -416,42 +417,66 @@ export const euAlcoholExcise: WatchSource = {
 
 // ---------------------------------------------------------------------------
 // 2) NATO defence-expenditure compendium — defence % of GDP options.
-// Editions live at a stable URL pattern; we probe which years exist, so the
-// next edition (def-exp-2026-en.pdf) flips the fingerprint the day it lands.
+// Editions are DISCOVERED from the listing page rather than probed at a fixed
+// URL, because NATO has already moved the path shape once and returns 403 —
+// not 404 — for an edition that does not exist:
+//
+//   2021/2022/2024  /content/dam/nato/legacy-wcm/media_pdf/YYYY/M/pdf/YYMMDD-def-exp-YYYY-en.pdf
+//   2025/2026       /content/dam/nato/webready/documents/finance/def-exp-YYYY-en.pdf
+//
+// A blind HEAD probe therefore cannot tell "not published yet" from "we were
+// refused", and when every probe came back not-ok it reported the URL pattern
+// as broken — which sends the reader hunting for a new pattern that is in fact
+// fine. Scraping the page is also what the sibling nato_defexp watcher does,
+// off the same NATO_DEFEXP_PAGE constant, so the two cannot drift onto
+// different pages (see scripts/defense/sources.ts).
 // ---------------------------------------------------------------------------
 
-const NATO_PDF = (year: number): string =>
-  `https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-${year}-en.pdf`;
+// Matches both path shapes above; the 2021 link ends ".PDF", hence the `i`.
+const NATO_EDITION = /def-exp-(20\d{2})-en\.pdf/gi;
 
-// Fixed lower bound so the probed set only ever GROWS — a sliding window
+// Fixed lower bound so the tracked set only ever GROWS — a sliding window
 // would drop an old edition out of range every New Year and flip the
 // fingerprint with nothing published. 2025 = the edition the comparators
-// ship with (def-exp-2024 already 404s at this URL pattern).
+// ship with (the page also lists 2021/2022/2024, which predate them).
 const FIRST_TRACKED_EDITION = 2025;
+
+/** Pure html → Fingerprint step, extracted so the edition parse is testable
+ *  without network (same split as summariseImportDates in keep_eu_interreg). */
+export const summariseNatoEditions = (html: string): Fingerprint => {
+  const found = Array.from(html.matchAll(NATO_EDITION)).map((m) =>
+    Number(m[1]),
+  );
+  // Zero links on a page that LOADED is the one genuine "they changed the
+  // layout" signal — worth an error, unlike an edition merely not being out.
+  if (!found.length)
+    throw new Error(
+      "NATO def-exp listing page carries no def-exp-YYYY-en.pdf link (layout changed?)",
+    );
+
+  const years = [...new Set(found)]
+    .filter((y) => y >= FIRST_TRACKED_EDITION)
+    .sort((a, b) => a - b);
+  return {
+    value: years.join(","),
+    detail: `compendium edition(s): ${years.join(", ")}`,
+    meta: { years },
+  };
+};
 
 export const natoDefence: WatchSource = {
   id: "nato_defence",
   label: "NATO defence-expenditure compendium",
-  url: "https://www.nato.int/cps/en/natohq/topics_49198.htm",
+  url: NATO_DEFEXP_PAGE,
   cadence: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
-    const thisYear = new Date().getUTCFullYear();
-    const years: number[] = [];
-    for (let y = FIRST_TRACKED_EDITION; y <= thisYear + 1; y++) {
-      const res = await fetch(NATO_PDF(y), {
-        method: "HEAD",
-        signal: AbortSignal.timeout(20_000),
-      });
-      if (res.ok) years.push(y);
-    }
-    if (!years.length)
-      throw new Error("no NATO def-exp compendium PDF found at known pattern");
-    return {
-      value: years.join(","),
-      detail: `compendium edition(s): ${years.join(", ")}`,
-      meta: { years },
-    };
+    // fetchText carries the shared crawler UA + retries and THROWS the real
+    // status on a non-ok response, so a refusal surfaces as "HTTP 403" rather
+    // than being silently folded into "no editions found".
+    const html = await fetchText(NATO_DEFEXP_PAGE);
+    if (!html) throw new Error("NATO def-exp listing page unreachable");
+    return summariseNatoEditions(html);
   },
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
