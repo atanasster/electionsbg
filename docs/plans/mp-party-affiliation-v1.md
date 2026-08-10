@@ -848,7 +848,56 @@ now states what it does not prove.
 **MPs with no roll-call coverage keep a bare `<mpId>` ref** (1,559 rows). Minting `<mpId>:0`
 would claim a parliament that does not exist, and `split_part` handles the mixed shape.
 
-### T4 — publish (see §4)
+### T4 — publish
+
+**Status 2026-08-09: prepared, NOT executed.** Everything below is verified locally; the
+Cloud SQL and hosting steps are the operator's to run.
+
+**The whole change is READER-BACKWARD-COMPATIBLE, and that is what makes this safe.**
+`split_part('4720', ':', 1)` = `'4720'` — verified — so every patched reader works unchanged
+against a database that still holds bare refs. Deploy readers FIRST and prod is correct at
+every intermediate state. The reverse order is the broken one: new refs against old readers is
+the 36% partial loss in §2b.
+
+```bash
+# ── 1. READERS (safe against the current bare-ref data) ────────────────────
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg \
+  npx tsx scripts/db/apply_functions.ts 082_person_api.sql 105_mp_serving.sql
+
+npm run deploy:db          # functions/db_routes.js — mpSlugFromQuery
+npm run deploy             # hosting — PersonProfileScreen's mpId parse
+
+# ── 2. THE WRITER, then everything that folds it ──────────────────────────
+npm run db:resolve:persons:cloud                    # ~5-15 min; writes the widened refs
+npm run db:load:declarations:pg:cloud               # phase 1
+npm run db:load:declarations:pg:cloud -- --resolve  # >10 min — run DETACHED
+npm run db:load:mp-roster:pg:cloud
+npm run db:load:official-candidate-links:pg:cloud
+npm run db:load:person-elections:pg:cloud
+npm run db:load:persons-browse:pg:cloud             # applies 120
+npm run db:load:person-search:pg:cloud
+npm run db:load:graph:pg:cloud
+npm run person:slugs:cloud                          # mints the committed manifest
+```
+
+**Verify on the serving database** — these are the numbers that caught every T3 defect, and
+each floor sits above its broken value:
+
+```sql
+SELECT (SELECT count(*) FROM person_role WHERE source='mp')                      -- 3,081
+     , (SELECT count(*) FROM person_role WHERE source='mp' AND ref LIKE '%:%')   -- 1,522
+     , (SELECT count(*) FROM person_role WHERE source='mp' AND party IS NOT NULL)-- 1,522
+     , (SELECT count(*) FROM mp_person_link)                                     -- 2,122, NOT 1,559
+     , (SELECT count(*) FROM person_browse_table WHERE is_mp AND photo_url IS NOT NULL) -- 2,120, NOT 1,558
+     , (SELECT count(*) FROM person WHERE status='active');                      -- unchanged
+```
+
+`db:load:declarations:pg:cloud -- --resolve` must report **0 still NULL**. A `1/47,983` there
+is not residue — it is the phase-2 join missing the widened ref (§T3 RESULT).
+
+**Not part of this publish:** the `vmro` artifact residue (task tracked separately) and the
+`/persons` visual check — `useCanonicalParties.tsx` changed in T1 and feeds ~11 roll-call
+screens, so eyeball `/persons` and one `/person/<slug>` after hosting deploys.
 
 ---
 
