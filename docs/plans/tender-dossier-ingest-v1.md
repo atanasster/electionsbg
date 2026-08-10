@@ -13,8 +13,8 @@ for and how it decided.
 Audit 1 (§8) found the source understated. Audit 2 (§9–§11) hunted bulk routes, closed the
 measured unknowns, and surfaced an unrelated 69-day hole in the existing tenders corpus.
 §12 killed the blob tier on storage grounds; the cost/value review then cut the download to
-one file per tender (§5). **Audit 3 (§13) reviews the built code and carries three defects,
-one of them fatal at full scale.**
+one file per tender (§5). Audit 3 (§13) reviewed the built code and found three defects, one
+fatal at full scale; **all three are now fixed** (§13.2–§13.4), each with regression tests.
 
 **Shipped since:** the 69-day hole is backfilled and deployed to Cloud SQL (§11); a latent
 `cais_id` bug it exposed is fixed in both loaders; `day_coverage.ts` now refuses to rebuild
@@ -657,7 +657,10 @@ before the first yield**, and tier B's work-set build is its only caller. It pas
 200-row probe and will OOM on the real corpus.
 
 Fix is a keyset-paged cursor (`WHERE kind = ? AND subject_id > ? ORDER BY subject_id LIMIT n`),
-not `LIMIT/OFFSET` — offset re-scans. **Not yet done.**
+not `LIMIT/OFFSET` — offset re-scans. **✅ DONE** — keyset cursor, with tests for the page
+boundary, the exact-multiple case, a full page of empty bodies (which must still advance the
+cursor or the walk loops forever), and early termination. A non-positive `pageSize` now throws
+rather than silently yielding nothing.
 
 ### 13.3 ⚠️ `eopCall` has no 429 / Retry-After handling
 
@@ -668,19 +671,42 @@ so if the register does start throttling, the crawl answers by hammering it and 
 
 No 429 was observed in ~1,700 requests, which is why this was not caught: the plan's §2.1
 measurement says "no throttling" and the client was written to that. That is evidence about
-a 300-call burst, not about a 26-hour crawl. **Not yet done.**
+a 300-call burst, not about a 26-hour crawl.
+
+**✅ DONE** — a process-wide brake with `Retry-After` parsing (seconds and HTTP-date), jitter
+on release so N workers do not resume in lockstep, escalating backoff when the register gives
+no hint, and a throttle budget **separate from `tries`** so a busy register cannot make the
+crawl abandon a subject. `throttleSummary()` surfaces it in both crawlers' run summaries.
+
+Two traps found while building it, both now regression-tested. `Date.parse("-1")` returns
+**2001-01-01**, so routing a malformed *number* through the date branch clamps to 0 — "no
+backoff" exactly when the register is asking us to stop. And the first escalation ceiling
+(8 retries) meant a no-hint 429 could block one subject for ~8.5 minutes, which reads as hung
+rather than slow; it is 5 now, ≈155 s worst case.
 
 ### 13.4 Smaller defects and unclosed edges
 
-- **`md5 || \`id:${doc.Id}\`` fallback** in tier B. When the register omits `MD5Hash`, resume
-  keys on the documentId instead, so the same bytes under a second id are re-fetched. Benign
-  (a little wasted transfer), but it silently weakens the dedup the store's PK implies.
+- ~~**`md5 || id:<n>` fallback** in tier B.~~ **✅ DONE** — the key is now the register's hash
+  when it publishes one, else the **real MD5 computed from the downloaded bytes**, so the two
+  paths are interchangeable and one file cannot land on two rows.
+  ⚠️ The first attempt at this shipped a worse bug and is worth remembering: putting
+  `document_id` on the content-keyed row made the id-resume **ping-pong** — two MD5-less
+  documents sharing bytes collapse onto one row, each run overwrote the other's id, and BOTH
+  were re-downloaded every run. The id→md5 mapping is many-to-one and now lives in its own
+  table (`eop_doc_seen`), which also turned the probe from a table scan into a PK seek.
 - **Tier B concurrency 4 is unmeasured.** Tier A's 6 is measured; 4 was chosen by analogy
   because each unit is a file transfer rather than a 500 KB JSON. Never benchmarked.
 - **No refresh policy is implemented.** §4 says rows past `offer_phase_end` are immutable and
   open ones need a refresh pass. Nothing does this; `--refresh` is all-or-nothing.
-- **`eop_doc_text` has no extractor VERSION**, only a name. A `pdftotext` upgrade that changes
-  output cannot be detected, and with the bytes discarded (§12) re-extraction means re-crawl.
+- ~~**`eop_doc_text` has no extractor VERSION**, only a name.~~ **✅ DONE** — `extractor_version`
+  plus an idempotent `ALTER` for warm stores (SQLite has no `ADD COLUMN IF NOT EXISTS`, and
+  `CREATE TABLE IF NOT EXISTS` never reaches a file a multi-hour crawl earned), driven by a
+  `RECONCILE` table so the next column is one line.
+  ⚠️ The probe needed a guard: **`textutil` has no version flag and answers `-v` with its
+  usage banner at exit 0**, so the naive probe stored that banner as the "version" for every
+  textutil row — a constant identical on every macOS release, in a column that then reads as
+  populated while carrying nothing. It now validates that the output looks like a version and
+  probes `sw_vers` for textutil, storing null rather than a plausible lie.
 - **Migration 132 is still only *assumed* free.** A concurrent workstream is active in this
   repo; verify at branch time.
 - **The store is never vacuumed or size-capped.** 4.5 GB of SQLite on a disk with 25 GB free

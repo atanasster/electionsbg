@@ -98,7 +98,27 @@ CREATE TABLE IF NOT EXISTS eop_doc_text (
   chars       INTEGER NOT NULL,   -- 0 => extractor ran and found no text layer
   pages       INTEGER,            -- null when unknown/not a PDF
   extractor   TEXT    NOT NULL,   -- 'pdftotext' | 'textutil' | ...
+  -- The extractor's own version string. Load-bearing because the BYTES ARE
+  -- DISCARDED (plan §12): if a future pdftotext changes output we cannot re-extract
+  -- locally, only re-crawl — and without this we could not even tell WHICH rows to
+  -- re-crawl. Nullable so a machine where the version probe fails still records.
+  extractor_version TEXT,
   fetched_at  TEXT    NOT NULL
+);
+
+-- Every documentId we have ever resolved to stored text.
+--
+-- ⚠️ SEPARATE FROM eop_doc_text BECAUSE THE RELATION IS MANY-TO-ONE. Several ids
+-- legitimately carry the same bytes (the export ZIP republishes a file under a new
+-- id — see plan §9.1), and eop_doc_text is content-keyed on md5 so those collapse
+-- onto ONE row. Storing the id there made resume ping-pong: the ON CONFLICT (md5)
+-- upsert set document_id = excluded.document_id, so the second id evicted the
+-- first, whose probe then returned false, and the pair alternated with BOTH
+-- re-downloaded every run — worse than the id-prefixed scheme it replaced.
+CREATE TABLE IF NOT EXISTS eop_doc_seen (
+  document_id INTEGER PRIMARY KEY,
+  md5         TEXT NOT NULL,
+  seen_at     TEXT NOT NULL
 );
 
 -- Tier B non-answers, same split, same reason.
@@ -111,6 +131,16 @@ CREATE TABLE IF NOT EXISTS eop_doc_text_failed (
   fail_count  INTEGER NOT NULL DEFAULT 1
 );
 `;
+
+/**
+ * (table, column, type) triples that must exist on a WARM store.
+ *
+ * Every column added to SCHEMA after the first release needs an entry here, or it
+ * never reaches a store that a multi-hour crawl earned — and the omission is silent.
+ */
+const RECONCILE: readonly (readonly [string, string, string])[] = [
+  ["eop_doc_text", "extractor_version", "TEXT"],
+];
 
 export type DossierStats = {
   answers: number;
@@ -132,6 +162,42 @@ export class EopDossierStore {
     fs.mkdirSync(path.dirname(file), { recursive: true });
     this.db = new DatabaseSync(file);
     this.db.exec(SCHEMA);
+    this.reconcile();
+  }
+
+  /**
+   * Idempotent column adds for stores created by an earlier revision.
+   * `CREATE TABLE IF NOT EXISTS` is a no-op on a warm file, so a new column in
+   * SCHEMA never reaches one — and the store is gitignored host state that cannot
+   * simply be rebuilt from the repo (re-earning it is a multi-hour crawl).
+   * SQLite has no `ADD COLUMN IF NOT EXISTS`; probe the table instead.
+   *
+   * Driven by RECONCILE so the next column added to SCHEMA is one line here rather
+   * than a hand-rolled probe block — forgetting which fails silently, as a warm
+   * store quietly missing a column.
+   */
+  private reconcile(): void {
+    for (const [table, col, type] of RECONCILE) {
+      const cols = new Set(
+        (
+          this.db.prepare(`PRAGMA table_info(${table})`).all() as {
+            name: string;
+          }[]
+        ).map((c) => c.name),
+      );
+      if (!cols.has(col))
+        this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${col} ${type}`);
+    }
+    // Seed the id→md5 mapping from rows written before eop_doc_seen existed.
+    // Without this a warm store's MD5-less documents miss the resume probe once
+    // and are re-downloaded — cheap, but pointless, and the table exists precisely
+    // to stop that.
+    this.db.exec(
+      `INSERT INTO eop_doc_seen (document_id, md5, seen_at)
+         SELECT document_id, md5, fetched_at FROM eop_doc_text
+       WHERE true
+       ON CONFLICT (document_id) DO NOTHING`,
+    );
   }
 
   /** Resume predicate for tier A. Consults ANSWERS ONLY — a previous failure must
@@ -245,25 +311,53 @@ export class EopDossierStore {
     }
   }
 
-  /** Iterate every stored answer of one kind without materialising them all. */
-  *iterate<T>(kind: DossierKind): Generator<{ subjectId: number; body: T }> {
-    const rows = this.db
-      .prepare(
-        "SELECT subject_id, body_gz, byte_len FROM eop_dossier WHERE kind = ? ORDER BY subject_id",
-      )
-      .all(kind) as {
-      subject_id: number;
-      body_gz: Uint8Array;
-      byte_len: number;
-    }[];
-    for (const r of rows) {
-      if (r.byte_len === 0) continue;
-      const s = gunzipSync(Buffer.from(r.body_gz)).toString("utf8");
-      try {
-        yield { subjectId: Number(r.subject_id), body: JSON.parse(s) as T };
-      } catch {
-        /* malformed stored body — skip; the failure ledger is the record */
+  /**
+   * Iterate every stored answer of one kind without materialising them all.
+   *
+   * ⚠️ KEYSET-PAGED, and it has to be. The first version called `.all(kind)`, which
+   * loads every row's gzipped body into memory before the first yield: at 131,716
+   * `details` rows averaging ~34 KB gzipped that is ~4.5 GB resident, and tier B's
+   * work-set build is its only caller. It passed a 200-row probe and would have OOM'd
+   * on the real corpus (plan §13.2).
+   *
+   * Keyset (`subject_id > ?`) rather than LIMIT/OFFSET: OFFSET re-scans the skipped
+   * prefix on every page, which turns a linear walk into a quadratic one at this size.
+   */
+  *iterate<T>(
+    kind: DossierKind,
+    pageSize = 500,
+  ): Generator<{ subjectId: number; body: T }> {
+    // A zero/negative page size yields LIMIT 0, so the first page is empty and the
+    // walk returns having produced nothing — indistinguishable from an empty table.
+    // A silently empty work set is exactly the failure class this store guards.
+    if (!Number.isInteger(pageSize) || pageSize < 1)
+      throw new Error(
+        `iterate: pageSize must be a positive integer, got ${pageSize}`,
+      );
+    const stmt = this.db.prepare(
+      `SELECT subject_id, body_gz, byte_len FROM eop_dossier
+        WHERE kind = ? AND subject_id > ?
+        ORDER BY subject_id LIMIT ?`,
+    );
+    let after = -1;
+    for (;;) {
+      const rows = stmt.all(kind, after, pageSize) as {
+        subject_id: number;
+        body_gz: Uint8Array;
+        byte_len: number;
+      }[];
+      if (rows.length === 0) return;
+      for (const r of rows) {
+        after = Number(r.subject_id);
+        if (r.byte_len === 0) continue;
+        const s = gunzipSync(Buffer.from(r.body_gz)).toString("utf8");
+        try {
+          yield { subjectId: Number(r.subject_id), body: JSON.parse(s) as T };
+        } catch {
+          /* malformed stored body — skip; the failure ledger is the record */
+        }
       }
+      if (rows.length < pageSize) return;
     }
   }
 
@@ -275,6 +369,31 @@ export class EopDossierStore {
       .prepare("SELECT 1 AS x FROM eop_doc_text WHERE md5 = ?")
       .get(md5) as { x: number } | undefined;
     return r !== undefined;
+  }
+
+  /** Secondary resume predicate for the minority of manifest entries that carry no
+   *  `MD5Hash`. Those cannot be content-keyed BEFORE the download, so without this
+   *  they would be re-fetched on every run — the row is written under the MD5 we
+   *  compute from the bytes, which no pre-download check can guess.
+   *
+   *  Reads `eop_doc_seen`, not `eop_doc_text`: many-to-one (above), and a PK seek
+   *  rather than the table scan the content-keyed table would force on every probe. */
+  hasDocTextByDocumentId(documentId: number): boolean {
+    const r = this.db
+      .prepare("SELECT 1 AS x FROM eop_doc_seen WHERE document_id = ?")
+      .get(documentId) as { x: number } | undefined;
+    return r !== undefined;
+  }
+
+  /** The extractor version a row was written with, or null when the probe could not
+   *  produce one. Exists so a future extractor upgrade can select exactly the rows it
+   *  invalidates — which, with the bytes discarded, is the only way to scope a
+   *  re-crawl. */
+  getExtractorVersion(md5: string): string | null {
+    const r = this.db
+      .prepare("SELECT extractor_version AS v FROM eop_doc_text WHERE md5 = ?")
+      .get(md5) as { v: string | null } | undefined;
+    return r?.v ?? null;
   }
 
   /**
@@ -301,18 +420,21 @@ export class EopDossierStore {
     text: string;
     pages: number | null;
     extractor: string;
+    extractorVersion?: string | null;
   }): void {
     if (rec.text.trim().length === 0) rec = { ...rec, text: "" };
     this.db
       .prepare(
         `INSERT INTO eop_doc_text
-           (md5, document_id, name, ext, size_bytes, text_gz, chars, pages, extractor, fetched_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+           (md5, document_id, name, ext, size_bytes, text_gz, chars, pages,
+            extractor, extractor_version, fetched_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT (md5) DO UPDATE SET
            document_id = excluded.document_id, name = excluded.name,
            ext = excluded.ext, size_bytes = excluded.size_bytes,
            text_gz = excluded.text_gz, chars = excluded.chars,
            pages = excluded.pages, extractor = excluded.extractor,
+           extractor_version = excluded.extractor_version,
            fetched_at = excluded.fetched_at`,
       )
       .run(
@@ -325,8 +447,18 @@ export class EopDossierStore {
         rec.text.length,
         rec.pages,
         rec.extractor,
+        rec.extractorVersion ?? null,
         new Date().toISOString(),
       );
+    // The id→md5 mapping is what makes resume work for MD5-less entries. Many ids
+    // may point at one md5; that is the shape of the data, so it gets its own table.
+    this.db
+      .prepare(
+        `INSERT INTO eop_doc_seen (document_id, md5, seen_at) VALUES (?, ?, ?)
+         ON CONFLICT (document_id) DO UPDATE SET
+           md5 = excluded.md5, seen_at = excluded.seen_at`,
+      )
+      .run(rec.documentId, rec.md5, new Date().toISOString());
     this.db
       .prepare("DELETE FROM eop_doc_text_failed WHERE document_id = ?")
       .run(rec.documentId);

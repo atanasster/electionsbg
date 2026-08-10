@@ -15,8 +15,9 @@
 // entire reason this tier exists in this shape.
 //
 // What we give up by discarding bytes: any later improvement to the extractor costs
-// another crawl. Accepted — but it is why `extractor` is recorded per document, so a
-// future pass can re-fetch only what an older extractor handled.
+// another crawl. Accepted — but it is why `extractor` AND `extractor_version` are
+// recorded per document, so a future pass can re-fetch only the rows an older
+// extractor build actually handled. The name alone cannot identify those.
 //
 //   tsx scripts/procurement/ingest_eop_spec_text.ts --probe          # 200 tenders, dry
 //   tsx scripts/procurement/ingest_eop_spec_text.ts --probe --apply
@@ -29,9 +30,10 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
-import { eopCall, mapPool } from "./eop_api";
+import { eopCall, mapPool, throttleSummary } from "./eop_api";
 import { EopDossierStore } from "./eop_dossier_store";
 import { pickSpec } from "./eop_doc_kind";
+import { contentKey, isCached } from "./eop_spec_select";
 
 const execFileP = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -66,14 +68,68 @@ type Counters = {
   bytes: number;
 };
 
-/** Extract text. `pdftotext` for PDFs (verified 15/15 on tender documentation),
+/** First non-empty line of a probe's combined output, capped. `|| null` maps "" to
+ *  null so an empty probe is absent rather than an empty-string "version". */
+const firstLine = (...parts: (string | undefined)[]): string | null =>
+  parts.join("").trim().split("\n")[0]?.slice(0, 80) || null;
+
+/** A version string has to contain a number. A usage banner or an error message
+ *  does not — and storing one of those as a version is worse than storing null,
+ *  because the column then reads as populated while carrying no information. */
+const looksLikeVersion = (s: string): boolean => /\d+\.\d+/.test(s);
+
+const probeVersion = async (bin: string): Promise<string | null> => {
+  try {
+    // ⚠️ textutil has NO version flag, and answers `-v` with its usage banner at
+    // exit 0 — so the naive probe stores that banner for every textutil row, a
+    // constant that is identical on every macOS release. Probe the OS build
+    // instead, which is what actually changes textutil's behaviour.
+    const [cmd, argv] =
+      bin === "textutil" ? ["sw_vers", ["-productVersion"]] : [bin, ["-v"]];
+    const { stdout, stderr } = await execFileP(
+      cmd as string,
+      argv as string[],
+      {
+        timeout: 10_000,
+      },
+    );
+    const line = firstLine(stdout, stderr) ?? "";
+    if (!looksLikeVersion(line)) return null;
+    return bin === "textutil" ? `macOS ${line}` : line;
+  } catch (e) {
+    // An error message is not a version either — null beats a plausible lie.
+    const err = e as { stdout?: string; stderr?: string };
+    const line = firstLine(err.stdout, err.stderr) ?? "";
+    return looksLikeVersion(line) ? line : null;
+  }
+};
+
+/** Version of an external extractor, probed once per process. Recorded per row
+ *  because the bytes are discarded (plan §12): without it, a pdftotext upgrade that
+ *  changes output leaves no way to tell which rows need re-crawling.
+ *
+ *  Caches the PROMISE, not the value — the workers run concurrently, so caching
+ *  after the await lets up to `CONCURRENCY` of them all miss and all spawn a probe. */
+const versionCache = new Map<string, Promise<string | null>>();
+const extractorVersion = (bin: string): Promise<string | null> => {
+  let p = versionCache.get(bin);
+  if (!p) versionCache.set(bin, (p = probeVersion(bin)));
+  return p;
+};
+
+/** Extract text. `pdftotext` for PDFs (8.5% of real specs have no text layer),
  *  macOS `textutil` for Word (verified 5/5). Both are external — a missing binary is
  *  a FAILURE, never an empty extraction, or every doc on that machine would be
  *  recorded as "no text layer". */
 const extractText = async (
   file: string,
   ext: string,
-): Promise<{ text: string; extractor: string; pages: number | null }> => {
+): Promise<{
+  text: string;
+  extractor: string;
+  version: string | null;
+  pages: number | null;
+}> => {
   if (ext === ".pdf") {
     const { stdout } = await execFileP(
       "pdftotext",
@@ -89,14 +145,24 @@ const extractText = async (
     } catch {
       /* pdfinfo is optional — its absence must not fail the extraction */
     }
-    return { text: stdout, extractor: "pdftotext", pages };
+    return {
+      text: stdout,
+      extractor: "pdftotext",
+      version: await extractorVersion("pdftotext"),
+      pages,
+    };
   }
   const { stdout } = await execFileP(
     "textutil",
     ["-convert", "txt", "-stdout", file],
     { maxBuffer: 256 * 1024 * 1024, timeout: 120_000 },
   );
-  return { text: stdout, extractor: "textutil", pages: null };
+  return {
+    text: stdout,
+    extractor: "textutil",
+    version: await extractorVersion("textutil"),
+    pages: null,
+  };
 };
 
 const main = async (args: {
@@ -145,9 +211,12 @@ const main = async (args: {
 
   await mapPool(work, CONCURRENCY, async ({ doc }, i) => {
     const md5 = (doc.MD5Hash ?? "").toLowerCase();
-    // Resume on the register's own MD5: the same bytes recur under different
-    // documentIds (plan §9.1), so id-keyed resume would re-fetch duplicates.
-    if (md5 && store.hasDocText(md5)) {
+    // Resume on the register's own MD5 where it has one: the same bytes recur under
+    // different documentIds (plan §9.1), so id-keyed resume would re-fetch
+    // duplicates. When the manifest omits MD5Hash we cannot content-key BEFORE the
+    // download, so fall back to the documentId — otherwise those entries would be
+    // re-fetched on every single run.
+    if (isCached(store, md5, doc.Id)) {
       c.cached++;
       return;
     }
@@ -197,10 +266,10 @@ const main = async (args: {
       c.bytes += buf.length;
       fs.writeFileSync(tmp, buf);
 
-      const { text, extractor, pages } = await extractText(tmp, ext);
+      const { text, extractor, version, pages } = await extractText(tmp, ext);
       if (text.trim().length === 0) c.emptyText++;
       store.putDocText({
-        md5: md5 || `id:${doc.Id}`,
+        md5: contentKey(md5, buf),
         documentId: doc.Id,
         name: doc.Name,
         ext: ext || null,
@@ -208,6 +277,7 @@ const main = async (args: {
         text,
         pages,
         extractor,
+        extractorVersion: version,
       });
       c.fetched++;
     } catch (e) {
@@ -250,6 +320,8 @@ const main = async (args: {
   console.log(
     `  transferred ${(c.bytes / 1073741824).toFixed(2)} GB — none of it retained`,
   );
+  const throttled = throttleSummary();
+  if (throttled) console.log(throttled);
   const s = store.stats();
   console.log(
     `  store: ${s.docText.toLocaleString()} doc text row(s) ` +

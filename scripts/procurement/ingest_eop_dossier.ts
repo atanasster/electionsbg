@@ -34,6 +34,7 @@ import {
   eopCall,
   IANA_TZ,
   mapPool,
+  throttleSummary,
   type EopResult,
 } from "./eop_api";
 import { EopDossierStore, type DossierKind } from "./eop_dossier_store";
@@ -232,6 +233,8 @@ const main = async (args: {
         : "") +
       `, ${c.skipped.toLocaleString()} already cached`,
   );
+  const throttled = throttleSummary();
+  if (throttled) console.log(throttled);
   if (c.denied)
     console.log(
       "  ⚠ a `denied` result means the register stopped serving a method anonymously.\n" +
