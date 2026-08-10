@@ -7,17 +7,10 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useCofog } from "@/data/macro/useCofog";
 import { useMacroPeers } from "@/data/macro/useMacroPeers";
+import { formatDate } from "@/lib/formatDate";
 
-const fmtDate = (iso: string | undefined, lang: "bg" | "en"): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  if (Number.isNaN(d.valueOf())) return iso;
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+const fmtDate = (iso: string | undefined, lang: "bg" | "en"): string =>
+  iso ? formatDate(iso, lang) : "—";
 
 export const EuCompareSourcesStrip: FC = () => {
   const { t, i18n } = useTranslation();

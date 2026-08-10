@@ -8,6 +8,7 @@ import {
   DashboardSectionId,
   useListedArticles,
 } from "@/data/articles/useArticles";
+import { formatDateLong } from "@/lib/formatDate";
 
 const TOPIC_LABEL_KEY: Record<DashboardSectionId, string> = {
   votes: "dashboard_section_votes",
@@ -44,12 +45,7 @@ export const ArticlesScreen: FC = () => {
     null,
   );
 
-  const formatDate = (iso: string) =>
-    new Date(iso).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+  const formatDate = (iso: string) => formatDateLong(iso, lang);
 
   const sortedArticles = useMemo(
     () =>

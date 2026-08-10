@@ -1,5 +1,11 @@
 import type { DataProvenanceScope } from "@/data/dataTypes";
 
+// Month + year with no day, so it cannot use @/lib/formatDate. The UTC pin is scoped to a
+// date-ONLY input for the same reason that module scopes it: a bare calendar day is parsed
+// as UTC midnight and falls into the previous month in any negative-offset zone, while a
+// real timestamp should still be shown in the reader's own zone.
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
 const formatRefreshDate = (iso: string | undefined, locale: string): string => {
   if (!iso) return "";
   const d = new Date(iso);
@@ -7,6 +13,7 @@ const formatRefreshDate = (iso: string | undefined, locale: string): string => {
   return d.toLocaleDateString(locale === "bg" ? "bg-BG" : "en-GB", {
     month: "short",
     year: "numeric",
+    ...(DATE_ONLY.test(iso) ? { timeZone: "UTC" as const } : {}),
   });
 };
 

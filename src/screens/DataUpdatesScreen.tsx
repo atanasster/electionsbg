@@ -8,6 +8,7 @@ import {
   useDataChanges,
   type DataChangeEntry,
 } from "@/data/dataChanges/useDataChanges";
+import { formatDateLong } from "@/lib/formatDate";
 
 type Group = { date: string; entries: DataChangeEntry[] };
 
@@ -59,11 +60,7 @@ const RecentChanges = () => {
     [data?.entries],
   );
 
-  const formatDate = (iso: string): string =>
-    new Date(`${iso}T00:00:00Z`).toLocaleDateString(
-      lang === "bg" ? "bg-BG" : "en-GB",
-      { year: "numeric", month: "long", day: "numeric" },
-    );
+  const formatDate = (iso: string): string => formatDateLong(iso, lang);
 
   if (isLoading) {
     return <p className="text-muted-foreground">{t("loading")}</p>;

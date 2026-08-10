@@ -35,10 +35,14 @@ export const CommunityCtaStrip: FC = () => {
     .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
     .slice(0, 2);
 
+  // Day + month with no year, so it cannot use @/lib/formatDate — but it needs that
+  // module's UTC pin: the value is a plain calendar DAY parsed as UTC midnight, and
+  // formatting it in the viewer's zone renders it a day early everywhere west of UTC.
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
       month: "long",
       day: "numeric",
+      timeZone: "UTC",
     });
 
   const dismiss = () => {

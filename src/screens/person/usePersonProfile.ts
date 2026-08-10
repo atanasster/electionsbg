@@ -25,6 +25,16 @@ export type ProfileRole = {
   placeLabelEn: string | null;
   judicialKind: string | null;
   confidence: string;
+  // When the office was held, as ISO dates, plus WHAT they measure (081 person_role.date_basis).
+  // The basis is not decoration: 'term' is the mandate itself, 'election' is the vote that
+  // produced it (the oath follows at the constitutive session) and 'filing' is when a
+  // встъпителна / при напускане declaration reached the Сметна палата — up to ~30 days after
+  // the event, so an upper bound rather than the appointment. Render the phrasing the basis
+  // licenses (PersonProfileScreen.termText); a bare range would state all three alike.
+  // Null on every role no source has dated yet.
+  start: string | null;
+  end: string | null;
+  dateBasis: "term" | "election" | "filing" | null;
 };
 export type ProfileCompany = {
   eik: string;

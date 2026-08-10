@@ -11,6 +11,8 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfileState } from "./usePersonProfile";
+import { officeTermPhrase } from "./officeTerm";
+import { foldOffices } from "./offices";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
@@ -53,7 +55,6 @@ import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
-import { isOfficialSource } from "@/lib/officialSources";
 import { useNoindex } from "@/lib/useNoindex";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
@@ -114,43 +115,47 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   // Held offices — mp / officials / magistrate / local mayor+councillor. A person can hold
   // the same office across many cycles (e.g. councillor ×5), so dedupe by (source, role,
   // place) to one row.
-  const offices = useMemo(() => {
-    const held = p.roles.filter(
-      (r) =>
-        r.source === "mp" ||
-        isOfficialSource(r.source) ||
-        r.source === "magistrate" ||
-        r.source === "local",
-    );
-    // A single seat is often recorded by more than one source: a municipal councillor
-    // shows up in BOTH the local-election results (`local`) and the Court-of-Audit
-    // officials roster (`official_muni`). Now that both carry the SAME typed place code
-    // (migration 115 canonicalises Sofia's two synonyms too), one seat is one
-    // (role, placeCode) pair regardless of which source recorded it — which is what
-    // collapses the 3,674 people who used to list the same seat twice.
-    //
-    // Keyed WITHOUT the source on purpose. The older rule kept the source in the key and
-    // instead dropped place-LESS officials rows, which stopped working the moment
-    // `official_muni` gained codes — every one of those people got a second row reading
-    // a raw "BLG11".
-    //
-    // LATENT, measured at 0 today: Plovdiv (PDV22) and Varna (VAR06) file their районни
-    // bodies under the CITY's obshtina code, so one person holding the same role in two
-    // different районa of those two cities would collapse to one row. The distinguishing
-    // field (`district`) is on official_roster, not in this payload, so it cannot be
-    // fixed at render time — it would need to reach the typed place first.
-    const seen = new Set<string>();
-    return held.filter((r) => {
-      // A place-less role can only be deduped against another place-less one; two seats
-      // we cannot locate are not evidence of being the same seat.
-      const k = r.placeCode
-        ? `${r.role}\t${r.placeCode}`
-        : `${r.source}\t${r.role}\t`;
-      if (seen.has(k)) return false;
-      seen.add(k);
-      return true;
-    });
-  }, [p.roles]);
+  // Offices held, deduped to one row per seat and spanning every term of it (foldOffices).
+  //
+  // A single seat is often recorded by more than one source: a municipal councillor shows
+  // up in BOTH the local-election results (`local`) and the Court-of-Audit officials
+  // roster (`official_muni`). Both carry the SAME typed place code (migration 115
+  // canonicalises Sofia's two synonyms too), so one seat is one (role, placeCode) pair
+  // regardless of which source recorded it — which is what collapses the 3,674 people who
+  // used to list the same seat twice.
+  //
+  // LATENT, measured at 0 today: Plovdiv (PDV22) and Varna (VAR06) file their районни
+  // bodies under the CITY's obshtina code, so one person holding the same role in two
+  // different районa of those two cities would collapse to one row. The distinguishing
+  // field (`district`) is on official_roster, not in this payload, so it cannot be fixed
+  // at render time — it would need to reach the typed place first.
+  //
+  // The period is computed HERE rather than in the render tree, because it must be read
+  // off the MERGED span: a nine-term MP's row says 2017 – present, not whichever single
+  // parliament the payload happened to order first.
+  const offices = useMemo(
+    () =>
+      foldOffices(p.roles).map((r) => ({
+        ...r,
+        term: officeTermPhrase(r, i18n.language ?? "bg"),
+      })),
+    [p.roles, i18n.language],
+  );
+  // The caveats for the bases actually on display, deduped and in list order. `term` is
+  // excluded on purpose (officeTerm.ts gives it a note key, but a mandate needs no
+  // qualifying — the note exists for `election` and `filing`, where the visible string is
+  // a proxy for the real date).
+  const termNotes = useMemo(
+    () =>
+      [
+        ...new Set(
+          offices
+            .filter((r) => r.term && r.dateBasis !== "term")
+            .map((r) => r.term!.titleKey),
+        ),
+      ] as string[],
+    [offices],
+  );
   const candidacies = p.roles.filter((r) => r.source === "candidate");
   const donations = p.roles.filter((r) => r.source === "donor");
 
@@ -512,10 +517,19 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                       className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
                     >
                       {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
-                        so no separate role code is appended. */}
-                      <span className="text-sm font-medium">
-                        {officeHeading(r)}
-                      </span>
+                        so no separate role code is appended. The period sits UNDER it rather
+                        than beside the place badge: it is a property of the office, and the
+                        badge on the right is already a link target. */}
+                      <div className="min-w-0">
+                        <span className="text-sm font-medium">
+                          {officeHeading(r)}
+                        </span>
+                        {r.term && (
+                          <div className="text-xs text-muted-foreground">
+                            {String(t(r.term.key, r.term.params))}
+                          </div>
+                        )}
+                      </div>
                       {placeText(r) &&
                         (() => {
                           const href = localOfficeHref(r);
@@ -534,6 +548,17 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                         })()}
                     </div>
                   ))}
+                  {/* What the dates above MEAN, once per basis actually shown — inline, not
+                    in a hover tooltip. "декларация при встъпване 15.04.2021" is only an
+                    honest string BECAUSE of this note, and a native `title` (or the shared
+                    hover tooltip) is invisible on touch and unreachable by keyboard, i.e.
+                    absent for most readers. `term` is a mandate and says what it looks
+                    like it says, so it carries no note. */}
+                  {termNotes.length > 0 && (
+                    <p className="pt-1 text-xs text-muted-foreground">
+                      {termNotes.map((k) => t(k)).join(" ")}
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             </DashboardSection>

@@ -10,6 +10,7 @@ import type {
   DataMapManifest,
   DataMapNode,
 } from "@/data/dataMap/useDataMap";
+import { formatDateLong } from "@/lib/formatDate";
 
 type Props = {
   manifest: DataMapManifest;
@@ -28,11 +29,7 @@ const KIND_DOT: Record<DataMapKind, string> = {
 };
 
 const formatDate = (iso: string, lang: "bg" | "en"): string =>
-  new Date(iso).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  formatDateLong(iso, lang);
 
 const NeighborChip: FC<{
   node: DataMapNode;

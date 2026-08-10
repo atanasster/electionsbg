@@ -14,16 +14,10 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { CandidateLink } from "@/screens/components/candidates/CandidateLink";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
 import { cn } from "@/lib/utils";
+import { formatDate as sharedFormatDate } from "@/lib/formatDate";
 
-const formatDate = (iso: string | null, lang: string): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+const formatDate = (iso: string | null, lang: string): string =>
+  iso ? sharedFormatDate(iso, lang) : "—";
 
 // Weighted average of an indicator across the period a cabinet was in office.
 // Annual points cover the full calendar year; quarterly points cover their

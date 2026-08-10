@@ -39,12 +39,16 @@ const fmtEurBn = (v: number | null): string => {
   return `${sign}€${v.toFixed(1)}B`;
 };
 
+// Month + year with no day, so it cannot use @/lib/formatDate — but it needs that module's
+// UTC pin all the same: a cabinet that took office on the 1st is UTC midnight, which in a
+// negative-offset zone falls back into the PREVIOUS month and dates the government wrong.
 const formatDateShort = (iso: string | null, lang: "bg" | "en"): string => {
   if (!iso) return "—";
   const d = new Date(iso);
   return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 };
 

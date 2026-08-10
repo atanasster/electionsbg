@@ -23,16 +23,12 @@ import {
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { CANONICAL_ID_BY_GFOPP_SLUG } from "@/data/financing/partyAliases";
 import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
+import { formatDate as sharedFormatDate } from "@/lib/formatDate";
 
-const formatDate = (iso: string, locale: string): string => {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString(locale, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+// Re-exported under the local name the screen already uses. The shared helper pins a
+// date-only value to UTC — these deadlines are calendar days, and formatting them in the
+// viewer's zone printed the day before for anyone west of Greenwich.
+const formatDate = sharedFormatDate;
 
 export const PartyAnnualReportScreen: FC = () => {
   const { slug } = useParams<{ slug: string }>();

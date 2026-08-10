@@ -143,9 +143,69 @@ CREATE TABLE IF NOT EXISTS person_role (
   -- (a wrong public link is an accusation). The resolver always sets this explicitly.
   confidence text NOT NULL DEFAULT 'review'
     CHECK (confidence IN ('exact_id', 'high', 'medium', 'review', 'manual')),
+  -- WHAT the two dates above MEAN, because the sources that fill them measure different
+  -- events and a bare date range would present them as one kind of fact:
+  --   'term'     the mandate itself (MP terms — the only basis populated before
+  --              person-enrichment-v1; an actual start and end of office).
+  --   'election' the election that PRODUCED the mandate, parsed off the cycle in
+  --              person_role.ref. The mandate legally starts at the constitutive session,
+  --              days to weeks later, so this is the event and not the oath.
+  --   'filing'   the date a встъпителна / при напускане declaration was FILED with the
+  --              Сметна палата. ЗПКОНПИ gives a one-month window, so it trails the real
+  --              date by up to ~30 days and is an upper bound, never the appointment.
+  -- NULL when both dates are NULL. The UI renders a different phrasing per basis; a
+  -- consumer that ignores it will state a filing date as a start of office.
+  date_basis text
+    CHECK (date_basis IS NULL OR date_basis IN ('term', 'election', 'filing')),
   source_row jsonb,           -- raw record for provenance
   PRIMARY KEY (person_id, source, ref, role)
 );
+-- `CREATE TABLE IF NOT EXISTS` above is a no-op on a warm database, so date_basis reaches
+-- one only through this ALTER. Idempotent, and it must stay: every path that applies 081
+-- (apply_functions.ts, db:resolve:persons, scripts/person/add_override.ts) runs the file as
+-- one implicit transaction, so a later statement referencing a missing column would roll the
+-- whole file back — the 042/131 lesson in CLAUDE.md.
+--
+-- ⚠️ The whole block is SKIPPED once the column exists, and that guard is about LOCKS, not
+-- speed. person_role is on the serving path (082's person_by_slug, 084's person_connections)
+-- and this file is documented as safe to apply at any time, against a live database. But
+-- `ALTER TABLE` takes an AccessExclusiveLock, and a lock request that cannot be granted
+-- QUEUES — and every reader arriving after it queues behind it, even though they would not
+-- have conflicted with each other. So one 40-minute analytic query turns a "no-op" re-apply
+-- into a total outage on /person, /persons and /connections for as long as that query runs.
+-- Measured 2026-08-10 while building this: eight readers stacked behind one ALTER.
+--
+-- Hence three defences: skip entirely in the steady state; fail FAST rather than queue when
+-- there is work to do (lock_timeout — being unable to add the column is recoverable, heading
+-- a lock queue is not); and add the CHECK as NOT VALID so it does not also scan the table
+-- while holding that lock. VALIDATE afterwards takes only a ShareUpdateExclusiveLock, which
+-- readers do not contend with.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns
+              WHERE table_name = 'person_role' AND column_name = 'date_basis')
+  THEN RETURN; END IF;
+
+  SET LOCAL lock_timeout = '3s';
+  ALTER TABLE person_role ADD COLUMN date_basis text;
+  ALTER TABLE person_role ADD CONSTRAINT person_role_date_basis_check
+    CHECK (date_basis IS NULL OR date_basis IN ('term', 'election', 'filing')) NOT VALID;
+
+  -- Backfill the one basis that predates the column. Scoped to source='mp' rather than to
+  -- "has a date": that IS the pre-existing populated set (1,522 start / 1,283 end, measured
+  -- 2026-08-10), and scoping it there means a later writer that fills a date and forgets its
+  -- basis is left visibly NULL instead of being silently relabelled a mandate.
+  UPDATE person_role SET date_basis = 'term'
+   WHERE source = 'mp' AND (start_date IS NOT NULL OR end_date IS NOT NULL);
+END $$;
+
+-- Outside the guard, so a run that added the column under a NOT VALID constraint (or an
+-- earlier one that timed out mid-way) still converges. Both statements are no-ops once the
+-- constraint is valid, and neither blocks a reader.
+DO $$ BEGIN
+  ALTER TABLE person_role VALIDATE CONSTRAINT person_role_date_basis_check;
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
 -- Reverse lookup: which person owns a given source record (source native key -> person).
 -- The leading `source` column also serves facet filtering; person-scoped lookups
 -- ("everything for person N") ride the PK's leading person_id.

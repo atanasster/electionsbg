@@ -1803,6 +1803,17 @@ async function main(): Promise<void> {
           m.raw.placeRaw,
           row.startDate,
           row.endDate,
+          // WHAT the two dates above measure (081 person_role.date_basis). Written HERE,
+          // by the writer that produces the dates, and not left to 081's backfill: this
+          // rebuild DELETEs person_role and re-COPYs it, so a basis that only ever came
+          // from the backfill would be dropped on every resolve — and because the renderer
+          // shows nothing without a basis, the dates would silently stop appearing rather
+          // than fail. The 081 backfill stays, for warm databases between resolves.
+          //
+          // 'term' only where an mp mandate actually filled the columns. A later source
+          // that fills a date without declaring what it measures stays visibly NULL rather
+          // than being relabelled a mandate.
+          m.source === "mp" && (row.startDate || row.endDate) ? "term" : null,
           b.confidence,
           m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
         ]);
@@ -1931,6 +1942,7 @@ async function main(): Promise<void> {
         "place_raw",
         "start_date",
         "end_date",
+        "date_basis",
         "confidence",
         "source_row",
       ],

@@ -52,16 +52,10 @@ import {
 import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { LANDING_KPI_ORDER } from "./indicators/indicatorsRegistry";
 import { cn } from "@/lib/utils";
+import { formatDateLong as sharedFormatDateLong } from "@/lib/formatDate";
 
-const formatDateLong = (iso: string | null, lang: "bg" | "en"): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
+const formatDateLong = (iso: string | null, lang: "bg" | "en"): string =>
+  iso ? sharedFormatDateLong(iso, lang) : "—";
 
 // Term-zoomed chart x-domain: cabinet tenure ± buffer (proportional to the
 // tenure length, capped at the timeline edges so we don't show empty space

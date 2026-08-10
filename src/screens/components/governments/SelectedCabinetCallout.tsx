@@ -24,16 +24,10 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { colorForGovernmentSolid } from "./governmentColors";
+import { formatDate } from "@/lib/formatDate";
 
-const formatDateShort = (iso: string | null, lang: "bg" | "en"): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+const formatDateShort = (iso: string | null, lang: "bg" | "en"): string =>
+  iso ? formatDate(iso, lang) : "—";
 
 export const SelectedCabinetCallout: FC<{
   government: Government;

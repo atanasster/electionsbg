@@ -69,8 +69,24 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                THEN pd.settlement_type || ' ' || pd.name_bg END,
           pd.name_bg, jb.name, r.place_raw),
         'placeLabelEn', pd.name_en,
-        'judicialKind', jb.kind
-      ) ORDER BY s.facet, r.role)
+        'judicialKind', jb.kind,
+        -- The dates, WITH the basis that says what they measure (081). Emitted together on
+        -- purpose: 'term' is a real start of office, 'election' is the vote that produced the
+        -- mandate (the oath follows at the constitutive session) and 'filing' is when a
+        -- declaration was lodged, up to ~30 days after the fact. Rendering a bare range would
+        -- state all three as the same claim. `start`/`end` are ISO date strings (to_char, not
+        -- a bare ::text cast) so a consumer never has to parse a locale-dependent form.
+        'start', to_char(r.start_date, 'YYYY-MM-DD'),
+        'end', to_char(r.end_date, 'YYYY-MM-DD'),
+        'dateBasis', r.date_basis
+      -- The trailing date/ref keys are what make this order TOTAL. (facet, role) alone
+      -- ties for every one of an MP's per-parliament rows, and jsonb_agg under a tie is
+      -- whatever the plan emits — measured on mp-5221, nine terms came back
+      -- 51,50,49,48,52,46,45,44,47. A consumer that shows the group's first row (the
+      -- profile's офиси dedupe does) would name a different term between two resolves.
+      -- start_date DESC NULLS LAST puts the most recent mandate first; ref breaks the
+      -- remaining ties so undated rows are ordered too.
+      ) ORDER BY s.facet, r.role, r.start_date DESC NULLS LAST, r.ref)
       FROM person_role r
       JOIN person_source s ON s.key = r.source
       LEFT JOIN place_dim pd
@@ -417,6 +433,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   )
   SELECT COALESCE(jsonb_agg(jsonb_build_object(
     'id', cab.id, 'pm', cab.pm_bg, 'parties', cab.parties,
+    -- Emitted bare, and correctly so: cabinets.start_date / end_date are `text` already
+    -- (ISO strings from the governments artifact), not `date`. The to_char the role dates
+    -- above use is for a real `date` column, whose jsonb form goes through DateStyle; a
+    -- text column has no such hazard and to_char(text, …) does not even typecheck.
     'start', cab.start_date, 'end', cab.end_date, 'type', cab.type,
     'contracts', c.n, 'eur', c.eur
   ) ORDER BY cab.start_date), '[]'::jsonb)

@@ -13,15 +13,12 @@ import {
   localizePosition,
 } from "@/data/parliament/localizeMpProfile";
 import { initials } from "@/lib/utils";
+import { formatDateLong } from "@/lib/formatDate";
 
 const formatDate = (iso: string | null, lang: string) => {
   if (!iso) return null;
   try {
-    return new Date(iso).toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    return formatDateLong(iso, lang);
   } catch {
     return iso;
   }

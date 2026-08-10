@@ -54,6 +54,7 @@ import type {
   IndicatorToggle,
 } from "@/screens/components/governments/indicatorToggle";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
+import { formatDate } from "@/lib/formatDate";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -416,15 +417,8 @@ const MOBILE_SCROLL_MIN_PILL_PX = 32;
 const MOBILE_SCROLL_TARGET_TOTAL_PX = 800;
 const MOBILE_SCROLL_HORIZONTAL_PX = 64;
 
-const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-};
+const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string =>
+  iso ? formatDate(iso, lang) : "—";
 
 const PillTooltip: FC<{
   g: Government;
