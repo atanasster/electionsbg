@@ -739,6 +739,32 @@ quo to a human, the vocabulary or the entry rule is wrong, and T3 would multiply
 2,366. 124 is a reviewable number; the first draft's ~1,396 was not, which is part of why this
 gate was theatre before.
 
+#### T2 RESULT (2026-08-09) — shipped, hand-review passed
+
+| | predicted | measured |
+|---|---|---|
+| `mp` roles with a party | 563 | **563** |
+| blanks filled | 0 | **0** |
+| still blank | 724 | **724** |
+| `party_primary` visibly changed | 124 | **109** |
+| active persons / multi-person name folds | unchanged | **127,288 / 3,458 — identical either side** |
+| party-office merge licence | unchanged | **34 → 34** |
+
+**109 rather than 124** because the §0e projection used `mp_seat.party_id` (last-seen) as a
+stand-in for the entry group; the real entry basis differs for members who switched inside
+their most recent parliament. The entry rule is working — that gap IS the 88 mid-term switches.
+
+**Hand-review of 16 sampled rows: all defensible**, and two settle the operator's case
+directly. **Анна Маринова Бодакова** was elected on the ПП-ДБ ballot (`p_6`) and `mp_seat`
+confirms she sits in the **ДБ** group — now `p_72`. **Бойко Александров Младенов** moves
+`bsp` → `p_20`, and his NS 52 seat is ПБ. The rest are the expected shapes: a component party
+giving way to its group (`p_52` ЗД → `p_72` ДБ), a ballot party to its coalition group (`p_67`
+ПП → `p_6` ПП-ДБ), or a stale older affiliation to the current one (`p_116` Десните → `gerb`).
+
+**One downstream §0d does not list:** `parties_n` rises for 15 people, which renders as a "+1"
+badge beside the party chip on `/persons`. Harmless, now covered by an invariant tying
+`parties_n` to `party_codes`.
+
 ### T3 — the ref widening and per-NS rows (3–4 days)
 
 `ref` becomes `'<mpId>:<ns>'`; one row per in-`nsFolders` seat; `start_date`/`end_date` from the

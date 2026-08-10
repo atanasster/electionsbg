@@ -184,18 +184,26 @@ export const buildMpSeatIndex = (): Map<number, MpSeat[]> => {
 };
 
 let cached: Map<number, MpSeat[]> | undefined;
+let built = false;
 
 /**
  * Seats for one MP, ascending by NS. Empty when the corpus has none.
  *
- * The index is memoised for the process. An EMPTY one deliberately is not — a
- * `Map` with no entries is truthy, so `??=` would pin a degraded read (missing
- * corpus, unreadable directory) for the whole run and every later caller would
- * see "this MP has no seats" rather than "the corpus did not load".
+ * Memoised on the ATTEMPT, not on the result. `??=` on the map alone would be
+ * wrong for a degraded read — but so is retrying, and much more expensively:
+ * the resolver calls this once per MP role (2,122×) and one build reads 613
+ * session files, ~290 MB, in ~1.15 s. Rebuilding an empty index every call
+ * would turn a missing-corpus warning into ~41 minutes and ~600 GB of I/O
+ * before the caller's floor check ever fires. `buildMpSeatIndex` already warns
+ * loudly when it comes back empty, which is the signal that was wanted; the
+ * flag makes it warn once rather than 2,122 times.
  */
 export const seatsForMp = (mpId: number): MpSeat[] => {
-  if (!cached?.size) cached = buildMpSeatIndex();
-  return cached.get(mpId) ?? [];
+  if (!built) {
+    cached = buildMpSeatIndex();
+    built = true;
+  }
+  return cached?.get(mpId) ?? [];
 };
 
 /** The group this MP entered their MOST RECENT covered parliament with. */
@@ -204,7 +212,8 @@ export const latestSeatForMp = (mpId: number): MpSeat | undefined => {
   return seats.length ? seats[seats.length - 1] : undefined;
 };
 
-/** Test seam — drops the module-level cache. */
+/** Test seam — drops the module-level cache so the next call rebuilds. */
 export const __resetMpSeatCache = () => {
   cached = undefined;
+  built = false;
 };

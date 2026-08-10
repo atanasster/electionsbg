@@ -69,6 +69,13 @@ import {
   localSeatKey,
 } from "../parsers_local/localPersonRefs";
 
+import { latestSeatForMp } from "./mpSeats";
+import {
+  UnmappedGroupShortError,
+  groupShortToCanonical,
+  loadCanonicalIndex,
+} from "./partyGroups";
+
 // Re-exported for resolve_persons_sofia_council.test.ts, which imports it from here.
 export { councilShardReplicatesSofia };
 
@@ -76,6 +83,46 @@ const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../..",
 );
+
+// ── MP party (mp-party-affiliation-v1 T2) ───────────────────────────────────
+//
+// One row per person, carrying the group they ENTERED their most recent covered
+// parliament with. `latestSeatForMp` has already applied the §0f nsFolders
+// guard, so a recycled mp id cannot hand this person another member's group.
+//
+// v1 is deliberately career-SCALAR — the per-NS rows are T3, which needs the
+// `ref` widening. For a multi-parliament MP that means the column shows their
+// latest group and `party_codes` under-reports the earlier ones; T3 fixes both.
+//
+// NULL is the honest answer for 1,559 of the 2,122 roles: NS 39-43 predate the
+// roll-call corpus entirely, so there is no group to look up rather than a
+// group we failed to resolve. An UNMAPPED short is the opposite case and
+// THROWS — see partyGroups.ts for why silence there would hide a whole
+// parliament among the legitimate blanks.
+let canonicalIndexForMp: ReturnType<typeof loadCanonicalIndex> | undefined;
+const mpPartyUnmapped: string[] = [];
+
+const mpPartyForRef = (ref: string): string | null => {
+  const mpId = Number.parseInt(ref, 10);
+  if (!Number.isFinite(mpId)) return null;
+  const seat = latestSeatForMp(mpId);
+  if (!seat) return null;
+  canonicalIndexForMp ??= loadCanonicalIndex();
+  try {
+    return groupShortToCanonical(seat.entryGroupShort, canonicalIndexForMp);
+  } catch (e) {
+    if (e instanceof UnmappedGroupShortError) {
+      // Collected and re-thrown after the loop rather than on first sight, so
+      // one run names every unmapped short instead of making the operator
+      // rediscover them one re-run at a time.
+      mpPartyUnmapped.push(
+        `${seat.entryGroupShort} (mp ${mpId}, NS ${seat.ns})`,
+      );
+      return null;
+    }
+    throw e;
+  }
+};
 
 type Raw = {
   id: string;
@@ -1640,14 +1687,30 @@ async function main(): Promise<void> {
         m.source,
         m.raw.ref,
         m.raw.role,
-        // The CANONICAL party id behind this role, when the source speaks that namespace
-        // (candidacies, local mandates, donations, and a party officer's institution all
-        // resolve through canonical_parties.json). `mp` is excluded: its party corroborant
-        // is a parliamentary-GROUP short name, not a party id, and mixing the two in one
-        // column would make them look comparable. Persisting it is what lets the
-        // person_resolve gate re-check the party-office merge licence against the data
-        // rather than take the resolver's word for it.
-        m.source === "mp" ? null : m.raw.cParty,
+        // The CANONICAL party id behind this role. Candidacies, local mandates,
+        // donations and a party officer's institution all speak that namespace
+        // already, so they pass `cParty` straight through.
+        //
+        // `mp` is the exception, and the reason it USED to be NULL: its
+        // corroborant (`cParty` at the mention, from index.json's
+        // `currentPartyGroupShort`) is a parliamentary-GROUP short name, not a
+        // party id, and mixing the two vocabularies in one column would make
+        // them look comparable. mp-party-affiliation-v1 removes that objection
+        // by translating instead of dropping — `mpPartyForRef` folds the group
+        // to a canonical id through the same table the browser uses.
+        //
+        // TRANSLATED HERE, AT THE WRITE — never where the MP mention sets
+        // `cParty: mp.currentPartyGroupShort` (§8c). `cParty` feeds
+        // `corroborants.party`, which `cluster.ts` uses for the weak (party AND
+        // place) merge signal. Today an MP's raw Cyrillic short can never equal
+        // a candidacy's canonical id, so that corroborant is inert between the
+        // two sources; folding it to a canonical id at the MENTION would
+        // silently switch it ON and start merging PEOPLE as a side effect of a
+        // display fix. Gate 5.9 (`person_identity_stability.data.test.ts`)
+        // proves the active-person count and the name-fold fragmentation are
+        // unmoved. (Referred to by what the code DOES, not by line number —
+        // the MP `cParty` assignment has already moved once.)
+        m.source === "mp" ? mpPartyForRef(m.raw.ref) : m.raw.cParty,
         m.raw.placeKind,
         m.raw.placeCode,
         m.raw.placeRaw,
@@ -1663,6 +1726,42 @@ async function main(): Promise<void> {
       }
     }
   });
+
+  // ── MP party preflight (T2) ───────────────────────────────────────────────
+  // Both checks run BEFORE the transaction, so a bad build refuses rather than
+  // publishing a degraded column.
+  if (mpPartyUnmapped.length) {
+    throw new Error(
+      `mp party: ${mpPartyUnmapped.length} unmapped parliamentary group short(s) — ` +
+        `add them to PARLIAMENT_GROUP_ALIASES or PARLIAMENT_GROUP_SENTINELS ` +
+        `(src/data/parties/parliamentGroupAliases.ts). Writing NULL instead would be ` +
+        `indistinguishable from the 1,559 roles that legitimately have no group:\n  ` +
+        [...new Set(mpPartyUnmapped)].join("\n  "),
+    );
+  }
+  const mpRolesWithParty = roleRows.filter(
+    (r) => r[1] === "mp" && r[4] != null,
+  ).length;
+  // Floor, not equality — a new session file legitimately raises it. Measured
+  // 563 on 2026-08-07 (plan §1c). A collapse to zero is the shape a missing
+  // data/parliament corpus takes, and mpSeats.ts only warns about that.
+  //
+  // It is exactly gate 5.1's floor, deliberately. A LOWER value here (the first
+  // draft used 500) is worse than none: it lets a partial collapse publish and
+  // leaves the gate to find it afterwards, which is the opposite of a preflight.
+  const MP_PARTY_FLOOR = 563;
+  if (
+    roleRows.some((r) => r[1] === "mp") &&
+    mpRolesWithParty < MP_PARTY_FLOOR
+  ) {
+    throw new Error(
+      `mp party: only ${mpRolesWithParty} mp role(s) resolved a group, expected >= ${MP_PARTY_FLOOR} ` +
+        `— check data/parliament/index.json (nsFolders) and data/parliament/votes/sessions/`,
+    );
+  }
+  console.log(
+    `  mp party: ${mpRolesWithParty} of ${roleRows.filter((r) => r[1] === "mp").length} mp role(s) carry a parliamentary group`,
+  );
 
   // Persist the review queue (plan §3 tier 3, aggressive-merge holding area). Map each
   // ambiguous group's mentions to the persons they landed in; a group is real only if it
