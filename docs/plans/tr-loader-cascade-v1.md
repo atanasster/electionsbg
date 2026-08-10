@@ -1,0 +1,144 @@
+# `db:load:tr:pg` silently deleted three matviews — v1
+
+**Status:** fixed 2026-08-10. Local `db:load:tr:pg` re-run verified end to end; prod checked and
+found intact.
+
+## The defect
+
+`scripts/db/schema/pg/003_tr_search.sql` opened each of its four tables with
+
+```sql
+DROP TABLE IF EXISTS tr_companies CASCADE;
+DROP TABLE IF EXISTS tr_officers  CASCADE;
+DROP TABLE IF EXISTS tr_person_roles CASCADE;
+DROP TABLE IF EXISTS ngo_details CASCADE;
+```
+
+and `load_tr_pg.ts` applies that file on **every** run. Three matviews owned by *other*
+migrations read those tables, so every `npm run db:load:tr:pg` deleted them and exited 0:
+
+| matview | migration | what it backs |
+|---|---|---|
+| `person_browse_table` | 120 | the ENTIRE `/persons` browser |
+| `declaration_stake_company` | 096 | the declared-stake → public-contract conflict surface |
+| `company_officer_counts` | 071 | `magistrate_politician_links()`'s hub filter; also read by 099 |
+
+Reproduced on local docker Postgres: relation count 177 → 174, and the next loader in the chain
+died on `relation "person_browse_table" does not exist` (42P01).
+
+Five other matviews read the same tables and were *also* dropped, but the loader re-applies
+their migrations, so they came back on the same path: `officer_name_counts` (008),
+`owner_name_counts` (019), `company_person_roles` (022), `ngo_signals` + `ngos_list` (080).
+That is precisely what the three above lacked.
+
+### Why it went unnoticed
+
+Same family as the 077/145 `2BP01` defect fixed earlier the same day (a loader-applied
+migration destroying an object another migration owns), with the failure mode **inverted**:
+
+- **no CASCADE → 2BP01.** Loud. The loader aborts.
+- **CASCADE → success.** Silent. Nothing in the loader output reports it, and no row count
+  moves, because the counts that would move belong to a relation that no longer exists.
+
+And `db:refresh` happens to sequence `db:load:persons-browse:pg` after `db:load:tr:pg`, so a
+full local refresh self-healed and hid it.
+
+### Exposure
+
+The damage path is the **standalone** `npm run db:load:tr:pg:cloud` — CLAUDE.md documents it as
+the routine TR publish, tells you to run it after a contracts/agri/funds reload, and both the
+`update-persons` and `update-procurement` watch skills invoke it. Nothing on the cloud side
+would have recreated `person_browse_table`; `/persons` would have served empty (and
+`person_search`'s public arm degraded) until someone happened to run
+`db:load:persons-browse:pg:cloud`. Locally, `npm run tr:daily-refresh` ran the same CASCADE.
+
+**Prod was checked on 2026-08-10 and is intact** — all three matviews present and populated,
+and each one's `pg_class.oid` sits *above* `tr_companies`', i.e. every one was (re)created after
+the last cloud TR load (`meta.tr_generated_at` = 2026-08-09T16:53Z). So the last TR publish was
+followed by the person chain and nothing is orphaned. Whether there was a transient window in
+which `/persons` served empty on prod is not recoverable from the database.
+
+## The fix
+
+Option 1 of the three considered — **003 no longer DROPs anything.** Option 3 (probe and refuse)
+turns a silent defect into a hard blocker on every TR load; option 2 (the loader recreates what
+it destroys) inverts the layering, making the TR loader depend on the person and declaration
+chains.
+
+1. **`003_tr_search.sql`** — `CREATE TABLE IF NOT EXISTS` throughout, no DROPs.
+2. **A shape-reconcile block** at the foot of 003: one `ALTER TABLE … ADD COLUMN IF NOT EXISTS`
+   per column. Without it the fix would trade a loud data loss for a quiet schema drift, since
+   `CREATE TABLE IF NOT EXISTS` is a no-op on a warm database and a new column would reach a
+   fresh clone and nothing else. The reconcile lines carry the type and any `GENERATED` clause
+   but no `NOT NULL` / `PRIMARY KEY` — a new column on a populated 1M-row table cannot take
+   one, and `exec()` sends a migration as one implicit transaction, so the ALTER would roll the
+   whole file back.
+3. **`load_tr_pg.ts`** — `replaceTable()` replaces each table's CONTENTS: `TRUNCATE` inside the
+   COPY's own transaction, so a reader keeps the previous vintage until that one commit and a
+   failed load leaves the old rows rather than an empty table. `ngo_details` is now written
+   unconditionally, because the TRUNCATE lives inside `replaceTable` and the old
+   `if (ngoDetails.length)` guard would have preserved a stale vintage.
+4. **`LOAD_INDEXES`** — the eleven secondary indexes are dropped before the COPY phase and
+   rebuilt after, which is what `DROP TABLE` used to provide for free. The primary keys stay:
+   they were maintained during the COPY under the old scheme too.
+5. **`company_officer_counts` is now refreshed by this loader** (guarded on existence). 071
+   delegates its refresh to the magistrate loader "because tr_officers is loaded before it in
+   db:refresh" — but `db:load:tr:pg` is a documented `db:refresh` EXCLUSION, so on the routine
+   TR path nothing was refreshing it. That was invisible while the CASCADE deleted the matview
+   outright.
+
+`person_browse_table` is deliberately **not** refreshed here: it folds six upstream datasets and
+is a ~minute rebuild, so owning it from the TR loader would invert the same layering. It is now
+stale-in-one-column rather than missing, which `/persons` serves correctly, and
+`db:load:tr:pg[:cloud]` has been added to the trigger list for `db:load:persons-browse:pg[:cloud]`
+in CLAUDE.md.
+
+### Lock profile
+
+Unchanged-to-better, and deliberately not improved further in this change. `TRUNCATE` takes an
+`AccessExclusiveLock` for the duration of the load — but so did the old `DROP TABLE` +
+`CREATE TABLE`, which additionally left the relations *missing* (a hard 42P01 for any reader)
+rather than merely locked. Converting to a stage merge (`lib/stage_merge.ts`) would remove the
+blocking entirely, but only `tr_companies` and `ngo_details` have a unique key to merge on;
+`tr_person_roles` has none. **Open work**, tracked here rather than folded in.
+
+## Recovery, if a database has already lost them
+
+Verified working locally, in this order:
+
+```bash
+npm run db:load:magistrates:pg                  # company_officer_counts
+npm run db:load:declarations:pg -- --resolve    # declaration_stake_company (+ applies 120)
+npm run db:load:persons-browse:pg               # person_browse_table
+npm run db:load:graph:pg                        # reads person_browse_table facets
+npm run db:load:tr-company-place:pg             # denormalizes company_public_money + company_politicians
+```
+
+Append `:cloud` to each for Cloud SQL.
+
+## Gates
+
+- **`scripts/db/tests/tr_search_shape.test.ts`** (pure text, no database) — 003 contains no
+  `DROP`; the CREATE and reconcile column lists agree, name for name and in order; a column
+  declared `GENERATED` in one is `GENERATED` in the other; no reconcile line carries a
+  constraint the ALTER cannot apply. Mutation-checked against all three.
+- **`scripts/db/tests/migration_drop_dependents.data.test.ts`** — the generic form of the rule,
+  which is what the class needed: a gate naming today's offenders passes on tomorrow's. It reads
+  every `DROP TABLE|VIEW|MATERIALIZED VIEW` in `scripts/db/schema/pg/*.sql`, resolves each
+  surviving target's stored-query dependents through BOTH the `pg_rewrite` and `pg_proc` arms
+  (a `LANGUAGE sql … BEGIN ATOMIC` body records its edge only in the latter and blocks a DROP
+  just as hard), and fails on any dependent owned by a different file. It also re-applies the
+  real 003 text in a rolled-back transaction and asserts the three matviews survive, and proves
+  the CASCADE class is genuinely silent so the gate cannot go vacuous.
+
+A schema-wide sweep for this defect returned only six relations, of which three pairs are
+sanctioned in that gate **with their reasons**:
+
+| dropped | by | why it is fine |
+|---|---|---|
+| `person_wealth_year` | 090 | `load_declarations_pg.ts` — the only applier of 090 — re-applies all four victims (097/100/105/120) after it on the same path, each with a comment saying so |
+| `appealed_ocids` | 042 | 042 calls `rebuild_contracts_list()` in the same file |
+| `upheld_ocids` | 042 | as above, plus `risk_upheld_ocid`, which `rebuild_contract_risk_cache()` (112) recreates at rebuild time precisely because of this CASCADE |
+
+`dual_corpus_dependents.data.test.ts` keeps the 077/145 case and its plpgsql-wrapper
+specifics; the new file is the general rule.

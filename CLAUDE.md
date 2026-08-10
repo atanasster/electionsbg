@@ -1240,7 +1240,12 @@ place label and the magistrates' oblast), and the contracts corpus. Re-run it:
 - whenever any of those is reloaded on the cloud side — the person half is the obvious case;
 - **after a contracts reload**, which is the non-obvious one: `public_money_eur` is computed
   from `contracts`, so a procurement refresh without this one lets the money column drift
-  away from `/procurement/contracts` with nothing failing.
+  away from `/procurement/contracts` with nothing failing;
+- **after a `db:load:tr:pg[:cloud]`** — the matview reads `tr_officers` for its company
+  counts. Until 2026-08-10 this was invisible for the worst possible reason: 003's
+  `DROP TABLE … CASCADE` *deleted* the matview on every TR load rather than staling it (see
+  the CASCADE note in "SQL functions and indexes" below). 003 no longer drops, so what is
+  left to close is ordinary staleness — and this is the loader that closes it.
 
 Riding just behind it — `person_search` (migration 126, `db:load:person-search:pg`), the one ranked
 index behind the combined-search route. It is a derived search index like `contractor_search`, but
@@ -1412,6 +1417,55 @@ both classes or it is blind to exactly that vector.
 `dual_corpus_dependents.data.test.ts` gates both halves, for both matviews a loader-applied
 migration DROPs (077's and 145's).
 
+**CASCADE is the same rule with the failure mode inverted, and it is the more dangerous
+half.** A DROP without CASCADE REFUSES — 2BP01, loud, the loader aborts. A DROP *with* CASCADE
+SUCCEEDS: it deletes the dependent and the loader exits 0, with nothing in its output and no
+row count reporting the loss, because the counts that would move belong to a relation that no
+longer exists. `003_tr_search.sql` did exactly that from the start — `DROP TABLE IF EXISTS
+tr_companies CASCADE` (and the same for `tr_officers` / `tr_person_roles`), applied by
+`load_tr_pg.ts` on **every** run — so every `db:load:tr:pg` deleted three matviews owned by
+other migrations:
+
+- **`person_browse_table` (120)** — the ENTIRE `/persons` browser
+- **`declaration_stake_company` (096)** — the conflict-of-interest surface
+- **`company_officer_counts` (071)** — read by `magistrate_politician_links()` and by 099
+
+Same self-healing accident as 077: `db:refresh` sequences `db:load:persons-browse:pg` after
+`db:load:tr:pg`, so a full local refresh hid it. The exposure is the **standalone
+`db:load:tr:pg:cloud`** — the documented routine TR publish, which the sections above tell you
+to run after a contracts/agri/funds reload and which `update-persons` / `update-procurement`
+both invoke — which would drop `person_browse_table` on Cloud SQL with nothing there to
+recreate it, serving `/persons` empty until someone happened to run
+`db:load:persons-browse:pg:cloud`. (Checked 2026-08-10: prod holds all three, populated, and
+their OIDs sit above the last TR load's, so nothing is currently orphaned there.) The same
+CASCADE also ran on every local `npm run tr:daily-refresh`.
+
+The fix is the one 077 took, adapted: **003 no longer DROPs anything.** `load_tr_pg.ts`
+replaces the four tables' CONTENTS instead (`replaceTable` — TRUNCATE inside the COPY's own
+transaction, so a reader keeps the previous vintage until one commit) and drops/rebuilds the
+eleven secondary indexes itself, which is what the DROP TABLE used to give it for free. Two
+consequences worth knowing:
+
+- **Every column in 003 is written twice, on purpose.** `CREATE TABLE IF NOT EXISTS` is a
+  no-op on a warm database, so on its own it would trade the loud data loss for a quiet schema
+  drift — a new column reaching a fresh clone and nothing else. The reconcile block at the
+  foot of 003 (`ADD COLUMN IF NOT EXISTS`) is what actually reaches a warm database, and
+  `tr_search_shape.test.ts` fails when the two lists disagree. A TYPE or GENERATED-expression
+  change still needs a hand-written ALTER there (142 has a worked example).
+- **The dependents now go STALE rather than missing**, which is the point. The loader refreshes
+  `declaration_stake_company` and `company_officer_counts` itself (both guarded on existence);
+  `person_browse_table` is deliberately left to its own loader — so **`db:load:tr:pg[:cloud]`
+  joins the trigger list for `db:load:persons-browse:pg[:cloud]`** below.
+
+`migration_drop_dependents.data.test.ts` is the generic gate for the whole class: it reads
+every `DROP` in `scripts/db/schema/pg/*.sql`, resolves each surviving target's stored-query
+dependents through BOTH the `pg_rewrite` and `pg_proc` arms, and fails on any dependent owned
+by a different file. Three pairs are sanctioned there **with their reasons** — `person_wealth_year`
+(090, whose four victims are all re-applied by `load_declarations_pg.ts` on the same path),
+and `appealed_ocids` / `upheld_ocids` (042, whose `contracts_list` is rebuilt by 042 itself and
+whose `risk_upheld_ocid` is recreated inside `rebuild_contract_risk_cache()`). Anything else is
+a defect. It also asserts the CASCADE is genuinely silent, so the gate cannot go vacuous.
+
 **The reason nothing caught it is worth generalising: `db:refresh`'s only verification is its
 LAST step.** `test:data` — which includes `pg_roundtrip.data.test.ts`, whose row-count assert
 compares Postgres against the shards and would have failed on exactly this drift — sits at the
@@ -1484,6 +1538,28 @@ companies at all, which is the common case since the traffic is a crawler walkin
 `idx_person_role_source_ref`), no new object and no loader.
 `person_connections.data.test.ts` holds the buffer ceiling and proves it still discriminates
 by restoring the old body in a rolled-back transaction.
+
+**`date_basis` (081) and the roles payload (082) ship TOGETHER, 081 first, in one command.**
+This is the counter-example to the rule above — it looks function-only and is not. 082's
+`person_by_slug` selects `r.date_basis`, and a `LANGUAGE sql` body is validated at CREATE
+time, so applying 082 to a database without the column fails the whole file with `42703`:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  081_person_identity.sql 082_person_api.sql
+```
+
+Applying 081 on the cloud also runs its backfill (`source='mp'` → `'term'`, 1,522 rows),
+which is what makes the office dates appear on prod without a multi-hour re-resolve.
+
+The column has **two** writers and needs both: 081's backfill carries a warm database across
+the gap, and `resolve_persons.ts` sets it in the `copyRows` list that rebuilds `person_role`
+from scratch. Dropping it from that list is the silent failure — the resolve DELETEs the
+table, every basis comes back NULL, and the renderer shows *nothing* rather than something
+wrong, so no page errors and no count moves. `person_role_date_basis.data.test.ts` fails on
+a dated role with no basis, on the mp count collapsing, and on `person_by_slug` returning an
+MP's terms in a tie order (the profile keeps the first row of a deduped seat, so an
+unordered `jsonb_agg` would let the term shown change between two resolves of the same data).
 
 ## Testing
 

@@ -2,6 +2,12 @@
 // the schema: nothing may read a matview that migration DROPs in a STORED QUERY. Guarded here
 // for both such caches — 077's `dual_corpus_rankings_cache` and 145's `funds_hub_stats_cache`.
 //
+// The GENERAL form of that rule — every DROP in scripts/db/schema/pg/, not just these two —
+// lives in migration_drop_dependents.data.test.ts, written after 003_tr_search.sql was found
+// doing the CASCADE variant of the same thing to three matviews for its whole life. This file
+// keeps what is specific to 077/145: the plpgsql-wrapper contract below, and the assertion
+// that 077's file text carries no DROP at all.
+//
 // ═══════════════════════════════════════════════════════════════════════════════════════════
 // WHY THIS FILE EXISTS. 077 used to open with an unconditional, CASCADE-free
 // `DROP MATERIALIZED VIEW IF EXISTS dual_corpus_rankings_cache` (there only so the following

@@ -105,6 +105,99 @@ const copyTable = async <T = void>(
     return after ? await after(c) : undefined;
   });
 
+// The four tables this loader owns outright — every run replaces their whole
+// contents. TRUNCATE runs INSIDE the COPY's transaction (see replaceTable), so a
+// reader keeps seeing the previous vintage until that one commit, and a failed
+// load leaves the old rows rather than an empty table.
+//
+// This is what 003 used to get by dropping the tables, and it is why it no longer
+// may: the DROP took three matviews owned by other migrations with it (003's
+// header has the full account). The lock profile is unchanged-to-better — the old
+// DROP+CREATE held an AccessExclusiveLock for the whole load too, and additionally
+// left the relations MISSING (a hard 42P01 for any reader) rather than merely
+// locked. Moving these to a stage merge (lib/stage_merge.ts) would remove the
+// blocking entirely, but only tr_companies and ngo_details have a unique key to
+// merge on; tr_person_roles has none. That is separate work.
+const replaceTable = async <T = void>(
+  table: string,
+  cols: string[],
+  rows: Iterable<unknown[]>,
+  after?: (c: PoolClient) => Promise<T>,
+): Promise<T | undefined> =>
+  withTx(async (c) => {
+    await c.query(`TRUNCATE ${table}`);
+    await copyRows(c, table, cols, rows);
+    return after ? await after(c) : undefined;
+  });
+
+// Secondary indexes built ONCE after the bulk load — a one-shot GIN build is far
+// cheaper than maintaining the index across ~3M COPYed rows. They used to vanish
+// with 003's `DROP TABLE`; now that the tables persist, the loader drops them
+// itself so the same one-shot build applies on every run (and so the
+// unconditional CREATEs below stay re-runnable instead of raising 42P07).
+//
+// The PRIMARY KEYs on tr_companies / ngo_details are deliberately NOT in here:
+// they are part of the table definition, and they were maintained during the COPY
+// under the old DROP+CREATE too, so leaving them is exactly the previous
+// behaviour.
+const LOAD_INDEXES: { name: string; ddl: string }[] = [
+  {
+    name: "idx_tr_companies_fold",
+    ddl: "CREATE INDEX idx_tr_companies_fold ON tr_companies USING gin (name_fold gin_trgm_ops)",
+  },
+  {
+    name: "idx_tr_officers_fold",
+    ddl: "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
+  },
+  {
+    name: "idx_tr_officers_uic",
+    ddl: "CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)",
+  },
+  // Entity-class facet (NGO browse/segmentation) + NGO metadata lookup. The
+  // composite (entity_class, name) also serves the /procurement/ngos browse's
+  // default name-sort — a single-category facet becomes an index-only scan
+  // (~0.2ms vs a ~190ms top-N sort over 30k rows).
+  {
+    name: "idx_tr_companies_entity_class",
+    ddl: "CREATE INDEX idx_tr_companies_entity_class ON tr_companies (entity_class)",
+  },
+  {
+    name: "idx_tr_companies_class_name",
+    ddl: "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
+  },
+  // Partial trigram index over the NGO surface only — serves the fuzzy name
+  // match in load_ngo_funding_pg.ts. Scoped so the `%` operator prunes to the
+  // ~31k NGO rows via the index instead of an O(staged × NGO) similarity() seq
+  // scan (which took ~1hr on Cloud SQL's shared core).
+  {
+    name: "idx_tr_companies_ngo_fold",
+    ddl: `CREATE INDEX idx_tr_companies_ngo_fold ON tr_companies USING gin (name_fold gin_trgm_ops)
+          WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`,
+  },
+  // Btree for exact-fold person lookup (person_profile / connection_between).
+  {
+    name: "idx_tr_officers_fold_eq",
+    ddl: "CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)",
+  },
+  {
+    name: "idx_tr_person_roles_fold",
+    ddl: "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
+  },
+  {
+    name: "idx_tr_person_roles_uic",
+    ddl: "CREATE INDEX idx_tr_person_roles_uic ON tr_person_roles (uic)",
+  },
+  // Timestamp indexes for recent_updates' day-window filter.
+  {
+    name: "idx_tr_companies_updated",
+    ddl: "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
+  },
+  {
+    name: "idx_tr_officers_changed",
+    ddl: "CREATE INDEX idx_tr_officers_changed ON tr_officers (changed_at)",
+  },
+];
+
 export const loadTrPg = async (): Promise<{
   companies: number;
   officers: number;
@@ -120,6 +213,12 @@ export const loadTrPg = async (): Promise<{
   await exec(readFileSync(INGEST_SQL, "utf8"));
 
   const tr = new DatabaseSync(TR_DB, { readOnly: true });
+
+  // Drop the secondary indexes before the COPY phase so each is built once, at
+  // the end, over the finished table (see LOAD_INDEXES). Under the old
+  // DROP TABLE this came free.
+  for (const { name } of LOAD_INDEXES)
+    await exec(`DROP INDEX IF EXISTS ${name}`);
 
   const companies = tr
     .prepare(
@@ -140,7 +239,7 @@ export const loadTrPg = async (): Promise<{
   // lags by). The cold load is ~1M new keys, but a daily delta is only a few
   // hundred — under INGEST_SUMMARY_THRESHOLD — so leaving the default would put
   // the loader into detail mode every day and duplicate the feed.
-  const ingest = await copyTable(
+  const ingest = await replaceTable(
     "tr_companies",
     [
       "uic",
@@ -184,21 +283,24 @@ export const loadTrPg = async (): Promise<{
       r.public_benefit != null ||
       r.private_benefit != null,
   );
-  if (ngoDetails.length)
-    await copyTable(
-      "ngo_details",
-      ["uic", "public_benefit", "private_benefit", "objectives", "means"],
-      (function* () {
-        for (const r of ngoDetails)
-          yield [
-            r.uic,
-            r.public_benefit == null ? null : r.public_benefit === 1,
-            r.private_benefit == null ? null : r.private_benefit === 1,
-            r.objectives,
-            r.means,
-          ];
-      })(),
-    );
+  // Unconditional, even when the filter yields nothing: the TRUNCATE lives inside
+  // replaceTable, so guarding the call on `ngoDetails.length` would leave the
+  // previous run's rows in place on a source that has stopped carrying NGO fields.
+  // A zero-row COPY is a valid no-op (lib/copy.ts).
+  await replaceTable(
+    "ngo_details",
+    ["uic", "public_benefit", "private_benefit", "objectives", "means"],
+    (function* () {
+      for (const r of ngoDetails)
+        yield [
+          r.uic,
+          r.public_benefit == null ? null : r.public_benefit === 1,
+          r.private_benefit == null ? null : r.private_benefit === 1,
+          r.objectives,
+          r.means,
+        ];
+    })(),
+  );
 
   const officers = tr
     .prepare(
@@ -211,7 +313,7 @@ export const loadTrPg = async (): Promise<{
        GROUP BY uic, name`,
     )
     .all() as Array<Record<string, string | number | null>>;
-  await copyTable(
+  await replaceTable(
     "tr_officers",
     ["uic", "name", "roles", "active", "changed_at"],
     (function* () {
@@ -228,7 +330,7 @@ export const loadTrPg = async (): Promise<{
        WHERE name IS NOT NULL AND name <> ''`,
     )
     .all() as Array<Record<string, string | number | null>>;
-  await copyTable(
+  await replaceTable(
     "tr_person_roles",
     [
       "uic",
@@ -260,45 +362,9 @@ export const loadTrPg = async (): Promise<{
   );
   tr.close();
 
-  // One-shot index build (cheaper than incremental during load).
-  await exec(
-    "CREATE INDEX idx_tr_companies_fold ON tr_companies USING gin (name_fold gin_trgm_ops)",
-  );
-  await exec(
-    "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
-  );
-  await exec("CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)");
-  // Entity-class facet (NGO browse/segmentation) + NGO metadata lookup. The
-  // composite (entity_class, name) also serves the /procurement/ngos browse's
-  // default name-sort — a single-category facet becomes an index-only scan
-  // (~0.2ms vs a ~190ms top-N sort over 30k rows).
-  await exec(
-    "CREATE INDEX idx_tr_companies_entity_class ON tr_companies (entity_class)",
-  );
-  await exec(
-    "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
-  );
-  // Partial trigram index over the NGO surface only — serves the fuzzy name
-  // match in load_ngo_funding_pg.ts. Scoped so the `%` operator prunes to the
-  // ~31k NGO rows via the index instead of an O(staged × NGO) similarity() seq
-  // scan (which took ~1hr on Cloud SQL's shared core).
-  await exec(
-    `CREATE INDEX idx_tr_companies_ngo_fold ON tr_companies USING gin (name_fold gin_trgm_ops)
-     WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`,
-  );
-  // Btree for exact-fold person lookup (person_profile / connection_between).
-  await exec("CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)");
-  await exec(
-    "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
-  );
-  await exec("CREATE INDEX idx_tr_person_roles_uic ON tr_person_roles (uic)");
-  // Timestamp indexes for recent_updates' day-window filter.
-  await exec(
-    "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
-  );
-  await exec(
-    "CREATE INDEX idx_tr_officers_changed ON tr_officers (changed_at)",
-  );
+  // One-shot index build (cheaper than incremental during load). Dropped above,
+  // so these stay unconditional CREATEs — see LOAD_INDEXES for what each is for.
+  for (const { ddl } of LOAD_INDEXES) await exec(ddl);
   await exec("ANALYZE tr_companies");
   await exec("ANALYZE tr_officers");
 
@@ -318,6 +384,25 @@ export const loadTrPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW company_person_roles");
   // Officer namesake counts (hub pruning for the multi-hop path finder).
   await exec("REFRESH MATERIALIZED VIEW officer_name_counts");
+
+  // Its DUAL — companies by officer count (071), the hub filter the magistrate
+  // bridge walk refuses to hop through. Pure derivation of the tr_officers this
+  // loader just replaced, so a TR ingest invalidates it exactly as it does
+  // officer_name_counts above. 071's own comment delegates the refresh to the
+  // magistrate loader "because tr_officers is loaded before it in db:refresh" —
+  // but db:load:tr:pg is a documented db:refresh EXCLUSION, so on the routine TR
+  // path (tr:daily-refresh, db:load:tr:pg:cloud) nothing was refreshing it. It was
+  // invisible only because 003's CASCADE deleted the matview outright; with the
+  // relation now surviving, staleness is what is left to close.
+  // Guarded on existence — 071 is owned by the magistrate loader and a TR-only
+  // database may not have it. Plain REFRESH, matching load_magistrates_pg.ts:
+  // CONCURRENTLY cannot run against the unpopulated matview 071 creates.
+  const hasOfficerCounts = await getPool()
+    .query("SELECT to_regclass('public.company_officer_counts') AS t")
+    .then((r) => r.rows[0]?.t != null)
+    .catch(() => false);
+  if (hasOfficerCounts)
+    await exec("REFRESH MATERIALIZED VIEW company_officer_counts");
 
   // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
   // depend on tr_officers + contracts + cabinets + officer_name_counts (above).
@@ -491,6 +576,16 @@ export const loadTrPg = async (): Promise<{
     await exec(
       "REFRESH MATERIALIZED VIEW CONCURRENTLY declaration_stake_company",
     );
+
+  // person_browse_table (120) — the third matview 003's CASCADE used to delete —
+  // is deliberately NOT refreshed here. It folds six upstream datasets and is a
+  // ~minute rebuild; owning it from the TR loader would invert the layering the
+  // same way recreating the dropped dependents would. tr_officers is only one of
+  // its inputs (the company counts), so after a TR ingest it is STALE in that one
+  // column rather than wrong everywhere — a state /persons serves correctly at a
+  // 200. The fix is the documented one: re-run db:load:persons-browse:pg[:cloud]
+  // after a TR load. CLAUDE.md's persons-browse section names db:load:tr:pg as a
+  // trigger for exactly this reason.
 
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",
