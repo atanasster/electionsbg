@@ -147,24 +147,33 @@ const main = async (): Promise<void> => {
   // `db:load:interreg:pg` refreshes it again. On a FIRST-EVER run this branch skips and step 52
   // populates it; on later runs this refreshes with the previous Interreg vintage and step 52
   // corrects it. Stated in 145's header too, because a reader of either file needs it.
-  // `dual_corpus_rankings_cache` belongs to migration 077 and is applied by the CONTRACTS
+  // `dual_corpus_company_count()` belongs to migration 077 and is applied by the CONTRACTS
   // loader, not by anything in the funds chain — so on a database without contracts it is
-  // absent, and `CREATE MATERIALIZED VIEW` resolving 145's query would raise 42P01 and kill
+  // absent, and `CREATE MATERIALIZED VIEW` resolving 145's query would raise 42883 and kill
   // `db:refresh` at step 11. That is precisely the abort this whole branch exists to prevent,
-  // reintroduced by a later edit to 145; the probe has to list every table 145 reads.
+  // reintroduced by a later edit to 145; the probe has to list every object 145 reads.
+  //
+  // It probes the FUNCTION, not `dual_corpus_rankings_cache`, and the two are not
+  // interchangeable. 077 DROPs that matview unconditionally on every apply, so 145 reads it
+  // through a plpgsql wrapper precisely so no pg_depend edge is recorded (a direct read aborted
+  // every `db:load:pg` with 2BP01 — see 077's header). The wrapper is therefore what 145's query
+  // resolves against, and the wrapper itself tolerates an absent or unpopulated cache. Probing
+  // the matview here would be probing the wrong object in both directions: it can be present
+  // while the function is missing (a database predating this migration's current text), and
+  // absent-but-recoverable while the function is there.
   const [deps] = await allRows<{
     ops: string | null;
     parts: string | null;
     dual: string | null;
   }>(
-    `SELECT to_regclass('public.interreg_operations')::text        AS ops,
-            to_regclass('public.interreg_partners')::text          AS parts,
-            to_regclass('public.dual_corpus_rankings_cache')::text AS dual`,
+    `SELECT to_regclass('public.interreg_operations')::text             AS ops,
+            to_regclass('public.interreg_partners')::text               AS parts,
+            to_regprocedure('public.dual_corpus_company_count()')::text AS dual`,
   );
   if (!deps?.ops || !deps?.parts || !deps?.dual) {
     console.warn(
       "funds-fit: skipping 145 (hub stats) — one of interreg_operations / interreg_partners / " +
-        "dual_corpus_rankings_cache is absent. db:load:pg (contracts) and db:load:interreg:pg " +
+        "dual_corpus_company_count() is absent. db:load:pg (contracts) and db:load:interreg:pg " +
         "create them; the /funds hub renders without figures until then.",
     );
   } else {

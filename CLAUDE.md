@@ -1366,6 +1366,36 @@ keeps running the previous body indefinitely, and nothing reports a difference. 
 does NOT carry it — that ships function *code* in `functions/`, which is a different thing
 from a Postgres function.
 
+**A migration a LOADER applies may not DROP an object another migration reads in a stored
+query, and CASCADE is never the way out.** `db:load:pg` applies 077 on every contracts load;
+077 used to open with an unconditional `DROP MATERIALIZED VIEW IF EXISTS
+dual_corpus_rankings_cache` (present only so the `DROP FUNCTION` beneath it could run). When
+migration 145's `funds_hub_stats_cache` started selecting that matview directly, every
+`db:load:pg` began aborting with **2BP01 — in the APPLY phase, BEFORE the COPY**, so
+`contracts` silently kept serving the previous vintage while the ingest that produced the new
+shards reported success. It blocked every procurement publish from 2026-08-09 (900e50dd4b) to
+2026-08-10, on prod as well as locally, with nothing red anywhere.
+
+CASCADE would have been worse than the bug. `db:refresh` self-heals it (db:load:pg at step 5,
+db:load:funds-fit:pg recreating the dependent at step 11) — but the documented procurement
+publish path is a **standalone `db:load:pg:cloud`**, which would drop the dependent on prod
+with nothing there to recreate it, blanking the `/funds` hub tiles indefinitely. The fix was
+to drop the DROPs (neither was needed — the matview is a fixed one-column wrapper over the
+function, and `CREATE OR REPLACE` rewrites the body in place) and to expose
+`dual_corpus_company_count()`, a **plpgsql** wrapper whose body is never parsed for
+dependencies, as the only supported way to read that cache. plpgsql specifically: a
+`LANGUAGE sql` string body records no edge today either, but the `BEGIN ATOMIC` form (PG14+)
+does, so modernising such a wrapper would silently restore the 2BP01.
+`dual_corpus_dependents.data.test.ts` gates both halves.
+
+**The reason nothing caught it is worth generalising: `db:refresh`'s only verification is its
+LAST step.** `test:data` — which includes `pg_roundtrip.data.test.ts`, whose row-count assert
+compares Postgres against the shards and would have failed on exactly this drift — sits at the
+end of a 57-link `&&` chain whose fifth link was the one aborting. An early loader failure
+therefore leaves the whole suite unrun, so the corpus that a loader failed to update is never
+checked. When a loader aborts, run `npm run test:data` before assuming only that loader's
+table is affected.
+
 **`shlyo_query_fold()` (141) is one of these, with one difference: it is GENERATED.** It is the
 shliokavitsa half of search — the Latin-side spellings a Bulgarian actually types (`6umen`,
 `4erven`, `sofiq`), which `translit_bg_latin()` alone cannot reach, so before it „Jelqzkov"

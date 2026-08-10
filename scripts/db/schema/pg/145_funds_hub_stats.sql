@@ -69,10 +69,15 @@
 -- ═══════════════════════════════════════════════════════════════════════════════════════════
 --
 -- Depends on fund_projects (016), fund_payloads (043), interreg_operations/interreg_partners
--- (137), canon_oblast (143) and dual_corpus_rankings_cache (077 — applied by the CONTRACTS
--- loader, NOT by anything in the funds chain). Every one of those must exist before this file
--- is applied, and `load_funds_fit_pg.ts`'s guard probes all of them: a dependency added here
--- and not added there aborts `db:refresh` at step 11.
+-- (137), canon_oblast (143) and the FUNCTION dual_corpus_company_count() (077 — applied by the
+-- CONTRACTS loader, NOT by anything in the funds chain). Every one of those must exist before
+-- this file is applied, and `load_funds_fit_pg.ts`'s guard probes all of them: a dependency
+-- added here and not added there aborts `db:refresh` at step 11.
+--
+-- That last dependency is on the FUNCTION and not on `dual_corpus_rankings_cache` itself, and
+-- the distinction is the whole reason the wrapper exists — reading the matview directly made
+-- this file's cache a hard dependent of a matview 077 unconditionally DROPs, which aborted
+-- every `db:load:pg` with 2BP01. Do not "simplify" it back. See 077's header.
 -- EXECUTE → app_readonly, role-guarded for a cold bootstrap.
 
 SET check_function_bodies = off;
@@ -162,7 +167,15 @@ CREATE MATERIALIZED VIEW funds_hub_stats_cache AS
       (SELECT CASE WHEN jsonb_typeof(payload->'themes') = 'array'
                    THEN jsonb_array_length(payload->'themes') END
          FROM fund_payloads WHERE kind = 'themes-index' AND key = '') AS focus_dossiers,
-      (SELECT (r->>'companyCount')::int FROM dual_corpus_rankings_cache) AS dual_companies
+      -- THROUGH THE WRAPPER, NEVER `FROM dual_corpus_rankings_cache` DIRECTLY. 077 opens with
+      -- an unconditional CASCADE-free `DROP MATERIALIZED VIEW dual_corpus_rankings_cache`, so
+      -- a direct select here makes this matview a hard dependent and every `db:load:pg` aborts
+      -- 2BP01 in its apply phase — leaving `contracts` on the previous vintage while the ingest
+      -- reports success. That is not hypothetical: it is what this line did between 2026-08-09
+      -- and 2026-08-10, on prod as well as locally. The wrapper's plpgsql body records no
+      -- pg_depend edge, and unlike the direct read it degrades to NULL on an unpopulated cache
+      -- (55000) instead of taking the whole refresh down. Full account in 077's header.
+      dual_corpus_company_count()                                    AS dual_companies
   )
   -- `k` exists ONLY to carry the unique index: an expression index does not qualify a matview
   -- for REFRESH … CONCURRENTLY, so a constant column is the cheapest thing that does.

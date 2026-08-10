@@ -21,10 +21,50 @@
 
 SET check_function_bodies = off;
 
--- Drop the dependent cache matview first (re-apply path); recreated WITH NO DATA
--- at tail and populated by the loaders' guarded REFRESH.
-DROP MATERIALIZED VIEW IF EXISTS dual_corpus_rankings_cache;
-DROP FUNCTION IF EXISTS dual_corpus_rankings();
+-- ══════════════════════════════════════════════════════════════════════════════
+-- THIS FILE DROPS NOTHING, AND THAT IS LOAD-BEARING. It used to open with
+--
+--   DROP MATERIALIZED VIEW IF EXISTS dual_corpus_rankings_cache;
+--   DROP FUNCTION IF EXISTS dual_corpus_rankings();
+--
+-- `load_pg.ts` applies this file on EVERY contracts load, and the first line is
+-- unconditional and CASCADE-free — so the moment anything else read that cache in a
+-- stored query, every `db:load:pg` died with
+--
+--   ERROR: cannot drop materialized view dual_corpus_rankings_cache because other
+--          objects depend on it   (SQLSTATE 2BP01)
+--
+-- in the APPLY phase, BEFORE the COPY: `contracts` silently kept serving the previous
+-- vintage while the ingest that produced the new shards reported success. Migration
+-- 145's `funds_hub_stats_cache` did exactly that from 2026-08-09 (900e50dd4b) to
+-- 2026-08-10, blocking every procurement publish in that window on prod as well as
+-- locally, with nothing red anywhere.
+--
+-- CASCADE would have been the WRONG fix. `db:refresh` self-heals it (db:load:pg at
+-- step 5, db:load:funds-fit:pg recreating the dependent at step 11) — but the
+-- documented procurement publish path is a STANDALONE `db:load:pg:cloud`, which
+-- would drop the dependent on prod with nothing there to recreate it, blanking the
+-- /funds hub tiles until someone noticed.
+--
+-- Neither DROP was ever needed. The matview is a fixed ONE-COLUMN wrapper over the
+-- function (`SELECT dual_corpus_rankings() AS r`), so its shape cannot change — all
+-- the logic that evolves lives in the function body, which `CREATE OR REPLACE`
+-- rewrites in place. The `DROP FUNCTION` existed only because a matview depends on
+-- the function it selects, so it is refused while the cache stands; and the
+-- `DROP MATERIALIZED VIEW` existed only to let that `DROP FUNCTION` run. A pair of
+-- statements that existed solely to enable each other.
+--
+-- IF A REAL SHAPE CHANGE IS EVER NEEDED — i.e. `dual_corpus_rankings()` changes its
+-- RETURN TYPE, the one edit `CREATE OR REPLACE FUNCTION` refuses — do it as an
+-- explicit one-time step, never by restoring the DROPs here:
+--   DROP MATERIALIZED VIEW dual_corpus_rankings_cache;   -- then apply this file,
+--   -- then `npm run db:load:pg` (or `REFRESH MATERIALIZED VIEW`) to repopulate.
+-- That is safe to do by hand because of the second half of the fix: the tail of this
+-- file exposes `dual_corpus_company_count()`, and callers read the cache THROUGH it
+-- rather than directly, so no stored query pins the matview. `db:refresh`'s
+-- dual_corpus_dependents.data.test.ts gates both halves — zero stored-query
+-- dependents, and this file applying cleanly where `funds_hub_stats_cache` exists.
+-- ══════════════════════════════════════════════════════════════════════════════
 CREATE OR REPLACE FUNCTION dual_corpus_rankings()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH fund AS (
@@ -109,3 +149,44 @@ $$;
 CREATE MATERIALIZED VIEW IF NOT EXISTS dual_corpus_rankings_cache AS
   SELECT dual_corpus_rankings() AS r
   WITH NO DATA;
+
+-- The ONLY supported way for another migration to read this cache — see the header
+-- block. plpgsql bodies are not parsed at creation, so the reference below records no
+-- pg_depend edge and the caller (today: `funds_hub_stats_cache`, 145) does not pin
+-- the matview. That is what keeps the one-time manual DROP described up there safe to
+-- perform, and what stops a restored DROP in this file from being fatal again.
+--
+-- MEASURED, because the obvious alternative looks equivalent and is not quite: a
+-- `LANGUAGE sql` wrapper with a string body ALSO records no edge today — but the
+-- SQL-standard `BEGIN ATOMIC` body form (PG14+) parses and DOES record one, so an
+-- innocent-looking modernisation of a `LANGUAGE sql` wrapper would silently restore
+-- the 2BP01. plpgsql has no such form and cannot regress that way.
+--
+-- It also DEGRADES, which the direct read it replaces could not. Selecting from an
+-- unpopulated matview does not return zero rows — it RAISES 55000
+-- (`object_not_in_prerequisite_state`) — and this cache is created WITH NO DATA on a
+-- cold database and left that way until a loader's guarded REFRESH. So with the
+-- direct read, `db:load:funds-fit:pg` on a database whose contracts corpus had not
+-- yet been loaded (or right after the manual DROP above) failed on the refresh.
+-- 42P01 is caught for the same reason 145's siblings guard their payload reads: a
+-- database with no contracts corpus has no cache at all, and one tile rendering
+-- without a figure is the honest state, not an aborted load.
+--
+-- NEVER `DROP` this function: `funds_hub_stats_cache` depends on it, so a DROP is
+-- this bug in mirror image. The signature is deliberately minimal — a count is an
+-- int for ever — so `CREATE OR REPLACE` alone will always do.
+CREATE OR REPLACE FUNCTION dual_corpus_company_count()
+RETURNS int LANGUAGE plpgsql STABLE AS $$
+BEGIN
+  RETURN (SELECT (r->>'companyCount')::int FROM dual_corpus_rankings_cache);
+EXCEPTION
+  WHEN undefined_table OR object_not_in_prerequisite_state THEN RETURN NULL;
+END;
+$$;
+
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION dual_corpus_company_count() TO app_readonly;
+  END IF;
+END $$;
