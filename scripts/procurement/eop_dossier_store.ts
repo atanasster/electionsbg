@@ -482,6 +482,63 @@ export class EopDossierStore {
       .run(documentId, md5, reason, detail ?? null, new Date().toISOString());
   }
 
+  /** Paged walk over tier-B text — same reason as `iterate()`: `.all()` here holds
+   *  every extracted document in memory before the first row is used. */
+  *iterateDocText(pageSize = 200): Generator<{
+    md5: string;
+    documentId: number;
+    name: string;
+    ext: string | null;
+    sizeBytes: number;
+    chars: number;
+    pages: number | null;
+    extractor: string;
+    extractorVersion: string | null;
+    text: string;
+  }> {
+    if (!Number.isInteger(pageSize) || pageSize < 1)
+      throw new Error(
+        `iterateDocText: pageSize must be positive, got ${pageSize}`,
+      );
+    const stmt = this.db.prepare(
+      `SELECT md5, document_id, name, ext, size_bytes, chars, pages, extractor,
+              extractor_version, text_gz
+         FROM eop_doc_text WHERE md5 > ? ORDER BY md5 LIMIT ?`,
+    );
+    let after = "";
+    for (;;) {
+      const rows = stmt.all(after, pageSize) as {
+        md5: string;
+        document_id: number;
+        name: string;
+        ext: string | null;
+        size_bytes: number;
+        chars: number;
+        pages: number | null;
+        extractor: string;
+        extractor_version: string | null;
+        text_gz: Uint8Array;
+      }[];
+      if (!rows.length) return;
+      for (const r of rows) {
+        after = r.md5;
+        yield {
+          md5: r.md5,
+          documentId: Number(r.document_id),
+          name: r.name,
+          ext: r.ext,
+          sizeBytes: Number(r.size_bytes),
+          chars: Number(r.chars),
+          pages: r.pages === null ? null : Number(r.pages),
+          extractor: r.extractor,
+          extractorVersion: r.extractor_version,
+          text: gunzipSync(Buffer.from(r.text_gz)).toString("utf8"),
+        };
+      }
+      if (rows.length < pageSize) return;
+    }
+  }
+
   getDocText(md5: string): string | null {
     const r = this.db
       .prepare("SELECT text_gz FROM eop_doc_text WHERE md5 = ?")

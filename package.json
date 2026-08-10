@@ -70,6 +70,8 @@
     "ngo:review-board-links": "tsx scripts/ngo/review_board_links.ts",
     "ngo:abf-fetch": "tsx scripts/ngo/abf_fetch.ts",
     "ngo:ai-summary": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/build_ai_summary.ts",
+    "db:load:tender-dossier:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_tender_dossier_pg.ts",
+    "db:load:tender-dossier:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:tender-dossier:pg --",
     "db:load:tenders:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_tenders_pg.ts",
     "db:load:tenders:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:tenders:pg",
     "db:load:funds:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_funds_pg.ts",

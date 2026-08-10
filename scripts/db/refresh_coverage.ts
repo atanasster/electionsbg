@@ -33,6 +33,13 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "multi-hour load of ~1.02M companies; the TR corpus itself is not committed",
   },
+  "db:load:tender-dossier:pg": {
+    axes: ["uncommitted-input"],
+    ranBy:
+      "the tender-dossier ingest, by hand (CLAUDE.md, ЦАИС ЕОП dossier section)",
+    reason:
+      "reads the gitignored raw_data/procurement/eop_dossier.sqlite capture — absent on a fresh clone, and re-earning it is a ~26h crawl of a shared public register",
+  },
   "db:load:cr-founding:pg": {
     axes: ["uncommitted-input"],
     ranBy: "npm run tr:daily-refresh (CLAUDE.md, CR Deeds section)",

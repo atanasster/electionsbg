@@ -116,6 +116,7 @@ const main = async (args: {
   apply: boolean;
   limit?: string;
   fromYear?: string;
+  toYear?: string;
   refresh: boolean;
 }): Promise<void> => {
   const store = args.apply ? new EopDossierStore(STORE_FILE) : null;
@@ -128,7 +129,26 @@ const main = async (args: {
     "ocid LIKE 'ocds-e82gsb-%'",
     "tender_id IS NOT NULL",
   ];
-  if (args.fromYear) where.push(`publication_date >= '${args.fromYear}-01-01'`);
+  // Validated, not trusted: these land in the SQL text, and a year is a year.
+  const year = (raw: string | undefined, flag: string): string | undefined => {
+    if (raw === undefined) return undefined;
+    if (!/^(20)\d{2}$/.test(raw.trim()))
+      throw new Error(
+        `${flag} must be a 4-digit year, got ${JSON.stringify(raw)}`,
+      );
+    return raw.trim();
+  };
+  const fromYear = year(args.fromYear, "--from-year");
+  const toYear = year(args.toYear, "--to-year");
+  if (fromYear && toYear && toYear < fromYear)
+    throw new Error(
+      `empty window: --from-year ${fromYear} > --to-year ${toYear}`,
+    );
+  if (fromYear) where.push(`publication_date >= '${fromYear}-01-01'`);
+  // Inclusive of the whole year, so `--from-year 2021 --to-year 2021` is "2021".
+  // Needed because the work set is ordered newest-first, so --limit alone can only
+  // ever sample the most recent tenders — every one of which is the current era.
+  if (toYear) where.push(`publication_date < '${Number(toYear) + 1}-01-01'`);
   // --probe sets a DEFAULT cap of 200; an explicit --limit still wins, so
   // `--probe --limit 40` means 40 rather than silently ignoring the flag.
   const explicit = args.limit ? parseInt(args.limit, 10) : null;
@@ -142,7 +162,7 @@ const main = async (args: {
   const ids = rows.map((r) => Number(r.tender_id));
   console.log(
     `→ work set: ${ids.length.toLocaleString()} tender(s)` +
-      (args.fromYear ? ` from ${args.fromYear}` : "") +
+      (fromYear || toYear ? ` in ${fromYear ?? "…"}–${toYear ?? "…"}` : "") +
       (limit ? ` (limited)` : ""),
   );
 
@@ -282,6 +302,11 @@ const cli = command({
       long: "from-year",
       description: "Only tenders published in/after this year, e.g. 2024.",
     }),
+    toYear: option({
+      type: optional(string),
+      long: "to-year",
+      description: "Only tenders published in/before this year (inclusive).",
+    }),
   },
   handler: (args) =>
     main({
@@ -290,6 +315,7 @@ const cli = command({
       refresh: !!args.refresh,
       limit: args.limit,
       fromYear: args.fromYear,
+      toYear: args.toYear,
     }),
 });
 
