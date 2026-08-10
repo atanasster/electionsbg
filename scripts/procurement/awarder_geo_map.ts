@@ -58,6 +58,8 @@ import {
   countSources,
   mergeGeoOverrides,
   producibleSources,
+  shrinkVerdict,
+  SHRINK_TOLERANCE,
   TIER_KEYS,
   TIER_LABELS,
   type GeoEntry,
@@ -349,28 +351,71 @@ const fetchTrSeatMap = (eiks: string[]): TierLoad<Map<string, string>> => {
   return { ok: true, value: out };
 };
 
-// Our schools register → eik → settlement (from the school's own `address`,
-// e.g. "ГР.БАНСКО"). Only schools that match_eik.ts linked to a procurement EIK
-// contribute. Defensive: returns an empty map when the file is absent.
-const fetchSchoolSeatMap = (): TierLoad<Map<string, string>> => {
-  const out = new Map<string, string>();
-  if (!fs.existsSync(SCHOOLS_INDEX_FILE))
-    return down(
-      `Tier S unavailable — no schools register at ${path.relative(process.cwd(), SCHOOLS_INDEX_FILE)}`,
-      out,
-    );
-  let idx: {
-    schoolsByObshtina?: Record<string, { eik?: string; address?: string }[]>;
-  };
+// The one reader for every JSON-backed tier (R, S, D, E). It owns all four ways
+// an input can fail to be an answer — absent, unparseable, missing its payload
+// key, or EMPTY — so the `TierLoad` contract above is true of all of them and
+// not just of `fetchMonSchoolMap`.
+//
+// THE EMPTY CASE IS THE LOAD-BEARING ONE. `ok: true` is what makes a tier's
+// labels producible, which is the single state in which the merge may DROP a
+// prior entry. Every one of these files is written by an upstream builder that
+// emits its payload key unconditionally — `build_tender_oblast_map.ts` and
+// `build_ocds_party_geo.ts` both write `awarders: {}` whenever their gz cache
+// yields nothing, and neither has a completeness guard — so a valid-but-empty
+// file is indistinguishable from a failed rebuild and must not be read as "the
+// tier ran and found nothing". Measured: emptying `buyer_oblast_map.json` (the
+// exact shape those builders write) dropped 16 unrecoverable entries at 0.7%,
+// under the shrink guard, at exit 0. The pre-merge code used entry COUNT as the
+// availability signal; this keeps that signal, on the payload rather than the
+// derived output.
+const readTierJson = <T>(
+  file: string,
+  tier: string,
+  pick: (parsed: Record<string, unknown>) => Record<string, T> | undefined,
+): TierLoad<Record<string, T>> => {
+  const rel = path.relative(process.cwd(), file);
+  if (!fs.existsSync(file))
+    return down(`${tier} unavailable — no file at ${rel}`, {});
+  let parsed: Record<string, unknown>;
   try {
-    idx = JSON.parse(fs.readFileSync(SCHOOLS_INDEX_FILE, "utf8"));
+    parsed = JSON.parse(fs.readFileSync(file, "utf8"));
   } catch (e) {
     return down(
-      `Tier S unavailable — schools register unreadable: ${(e as Error).message}`,
-      out,
+      `${tier} unavailable — ${rel} unreadable: ${(e as Error).message}`,
+      {},
     );
   }
-  for (const recs of Object.values(idx.schoolsByObshtina ?? {})) {
+  const payload = pick(parsed);
+  if (!payload)
+    return down(
+      `${tier} unavailable — ${rel} carries no recognised payload (shape drift?)`,
+      {},
+    );
+  if (!Object.keys(payload).length)
+    return down(
+      `${tier} unavailable — ${rel} is empty; an empty derived file cannot be ` +
+        `told from a failed rebuild, so it is not read as "ran, found nothing"`,
+      {},
+    );
+  return { ok: true, value: payload };
+};
+
+// Our schools register → eik → settlement (from the school's own `address`,
+// e.g. "ГР.БАНСКО"). Only schools that match_eik.ts linked to a procurement EIK
+// contribute — so the OUTPUT is legitimately tiny (1 today) while the PAYLOAD
+// checked above is the whole register; the emptiness guard is on the latter.
+const fetchSchoolSeatMap = (): TierLoad<Map<string, string>> => {
+  const load = readTierJson<{ eik?: string; address?: string }[]>(
+    SCHOOLS_INDEX_FILE,
+    "Tier S",
+    (j) =>
+      j.schoolsByObshtina as
+        | Record<string, { eik?: string; address?: string }[]>
+        | undefined,
+  );
+  const out = new Map<string, string>();
+  if (!load.ok) return { ...load, value: out };
+  for (const recs of Object.values(load.value)) {
     for (const r of recs) {
       const settlement = r.eik ? settlNorm(r.address) : "";
       if (r.eik && settlement) out.set(r.eik, settlement);
@@ -381,24 +426,16 @@ const fetchSchoolSeatMap = (): TierLoad<Map<string, string>> => {
 };
 
 // The ri.mon.bg crosswalk → eik → EKATTE (already a validated registry code,
-// so no resolver step). Defensive: empty map when the file is absent.
+// so no resolver step).
 const fetchRiCrosswalk = (): TierLoad<Map<string, string>> => {
+  const load = readTierJson<{ ekatte?: string }>(
+    RI_CROSSWALK_FILE,
+    "Tier R",
+    (j) => j.awarders as Record<string, { ekatte?: string }> | undefined,
+  );
   const out = new Map<string, string>();
-  if (!fs.existsSync(RI_CROSSWALK_FILE))
-    return down(
-      `Tier R unavailable — no RI crosswalk at ${path.relative(process.cwd(), RI_CROSSWALK_FILE)}`,
-      out,
-    );
-  let j: { awarders?: Record<string, { ekatte?: string }> };
-  try {
-    j = JSON.parse(fs.readFileSync(RI_CROSSWALK_FILE, "utf8"));
-  } catch (e) {
-    return down(
-      `Tier R unavailable — RI crosswalk unreadable: ${(e as Error).message}`,
-      out,
-    );
-  }
-  for (const [eik, rec] of Object.entries(j.awarders ?? {}))
+  if (!load.ok) return { ...load, value: out };
+  for (const [eik, rec] of Object.entries(load.value))
     if (rec.ekatte) out.set(eik, rec.ekatte);
   console.log(
     `  Tier R: RI register crosswalk supplied ${out.size} eik→EKATTE`,
@@ -406,29 +443,16 @@ const fetchRiCrosswalk = (): TierLoad<Map<string, string>> => {
   return { ok: true, value: out };
 };
 
-// Tiers D and E are both `{ awarders: { <eik>: … } }` derived files. Same
-// contract as the loaders above: an unreadable file is an unavailable tier.
+// Tiers D and E are both `{ awarders: { <eik>: … } }` derived files.
 const loadAwarderJson = <T>(
   file: string,
   tier: string,
-): TierLoad<Record<string, T>> => {
-  if (!fs.existsSync(file))
-    return down(
-      `${tier} unavailable — no file at ${path.relative(process.cwd(), file)}`,
-      {},
-    );
-  try {
-    const j = JSON.parse(fs.readFileSync(file, "utf8")) as {
-      awarders?: Record<string, T>;
-    };
-    return { ok: true, value: j.awarders ?? {} };
-  } catch (e) {
-    return down(
-      `${tier} unavailable — unreadable: ${(e as Error).message}`,
-      {},
-    );
-  }
-};
+): TierLoad<Record<string, T>> =>
+  readTierJson<T>(
+    file,
+    tier,
+    (j) => j.awarders as Record<string, T> | undefined,
+  );
 
 // The committed map we merge into. A missing file is a first build (no prior,
 // nothing to carry); a MALFORMED one is refused rather than silently treated as
@@ -469,15 +493,27 @@ const readPrior = (): {
 const main = async (): Promise<void> => {
   if (!fs.existsSync(AWARDERS_DIR)) {
     console.error(`no awarders dir at ${AWARDERS_DIR} — run the ingest first`);
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
-  // Candidates: awarders the OCDS feed gave no address for.
+  // Both preconditions up front: readPrior() is the one call that can be fatal,
+  // and it used to run after the МОН fetch, a 2,758-EIK sqlite scan, ~4,400
+  // awarder reads and the whole resolve loop — i.e. the operator paid five
+  // minutes to be told to `git checkout` one file.
+  const prior = readPrior();
+  const priorCount = Object.keys(prior.awarders).length;
+
+  // Candidates: awarders the OCDS feed gave no address for. `knownEiks` is
+  // every awarder in the dir, which is what lets the merge tell an awarder that
+  // GAINED an address from one that vanished with a half-rebuilt dir.
   const candidates: AwarderFile[] = [];
+  const knownEiks = new Set<string>();
   for (const f of fs.readdirSync(AWARDERS_DIR)) {
     if (!f.endsWith(".json")) continue;
     const a = JSON.parse(
       fs.readFileSync(path.join(AWARDERS_DIR, f), "utf8"),
     ) as AwarderFile;
+    knownEiks.add(a.eik);
     if (!a.address) candidates.push({ eik: a.eik, name: a.name });
   }
   console.log(
@@ -709,13 +745,12 @@ const main = async (): Promise<void> => {
     mon: monLoad.reason,
     oblast: oblastLoad.reason,
   };
-  const prior = readPrior();
-  const priorCount = Object.keys(prior.awarders).length;
   const { awarders: merged, report } = mergeGeoOverrides(
     prior.awarders,
     awarders,
     producibleSources(inputs),
     new Set(candidates.map((c) => c.eik)),
+    knownEiks,
   );
   const finalCount = Object.keys(merged).length;
   const carriedTotal = Object.values(report.carried).reduce((a, b) => a + b, 0);
@@ -766,29 +801,24 @@ const main = async (): Promise<void> => {
               .join(", ")})`
           : "") +
         `, ${report.retired} retired (awarder gained an address), ` +
+        `${report.vanished} vanished (gone from the awarders dir), ` +
         `${report.unresolved} dropped (tier ran, no longer resolves), ` +
+        `${report.malformed} malformed, ` +
         `${report.changed} re-resolved to a different EKATTE`,
     );
   for (const n of notes) console.warn(`  ! ${n}`);
 
-  // ── THE SHRINK GUARD ──────────────────────────────────────────────────────
-  // The merge above makes an unavailable tier non-shrinking by construction, so
-  // this is a BACKSTOP for the shapes it cannot model — a resolver regression
-  // that drops entries across several live tiers, or a half-rebuilt awarders
-  // dir that retires them wholesale. It is deliberately tighter than the 25%
-  // ratios elsewhere in the repo: the incident that motivated all of this was
-  // 93/2164 = 4.3%, which a 25% guard is arithmetically incapable of seeing.
-  const SHRINK_TOLERANCE = 0.05;
-  const lost = priorCount - finalCount;
-  if (
-    priorCount &&
-    lost / priorCount > SHRINK_TOLERANCE &&
-    !process.argv.includes("--allow-shrink")
-  ) {
+  // The verdict lives in awarder_geo_merge.ts so it is testable — see
+  // shrinkVerdict's header for why it counts GROSS loss rather than net size.
+  const { refuse, lost, pct } = shrinkVerdict(priorCount, report);
+  if (refuse && !process.argv.includes("--allow-shrink")) {
     console.error(
-      `\nREFUSING TO WRITE: the map would shrink ${priorCount} → ${finalCount} ` +
-        `(${lost} entries, ${((lost / priorCount) * 100).toFixed(1)}% > ${SHRINK_TOLERANCE * 100}%).\n` +
-        `  ${report.retired} retired (gained an address), ${report.unresolved} no longer resolve.\n` +
+      `\nREFUSING TO WRITE: ${lost} of ${priorCount} prior entries would be dropped ` +
+        `(${(pct * 100).toFixed(1)}% > ${SHRINK_TOLERANCE * 100}%) — ` +
+        `${report.retired} retired (gained an address), ${report.vanished} vanished ` +
+        `from the awarders dir, ${report.unresolved} no longer resolve, ` +
+        `${report.malformed} malformed.\n` +
+        `  map size ${priorCount} → ${finalCount}.\n` +
         `Re-run when every tier is reachable, or pass --allow-shrink if the contraction is real.`,
     );
     process.exitCode = 1;
