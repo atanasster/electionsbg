@@ -1,14 +1,14 @@
-# Watch report — 2026-08-10 (10.08.2026 г., 17:35 Europe/Sofia)
+# Watch report — 2026-08-10 (10.08.2026 г., 17:49 Europe/Sofia)
 
 ## Changed
-- **МО — доклад за отбраната**: 10 МО PDFs · latest year 2025
+_(no changes — all upstreams stable)_
 
 ## Unchanged
-- Parliament roll-call votes: unchanged (no new sessions (max id 11159, 2026-07-31))
-- Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
-- CIK local-elections results bundles: unchanged (0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked)
+- NATO defence-expenditure compendium: unchanged (compendium edition(s): 2025, 2026)
 
 ## Skipped (off-cadence)
+- Parliament roll-call votes (daily): no new sessions (max id 11159, 2026-07-31) · next check 2026-08-11
+- Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-08-11
 - OFAC SDN — Bulgaria-linked designations (sanctions facet) (weekly): 92 Bulgaria-linked SDN row(s) · next check 2026-08-14
 - Комисия по досиетата (comdos.bg) — решения (ДС facet) (monthly): 20 решение(я) on the comdos.bg archive · next check 2026-08-18
 - Регулатори / независими органи — състави (regulator facet) (monthly): Конституционен съд — състав (флагман; преглед на data/person/regulators.json) · next check 2026-08-18
@@ -91,6 +91,7 @@
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-08-20
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 20 year(s) · latest 2024 = -0.033 (Rule of Law) · next check 2026-08-12
 - Standard Eurobarometer (institutional trust) (monthly): latest wave: Standard Eurobarometer 105 (Spring 2026) · next check 2026-08-21
+- CIK local-elections results bundles (daily): 0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked · next check 2026-08-11
 - iisda.government.bg — Кметове на общини (monthly): 265 mayors registered · page-1 sample of 30 IDs · next check 2026-08-26
 - ИАОС air quality (data.egov.bg) (weekly): 2 total resources · PM10 2 res · next check 2026-08-11
 - Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-08-26
@@ -109,6 +110,7 @@
 - НЗОК — брой случаи и ЗОЛ по клинични пътеки (месечно) (monthly): newest activity file: 2026-06 · next check 2026-09-07
 - НЗОК — НРД цени на КП/АПр/КПр (договор + изменения) (monthly): 5 НРД contract/era links · next check 2026-09-03
 - НАТО — разходи за отбрана (monthly): 6 def-exp PDFs · latest edition 2026 · next check 2026-08-11
+- МО — доклад за отбраната (monthly): 10 МО PDFs · latest year 2025 · next check 2026-09-08
 - МИ — износ на оръжие (monthly): 54 export-report links · latest year 0 · next check 2026-09-08
 - АСП — отчети и доклади (monthly): 21 годишни отчета на АСП · next check 2026-08-15
 - ГИТ — доклади за дейността (monthly): 5 годишни доклада на ГИТ · next check 2026-08-15
@@ -117,10 +119,9 @@
 ## Errors
 - **data.egov.bg Commerce Registry (Търговски регистър)**: HTTP 403 Forbidden
 - **ДФ Земеделие — изплатени субсидии**: POST listDatasets → 403 Forbidden
-- **NATO defence-expenditure compendium**: no NATO def-exp compendium PDF found at known pattern
 - **МОН: ДЗИ резултати (data.egov.bg)**: HTTP 403 Forbidden
 - **МОН: НВО 7. клас резултати (data.egov.bg)**: HTTP 403 Forbidden
 - **ИВСС — декларации на магистрати**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-08-10T14:35:07.501Z UTC._
+_Watcher run at 2026-08-10T14:49:37.121Z UTC._
