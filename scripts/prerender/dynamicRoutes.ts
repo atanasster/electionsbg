@@ -94,6 +94,8 @@ import {
   readSettlementParents,
 } from "./educationPlaces";
 import { localOfficePhraseBg, localOfficePhraseEn } from "./localOfficePhrase";
+import { buildPlaceNameEn } from "./placeNameEn";
+import { transliterateName } from "@/data/candidates/transliterateName";
 import { buildArticleRoutes } from "./articleRoutes";
 import { INSTITUTION_PACKS } from "./institutions";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
@@ -4081,25 +4083,43 @@ const formatEurForPrerender = (n: number): string =>
 // Office and place read as ONE phrase (localOfficePhrase.ts) rather than as a label with
 // " в <place>" glued on: the mayor labels already name the kind of place they govern, so the
 // generic form printed the place twice ("Кмет на кметство в с. Цветино").
+//
+// The /en half names the person and the place in LATIN (transliterateName / placeNameEn). Until
+// 2026-08-10 it translated only the office and left both proper nouns in Cyrillic — "Иван
+// Георгиев Такучев — Chief architect in Ивайловград" — which put the identical Cyrillic name
+// in both mirrors' <title>s, so they competed for one Bulgarian query and Google served the
+// English page for „Иван Георгиев Такучев".
+type PlaceNameEn = ReturnType<typeof buildPlaceNameEn>;
+
 const localPersonRoute = (
   c: PersonLocalCard,
   path_: string,
   url: string,
   enUrl: string,
+  placeNameEn: PlaceNameEn,
 ): PrerenderRoute => {
   const name = escapeHtmlMinimal(c.name);
+  const nameEn = transliterateName(c.name);
+  const nameEnSafe = escapeHtmlMinimal(nameEn);
   const placeRaw = c.placeLabel;
   const place = placeRaw ? escapeHtmlMinimal(placeRaw) : null;
+  const placeEn = placeNameEn(c.placeCode, placeRaw);
+  const placeEnSafe = placeEn ? escapeHtmlMinimal(placeEn) : null;
   const officeBg = localOfficePhraseBg(c.role, placeRaw, c.placeCode);
-  const officeEn = localOfficePhraseEn(c.role, placeRaw, c.placeCode);
+  const officeEn = localOfficePhraseEn(c.role, placeRaw, c.placeCode, placeEn);
   // The body is HTML, the title/description are not — so the phrase is built twice, over the
   // raw place and over the escaped one, rather than escaping a composed sentence.
   const officeBgSafe = localOfficePhraseBg(c.role, place, c.placeCode);
-  const officeEnSafe = localOfficePhraseEn(c.role, place, c.placeCode);
+  const officeEnSafe = localOfficePhraseEn(
+    c.role,
+    place,
+    c.placeCode,
+    placeEnSafe,
+  );
   const title = `${c.name} — ${officeBg} | electionsbg.com`;
-  const titleEn = `${c.name} — ${officeEn} | electionsbg.com`;
+  const titleEn = `${nameEn} — ${officeEn} | electionsbg.com`;
   const description = `Профил на ${c.name}, ${officeBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
-  const descriptionEn = `Profile of ${c.name}, ${officeEn}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
+  const descriptionEn = `Profile of ${nameEn}, ${officeEn}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
   return {
     path: path_,
     title,
@@ -4119,9 +4139,13 @@ const localPersonRoute = (
     english: {
       title: titleEn,
       description: descriptionEn,
+      // The Cyrillic name rides in the body as an explicit alias: the page is English, but a
+      // reader who arrived from a Bulgarian source must still be able to confirm it is the
+      // same person, and the /bg twin owns the Cyrillic <title> either way.
       bodyHtml: `
-<h1>${name}</h1>
+<h1>${nameEnSafe}</h1>
 <p>${officeEnSafe}.</p>
+<p>Bulgarian name: ${name}.</p>
 <p>See the <a href="${SITE_URL}/en/local">local elections</a> and the profile for declarations, connections and public procurement.</p>`.trim(),
       jsonLd: [
         buildWebPageLd({
@@ -4133,7 +4157,7 @@ const localPersonRoute = (
         buildBreadcrumbLd([
           { name: "Home", url: EN_HOME },
           { name: "Local elections", url: `${SITE_URL}/en/local` },
-          { name: c.name, url: enUrl },
+          { name: nameEn, url: enUrl },
         ]),
       ],
     },
@@ -4162,6 +4186,7 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
   } catch {
     return [];
   }
+  const placeNameEn = buildPlaceNameEn(projectRoot);
   const out: PrerenderRoute[] = [];
   for (const entry of manifest) {
     if (!entry.prerender || !entry.card) continue;
@@ -4170,10 +4195,12 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
     const url = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
     if (c.kind === "local") {
-      out.push(localPersonRoute(c, path_, url, enUrl));
+      out.push(localPersonRoute(c, path_, url, enUrl, placeNameEn));
       continue;
     }
     const name = escapeHtmlMinimal(c.name);
+    const nameEn = transliterateName(c.name);
+    const nameEnSafe = escapeHtmlMinimal(nameEn);
     const institution = c.institution ? escapeHtmlMinimal(c.institution) : null;
     const position = c.positionTitle
       ? escapeHtmlMinimal(c.positionTitle)
@@ -4186,15 +4213,20 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
       c.netWorthEur == null ? null : formatEurForPrerender(c.netWorthEur);
     const yearBg = c.year ? ` (${c.year})` : "";
     const title = `${c.name} — декларирано имущество | electionsbg.com`;
-    const titleEn = `${c.name} — declared assets | electionsbg.com`;
+    const titleEn = `${nameEn} — declared assets | electionsbg.com`;
     const instBg = institution ? ` в ${institution}` : "";
+    // The institution and the position title stay Bulgarian on /en: there are 785 distinct
+    // institutions and 140 position titles in this corpus and no English source for any of
+    // them, and transliterating an institution name yields "Ministerstvo na otbranata" —
+    // strictly worse than the Bulgarian. The <title> (name + "declared assets") is fully
+    // English, which is the string that competes in search.
     const instEn = institution ? ` at ${institution}` : "";
     const description = netWorth
       ? `Декларирано нетно имущество ${netWorth}${yearBg} на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}. Източник: Сметна палата.`
       : `Профил на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}: декларации за имущество и интереси, връзки, обществени поръчки. Източник: Сметна палата.`;
     const descriptionEn = netWorth
-      ? `Declared net worth ${netWorth}${yearBg} for ${c.name}, ${categoryEn}${instEn}. Source: Bulgarian Court of Audit.`
-      : `Profile of ${c.name}, ${categoryEn}${instEn}: property/interest declarations, connections, public procurement. Source: Bulgarian Court of Audit.`;
+      ? `Declared net worth ${netWorth}${yearBg} for ${nameEn}, ${categoryEn}${instEn}. Source: Bulgarian Court of Audit.`
+      : `Profile of ${nameEn}, ${categoryEn}${instEn}: property/interest declarations, connections, public procurement. Source: Bulgarian Court of Audit.`;
     const netLineBg = netWorth
       ? `<p>Декларирано нетно имущество ${netWorth}${c.year ? ` от подадената за ${c.year} г. декларация` : ""} за имущество и интереси пред Сметната палата (декларант + съпруг/а, минус задължения).</p>`
       : "";
@@ -4222,9 +4254,10 @@ ${netLineBg}
         title: titleEn,
         description: descriptionEn,
         bodyHtml: `
-<h1>${name}</h1>
+<h1>${nameEnSafe}</h1>
 <p>${categoryEn}${instEn}${position ? `. Position: ${position}` : ""}.</p>
 ${netLineEn}
+<p>Bulgarian name: ${name}.</p>
 <p>See also the <a href="${SITE_URL}/en/officials/assets">ranking of officials by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
         jsonLd: [
           buildWebPageLd({
@@ -4236,7 +4269,7 @@ ${netLineEn}
           buildBreadcrumbLd([
             { name: "Home", url: EN_HOME },
             { name: "Officials", url: `${SITE_URL}/en/officials/assets` },
-            { name: c.name, url: enUrl },
+            { name: nameEn, url: enUrl },
           ]),
         ],
       },

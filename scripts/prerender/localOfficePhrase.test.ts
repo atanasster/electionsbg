@@ -102,6 +102,9 @@ describe("localOfficePhraseBg", () => {
 });
 
 describe("localOfficePhraseEn", () => {
+  // Without a `placeEn` the phrase falls back to the Bulgarian name with its marker stripped.
+  // That is the honest degradation for a caller with no dictionary — but NOT what the
+  // prerender does; see the `placeEn` block below.
   it("drops the Bulgarian settlement abbreviation", () => {
     expect(localOfficePhraseEn("village_mayor", "с. Цветино")).toBe(
       "Village mayor of Цветино",
@@ -121,6 +124,45 @@ describe("localOfficePhraseEn", () => {
     expect(localOfficePhraseEn("rayon_mayor", "Пловдив")).toBe(
       "District mayor in Пловдив",
     );
+  });
+
+  // The whole point of the 4th argument: an /en page must not print a Cyrillic proper noun
+  // inside an English sentence ("Chief architect in Ивайловград").
+  it("prints the English place name when one is supplied", () => {
+    expect(
+      localOfficePhraseEn(
+        "chief_architect",
+        "Ивайловград",
+        "HKV11",
+        "Ivaylovgrad",
+      ),
+    ).toBe("Chief architect in Ivaylovgrad");
+    expect(localOfficePhraseEn("councillor", "Видин", "VID10", "Vidin")).toBe(
+      "Municipal councillor in Vidin",
+    );
+    expect(
+      localOfficePhraseEn("village_mayor", "с. Цветино", "78392", "Tsvetino"),
+    ).toBe("Village mayor of Tsvetino");
+    expect(localOfficePhraseEn("mayor", "Исперих", "RAZ04", "Isperih")).toBe(
+      "Municipal mayor of Isperih",
+    );
+  });
+
+  // The settlement/obshtina discrimination and the Sofia-район rule still read the BULGARIAN
+  // label and the code — an English name carries neither the "с." marker nor the S2 shape, so
+  // deriving the form from it would put a village mayor at the head of a municipality.
+  it("keeps discriminating on the Bulgarian label and the code", () => {
+    // resolve_persons falls back to the ОБЩИНА when a кметство name did not resolve; the
+    // short "of" form would then name a different office held by a different person.
+    expect(
+      localOfficePhraseEn("village_mayor", "Омуртаг", "TGV22", "Omurtag"),
+    ).toBe("Village mayor in Omurtag");
+    expect(localOfficePhraseEn("mayor", "Средец", "S2401", "Sredets")).toBe(
+      "District mayor of Sredets",
+    );
+    expect(
+      localOfficePhraseEn("chief_architect", "Витоша", "S2317", "Vitosha"),
+    ).toBe("Chief architect in Vitosha district");
   });
 });
 

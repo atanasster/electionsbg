@@ -57,9 +57,9 @@ const SETTLEMENT_MARKER = /^(?:с|гр|ман)\.\s+/u;
 export const isSettlementLabel = (place: string): boolean =>
   SETTLEMENT_MARKER.test(place);
 
-/** The English half prints the BULGARIAN place name — the card carries no English one — but
- *  "с." is a Bulgarian abbreviation, not part of the name, and reads as a typo in an English
- *  title. Strip just the marker, keep the name. */
+/** "с." is a Bulgarian abbreviation, not part of the name, and reads as a typo in an English
+ *  title. Strip just the marker, keep the name. Used both to fall back to the Bulgarian
+ *  spelling and as the input to placeNameEn's transliteration. */
 export const stripSettlementMarker = (place: string): string =>
   place.replace(SETTLEMENT_MARKER, "");
 
@@ -102,15 +102,20 @@ export const localOfficePhraseBg = (
   }
 };
 
-/** English office phrase, over the same (Bulgarian) place label. */
+/** English office phrase. `place` stays the BULGARIAN label because it is what discriminates
+ *  a settlement from an obshtina (the "с." marker), but the name PRINTED is `placeEn` — the
+ *  curated English one (placeNameEn.ts). Omitting `placeEn` keeps the old behaviour of
+ *  printing the Bulgarian name with its marker stripped, which is the honest degradation for
+ *  a caller that has no dictionary. */
 export const localOfficePhraseEn = (
   role: string,
   place: string | null,
   placeCode?: string | null,
+  placeEn?: string | null,
 ): string => {
   const office = ROLE_EN[role] ?? FALLBACK_EN;
   if (!place) return office;
-  const name = stripSettlementMarker(place);
+  const name = placeEn || stripSettlementMarker(place);
   if (isSofiaRayon(placeCode))
     return role === "mayor"
       ? `District mayor of ${name}`
