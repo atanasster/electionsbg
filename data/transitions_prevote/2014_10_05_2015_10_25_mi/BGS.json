@@ -68,39 +68,11 @@
         "votes": 2152
       },
       {
-        "id": "vmro",
-        "label": "vmro",
-        "labelEn": "vmro",
-        "color": "#888888",
-        "votes": 0
-      },
-      {
         "id": "p_23",
         "label": "ГН",
         "labelEn": "VP",
         "color": "lightslategrey",
         "votes": 1257
-      },
-      {
-        "id": "p_51",
-        "label": "ВМРО",
-        "labelEn": "VMRO",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_66",
-        "label": "НФСБ",
-        "labelEn": "NFSB",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_100",
-        "label": "БДЦ",
-        "labelEn": "BDC",
-        "color": "lightslategrey",
-        "votes": 0
       },
       {
         "id": "p_117",
@@ -156,20 +128,6 @@
         "votes": 1140
       },
       {
-        "id": "p_111",
-        "label": "РБ",
-        "labelEn": "RB",
-        "color": "rgb(66, 0, 255)",
-        "votes": 0
-      },
-      {
-        "id": "p_74",
-        "label": "ПФ",
-        "labelEn": "PF",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
         "id": "p_89",
         "label": "АБВ",
         "labelEn": "ABV",
@@ -191,6 +149,13 @@
         "votes": 542
       },
       {
+        "id": "p_51",
+        "label": "ВМРО",
+        "labelEn": "VMRO",
+        "color": "rgb(202, 40, 36)",
+        "votes": 4092
+      },
+      {
         "id": "21-2",
         "label": "Д21",
         "labelEn": "D21",
@@ -198,25 +163,11 @@
         "votes": 2114
       },
       {
-        "id": "vmro",
-        "label": "vmro",
-        "labelEn": "vmro",
-        "color": "#888888",
-        "votes": 0
-      },
-      {
         "id": "p_23",
         "label": "ГН",
         "labelEn": "VP",
         "color": "lightslategrey",
         "votes": 827
-      },
-      {
-        "id": "p_51",
-        "label": "ВМРО",
-        "labelEn": "VMRO",
-        "color": "rgb(202, 40, 36)",
-        "votes": 4092
       },
       {
         "id": "p_66",
@@ -231,20 +182,6 @@
         "labelEn": "BDC",
         "color": "lightslategrey",
         "votes": 5710
-      },
-      {
-        "id": "p_117",
-        "label": "НС",
-        "labelEn": "NS",
-        "color": "rgb(82, 82, 82)",
-        "votes": 0
-      },
-      {
-        "id": "p_118",
-        "label": "Зелените",
-        "labelEn": "The Greens",
-        "color": "rgb(99, 168, 61)",
-        "votes": 0
       },
       {
         "id": "__local_other",
@@ -319,13 +256,13 @@
       },
       {
         "from": "p_16",
-        "to": "21-2",
-        "votes": 60
+        "to": "p_51",
+        "votes": 145
       },
       {
         "from": "p_16",
-        "to": "p_51",
-        "votes": 145
+        "to": "21-2",
+        "votes": 60
       },
       {
         "from": "p_16",
@@ -364,13 +301,13 @@
       },
       {
         "from": "bsp",
-        "to": "21-2",
-        "votes": 59
+        "to": "p_51",
+        "votes": 1904
       },
       {
         "from": "bsp",
-        "to": "p_51",
-        "votes": 1904
+        "to": "21-2",
+        "votes": 59
       },
       {
         "from": "bsp",
@@ -484,13 +421,13 @@
       },
       {
         "from": "ataka",
-        "to": "p_23",
-        "votes": 268
+        "to": "p_51",
+        "votes": 546
       },
       {
         "from": "ataka",
-        "to": "p_51",
-        "votes": 546
+        "to": "p_23",
+        "votes": 268
       },
       {
         "from": "ataka",
@@ -519,13 +456,13 @@
       },
       {
         "from": "p_113",
-        "to": "p_23",
-        "votes": 44
+        "to": "p_51",
+        "votes": 1497
       },
       {
         "from": "p_113",
-        "to": "p_51",
-        "votes": 1497
+        "to": "p_23",
+        "votes": 44
       },
       {
         "from": "p_113",
@@ -697,7 +634,7 @@
       "fromId": "p_74",
       "toId": "gerb",
       "votes": 6518,
-      "share": 0.5018300227804166
+      "share": 0.5018300227804164
     }
   }
 }

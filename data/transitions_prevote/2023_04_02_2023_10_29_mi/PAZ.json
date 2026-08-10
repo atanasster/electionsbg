@@ -47,13 +47,6 @@
         "votes": 2937
       },
       {
-        "id": "p_67",
-        "label": "ПП",
-        "labelEn": "PP",
-        "color": "rgb(66, 0, 255)",
-        "votes": 0
-      },
-      {
         "id": "p_48",
         "label": "Левицата",
         "labelEn": "The Left",
@@ -68,32 +61,11 @@
         "votes": 2199
       },
       {
-        "id": "p_51",
-        "label": "ВМРО",
-        "labelEn": "VMRO",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_126",
-        "label": "СДС",
-        "labelEn": "SDS",
-        "color": "rgb(8, 70, 159)",
-        "votes": 0
-      },
-      {
         "id": "p_59",
         "label": "КОД",
         "labelEn": "KOD",
         "color": "rgb(0, 74, 121)",
         "votes": 130
-      },
-      {
-        "id": "p_1",
-        "label": "ПД",
-        "labelEn": "PD",
-        "color": "lightslategrey",
-        "votes": 0
       },
       {
         "id": "__parl_other",
@@ -164,13 +136,6 @@
         "votes": 3738
       },
       {
-        "id": "p_67",
-        "label": "ПП",
-        "labelEn": "PP",
-        "color": "rgb(66, 0, 255)",
-        "votes": 0
-      },
-      {
         "id": "p_48",
         "label": "Левицата",
         "labelEn": "The Left",
@@ -189,7 +154,7 @@
         "label": "ВМРО",
         "labelEn": "VMRO",
         "color": "rgb(202, 40, 36)",
-        "votes": 919
+        "votes": 1185
       },
       {
         "id": "p_126",
@@ -197,13 +162,6 @@
         "labelEn": "SDS",
         "color": "rgb(8, 70, 159)",
         "votes": 2689
-      },
-      {
-        "id": "p_59",
-        "label": "КОД",
-        "labelEn": "KOD",
-        "color": "rgb(0, 74, 121)",
-        "votes": 0
       },
       {
         "id": "p_1",
@@ -217,7 +175,7 @@
         "label": "Местни и други партии",
         "labelEn": "Local & other parties",
         "color": "#94a3b8",
-        "votes": 36539,
+        "votes": 36273,
         "pseudo": true
       },
       {
@@ -241,47 +199,47 @@
       {
         "from": "gerb",
         "to": "gerb",
-        "votes": 13365
+        "votes": 13348
       },
       {
         "from": "gerb",
         "to": "p_6",
-        "votes": 421
+        "votes": 412
       },
       {
         "from": "gerb",
         "to": "p_16",
-        "votes": 166
+        "votes": 163
       },
       {
         "from": "gerb",
         "to": "bsp",
-        "votes": 4552
+        "votes": 4496
       },
       {
         "from": "gerb",
         "to": "p_0",
-        "votes": 1399
+        "votes": 1388
       },
       {
         "from": "gerb",
         "to": "p_51",
-        "votes": 868
+        "votes": 1008
       },
       {
         "from": "gerb",
         "to": "p_126",
-        "votes": 2065
+        "votes": 2054
       },
       {
         "from": "gerb",
         "to": "__exited__",
-        "votes": 81
+        "votes": 51
       },
       {
         "from": "p_6",
         "to": "p_6",
-        "votes": 4828
+        "votes": 4839
       },
       {
         "from": "p_6",
@@ -291,97 +249,92 @@
       {
         "from": "p_6",
         "to": "p_1",
-        "votes": 367
+        "votes": 368
       },
       {
         "from": "p_6",
         "to": "__abstain__",
-        "votes": 7595
+        "votes": 7654
       },
       {
         "from": "p_6",
         "to": "__exited__",
-        "votes": 194
+        "votes": 125
       },
       {
         "from": "p_16",
         "to": "gerb",
-        "votes": 1030
+        "votes": 1048
       },
       {
         "from": "p_16",
         "to": "p_6",
-        "votes": 44
+        "votes": 43
       },
       {
         "from": "p_16",
         "to": "p_16",
-        "votes": 7471
+        "votes": 7474
       },
       {
         "from": "p_16",
         "to": "bsp",
-        "votes": 371
+        "votes": 373
       },
       {
         "from": "p_16",
         "to": "p_0",
-        "votes": 1044
+        "votes": 1055
       },
       {
         "from": "p_16",
         "to": "__local_other",
-        "votes": 3201
+        "votes": 3205
       },
       {
         "from": "p_16",
         "to": "__abstain__",
-        "votes": 309
+        "votes": 310
       },
       {
         "from": "p_16",
         "to": "__exited__",
-        "votes": 102
+        "votes": 65
       },
       {
         "from": "bsp",
         "to": "bsp",
-        "votes": 4421
-      },
-      {
-        "from": "bsp",
-        "to": "p_7",
-        "votes": 28
+        "votes": 4475
       },
       {
         "from": "bsp",
         "to": "p_126",
-        "votes": 518
+        "votes": 528
       },
       {
         "from": "bsp",
         "to": "__local_other",
-        "votes": 3463
+        "votes": 3421
       },
       {
         "from": "bsp",
         "to": "__exited__",
-        "votes": 33
+        "votes": 21
       },
       {
         "from": "p_7",
         "to": "p_7",
-        "votes": 3711
+        "votes": 3739
       },
       {
         "from": "p_7",
         "to": "__local_other",
-        "votes": 3866
+        "votes": 3591
       },
       {
         "from": "p_7",
         "to": "__exited__",
-        "votes": 2775
+        "votes": 3020
       },
       {
         "from": "p_0",
@@ -396,12 +349,12 @@
       {
         "from": "p_0",
         "to": "__abstain__",
-        "votes": 1713
+        "votes": 1724
       },
       {
         "from": "p_0",
         "to": "__exited__",
-        "votes": 32
+        "votes": 20
       },
       {
         "from": "p_48",
@@ -410,18 +363,23 @@
       },
       {
         "from": "p_48",
+        "to": "__local_other",
+        "votes": 22
+      },
+      {
+        "from": "p_48",
         "to": "__abstain__",
-        "votes": 1068
+        "votes": 1074
       },
       {
         "from": "p_48",
         "to": "__exited__",
-        "votes": 76
+        "votes": 49
       },
       {
         "from": "p_39",
         "to": "p_0",
-        "votes": 488
+        "votes": 483
       },
       {
         "from": "p_39",
@@ -431,89 +389,89 @@
       {
         "from": "p_39",
         "to": "__local_other",
-        "votes": 1606
-      },
-      {
-        "from": "p_39",
-        "to": "__exited__",
-        "votes": 26
+        "votes": 1621
       },
       {
         "from": "p_59",
         "to": "p_51",
-        "votes": 44
+        "votes": 41
       },
       {
         "from": "p_59",
         "to": "__local_other",
-        "votes": 38
+        "votes": 52
       },
       {
         "from": "p_59",
         "to": "__exited__",
-        "votes": 41
+        "votes": 29
       },
       {
         "from": "__parl_other",
         "to": "p_6",
-        "votes": 39
+        "votes": 38
       },
       {
         "from": "__parl_other",
         "to": "p_1",
-        "votes": 73
+        "votes": 72
       },
       {
         "from": "__parl_other",
         "to": "__local_other",
-        "votes": 794
+        "votes": 806
       },
       {
         "from": "__parl_other",
         "to": "__abstain__",
-        "votes": 731
+        "votes": 726
       },
       {
         "from": "__abstain__",
         "to": "p_6",
-        "votes": 222
+        "votes": 220
       },
       {
         "from": "__abstain__",
         "to": "p_7",
-        "votes": 38
+        "votes": 22
       },
       {
         "from": "__abstain__",
         "to": "p_0",
-        "votes": 807
+        "votes": 812
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_51",
+        "votes": 136
       },
       {
         "from": "__abstain__",
         "to": "__local_other",
-        "votes": 23572
+        "votes": 23554
       },
       {
         "from": "__abstain__",
         "to": "__abstain__",
-        "votes": 131906
+        "votes": 131835
       },
       {
         "from": "__abstain__",
         "to": "__exited__",
-        "votes": 81
+        "votes": 52
       }
     ]
   },
   "persistence": {
-    "stayedVotes": 33796,
-    "votedBothNamed": 49359,
-    "stayRate": 0.6846985996989973,
+    "stayedVotes": 33875,
+    "votedBothNamed": 49509,
+    "stayRate": 0.6842320064066899,
     "topDefection": {
       "fromId": "gerb",
       "toId": "bsp",
-      "votes": 4552,
-      "share": 0.1993040992101947
+      "votes": 4496,
+      "share": 0.1965560008694231
     }
   }
 }

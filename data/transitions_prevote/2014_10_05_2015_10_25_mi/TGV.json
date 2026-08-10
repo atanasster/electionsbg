@@ -68,39 +68,11 @@
         "votes": 316
       },
       {
-        "id": "vmro",
-        "label": "vmro",
-        "labelEn": "vmro",
-        "color": "#888888",
-        "votes": 0
-      },
-      {
         "id": "p_23",
         "label": "ГН",
         "labelEn": "VP",
         "color": "lightslategrey",
         "votes": 212
-      },
-      {
-        "id": "p_51",
-        "label": "ВМРО",
-        "labelEn": "VMRO",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_66",
-        "label": "НФСБ",
-        "labelEn": "NFSB",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_100",
-        "label": "БДЦ",
-        "labelEn": "BDC",
-        "color": "lightslategrey",
-        "votes": 0
       },
       {
         "id": "p_117",
@@ -149,27 +121,6 @@
         "votes": 19392
       },
       {
-        "id": "bsp",
-        "label": "БСП-ОЛ",
-        "labelEn": "BSP-UL",
-        "color": "rgb(237, 28, 36)",
-        "votes": 0
-      },
-      {
-        "id": "p_111",
-        "label": "РБ",
-        "labelEn": "RB",
-        "color": "rgb(66, 0, 255)",
-        "votes": 0
-      },
-      {
-        "id": "p_74",
-        "label": "ПФ",
-        "labelEn": "PF",
-        "color": "rgb(202, 40, 36)",
-        "votes": 0
-      },
-      {
         "id": "p_89",
         "label": "АБВ",
         "labelEn": "ABV",
@@ -191,6 +142,13 @@
         "votes": 109
       },
       {
+        "id": "p_51",
+        "label": "ВМРО",
+        "labelEn": "VMRO",
+        "color": "rgb(202, 40, 36)",
+        "votes": 262
+      },
+      {
         "id": "21-2",
         "label": "Д21",
         "labelEn": "D21",
@@ -198,25 +156,11 @@
         "votes": 675
       },
       {
-        "id": "vmro",
-        "label": "vmro",
-        "labelEn": "vmro",
-        "color": "#888888",
-        "votes": 0
-      },
-      {
         "id": "p_23",
         "label": "ГН",
         "labelEn": "VP",
         "color": "lightslategrey",
         "votes": 285
-      },
-      {
-        "id": "p_51",
-        "label": "ВМРО",
-        "labelEn": "VMRO",
-        "color": "rgb(202, 40, 36)",
-        "votes": 262
       },
       {
         "id": "p_66",
@@ -231,20 +175,6 @@
         "labelEn": "BDC",
         "color": "lightslategrey",
         "votes": 298
-      },
-      {
-        "id": "p_117",
-        "label": "НС",
-        "labelEn": "NS",
-        "color": "rgb(82, 82, 82)",
-        "votes": 0
-      },
-      {
-        "id": "p_118",
-        "label": "Зелените",
-        "labelEn": "The Greens",
-        "color": "rgb(99, 168, 61)",
-        "votes": 0
       },
       {
         "id": "__local_other",
@@ -459,6 +389,11 @@
       },
       {
         "from": "p_89",
+        "to": "p_51",
+        "votes": 160
+      },
+      {
+        "from": "p_89",
         "to": "21-2",
         "votes": 54
       },
@@ -466,11 +401,6 @@
         "from": "p_89",
         "to": "p_23",
         "votes": 153
-      },
-      {
-        "from": "p_89",
-        "to": "p_51",
-        "votes": 160
       },
       {
         "from": "p_89",
@@ -594,13 +524,13 @@
       },
       {
         "from": "__parl_other",
-        "to": "21-2",
-        "votes": 151
+        "to": "p_51",
+        "votes": 83
       },
       {
         "from": "__parl_other",
-        "to": "p_51",
-        "votes": 83
+        "to": "21-2",
+        "votes": 151
       },
       {
         "from": "__parl_other",
@@ -657,7 +587,7 @@
   "persistence": {
     "stayedVotes": 25724,
     "votedBothNamed": 33147,
-    "stayRate": 0.7760519124036062,
+    "stayRate": 0.776051912403606,
     "topDefection": {
       "fromId": "bsp",
       "toId": "gerb",

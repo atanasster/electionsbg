@@ -11,10 +11,20 @@
 // Downstream artifacts that derive from `primaryCanonicalId` are also
 // regenerated per cycle:
 //   - index.json         (council vote share + mayor-counts rollups)
+//   - sections/<code>.json  (the per-section party legend — see below)
 //   - _unmatched_coalitions.json (operator inbox)
 //   - officials_diff{.json,/} (only for regular _mi cycles)
 // and globally:
 //   - local_chmi_history.json (cross-cycle chmi feed)
+//
+// THE SECTION LEGEND IS PART OF THIS PASS, and was missing from it until
+// 2026-08-09. `municipalities/` alone is not the whole baked surface: each
+// `sections/<code>.json` carries its own `parties[]` legend with a baked
+// `primaryCanonicalId` AND a baked `color`, and it is what the per-section maps
+// render from. Leaving it out meant an override fix reached the município
+// bundles and stopped — measured after the ВМРО fix, 3,399 section shards still
+// served the retired `vmro` id in grey while every bundle had moved to `p_51`.
+// The two must be re-baked together or the same page shows two answers.
 
 import fs from "fs";
 import path from "path";
@@ -32,7 +42,7 @@ import {
   CoalitionResolution,
   resolveLocalParty,
 } from "./local_coalitions";
-import { buildIndex } from "./build_index_json";
+import { buildIndex, displayMeta } from "./build_index_json";
 import { buildRegionRollups } from "./build_region_json";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
@@ -112,6 +122,55 @@ const reapplyToOptionalRow = (
   return changed;
 };
 
+// The per-section party LEGEND. A different shape from the bundle rows — no
+// `memberCanonicalIds`, no `isIndependent`, but a baked `color` — so it gets its
+// own pass rather than being forced through `reapplyToRow`.
+//
+// `color` is re-derived because a stale id and a stale colour travel together:
+// fixing only the id would leave a real party rendering as unresolved on every
+// section map.
+//
+// IT MUST MATCH `apply_section_augmentation.ts:116` EXACTLY —
+// `leg?.primaryCanonicalId ? meta.color : "#9CA3AF"`. `displayMeta(null)`
+// returns "#6B7280", a DIFFERENT grey, so calling it unguarded made this pass
+// disagree with the ingest writer: 418,861 legend rows across 45,687 files
+// flipped, and because `--local-ingest` and `--resolve-local-canonicals` are
+// separate flags the rendered colour then depended on which ran last. Two
+// writers of one field have to agree on all of it, including the null branch.
+type SectionPartyLegend = {
+  localPartyNum: number;
+  localPartyName: string;
+  primaryCanonicalId: string | null;
+  color: string;
+};
+
+const reapplyToSectionShard = (
+  shard: { parties?: SectionPartyLegend[] },
+  byNickNameLower: Map<string, string>,
+  canonical: CanonicalPartiesIndex | undefined,
+  unmatched: Record<string, string[]>,
+): boolean => {
+  let dirty = false;
+  for (const p of shard.parties ?? []) {
+    const resolution = resolveLocalParty(p.localPartyName, byNickNameLower);
+    if (resolution.unmatchedFragments.length > 0) {
+      unmatched[p.localPartyName] = resolution.unmatchedFragments;
+    }
+    const color = resolution.primaryCanonicalId
+      ? displayMeta(resolution.primaryCanonicalId, canonical).color
+      : "#9CA3AF";
+    if (p.primaryCanonicalId !== resolution.primaryCanonicalId) {
+      p.primaryCanonicalId = resolution.primaryCanonicalId;
+      dirty = true;
+    }
+    if (p.color !== color) {
+      p.color = color;
+      dirty = true;
+    }
+  }
+  return dirty;
+};
+
 const reapplyToBundle = (
   bundle: LocalMunicipalityBundle,
   byNickNameLower: Map<string, string>,
@@ -185,6 +244,43 @@ export const resolveCanonicalsForCycle = (opts: {
     bundles.push(bundle);
   }
 
+  // The per-section legends. Same canonical index, same overrides — see the
+  // header for why these cannot be left behind when the bundles move.
+  const sectionsDir = path.join(cycleFolder, "sections");
+  let sectionDirty = 0;
+  if (fs.existsSync(sectionsDir)) {
+    // RECURSIVE. `sections/` is mixed: a flat `<obshtina>.json` legend per
+    // município AND a `<obshtina>/<sectionId>.json` per polling station, each
+    // carrying its OWN copy of the legend. A flat readdir sees 288 of a cycle's
+    // 2,437 files — which is how the first version of this pass reported 995
+    // legends rewritten and still left 3,644 files on the retired id.
+    const walk = (dir: string): string[] =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+        const full = path.join(dir, e.name);
+        if (e.isDirectory()) return walk(full);
+        return e.name.endsWith(".json") ? [full] : [];
+      });
+    for (const fpath of walk(sectionsDir)) {
+      // Named, because a bare parse error here is close to undiagnosable: it
+      // throws with no path, and it throws AFTER municipalities/ has been
+      // rewritten but BEFORE index.json and officials_diff, leaving the cycle
+      // half-regenerated. That exposure grew ~170× when this pass went
+      // recursive (288 files -> 48,883).
+      let shard: { parties?: SectionPartyLegend[] };
+      try {
+        shard = JSON.parse(fs.readFileSync(fpath, "utf-8"));
+      } catch (e) {
+        throw new Error(
+          `[resolve_canonicals] ${cycle}: cannot parse section shard ${fpath}: ${(e as Error).message}`,
+        );
+      }
+      if (reapplyToSectionShard(shard, byNickNameLower, canonical, unmatched)) {
+        fs.writeFileSync(fpath, stringify(shard), "utf-8");
+        sectionDirty++;
+      }
+    }
+  }
+
   // index.json rollups bake displayName/color from the canonical index, so
   // always rewrite it (even when no bundle changed) — a canonical-index
   // edit can shift displayName without flipping any id.
@@ -224,6 +320,10 @@ export const resolveCanonicalsForCycle = (opts: {
 
   console.log(
     `[resolve_canonicals] ${cycle}: ${dirtyCount}/${files.length} bundle(s) rewritten` +
+      // Reported separately from the bundles: the two counts move independently
+      // (a legend-only party changes no bundle row), and a silent 0 here is what
+      // "the fix reached municipalities/ and stopped" looked like.
+      `, ${sectionDirty} section legend(s)` +
       (Object.keys(unmatched).length > 0
         ? `, ${Object.keys(unmatched).length} unmatched coalition(s)`
         : ""),
@@ -269,4 +369,30 @@ export const resolveCanonicalsForAllLocalCycles = (opts: {
   // local_chmi_history.json is a cross-cycle index — rebuild once at the
   // end so it sees every refreshed bundle.
   buildChmiHistory({ stringify: opts.stringify });
+
+  // NOT regenerated here, and that is the reason they drifted — state it rather
+  // than leave the next person to rediscover it.
+  //
+  // `transitions_local/`, `transitions_prevote/` and `local_place_trends/` all
+  // read the SAME per-section legend this pass rewrites (reconcile_local.ts,
+  // reconcile_parl_local.ts), so a canonical fix that lands here and stops is
+  // the same "reaches one surface and stops" failure one level up — exactly
+  // what left 3,697 files on the retired `vmro` id.
+  //
+  // They are left out deliberately: each is an expensive matrix build with its
+  // own CLI flag and its own review surface, and folding them in would make
+  // this fast, idempotent pass slow and non-obvious. After changing a canonical
+  // id, run them too:
+  //
+  //   npm run data -- --local-flows
+  //   npm run data -- --prevote-flows
+  //   npm run data -- --local-place-trends
+  //   npm run data -- --local-problem-sections
+  //
+  // `served_canonical_ids.test.ts` fails if any of them is left stale.
+  console.log(
+    "[resolve_canonicals] note: transitions_local / transitions_prevote / " +
+      "local_place_trends read this legend and are NOT regenerated here — " +
+      "run --local-flows, --prevote-flows and --local-place-trends after an id change",
+  );
 };
