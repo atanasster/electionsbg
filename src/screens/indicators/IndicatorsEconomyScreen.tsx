@@ -24,6 +24,7 @@ import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { InflationBreakdownChart } from "@/screens/components/governments/InflationBreakdownChart";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
+import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshotStripAnnual";
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
@@ -439,6 +440,18 @@ export const IndicatorsEconomyScreen = () => {
             cannot share that axis. Published by Eurostat, never derived here —
             see the indicator's comment in fetch_eurostat.ts for why pairing
             our own compensation series with НОИ's gross wage does not work. */}
+        {/* Annual peers ride a strip, not chart ghost-lines: `peerOverlay`
+            reads the QUARTERLY `peers.indicators` block, and taxWedge lands in
+            `indicatorsAnnual` — same shape as the society screen's annual
+            small-multiples. It is also what makes a deliberately flat line
+            legible: without a reference, "this has not moved since 2018" gives
+            a reader no way to judge whether 34,9% is high or low. */}
+        {compare && (
+          <PeerSnapshotStripAnnual
+            indicatorKey="taxWedge"
+            formatValue={(v) => `${fmt1(v)}%`}
+          />
+        )}
         <GovernmentTimeline
           governments={governments}
           macro={macro}

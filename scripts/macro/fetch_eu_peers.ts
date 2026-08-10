@@ -751,6 +751,29 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
     minYears: 8,
   },
   {
+    key: "taxWedge",
+    dataset: "earn_nt_taxwedge",
+    // Tax + social contributions as a share of total labour cost. `unit: RT`
+    // is the only non-geo/freq/time dimension, and Eurostat publishes
+    // EU27_2020 directly, so no compute-from-members. ~18 points from 2008.
+    //
+    // The case is FIXED — single person, no children, 67% of average earnings
+    // — which is exactly what makes it comparable across the peer set; it is
+    // also why it is not "the average worker", per the indicator's unit label
+    // in fetch_eurostat.ts.
+    query: { unit: "RT" },
+    // "none", deliberately, on the prisonPopulationRate precedent. A lower
+    // wedge means more take-home pay AND less public revenue for the health,
+    // education and pension systems the same page reports on — there is no
+    // clean good direction, so the rank pill would be editorialising rather
+    // than informing. The 27-member distribution still renders, which is what
+    // supports "tenth lowest" as a neutral placement.
+    direction: "none",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/earn_nt_taxwedge/default/table",
+    minYears: 8,
+  },
+  {
     key: "digitalSkills",
     dataset: "isoc_sk_dskl_i21",
     // Citizen digital skills — share (16-74) with at least basic overall skills
