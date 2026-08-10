@@ -31,6 +31,7 @@ import {
   computeLabourSlackCallout,
   computeSlackEuAverage,
 } from "./labourSlack";
+import { computePayVsProductivityCallout } from "./payVsProductivity";
 
 const ECONOMY_INDICATOR_SPEC: IndicatorSpec = [
   {
@@ -112,6 +113,17 @@ export const IndicatorsEconomyScreen = () => {
   const labourSlackCallout = useMemo(
     () =>
       computeLabourSlackCallout(macro, (v) =>
+        v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
+      ),
+    [macro, lang],
+  );
+
+  // Pay vs productivity over the full overlapping window of the three annual
+  // series. Pure helper — see payVsProductivity.ts for the deflator choice and
+  // the per-employee vs per-person-employed caveat the caption discloses.
+  const payVsProductivity = useMemo(
+    () =>
+      computePayVsProductivityCallout(macro, (v) =>
         v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
       ),
     [macro, lang],
@@ -333,6 +345,61 @@ export const IndicatorsEconomyScreen = () => {
             {compare && slackEuAverage
               ? " " + t("indicators_labour_slack_eu", { value: slackEuAverage })
               : ""}
+          </p>
+        ) : null}
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_productivity")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_productivity_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
+              label:
+                "Eurostat nama_10_lp_ulc (real labour productivity + nominal unit labour cost, annual, 2015 = 100)",
+            },
+          ]}
+        />
+        {/* Both lines share Eurostat's own 2015 = 100 base, so one axis is
+            correct here — unlike the headline chart above, which mixes rates
+            and indices. Unit labour cost IS pay per unit of output, so the
+            pair needs no third derived line to state the gap. */}
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["labourProductivity", "unitLabourCost"]}
+          yAxisFormatter={(v) => v.toFixed(0)}
+          unitFormatter={(_k, v) => v.toFixed(1)}
+          // Fit to the data instead of Recharts' default 0-anchored domain.
+          // Neither index goes below ~65, so anchoring at zero spends a third
+          // of the plot on empty space and flattens the gap between the two
+          // lines — which is the only thing this chart is here to show.
+          yDomain={["auto", "auto"]}
+          height={300}
+        />
+        {payVsProductivity ? (
+          <p className="mt-3 text-xs text-muted-foreground max-w-3xl border-l-2 border-border pl-3">
+            {t("indicators_pay_vs_productivity", {
+              from: payVsProductivity.from,
+              to: payVsProductivity.to,
+              nominalPay: payVsProductivity.nominalPay,
+              prices: payVsProductivity.prices,
+              realPay: payVsProductivity.realPay,
+              productivity: payVsProductivity.productivity,
+            })}
+            {payVsProductivity.multiple
+              ? " " +
+                t("indicators_pay_vs_productivity_multiple", {
+                  multiple: payVsProductivity.multiple,
+                })
+              : ""}{" "}
+            {t("indicators_pay_vs_productivity_basis")}
           </p>
         ) : null}
       </section>

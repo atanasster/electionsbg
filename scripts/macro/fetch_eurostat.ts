@@ -906,6 +906,107 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     titleEn: "Labour income (nominal, YoY)",
     titleBg: "Доход от труд (номинален, YoY)",
   },
+  // --- Productivity block (nama_10_lp_ulc, annual) ------------------------
+  //
+  // The four series below exist as a SET: they are what makes "did pay outrun
+  // what we produce?" answerable from data/macro.json alone. `labourIncome`
+  // above cannot do it — it is an aggregate (a headcount rise reads as a pay
+  // rise) and it is nominal, so it says nothing about either productivity or
+  // purchasing power.
+  //
+  // Both index series are published on Eurostat's own 2015=100 base, so they
+  // are directly comparable to each other and share one chart axis. Nominal
+  // ULC is compensation per unit of output — i.e. it IS the pay-vs-output
+  // ratio by construction, which is why the pair (productivity, ULC) tells
+  // the story without a third derived line.
+  {
+    source: "eurostat",
+    key: "labourProductivity",
+    dataset: "nama_10_lp_ulc",
+    query: {
+      geo: "BG",
+      unit: "I15",
+      na_item: "RLPR_PER",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
+    unitLabelEn: "index, 2015 = 100 (real, per person employed)",
+    unitLabelBg: "индекс, 2015 = 100 (реална, на зает)",
+    titleEn: "Real labour productivity",
+    titleBg: "Реална производителност на труда",
+  },
+  {
+    source: "eurostat",
+    key: "unitLabourCost",
+    dataset: "nama_10_lp_ulc",
+    query: {
+      geo: "BG",
+      unit: "I15",
+      na_item: "NULC_PER",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
+    unitLabelEn: "index, 2015 = 100 (nominal, per person employed)",
+    unitLabelBg: "индекс, 2015 = 100 (номинални, на зает)",
+    titleEn: "Nominal unit labour cost",
+    titleBg: "Разходи за труд на единица продукция",
+  },
+  {
+    // Level, in EUR per employee per year. Eurostat publishes NO index form
+    // of D1_SAL_PER, so this cannot join the two index lines on one axis —
+    // it is carried for the level figure ("€19,682 in 2025") and, deflated by
+    // `priceIndex` below, for real pay growth.
+    //
+    // Note the base differs from the two series above: this is per EMPLOYEE,
+    // while productivity is per PERSON EMPLOYED (which includes the
+    // self-employed). Do not read the two as a clean ratio — for that,
+    // `unitLabourCost` is the series that already handles it correctly.
+    source: "eurostat",
+    key: "compensationPerEmployee",
+    dataset: "nama_10_lp_ulc",
+    query: {
+      geo: "BG",
+      unit: "EUR",
+      na_item: "D1_SAL_PER",
+      freq: "A",
+    },
+    cadence: "annual",
+    // Published from 2000 for BG but sparse at the front; the floor is well
+    // under the ~21 points START_YEAR yields.
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
+    unitLabelEn: "EUR per employee per year (incl. employer contributions)",
+    unitLabelBg: "евро на нает годишно (вкл. осигуровки от работодателя)",
+    titleEn: "Compensation per employee",
+    titleBg: "Разход за труд на нает",
+  },
+  {
+    // HICP as an annual INDEX, not a rate. The `inflation` series above is a
+    // YoY rate, and a chain of rounded YoY rates cannot be composed back into
+    // a cumulative price level without drift — so deflating a decade of pay
+    // growth needs the index itself. This is the same dataset Eurostat's own
+    // "prices in year X vs year Y" tooling uses.
+    source: "eurostat",
+    key: "priceIndex",
+    dataset: "prc_hicp_aind",
+    query: {
+      geo: "BG",
+      unit: "INX_A_AVG",
+      coicop: "CP00",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
+    unitLabelEn: "HICP index, 2015 = 100 (annual average)",
+    unitLabelBg: "ХИПЦ индекс, 2015 = 100 (средногодишен)",
+    titleEn: "Consumer price level (HICP)",
+    titleBg: "Ценово равнище (ХИПЦ)",
+  },
 ];
 
 const WORLD_BANK_INDICATORS: WorldBankIndicator[] = [

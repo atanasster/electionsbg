@@ -53,6 +53,14 @@ export type MacroIndicatorKey =
   | "economicSentiment"
   // Eurostat — labour income (quarterly, YoY derived)
   | "labourIncome"
+  // Eurostat — productivity block (annual, nama_10_lp_ulc + prc_hicp_aind).
+  // The first two share a 2015=100 base and belong on one axis; the last two
+  // are levels (EUR/year, price index) that exist so real pay growth is
+  // derivable from this artifact alone.
+  | "labourProductivity"
+  | "unitLabourCost"
+  | "compensationPerEmployee"
+  | "priceIndex"
   // Eurostat — social (quarterly / annual)
   | "youthUnemployment"
   | "housePricesYoY"

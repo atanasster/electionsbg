@@ -120,6 +120,12 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   industrialProd: "#047857",
   retailVolume: "#0d9488",
   labourIncome: "#65a30d",
+  // productivity block (index 2015 = 100) — cost lines warm, output line cool,
+  // so "what we pay" and "what we produce" never read as the same family.
+  labourProductivity: "#0284c7",
+  unitLabourCost: "#ea580c",
+  compensationPerEmployee: "#b45309",
+  priceIndex: "#9f1239",
   // sentiment (different scales — own chart)
   consumerConfidence: "#38bdf8",
   economicSentiment: "#4f46e5",
