@@ -82,6 +82,84 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
+  "every local role is dated from the election cycle in its own ref",
+  async () => {
+    // T1: the cycle is the ref's first segment, so coverage here is total by construction —
+    // a shortfall means the derivation stopped running, not that a source went quiet.
+    const [r] = await allRows<{ total: string; dated: string; basis: string }>(
+      `SELECT count(*) total,
+              count(start_date) dated,
+              count(*) FILTER (WHERE date_basis = 'election') basis
+         FROM person_role WHERE source = 'local'`,
+    );
+    assert.equal(
+      r.dated,
+      r.total,
+      `${Number(r.total) - Number(r.dated)} local roles carry no start date`,
+    );
+    assert.equal(
+      r.basis,
+      r.dated,
+      "a dated local role must declare basis 'election'",
+    );
+  },
+);
+
+test.skipIf(skip)("a by-election ends ONLY the seat it contested", async () => {
+  // The rule that makes the end dates worth publishing. If a partial were treated as a
+  // general election, every mandate outstanding on that date would end — so the count of
+  // roles ending on a NON-general date would run to five figures instead of the few
+  // hundred by-elections the corpus actually holds.
+  // "General" is derived from the REF here — the cycle folder's `_mi` suffix — which is a
+  // different route to the same fact than localTerms.ts's isRegularLocalCycle, so the two
+  // can disagree. Deriving it from row COUNTS instead does not work: 2011 and 2015 are real
+  // general elections this corpus only partly ingested (262 and 300 roles), so any
+  // volume threshold mislabels them as by-elections.
+  const [r] = await allRows<{ n: string; days: string; unobserved: string }>(
+    `WITH cyc AS (
+         SELECT start_date, end_date, split_part(ref, ':', 1) AS cycle
+           FROM person_role WHERE source = 'local'
+       ),
+       general AS (
+         SELECT DISTINCT start_date d FROM cyc
+          WHERE cycle LIKE '%\\_mi' AND start_date IS NOT NULL
+       ),
+       observed AS (SELECT DISTINCT start_date d FROM cyc WHERE start_date IS NOT NULL)
+       SELECT count(*) FILTER (WHERE end_date NOT IN (SELECT d FROM general)) n,
+              count(DISTINCT end_date) FILTER (WHERE end_date NOT IN (SELECT d FROM general)) days,
+              count(*) FILTER (WHERE end_date NOT IN (SELECT d FROM observed)) unobserved
+         FROM cyc WHERE end_date IS NOT NULL`,
+  );
+  assert.equal(
+    Number(r.unobserved),
+    0,
+    `${r.unobserved} mandates end on a date no local election in the corpus was held on — ` +
+      `an end date must be an observed election, never an inferred one`,
+  );
+  assert.ok(
+    Number(r.n) > 0,
+    "no local mandate ends on a by-election date — the per-seat partial index is not being applied",
+  );
+  assert.ok(
+    Number(r.n) < 2000,
+    `${r.n} roles end on a by-election date across ${r.days} dates — a partial is ending ` +
+      `mandates beyond its own seat (isRegularLocalCycle mis-classifying '*_chmi'?)`,
+  );
+});
+
+test.skipIf(skip)("no local mandate ends before it starts", async () => {
+  const [r] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM person_role
+        WHERE source = 'local' AND end_date IS NOT NULL AND end_date <= start_date`,
+  );
+  assert.equal(
+    Number(r.n),
+    0,
+    `${r.n} local roles end on or before their own election`,
+  );
+});
+
+test.skipIf(skip)(
   "no basis is used outside the declared vocabulary",
   async () => {
     const rows = await allRows<{ date_basis: string }>(

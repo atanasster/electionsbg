@@ -31,8 +31,57 @@ const isOffice = (r: OfficeRole): boolean =>
 const dedupeKey = (r: OfficeRole): string =>
   r.placeCode ? `${r.role}\t${r.placeCode}` : `${r.source}\t${r.role}\t`;
 
+/** One continuous stretch of holding a seat. `end: null` means still held. */
+export type OfficeSpan = { start: string | null; end: string | null };
+
+/** A folded office row: the representative role plus every stretch it was held for. */
+export type FoldedOffice<T> = T & { spans: OfficeSpan[] };
+
+/** Whole days from ISO date `a` to ISO date `b`. */
+const daysBetween = (a: string, b: string): number =>
+  (Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000;
+
 /**
- * Offices held, one row per seat, each spanning every term of that seat.
+ * Merge terms into CONTIGUOUS runs — never into one span across a gap.
+ *
+ * Consecutive terms of one seat abut rather than overlap: a local mandate's end IS the next
+ * election's date (`end === next.start`), and a parliamentary term ends the day before the
+ * next begins. Anything wider is a real absence from the office, so the 1-day tolerance
+ * covers both shapes without ever merging one away.
+ *
+ * Measured on the corpus, 1,675 people hold a local seat with a genuine gap — a village
+ * mayor who served 2007-2011 and returned in 2025 must read "2007 - 2011, since 2025", not
+ * "since 2007", which is what merging the group into one span claimed.
+ */
+const mergeRuns = (spans: OfficeSpan[]): OfficeSpan[] => {
+  // ISO-8601 sorts lexicographically. A wholly undated term says nothing about when the
+  // seat was held and is dropped rather than allowed to open or extend a run.
+  const sorted = spans
+    .filter((s) => s.start || s.end)
+    .sort((a, b) => (a.start ?? "9999").localeCompare(b.start ?? "9999"));
+
+  const out: OfficeSpan[] = [];
+  for (const s of sorted) {
+    const prev = out[out.length - 1];
+    const joins =
+      prev &&
+      // An OPEN run absorbs anything later: the seat is still held, so a later term cannot
+      // be a separate stretch.
+      (prev.end === null ||
+        (s.start !== null && daysBetween(prev.end, s.start) <= 1));
+    if (!joins) {
+      out.push({ ...s });
+      continue;
+    }
+    // Extend, letting a null end win — an open term must never be max()'d shut.
+    if (prev.end !== null)
+      prev.end = s.end === null ? null : s.end > prev.end ? s.end : prev.end;
+  }
+  return out;
+};
+
+/**
+ * Offices held, one row per seat, each carrying every stretch it was held for.
  *
  * The dedupe collapses the same seat recorded twice (a councillor appears in BOTH the
  * local-election results and the Court-of-Audit roster) and the same seat held repeatedly
@@ -43,18 +92,18 @@ const dedupeKey = (r: OfficeRole): string =>
  * 303 of 562 people with dated MP roles have 2–9 terms folded into one row, hiding 960 of
  * the 1,522 dated roles.
  *
- * So the group's span is merged rather than discarded:
+ * Hence `spans`, PLURAL — a re-elected holder reads as one stretch, someone who left and
+ * came back as two. Merging a group into a single start..end looks right and is not: it
+ * states a continuous tenure across an absence.
  *
- *   start  the earliest start in the group.
- *   end    the latest end — UNLESS some term in the group is still open, in which case
- *          null. An open term max()'d away would retire a sitting member.
- *
- * Only spans sharing the representative's `dateBasis` are merged: folding a mandate bound
+ * Only terms sharing the representative's `dateBasis` are merged: folding a mandate bound
  * together with a declaration's filing date would reintroduce exactly the conflation the
  * basis column exists to prevent. Rows on a different basis keep the seat row but
  * contribute no dates to it.
  */
-export const foldOffices = <T extends OfficeRole>(roles: T[]): T[] => {
+export const foldOffices = <T extends OfficeRole>(
+  roles: T[],
+): FoldedOffice<T>[] => {
   const groups = new Map<string, T[]>();
   for (const r of roles.filter(isOffice)) {
     const k = dedupeKey(r);
@@ -65,27 +114,13 @@ export const foldOffices = <T extends OfficeRole>(roles: T[]): T[] => {
 
   return [...groups.values()].map((group) => {
     const rep = group[0];
-    if (!rep.dateBasis) return rep;
-    const spans = group.filter((g) => g.dateBasis === rep.dateBasis);
-
-    const starts = spans.map((g) => g.start).filter((d): d is string => !!d);
-    const ends = spans.map((g) => g.end).filter((d): d is string => !!d);
-    // "Still holding it" is a term that STARTED and has no end. A row with neither date
-    // says nothing about whether the seat is current, so it must not open the span.
-    const stillHeld = spans.some((g) => g.start && !g.end);
-
-    // ISO-8601 dates sort lexicographically, so min/max need no parsing.
-    const start = starts.length
-      ? starts.reduce((a, b) => (a < b ? a : b))
-      : null;
-    const end = stillHeld
-      ? null
-      : ends.length
-        ? ends.reduce((a, b) => (a > b ? a : b))
-        : null;
-
-    return start === rep.start && end === rep.end
-      ? rep
-      : { ...rep, start, end };
+    if (!rep.dateBasis) return { ...rep, spans: [] };
+    const same = group.filter((g) => g.dateBasis === rep.dateBasis);
+    return {
+      ...rep,
+      spans: mergeRuns(
+        same.map((g) => ({ start: g.start ?? null, end: g.end ?? null })),
+      ),
+    };
   });
 };

@@ -61,3 +61,24 @@ export const officeTermPhrase = (
     titleKey: `pp_period_${basis}_note`,
   };
 };
+
+/**
+ * Phrase every stretch a seat was held for, newest first.
+ *
+ * Plural because a seat can be held, lost and regained: 1,675 people in the corpus hold a
+ * local seat across a gap, and rendering their first and last dates as one range would state
+ * a tenure they did not have. The screen joins these with a comma — "2007 - 2011, от 2025".
+ *
+ * Newest first because the current stretch is the one a reader is looking for; `spans`
+ * arrives oldest-first from foldOffices, which is the order the merge needs.
+ */
+export const officeTermPhrases = (
+  r: {
+    spans?: Array<{ start: string | null; end: string | null }>;
+  } & OfficeDates,
+  lang: string,
+): OfficeTermPhrase[] =>
+  [...(r.spans ?? [])]
+    .reverse()
+    .map((s) => officeTermPhrase({ ...s, dateBasis: r.dateBasis }, lang))
+    .filter((p): p is OfficeTermPhrase => p !== null);

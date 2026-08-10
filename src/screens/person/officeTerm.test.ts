@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { officeTermPhrase, type OfficeDates } from "./officeTerm";
+import {
+  officeTermPhrase,
+  officeTermPhrases,
+  type OfficeDates,
+} from "./officeTerm";
 import bg from "@/locales/bg/translation.json";
 import en from "@/locales/en/translation.json";
 
@@ -130,5 +134,49 @@ describe("officeTermPhrase", () => {
         expect(dict[until.key]).not.toContain("{{start}}");
       }
     }
+  });
+});
+
+describe("officeTermPhrases", () => {
+  it("phrases each stretch separately, newest first", () => {
+    // A seat lost and regained. Rendering the outer bounds as one range would claim a
+    // tenure the person did not have — the defect this plural form exists for.
+    const out = officeTermPhrases(
+      {
+        dateBasis: "election",
+        spans: [
+          { start: "2007-10-28", end: "2011-10-23" },
+          { start: "2025-06-15", end: null },
+        ],
+      },
+      "bg",
+    );
+    expect(out.map((p) => p.key)).toEqual([
+      "pp_period_election_since",
+      "pp_period_election_range",
+    ]);
+    expect(out[0].params.start).toContain("2025");
+  });
+
+  it("says nothing without a basis, however many spans there are", () => {
+    expect(
+      officeTermPhrases({ spans: [{ start: "2007-10-28", end: null }] }, "bg"),
+    ).toEqual([]);
+  });
+
+  it("says nothing when there are no spans at all", () => {
+    expect(officeTermPhrases({ dateBasis: "term" }, "bg")).toEqual([]);
+    expect(officeTermPhrases({ dateBasis: "term", spans: [] }, "bg")).toEqual(
+      [],
+    );
+  });
+
+  it("does not mutate the caller's spans while reversing", () => {
+    const spans = [
+      { start: "2007-10-28", end: "2011-10-23" },
+      { start: "2025-06-15", end: null },
+    ];
+    officeTermPhrases({ dateBasis: "election", spans }, "bg");
+    expect(spans[0].start).toBe("2007-10-28");
   });
 });

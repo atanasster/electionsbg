@@ -69,6 +69,7 @@ import {
   localSeatKey,
 } from "../parsers_local/localPersonRefs";
 
+import { buildLocalTermIndex, localTermBounds } from "./localTerms";
 import { seatsForMp } from "./mpSeats";
 import { NS_TERM_START } from "../../src/data/parliament/nsFolders";
 import {
@@ -1732,6 +1733,23 @@ async function main(): Promise<void> {
   const aliasRows: unknown[][] = [];
   const aliasSeen = new Set<string>();
   const mentionToPid = new Map<string, number>(); // mention id -> its person's pid
+
+  // WHICH local elections happened, and which seats each by-election contested — built once
+  // from every local mention in the run, because a mandate's end is a fact about the NEXT
+  // election rather than about the row itself. Whole-corpus by construction: a person whose
+  // own rows stop in 2019 is still ended by the 2023 general election somebody else's row
+  // records.
+  const localTermIndex = buildLocalTermIndex(
+    built.flatMap((b) =>
+      b.members
+        .filter((m) => m.source === "local" && m.corroborants.localCycle)
+        .map((m) => ({
+          cycle: m.corroborants.localCycle!,
+          seat: m.corroborants.localSeat ?? null,
+        })),
+    ),
+  );
+
   built.forEach((b, idx) => {
     const pid = idx + 1;
     for (const m of b.members) mentionToPid.set(m.id, pid);
@@ -1757,6 +1775,19 @@ async function main(): Promise<void> {
       // place-less because it keeps `person_role_place`'s 100%-fill invariant
       // and every `?oblast=` consumer working; `person_role_place.data.test.ts`
       // states it so the gate cannot be read as proving more than it does.
+      //
+      // A `local` mention is dated from the cycle already in its own ref (T1 of
+      // person-enrichment-v1): start = that election, end = the next regular cycle or the
+      // next by-election for the SAME seat, whichever is sooner. No new source — see
+      // localTerms.ts for why a partial must not end anything but its own seat.
+      const localBounds =
+        m.source === "local"
+          ? localTermBounds(
+              m.corroborants.localCycle ?? "",
+              m.corroborants.localSeat ?? null,
+              localTermIndex,
+            )
+          : null;
       const expanded: MpRoleRow[] =
         m.source === "mp"
           ? mpRoleRowsFor(m.raw.ref)
@@ -1764,8 +1795,8 @@ async function main(): Promise<void> {
               {
                 ref: m.raw.ref,
                 party: m.raw.cParty,
-                startDate: null,
-                endDate: null,
+                startDate: localBounds?.start ?? null,
+                endDate: localBounds?.end ?? null,
               },
             ];
       for (const row of expanded) {
@@ -1813,7 +1844,11 @@ async function main(): Promise<void> {
           // 'term' only where an mp mandate actually filled the columns. A later source
           // that fills a date without declaring what it measures stays visibly NULL rather
           // than being relabelled a mandate.
-          m.source === "mp" && (row.startDate || row.endDate) ? "term" : null,
+          m.source === "mp" && (row.startDate || row.endDate)
+            ? "term"
+            : m.source === "local" && (row.startDate || row.endDate)
+              ? "election"
+              : null,
           b.confidence,
           m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
         ]);

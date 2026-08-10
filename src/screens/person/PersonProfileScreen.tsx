@@ -11,7 +11,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfileState } from "./usePersonProfile";
-import { officeTermPhrase } from "./officeTerm";
+import { officeTermPhrases } from "./officeTerm";
 import { foldOffices } from "./offices";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
@@ -137,7 +137,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     () =>
       foldOffices(p.roles).map((r) => ({
         ...r,
-        term: officeTermPhrase(r, i18n.language ?? "bg"),
+        terms: officeTermPhrases(r, i18n.language ?? "bg"),
       })),
     [p.roles, i18n.language],
   );
@@ -150,8 +150,8 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       [
         ...new Set(
           offices
-            .filter((r) => r.term && r.dateBasis !== "term")
-            .map((r) => r.term!.titleKey),
+            .filter((r) => r.terms.length > 0 && r.dateBasis !== "term")
+            .map((r) => r.terms[0].titleKey),
         ),
       ] as string[],
     [offices],
@@ -524,9 +524,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                         <span className="text-sm font-medium">
                           {officeHeading(r)}
                         </span>
-                        {r.term && (
+                        {r.terms.length > 0 && (
                           <div className="text-xs text-muted-foreground">
-                            {String(t(r.term.key, r.term.params))}
+                            {/* Comma-joined stretches, newest first. A seat lost and
+                              regained is two stretches, never one long range. */}
+                            {r.terms
+                              .map((p) => String(t(p.key, p.params)))
+                              .join(", ")}
                           </div>
                         )}
                       </div>

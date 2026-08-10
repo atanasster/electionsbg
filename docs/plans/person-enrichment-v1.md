@@ -70,7 +70,24 @@ dated MP role, 303 have between 2 and 9 terms folded into a single row (960 of t
 roles). `foldOffices` merges the group's span rather than picking one term, so a nine-term
 MP reads "2017 – present"; the individual per-parliament rows are still not listed.
 
-### T1 — `local` roles: the date is already inside the ref (25,319 roles, deterministic)
+### T1 — `local` roles: the date is already inside the ref (25,319 roles) — SHIPPED
+
+**All 25,319 dated, 16,938 with an end** (`scripts/person/localTerms.ts`, `date_basis:
+'election'`). The end rule is the part worth stating: a REGULAR cycle (`*_mi`) contests every
+local office nationally and so ends every outstanding mandate, while a PARTIAL (`*_chmi`)
+contests one seat and ends only that one. Measured on the corpus, 338 mandates across 352
+seats end at a by-election rather than at a general election — those are exactly the people a
+"next general election" rule would have shown serving years after they were voted out.
+
+The suffix test is exact for a reason: `2024_06_23_chmi` also ends in `mi`, so a looser match
+would retire the entire country's mandates on the day one village voted.
+
+Known limit, stated rather than hidden: 46 район mayors have no cross-cycle seat key
+(`localSeatKey` returns null — their ref is index-based and their typed place is the parent
+община), so a by-election that replaced one mid-term is invisible and their term can read up
+to four years long. They still get the general-election end, which does not need the key.
+
+Original analysis:
 
 Every `local` role's `ref` **begins with its election cycle**:
 

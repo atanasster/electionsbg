@@ -30,36 +30,85 @@ describe("foldOffices", () => {
     ]);
   });
 
-  it("folds a multi-term office into ONE span rather than naming one term", () => {
+  it("folds CONSECUTIVE terms into one span rather than naming one term", () => {
     // The defect this exists for: nine terms collapse to one row, and before the merge the
-    // row carried whichever term the payload happened to put first.
+    // row carried whichever term the payload happened to put first. These three abut (a
+    // term ends the day before the next begins), so they are one continuous stretch.
     const [office] = foldOffices([
-      mp("2024-10-27", "2026-04-18"),
-      mp("2017-03-26", "2021-04-03"),
       mp("2021-04-04", "2021-07-10"),
+      mp("2017-03-26", "2021-04-03"),
+      mp("2021-07-11", "2026-04-18"),
     ]);
-    expect(office.start).toBe("2017-03-26");
-    expect(office.end).toBe("2026-04-18");
+    expect(office.spans).toEqual([{ start: "2017-03-26", end: "2026-04-18" }]);
   });
 
-  it("leaves the end OPEN when any term in the group is still running", () => {
+  it("does NOT bridge a real absence from the office", () => {
+    // 1,675 people in the corpus hold a local seat across a gap. Merging to one span said
+    // "since 2007" for a village mayor who served 2007-2011 and returned in 2025.
+    const [office] = foldOffices([
+      {
+        source: "local",
+        role: "village_mayor",
+        placeCode: "53727",
+        start: "2007-10-28",
+        end: "2011-10-23",
+        dateBasis: "election",
+      },
+      {
+        source: "local",
+        role: "village_mayor",
+        placeCode: "53727",
+        start: "2025-06-15",
+        end: null,
+        dateBasis: "election",
+      },
+    ]);
+    expect(office.spans).toEqual([
+      { start: "2007-10-28", end: "2011-10-23" },
+      { start: "2025-06-15", end: null },
+    ]);
+  });
+
+  it("treats an abutting local re-election as continuous", () => {
+    // A local mandate's end IS the next election's date, so a re-elected mayor is one run.
+    const [office] = foldOffices([
+      {
+        source: "local",
+        role: "mayor",
+        placeCode: "BLG11",
+        start: "2019-10-27",
+        end: "2023-10-29",
+        dateBasis: "election",
+      },
+      {
+        source: "local",
+        role: "mayor",
+        placeCode: "BLG11",
+        start: "2023-10-29",
+        end: null,
+        dateBasis: "election",
+      },
+    ]);
+    expect(office.spans).toEqual([{ start: "2019-10-27", end: null }]);
+  });
+
+  it("leaves the end OPEN when the latest term is still running", () => {
     // max()-ing the ends would retire a sitting member on their own profile.
     const [office] = foldOffices([
-      mp("2024-10-27", "2026-04-18"),
+      mp("2021-04-04", "2026-04-18"),
       mp("2026-04-19", null),
       mp("2017-03-26", "2021-04-03"),
     ]);
-    expect(office.start).toBe("2017-03-26");
-    expect(office.end).toBeNull();
+    expect(office.spans).toEqual([{ start: "2017-03-26", end: null }]);
   });
 
-  it("does not treat a wholly undated row as an open term", () => {
+  it("does not let a wholly undated row open or extend a run", () => {
     // A row with neither date says nothing about whether the seat is current.
     const [office] = foldOffices([
       mp("2024-10-27", "2026-04-18"),
       mp(null, null),
     ]);
-    expect(office.end).toBe("2026-04-18");
+    expect(office.spans).toEqual([{ start: "2024-10-27", end: "2026-04-18" }]);
   });
 
   it("never merges spans of different bases", () => {
@@ -84,8 +133,7 @@ describe("foldOffices", () => {
       },
     ]);
     expect(office.dateBasis).toBe("filing");
-    expect(office.start).toBe("2025-01-07");
-    expect(office.end).toBeNull();
+    expect(office.spans).toEqual([{ start: "2025-01-07", end: null }]);
   });
 
   it("dedupes one seat recorded by two sources", () => {
@@ -115,11 +163,11 @@ describe("foldOffices", () => {
     expect(kept).toHaveLength(3);
   });
 
-  it("returns the representative untouched when the merge changes nothing", () => {
-    // Identity preserved so React keys and referential equality are stable for the common
-    // single-term case.
+  it("carries a single term through as one span", () => {
     const only = mp("2026-04-19", null);
-    expect(foldOffices([only])[0]).toBe(only);
+    const [office] = foldOffices([only]);
+    expect(office.spans).toEqual([{ start: "2026-04-19", end: null }]);
+    expect(office.source).toBe("mp");
   });
 
   it("contributes no dates when the representative has no basis", () => {
@@ -133,7 +181,7 @@ describe("foldOffices", () => {
       },
     ];
     const [office] = foldOffices(rows);
-    expect(office.start).toBe("2024-10-27");
+    expect(office.spans).toEqual([]);
     expect(office.dateBasis).toBeUndefined();
   });
 });

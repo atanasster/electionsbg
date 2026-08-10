@@ -31,6 +31,20 @@
 -- tie-broken by `start_date DESC NULLS LAST, ref` — the SAME tiebreak
 -- 100_officials_rankings.sql uses.
 --
+-- THAT TIEBREAK ONLY STARTED WORKING FOR LOCAL ROLES IN 2026-08 (person-enrichment-v1 T1),
+-- and the change is worth stating because it moves rows without any code here changing.
+-- Local roles had no start_date, so every one of them fell through `NULLS LAST` to `ref`
+-- — which begins with the election cycle, ascending — and the representative role for a
+-- repeatedly-elected councillor was their OLDEST term. With T1's dates the intended
+-- `start_date DESC` applies and the newest term wins, which is what the column is for: the
+-- `party` chip on /persons now shows the party they last stood for rather than the one
+-- they stood for in 2007. Measured on the corpus at the time: 5,262 of 18,247 people with
+-- a local role change representative row.
+--
+-- The matview is NOT rebuilt by the resolver, so this only takes effect at the next
+-- `db:load:persons-browse:pg[:cloud]` — until then /persons keeps the old pick while
+-- /person shows the new dates.
+--
 -- Among the six Court-of-Audit officials sources the score order is IDENTICAL to 100's
 -- CASE (official_exec > public_sector > president > mep > diplomat > official_muni), so
 -- restricted to those sources this file and 100 pick the SAME role. That is not a
