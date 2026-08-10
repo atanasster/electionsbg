@@ -16,12 +16,19 @@ manifest on 2026-08-03. The three measurements in §1 are the ones that decide t
 
 | Tier | Deliverable |
 |---|---|
+| **T0** | Add the `ds:interreg` node the corpus has been missing, so T1 has an endpoint to attach to (§10.1) |
 | **T1** | Lateral `dataset ↔ dataset` edges on the data map, labelled by join key, weighted by measured overlap |
 | **T2** | `/data` as a navigation hub — a browsable dataset directory, not just a canvas |
-| **T3** | `/db` — hide the 48 non-data relations, and replace the 10 sample queries with a purpose-organised library |
+| **T3** | `/db` — hide the ~47 non-data relations, and replace the 10 sample queries with a purpose-organised library |
 
+T0 is a prerequisite for three of T1's links and is worth shipping on its own regardless: the
+current `src:keep_eu → ds:funds` edge makes a false claim about the corpus today (§8.4).
 T1 and T3 are independent. T2 depends on T1 only for the "what links to what" surface;
 it can ship without it.
+
+> **§6–§10 are the evidence log**, appended as the audits were run. Where a measurement changed
+> a design decision, the decision has been folded into §1–§5 above and the section cross-refs
+> the finding. §10.8 records one retraction: a claim in §6.4a that reached a commit message.
 
 ---
 
@@ -93,12 +100,20 @@ to a React Flow node is additive — existing edges keep using the default Left/
 
 ### 1.3 The map is wider than Postgres — so links must be curated, not derived
 
-Of the 32 dataset nodes, roughly a third have no Postgres representation at all
+Of the 33 dataset nodes, roughly a third have no Postgres representation at all
 (`ds:elections`, `ds:polls`, `ds:macro`, `ds:budget`, `ds:demographics`, `ds:culture`,
 `ds:local`, `ds:geo`, the four `ds:*` budget annex nodes …) — they are JSON trees under
 `data/`. A generator that derived links from `pg_catalog` FK/column analysis would cover the
 money half of the corpus and silently omit the elections half, which is precisely the half the
 "one linked corpus" argument needs.
+
+> **Re-measure this ratio before citing it.** The counts below were taken before six PG
+> families landed — `interreg_*` (137), `open_calls` (142), `fund_fit` (143), `bill` (136),
+> `vote_item`/`vote_cast` (134, 16,741 / 4,017,519 rows) and `tr_company_place` (133, 324,039).
+> `vote_cast` alone moves the PG-vs-JSON balance the argument rests on, and `tr_company_place`
+> is a company→EKATTE spine that would change every `ekatte` overlap in the table below. The
+> *conclusion* (curate, don't derive) is unaffected — it turns on the JSON-only third, which is
+> still JSON-only. See §10.4.
 
 So: **links are declared in `model.ts`** (like `EDGES`), each naming its join key. Where both
 endpoints are PG-backed, the build *measures* the overlap and stamps it on the link. Where
@@ -121,6 +136,17 @@ inventing one.
 | `ds:procurement` ↔ `ds:funds` (seated settlements) | `ekatte` | 897 |
 | `ds:procurement` ↔ `ds:prices` (seats × stores) | `ekatte` | 203 |
 | `ds:prices` ↔ `ds:funds` | `ekatte` | 242 |
+| `ds:opencalls` ↔ `ds:funds` (`open_calls.code` × `fund_fit.procedure_code`) | `procedure` | **27 of 66** coded calls |
+| `ds:opencalls` ↔ `ds:funds` (`open_calls.programme_code` × `fund_projects.program_code`) | `programme` | **12 of 14** — needs normalisation, see below |
+| `ds:interreg` ↔ `ds:geo` (`interreg_partners.ekatte` × `place_dim`) | `ekatte` | 1,469 of 1,469 placed rows (160 places) |
+| `ds:interreg` ↔ `ds:connections` (`interreg_partners` × `tr_companies`) | `eik` | 176 of 829 EIK-carrying rows |
+| `ds:interreg` ↔ `ds:procurement` (partner × contractor) | `eik` | 42 of 554 distinct EIKs |
+
+The last five are new in the second pass (§10.2, §10.6) and require **two model changes**
+(§2.1): a `procedure` / `programme` join key, and a `ds:interreg` node that does not exist yet
+(§10.1). The Interreg place link is 100% clean **on the rows that carry a key** — but only
+1,469 of 12,141 partner rows do, so its `overlap` must be rendered against the placed subset,
+never against the corpus (a §4.2-class error).
 
 And the `person_id` spine — people holding a role in **both** sources, top pairs:
 
@@ -136,9 +162,27 @@ ngo × tr              2,132     ngo × official_exec       911
 **One measurement earns the `overlap` field on its own.** `declaration_asset.ekatte` — a
 declared place key on 258,723 rows — is **100% NULL**: 0 distinct values, 0 join to
 `place_dim`. A curated link list with no measurement would have shipped
-`ds:officials ↔ ds:geo · ЕКАТТЕ` as a confident claim about a join that returns nothing. The
-build should therefore **fail** on a link whose declared key measures 0 overlap, the same way
-it already fails on an unmapped AI data path.
+`ds:officials ↔ ds:geo · ЕКАТТЕ` as a confident claim about a join that returns nothing.
+
+**But "fail on 0 overlap" is the wrong rule, and the second pass proved it.**
+`open_calls.programme_code` × `fund_projects.program_code` also measures **0** — not because
+the link is false, but because ИСУН's awarded corpus prefixes the 4-digit period
+(`2021BG16RFPR001`) while the open-calls crawl does not (`BG16FFPR002`). Strip the prefix and
+it is **12 of 14**. A blanket 0-overlap failure would have rejected a real link and taught the
+next author to delete it (§10.3).
+
+So the build must separate two different zeroes:
+
+| Shape | Diagnosis | Build behaviour |
+|---|---|---|
+| Key column absent, or 100% NULL on either side | **Dead link** — the join cannot exist (`declaration_asset.ekatte`) | **Fail** |
+| Both sides populated, intersection empty | **Probable normalisation gap** (`programme_code`) | **Fail with a different message**, naming sample values from each side |
+
+Both fail — a live map must not claim a join that returns nothing either way. What differs is
+the message, because the fixes are opposite: the first means *remove the link or fix the
+ingest*, the second means *declare a normaliser*. Hence `LinkDef.normalise` in §2.1: the rule
+is not "allow 0", it is "make the two zeroes distinguishable so the author fixes the right
+thing".
 
 ---
 
@@ -147,22 +191,55 @@ it already fails on an unmapped AI data path.
 ### 2.1 Model (`scripts/data_map/model.ts`)
 
 ```ts
-export type JoinKey = "eik" | "person_id" | "ekatte" | "time" | "party";
+export type JoinKey =
+  | "eik" | "person_id" | "ekatte" | "time" | "party"
+  | "procedure" | "programme";           // NEW — open_calls ↔ funds (§10.2)
 
 export interface LinkDef {
   a: string; b: string;                  // dataset ids, no `ds:` prefix
-  key: JoinKey;
   note: Lang;                            // "кой изпълнител е получил и евросредства"
+
+  /** How the two datasets relate. Default "join". */
+  kind?: "join" | "boundary";
+
+  /** Required when kind is "join" (the default). Absent for "boundary". */
+  key?: JoinKey;
+
   /** Both sides in PG → the build measures and stamps `overlap`. */
-  measure?: { left: string; right: string };  // "contracts.contractor_eik" etc.
+  measure?: {
+    left: string; right: string;         // "contracts.contractor_eik" etc.
+    /** SQL applied to BOTH sides before comparing. See §1.3's two-zeroes rule. */
+    normalise?: string;                  // e.g. "regexp_replace($1,'^[0-9]{4}','')"
+    /** Denominator for the rendered ratio when the key is sparse (§10.6). */
+    of?: string;                         // "rows carrying an EKATTE", not the corpus
+  };
 }
 export const LINKS: LinkDef[] = [ /* ~25–30 */ ];
 ```
 
+Three additions over the first pass, each forced by a measurement:
+
+- **`normalise`** — `programme_code` measures 0 only because of a period prefix (§10.3).
+  Without it the honest options are "ship a link the build says is dead" or "drop a real link".
+- **`of`** — Interreg's place link resolves 1,469 of 1,469 *placed* rows, but only 12.1% of
+  partnerships carry a place key at all. `overlap` beside a corpus-sized dataset name reads as
+  coverage it does not have.
+- **`kind: "boundary"`** — the one relation on this map that is real and is **not** a join.
+  `ds:interreg` ↔ `ds:funds` share no key by construction: Interreg runs on Jems, ИСУН's
+  `fund_projects` holds zero Interreg rows, and the two are never summed because an ИСУН figure
+  is a contract's value and an Interreg figure one partner's budget (§10.1). A boundary link
+  renders differently (no key chip, no overlap count) and its `note` states the separation —
+  *"cross-border money, published separately; never add the two totals"*. Modelling it as a
+  join with `overlap: 0` would say the opposite of the truth.
+
 Target **25–30 links**, not 100. The map's job is to make the corpus legible; a complete
-join graph over 32 datasets is a hairball. Selection rule: a link earns a place if it is
+join graph over 33 datasets is a hairball. Selection rule: a link earns a place if it is
 either already exploited by a shipped feature, or is one of the cross-linking-strategy
 opportunities. Each is one line of `note` explaining what the join *answers*.
+
+**Prerequisite: `ds:interreg` does not exist yet** (§10.1). Adding the node — edged from the
+already-correct `src:keep_eu` — is T1 step zero, not a follow-up: until it lands, the corpus
+is folded into `ds:funds` and three of the links above have no endpoint to attach to.
 
 ### 2.2 Build (`scripts/data_map/build_manifest.ts`)
 
@@ -175,7 +252,11 @@ opportunities. Each is one line of `note` explaining what the join *answers*.
    no prior value and no database is an error. This keeps the churn-free write in
    [build_manifest.ts:436](../../scripts/data_map/build_manifest.ts#L436) honest — otherwise
    every no-PG build would rewrite the file with the overlaps stripped.
-3. Fail on a measured `overlap` of 0 (the `declaration_asset.ekatte` class).
+3. Fail on a measured `overlap` of 0 — with **two distinct messages** (§1.3): *dead link* when
+   the key is absent or 100% NULL on either side, *normalisation gap* when both sides are
+   populated but disjoint, the latter printing sample values from each side so the author can
+   write the `normalise` expression. `kind: "boundary"` links are skipped by this step entirely
+   — they declare no key to measure.
 4. Emit `links` into the manifest. **Do not add them to the ELK graph** (§1.1).
 5. Bump `version` to 2 and add `links: m.links ?? []` to the coercion in
    [useDataMap.ts:134](../../src/data/dataMap/useDataMap.ts#L134) — a returning visitor with a
@@ -205,6 +286,17 @@ opportunities. Each is one line of `note` explaining what the join *answers*.
 
 - `build_manifest` gate: every `LINKS` endpoint resolves; no measured-0 links; `links` absent
   from the ELK input (assert the ELK edge count equals `EDGES.length + aiEdges.length`).
+- **The two-zeroes gate discriminates.** Assert a fixture with a 100%-NULL key reports *dead
+  link*, and one with populated-but-disjoint sides reports *normalisation gap* — then assert
+  the `programme_code` pair passes **only** with its `normalise` applied. Without that last
+  step the test is satisfied by any rule that happens to accept everything, which is exactly
+  how the original blanket rule looked correct (§10.3).
+- **A `kind: "boundary"` link ships no `key` and no `overlap`**, and the renderer omits both.
+  Assert it, because the failure mode is silent: a boundary link that acquires an `overlap: 0`
+  through a default renders as "these two datasets share nothing", when the truth is "these
+  two must never be added together" (§10.1).
+- **Sparse-key links render against their declared `of` denominator**, not the dataset's row
+  count — assert the Interreg place link reports 1,469, never 12,141 (§10.6).
 - A layout-stability test: the manifest's node positions before/after the change are
   identical. This is the regression §1.1 exists to prevent, and it is invisible to every
   other check.
@@ -348,7 +440,25 @@ Restructure to **purpose → question → SQL**:
 | Companies & ownership | ownership chain; co-ownership neighbours via `graph_edge`; founding date vs first contract |
 | Places | money per capita by settlement; price basket vs oblast pension; awarder seats |
 | Elections | party vote share by oblast; councillors by party; mayor party × money |
+| EU money — can I apply | what is open now (`open_calls_list`); base rates for a procedure (`funds_fit_procedure`); grant median + quartiles; disbursed share |
+| Cross-border (Interreg) | operations by place (`interreg_by_place`); Bulgarian partners (`interreg_by_eik`); programme overview — **never summed with ИСУН** |
+| Parliament roll-call | attendance and dissent; party cohesion; voting twins (`mp_similarity`) |
 | Data quality / meta | freshness by dataset via `recent_updates`; row counts; coverage holes |
+
+The three new rows are the second pass's finding (§10.5): `grep -c "interreg\|open_calls\|fund_fit"`
+over `SqlBrowserScreen.tsx` returns **0** today, while those corpora hold 1,954 operations,
+12,141 partnerships, 71 open calls and 2,206 procedure rollups. Three traps the entries must
+carry in their leading comment, all documented in CLAUDE.md and none discoverable from the
+schema:
+
+- **`open_calls_list`'s NULL limit means unbounded.** A library entry must pass a bound, or the
+  console's row cap is the only thing between a visitor and a full scan.
+- **`vote_item` needs `WHERE superseded_by IS NULL`** on every aggregate — 1,645 of 16,741 items
+  are re-votes, so omitting it over-counts by 9.8% at a 200. And party affiliation lives on
+  `vote_cast.party_id` (affiliation at cast time), not `mp_seat.party_id`.
+- **`paid_project_count` is disbursement, not approval.** ИСУН publishes no rejected
+  applications, so no approval rate is computable; any entry implying one makes a claim the
+  corpus cannot support.
 
 Each entry: a title, a **one-line "what this answers"**, and SQL carrying a leading comment
 naming the join key and any trap (the `estimated_value_eur` forecast-vs-actual caveat already
@@ -356,7 +466,8 @@ in the tenders sample is the model). Group them in a collapsible left rail or a
 `DropdownMenu`, not a growing pill row — 40 pills is worse than 10.
 
 **The link back to T1.** Every query in the "Purpose" library exercises exactly one of the
-five join keys. Tag each with its `JoinKey` and the two `ds:*` it joins, and:
+seven join keys (§2.1 — `procedure` and `programme` were added in the second pass). Tag each
+with its `JoinKey` and the two `ds:*` it joins, and:
 
 - `/db` can show "this query walks the ЕИК link between Procurement and EU funds";
 - the map's lateral-link panel row can carry a "run this query" deep link into `/db?q=…`.
@@ -379,15 +490,22 @@ does not exist, fails the build.
 
 | Step | Depends on | Notes |
 |---|---|---|
+| 0. `ds:interreg` node; re-point `src:keep_eu` at it | — | Corrects a false claim live today (§8.4); unblocks 3 links |
 | 1. `db_catalog.js` + schema filter + dev/prod de-duplication | — | Ships value immediately; nothing else needed |
 | 2. Query library by purpose | 1 | Independent of the map |
-| 3. `LINKS` model + build validation + measurement | — | Generator-only, no UI |
+| 3. `LINKS` model + build validation + measurement | 0 | Generator-only, no UI |
 | 4. Manifest `links` + `version: 2` + client coercion | 3 | |
 | 5. Handles, `links` lens, `linked` node status, panel section | 4 | |
 | 6. Tour + query deep-links | 2, 5 | The join that makes both halves one feature |
 | 7. `/data` hub | 4 | Reads `links` for counts; ships without 5 |
 
-Steps 1–2 and 3–5 are two independent tracks.
+Steps 1–2 and 0/3–5 are two independent tracks.
+
+**Two prerequisites sit outside this plan and both are cheap to get wrong by ignoring.**
+Step 6's deep links need `/db` to read a query off the URL — `useSearchParams` is used **zero**
+times in `SqlBrowserScreen.tsx` today (§6.6), so that is net-new work inside step 2, not a
+free consequence of it. And the `/db` samples cannot be trusted as library seeds until
+`recent_updates()` is fixed (§6.2) — it is shipped as sample #10 and fails on both databases.
 
 ---
 
@@ -711,10 +829,17 @@ this bites:
 | `eurostat_env` | `src:eurostat` | **none — no `ds:environment`** |
 | `nsi_landuse` | `src:nsi` | folded into `ds:indicators` / `ds:demographics` |
 | `customs_revenue` / `customs_excise_register` | `src:ministries` | folded into `ds:budget` |
+| `keep_eu_interreg` | `src:keep_eu` | **none — no `ds:interreg`**; folded into `ds:funds` |
 
 Air quality has a watcher, a skill (`update-air-quality`), committed data (`data/air/`) and a
 product surface — and **no dataset node**, so `/data` cannot show it at all. Same for tourism
 and environment.
+
+**Interreg is the worst instance, and unlike the others the fold is actively wrong** rather
+than merely coarse. `src:keep_eu` edges into `ds:funds`, presenting the Jems corpus as part of
+ИСУН — two corpora that share no rows, are never summed, and whose serving layer ships a basis
+declaration inside every payload precisely to stop a consumer merging them (§10.1). The other
+rows in this table under-describe; this one asserts something false.
 
 Related mislabelling: **`ds:indicators` is labelled "Regional indicators" but its representative
 path is `data/schools/index.json`** — it is silently absorbing the education corpus, the
@@ -746,11 +871,25 @@ misleading.
 
 ---
 
-## 10. Gap audit — what this plan does not cover (2026-08-03, second pass)
+## 10. Second-pass gap audit — evidence (2026-08-03)
 
 Re-audited after the corpus grew. Everything below is measured against local Postgres, and the
-map file as it stands now (100 nodes: 33 datasets, 41 sources, 163 edges — §1.3's "32 dataset
-nodes" is already stale).
+map file as it stands now (100 nodes: 33 datasets, 41 sources, 163 edges).
+
+**These gaps are now folded into the design above** — this section is the evidence, kept
+because the numbers are what justify the decisions and the next author should be able to
+re-run them. Where each finding landed:
+
+| Finding | Folded into |
+|---|---|
+| §10.1 Interreg has no dataset node, and the `ds:funds` fold is false | §0 (new T0), §2.1 `kind: "boundary"`, §8.4 |
+| §10.2 `ds:opencalls` has no lateral edges | §1.3 table, §2.1 `procedure`/`programme` keys |
+| §10.3 A 0-overlap measurement is not proof of no join | §1.3 two-zeroes rule, §2.1 `normalise`, §2.2 step 3, §2.4 |
+| §10.4 The §1.3 baseline predates six PG families | §1.3 re-measure note |
+| §10.5 No `/db` samples for any new corpus | §4.4 (three new purpose rows + their traps) |
+| §10.6 Interreg's edges are real but sparse | §1.3 table, §2.1 `of` denominator, §2.4 |
+| §10.7 §8 is stale in the reader's favour | left in place; §8.1's guarantees still hold |
+| §10.8 §6.4a retraction | §0 pointer; §6.4a carries the correction |
 
 ### 10.1 🔴 Interreg is in the database and on the map as a SOURCE, but has no dataset node
 
