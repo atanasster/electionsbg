@@ -850,8 +850,12 @@ would claim a parliament that does not exist, and `split_part` handles the mixed
 
 ### T4 — publish
 
-**Status 2026-08-09: prepared, NOT executed.** Everything below is verified locally; the
-Cloud SQL and hosting steps are the operator's to run.
+**Status 2026-08-10: DEPLOYED and verified on production.** Measured on the serving database:
+`mp` rows **3,081**, per-NS refs / with a party / dated **1,522** each, `mp_person_link`
+**2,122** (not the 1,559 a broken ref gives), MP photos **2,120** (not 1,558), `vmro` **0**, and
+declarations phase 2 `0/47,983 still NULL`. On electionsbg.com: the ПАРТИЯ column carries no raw
+ids, the facet lists 143 options with no latin token, and Анна Бодакова reads **ДБ** — her
+parliamentary group, not the ПП-ДБ ballot coalition.
 
 **The whole change is READER-BACKWARD-COMPATIBLE, and that is what makes this safe.**
 `split_part('4720', ':', 1)` = `'4720'` — verified — so every patched reader works unchanged
@@ -878,6 +882,26 @@ npm run db:load:persons-browse:pg:cloud             # applies 120
 npm run db:load:person-search:pg:cloud
 npm run db:load:graph:pg:cloud
 npm run person:slugs:cloud                          # mints the committed manifest
+
+# ── 3. THE BUCKET. `data/` is NOT served by hosting. ─────────────────────
+# The first draft of this runbook stopped at step 2 and was WRONG. Everything
+# under data/ is fetched from gs://data-electionsbg-com (VITE_DATA_BASE_URL),
+# so `npm run deploy` never publishes it — canonical_parties.json included.
+# Measured on the 2026-08-10 deploy: every database check was green and the
+# ПАРТИЯ facet still listed `independent` as a latin token, because the bucket
+# held the pre-§0g 182-party table. Only the UI check caught it.
+npm run bucket:gz                                   # canonical_parties.json is in its list
+npm run bucket:sync:paths -- local_place_trends transitions_local transitions_prevote \
+                             2011_10_23_mi 2015_10_25_mi 2019_10_27_mi 2023_10_29_mi
+```
+
+**Two traps in that last step.** `bucket:gz` must run for `canonical_parties.json` because the
+bucket serves it gzipped and a plain rsync clobbers the encoding — and the objects carry
+`Cache-Control: max-age=300`, so a read straight after upload returns the OLD file. Append a
+cache-buster before concluding anything is stale:
+
+```bash
+curl -s --compressed "https://storage.googleapis.com/data-electionsbg-com/canonical_parties.json?cb=$RANDOM" | head -c 200
 ```
 
 **Verify on the serving database** — these are the numbers that caught every T3 defect, and
