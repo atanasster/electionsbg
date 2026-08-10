@@ -435,11 +435,6 @@ export const IndicatorsEconomyScreen = () => {
         <p className="text-xs text-muted-foreground mb-2 max-w-3xl">
           {t("governments_chart_tax_wedge_explainer")}
         </p>
-        {/* Own sub-chart rather than a third line above: this is a share of
-            labour cost (0-100%), not an index on the 2015 = 100 base, so it
-            cannot share that axis. Published by Eurostat, never derived here —
-            see the indicator's comment in fetch_eurostat.ts for why pairing
-            our own compensation series with НОИ's gross wage does not work. */}
         {/* Annual peers ride a strip, not chart ghost-lines: `peerOverlay`
             reads the QUARTERLY `peers.indicators` block, and taxWedge lands in
             `indicatorsAnnual` — same shape as the society screen's annual
@@ -452,6 +447,11 @@ export const IndicatorsEconomyScreen = () => {
             formatValue={(v) => `${fmt1(v)}%`}
           />
         )}
+        {/* Own sub-chart rather than a third line above: this is a share of
+            labour cost (0-100%), not an index on the 2015 = 100 base, so it
+            cannot share that axis. Published by Eurostat, never derived here —
+            see the indicator's comment in fetch_eurostat.ts for why pairing
+            our own compensation series with НОИ's gross wage does not work. */}
         <GovernmentTimeline
           governments={governments}
           macro={macro}

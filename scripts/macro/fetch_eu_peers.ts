@@ -27,7 +27,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -755,7 +755,10 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
     dataset: "earn_nt_taxwedge",
     // Tax + social contributions as a share of total labour cost. `unit: RT`
     // is the only non-geo/freq/time dimension, and Eurostat publishes
-    // EU27_2020 directly, so no compute-from-members. ~18 points from 2008.
+    // EU27_2020 directly, so no compute-from-members. Published from 2008, but
+    // this block starts at START_YEAR_ANNUAL (2010) — so 16 BG points, and 13
+    // for EU27_2020 and HR, which is Eurostat's own aggregate coverage rather
+    // than a fetch problem.
     //
     // The case is FIXED — single person, no children, 67% of average earnings
     // — which is exactly what makes it comparable across the peer set; it is
@@ -766,8 +769,14 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
     // wedge means more take-home pay AND less public revenue for the health,
     // education and pension systems the same page reports on — there is no
     // clean good direction, so the rank pill would be editorialising rather
-    // than informing. The 27-member distribution still renders, which is what
-    // supports "tenth lowest" as a neutral placement.
+    // than informing.
+    //
+    // Consequence, since it is not local to this line: direction "none" makes
+    // fetchAnnualIndicatorDistribution return null, so `latestDistribution` is
+    // absent and the strip renders no rank badge. The two are coupled — the
+    // distribution exists only to compute a rank — and decoupling them would
+    // change prisonPopulationRate too. Any "Nth lowest in the EU" claim
+    // therefore rests on Eurostat directly, not on this artifact.
     direction: "none",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/earn_nt_taxwedge/default/table",
@@ -1095,6 +1104,47 @@ interface WgiPayload {
   >;
 }
 
+/**
+ * Top-level blocks of `data/macro_peers.json` written by OTHER scripts.
+ * `fetch_food_pli.ts` is a targeted read-modify-write that sets `pricePli`;
+ * this script replaces the file wholesale from a fixed key set, so anything it
+ * does not know about is destroyed on every run unless it is carried across
+ * here.
+ *
+ * That is not hypothetical — it happened. Re-running this script for the
+ * taxWedge peers block deleted `pricePli` (24 COICOP categories × 9 geos),
+ * blanking `/consumption/eu` and reddening `fetch_food_pli.test.ts`, with a
+ * green run and no warning. A sentence in SKILL.md telling the operator to
+ * re-run the other script afterwards is not a defence; this is.
+ *
+ * A new side-merged block MUST be added here. `peers_foreign_blocks.test.ts`
+ * fails if the committed artifact grows a top-level key this writer neither
+ * emits nor lists.
+ */
+export const FOREIGN_BLOCKS = ["pricePli"] as const;
+
+/**
+ * The foreign blocks present in the committed file, to be spread back into the
+ * fresh payload. Missing file or unreadable JSON yields `{}` — a first-ever run
+ * legitimately has nothing to carry.
+ */
+export const readForeignBlocks = (
+  file: string = OUT_FILE,
+): Record<string, unknown> => {
+  if (!fs.existsSync(file)) return {};
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, "utf8")) as Record<
+      string,
+      unknown
+    >;
+    return Object.fromEntries(
+      FOREIGN_BLOCKS.filter((k) => raw[k] != null).map((k) => [k, raw[k]]),
+    );
+  } catch {
+    return {};
+  }
+};
+
 /** The WGI block from the committed file, for carry-forward when the World
  *  Bank API is down. Returns null when there is nothing to carry. */
 const readPriorWgi = (): WgiPayload | null => {
@@ -1377,6 +1427,11 @@ const main = async () => {
   }
 
   // ----- Combined payload ---------------------------------------------------
+  // Read BEFORE the write, since the write is what would destroy them.
+  const carriedForeign = readForeignBlocks();
+  const carriedKeys = Object.keys(carriedForeign);
+  const missingForeign = FOREIGN_BLOCKS.filter((k) => !(k in carriedForeign));
+
   const payload = {
     fetchedAt: new Date().toISOString(),
     source: {
@@ -1397,12 +1452,33 @@ const main = async () => {
     wgi,
     // Absent on a healthy run; ["wgi"] when that block is last run's vintage.
     ...(wgiDegraded ? { degraded: ["wgi"] } : {}),
+    // Blocks other scripts merged in. Deliberately NOT recorded in `degraded`:
+    // that array means "last run's vintage during an outage" and
+    // degraded.test.ts expires it after 14 days, whereas pricePli riding
+    // across this write between its own fetches is normal operation.
+    ...carriedForeign,
   };
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
   console.log(
     `\nWrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} legacy metrics + ${Object.keys(indicators).length} quarterly + ${Object.keys(indicatorsAnnual).length} annual + WGI(${Object.keys(wgi.series).length}d × ${Object.values(wgi.series)[0] ? Object.keys(Object.values(wgi.series)[0]!).length : 0}g @${wgi.latestYear}), latest legacy year ${legacyLatestYear}`,
   );
+  // Say which foreign blocks survived, and — more importantly — which did not.
+  // A block listed in FOREIGN_BLOCKS but absent from the prior file is either a
+  // first-ever run or a block that was already lost, and those must not look
+  // the same as a clean carry-forward.
+  if (carriedKeys.length) {
+    console.log(
+      `carried forward from other writers: ${carriedKeys.join(", ")}`,
+    );
+  }
+  if (missingForeign.length) {
+    console.warn(
+      `NOTE: ${missingForeign.join(", ")} not present in the previous ` +
+        `${path.basename(OUT_FILE)} — nothing to carry. If this is not a first ` +
+        `run, re-run the script that owns it (pricePli → fetch_food_pli.ts).`,
+    );
+  }
   if (wgiDegraded) {
     // Last line of stdout, so an unattended run's tail-N capture keeps it.
     console.warn(
@@ -1412,7 +1488,15 @@ const main = async () => {
   }
 };
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Run only when invoked as the entry point. Without this guard, `import`ing
+// anything from this module — as peers_foreign_blocks.test.ts does for
+// FOREIGN_BLOCKS / readForeignBlocks — fires the whole peers fetch: real
+// Eurostat and World Bank requests, and a rewrite of data/macro_peers.json
+// racing the very test that reads it. Same trap scripts/watch/cadence.ts
+// documents, and the same guard shape as scripts/bucket_sync_paths.ts.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

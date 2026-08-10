@@ -120,8 +120,8 @@ const CATS: {
     kind: "division",
   },
   // Food detail — expandable under the "Храни и безалкохолни" division. A010101
-  // ("Food") is kept because scripts/prices/build_payloads.ts + the AI food tool
-  // read pricePli.values.BG.A010101 for the consumption-hub "food vs EU" stat.
+  // ("Food") is kept for the consumption-hub "food vs EU" stat, read by
+  // ConsumptionEuScreen.tsx, ConsumptionScreen.tsx and PricesScreen.tsx.
   {
     code: "A010101",
     bg: "Храни (общо)",
