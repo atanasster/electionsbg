@@ -39,12 +39,34 @@ export const MACRO_ALIASES: Record<string, string> = {
   corruption: "wgiControlOfCorruption",
   доверие: "trustGovernment",
   trust: "trustGovernment",
-  // wider coverage so the 40 indicators in macro.json are actually reachable
+  // wider coverage so every indicator in macro.json is actually reachable
   "на човек": "gdpPerCapita",
   "per capita": "gdpPerCapita",
-  заплат: "labourIncome",
-  доход: "labourIncome",
-  wage: "labourIncome",
+  // Productivity block. Order in this object is load-bearing: resolveMacroKey
+  // scans Object.entries in insertion order and returns the FIRST substring
+  // hit, so every multi-word key must precede the shorter keys it contains.
+  // Hence longest-first throughout the block, and the whole block sits above
+  // the `разходи` → govExpenditure entry it would otherwise lose to.
+  "разходи за труд на единица": "unitLabourCost",
+  "разход за труд на единица": "unitLabourCost",
+  "единица продукция": "unitLabourCost",
+  "unit labour cost": "unitLabourCost",
+  "unit labor cost": "unitLabourCost",
+  производителност: "labourProductivity",
+  productivity: "labourProductivity",
+  // The nominal AGGREGATE, named explicitly and BEFORE the per-head keys
+  // below — "фонд работна заплата" contains "заплат", so the short key would
+  // otherwise swallow it.
+  "фонд работна заплата": "labourIncome",
+  "доход от труд": "labourIncome",
+  "compensation of employees": "labourIncome",
+  // Per-head pay LEVEL is the better default for a bare "заплата" question:
+  // `labourIncome` is compensation of employees in TOTAL, so a headcount rise
+  // reads there as a pay rise, and it is nominal.
+  "разход за труд": "compensationPerEmployee",
+  заплат: "compensationPerEmployee",
+  wage: "compensationPerEmployee",
+  доход: "compensationPerEmployee",
   "текуща сметка": "currentAccount",
   "current account": "currentAccount",
   чужди: "fdiInward",
@@ -81,8 +103,15 @@ export const MACRO_ALIASES: Record<string, string> = {
   confidence: "consumerConfidence",
   настроени: "economicSentiment",
   sentiment: "economicSentiment",
-  цени: "cpi",
+  "ценово равнище": "priceIndex",
+  "price level": "priceIndex",
+  цени: "priceIndex",
+  // `cpi` in macro.json is the Transparency International CORRUPTION
+  // Perceptions Index, not a consumer price index — the key name invites
+  // exactly the wrong mapping, and "цени" pointed here until the annual HICP
+  // index (`priceIndex`) existed to point at instead.
   cpi: "cpi",
+  корупц: "cpi",
 };
 
 export const resolveMacroKey = (raw: string): string | undefined => {

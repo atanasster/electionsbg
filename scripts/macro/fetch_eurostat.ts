@@ -974,9 +974,9 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
       na_item: "D1_SAL_PER",
       freq: "A",
     },
+    // No `minPoints` override: this inherits MIN_POINTS_ANNUAL (12), and
+    // START_YEAR yields ~21 points, so the floor has comfortable headroom.
     cadence: "annual",
-    // Published from 2000 for BG but sparse at the front; the floor is well
-    // under the ~21 points START_YEAR yields.
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
     unitLabelEn: "EUR per employee per year (incl. employer contributions)",

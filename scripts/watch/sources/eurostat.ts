@@ -183,6 +183,26 @@ const DATASETS: { code: string; query: string }[] = [
     code: "crim_pris_age",
     query: "geo=BG&age=TOTAL&sex=T&unit=P_HTHAB&freq=A",
   },
+  // Productivity + unit labour cost (nama_10_lp_ulc, annual). One dataset-level
+  // `updated` covers all three na_item cuts fetch_eurostat reads (RLPR_PER /
+  // NULC_PER / D1_SAL_PER), so one entry is enough — but it needs its OWN
+  // entry rather than riding the bundle's other members, because national
+  // accounts are revised on their own calendar. Without it the productivity
+  // block refreshes only when some unrelated member (in practice the monthly
+  // prc_hicp_minr) happens to flip: up to a month late, attributed to the
+  // wrong dataset, and unowned by any line in the report.
+  {
+    code: "nama_10_lp_ulc",
+    query: "geo=BG&unit=I15&na_item=RLPR_PER&freq=A",
+  },
+  // Annual HICP INDEX — the deflator behind the pay-vs-productivity caption on
+  // /indicators/economy. A separate release from the monthly prc_hicp_minr
+  // RATE tracked above, and the distinction is the point: the caption is
+  // deflated by the index precisely because a chain of rounded rates drifts.
+  {
+    code: "prc_hicp_aind",
+    query: "geo=BG&unit=INX_A_AVG&coicop=CP00&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -206,17 +226,18 @@ export const eurostat: WatchSource = {
   // DAILY, not monthly, and the bundle's mixed frequencies are exactly why.
   // Most members are quarterly or annual, but four publish MONTHLY
   // (prc_hicp_minr, une_rt_m, sts_trtu_m, ei_bssi_m_r2) and one fingerprint
-  // covers all 26 — so the probe has to keep up with the FASTEST member or the
-  // fast ones are sampled at the slow ones' rate. Under the old "monthly" this
-  // bundle missed the July 2026 HICP release for a fortnight (see ../cadence).
-  // The cost objection that motivated "monthly" is gone: the 26 probes now run
-  // concurrently, ~3s rather than ~23s.
+  // covers every member — so the probe has to keep up with the FASTEST member
+  // or the fast ones are sampled at the slow ones' rate. Under the old
+  // "monthly" this bundle missed the July 2026 HICP release for a fortnight
+  // (see ../cadence). The cost objection that motivated "monthly" is gone: the
+  // probes run concurrently, ~3s rather than ~23s. (Counts are deliberately not
+  // written out here — DATASETS grows, and the label above derives its own.)
   cadence: "daily",
   publishes: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
-    // Bounded concurrency: 26 metadata requests, but don't open 26 sockets to
-    // Eurostat at once — this runs unattended every day.
+    // Bounded concurrency: one metadata request per dataset, but don't open
+    // them all at once against Eurostat — this runs unattended every day.
     const entries: Record<string, string> = {};
     const queue = [...DATASETS];
     const worker = async (): Promise<void> => {

@@ -77,6 +77,14 @@ export const IndicatorsEconomyScreen = () => {
     [governments],
   );
 
+  // One decimal, locale separator. Every callout on this screen renders its
+  // figures through this — four of them did it inline before, so a change to
+  // precision or to the separator had to find each copy.
+  const fmt1 = useCallback(
+    (v: number) => v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
+    [lang],
+  );
+
   // Fresher-than-quarterly headline for a series whose chart line is a
   // quarterly aggregate: the newest monthly reading, rendered as a callout
   // under the line. Parameterised by key because two series need it —
@@ -91,10 +99,14 @@ export const IndicatorsEconomyScreen = () => {
         lang === "bg" ? "bg-BG" : "en-GB",
         { month: "long", year: "numeric" },
       );
-      const value = m.value.toFixed(1).replace(".", lang === "bg" ? "," : ".");
-      return { label, value, sourceUrl: m.sourceUrl, code: m.datasetCode };
+      return {
+        label,
+        value: fmt1(m.value),
+        sourceUrl: m.sourceUrl,
+        code: m.datasetCode,
+      };
     },
-    [macro, lang],
+    [macro, lang, fmt1],
   );
 
   const unemploymentMonthly = useMemo(
@@ -111,22 +123,16 @@ export const IndicatorsEconomyScreen = () => {
   // lives in a pure, unit-tested helper — see labourSlack.ts for the ratio and
   // denominator caveats.
   const labourSlackCallout = useMemo(
-    () =>
-      computeLabourSlackCallout(macro, (v) =>
-        v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
-      ),
-    [macro, lang],
+    () => computeLabourSlackCallout(macro, fmt1),
+    [macro, fmt1],
   );
 
   // Pay vs productivity over the full overlapping window of the three annual
   // series. Pure helper — see payVsProductivity.ts for the deflator choice and
   // the per-employee vs per-person-employed caveat the caption discloses.
   const payVsProductivity = useMemo(
-    () =>
-      computePayVsProductivityCallout(macro, (v) =>
-        v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
-      ),
-    [macro, lang],
+    () => computePayVsProductivityCallout(macro, fmt1),
+    [macro, fmt1],
   );
 
   // EU-27 average slack, shown beside the BG slack callout when Compare is on
@@ -137,9 +143,9 @@ export const IndicatorsEconomyScreen = () => {
       computeSlackEuAverage(
         slackPeer?.latestDistribution,
         labourSlackCallout ? labourSlackCallout.year : null,
-        (v) => v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
+        fmt1,
       ),
-    [slackPeer, labourSlackCallout, lang],
+    [slackPeer, labourSlackCallout, fmt1],
   );
 
   if (!governments) {
@@ -357,12 +363,21 @@ export const IndicatorsEconomyScreen = () => {
           {t("governments_chart_productivity_explainer")}
         </p>
         <ChartSources
-          prefix={t("governments_chart_source_prefix")}
+          prefix={t("governments_chart_sources_prefix")}
           sources={[
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_lp_ulc/default/table",
               label:
-                "Eurostat nama_10_lp_ulc (real labour productivity + nominal unit labour cost, annual, 2015 = 100)",
+                "Eurostat nama_10_lp_ulc (real labour productivity + nominal unit labour cost + compensation per employee, annual, 2015 = 100)",
+            },
+            {
+              // The caption below publishes two figures from THIS dataset —
+              // the price rise and the real-pay figure derived from it. Naming
+              // it is also where the deflator choice becomes visible: HICP,
+              // not the GDP deflator and not the site's own `inflation` rate.
+              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
+              label:
+                "Eurostat prc_hicp_aind (annual HICP index — the deflator behind the real-pay figure below)",
             },
           ]}
         />

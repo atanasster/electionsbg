@@ -1,6 +1,11 @@
+import fs from "fs";
+import path from "path";
 import { describe, expect, it } from "vitest";
 import type { MacroPayload, MacroPoint } from "@/data/macro/useMacro";
-import { computePayVsProductivityCallout } from "./payVsProductivity";
+import {
+  computePayVsProductivityCallout,
+  INDEX_BASE_YEAR,
+} from "./payVsProductivity";
 
 const pts = (v: Record<number, number>): MacroPoint[] =>
   Object.entries(v).map(([year, value]) => ({ year: +year, value }));
@@ -92,6 +97,71 @@ describe("computePayVsProductivityCallout", () => {
     expect(out?.to).toBe(2025);
   });
 
+  it("falls back rather than collapsing a window that ENDS at the base year", () => {
+    // Pinning `from` to 2015 here would make from === to and drop the callout
+    // entirely, even though [2014, 2015] is a usable window.
+    const out = computePayVsProductivityCallout(
+      payload({
+        compensationPerEmployee: pts({ 2014: 100, 2015: 150 }),
+        priceIndex: pts({ 2014: 100, 2015: 100 }),
+        labourProductivity: pts({ 2014: 100, 2015: 110 }),
+      }),
+      fmt,
+    );
+    expect(out?.from).toBe(2014);
+    expect(out?.to).toBe(2015);
+    expect(out?.realPay).toBe("50.0");
+  });
+
+  it("suppresses the multiple when real pay fell", () => {
+    // Prices outran pay. "Real pay grew roughly -0.4x faster than
+    // productivity" is a false claim with a number attached — pay fell. The
+    // two percentage figures in the sentence still tell the story.
+    const out = computePayVsProductivityCallout(
+      payload({
+        compensationPerEmployee: pts({ 2015: 100, 2025: 120 }),
+        priceIndex: pts({ 2015: 100, 2025: 150 }),
+        labourProductivity: pts({ 2015: 100, 2025: 150 }),
+      }),
+      fmt,
+    );
+    expect(out?.realPay).toBe("-20.0");
+    expect(out?.productivity).toBe("50.0");
+    expect(out?.multiple).toBeNull();
+  });
+
+  it("suppresses the multiple when productivity barely moved", () => {
+    // prodG = 1.001 clears a bare `prodG > 1` and renders "1000x" off what is
+    // effectively a rounding difference.
+    const out = computePayVsProductivityCallout(
+      payload({
+        compensationPerEmployee: pts({ 2015: 100, 2025: 200 }),
+        priceIndex: pts({ 2015: 100, 2025: 100 }),
+        labourProductivity: pts({ 2015: 100, 2025: 100.1 }),
+      }),
+      fmt,
+    );
+    expect(out?.multiple).toBeNull();
+    // Still reports both sides — only the ratio is withheld.
+    expect(out?.realPay).toBe("100.0");
+    expect(out?.productivity).toBe("0.1");
+  });
+
+  it("keeps the multiple at the growth floor", () => {
+    // Guards the boundary in the other direction: exactly +1.0pp of
+    // productivity growth is enough, so the floor cannot silently drift up
+    // and start suppressing legitimate windows.
+    const out = computePayVsProductivityCallout(
+      payload({
+        compensationPerEmployee: pts({ 2015: 100, 2025: 110 }),
+        priceIndex: pts({ 2015: 100, 2025: 100 }),
+        labourProductivity: pts({ 2015: 100, 2025: 101 }),
+      }),
+      fmt,
+    );
+    expect(out?.multiple).toBe("10.0");
+  });
+
   it("suppresses the multiple when productivity did not grow", () => {
     // A ratio against a flat or shrinking denominator is infinite or negative;
     // both render as nonsense, so the caption must be able to drop it.
@@ -137,5 +207,48 @@ describe("computePayVsProductivityCallout", () => {
         fmt,
       ),
     ).toBeNull();
+  });
+});
+
+describe("INDEX_BASE_YEAR vs the committed artifact", () => {
+  // The JSDoc on INDEX_BASE_YEAR warns that changing it without changing the
+  // fetched `unit` silently reframes the caption against a base the chart does
+  // not use. This is the gate behind that warning: an upstream I15 → I20
+  // rebase, or an edit to either side alone, fails here rather than shipping a
+  // caption measured from a base nothing else uses.
+  const macro = JSON.parse(
+    fs.readFileSync(
+      path.resolve(__dirname, "../../../data/macro.json"),
+      "utf8",
+    ),
+  ) as MacroPayload;
+
+  const INDEXED = [
+    "labourProductivity",
+    "unitLabourCost",
+    "priceIndex",
+  ] as const;
+
+  it.each(INDEXED)("%s is indexed to INDEX_BASE_YEAR", (key) => {
+    const meta = macro.indicators[key];
+    expect(meta, `${key} missing from macro.json`).toBeTruthy();
+    expect(meta.unitLabelEn).toContain(`${INDEX_BASE_YEAR} = 100`);
+
+    const base = macro.series[key].find((p) => p.year === INDEX_BASE_YEAR);
+    expect(base, `${key} has no ${INDEX_BASE_YEAR} point`).toBeTruthy();
+    expect(base!.value).toBeCloseTo(100, 1);
+  });
+
+  it("compensationPerEmployee is a LEVEL, not an index", () => {
+    // The asymmetry is deliberate and load-bearing: Eurostat publishes no
+    // index form of D1_SAL_PER, which is why it cannot share the chart axis
+    // and why the caption deflates it by priceIndex instead. If it ever
+    // arrives as an index, the callout's arithmetic needs revisiting.
+    const meta = macro.indicators.compensationPerEmployee;
+    expect(meta.unitLabelEn).not.toContain("= 100");
+    const base = macro.series.compensationPerEmployee.find(
+      (p) => p.year === INDEX_BASE_YEAR,
+    );
+    expect(base!.value).toBeGreaterThan(1000);
   });
 });

@@ -5,8 +5,21 @@ import type { MacroPayload } from "@/data/macro/useMacro";
  * (Eurostat nama_10_lp_ulc, unit I15) and of `priceIndex`. Changing it here
  * without changing the fetched `unit` would silently reframe the caption
  * against a base the chart does not use.
+ *
+ * Exported so the test suite can assert the committed artifact is actually
+ * indexed to it, rather than restating the year and letting the two drift.
  */
-const INDEX_BASE_YEAR = 2015;
+export const INDEX_BASE_YEAR = 2015;
+
+/**
+ * Floor, in percentage points, on the productivity growth the `multiple` may
+ * be divided by. A multiple is only a sentence when the denominator is
+ * meaningfully non-zero: `prodG = 1.001` clears a bare `> 1` and renders
+ * "871× faster" off what is effectively a rounding difference — and a decade
+ * of near-flat productivity is exactly when the caption is most interesting
+ * and most wrong.
+ */
+const MIN_PRODUCTIVITY_GROWTH_PP = 1;
 
 export type PayVsProductivityCallout = {
   from: number;
@@ -20,28 +33,41 @@ export type PayVsProductivityCallout = {
   /** Cumulative real labour-productivity growth, %, locale-formatted. */
   productivity: string;
   /**
-   * realPay ÷ productivity as a multiple, locale-formatted. Null when
-   * productivity did not grow — a ratio against a flat or falling denominator
-   * is either meaningless or infinite, and both render as nonsense.
+   * realPay ÷ productivity as a multiple, locale-formatted. Null unless BOTH
+   * sides grew and productivity grew by at least
+   * `MIN_PRODUCTIVITY_GROWTH_PP` — see the guard at the return site for the
+   * two sentences that would otherwise be published with a number attached.
    */
   multiple: string | null;
 };
 
-// Pure computation behind the pay-vs-productivity callout on
-// /indicators/economy.
-//
-// Deliberately built from the annual PRICE INDEX rather than the `inflation`
-// series: the latter is a YoY rate rounded to 2dp, and chaining a decade of
-// rounded rates drifts from the true cumulative price level. `priceIndex` is
-// the level itself.
-//
-// The comparison is honest but not a clean ratio, and the caption says so:
-// `compensationPerEmployee` is per EMPLOYEE while `labourProductivity` is per
-// PERSON EMPLOYED (which includes the self-employed). The series that handles
-// that correctly by construction is `unitLabourCost`, which is why it — not
-// this callout — is what the chart above plots. Kept pure (no React, no i18n)
-// so the window selection and the guards are unit-testable; the caller
-// supplies `fmt` for locale number formatting.
+/**
+ * Pure computation behind the pay-vs-productivity callout on
+ * `/indicators/economy`.
+ *
+ * Deliberately built from the annual PRICE INDEX rather than the `inflation`
+ * series: the latter is a YoY rate rounded to 2dp, and chaining a decade of
+ * rounded rates drifts from the true cumulative price level. `priceIndex` is
+ * the level itself.
+ *
+ * The comparison is honest but not a clean ratio, and the caption says so:
+ * `compensationPerEmployee` is per EMPLOYEE while `labourProductivity` is per
+ * PERSON EMPLOYED (which includes the self-employed). The series that handles
+ * that correctly by construction is `unitLabourCost`, which is why it — not
+ * this callout — is what the chart above plots.
+ *
+ * Kept pure (no React, no i18n) so the window selection and the guards are
+ * unit-testable.
+ *
+ * @param macro - The `data/macro.json` payload. Reads three annual series:
+ *   `compensationPerEmployee`, `priceIndex` and `labourProductivity`.
+ * @param fmt - Locale number formatter applied to every returned figure (the
+ *   caller owns the decimal separator, so this stays i18n-free).
+ * @returns The callout figures, or `null` when it cannot be stated honestly:
+ *   any of the three series absent or empty, fewer than two overlapping
+ *   years, a collapsed window (`from >= to`), or a non-positive base value on
+ *   any series. `multiple` is independently nullable — see its field doc.
+ */
 export const computePayVsProductivityCallout = (
   macro: MacroPayload | undefined,
   fmt: (v: number) => string,
@@ -70,8 +96,14 @@ export const computePayVsProductivityCallout = (
   // vs +63% productivity", which is mostly EU-accession convergence off a
   // 2005 wage level no productivity comparison can sensibly anchor to.
   // Falls back to the earliest common year on a series that somehow lacks the
-  // base year, so the callout degrades rather than disappearing.
-  const from = years.includes(INDEX_BASE_YEAR) ? INDEX_BASE_YEAR : years[0];
+  // base year — and equally when pinning would COLLAPSE the window, i.e. an
+  // overlap that ends at the base year itself ([2014, 2015]). Without the
+  // second condition the callout disappears where the comment promises it
+  // degrades, since `from` would equal `to`.
+  const from =
+    years.includes(INDEX_BASE_YEAR) && INDEX_BASE_YEAR < to
+      ? INDEX_BASE_YEAR
+      : years[0];
   if (from >= to) return null;
 
   const grow = (s: typeof pay) => {
@@ -93,6 +125,16 @@ export const computePayVsProductivityCallout = (
     prices: fmt(pct(priceG)),
     realPay: fmt(pct(realG)),
     productivity: fmt(pct(prodG)),
-    multiple: prodG > 1 ? fmt(pct(realG) / pct(prodG)) : null,
+    // Both sides are guarded, not just the denominator. A negative numerator
+    // renders "real pay grew roughly -0.4x faster than productivity" — pay
+    // FELL, and the sentence says otherwise with a figure attached — and a
+    // denominator near zero renders a meaningless "871x". Neither is reachable
+    // from today's window (+87.1% vs +27.0%), but `to` advances on its own
+    // with every Eurostat release. When it is suppressed the two percentages
+    // in the sentence above still tell the story unaided.
+    multiple:
+      realG > 1 && pct(prodG) >= MIN_PRODUCTIVITY_GROWTH_PP
+        ? fmt(pct(realG) / pct(prodG))
+        : null,
   };
 };
