@@ -67,7 +67,7 @@ test("5.0 — no MP row carries another person's seat", async (t) => {
   assert.ok(seats.size > 400, `only ${seats.size} MPs in the seat index`);
 
   const rows = await allRows<{ ref: string; display_name: string }>(
-    `SELECT r.ref, p.display_name
+    `SELECT split_part(r.ref, ':', 1) AS ref, p.display_name
        FROM person_role r JOIN person p ON p.person_id = r.person_id
       WHERE r.role = 'mp' AND r.party IS NOT NULL`,
   );
@@ -107,10 +107,12 @@ test("5.0b — the stored party matches the seat's own name", async (t) => {
     person_name: string;
     seat_name: string;
   }>(
-    `SELECT r.ref, s.ns::text AS ns, p.display_name AS person_name, s.name AS seat_name
+    `SELECT split_part(r.ref, ':', 1) AS ref, s.ns::text AS ns,
+            p.display_name AS person_name, s.name AS seat_name
        FROM person_role r
        JOIN person p   ON p.person_id = r.person_id
-       JOIN mp_seat s  ON s.mp_id::text = r.ref
+       JOIN mp_seat s  ON s.mp_id::text = split_part(r.ref, ':', 1)
+                      AND s.ns::text  = split_part(r.ref, ':', 2)
       WHERE r.role = 'mp' AND r.party IS NOT NULL`,
   );
 
@@ -133,13 +135,15 @@ test("5.0b — the stored party matches the seat's own name", async (t) => {
   // as a mismatch rather than being filtered away.
   const mismatches: string[] = [];
   for (const r of rows) {
-    const list = seats.get(Number(r.ref));
-    const latest = list?.length ? list[list.length - 1] : undefined;
-    if (!latest) {
-      mismatches.push(`${r.ref}: stored a party with no guarded seat`);
+    // Since T3 each row IS one seat, so the join above already pinned the exact
+    // (mpId, ns) the party came from — no "latest" selection needed.
+    const held = seats.get(Number(r.ref))?.some((x) => x.ns === Number(r.ns));
+    if (!held) {
+      mismatches.push(
+        `${r.ref}:${r.ns}: stored a party for a seat the guard rejects`,
+      );
       continue;
     }
-    if (Number(r.ns) !== latest.ns) continue; // a different NS's row, not the source
     if (fold(r.person_name) === fold(r.seat_name)) continue;
     if (
       BENIGN_NAME_VARIANTS.has(`${r.ref}:${r.ns}`) ||
@@ -167,19 +171,32 @@ test("5.3 — the ENTRY group, never mp_seat.party_id (last-seen)", async (t) =>
   const canon = loadCanonicalIndex();
   const seats = buildMpSeatIndex();
 
-  const stored = await allRows<{ ref: string; party: string }>(
-    `SELECT ref, party FROM person_role WHERE role = 'mp' AND party IS NOT NULL`,
+  const stored = await allRows<{ mp_id: string; ns: string; party: string }>(
+    `SELECT split_part(ref, ':', 1) AS mp_id,
+            NULLIF(split_part(ref, ':', 2), '') AS ns,
+            party
+       FROM person_role WHERE role = 'mp' AND party IS NOT NULL`,
   );
   assert.ok(stored.length > 0, "no MP role carries a party — T2 did not run");
 
+  // Since T3 every party-bearing row names its own parliament, so each is checked
+  // against THAT NS's entry group rather than the career's latest.
   const wrong: string[] = [];
   for (const row of stored) {
-    const list = seats.get(Number(row.ref));
+    const list = seats.get(Number(row.mp_id));
     if (!list?.length) continue;
-    const latest = list[list.length - 1];
-    const expected = groupShortToCanonical(latest.entryGroupShort, canon);
+    const seat = row.ns
+      ? list.find((x) => x.ns === Number(row.ns))
+      : list[list.length - 1];
+    if (!seat) {
+      wrong.push(`${row.mp_id}:${row.ns}: no guarded seat for this row`);
+      continue;
+    }
+    const expected = groupShortToCanonical(seat.entryGroupShort, canon);
     if (row.party !== expected) {
-      wrong.push(`${row.ref}: stored ${row.party}, entry group ${expected}`);
+      wrong.push(
+        `${row.mp_id}:${row.ns}: stored ${row.party}, entry group ${expected}`,
+      );
     }
   }
   assert.deepEqual(wrong, [], "stored MP party is not the entry group");
@@ -207,12 +224,15 @@ test("5.1 — coverage floor, and the crosswalk covers every live group short", 
     `SELECT count(*) n FROM person_role WHERE role = 'mp' AND party IS NOT NULL`,
   );
   // A FLOOR, not an equality: a T0 win or a new parliament raises it without an
-  // edit. 563 measured 2026-08-07 (§1c). Emphatically NOT 843 — that figure came
-  // from the bare mp_id join and would fail a correct build while passing the
-  // broken one.
+  // edit. 1,522 measured after T3 — one row per seat, where the career-scalar
+  // shape gave 563. Re-baselined WITH the shape change: left at 563 this would
+  // have tolerated losing 63% of the corpus.
+  //
+  // Emphatically NOT 843 either — that figure came from the bare mp_id join and
+  // would fail a correct build while passing the broken one.
   assert.ok(
-    Number(n) >= 563,
-    `only ${n} mp role(s) carry a party, expected >= 563`,
+    Number(n) >= 1_400,
+    `only ${n} mp role(s) carry a party, expected ~1,522`,
   );
 
   if (!(await tableExists("party_dim"))) return;

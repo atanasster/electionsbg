@@ -93,7 +93,7 @@ test.skipIf(skip)(
       debts_eur: string;
       net_eur: string;
     }>(
-      `SELECT r.ref::integer AS mp_id, d.source_url,
+      `SELECT split_part(r.ref, ':', 1)::integer AS mp_id, d.source_url,
               round(w.assets_eur) AS assets_eur,
               round(w.debts_eur)  AS debts_eur,
               round(w.net_eur)    AS net_eur
@@ -106,7 +106,7 @@ test.skipIf(skip)(
                  ORDER BY w.period_year DESC, w.declaration_id DESC
                  LIMIT 1) w ON true
          JOIN declaration d ON d.declaration_id = w.declaration_id
-        WHERE r.source = 'mp' AND r.ref ~ '^[0-9]+$'`,
+        WHERE r.source = 'mp' AND split_part(r.ref, ':', 1) ~ '^[0-9]+$'`,
     );
     assert.ok(rows.length > 500, `only ${rows.length} MPs carry a wealth row`);
 
@@ -302,13 +302,19 @@ test.skipIf(skip)("mp_entry(id) and mp_entry(slug) agree", async () => {
   const rows = await allRows<{ by_id: unknown; by_slug: unknown }>(
     `SELECT mp_entry(m.mp_id, NULL) AS by_id, mp_entry(NULL, p.slug) AS by_slug
        FROM mp_profile m
-       JOIN person_role r ON r.source = 'mp' AND r.ref = m.mp_id::text
+       JOIN person_role r ON r.source = 'mp' AND split_part(r.ref, ':', 1) = m.mp_id::text
        JOIN person p ON p.person_id = r.person_id
                     AND p.status = 'active' AND p.is_public_figure
-      -- The two MPs who hold a second parliament.bg id are excluded: a slug lookup
+      -- The two MPs who hold a second parliament.bg ID are excluded: a slug lookup
       -- deliberately returns their sitting/newest entry, so the two keys cannot agree
       -- for them and that is documented behaviour, not a defect.
-      WHERE (SELECT count(*) FROM person_role r2
+      --
+      -- DISTINCT on the id, not count(*) on the rows. Since T3 an MP has one
+      -- person_role row PER PARLIAMENT, so a plain row count is >1 for every
+      -- multi-term member — which would have quietly narrowed this test to
+      -- single-term MPs while still passing its rows.length > 100 floor.
+      WHERE (SELECT count(DISTINCT split_part(r2.ref, ':', 1))
+               FROM person_role r2
               WHERE r2.person_id = p.person_id AND r2.source = 'mp') = 1
       ORDER BY m.mp_id
       LIMIT 200`,

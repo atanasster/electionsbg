@@ -181,7 +181,7 @@ const main = async (): Promise<void> => {
          FROM company_politicians cp
          JOIN person_role pr
            ON pr.source = 'mp'
-          AND pr.ref = substring(cp.ref from '^/candidate/mp-(.*)$')
+          AND split_part(pr.ref, ':', 1) = substring(cp.ref from '^/candidate/mp-(.*)$')
         WHERE cp.kind = 'mp' AND cp.eik <> ''
        ON CONFLICT DO NOTHING`,
     );
@@ -301,7 +301,7 @@ const main = async (): Promise<void> => {
          (SELECT count(*) FROM company_politicians WHERE kind='mp' AND eik<>'')       AS cp_mp,
          (SELECT count(DISTINCT (pr.person_id, cp.eik)) FROM company_politicians cp
             JOIN person_role pr ON pr.source='mp'
-             AND pr.ref = substring(cp.ref from '^/candidate/mp-(.*)$')
+             AND split_part(pr.ref, ':', 1) = substring(cp.ref from '^/candidate/mp-(.*)$')
            WHERE cp.kind='mp' AND cp.eik<>'')                                          AS mapped_mp,
          (SELECT count(*) FROM company_politicians WHERE kind='official' AND eik<>'')  AS cp_off,
          (SELECT count(DISTINCT (pr.person_id, cp.eik)) FROM company_politicians cp

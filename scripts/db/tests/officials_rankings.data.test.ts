@@ -354,7 +354,10 @@ test.skipIf(skip)(
       WHERE NOT EXISTS (
         SELECT 1 FROM person_role r
           JOIN declaration d ON d.person_id = r.person_id
-         WHERE r.ref = a.subject_ref)`,
+         -- split_part: since mp-party-affiliation-v1 T3 an MP's person_role.ref
+         -- is '<mpId>:<ns>' while declaration_subject_alias still keys the bare
+         -- mpId, so a bare equality strands every mp-tier alias here.
+         WHERE split_part(r.ref, ':', 1) = a.subject_ref)`,
     );
     assert.equal(
       Number(stranded.n),

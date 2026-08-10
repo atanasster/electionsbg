@@ -70,7 +70,7 @@ const aFilerId = async (): Promise<number | null> => {
   const [r] = await allRows<{ mp_id: string }>(`
     SELECT m.mp_id
     FROM mp_profile m
-    JOIN person_role r ON r.source = 'mp' AND r.ref = m.mp_id::text
+    JOIN person_role r ON r.source = 'mp' AND split_part(r.ref, ':', 1) = m.mp_id::text
     JOIN person_wealth_year w ON w.person_id = r.person_id
     WHERE m.is_current
     ORDER BY m.mp_id
@@ -151,7 +151,7 @@ test.skipIf(skip)(
     const [r] = await allRows<{ mp_id: string }>(`
     SELECT m.mp_id
     FROM mp_profile m
-    JOIN person_role pr ON pr.source = 'mp' AND pr.ref = m.mp_id::text
+    JOIN person_role pr ON pr.source = 'mp' AND split_part(pr.ref, ':', 1) = m.mp_id::text
     JOIN person p ON p.person_id = pr.person_id AND p.status = 'active' AND p.is_public_figure
     WHERE NOT EXISTS (
       SELECT 1 FROM person_wealth_year w WHERE w.person_id = pr.person_id)

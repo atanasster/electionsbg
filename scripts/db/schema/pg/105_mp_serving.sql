@@ -94,16 +94,22 @@
 DROP VIEW IF EXISTS mp_person_link CASCADE;
 
 CREATE VIEW mp_person_link AS
-SELECT DISTINCT ON (r.ref)
-       r.ref::integer AS mp_id,
+-- T3: `ref` is '<mpId>' for an MP with no roll-call coverage and '<mpId>:<ns>'
+-- for one with it, so the id is ALWAYS `split_part(ref, ':', 1)` — which
+-- returns the whole string when there is no colon. A bare `ref::integer` threw
+-- 22P02 on the widened form, and the `^[0-9]+$` guard below silently emptied
+-- this view, which is worse: it is "the ONE definition of which person holds
+-- this mp id" and three functions join through it.
+SELECT DISTINCT ON (split_part(r.ref, ':', 1))
+       split_part(r.ref, ':', 1)::integer AS mp_id,
        r.person_id,
        p.slug         AS person_slug
 FROM person_role r
 JOIN person p ON p.person_id = r.person_id
              AND p.status = 'active'
              AND p.is_public_figure
-WHERE r.source = 'mp' AND r.ref ~ '^[0-9]+$'
-ORDER BY r.ref, r.person_id;
+WHERE r.source = 'mp' AND split_part(r.ref, ':', 1) ~ '^[0-9]+$'
+ORDER BY split_part(r.ref, ':', 1), r.person_id;
 
 -- ---------------------------------------------------------------------------
 -- mp_cars_table — the declared-vehicle browser (REGISTRY `mp_cars`).
@@ -295,7 +301,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              JOIN person p ON p.person_id = r.person_id
                           AND p.status = 'active'
                           AND p.is_public_figure
-             WHERE r.source = 'mp' AND r.ref = m.mp_id::text AND p.slug = p_slug))
+             WHERE r.source = 'mp' AND split_part(r.ref, ':', 1) = m.mp_id::text AND p.slug = p_slug))
     ORDER BY m.is_current DESC, m.mp_id DESC
     LIMIT 1
   )
@@ -466,8 +472,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     SELECT m.mp_id, m.name, m.current_party_group_short, m.is_current, m.ns_folders
     FROM subject s
     JOIN person_role r ON r.person_id = s.person_id AND r.source = 'mp'
-                      AND r.ref ~ '^[0-9]+$'
-    JOIN mp_profile m ON m.mp_id = r.ref::integer
+                      AND split_part(r.ref, ':', 1) ~ '^[0-9]+$'
+    JOIN mp_profile m ON m.mp_id = split_part(r.ref, ':', 1)::integer
     ORDER BY m.is_current DESC, m.mp_id DESC
     LIMIT 1
   ),

@@ -367,9 +367,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- replacement for the old CIK-JSON candidate index.
     'party', pty.party_nick, 'partyColor', pty.party_color,
     -- mpId (latest mp role) → the MpAvatar photo in the dropdown; NULL for non-MPs.
-    'mpId', (SELECT r.ref::bigint FROM person_role r
-             WHERE r.person_id = s.person_id AND r.source = 'mp' AND r.ref ~ '^[0-9]+$'
-             ORDER BY (r.ref)::bigint DESC LIMIT 1),
+    -- T3: ref is '<mpId>' or '<mpId>:<ns>'; split_part returns the whole
+    -- string when there is no colon. The old bare guard matched neither the
+    -- widened form nor anything else, so this returned NULL and every MP lost
+    -- their avatar in header search.
+    'mpId', (SELECT split_part(r.ref, ':', 1)::bigint FROM person_role r
+             WHERE r.person_id = s.person_id AND r.source = 'mp'
+               AND split_part(r.ref, ':', 1) ~ '^[0-9]+$'
+             ORDER BY split_part(r.ref, ':', 1)::bigint DESC LIMIT 1),
     'score', round(s.score::numeric, 3)
   ) ORDER BY s.score DESC, s.n_roles DESC, s.display_name), '[]'::jsonb)
   FROM scored s

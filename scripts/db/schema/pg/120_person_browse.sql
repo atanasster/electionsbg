@@ -247,7 +247,10 @@ oblast_fold AS (
 photo AS (
   SELECT DISTINCT ON (r.person_id) r.person_id, m.photo_url
   FROM roles r
-  JOIN mp_profile m ON r.source = 'mp' AND m.mp_id::text = r.ref
+  -- T3: split_part, or this join finds nothing and all 2,120 MP photos
+  -- disappear from /persons. §0d's "120 needs no edit" is about the PARTY
+  -- columns only.
+  JOIN mp_profile m ON r.source = 'mp' AND m.mp_id::text = split_part(r.ref, ':', 1)
   WHERE m.photo_url IS NOT NULL
   ORDER BY r.person_id, m.mp_id
 ),
@@ -312,7 +315,7 @@ bridge_a AS (
     FROM company_politicians cp
     JOIN person_role pr
       ON (cp.kind = 'mp' AND pr.source = 'mp'
-          AND pr.ref = replace(cp.ref, '/candidate/mp-', ''))
+          AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
       OR (cp.kind = 'official'
           AND pr.source IN ('official_exec', 'official_muni', 'public_sector')
           AND pr.ref = replace(cp.ref, '/officials/', ''))

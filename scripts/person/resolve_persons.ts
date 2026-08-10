@@ -69,7 +69,8 @@ import {
   localSeatKey,
 } from "../parsers_local/localPersonRefs";
 
-import { latestSeatForMp } from "./mpSeats";
+import { seatsForMp } from "./mpSeats";
+import { NS_TERM_START } from "../../src/data/parliament/nsFolders";
 import {
   UnmappedGroupShortError,
   groupShortToCanonical,
@@ -102,26 +103,91 @@ const REPO_ROOT = path.resolve(
 let canonicalIndexForMp: ReturnType<typeof loadCanonicalIndex> | undefined;
 const mpPartyUnmapped: string[] = [];
 
-const mpPartyForRef = (ref: string): string | null => {
-  const mpId = Number.parseInt(ref, 10);
-  if (!Number.isFinite(mpId)) return null;
-  const seat = latestSeatForMp(mpId);
-  if (!seat) return null;
+const canonicalGroup = (
+  short: string,
+  mpId: number,
+  ns: number,
+): string | null => {
   canonicalIndexForMp ??= loadCanonicalIndex();
   try {
-    return groupShortToCanonical(seat.entryGroupShort, canonicalIndexForMp);
+    return groupShortToCanonical(short, canonicalIndexForMp);
   } catch (e) {
     if (e instanceof UnmappedGroupShortError) {
       // Collected and re-thrown after the loop rather than on first sight, so
       // one run names every unmapped short instead of making the operator
       // rediscover them one re-run at a time.
-      mpPartyUnmapped.push(
-        `${seat.entryGroupShort} (mp ${mpId}, NS ${seat.ns})`,
-      );
+      mpPartyUnmapped.push(`${short} (mp ${mpId}, NS ${ns})`);
       return null;
     }
     throw e;
   }
+};
+
+// ── NS term bounds (T3) ─────────────────────────────────────────────────────
+//
+// NOT derived from the votes. `min(vote_item.date)` for NS 44 is 2020-10-28,
+// but the 44th convened in 2017 — the roll-call corpus starts mid-term — so
+// dating a seat from its first sitting would put every NS-44 row three years
+// late and make `top_party`'s `start_date DESC` order careers wrongly.
+// `NS_TERM_START` is keyed off the ELECTION that seated each parliament, which
+// is the only source that tells a short parliament from a partially ingested
+// one (the 45th sat 17 days and we hold all of them).
+//
+// A term ends the day before the next begins. The newest parliament has no
+// successor, so its `end_date` is NULL — still sitting, not unknown.
+const NS_TERM_BOUNDS: Map<number, { start: string; end: string | null }> =
+  (() => {
+    const starts = Object.entries(NS_TERM_START)
+      .map(([ns, d]) => ({ ns: Number(ns), start: d }))
+      .filter((x) => Number.isFinite(x.ns))
+      .sort((a, b) => a.ns - b.ns);
+    const out = new Map<number, { start: string; end: string | null }>();
+    starts.forEach((cur, i) => {
+      const next = starts[i + 1];
+      let end: string | null = null;
+      if (next) {
+        const d = new Date(`${next.start}T00:00:00Z`);
+        d.setUTCDate(d.getUTCDate() - 1);
+        end = d.toISOString().slice(0, 10);
+      }
+      out.set(cur.ns, { start: cur.start, end });
+    });
+    return out;
+  })();
+
+type MpRoleRow = {
+  ref: string;
+  party: string | null;
+  startDate: string | null;
+  endDate: string | null;
+};
+
+/**
+ * The person_role rows for ONE mp mention — one per parliament they actually
+ * sat in, keyed `'<mpId>:<ns>'` (T3).
+ *
+ * An MP with no roll-call coverage keeps a SINGLE row with the bare `'<mpId>'`
+ * ref and a NULL party: NS 39-43 predate the corpus and 1,263 profiles carry no
+ * `nsFolders` at all. That mixed shape is deliberate and safe — every consumer
+ * reads the id with `split_part(ref, ':', 1)`, which returns the whole string
+ * when there is no colon. Minting a `'<mpId>:0'` would be worse: it would claim
+ * a parliament that does not exist.
+ */
+const mpRoleRowsFor = (ref: string): MpRoleRow[] => {
+  const bare = [{ ref, party: null, startDate: null, endDate: null }];
+  const mpId = Number.parseInt(ref, 10);
+  if (!Number.isFinite(mpId)) return bare;
+  const seats = seatsForMp(mpId);
+  if (!seats.length) return bare;
+  return seats.map((s) => {
+    const bounds = NS_TERM_BOUNDS.get(s.ns);
+    return {
+      ref: `${mpId}:${s.ns}`,
+      party: canonicalGroup(s.entryGroupShort, mpId, s.ns),
+      startDate: bounds?.start ?? null,
+      endDate: bounds?.end ?? null,
+    };
+  });
 };
 
 type Raw = {
@@ -1682,43 +1748,65 @@ async function main(): Promise<void> {
       "active",
     ]);
     for (const m of b.members) {
-      roleRows.push([
-        pid,
-        m.source,
-        m.raw.ref,
-        m.raw.role,
-        // The CANONICAL party id behind this role. Candidacies, local mandates,
-        // donations and a party officer's institution all speak that namespace
-        // already, so they pass `cParty` straight through.
-        //
-        // `mp` is the exception, and the reason it USED to be NULL: its
-        // corroborant (`cParty` at the mention, from index.json's
-        // `currentPartyGroupShort`) is a parliamentary-GROUP short name, not a
-        // party id, and mixing the two vocabularies in one column would make
-        // them look comparable. mp-party-affiliation-v1 removes that objection
-        // by translating instead of dropping — `mpPartyForRef` folds the group
-        // to a canonical id through the same table the browser uses.
-        //
-        // TRANSLATED HERE, AT THE WRITE — never where the MP mention sets
-        // `cParty: mp.currentPartyGroupShort` (§8c). `cParty` feeds
-        // `corroborants.party`, which `cluster.ts` uses for the weak (party AND
-        // place) merge signal. Today an MP's raw Cyrillic short can never equal
-        // a candidacy's canonical id, so that corroborant is inert between the
-        // two sources; folding it to a canonical id at the MENTION would
-        // silently switch it ON and start merging PEOPLE as a side effect of a
-        // display fix. Gate 5.9 (`person_identity_stability.data.test.ts`)
-        // proves the active-person count and the name-fold fragmentation are
-        // unmoved. (Referred to by what the code DOES, not by line number —
-        // the MP `cParty` assignment has already moved once.)
-        m.source === "mp" ? mpPartyForRef(m.raw.ref) : m.raw.cParty,
-        m.raw.placeKind,
-        m.raw.placeCode,
-        m.raw.placeRaw,
-        null, // start_date
-        null, // end_date
-        b.confidence,
-        m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
-      ]);
+      // T3: an `mp` mention expands to ONE ROW PER PARLIAMENT they sat in
+      // (`ref = '<mpId>:<ns>'`), every other source stays 1:1. The place is
+      // REPLICATED across an MP's rows — index.json carries a single
+      // `seatedRegion` per person with no per-NS variant, so a member who
+      // changed МИР between parliaments gets their latest one on every row.
+      // That is a known inaccuracy, chosen over leaving historical rows
+      // place-less because it keeps `person_role_place`'s 100%-fill invariant
+      // and every `?oblast=` consumer working; `person_role_place.data.test.ts`
+      // states it so the gate cannot be read as proving more than it does.
+      const expanded: MpRoleRow[] =
+        m.source === "mp"
+          ? mpRoleRowsFor(m.raw.ref)
+          : [
+              {
+                ref: m.raw.ref,
+                party: m.raw.cParty,
+                startDate: null,
+                endDate: null,
+              },
+            ];
+      for (const row of expanded) {
+        roleRows.push([
+          pid,
+          m.source,
+          row.ref,
+          m.raw.role,
+          // The CANONICAL party id behind this role. Candidacies, local mandates,
+          // donations and a party officer's institution all speak that namespace
+          // already, so they pass `cParty` straight through.
+          //
+          // `mp` is the exception, and the reason it USED to be NULL: its
+          // corroborant (`cParty` at the mention, from index.json's
+          // `currentPartyGroupShort`) is a parliamentary-GROUP short name, not a
+          // party id, and mixing the two vocabularies in one column would make
+          // them look comparable. mp-party-affiliation-v1 removes that objection
+          // by translating instead of dropping — `mpPartyForRef` folds the group
+          // to a canonical id through the same table the browser uses.
+          //
+          // TRANSLATED HERE, AT THE WRITE — never where the MP mention sets
+          // `cParty: mp.currentPartyGroupShort` (§8c). `cParty` feeds
+          // `corroborants.party`, which `cluster.ts` uses for the weak (party AND
+          // place) merge signal. Today an MP's raw Cyrillic short can never equal
+          // a candidacy's canonical id, so that corroborant is inert between the
+          // two sources; folding it to a canonical id at the MENTION would
+          // silently switch it ON and start merging PEOPLE as a side effect of a
+          // display fix. Gate 5.9 (`person_identity_stability.data.test.ts`)
+          // proves the active-person count and the name-fold fragmentation are
+          // unmoved. (Referred to by what the code DOES, not by line number —
+          // the MP `cParty` assignment has already moved once.)
+          row.party,
+          m.raw.placeKind,
+          m.raw.placeCode,
+          m.raw.placeRaw,
+          row.startDate,
+          row.endDate,
+          b.confidence,
+          m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
+        ]);
+      }
       const ak = `${pid}\t${m.raw.display}\t${m.source}`;
       if (!aliasSeen.has(ak)) {
         aliasSeen.add(ak);
@@ -1743,13 +1831,16 @@ async function main(): Promise<void> {
     (r) => r[1] === "mp" && r[4] != null,
   ).length;
   // Floor, not equality — a new session file legitimately raises it. Measured
-  // 563 on 2026-08-07 (plan §1c). A collapse to zero is the shape a missing
-  // data/parliament corpus takes, and mpSeats.ts only warns about that.
+  // 1,522 after T3 (one row per seat; it was 563 while the shape was still
+  // career-scalar). A collapse to zero is the shape a missing data/parliament
+  // corpus takes, and mpSeats.ts only warns about that.
   //
-  // It is exactly gate 5.1's floor, deliberately. A LOWER value here (the first
-  // draft used 500) is worse than none: it lets a partial collapse publish and
-  // leaves the gate to find it afterwards, which is the opposite of a preflight.
-  const MP_PARTY_FLOOR = 563;
+  // RE-BASELINE THIS WITH THE SHAPE. Leaving it at T2's 563 would have tolerated
+  // losing 63% of the party corpus — the exact partial collapse the next
+  // paragraph argues a preflight exists to stop. It is deliberately the same
+  // number as gate 5.1: a preflight below its own gate lets bad data publish and
+  // leaves the gate to find it afterwards.
+  const MP_PARTY_FLOOR = 1_400;
   if (
     roleRows.some((r) => r[1] === "mp") &&
     mpRolesWithParty < MP_PARTY_FLOOR

@@ -477,7 +477,7 @@ test.skipIf(skip)(
          FROM company_politicians cp
          JOIN person_role pr
            ON (cp.kind = 'mp' AND pr.source = 'mp'
-               AND pr.ref = replace(cp.ref, '/candidate/mp-', ''))
+               AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
            OR (cp.kind = 'official'
                AND pr.source IN ('official_exec','official_muni','public_sector')
                AND pr.ref = replace(cp.ref, '/officials/', ''))
@@ -517,7 +517,7 @@ test.skipIf(skip)(
          FROM company_politicians cp
          JOIN person_role pr
            ON (cp.kind = 'mp' AND pr.source = 'mp'
-               AND pr.ref = replace(cp.ref, '/candidate/mp-', ''))
+               AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
            OR (cp.kind = 'official'
                AND pr.source IN ('official_exec','official_muni','public_sector')
                AND pr.ref = replace(cp.ref, '/officials/', ''))
@@ -592,13 +592,13 @@ test.skipIf(skip)("photos resolve on both join keys, MP first", async () => {
        JOIN person p ON p.slug = b.slug
       WHERE EXISTS (
               SELECT 1 FROM person_role r
-                JOIN mp_profile m ON m.mp_id::text = r.ref
+                JOIN mp_profile m ON m.mp_id::text = split_part(r.ref, ':', 1)
                WHERE r.person_id = p.person_id AND r.source = 'mp'
                  AND r.confidence IN ('exact_id','high','manual')
                  AND m.photo_url IS NOT NULL)
         AND NOT EXISTS (
               SELECT 1 FROM person_role r
-                JOIN mp_profile m ON m.mp_id::text = r.ref
+                JOIN mp_profile m ON m.mp_id::text = split_part(r.ref, ':', 1)
                WHERE r.person_id = p.person_id AND r.source = 'mp'
                  AND r.confidence IN ('exact_id','high','manual')
                  AND m.photo_url = b.photo_url)`,

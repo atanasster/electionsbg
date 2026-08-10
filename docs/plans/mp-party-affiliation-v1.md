@@ -506,6 +506,24 @@ throws.** The single loud tripwire is a test.
 `source='mp'` only, never on the ref shape, so they are unaffected by the format change (but do
 see more rows).
 
+**CORRECTION (T3, measured 2026-08-09): the damage is PARTIAL, not total.** The table above
+says "view goes EMPTY" and "photo_url NULL for all 2,120 MPs". That is wrong, and it was
+wrong in a way that cost real work: the `^[0-9]+$` guards still match the **1,559** MPs whose
+ref stays bare (no roll-call coverage), so only the 1,522 per-NS rows are lost — about 36%,
+concentrated in the SITTING and recent members. Measured with the fix reverted:
+
+| surface | broken | correct |
+|---|---|---|
+| `mp_person_link` | 1,559 | 2,122 |
+| MP photos on `/persons` | 1,558 | 2,120 |
+| `bridge_a` MP arm | 35 | 155 |
+
+The first draft of the T3 gates inherited the "goes empty" model and set floors at 1,500 and
+`> 0` — **green against the bug**. Even the tripwire this section nominates
+(`mp_serving.data.test.ts`'s `rows.length > 500`) returns **506** when broken and would have
+passed. A floor only guards if it sits ABOVE the broken value, and a partial-loss failure mode
+is much easier to set a floor under by accident than a total one.
+
 **Two corrections to §0d this forces, both worth stating loudly:**
 
 - **"Migration 120 needs no edit" is true for T1/T2 and FALSE for T3.** 120 joins
@@ -789,6 +807,46 @@ Deriving `start_date` from the votes would date every NS-44 seat three years lat
 
 **T3 ships `functions/` code**, so its publish is `deploy:db` **then** the loader chain in §4a
 — not §4a alone.
+
+#### T3 RESULT (2026-08-09) — shipped
+
+| | expected | measured |
+|---|---|---|
+| `mp` rows | 2,122 − 563 + 1,522 = 3,081 | **3,081** |
+| per-NS refs / with a party / dated | 1,522 | **1,522 / 1,522 / 1,522** |
+| `mp_person_link` | one per mp id, NOT per seat | **2,122** |
+| MP photos on `/persons` | unchanged | **2,120** |
+| active persons | unchanged | **127,288** |
+
+Every §2b site was patched with `split_part(ref, ':', 1)`, which returns the whole string
+when there is no colon and so handles both ref shapes.
+
+**§2b's list was INCOMPLETE — two more sites, both in the declarations loader**, and they are
+the best example in this plan of why the silent-failure framing matters:
+
+- [`load_declarations_pg.ts`](../../scripts/db/load_declarations_pg.ts) phase 2 joins
+  `pr.ref = d.subject_ref`, and the `mp` tier's `subject_ref` is the bare mpId. The widened
+  ref broke it for **every** MP with roll-call coverage — and the candidate fallback
+  immediately below re-caught all but **one** of them, so the symptom was `1/47,983 still
+  NULL`. That reads as ordinary residue; CLAUDE.md even records a previous single-row
+  instance of exactly this counter. It was found by `mp_serving.data.test.ts` noticing a
+  declaration shard had stopped being served, not by the count.
+- the alias LAST PASS in the same function joins `pr.ref = a.subject_ref`. That is the pass
+  whose comment names Галя Стоянова Василева — the MP who holds two parliament.bg ids and
+  resolves only through the alias table — so breaking it stopped her wealth series at 2023
+  for the second time.
+
+`officials_rankings.data.test.ts`'s stranded-refs gate joined the same way and needed the
+same fix.
+
+**§2d decided: the МИР is REPLICATED** across an MP's rows. `index.json` carries one
+`seatedRegion` per person with no per-NS variant, so a member who changed МИР between
+parliaments has it wrong on N−1 rows. Chosen over leaving historical rows place-less, which
+would break `person_role_place`'s 100%-fill invariant and every `?oblast=` consumer; the gate
+now states what it does not prove.
+
+**MPs with no roll-call coverage keep a bare `<mpId>` ref** (1,559 rows). Minting `<mpId>:0`
+would claim a parliament that does not exist, and `split_part` handles the mixed shape.
 
 ### T4 — publish (see §4)
 

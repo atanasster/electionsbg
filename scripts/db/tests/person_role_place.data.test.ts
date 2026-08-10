@@ -246,6 +246,14 @@ test.skipIf(skip)(
     // parliament.bg carries a seat on every profile it holds, so anything short of 100%
     // means index.json was rebuilt without `seatedRegion` (T3a) or the crosswalk lost an
     // entry. The old `currentRegion` path covered only the 240 sitting MPs.
+    //
+    // WHAT THIS DOES **NOT** PROVE, since mp-party-affiliation-v1 T3 gave an MP
+    // one row per parliament (§2d). `index.json` holds ONE `seatedRegion` per
+    // person with no per-NS variant, so the МИР is REPLICATED across a member's
+    // rows. For someone who stood in a different МИР in a different parliament,
+    // N-1 of their rows name the wrong one — and this gate stays green, because
+    // every row does have a code. The companion test below MEASURES that bound
+    // instead of leaving it as a caveat.
     const [row] = await allRows<{ total: string; coded: string }>(
       `SELECT count(*) AS total,
             count(*) FILTER (WHERE place_kind = 'mir' AND place_code IS NOT NULL) AS coded
@@ -261,6 +269,58 @@ test.skipIf(skip)(
       row.coded,
       row.total,
       `${Number(row.total) - Number(row.coded)} mp role(s) have no seated МИР`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the replicated МИР affects a KNOWN and BOUNDED set of MPs (§2d)",
+  async () => {
+    // The cost of the §2d replication decision, measured rather than asserted.
+    // An MP's own candidacies DO carry a per-election МИР, so they can bound how
+    // often the replicated seat is wrong even though nothing can currently fix
+    // it: 130 of the 303 multi-parliament MPs (43%) stood in more than one МИР.
+    //
+    // Two things this pins. First, replication is genuinely lossy for a large
+    // minority — anyone reading `person_role.place_code` on a historical MP row
+    // should know that. Second, if a future ingest gains per-NS seat data, this
+    // number is what the fix has to move; a silent drop toward zero here would
+    // mean the candidacy МИР stopped being populated, not that MPs stopped
+    // moving.
+    const [row] = await allRows<{ multi: string; moved: string }>(
+      `WITH multi AS (
+         SELECT person_id FROM person_role
+          WHERE source = 'mp' AND ref LIKE '%:%'
+          GROUP BY person_id HAVING count(*) > 1),
+       cand AS (
+         SELECT r.person_id, count(DISTINCT r.place_code) mirs
+           FROM person_role r JOIN multi USING (person_id)
+          WHERE r.source = 'candidate' AND r.place_code IS NOT NULL
+          GROUP BY 1)
+       SELECT count(*)::text AS multi,
+              count(*) FILTER (WHERE mirs > 1)::text AS moved
+         FROM cand`,
+    );
+    assert.ok(
+      Number(row.multi) > 200,
+      `only ${row.multi} multi-parliament MPs — the per-NS rows are missing`,
+    );
+    // Every row of one person carries the SAME code, by construction — so this
+    // is the only place the inaccuracy is visible at all.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM (
+         SELECT person_id FROM person_role WHERE source = 'mp'
+          GROUP BY person_id HAVING count(DISTINCT place_code) > 1) q`,
+    );
+    assert.equal(
+      Number(n),
+      0,
+      "an MP has two different place_codes — the replication rule changed without §2d being revisited",
+    );
+    assert.ok(
+      Number(row.moved) > 50,
+      `only ${row.moved} of ${row.multi} multi-parliament MPs show more than one candidacy МИР — ` +
+        `expected ~130; if this collapsed, the candidacy place data changed, not the MPs`,
     );
   },
 );

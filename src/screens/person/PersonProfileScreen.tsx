@@ -93,9 +93,17 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   }, [p.slug]);
 
   // The MP id (for the avatar photo + party ring) from an mp role, else a mp-{id} candidacy.
+  //
+  // The ref is '<mpId>' for an MP with no roll-call coverage and '<mpId>:<ns>'
+  // for one with it (mp-party-affiliation-v1 T3), so take the FIRST field.
+  // Matching `^\d+$` against the whole string silently dropped all 562 MPs with
+  // per-NS refs through to the candidacy fallback below, where at least one
+  // resolved to a different member's id — a dead avatar and a wrong /candidate
+  // link, with nothing to indicate it.
   const mpId = useMemo(() => {
     const mp = p.roles.find((r) => r.source === "mp");
-    if (mp && /^\d+$/.test(mp.ref)) return Number(mp.ref);
+    const mpHead = mp?.ref.split(":")[0];
+    if (mpHead && /^\d+$/.test(mpHead)) return Number(mpHead);
     for (const r of p.roles) {
       const m = /:mp-(\d+)$/.exec(r.ref);
       if (m) return Number(m[1]);

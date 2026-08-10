@@ -418,7 +418,7 @@ const mpSlugFromQuery = async (dbRows, q) => {
     `SELECT p.slug
        FROM person p
        JOIN person_role r ON r.person_id = p.person_id
-                         AND r.source = 'mp' AND r.ref = $1
+                         AND r.source = 'mp' AND split_part(r.ref, ':', 1) = $1
       WHERE p.status = 'active' AND p.is_public_figure
       -- One mp id resolves to one person in practice, but idx_person_role_source_ref is
       -- non-unique, so ORDER BY makes the pick deterministic (as mp_entry/mp_assets do).

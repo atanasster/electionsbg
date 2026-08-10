@@ -631,12 +631,26 @@ const resolve = async () => {
   await withClient(async (c) => {
     for (const spec of TIERS) {
       const res = await c.query(
+        // The `mp` arm needs `split_part`: since mp-party-affiliation-v1 T3 an
+        // MP's person_role.ref is '<mpId>:<ns>' (one row per parliament) while
+        // this tier's subject_ref is still the bare mpId. Without it the direct
+        // join misses every MP with roll-call coverage — and it misses them
+        // ALMOST invisibly, because the candidate fallback below re-catches
+        // anyone who also stood for election. Measured: exactly 1 of 47,983
+        // filings stayed NULL (mp 5334, who has no candidate role), which reads
+        // as ordinary residue rather than a broken join.
+        //
+        // Left as an OR rather than applied to every tier: the other tiers'
+        // refs legitimately contain colons (a candidacy is '<election>:<slug>'),
+        // so splitting them unconditionally would join on the election date.
         `UPDATE declaration d
             SET person_id = pr.person_id
            FROM person_role pr
           WHERE d.tier = $1
             AND d.person_id IS NULL
-            AND pr.ref = d.subject_ref
+            AND (pr.ref = d.subject_ref
+                 OR (pr.source = 'mp'
+                     AND split_part(pr.ref, ':', 1) = d.subject_ref))
             AND pr.source = ANY($2::text[])`,
         [spec.tier, spec.sources],
       );
@@ -670,10 +684,18 @@ const resolve = async () => {
     // Fold-gated on the declarant name for the same reason registerIdByRef is: a shared
     // source_url must not attach one person's filing to another's profile.
     const aliased = await c.query(
+      // The mp arm needs `split_part` here too, for the same T3 reason as the
+      // direct join above — and this is the pass that actually resolves the case
+      // the comment describes, so without it Галя's series stops at 2023 again.
+      // Several person_role rows can match one alias now (one per parliament),
+      // but they all carry the SAME person_id, so which one wins is immaterial.
       `UPDATE declaration d
           SET person_id = pr.person_id
          FROM declaration_subject_alias a
-         JOIN person_role pr ON pr.ref = a.subject_ref
+         JOIN person_role pr
+           ON (pr.ref = a.subject_ref
+               OR (pr.source = 'mp'
+                   AND split_part(pr.ref, ':', 1) = a.subject_ref))
         WHERE d.person_id IS NULL
           AND a.source_url = d.source_url
           AND (a.declarant_name IS NULL
