@@ -21,19 +21,48 @@
 //      (TR registered seat, our schools register) and the OCDS/tenders
 //      address maps — see the per-tier comments in main().
 //
+// EVERY tier is optional and degrades to zero entries when its input is
+// unreachable. Left alone that SHRINKS the committed map — see the header of
+// awarder_geo_merge.ts for the measured incident. So the run does not replace
+// the committed file, it MERGES into it: a prior entry survives when the tier
+// that produced it could not run, and is dropped only when that tier ran and no
+// longer resolves the awarder. `tiers` in the output records which happened, so
+// a consumer can tell "tier ran and found nothing" from "tier was down".
+//
 // Output: data/procurement/awarder_geo_overrides.json
-//   { generatedAt, count, sources: {mon,name,unresolved}, awarders: { <eik>: {ekatte,source,confidence} } }
+//   { generatedAt, count,
+//     sources:    { <label>: n },        // entries IN THE MAP, by tier label
+//     run:        { candidates, resolved, unresolved },  // THIS RUN's tally
+//     carriedOver:{ <label>: n },        // of `sources`, how many are inherited
+//     tiers:      { <tier>: {status, reason?, lastFreshAt} },
+//     notes: [...],
+//     awarders:   { <eik>: {ekatte, source, confidence} } }
+//
+// `sources` and `run` are separate blocks on purpose: they disagree exactly when
+// a tier is down, and that disagreement is the signal.
 //
 // Run: `npx tsx scripts/procurement/awarder_geo_map.ts`  (then rebuild rollups)
+//   … -- --allow-shrink   write even though the merged map is materially
+//                         smaller than the committed one (see SHRINK_TOLERANCE)
+//   … -- --dry-run        report the merge, write nothing
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { DatabaseSync } from "node:sqlite";
 import { getResolver } from "./resolve_ekatte";
 import { canonicalJson } from "./validate";
 import { getResourceData } from "../budget/lib/egov_api";
 import { nameCore, settlNorm } from "../schools/school_name_match";
+import {
+  countSources,
+  mergeGeoOverrides,
+  producibleSources,
+  TIER_KEYS,
+  TIER_LABELS,
+  type GeoEntry,
+  type TierInputs,
+} from "./awarder_geo_merge";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -186,6 +215,21 @@ interface AwarderFile {
   address?: unknown;
 }
 
+// What a tier loader returns. `ok: false` means "we could not read this input"
+// — an absent file, a blocked host, a shape we don't recognise — which is NOT
+// the same as a tier that ran and resolved nothing, and the merge treats the
+// two oppositely. Every loader below is total: it reports rather than throws,
+// because one unreachable tier must not abort the other six.
+interface TierLoad<T> {
+  ok: boolean;
+  reason?: string;
+  value: T;
+}
+const down = <T>(reason: string, value: T): TierLoad<T> => {
+  console.warn(`  ${reason}`);
+  return { ok: false, reason, value };
+};
+
 interface MonRow {
   settlement: string;
   oblast: string;
@@ -202,21 +246,19 @@ type MonNameIndex = Map<string, MonRow[]>;
 // header misspells Област as "Обаст" and carries no EIK), and returns an empty
 // index (Tier B skipped) on any failure — incl. the data.egov.bg block that
 // 403s non-pipeline IPs.
-const fetchMonSchoolMap = async (): Promise<MonNameIndex> => {
+const fetchMonSchoolMap = async (): Promise<TierLoad<MonNameIndex>> => {
   const out: MonNameIndex = new Map();
   let rows: unknown[][];
   try {
     rows = await getResourceData(MON_SCHOOL_RESOURCE);
   } catch (e) {
-    console.warn(
-      `  Tier B skipped — МОН register fetch failed: ${(e as Error).message}`,
+    return down(
+      `Tier B unavailable — МОН register fetch failed: ${(e as Error).message}`,
+      out,
     );
-    return out;
   }
-  if (!rows.length) {
-    console.warn("  Tier B skipped — МОН register returned no rows");
-    return out;
-  }
+  if (!rows.length)
+    return down("Tier B unavailable — МОН register returned no rows", out);
   const header = rows[0].map((c) => String(c ?? ""));
   const col = (re: RegExp): number => header.findIndex((h) => re.test(h));
   // "Населено място" (settlement), "Обаст"/"Област" (oblast, often misspelled),
@@ -227,12 +269,11 @@ const fetchMonSchoolMap = async (): Promise<MonNameIndex> => {
   // Match both the correct "Област" and the source's misspelled "Обаст".
   const oblCol = col(/об[л]?аст|oblast|region/i);
   const nameCol = col(/име.*(училищ|детск|заведени)|наименован|school|name/i);
-  if (setlCol < 0 || nameCol < 0) {
-    console.warn(
-      `  Tier B skipped — couldn't find settlement/name columns in МОН header: ${JSON.stringify(header).slice(0, 300)}`,
+  if (setlCol < 0 || nameCol < 0)
+    return down(
+      `Tier B unavailable — couldn't find settlement/name columns in МОН header: ${JSON.stringify(header).slice(0, 300)}`,
+      out,
     );
-    return out;
-  }
   let rowCount = 0;
   for (const r of rows.slice(1)) {
     const core = nameCore(String(r[nameCol] ?? ""));
@@ -250,7 +291,7 @@ const fetchMonSchoolMap = async (): Promise<MonNameIndex> => {
   console.log(
     `  Tier B: МОН register indexed ${rowCount} institution(s) under ${out.size} name-core(s)`,
   );
-  return out;
+  return { ok: true, value: out };
 };
 
 // Parse the settlement out of a TR registered seat, e.g.
@@ -268,15 +309,22 @@ const parseTrSeat = (seat: string): string | undefined => {
 // Exact match on uic — БУЛСТАТ codes are stored verbatim, so we try the EIK as
 // given and its zero-stripped form. Defensive: returns an empty map when the
 // state mirror isn't on disk (Tier F skipped).
-const fetchTrSeatMap = (eiks: string[]): Map<string, string> => {
+const fetchTrSeatMap = (eiks: string[]): TierLoad<Map<string, string>> => {
   const out = new Map<string, string>();
-  if (!fs.existsSync(TR_SQLITE)) {
-    console.warn(
-      `  Tier F skipped — no TR state mirror at ${path.relative(process.cwd(), TR_SQLITE)}`,
+  if (!fs.existsSync(TR_SQLITE))
+    return down(
+      `Tier F unavailable — no TR state mirror at ${path.relative(process.cwd(), TR_SQLITE)}`,
+      out,
     );
-    return out;
+  let db: DatabaseSync;
+  try {
+    db = new DatabaseSync(TR_SQLITE, { readOnly: true });
+  } catch (e) {
+    return down(
+      `Tier F unavailable — TR state mirror unreadable: ${(e as Error).message}`,
+      out,
+    );
   }
-  const db = new DatabaseSync(TR_SQLITE, { readOnly: true });
   try {
     const stmt = db.prepare("SELECT seat FROM companies WHERE uic = ?");
     for (const eik of eiks) {
@@ -286,27 +334,42 @@ const fetchTrSeatMap = (eiks: string[]): Map<string, string> => {
       const settlement = row?.seat ? parseTrSeat(String(row.seat)) : undefined;
       if (settlement) out.set(eik, settlement);
     }
+  } catch (e) {
+    // A half-read mirror is an unavailable tier, not an empty one: whatever we
+    // did collect before the throw is a partial answer we must not treat as the
+    // tier's verdict.
+    return down(
+      `Tier F unavailable — TR query failed: ${(e as Error).message}`,
+      new Map<string, string>(),
+    );
   } finally {
     db.close();
   }
   console.log(`  Tier F: TR register supplied ${out.size} registered seat(s)`);
-  return out;
+  return { ok: true, value: out };
 };
 
 // Our schools register → eik → settlement (from the school's own `address`,
 // e.g. "ГР.БАНСКО"). Only schools that match_eik.ts linked to a procurement EIK
 // contribute. Defensive: returns an empty map when the file is absent.
-const fetchSchoolSeatMap = (): Map<string, string> => {
+const fetchSchoolSeatMap = (): TierLoad<Map<string, string>> => {
   const out = new Map<string, string>();
-  if (!fs.existsSync(SCHOOLS_INDEX_FILE)) {
-    console.warn(
-      `  Tier S skipped — no schools register at ${path.relative(process.cwd(), SCHOOLS_INDEX_FILE)}`,
+  if (!fs.existsSync(SCHOOLS_INDEX_FILE))
+    return down(
+      `Tier S unavailable — no schools register at ${path.relative(process.cwd(), SCHOOLS_INDEX_FILE)}`,
+      out,
     );
-    return out;
-  }
-  const idx = JSON.parse(fs.readFileSync(SCHOOLS_INDEX_FILE, "utf8")) as {
+  let idx: {
     schoolsByObshtina?: Record<string, { eik?: string; address?: string }[]>;
   };
+  try {
+    idx = JSON.parse(fs.readFileSync(SCHOOLS_INDEX_FILE, "utf8"));
+  } catch (e) {
+    return down(
+      `Tier S unavailable — schools register unreadable: ${(e as Error).message}`,
+      out,
+    );
+  }
   for (const recs of Object.values(idx.schoolsByObshtina ?? {})) {
     for (const r of recs) {
       const settlement = r.eik ? settlNorm(r.address) : "";
@@ -314,28 +377,93 @@ const fetchSchoolSeatMap = (): Map<string, string> => {
     }
   }
   console.log(`  Tier S: schools register supplied ${out.size} eik→settlement`);
-  return out;
+  return { ok: true, value: out };
 };
 
 // The ri.mon.bg crosswalk → eik → EKATTE (already a validated registry code,
 // so no resolver step). Defensive: empty map when the file is absent.
-const fetchRiCrosswalk = (): Map<string, string> => {
+const fetchRiCrosswalk = (): TierLoad<Map<string, string>> => {
   const out = new Map<string, string>();
-  if (!fs.existsSync(RI_CROSSWALK_FILE)) {
-    console.warn(
-      `  Tier R skipped — no RI crosswalk at ${path.relative(process.cwd(), RI_CROSSWALK_FILE)}`,
+  if (!fs.existsSync(RI_CROSSWALK_FILE))
+    return down(
+      `Tier R unavailable — no RI crosswalk at ${path.relative(process.cwd(), RI_CROSSWALK_FILE)}`,
+      out,
     );
-    return out;
+  let j: { awarders?: Record<string, { ekatte?: string }> };
+  try {
+    j = JSON.parse(fs.readFileSync(RI_CROSSWALK_FILE, "utf8"));
+  } catch (e) {
+    return down(
+      `Tier R unavailable — RI crosswalk unreadable: ${(e as Error).message}`,
+      out,
+    );
   }
-  const j = JSON.parse(fs.readFileSync(RI_CROSSWALK_FILE, "utf8")) as {
-    awarders?: Record<string, { ekatte?: string }>;
-  };
   for (const [eik, rec] of Object.entries(j.awarders ?? {}))
     if (rec.ekatte) out.set(eik, rec.ekatte);
   console.log(
     `  Tier R: RI register crosswalk supplied ${out.size} eik→EKATTE`,
   );
-  return out;
+  return { ok: true, value: out };
+};
+
+// Tiers D and E are both `{ awarders: { <eik>: … } }` derived files. Same
+// contract as the loaders above: an unreadable file is an unavailable tier.
+const loadAwarderJson = <T>(
+  file: string,
+  tier: string,
+): TierLoad<Record<string, T>> => {
+  if (!fs.existsSync(file))
+    return down(
+      `${tier} unavailable — no file at ${path.relative(process.cwd(), file)}`,
+      {},
+    );
+  try {
+    const j = JSON.parse(fs.readFileSync(file, "utf8")) as {
+      awarders?: Record<string, T>;
+    };
+    return { ok: true, value: j.awarders ?? {} };
+  } catch (e) {
+    return down(
+      `${tier} unavailable — unreadable: ${(e as Error).message}`,
+      {},
+    );
+  }
+};
+
+// The committed map we merge into. A missing file is a first build (no prior,
+// nothing to carry); a MALFORMED one is refused rather than silently treated as
+// empty, because "no prior" is exactly the state that disables every guard below.
+const readPrior = (): {
+  awarders: Record<string, GeoEntry>;
+  generatedAt?: string;
+  tiers?: Record<string, { lastFreshAt?: string }>;
+} => {
+  if (!fs.existsSync(OUT_FILE)) {
+    console.log("  no committed map — first build, nothing to merge");
+    return { awarders: {} };
+  }
+  let j: {
+    awarders?: Record<string, GeoEntry>;
+    generatedAt?: string;
+    tiers?: Record<string, { lastFreshAt?: string }>;
+  };
+  try {
+    j = JSON.parse(fs.readFileSync(OUT_FILE, "utf8"));
+  } catch (e) {
+    // Deliberately fatal. Degrading to an empty prior would disable the merge
+    // AND the shrink guard at once — the file would be rewritten from this
+    // run alone, which is precisely the silent loss all of this exists to stop.
+    throw new Error(
+      `${path.relative(process.cwd(), OUT_FILE)} is unreadable (${(e as Error).message}). ` +
+        `Restore it from git before rebuilding — treating it as empty would rewrite the map ` +
+        `from this run alone and drop every entry a currently-unavailable tier produced.`,
+    );
+  }
+  return {
+    awarders: j.awarders ?? {},
+    generatedAt: j.generatedAt,
+    tiers: j.tiers,
+  };
 };
 
 const main = async (): Promise<void> => {
@@ -357,40 +485,41 @@ const main = async (): Promise<void> => {
   );
 
   const resolver = getResolver();
-  const monMap = await fetchMonSchoolMap();
+  const monLoad = await fetchMonSchoolMap();
+  const monMap = monLoad.value;
   // Tier F — exact-EIK registered seats from the TR state mirror.
-  const trSeatMap = fetchTrSeatMap(candidates.map((c) => c.eik));
+  const trLoad = fetchTrSeatMap(candidates.map((c) => c.eik));
+  const trSeatMap = trLoad.value;
   // Tier S — exact-EIK settlements from our own schools register.
-  const schoolSeatMap = fetchSchoolSeatMap();
+  const schoolLoad = fetchSchoolSeatMap();
+  const schoolSeatMap = schoolLoad.value;
   // Tier R — exact-EIK EKATTE from the МОН institution register crosswalk.
-  const riCrosswalk = fetchRiCrosswalk();
+  const riLoad = fetchRiCrosswalk();
+  const riCrosswalk = riLoad.value;
 
   // Tier D — optional buyer→oblast map (disambiguates the Tier-A name parse).
-  const oblastMap: Record<string, { nuts: string }> = fs.existsSync(
+  const oblastLoad = loadAwarderJson<{ nuts: string }>(
     OBLAST_MAP_FILE,
-  )
-    ? (JSON.parse(fs.readFileSync(OBLAST_MAP_FILE, "utf8")).awarders ?? {})
-    : {};
-  if (Object.keys(oblastMap).length)
+    "Tier D",
+  );
+  const oblastMap = oblastLoad.value;
+  if (oblastLoad.ok)
     console.log(
       `  Tier D: ${Object.keys(oblastMap).length} buyer→oblast hint(s) loaded (tenders feed)`,
     );
 
   // Tier E — optional EIK → {locality, nuts} from OCDS party addresses.
-  const ocdsMap: Record<string, { locality: string; nuts: string }> =
-    fs.existsSync(OCDS_PARTY_MAP_FILE)
-      ? (JSON.parse(fs.readFileSync(OCDS_PARTY_MAP_FILE, "utf8")).awarders ??
-        {})
-      : {};
-  if (Object.keys(ocdsMap).length)
+  const ocdsLoad = loadAwarderJson<{ locality: string; nuts: string }>(
+    OCDS_PARTY_MAP_FILE,
+    "Tier E",
+  );
+  const ocdsMap = ocdsLoad.value;
+  if (ocdsLoad.ok)
     console.log(
       `  Tier E: ${Object.keys(ocdsMap).length} EIK→locality address(es) loaded (OCDS parties)`,
     );
 
-  const awarders: Record<
-    string,
-    { ekatte: string; source: string; confidence: string }
-  > = {};
+  const awarders: Record<string, GeoEntry> = {};
   const counts = {
     ri: 0,
     tr: 0,
@@ -556,21 +685,154 @@ const main = async (): Promise<void> => {
     counts.ocds +
     counts.name +
     counts.nameOblast;
+  console.log(
+    `  this run resolved ${resolved}/${candidates.length} ` +
+      `(RI ${counts.ri}, TR ${counts.tr}, school ${counts.school}, МОН ${counts.mon}, МОН+oblast ${counts.monOblast}, OCDS ${counts.ocds}, name ${counts.name}, name+oblast ${counts.nameOblast}); ${counts.unresolved} unresolved`,
+  );
+
+  // ── MERGE INTO THE COMMITTED MAP ──────────────────────────────────────────
+  // `name` is absent from TierInputs: Tier A is a parse of the awarder's own
+  // name, so it runs whenever the builder does and can never be unavailable.
+  const inputs: TierInputs = {
+    ri: riLoad.ok,
+    tr: trLoad.ok,
+    school: schoolLoad.ok,
+    ocds: ocdsLoad.ok,
+    mon: monLoad.ok,
+    oblast: oblastLoad.ok,
+  };
+  const reasons: Record<string, string | undefined> = {
+    ri: riLoad.reason,
+    tr: trLoad.reason,
+    school: schoolLoad.reason,
+    ocds: ocdsLoad.reason,
+    mon: monLoad.reason,
+    oblast: oblastLoad.reason,
+  };
+  const prior = readPrior();
+  const priorCount = Object.keys(prior.awarders).length;
+  const { awarders: merged, report } = mergeGeoOverrides(
+    prior.awarders,
+    awarders,
+    producibleSources(inputs),
+    new Set(candidates.map((c) => c.eik)),
+  );
+  const finalCount = Object.keys(merged).length;
+  const carriedTotal = Object.values(report.carried).reduce((a, b) => a + b, 0);
+
+  const generatedAt = new Date().toISOString();
+  const notes: string[] = [];
+  const tiers: Record<string, unknown> = {};
+  for (const key of TIER_KEYS) {
+    const ok = key === "name" ? true : inputs[key];
+    // How stale a down tier's carried-over entries are. A tier that ran is
+    // fresh as of now; one that did not keeps whatever the last good run
+    // stamped, so "unavailable since <date>" is answerable from the file alone.
+    const lastFreshAt = ok
+      ? generatedAt
+      : (prior.tiers?.[key]?.lastFreshAt ?? prior.generatedAt);
+    tiers[key] = {
+      status: ok ? "ok" : "unavailable",
+      ...(ok ? {} : { reason: reasons[key] }),
+      ...(lastFreshAt ? { lastFreshAt } : {}),
+    };
+  }
+  for (const key of TIER_KEYS) {
+    if (key === "name" || inputs[key]) continue;
+    // Attribute by the labels this tier gates. `mon+oblast` is gated by both
+    // `mon` and `oblast`, so with both down it is named in both notes — the
+    // note attributes, it does not sum.
+    const carried = (TIER_LABELS[key] ?? [])
+      .map((label) => `${label} ${report.carried[label] ?? 0}`)
+      .join(", ");
+    notes.push(
+      `Tier ${key} was unavailable on ${generatedAt.slice(0, 10)} (${reasons[key] ?? "no reason recorded"}); ` +
+        `entries carried over from the previous build: ${carried}.`,
+    );
+  }
+  if (report.unknownSources.length)
+    notes.push(
+      `Carried over entries with unrecognised source label(s): ${report.unknownSources.join(", ")} — ` +
+        `this build cannot tell whether the tier that produced them ran.`,
+    );
+
+  if (carriedTotal || report.retired || report.unresolved || report.changed)
+    console.log(
+      `  merge: ${carriedTotal} carried over` +
+        (carriedTotal
+          ? ` (${Object.entries(report.carried)
+              .sort()
+              .map(([s, n]) => `${s} ${n}`)
+              .join(", ")})`
+          : "") +
+        `, ${report.retired} retired (awarder gained an address), ` +
+        `${report.unresolved} dropped (tier ran, no longer resolves), ` +
+        `${report.changed} re-resolved to a different EKATTE`,
+    );
+  for (const n of notes) console.warn(`  ! ${n}`);
+
+  // ── THE SHRINK GUARD ──────────────────────────────────────────────────────
+  // The merge above makes an unavailable tier non-shrinking by construction, so
+  // this is a BACKSTOP for the shapes it cannot model — a resolver regression
+  // that drops entries across several live tiers, or a half-rebuilt awarders
+  // dir that retires them wholesale. It is deliberately tighter than the 25%
+  // ratios elsewhere in the repo: the incident that motivated all of this was
+  // 93/2164 = 4.3%, which a 25% guard is arithmetically incapable of seeing.
+  const SHRINK_TOLERANCE = 0.05;
+  const lost = priorCount - finalCount;
+  if (
+    priorCount &&
+    lost / priorCount > SHRINK_TOLERANCE &&
+    !process.argv.includes("--allow-shrink")
+  ) {
+    console.error(
+      `\nREFUSING TO WRITE: the map would shrink ${priorCount} → ${finalCount} ` +
+        `(${lost} entries, ${((lost / priorCount) * 100).toFixed(1)}% > ${SHRINK_TOLERANCE * 100}%).\n` +
+        `  ${report.retired} retired (gained an address), ${report.unresolved} no longer resolve.\n` +
+        `Re-run when every tier is reachable, or pass --allow-shrink if the contraction is real.`,
+    );
+    process.exitCode = 1;
+    return;
+  }
+
+  if (process.argv.includes("--dry-run")) {
+    console.log(`\n--dry-run: nothing written (would write ${finalCount}).`);
+    return;
+  }
+
   fs.writeFileSync(
     OUT_FILE,
     canonicalJson({
-      generatedAt: new Date().toISOString(),
-      count: resolved,
-      sources: counts,
-      awarders,
+      generatedAt,
+      count: finalCount,
+      // Recomputed from what is actually WRITTEN — a merged map's source counts
+      // must describe the map, not the run that built it.
+      sources: countSources(merged),
+      // …and the run's own tally is a SEPARATE block, because the two disagree
+      // whenever a tier is down and the difference is the whole point. With
+      // Tier B blocked the map holds 93 `mon` entries while this run resolved
+      // none of them; one block with both numbers in it invites reading the
+      // carried entries as freshly resolved, or `unresolved` as a gap in the map.
+      run: {
+        candidates: candidates.length,
+        resolved,
+        unresolved: counts.unresolved,
+      },
+      carriedOver: report.carried,
+      tiers,
+      ...(notes.length ? { notes } : {}),
+      awarders: merged,
     }),
   );
   console.log(
-    `✓ wrote ${OUT_FILE}\n` +
-      `  resolved ${resolved}/${candidates.length} ` +
-      `(RI ${counts.ri}, TR ${counts.tr}, school ${counts.school}, МОН ${counts.mon}, МОН+oblast ${counts.monOblast}, OCDS ${counts.ocds}, name ${counts.name}, name+oblast ${counts.nameOblast}); ${counts.unresolved} unresolved`,
+    `✓ wrote ${OUT_FILE} — ${finalCount} entr${finalCount === 1 ? "y" : "ies"}` +
+      (priorCount ? ` (was ${priorCount})` : ""),
   );
   console.log(`→ now rebuild: npm run procurement:ingest (applies overrides)`);
 };
 
-main();
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)
+  main().catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  });

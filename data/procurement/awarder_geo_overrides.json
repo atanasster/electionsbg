@@ -1,17 +1,59 @@
 {
-  "generatedAt": "2026-08-09T07:05:01.281Z",
+  "generatedAt": "2026-08-10T15:55:54.312Z",
   "count": 2164,
   "sources": {
-    "ri": 1290,
-    "tr": 107,
-    "school": 1,
     "ocds": 323,
-    "mon": 35,
-    "monOblast": 58,
+    "name+oblast": 84,
+    "ri": 1290,
     "name": 266,
-    "nameOblast": 84,
-    "unresolved": 594
+    "tr": 107,
+    "mon": 35,
+    "mon+oblast": 58,
+    "school": 1
   },
+  "run": {
+    "candidates": 2758,
+    "resolved": 2071,
+    "unresolved": 687
+  },
+  "carriedOver": {
+    "mon": 35,
+    "mon+oblast": 58
+  },
+  "tiers": {
+    "ri": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    },
+    "tr": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    },
+    "school": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    },
+    "ocds": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    },
+    "mon": {
+      "status": "unavailable",
+      "reason": "Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden",
+      "lastFreshAt": "2026-08-09T07:05:01.281Z"
+    },
+    "oblast": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    },
+    "name": {
+      "status": "ok",
+      "lastFreshAt": "2026-08-10T15:55:54.312Z"
+    }
+  },
+  "notes": [
+    "Tier mon was unavailable on 2026-08-10 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 35, mon+oblast 58."
+  ],
   "awarders": {
     "101005300": {
       "ekatte": "65334",
@@ -10833,8 +10875,5 @@
       "source": "mon+oblast",
       "confidence": "name+province"
     }
-  },
-  "notes": [
-    "mon/mon+oblast tiers carried over from the previous build: data.egov.bg returned 403 (egress-IP block) on 2026-08-09"
-  ]
+  }
 }
