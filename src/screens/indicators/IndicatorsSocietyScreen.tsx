@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
 import { useMacroPeers } from "@/data/macro/useMacroPeers";
@@ -15,16 +14,14 @@ import {
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotStrip } from "@/screens/components/macro/PeerSnapshotStrip";
 import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshotStripAnnual";
-import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
-import { IndicatorsNav } from "./indicatorsNav";
-import { ChartSources } from "./indicatorsShared";
+import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
 import { useAdminDigitalSkills } from "@/data/administration/useAdminDigitalSkills";
 import { DigitalSkillsTilesGrid } from "@/screens/administration/DigitalSkillsTiles";
 
 export const IndicatorsSocietyScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const { data: peers } = useMacroPeers();
   const { data: digitalSkills } = useAdminDigitalSkills();
   const [compare, toggleCompare] = useCompareToggle();
@@ -40,25 +37,23 @@ export const IndicatorsSocietyScreen = () => {
     [governments],
   );
 
+  // Rendered identically in both the loading and loaded returns — see
+  // IndicatorsPageHeader for why that is load-bearing rather than tidiness.
+  const header = (
+    <IndicatorsPageHeader
+      title={t("indicators_society_title")}
+      description={t("indicators_society_description")}
+      compare={{ enabled: compare, onToggle: toggleCompare }}
+    />
+  );
+
   if (!governments) {
-    return (
-      <div className="pb-12">
-        <Title>{t("indicators_society_title")}</Title>
-      </div>
-    );
+    return <div className="pb-12">{header}</div>;
   }
 
   return (
     <div className="pb-12">
-      <Title description={t("indicators_society_description")}>
-        {t("indicators_society_title")}
-      </Title>
-
-      <IndicatorsNav />
-
-      <div className="mb-4 flex justify-end">
-        <CompareToggleButton enabled={compare} onToggle={toggleCompare} />
-      </div>
+      {header}
 
       {xDomain ? (
         <CabinetStrip
@@ -109,6 +104,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["youthUnemployment"]}
               yAxisFormatter={(v) => `${v}%`}
               unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
@@ -129,6 +125,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["housePricesYoY"]}
               yAxisFormatter={(v) => `${v}%`}
               unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
@@ -149,6 +146,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["gini"]}
               yAxisFormatter={(v) => v.toFixed(0)}
               unitFormatter={(_k, v) => v.toFixed(1)}
@@ -166,6 +164,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["povertyRate"]}
               yAxisFormatter={(v) => `${v}%`}
               unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
@@ -214,6 +213,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["intentionalHomicideRate"]}
               yAxisFormatter={(v) => v.toFixed(1)}
               unitFormatter={(_k, v) => v.toFixed(2)}
@@ -237,6 +237,7 @@ export const IndicatorsSocietyScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["prisonPopulationRate"]}
               yAxisFormatter={(v) => v.toFixed(0)}
               unitFormatter={(_k, v) => v.toFixed(0)}

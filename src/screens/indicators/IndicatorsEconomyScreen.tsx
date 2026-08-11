@@ -2,7 +2,6 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
 import {
@@ -25,9 +24,7 @@ import { InflationBreakdownChart } from "@/screens/components/governments/Inflat
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshotStripAnnual";
-import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
-import { IndicatorsNav } from "./indicatorsNav";
-import { ChartSources } from "./indicatorsShared";
+import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
 import {
   computeLabourSlackCallout,
   computeSlackEuAverage,
@@ -59,7 +56,7 @@ const ECONOMY_DEFAULT_ENABLED: MacroIndicatorKey[] = [
 export const IndicatorsEconomyScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const { data: peers } = useMacroPeers();
   const [compare, toggleCompare] = useCompareToggle();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -149,25 +146,23 @@ export const IndicatorsEconomyScreen = () => {
     [slackPeer, labourSlackCallout, fmt1],
   );
 
+  // Rendered identically in both the loading and loaded returns — see
+  // IndicatorsPageHeader for why that is load-bearing rather than tidiness.
+  const header = (
+    <IndicatorsPageHeader
+      title={t("indicators_economy_title")}
+      description={t("indicators_economy_description")}
+      compare={{ enabled: compare, onToggle: toggleCompare }}
+    />
+  );
+
   if (!governments) {
-    return (
-      <div className="pb-12">
-        <Title>{t("indicators_economy_title")}</Title>
-      </div>
-    );
+    return <div className="pb-12">{header}</div>;
   }
 
   return (
     <div className="pb-12">
-      <Title description={t("indicators_economy_description")}>
-        {t("indicators_economy_title")}
-      </Title>
-
-      <IndicatorsNav />
-
-      <div className="mb-4 flex justify-end">
-        <CompareToggleButton enabled={compare} onToggle={toggleCompare} />
-      </div>
+      {header}
 
       {xDomain ? (
         <CabinetStrip
@@ -214,6 +209,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={ECONOMY_INDICATOR_SPEC}
           enabled={economyEnabled}
           onEnabledChange={setEconomyEnabled}
@@ -289,6 +285,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["employmentRate", "activityRate"]}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
@@ -314,6 +311,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["unemploymentMonthly", "youthUnemployment"]}
           referenceKeys={["unemployment"]}
           yAxisFormatter={(v) => `${v}`}
@@ -399,6 +397,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["labourProductivity", "unitLabourCost"]}
           yAxisFormatter={(v) => v.toFixed(0)}
           unitFormatter={(_k, v) => v.toFixed(1)}
@@ -455,6 +454,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["taxWedge"]}
           // A solo chart whose subject IS a share, so the axis carries the
           // unit — the bare `${v}` form belongs to the mixed-unit charts above,
@@ -490,6 +490,7 @@ export const IndicatorsEconomyScreen = () => {
         <InflationBreakdownChart
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           height={340}
         />
       </section>
@@ -514,6 +515,7 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["consumerConfidence", "economicSentiment"]}
           yAxisFormatter={(v) => v.toFixed(0)}
           unitFormatter={(_k, v) => v.toFixed(1)}

@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
 import {
@@ -10,13 +9,12 @@ import {
   GovernmentTimeline,
 } from "@/screens/components/governments/GovernmentTimeline";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
-import { IndicatorsNav } from "./indicatorsNav";
-import { ChartSources } from "./indicatorsShared";
+import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
 
 export const IndicatorsGovernanceScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
   const xDomain = useMemo<[number, number] | null>(
@@ -24,21 +22,22 @@ export const IndicatorsGovernanceScreen = () => {
     [governments],
   );
 
+  // Rendered identically in both the loading and loaded returns — see
+  // IndicatorsPageHeader for why that is load-bearing rather than tidiness.
+  const header = (
+    <IndicatorsPageHeader
+      title={t("indicators_governance_title")}
+      description={t("indicators_governance_description")}
+    />
+  );
+
   if (!governments) {
-    return (
-      <div className="pb-12">
-        <Title>{t("indicators_governance_title")}</Title>
-      </div>
-    );
+    return <div className="pb-12">{header}</div>;
   }
 
   return (
     <div className="pb-12">
-      <Title description={t("indicators_governance_description")}>
-        {t("indicators_governance_title")}
-      </Title>
-
-      <IndicatorsNav />
+      {header}
 
       {xDomain ? (
         <CabinetStrip
@@ -68,6 +67,7 @@ export const IndicatorsGovernanceScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["cpi"]}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(0)}/100`}
@@ -96,6 +96,7 @@ export const IndicatorsGovernanceScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={[
             "wgiRuleOfLaw",
             "wgiControlOfCorruption",
@@ -129,6 +130,7 @@ export const IndicatorsGovernanceScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["trustParliament", "trustGovernment", "trustEu"]}
           yAxisFormatter={(v) => `${v}%`}
           unitFormatter={(_k, v) => `${v.toFixed(0)}%`}

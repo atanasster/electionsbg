@@ -15,7 +15,7 @@ import { StatCard } from "./StatCard";
 export const GovernmentsTile: FC = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
   const xDomain = useMemo<[number, number] | null>(
@@ -52,6 +52,7 @@ export const GovernmentsTile: FC = () => {
       <GovernmentTimeline
         governments={governments}
         macro={macro}
+        macroPending={macroPending}
         indicatorKeys={["trustGovernment", "trustParliament", "trustEu"]}
         yAxisFormatter={(v) => `${v}%`}
         unitFormatter={(_k, v) => `${v.toFixed(0)}%`}

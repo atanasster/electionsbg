@@ -897,6 +897,13 @@ export const GovernmentTimeline: FC<{
   unitFormatter?: (key: MacroIndicatorKey, value: number) => string;
   /** Chart height (px). Default 360. */
   height?: number;
+  /**
+   * True while the macro query is still in flight. Drives the loading
+   * placeholder's height reservation — see the `!macro` branch. Defaults to
+   * false so a caller that does not know collapses (the pre-2026-08-11
+   * behaviour) rather than reserving space for ever on a failed fetch.
+   */
+  macroPending?: boolean;
   /** Show a horizontal y=0 reference line. Useful for signed indicators. */
   showZeroLine?: boolean;
   /** Hide the per-series toggle pills above the chart. Used by the dashboard
@@ -951,6 +958,7 @@ export const GovernmentTimeline: FC<{
   yDomain,
   unitFormatter,
   height = 360,
+  macroPending = false,
   showZeroLine,
   hideToggles,
   eventMarkers,
@@ -1021,9 +1029,42 @@ export const GovernmentTimeline: FC<{
   const tooltipFormatter =
     unitFormatter ?? ((_k: MacroIndicatorKey, v: number) => yAxisFormatter(v));
 
+  // While the macro query is in flight, reserve the plot's height instead of
+  // collapsing to a line of text.
+  //
+  // `macro` is undefined for the whole window between governments.json landing
+  // (which is what lets a page body render) and macro.json landing, so this
+  // branch is the FIRST thing every chart here renders — not a rare error
+  // state. Collapsing it to ~40px and then expanding to `height` when the data
+  // arrives moved everything below each chart down the page: measured on
+  // /indicators/economy (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU), its seven charts
+  // growing at once took the body from 2280px to 5268px and was that page's
+  // entire layout shift — CLS 0.1536 in a single event. Reserving took it to 0.
+  //
+  // `macroPending` is what keeps this from becoming a worse bug than the one it
+  // fixes. `!macro` does NOT mean "loading": useMacro's fetcher returns
+  // undefined on a non-ok response, which react-query records as SUCCESS, so a
+  // failed macro.json leaves `macro` undefined permanently. Reserving on `!macro`
+  // alone would hold ~2,160px of empty boxes on this page for ever. Only the
+  // unsettled query reserves; a settled-but-empty result collapses as before.
+  //
+  // `height` is the same value the loaded chart uses below, so the reservation
+  // cannot drift from what replaces it. It is not the WHOLE of the loaded
+  // block — the indicator toggles sit above the plot and ChartEventsStrip can
+  // sit below it, and neither is renderable without `macro` — so a chart with
+  // either still moves by that much. Reserving the dominant, knowable term is
+  // what is available without inventing placeholders for controls whose labels
+  // are not loaded yet.
   if (!macro || chartData.length === 0) {
     return (
-      <div className="text-sm text-muted-foreground">
+      <div
+        className={
+          macroPending
+            ? "w-full flex items-center justify-center text-sm text-muted-foreground"
+            : "text-sm text-muted-foreground"
+        }
+        style={macroPending ? { height } : undefined}
+      >
         {t("gov_macro_unavailable")}
       </div>
     );

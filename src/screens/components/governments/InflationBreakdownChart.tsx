@@ -147,7 +147,9 @@ export const InflationBreakdownChart: FC<{
   governments: Government[];
   macro: MacroPayload | undefined;
   height?: number;
-}> = ({ governments, macro, height = 320 }) => {
+  /** See GovernmentTimeline.macroPending. */
+  macroPending?: boolean;
+}> = ({ governments, macro, height = 320, macroPending = false }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const insets = useChartInsets();
@@ -158,9 +160,21 @@ export const InflationBreakdownChart: FC<{
     [governments],
   );
 
+  // Reserve the plot height while the query is unsettled rather than
+  // collapsing to a line of text — see the same branch in GovernmentTimeline
+  // for the measurement and for why `macroPending` rather than `!macro` gates
+  // it. This chart renders on /indicators/economy alongside six of those, and
+  // every one of them growing at once is what moved the page.
   if (!macro || rows.length === 0) {
     return (
-      <div className="text-sm text-muted-foreground">
+      <div
+        className={
+          macroPending
+            ? "w-full flex items-center justify-center text-sm text-muted-foreground"
+            : "text-sm text-muted-foreground"
+        }
+        style={macroPending ? { height } : undefined}
+      >
         {t("gov_macro_unavailable")}
       </div>
     );

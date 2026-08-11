@@ -22,7 +22,7 @@ import { CabinetScoreDetail } from "./components/macro/CabinetScoreCard";
 export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -145,6 +145,7 @@ export const GovernmentsScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}

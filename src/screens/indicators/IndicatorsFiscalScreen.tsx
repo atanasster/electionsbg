@@ -5,7 +5,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { Title } from "@/ux/Title";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { MacroPayload, MacroPoint, useMacro } from "@/data/macro/useMacro";
@@ -25,9 +24,7 @@ import { DebtEmissionsTable } from "@/screens/components/governments/DebtEmissio
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { FdiMonthlyTile } from "@/screens/components/macro/FdiMonthlyTile";
-import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
-import { IndicatorsNav } from "./indicatorsNav";
-import { ChartSources } from "./indicatorsShared";
+import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
 
 const FISCAL_INDICATOR_KEYS: MacroIndicatorKey[] = [
   "govDebt",
@@ -39,7 +36,7 @@ export const IndicatorsFiscalScreen = () => {
   const { t, i18n } = useTranslation();
   const { search } = useLocation();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const { data: peers } = useMacroPeers();
   const [compare, toggleCompare] = useCompareToggle();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -95,25 +92,23 @@ export const IndicatorsFiscalScreen = () => {
     };
   }, [macro]);
 
+  // Rendered identically in both the loading and loaded returns — see
+  // IndicatorsPageHeader for why that is load-bearing rather than tidiness.
+  const header = (
+    <IndicatorsPageHeader
+      title={t("indicators_fiscal_title")}
+      description={t("indicators_fiscal_description")}
+      compare={{ enabled: compare, onToggle: toggleCompare }}
+    />
+  );
+
   if (!governments) {
-    return (
-      <div className="pb-12">
-        <Title>{t("indicators_fiscal_title")}</Title>
-      </div>
-    );
+    return <div className="pb-12">{header}</div>;
   }
 
   return (
     <div className="pb-12">
-      <Title description={t("indicators_fiscal_description")}>
-        {t("indicators_fiscal_title")}
-      </Title>
-
-      <IndicatorsNav />
-
-      <div className="mb-4 flex justify-end">
-        <CompareToggleButton enabled={compare} onToggle={toggleCompare} />
-      </div>
+      {header}
 
       {xDomain ? (
         <CabinetStrip
@@ -182,6 +177,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={FISCAL_INDICATOR_KEYS}
           enabled={fiscalEnabled}
           onEnabledChange={setFiscalEnabled}
@@ -226,6 +222,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={enrichedMacro}
+          macroPending={macroPending}
           indicatorKeys={["govDebtNominal"]}
           yAxisFormatter={(v) => `€${(v / 1000).toFixed(0)}B`}
           unitFormatter={(_k, v) => `€${(v / 1000).toFixed(2)}B`}
@@ -237,6 +234,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={enrichedMacro}
+          macroPending={macroPending}
           indicatorKeys={[
             "debtIssuance",
             "budgetBalanceNominal",
@@ -269,6 +267,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={enrichedMacro}
+          macroPending={macroPending}
           indicatorKeys={["fiscalReserve"]}
           yAxisFormatter={(v) => `€${(v / 1000).toFixed(1)}B`}
           unitFormatter={(_k, v) => `€${(v / 1000).toFixed(2)}B`}
@@ -312,6 +311,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={enrichedMacro}
+          macroPending={macroPending}
           indicatorKeys={["govRevenue", "govExpenditure"]}
           yAxisFormatter={(v) => `€${(v / 1000).toFixed(0)}B`}
           unitFormatter={(_k, v) => `€${(v / 1000).toFixed(2)}B`}
@@ -328,6 +328,7 @@ export const IndicatorsFiscalScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={macro}
+              macroPending={macroPending}
               indicatorKeys={["nominalGdp"]}
               yAxisFormatter={(v) => `€${(v / 1000).toFixed(0)}B`}
               unitFormatter={(_k, v) => `€${(v / 1000).toFixed(1)}B`}
@@ -345,6 +346,7 @@ export const IndicatorsFiscalScreen = () => {
             <GovernmentTimeline
               governments={governments}
               macro={enrichedMacro}
+              macroPending={macroPending}
               indicatorKeys={["fdiInward"]}
               yAxisFormatter={(v) => `€${(v / 1000).toFixed(1)}B`}
               unitFormatter={(_k, v) => `€${(v / 1000).toFixed(2)}B`}
@@ -426,6 +428,7 @@ export const IndicatorsFiscalScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["euFunds", "euContribution"]}
           yAxisFormatter={(v) => `€${v}B`}
           unitFormatter={(_k, v) => `€${v.toFixed(2)}B`}

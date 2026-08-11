@@ -173,7 +173,7 @@ export const GovernmentDetailScreen: FC = () => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const navigate = useNavigate();
   const { data: governments } = useGovernments();
-  const { data: macro } = useMacro();
+  const { data: macro, isPending: macroPending } = useMacro();
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
   const milestones = useEuMilestones();
@@ -354,6 +354,7 @@ export const GovernmentDetailScreen: FC = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
+          macroPending={macroPending}
           indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
