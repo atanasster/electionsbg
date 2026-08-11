@@ -192,3 +192,60 @@ describe("replayEvents — a transfer of a stake we never saw arrive", () => {
     expect(manager.erasedAt).toBeNull();
   });
 });
+
+describe("replayEvents — one transfer ends one holding", () => {
+  const shareholder = (
+    recordId: string,
+    filingDate: string,
+  ): TrChangeEvent => ({
+    kind: "person_added",
+    uic: "205945260",
+    companyName: "АЙВИ АРХ",
+    role: "partner",
+    personName: "Иван Георгиев Такучев",
+    positionLabel: null,
+    country: "БЪЛГАРИЯ",
+    shareAmount: 50,
+    shareCurrency: null,
+    filingDate,
+    recordId,
+    groupId: null,
+    fieldIdent: "00230",
+  });
+
+  it("stamps ONE record, not every holding the person has there", () => {
+    // 43,692 (company, person) pairs hold more than one shareholder record, and a stake can
+    // move in part — TR's ShareTransfer carries a ShareAmount for exactly that reason. The
+    // stamp-all form erased ~12,000 rows beyond one-per-transfer on a full rebuild.
+    const state = replayEvents([
+      shareholder("901", "2021-05-04T10:00:00"),
+      shareholder("902", "2021-06-04T10:00:00"),
+      ...parseTrDailyFiling(fixture),
+    ]);
+    const rows = [...state.get("205945260")!.persons.values()].filter(
+      (p) => p.nameNormalized === "ИВАН ГЕОРГИЕВ ТАКУЧЕВ",
+    );
+    expect(rows.filter((r) => r.erasedAt !== null)).toHaveLength(1);
+    expect(rows.filter((r) => r.erasedAt === null)).toHaveLength(1);
+  });
+
+  it("ends the OLDEST open holding, so the choice is deterministic", () => {
+    // Insertion order must not decide which stake a transfer closes.
+    const forward = replayEvents([
+      shareholder("901", "2021-05-04T10:00:00"),
+      shareholder("902", "2021-06-04T10:00:00"),
+      ...parseTrDailyFiling(fixture),
+    ]);
+    const reversed = replayEvents([
+      shareholder("902", "2021-06-04T10:00:00"),
+      shareholder("901", "2021-05-04T10:00:00"),
+      ...parseTrDailyFiling(fixture),
+    ]);
+    const erasedId = (s: ReturnType<typeof replayEvents>) =>
+      [...s.get("205945260")!.persons.values()].find(
+        (p) => p.nameNormalized === "ИВАН ГЕОРГИЕВ ТАКУЧЕВ" && p.erasedAt,
+      )!.recordId;
+    expect(erasedId(forward)).toBe("901");
+    expect(erasedId(reversed)).toBe("901");
+  });
+});

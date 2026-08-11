@@ -89,18 +89,33 @@ export const replayEvents = (
       // first 150 days: matching only active records minted 768 duplicates out of 12,220
       // rows (6.3%), and the rate climbs as the window widens.
       const target = normalizePersonName(ev.oldOwnerName);
-      let stamped = false;
-      for (const p of c.persons.values()) {
-        if (p.nameNormalized !== target) continue;
-        // Only a SHAREHOLDER can transfer a share. A manager of the same name is a
-        // different record and erasing them would retire a sitting director on the
-        // strength of a share sale.
-        if (p.role !== "partner" && p.role !== "sole_owner") continue;
-        if (p.erasedAt === null) {
-          p.erasedAt = ev.filingDate;
-          stamped = true;
-        } else if (p.erasedAt === ev.filingDate) {
-          // Erased earlier in this same filing — already accounted for.
+      // ONE transfer ends ONE holding, so at most one record is stamped. Only a SHAREHOLDER
+      // can transfer a share — a manager of the same name is a different record, and erasing
+      // them would retire a sitting director on the strength of a share sale.
+      //
+      // Stamping every matching record instead over-erases: 43,692 (company, person) pairs
+      // hold more than one shareholder record, and a partial transfer — TR's ShareTransfer
+      // carries a ShareAmount precisely because a stake can move in part — would retire
+      // somebody who still holds the rest. Measured on a full rebuild, the stamp-all form
+      // erased ~12,000 rows beyond one-per-transfer. Where a person really does transfer two
+      // holdings the feed files two ShareTransfer records, so each still gets its own stamp.
+      const mine = [...c.persons.values()].filter(
+        (p) =>
+          p.nameNormalized === target &&
+          (p.role === "partner" || p.role === "sole_owner"),
+      );
+      // Already accounted for if a record was erased earlier in THIS filing: a SubDeed lists
+      // Partners/Erase before ShareTransfers, so on an ООД→ЕООД consolidation the seller is
+      // erased by the time the transfer replays.
+      let stamped = mine.some((p) => p.erasedAt === ev.filingDate);
+      if (!stamped) {
+        // Oldest still-open holding first — deterministic, and the one a transfer most
+        // plausibly ends.
+        const open = mine
+          .filter((p) => p.erasedAt === null)
+          .sort((a, b) => (a.addedAt ?? "").localeCompare(b.addedAt ?? ""));
+        if (open.length) {
+          open[0].erasedAt = ev.filingDate;
           stamped = true;
         }
       }
