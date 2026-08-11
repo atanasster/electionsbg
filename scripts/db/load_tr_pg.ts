@@ -132,17 +132,52 @@ const copyTable = async <T = void>(
 // needs a stage merge (lib/stage_merge.ts) — but only tr_companies and ngo_details
 // have a unique key to merge on, tr_officers would need one declared, and
 // tr_person_roles has none available. Scoped as Phase 4b in that plan.
+//
+// THE TRUNCATE STATEMENTS ARE LITERALS, and that is a requirement rather than a
+// style choice. `person_reload_locks.data.test.ts` reads the serving surface out
+// of the SQL and forbids TRUNCATE on any table a person route serves —
+// tr_companies is one (082_person_api.sql JOINs it). Its scanner matches
+// `TRUNCATE\s+(?:TABLE\s+)?([a-z_0-9,\s]+)`, so a `TRUNCATE ${table}` names no
+// table it can see and the whole debt was invisible to the gate that exists to
+// track it. Spelling the four out keeps them visible, and makes an injected
+// identifier impossible as a side effect. That gate now REFUSES an interpolated
+// TRUNCATE outright, so this cannot regress quietly.
+const TRUNCATE_SQL: Record<string, string> = {
+  tr_companies: "TRUNCATE tr_companies",
+  ngo_details: "TRUNCATE ngo_details",
+  tr_officers: "TRUNCATE tr_officers",
+  tr_person_roles: "TRUNCATE tr_person_roles",
+};
+
 const replaceTable = async <T = void>(
   table: string,
   cols: string[],
   rows: Iterable<unknown[]>,
   after?: (c: PoolClient) => Promise<T>,
-): Promise<T | undefined> =>
-  withTx(async (c) => {
-    await c.query(`TRUNCATE ${table}`);
+): Promise<T | undefined> => {
+  const truncate = TRUNCATE_SQL[table];
+  if (!truncate)
+    throw new Error(
+      `replaceTable: ${table} has no entry in TRUNCATE_SQL. Add one — ` +
+        `person_reload_locks.data.test.ts cannot see an interpolated identifier.`,
+    );
+  return withTx(async (c) => {
+    // Index drops belong INSIDE this transaction. Through exec() they are
+    // autocommitted, so any failure between them and the rebuild at the end of the
+    // load — a killed process, a dropped Cloud SQL proxy connection — commits the
+    // drops and never reaches the creates, leaving the table POPULATED BUT
+    // UNINDEXED. That state is complete and correct to every row count in this
+    // repo, and turns every person query joining tr_officers.name_fold into a
+    // multi-minute seq scan. Observed for real 2026-08-10
+    // (docs/plans/cloud-deploy-speed-v1.md F21). In here, an aborted load rolls the
+    // drops back along with the TRUNCATE.
+    for (const { name, table: t } of LOAD_INDEXES)
+      if (t === table) await c.query(`DROP INDEX IF EXISTS ${name}`);
+    await c.query(truncate);
     await copyRows(c, table, cols, rows);
     return after ? await after(c) : undefined;
   });
+};
 
 // Secondary indexes built ONCE after the bulk load — a one-shot GIN build is far
 // cheaper than maintaining the index across ~3M COPYed rows. They used to vanish
@@ -154,63 +189,40 @@ const replaceTable = async <T = void>(
 // they are part of the table definition, and they were maintained during the COPY
 // under the old DROP+CREATE too, so leaving them is exactly the previous
 // behaviour.
-const LOAD_INDEXES: { name: string; ddl: string }[] = [
-  {
-    name: "idx_tr_companies_fold",
-    ddl: "CREATE INDEX idx_tr_companies_fold ON tr_companies USING gin (name_fold gin_trgm_ops)",
-  },
-  {
-    name: "idx_tr_officers_fold",
-    ddl: "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
-  },
-  {
-    name: "idx_tr_officers_uic",
-    ddl: "CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)",
-  },
+//
+// Name and table are PARSED from each statement rather than restated beside it.
+// Written twice, a typo makes the DROP target a name that does not exist and the
+// CREATE then raise 42P07 on the second run; parsed once, the two cannot disagree.
+// replaceTable also needs the table to drop the right subset inside each
+// transaction, which restating would be a third copy of the same fact.
+export const LOAD_INDEXES: { name: string; table: string; ddl: string }[] = [
+  "CREATE INDEX idx_tr_companies_fold ON tr_companies USING gin (name_fold gin_trgm_ops)",
+  "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
+  "CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)",
   // Entity-class facet (NGO browse/segmentation) + NGO metadata lookup. The
   // composite (entity_class, name) also serves the /procurement/ngos browse's
   // default name-sort — a single-category facet becomes an index-only scan
   // (~0.2ms vs a ~190ms top-N sort over 30k rows).
-  {
-    name: "idx_tr_companies_entity_class",
-    ddl: "CREATE INDEX idx_tr_companies_entity_class ON tr_companies (entity_class)",
-  },
-  {
-    name: "idx_tr_companies_class_name",
-    ddl: "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
-  },
+  "CREATE INDEX idx_tr_companies_entity_class ON tr_companies (entity_class)",
+  "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
   // Partial trigram index over the NGO surface only — serves the fuzzy name
   // match in load_ngo_funding_pg.ts. Scoped so the `%` operator prunes to the
   // ~31k NGO rows via the index instead of an O(staged × NGO) similarity() seq
   // scan (which took ~1hr on Cloud SQL's shared core).
-  {
-    name: "idx_tr_companies_ngo_fold",
-    ddl: `CREATE INDEX idx_tr_companies_ngo_fold ON tr_companies USING gin (name_fold gin_trgm_ops)
-          WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`,
-  },
+  `CREATE INDEX idx_tr_companies_ngo_fold ON tr_companies USING gin (name_fold gin_trgm_ops)
+   WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`,
   // Btree for exact-fold person lookup (person_profile / connection_between).
-  {
-    name: "idx_tr_officers_fold_eq",
-    ddl: "CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)",
-  },
-  {
-    name: "idx_tr_person_roles_fold",
-    ddl: "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
-  },
-  {
-    name: "idx_tr_person_roles_uic",
-    ddl: "CREATE INDEX idx_tr_person_roles_uic ON tr_person_roles (uic)",
-  },
+  "CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)",
+  "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
+  "CREATE INDEX idx_tr_person_roles_uic ON tr_person_roles (uic)",
   // Timestamp indexes for recent_updates' day-window filter.
-  {
-    name: "idx_tr_companies_updated",
-    ddl: "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
-  },
-  {
-    name: "idx_tr_officers_changed",
-    ddl: "CREATE INDEX idx_tr_officers_changed ON tr_officers (changed_at)",
-  },
-];
+  "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
+  "CREATE INDEX idx_tr_officers_changed ON tr_officers (changed_at)",
+].map((ddl) => {
+  const m = /CREATE INDEX (\w+) ON (\w+)/.exec(ddl);
+  if (!m) throw new Error(`LOAD_INDEXES entry is unparseable: ${ddl}`);
+  return { name: m[1] as string, table: m[2] as string, ddl };
+});
 
 export const loadTrPg = async (): Promise<{
   companies: number;
@@ -228,11 +240,9 @@ export const loadTrPg = async (): Promise<{
 
   const tr = new DatabaseSync(TR_DB, { readOnly: true });
 
-  // Drop the secondary indexes before the COPY phase so each is built once, at
-  // the end, over the finished table (see LOAD_INDEXES). Under the old
-  // DROP TABLE this came free.
-  for (const { name } of LOAD_INDEXES)
-    await exec(`DROP INDEX IF EXISTS ${name}`);
+  // NOTE: the secondary indexes are dropped per table INSIDE replaceTable's
+  // transaction, not in a loop here. An autocommitted drop up front survives an
+  // aborted load and leaves the table populated but unindexed — see replaceTable.
 
   const companies = tr
     .prepare(
@@ -379,8 +389,13 @@ export const loadTrPg = async (): Promise<{
   // One-shot index build (cheaper than incremental during load). Dropped above,
   // so these stay unconditional CREATEs — see LOAD_INDEXES for what each is for.
   for (const { ddl } of LOAD_INDEXES) await exec(ddl);
-  await exec("ANALYZE tr_companies");
-  await exec("ANALYZE tr_officers");
+  // ANALYZE every table replaced above, not just the two the loader used to name.
+  // TRUNCATE does NOT reset pg_statistic, so where the old DROP+CREATE left stats
+  // genuinely absent — which the planner treats as unknown — this leaves the
+  // PREVIOUS vintage's stats in place, which it trusts. tr_person_roles is the
+  // largest of the four and feeds company_person_roles and owner_name_counts on
+  // this same path.
+  for (const t of Object.keys(TRUNCATE_SQL)) await exec(`ANALYZE ${t}`);
 
   // Search API + multi-table builders (idempotent; depend on the tables +
   // contracts + contract_first_seen + contractor_search).
@@ -409,14 +424,25 @@ export const loadTrPg = async (): Promise<{
   // invisible only because 003's CASCADE deleted the matview outright; with the
   // relation now surviving, staleness is what is left to close.
   // Guarded on existence — 071 is owned by the magistrate loader and a TR-only
-  // database may not have it. Plain REFRESH, matching load_magistrates_pg.ts:
-  // CONCURRENTLY cannot run against the unpopulated matview 071 creates.
-  const hasOfficerCounts = await getPool()
-    .query("SELECT to_regclass('public.company_officer_counts') AS t")
-    .then((r) => r.rows[0]?.t != null)
-    .catch(() => false);
-  if (hasOfficerCounts)
-    await exec("REFRESH MATERIALIZED VIEW company_officer_counts");
+  // database may not have it.
+  //
+  // CONCURRENTLY once it is POPULATED, matching declaration_stake_company below:
+  // 071 supplies the UNIQUE index CONCURRENTLY requires, and this matview is on a
+  // serving path too (magistrate_politician_links() in 071, plus 099), so a plain
+  // REFRESH blocks those readers for its whole duration on every TR load. Only the
+  // first-ever run pays that — a matview created WITH NO DATA cannot be refreshed
+  // CONCURRENTLY, which is why the populated state is probed rather than assumed.
+  const officerCounts = await getPool()
+    .query(
+      `SELECT c.relispopulated AS populated FROM pg_class c
+        WHERE c.oid = to_regclass('public.company_officer_counts')`,
+    )
+    .then((r) => r.rows[0] as { populated: boolean } | undefined)
+    .catch(() => undefined);
+  if (officerCounts)
+    await exec(
+      `REFRESH MATERIALIZED VIEW ${officerCounts.populated ? "CONCURRENTLY " : ""}company_officer_counts`,
+    );
 
   // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
   // depend on tr_officers + contracts + cabinets + officer_name_counts (above).

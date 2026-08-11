@@ -55,9 +55,31 @@ export const targetIsCloud = (): boolean => isServingDatabase();
  * locally first", and shipping zero rows would quietly blank the cloud copy) or
  * when the destination count does not match the source count.
  */
+// The TRUNCATE this helper issues, spelled out per table.
+//
+// Not a style choice: `person_reload_locks.data.test.ts` reads the person serving surface out
+// of the SQL and forbids TRUNCATE on any table a person route serves — and its scanner matches
+// table names STATICALLY, so a `TRUNCATE ${table}` names nothing it can see. A generic helper
+// is the worst place for that, because one invisible writer covers every call site at once.
+// Listing them keeps all three visible to the gate (none is on the person surface today, which
+// is only knowable because they are visible), and adding a fourth is one line that the gate
+// then checks. Also removes the last path by which an identifier could reach SQL unvalidated.
+const TRUNCATE_SQL: Record<string, string> = {
+  procurement_normalcy_cache: "TRUNCATE procurement_normalcy_cache",
+  tender_normalcy_cache: "TRUNCATE tender_normalcy_cache",
+  company_founded: "TRUNCATE company_founded",
+};
+
 export const shipTable = async (table: string): Promise<number> => {
   if (!/^[a-z_][a-z0-9_]*$/.test(table))
     throw new Error(`shipTable: unsafe table name ${JSON.stringify(table)}`);
+  const truncate = TRUNCATE_SQL[table];
+  if (!truncate)
+    throw new Error(
+      `shipTable: ${table} has no entry in TRUNCATE_SQL. Add one — ` +
+        `person_reload_locks.data.test.ts cannot see an interpolated identifier, so a ` +
+        `table shipped this way would never be checked against the person serving surface.`,
+    );
 
   const src = new Pool({ connectionString: LOCAL_DATABASE_URL, max: 1 });
   try {
@@ -72,7 +94,7 @@ export const shipTable = async (table: string): Promise<number> => {
     const srcClient = await src.connect();
     try {
       await withClient(async (dst) => {
-        await dst.query(`TRUNCATE ${table}`);
+        await dst.query(truncate);
         const reader = srcClient.query(copyTo(`COPY ${table} TO STDOUT`));
         const writer = dst.query(copyFrom(`COPY ${table} FROM STDIN`));
         await pipeline(reader, writer);

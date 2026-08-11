@@ -94,20 +94,26 @@ afterAll(async () => {
  * The sanctioned shapes — plpgsql, and a string-bodied `LANGUAGE sql` — record nothing in
  * either class and correctly never appear. The discrimination proof below asserts all three.
  */
+// `refclassid` is pinned on both arms: OIDs come from one cluster-wide counter and
+// are not unique across catalogs, so without it an unrelated pg_type/pg_proc object
+// sharing this relation's OID reads as a dependent. Same fix as
+// migration_drop_dependents.data.test.ts, which shares this probe.
 const dependentsSql = (rel: string): string => `
   SELECT DISTINCT dep.relname AS name, dep.relkind::text AS kind
   FROM pg_depend d
   JOIN pg_rewrite r  ON r.oid = d.objid
   JOIN pg_class  dep ON dep.oid = r.ev_class
-  WHERE d.classid  = 'pg_rewrite'::regclass
-    AND d.refobjid = 'public.${rel}'::regclass
-    AND dep.oid   <> 'public.${rel}'::regclass
+  WHERE d.classid    = 'pg_rewrite'::regclass
+    AND d.refclassid = 'pg_class'::regclass
+    AND d.refobjid   = 'public.${rel}'::regclass
+    AND dep.oid     <> 'public.${rel}'::regclass
   UNION ALL
   SELECT DISTINCT p.proname, 'function'
   FROM pg_depend d
   JOIN pg_proc p ON p.oid = d.objid
-  WHERE d.classid  = 'pg_proc'::regclass
-    AND d.refobjid = 'public.${rel}'::regclass`;
+  WHERE d.classid    = 'pg_proc'::regclass
+    AND d.refclassid = 'pg_class'::regclass
+    AND d.refobjid   = 'public.${rel}'::regclass`;
 
 const dependentsOf = (rel: string): Promise<{ name: string; kind: string }[]> =>
   allRows<{ name: string; kind: string }>(dependentsSql(rel));

@@ -55,8 +55,12 @@ const PERSON_API_SQL = [
 // Query aliases / CTE names / stray English words that the FROM|JOIN regex picks
 // up. Excluded by construction rather than by a "does it exist in pg_class"
 // check, so the gate stays runnable with no database.
+// `in` earns its place the same way the rest do, but from the OTHER side: the TRUNCATE
+// scanner below reads prose in non-comment lines too (a template literal spanning several
+// lines is not a `//` line), so an error message reading "no literal TRUNCATE in X" parses as
+// a TRUNCATE of a table called `in`. Harmless only while `in` is not in this set.
 const NOT_A_TABLE =
-  /^(lateral|unnest|the|that|to|today|pick|yrs|subj|subj_co|rel|prev|agg|base|latest|scored|source_row|target|subject|roster|m|f|a|p_c|p_co|cand|eiks|mine|its|inside|over|below|and)$/;
+  /^(lateral|unnest|the|that|to|today|pick|yrs|subj|subj_co|rel|prev|agg|base|latest|scored|source_row|target|subject|roster|m|f|a|p_c|p_co|cand|eiks|mine|its|inside|over|below|and|in)$/;
 
 /** Tables the person serving functions SELECT from. */
 const servedByPersonRoutes = (): Set<string> => {
@@ -107,7 +111,35 @@ const ALLOWED = new Map<string, "debt" | "accepted">([
   // One row per cabinet (~30) and per court (~200): both well under a second.
   ["scripts/db/load_pg.ts: cabinets", "accepted"],
   ["scripts/db/load_judicial_bodies_pg.ts: judicial_body", "accepted"],
+  // TR: tr_companies is on the person serving path (082_person_api.sql JOINs it).
+  // replaceTable's TRUNCATE is a MEASURED regression, accepted in exchange for a
+  // 55P03 a route can degrade on instead of the old scheme's silently-empty table
+  // at a 200 — 50 of 180 concurrent probes rejected across a live load, see
+  // load_tr_pg.ts's replaceTable header and docs/plans/cloud-deploy-speed-v1.md
+  // F21. Paid off by that plan's Phase 4b (stage merge), which needs a merge key
+  // tr_person_roles does not yet have. Recorded 2026-08-10, when the gate was
+  // taught to see it: the TRUNCATE was interpolated, so this file had been silently
+  // blind to it since the loader changed.
+  ["scripts/db/load_tr_pg.ts: tr_companies", "debt"],
 ]);
+
+// A template-literal TRUNCATE names no table this gate can read, so it passes
+// silently — which is exactly how `load_tr_pg.ts` acquired a serving-path TRUNCATE
+// on tr_companies that nothing here recorded. Refuse it loudly instead of dropping
+// it on the floor: the whole value of this gate is that it derives the serving
+// surface from the SQL rather than trusting a hand-maintained list, and a writer it
+// structurally cannot parse undoes that.
+const INTERPOLATED_TRUNCATE = /TRUNCATE\s+(?:TABLE\s+)?[$]\{/;
+
+export const refuseInterpolatedTruncate = (rel: string, flat: string): void => {
+  if (INTERPOLATED_TRUNCATE.test(flat))
+    throw new Error(
+      `${rel} TRUNCATEs an interpolated identifier. This gate reads table names ` +
+        `statically and cannot see it, so the table would never be checked against ` +
+        `the person serving surface. Spell the statement out per table (see ` +
+        `load_tr_pg.ts's TRUNCATE_SQL) so the name is visible here.`,
+    );
+};
 
 /** Served tables this file TRUNCATEs. Statements are flattened first, so a
  *  `TRUNCATE a,\n  b` is read as both tables rather than just the first. */
@@ -119,6 +151,7 @@ const servedTruncatesIn = (rel: string, served: Set<string>): string[] => {
     .split("\n")
     .filter((l) => !/^\s*(\/\/|\*)/.test(l))
     .join(" ");
+  refuseInterpolatedTruncate(rel, flat);
   return [
     ...flat.matchAll(/TRUNCATE\s+(?:TABLE\s+)?([a-z_0-9,\s]+)/gi),
   ].flatMap(([, list]) =>
@@ -214,6 +247,30 @@ test("every 'accepted' exemption justifies itself at the call site", () => {
     `these TRUNCATEs are exempted as tiny/sub-second, but the loader never says ` +
       `so — document the lock tradeoff at the call site or fix it:\n${unexplained.join("\n")}`,
   );
+});
+
+// The guard above is only worth having if it actually fires, and its cost is a hard
+// throw — so both directions are asserted. Without the negative case a stray `.*`
+// would refuse every loader in the repo; without the positive one the guard could
+// stop matching and the gate would go back to being silently blind, which is the
+// state that let a serving-path TRUNCATE through in the first place.
+test("the interpolated-TRUNCATE guard fires on a template literal and not otherwise", () => {
+  assert.throws(
+    () =>
+      refuseInterpolatedTruncate(
+        "fixture.ts",
+        'const t = "x"; await c.query(`TRUNCATE ${t}`);',
+      ),
+    /TRUNCATEs an interpolated identifier/,
+    "the guard no longer sees a template-literal TRUNCATE — this gate is blind again",
+  );
+  // The shape the loaders actually use now, plus a multi-table literal, must pass.
+  for (const ok of [
+    'await c.query("TRUNCATE tr_companies");',
+    'await exec("TRUNCATE company_politicians");',
+    "await c.query(`TRUNCATE person_role, person_alias`);",
+  ])
+    refuseInterpolatedTruncate("fixture.ts", ok);
 });
 
 // The merge must actually reproduce the corpus TRUNCATE+COPY produced. Row counts

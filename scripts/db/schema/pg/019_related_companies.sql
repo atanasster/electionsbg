@@ -18,7 +18,15 @@
 
 SET check_function_bodies = off;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS owner_name_counts AS
+-- DROP+CREATE, not IF NOT EXISTS — see the identical note in 008_connections.sql.
+-- 003's `DROP TABLE tr_person_roles CASCADE` used to delete this on every TR load
+-- and load_tr_pg.ts applies this file later in the same run, so the body
+-- propagated by accident. 003 no longer drops, so without this the body freezes on
+-- every warm database while the loader keeps REFRESHing it. No CASCADE: nothing
+-- reads it in a stored definition today, so a bare DROP fails loudly if that
+-- changes rather than deleting the new reader.
+DROP MATERIALIZED VIEW IF EXISTS owner_name_counts;
+CREATE MATERIALIZED VIEW owner_name_counts AS
   SELECT name_fold, (COUNT(DISTINCT uic))::int AS company_count
   FROM tr_person_roles
   WHERE name_fold IS NOT NULL AND name_fold <> ''

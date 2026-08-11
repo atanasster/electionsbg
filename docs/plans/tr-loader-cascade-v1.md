@@ -74,13 +74,21 @@ chains.
    one, and `exec()` sends a migration as one implicit transaction, so the ALTER would roll the
    whole file back.
 3. **`load_tr_pg.ts`** — `replaceTable()` replaces each table's CONTENTS: `TRUNCATE` inside the
-   COPY's own transaction, so a reader keeps the previous vintage until that one commit and a
-   failed load leaves the old rows rather than an empty table. `ngo_details` is now written
-   unconditionally, because the TRUNCATE lives inside `replaceTable` and the old
-   `if (ngoDetails.length)` guard would have preserved a stale vintage.
-4. **`LOAD_INDEXES`** — the eleven secondary indexes are dropped before the COPY phase and
-   rebuilt after, which is what `DROP TABLE` used to provide for free. The primary keys stay:
-   they were maintained during the COPY under the old scheme too.
+   COPY's own transaction, so a failed load leaves the old rows rather than an empty table.
+   It does **not** leave readers on the previous vintage — see *Lock profile* below, which
+   measures what it does instead; an earlier draft of this line claimed otherwise.
+   `ngo_details` is now written unconditionally, because the TRUNCATE lives inside
+   `replaceTable` and the old `if (ngoDetails.length)` guard would have preserved a stale
+   vintage. The TRUNCATE statements are spelled out per table rather than interpolated, so
+   `person_reload_locks.data.test.ts` — which reads the serving surface out of the SQL — can
+   see them; `tr_companies` is on that surface and carries a `"debt"` entry there.
+4. **`LOAD_INDEXES`** — the eleven secondary indexes are dropped and rebuilt by the loader,
+   which is what `DROP TABLE` used to provide for free. Each table's drops run **inside that
+   table's own `replaceTable` transaction**, so an aborted load rolls them back rather than
+   committing them and leaving the table populated-but-unindexed (see the hazard section
+   below). Name and table are parsed from each `CREATE INDEX` string rather than restated, so
+   the drop and the create cannot disagree. The primary keys stay: they were maintained during
+   the COPY under the old scheme too.
 5. **`company_officer_counts` is now refreshed by this loader** (guarded on existence). 071
    delegates its refresh to the magistrate loader "because tr_officers is loaded before it in
    db:refresh" — but `db:load:tr:pg` is a documented `db:refresh` EXCLUSION, so on the routine

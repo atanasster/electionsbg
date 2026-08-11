@@ -235,7 +235,23 @@ $$;
 -- both to keep the dense graph tractable (worst-case full BFS ~90ms) and to
 -- avoid spurious "everyone is connected" links. Cycle-free (no company revisited
 -- on a path); expansion stops once the person is reached. Name-only match.
-CREATE MATERIALIZED VIEW IF NOT EXISTS officer_name_counts AS
+-- DROP+CREATE, not IF NOT EXISTS. Until 2026-08-10 this was IF NOT EXISTS and it
+-- propagated anyway, by accident: 003_tr_search.sql's `DROP TABLE tr_officers
+-- CASCADE` deleted this matview on every db:load:tr:pg, and load_tr_pg.ts applies
+-- THIS file later in the same run — so the body was rebuilt from the file text on
+-- every warm database. 003 no longer drops (its CASCADE was also deleting three
+-- matviews nothing recreated — see 003's header), which removed that accident and
+-- would have frozen this body on every warm database, prod included, while the
+-- loader kept REFRESHing it: a current timestamp and current row counts over last
+-- year's definition. Exactly the drift 003's own reconcile block prevents for
+-- columns, one object type over.
+--
+-- No CASCADE, deliberately: nothing reads this in a stored definition today
+-- (checked), so a bare DROP is enough, and if that ever changes it fails LOUDLY
+-- with 2BP01 instead of silently deleting the new reader. That is the whole
+-- lesson of the 077/145/003 family — see migration_drop_dependents.data.test.ts.
+DROP MATERIALIZED VIEW IF EXISTS officer_name_counts;
+CREATE MATERIALIZED VIEW officer_name_counts AS
   SELECT name_fold, (COUNT(DISTINCT uic))::int AS company_count
   FROM tr_officers WHERE name_fold <> '' GROUP BY name_fold;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_officer_name_counts_fold

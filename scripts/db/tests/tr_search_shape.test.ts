@@ -34,11 +34,15 @@ type Col = { name: string; generated: boolean };
 /** Column list of `CREATE TABLE IF NOT EXISTS <table> ( … )`, split at paren depth 0 so a
  *  `GENERATED ALWAYS AS (translit_bg_latin(name)) STORED` stays one entry. */
 const createdCols = (table: string): Col[] => {
-  const open = code.indexOf(
-    "(",
-    code.indexOf(`CREATE TABLE IF NOT EXISTS ${table}`),
-  );
-  assert.ok(open > 0, `no CREATE TABLE IF NOT EXISTS ${table} in 003`);
+  // Assert the CREATE was found BEFORE searching for its paren. indexOf("(", -1)
+  // is treated as indexOf("(", 0) and returns the first paren in the FILE, so a
+  // renamed or removed CREATE would sail past `open > 0` and silently parse a
+  // different table's column list — surfacing as a confusing column mismatch
+  // instead of the message below.
+  const at = code.indexOf(`CREATE TABLE IF NOT EXISTS ${table}`);
+  assert.ok(at >= 0, `no CREATE TABLE IF NOT EXISTS ${table} in 003`);
+  const open = code.indexOf("(", at);
+  assert.ok(open > 0, `CREATE TABLE ${table} has no column list`);
   let depth = 0;
   let end = -1;
   for (let i = open; i < code.length; i++) {

@@ -39,6 +39,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
+import type { PoolClient } from "pg";
 import { allRows, withClient, dbReachable, end } from "../lib/pg";
 import { REPO_ROOT } from "../lib/paths";
 
@@ -133,20 +134,69 @@ const createsByFile = (): Map<string, Set<string>> => {
  * record neither and correctly never appear. Same probe as
  * dual_corpus_dependents.data.test.ts, which proves both arms still discriminate.
  */
+// `refclassid` is pinned on both arms because OIDs come from ONE cluster-wide
+// counter and are not unique ACROSS catalogs: without it, a dependency on a
+// pg_type or pg_proc object that happens to share the relation's OID reports as a
+// dependent of the relation. Vanishingly unlikely and it fails safe (a false
+// positive, not a miss) — but this file is written to be the general rule.
 const dependentsSql = (rel: string): string => `
   SELECT DISTINCT dep.relname AS name, dep.relkind::text AS kind
   FROM pg_depend d
   JOIN pg_rewrite r  ON r.oid = d.objid
   JOIN pg_class  dep ON dep.oid = r.ev_class
-  WHERE d.classid  = 'pg_rewrite'::regclass
-    AND d.refobjid = 'public.${rel}'::regclass
-    AND dep.oid   <> 'public.${rel}'::regclass
+  WHERE d.classid    = 'pg_rewrite'::regclass
+    AND d.refclassid = 'pg_class'::regclass
+    AND d.refobjid   = 'public.${rel}'::regclass
+    AND dep.oid     <> 'public.${rel}'::regclass
   UNION ALL
   SELECT DISTINCT p.proname, 'function'
   FROM pg_depend d
   JOIN pg_proc p ON p.oid = d.objid
-  WHERE d.classid  = 'pg_proc'::regclass
-    AND d.refobjid = 'public.${rel}'::regclass`;
+  WHERE d.classid    = 'pg_proc'::regclass
+    AND d.refclassid = 'pg_class'::regclass
+    AND d.refobjid   = 'public.${rel}'::regclass`;
+
+/**
+ * A rolled-back transaction for the two DDL probes below, with a BOUNDED lock wait.
+ *
+ * Both need ACCESS EXCLUSIVE on the largest tables in the database — applying 003 takes it
+ * 33 times (an `ADD COLUMN IF NOT EXISTS` no-op still locks), and the CASCADE probe drops
+ * tr_officers. Unbounded, that is not merely slow: a PENDING AccessExclusive blocks every
+ * LATER AccessShare, so on a busy database these two stall every other reader of the TR
+ * tables behind them for as long as they queue, and then die at vitest's 120 s timeout with
+ * nothing naming the cause. Observed 2026-08-10 while another vitest run held the person
+ * tables.
+ *
+ * `test:data` is the LAST step of db:refresh — i.e. it runs against the database a 57-step
+ * chain has just finished writing — so the busy case is the normal one, not the exception.
+ */
+// Long enough to outlast an ordinary sibling read (vitest runs test FILES in parallel against
+// this same database), short enough that a genuinely stuck queue reports rather than
+// head-of-line blocking every other reader until vitest's 120 s timeout. ONE constant, so the
+// message below cannot quote a number the SET no longer uses.
+const DDL_LOCK_TIMEOUT = "20s";
+
+const boundedDdlTx = async <T>(fn: (c: PoolClient) => Promise<T>): Promise<T> =>
+  withClient(async (c) => {
+    await c.query("BEGIN");
+    try {
+      await c.query(`SET LOCAL lock_timeout = '${DDL_LOCK_TIMEOUT}'`);
+      return await fn(c);
+    } catch (e) {
+      if ((e as { code?: string })?.code === "55P03")
+        throw new Error(
+          `database busy — this probe needs ACCESS EXCLUSIVE on the TR tables and gave up ` +
+            `after ${DDL_LOCK_TIMEOUT} rather than head-of-line blocking every other reader. ` +
+            `This is the known "test:data flaky under load" shape and does NOT mean 003 has ` +
+            `regressed: re-run this file alone (npx vitest run ` +
+            `scripts/db/tests/migration_drop_dependents.data.test.ts) against an idle ` +
+            `database before believing it. Original: ${(e as Error)?.message ?? String(e)}`,
+        );
+      throw e;
+    } finally {
+      await c.query("ROLLBACK").catch(() => {});
+    }
+  });
 
 const exists = async (rel: string): Promise<boolean> =>
   Boolean(
@@ -227,19 +277,14 @@ test.skipIf(skip)(
       path.join(SCHEMA_DIR, "003_tr_search.sql"),
       "utf8",
     );
-    const survived = await withClient(async (c) => {
-      await c.query("BEGIN");
-      try {
-        await c.query(sql);
-        const { rows } = await c.query<{ name: string }>(
-          `SELECT relname AS name FROM pg_class
-            WHERE relnamespace = 'public'::regnamespace AND relname = ANY($1)`,
-          [[...VICTIMS]],
-        );
-        return rows.map((r) => r.name).sort();
-      } finally {
-        await c.query("ROLLBACK").catch(() => {});
-      }
+    const survived = await boundedDdlTx(async (c) => {
+      await c.query(sql);
+      const { rows } = await c.query<{ name: string }>(
+        `SELECT relname AS name FROM pg_class
+          WHERE relnamespace = 'public'::regnamespace AND relname = ANY($1)`,
+        [[...VICTIMS]],
+      );
+      return rows.map((r) => r.name).sort();
     });
 
     assert.deepStrictEqual(
@@ -262,29 +307,24 @@ test.skipIf(skip)(
     //   2. `DROP … CASCADE` then removes that reader and raises NOTHING → why the gate is needed.
     //
     // Rolled back either way, so the live matviews are never at risk.
-    const { reported, afterCascade } = await withClient(async (c) => {
-      await c.query("BEGIN");
-      try {
-        await c.query(
-          `CREATE MATERIALIZED VIEW t_tr_reader AS
-           SELECT uic FROM tr_officers WHERE false WITH NO DATA`,
-        );
-        const reported = (
-          await c.query<{ name: string }>(dependentsSql("tr_officers"))
-        ).rows
-          .map((r) => r.name)
-          .includes("t_tr_reader");
+    const { reported, afterCascade } = await boundedDdlTx(async (c) => {
+      await c.query(
+        `CREATE MATERIALIZED VIEW t_tr_reader AS
+         SELECT uic FROM tr_officers WHERE false WITH NO DATA`,
+      );
+      const reported = (
+        await c.query<{ name: string }>(dependentsSql("tr_officers"))
+      ).rows
+        .map((r) => r.name)
+        .includes("t_tr_reader");
 
-        // The silent half — no error, no notice, no row count anywhere reflects the deletion.
-        await c.query("DROP TABLE tr_officers CASCADE");
-        const { rows } = await c.query<{ n: string }>(
-          `SELECT count(*)::text AS n FROM pg_class
-          WHERE relnamespace = 'public'::regnamespace AND relname = 't_tr_reader'`,
-        );
-        return { reported, afterCascade: Number(rows[0]?.n ?? -1) };
-      } finally {
-        await c.query("ROLLBACK").catch(() => {});
-      }
+      // The silent half — no error, no notice, no row count anywhere reflects the deletion.
+      await c.query("DROP TABLE tr_officers CASCADE");
+      const { rows } = await c.query<{ n: string }>(
+        `SELECT count(*)::text AS n FROM pg_class
+        WHERE relnamespace = 'public'::regnamespace AND relname = 't_tr_reader'`,
+      );
+      return { reported, afterCascade: Number(rows[0]?.n ?? -1) };
     });
 
     assert.equal(

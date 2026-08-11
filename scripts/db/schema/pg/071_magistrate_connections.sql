@@ -21,9 +21,24 @@
 -- prunes hub PEOPLE. Big state/association entities (Български пощи ~28, НСОРБ ~32,
 -- ДКК, …) are conduits down which "everyone is 2 hops apart", so a magistrate who
 -- merely owns public shares would appear "linked" to every politician who sits on one.
--- The bridge walk below refuses to hop THROUGH or INTO such a hub. Refreshed by the
--- magistrate loader (tr_officers is loaded before it in db:refresh).
-CREATE MATERIALIZED VIEW IF NOT EXISTS company_officer_counts AS
+-- The bridge walk below refuses to hop THROUGH or INTO such a hub.
+--
+-- Refreshed by TWO loaders, both guarded on existence: load_magistrates_pg.ts, and
+-- load_tr_pg.ts (which owns tr_officers). The second was added 2026-08-10 — this
+-- comment used to name only the first, on the reasoning that "tr_officers is loaded
+-- before it in db:refresh", but db:load:tr:pg is a db:refresh EXCLUSION, so nothing
+-- refreshed this on the routine TR path. That was invisible for as long as 003's
+-- `DROP TABLE tr_officers CASCADE` deleted the matview outright.
+--
+-- DROP+CREATE, not IF NOT EXISTS — see the fuller note in 008_connections.sql. With
+-- 003 no longer dropping, IF NOT EXISTS would freeze this body on every warm
+-- database while both loaders keep REFRESHing it: a current timestamp over an old
+-- hub threshold. No CASCADE: magistrate_politician_links() below is in THIS file so
+-- it is recreated on the same path, and 099 only REFRESHes this matview rather than
+-- reading it in a stored definition (checked) — so a bare DROP fails loudly if a
+-- real dependent ever appears instead of silently deleting it.
+DROP MATERIALIZED VIEW IF EXISTS company_officer_counts;
+CREATE MATERIALIZED VIEW company_officer_counts AS
   SELECT uic, (count(DISTINCT name_fold))::int AS officer_count
   FROM tr_officers WHERE name_fold <> '' GROUP BY uic;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_company_officer_counts_uic

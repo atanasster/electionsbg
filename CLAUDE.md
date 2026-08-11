@@ -1442,9 +1442,20 @@ CASCADE also ran on every local `npm run tr:daily-refresh`.
 
 The fix is the one 077 took, adapted: **003 no longer DROPs anything.** `load_tr_pg.ts`
 replaces the four tables' CONTENTS instead (`replaceTable` — TRUNCATE inside the COPY's own
-transaction, so a reader keeps the previous vintage until one commit) and drops/rebuilds the
-eleven secondary indexes itself, which is what the DROP TABLE used to give it for free. Two
-consequences worth knowing:
+transaction) and drops/rebuilds the eleven secondary indexes itself, which is what the DROP
+TABLE used to give it for free. Three consequences worth knowing:
+
+- **That TRUNCATE is a MEASURED lock regression, not a neutral swap** — 50 of 180 concurrent
+  probes rejected with `55P03` across a live load. Do not read it as "readers keep the
+  previous vintage": they are rejected for the duration. The old scheme did NOT block readers
+  (`exec()` wraps a migration in one implicit transaction, so the DROP+CREATE committed
+  atomically and the COPYs then took only `RowExclusiveLock`) — what it served instead was an
+  EMPTY table at a 200 for the length of the load, i.e. search confidently answering "no such
+  company". An error a route can degrade on beats that, which is why the trade was made, but a
+  cloud TR publish is **not** reader-safe: it is 34.9 min. Paid off by Phase 4b in
+  `docs/plans/cloud-deploy-speed-v1.md` (F21), which also records that an INTERRUPTED load
+  used to leave the tables populated but unindexed — the index drops now live inside each
+  table's own transaction, so an abort rolls them back.
 
 - **Every column in 003 is written twice, on purpose.** `CREATE TABLE IF NOT EXISTS` is a
   no-op on a warm database, so on its own it would trade the loud data loss for a quiet schema
