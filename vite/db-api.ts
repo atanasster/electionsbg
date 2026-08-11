@@ -35,7 +35,9 @@ const withHint = (msg: string): string =>
     ? `${msg} — is Postgres up? run \`npm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
     : msg;
 
-type RouteResult = { status?: number; body: unknown };
+/** `redirect` is the 302 arm — a route may hand back a Location instead of a body
+ *  (see /api/db/tender-document, which signs a short-lived register URL). */
+type RouteResult = { status?: number; body?: unknown; redirect?: string };
 type RouteFn = (
   q: (sql: string, params: unknown[]) => Promise<unknown[]>,
   query: Record<string, string>,
@@ -67,7 +69,20 @@ export const dbApi = (): Plugin => ({
       const q: DbRows = (sql, params) => allRows(sql, params);
       q.tx = (cb) => withReadOnlyTx(cb);
       route(q, query).then(
-        ({ status = 200, body }) => send(status, body),
+        ({ status = 200, body, redirect }) => {
+          // Mirror the Cloud Function's redirect arm (functions/index.js), so the
+          // document link behaves the same in dev as in prod. Without it the only
+          // way to exercise /api/db/tender-document would be to deploy.
+          if (redirect) {
+            res.statusCode = 302;
+            res.setHeader("Location", redirect);
+            // The signed URL expires in 30 minutes — never cache the hop.
+            res.setHeader("Cache-Control", "no-store");
+            res.end();
+            return;
+          }
+          send(status, body);
+        },
         (e: unknown) => send(400, { error: withHint((e as Error).message) }),
       );
     });

@@ -34,6 +34,7 @@ import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
+import { TenderDossierPanel } from "@/screens/components/procurement/TenderDossierPanel";
 import { TenderRiskPanel } from "@/screens/components/procurement/TenderRiskPanel";
 import { formatAmountEur } from "@/lib/currency";
 import { realSignedDate } from "@/lib/signedDate";
@@ -759,6 +760,8 @@ export const TenderDetailScreen: FC = () => {
       </header>
 
       <TenderLifecycle tender={tender} awards={awards} />
+
+      <TenderDossierPanel unp={tender.unp} />
 
       <TenderNormalcyPanel unp={tender.unp} />
 

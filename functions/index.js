@@ -756,9 +756,25 @@ const makeDb = () => {
           }
         };
         const started = Date.now();
-        const { status = 200, body } = await route(dbRows, req.query || {});
+        const {
+          status = 200,
+          body,
+          redirect,
+        } = await route(dbRows, req.query || {});
         const elapsed = Date.now() - started;
         if (elapsed > 500) console.warn(`slow db route ${seg}: ${elapsed}ms`);
+        // A route may hand back a REDIRECT instead of a body — used by
+        // /api/db/tender-document, which mints a short-lived signed URL at the
+        // register and sends the browser straight there rather than proxying
+        // bytes through this function.
+        //
+        // ⚠️ NOT CACHEABLE. The target carries `X-Amz-Expires=1800`, so a CDN
+        // holding this 302 for an hour would serve an expired URL for half its
+        // life. `no-store` is the only correct header here.
+        if (redirect) {
+          res.set("Cache-Control", "no-store");
+          return res.redirect(302, redirect);
+        }
         // The data changes only on ingest (~daily): let the CDN hold responses
         // for an hour and serve stale while it revalidates; browsers keep them
         // for 5 minutes.

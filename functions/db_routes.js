@@ -489,6 +489,13 @@ const latinToCyrillic = (str) => {
   return out;
 };
 
+/** documentId → signed URL, per function instance. The register's URLs live 1800 s;
+ *  we hand them out for a third of that so a cached one is never near expiry.
+ *  Bounded and cleared wholesale — this is a hot-path cache, not a store. */
+const SIGNED_URL_CACHE = new Map();
+const SIGNED_URL_TTL_MS = 600_000;
+const SIGNED_URL_CACHE_MAX = 5000;
+
 const DB_ROUTES = {
   async person(dbRows, q) {
     const name = s(q, "name");
@@ -1520,6 +1527,161 @@ const DB_ROUTES = {
   // "How typical is this tender?" — cohort-distribution payload for one tender
   // (067). Cache-first PK seek on УНП; live fn fallback for a tender not yet in
   // the matview (freshly ingested) or a DB predating the migration.
+  // The ЦАИС ЕОП DOSSIER for one procedure — plan A7. Everything the register
+  // publishes beyond the notice header: the long description (mean ~1.6k chars vs
+  // tenders.subject's 138), the contact officer, the attachment manifest, the
+  // parsed обявление, the award-stage trail, and contract lineage.
+  //
+  // Degrades to `null` on a database where 146 has not been applied, so the page
+  // and the deploy are order-independent — same posture as procurement_settlement.
+  "tender-dossier": async (dbRows, q) => {
+    const unp = s(q, "unp");
+    if (!unp) return { status: 400, body: { error: "missing unp" } };
+    try {
+      const [d] = await dbRows(
+        `SELECT unp, tender_id, organization_id, description_text,
+                offer_phase_start, offer_phase_end, opening_of_offers, source_url
+           FROM tender_dossier WHERE unp = $1`,
+        [unp],
+      );
+      if (!d) return { body: null };
+      const [docs, notices, anns, contracts, buyer] = await Promise.all([
+        dbRows(
+          `SELECT document_id, source, name, ext, size_bytes, kind, created_at
+             FROM tender_document WHERE unp = $1
+            ORDER BY source, kind NULLS LAST, name`,
+          [unp],
+        ),
+        dbRows(
+          `SELECT publication_id, form_type, notice_no, is_eforms, bt_count,
+                  buyer_legal_category, buyer_activity, award_criteria,
+                  selection_criteria, duration_value, offer_deadline_date,
+                  offer_deadline_time
+             FROM tender_notice WHERE unp = $1 ORDER BY bt_count DESC`,
+          [unp],
+        ),
+        dbRows(
+          `SELECT announcement_id, title, created_at
+             FROM tender_announcement WHERE unp = $1 ORDER BY created_at`,
+          [unp],
+        ),
+        dbRows(
+          `SELECT contract_id, subject, value_native, current_value_native,
+                  start_date, end_date, suppliers
+             FROM tender_contract_item WHERE unp = $1 ORDER BY contract_id`,
+          [unp],
+        ),
+        d.organization_id
+          ? dbRows(
+              `SELECT organization_id, eik, name, city, postcode, street
+                 FROM tender_buyer_profile WHERE organization_id = $1`,
+              [d.organization_id],
+            )
+          : Promise.resolve([]),
+      ]);
+      return {
+        body: {
+          ...d,
+          documents: docs,
+          notices,
+          announcements: anns,
+          contracts,
+          buyer: buyer[0] ?? null,
+        },
+      };
+    } catch (e) {
+      // 42P01 — migration 146 not applied on this database yet.
+      if (e && e.code === "42P01") return { body: null };
+      throw e;
+    }
+  },
+
+  // Redirect to one published document at the register.
+  //
+  // ⚠️ THIS IS AN UNAUTHENTICATED INDIRECTION TO A THIRD-PARTY HOST, parameterised
+  // by an integer the caller supplies — so the id is VALIDATED AGAINST
+  // tender_document before anything is signed. Without that check, any documentId
+  // in the register (including ones we never published a link to) becomes fetchable
+  // through our domain, which is an open redirect with our name on it.
+  //
+  // We deliberately do NOT proxy the bytes: the register hosts them, the corpus is
+  // ~3.65 TB (plan §12), and streaming them through this function would put its
+  // egress and its latency on every download.
+  "tender-document": async (dbRows, q) => {
+    // Per-instance cache of the signed URL. It is valid 1800 s; re-signing on every
+    // click adds an outbound round-trip to the register on the hot path and holds a
+    // Cloud Run slot for up to 8 s each time. Expire well short of the real TTL so a
+    // handed-out URL is never close to death.
+    const raw = s(q, "id");
+    // Reject anything that is not a plain positive integer BEFORE it reaches SQL
+    // or the register.
+    // ⚠️ 15 digits, not 18. The value is re-parsed with Number() below, which is
+    // lossy past 2^53 — an 18-digit id could therefore validate as one value and be
+    // SIGNED as another, defeating the whole point of checking it first. Real ids
+    // are ~8 digits, so this costs nothing and closes the gap.
+    if (!raw || !/^[0-9]{1,15}$/.test(raw))
+      return { status: 400, body: { error: "bad id" } };
+    let known;
+    try {
+      known = await dbRows(
+        "SELECT document_id, name FROM tender_document WHERE document_id = $1",
+        [raw],
+      );
+    } catch (e) {
+      if (e && e.code === "42P01")
+        return { status: 404, body: { error: "no document index" } };
+      throw e;
+    }
+    // Not one of ours: refuse rather than sign it. This is the open-redirect gate.
+    if (!known.length) return { status: 404, body: { error: "unknown document" } };
+
+    const cached = SIGNED_URL_CACHE.get(raw);
+    if (cached && cached.until > Date.now()) return { redirect: cached.url };
+
+    let signed;
+    try {
+      const r = await fetch(
+        "https://service.eop.bg/NX1Service.svc/GetSignedUrlByDocumentId",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Origin: "https://app.eop.bg",
+            "User-Agent": "electionsbg.com (procurement/tender-document)",
+          },
+          body: JSON.stringify({ documentId: Number(raw) }),
+          signal: AbortSignal.timeout(8000),
+        },
+      );
+      if (!r.ok) throw new Error(`sign ${r.status}`);
+      signed = await r.json();
+    } catch (e) {
+      // The register is a dependency of every click here; say so plainly rather
+      // than 500ing, so the page can offer the app.eop.bg link instead.
+      console.warn("tender-document sign failed", (e && e.message) || e);
+      return { status: 502, body: { error: "register unavailable" } };
+    }
+    const url = signed && signed.Url;
+    // ⚠️ ALLOWLIST THE TARGET HOST. The register hands us a URL; redirecting to
+    // whatever it says would make this an open redirect the moment that response
+    // is ever wrong or tampered with. The check stays — only the list widens.
+    //
+    // TWO HOSTS, not one. The register runs two blob stores and picks by document
+    // age: `BlobStorageId: 3` → storage.eop.bg (current), `BlobStorageId: 2` →
+    // blob.eop.bg/live/ (older documents). A storage.eop.bg-only check was measured
+    // rejecting every pre-migration document — verified against the 2022 procedure
+    // 00006-2022-0007, whose файлове all sign to blob.eop.bg and which therefore
+    // 502'd on every link.
+    // Anchored at BOTH ends: without `$` a trailing CR/LF passes the test and
+    // reaches a raw setHeader in the dev server (Express escapes it in prod, so
+    // this would have been a dev-only hang — the worst kind to debug).
+    if (!url || !/^https:\/\/(storage|blob)\.eop\.bg\/[^\s]*$/.test(url))
+      return { status: 502, body: { error: "unexpected signed url" } };
+    if (SIGNED_URL_CACHE.size > SIGNED_URL_CACHE_MAX) SIGNED_URL_CACHE.clear();
+    SIGNED_URL_CACHE.set(raw, { url, until: Date.now() + SIGNED_URL_TTL_MS });
+    return { redirect: url };
+  },
+
   "tender-normalcy": async (dbRows, q) => {
     const unp = s(q, "unp");
     if (!unp) return { status: 400, body: { error: "missing unp" } };
