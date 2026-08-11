@@ -264,7 +264,34 @@ These people left parliament before the register covered MPs. MP-category cache 
 register years 2015-2020 is worth doing — it is the audit's D5/D7 — but only ~2 of the 172
 sat in the 44th NS, so **it is not the lever for this population.** Do not size it as one.
 
-## 5. Lever D — the MP biography is a scrape gap, not a data gap. Potential, unmeasured.
+## 5. Lever D — NOT a scrape gap. The premise below is refuted; see the box first.
+
+> **Measured 2026-08-11, and this section's original claim is wrong.** The scraper already
+> reads `A_ns_MPL_CV` and already keeps it (`scrape_mps.ts`'s trim list). The field is empty
+> because **parliament.bg's `/api/v1/mp-profile/bg/{id}` does not return one** for all but a
+> handful of MPs — not because we discard it.
+>
+> The evidence is the cache vintage. If this were a scrape or cache-reuse artefact, the 8
+> populated profiles would be a different generation from the rest. They are not:
+>
+> | | profiles | fetched |
+> |---|---:|---|
+> | with a CV | 8 | 2026-05-05 (7), 2026-07-28 (1) |
+> | without | 4,276 | 2026-05-05 (3,314), 2026-07-28 (610), 2026-06-28 (240), … |
+>
+> Same dates, same code path, same result. Re-running the scraper changes nothing, and a
+> change written against the premise below would have been unverifiable work on a
+> non-existent defect.
+>
+> **What remains open, and is untested:** parliament.bg renders a biography on the HTML page
+> `/bg/MP/{id}`, which is a different surface from the JSON API. Whether it carries prose the
+> API omits is not established — the host was unreachable from here throughout (connection
+> reset on every attempt; see the VPN source-split note, parliament.bg needs the BG VPN OFF).
+> That probe is the whole of the remaining work on this lever, and it must come **before**
+> any parser change: if the HTML carries no more than the API, the lever is dead.
+>
+> Everything below is the original analysis, kept because the *value* of a CV — if one can be
+> obtained — is unchanged.
 
 `data/parliament/profiles/*.json` carries `A_ns_MPL_CV`, parliament.bg's own biography for
 that mpId. It is populated on **8 of 4,284 profiles**. Where it is populated it names
@@ -311,8 +338,11 @@ belong in the same queue, as splits rather than merges.
    knows ≥2 declarants for, and no split where both registers know exactly one.
 3. **§7 — mint the scoped review report** (172 rows + the 11 splits). This is what carries
    the residual, and it needs no resolver change at all.
-4. **Lever D — fill `A_ns_MPL_CV` in the parliament scrape.** Unblocks a corroborant for
-   the residual; measure the yield before writing a rule around it.
+4. **Lever D — CLOSED as specified; one probe left.** Not a scrape gap: the API returns no
+   CV for 4,276 of 4,284 MPs and our scraper already keeps the field (§5). The only open
+   question is whether the HTML page `/bg/MP/{id}` carries a biography the JSON API omits —
+   untested, because parliament.bg was unreachable. Probe first; write nothing until it
+   answers.
 5. **Lever C — backfill MP register years 2015-2020.** Do it for the corpus (audit D5/D7),
    not for this number.
 
