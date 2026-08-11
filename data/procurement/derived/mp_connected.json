@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-09T06:17:39.215Z",
-  "total": 68,
+  "generatedAt": "2026-08-11T07:06:22.656Z",
+  "total": 69,
   "entries": [
     {
       "mpId": 3271,
@@ -805,6 +805,104 @@
           "name": "Национална агенция за професионално образование и обучение",
           "contractCount": 1,
           "totalEur": 17895.22,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 3026,
+      "mpName": "Антон Йорданов Адамов",
+      "contractorEik": "175203485",
+      "contractorName": "Булгаргаз ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 44680073.88,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 86919.62,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 2,
+          "totalEur": 205835.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 3812031.21,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 2464999.51,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 11367411.49,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 26724232.16,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 18644.59,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121683408",
+          "name": "Столичен автотранспорт ЕАД",
+          "contractCount": 4,
+          "totalEur": 28624806.06,
+          "totalOther": {}
+        },
+        {
+          "eik": "103195446",
+          "name": "Веолия енерджи варна ЕАД",
+          "contractCount": 3,
+          "totalEur": 15522951.89,
+          "totalOther": {}
+        },
+        {
+          "eik": "121023551",
+          "name": "Летище София ЕАД",
+          "contractCount": 3,
+          "totalEur": 224698.38,
+          "totalOther": {}
+        },
+        {
+          "eik": "117001983",
+          "name": "Свободна ЗОНА-РУСЕ ЕАД",
+          "contractCount": 3,
+          "totalEur": 172837.42,
+          "totalOther": {}
+        },
+        {
+          "eik": "000697179",
+          "name": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"РВД\"/",
+          "contractCount": 1,
+          "totalEur": 134780.13,
           "totalOther": {}
         }
       ]
@@ -4575,6 +4673,11 @@
       "contractorEik": "123139451",
       "contractorName": "ТЕВА-ТМ ООД, Раднево",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "25%",

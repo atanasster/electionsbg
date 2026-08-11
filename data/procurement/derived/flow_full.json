@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T06:17:43.689Z",
+  "generatedAt": "2026-08-11T07:06:27.475Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -3877,6 +3877,11 @@
       "label": "Тихомир Гочев Тенев"
     },
     {
+      "id": "mp:3026",
+      "type": "mp",
+      "label": "Антон Йорданов Адамов"
+    },
+    {
       "id": "mp:4149",
       "type": "mp",
       "label": "Радослава Пламен Чеканска"
@@ -7431,7 +7436,7 @@
     {
       "source": "awarder:000053088",
       "target": "contractor:102657921",
-      "valueEur": 8.29
+      "valueEur": 54568.29
     },
     {
       "source": "awarder:000053191",
@@ -11414,6 +11419,11 @@
       "valueEur": 48948214.15
     },
     {
+      "source": "contractor:175203485",
+      "target": "mp:3026",
+      "valueEur": 44680073.88
+    },
+    {
       "source": "contractor:175206054",
       "target": "mp:4719",
       "valueEur": 44036539.41
@@ -12261,7 +12271,7 @@
     {
       "source": "contractor:102657921",
       "target": "official:donka-vasileva-hristova-61aa6d",
-      "valueEur": 6397453.23
+      "valueEur": 6452013.23
     },
     {
       "source": "contractor:130823243",

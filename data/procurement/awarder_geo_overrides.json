@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T18:06:43.122Z",
+  "generatedAt": "2026-08-11T07:05:00.530Z",
   "count": 2164,
   "sources": {
     "ocds": 323,
@@ -23,19 +23,19 @@
   "tiers": {
     "ri": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     },
     "tr": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     },
     "school": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     },
     "ocds": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     },
     "mon": {
       "status": "unavailable",
@@ -44,15 +44,15 @@
     },
     "oblast": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     },
     "name": {
       "status": "ok",
-      "lastFreshAt": "2026-08-10T18:06:43.122Z"
+      "lastFreshAt": "2026-08-11T07:05:00.530Z"
     }
   },
   "notes": [
-    "Tier mon was unavailable on 2026-08-10 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 35, mon+oblast 58."
+    "Tier mon was unavailable on 2026-08-11 (Tier B unavailable — МОН register fetch failed: POST getResourceData → 403 Forbidden); entries carried over from the previous build: mon 35, mon+oblast 58."
   ],
   "awarders": {
     "101005300": {
