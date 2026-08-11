@@ -2,7 +2,11 @@
 // item where their cast vote differed from the party-plurality vote at that
 // time (their party affiliation is taken from the session file, not the
 // roster — parliament.bg recycles ids across NSes and only the CSV carries
-// the as-of-vote affiliation).
+// the as-of-vote affiliation, bucketed by canonical group key per groups.ts).
+//
+// `majorityFor` is handed the FOLDED mpParty map, not the raw one. It compares an mpParty
+// entry against the group it was asked about, so a folded group against a raw map matches
+// no member at all — every majority null, every dissent gone, at a green build.
 //
 // Per-MP recent dissents capped at MAX_RECENT_PER_MP — Phase 3 planning
 // expected ~500 KB gzipped but with 9 NSes of history, an unlimited list
@@ -11,6 +15,7 @@
 // preserves the full total for the headline metric.
 
 import type { SessionFile, SessionItemFile } from "./types";
+import { foldedParties, groupLabeller, groupOf } from "./groups";
 import { majorityFor, type VoteValue } from "./majority";
 
 const MAX_RECENT_PER_MP = 50;
@@ -45,9 +50,6 @@ export interface DissentOutput {
   entries: DissentEntry[];
 }
 
-const partyOf = (file: SessionFile, mpId: number): string | undefined =>
-  file.mpParty?.[String(mpId)];
-
 const slugFor = (file: SessionFile, item: number): string =>
   file.itemSlugs?.[String(item)] ?? String(item);
 
@@ -58,6 +60,7 @@ const topicFor = (file: SessionFile, item: number): string | undefined =>
   file.itemTopics?.[String(item)];
 
 export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
+  const labelOf = groupLabeller(sessions);
   // Cache party group sizes per (date, item, party). Computed once via
   // majorityFor's tally so we don't double-walk the votes array.
   const groupSizes = new Map<string, number>();
@@ -72,7 +75,7 @@ export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
     let n = 0;
     for (const v of item.votes) {
       if (v.vote === "absent") continue;
-      if (partyOf(file, v.mpId) !== party) continue;
+      if (groupOf(file, v.mpId) !== party) continue;
       n++;
     }
     groupSizes.set(key, n);
@@ -96,7 +99,7 @@ export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
       const partiesInItem = new Set<string>();
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const p = partyOf(file, v.mpId);
+        const p = groupOf(file, v.mpId);
         if (p) partiesInItem.add(p);
       }
       const partyMajority = new Map<
@@ -104,12 +107,12 @@ export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
         Exclude<VoteValue, "absent"> | null
       >();
       for (const p of partiesInItem) {
-        partyMajority.set(p, majorityFor(item, p, file.mpParty));
+        partyMajority.set(p, majorityFor(item, p, foldedParties(file)));
       }
 
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const party = partyOf(file, v.mpId);
+        const party = groupOf(file, v.mpId);
         if (!party) continue;
         const cur = byMp.get(v.mpId) ?? {
           partyShort: party,
@@ -149,7 +152,7 @@ export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
     );
     entries.push({
       mpId,
-      partyShort: t.partyShort,
+      partyShort: labelOf(t.partyShort),
       totalCast: t.totalCast,
       dissentCount: sorted.length,
       recent: sorted.slice(0, MAX_RECENT_PER_MP),

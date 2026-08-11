@@ -17,6 +17,7 @@
 // ===========================================================================
 
 import type { SessionFile } from "./types";
+import { canonGroupKey } from "./groups";
 import { normalizeTitle } from "./dedupe";
 import type { AttendanceOutput } from "./attendance";
 import type { CohesionOutput } from "./cohesion";
@@ -203,16 +204,13 @@ export interface HubStatsInput {
 /** Not a group: the unaffiliated buckets parliament.bg reports alongside the real ones. */
 const NON_GROUP = /^(НЕЗ|НЕЧЛ)/i;
 
-/** Collapse spelling variants so one group counts once. Hyphen-vs-spaced-hyphen is the
- *  only variation the corpus actually shows, but normalising all separators is no less
- *  correct and does not depend on that staying true. */
-const groupKey = (short: string): string =>
-  short
-    .replace(/\s*-\s*/g, "-")
-    .trim()
-    .toUpperCase();
-
 /** One entry per real group, MERGING the spelling variants item-weighted.
+ *
+ *  Since cohesion.ts folds at source (groups.ts) this merge no longer has variants to
+ *  merge, and that is the intended end state rather than a reason to delete it: it is the
+ *  only thing standing between an upstream metric that stops folding and a hub tile that
+ *  reports the flattering half of a split group. The NON_GROUP filter is a separate job and
+ *  is still live.
  *
  *  Keeping the first spelling and dropping the rest was the obvious implementation and it
  *  silently discards part of a group's record: in the 51st, `ГЕРБ - СДС` covers 3,698 items
@@ -228,7 +226,7 @@ export const realGroups = <
   const byKey = new Map<string, { rep: T; items: number; weighted: number }>();
   for (const e of entries) {
     if (NON_GROUP.test(e.partyShort.trim())) continue;
-    const key = groupKey(e.partyShort);
+    const key = canonGroupKey(e.partyShort);
     // Weight by items where the source gives them; fall back to 1 so a shape without
     // itemsCovered degrades to an unweighted mean rather than to zero.
     const items = e.itemsCovered ?? 1;

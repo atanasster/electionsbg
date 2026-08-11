@@ -9,8 +9,11 @@
 //
 // Party affiliation comes from the session file's mpParty map (same source
 // the loyalty metric uses), so seat-swaps inside an NS resolve to whatever
-// party the MP carried at time of vote.
+// party the MP carried at time of vote — bucketed by CANONICAL group key
+// (groups.ts), so a day that merely SPELLS the group differently does not read
+// as one of those swaps.
 
+import { groupLabeller, groupOf } from "./groups";
 import type { SessionFile } from "./types";
 
 export interface AttendanceEntry {
@@ -30,12 +33,10 @@ export interface AttendanceOutput {
   entries: AttendanceEntry[];
 }
 
-const partyOf = (file: SessionFile, mpId: number): string | undefined =>
-  file.mpParty?.[String(mpId)];
-
 export const computeAttendance = (
   sessions: SessionFile[],
 ): AttendanceOutput => {
+  const labelOf = groupLabeller(sessions);
   let totalItems = 0;
   let firstDate = "9999-12-31";
   let lastDate = "0000-01-01";
@@ -51,7 +52,7 @@ export const computeAttendance = (
     for (const item of file.sessions) {
       totalItems++;
       for (const v of item.votes) {
-        const party = partyOf(file, v.mpId);
+        const party = groupOf(file, v.mpId);
         if (!party) continue;
         const cur = tally.get(v.mpId) ?? {
           total: 0,
@@ -75,7 +76,7 @@ export const computeAttendance = (
   for (const [mpId, t] of tally) {
     entries.push({
       mpId,
-      partyShort: t.party,
+      partyShort: labelOf(t.party),
       totalItems: t.total,
       presentCount: t.present,
       absentCount: t.absent,

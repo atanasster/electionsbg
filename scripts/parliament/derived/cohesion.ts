@@ -2,8 +2,14 @@
 // each party's members per vote item, averaged over items. 1.0 = perfectly
 // unified, ~0.5 = even split. Absents excluded.
 //
-// Party affiliation from session file's mpParty map (per-vote, authoritative).
+// Party affiliation from session file's mpParty map (per-vote, authoritative), bucketed by
+// CANONICAL group key — the source spells one group several ways across days, and on the
+// raw label the 51st NS reported 15 groups where 13 sat, splitting ГЕРБ-СДС's and ПП-ДБ's
+// records in two. See groups.ts. hub_stats' `realGroups` merges the split item-weighted at
+// the consumer; that merge becoming a no-op on clean data is expected, and it still filters
+// the unaffiliated buckets, which is a separate job.
 
+import { groupLabeller, groupOf } from "./groups";
 import type { SessionFile } from "./types";
 
 export interface CohesionEntry {
@@ -46,6 +52,7 @@ const median = (xs: number[]): number => {
 };
 
 export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
+  const labelOf = groupLabeller(sessions);
   const memberCount = new Map<string, Set<number>>();
   const perItemByParty: Array<Map<string, number>> = [];
   // Per-session per-party scores, in addition to the flat per-item list. Used
@@ -60,7 +67,7 @@ export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
       const counts = new Map<string, { y: number; n: number; a: number }>();
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const party = file.mpParty?.[String(v.mpId)];
+        const party = groupOf(file, v.mpId);
         if (!party) continue;
         const c = counts.get(party) ?? { y: 0, n: 0, a: 0 };
         if (v.vote === "yes") c.y++;
@@ -97,7 +104,7 @@ export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
         ? 0
         : scores.reduce((a, b) => a + b, 0) / scores.length;
     entries.push({
-      partyShort: party,
+      partyShort: labelOf(party),
       itemsCovered: scores.length,
       meanCohesion: mean,
       medianCohesion: median(scores),
@@ -110,10 +117,15 @@ export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
   for (const [date, byParty] of [...perSessionScores.entries()].sort((a, b) =>
     a[0].localeCompare(b[0]),
   )) {
-    for (const [partyShort, scores] of [...byParty.entries()].sort()) {
+    for (const [party, scores] of [...byParty.entries()].sort()) {
       if (scores.length === 0) continue;
       const mean = scores.reduce((s, v) => s + v, 0) / scores.length;
-      series.push({ date, partyShort, cohesion: mean, items: scores.length });
+      series.push({
+        date,
+        partyShort: labelOf(party),
+        cohesion: mean,
+        items: scores.length,
+      });
     }
   }
 

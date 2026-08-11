@@ -6,7 +6,13 @@
 // the CSV's textbox8 column at time of vote) — NOT from data/parliament/
 // index.json, because that's deduped by name and uses different ids than the
 // per-NS ids parliament.bg writes into the roll-call CSV.
+//
+// Bucketed by CANONICAL group key (groups.ts): the source spells one group several ways
+// across days, and on the raw label an MP is measured against whichever half of their own
+// group shared their day's spelling — in the 51st that is a 177-item ГЕРБ-СДС line for the
+// sixteen days spelled that way, rather than the group's.
 
+import { groupLabeller, groupOf } from "./groups";
 import type { SessionFile } from "./types";
 
 export interface LoyaltyEntry {
@@ -25,10 +31,8 @@ export interface LoyaltyOutput {
   entries: LoyaltyEntry[];
 }
 
-const partyOf = (file: SessionFile, mpId: number): string | undefined =>
-  file.mpParty?.[String(mpId)];
-
 export const computeLoyalty = (sessions: SessionFile[]): LoyaltyOutput => {
+  const labelOf = groupLabeller(sessions);
   let totalItems = 0;
   let firstDate = "9999-12-31";
   let lastDate = "0000-01-01";
@@ -45,7 +49,7 @@ export const computeLoyalty = (sessions: SessionFile[]): LoyaltyOutput => {
       const partyCounts = new Map<string, Record<string, number>>();
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const party = partyOf(file, v.mpId);
+        const party = groupOf(file, v.mpId);
         if (!party) continue;
         const counts = partyCounts.get(party) ?? { yes: 0, no: 0, abstain: 0 };
         counts[v.vote]++;
@@ -83,7 +87,7 @@ export const computeLoyalty = (sessions: SessionFile[]): LoyaltyOutput => {
     for (const item of file.sessions) {
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const party = partyOf(file, v.mpId);
+        const party = groupOf(file, v.mpId);
         if (!party) continue;
         const maj = majorityFor(party, file.date, item.item);
         const cur = tally.get(v.mpId) ?? { cast: 0, withParty: 0, party };
@@ -98,7 +102,7 @@ export const computeLoyalty = (sessions: SessionFile[]): LoyaltyOutput => {
   for (const [mpId, t] of tally) {
     entries.push({
       mpId,
-      partyShort: t.party,
+      partyShort: labelOf(t.party),
       votesCast: t.cast,
       withParty: t.withParty,
       loyaltyPct: t.cast === 0 ? 0 : t.withParty / t.cast,

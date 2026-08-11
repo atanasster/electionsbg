@@ -9,12 +9,11 @@
 // spells one group several ways across days — the 51st NS files sixteen days as „ГЕРБ-СДС"
 // and the rest as „ГЕРБ - СДС" — so a raw-string bucket splits one group into two rows: the
 // dominant one's vector is missing 4.6% of its items, the duplicate's is a 177-item stub,
-// and `parties`/`participation` overstate how many groups sat. `canonGroupKey` is the fold,
-// shared with the frontend rather than restated here: it is purely typographic (whitespace
-// around a hyphen, repeated whitespace, case), so „ДПС" and „ДПС - НН" stay two groups —
-// they genuinely are, and the 51st seats them beside „ДПС - ДПС" and „АПС".
+// and `parties`/`participation` overstate how many groups sat. The fold and the choice of
+// published label both live in groups.ts, shared with the five other metrics that bucket
+// on the same field — and, through it, with the frontend's own copy of the fold.
 
-import { canonGroupKey } from "../../../src/data/parliament/votes/partyPairs";
+import { groupLabeller, groupOf } from "./groups";
 import type { SessionFile } from "./types";
 
 export interface PartyCorrelationOutput {
@@ -49,30 +48,22 @@ export const computePartyCorrelation = (
   // carries both spellings at once, in the same per-item majority.
   const byParty = new Map<string, Map<string, Scalar>>();
   const participation = new Map<string, number>();
-  // Canonical key → raw spelling → items it appeared on. Decides the output label.
-  const spellings = new Map<string, Map<string, number>>();
+  const labelOf = groupLabeller(sessions);
 
   for (const file of sessions) {
     for (const item of file.sessions) {
       const counts = new Map<
         string,
-        { yes: number; no: number; abstain: number; raws: Set<string> }
+        { yes: number; no: number; abstain: number }
       >();
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const raw = file.mpParty?.[String(v.mpId)];
-        if (!raw) continue;
-        const party = canonGroupKey(raw);
-        const c = counts.get(party) ?? {
-          yes: 0,
-          no: 0,
-          abstain: 0,
-          raws: new Set<string>(),
-        };
+        const party = groupOf(file, v.mpId);
+        if (!party) continue;
+        const c = counts.get(party) ?? { yes: 0, no: 0, abstain: 0 };
         if (v.vote === "yes") c.yes++;
         else if (v.vote === "no") c.no++;
         else c.abstain++;
-        c.raws.add(raw);
         counts.set(party, c);
       }
       const key = `${file.date}#${item.item}`;
@@ -83,26 +74,11 @@ export const computePartyCorrelation = (
         row.set(key, maj);
         byParty.set(party, row);
         participation.set(party, (participation.get(party) ?? 0) + 1);
-        const seen = spellings.get(party) ?? new Map<string, number>();
-        for (const raw of c.raws) seen.set(raw, (seen.get(raw) ?? 0) + 1);
-        spellings.set(party, seen);
       }
     }
   }
 
-  // 2. One display label per group — the raw spelling that carried the most items, so the
-  // heatmap keeps the source's own typography instead of the uppercased fold key. Ties
-  // break on the spelling itself rather than on encounter order, so the artifact is
-  // byte-stable across runs.
-  const labelOf = (party: string): string => {
-    const seen = [...(spellings.get(party) ?? [])];
-    seen.sort(
-      (a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0),
-    );
-    return seen[0]?.[0] ?? party;
-  };
-
-  // 3. Order parties by participation (richest signal at the top-left of the
+  // 2. Order parties by participation (richest signal at the top-left of the
   // heatmap so the visible 6×6 sub-grid is the most informative). The canonical keys index
   // every vector below; the labels are what ships.
   const keys = [...byParty.keys()].sort(
@@ -110,7 +86,7 @@ export const computePartyCorrelation = (
   );
   const parties = keys.map(labelOf);
 
-  // 4. Pairwise cosine. Vectors only intersect on items both parties voted on.
+  // 3. Pairwise cosine. Vectors only intersect on items both parties voted on.
   const cosine = (a: Map<string, Scalar>, b: Map<string, Scalar>): number => {
     let dot = 0;
     let aNorm = 0;
