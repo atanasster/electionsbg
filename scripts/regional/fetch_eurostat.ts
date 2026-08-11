@@ -22,7 +22,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 import { EUROSTAT_NUTS3_TO_OBLAST } from "./oblast_map";
 
@@ -116,6 +116,52 @@ const INDICATORS: RegionalIndicator[] = [
     minPointsPerOblast: 5,
   },
 ];
+
+// Indicator keys this script derives rather than fetching from a listed
+// dataset. Own keys, so they are never carried forward — see OWN_INDICATORS.
+const DERIVED_INDICATORS = ["enterpriseDensity"] as const;
+
+/**
+ * Every indicator key THIS writer produces. Anything else found in the prior
+ * `data/regional.json` belongs to another script and is carried across the
+ * rewrite (see readForeignIndicators).
+ *
+ * Membership here is what makes a skipped own indicator stay skipped. The
+ * `enterpriseDensity` degrade path deliberately omits its key when Eurostat
+ * narrows or retires bd_size_r3; a blind "keep unknown keys" carry-forward
+ * would resurrect the previous vintage instead, turning a designed, visible
+ * degradation into a silently stale series.
+ */
+export const OWN_INDICATORS: readonly string[] = [
+  ...INDICATORS.map((i) => i.key),
+  ...DERIVED_INDICATORS,
+];
+
+/**
+ * Indicator keys other scripts merge into `data/regional.json`, and the script
+ * that owns each. This writer replaces the file wholesale, so anything it does
+ * not carry across is destroyed on every run.
+ *
+ * That is not hypothetical — observed 2026-08-11: running this script alone
+ * dropped all five of these from both the `indicators` and the `series` block,
+ * with a valid file, a green run and no warning. Half the oblast indicators
+ * `/governance/region/:oblast` renders simply vanished until the two mergers
+ * were re-run. A sentence in SKILL.md telling the operator to re-run them
+ * afterwards is not a defence; this is. Same shape, and the same fix, as
+ * FOREIGN_BLOCKS in scripts/macro/fetch_eu_peers.ts.
+ *
+ * An undeclared foreign key is still carried (losing a new writer's data is
+ * worse than an out-of-date list), but it is reported so the list can catch
+ * up; `regional_foreign_indicators.test.ts` fails when the committed artifact
+ * carries one.
+ */
+export const FOREIGN_INDICATORS: Record<string, string> = {
+  fdiPerCapita: "scripts/regional/fetch_nsi.ts",
+  museumVisitsPer1000: "scripts/regional/fetch_nsi.ts",
+  hospitalBedsPer1000: "scripts/regional/fetch_nsi.ts",
+  deathRatePer1000: "scripts/regional/fetch_nsi.ts",
+  ltUnemployment: "scripts/regional/fetch_az_oblast.ts",
+};
 
 type EurostatResponse = {
   value: Record<string, number> | number[];
@@ -233,13 +279,88 @@ type RegionalPayload = {
   series: Record<string, Record<string, RegionalPoint[]>>;
 };
 
-const readPrior = (): RegionalPayload | null => {
-  if (!fs.existsSync(OUT_FILE)) return null;
+const readPrior = (file: string = OUT_FILE): RegionalPayload | null => {
+  if (!fs.existsSync(file)) return null;
   try {
-    return JSON.parse(fs.readFileSync(OUT_FILE, "utf8")) as RegionalPayload;
+    return JSON.parse(fs.readFileSync(file, "utf8")) as RegionalPayload;
   } catch {
     return null;
   }
+};
+
+export type CarriedIndicators = {
+  /** Foreign entries from the prior file's `indicators` block. */
+  indicators: RegionalPayload["indicators"];
+  /** Foreign entries from the prior file's `series` block. */
+  series: RegionalPayload["series"];
+  /** Every foreign key found, sorted — what the run log reports as carried. */
+  keys: string[];
+  /** Foreign keys absent from FOREIGN_INDICATORS. Carried, but reported. */
+  undeclared: string[];
+};
+
+const isObject = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
+
+/**
+ * The indicator keys in the committed file that this writer does not own, with
+ * their `indicators` metadata and `series` data, ready to be merged back into
+ * the fresh payload. A missing file or unreadable JSON yields nothing to carry
+ * — a first-ever run on a clean machine legitimately has none, and a truncated
+ * file must not abort the whole regional refresh.
+ */
+export const readForeignIndicators = (
+  file: string = OUT_FILE,
+): CarriedIndicators => {
+  const carried: CarriedIndicators = {
+    indicators: {},
+    series: {},
+    keys: [],
+    undeclared: [],
+  };
+  const prior = readPrior(file);
+  if (!prior) return carried;
+
+  const priorIndicators = isObject(prior.indicators) ? prior.indicators : {};
+  const priorSeries = isObject(prior.series) ? prior.series : {};
+
+  // Union of both blocks: a half-written prior file may carry a key in one and
+  // not the other, and dropping the orphan half would compound the loss.
+  const foreignKeys = [
+    ...new Set([...Object.keys(priorIndicators), ...Object.keys(priorSeries)]),
+  ]
+    .filter((k) => !OWN_INDICATORS.includes(k))
+    .sort();
+
+  for (const key of foreignKeys) {
+    if (isObject(priorIndicators[key])) {
+      carried.indicators[key] = priorIndicators[key];
+    }
+    if (isObject(priorSeries[key])) carried.series[key] = priorSeries[key];
+  }
+  carried.keys = foreignKeys;
+  carried.undeclared = foreignKeys.filter((k) => !(k in FOREIGN_INDICATORS));
+  return carried;
+};
+
+/**
+ * Merge carried foreign indicators into a freshly fetched payload. The fresh
+ * payload always wins on a key collision — a carried entry is last run's
+ * vintage by definition, so it may only ever fill a gap, never overwrite.
+ */
+export const withCarriedIndicators = (
+  payload: RegionalPayload,
+  carried: CarriedIndicators,
+): RegionalPayload => {
+  const indicators = { ...payload.indicators };
+  const series = { ...payload.series };
+  for (const [key, meta] of Object.entries(carried.indicators)) {
+    if (!(key in indicators)) indicators[key] = meta;
+  }
+  for (const [key, s] of Object.entries(carried.series)) {
+    if (!(key in series)) series[key] = s;
+  }
+  return { ...payload, indicators, series };
 };
 
 const totalPoints = (series: Record<string, RegionalPoint[]>): number => {
@@ -390,22 +511,63 @@ const main = async () => {
     );
   }
 
-  const payload: RegionalPayload = {
-    source: {
-      name: "Eurostat",
-      url: "https://ec.europa.eu/eurostat/databrowser/",
+  // Read BEFORE the write, since the write is what would destroy them.
+  const carried = readForeignIndicators();
+
+  const payload = withCarriedIndicators(
+    {
+      source: {
+        name: "Eurostat",
+        url: "https://ec.europa.eu/eurostat/databrowser/",
+      },
+      fetchedAt: new Date().toISOString(),
+      country: "BG",
+      indicators: indicatorsMeta,
+      series,
     },
-    fetchedAt: new Date().toISOString(),
-    country: "BG",
-    indicators: indicatorsMeta,
-    series,
-  };
+    carried,
+  );
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload));
   console.log(`\nWrote ${OUT_FILE}`);
+
+  // Say which foreign indicators survived, and — more importantly — which did
+  // not. A key listed in FOREIGN_INDICATORS but absent from the prior file is
+  // either a first-ever run or a key that was already lost, and those two must
+  // not look the same as a clean carry-forward.
+  if (carried.keys.length) {
+    console.log(
+      `carried forward from other writers: ${carried.keys.join(", ")}`,
+    );
+  }
+  const missing = Object.keys(FOREIGN_INDICATORS).filter(
+    (k) => !carried.keys.includes(k),
+  );
+  if (missing.length) {
+    console.warn(
+      `NOTE: ${missing.join(", ")} not present in the previous ` +
+        `${path.basename(OUT_FILE)} — nothing to carry. If this is not a first ` +
+        `run, re-run the script that owns it (` +
+        `${[...new Set(missing.map((k) => FOREIGN_INDICATORS[k]))].join(", ")}).`,
+    );
+  }
+  if (carried.undeclared.length) {
+    console.warn(
+      `NOTE: carried undeclared foreign indicator(s) ` +
+        `${carried.undeclared.join(", ")} — add them to FOREIGN_INDICATORS in ` +
+        `${path.basename(__filename)} so the run log can name their owner.`,
+    );
+  }
 };
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Run only when invoked as the entry point. Without this guard, `import`ing
+// anything from this module — as regional_foreign_indicators.test.ts does for
+// readForeignIndicators / withCarriedIndicators — fires the whole Eurostat
+// fetch and a rewrite of data/regional.json racing the very test that reads
+// it. Same guard shape as scripts/macro/fetch_eu_peers.ts.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

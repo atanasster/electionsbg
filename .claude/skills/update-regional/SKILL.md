@@ -32,7 +32,9 @@ npx tsx scripts/regional/fetch_az_oblast.ts   # merge АЗ ltUnemployment
 npx tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museums, hospital beds, death rate)
 ```
 
-Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls four NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206, `deathRatePer1000` id=1139), normalising each against the population series the first script wrote. Running only the first drops `ltUnemployment` + the NSI indicators until the mergers re-run.
+Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls four NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206, `deathRatePer1000` id=1139), normalising each against the population series the first script wrote.
+
+Running only the first no longer DESTROYS the other five indicators — `fetch_eurostat.ts` carries every foreign indicator key across its rewrite and names them on stdout (`carried forward from other writers: …`). It still leaves them at the previous vintage, so run all three when the mergers' own sources moved. Until 2026-08-11 the rewrite dropped all five from both the `indicators` and the `series` block with a valid file, a green run and no warning; `FOREIGN_INDICATORS` in `scripts/regional/fetch_eurostat.ts` is what prevents that now, and a new side-merged indicator MUST be added to it — `scripts/regional/regional_foreign_indicators.test.ts` fails when the committed artifact carries a key nothing declares.
 
 Expected output on a normal day:
 
@@ -45,6 +47,7 @@ Loading theftRate (crim_gen_reg)... 31 oblasts, 248 points
 Deriving enterpriseDensity (bd_size_r3 V11910)... 31 oblasts
 
 Wrote /Users/.../data/regional.json
+carried forward from other writers: deathRatePer1000, fdiPerCapita, hospitalBedsPer1000, ltUnemployment, museumVisitsPer1000
 ```
 
 31 oblasts = 27 administrative oblasts + 3 Sofia city МИР (S23/S24/S25, all sharing BG411) + the Plovdiv city МИР (PDV-00, sharing BG421 with the rural PDV). Most indicators auto-fail on a per-oblast point regression or a >10% drop vs. the prior committed file — investigate before re-running if you see `safety check: <key> ...`. **Exception:** `enterpriseDensity` is a known-frozen supplementary indicator (`bd_size_r3` ended 2020) and degrades gracefully — if you see `! enterpriseDensity skipped — …`, Eurostat narrowed or retired the dataset; the rest of the refresh still completes.
