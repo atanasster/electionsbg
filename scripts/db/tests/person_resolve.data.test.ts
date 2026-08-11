@@ -12,6 +12,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "../../person/bridgeB";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -97,10 +98,15 @@ test.skipIf(skip)(
 //     shared-uic corroborant.
 //   Bridge B (people-unique full name) — the person has a 3-part name, is a public figure,
 //     and their full-name fold maps to exactly ONE known person (no second person on the
-//     fold); their whole SMALL TR footprint (≤ FOOTPRINT_CAP=5 companies under the fold) is
+//     fold); their whole SMALL TR footprint (≤ FOOTPRINT_CAP companies under the fold) is
 //     attached, matched ON THAT EXACT entity. The people-uniqueness guard + footprint cap
 //     make a handful of firms under a globally-unique 3-part name unambiguously that one
 //     person (superseding the old company-count proxy that capped a real footprint at 1).
+//     Spelled with the SAME CTEs the resolver attaches through (./bridgeB.ts), imported
+//     rather than restated — this file carried a third hand-written copy of the rule until
+//     2026-08-11, and a near-copy on a defamation-sensitive guard can go on passing against
+//     a rule the writer no longer applies, i.e. measure a bridge nobody built. `licensed`
+//     is `hits` capped by `footprint`, which is exactly what resolve_persons.ts INSERTs.
 //   Bridge V (money-linked private owner, TIER-V) — a person-shaped fold that was NOT already
 //     a person, is money-linked (contracts ∪ subsidies ∪ funds), and holds ≤5 firms in total.
 //     These people are minted PRIVATE (is_public_figure=false) with identity_confidence
@@ -121,7 +127,9 @@ test.skipIf(skip)(
 //   • the ≤5 cap for Bridge V counts `tr_officers`, NOT `tr_person_roles` — the resolver caps
 //     on the officer table (its `count(DISTINCT o.uic) <= 5`), and the two differ because
 //     tr_person_roles is the full-history table. Capping the wrong one admits folds the
-//     resolver would have rejected.
+//     resolver would have rejected. That is why Bridge V stays spelled out here while Bridge B
+//     is imported: they are different rules over different tables, and only Bridge B's is the
+//     one `./bridgeB.ts` owns.
 //   • money-linkage is part of the licence, not a performance detail. Without it the gate
 //     would wave through the entire footprint of any private 3-part name in the registry.
 test.skipIf(skip)(
@@ -136,6 +144,12 @@ test.skipIf(skip)(
            UNION ALL SELECT eik FROM agri_subsidies     WHERE eik IS NOT NULL AND total_eur IS NOT NULL
            UNION ALL SELECT eik FROM fund_beneficiaries WHERE eik IS NOT NULL AND paid_eur  IS NOT NULL
          ) x
+       ),
+       ${BRIDGE_B_CTE},
+       licensed AS (   -- Bridge B: exactly the (person, company) pairs the resolver attaches
+         SELECT h.person_id, h.uic
+           FROM hits h JOIN footprint f USING (person_id)
+          WHERE f.n_uic <= $1
        )
        SELECT count(*) bad
        FROM person_role r JOIN person p USING (person_id)
@@ -143,16 +157,9 @@ test.skipIf(skip)(
         AND r.ref NOT IN (   -- Bridge A: curated company link
           SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
           UNION SELECT eik FROM company_politicians)
-        AND NOT (            -- Bridge B: people-unique public 3-part fold, ≤5 companies, exact entity
-          p.name_parts = 3 AND p.is_public_figure
-          AND NOT EXISTS (
-            SELECT 1 FROM person p2
-             WHERE p2.name_fold = p.name_fold AND p2.person_id <> p.person_id)
-          AND (SELECT count(DISTINCT t2.uic) FROM tr_person_roles t2
-                WHERE t2.name_fold = p.name_fold) BETWEEN 1 AND 5
-          AND EXISTS (
-            SELECT 1 FROM tr_person_roles t
-             WHERE t.uic = r.ref AND t.name_fold = p.name_fold))
+        AND NOT EXISTS (     -- Bridge B: people-unique public 3-part fold, ≤ FOOTPRINT_CAP, exact entity
+          SELECT 1 FROM licensed l
+           WHERE l.person_id = p.person_id AND l.uic = r.ref)
         AND NOT (            -- Bridge V: money-linked private owner, verified name-only identity
           p.name_parts = 3 AND NOT p.is_public_figure
           AND p.identity_confidence = 'verified'
@@ -165,6 +172,7 @@ test.skipIf(skip)(
           AND EXISTS (
             SELECT 1 FROM tr_person_roles t
              WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
+      [FOOTPRINT_CAP],
     );
     assert.equal(Number(r.bad), 0, "found an unlicensed tr/ngo role");
   },
