@@ -84,6 +84,16 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:resolve:persons",
+    before: "db:load:declarations:pg",
+    why:
+      "T2 of person-enrichment-v1: the resolver dates every officials posting from the " +
+      "встъпителна / при напускане filings, joining declaration.subject_ref to the " +
+      "officials slug — and phase 1 of that loader is what WRITES subject_ref. Running " +
+      "first leaves 4,625 roles undated, and because the renderer shows nothing without " +
+      "a date_basis the office periods simply vanish from /person with nothing failing",
+  },
+  {
     after: "db:load:funds-fit:pg",
     before: "db:load:funds:pg",
     why:

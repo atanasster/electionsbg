@@ -307,6 +307,15 @@ npm run db:load:declarations:pg:cloud            # phase 1 — rewrites subject_
 npm run db:load:declarations:pg:cloud -- --resolve
 ```
 
+**Phase 1 must also precede `db:resolve:persons` for a second reason since 2026-08**: the
+resolver dates every officials posting from that tier's встъпителна / при напускане filings
+(`date_basis = 'filing'`, 4,625 roles / 4,417 people), joining `declaration.subject_ref` to
+the officials slug — and phase 1 is what writes `subject_ref`. Run out of order those roles
+publish undated, and since the profile renders nothing without a basis the office periods
+just vanish with nothing failing. `refresh_coverage.test.ts`'s `ORDER_PAIRS` holds the local
+chain; on the cloud side the order is `db:load:declarations:pg:cloud` →
+`db:resolve:persons:cloud` → `db:load:declarations:pg:cloud -- --resolve`.
+
 `db:refresh` never shows this because it runs phase 1 before the resolver every time. Skipping
 phase 1 on the cloud leaves the stale ref joining to nothing: the filing keeps a NULL
 `person_id`, so that person's declaration drops off `/person` and out of the "с декларация"

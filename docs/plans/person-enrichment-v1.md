@@ -106,7 +106,42 @@ the dates are facts about the election rather than estimates. One caveat to enco
 paper over — the mandate legally starts at the constitutive session, not on polling day, so
 label it as the election that produced the mandate.
 
-### T2 — Entry/Vacate declarations (5,596 people, already ingested)
+### T2 — Entry/Vacate declarations — SHIPPED
+
+**4,625 roles across 4,417 people**, `date_basis: 'filing'` — `official_exec` 3,986,
+`public_sector` 396, `official_muni` 161, `diplomat` 66, `mep` 11, `president` 5. Joined in
+the resolver on `declaration.subject_ref = person_role.ref` (the officials slug), earliest
+`Entry` → latest `Vacate` per slug. The slug folds in the institution, so one slug is one
+POSTING and the bounds describe that posting rather than a career.
+
+Fewer than the 5,596 people who filed one, for two measured reasons — and **not** because of
+the roster join, which loses 0 of the 5,274 exec/muni slugs:
+
+- **the `mp` tier is excluded on purpose** (687 people). Its `subject_ref` is an mpId rather
+  than an officials slug, and MP roles already carry `term` dates from the parliament
+  register — a real mandate, strictly better than a filing date;
+- **886 of those slugs have Entry/Vacate filings with no `filed_at` at all**, so there is no
+  date to take.
+
+**It does NOT reach the person this plan started from, and that is the predicted outcome
+rather than a defect.** `/person/ivan-georgiev-takuchev-c39f00` still renders "Chief
+architect · Ивайловград" with no period: he has exactly one filing, an `Annualy` for fiscal
+2024, and the municipal register we hold covers a single `register_year` (2025) with 106
+Entry + 83 Vacate rows in total. The unlock for him is widening the municipal crawl
+backwards — an `update-officials` scope change, not more derivation. Everything derivable
+from what we hold is now derived.
+
+Two guards, both needed:
+
+- **The register's out-of-range dates are clamped** (`filed_at BETWEEN 2000-01-01 AND
+  today`). There is at least one `Vacate` filed_at of **3023-02-13**, and a typo'd year
+  reaching `person_role` would sort to the top of every "most recent" ordering on the site.
+- **A backwards period is dropped, not published.** One slug can be entered and vacated more
+  than once (the same person returning to the same institution), so `max(Vacate)` can precede
+  `min(Entry)`; the end is dropped and the posting reads as open. Measured after the change:
+  0 roles with `end_date <= start_date`, on any basis.
+
+Original analysis:
 
 The Сметна палата register distinguishes filing types, and we already store them:
 

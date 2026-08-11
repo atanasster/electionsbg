@@ -232,6 +232,11 @@ type Raw = {
   cPartyOffice: boolean;
   uics: string[]; // declared/linked company EIKs — the strong shared-company corroborant
   sourceRow: unknown | null; // provenance jsonb for the role (e.g. a sanctions designation)
+  // WHEN this posting was taken up / left, where the source dates it. Set only by the
+  // officials roster today, from the Сметна палата's встъпителна / при напускане filings —
+  // FILING dates, hence `date_basis: 'filing'` downstream and never "took office on".
+  // Undefined on every other source, which is how they stay undated.
+  term?: { start: string | null; end: string | null };
 };
 
 // djb2 → 6 base36 chars. Deterministic disambiguator for magistrate-only slugs.
@@ -711,6 +716,69 @@ async function collect(): Promise<Raw[]> {
   // joins place_dim (117) / judicial_body (116) for the name. scripts/person/places.ts
   // still owns those label maps — it is what BUILDS place_dim.
 
+  // WHEN each posting was taken up and left, from the Сметна палата's own встъпителна /
+  // при напускане filings (T2 of person-enrichment-v1). These are FILING dates: ЗПКОНПИ
+  // allows a month, so each is an upper bound on the real event by up to ~30 days — which
+  // is why they publish under date_basis 'filing' and never as a start of office.
+  //
+  // Keyed on subject_ref, which IS the officials slug, i.e. person_role.ref. The slug folds
+  // in the institution, so one slug is one POSTING and min(Entry)/max(Vacate) bound that
+  // posting rather than a whole career.
+  //
+  // Reads the declaration table, which db:refresh fills at step 38 — one step before this
+  // resolver. GUARDED with to_regclass, like the other two reads of it in this file: 089 is
+  // NOT in the resolver's SCHEMA_FILES, so on a cold bootstrap (or a first standalone cloud
+  // resolve) the table does not exist and an unguarded read would 42P01 the entire person
+  // layer over a missing date.
+  const officialTerms = new Map<
+    string,
+    { start: string | null; end: string | null }
+  >();
+  const declPresent = await allRows<{ reg: string | null }>(
+    `SELECT to_regclass('public.declaration')::text AS reg`,
+  );
+  const termRows = declPresent[0]?.reg
+    ? await allRows<{
+        subject_ref: string;
+        entered: string | null;
+        last_entered: string | null;
+        vacated: string | null;
+      }>(
+        `SELECT subject_ref,
+                to_char(min(filed_at) FILTER (WHERE declaration_type = 'Entry'),  'YYYY-MM-DD') entered,
+                to_char(max(filed_at) FILTER (WHERE declaration_type = 'Entry'),  'YYYY-MM-DD') last_entered,
+                to_char(max(filed_at) FILTER (WHERE declaration_type = 'Vacate'), 'YYYY-MM-DD') vacated
+           FROM declaration
+          WHERE tier IN ('exec', 'muni')
+            AND declaration_type IN ('Entry', 'Vacate')
+            AND filed_at IS NOT NULL
+            -- The register carries at least one filed_at of 3023-02-13 — a 2→3 typo of a
+            -- same-day 2023 filing. Clamped rather than cleaned upstream, because a typo'd
+            -- year is a source fact and dropping the filing would lose a real posting;
+            -- unclamped it sorts to the top of every "most recent" ordering on the site.
+            AND filed_at BETWEEN DATE '2000-01-01' AND now()::date
+          GROUP BY subject_ref`,
+      )
+    : [];
+  for (const d of termRows)
+    officialTerms.set(d.subject_ref, {
+      start: d.entered,
+      // One slug can be entered and vacated MORE THAN ONCE — the same person returning to
+      // the same institution — so a Vacate is an end only if no Entry followed it.
+      //
+      // Compared against the LAST Entry, not the first. Against the first, a Vacate sitting
+      // BETWEEN two Entry filings passes and publishes a CLOSED period for somebody
+      // currently in post: measured, 19 roles, one of them reading "2019-03-07 – 2022-04-18"
+      // for a man whose own latest filing is an Entry in 2024. This predicate strictly
+      // subsumes the first-Entry one (it still catches the fully-inverted case) and leaves
+      // the posting open — understating what we know rather than stating a period the
+      // register itself contradicts.
+      end:
+        d.vacated && d.last_entered && d.vacated <= d.last_entered
+          ? null
+          : d.vacated,
+    });
+
   const offs = await allRows<{
     name: string;
     slug: string;
@@ -740,6 +808,7 @@ async function collect(): Promise<Raw[]> {
         regId: regId.get(o.slug) ?? null,
         cParty: partyOffice.get(o.slug) ?? null,
         cPartyOffice: partyOffice.has(o.slug),
+        term: officialTerms.get(o.slug),
       },
     );
 
@@ -1788,6 +1857,9 @@ async function main(): Promise<void> {
               localTermIndex,
             )
           : null;
+      // An officials posting is dated by its own встъпителна / при напускане filings (T2),
+      // carried on the raw from the roster ingest.
+      const bounds = localBounds ?? m.raw.term ?? null;
       const expanded: MpRoleRow[] =
         m.source === "mp"
           ? mpRoleRowsFor(m.raw.ref)
@@ -1795,8 +1867,8 @@ async function main(): Promise<void> {
               {
                 ref: m.raw.ref,
                 party: m.raw.cParty,
-                startDate: localBounds?.start ?? null,
-                endDate: localBounds?.end ?? null,
+                startDate: bounds?.start ?? null,
+                endDate: bounds?.end ?? null,
               },
             ];
       for (const row of expanded) {
@@ -1844,11 +1916,18 @@ async function main(): Promise<void> {
           // 'term' only where an mp mandate actually filled the columns. A later source
           // that fills a date without declaring what it measures stays visibly NULL rather
           // than being relabelled a mandate.
-          m.source === "mp" && (row.startDate || row.endDate)
-            ? "term"
-            : m.source === "local" && (row.startDate || row.endDate)
-              ? "election"
-              : null,
+          // Keyed off WHERE the dates came from, not off the source — a `: "filing"`
+          // fallthrough would silently label any future dated source as a declaration
+          // filing, which is the one mislabelling this column exists to prevent.
+          !row.startDate && !row.endDate
+            ? null
+            : m.source === "mp"
+              ? "term" // the mandate itself, from the parliament register
+              : localBounds
+                ? "election" // the vote that produced the mandate (T1)
+                : m.raw.term
+                  ? "filing" // a declaration's filing date, up to ~30 days late (T2)
+                  : null,
           b.confidence,
           m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
         ]);

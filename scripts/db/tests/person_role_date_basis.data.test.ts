@@ -147,16 +147,54 @@ test.skipIf(skip)("a by-election ends ONLY the seat it contested", async () => {
   );
 });
 
-test.skipIf(skip)("no local mandate ends before it starts", async () => {
-  const [r] = await allRows<{ n: string }>(
-    `SELECT count(*) n FROM person_role
-        WHERE source = 'local' AND end_date IS NOT NULL AND end_date <= start_date`,
+test.skipIf(skip)(
+  "an officials posting is dated from its own Entry/Vacate filings",
+  async () => {
+    // T2. These are the Сметна палата's own встъпителна / при напускане filings, joined on
+    // subject_ref = the officials slug, so coverage is bounded by which postings ever filed
+    // one — NOT total like the local roles. ~4,600 roles across ~4,400 people.
+    const [r] = await allRows<{ roles: string; people: string }>(
+      `SELECT count(*) roles, count(DISTINCT person_id) people
+         FROM person_role WHERE date_basis = 'filing'`,
+    );
+    assert.ok(
+      Number(r.roles) > 3000,
+      `only ${r.roles} roles carry a filing date — the declaration join in ` +
+        `resolve_persons.ts stopped matching (subject_ref vs the officials slug)`,
+    );
+    assert.ok(Number(r.people) > 3000, `only ${r.people} people`);
+  },
+);
+
+test.skipIf(skip)(
+  "no role is dated outside the register's plausible range",
+  async () => {
+    // The register carries at least one filed_at of 3023-02-13. A typo'd year that reached
+    // person_role would sort to the top of every "most recent" ordering on the site.
+    const [r] = await allRows<{ n: string; worst: string | null }>(
+      `SELECT count(*) n, to_char(max(greatest(start_date, end_date)), 'YYYY-MM-DD') worst
+         FROM person_role
+        WHERE greatest(start_date, end_date) > now()::date + 1
+           OR least(start_date, end_date) < DATE '1990-01-01'`,
+    );
+    assert.equal(
+      Number(r.n),
+      0,
+      `${r.n} role(s) dated outside 1990..today (worst: ${r.worst})`,
+    );
+  },
+);
+
+test.skipIf(skip)("no role ends before it starts", async () => {
+  // Applies to every basis. The filing arm is where this can actually happen: one slug can
+  // be entered and vacated more than once, so max(Vacate) can precede min(Entry), and the
+  // resolver drops the end rather than publishing a period that runs backwards.
+  const rows = await allRows<{ date_basis: string; n: string }>(
+    `SELECT date_basis, count(*) n FROM person_role
+      WHERE end_date IS NOT NULL AND start_date IS NOT NULL AND end_date <= start_date
+      GROUP BY date_basis`,
   );
-  assert.equal(
-    Number(r.n),
-    0,
-    `${r.n} local roles end on or before their own election`,
-  );
+  assert.deepEqual(rows, [], "role(s) end on or before they start");
 });
 
 test.skipIf(skip)(
