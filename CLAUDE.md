@@ -28,6 +28,21 @@ npm run sitemap      # Generate sitemap
 
 # Postgres (local Docker; db:refresh runs the whole load in order)
 npm run db:pg:up     # Start local Postgres (port 5433)
+npm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
+                     # LOCAL ONLY, and it refuses everything else: the serving
+                     # database, any host:port that is not the docker-compose one
+                     # (--yes-non-local to override), and a URL whose database name
+                     # disagrees with the GRANT CONNECT in roles_readonly.sql.
+                     # There is deliberately NO :cloud twin — creating a LOGIN role
+                     # on Cloud SQL stays the hand-run, password-set-out-of-band
+                     # step roles_readonly.sql's header describes.
+                     # Why it exists: roles are CLUSTER-wide, so a virgin pgdata
+                     # volume has no app_readonly, and 34 migrations GRANT to it
+                     # bare. exec() sends a migration as ONE transaction, so the
+                     # first of those 42704s and rolls its whole file back —
+                     # measured, db:refresh died at db:load:pg applying 017.
+                     # Invisible on any machine that ever ran the file by hand.
+                     # See docs/plans/grant-role-guard-sweep-v1.md (Tier 0).
 npm run db:refresh   # Full reload: schema + every loader + resolve + generators
                      # + test:data
                      # "Every loader" is enforced: refresh_coverage.test.ts fails
@@ -268,8 +283,11 @@ Three things about them differ from every `db:load:*` in the chain:
 - **`hub_stats.ts` is the only applier of `062_procurement_hub_counts.sql`.** No `db:load:*` ships
   it, and nothing did before 2026-08-04, so `procurement_hub_counts()` existed only on databases
   where it had been applied by hand. Its `GRANT` is role-guarded (117/130 shape) because
-  `roles_readonly.sql` is a one-time manual step — unguarded, it raises 42704 on a cold bootstrap
-  and rolls the whole file back, leaving no function at all.
+  `roles_readonly.sql` may not have run on the target — unguarded, it raises 42704 on a cold
+  bootstrap and rolls the whole file back, leaving no function at all. (`npm run db:pg:bootstrap`
+  now runs that file automatically for the LOCAL docker Postgres, as step 2 of `db:refresh`; it
+  refuses every other target, so on Cloud SQL it remains the one-time manual step it always was
+  and the guard stays load-bearing there.)
 - **Both skip-and-warn rather than degrade.** A missing relation, function, empty `contracts`, or
   absent `data/budget/ministries/` (gitignored — `sector_stats` reads eight ПРБ nodes from it)
   logs and exits **0** without writing. Returning before the write is the point: a partial artifact

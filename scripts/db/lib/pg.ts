@@ -85,6 +85,24 @@ export const isServingUrl = (url: string): boolean => {
  *  cloud DATABASE_URL in its shell. */
 export const isServingDatabase = (): boolean => isServingUrl(connectionUrl());
 
+/** A connection URL safe to print: host, port, database and username kept, password dropped.
+ *
+ *  Lives HERE because this module owns connection URLs, and because it had grown three
+ *  independent spellings across the repo with different failure modes — a `:[^:@/]*@` replace
+ *  that leaves the password when it contains `/`, a `//[^@]*@` replace that also eats the
+ *  username, and this `URL`-based one. Every CLI that prints which database it is about to
+ *  write to was reaching for one of them, so the weakest copy decided whether a password
+ *  reached a terminal. Returns a marker rather than the input on an unparseable URL — echoing
+ *  it back is how a malformed string carrying a password gets printed verbatim. */
+export const redactUrl = (url: string): string => {
+  try {
+    const u = new URL(url);
+    return `${u.protocol}//${u.username ? `${u.username}@` : ""}${u.host}${u.pathname}`;
+  } catch {
+    return "<unparseable url>";
+  }
+};
+
 let pool: Pool | null = null;
 
 export const getPool = (): Pool => {

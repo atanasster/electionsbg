@@ -84,6 +84,18 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:load:pg",
+    before: "db:pg:bootstrap",
+    why:
+      "Tier 0 of grant-role-guard-sweep-v1: this loader applies " +
+      "017_company_relationships.sql, which GRANTs to app_readonly BARE. exec() sends a " +
+      "migration as ONE implicit transaction, so on a virgin cluster — where nothing has " +
+      "created the role — that raises 42704 and rolls the entire file back, taking the " +
+      "loader down before a single row is copied. db:pg:bootstrap is the only thing in " +
+      "the repo that creates the role, and roles are CLUSTER-wide, so this is invisible " +
+      "on any machine that ever ran roles_readonly.sql by hand",
+  },
+  {
     after: "db:resolve:persons",
     before: "db:load:declarations:pg",
     why:

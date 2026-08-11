@@ -16,7 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { allRows, DATABASE_URL } from "./pg";
+import { allRows, DATABASE_URL, redactUrl } from "./pg";
 import { DB_DIR } from "./paths";
 
 export const GCS_DB_DIR = "gs://data-electionsbg-com/db";
@@ -78,7 +78,6 @@ export const readIdentity = async (): Promise<Omit<Lockfile, "snapshot">> => {
   };
 };
 
-const redactUrl = (url: string): string => url.replace(/\/\/[^@]*@/, "//");
 const DOCKER_HOST = "host.docker.internal";
 
 interface Target {

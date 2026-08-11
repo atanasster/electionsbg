@@ -53,7 +53,7 @@ import { Pool } from "pg";
 // Imported for LOCAL_DATABASE_URL *and* for its import side effect: it points node-pg's .pgpass
 // lookup at the repo-local file, which is the only way the password-less Cloud SQL proxy URL
 // authenticates. Dialing the proxy without importing this fails with a bare SASL error.
-import { LOCAL_DATABASE_URL, isServingUrl } from "../db/lib/pg";
+import { LOCAL_DATABASE_URL, isServingUrl, redactUrl } from "../db/lib/pg";
 import { ENRICHMENT_RANK, enrichmentRank } from "../db/load_open_calls_pg";
 import { MONEY_FIELDS } from "./enrich_apply";
 
@@ -259,15 +259,10 @@ const SELECT_TARGET = `SELECT ${ALL_COLS.join(", ")}
       OR (source, source_key) IN (SELECT * FROM unnest($2::text[], $3::text[]))
    ORDER BY source, source_key`;
 
-/** Never print a password, even one from .pgpass that is not in the URL. */
-export const redact = (url: string): string => {
-  try {
-    const u = new URL(url);
-    return `${u.protocol}//${u.username ? `${u.username}@` : ""}${u.host}${u.pathname}`;
-  } catch {
-    return "<unparseable url>";
-  }
-};
+/** Never print a password, even one from .pgpass that is not in the URL.
+ *  Re-exported from lib/pg, which owns connection URLs and is now the one definition —
+ *  this alias keeps the existing name for callers and for sync_enrichment.test.ts. */
+export const redact = redactUrl;
 
 /** A flag's value, REFUSING the two shapes that silently mean something else.
  *
