@@ -110,9 +110,7 @@ export const TenderDossierPanel: FC<{ unp?: string | null }> = ({ unp }) => {
     (d) => d.source !== "attachment" && d.source !== "announcement",
   );
   const hasAny =
-    data.description_text ||
-    data.documents.length ||
-    data.announcements.length;
+    data.description_text || data.documents.length || data.announcements.length;
   if (!hasAny) return null;
 
   return (
