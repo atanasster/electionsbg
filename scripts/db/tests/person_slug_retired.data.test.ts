@@ -317,10 +317,17 @@ test.skipIf(skip)("ambiguous folds stay out of Bridge-B", async () => {
 test.skipIf(skip)(
   "retired slugs redirect to a person of the same name",
   async () => {
+    // The name body is the slug MINUS its 6-hex disambiguator AND minus a trailing `-N`
+    // collision suffix. Stripping only the hash mis-reads `abil-ismet-abil-ae3d82-2` as a
+    // different name from `abil-ismet-abil-ae3d82` and scores an obviously-correct
+    // `X-2 → X` redirect as a mismatch. That went unnoticed while few such rows existed;
+    // a merge wave surfaced 383 of them at once and pushed this ratio to 94.5%. All 383
+    // were verified to be the collision shape, with ZERO genuinely-different names among
+    // them — so this is a gap in the comparison, not a loosening of the assertion.
     const [r] = await allRows<{ agree: string; total: string }>(
       `SELECT count(*) FILTER (
-                WHERE regexp_replace(r.slug, '-[0-9a-f]{6}$', '')
-                    = regexp_replace(r.target_slug, '-[0-9a-f]{6}$', '')) AS agree,
+                WHERE regexp_replace(r.slug, '(-[0-9a-f]{6})?(-[0-9]+)?$', '')
+                    = regexp_replace(r.target_slug, '(-[0-9a-f]{6})?(-[0-9]+)?$', '')) AS agree,
               count(*) AS total
          FROM person_slug_retired r
         WHERE r.target_slug NOT LIKE 'mp-%'`,

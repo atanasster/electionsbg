@@ -62,7 +62,20 @@ test("5.9 — the active-person count did not step", async (t) => {
   // people merging — a first draft used ±6% (~7,600), which is ~30× too loose
   // to see it. ±0.4% still absorbs a TR re-ingest moving the tier-V half by a
   // few hundred, and catches the failure mode.
-  const BASELINE = 127_288;
+  // RE-BASELINED 2026-08-11, deliberately, per the instruction in this gate's own failure
+  // message. The ShareTransfers recovery (person-enrichment-v1) added 96,078 exit-only
+  // shareholder rows to the TR corpus, and the resolver mints a tier-V private-owner row
+  // per newly-seen owner: 63,948 → 68,796, i.e. +4,848 genuinely NEW people rather than a
+  // merge/split of existing ones.
+  //
+  // The RESOLVED half is the control, and it did not move: 63,340 persons and 3,425 review
+  // groups both before and after, which is what says the identity layer itself is unchanged
+  // and only the private-owner tail grew. (An earlier run of this change DID move both —
+  // 63,750 / 3,673 — because the recovered rows were inflating officer_name_counts and
+  // splitting people apart. That was a defect; see 008's header. This baseline is the
+  // corpus AFTER that fix, so it must not be raised again to accommodate a resolved-count
+  // drift.)
+  const BASELINE = 132_136;
   const TOLERANCE = 500;
   assert.ok(
     Math.abs(persons - BASELINE) <= TOLERANCE,

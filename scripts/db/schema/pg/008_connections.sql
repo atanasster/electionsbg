@@ -250,10 +250,46 @@ $$;
 -- (checked), so a bare DROP is enough, and if that ever changes it fails LOUDLY
 -- with 2BP01 instead of silently deleting the new reader. That is the whole
 -- lesson of the 077/145/003 family — see migration_drop_dependents.data.test.ts.
+-- ⚠️ COUNTS ONLY COMPANIES WE OBSERVED THE NAME *ARRIVE* AT, and that clause is
+-- load-bearing for identity, not for this matview's own consumers.
+--
+-- `company_count` is `namesakeRisk` in the resolver (scripts/person/cluster.ts), where it
+-- GATES MERGES: Tier 2 unifies an identical full name only at `namesakeRisk <= 1`, on the
+-- reasoning that a name attached to several companies is probably worn by several people.
+-- So anything that inflates this number silently splits people apart.
+--
+-- ShareTransfers recovery (person-enrichment-v1) introduced a new class of row: a
+-- shareholder we only ever saw LEAVE, because their stake predates the 2021-01-01 feed
+-- window. Those carry `added_at IS NULL` and land here as ordinary officers — 96,078 of
+-- them, inflating 79,325 name folds, 50,311 of which had no TR presence at all before.
+-- Measured consequence: Иван Петев Демерджиев went from 0 companies to 2, crossed the
+-- Tier-2 cap, and his ministerial identity stopped merging with his MP one — his
+-- declarations and net worth fell off /person/mp-5104. 189 MPs lost their declaration
+-- block the same way.
+--
+-- The EXISTS clause keeps every (name, company) pair we ever saw somebody ARRIVE at,
+-- INCLUDING pairs since erased — so this is a restoration, not a new policy: before the
+-- recovery every company_persons row carried an added_at (1,244,718 of 1,244,718), which
+-- makes the clause a provable no-op on that corpus and an exact filter on the new rows.
+-- Filtering on `tr_officers.active` instead would NOT work: `active` is
+-- `MAX(erased_at IS NULL)`, so it cannot tell an exit-only row from a genuinely-erased
+-- one, and dropping the latter would LOOSEN merging below the historical baseline —
+-- the dangerous direction, since a wrong merge is an accusation.
+--
+-- An exit-only row still earns its place everywhere else: it is a real registry fact and
+-- it is what puts the company on /person. It is denied a vote on IDENTITY only.
+-- person_identity_stability.data.test.ts holds the thresholds this feeds.
 DROP MATERIALIZED VIEW IF EXISTS officer_name_counts;
 CREATE MATERIALIZED VIEW officer_name_counts AS
-  SELECT name_fold, (COUNT(DISTINCT uic))::int AS company_count
-  FROM tr_officers WHERE name_fold <> '' GROUP BY name_fold;
+  SELECT o.name_fold, (COUNT(DISTINCT o.uic))::int AS company_count
+  FROM tr_officers o
+  WHERE o.name_fold <> ''
+    AND EXISTS (
+      SELECT 1 FROM tr_person_roles r
+       WHERE r.name_fold = o.name_fold AND r.uic = o.uic
+         AND r.added_at IS NOT NULL
+    )
+  GROUP BY o.name_fold;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_officer_name_counts_fold
   ON officer_name_counts(name_fold);
 GRANT SELECT ON officer_name_counts TO app_readonly;
