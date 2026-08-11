@@ -1,1 +1,50 @@
-{"mpId":4022,"mpName":"Имрен Исметова Мехмедова","generatedAt":"2026-08-04T17:43:40.695Z","total":3,"roles":[{"uic":"117509832","companyName":"АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Добрич, 9300","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-11-17T08:49:13","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"125550070","companyName":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ОМУРТАГ","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-04-25T09:22:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"125537379","companyName":"БИОЕЛИТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Таймище, 7983","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2015-04-30","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"}]}
+{
+  "mpId": 4022,
+  "mpName": "Имрен Исметова Мехмедова",
+  "generatedAt": "2026-08-11T20:36:22.543Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "117509832",
+      "companyName": "АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-11-17T08:49:13",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "125550070",
+      "companyName": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ОМУРТАГ",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-04-25T09:22:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "125537379",
+      "companyName": "БИОЕЛИТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Таймище, 7983",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2015-04-30",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

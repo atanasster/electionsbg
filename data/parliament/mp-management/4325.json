@@ -1,1 +1,36 @@
-{"mpId":4325,"mpName":"Петър Пандушев Чобанов","generatedAt":"2026-08-04T17:43:40.713Z","total":2,"roles":[{"uic":"175327305","companyName":"ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. София, 1632","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-06-30T15:25:19","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"202815436","companyName":"Обертюр Фидюсиер","legalForm":"AD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-04-28T14:29:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4325,
+  "mpName": "Петър Пандушев Чобанов",
+  "generatedAt": "2026-08-11T20:36:22.561Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "175327305",
+      "companyName": "ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1632",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-06-30T15:25:19",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "202815436",
+      "companyName": "Обертюр Фидюсиер",
+      "legalForm": "AD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-04-28T14:29:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

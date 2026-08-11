@@ -1,1 +1,78 @@
-{"mpId":5230,"mpName":"Елисавета Димитрова Белобрадова","generatedAt":"2026-08-04T17:43:40.945Z","total":3,"roles":[{"uic":"131260285","companyName":"КЪЛБЕРГЛИ","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1606","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-11-07T16:14:12","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"СОФИЯ\""},{"uic":"207723358","companyName":"Фондация С благодарност","legalForm":"Фондация","seat":"БЪЛГАРИЯ, гр. София, 1421","status":"active","role":"ngo_representative","positionLabel":"Председател","sharePercent":null,"addedAt":"2024-02-23T07:50:53","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"СОФИЯ\""},{"uic":"207723358","companyName":"Фондация С благодарност","legalForm":"Фондация","seat":"БЪЛГАРИЯ, гр. София, 1421","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-02-23T07:50:53","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"СОФИЯ\""}]}
+{
+  "mpId": 5230,
+  "mpName": "Елисавета Димитрова Белобрадова",
+  "generatedAt": "2026-08-11T20:36:22.887Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "131260285",
+      "companyName": "КЪЛБЕРГЛИ",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-11-07T16:14:12",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"СОФИЯ\""
+    },
+    {
+      "uic": "207723358",
+      "companyName": "Фондация С благодарност",
+      "legalForm": "Фондация",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател",
+      "sharePercent": null,
+      "addedAt": "2024-02-23T07:50:53",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"СОФИЯ\""
+    },
+    {
+      "uic": "207723358",
+      "companyName": "Фондация С благодарност",
+      "legalForm": "Фондация",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-02-23T07:50:53",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"СОФИЯ\""
+    },
+    {
+      "uic": "203304195",
+      "companyName": "Айрън бюти",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2025-09-24T08:27:24",
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "205122693",
+      "companyName": "Мадърборд",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2021-07-21T08:41:58",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

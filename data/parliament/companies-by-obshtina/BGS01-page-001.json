@@ -1,1 +1,34 @@
-{"obshtina":"BGS01","page":1,"totalPages":1,"count":2,"companies":[{"slug":"Ем-енд-Си-стройООД","displayName":"\"Ем енд Си строй\"ООД","registeredOffice":"Айтос","mps":[{"mpId":4710,"mpName":"Севим Исмаил Али","role":"declared_stake","isCurrent":true}]},{"slug":"Ем-енд-Си-строй-ООД","displayName":"\"Ем енд Си строй\" ООД","registeredOffice":"Айтос","mps":[{"mpId":4710,"mpName":"Севим Исмаил Али","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "BGS01",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "Ем-енд-Си-стройООД",
+      "displayName": "\"Ем енд Си строй\"ООД",
+      "registeredOffice": "Айтос",
+      "mps": [
+        {
+          "mpId": 4710,
+          "mpName": "Севим Исмаил Али",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ем-енд-Си-строй-ООД",
+      "displayName": "\"Ем енд Си строй\" ООД",
+      "registeredOffice": "Айтос",
+      "mps": [
+        {
+          "mpId": 4710,
+          "mpName": "Севим Исмаил Али",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

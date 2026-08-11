@@ -1,1 +1,36 @@
-{"mpId":3736,"mpName":"Пламен Петров Шалъфов","generatedAt":"2026-08-04T17:43:40.671Z","total":2,"roles":[{"uic":"207823419","companyName":"РЕЙВ КИТИ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":33,"addedAt":"2025-05-12T09:43:25","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207823928","companyName":"КЕНДИ КЕТЗ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":33,"addedAt":"2025-05-12T08:23:11","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3736,
+  "mpName": "Пламен Петров Шалъфов",
+  "generatedAt": "2026-08-11T20:36:22.525Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "207823419",
+      "companyName": "РЕЙВ КИТИ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2025-05-12T09:43:25",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207823928",
+      "companyName": "КЕНДИ КЕТЗ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2025-05-12T08:23:11",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

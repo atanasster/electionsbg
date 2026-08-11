@@ -1,1 +1,85 @@
-{"ekatte":"10971","count":11,"mpCount":8,"totalPages":1,"topCompanies":[{"slug":"ДДФЕАД","displayName":"\"ДДФ\"ЕАД","registeredOffice":null,"mps":[{"mpId":5081,"mpName":"Росица Любенова Кирова","role":"declared_stake","isCurrent":true}]},{"slug":"Вимос-ООД","displayName":"Вимос ООД","registeredOffice":"Видин","mps":[{"mpId":4126,"mpName":"Валери Иванов Сираков","role":"declared_stake","isCurrent":true}]},{"slug":"ИНИЦИАТИВИ-ЗА-РАЗВИТИЕ-НА-ГРАД-ВИДИН-И-РЕГИОНА","displayName":"ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_board","isCurrent":true},{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_representative","isCurrent":false}]},{"slug":"МАЛ-2018-ООД-2","displayName":"МАЛ -2018 ООД","registeredOffice":"Видин","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"declared_stake","isCurrent":true}]},{"slug":"СДРУЖЕНИЕ-&quot;УЧИЛИЩНО-НАСТОЯТЕЛСТВО-НА-ОУ-ИВАН-ВАЗОВ-ВИДИН&quot;","displayName":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_board","isCurrent":true},{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_representative","isCurrent":false}]}]}
+{
+  "ekatte": "10971",
+  "count": 12,
+  "mpCount": 9,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ДДФЕАД",
+      "displayName": "\"ДДФ\"ЕАД",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 5081,
+          "mpName": "Росица Любенова Кирова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Вимос-ООД",
+      "displayName": "Вимос ООД",
+      "registeredOffice": "Видин",
+      "mps": [
+        {
+          "mpId": 4126,
+          "mpName": "Валери Иванов Сираков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНИЦИАТИВИ-ЗА-РАЗВИТИЕ-НА-ГРАД-ВИДИН-И-РЕГИОНА",
+      "displayName": "ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_representative",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "МАЛ-2018-ООД-2",
+      "displayName": "МАЛ -2018 ООД",
+      "registeredOffice": "Видин",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;УЧИЛИЩНО-НАСТОЯТЕЛСТВО-НА-ОУ-ИВАН-ВАЗОВ-ВИДИН&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_representative",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,79 @@
-{"obshtina":"PER32","count":10,"mpCount":6,"totalPages":1,"topCompanies":[{"slug":"ВИ-8-Студиос-ЕООД","displayName":"\"ВИ 8 Студиос\" ЕООД","registeredOffice":"Перник","mps":[{"mpId":3026,"mpName":"Антон Йорданов Адамов","role":"declared_stake","isCurrent":true}]},{"slug":"Хилс-инвестмънт-АД","displayName":"\"Хилс инвестмънт\" АД","registeredOffice":"Перник","mps":[{"mpId":3026,"mpName":"Антон Йорданов Адамов","role":"declared_stake","isCurrent":true}]},{"slug":"Преволт-Завет","displayName":"Преволт Завет","registeredOffice":"БЪЛГАРИЯ, с. Студена, 2234","mps":[{"mpId":2794,"mpName":"Красимир Христов Янков","role":"manager","isCurrent":true},{"mpId":2968,"mpName":"Мартин Стефанов Обрешков","role":"manager","isCurrent":true},{"mpId":2968,"mpName":"Мартин Стефанов Обрешков","role":"partner","isCurrent":false}]},{"slug":"КМ-ПРОПЪРТИС","displayName":"КМ ПРОПЪРТИС","registeredOffice":"БЪЛГАРИЯ, гр. Перник, 2304","mps":[{"mpId":933,"mpName":"Владислав Евгениев Димитров","role":"manager","isCurrent":true},{"mpId":933,"mpName":"Владислав Евгениев Димитров","role":"partner","isCurrent":false}]},{"slug":"М-Контрол-ЕООД","displayName":"М Контрол ЕООД","registeredOffice":"Перник","mps":[{"mpId":2822,"mpName":"Любомир Бойков Бонев","role":"manager","isCurrent":true},{"mpId":2822,"mpName":"Любомир Бойков Бонев","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "PER32",
+  "count": 15,
+  "mpCount": 8,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ВИ-8-Студиос-ЕООД",
+      "displayName": "\"ВИ 8 Студиос\" ЕООД",
+      "registeredOffice": "Перник",
+      "mps": [
+        {
+          "mpId": 3026,
+          "mpName": "Антон Йорданов Адамов",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 3026,
+          "mpName": "Антон Йорданов Адамов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Хилс-инвестмънт-АД",
+      "displayName": "\"Хилс инвестмънт\" АД",
+      "registeredOffice": "Перник",
+      "mps": [
+        {
+          "mpId": 3026,
+          "mpName": "Антон Йорданов Адамов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВЕО-ООД",
+      "displayName": "ВЕО ООД",
+      "registeredOffice": "Перник",
+      "mps": [
+        {
+          "mpId": 2515,
+          "mpName": "Валентин Любенов Павлов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Гппдп-ЕО-Дент-2-ООД",
+      "displayName": "Гппдп ЕО Дент 2 ООД",
+      "registeredOffice": "Перник",
+      "mps": [
+        {
+          "mpId": 2515,
+          "mpName": "Валентин Любенов Павлов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДЦ-ЕО-Дент-ООД",
+      "displayName": "ДЦ ЕО Дент ООД",
+      "registeredOffice": "Перник",
+      "mps": [
+        {
+          "mpId": 2515,
+          "mpName": "Валентин Любенов Павлов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

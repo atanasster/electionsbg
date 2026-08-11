@@ -1,1 +1,78 @@
-{"mpId":2483,"mpName":"Борислав Михайлов Борисов","generatedAt":"2026-08-04T17:43:40.451Z","total":5,"roles":[{"uic":"208496963","companyName":"Плей М Тийм","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-09-25T08:05:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208496963","companyName":"Плей М Тийм","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"partner","positionLabel":null,"sharePercent":33.33333333333333,"addedAt":"2025-09-25T08:05:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"201659906","companyName":"БИ ЕНД ЕС КОМЕРС","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":20,"addedAt":"2024-10-30T10:34:42","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"201449053","companyName":"ЕКСТРИЙМ АВТО","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2018-03-07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"201449053","companyName":"ЕКСТРИЙМ АВТО","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2018-03-07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2483,
+  "mpName": "Борислав Михайлов Борисов",
+  "generatedAt": "2026-08-11T20:36:22.284Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "208496963",
+      "companyName": "Плей М Тийм",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-09-25T08:05:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208496963",
+      "companyName": "Плей М Тийм",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 33.33333333333333,
+      "addedAt": "2025-09-25T08:05:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201659906",
+      "companyName": "БИ ЕНД ЕС КОМЕРС",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 86.95652173913044,
+      "addedAt": "2024-10-30T10:34:42",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201449053",
+      "companyName": "ЕКСТРИЙМ АВТО",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2018-03-07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201449053",
+      "companyName": "ЕКСТРИЙМ АВТО",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2018-03-07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

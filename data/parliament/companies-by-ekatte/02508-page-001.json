@@ -1,1 +1,40 @@
-{"ekatte":"02508","page":1,"totalPages":1,"count":3,"companies":[{"slug":"АВЕНОЗ-КОНСУЛТИНГ","displayName":"АВЕНОЗ КОНСУЛТИНГ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9601","mps":[{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"manager","isCurrent":true},{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"sole_owner","isCurrent":true}]},{"slug":"АГРОЛЕС-ПРОДУКТ","displayName":"АГРОЛЕС ПРОДУКТ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9600","mps":[{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"manager","isCurrent":true}]},{"slug":"С-К-Т-Т-ИНТЕРНЕШЪНЪЛ","displayName":"С К Т Т  ИНТЕРНЕШЪНЪЛ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9601","mps":[{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "02508",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "АВЕНОЗ-КОНСУЛТИНГ",
+      "displayName": "АВЕНОЗ КОНСУЛТИНГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9601",
+      "mps": [
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "С-К-Т-Т-ИНТЕРНЕШЪНЪЛ",
+      "displayName": "С К Т Т  ИНТЕРНЕШЪНЪЛ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9601",
+      "mps": [
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

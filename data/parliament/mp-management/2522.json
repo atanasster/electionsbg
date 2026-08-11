@@ -1,1 +1,64 @@
-{"mpId":2522,"mpName":"Георги Николов Недев","generatedAt":"2026-08-04T17:43:40.459Z","total":4,"roles":[{"uic":"207236770","companyName":"ГЕОРГИ ГУМАТА 77","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-25T11:08:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207236770","companyName":"ГЕОРГИ ГУМАТА 77","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2023-01-25T11:08:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"124699271","companyName":"ЕКОСТИЛ","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2008-04-01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"124699271","companyName":"ЕКОСТИЛ","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2008-04-01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2522,
+  "mpName": "Георги Николов Недев",
+  "generatedAt": "2026-08-11T20:36:22.303Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "207236770",
+      "companyName": "ГЕОРГИ ГУМАТА 77",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-25T11:08:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207236770",
+      "companyName": "ГЕОРГИ ГУМАТА 77",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2023-01-25T11:08:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "124699271",
+      "companyName": "ЕКОСТИЛ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2008-04-01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "124699271",
+      "companyName": "ЕКОСТИЛ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2008-04-01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

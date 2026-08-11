@@ -1,1 +1,85 @@
-{"obshtina":"BLG40","count":9,"mpCount":7,"totalPages":1,"topCompanies":[{"slug":"Ристовица-ООД","displayName":"Ристовица ООД","registeredOffice":"Плоски","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"declared_stake","isCurrent":true}]},{"slug":"Братя-Георгиева-клуб-за-вино-производство-ООД","displayName":"Братя Георгиева клуб за вино производство ООД","registeredOffice":"Плоски","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"declared_stake","isCurrent":true}]},{"slug":"Сърце-за-всяка-лапа-гр.-Сандански","displayName":"\"Сърце за всяка лапа\" гр. Сандански","registeredOffice":"БЪЛГАРИЯ, гр. Сандански, 2800","mps":[{"mpId":4376,"mpName":"Димитрина Любомирова Хаджиева-Недина","role":"ngo_representative","isCurrent":true},{"mpId":4376,"mpName":"Димитрина Любомирова Хаджиева-Недина","role":"ngo_board","isCurrent":true}]},{"slug":"Братя-георгиеви-клуб-за-вино-производство-ООД","displayName":"Братя георгиеви клуб за вино производство ООД","registeredOffice":"Плоски","mps":[{"mpId":5113,"mpName":"Гоерги Иванов Георгиев","role":"declared_stake","isCurrent":true}]},{"slug":"ГАБИАННА-ТРАНС","displayName":"ГАБИАННА ТРАНС","registeredOffice":"БЪЛГАРИЯ, гр. Сандански, 2800","mps":[{"mpId":3796,"mpName":"Николай Георгиев Ангов","role":"manager","isCurrent":true},{"mpId":3796,"mpName":"Николай Георгиев Ангов","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "BLG40",
+  "count": 9,
+  "mpCount": 7,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Ристовица-ООД",
+      "displayName": "Ристовица ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Братя-Георгиева-клуб-за-вино-производство-ООД",
+      "displayName": "Братя Георгиева клуб за вино производство ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сърце-за-всяка-лапа-гр.-Сандански",
+      "displayName": "\"Сърце за всяка лапа\" гр. Сандански",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 4376,
+          "mpName": "Димитрина Любомирова Хаджиева-Недина",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4376,
+          "mpName": "Димитрина Любомирова Хаджиева-Недина",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Братя-георгиеви-клуб-за-вино-производство-ООД",
+      "displayName": "Братя георгиеви клуб за вино производство ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Гоерги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГАБИАННА-ТРАНС",
+      "displayName": "ГАБИАННА ТРАНС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

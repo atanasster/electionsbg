@@ -1,0 +1,135 @@
+[
+  {
+    "mpId": 2829,
+    "declarantName": "КРАСИМИР ДОНЧЕВ КАРАКАЧАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2016,
+    "fiscalYear": 2015,
+    "declarationType": "Annualy",
+    "filedAt": "2016-04-25",
+    "entryNumber": "Г2435",
+    "controlHash": "81185CFC",
+    "sourceUrl": "https://register.cacbg.bg/2016/E9859A0A-9EBA-46C3-8213-51C6F908E11D79189.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
+        "holderName": "Красимир Дончев Каракачанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11244,
+        "valueEur": 5748.965912170281,
+        "holderName": "Красимир Дончев Каракачанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "mpId": 2829,
+    "declarantName": "КРАСИМИР ДОНЧЕВ КАРАКАЧАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2015,
+    "fiscalYear": 2014,
+    "declarationType": "Annualy",
+    "filedAt": "2015-04-27",
+    "entryNumber": "Г1835",
+    "controlHash": "9600C532",
+    "sourceUrl": "https://register.cacbg.bg/2015/E9859A0A-9EBA-46C3-8213-51C6F908E11D69742.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10519.319163731,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Красимир Дончев Каракачанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 13 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Тойота Рав-4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

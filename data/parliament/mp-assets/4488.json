@@ -1,1 +1,64 @@
-{"mpId":4488,"name":"Маргарита Атанасова Генчева","partyGroupShort":null,"isCurrent":false,"nsFolders":["48","49"],"latestDeclarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2024/61877CCE-836B-4349-A7C7-6E0ED8E25ADB182327.xml","totalAssetsEur":126489.52107289489,"totalDebtsEur":10317.87016253969,"netWorthEur":116171.6509103552,"previous":{"year":2022,"totalAssetsEur":97078.4781908448,"netWorthEur":71513.88413103388},"byCategory":{"real_estate":{"count":4,"valuedCount":4,"totalEur":23121.130159574197},"vehicle":{"count":3,"valuedCount":3,"totalEur":28026.46446777072},"cash":{"count":1,"valuedCount":1,"totalEur":18685.673090197},"bank":{"count":3,"valuedCount":3,"totalEur":56656.25335535297},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":10317.87016253969},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4488,
+  "name": "Маргарита Атанасова Генчева",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "48",
+    "49"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2023,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2024/61877CCE-836B-4349-A7C7-6E0ED8E25ADB182327.xml",
+  "totalAssetsEur": 126489.52107289489,
+  "totalDebtsEur": 10317.87016253969,
+  "netWorthEur": 116171.6509103552,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 97078.4781908448,
+    "netWorthEur": 71513.88413103388
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 23121.130159574197
+    },
+    "vehicle": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 28026.46446777072
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 18685.673090197
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 56656.25335535297
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 10317.87016253969
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

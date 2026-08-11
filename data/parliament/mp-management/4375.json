@@ -1,1 +1,36 @@
-{"mpId":4375,"mpName":"Васил Николов Тодев","generatedAt":"2026-08-04T17:43:40.729Z","total":1,"roles":[{"uic":"176123191","companyName":"БЕГЛИКА","legalForm":"FOUND","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-05-28T08:06:17","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4375,
+  "mpName": "Васил Николов Тодев",
+  "generatedAt": "2026-08-11T20:36:22.580Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "176123191",
+      "companyName": "БЕГЛИКА",
+      "legalForm": "FOUND",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-05-28T08:06:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "204009340",
+      "companyName": "АР ЕНД БИ АДВЕНТЧЪР",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1505",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2024-01-02T13:11:23",
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

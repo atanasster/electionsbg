@@ -1,1 +1,40 @@
-{"ekatte":"48996","page":1,"totalPages":1,"count":2,"companies":[{"slug":"РОДОПА","displayName":"РОДОПА","registeredOffice":"БЪЛГАРИЯ, гр. Момчилград","mps":[{"mpId":5105,"mpName":"Айтен Байрям Сабри","role":"ngo_board","isCurrent":true},{"mpId":5105,"mpName":"Айтен Байрям Сабри","role":"ngo_representative","isCurrent":true}]},{"slug":"ДЕС-СОЛАР","displayName":"ДЕС СОЛАР","registeredOffice":"БЪЛГАРИЯ, гр. Момчилград, 6800","mps":[{"mpId":2450,"mpName":"Ердинч Исмаил Хайрула","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "48996",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "РОДОПА",
+      "displayName": "РОДОПА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Момчилград",
+      "mps": [
+        {
+          "mpId": 5105,
+          "mpName": "Айтен Байрям Сабри",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5105,
+          "mpName": "Айтен Байрям Сабри",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДЕС-СОЛАР",
+      "displayName": "ДЕС СОЛАР",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Момчилград, 6800",
+      "mps": [
+        {
+          "mpId": 2450,
+          "mpName": "Ердинч Исмаил Хайрула",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

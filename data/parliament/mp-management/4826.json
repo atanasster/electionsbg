@@ -1,1 +1,64 @@
-{"mpId":4826,"mpName":"Борислав Климентов Петков","generatedAt":"2026-08-04T17:43:40.804Z","total":3,"roles":[{"uic":"206905450","companyName":"АГРОКОПТЕР ЕВРОПА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-04-15T11:20:03","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"205448640","companyName":"АГРИ ДРОН","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-01-13T12:41:29","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"205448640","companyName":"АГРИ ДРОН","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2021-01-13T12:41:29","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"}]}
+{
+  "mpId": 4826,
+  "mpName": "Борислав Климентов Петков",
+  "generatedAt": "2026-08-11T20:36:22.638Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "206905450",
+      "companyName": "АГРОКОПТЕР ЕВРОПА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-04-15T11:20:03",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205448640",
+      "companyName": "АГРИ ДРОН",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-01-13T12:41:29",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "205448640",
+      "companyName": "АГРИ ДРОН",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2021-01-13T12:41:29",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "206905450",
+      "companyName": "АГРОКОПТЕР ЕВРОПА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2022-10-12T09:23:03",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

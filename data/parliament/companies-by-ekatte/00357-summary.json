@@ -1,1 +1,60 @@
-{"ekatte":"00357","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"Информационна-агенция-От-упор.ком","displayName":"Информационна агенция От упор.ком","registeredOffice":"БЪЛГАРИЯ, гр. Нови Искър, 1280","mps":[{"mpId":2411,"mpName":"Димитър Кирилов Байрактаров","role":"manager","isCurrent":true}]},{"slug":"ПАСАДООР-ТРАНС","displayName":"ПАСАДООР ТРАНС","registeredOffice":"БЪЛГАРИЯ, гр. Нови Искър, 1281","mps":[{"mpId":4465,"mpName":"Николай Георгиев Марков","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "00357",
+  "count": 4,
+  "mpCount": 3,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "БАРБОЛОВИ",
+      "displayName": "БАРБОЛОВИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Нови Искър, 1280",
+      "mps": [
+        {
+          "mpId": 5262,
+          "mpName": "Тодор Иличов Барболов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "Информационна-агенция-От-упор.ком",
+      "displayName": "Информационна агенция От упор.ком",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Нови Искър, 1280",
+      "mps": [
+        {
+          "mpId": 2411,
+          "mpName": "Димитър Кирилов Байрактаров",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПАСАДООР-ТРАНС",
+      "displayName": "ПАСАДООР ТРАНС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Нови Искър, 1281",
+      "mps": [
+        {
+          "mpId": 4465,
+          "mpName": "Николай Георгиев Марков",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ти-Ем-Логистикс",
+      "displayName": "Ти Ем Логистикс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Нови Искър, 1280",
+      "mps": [
+        {
+          "mpId": 5262,
+          "mpName": "Тодор Иличов Барболов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

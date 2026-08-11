@@ -1,1 +1,59 @@
-{"obshtina":"PDV17","page":1,"totalPages":1,"count":2,"companies":[{"slug":"БАЙК-РИТЕЙЛ","displayName":"БАЙК РИТЕЙЛ","registeredOffice":"БЪЛГАРИЯ, с. Царацово, 4204","mps":[{"mpId":2842,"mpName":"Нина Пейчева Миткова","role":"manager","isCurrent":true}]},{"slug":"ГАБ-ФИН","displayName":"ГАБ ФИН","registeredOffice":"БЪЛГАРИЯ, с. Радиново, 4202","mps":[{"mpId":2842,"mpName":"Нина Пейчева Миткова","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "PDV17",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "БАЙК-РИТЕЙЛ",
+      "displayName": "БАЙК РИТЕЙЛ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Царацово, 4204",
+      "mps": [
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ГАБ-ФИН",
+      "displayName": "ГАБ ФИН",
+      "registeredOffice": "БЪЛГАРИЯ, с. Радиново, 4202",
+      "mps": [
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ДЕСТИНАЦИЯ-БЪЛГАРИЯ",
+      "displayName": "ДЕСТИНАЦИЯ БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Войводиново, 4135",
+      "mps": [
+        {
+          "mpId": 5201,
+          "mpName": "Стефан Иванов Цанков",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

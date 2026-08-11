@@ -1,1 +1,78 @@
-{"mpId":899,"mpName":"Петър Владимиров Димитров","generatedAt":"2026-08-04T17:43:40.133Z","total":2,"roles":[{"uic":"208134918","companyName":"АЛТИОРА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1616","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-21T09:07:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208134918","companyName":"АЛТИОРА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1616","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-01-21T09:07:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 899,
+  "mpName": "Петър Владимиров Димитров",
+  "generatedAt": "2026-08-11T20:36:22.012Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "208134918",
+      "companyName": "АЛТИОРА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1616",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-21T09:07:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208134918",
+      "companyName": "АЛТИОРА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1616",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-01-21T09:07:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "010652741",
+      "companyName": "ИНТЕРТЕС",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2025-01-27T17:12:30",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "204380541",
+      "companyName": "Солвд Аут",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2025-01-27T09:18:04",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175065002",
+      "companyName": "ВИКТУС ГЕЙМС",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2025-01-27T17:22:40",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

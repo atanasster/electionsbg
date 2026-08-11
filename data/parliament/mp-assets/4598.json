@@ -1,1 +1,65 @@
-{"mpId":4598,"name":"Венеция Огнянова Нецова-Ангова","partyGroupShort":null,"isCurrent":false,"nsFolders":["47","48","49"],"latestDeclarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2024/D1BC9007-B3E0-47FE-9D56-B7B808B7B57F181472.xml","totalAssetsEur":65721.45840896192,"totalDebtsEur":0,"netWorthEur":65721.45840896192,"previous":{"year":2022,"totalAssetsEur":62653.70712178462,"netWorthEur":62653.70712178462},"byCategory":{"real_estate":{"count":6,"valuedCount":6,"totalEur":44738.03960466912},"vehicle":{"count":2,"valuedCount":2,"totalEur":1861.1024475542354},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":3,"valuedCount":3,"totalEur":11197.292198197183},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":3,"valuedCount":3,"totalEur":7925.024158541387}}}
+{
+  "mpId": 4598,
+  "name": "Венеция Огнянова Нецова-Ангова",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47",
+    "48",
+    "49"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2023,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2024/D1BC9007-B3E0-47FE-9D56-B7B808B7B57F181472.xml",
+  "totalAssetsEur": 65721.45840896192,
+  "totalDebtsEur": 0,
+  "netWorthEur": 65721.45840896192,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 62653.70712178462,
+    "netWorthEur": 62653.70712178462
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 6,
+      "valuedCount": 6,
+      "totalEur": 44738.03960466912
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 1861.1024475542354
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 11197.292198197183
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 7925.024158541387
+    }
+  }
+}

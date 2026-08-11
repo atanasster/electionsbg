@@ -1,0 +1,86 @@
+[
+  {
+    "mpId": 2511,
+    "declarantName": "ВЯРА МИХАЙЛОВА ЦЕРОВСКА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2015,
+    "fiscalYear": 2014,
+    "declarationType": "Annualy",
+    "filedAt": "2015-04-21",
+    "entryNumber": "Г2099",
+    "controlHash": "43882343",
+    "sourceUrl": "https://register.cacbg.bg/2015/7BE2E50B-C1EA-4710-8180-7538CEB4360070111.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 19766.03283516461,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2208.780926767664
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Вяра Михайлова Церовска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доход от друга стопанска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Стефан Добрев Церовски",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5600,
+        "valueEur": 2863.2345346988236,
+        "holderName": "Вяра Михайлова Церовска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доход от друга стопнска дейност"
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,1 +1,65 @@
-{"mpId":3101,"name":"Ивелина Веселинова Василева","partyGroupShort":null,"isCurrent":false,"nsFolders":["42","43","44"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/17CCBE83-3D1C-4B6D-A65B-9EAC1685A959136893.xml","totalAssetsEur":239029.97704299452,"totalDebtsEur":118619.71643752269,"netWorthEur":120410.26060547183,"previous":{"year":2020,"totalAssetsEur":71391.17407954679,"netWorthEur":65963.81076064894},"byCategory":{"real_estate":{"count":6,"valuedCount":3,"totalEur":197797.3545758067},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":1,"valuedCount":1,"totalEur":7158.086336747059},"bank":{"count":1,"valuedCount":1,"totalEur":5961.663334747907},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":118619.71643752269},"investment":{"count":2,"valuedCount":2,"totalEur":28056.630688761292},"security":{"count":1,"valuedCount":1,"totalEur":56.24210693158403}}}
+{
+  "mpId": 3101,
+  "name": "Ивелина Веселинова Василева",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "42",
+    "43",
+    "44"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/17CCBE83-3D1C-4B6D-A65B-9EAC1685A959136893.xml",
+  "totalAssetsEur": 239029.97704299452,
+  "totalDebtsEur": 118619.71643752269,
+  "netWorthEur": 120410.26060547183,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 71391.17407954679,
+    "netWorthEur": 65963.81076064894
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 6,
+      "valuedCount": 3,
+      "totalEur": 197797.3545758067
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 7158.086336747059
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 5961.663334747907
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 118619.71643752269
+    },
+    "investment": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 28056.630688761292
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 56.24210693158403
+    }
+  }
+}

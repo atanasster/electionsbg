@@ -1,1 +1,97 @@
-{"obshtina":"DOB28","count":24,"mpCount":11,"totalPages":1,"topCompanies":[{"slug":"Мартине-ООД","displayName":"Мартине ООД","registeredOffice":"Добрич","mps":[{"mpId":5244,"mpName":"ИВАЙЛО НИКОЛАЕВ МИРЧЕВ","role":"declared_stake","isCurrent":true}]},{"slug":"Асоциация-за-развъждане-на-черношарената-порода-в-българия","displayName":"\"Асоциация за развъждане на черношарената порода в българия\"","registeredOffice":null,"mps":[{"mpId":4022,"mpName":"Имрен Исметова Мехмедова","role":"ngo_board","isCurrent":true},{"mpId":4022,"mpName":"Имрен Исметова Мехмедова","role":"declared_stake","isCurrent":true}]},{"slug":"ГО-ГО-Кафе-ЕООД","displayName":"\"ГО ГО Кафе\" ЕООД","registeredOffice":"Добрич","mps":[{"mpId":4754,"mpName":"Мая Йорданова Димитрова","role":"declared_stake","isCurrent":true}]},{"slug":"МАЙ-Вендинг-ЕООД","displayName":"\"МАЙ Вендинг\" ЕООД","registeredOffice":"Добрич","mps":[{"mpId":4754,"mpName":"Мая Йорданова Димитрова","role":"declared_stake","isCurrent":true}]},{"slug":"ММ-Кафее-клуб-ЕООД","displayName":"\"ММ Кафее клуб\" ЕООД","registeredOffice":"Добрич","mps":[{"mpId":4754,"mpName":"Мая Йорданова Димитрова","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "DOB28",
+  "count": 28,
+  "mpCount": 11,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Мартине-ООД",
+      "displayName": "Мартине ООД",
+      "registeredOffice": "Добрич",
+      "mps": [
+        {
+          "mpId": 5244,
+          "mpName": "Ивайло Николаев Мирчев",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 5244,
+          "mpName": "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Хонекс-ЕООД",
+      "displayName": "Хонекс ЕООД",
+      "registeredOffice": "Добрич",
+      "mps": [
+        {
+          "mpId": 3328,
+          "mpName": "Дилян Господинов Господинов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3328,
+          "mpName": "Дилян Господинов Господинов",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 3328,
+          "mpName": "Дилян Господинов Господинов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Асоциация-за-развъждане-на-черношарената-порода-в-българия",
+      "displayName": "\"Асоциация за развъждане на черношарената порода в българия\"",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 4022,
+          "mpName": "Имрен Исметова Мехмедова",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4022,
+          "mpName": "Имрен Исметова Мехмедова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГО-ГО-Кафе-ЕООД",
+      "displayName": "\"ГО ГО Кафе\" ЕООД",
+      "registeredOffice": "Добрич",
+      "mps": [
+        {
+          "mpId": 4754,
+          "mpName": "Мая Йорданова Димитрова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАЙ-Вендинг-ЕООД",
+      "displayName": "\"МАЙ Вендинг\" ЕООД",
+      "registeredOffice": "Добрич",
+      "mps": [
+        {
+          "mpId": 4754,
+          "mpName": "Мая Йорданова Димитрова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

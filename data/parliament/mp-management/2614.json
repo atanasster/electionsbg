@@ -1,1 +1,64 @@
-{"mpId":2614,"mpName":"Петър Костадинов Петров","generatedAt":"2026-08-04T17:43:40.470Z","total":3,"roles":[{"uic":"176896261","companyName":"ОБЕДИНЕН БЪЛГАРСКИ ПЧЕЛАРСКИ СЪЮЗ","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-10-31T12:57:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206499487","companyName":"ММ ПЕТРОВИ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Ловеч, 5500","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-05-07T10:14:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206499487","companyName":"ММ ПЕТРОВИ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Ловеч, 5500","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2021-05-07T10:14:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2614,
+  "mpName": "Петър Костадинов Петров",
+  "generatedAt": "2026-08-11T20:36:22.342Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "176896261",
+      "companyName": "ОБЕДИНЕН БЪЛГАРСКИ ПЧЕЛАРСКИ СЪЮЗ",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-10-31T12:57:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206499487",
+      "companyName": "ММ ПЕТРОВИ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Ловеч, 5500",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-05-07T10:14:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206499487",
+      "companyName": "ММ ПЕТРОВИ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Ловеч, 5500",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2021-05-07T10:14:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205254944",
+      "companyName": "ЕМ ПРОДУКТ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2026-06-30T09:15:51",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

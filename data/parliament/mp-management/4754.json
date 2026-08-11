@@ -1,1 +1,50 @@
-{"mpId":4754,"mpName":"Мая Йорданова Димитрова","generatedAt":"2026-08-04T17:43:40.785Z","total":2,"roles":[{"uic":"114537011","companyName":"АОСИ КОНСУЛТ","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-06-02T10:49:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"205631797","companyName":"ЩЪРКЕЛИТЕ","legalForm":"FOUND","seat":null,"status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2021-02-10T12:35:02","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4754,
+  "mpName": "Мая Йорданова Димитрова",
+  "generatedAt": "2026-08-11T20:36:22.619Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "114537011",
+      "companyName": "АОСИ КОНСУЛТ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-06-02T10:49:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205631797",
+      "companyName": "ЩЪРКЕЛИТЕ",
+      "legalForm": "FOUND",
+      "seat": null,
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-02-10T12:35:02",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201680470",
+      "companyName": "КМС КОНСУЛТ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2022-11-25T11:02:48",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

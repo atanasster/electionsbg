@@ -1,1 +1,63 @@
-{"mpId":3089,"name":"Александър Иванов Мацурев","partyGroupShort":null,"isCurrent":false,"nsFolders":["44"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/9931179A-3374-4A82-8188-70DA4E00A0EA136992.xml","totalAssetsEur":180021.26974225775,"totalDebtsEur":165731.17295470464,"netWorthEur":14290.096787553106,"previous":{"year":2020,"totalAssetsEur":193625.72411712675,"netWorthEur":12813.997126539645},"byCategory":{"real_estate":{"count":3,"valuedCount":3,"totalEur":57929.37013953156},"vehicle":{"count":1,"valuedCount":1,"totalEur":3579.0431683735296},"cash":{"count":3,"valuedCount":3,"totalEur":87226.39493207488},"bank":{"count":2,"valuedCount":2,"totalEur":608.9486305046962},"receivable":{"count":1,"valuedCount":1,"totalEur":30677.51287177311},"debt":{"count":8,"valuedCount":8,"totalEur":165731.17295470464},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 3089,
+  "name": "Александър Иванов Мацурев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "44"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/9931179A-3374-4A82-8188-70DA4E00A0EA136992.xml",
+  "totalAssetsEur": 180021.26974225775,
+  "totalDebtsEur": 165731.17295470464,
+  "netWorthEur": 14290.096787553106,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 193625.72411712675,
+    "netWorthEur": 12813.997126539645
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 57929.37013953156
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 3579.0431683735296
+    },
+    "cash": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 87226.39493207488
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 608.9486305046962
+    },
+    "receivable": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 30677.51287177311
+    },
+    "debt": {
+      "count": 8,
+      "valuedCount": 8,
+      "totalEur": 165731.17295470464
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

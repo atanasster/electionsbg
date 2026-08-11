@@ -1,1 +1,65 @@
-{"mpId":2938,"name":"Димитър Николов Лазаров","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","42","43"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/2CC379DF-D565-42C4-9E96-77CCDF1B7C35138502.xml","totalAssetsEur":251644.57033586767,"totalDebtsEur":16646.641067986482,"netWorthEur":234997.92926788118,"previous":{"year":2020,"totalAssetsEur":158448.6285464483,"netWorthEur":158448.6285464483},"byCategory":{"real_estate":{"count":8,"valuedCount":6,"totalEur":23953.002050280444},"vehicle":{"count":2,"valuedCount":2,"totalEur":14438.882724981211},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":4,"valuedCount":4,"totalEur":213252.685560606},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":3,"valuedCount":3,"totalEur":16646.641067986482},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 2938,
+  "name": "Димитър Николов Лазаров",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "42",
+    "43"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/2CC379DF-D565-42C4-9E96-77CCDF1B7C35138502.xml",
+  "totalAssetsEur": 251644.57033586767,
+  "totalDebtsEur": 16646.641067986482,
+  "netWorthEur": 234997.92926788118,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 158448.6285464483,
+    "netWorthEur": 158448.6285464483
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 8,
+      "valuedCount": 6,
+      "totalEur": 23953.002050280444
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 14438.882724981211
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 213252.685560606
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 16646.641067986482
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

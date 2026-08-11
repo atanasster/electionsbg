@@ -1,1 +1,64 @@
-{"mpId":4778,"mpName":"Красен Кирилов Кралев","generatedAt":"2026-08-04T17:43:40.787Z","total":4,"roles":[{"uic":"103113577","companyName":"МАГ КОМЮНИКЕЙШЪНС","legalForm":"EAD","seat":null,"status":"active","role":"representative","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-28T15:17:40","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"103113577","companyName":"МАГ КОМЮНИКЕЙШЪНС","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-28T15:17:40","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"103253066","companyName":"СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ-ЧЕРНО МОРЕ&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, Варна, 9002","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-10-01T12:37:06","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"103253066","companyName":"СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ-ЧЕРНО МОРЕ&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, Варна, 9002","status":"active","role":"ngo_representative","positionLabel":"Председател","sharePercent":null,"addedAt":"2025-09-25T12:04:19","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4778,
+  "mpName": "Красен Кирилов Кралев",
+  "generatedAt": "2026-08-11T20:36:22.621Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "103113577",
+      "companyName": "МАГ КОМЮНИКЕЙШЪНС",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "representative",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-28T15:17:40",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "103113577",
+      "companyName": "МАГ КОМЮНИКЕЙШЪНС",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-28T15:17:40",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "103253066",
+      "companyName": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ-ЧЕРНО МОРЕ&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, Варна, 9002",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-10-01T12:37:06",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "103253066",
+      "companyName": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ-ЧЕРНО МОРЕ&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, Варна, 9002",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател",
+      "sharePercent": null,
+      "addedAt": "2025-09-25T12:04:19",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

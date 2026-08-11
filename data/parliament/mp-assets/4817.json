@@ -1,1 +1,65 @@
-{"mpId":4817,"name":"Иван Белчев Белчев","partyGroupShort":null,"isCurrent":false,"nsFolders":["48","49","50"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/7D283506-8A87-4AE5-9128-FD4A912D49E2212621.xml","totalAssetsEur":119822.27494209618,"totalDebtsEur":0,"netWorthEur":119822.27494209618,"previous":{"year":2023,"totalAssetsEur":76854.83912200958,"netWorthEur":76854.83912200958},"byCategory":{"real_estate":{"count":2,"valuedCount":2,"totalEur":82112.96482823149},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":2,"valuedCount":2,"totalEur":330.29455525275716},"bank":{"count":3,"valuedCount":3,"totalEur":32380.626128037715},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":4,"valuedCount":4,"totalEur":4998.389430574232}}}
+{
+  "mpId": 4817,
+  "name": "Иван Белчев Белчев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/7D283506-8A87-4AE5-9128-FD4A912D49E2212621.xml",
+  "totalAssetsEur": 119822.27494209618,
+  "totalDebtsEur": 0,
+  "netWorthEur": 119822.27494209618,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 76854.83912200958,
+    "netWorthEur": 76854.83912200958
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 82112.96482823149
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 330.29455525275716
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 32380.626128037715
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 4998.389430574232
+    }
+  }
+}

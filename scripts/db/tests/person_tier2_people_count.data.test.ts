@@ -84,8 +84,8 @@ afterAll(async () => {
 });
 
 describe("Tier 2b — MPs whose declarations sit on a separate person row", () => {
-  // The headline. Measured after the conservative variant shipped: 132 pairs over 80 MPs,
-  // 327 stranded filings — down from 172 / 119 / 462.
+  // The headline. 172 / 119 / 462 before Tier 2b; 132 / 80 / 327 after it; 124 / 72 / 297
+  // after the 2015-2020 MP register backfill gave 153 more MP refs a register gold key.
   //
   // Ceilings rather than equalities, because the corpus moves under this daily: a new
   // officials harvest or a new parliament adds pairs legitimately. They are set just above
@@ -108,16 +108,16 @@ describe("Tier 2b — MPs whose declarations sit on a separate person row", () =
       );
       expect(
         Number(r.pairs),
-        `${r.pairs} MP↔declarant split pairs (was 132 after Tier 2b, 172 before). Each is ` +
+        `${r.pairs} MP↔declarant split pairs (was 124 after the backfill, 132 after Tier 2b, 172 before). Each is ` +
           `one person's roles on one /person page and their declared wealth on another.`,
       ).toBeLessThanOrEqual(150);
       expect(
         Number(r.mps),
-        `${r.mps} MPs affected (was 80)`,
+        `${r.mps} MPs affected (was 72)`,
       ).toBeLessThanOrEqual(95);
       expect(
         Number(r.stranded),
-        `${r.stranded} declarations stranded on the wrong person row (was 327)`,
+        `${r.stranded} declarations stranded on the wrong person row (was 297)`,
       ).toBeLessThanOrEqual(370);
     },
     120_000,

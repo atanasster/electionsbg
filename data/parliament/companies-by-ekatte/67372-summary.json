@@ -1,1 +1,34 @@
-{"ekatte":"67372","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"РепроЕнерджи","displayName":"РепроЕнерджи","registeredOffice":"БЪЛГАРИЯ, гр. Сливница, 2200","mps":[{"mpId":164,"mpName":"Атанас Димитров Щерев","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "67372",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ЛОНДЖЕВИТИ-ХОСПИС",
+      "displayName": "ЛОНДЖЕВИТИ ХОСПИС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сливница, 2200",
+      "mps": [
+        {
+          "mpId": 164,
+          "mpName": "Атанас Димитров Щерев",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "РепроЕнерджи",
+      "displayName": "РепроЕнерджи",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сливница, 2200",
+      "mps": [
+        {
+          "mpId": 164,
+          "mpName": "Атанас Димитров Щерев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,27 @@
-{"ekatte":"56873","page":1,"totalPages":1,"count":1,"companies":[{"slug":"БАКАДЖИЦИТЕ","displayName":"БАКАДЖИЦИТЕ","registeredOffice":"БЪЛГАРИЯ, с. Победа, 8679","mps":[{"mpId":5144,"mpName":"Иван Драгомиров Димитров","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "56873",
+  "page": 1,
+  "totalPages": 1,
+  "count": 1,
+  "companies": [
+    {
+      "slug": "БАКАДЖИЦИТЕ",
+      "displayName": "БАКАДЖИЦИТЕ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Победа, 8679",
+      "mps": [
+        {
+          "mpId": 5144,
+          "mpName": "Иван Драгомиров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5144,
+          "mpName": "Иван Драгомиров Димитров",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

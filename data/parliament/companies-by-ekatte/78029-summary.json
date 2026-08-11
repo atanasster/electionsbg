@@ -1,1 +1,46 @@
-{"ekatte":"78029","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"СИ-КЕЙ-ДИ-ЕООД","displayName":"СИ КЕЙ ДИ ЕООД","registeredOffice":null,"mps":[{"mpId":4314,"mpName":"Деян Николаев Николов","role":"manager","isCurrent":true},{"mpId":4314,"mpName":"Деян Николаев Николов","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "78029",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "СИ-КЕЙ-ДИ-ЕООД",
+      "displayName": "СИ КЕЙ ДИ ЕООД",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 4314,
+          "mpName": "Деян Николаев Николов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4314,
+          "mpName": "Деян Николаев Николов",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 4314,
+          "mpName": "Деян Николаев Николов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "1618",
+      "displayName": "1618",
+      "registeredOffice": "с. Цалапица",
+      "mps": [
+        {
+          "mpId": 2543,
+          "mpName": "Венцислав Йорданов Каймаканов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

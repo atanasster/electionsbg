@@ -1,1 +1,103 @@
-{"obshtina":"SLS31","count":10,"mpCount":6,"totalPages":1,"topCompanies":[{"slug":"ДМС-ЕООД","displayName":"ДМС ЕООД","registeredOffice":"гр. Силистра","mps":[{"mpId":5133,"mpName":"МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ","role":"declared_stake","isCurrent":true}]},{"slug":"ИВ-Спед-ЕООД","displayName":"ИВ Спед ЕООД","registeredOffice":"гр. Силистра","mps":[{"mpId":5133,"mpName":"МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ","role":"declared_stake","isCurrent":true}]},{"slug":"Карате-клуб-ШОТО-ВИТЯЗ","displayName":"\"Карате клуб \"ШОТО-ВИТЯЗ\"","registeredOffice":null,"mps":[{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"ngo_board","isCurrent":true},{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"declared_stake","isCurrent":true}]},{"slug":"ИДА-2003-ЕООД","displayName":"ИДА -2003 ЕООД","registeredOffice":null,"mps":[{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"manager","isCurrent":true},{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"sole_owner","isCurrent":true},{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"declared_stake","isCurrent":true}]},{"slug":"Спаси-област-Силистра","displayName":"Спаси област Силистра","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_representative","isCurrent":true},{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "SLS31",
+  "count": 10,
+  "mpCount": 6,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ИВ-Спед-ЕООД",
+      "displayName": "ИВ Спед ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "Милен Стойчев Делийски",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДМС-ЕООД",
+      "displayName": "ДМС ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Карате-клуб-ШОТО-ВИТЯЗ",
+      "displayName": "\"Карате клуб \"ШОТО-ВИТЯЗ\"",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИДА-2003-ЕООД",
+      "displayName": "ИДА -2003 ЕООД",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Спаси-област-Силистра",
+      "displayName": "Спаси област Силистра",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

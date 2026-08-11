@@ -1,1 +1,65 @@
-{"mpId":3457,"name":"Бюрхан Илиязов Абазов","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","44","45"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2021_nc/DA8BCE55-FC80-403F-8971-9ECDAE18EAFE129064.xml","totalAssetsEur":369307.6596636722,"totalDebtsEur":0,"netWorthEur":369307.6596636722,"previous":{"year":2020,"totalAssetsEur":311146.1630100776,"netWorthEur":307689.82989319117},"byCategory":{"real_estate":{"count":2,"valuedCount":1,"totalEur":255.64594059810923},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":2,"valuedCount":2,"totalEur":25922.498376648276},"bank":{"count":3,"valuedCount":3,"totalEur":173505.36600829315},"receivable":{"count":3,"valuedCount":3,"totalEur":167067.68993215158},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":2556.4594059810925}}}
+{
+  "mpId": 3457,
+  "name": "Бюрхан Илиязов Абазов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "44",
+    "45"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2021_nc/DA8BCE55-FC80-403F-8971-9ECDAE18EAFE129064.xml",
+  "totalAssetsEur": 369307.6596636722,
+  "totalDebtsEur": 0,
+  "netWorthEur": 369307.6596636722,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 311146.1630100776,
+    "netWorthEur": 307689.82989319117
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 1,
+      "totalEur": 255.64594059810923
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 25922.498376648276
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 173505.36600829315
+    },
+    "receivable": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 167067.68993215158
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2556.4594059810925
+    }
+  }
+}

@@ -1,1 +1,479 @@
-[{"mpId":2849,"declarantName":"Димитър Величков Георгиев","institution":"Народно събраниe","declarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","filedAt":"2022-06-15","entryNumber":"Ф4773","controlHash":"54989326","sourceUrl":"https://register.cacbg.bg/2022/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96141284.xml","ownershipStakes":[],"income":[],"assets":[],"events":[]},{"mpId":2849,"declarantName":"Димитър Величков Георгиев","institution":"Народно събраниe","declarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","filedAt":"2021-04-26","entryNumber":"Ф645","controlHash":"7115A351","sourceUrl":"https://register.cacbg.bg/2021_nc/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96121830.xml","ownershipStakes":[],"income":[],"assets":[{"category":"real_estate","description":"апартамент","detail":null,"location":"гр. София ж.к. Мото писта бл.1 ап.13","municipality":"София-град (Столична)","areaSqm":0,"builtAreaSqm":100,"acquiredYear":2017,"share":"1/1","currency":"BGN","amount":0,"valueEur":0,"holderName":"Димитър Величков Георгиев","isSpouse":false,"legalBasis":null,"fundsOrigin":null}],"events":[]},{"mpId":2849,"declarantName":"Димитър Величков Георгиев","institution":"Народно събраниe","declarationYear":2021,"fiscalYear":2020,"declarationType":"Annualy","filedAt":"2021-04-26","entryNumber":"Г4653","controlHash":"2D882950","sourceUrl":"https://register.cacbg.bg/2021_nc/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96121829.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":34529.074612824224,"amountEurSpouse":2080.957956468609},{"parent":null,"category":"Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество","amountEurDeclarant":null,"amountEurSpouse":4867.498708988},{"parent":null,"category":"ЧЛ 11. финансови правила по бюджет на НС","amountEurDeclarant":17213.152472351892,"amountEurSpouse":null},{"parent":null,"category":"Хонорар от заседания на БФС","amountEurDeclarant":2556.4594059810925,"amountEurSpouse":null}],"assets":[{"category":"real_estate","description":"апартамент","detail":null,"location":"гр. София ж.к. Мото писта бл.1 ап.13","municipality":"София-град (Столична)","areaSqm":0,"builtAreaSqm":100,"acquiredYear":2017,"share":"1/1","currency":"BGN","amount":0,"valueEur":0,"holderName":"Димитър Величков Георгиев","isSpouse":false,"legalBasis":"служебен","fundsOrigin":"безвъзмездно"},{"category":"cash","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":35000,"valueEur":17895.215841867648,"holderName":"Димитър Величков Георгиев","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"}],"events":[]}]
+[
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-06-15",
+    "entryNumber": "Ф4773",
+    "controlHash": "54989326",
+    "sourceUrl": "https://register.cacbg.bg/2022/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96141284.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2021-04-26",
+    "entryNumber": "Ф645",
+    "controlHash": "7115A351",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96121830.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София ж.к. Мото писта бл.1 ап.13",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-26",
+    "entryNumber": "Г4653",
+    "controlHash": "2D882950",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96121829.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34529.074612824224,
+        "amountEurSpouse": 2080.957956468609
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4867.498708988
+      },
+      {
+        "parent": null,
+        "category": "ЧЛ 11. финансови правила по бюджет на НС",
+        "amountEurDeclarant": 17213.152472351892,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Хонорар от заседания на БФС",
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София ж.к. Мото писта бл.1 ап.13",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "служебен",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-06-10",
+    "entryNumber": "Г994",
+    "controlHash": "AF3814AE",
+    "sourceUrl": "https://register.cacbg.bg/2020/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF96110870.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27571.92598538728,
+        "amountEurSpouse": 3067.751287177311
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1533.8756435886555
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на Народното събрание (приложение към ПОДНС)",
+        "amountEurDeclarant": 12375.819984354468,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "хонорар за заседания на БФС",
+        "amountEurDeclarant": 2045.1675247848739,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ж.к. \"Мотописта\", бл. 1, ап. 13",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за наем с НС",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-10",
+    "entryNumber": "Г1106",
+    "controlHash": "6A3C824C",
+    "sourceUrl": "https://register.cacbg.bg/2019/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF9695439.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24257.220719592195,
+        "amountEurSpouse": 2965.4929109380673
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на Народното събрание, приложение към ПОДНС",
+        "amountEurDeclarant": 14145.40118517458,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София, ж.к. \"Мотописта\", бл. 1, ап. 13",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за наем с НС",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2017,
+    "fiscalYear": 2017,
+    "declarationType": "Entry",
+    "filedAt": "2017-05-16",
+    "entryNumber": "В361",
+    "controlHash": "452F7CA1",
+    "sourceUrl": "https://register.cacbg.bg/2017/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF9686785.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "г р.Пловдив, ул.Родосто №2",
+        "municipality": "Пловдив",
+        "areaSqm": 238,
+        "builtAreaSqm": 490,
+        "acquiredYear": 2008,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Пловдив, бул.Марица №",
+        "municipality": "Пловдив",
+        "areaSqm": 141,
+        "builtAreaSqm": 141,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "Весела Иванова Георгиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "гр. Пловдив, бул.Марица №",
+        "municipality": "Пловдив",
+        "areaSqm": 141,
+        "builtAreaSqm": 141,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2011,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Димитър Величко Георгиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2011,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Весела Иванова Георгиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 85000,
+        "valueEur": 84999.71878946535,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2849,
+    "declarantName": "Димитър Величков Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г245",
+    "controlHash": "F783AE92",
+    "sourceUrl": "https://register.cacbg.bg/2018/8BC0A9BE-39B1-47BA-A67C-2A716E5AFF9687959.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17383.92396067143,
+        "amountEurSpouse": 1267.4925734854257
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1533.8756435886555,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 Приложение към ПОДНС",
+        "amountEurDeclarant": 9045.2646702423,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София, ж.к. Мотописта, бл. 1, ап. 13",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 0,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Величков Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за наем с НС",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,1 +1,73 @@
-{"obshtina":"MON29","count":11,"mpCount":7,"totalPages":1,"topCompanies":[{"slug":"Гала-инвест-холдинг-АД","displayName":"Гала инвест холдинг АД","registeredOffice":"Монтана","mps":[{"mpId":5169,"mpName":"Димитър Иванов Аврамов","role":"declared_stake","isCurrent":true}]},{"slug":"ГАЛА-Н-ЕООД","displayName":"ГАЛА-Н ЕООД","registeredOffice":"Монтана","mps":[{"mpId":5169,"mpName":"Димитър Иванов Аврамов","role":"declared_stake","isCurrent":true}]},{"slug":"Фо-Макс-Д-ЕООД-2","displayName":"Фо Макс Д ЕООД","registeredOffice":"Монтана","mps":[{"mpId":4225,"mpName":"Ирена Методиева Димова","role":"declared_stake","isCurrent":true}]},{"slug":"ХДТ-БГ-ЕООД","displayName":"ХДТ БГ ЕООД","registeredOffice":"Монтана","mps":[{"mpId":5013,"mpName":"Пламен Ангелов Петков","role":"declared_stake","isCurrent":true}]},{"slug":"АМБУЛАТОРИЯ-ЗА-ГРУПОВА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-ЗДРАВЕ-2024","displayName":"АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ ЗДРАВЕ - 2024","registeredOffice":"БЪЛГАРИЯ, гр. Монтана, 3400","mps":[{"mpId":67,"mpName":"Емил Константинов Георгиев","role":"manager","isCurrent":true},{"mpId":67,"mpName":"Емил Константинов Георгиев","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "MON29",
+  "count": 14,
+  "mpCount": 7,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Гала-инвест-холдинг-АД",
+      "displayName": "Гала инвест холдинг АД",
+      "registeredOffice": "Монтана",
+      "mps": [
+        {
+          "mpId": 5169,
+          "mpName": "Димитър Иванов Аврамов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГАЛА-Н-ЕООД",
+      "displayName": "ГАЛА-Н ЕООД",
+      "registeredOffice": "Монтана",
+      "mps": [
+        {
+          "mpId": 5169,
+          "mpName": "Димитър Иванов Аврамов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Фо-Макс-Д-ЕООД-2",
+      "displayName": "Фо Макс Д ЕООД",
+      "registeredOffice": "Монтана",
+      "mps": [
+        {
+          "mpId": 4225,
+          "mpName": "Ирена Методиева Димова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Гала-н-ЕООД",
+      "displayName": "Гала н ЕООД",
+      "registeredOffice": "Монтана",
+      "mps": [
+        {
+          "mpId": 5169,
+          "mpName": "Димитър Иванов Аврамов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ХДТ-БГ-ЕООД",
+      "displayName": "ХДТ БГ ЕООД",
+      "registeredOffice": "Монтана",
+      "mps": [
+        {
+          "mpId": 5013,
+          "mpName": "Пламен Ангелов Петков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

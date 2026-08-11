@@ -1,1 +1,251 @@
-{"ekatte":"61710","page":1,"totalPages":1,"count":12,"companies":[{"slug":"Северагро-ЕООД","displayName":"Северагро ЕООД","registeredOffice":"РАЗГРАД","mps":[{"mpId":4812,"mpName":"Гюнай Хюсмен Хюсмен","role":"sole_owner","isCurrent":true},{"mpId":4812,"mpName":"ГЮНАЙ ХЮСМЕН ХЮСМЕН","role":"declared_stake","isCurrent":true}]},{"slug":"КАРАДЖА-ФАГ-ООД","displayName":"КАРАДЖА-ФАГ ООД","registeredOffice":"Разград","mps":[{"mpId":4812,"mpName":"Гюнай Хюсмен Хюсмен","role":"partner","isCurrent":true},{"mpId":4812,"mpName":"ГЮНАЙ ХЮСМЕН ХЮСМЕН","role":"declared_stake","isCurrent":true}]},{"slug":"МИД-2000-ООД","displayName":"“МИД 2000” ООД","registeredOffice":"Разград","mps":[{"mpId":3738,"mpName":"Ива Митева Йорданова-Рупчева","role":"declared_stake","isCurrent":true}]},{"slug":"Абраз-ЕООД","displayName":"Абраз ЕООД","registeredOffice":"Разград","mps":[{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"manager","isCurrent":true},{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"declared_stake","isCurrent":true}]},{"slug":"АРКАДИЯ-КОНСТРЪКШЪН-ГРУП","displayName":"АРКАДИЯ КОНСТРЪКШЪН ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5204,"mpName":"Маломир Василев Власов","role":"manager","isCurrent":true},{"mpId":5204,"mpName":"Маломир Василев Власов","role":"partner","isCurrent":true}]},{"slug":"КЛУБ-НА-ПРИВЪРЖЕНИЦИТЕ-НА-ФК-ЦСК-Разград","displayName":"КЛУБ НА ПРИВЪРЖЕНИЦИТЕ НА ФК ЦСК - Разград","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5204,"mpName":"Маломир Василев Власов","role":"ngo_representative","isCurrent":true},{"mpId":5204,"mpName":"Маломир Василев Власов","role":"ngo_board","isCurrent":true}]},{"slug":"Ламарин-ЕООД","displayName":"Ламарин ЕООД","registeredOffice":"Разград","mps":[{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"manager","isCurrent":true},{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"declared_stake","isCurrent":true}]},{"slug":"ММ-РЗ","displayName":"ММ РЗ","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5204,"mpName":"Маломир Василев Власов","role":"manager","isCurrent":true},{"mpId":5204,"mpName":"Маломир Василев Власов","role":"partner","isCurrent":false}]},{"slug":"Нова-Идея-ЕООД","displayName":"Нова Идея ЕООД","registeredOffice":"Разград","mps":[{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"manager","isCurrent":true},{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"declared_stake","isCurrent":true}]},{"slug":"КРАДЖА-ФАГ-ООД","displayName":"КРАДЖА-ФАГ ООД","registeredOffice":"РАЗГРАД","mps":[{"mpId":4812,"mpName":"ГЮНАЙ ХЮСМЕН ХЮСМЕН","role":"declared_stake","isCurrent":true}]},{"slug":"ЛУДОГОРИЕ-1","displayName":"ЛУДОГОРИЕ 1","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5204,"mpName":"Маломир Василев Власов","role":"partner","isCurrent":false}]},{"slug":"НАРОДНО-ЧИТАЛИЩЕ-&quot;ДЕЛИОРМАН-2014-г.&quot;","displayName":"НАРОДНО ЧИТАЛИЩЕ &quot;ДЕЛИОРМАН 2014 г.&quot;","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":4481,"mpName":"Хабибе Кязим Расим","role":"trustee","isCurrent":true}]}]}
+{
+  "ekatte": "61710",
+  "page": 1,
+  "totalPages": 1,
+  "count": 15,
+  "companies": [
+    {
+      "slug": "КАРАДЖА-ФАГ-ООД",
+      "displayName": "КАРАДЖА-ФАГ ООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "Гюнай Хюсмен Хюсмен",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Северагро-ЕООД",
+      "displayName": "Северагро ЕООД",
+      "registeredOffice": "РАЗГРАД",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "Гюнай Хюсмен Хюсмен",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МИД-2000-ООД",
+      "displayName": "“МИД 2000” ООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3738,
+          "mpName": "Ива Митева Йорданова-Рупчева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Абраз-ЕООД",
+      "displayName": "Абраз ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АРКАДИЯ-КОНСТРЪКШЪН-ГРУП",
+      "displayName": "АРКАДИЯ КОНСТРЪКШЪН ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "КЛУБ-НА-ПРИВЪРЖЕНИЦИТЕ-НА-ФК-ЦСК-Разград",
+      "displayName": "КЛУБ НА ПРИВЪРЖЕНИЦИТЕ НА ФК ЦСК - Разград",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ламарин-ЕООД",
+      "displayName": "Ламарин ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ММ-РЗ",
+      "displayName": "ММ РЗ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "Нова-Идея-ЕООД",
+      "displayName": "Нова Идея ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Айдо-ТРАНСЕООД",
+      "displayName": "\"Айдо ТРАНС\"ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 2433,
+          "mpName": "Айдоан Муталиб Али",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Север-агро-ЕООД",
+      "displayName": "\"Север агро\" ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АВТОТЕСТ",
+      "displayName": "АВТОТЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "КРАДЖА-ФАГ-ООД",
+      "displayName": "КРАДЖА-ФАГ ООД",
+      "registeredOffice": "РАЗГРАД",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛУДОГОРИЕ-1",
+      "displayName": "ЛУДОГОРИЕ 1",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "НАРОДНО-ЧИТАЛИЩЕ-&quot;ДЕЛИОРМАН-2014-г.&quot;",
+      "displayName": "НАРОДНО ЧИТАЛИЩЕ &quot;ДЕЛИОРМАН 2014 г.&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 4481,
+          "mpName": "Хабибе Кязим Расим",
+          "role": "trustee",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

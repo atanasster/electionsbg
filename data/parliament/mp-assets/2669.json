@@ -1,1 +1,65 @@
-{"mpId":2669,"name":"Теодора Радкова Георгиева","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","42","43"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/D897EE74-8D6C-4195-A466-1CAEC792358F136890.xml","totalAssetsEur":920879.62655241,"totalDebtsEur":278499.6651038178,"netWorthEur":642379.9614485921,"previous":{"year":2020,"totalAssetsEur":389636.11356815265,"netWorthEur":389636.11356815265},"byCategory":{"real_estate":{"count":14,"valuedCount":4,"totalEur":461999.2535138535},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":1,"valuedCount":1,"totalEur":17148.72969532117},"bank":{"count":3,"valuedCount":3,"totalEur":138094.82419228664},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":2,"valuedCount":2,"totalEur":278499.6651038178},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":4,"valuedCount":4,"totalEur":303636.8191509487}}}
+{
+  "mpId": 2669,
+  "name": "Теодора Радкова Георгиева",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "42",
+    "43"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/D897EE74-8D6C-4195-A466-1CAEC792358F136890.xml",
+  "totalAssetsEur": 920879.62655241,
+  "totalDebtsEur": 278499.6651038178,
+  "netWorthEur": 642379.9614485921,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 389636.11356815265,
+    "netWorthEur": 389636.11356815265
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 14,
+      "valuedCount": 4,
+      "totalEur": 461999.2535138535
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 17148.72969532117
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 138094.82419228664
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 278499.6651038178
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 303636.8191509487
+    }
+  }
+}

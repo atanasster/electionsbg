@@ -1,1 +1,64 @@
-{"mpId":4152,"name":"Иво Георгиев Русчев","partyGroupShort":null,"isCurrent":false,"nsFolders":["47","48"],"latestDeclarationYear":2024,"fiscalYear":2024,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2024/D3B39316-ECD1-4FEE-BB9B-A9DB374453D7183665.xml","totalAssetsEur":380536.94850779464,"totalDebtsEur":148274.64554690337,"netWorthEur":232262.30296089128,"previous":{"year":2023,"totalAssetsEur":612016.8930837547,"netWorthEur":449937.36674455344},"byCategory":{"real_estate":{"count":9,"valuedCount":9,"totalEur":94574.17055674572},"vehicle":{"count":1,"valuedCount":1,"totalEur":14316.172673494118},"cash":{"count":3,"valuedCount":3,"totalEur":118243.70216225338},"bank":{"count":2,"valuedCount":2,"totalEur":153387.56435886555},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":2,"valuedCount":2,"totalEur":148274.64554690337},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":3,"valuedCount":3,"totalEur":15.338756435886555}}}
+{
+  "mpId": 4152,
+  "name": "Иво Георгиев Русчев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47",
+    "48"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2024,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2024/D3B39316-ECD1-4FEE-BB9B-A9DB374453D7183665.xml",
+  "totalAssetsEur": 380536.94850779464,
+  "totalDebtsEur": 148274.64554690337,
+  "netWorthEur": 232262.30296089128,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 612016.8930837547,
+    "netWorthEur": 449937.36674455344
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 9,
+      "valuedCount": 9,
+      "totalEur": 94574.17055674572
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 14316.172673494118
+    },
+    "cash": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 118243.70216225338
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 153387.56435886555
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 148274.64554690337
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 15.338756435886555
+    }
+  }
+}

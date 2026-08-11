@@ -1,1 +1,27 @@
-{"ekatte":"65869","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"Научни-иновативни-решения-ООД","displayName":"Научни иновативни решения ООД","registeredOffice":null,"mps":[{"mpId":5206,"mpName":"Надежда Георгиева Йорданова","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "65869",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Научни-иновативни-решения-ООД",
+      "displayName": "Научни иновативни решения ООД",
+      "registeredOffice": null,
+      "mps": [
+        {
+          "mpId": 5206,
+          "mpName": "Надежда Георгиева Йорданова",
+          "role": "partner",
+          "isCurrent": false
+        },
+        {
+          "mpId": 5206,
+          "mpName": "Надежда Георгиева Йорданова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

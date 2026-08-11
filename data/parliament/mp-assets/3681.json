@@ -1,1 +1,65 @@
-{"mpId":3681,"name":"Николина Панайотова Ангелкова","partyGroupShort":null,"isCurrent":false,"nsFolders":["44","45","46"],"latestDeclarationYear":2022,"fiscalYear":2021,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2022/828EFC53-1CBC-4FC9-A626-4D7FBAC159D1136976.xml","totalAssetsEur":761923.5823154363,"totalDebtsEur":387333.2549352449,"netWorthEur":374590.3273801914,"previous":{"year":2020,"totalAssetsEur":589042.5036940838,"netWorthEur":295481.71364586893},"byCategory":{"real_estate":{"count":1,"valuedCount":1,"totalEur":179999.79548324752},"vehicle":{"count":1,"valuedCount":1,"totalEur":42176.467279876066},"cash":{"count":3,"valuedCount":3,"totalEur":104625.14635730098},"bank":{"count":6,"valuedCount":6,"totalEur":432054.4219078345},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":8,"valuedCount":8,"totalEur":387333.2549352449},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":2,"valuedCount":2,"totalEur":3067.751287177311}}}
+{
+  "mpId": 3681,
+  "name": "Николина Панайотова Ангелкова",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "44",
+    "45",
+    "46"
+  ],
+  "latestDeclarationYear": 2022,
+  "fiscalYear": 2021,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2022/828EFC53-1CBC-4FC9-A626-4D7FBAC159D1136976.xml",
+  "totalAssetsEur": 761923.5823154363,
+  "totalDebtsEur": 387333.2549352449,
+  "netWorthEur": 374590.3273801914,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 589042.5036940838,
+    "netWorthEur": 295481.71364586893
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 179999.79548324752
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 42176.467279876066
+    },
+    "cash": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 104625.14635730098
+    },
+    "bank": {
+      "count": 6,
+      "valuedCount": 6,
+      "totalEur": 432054.4219078345
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 8,
+      "valuedCount": 8,
+      "totalEur": 387333.2549352449
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 3067.751287177311
+    }
+  }
+}

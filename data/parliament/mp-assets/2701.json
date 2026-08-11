@@ -1,0 +1,61 @@
+{
+  "mpId": 2701,
+  "name": "Михаил Ивайлов Христов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [],
+  "latestDeclarationYear": 2020,
+  "fiscalYear": 2019,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2020/990429A0-4A31-435E-B8AA-419FB1A04626111741.xml",
+  "totalAssetsEur": 2135.6661877566044,
+  "totalDebtsEur": 12782.297029905461,
+  "netWorthEur": -10646.630842148857,
+  "previous": {
+    "year": 2018,
+    "totalAssetsEur": 1.022583762392437,
+    "netWorthEur": -12781.274446143068
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 0
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2045.1675247848739
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 12782.297029905461
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 90.49866297173068
+    }
+  }
+}

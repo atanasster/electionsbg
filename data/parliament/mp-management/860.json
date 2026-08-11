@@ -1,1 +1,78 @@
-{"mpId":860,"mpName":"Димитър Йорданов Атанасов","generatedAt":"2026-08-04T17:43:40.046Z","total":4,"roles":[{"uic":"207470452","companyName":"ЛИМ КОРЕКТ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"partner","positionLabel":null,"sharePercent":10,"addedAt":"2025-12-17T17:01:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206427160","companyName":"ПРИ ДАКАТА И МИТАКА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Росен, 8150","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-03-10T14:11:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206427160","companyName":"ПРИ ДАКАТА И МИТАКА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Росен, 8150","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2021-03-10T14:11:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"103061301","companyName":"ПРИСТАНИЩЕ ВАРНА","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2021-02-19T11:21:21","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 860,
+  "mpName": "Димитър Йорданов Атанасов",
+  "generatedAt": "2026-08-11T20:36:21.988Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "207470452",
+      "companyName": "ЛИМ КОРЕКТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 13.333333333333334,
+      "addedAt": "2025-12-17T17:01:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206427160",
+      "companyName": "ПРИ ДАКАТА И МИТАКА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Росен, 8150",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-03-10T14:11:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206427160",
+      "companyName": "ПРИ ДАКАТА И МИТАКА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Росен, 8150",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2021-03-10T14:11:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "103061301",
+      "companyName": "ПРИСТАНИЩЕ ВАРНА",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-02-19T11:21:21",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206296501",
+      "companyName": "ДжиДи Билдингс",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2022-12-30T10:26:14",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

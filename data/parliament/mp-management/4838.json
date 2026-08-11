@@ -1,1 +1,64 @@
-{"mpId":4838,"mpName":"Александър Руменов Ненков","generatedAt":"2026-08-04T17:43:40.805Z","total":3,"roles":[{"uic":"203740812","companyName":"Фонд мениджър на финансови инструменти в България","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1756","status":"active","role":"representative","positionLabel":null,"sharePercent":null,"addedAt":"2025-10-27T09:09:36","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"203740812","companyName":"Фонд мениджър на финансови инструменти в България","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1756","status":"active","role":"representative","positionLabel":null,"sharePercent":null,"addedAt":"2025-05-19T14:40:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"131077686","companyName":"НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1839","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-07-30T16:32:05","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4838,
+  "mpName": "Александър Руменов Ненков",
+  "generatedAt": "2026-08-11T20:36:22.642Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "203740812",
+      "companyName": "Фонд мениджър на финансови инструменти в България",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1756",
+      "status": "active",
+      "role": "representative",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-10-27T09:09:36",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "203740812",
+      "companyName": "Фонд мениджър на финансови инструменти в България",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1756",
+      "status": "active",
+      "role": "representative",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-05-19T14:40:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "131077686",
+      "companyName": "НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1839",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-07-30T16:32:05",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175432338",
+      "companyName": "ИМОБИЛАРИЯ ПЛАТИНИУМ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "",
+      "erasedAt": "2024-11-05T11:43:14",
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

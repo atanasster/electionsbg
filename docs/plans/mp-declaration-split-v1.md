@@ -287,7 +287,35 @@ now key to one person.
 >   && npm run db:load:declarations:pg -- --resolve
 > ```
 >
-> **Left un-run, deliberately, and this is a scope call rather than a blocker.**
+> ### RUN 2026-08-11 — and the 8-pair prediction was exact
+>
+> | | before | after |
+> |---|---:|---:|
+> | mp-tier declarations | 3,931 | **5,575** (+1,644) |
+> | mp-tier refs carrying a register GUID | 782 | **935** (+153) |
+> | mentions aliased to an MP id | 778 | **929** (+151) |
+> | MP↔declarant split pairs | 132 | **124** |
+> | MPs affected | 80 | **72** |
+> | declarations stranded | 327 | **297** |
+>
+> **The 202 figure above over-counted and the reason is worth keeping.** It counted GUIDs in
+> the 2015-2020 listings that also sit on an officials slug, without subtracting those whose
+> MP was ALREADY keyed through a 2021-2025 filing. Only 153 MP refs were new, of which 151
+> aliased. Total MP↔officials shared GUIDs now stands at 344.
+>
+> Every year came in under the 25% missing-file tolerance (only 2018 warned, at 3.9%), so all
+> six were treated as authoritative rather than merged additively. `mergeDeclarations` held:
+> the 2021-2025 filings survived, and the provenance window moved from 2021-2025 to
+> **2015-2025, 933 of 2,122 MPs having filed**.
+>
+> The rebuild's blast radius was 2,903 paths under `data/parliament/`, including 18
+> deletions — 8 place-rollup shards that no longer resolve any company, and 10
+> `mp-management` files whose name-based TR roles the name-frequency guard now suppresses,
+> because the companies-index grew and more names read as frequent. Net `mp-management`
+> 852 → 896.
+>
+> **The original reasoning for not firing it unattended, kept because it was right at the
+> time:**
 > `parseFinancialDeclarations` does not stop after writing the per-MP files — it goes on to
 > rebuild the company index and run the TR integration, so the command above is ~1,859
 > fetches plus a multi-stage rebuild that rewrites a wide set of committed files. Firing

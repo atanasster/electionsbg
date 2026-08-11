@@ -1,1 +1,85 @@
-{"obshtina":"HKV34","count":37,"mpCount":23,"totalPages":1,"topCompanies":[{"slug":"МИП-КОМ-ООД","displayName":"МИП-КОМ ООД","registeredOffice":"Хасково","mps":[{"mpId":5256,"mpName":"КАТЯ МАКСИМОВА ПАНЕВА","role":"declared_stake","isCurrent":true}]},{"slug":"Промишлени-стоки-Димитровград-ЕООД","displayName":"Промишлени стоки Димитровград ЕООД","registeredOffice":"Хасково","mps":[{"mpId":5283,"mpName":"ВЛАДИСЛАВ ПАНЧЕВ ПАНЕВ","role":"declared_stake","isCurrent":true}]},{"slug":"БГ-Прогресс","displayName":"БГ Прогресс","registeredOffice":"Хасково","mps":[{"mpId":5101,"mpName":"Георги Николаев Георгиев","role":"declared_stake","isCurrent":true}]},{"slug":"Зион-ЕООД","displayName":"\"Зион\" ЕООД","registeredOffice":"Хасково","mps":[{"mpId":4373,"mpName":"Веселин Жеков Недев","role":"declared_stake","isCurrent":true}]},{"slug":"Делта-ТУР-ООД","displayName":"Делта ТУР ООД","registeredOffice":"ХАСКОВО","mps":[{"mpId":3427,"mpName":"ПЕТКО АНГЕЛОВ КУЩИРЕВ","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "HKV34",
+  "count": 44,
+  "mpCount": 25,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "МИП-КОМ-ООД",
+      "displayName": "МИП-КОМ ООД",
+      "registeredOffice": "Хасково",
+      "mps": [
+        {
+          "mpId": 5256,
+          "mpName": "КАТЯ МАКСИМОВА ПАНЕВА",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Поли-ауто-ООД",
+      "displayName": "Поли ауто ООД",
+      "registeredOffice": "Хасково",
+      "mps": [
+        {
+          "mpId": 2956,
+          "mpName": "МИТКО КОСТАДИНОВ ПОЛИХРОНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПОЛИ-93-ЕООД",
+      "displayName": "ПОЛИ-93 ЕООД",
+      "registeredOffice": "Хасково",
+      "mps": [
+        {
+          "mpId": 2956,
+          "mpName": "Митко Костадинов Полихронов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2956,
+          "mpName": "Митко Костадинов Полихронов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2956,
+          "mpName": "МИТКО КОСТАДИНОВ ПОЛИХРОНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Полихронов-мотърс-ООД",
+      "displayName": "Полихронов мотърс ООД",
+      "registeredOffice": "Хасково",
+      "mps": [
+        {
+          "mpId": 2956,
+          "mpName": "МИТКО КОСТАДИНОВ ПОЛИХРОНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Промишлени-стоки-Димитровград-ЕООД",
+      "displayName": "Промишлени стоки Димитровград ЕООД",
+      "registeredOffice": "Хасково",
+      "mps": [
+        {
+          "mpId": 5283,
+          "mpName": "ВЛАДИСЛАВ ПАНЧЕВ ПАНЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}
