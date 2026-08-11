@@ -22,6 +22,30 @@ Builds on / does not duplicate:
 - `place_dim` (migration 117) — the obshtina code→name dictionary. T2 joins it; it does not
   mint another one (see the "second producer" warning in `scripts/person/places.ts`).
 
+## Audit — v1.1, 2026-08-11
+
+Full pass after T0 landed the files, against the codebase. Eleven findings; every one is folded
+in below rather than listed and forgotten.
+
+| # | finding | lands in |
+|---|---|---|
+| 1 | **T1.1's schema ignored two thirds of the workbook.** It modelled the three stocks and the criteria denominators only — the source also publishes приходи, разходи, салдо, **налични средства (the municipal „каса")**, дълг and the eight РМС 436/2017 indicators, all as levels, all for 265 общини. | T1.1, T2.1 |
+| 2 | **`isDistressed` conflated two different facts.** Meeting ≥3 чл. 130а criteria *obliges* a recovery procedure; being **in** one is a separate administrative state with its own sheet in the workbook, persisting across years. Conflating them mislabels municipalities in both directions on a page that names them. | **T1.1b**, T2.1, T3.2 |
+| 3 | **T1.1 assumed the source key was EKATTE.** It is the МФ/ЕБК code (col A). Both must be stored — the source key for provenance, the resolved one for joins. | T1.1, T2.1, T0.7 |
+| 4 | **T3.1 contradicted T0.5.** T3.1 still said "expect a coverage difference, set the tolerance from the first run" after T0.5 measured *exact* agreement. A tolerance chosen to fit is decoration. | T3.1 |
+| 5 | **T1.1 carried a dead ratio-only contingency** that T0.5 had already answered, and it proposed back-solving levels from a denominator we hold for 2 of 265 municipalities. | T1.1 |
+| 6 | **The published ratios switch denominator by quarter** (planned in Q1–Q3, actual/4y-avg in Q4), so a ratio group's three columns are not a time series and only Q4 is the real criterion. Nothing recorded which basis was used. | **T1.1a** |
+| 7 | **No `/api/db` route, no `deploy:db` ordering.** T2.2 defined SQL functions; nothing wired the HTTP surface that the UI reads. | **T2.6** |
+| 8 | **No bucket/serving decision.** `data/budget` is bucket-served via `dataUrl()`, so an unstated JSON output invites a second serving path for data that should be PG-only. | **T2.7** |
+| 9 | **No exact filenames, and the operator cannot act without them.** | **T7** |
+| 10 | **The watcher had no way to REQUEST a manual download** — and neither does any of the ~8 existing manual-step sources. The report has Changed / Unchanged / Skipped / Errors and no "you must fetch something" channel. | **T8** (generic capability) |
+| 11 | **No data-page, UI or governance integration at all.** | **T9 · T10 · T11** |
+
+Two further notes that are not defects but change sequencing: the workbook's `СЕС-код 42 и код
+98` sheet (EU-funds accounts, same município grain) is **out of scope for v1** and recorded in
+T12 so it is a decision rather than an oversight; and the cached negative-trends PDF is
+**provenance + national cross-check only** — it is not parsed (T12).
+
 ---
 
 ## 0. What is actually published, and why we do not have it
@@ -266,48 +290,83 @@ ingest exists to do:
 So the row carries the numerator, the denominator and the ratio, each independently:
 
 ```ts
-type MunicipalFiscalYear = {
-  obshtina: string;          // EKATTE obshtina code, joins place_dim
+type MunicipalFiscalQuarter = {
+  mfCode: number;            // МФ/ЕБК code as published (col A) — the SOURCE key
+  obshtina: string;          // resolved EKATTE obshtina code, joins place_dim (T0.7)
+  nameBg: string;            // col B, kept for crosswalk provenance
   fiscalYear: number;
-  quarter: 1 | 2 | 3 | 4;    // REAL grain — the справка is quarterly (T0.3-1), not annual
+  quarter: 1 | 2 | 3 | 4;    // REAL grain — the справка is quarterly (T0.3-1)
 
-  // --- the three stocks, as money (native + EUR) ---
+  // --- the three stocks, as money (native + EUR) — cols 45-53 ---
   commitments:        Money | null;  // поети ангажименти за разходи   (чл. 130а ал. 1 т. 3)
   expenseObligations: Money | null;  // задължения за разходи          (т. 2)
   arrears:            Money | null;  // просрочени задължения          (т. 4)
 
-  // --- the denominators, stored so every ratio is re-derivable ---
+  // --- the fiscal position, all published as LEVELS — cols 30-44 ---
+  revenue:            Money | null;  // приходи по чл. 45 ал. 1 т. 1 (без §46/47/48)
+  expenditure:        Money | null;  // разходи по чл. 45 ал. 1 т. 2 (без §19)
+  budgetBalance:      Money | null;  // бюджетно салдо                 (т. 5)
+  cashOnHand:         Money | null;  // налични средства по бюджета — the municipal „каса"
+  debtStock:          Money | null;  // размер на общинския дълг
+  debtPerCapita:      Money | null;  // индикатор 4.2, лв./човек (НСИ population)
+
+  // --- denominators, so every ratio is re-derivable rather than trusted ---
   expenditureAvg4y:   Money | null;  // средногодишни отчетени разходи, 4 г.
   expenditureLastY:   Money | null;  // отчетени разходи, последна година
+  expenditurePlanned: Money | null;  // планирани разходи за годината (the Q1-Q3 denominator)
   ownRevenueAvg3y:    Money | null;  // + изравнителна субсидия, 3 г.  (т. 1)
   debtServiceAnnual:  Money | null;  // плащания по общинския дълг     (т. 1)
-  budgetBalance:      Money | null;  // бюджетно салдо                 (т. 5)
 
-  // --- as published, kept for provenance and drift detection ---
-  ratiosPublished: { c1: number|null; c2: number|null; c3: number|null;
-                     c4: number|null; c6: number|null };
-  collectionRateAvg: number | null;  // ДНИ+ДПрС, %                    (т. 6)
-  collectionRateNational: number | null; // the year's national mean, the т. 6 comparand
+  // --- as published, for provenance and drift detection, never for maths ---
+  ratiosPublished: Record<"c1"|"c2"|"c3"|"c4"|"c6", number | null>;
+  ratioBasis: "planned" | "actual";  // WHICH denominator the source used — see T1.1a
+  indicatorsRms436: Record<string, number | null>; // cols 3-29, the 8 РМС 436/2017 indicators
+  collectionDni: number | null;      // col 63, %   (Q4 only)
+  collectionDprs: number | null;     // col 64, %   (Q4 only)
+  collectionAvg: number | null;      // col 65, %   (Q4 only) — the т. 6 value
+  collectionNational: number | null; // the year's national mean, the т. 6 comparand
 
-  criteriaMet: number[];     // which of 1..6 are met
-  isDistressed: boolean;     // criteriaMet.length >= 3
+  // --- Q4 only (T1.1) ---
+  criteriaMet: number[] | null;      // which of 1..6 are met; null for Q1-Q3
+  meetsThreshold: boolean | null;    // criteriaMet.length >= 3; null for Q1-Q3
+  // --- from the SEPARATE „общини фин. оздр." sheet, never derived (T1.1b) ---
+  inRecoveryProcedure: boolean;
+
   sourceFile: string;
   suspect: boolean;
 };
 ```
 
+### T1.1a The published ratios switch denominator by quarter — store which
+
+Cols 54–62 look like one indicator each and are not. **Q1–Q3 divide by планираните разходи за
+годината; Q4 divides by отчетените разходи (arrears) or средногодишните разходи за последните
+4 години (obligations, commitments).** So only the Q4 column is the actual чл. 130а criterion,
+and the three columns of any one ratio group are not a time series. `ratioBasis` records which
+denominator the source used so a consumer cannot chart across the break; every ratio the UI
+shows is re-derived from the stored levels.
+
+### T1.1b `meetsThreshold` is NOT „в оздравяване" — they are different facts
+
+Meeting ≥3 чл. 130а criteria is what *obliges* a município to open a чл. 130д recovery
+procedure. Being **in** one is a separate, administratively-recorded state: it persists across
+years while the plan runs, can begin the year after the criteria were met, and can continue
+after they stop being met. The workbook keeps them apart too — the `общини фин. оздр.` sheet is
+its own list — and so must we. Conflating them mislabels municipalities in both directions on a
+page that names them, which is the most defamation-adjacent thing in this plan. Ingest the sheet
+as `inRecoveryProcedure`; never derive it.
+
 **Note the criteria are annual by construction** („налични към края на **годината**"), while the
 справка is quarterly. So a Q1–Q3 row carries stocks and denominators but **no meaningful
-`criteriaMet` / `isDistressed`** — those are Q4 verdicts. Compute them only for `quarter = 4`
+`criteriaMet` / `meetsThreshold`** — those are Q4 verdicts. Compute them only for `quarter = 4`
 and leave them null elsewhere; a mid-year "distressed" flag would be a fabrication, and it is
 exactly the kind of figure that gets quoted once it exists.
 
-**If the first workbook publishes only ratios** (T0.3-2, still open), the levels are still recoverable for
-criteria 2–4 by multiplying through a denominator we can build ourselves from
-`municipal_execution` — but we hold that for **two of 265 municipalities**, so in practice the
-answer is: derive what we can, leave the rest null, and say so in the payload. Do not
-back-solve a level from a ratio and a *guessed* denominator. A null is honest; a
-plausible-looking reconstructed euro figure is not, and it will be quoted.
+**T0.5 settled this: the source publishes levels.** The contingency that used to sit here — 
+back-solving a level from a ratio and a denominator built from `municipal_execution` — is
+dropped, and should stay dropped if an older workbook turns out to be ratio-only. We hold
+`municipal_execution` for two of 265 municipalities, so any reconstructed euro figure would be
+a guess wearing a number's clothes. Leave it null and say so in the payload.
 
 ### T1.2 Currency
 
@@ -335,8 +394,17 @@ year's workbook parses fewer municipalities than the previous year's, refuse and
 than write. A partial ingest that anti-joins is how you silently delete 200 municipalities and
 still reconcile every row count.
 
-**Output:** `data/budget/municipal_fiscal/{year}.json` + `index.json` (coverage, cadence,
-distressed count per year). Committed; raw drops gitignored.
+**T1.5 A município absent from ONE quarter is not a shrunken file.** ИСО filings can be late,
+so `T1.4`'s coverage floor must be evaluated per *file*, not per município: refuse a workbook
+whose row count drops, but allow an individual município to be missing from a quarter it did
+not file. Those are `absent` (no row written), never `0` — writing a zero would put a município
+at „no commitments" on the browse, ranked as the healthiest in the country, purely for filing
+late.
+
+**Output:** `data/budget/municipal_fiscal/{year}-Q{q}.json` + `index.json` (per-quarter
+coverage, newest quarter present — T8.1 reads this, so it is load-bearing rather than
+informational). Committed as loader input only; **not** bucket-synced (T2.7). Raw drops
+gitignored.
 
 ---
 
@@ -346,21 +414,35 @@ distressed count per year). Committed; raw drops gitignored.
 
 ```sql
 CREATE TABLE IF NOT EXISTS municipal_fiscal (
-  obshtina text NOT NULL,
+  obshtina text NOT NULL,          -- resolved EKATTE code (place_dim)
+  mf_code int NOT NULL,            -- МФ/ЕБК code as published — keep the source key
   fiscal_year int NOT NULL,
-  quarter smallint NOT NULL DEFAULT 4,
+  quarter smallint NOT NULL,       -- no DEFAULT: the grain is real, make callers state it
+  -- the three stocks
   commitments_eur double precision,
   expense_obligations_eur double precision,
   arrears_eur double precision,
+  -- the fiscal position
+  revenue_eur double precision,
+  expenditure_eur double precision,
+  budget_balance_eur double precision,
+  cash_on_hand_eur double precision,
+  debt_stock_eur double precision,
+  -- denominators
   expenditure_avg4y_eur double precision,
   expenditure_last_y_eur double precision,
+  expenditure_planned_eur double precision,
   own_revenue_avg3y_eur double precision,
   debt_service_eur double precision,
-  budget_balance_eur double precision,
-  collection_rate_avg double precision,
-  collection_rate_national double precision,
-  criteria_met smallint[] NOT NULL DEFAULT '{}',
-  is_distressed boolean NOT NULL DEFAULT false,
+  -- collection (Q4 only)
+  collection_dni double precision,
+  collection_dprs double precision,
+  collection_avg double precision,
+  collection_national double precision,
+  -- verdicts (Q4 only; NULL elsewhere — see T1.1)
+  criteria_met smallint[],
+  meets_threshold boolean,
+  in_recovery_procedure boolean NOT NULL DEFAULT false,  -- from the separate sheet (T1.1b)
   source_file text,
   PRIMARY KEY (obshtina, fiscal_year, quarter)
 );
@@ -376,7 +458,7 @@ COMMENT ON COLUMN municipal_fiscal.arrears_eur IS
   'not audited, and the indicator that triggers чл. 130а distress. See T0.4.';
 ```
 
-`criteria_met` / `is_distressed` are populated **only for `quarter = 4`** (T1.1). A partial
+`criteria_met` / `meets_threshold` are populated **only for `quarter = 4`** (T1.1). A partial
 index on that predicate serves every distress query.
 
 **Every money column is `double precision`, never `numeric`.** node-postgres serializes
@@ -419,6 +501,33 @@ steps. Add an `ORDER_PAIRS` entry for the place-dim dependency.
 `db:load:place-dim:pg:cloud`. Nothing runs it automatically — document it in `CLAUDE.md`
 beside the other standalone loaders, in the same "green locally, stale on prod" framing.
 
+**T2.6 The HTTP surface** (`functions/db_routes.js`). T2.2's SQL functions carry no data to a
+browser by themselves. Three routes:
+
+- `/api/db/municipal-fiscal?obshtina=&year=` → T10.2's tile payload
+- `/api/db/municipal-fiscal-national?year=` → T11.2's card
+- the national browse rides the existing **`/api/db/table`** registry engine (a
+  `municipal_fiscal` resource), so T10.1 needs no bespoke route.
+
+**Degrade a missing migration to an empty payload**, in the `procurement_settlement_payloads`
+(123) shape rather than the `cpv_catalog` (121) one: the tiles self-suppress on empty, so an
+orderless first deploy shows nothing instead of 500ing, and the log line
+(`mf:not-built`, once per process) is the signal that the cloud loader never ran. Deploy order
+is then cosmetic — but keep the documented rule anyway: **`db:load:municipal-fiscal:pg:cloud`
+before `npm run deploy:db`.**
+
+**T2.7 Serving is Postgres-only — the JSON is loader input, not a served artifact.**
+`data/budget/` is bucket-served via `dataUrl()`, so `data/budget/municipal_fiscal/*.json` would
+be picked up by `bucket:sync` and become a *second* serving path for the same numbers, free to
+drift from the table. It must **not** get a `bucket_sync_paths.ts` entry, and the UI reads
+`/api/db/*` only. This matches the funds family's PG-only rule and the repo's standing "no
+JSON-from-PG generation" line; the one thing to avoid is the halfway state where a tile fetches
+JSON and a browse queries PG.
+
+Note this cuts the other way from `hub_stats.json` / `sector_stats.json`, which *are* committed
+bucket-synced artifacts derived from PG — that pattern exists because those are read by a hub
+that must render without a database. Nothing here has that constraint.
+
 ---
 
 ## T3 — Gates (`scripts/db/tests/municipal_fiscal.data.test.ts`)
@@ -429,21 +538,28 @@ against `data/_cache/arrears.json`'s `breakdownEurM.local` for the same Y, withi
 tolerance. Both sides are year-end stocks; comparing a Q2 sum to the national year-end figure
 is a category error, so the quarter filter is part of the assertion, not an optimisation.
 
-Two independent MinFin publications of the same quantity; if they disagree, we learn something
-real. Expect a **coverage difference** rather than an exact match — the national "местно
-правителство" tier may include районни администрации and municipal budget-funded entities
-outside the чл. 130г table. **Set the tolerance from the measured first run and record the
-reason for the residual in the test's comment**, rather than picking a round number that
-happens to pass. A gate whose threshold was reverse-engineered from the data it guards is
-decoration.
+**Measured 2026-08-11, and it is exact** (T0.5): 143,017,277 лв = €73.1m from the workbook
+against €73.1m in `arrears.json`. The feared coverage difference — районни администрации or
+budget-funded entities inside the national „местно правителство" tier but outside the чл. 130г
+table — **does not exist**. So the tolerance is **≤0.1%**, and any drift is a defect rather
+than a reconciliation residual to be explained away.
 
 Available comparands: local arrears €60.7m (2021), €80.9m (2023), €73.1m (2024), €95.6m (2025).
-2022 is unavailable (T5.2).
+2022 is unavailable (T5.2). Only 2024 is verified so far; **assert every year the backfill
+brings in**, and treat a year that fails as a finding about that year's workbook, not a reason
+to loosen the gate.
 
-**T3.2** Every `is_distressed` row has `array_length(criteria_met, 1) >= 3`, and every
+**T3.2** Every `meets_threshold` row has `array_length(criteria_met, 1) >= 3`, and every
 `criteria_met` entry is re-derivable from the stored levels and thresholds. This catches a
 parser that read the wrong column — the failure that produces a plausible table of wrong
-municipalities.
+municipalities. **And `criteria_met` / `meets_threshold` are NULL on every `quarter <> 4` row**
+(T1.1), which is an assertion, not an implementation detail.
+
+**T3.2a `in_recovery_procedure` must not be derivable from `meets_threshold`** (T1.1b). Assert
+both directions occur in the corpus — a município meeting ≥3 criteria and *not* in a procedure,
+and one in a procedure *not* currently meeting ≥3. If either set is empty the parser has
+probably wired one from the other, and the page would then be asserting a legal status from an
+arithmetic test.
 
 **T3.3** `commitments_eur >= expense_obligations_eur >= arrears_eur` should hold **as a
 reported tendency, not an invariant** — the stocks nest conceptually but are measured on
@@ -461,29 +577,24 @@ appears on any page.
 
 ## T4 — Watcher + skill wiring
 
-**T4.1** New `scripts/watch/sources/minfin_municipal_fiscal.ts`, registered in
-`scripts/watch/sources/index.ts`.
+**T4.1 → superseded by T8.** An earlier draft here proposed fingerprinting `minfin.bg/upload/`
+through Wayback CDX, the way `minfin_mreports.ts` does. **Do not build that.** Wayback 429'd
+this egress on every attempt during T0, so the probe would be unreliable in exactly the way that
+produces a source which errors or flaps — and a flapping source is worse than an absent one,
+because it trains the operator to ignore the report.
 
-**T0 settled which arm ships first: the egov one cannot.** The portal is 403 from every egress
-available to this operator, so fingerprint via **Wayback CDX** over `minfin.bg/upload/`, as
-`minfin_mreports.ts` already does for the Cloudflare-walled bulletins. Wayback 429s this
-repo's egress regularly (it did so on every attempt during T0), so the watcher **must degrade
-to "unchanged" on 429 rather than throw** — otherwise it cries wolf on every run.
-
-Write the egov arm anyway, behind the same pluggable fetcher as T1, and leave it dormant. It is
-~20 lines given `egov_municipal_execution.ts`, and it is what makes the ingest automatic the
-day a BG residential IP exists. Do not let the blocked transport dictate the architecture.
-
-**A quarterly source needs a quarterly watcher.** The four filings a year land irregularly;
-fingerprint on `(year, quarter) → capture timestamp`, not on a file count, or a re-published
-correction to an existing quarter never surfaces.
+T8.1 inverts it: watch **our own coverage against the calendar** and emit a named manual
+request. Read T8 instead of this section. What survives from the draft: write the dormant egov
+arm anyway (~20 lines given `egov_municipal_execution.ts`) so the blocked transport does not
+dictate the architecture.
 
 **T4.2** Extend the existing `update-budget` skill rather than minting a new one — this is
 budget data, the skill already owns `data/budget/`, and a separate skill would need its own
 `state/ingest/` entry and its own place in `process-watch-report`'s mapping for no gain.
 
 **T4.3** `data/data-changes.json` entry via `process-watch-report`, and the `/data` map + the
-`/sources` page gain the new dataset. Both are repo conventions; neither is optional.
+`/sources` page gain the new dataset — specified in **T9**. Both are repo conventions; neither
+is optional.
 
 ---
 
@@ -556,7 +667,7 @@ plotted as a collapse.
    precisely because that route is closed, and it works fine.
 9. **Arrears are self-reported off-balance-sheet** (T0.4); only `задължения за разходи` is
    МФ-computed. Never label arrears as audited, and prefer commitments as the headline stock.
-10. **The criteria are annual; the справка is quarterly.** Never compute `isDistressed` on a
+10. **The criteria are annual; the справка is quarterly.** Never compute `meetsThreshold` on a
     Q1–Q3 row (T1.1).
 11. **The published ratios switch denominator by quarter** — планирани разходи in Q1–Q3,
     отчетени / средногодишни-4г in Q4 — so cols 54–62 are *not* a quarterly series and only the
@@ -568,18 +679,329 @@ plotted as a collapse.
 
 ---
 
+## T7 — The download protocol: exact filenames
+
+### T7.1 The naming rule, derived from the three files in hand
+
+Each release is `1. quarterly-reports-Q{q}{Y−1}-Q4{Y−1}-Q{q}{Y}-website.xlsx` — three quarters
+in prev / final / current order, where **the middle column is always Q4 of the previous year**.
+
+Verified against what we hold:
+
+| file | prev | final | current |
+|---|---|---|---|
+| `1. quarterly-reports-Q22024-Q42024-Q22025-website.xlsx` | Q2-2024 | **Q4-2024** | Q2-2025 |
+| `1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx` | Q3-2024 | **Q4-2024** | Q3-2025 |
+
+The narrative PDF is `4. municipal-analysis of negative trends {DD} {MM} {YYYY}.pdf`, dated to
+the quarter end — `31 03`, `30 06`, `30 09`, `31 12`. Verified: `…31 03 2025.pdf`.
+
+### T7.2 That rule collapses the backfill from ~28 files to 5
+
+Because the middle column is the previous year's Q4, **one file per year yields that year's
+year-end** — the only quarter on which the чл. 130а criteria are defined — *plus* two Q3
+comparands. Q4-2024 is already in hand from both files, so to reach 2019:
+
+```
+1. quarterly-reports-Q32023-Q42023-Q32024-website.xlsx   → Q4-2023  (+ Q3-2023, Q3-2024)
+1. quarterly-reports-Q32022-Q42022-Q32023-website.xlsx   → Q4-2022  (+ Q3-2022, Q3-2023)
+1. quarterly-reports-Q32021-Q42021-Q32022-website.xlsx   → Q4-2021  (+ Q3-2021, Q3-2022)
+1. quarterly-reports-Q32020-Q42020-Q32021-website.xlsx   → Q4-2020  (+ Q3-2020, Q3-2021)
+1. quarterly-reports-Q32019-Q42019-Q32020-website.xlsx   → Q4-2019  (+ Q3-2019, Q3-2020)
+```
+
+Five files give Q4-2019 → Q4-2024 (six year-ends, the whole disputed period) and a Q3 series
+from 2019. **The Q3-anchored release is the one to take** — the Q2 one duplicates the same
+middle column for no extra year-end.
+
+### T7.3 What is predicted vs verified — read this before hunting
+
+**The rule is derived from two samples, both 2025 releases.** The `-website` suffix, the `1.`
+prefix and the three-quarter structure are almost certainly not stable back to 2019. So:
+
+- **Save whatever the page actually offers for that year, unrenamed**, even if the name differs
+  from the prediction above. The parser reads the periods from **row 2** and only cross-checks
+  the filename, so a differently-named file still ingests correctly (T1 must be written that
+  way round — filename as a hint, row 2 as the truth).
+- **Report the real filenames back** so T7.1's rule can be corrected rather than assumed.
+- **Q4-anchored releases are an unknown shape.** Under the rule a Q4-2025 release would be
+  `Q42024-Q42024-Q42025`, whose first two columns are identical — degenerate, so MinFin
+  probably uses a different layout. Do not predict it; look.
+- **Items `2.` and `3.` on the page are unknown.** The prefixes we have are `1.` and `4.`, so
+  the release carries at least four items. Worth listing once — one of them may be the СЕС
+  companion or a methodology note.
+
+### T7.4 The standing ask, per quarter
+
+For each new quarter, two files:
+
+```
+1. quarterly-reports-Q{q}{Y-1}-Q4{Y-1}-Q{q}{Y}-website.xlsx
+4. municipal-analysis of negative trends {quarter-end DD MM YYYY}.pdf
+```
+
+from <https://www.minfin.bg/bg/810>, into `data/_cache/minfin_municipal_fiscal/`, unrenamed.
+T8 asks for these by name automatically.
+
+---
+
+## T8 — Watching a source we cannot fetch, and asking for it
+
+### T8.1 A "due" watcher, not an upstream fingerprint
+
+minfin.bg is Turnstile-walled and Wayback 429s this egress, so **fingerprinting the upstream is
+not reliably possible**. Watching it anyway would produce a source that errors or flaps, which
+is worse than not watching it.
+
+Invert it: watch **our own coverage against the calendar**. `municipal_fiscal_due`
+(`scripts/watch/sources/municipal_fiscal_due.ts`):
+
+- read the newest `(year, quarter)` present in `data/budget/municipal_fiscal/index.json`;
+- compute the newest quarter that *should* be published, = quarter end + a publication lag;
+- fingerprint on `(newest-have, newest-due)`. Behind → `changed`.
+
+This never claims a file exists — it says "by the calendar Q3-2025 is due and we hold Q2-2025".
+The worst case is asking for something not yet published, which costs one look at a page.
+
+**Set the lag from observation, not from a guess.** We have one datapoint (the Q1-2025 analysis
+is dated 31.03.2025; its publication date is unknown). Start at **90 days** — conservative, so
+the watcher under-asks rather than nags — and tighten it once two or three publication dates
+have been observed. Record the observed lag in the source file as it is learned.
+
+`publishes: "quarterly"` (90 days) and `cadence: "weekly"` — `cadence.test.ts` enforces
+sampling at least twice per publication period, so weekly is comfortably inside it and monthly
+would also pass.
+
+### T8.2 A generic manual-request channel — the repo needs this anyway
+
+The watcher can detect the gap; it currently has **no way to say what to do about it**.
+`renderReport` emits Changed / Unchanged / Skipped / Errors, and "changed" on this source means
+"go download a file", not "an ingest can now run" — a distinction the orchestrator cannot see.
+
+At least eight existing sources are in the same position and each solves it in prose somewhere
+else: TI CPI and Eurobarometer (manual paste), `ministry_execution_reports`'s `manual-pdf`
+entries, `minfin_program_otchet`, `capital_programs` (+ its `UNWATCHABLE` Vidin), LISI, НОИ B1,
+and now this one. So make it a first-class capability rather than a special case:
+
+```ts
+// scripts/watch/types.ts
+export interface ManualRequest {
+  /** One line: what the operator must do. */
+  instruction: string;
+  /** Where to get it. */
+  url: string;
+  /** Exact filenames to save, when derivable (T7). */
+  files?: string[];
+  /** Where they go. */
+  dropDir?: string;
+}
+
+export interface WatchSource {
+  // …
+  /** Non-null when this source needs a human to fetch something before any
+   *  ingest can run. Evaluated every run, independent of `changed`. */
+  manualRequest?(prev: WatchState | null, curr: Fingerprint): ManualRequest | null;
+}
+```
+
+`renderReport` gains a section, placed **above `## Changed`** because it blocks:
+
+```markdown
+## Manual downloads needed
+- **Финансови показатели на общините**: Q3-2025 is due (we hold Q2-2025).
+  Save from https://www.minfin.bg/bg/810 into data/_cache/minfin_municipal_fiscal/:
+  - `1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx`
+  - `4. municipal-analysis of negative trends 30 09 2025.pdf`
+```
+
+Two rules so the section stays worth reading. It renders **only** when
+`manualRequest()` returns non-null — a source with nothing outstanding contributes nothing, or
+the section becomes a permanent block of noise everyone scrolls past. And it is **idempotent**:
+the request keeps appearing every run until the file lands, because that is the true state, but
+`## Changed` must not also fire on the same fact every day — the fingerprint moves only when
+`(newest-have, newest-due)` moves, so a still-missing quarter is `unchanged` with a standing
+manual request. That distinction is the whole design: **"still needed" is not "changed".**
+
+### T8.3 `process-watch-report` wiring
+
+Three edits to `.claude/skills/process-watch-report/SKILL.md`:
+
+1. **Mapping table** (both the report-label table and the canonical `state/watch` id table):
+
+   | source | skill |
+   |---|---|
+   | `Финансови показатели на общините (ЗПФ чл. 130г)` / `municipal_fiscal_due` | `update-budget` (municipal-fiscal sub-step) — **manual download first, see below** |
+
+2. **A new Procedure step, ahead of skill invocation.** Read every source's manual request;
+   surface them as a single up-front list; do **not** invoke a skill whose input is still
+   missing. The orchestrator should report "Q3-2025 requested, not yet downloaded — skipped"
+   rather than run an ingest that will find nothing and stamp a successful marker over it.
+   That last part is the real hazard: a skill that runs on an absent file and exits 0 writes
+   `lastSuccessfulIngest`, and the request never surfaces again.
+3. **A `### Municipal fiscal: manual download first` section**, in the shape of the existing
+   `### Governments: manual edit first` and `### TI CPI: manual paste first`, carrying T7's
+   filename rule so the instruction is reproducible without opening this plan.
+
+**`state/ingest/update-budget.json` must not be stamped by a run that skipped this sub-step.**
+Either give the sub-step its own marker (`update-budget-municipal-fiscal`) or make the stamp
+conditional. The first is cleaner and matches how the skill already separates its paths.
+
+---
+
+## T9 — Data pages
+
+**T9.1 `/data` map** (`scripts/data_map/model.ts`). Two edits:
+
+- add `municipal_fiscal_due` to the existing **`minfin` source node's** `members` array (it
+  already carries `minfin_mreports`, `minfin_eurobond`, `minfin_program_otchet` and
+  `skills: ["update-budget"]`, so the node needs no other change);
+- add a **dataset node** for the municipal fiscal series — `label` „Финансови показатели на
+  общините", `origin: "state"`, `cadence: "weekly"` (our probe), `route` to T10.1's page,
+  `skills: ["update-budget"]`, `path: "data/budget/municipal_fiscal"`.
+
+The manifest is bucket-served (`data/data_map.json`), so this ships on `bucket:sync` without a
+Firebase deploy — but it **is** code-coupled for structure and labels, so the model edit and the
+manifest rebuild go together.
+
+**T9.2 `/data/sources`** (`src/screens/DataSourcesScreen.tsx` + `src/lib/officialSources.ts`) —
+add МФ „Финансови показатели на общините" with the чл. 130г ал. 2 basis and the ИСО upstream.
+Name the **self-reported** nature of the arrears arm here, not only in the plan: the sources
+page is where a reader goes to decide how much to trust a number.
+
+**T9.3 `/data/updates`** — free, provided T2.3's `ingest_changelog.ts` wiring lands
+(`recent_updates()`), plus the per-skill `data/data-changes.json` stamp from
+`process-watch-report`. Both are required by repo convention; neither is optional.
+
+---
+
+## T10 — UI integration
+
+### T10.1 `/governance/municipal-finance` — the national browse (the flagship)
+
+A `DbDataTable` over 265 municipalities. Server-side, on the shared registry engine, so search /
+sort / paging cost nothing new. Columns:
+
+| column | why |
+|---|---|
+| община | links to `/governance/:obshtina` |
+| **поети ангажименти** | the headline stock, absolute |
+| **на жител** | the only cross-município comparable — GRAO population |
+| **% от средногодишните разходи (4 г.)** | the чл. 130а т. 3 ratio, re-derived, with the 50% threshold marked |
+| задължения за разходи | + its 15% threshold |
+| просрочени задължения | + its 5% threshold |
+| дълг · салдо · налични средства | the fiscal position |
+| чл. 130а | „N от 6 критерия" |
+| оздравяване | the **separate** administrative state (T1.1b) |
+
+Filters: `?year` · `?q` · `?crit=3` (meets ≥N criteria) · `?recovery=1`. Default sort:
+commitments per resident, descending.
+
+**Per-resident is the honest default** and absolute is the trap: Столична община will top every
+absolute column by construction, which tells a reader nothing and buries the small distressed
+municipalities the page exists to surface.
+
+### T10.2 The municipality tile — `/governance/:id`
+
+`MyAreaMunicipalFiscalTile`, a **new** tile rather than a third story inside
+`MyAreaMunicipalBudgetTile`. The existing tile answers *what does this община receive* (чл. 53
+transfers + cash execution); this one answers *what does it owe and to whom is it committed*.
+Different question, and the existing tile is already two stories deep. Place it directly after,
+so the pair reads money-in then money-owed.
+
+Content, in order:
+
+1. **Headline: „Поети ангажименти на жител — €X"**, with the national median and the
+   município's rank. One number, comparable, and the thing nobody currently publishes.
+2. **A three-bar stack** — ангажименти / задължения / просрочени — at one scale, which makes
+   the nesting visible and kills the conflation this whole plan is about.
+3. **The чл. 130а strip**: six criteria, each a value against its threshold, met ones marked.
+   Only on Q4 rows (T1.1). „N от 6" and the ≥3 rule stated in words.
+4. **If `in_recovery_procedure`**: a factual callout — in a чл. 130д procedure since YYYY,
+   with a link to the município's own plan where we have one. **Never styled as an alarm.**
+5. **Coverage line**: the quarter, and that arrears are self-reported.
+
+**Sofia:** the S2xxx district dashboards must show Столична община's row (mf code 7200)
+explicitly labelled „за Столична община като цяло" — the same `oblastFromObshtina` mapping
+`MyAreaMunicipalBudgetTile` already uses. Silently showing city-wide figures on a district page
+is the reading error to avoid.
+
+### T10.3 Elsewhere on the site
+
+- **`/budget`** — a national line: municipal commitments beside the state deficit, since the
+  reader who came for "how big is the deficit" is exactly the reader missing this.
+- **`/indicators/fiscal`** — `CabinetBudgetScorecard` already renders national arrears per
+  cabinet-year. Add the **municipal commitments** column beside it; it is the same table's
+  natural fourth measure and the contrast (arrears flat, commitments 2.8×) is the finding.
+- **`/procurement` cross-link** — T6.2's two-source comparison, per município.
+- **A `naiasno-post`** on the 46× finding once the backfill lands and the trend is multi-year.
+
+### T10.4 What NOT to build
+
+No map choropleth in v1. Commitments per resident is dominated by whether a município is
+mid-way through a big EU project, so the map would render project timing as municipal
+recklessness — a strong visual making a claim the data does not support. Revisit only with a
+multi-year series where a *sustained* level can be distinguished from a spike.
+
+---
+
+## T11 — Governance dashboards
+
+**T11.1 `/governance` hub** — a tile in the existing **`gov_hub_cluster_money`** cluster
+(beside budget / procurement / funds / subsidies / sectors), routing to T10.1.
+
+**T11.2 `/governance/overview`** (`GovernanceCards`) — a national card. `GovernanceDebtTile`
+already carries state debt; municipal commitments are its natural sibling and the pairing is
+the point: **€34.6bn state debt is watched monthly; €4.2bn of municipal commitments is
+watched by nobody.** Keep the two visually adjacent and separately labelled — they are not
+summable and must never appear as one total.
+
+**T11.3 `/governance/region/:oblast`** — an oblast rollup: the oblast's municipalities summed,
+plus how many meet ≥3 criteria and how many are in a recovery procedure. Cheap (a GROUP BY on
+a table already joined to `place_dim`) and it is the level at which a пattern is visible —
+distress clusters regionally.
+
+**T11.4 `/governance/sectors`** — **no**. This is not a sector; it is a tier of government.
+Adding it to `sectorRegistry` would put it beside water/transport/health where it does not
+belong and would dilute a registry whose coherence is its value.
+
+**T11.5 The through-line to state.** The governance view's spine is *who spends your money and
+how well*. Municipal commitments belong on it because they are the one liability the state's
+own headline numbers exclude — the consolidated cash deficit records a municipal payment when
+it is made, so a município's forward commitments are invisible nationally until they are paid.
+Say that in the copy; it is the reason the page exists and it is defensible.
+
+---
+
+## T12 — Deliberately out of scope for v1
+
+Recorded so each is a decision rather than an oversight.
+
+- **`СЕС-код 42 и код 98` sheet** (EU-funds and other accounts, 272 × 50, same município
+  grain). A second corpus with its own semantics; folding it in doubles the parser and the
+  gates for a question this plan does not ask. Own tier once v1 is serving.
+- **The negative-trends PDF is not parsed.** It is provenance and a national cross-check (it
+  is how the Q4-2024 arrears figure was confirmed a third way). Parsing МФ's prose into a
+  narrative series is a different kind of work with a different failure mode.
+- **The eight РМС 436/2017 indicators are stored but not surfaced.** They are cheap to carry in
+  the same row and expensive to design a UI for; T1.1 keeps them so a later tier does not need
+  a re-ingest.
+- **No pre-2019 backfill** until the naming rule is confirmed against a real 2020 release
+  (T7.3).
+
+---
+
 ## Open decisions for the operator
 
-**T0 is done — its fork is resolved.** Build against a saved file with a pluggable fetcher;
-the egov arm ships dormant. Three decisions remain:
+**T0 is done and the files are in hand.** Three decisions remain:
 
-1. **Backfill depth.** Now a *quarterly* count, not annual: 2015→ is ~44 workbooks to save by
-   hand, 2019→ is ~28, and year-end-only (Q4) is ~11 or ~7. Recommendation: **Q4-only back to
-   2019 first** (7 files, covers the disputed period, and Q4 is the only quarter the criteria
-   are defined on), then widen to all quarters for 2021+ once the parser is proven — the
-   within-year build is a second-order question and the schema already holds the grain.
-2. **Scope of first cut** — data layer only (T1–T5), or through the governance tile (T6.3)?
-   The data layer alone makes the analysis answerable; the tile is a separate week.
-3. **Is a BG residential IP or BG VPS worth pursuing?** Not needed for this plan — the manual
-   drop works and the files are in hand. It would only ever be a convenience: it turns the
-   quarterly download into an automated fetch and lets the dormant egov arm go live.
+1. **Backfill depth.** T7.2 changes this materially: it is **5 files, not ~28**, because each
+   release's middle column is the previous year's Q4. Recommendation: **take the five
+   Q3-anchored releases 2020–2024** → Q4-2019 … Q4-2024 plus a Q3 series. If the naming rule
+   breaks on the older ones, stop at whatever resolves and report the real names (T7.3).
+2. **Scope of first cut** — data layer only (T1–T5), or through T10.2's municipality tile? The
+   data layer alone makes the analysis answerable. Recommendation: **T1–T5 + T8**, because the
+   watcher is what stops the corpus silently going stale a quarter from now, and it is cheap.
+3. **Is the generic `manualRequest` channel (T8.2) in scope here, or its own change?** It is
+   ~40 lines across `types.ts` / `report.ts` / the skill, it unblocks this source, and it
+   retro-fits at least eight existing manual-step sources. Recommendation: **do it here** — it
+   is the difference between a watcher that helps and one that says "changed" and stops.
