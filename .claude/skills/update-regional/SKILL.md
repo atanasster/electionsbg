@@ -34,7 +34,11 @@ npx tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museum
 
 Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls four NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206, `deathRatePer1000` id=1139), normalising each against the population series the first script wrote.
 
-Running only the first no longer DESTROYS the other five indicators — `fetch_eurostat.ts` carries every foreign indicator key across its rewrite and names them on stdout (`carried forward from other writers: …`). It still leaves them at the previous vintage, so run all three when the mergers' own sources moved. Until 2026-08-11 the rewrite dropped all five from both the `indicators` and the `series` block with a valid file, a green run and no warning; `FOREIGN_INDICATORS` in `scripts/regional/fetch_eurostat.ts` is what prevents that now, and a new side-merged indicator MUST be added to it — `scripts/regional/regional_foreign_indicators.test.ts` fails when the committed artifact carries a key nothing declares.
+Running only the first no longer DESTROYS the other five — `fetch_eurostat.ts` carries every foreign indicator key across its rewrite and names them on stdout (`carried forward from other writers: …`). Until 2026-08-11 it dropped all five from both the `indicators` and the `series` block, with a valid file, a green run and no warning.
+
+It still leaves them at the previous vintage, and the two mergers go stale for **different reasons**. `ltUnemployment` only ages when АЗ publishes. But the four NSI indicators are ratios whose denominator is the `population` series this script just rewrote — so re-run `fetch_nsi.ts` after **every** `fetch_eurostat.ts` run, not only when NSI itself moved.
+
+A new side-merged indicator MUST be added to `FOREIGN_INDICATORS` in `scripts/regional/fetch_eurostat.ts`; one this script produces itself goes in `DERIVED_INDICATORS` instead, so it is never carried when its degrade path skips it. `scripts/regional/regional_foreign_indicators.test.ts` fails when the committed artifact carries a key neither list declares.
 
 Expected output on a normal day:
 

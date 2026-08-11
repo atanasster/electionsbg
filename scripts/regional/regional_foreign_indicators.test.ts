@@ -15,7 +15,10 @@ import { describe, it, expect } from "vitest";
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import {
+  carryReport,
+  isEntryPoint,
   FOREIGN_INDICATORS,
   OWN_INDICATORS,
   readForeignIndicators,
@@ -35,6 +38,14 @@ const POPULATION_META = {
 };
 
 const meta = (datasetCode: string) => ({ ...POPULATION_META, datasetCode });
+
+type Payload = {
+  source: { name: string; url: string };
+  fetchedAt: string;
+  country: string;
+  indicators: Record<string, typeof POPULATION_META>;
+  series: Record<string, Record<string, { year: number; value: number }[]>>;
+};
 
 /** A prior regional.json holding one own indicator and one foreign one. */
 const priorFile = (dir: string, extra: Record<string, unknown> = {}) => {
@@ -68,7 +79,7 @@ const priorFile = (dir: string, extra: Record<string, unknown> = {}) => {
 };
 
 /** What a fresh Eurostat pass produces — own indicator keys only. */
-const freshPayload = () => ({
+const freshPayload = (): Payload => ({
   source: { name: "Eurostat", url: "https://ec.europa.eu/eurostat/" },
   fetchedAt: "2026-08-11T00:00:00.000Z",
   country: "BG",
@@ -160,17 +171,64 @@ describe("the Eurostat pass preserves foreign indicators", () => {
 
   it("lets the fresh pass win on a key collision", () => {
     // A carried entry is last run's vintage by definition, so it may only ever
-    // fill a gap — never overwrite what this run just fetched.
+    // fill a gap — never overwrite what this run just fetched. Exercises
+    // withCarriedIndicators in isolation: readForeignIndicators can only ever
+    // hand it FOREIGN keys, so the collision is staged on ltUnemployment as
+    // though this script had started emitting it.
     const carried = {
-      indicators: { population: meta("stale") },
-      series: { population: { VID: [{ year: 2019, value: 1 }] } },
-      keys: ["population"],
-      undeclared: ["population"],
+      indicators: { ltUnemployment: meta("stale") },
+      series: { ltUnemployment: { VID: [{ year: 2019, value: 1 }] } },
+      keys: ["ltUnemployment"],
+      undeclared: [],
     };
-    const merged = withCarriedIndicators(freshPayload(), carried);
-    expect(merged.indicators.population).toEqual(POPULATION_META);
-    expect(merged.series.population).toEqual({
-      VID: [{ year: 2024, value: 74.1 }],
+    const fresh = freshPayload();
+    fresh.indicators.ltUnemployment = meta("az-longterm");
+    fresh.series.ltUnemployment = { VID: [{ year: 2025, value: 41.3 }] };
+    const merged = withCarriedIndicators(fresh, carried);
+    expect(merged.indicators.ltUnemployment).toEqual(meta("az-longterm"));
+    expect(merged.series.ltUnemployment).toEqual({
+      VID: [{ year: 2025, value: 41.3 }],
+    });
+  });
+
+  it("does not report a key whose value it could not carry", () => {
+    // The whole point of the reporting is to tell a clean carry from an
+    // already-lost key. A key present by NAME but holding an unusable value
+    // (null, a string, an array) is lost on this write, so it must reach the
+    // "re-run the owner" warning instead of being announced as carried —
+    // which is the pair of wrongs the first version committed at once.
+    withTmpDir((dir) => {
+      const file = join(dir, "regional.json");
+      writeFileSync(
+        file,
+        JSON.stringify({
+          indicators: { ltUnemployment: null, fdiPerCapita: "oops" },
+          series: { ltUnemployment: null, fdiPerCapita: [] },
+        }),
+      );
+      const carried = readForeignIndicators(file);
+      expect(carried.keys).toEqual([]);
+      expect(carried.undeclared).toEqual([]);
+      const merged = withCarriedIndicators(freshPayload(), carried);
+      expect(Object.keys(merged.series)).not.toContain("ltUnemployment");
+      // …and both reach the warning that names their owner.
+      const report = carryReport(carried);
+      expect(report.line).toBeNull();
+      expect(report.missing).toContain("ltUnemployment");
+      expect(report.missing).toContain("fdiPerCapita");
+    });
+  });
+
+  it("accepts an already-parsed payload, not only a path", () => {
+    // main() reuses the `prior` it read for the regression check; the two must
+    // not be able to disagree about what the prior file is.
+    withTmpDir((dir) => {
+      const file = priorFile(dir);
+      const parsed = JSON.parse(readFileSync(file, "utf8"));
+      expect(readForeignIndicators(parsed)).toEqual(
+        readForeignIndicators(file),
+      );
+      expect(readForeignIndicators(null).keys).toEqual([]);
     });
   });
 
@@ -239,8 +297,9 @@ describe("FOREIGN_INDICATORS covers the committed artifact", () => {
     expect(
       unaccounted,
       `these indicator keys are written by neither this writer nor a listed ` +
-        `foreign indicator — add them to FOREIGN_INDICATORS so the carry-forward ` +
-        `log can name their owner`,
+        `foreign indicator. If THIS script produces the key, add it to ` +
+        `DERIVED_INDICATORS (so it is never carried when its degrade path ` +
+        `skips it); if another script does, add it to FOREIGN_INDICATORS`,
     ).toEqual([]);
   });
 
@@ -251,5 +310,80 @@ describe("FOREIGN_INDICATORS covers the committed artifact", () => {
       expect(raw.indicators[key], `${key} missing — run ${owner}`).toBeTruthy();
       expect(raw.series[key], `${key} missing — run ${owner}`).toBeTruthy();
     }
+  });
+});
+
+describe("carryReport — what the operator is told", () => {
+  const empty = { indicators: {}, series: {}, keys: [], undeclared: [] };
+
+  it("names a declared key that was not carried as missing, not carried", () => {
+    const r = carryReport(empty);
+    expect(r.carried).toEqual([]);
+    expect(r.line).toBeNull();
+    expect(r.missing).toEqual(Object.keys(FOREIGN_INDICATORS).sort());
+    expect(r.warnings.join("\n")).toContain("re-run the script that owns it");
+  });
+
+  it("names each missing key's owning script", () => {
+    const r = carryReport(empty);
+    const text = r.warnings.join("\n");
+    for (const owner of new Set(Object.values(FOREIGN_INDICATORS))) {
+      expect(text).toContain(owner);
+    }
+  });
+
+  it("warns about an undeclared carried key so the list can catch up", () => {
+    const r = carryReport({
+      indicators: { someNew: {} as never },
+      series: {},
+      keys: ["someNew"],
+      undeclared: ["someNew"],
+    });
+    expect(r.undeclared).toEqual(["someNew"]);
+    expect(r.line).toContain("someNew");
+    expect(r.warnings.join("\n")).toContain("add them to FOREIGN_INDICATORS");
+  });
+
+  it("says nothing at all when every declared key was carried", () => {
+    const keys = Object.keys(FOREIGN_INDICATORS);
+    const r = carryReport({ ...empty, keys });
+    expect(r.missing).toEqual([]);
+    expect(r.warnings).toEqual([]);
+    expect(r.line).toContain(keys[0]);
+  });
+});
+
+describe("the entry-point guard", () => {
+  // Load-bearing for this whole file. Without it, importing fetch_eurostat
+  // fires five live Eurostat requests and rewrites data/regional.json — the
+  // artifact the describe block above reads — during `npm run test:unit`. The
+  // `node` Vitest project has no setupFiles and a real global fetch, so
+  // nothing else would turn that into a failure.
+  //
+  // Asserted structurally rather than by importing and watching for a fetch:
+  // this file's own static import has already evaluated the module by the time
+  // any test body runs, so a regression does its damage before a stub could
+  // catch it. Measured — with the guard deleted, a stub-and-import test still
+  // reported 16 passed while the run made real network calls.
+  const SOURCE = resolve(__dirname, "fetch_eurostat.ts");
+
+  it("is true only when the module IS the invoked script", () => {
+    const url = pathToFileURL(SOURCE).href;
+    expect(isEntryPoint(url, SOURCE)).toBe(true);
+    expect(isEntryPoint(url, "/usr/local/bin/vitest")).toBe(false);
+    expect(isEntryPoint(url, undefined)).toBe(false);
+    expect(isEntryPoint(url, "")).toBe(false);
+  });
+
+  it("wraps the only call to main()", () => {
+    const src = readFileSync(SOURCE, "utf8");
+    const calls = src.match(/^[^\S\n]*main\(\)/gm) ?? [];
+    expect(calls, "main() should be invoked exactly once").toHaveLength(1);
+    expect(
+      /if \(isEntryPoint\(import\.meta\.url\)\) \{\s*\n\s*main\(\)/.test(src),
+      "main() must be called only inside `if (isEntryPoint(import.meta.url))` " +
+        "— an unguarded call makes every importer, including this test file, " +
+        "run the live Eurostat fetch and rewrite data/regional.json",
+    ).toBe(true);
   });
 });

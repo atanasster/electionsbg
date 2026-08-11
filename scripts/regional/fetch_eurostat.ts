@@ -117,9 +117,32 @@ const INDICATORS: RegionalIndicator[] = [
   },
 ];
 
+// Derived rather than listed in INDICATORS — the raw bd_size_r3 count is
+// normalised against the population series fetched above — but still OURS.
+// Declared once and reused by the fetch, the payload metadata and
+// DERIVED_INDICATORS: a second copy of the key that drifts out of the derived
+// list would classify an own indicator as foreign, which is exactly the
+// resurrect-a-stale-vintage failure the ownership design exists to prevent.
+const ENTERPRISE_DENSITY: RegionalIndicator = {
+  key: "enterpriseDensity",
+  dataset: "bd_size_r3",
+  query: {
+    indic_sb: "V11910",
+    sizeclas: "TOTAL",
+    nace_r2: "B-S_X_K642",
+    freq: "A",
+  },
+  titleEn: "Active enterprises per 1000 inhabitants",
+  titleBg: "Активни предприятия на 1000 души",
+  unitLabelEn: "per 1000 inhabitants",
+  unitLabelBg: "на 1000 души",
+  sourceUrl:
+    "https://ec.europa.eu/eurostat/databrowser/view/bd_size_r3/default/table",
+};
+
 // Indicator keys this script derives rather than fetching from a listed
 // dataset. Own keys, so they are never carried forward — see OWN_INDICATORS.
-const DERIVED_INDICATORS = ["enterpriseDensity"] as const;
+const DERIVED_INDICATORS = [ENTERPRISE_DENSITY.key] as const;
 
 /**
  * Every indicator key THIS writer produces. Anything else found in the prior
@@ -153,15 +176,33 @@ export const OWN_INDICATORS: readonly string[] = [
  * An undeclared foreign key is still carried (losing a new writer's data is
  * worse than an out-of-date list), but it is reported so the list can catch
  * up; `regional_foreign_indicators.test.ts` fails when the committed artifact
- * carries one.
+ * carries one. That policy is the deliberate DIFFERENCE from the sibling:
+ * `FOREIGN_BLOCKS` is an allowlist and destroys anything outside it, which
+ * suits a payload of ~11 fixed top-level blocks. Here the carried unit is an
+ * indicator key — an open set that grows whenever someone adds a merger — so
+ * ownership, not enumeration, is what decides.
+ *
+ * `fetch_nsi.ts`'s four are per-capita ratios whose DENOMINATOR is the
+ * `population` series this script rewrites, so a carried value is divided by a
+ * population vintage this file no longer holds. Carrying them is still right —
+ * losing them outright is worse, and the drift across a Eurostat revision is
+ * small — but it is why `fetch_nsi.ts` must be re-run after ANY run of this
+ * script, not only when NSI itself publishes. `ltUnemployment` is a raw share
+ * of registered unemployed and is not affected.
  */
-export const FOREIGN_INDICATORS: Record<string, string> = {
+export const FOREIGN_INDICATORS = {
   fdiPerCapita: "scripts/regional/fetch_nsi.ts",
   museumVisitsPer1000: "scripts/regional/fetch_nsi.ts",
   hospitalBedsPer1000: "scripts/regional/fetch_nsi.ts",
   deathRatePer1000: "scripts/regional/fetch_nsi.ts",
   ltUnemployment: "scripts/regional/fetch_az_oblast.ts",
-};
+} as const satisfies Record<string, string>;
+
+type ForeignIndicatorKey = keyof typeof FOREIGN_INDICATORS;
+
+/** `Object.keys` on the frozen list, keeping the literal key type. */
+const declaredForeignKeys = () =>
+  Object.keys(FOREIGN_INDICATORS) as ForeignIndicatorKey[];
 
 type EurostatResponse = {
   value: Record<string, number> | number[];
@@ -293,7 +334,7 @@ export type CarriedIndicators = {
   indicators: RegionalPayload["indicators"];
   /** Foreign entries from the prior file's `series` block. */
   series: RegionalPayload["series"];
-  /** Every foreign key found, sorted — what the run log reports as carried. */
+  /** Keys actually carried, sorted — what the run log reports as carried. */
   keys: string[];
   /** Foreign keys absent from FOREIGN_INDICATORS. Carried, but reported. */
   undeclared: string[];
@@ -308,9 +349,14 @@ const isObject = (v: unknown): v is Record<string, unknown> =>
  * the fresh payload. A missing file or unreadable JSON yields nothing to carry
  * — a first-ever run on a clean machine legitimately has none, and a truncated
  * file must not abort the whole regional refresh.
+ *
+ * Takes an already-parsed payload as well as a path, so `main()` can reuse the
+ * `prior` it read for the regression check rather than parsing the artifact a
+ * second time — and so the two can never disagree about what "the prior file"
+ * is if either ever gains a filter.
  */
 export const readForeignIndicators = (
-  file: string = OUT_FILE,
+  src: string | RegionalPayload | null = OUT_FILE,
 ): CarriedIndicators => {
   const carried: CarriedIndicators = {
     indicators: {},
@@ -318,7 +364,7 @@ export const readForeignIndicators = (
     keys: [],
     undeclared: [],
   };
-  const prior = readPrior(file);
+  const prior = typeof src === "string" ? readPrior(src) : src;
   if (!prior) return carried;
 
   const priorIndicators = isObject(prior.indicators) ? prior.indicators : {};
@@ -338,8 +384,21 @@ export const readForeignIndicators = (
     }
     if (isObject(priorSeries[key])) carried.series[key] = priorSeries[key];
   }
-  carried.keys = foreignKeys;
-  carried.undeclared = foreignKeys.filter((k) => !(k in FOREIGN_INDICATORS));
+
+  // What was actually CARRIED — not what was merely named in the prior file.
+  // A key whose value failed isObject() (null, a string, an array) is lost on
+  // this write, so it must fall through to the "re-run the owner" warning
+  // rather than be reported as a clean carry. Reporting the names instead did
+  // both wrong things at once: it claimed the carry AND suppressed the warning
+  // for exactly the key that was lost. Still a union, so the orphan-half case
+  // (present in one block only) is kept.
+  carried.keys = [
+    ...new Set([
+      ...Object.keys(carried.indicators),
+      ...Object.keys(carried.series),
+    ]),
+  ].sort();
+  carried.undeclared = carried.keys.filter((k) => !(k in FOREIGN_INDICATORS));
   return carried;
 };
 
@@ -361,6 +420,56 @@ export const withCarriedIndicators = (
     if (!(key in series)) series[key] = s;
   }
   return { ...payload, indicators, series };
+};
+
+export type CarryReport = {
+  /** Foreign keys this run carried across the rewrite. */
+  carried: string[];
+  /** Declared foreign keys NOT carried — absent, or unusable in the prior file. */
+  missing: string[];
+  /** Carried keys absent from FOREIGN_INDICATORS. */
+  undeclared: string[];
+  /** The stdout line, or null when nothing was carried. */
+  line: string | null;
+  /** The stderr warnings, in the order they should be emitted. */
+  warnings: string[];
+};
+
+/**
+ * What the operator is told about the carry-forward. Pure, and separate from
+ * `main()`, because discriminating "clean carry" from "already lost" IS the
+ * design — a version of this that could only be exercised by running the real
+ * Eurostat fetch is how it came to claim a carry that had not happened.
+ */
+export const carryReport = (carried: CarriedIndicators): CarryReport => {
+  const missing = declaredForeignKeys()
+    .filter((k) => !carried.keys.includes(k))
+    .sort();
+  const warnings: string[] = [];
+  if (missing.length) {
+    const owners = [...new Set(missing.map((k) => FOREIGN_INDICATORS[k]))];
+    warnings.push(
+      `NOTE: ${missing.join(", ")} not present in the previous ` +
+        `${path.basename(OUT_FILE)} — nothing to carry. If this is not a first ` +
+        `run, re-run the script that owns it (${owners.join(", ")}).`,
+    );
+  }
+  if (carried.undeclared.length) {
+    warnings.push(
+      `NOTE: carried undeclared foreign indicator(s) ` +
+        `${carried.undeclared.join(", ")} — add them to FOREIGN_INDICATORS in ` +
+        `${path.basename(__filename)} so the run log can name their owner.`,
+    );
+  }
+  return {
+    carried: carried.keys,
+    missing,
+    undeclared: carried.undeclared,
+    line: carried.keys.length
+      ? `carried forward from other writers: ${carried.keys.join(", ")}`
+      : null,
+    warnings,
+  };
 };
 
 const totalPoints = (series: Record<string, RegionalPoint[]>): number => {
@@ -450,23 +559,10 @@ const main = async () => {
   // skipped key simply won't appear in regional.json (consumers iterate the
   // payload's keys, so nothing breaks); the warning surfaces in the run log.
   try {
-    process.stdout.write(`Deriving enterpriseDensity (bd_size_r3 V11910)... `);
-    const entCountNuts3 = await fetchEurostat({
-      key: "enterpriseDensity",
-      dataset: "bd_size_r3",
-      query: {
-        indic_sb: "V11910",
-        sizeclas: "TOTAL",
-        nace_r2: "B-S_X_K642",
-        freq: "A",
-      },
-      titleEn: "Active enterprises per 1000 inhabitants",
-      titleBg: "Активни предприятия на 1000 души",
-      unitLabelEn: "per 1000 inhabitants",
-      unitLabelBg: "на 1000 души",
-      sourceUrl:
-        "https://ec.europa.eu/eurostat/databrowser/view/bd_size_r3/default/table",
-    });
+    process.stdout.write(
+      `Deriving ${ENTERPRISE_DENSITY.key} (${ENTERPRISE_DENSITY.dataset} V11910)... `,
+    );
+    const entCountNuts3 = await fetchEurostat(ENTERPRISE_DENSITY);
     const entByOblast = projectToOblasts(entCountNuts3);
     const density: Record<string, RegionalPoint[]> = {};
     for (const [oblast, entSeries] of Object.entries(entByOblast)) {
@@ -491,28 +587,37 @@ const main = async () => {
       weakestDensity < MIN_POINTS_PER_OBLAST
     ) {
       throw new Error(
-        `enterpriseDensity covered ${Object.keys(density).length} oblasts, weakest ${weakestDensity} points (floor ${MIN_POINTS_PER_OBLAST})`,
+        `${ENTERPRISE_DENSITY.key} covered ${Object.keys(density).length} oblasts, weakest ${weakestDensity} points (floor ${MIN_POINTS_PER_OBLAST})`,
       );
     }
-    series.enterpriseDensity = density;
-    indicatorsMeta.enterpriseDensity = {
-      titleEn: "Active enterprises per 1000 inhabitants",
-      titleBg: "Активни предприятия на 1000 души",
-      unitLabelEn: "per 1000 inhabitants",
-      unitLabelBg: "на 1000 души",
-      sourceUrl:
-        "https://ec.europa.eu/eurostat/databrowser/view/bd_size_r3/default/table",
-      datasetCode: "bd_size_r3",
+    series[ENTERPRISE_DENSITY.key] = density;
+    indicatorsMeta[ENTERPRISE_DENSITY.key] = {
+      titleEn: ENTERPRISE_DENSITY.titleEn,
+      titleBg: ENTERPRISE_DENSITY.titleBg,
+      unitLabelEn: ENTERPRISE_DENSITY.unitLabelEn,
+      unitLabelBg: ENTERPRISE_DENSITY.unitLabelBg,
+      sourceUrl: ENTERPRISE_DENSITY.sourceUrl,
+      datasetCode: ENTERPRISE_DENSITY.dataset,
     };
     console.log(`${Object.keys(density).length} oblasts`);
   } catch (err) {
     console.warn(
-      `\n  ! enterpriseDensity skipped — ${err instanceof Error ? err.message : String(err)}`,
+      `\n  ! ${ENTERPRISE_DENSITY.key} skipped — ${err instanceof Error ? err.message : String(err)}`,
     );
   }
 
-  // Read BEFORE the write, since the write is what would destroy them.
-  const carried = readForeignIndicators();
+  // `prior` was read at the top of main(), i.e. BEFORE the write that would
+  // destroy these — which is the property that matters, not where the carry is
+  // computed.
+  const carried = readForeignIndicators(prior);
+  const report = carryReport(carried);
+
+  // Emitted BEFORE the write: these describe what was READ, so they are true
+  // either way, and a write that throws (disk full, permissions) leaves the
+  // operator knowing which indicators were in flight and that the file on disk
+  // is of unknown state.
+  if (report.line) console.log(report.line);
+  for (const w of report.warnings) console.warn(w);
 
   const payload = withCarriedIndicators(
     {
@@ -530,42 +635,29 @@ const main = async () => {
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload));
   console.log(`\nWrote ${OUT_FILE}`);
-
-  // Say which foreign indicators survived, and — more importantly — which did
-  // not. A key listed in FOREIGN_INDICATORS but absent from the prior file is
-  // either a first-ever run or a key that was already lost, and those two must
-  // not look the same as a clean carry-forward.
-  if (carried.keys.length) {
-    console.log(
-      `carried forward from other writers: ${carried.keys.join(", ")}`,
-    );
-  }
-  const missing = Object.keys(FOREIGN_INDICATORS).filter(
-    (k) => !carried.keys.includes(k),
-  );
-  if (missing.length) {
-    console.warn(
-      `NOTE: ${missing.join(", ")} not present in the previous ` +
-        `${path.basename(OUT_FILE)} — nothing to carry. If this is not a first ` +
-        `run, re-run the script that owns it (` +
-        `${[...new Set(missing.map((k) => FOREIGN_INDICATORS[k]))].join(", ")}).`,
-    );
-  }
-  if (carried.undeclared.length) {
-    console.warn(
-      `NOTE: carried undeclared foreign indicator(s) ` +
-        `${carried.undeclared.join(", ")} — add them to FOREIGN_INDICATORS in ` +
-        `${path.basename(__filename)} so the run log can name their owner.`,
-    );
-  }
 };
+
+/**
+ * Whether this module is the script node was actually asked to run, as opposed
+ * to a module something else imported.
+ *
+ * Exported so it can be tested directly. It cannot be tested by importing this
+ * module and watching for a fetch: the test file's own static import has
+ * already evaluated it by then, so a regression here does its damage — five
+ * live Eurostat requests and a rewrite of `data/regional.json` — before any
+ * assertion or `fetch` stub can run.
+ */
+export const isEntryPoint = (
+  moduleUrl: string,
+  argv1: string | undefined = process.argv[1],
+): boolean => moduleUrl === pathToFileURL(argv1 ?? "").href;
 
 // Run only when invoked as the entry point. Without this guard, `import`ing
 // anything from this module — as regional_foreign_indicators.test.ts does for
 // readForeignIndicators / withCarriedIndicators — fires the whole Eurostat
 // fetch and a rewrite of data/regional.json racing the very test that reads
 // it. Same guard shape as scripts/macro/fetch_eu_peers.ts.
-if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+if (isEntryPoint(import.meta.url)) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);
