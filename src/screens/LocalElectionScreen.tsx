@@ -38,7 +38,11 @@ import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { friendlyCycleDate, friendlyIsoDate } from "@/data/local/cycleDate";
+import {
+  friendlyCycleDate,
+  friendlyIsoDate,
+  localCycleKind,
+} from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
 import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicycleTile";
@@ -866,6 +870,11 @@ const MunicipalityResults: FC<{
     /^S2\d{3}$/.test(obshtinaCode) ? obshtinaCode : null,
   );
   const cycleDate = friendlyCycleDate(cycle);
+  // Is the cycle being VIEWED itself a by-election? Independent of `showPartial`
+  // below, which asks the different question "did a LATER by-election supersede
+  // this cycle's mayor" — on a chmi page that is false and the page was still
+  // calling its own частичен избор „редовен".
+  const isPartialCycle = localCycleKind(cycle) === "partial";
   // Council polling-station shard drives the map shown beside both the mayor
   // and council tiles (Sofia район shards read from the city-wide SOF bundle).
   const { shard, hasCoords } = useLocalSectionShard(cycle, obshtinaCode);
@@ -988,9 +997,16 @@ const MunicipalityResults: FC<{
       : municipality.protocol.numValidVotes > 0
         ? municipality.protocol.numValidVotes
         : municipality.council.reduce((a, p) => a + p.totalVotes, 0);
-  const regularSource = t("local_election_ballot_source_regular", {
-    date: cycleDate,
-  });
+  // Provenance line under the ballot cards. It names the CYCLE BEING VIEWED, so
+  // it takes that cycle's kind — a chmi page was labelling its own частичен
+  // избор „редовен · <date>". Only the mayor card can override it below, and
+  // only when a still-newer by-election supersedes this cycle's winner.
+  const cycleSource = t(
+    isPartialCycle
+      ? "local_election_ballot_source_partial"
+      : "local_election_ballot_source_regular",
+    { date: cycleDate },
+  );
   const mayorBallotBundle =
     showPartial && partialBundle ? partialBundle.mayor : municipality.mayor;
   const mayorVotesCast = mayorBallotBundle.round1.reduce(
@@ -1029,12 +1045,12 @@ const MunicipalityResults: FC<{
         : undefined,
     source: showPartial
       ? t("local_election_ballot_source_partial", { date: partialDate })
-      : regularSource,
+      : cycleSource,
   };
   const councilBallot: BallotStat = {
     votes: councilVotes,
     turnout: electionTurnout,
-    source: regularSource,
+    source: cycleSource,
   };
 
   // Runoff head-to-head bar for a mayor race that went to round 2.
@@ -1228,6 +1244,7 @@ const MunicipalityResults: FC<{
               regular={municipality.mayor}
               partial={partialBundle.mayor}
               regularDate={cycleDate}
+              regularKind={isPartialCycle ? "partial" : "regular"}
               partialDate={partialDate}
               className="mt-4"
             />
@@ -1236,10 +1253,17 @@ const MunicipalityResults: FC<{
               obshtinaCode={obshtinaCode}
               className="mt-4"
             />
-            {/* Original regular-cycle results, relegated below the timeline. */}
+            {/* This cycle's own results, relegated below the timeline. Usually
+                the regular vote — but on a chmi page it is a by-election that a
+                still-later one superseded, so it takes the cycle's kind. */}
             <div className="mt-6">
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                {t("local_election_regular_results_title", { date: cycleDate })}
+                {t(
+                  isPartialCycle
+                    ? "local_election_partial_results_title"
+                    : "local_election_regular_results_title",
+                  { date: cycleDate },
+                )}
               </div>
               {mayorRunoff(municipality.mayor.round2)}
               {raceRow(
@@ -1663,9 +1687,14 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
   const cityCouncilParties = municipality.council.filter(
     (p) => p.mandatesWon > 0,
   ).length;
-  const regularSource = t("local_election_ballot_source_regular", {
-    date: cycleDate,
-  });
+  // Names the cycle being viewed, so it carries that cycle's kind (see the
+  // município scope above). A район page has no by-election override at all.
+  const cycleSource = t(
+    localCycleKind(cycle) === "partial"
+      ? "local_election_ballot_source_partial"
+      : "local_election_ballot_source_regular",
+    { date: cycleDate },
+  );
 
   return (
     <section className="my-4">
@@ -1704,7 +1733,7 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
             stat={{
               votes: rayonMayorValid,
               turnout: rayonTurnout,
-              source: regularSource,
+              source: cycleSource,
             }}
           />
           <StatItem
@@ -1725,7 +1754,7 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
             stat={{
               votes: rayonCouncilValid,
               turnout: rayonTurnout,
-              source: regularSource,
+              source: cycleSource,
             }}
           />
         </div>

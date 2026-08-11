@@ -20,6 +20,8 @@
 // A mandate legally begins at the constitutive session, days to weeks later, and the UI says
 // so; this module must never be read as publishing a day of investiture.
 
+import { localCycleKind } from "@/data/local/cycleDate";
+
 /** `2023_10_29_mi` → `2023-10-29`. Null for anything not shaped like a cycle folder. */
 export const localCycleDate = (cycle: string): string | null => {
   const m = /^(\d{4})_(\d{2})_(\d{2})_/.exec(cycle);
@@ -41,9 +43,14 @@ export const localCycleDate = (cycle: string): string | null => {
  * The suffix test is exact for the same reason the ref parse is: `2024_06_23_chmi` also ends
  * in "mi", so a `.includes("mi")` — or an `endsWith("mi")` — would classify every partial as
  * a general election and retire the entire country's mandates on the day one village voted.
+ *
+ * Delegated to `localCycleKind` rather than restated: the SPA classifies the same slugs to
+ * label a contest „редовен вот" vs „частичен избор", and a rule copied by hand into two trees
+ * is one that drifts. An unrecognised slug is not `regular` — same conservative answer the
+ * literal suffix test gave.
  */
 export const isRegularLocalCycle = (cycle: string): boolean =>
-  cycle.endsWith("_mi");
+  localCycleKind(cycle) === "regular";
 
 export type LocalTermIndex = {
   /** Sorted ISO dates of the regular cycles. */

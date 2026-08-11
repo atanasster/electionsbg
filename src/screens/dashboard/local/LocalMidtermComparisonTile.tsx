@@ -57,9 +57,21 @@ export const LocalMidtermComparisonTile: FC<{
   partial: MayorBundle;
   regularDate: string;
   partialDate: string;
+  /** What the BASELINE (`regular`) side actually is. It is the cycle being
+   *  viewed, which is a by-election on a chmi page — so the column header,
+   *  title and hint must not assert „редовен вот" for it. */
+  regularKind?: "regular" | "partial";
   className?: string;
-}> = ({ regular, partial, regularDate, partialDate, className }) => {
+}> = ({
+  regular,
+  partial,
+  regularDate,
+  partialDate,
+  regularKind = "regular",
+  className,
+}) => {
   const { t } = useTranslation();
+  const baselineIsPartial = regularKind === "partial";
 
   const m = useMemo(() => {
     const regVotes = regular.round1.reduce((a, c) => a + c.votes, 0);
@@ -135,16 +147,31 @@ export const LocalMidtermComparisonTile: FC<{
       label={
         <div className="flex items-center gap-2">
           <ArrowLeftRight className="h-4 w-4" />
-          <span>{t("local_election_midterm_compare_title")}</span>
+          <span>
+            {t(
+              baselineIsPartial
+                ? "local_election_midterm_compare_title_partial"
+                : "local_election_midterm_compare_title",
+            )}
+          </span>
         </div>
       }
-      hint={t("local_election_midterm_compare_hint")}
+      hint={t(
+        baselineIsPartial
+          ? "local_election_midterm_compare_hint_partial"
+          : "local_election_midterm_compare_hint",
+      )}
     >
       <div className="mt-2">
         <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto] gap-x-3 gap-y-2 items-center text-sm">
           <span />
           <span className="text-right text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-            {t("local_election_compare_col_regular", { date: regularDate })}
+            {t(
+              baselineIsPartial
+                ? "local_election_compare_col_partial"
+                : "local_election_compare_col_regular",
+              { date: regularDate },
+            )}
           </span>
           <span className="text-right text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
             {t("local_election_compare_col_partial", { date: partialDate })}

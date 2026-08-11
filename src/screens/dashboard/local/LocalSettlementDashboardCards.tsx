@@ -27,7 +27,7 @@ import { LocalPlaceTrendsTile } from "./LocalPlaceTrendsTile";
 import { LocalMayorRunoffBar } from "./LocalMayorRunoffBar";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
-import { friendlyIsoDate } from "@/data/local/cycleDate";
+import { friendlyIsoDate, localCycleKind } from "@/data/local/cycleDate";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
 import type {
@@ -409,13 +409,24 @@ export const LocalSettlementDashboardCards: FC<{
     );
   }, [byElectionBundle, currentByElection, name]);
 
-  // Headline contest = the by-election when present, else the regular vote.
+  // What the CYCLE being viewed is. Not derivable from whether a newer vote
+  // superseded it: on a chmi-cycle page there is no newer event by definition,
+  // so falling back to "regular" there labelled the cycle's own частичен избор
+  // „редовен вот". Only a slug that positively reads as partial flips the label
+  // — an unclassifiable one keeps the previous default rather than asserting a
+  // by-election, and the card renders nothing for it anyway (no data).
+  const cycleKind: "regular" | "partial" =
+    localCycleKind(cycle) === "partial" ? "partial" : "regular";
+
+  // Headline contest = the by-election when present, else this cycle's own vote.
   const featuredKmetstvo = latestKmetstvo ?? kmetstvo ?? null;
   const featuredDate =
     latestKmetstvo && currentByElection ? currentByElection.date : cycleIso;
+  // A superseding by-election is always partial; otherwise the headline IS the
+  // viewed cycle's contest, so it carries that cycle's kind.
   const featuredKind: "regular" | "partial" = latestKmetstvo
     ? "partial"
-    : "regular";
+    : cycleKind;
 
   // Earlier contests, newest-first: older by-elections then the regular vote.
   const previousContests = useMemo<PreviousContest[]>(() => {
@@ -434,15 +445,25 @@ export const LocalSettlementDashboardCards: FC<{
           personSlug: e.personSlug,
         },
       }));
-    const regularWinner =
+    const cycleWinner =
       kmetstvo?.elected ??
       kmetstvo?.candidates.find((c) => c.isElected) ??
       null;
-    if (regularWinner) {
-      prev.push({ date: cycleIso, kind: "regular", winner: regularWinner });
+    // The viewed cycle's own contest, with ITS kind — not a hardcoded "regular".
+    // On a chmi cycle the chmi feed above already carries this same vote, so
+    // guard on the date or the list shows 20.10.2024 twice, once per source.
+    if (cycleWinner && !prev.some((p) => p.date === cycleIso)) {
+      prev.push({ date: cycleIso, kind: cycleKind, winner: cycleWinner });
     }
     return prev;
-  }, [latestKmetstvo, currentByElection, kmetstvoEvents, kmetstvo, cycleIso]);
+  }, [
+    latestKmetstvo,
+    currentByElection,
+    kmetstvoEvents,
+    kmetstvo,
+    cycleIso,
+    cycleKind,
+  ]);
 
   // The кметство race and the parent bundle come from two different shards, and on a PARTIAL
   // cycle only one of them usually exists: a chmi folder holds just the municipalities that
