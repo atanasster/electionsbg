@@ -40,10 +40,17 @@ export const PairMovementStrip: FC<{
       <ul className="divide-y max-h-[320px] overflow-y-auto pr-1">
         {rows.map((r) => {
           const selected = r.id === selectedId;
-          const width =
-            r.delta === null
-              ? 0
-              : Math.max(2, (Math.abs(r.delta) / widest) * 50);
+          // Rounded FIRST, and everything downstream keys off the rounded value. A pair that
+          // moved by less than half a point is a pair that held steady, and the three
+          // independent renderings of it disagreed: the sign said „−", the rounded number
+          // said 0, and the bar still painted a 2%-wide RED stub — red being this card's
+          // "came apart" colour. „−0 т." beside a red mark is a divergence that did not
+          // happen.
+          const points = r.delta === null ? null : Math.abs(pct(r.delta));
+          const moved = points !== null && points > 0;
+          const width = moved
+            ? Math.max(2, (Math.abs(r.delta as number) / widest) * 50)
+            : 0;
           const up = (r.delta ?? 0) > 0;
           return (
             <li key={r.id}>
@@ -58,14 +65,14 @@ export const PairMovementStrip: FC<{
                 <div className="flex items-baseline gap-1.5 text-xs flex-wrap">
                   <span
                     className="font-medium truncate max-w-[42%]"
-                    style={{ color: colorFor(r.a) }}
+                    style={{ color: colorFor(r.aRaw) }}
                   >
                     {labelFor(r.aRaw)}
                   </span>
                   <span className="text-muted-foreground">↔</span>
                   <span
                     className="font-medium truncate max-w-[42%]"
-                    style={{ color: colorFor(r.b) }}
+                    style={{ color: colorFor(r.bRaw) }}
                   >
                     {labelFor(r.bRaw)}
                   </span>
@@ -84,7 +91,7 @@ export const PairMovementStrip: FC<{
                 <div className="mt-1 flex items-center gap-2">
                   <div className="relative h-1.5 flex-1 rounded bg-muted">
                     <div className="absolute inset-y-0 left-1/2 w-px bg-border" />
-                    {r.delta !== null && (
+                    {moved && (
                       <div
                         className={`absolute inset-y-0 rounded ${
                           up ? "bg-emerald-600" : "bg-red-600"
@@ -98,16 +105,20 @@ export const PairMovementStrip: FC<{
                     )}
                   </div>
                   <span className="text-[11px] text-muted-foreground tabular-nums shrink-0">
-                    {r.delta === null || r.prevNs === null
+                    {points === null || r.prevNs === null
                       ? t("corr_history_new_pair")
-                      : t("corr_history_delta", {
-                          sign: r.delta > 0 ? "+" : "−",
-                          points: Math.abs(pct(r.delta)),
-                          // NOT `ns`: that is a RESERVED i18next option (the namespace),
-                          // so passing the parliament under it made every lookup miss and
-                          // rendered the raw key on every row.
-                          nsLabel: nsOrdinal(r.prevNs, i18n.language),
-                        }) +
+                      : (moved
+                          ? t("corr_history_delta", {
+                              sign: (r.delta as number) > 0 ? "+" : "−",
+                              points,
+                              // NOT `ns`: that is a RESERVED i18next option (the
+                              // namespace), so passing the parliament under it made every
+                              // lookup miss and rendered the raw key on every row.
+                              nsLabel: nsOrdinal(r.prevNs, i18n.language),
+                            })
+                          : t("corr_history_no_change", {
+                              nsLabel: nsOrdinal(r.prevNs, i18n.language),
+                            })) +
                         // The comparison ran through a coalition or an older name, so the
                         // row says which rather than implying a like-for-like.
                         (r.prevVia

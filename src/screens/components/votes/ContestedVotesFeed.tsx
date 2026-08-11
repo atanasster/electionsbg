@@ -49,7 +49,11 @@ export const ContestedVotesFeed: FC<Props> = ({
   // 52nd's last sitting was 24 July; the tile was still headed "тази седмица" on 11 August),
   // and the fallback ranks the whole term. The basis line below carries whichever it is.
   // An anchorless window has no honest label, so it gets none — falling through to the
-  // all-time string would reintroduce the defect from the other side.
+  // all-time string would reintroduce the defect from the other side. That branch is
+  // UNREACHABLE today (on the PG path a null anchor implies an empty allTime, which makes
+  // pgQueryFn return null and hand over to the JSON path; on the JSON path empty entries
+  // make items empty and the component has already returned above), and it is kept because
+  // the invariant belongs to the route rather than to this component.
   const period =
     basis === "allTime"
       ? t("votes_landing_breaks_alltime")

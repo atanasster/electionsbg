@@ -25,14 +25,22 @@ export const nsOrdinal = (ns: string, lang: string): string => {
               : "th";
     return `${n}${suffix}`;
   }
+  // Teens take „-то" throughout (единадесето, дванадесето, седемнадесето), so they are
+  // checked before the last digit — as in the English branch above. Unreachable for an NS
+  // number, which starts at 44 and only rises; present because the helper is exported and
+  // generically named, and because a branch that handles teens in one language and not the
+  // other reads as an oversight rather than as a decision.
   const last = n % 10;
+  const tens = n % 100;
   const suffix =
-    last === 1
-      ? "во"
-      : last === 2
-        ? "ро"
-        : last === 7 || last === 8
-          ? "мо"
-          : "то";
+    tens >= 11 && tens <= 19
+      ? "то"
+      : last === 1
+        ? "во"
+        : last === 2
+          ? "ро"
+          : last === 7 || last === 8
+            ? "мо"
+            : "то";
   return `${n}-${suffix}`;
 };

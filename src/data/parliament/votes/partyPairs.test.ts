@@ -183,6 +183,32 @@ describe("identitiesForSlice (a coalition standing in for its components)", () =
     expect(ids.every((i) => i.via === undefined)).toBe(true);
   });
 
+  it("refuses to lend on a PARTIAL split, rather than pairing a group against itself", () => {
+    // ПП sits separately while ДБ does not. Lending per-component would give ДБ the
+    // coalition's row, so ПП↔ДБ would resolve to matrix[ПП][ПП-ДБ] — one group against a
+    // coalition containing it, inflated upward, and with a `via` on only one end so it
+    // reads as an ordinary observation. No parliament seats this shape today; the guard is
+    // here because the failure is a confidently wrong number rather than an empty cell.
+    const ids = identitiesForSlice(
+      slice(
+        [
+          ["ГЕРБ-СДС", 1000],
+          ["ПП", 900],
+          ["ПП - ДБ", 800],
+        ],
+        [
+          [1, 0.2, 0.25],
+          [0.2, 1, 0.9],
+          [0.25, 0.9, 1],
+        ],
+      ),
+    );
+    expect(ids.map((i) => i.key).sort()).toEqual(["ГЕРБ-СДС", "ПП"]);
+    // ДБ gets no identity at all: a gap is the honest answer when the only row that could
+    // speak for it already contains its sibling.
+    expect(ids.some((i) => i.key === "ДБ")).toBe(false);
+  });
+
   it("suppresses the components' OWN pair — the diagonal is 1 by definition", () => {
     const s = buildPairSeries({
       computedAt: "x",

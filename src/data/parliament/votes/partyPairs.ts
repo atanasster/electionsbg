@@ -15,6 +15,7 @@
 // are therefore CURATED BY HAND, never inferred from the names. Every point they produce
 // carries `via` so the join is visible on the page rather than asserted silently.
 
+import { isGroupSentinel } from "@/data/parties/parliamentGroupAliases";
 import type { PartyCorrelationFile, PartyCorrelationSlice } from "./types";
 
 /** RULE 1 — fold SPELLINGS, never merge NAMES.
@@ -40,8 +41,14 @@ export const canonGroupKey = (raw: string): string =>
  *
  *  „НЕЗ" and „НЕЧЛ В ПГ" are members WITHOUT a group, so a similarity between them and a
  *  party is a number about unrelated individuals who happen to be filed together. 135's
- *  party_cohesion matview already filters the same two buckets, for the same reason. */
-const NOT_A_GROUP = new Set(["НЕЗ", "НЕЧЛ В ПГ", "НЕЧЛ ПГ"]);
+ *  party_cohesion matview already filters the same two buckets, for the same reason.
+ *
+ *  The membership test is `isGroupSentinel`, imported rather than restated: it folds through
+ *  normalizeGroupShort before comparing, so a spelling this module has not seen still reads
+ *  as a sentinel. A local exact-match set would fail in the worst direction — an unaffiliated
+ *  bucket becoming a "party" with an arc across parliaments and a row on the movement board,
+ *  which is the thing this rule exists to prevent. It is tested on the RAW spelling, before
+ *  canonGroupKey, because the helper does its own folding. */
 
 /** RULE 3 — a residue is not a group either.
  *
@@ -50,9 +57,13 @@ const NOT_A_GROUP = new Set(["НЕЗ", "НЕЧЛ В ПГ", "НЕЧЛ ПГ"]);
  *  real point: before this floor the ГЕРБ-СДС↔ДПС arc showed a dramatic collapse to 0 in
  *  the 51st that was entirely this row. Both floors are needed — the relative one alone
  *  would keep a residue in a short parliament (the 45th sat 17 days), the absolute one
- *  alone would keep it in a long one. */
-const MIN_ITEMS = 20;
-const MIN_SHARE_OF_BUSIEST = 0.05;
+ *  alone would keep it in a long one.
+ *
+ *  EXPORTED because the on-page caveat quotes both numbers. Interpolated rather than
+ *  re-typed into two locale files, so moving a floor cannot leave the page asserting the
+ *  old one in two languages at a 200. */
+export const MIN_ITEMS = 20;
+export const MIN_SHARE_OF_BUSIEST = 0.05;
 
 /** RULE 4 — a coalition STANDS IN for its components while they sit as one group.
  *
@@ -165,8 +176,8 @@ export const groupsForSlice = (slice: PartyCorrelationSlice): Group[] => {
   const busiest = Math.max(0, ...Object.values(slice.participation ?? {}));
   const byKey = new Map<string, Group>();
   slice.parties.forEach((raw, index) => {
+    if (isGroupSentinel(raw)) return;
     const key = canonGroupKey(raw);
-    if (NOT_A_GROUP.has(key)) return;
     const participation = slice.participation?.[raw] ?? 0;
     const prev = byKey.get(key);
     if (!prev || participation > prev.participation) {
@@ -185,7 +196,15 @@ export const groupsForSlice = (slice: PartyCorrelationSlice): Group[] => {
  *  A coalition never keeps an identity of its own alongside the ones it lends: that would
  *  be the same votes counted twice, once as ПП-ДБ↔ГЕРБ-СДС and again as ПП↔ГЕРБ-СДС, and
  *  the movement board would list both rows. When every component sits separately the
- *  coalition has nothing to lend and drops out entirely. */
+ *  coalition has nothing to lend and drops out entirely.
+ *
+ *  LENDING IS ALL-OR-NOTHING. If either component sits separately BESIDE the coalition, the
+ *  coalition's row already contains that component, so it cannot stand in for the other
+ *  without pairing a group against itself: ПП↔ДБ would resolve to matrix[ПП][ПП-ДБ], a
+ *  partial self-correlation inflated upward, and only the ДБ end would carry a `via` — so it
+ *  would read as an ordinary observation. No parliament in the corpus seats that shape today
+ *  (49th-51st seat only the coalition, 47th/48th/52nd only the components), which is exactly
+ *  why the guard is worth having in writing rather than in the data. */
 export const identitiesForSlice = (
   slice: PartyCorrelationSlice,
 ): PartyIdentity[] => {
@@ -209,8 +228,10 @@ export const identitiesForSlice = (
       out.push(g);
       continue;
     }
+    // All-or-nothing (see the header): one component sitting separately makes this row a
+    // container for it, not a stand-in for its sibling.
+    if (components.some((key) => present.has(key))) continue;
     for (const key of components) {
-      if (present.has(key)) continue;
       // `raw` is the component's own name: the label says ПП, and `via` is what qualifies
       // it. Naming the coalition here instead would put ПП-ДБ on an axis labelled ПП.
       out.push({ ...g, key, raw: key, via: g.raw });

@@ -13,6 +13,10 @@ import { useTranslation } from "react-i18next";
 import { History } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { usePartyCorrelationHistory } from "@/data/parliament/votes/usePartyCorrelation";
+import {
+  MIN_ITEMS,
+  MIN_SHARE_OF_BUSIEST,
+} from "@/data/parliament/votes/partyPairs";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { PairCorrelationArcChart } from "@/screens/components/charts/PairCorrelationArcChart";
 import { PairMovementStrip } from "./PairMovementStrip";
@@ -41,8 +45,14 @@ export const CorrelationHistoryCard: FC = () => {
   // (the 45th sat 17 days), so they render nothing rather than an empty frame.
   if (isLoading || movement.length === 0 || parliaments.length < 2) return null;
 
+  // Both helpers take a DISPLAY short, and both get the same one — `aRaw`/`bRaw`, which
+  // PairSeries documents as "what to display". Handing the colour lookup the canonical fold
+  // key and the label lookup the raw spelling worked only because useParliamentGroups tries
+  // several variants; it is how one of the two starts missing when either fold moves, which
+  // is the divergence parliamentGroupAliases.ts was written to end.
   const labelOf = (short: string) => labelForPartyShort(short) || short;
-  const colorOf = (short: string) => colorForPartyShort(short) ?? "#94a3b8";
+  const colorOf = (short: string) =>
+    colorForPartyShort(short) ?? "hsl(var(--muted-foreground))";
 
   return (
     <Card>
@@ -64,14 +74,14 @@ export const CorrelationHistoryCard: FC = () => {
                 <div className="flex items-baseline gap-1.5 text-sm mb-1">
                   <span
                     className="font-semibold"
-                    style={{ color: colorOf(pair.a) }}
+                    style={{ color: colorOf(pair.aRaw) }}
                   >
                     {labelOf(pair.aRaw)}
                   </span>
                   <span className="text-muted-foreground">↔</span>
                   <span
                     className="font-semibold"
-                    style={{ color: colorOf(pair.b) }}
+                    style={{ color: colorOf(pair.bRaw) }}
                   >
                     {labelOf(pair.bRaw)}
                   </span>
@@ -100,9 +110,14 @@ export const CorrelationHistoryCard: FC = () => {
         </div>
 
         {/* The identity caveat belongs on the page, not only in the code: a reader looking
-            at a broken line is owed the reason. */}
+            at a broken line is owed the reason. The two floors are interpolated from the
+            constants rather than typed into the locale files, so moving one cannot leave
+            the page quoting the old value in two languages. */}
         <p className="text-[10px] text-muted-foreground mt-3">
-          {t("corr_history_identity_note")}
+          {t("corr_history_identity_note", {
+            minItems: MIN_ITEMS,
+            minSharePct: MIN_SHARE_OF_BUSIEST * 100,
+          })}
         </p>
       </CardContent>
     </Card>

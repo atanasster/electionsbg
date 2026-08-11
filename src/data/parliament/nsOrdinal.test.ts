@@ -13,6 +13,16 @@ describe("nsOrdinal", () => {
     ["50", "50-то"],
     ["51", "51-во"],
     ["52", "52-ро"],
+    // Teens are „-то" throughout and must beat the last-digit rule: without the guard 11
+    // reads „11-во", 12 „12-ро" and 17/18 „-мо". Unreachable for an NS number, pinned
+    // because the English branch has always had the same guard.
+    ["11", "11-то"],
+    ["12", "12-то"],
+    ["17", "17-то"],
+    ["111", "111-то"],
+    // ...and the guard must not swallow the plain cases that share a last digit.
+    ["21", "21-во"],
+    ["22", "22-ро"],
   ])("bg %s → %s", (ns, expected) => {
     expect(nsOrdinal(ns, "bg")).toBe(expected);
   });
