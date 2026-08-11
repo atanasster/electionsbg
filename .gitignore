@@ -383,3 +383,7 @@ data/procurement/.contracts_backup_*
 # Remotion's bundle cache.
 /video/.remotion/
 scratch/
+
+# Output of `npm run person:declared-vs-registry` — a review queue naming individuals
+# against their own declarations. Generated locally, never committed or published.
+/reports/

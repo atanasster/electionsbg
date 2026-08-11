@@ -326,8 +326,37 @@ a finding in its own right, not merely a data-quality signal.
    common three-part names stays name-based, and cases like this one stay unresolvable rather
    than wrong. That is the right failure direction, but it is a choice and should be a
    conscious one.
-6. **Declared-stakes vs TR cross-check** — reuses everything above, and is a story rather than
-   a data fix.
+6. **Declared-stakes vs TR cross-check** — SHIPPED as a REPORT, not a page:
+   `npm run person:declared-vs-registry`.
+
+   Deliberately not a badge on `/person`. "Undeclared holding" is an accusation, and the
+   registry link is name-based for all but 57 of 186,152 `tr` roles — so the output is a
+   review queue for a human, ordered safest-evidence-first, and nothing is published.
+
+   **Compared against ANNUAL filings only.** An annual declaration is a statement about a
+   year, so "held during it and absent from it" is a real discrepancy; an Entry or Vacate
+   filing is a snapshot at the moment of taking up or leaving a post and never claimed to
+   cover the year around it. The first draft compared against those too and produced provable
+   false accusations — 6 of 20 rows, two refuted by their own dates (a holding acquired
+   2025-12-11 reported against an Entry filed ten months earlier; one erased 2025-01-29
+   reported against a Vacate filed five months later). Note 096's
+   `COALESCE(fiscal_year, declaration_year)` is correct for *attributing* a declared stake to
+   a year and wrong when inverted into "everything held that year belongs on this filing".
+
+   **The headline is the coverage, not the findings: 14 rows over 178 usable person-years,
+   with 2,211 skipped.** A person-year is usable only when EVERY declared stake on
+   it resolved to an EIK, because an unresolved row could be the very company that would
+   otherwise be reported as missing. `declaration_stake.uic` is NULL on all 14,279 rows —
+   the declared side carries no EIK at all — so the join runs through
+   `declaration_stake_company` (096), which resolves a company NAME only when it is unique in
+   the registry and the registry independently places that person there. Widening that
+   resolution, not widening the query, is what would make the exercise representative.
+
+   Three further filters, each removing an innocent explanation: the person must have filed a
+   stakes table at all; the registry role must be a SHAREHOLDER one (a manager holds nothing
+   to declare under чл.37); and the holding must overlap the fiscal year the filing covers.
+   Registry records are collapsed per (person, year, company) — without that, a stake
+   re-entered after a capital change printed as several separate findings (35 rows → 20).
 
 ## Out of scope / dead ends
 

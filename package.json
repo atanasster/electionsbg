@@ -114,6 +114,7 @@
     "person:override": "tsx scripts/person/add_override.ts",
     "db:load:declarations:pg": "tsx scripts/db/load_declarations_pg.ts",
     "db:load:declarations:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg tsx scripts/db/load_declarations_pg.ts",
+    "person:declared-vs-registry": "tsx scripts/person/declared_vs_registry.ts",
     "person:slugs": "tsx scripts/person/emit_prerender_slugs.ts",
     "person:kmetstvo-flips": "tsx scripts/person/kmetstvo_flips.ts",
     "person:kmetstvo-flips:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run person:kmetstvo-flips",
