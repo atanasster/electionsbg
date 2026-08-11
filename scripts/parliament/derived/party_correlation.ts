@@ -4,7 +4,17 @@
 // Cosine similarity over those vectors, computed pairwise, gives a small N×N
 // matrix the homepage can render as a heatmap. Absences are excluded from the
 // per-item majority calculation, same as cohesion.ts.
+//
+// GROUPS ARE BUCKETED BY CANONICAL KEY, NEVER BY THE RAW LABEL. The roll-call source
+// spells one group several ways across days — the 51st NS files sixteen days as „ГЕРБ-СДС"
+// and the rest as „ГЕРБ - СДС" — so a raw-string bucket splits one group into two rows: the
+// dominant one's vector is missing 4.6% of its items, the duplicate's is a 177-item stub,
+// and `parties`/`participation` overstate how many groups sat. `canonGroupKey` is the fold,
+// shared with the frontend rather than restated here: it is purely typographic (whitespace
+// around a hyphen, repeated whitespace, case), so „ДПС" and „ДПС - НН" stay two groups —
+// they genuinely are, and the 51st seats them beside „ДПС - ДПС" and „АПС".
 
+import { canonGroupKey } from "../../../src/data/parliament/votes/partyPairs";
 import type { SessionFile } from "./types";
 
 export interface PartyCorrelationOutput {
@@ -13,8 +23,9 @@ export interface PartyCorrelationOutput {
   // Symmetric N×N matrix. matrix[i][j] is cosine similarity in [-1, 1].
   // Diagonal entries are 1. Off-diagonal NaN-shaped pairs (no overlap) are 0.
   matrix: number[][];
-  // Number of items where party participated. Lets the frontend show a
-  // confidence hint for sparsely-active groups.
+  // Number of items where party participated, keyed by the SAME labels as `parties` —
+  // consumers index it with a row label. Lets the frontend show a confidence hint for
+  // sparsely-active groups.
   participation: Record<string, number>;
 }
 
@@ -33,24 +44,35 @@ const partyMajority = (
 export const computePartyCorrelation = (
   sessions: SessionFile[],
 ): PartyCorrelationOutput => {
-  // 1. For each (party, date#item), record the majority vote.
+  // 1. For each (party, date#item), record the majority vote. Keyed canonically, so a day
+  // that spells the group differently lands in the same vector — and, on the rare day that
+  // carries both spellings at once, in the same per-item majority.
   const byParty = new Map<string, Map<string, Scalar>>();
   const participation = new Map<string, number>();
+  // Canonical key → raw spelling → items it appeared on. Decides the output label.
+  const spellings = new Map<string, Map<string, number>>();
 
   for (const file of sessions) {
     for (const item of file.sessions) {
       const counts = new Map<
         string,
-        { yes: number; no: number; abstain: number }
+        { yes: number; no: number; abstain: number; raws: Set<string> }
       >();
       for (const v of item.votes) {
         if (v.vote === "absent") continue;
-        const party = file.mpParty?.[String(v.mpId)];
-        if (!party) continue;
-        const c = counts.get(party) ?? { yes: 0, no: 0, abstain: 0 };
+        const raw = file.mpParty?.[String(v.mpId)];
+        if (!raw) continue;
+        const party = canonGroupKey(raw);
+        const c = counts.get(party) ?? {
+          yes: 0,
+          no: 0,
+          abstain: 0,
+          raws: new Set<string>(),
+        };
         if (v.vote === "yes") c.yes++;
         else if (v.vote === "no") c.no++;
         else c.abstain++;
+        c.raws.add(raw);
         counts.set(party, c);
       }
       const key = `${file.date}#${item.item}`;
@@ -61,17 +83,34 @@ export const computePartyCorrelation = (
         row.set(key, maj);
         byParty.set(party, row);
         participation.set(party, (participation.get(party) ?? 0) + 1);
+        const seen = spellings.get(party) ?? new Map<string, number>();
+        for (const raw of c.raws) seen.set(raw, (seen.get(raw) ?? 0) + 1);
+        spellings.set(party, seen);
       }
     }
   }
 
-  // 2. Order parties by participation (richest signal at the top-left of the
-  // heatmap so the visible 6×6 sub-grid is the most informative).
-  const parties = [...byParty.keys()].sort(
+  // 2. One display label per group — the raw spelling that carried the most items, so the
+  // heatmap keeps the source's own typography instead of the uppercased fold key. Ties
+  // break on the spelling itself rather than on encounter order, so the artifact is
+  // byte-stable across runs.
+  const labelOf = (party: string): string => {
+    const seen = [...(spellings.get(party) ?? [])];
+    seen.sort(
+      (a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0),
+    );
+    return seen[0]?.[0] ?? party;
+  };
+
+  // 3. Order parties by participation (richest signal at the top-left of the
+  // heatmap so the visible 6×6 sub-grid is the most informative). The canonical keys index
+  // every vector below; the labels are what ships.
+  const keys = [...byParty.keys()].sort(
     (a, b) => (participation.get(b) ?? 0) - (participation.get(a) ?? 0),
   );
+  const parties = keys.map(labelOf);
 
-  // 3. Pairwise cosine. Vectors only intersect on items both parties voted on.
+  // 4. Pairwise cosine. Vectors only intersect on items both parties voted on.
   const cosine = (a: Map<string, Scalar>, b: Map<string, Scalar>): number => {
     let dot = 0;
     let aNorm = 0;
@@ -89,14 +128,12 @@ export const computePartyCorrelation = (
     return dot / (Math.sqrt(aNorm) * Math.sqrt(bNorm));
   };
 
-  const matrix: number[][] = parties.map(() =>
-    new Array(parties.length).fill(0),
-  );
-  for (let i = 0; i < parties.length; i++) {
+  const matrix: number[][] = keys.map(() => new Array(keys.length).fill(0));
+  for (let i = 0; i < keys.length; i++) {
     matrix[i][i] = 1;
-    const a = byParty.get(parties[i])!;
-    for (let j = i + 1; j < parties.length; j++) {
-      const b = byParty.get(parties[j])!;
+    const a = byParty.get(keys[i])!;
+    for (let j = i + 1; j < keys.length; j++) {
+      const b = byParty.get(keys[j])!;
       const c = cosine(a, b);
       matrix[i][j] = Number(c.toFixed(4));
       matrix[j][i] = matrix[i][j];
@@ -107,6 +144,8 @@ export const computePartyCorrelation = (
     computedAt: new Date().toISOString(),
     parties,
     matrix,
-    participation: Object.fromEntries(participation),
+    participation: Object.fromEntries(
+      keys.map((k) => [labelOf(k), participation.get(k) ?? 0]),
+    ),
   };
 };
