@@ -235,7 +235,18 @@ CREATE OR REPLACE VIEW magistrate_holdings_table AS
   -- itself spans years.
   FROM magistrate_current m
   WHERE m.company_count > 0;
-GRANT SELECT ON magistrate_holdings_table TO app_readonly;
+-- Role-guarded for the same reason as magistrate_current's grant above — and once one
+-- of this file's two grants is guarded, leaving the other bare is worse than either
+-- choice on its own, because it reads as though the guard were optional. It is not:
+-- exec() sends this file as ONE implicit transaction, so on a database where the
+-- manual roles_readonly.sql has never run, a bare GRANT raises 42704 and rolls back
+-- every table, index and function above it — aborting db:load:magistrates:pg on a
+-- fresh clone. Same shape as 046's single grant, which was guarded for exactly this.
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON magistrate_holdings_table TO app_readonly;
+  END IF;
+END $$;
 
 -- ==========================================================================
 -- Reconcile for WARM databases — CREATE TABLE IF NOT EXISTS above is a no-op on them,
