@@ -17,6 +17,7 @@ import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { ParliamentVotingTile } from "@/screens/dashboard/ParliamentVotingTile";
 import { ContestedVotesFeed } from "@/screens/components/votes/ContestedVotesFeed";
+import { CorrelationHistoryCard } from "@/screens/components/votes/CorrelationHistoryCard";
 
 export const ParliamentCorrelationScreen: FC = () => {
   const { t } = useTranslation();
@@ -28,18 +29,29 @@ export const ParliamentCorrelationScreen: FC = () => {
   return (
     <>
       <Title description={t("nsh_correlation_description")}>{pageTitle}</Title>
+      {/* Three levels, with „Народно събрание" LINKED: this page's only way back up used to
+          be the tile's own "виж детайли", which pointed at /parliament from a card sitting
+          on /parliament/correlation. The breadcrumb is where going up belongs. */}
       <GovernanceBreadcrumb
         sectionKey="gov_hub_parliament_title"
         sectionTo="/parliament"
+        currentKey="nsh_crumb_correlation"
         className="mt-5"
       />
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <ParliamentVotingTile />
+        <ParliamentVotingTile showDetailsLink={false} />
         {/* The contested feed comes with it. It is the same question asked of individual
             items rather than of the whole matrix — where the groups actually parted — and on
             the archive page it was competing with the table for the same space. */}
         <ContestedVotesFeed />
+      </div>
+
+      {/* Full width, below the matrix: the same measure through time. The heatmap answers
+          "who votes with whom NOW", this answers "and how did that change" — reading it
+          means comparing parliaments, which no single matrix can show. */}
+      <div className="mt-4 pb-12">
+        <CorrelationHistoryCard />
       </div>
     </>
   );

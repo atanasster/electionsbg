@@ -29,6 +29,27 @@ interface PgBody {
   allTime: TopicEntry[];
 }
 
+/** Which of the two tiers the caller is actually looking at. Returned rather than left
+ *  implicit because the tile has to SAY which one: the window is anchored on the newest
+ *  sitting, so during a recess "the last 7 days" is weeks ago in wall-clock terms, and the
+ *  fallback is not a window at all. A fixed "this week" heading is wrong in both cases. */
+export type ContestedBasis = "window" | "allTime";
+
+export interface ContestedVotes {
+  items: TopicEntry[];
+  isLoading: boolean;
+  basis: ContestedBasis;
+  /** Newest sitting in the corpus — the day the window runs back from, not wall-clock
+   *  today. Null only when there is nothing to show. */
+  anchor: string | null;
+}
+
+const newestDate = (entries: TopicEntry[]): string | null =>
+  entries.reduce<string | null>(
+    (max, e) => (max === null || e.date > max ? e.date : max),
+    null,
+  );
+
 const pgQueryFn = async ({
   queryKey,
 }: {
@@ -66,7 +87,7 @@ const jsonQueryFn = async (): Promise<TopicIndexFile | undefined> => {
 export const useContestedVotes = (
   windowDays = 7,
   count = 5,
-): { items: TopicEntry[]; isLoading: boolean } => {
+): ContestedVotes => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
 
@@ -85,27 +106,49 @@ export const useContestedVotes = (
     staleTime: Infinity,
   });
 
-  const items = useMemo(() => {
+  const { items, basis, anchor } = useMemo((): Omit<
+    ContestedVotes,
+    "isLoading"
+  > => {
     if (pg) {
-      return pg.recent.length >= MIN_IN_WINDOW ? pg.recent : pg.allTime;
+      const inWindow = pg.recent.length >= MIN_IN_WINDOW;
+      return {
+        items: inWindow ? pg.recent : pg.allTime,
+        basis: inWindow ? "window" : "allTime",
+        // The route derives the anchor with max(date) over the whole ns, so it is present
+        // whenever any row is; the reduce is only the no-rows guard.
+        anchor: pg.anchor ?? newestDate(pg.allTime),
+      };
     }
     const entries: TopicEntry[] = ns ? (json?.byNs?.[ns]?.entries ?? []) : [];
-    if (entries.length === 0) return [];
+    if (entries.length === 0)
+      return { items: [], basis: "window", anchor: null };
     // The artifact is pre-sorted newest-first, so entry 0 is the anchor — the same rule the
     // route applies with max(date).
-    const anchor = new Date(`${entries[0].date}T00:00:00Z`);
-    anchor.setUTCDate(anchor.getUTCDate() - windowDays);
-    const cutoff = anchor.toISOString().slice(0, 10);
+    const anchorDate = entries[0].date;
+    const cutoffAt = new Date(`${anchorDate}T00:00:00Z`);
+    cutoffAt.setUTCDate(cutoffAt.getUTCDate() - windowDays);
+    const cutoff = cutoffAt.toISOString().slice(0, 10);
     const pool = entries.filter((e) => e.contestScore >= MIN_CONTEST);
     const inWindow = pool.filter((e) => e.date >= cutoff);
-    return [...(inWindow.length >= MIN_IN_WINDOW ? inWindow : pool)]
-      .sort((a, b) =>
-        b.contestScore !== a.contestScore
-          ? b.contestScore - a.contestScore
-          : b.date.localeCompare(a.date),
-      )
-      .slice(0, count);
+    const enough = inWindow.length >= MIN_IN_WINDOW;
+    return {
+      items: [...(enough ? inWindow : pool)]
+        .sort((a, b) =>
+          b.contestScore !== a.contestScore
+            ? b.contestScore - a.contestScore
+            : b.date.localeCompare(a.date),
+        )
+        .slice(0, count),
+      basis: enough ? "window" : "allTime",
+      anchor: anchorDate,
+    };
   }, [pg, json, ns, windowDays, count]);
 
-  return { items, isLoading: pgLoading || (routeMissed && jsonLoading) };
+  return {
+    items,
+    basis,
+    anchor,
+    isLoading: pgLoading || (routeMissed && jsonLoading),
+  };
 };

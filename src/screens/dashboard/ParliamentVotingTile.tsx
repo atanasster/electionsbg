@@ -26,7 +26,13 @@ const cellColor = (score: number): string => {
 // full name is in the cell title attribute / tooltip.
 const compact = (s: string): string => (s.length > 8 ? `${s.slice(0, 7)}…` : s);
 
-export const ParliamentVotingTile: FC = () => {
+export const ParliamentVotingTile: FC<{
+  /** The "see details" link out to /parliament. Off on the correlation page itself, where
+   *  it pointed at that page's own PARENT — navigation up belongs to the breadcrumb, and a
+   *  card offering "details" that lead to less detail than the page you are on is a dead
+   *  end dressed as a drill-down. */
+  showDetailsLink?: boolean;
+}> = ({ showDetailsLink = true }) => {
   const { t } = useTranslation();
   const { file, isLoading } = usePartyCorrelation();
   const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
@@ -60,14 +66,16 @@ export const ParliamentVotingTile: FC = () => {
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Vote className="h-4 w-4" />
           {t("dashboard_parliament_voting_title") || "Parliament voting"}
-          <Link
-            to="/parliament"
-            underline={false}
-            className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
-          >
-            {t("dashboard_see_details") || "See details"}
-            <ArrowRight className="h-3 w-3" />
-          </Link>
+          {showDetailsLink && (
+            <Link
+              to="/parliament"
+              underline={false}
+              className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
+            >
+              {t("dashboard_see_details") || "See details"}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col">

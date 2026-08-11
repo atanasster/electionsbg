@@ -37,16 +37,39 @@ export const ContestedVotesFeed: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const day = useDayLabel("long");
-  const { items, isLoading } = useContestedVotes(windowDays, count);
+  const { items, isLoading, basis, anchor } = useContestedVotes(
+    windowDays,
+    count,
+  );
 
   if (isLoading || items.length === 0) return null;
 
+  // The heading names no period, because neither tier is "this week". The window runs back
+  // from the newest SITTING, so through a recess it is weeks behind wall-clock today (the
+  // 52nd's last sitting was 24 July; the tile was still headed "тази седмица" on 11 August),
+  // and the fallback ranks the whole term. The basis line below carries whichever it is.
+  // An anchorless window has no honest label, so it gets none — falling through to the
+  // all-time string would reintroduce the defect from the other side.
+  const period =
+    basis === "allTime"
+      ? t("votes_landing_breaks_alltime")
+      : anchor
+        ? t("votes_landing_breaks_window", {
+            date: day(anchor),
+            days: windowDays,
+          })
+        : null;
+
   return (
     <section className="rounded-xl border bg-card p-4">
-      <h2 className="text-sm font-semibold uppercase tracking-wide mb-3">
-        {t("votes_landing_breaks_title") ||
-          "Biggest party-line breaks this week"}
-      </h2>
+      <div className="mb-3">
+        <h2 className="text-sm font-semibold uppercase tracking-wide">
+          {t("votes_landing_breaks_title") || "Biggest party-line breaks"}
+        </h2>
+        {period && (
+          <p className="text-xs text-muted-foreground mt-0.5">{period}</p>
+        )}
+      </div>
       <ul className="divide-y">
         {items.map((it) => (
           <li key={`${it.date}-${it.item}`} className="py-2">
