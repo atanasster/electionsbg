@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-06T22:32:47.403Z",
+  "lastSuccessfulIngest": "2026-08-11T07:59:45.017Z",
   "skill": "update-nzok",
-  "summary": "hospital payments → 2026-06: 392 facilities, YTD €1,133,079,164; parser fix (optional ordinal) recovered 5 zero-read paid rows + €1,008,597, whole 2023→ series re-parsed; 18,679 rows / 101 months in PG"
+  "summary": "activities re-derived for 2025 (12/12 months, 4,427,038 cases); 2026 incomplete (through 06) so intentionally not aggregated — no data change"
 }
