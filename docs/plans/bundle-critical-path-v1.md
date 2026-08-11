@@ -1,6 +1,8 @@
 # Critical-path bundle diet — implementation plan v1
 
-Status: **DRAFT (2026-07-28), audited 2026-07-28 (§0c).** Owner: TBD.
+Status: **T1–T5 landed 2026-07-29** (drafted 2026-07-28, audited the same day, §0c); a
+negative-result addendum was appended 2026-08-11 — see "Measured negative result" at the foot.
+Owner: TBD.
 Trigger: a load-performance analysis of `/procurement/settlement/10135` (Варна) found that
 the page ships **~1.0 MB brotli of JavaScript, of which 5.9 KB is the page**. Everything else
 is the shared shell, and five separate causes put route-only libraries on the critical path of
@@ -425,8 +427,23 @@ and translates fully; a hard load of an `/en/*` URL starts in English with no fl
 `npm run test:unit` green (per A7 the component tests mock `react-i18next`, so the blast radius
 is the two files above).
 
+### T4.3 — Hint the visitor's bundle from the head
+
+Vite cannot emit a static `<link rel="modulepreload">` for the locale chunk: which of the two
+it is only becomes knowable at runtime (`/en/*` prefix, else the stored `language`). So
+`vite/preload-locale.ts` injects a tiny inline script into `<head>` that picks the bundle and
+appends the hint itself, tagged `data-locale-preload` for the gate in `tests/perf.spec.ts`.
+
+**Verify:** the script ships in `dist/index.html` and offers both chunk URLs; exactly one
+translation bundle is requested per load (both are asserted in `perf.spec.ts`). Note the hint
+makes the chunk *discoverable* at ~770 ms but not *downloaded* then — it queues behind the
+vendor chunks on a bandwidth-bound link, which is expected and is not a defect; see "Measured
+negative result" below.
+
 **Expected after T4:** entry ~339 → **~235 KB br** (estimate — the marginal saving inside a
-chunk is smaller than the standalone file's compressed size); critical path **~467 KB br**.
+chunk is smaller than the standalone file's compressed size); critical path **~467 KB br**
+— the HOME route, which is what this table tracks throughout. A route with its own lazy chunk
+and chart vendor is higher; `/indicators/economy` measures ~675 KB br.
 
 ## T5 — Repair the perf gate, then budget it (A1, A8)
 
@@ -580,3 +597,64 @@ config edit and one `lazy()`.
   and this route's own payload is ~5 KB.
 - **The API.** 43.8 KB / 132 ms warm is not a bottleneck. The 1.29 s cold-function figure is a
   Cloud Function warm-up question, tracked separately if it matters.
+
+## Measured negative result — preloading the route chunks earlier (2026-08-11)
+
+Do not re-attempt this without new evidence. It looks obviously right and it is not.
+
+`/indicators/economy` was profiled because it "feels slow on phone" (Lighthouse mobile: LCP
+6.2–8.2 s, score 0.11 / 0.02; real applied throttling: FCP 5.4 s). The waterfall below is the
+state **before** the data preloads landed in `c65819ebb1` — hop 5 is exactly what that commit
+moved into the head, and it is kept here unchanged because it is what motivated this
+experiment. Pixel 5, 150 ms RTT, 1.6 Mbps, 4x CPU:
+
+```
+   0 →  762ms   HTML (2.7 KB, #root empty)
+ 765 → 1620ms   entry + 6 vendor chunks (~345 KB br)
+1639 → 1999ms   translation chunk (185 KB br)
+2035 → 2217ms   route chunk + vendor-charts (~145 KB br)
+2341 → 2789ms   macro.json + macro_peers.json   ← now preloaded from the head
+```
+
+Each hop is discovered by executing the previous one, so the natural reading is "hop 4 exists
+because the route chunk is discovered late — hint it in the head and it starts with the
+vendors." Measured on the live site by injecting `<link rel="modulepreload">` for the route's
+lazy graph. Pixel 5, 150 ms RTT, 4x CPU; LCP in ms, median of 3 with all three runs shown.
+**control = the live site as deployed at the time, i.e. before the data preloads** — so this
+table is internally comparable but its baseline is NOT the shipped configuration, and it is
+`dataPreload.ts`'s `none` row rather than its `low` row:
+
+| variant | 1.6 Mbps | 10 Mbps |
+| --- | --- | --- |
+| control | **5664** (5664/5664/5672) | **3308** (3308/3456/3300) |
+| + 18 small route chunks (~20 KB) | 5928 (6184/5928/5876) | 3672 (3160/3756/3672) |
+| + those and `vendor-charts`/`vendor-geo` (~145 KB) | 6208 (5892/6208/6532) | 3016 (3740/3016/2872) |
+
+At 1.6 Mbps both variants are a regression and the spread does not overlap the control. At
+10 Mbps neither is a reliable win — the `all` row's runs span 868 ms and straddle the control.
+
+**Why.** The chain is bandwidth- and execution-ordered, not discovery-ordered. The route chunk
+cannot *run* until the entry, the vendors and i18n have parsed, so fetching it sooner does not
+move the moment it executes — it only takes bandwidth from the chunks that gate it. On a link
+that is already saturated for the whole pre-paint window, any extra parallel byte is
+subtracted from the critical path rather than overlapped with it.
+
+Two corollaries worth keeping:
+
+- **The translation chunk is already hinted as early as it can be**, by the inline
+  `data-locale-preload` script `vite/preload-locale.ts` emits (T4.3). Its 1639 ms start is
+  bandwidth queueing behind the vendors, not late discovery, so there is nothing to fix there.
+- **The same effect bounds the data preloads** in `scripts/prerender/dataPreload.ts`, which is
+  why they ship at `fetchpriority="low"` and are still a small net loss at 1.6 Mbps. That
+  comment carries its own measurement table, on the same hardware.
+
+**What would actually move it**: fewer critical-path bytes, not a different order. On this
+route ~675 KB br must transfer and parse before anything paints — more than the ~467 KB in the
+Expected-result table above, which is the HOME route's critical path and excludes this page's
+lazy route chunk and chart vendor. The largest single item is the translation catalogue: the
+`bg` chunk is 185 KB br / 961 KB raw (`perf.spec.ts` quotes the same raw figure as 947 KB), the
+whole site's strings, loaded for every route. `perf.spec.ts` reaches the same conclusion at its
+budget comment, which now has ~900 bytes of headroom against a ceiling already re-ratcheted
+once — so namespace-splitting the catalogue is closer to forced than optional. Making the
+prerendered body visible (currently `hidden`, see Non-goals) is the other lever, and would
+decouple first paint from the JS chain entirely.
