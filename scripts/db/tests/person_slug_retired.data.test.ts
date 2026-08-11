@@ -127,7 +127,30 @@ test.skipIf(skip)("every redirect target is actually SERVABLE", async () => {
 // Still narrow enough to catch everything the header names: a Cyrillic name has no matching
 // characters, a candidate ref carries a colon, and a bare numeric id matches neither branch
 // (the `mp-` one requires the literal prefix).
-const SLUG_SHAPE = String.raw`^([a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]{6}|mp-[0-9]+)(-[0-9]+)*$`;
+//
+// Held in pieces because the name-body comparison at the foot of this file needs the SAME
+// grammar read the other way round, and the two drifted once already: the hash was fixed to
+// base36 here and left hex there, so every base36 hash carrying a letter past `f` stayed
+// glued to the name body and no such row could ever match its target.
+const NAME_BODY = String.raw`[a-z0-9]+(-[a-z0-9]+)*`;
+const HASH = String.raw`[a-z0-9]{6}`;
+const COLLISION = String.raw`(-[0-9]+)*`;
+const SLUG_SHAPE = String.raw`^(${NAME_BODY}-${HASH}|mp-[0-9]+)${COLLISION}$`;
+
+// The name body alone — the slug MINUS its hash and every collision suffix. `\1` is the
+// capture, so `regexp_replace(slug, NAME_BODY_ONLY, '\1')` yields the body and returns an
+// `mp-<id>` anchor (which has no name body) unchanged — ids run to 4 digits, so none is
+// mistakable for a 6-character hash. Those rows are excluded from the comparison anyway.
+//
+// It matches the WHOLE slug rather than anchoring at the tail, and that is load-bearing
+// rather than stylistic. A tail pattern `(-[a-z0-9]{6})?(-[0-9]+)*$` has two parses of
+// `blagomir-rubinov-kotsev-549167`, because a 6-digit hash is also a valid collision suffix
+// and `kotsev` is also a valid hash — and the one it prefers eats the surname, reading a
+// pure re-hash as a 3-part→2-part rename. It is not a corner: hex hashes are all-digit 6% of
+// the time and Bulgarian `-ov`/`-ev` surnames transliterate to exactly six characters
+// constantly, so it mis-read 482 rows here. Anchoring at `^` forces the hash to be the last
+// segment before the suffixes, which is what the grammar actually says.
+const NAME_BODY_ONLY = String.raw`^(${NAME_BODY})-${HASH}${COLLISION}$`;
 
 test.skipIf(skip)("only slug-shaped keys are stored", async () => {
   const bad = await allRows<{ slug: string }>(
@@ -333,32 +356,64 @@ test.skipIf(skip)("ambiguous folds stay out of Bridge-B", async () => {
 // that distinguishes them — an officials slug's body is its name, so a rename should almost
 // always preserve it.
 //
-// Measured on the 2026-07-24 map: 20,098 of 20,151 non-mp rows agree exactly. The 53
-// residuals were inspected individually and are all legitimate — a dropped "д-р" title, a
-// register typo corrected (Руфат→Руфад), or a real surname change
-// (asena-hristova-stoimenova-* → asena-hristova-serbezova-*). mp-* targets are excluded:
-// their body is an id, not a name, so the comparison is meaningless for them.
+// Measured 2026-08-11 over the 24,574 non-mp rows: 24,289 agree (98.8%) — 23,546 on the
+// name body outright, 743 more once a patronymic is allowed to appear (see below). mp-*
+// targets are excluded: their body is an id, not a name, so the comparison is meaningless
+// for them.
+//
+// The 285 residuals are NOT one class, and the majority is not what this comment used to
+// claim. ~206 are the same patronymic merge as the 743 with a TRANSLITERATION difference on
+// top, because the two slug builders disagree on `й` and `ъ` — `stoil-stoychev` →
+// `stoil-vasilev-stoichev`, `valentin-yordanov` → `valentin-vasilev-iordanov`,
+// `aleksandar-minev` → `aleksandr-duhomirov-minev`. The rest are the genuinely-renamed shapes
+// the original note describes (a dropped "д-р" title, a register typo corrected
+// Руфат→Руфад, a real surname change asena-hristova-stoimenova-* →
+// asena-hristova-serbezova-*), plus 7 rows whose SOURCE is an `mp-<id>` anchor and so has no
+// name body to compare either.
+//
+// Modelling the transliteration too is deliberately NOT done: this is the cheap structural
+// check, and a second transliteration table maintained here would be a third copy of a rule
+// that already exists twice in the slug builders.
 test.skipIf(skip)(
   "retired slugs redirect to a person of the same name",
   async () => {
-    // The name body is the slug MINUS its 6-hex disambiguator AND minus a trailing `-N`
-    // collision suffix. Stripping only the hash mis-reads `abil-ismet-abil-ae3d82-2` as a
-    // different name from `abil-ismet-abil-ae3d82` and scores an obviously-correct
-    // `X-2 → X` redirect as a mismatch. That went unnoticed while few such rows existed;
-    // a merge wave surfaced 383 of them at once and pushed this ratio to 94.5%. All 383
-    // were verified to be the collision shape, with ZERO genuinely-different names among
-    // them — so this is a gap in the comparison, not a loosening of the assertion.
+    // Agreement is checked on the NAME BODY — the slug minus its hash and collision
+    // suffixes (NAME_BODY_ONLY). Stripping only the hash mis-reads
+    // `abil-ismet-abil-ae3d82-2` as a different name from `abil-ismet-abil-ae3d82` and
+    // scores an obviously-correct `X-2 → X` redirect as a mismatch; a merge wave surfaced
+    // 383 of those at once, all verified to be the collision shape with ZERO
+    // genuinely-different names among them.
+    //
+    // A 2-part body also agrees with a 3-part target that keeps it as its OUTER pair —
+    // `abidin-hadzhimehmed` → `abidin-mehmed-hadzhimehmed`, `adrian-adamov` →
+    // `adrian-valentinov-adamov`. That is one human acquiring the patronymic the register
+    // had omitted, and the body comparison cannot model an insertion in the middle; 743 rows
+    // are this. Given AND family must both survive, so it never merges `angel-angelov` into
+    // some other Angelov: it admits a strictly-more-specified name, not a similar one.
     const [r] = await allRows<{ agree: string; total: string }>(
-      `SELECT count(*) FILTER (
-                WHERE regexp_replace(r.slug, '(-[0-9a-f]{6})?(-[0-9]+)?$', '')
-                    = regexp_replace(r.target_slug, '(-[0-9a-f]{6})?(-[0-9]+)?$', '')) AS agree,
+      `WITH body AS (
+         SELECT string_to_array(regexp_replace(r.slug,        $1, '\\1'), '-') AS s,
+                string_to_array(regexp_replace(r.target_slug, $1, '\\1'), '-') AS t
+           FROM person_slug_retired r
+          WHERE r.target_slug NOT LIKE 'mp-%'
+       )
+       SELECT count(*) FILTER (
+                WHERE s = t
+                   OR (cardinality(s) = 2 AND cardinality(t) = 3
+                       AND s[1] = t[1] AND s[2] = t[3])) AS agree,
               count(*) AS total
-         FROM person_slug_retired r
-        WHERE r.target_slug NOT LIKE 'mp-%'`,
+         FROM body`,
+      [NAME_BODY_ONLY],
     );
     const ratio = Number(r.agree) / Number(r.total);
+    // 98.8% measured, so this fires at ~491 disagreeing rows against today's 285 — enough
+    // headroom for ordinary rename churn, tight enough that a map loaded against the wrong
+    // corpus (which sends the ratio to near zero) can never sit under it. When it does fire,
+    // read the disagreements before touching the floor: `s` vs `t` above is the whole
+    // diagnostic, and every class found so far was a gap in this comparison rather than a
+    // bad redirect.
     assert.ok(
-      ratio > 0.95,
+      ratio > 0.98,
       `only ${r.agree}/${r.total} retired slugs share a name body with their target ` +
         `(${(ratio * 100).toFixed(1)}%) — a redirect map loaded against the wrong corpus ` +
         `sends this to near zero`,
