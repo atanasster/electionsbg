@@ -56,7 +56,11 @@ FROM base b JOIN div_stats d USING (division);
 
 CREATE INDEX IF NOT EXISTS idx_sector_stats_eik
   ON sector_contractor_stats(eik);
-GRANT SELECT ON sector_contractor_stats TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON sector_contractor_stats TO app_readonly;
+  END IF;
+END $$;
 
 -- The company's divisions, biggest first (jsonb; camelCased for the client).
 DROP FUNCTION IF EXISTS company_sectors(text);

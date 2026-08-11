@@ -31,7 +31,11 @@ CREATE INDEX IF NOT EXISTS idx_awarder_seats_oblast ON awarder_seats(oblast);
 -- by-settlement rollup filters to local-HQ geo-resolved seats + groups by ekatte.
 CREATE INDEX IF NOT EXISTS idx_awarder_seats_local
   ON awarder_seats(is_local_hq, source, ekatte);
-GRANT SELECT ON awarder_seats TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON awarder_seats TO app_readonly;
+  END IF;
+END $$;
 
 -- Where a contractor WINS: distribution of its contract value across the buyers'
 -- oblasti (the "operates statewide vs one region" / home-region-capture signal),

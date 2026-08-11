@@ -49,7 +49,11 @@ CREATE TABLE IF NOT EXISTS company_founded (
 -- not a sequential migration chain).
 ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS http_status int;
 ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS attempts    int;
-GRANT SELECT ON company_founded TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON company_founded TO app_readonly;
+  END IF;
+END $$;
 
 -- EIK → declared NACE (НКИД/КИД-2008) division, for the nkidMismatch flag (§8 B1).
 -- Same cross-loader ordering hazard as company_founded above: the matview below is
@@ -204,8 +208,12 @@ CREATE OR REPLACE VIEW risk_split_group AS
      AND bool_and(amount_eur <= ceiling)     -- each individually sub-threshold
      AND SUM(amount_eur) > MIN(ceiling);     -- but together over the ceiling
 
-GRANT SELECT ON risk_contract_base, risk_pair_concentration, risk_cpv_division,
-                risk_cpv_median, risk_split_source, risk_split_group TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON risk_contract_base, risk_pair_concentration, risk_cpv_division,
+                    risk_cpv_median, risk_split_source, risk_split_group TO app_readonly;
+  END IF;
+END $$;
 
 DROP FUNCTION IF EXISTS procurement_risk_indexes();
 CREATE OR REPLACE FUNCTION procurement_risk_indexes()

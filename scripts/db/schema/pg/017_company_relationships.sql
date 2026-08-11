@@ -40,7 +40,11 @@ CREATE MATERIALIZED VIEW awarder_totals AS
   GROUP BY awarder_eik;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_awarder_totals_eik
   ON awarder_totals(awarder_eik);
-GRANT SELECT ON awarder_totals TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON awarder_totals TO app_readonly;
+  END IF;
+END $$;
 
 DROP FUNCTION IF EXISTS company_buyer_relationships(text);
 

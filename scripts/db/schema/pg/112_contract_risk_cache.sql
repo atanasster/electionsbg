@@ -154,7 +154,11 @@ CREATE INDEX IF NOT EXISTS idx_contract_risk_cache_cri
   ON contract_risk_cache (cri DESC, key);
 CREATE INDEX IF NOT EXISTS idx_contract_risk_cache_grade
   ON contract_risk_cache (grade);
-GRANT SELECT ON contract_risk_cache TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON contract_risk_cache TO app_readonly;
+  END IF;
+END $$;
 
 -- Rebuild via DELETE+INSERT inside one transaction rather than TRUNCATE+COPY or
 -- a rename-swap. TRUNCATE would take an AccessExclusive lock on a table the
@@ -182,7 +186,14 @@ BEGIN
   ELSE
     EXECUTE 'CREATE OR REPLACE VIEW risk_upheld_ocid AS SELECT NULL::text AS ocid WHERE false';
   END IF;
-  EXECUTE 'GRANT SELECT ON risk_upheld_ocid TO app_readonly';
+  -- Role-guarded like every other GRANT in this file, but the failure it prevents is a
+  -- DIFFERENT one, because this runs at function-CALL time rather than at apply time:
+  -- load_pg.ts calls rebuild_contract_risk_cache() at the end of the same run, so on a
+  -- cluster without the role a bare GRANT here aborts the contracts load AFTER the corpus
+  -- has been copied, not before.
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT SELECT ON risk_upheld_ocid TO app_readonly';
+  END IF;
 
   -- Bail politely only when the whole corpus is absent; the remaining
   -- dependencies (debarred, company_politicians, company_founded, the 033 views,
