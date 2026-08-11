@@ -433,7 +433,6 @@ export const LocalSettlementDashboardCards: FC<{
     if (!latestKmetstvo || !currentByElection) return [];
     const prev: PreviousContest[] = kmetstvoEvents
       .filter((e) => e.date < currentByElection.date)
-      .sort((a, b) => b.date.localeCompare(a.date))
       .map((e) => ({
         date: e.date,
         kind: "partial" as const,
@@ -455,6 +454,13 @@ export const LocalSettlementDashboardCards: FC<{
     if (cycleWinner && !prev.some((p) => p.date === cycleIso)) {
       prev.push({ date: cycleIso, kind: cycleKind, winner: cycleWinner });
     }
+    // Sort AFTER the push, never before it. The viewed cycle is not necessarily
+    // older than every chmi event: `useChmiHistory` cuts off on the selected
+    // PARLIAMENTARY election and has no lower bound, so a кметство's
+    // by-elections from BEFORE this cycle are in the shard too. Sorting first
+    // and appending put с. Трояново's 2021 by-election above its 2023 regular
+    // vote — 18 кметства render out of order that way.
+    prev.sort((a, b) => b.date.localeCompare(a.date));
     return prev;
   }, [
     latestKmetstvo,

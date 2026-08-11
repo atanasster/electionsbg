@@ -27,11 +27,13 @@ describe("localCycleKind", () => {
     expect(localCycleKind("2026_02_22_chmi")).toBe("partial");
   });
 
-  // The trap this function exists for: a `_chmi` slug ALSO ends in "mi", so a
-  // bare `endsWith("mi")` reached first calls a by-election a general one.
-  // (`_chmi_nov` escapes it by accident, which is why the trap is easy to miss —
-  // half the partials look fine under the broken test.)
-  it("does not let a chmi slug fall through the _mi test", () => {
+  // The trap is the UNDERSCORE-LESS suffix test, and only that one. Pinned here
+  // because the JSDoc got it backwards once: it claimed `/_mi$/` was unsafe,
+  // which is the opposite of true and would push the next reader toward the
+  // loose form. `_chmi_nov` escapes even the loose test by accident, so half the
+  // partials look fine under it — which is why the trap survives review.
+  it("is safe on /_mi$/ and unsafe only without the underscore", () => {
+    expect(/_mi$/.test("2024_10_20_chmi")).toBe(false); // the safe form: already rejects
     expect("2024_10_20_chmi".endsWith("mi")).toBe(true); // the tempting shortcut…
     expect(localCycleKind("2024_10_20_chmi")).toBe("partial"); // …and why it is wrong
   });

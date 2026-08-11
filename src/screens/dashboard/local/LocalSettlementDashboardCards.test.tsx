@@ -182,4 +182,29 @@ describe("LocalSettlementDashboardCards — contest kind", () => {
     expect(screen.getAllByText("20.10.2024")).toHaveLength(1);
     expect(container.textContent).not.toMatch(/редовен/);
   });
+
+  // "Предишни избори" claims to be newest-first, and the viewed cycle is NOT
+  // necessarily the oldest row: `useChmiHistory` cuts off on the selected
+  // PARLIAMENTARY election with no lower bound, so a кметство's by-elections
+  // from before this cycle are in the shard. Sorting the feed and then appending
+  // the viewed cycle put с. Трояново's 2021 by-election above its 2023 regular
+  // vote — 18 кметства in the committed corpus render that shape.
+  it("lists previous contests newest-first, including a pre-cycle by-election", () => {
+    settlement.current = {
+      name: "Лозен",
+      kmetstvo: race("РЕДОВЕН КМЕТ"),
+    };
+    chmi.current = [
+      event("2021-02-28", "2021_02_28_chmi"), // BEFORE the viewed regular cycle
+      event("2024-10-20", "2024_10_20_chmi"), // supersedes it
+    ];
+    byElectionKmetstva.current = [race("НОВ КМЕТ")];
+
+    const container = renderCards("2023_10_29_mi");
+    const text = container.textContent ?? "";
+
+    expect(text).toContain("29.10.2023");
+    expect(text).toContain("28.02.2021");
+    expect(text.indexOf("29.10.2023")).toBeLessThan(text.indexOf("28.02.2021"));
+  });
 });

@@ -32,12 +32,14 @@ export type LocalCycleKind = "regular" | "partial";
  * the regular cycles ONLY, so a `.find()` there returns undefined for every
  * partial and cannot be used to classify one.
  *
- * The chmi test runs FIRST on purpose. `2024_06_23_chmi` also ends in "mi", so
- * an `endsWith("_mi")` (or worse, an `includes("mi")`) reached first would call
- * every by-election a general election. On the settlement and município pages
- * that mislabels a частичен избор as „редовен вот"; in `scripts/person/localTerms`
- * — which re-exports this — it would retire every mandate in the country on the
- * day one village voted.
+ * The chmi test runs FIRST as defence, not necessity: `/_mi$/` already rejects
+ * `2024_06_23_chmi` on its own, because the character before "mi" there is "h",
+ * not "_". What the ordering guards against is the tempting LOOSENING — an
+ * `endsWith("mi")` or an `includes("mi")`, neither of which carries the
+ * underscore and both of which match every partial. On the settlement and
+ * município pages that mislabels a частичен избор as „редовен вот"; in
+ * `scripts/person/localTerms` — which delegates here — it would retire every
+ * mandate in the country on the day one village voted.
  *
  * Returns null for anything not shaped like a local cycle folder (a
  * parliamentary slug, a typo), so callers decide rather than inherit a guess.

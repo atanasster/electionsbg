@@ -1017,31 +1017,39 @@ const MunicipalityResults: FC<{
   // exact voter-list / гласували totals from ЦИК's "числови данни" protocol
   // onto the partial bundle; use those when present (official, no caveat). When
   // they're absent (protocol not yet ingested), fall back to an estimate
-  // against the registered-voter count from the regular cycle being viewed —
-  // район = section-roll sum, elsewhere the município protocol — flagged with
-  // "≈" + a note (prior-cycle voter list + votes-cast numerator).
+  // against the registered-voter count of THE CYCLE BEING VIEWED — район =
+  // section-roll sum, elsewhere the município protocol — flagged with "≈" + a
+  // note (prior-cycle voter list + votes-cast numerator).
   const partialProto =
     showPartial && partialBundle ? partialBundle.protocol : null;
   const hasRealPartialTurnout =
     !!partialProto &&
     partialProto.numRegisteredVoters > 0 &&
     partialProto.totalActualVoters > 0;
-  const regularRegistered = isRayon
+  // Named for what it IS, not what it usually is: on a chmi page this is a
+  // by-election's roll, and the note below has to say so.
+  const baselineRegistered = isRayon
     ? (rayonTurnout?.registered ?? 0)
     : municipality.protocol.numRegisteredVoters;
   const partialTurnout = hasRealPartialTurnout
     ? `${((partialProto!.totalActualVoters / partialProto!.numRegisteredVoters) * 100).toFixed(1)}%`
-    : regularRegistered > 0
-      ? `≈${((mayorVotesCast / regularRegistered) * 100).toFixed(1)}%`
+    : baselineRegistered > 0
+      ? `≈${((mayorVotesCast / baselineRegistered) * 100).toFixed(1)}%`
       : null;
   const mayorBallot: BallotStat = {
     votes: mayorVotesCast,
     // Regular-cycle mayor shares the council's turnout (cast the same day); a
     // by-election uses its own protocol (or the estimate above).
     turnout: showPartial ? partialTurnout : electionTurnout,
+    // The note declares the estimate's DENOMINATOR, which is the viewed cycle's
+    // voter list — so it takes that cycle's kind like every other label here.
     turnoutNote:
       showPartial && partialTurnout && !hasRealPartialTurnout
-        ? t("local_election_ballot_activity_estimate_note")
+        ? t(
+            isPartialCycle
+              ? "local_election_ballot_activity_estimate_note_partial"
+              : "local_election_ballot_activity_estimate_note",
+          )
         : undefined,
     source: showPartial
       ? t("local_election_ballot_source_partial", { date: partialDate })

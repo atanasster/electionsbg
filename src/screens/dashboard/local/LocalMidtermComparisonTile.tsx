@@ -59,15 +59,19 @@ export const LocalMidtermComparisonTile: FC<{
   partialDate: string;
   /** What the BASELINE (`regular`) side actually is. It is the cycle being
    *  viewed, which is a by-election on a chmi page — so the column header,
-   *  title and hint must not assert „редовен вот" for it. */
-  regularKind?: "regular" | "partial";
+   *  title and hint must not assert „редовен вот" for it.
+   *
+   *  Required, with no default: defaulting it to `"regular"` would silently
+   *  assert a baseline nobody declared, which is precisely the bug this prop
+   *  exists to remove. Callers decide. */
+  regularKind: "regular" | "partial";
   className?: string;
 }> = ({
   regular,
   partial,
   regularDate,
   partialDate,
-  regularKind = "regular",
+  regularKind,
   className,
 }) => {
   const { t } = useTranslation();
