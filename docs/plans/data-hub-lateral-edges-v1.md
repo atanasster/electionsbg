@@ -20,15 +20,30 @@ manifest on 2026-08-03. The three measurements in §1 are the ones that decide t
 | **T1** | Lateral `dataset ↔ dataset` edges on the data map, labelled by join key, weighted by measured overlap |
 | **T2** | `/data` as a navigation hub — a browsable dataset directory, not just a canvas |
 | **T3** | `/db` — hide the ~47 non-data relations, and replace the 10 sample queries with a purpose-organised library |
+| **T4** | **EGN-hash person key** — make the `person_id` spine EXACT for TR company attribution, then retire the three stale GCS shard families it made obsolete (§11.1–§11.7) |
+| **T5** | Retire the `connections*` family — 5,429 tracked files / 49.9 MB + a gitignored 78 MB frozen serving copy, all replaced by the PG graph engine months ago (§11.8) |
 
 T0 is a prerequisite for three of T1's links and is worth shipping on its own regardless: the
 current `src:keep_eu → ds:funds` edge makes a false claim about the corpus today (§8.4).
 T1 and T3 are independent. T2 depends on T1 only for the "what links to what" surface;
 it can ship without it.
 
-> **§6–§10 are the evidence log**, appended as the audits were run. Where a measurement changed
+T5 depends on nothing in this plan — its replacement shipped in `a8f07765d8` — and it is the
+largest single cleanup in the repo by bytes. It rides here so the bucket-exclusion gate is
+written once for both sweeps, and because one of its members (§11.8a) is not dead weight but a
+**frozen serving surface** with a live AI reader.
+
+T4 is independent of T0–T3 and is the largest of the four. It belongs in this plan because the
+`person_id` spine in §1.3 is the map's weakest link claim: it is bridged on a **name fold**, and
+§11.1 measures 12.0% of TR person rows sitting under a name that belongs to more than one human.
+A lateral edge labelled „едно лице" over that join overstates what the corpus knows. T4 replaces
+the fold with an identity key the source already publishes.
+
+> **§6–§12 are the evidence log**, appended as the audits were run. Where a measurement changed
 > a design decision, the decision has been folded into §1–§5 above and the section cross-refs
 > the finding. §10.8 records one retraction: a claim in §6.4a that reached a commit message.
+> **§12 audits §11** — it found the daily-refresh flow missing, a `/db` privilege hole, and three
+> errors in §11 that are corrected in place. Read §12.9 before implementing anything.
 
 ---
 
@@ -159,6 +174,14 @@ candidate × local     2,511     official_muni × tr      1,006
 ngo × tr              2,132     ngo × official_exec       911
 ```
 
+> **Every pair above involving `tr` or `ngo` is bridged on a NAME FOLD, and §11.1 measures how
+> much that costs**: 22,074 TR names (4.2%) are shared by more than one real human, covering
+> 12.0% of person rows — „ГЕОРГИ ИВАНОВ ГЕОРГИЕВ" is **135 distinct people**. So `candidate × tr
+> 6,124` is not 6,124 verified identities; it is 6,124 fold matches of which an unmeasured share
+> are namesakes, held down by Bridge B's ≤5-company footprint rule rather than by evidence. T4
+> (§11) replaces the fold with the registry's own person key and makes this row honest. Until it
+> lands, the `person_id` link's `note` must say *bridged by name*, not *same person*.
+
 **One measurement earns the `overlap` field on its own.** `declaration_asset.ekatte` — a
 declared place key on 258,723 rows — is **100% NULL**: 0 distinct values, 0 join to
 `place_dim`. A curated link list with no measurement would have shipped
@@ -193,7 +216,8 @@ thing".
 ```ts
 export type JoinKey =
   | "eik" | "person_id" | "ekatte" | "time" | "party"
-  | "procedure" | "programme";           // NEW — open_calls ↔ funds (§10.2)
+  | "procedure" | "programme"            // NEW — open_calls ↔ funds (§10.2)
+  | "person_key";                        // NEW — exact TR person identity (§11)
 
 export interface LinkDef {
   a: string; b: string;                  // dataset ids, no `ds:` prefix
@@ -224,6 +248,13 @@ Three additions over the first pass, each forced by a measurement:
 - **`of`** — Interreg's place link resolves 1,469 of 1,469 *placed* rows, but only 12.1% of
   partnerships carry a place key at all. `overlap` beside a corpus-sized dataset name reads as
   coverage it does not have.
+- **`person_key`** — `person_id` and `person_key` are deliberately two keys, not one. `person_id`
+  is *our* resolution (bridged, revisable, spans all 17 people sources); `person_key` is the
+  Registry Agency's own identity on the TR side only. A link rendered as `person_key` is making a
+  much stronger claim than one rendered as `person_id`, and the map must not launder the second
+  into the first. §11.3's rule: a link may carry `person_key` only where **both** endpoints are
+  TR-derived — anything crossing into declarations, CIK or the officials roster is `person_id`,
+  however good the anchor.
 - **`kind: "boundary"`** — the one relation on this map that is real and is **not** a join.
   `ds:interreg` ↔ `ds:funds` share no key by construction: Interreg runs on Jems, ИСУН's
   `fund_projects` holds zero Interreg rows, and the two are never summed because an ИСУН figure
@@ -436,7 +467,7 @@ Restructure to **purpose → question → SQL**:
 | Public money — who receives it | top contractors; all-corpora recipients via `company_public_money`; MP-tied contractors |
 | Public money — who spends it | top awarders; spend by oblast via `awarder_seats`; budget vs contracted |
 | Risk & competition | single-bidder share by buyer; `risk_grade` distribution; annex value inflation; upheld КЗК appeals |
-| People & roles | a person's roles across all 17 sources; revolving door (`person_role.institution` → `contracts.awarder`); declared vs public money |
+| People & roles | a person's roles across all 17 sources; revolving door (`person_role.institution` → `contracts.awarder`); declared vs public money; **how many real people share a name** (`person_name_ambiguity`, §11.4) |
 | Companies & ownership | ownership chain; co-ownership neighbours via `graph_edge`; founding date vs first contract |
 | Places | money per capita by settlement; price basket vs oblast pension; awarder seats |
 | Elections | party vote share by oblast; councillors by party; mayor party × money |
@@ -498,8 +529,24 @@ does not exist, fails the build.
 | 5. Handles, `links` lens, `linked` node status, panel section | 4 | |
 | 6. Tour + query deep-links | 2, 5 | The join that makes both halves one feature |
 | 7. `/data` hub | 4 | Reads `links` for counts; ships without 5 |
+| 8. T4.1 parser — extract + re-key `Indent`; privacy gates flipped | — | §11.3; the one step that changes a standing policy — settle it before writing code |
+| 9. T4.2 PG key columns + `tr_person` + indexes | 8 | §11.4 |
+| 10. T4.3 anchors + `mp_tr_role` rebuilt on the key | 9 | §11.5; parity-gated against the 896 committed files |
+| 11. T4.4 perf pass + buffer-ceiling gates | 10 | §11.6 — not optional; the key changes the cardinality of every person→company query |
+| 12. T4.5 retire the three GCS shard families | 11 | §11.7 — **last** of the T4 chain, and only after prod is verified |
+| 13. `person_key` links on the map, `person_id` notes corrected | 3, 10 | Closes the §1.3 caveat |
+| 14. Migrate the 3 surviving `connections*` readers (2 AI ranking tools, `companyConnections`) | — | §11.8b 1–2; harness-verified. **Independent of T4** |
+| 15. Delete the unreachable `useCompanyConnections` pair; extend `retired.test.ts` | 14 | §11.8b 3 — removes the exemption that hid it |
+| 16. Resolve the `connections.json` `/data` catalogue entry | 14, and T2 if re-pointing | §11.8b 4 — a published download; **may not be silently deleted** |
+| 17. Retire `connections*` + `company-connections/` from the bucket and git | 15, 16 | §11.8b 5–8; `gsutil`-verify 11.8a first |
 
-Steps 1–2 and 0/3–5 are two independent tracks.
+Steps 1–2 and 0/3–5 are two independent tracks; 8–13 are a third, and it is the long one.
+**14–17 are a fourth and depend on none of the others** — the graph engine that replaces those
+artifacts shipped in `a8f07765d8`. They are sequenced here so the `bucket_sync_paths` gate in
+step 8 of §11.8b is written once, covering both sweeps.
+
+Steps 12 and 17 are the only steps in this plan that delete anything, and both are deliberately
+last within their track.
 
 **Two prerequisites sit outside this plan and both are cheap to get wrong by ignoring.**
 Step 6's deep links need `/db` to read a query off the URL — `useSearchParams` is used **zero**
@@ -1030,3 +1077,608 @@ What survives is the code fact, which never depended on row counts: **`db:refres
 `transport_facility_geo` has zero code references. The rule to carry forward: **population is
 `count(*)`; `n_live_tup` is an estimate that reads 0 until autovacuum analyzes, and no audit —
 and no UI — may classify on it.**
+
+---
+
+## 11. T4 — EGN-hash person key for TR attribution · T5 — retiring the stale GCS trees
+### (evidence + design, 2026-08-11)
+
+Everything in §11.1–§11.2 was measured against `raw_data/tr/daily/` (1,666 day files, the whole
+2021-01-01→ window), `raw_data/tr/state.sqlite`, `raw_data/tr/cr_deeds.sqlite` and local
+Postgres.
+
+### 11.1 🔴 The TR feed publishes a stable person identity, and we throw it away
+
+Every `Person` subject in the daily filings feed carries an `Indent` element with a sibling
+`IndentType` discriminator, at
+`/Message/Body/Deeds/Deed/SubDeed/{Managers,Partners,…}/Person`:
+
+```json
+{"Indent": [{"_": "ec0917d7e1c6439cd9eff865513fcfc23bd1aa71322dfc145946b99c02b47c49"}],
+ "Name":   [{"_": "СТАНИСЛАВА ГЕОРГИЕВА КРЪСТЕВА"}],
+ "IndentType": [{"_": "EGN"}], "CountryName": [{"_": "БЪЛГАРИЯ"}]}
+```
+
+64 hex = SHA-256. `IndentType` over 25 sampled days (28,449 person nodes):
+**EGN 22,540 · BirthDate 2,855 · UIC 2,028 · Undefined 690 · LNCH 336** — so the type must be
+read, not assumed: a `UIC` indent is a corporate officer and an `LNCH`/`BirthDate` indent is a
+foreign person, and neither is an EGN hash.
+
+**It is stable across filings and across years, which is the property that makes it usable.**
+Over 25 days spanning 2022-05 and 2024-03, of 6,457 names appearing more than once only **84**
+carried more than one hash — and those are the namesakes, which is the discrimination we want.
+It is a person key, not a per-filing nonce.
+
+**Full-feed measurement — 1,666 days, 1,468,207 EGN-typed person rows (23 s):**
+
+| | |
+|---|---|
+| distinct names | 528,895 |
+| **distinct people (hashes)** | **483,642** |
+| names shared by >1 real human | **22,074 (4.2% of names)** |
+| **person rows sitting under such a name** | **176,774 — 12.0%** |
+
+Worst offenders, in real humans per name:
+
+```
+ГЕОРГИ ИВАНОВ ГЕОРГИЕВ   135      ИВАН ГЕОРГИЕВ ИВАНОВ      88
+ДИМИТЪР ИВАНОВ ДИМИТРОВ  105      ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ  88
+ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ 102     ПЕТЪР ИВАНОВ ПЕТРОВ       69
+ИВАН ДИМИТРОВ ИВАНОВ      96      ГЕОРГИ ИВАНОВ ИВАНОВ      69
+```
+
+**The top row is not a hypothetical — it is the case that already shipped a defect.**
+`c97af171c7` ("TR name matches: stop letting one corroborated company certify 319 namesakes")
+was about mpId 5113, „Георги Иванов Георгиев", whose bare name matched 320 TR officer rows and
+whose page attributed 319 unrelated companies across the country to him. The feed says that name
+belongs to **135 different people**. The fix we shipped was the name-frequency guard, which
+*suppresses* the whole medium set for a common name; the hash *resolves* it. The guard's cost is
+recall nobody has measured — it is deleting real roles alongside the false ones, and it cannot
+tell which is which.
+
+**MP exposure:** 98 of the 896 MPs with an `mp-management` file (11%) carry a name shared by more
+than one real human. Those MPs hold **527 of 3,023 roles, 420 of them `medium`**.
+
+### 11.2 🟡 Coverage ceiling — the hash is in the daily feed ONLY
+
+The CR Deeds full-capture API (`raw_data/tr/cr_deeds.sqlite`, the `project_cr_deeds.ts` source)
+returns an `htmlData`-shaped payload with **no `Indent` at all** — sampled 40 deeds at
+`http_status = 200`, zero hits, and no `IndentType` either.
+
+`company_persons` provenance: **1,276,304 rows `daily` (95.2%) · 64,492 rows `cr` (4.8%)**.
+
+So ~4.8% of person rows can never carry a key and must stay on the name-fold path indefinitely.
+Two consequences the design has to carry rather than hide:
+
+- **The fold path does not get deleted, it gets demoted.** Any surface that answers "who is this
+  person" needs both arms and must label which one answered — a `person_key` match is an
+  identity, a fold match is a candidate.
+- **A pre-2021 role that was never re-filed has no key**, even for a person whose other roles do.
+  So an MP's key set is complete over the daily window and partial before it, and the "companies
+  this person holds" count is a floor. Say so in the payload; do not let the UI read it as total.
+
+### 11.3 🔴 This changes a standing, machine-enforced privacy policy — settle it first
+
+Four gates currently assert the `Indent` never reaches an event, SQLite, a fixture, or `/public`:
+
+| Gate | What it asserts |
+|---|---|
+| [parse_daily_filing.ts:134](../../scripts/declarations/tr/parse_daily_filing.ts#L134) | the parser deliberately does not extract `Indent` |
+| [types.ts:55](../../scripts/declarations/tr/types.ts#L55) | the event type carries the policy note |
+| [sqlite_writer.ts:41](../../scripts/declarations/tr/sqlite_writer.ts#L41) + [smoke_test.ts:249](../../scripts/declarations/tr/smoke_test.ts#L249) | `company_persons` has no `person_hash` / `egn` / `personHash` column |
+| [parse_share_transfer.test.ts:55](../../scripts/declarations/tr/parse_share_transfer.test.ts#L55) | parser OUTPUT carries no `Indent` **and** the committed fixture does not either |
+
+Implementing T4 necessarily changes the first three. That is a decision for the repo owner, not
+a consequence of an infrastructure plan, so it is called out here rather than buried in a tier.
+
+**Why the policy exists, and why it is right about the risk.** The hash is a *pseudonym*, not an
+anonymisation — under GDPR it stays personal data. And the EGN keyspace is small: YYMMDD + serial
++ checksum is on the order of 10⁸ realistic living values. A stable digest over a keyspace that
+size is reversible to the EGN by anyone who obtains the Registry Agency's salt or who can
+enumerate against a known construction. Storing the raw TR hash would put a national-scale
+person key, and a plausible path to EGNs, into a database whose whole purpose is to be widely
+readable.
+
+**The design that keeps the intent and still gets the join — never store the TR hash.**
+
+```
+person_key = HMAC-SHA256(TR_PERSON_KEY_SECRET, indent)   truncated to 128 bits
+```
+
+computed **in the parser**, at the moment of extraction; the raw `indent` is never returned, never
+written, never logged. `TR_PERSON_KEY_SECRET` lives in `.env` / Secret Manager and is never
+committed. Properties:
+
+- **Joins are unaffected** — it is a deterministic function of a stable input, so equality still
+  means "same person".
+- **A database leak yields nothing joinable.** The values match no other holder of the TR dump,
+  and an EGN brute-force needs both the Registry's salt and ours.
+- **Rotatable.** Rotating the secret re-keys the corpus on the next full rebuild; a raw hash could
+  never be rotated.
+- **Never served.** No `/api/db` route may return `person_key`, and no `/public` artifact may
+  carry it. It is a build- and serve-side surrogate id, in the same class as `person_id`.
+
+The gates change shape rather than disappearing — and the fixture gate does not change at all:
+
+| Gate | After T4 |
+|---|---|
+| fixture gate | **unchanged** — raw `Indent` still never enters the repo |
+| parser gate | asserts no RAW `indent` in output; asserts `personKey` is present and is 32 hex |
+| sqlite gate | asserts no `person_hash` / `egn` / `indent` column; asserts `person_key` **is** present and that every value is HMAC-shaped |
+| **NEW** route gate | no `/api/db` response body and no `/public` artifact contains a `person_key`; runs over the route registry, not a sample |
+| **NEW** secret gate | the build fails if `TR_PERSON_KEY_SECRET` is absent, empty, or equal to any value committed in the repo — otherwise a missing secret silently degrades to a constant salt, which is the raw hash again under another name |
+
+### 11.4 Design — the anchor, not the salt
+
+We cannot compute an MP's hash: we have neither their EGN nor the Registry's salt, and we should
+not want either. **We do not need them.** One corroborated (person, company) pair yields the key
+from the feed, and every other row carrying that key is the same human with certainty.
+
+```
+anchor:  MP declared a stake in EIK X   →   read person_key at (X, name)   →   fan out
+```
+
+Anchor sources, strongest first:
+
+1. **Declared stake** — `declaration_stake_company` (2,147 rows). The EIK is *stated in the
+   declaration*; no name matching is involved, which is what makes it an anchor rather than
+   another guess.
+2. The existing `high` tier's other two arms (TR seat ∈ MP region; same-party MP declared the
+   same UIC) — weaker. Use to seed, then require the key to agree; a seed that disagrees with an
+   established key is evidence of a namesake and is evicted, not kept.
+3. A curated override file, sibling to the existing `tr_match_suppressions.json`.
+
+The resolution pass then has three outcomes per candidate row, and the third is new and the whole
+point:
+
+| | |
+|---|---|
+| key matches the anchor | **identity** — publish, no confidence badge needed |
+| no key (pre-2021 / `cr` row / non-EGN indent) | **fold candidate** — the current confidence model, unchanged |
+| key present and ≠ anchor | **EVICT** — provably a different human |
+
+Today's model has no third outcome. It cannot distinguish "different person" from "unproven", so
+it grades both `medium` and shows them side by side.
+
+### 11.5 Where the tables go
+
+New objects, and what each is for:
+
+| Object | Shape | Why |
+|---|---|---|
+| `company_persons.person_key` (SQLite) | `TEXT NULL`, 32 hex | the projection source; NULL for the 4.8% `cr` rows and every non-EGN indent |
+| `tr_person_roles.person_key` (PG, mig 147) | `text NULL` | the serving base — 1,340,793 rows today |
+| `tr_person` (PG, mig 147) | `person_key PK, name_norm, first_seen, last_seen, company_n` | one row per real human; the thing `person_profile()` should key on |
+| `person_name_ambiguity` (matview, mig 147) | `name_norm PK, person_n int` | 528,895 rows; lets any surface answer "is this name safe to fold?" in one PK seek instead of re-deriving §11.1 |
+| `person_egn_anchor` (PG, mig 147) | `person_id, person_key, basis, evidence_ref` | the bridge from *our* identity to the registry's; `basis` names which anchor rule fired |
+| `mp_tr_role` (PG, mig 147) | as in [mp-tr-edges-pg-v1.md](mp-tr-edges-pg-v1.md) §4, plus `person_key`, `match_basis` | rebuilt on the key |
+
+`person_name_ambiguity` earns its place twice: it is the eviction pass's input, **and** it is the
+honest input to a UI disclaimer — a fold-matched row on a name shared by 135 people should say so,
+and today nothing on the page can know that number.
+
+### 11.6 Performance — what to add, and what to measure it against
+
+The key changes the cardinality of every person→company query, so this is a required tier, not a
+garnish. Two of these are already-measured needs, not speculative.
+
+**Indexes**
+
+| Index | On | Measured need |
+|---|---|---|
+| `idx_tr_person_roles_key` | `tr_person_roles(person_key)` | replaces the `name_fold` trigram path for the 95.2% that have a key — 32-byte equality vs a GIN probe |
+| `idx_tr_person_roles_key_uic` | `(person_key, uic)` | the per-person fan-out, index-only |
+| `idx_company_persons_key` (SQLite) | `company_persons(person_key)` | the projection pass |
+| `idx_person_egn_anchor_key` | `person_egn_anchor(person_key)` | reverse lookup: "whose key is this" |
+| `idx_tr_company_place_{ekatte,obshtina}_person` | partial `WHERE person_link_n > 0` | **measured**: the naive place query is **121 ms / 13,459 buffers on Sofia (`ekatte=68134`)** because it sorts ~110k rows before the semi-join. Mirrors the two `political_n` partials already on that table |
+| `mp_tr_role(uic)` | secondary | the place inversion reads (company → MPs), the PK reads (MP → companies) |
+
+**Denormalized column** — `tr_company_place.person_link_n integer NOT NULL DEFAULT 0`, filled from
+`person_role(tr,ngo) ⨝ person(active, is_public_figure)` exactly as `political_n` is filled from
+`company_politicians`. Follow 003's rule: **declare the column twice** (CREATE + reconcile
+`ADD COLUMN IF NOT EXISTS`), because `load_tr_company_place_pg.ts` applies 133 on every run and
+`CREATE TABLE IF NOT EXISTS` is a no-op on a warm database.
+
+Note what this fixes: `place_companies()`'s existing `politicalCount` reads `political_n`, which
+is `company_politicians`-derived and therefore **money-restricted** — only **113 companies at 43
+places** carry `political_n > 0`, against **13,567 companies at 1,548 places** for the person-role
+basis. The place surface has been answering a much narrower question than its label implies.
+
+**Matviews** — only two, and each has to justify itself against a live query:
+
+- `person_name_ambiguity` — 528,895 rows, rebuilt with the TR load. A live `GROUP BY` over 1.34M
+  rows per request is not servable; a PK seek is.
+- `mp_tr_role` stays a **table**, not a matview, because it has a curated arm (the override file)
+  and a matview cannot carry one.
+
+Everything else stays live. Resist a per-person precompute until a measurement asks for one — 124
+exists because two routes exceeded the 10 s `statement_timeout` on prod, which is the bar.
+
+**Gates, mandatory**
+
+- A buffer ceiling per new serving path in a `.data.test.ts`, on the model of
+  `person_connections.data.test.ts` — which also **proves the ceiling still discriminates** by
+  restoring the old body in a rolled-back transaction. A ceiling that cannot fail is not a gate.
+- **Measure `person_profile()`, `person_roles()` and `magistrate_by_name()` before AND after.**
+  The fold path survives for the 4.8%, so both arms must be timed; timing only the new one hides a
+  regression in the arm that still serves every pre-2021 role.
+- `vacuumAfterReload()` after every TRUNCATE-reload of the new tables. Skipping it leaves
+  `relallvisible = 0` permanently, and then none of the indexes above can plan an index-only scan —
+  the plan still *says* Index Only Scan and reports `Heap Fetches: <every row>`. See CLAUDE.md's
+  visibility-map section; `reload_visibility_map.data.test.ts` reads the loaders' own call sites,
+  so a new vacuumed table must be added to its list.
+- Re-run §1.3's overlap measurements after T4 and update the table. The `person_id` numbers will
+  move, and a stale overlap on a live map is exactly the §4.2 class of error this plan exists to
+  prevent.
+
+### 11.7 Retiring the stale GCS JSON — last, and in this order
+
+Three families are still uploaded by every `bucket:sync` (verified against
+`scripts/bucket_sync_paths.ts` — none is in `isExcluded`), and T4 is what makes all three
+redundant:
+
+| Path | Files | Bytes |
+|---|---|---|
+| `parliament/mp-management/` | 896 | 3.6 MB |
+| `parliament/companies-by-ekatte/` | 376 | 2.2 MB |
+| `parliament/companies-by-obshtina/` | 270 | 1.5 MB |
+
+Order matters, and step 1 is the one that is easy to skip:
+
+1. **Cut the build-time loop first.** `augment_mp_roles.ts` reads `mp-management/*.json` back off
+   disk to write `mpRoles` onto `companies-index.json`, which `build_companies_by_*` then read
+   ([index.ts:432](../../scripts/declarations/index.ts#L432)). Repoint it at `mp_tr_role`. Until
+   this lands, deleting the files breaks a pipeline step that has nothing to do with serving.
+2. Repoint every reader (`useMpManagement`, `useCompaniesHqSummary`, `useCompaniesHqPage`) and
+   **verify on prod**, not locally.
+3. Drop the gate fetch: `PlaceCompaniesTile` calls `useCompaniesHqSummary` only to decide whether
+   to render a link — one bucket round-trip on every governance dashboard. Return the gate as a
+   field on the tile's own call.
+4. Delete the writers — `buildCompaniesBySettlement`, `buildCompaniesByObshtina`, and the
+   `mp-management` write in `integrate.ts`. **Keep** `companies-index.json`: it is a declared load
+   source (§6 of connections-pg-migration-v1) and its `tr` block is unrelated.
+5. **Three places in lockstep, not two** (corrected in §12.4): an `isExcluded` refusal **and** a
+   `CHILD_EXCLUDES` entry in `bucket_sync_paths.ts`, **and** the `-x` regex in *both*
+   `bucket:sync` and `bucket:sync:dry` in `package.json`.
+   [bucket_sync_paths.test.ts:30](../../scripts/bucket_sync_paths.test.ts#L30) asserts the
+   lockstep and that the two `-x` regexes stay byte-identical. Missing `CHILD_EXCLUDES` still
+   lets `bucket:sync:paths -- parliament` re-upload all 1,542 files, because `parliament/` stays
+   synced for `photos/`; missing the `-x` regex lets the full `bucket:sync` do it.
+6. Scoped `bucket:sync:paths -- parliament --delete`, then git-untrack.
+7. A test that fails if any of the three paths reappears in a sync manifest.
+
+### 11.8 Retiring the `connections*` family — bigger than T4.5, and a live hazard
+
+The person↔person static pipeline was retired in code (`a8f07765d8`, connections-engine-v1 §P4)
+and `/connections` + the `/person` tile now read the live PG graph engine. **The artifacts were
+never retired.** They are still tracked in git and still uploaded by every `bucket:sync` — none
+of them is in `isExcluded`:
+
+| Path | Files | Bytes | Reader |
+|---|---|---|---|
+| `parliament/connections.json` | 1 | **15.6 MB** | none in code — **but listed as a `/data` download** ([routes.ts:1013](../../scripts/prerender/routes.ts#L1013)) |
+| `parliament/connections-rankings.json` | 1 | 4.8 MB | **live** — [ai/tools/people.ts:238](../../ai/tools/people.ts#L238) |
+| `parliament/connections-rankings-top.json` | 1 | 0.3 MB | **live** — [ai/tools/people.ts:91](../../ai/tools/people.ts#L91) |
+| `parliament/connections-search.json` | 1 | 2.6 MB | none |
+| `parliament/connections-top-pairs.json` | 1 | 1.5 MB | none |
+| `parliament/connections-party-matrix.json` | 1 | 0.4 MB | none |
+| `parliament/connections-stats.json` | 1 | 2 KB | none |
+| `parliament/mp-connections/` | 939 | 12 MB | none |
+| `parliament/official-connections/` | 4,483 | 25 MB | none |
+| **tracked total** | **5,429** | **49.9 MB** | |
+
+**"None" here is machine-asserted, not eyeballed.**
+[retired.test.ts](../../src/screens/components/connections/retired.test.ts) walks `src/**` and
+fails if any of 17 retired symbols is re-imported — `useConnectionsGraph`, `useConnectionsStats`,
+`useConnectionsPartyMatrix`, `useConnectionsTopPairs`, `useConnectionsRankings`,
+`useConnectionsSearch`, `useMpConnections` … So the front end genuinely cannot read these. What
+the guard does **not** cover is `ai/`, `functions/` and the prerender catalogue, which is exactly
+where the three surviving readers are.
+
+**Their replacements already exist and are shipped:** `graph_edge` / `graph_company_node` /
+`graph_person_node` + the down-sampled `graph_payloads` blob (migrations 127–129,
+`db:load:graph:pg`), served through `person_connections()`, `person_graph_ego()` and
+`/api/db/connections-graph`. `graphBlob.ts` derives the hero stats and the top-pairs list from
+the blob, in comments that say so verbatim ("replacing `connections-stats.json`",
+"replacing `connections-top-pairs.json`"). Nothing needs to be built to retire these seven; only
+the two AI tools and the catalogue entry need repointing.
+
+#### 11.8a 🔴 `company-connections/` is a frozen serving surface — the one that is not merely dead
+
+`parliament/company-connections/` is **78 MB across 18,340 files** and behaves differently from
+everything above, in a way worth stating precisely because each fact on its own looks benign:
+
+- It is **gitignored** ([.gitignore:271](../../.gitignore#L271)) — so it is not in the tracked
+  total.
+- It is **excluded from `bucket:sync`** since `9e96137c9c` (2026-07-29), as *"PG-served"*.
+- Its front-end reader, `CompanyConnectionsSection` / `useCompanyConnections`, is **imported by
+  nothing outside its own folder** — unreachable code. `retired.test.ts` explicitly exempts it
+  ("a separate company-page pipeline"), so no guard has ever looked at it.
+- Its hook nonetheless fetches `dataUrl('/parliament/company-connections/{eik}.json')` — the
+  **bucket**, not the PG route.
+- [ai/tools/people.ts:715](../../ai/tools/people.ts#L715) fetches the same bucket path through
+  `fetchData`, whose browser fetcher resolves `VITE_DATA_BASE_URL`
+  ([dataClient.ts:31](../../ai/tools/dataClient.ts#L31)) — i.e. the bucket. Its own comment says
+  "GCS-only".
+
+**An exclusion stops re-upload; it does not delete.** So whatever is on GCS is frozen at the
+2026-07-29 exclusion, while the local tree has been rebuilt since (mtime 2026-08-10) — a serving
+copy that can only diverge, which is the hazard the `opencalls/` exclusion comment in the same
+file warns about in as many words ("a spare serving surface free to go stale"). The AI
+`companyConnections` tool is the one live consumer, and it is answering "no political links" or
+answering from a stale snapshot depending on what is actually still in the bucket.
+
+**Verify before acting** — `gsutil ls gs://<bucket>/parliament/company-connections/ | head` and
+check an object's `Update time`. Do not write the outage into a commit message on the strength of
+the reasoning above; that is the §10.8 mistake.
+
+The replacement is already live and better: `/api/db/company-connection?eik=&name=` (direct roles
++ 1-hop bridges via `company_connection()`, plus a shortest path up to 3 degrees via
+`company_person_path()`), already consumed by `CompanyConnectionCheck.tsx` on the procurement
+side.
+
+#### 11.8b Order
+
+Same discipline as §11.7 — repoint every reader and verify on prod *before* anything is deleted.
+
+1. **Migrate the two AI ranking tools** ([people.ts:91,238](../../ai/tools/people.ts#L91)) from
+   `fetchData` to `fetchDb` against the graph routes, and verify through the AI correctness
+   harness — the node harness swaps in a fetcher that runs the **same route handlers** against
+   local Postgres, so tool numbers are checked against the exact code prod serves.
+2. **Migrate `companyConnections`** (people.ts:715) to `/api/db/company-connection`. Its payload
+   shape changes (`directLinks`/`bridgedLinks` → `direct`/`shared`/`path`), so this is a rewrite
+   of the tool's formatter, not a URL swap. Keep the "name-match only — identity is never
+   asserted" disclaimer: the PG route is name-keyed too.
+3. **Delete the unreachable front-end pair** — `useCompanyConnections.ts` +
+   `CompanyConnectionsSection.tsx` — and **add both to `retired.test.ts`'s `RETIRED` list**,
+   removing the exemption. That exemption is why this tree went a year unexamined; leaving it in
+   place after deleting the files invites the same re-creation the guard exists to prevent.
+4. **Resolve the `/data` catalogue entry for `connections.json`.** It has no code reader but is
+   *advertised as a published dataset*, so deleting it 404s a link we published. Two honest
+   options, and this is a T2 hub decision rather than a sweep decision: re-point the entry at a
+   PG-derived export (the `graph_payloads` blob is the natural candidate — it is what the site
+   itself now renders), or de-list it and say in the catalogue that the graph moved to the API.
+   **Silently deleting it is the one option that is not available.**
+5. `bucket_sync_paths.ts` gains an `isExcluded` refusal **and** a `CHILD_EXCLUDES` entry for each
+   of the seven files and two directories, **and** both `package.json` `-x` regexes — the same
+   three-place lockstep as §11.7 step 5. `parliament/company-connections` is already in the `-x`
+   regex, which is precisely why its bucket copy is frozen rather than current (§11.8a).
+6. Scoped `bucket:sync:paths -- parliament --delete`, which is also what finally removes the
+   frozen `company-connections/` objects.
+7. Git-untrack the 5,429 tracked files. Check first whether any is a **load source** the way
+   `companies-index.json` is — `build_company_connections.ts` and the graph loader read from
+   `state.sqlite` and PG respectively, so the expectation is none, but the check is cheap and the
+   failure (a `db:refresh` that breaks on a fresh clone) is not.
+8. Extend the §11.7 test so it fails if **any** of these paths reappears in a sync manifest.
+
+#### 11.8c Sizing
+
+| Sweep | Files | Bytes | Risk |
+|---|---|---|---|
+| §11.7 — the three MP↔TR shard families | 1,542 | 7.3 MB | build-time loop must be cut first |
+| §11.8 — `connections*`, tracked | 5,429 | 49.9 MB | 3 live readers + 1 published-dataset entry |
+| §11.8a — `company-connections/`, gitignored | 18,340 | 78 MB | frozen bucket copy; verify with `gsutil` first |
+| **total** | **25,311** | **135.2 MB** | |
+
+The bigger win is the one that needs the more careful check, which is the usual shape and the
+reason this is sequenced after T4 rather than folded into it. Note §11.8 and §11.8a do **not**
+depend on T4 at all — their replacements shipped months ago. They are here because they are the
+same class of debt and the same retirement discipline, and because doing them together means
+writing the `bucket_sync_paths` gate once.
+
+### 11.9 What this does NOT do
+
+- **It does not make the whole person layer exact.** Only TR↔TR. Declarations, CIK candidates,
+  the officials roster and the ИВСС register publish no EGN hash, so `person_id` stays a bridge
+  across those and §11.2's fold arm stays live. `person_key` is not a replacement for `person_id`
+  and the model keeps them separate on purpose (§2.1).
+- **It does not settle the `medium` tier question.** [mp-tr-edges-pg-v1.md](mp-tr-edges-pg-v1.md)
+  §5 asks whether uncorroborated fold matches should be published at all. T4 shrinks that
+  population — 95.2% of rows can be decided by key — but the residue is a publishing decision,
+  and a smaller residue is easier to decide, not self-deciding.
+- **It does not recover pre-2021 roles.** A role entered before the feed window and never
+  re-filed is invisible to the key. The CR Deeds capture fills those rows but carries no identity
+  (§11.2), so that gap closes only if the Registry exposes an indent on that API.
+
+---
+
+## 12. Audit of §11 (2026-08-11) — gaps found, and three corrections to §11 itself
+
+Read after §11. Everything here was checked against the repo, not recalled. §12.1 is the largest
+gap: **§11 as first written never touched the daily-refresh flow at all**, which for a corpus that
+moves every weekday is not a detail.
+
+### 12.1 🔴 Watcher / `process-watch-report` wiring — missing entirely from §11
+
+The new flow rides an **existing** watcher source. `egov_commerce` → `tr-daily-refresh`, and that
+npm script already chains the Postgres half
+([package.json:239](../../package.json#L239)):
+
+```
+tsx daily_refresh.ts && db:pg:up && db:load:tr:pg && db:load:cr-founding:pg
+                                 && db:load:cr-nkid:pg && db:load:tr-company-place:pg
+```
+
+So most of T4 needs no new watcher source and no new ingest marker — it needs the existing chain
+extended. What has to change, and none of it is inferable from the migration list:
+
+**(a) `db:load:tr:pg` carries three more outputs.** `tr_person_roles.person_key` is filled in the
+same COPY; `tr_person` and `person_name_ambiguity` are rebuilt immediately after, inside the same
+loader. They must **not** be a separate `db:load:*` — they are a pure function of the table the
+loader just replaced, and splitting them creates a window where the ambiguity matview disagrees
+with the roles it summarises.
+
+**(b) `mp_tr_role` is a FAN-IN, and the mapping table has no shape for that.** It needs
+`tr_person_roles` (from `egov_commerce` → `tr-daily-refresh`), `declaration_stake_company` (from
+`cacbg_declarations` → `update-connections`) and `person_role` (from `update-persons`). A source
+row cannot express "re-run when any of three moved". Use the pattern the table already has for
+exactly this problem — the `_person-layer re-derivation (downstream of ANY people source)_` row —
+and add a sibling:
+
+> `_MP↔TR attribution (downstream of egov_commerce OR any anchor source)_` → run
+> `db:load:mp-tr-roles:pg` **after** whichever of `tr-daily-refresh` / `update-connections` /
+> `update-persons` ran, last in the queue.
+
+**(c) 🔴 `db:load:tr-company-place:pg` ends the daily chain, and after T4 that is the wrong
+place.** `person_link_n` is denormalized from `person_role(tr,ngo)`, which `update-persons`
+rebuilds — and `update-persons` runs *after* `tr-daily-refresh` in the orchestrator queue. So the
+daily flip would refresh the place counter from the **previous** resolve, and every governance
+dashboard's "фирми, регистрирани тук" political count would sit one vintage behind at a 200. Two
+options, and the second is better: either move `db:load:tr-company-place:pg` out of the
+`tr:daily-refresh` script into the orchestrator's post-`update-persons` step, or have the
+orchestrator re-run it there. Note this is a **pre-existing latent issue that T4 makes real** —
+the column it denormalizes today (`political_n`, from `company_politicians`) *is* rebuilt by
+`db:load:tr:pg` in the same chain, so the ordering has been correct by accident.
+
+**(d) The cloud publish list grows.** SKILL.md's `tr-daily-refresh` cloud row is currently
+`db:load:tr:pg:cloud && db:load:graph:pg:cloud && db:load:tr-company-place:pg:cloud &&
+db:refresh:risk:cloud`. Add `db:load:mp-tr-roles:pg:cloud` after the graph step, and keep
+`tr-company-place` last for the same reason as (c). The `update-persons` cloud chain gains
+`person_egn_anchor` — it is written by the resolver, so it rides `db:resolve:persons:cloud` with
+no new command, but the plan must say so or someone will add one.
+
+**(e) Ingest markers: reuse, do not add.** `state/ingest/tr-daily-refresh.json` and
+`state/ingest/update-persons.json` already exist and already gate these skills. A new marker would
+create a second answer to "has this been ingested?" for one source movement. The `summary` string
+in the marker should name the key coverage (`person_key on N of M rows`) — that string is what the
+orchestrator narrates, and it is the only place a coverage regression would be visible day to day.
+
+### 12.2 🔴 The one-off backfill the daily flip cannot produce
+
+`tr:daily-refresh` is **incremental** — it fetches new day files and replays them onto
+`state.sqlite`. A parser that starts extracting `Indent` therefore keys only rows arriving *after*
+the change. The 1,468,207 historical rows get `person_key` only if the whole archive is re-parsed.
+
+Consequences the plan has to carry:
+
+- **A one-off full rebuild is a separate, manual step**, behind an explicit flag — the repo's
+  standing rule for backfills. It re-reads `raw_data/tr/daily/` (1,666 files, **15 GB**) and
+  rebuilds `state.sqlite` from scratch; budget accordingly and do not chain it to anything.
+- **`raw_data/tr/daily/` is gitignored host state.** Only a machine holding it can produce the
+  column. A fresh clone gets `person_key` NULL on every row, every surface silently falls back to
+  the fold arm, and nothing fails — the safe degradation, and an invisible one. The loader must
+  log the coverage ratio on every run, and a `.data.test.ts` must fail below a floor (say 90% of
+  `daily`-sourced rows) rather than only on an empty column.
+- **Ordering inside the one-off:** re-parse → rebuild `state.sqlite` → `db:load:tr:pg` →
+  anchors → `mp_tr_role`. Anchors before `mp_tr_role`, obviously; but also **after**
+  `db:resolve:persons`, since the anchor row is keyed on `person_id`.
+
+### 12.3 🔴 `person_egn_anchor` must not be readable from `/db` — and a route gate does not cover it
+
+§11.3's "never served" rule was written against `/api/db` routes and `/public` artifacts. It has a
+hole: **`/db` runs an arbitrary read-only `SELECT` over the open schema**
+([sql_lib.js:3](../../functions/sql_lib.js#L3)). An exposed `person_egn_anchor` therefore lets any
+visitor enumerate `person_id ↔ person_key` in one query, and from there join the key back across
+the whole TR corpus — which is the identity mapping the re-keying exists to protect.
+
+T3's schema filter is not the fix. That is a *display* filter over a catalogue; the SQL surface is
+still open, so hiding the table from the listing hides it from the honest user only.
+
+**The fix is a privilege boundary, not a convention.** Put the anchor table (and `person_key`
+itself, if it can be kept off the public tables) in a schema `app_readonly` cannot see — the
+`/db` console connects as that role, so an unprivileged relation is unreadable regardless of what
+the catalogue shows. Then assert it:
+
+- a `.data.test.ts` that connects **as `app_readonly`** and expects `42501` on
+  `SELECT * FROM person_egn_anchor` — asserting the grant, not the filter;
+- extend the §11.3 route gate to cover the `/db` catalogue as well, so the table cannot reappear
+  in the listing either.
+
+Note the role-guard interaction: `roles_readonly.sql` is a one-time manual step, so a migration
+that `REVOKE`s or `GRANT`s against `app_readonly` must be guarded the way 117/130 are, or it
+raises `42704` on a cold bootstrap and rolls the whole file back.
+
+### 12.4 Three corrections to §11
+
+**(a) The changelog rule was stated backwards.** [mp-tr-edges-pg-v1.md](mp-tr-edges-pg-v1.md)'s
+ops section said both surfaces need a `recent_updates` row. They need **none**. `mp_tr_role`,
+`tr_person` and `person_name_ambiguity` are derived serving layers and follow the
+`db:load:graph:pg` precedent: no `recent_updates` row, no `data/data-changes.json` entry. The
+`/data/updates` feed is stamped per-skill by `process-watch-report`, and `tr-daily-refresh`
+already stamps it — a row here reports one TR movement twice under two names. Corrected in that
+file.
+
+**(b) Bucket retirement needs THREE places in lockstep, not two.** §11.7 and §11.8b said
+`isExcluded` + `CHILD_EXCLUDES`. They also need the `-x` regex in **both** `bucket:sync` and
+`bucket:sync:dry` in `package.json`, which
+[bucket_sync_paths.test.ts:30](../../scripts/bucket_sync_paths.test.ts#L30) asserts stay
+byte-identical. Corrected in both sections.
+
+**(c) A missing `ORDER_PAIRS` entry.** §11.6 named `person_link_n` as a schema change but not as
+an ordering change. `db:load:tr-company-place:pg` must now follow `db:resolve:persons`
+(see §12.1c) — that is a fourth entry for
+[refresh_coverage.test.ts:85](../../scripts/db/refresh_coverage.test.ts#L85)'s table, alongside
+the two §11 already names. Its `why` should say what breaks: the governance tile's political
+count publishes the previous resolve's link set with every row count reconciling.
+
+### 12.5 The parity check that passes while the column is empty
+
+`sync_cloud.ts`'s `CRITICAL_TABLES` already contains `tr_person_roles` — but it compares
+**row counts**, and every row can carry a NULL `person_key` while the count matches exactly. This
+is the `place_dim`/`nuts3` trap in CLAUDE.md repeating verbatim: prod had the right row count
+(5,720, matching local) and the wrong columns, and a count-based preflight passed it.
+
+So:
+
+- add `tr_person` and `person_egn_anchor` to `CRITICAL_TABLES` — they qualify on the same axis as
+  `agri_subsidies` and `kzk_decisions`: derived from **gitignored host state**, so a dropped table
+  is only re-derivable from a machine that still holds `raw_data/tr/daily/`, and a restore that
+  loses them looks green;
+- add a **column-population** check beside the count check for `tr_person_roles.person_key`, since
+  that is the failure mode a count cannot see.
+
+### 12.6 Secret handling — the one-line leak
+
+`vite.config.ts` calls `loadEnv(mode, ".", "")` with an **empty prefix**, which reads every
+variable in `.env`, and then injects exactly one into the bundle via `define`
+([vite.config.ts:93](../../vite.config.ts#L93)). So `TR_PERSON_KEY_SECRET` is safe today by virtue
+of one `define` entry, and would be exposed by a one-line edit — a shape worth a gate rather than
+a comment:
+
+- a test that greps `dist/**` for the secret's **value** and for the literal string
+  `TR_PERSON_KEY_SECRET`, and fails on either;
+- the §11.3 secret gate (build fails on absent/empty/committed value) already covers the other
+  direction — a missing secret silently degrading to a constant salt, which is the raw hash under
+  another name.
+
+### 12.7 The AI harness is a second consumer, and its numbers will move
+
+`personProfile` / `personConnections` / `person_elections` read the person layer, and T4 changes
+which companies attach to a person — 720 fold pairs evicted or confirmed, 257 already-PG pairs
+unaffected, plus whatever the anchors add. The node correctness harness swaps in a fetcher that
+runs the **same route handlers** against local Postgres, so expectations move with the data rather
+than with the code.
+
+Re-run the harness after T4.3 and **record the diff in this plan**, not just in a commit message.
+An AI tool that quietly starts returning a different company set for the same MP is exactly the
+kind of change that should be visible in the evidence log.
+
+### 12.8 What the audit did NOT find
+
+Stated so the absence is a checked result rather than an omission:
+
+- **No migration-number collision.** 146 is the highest committed; 147/148 are free.
+- **No `pg_roundtrip` exposure.** That gate asserts Postgres is a lossless capture of the
+  procurement **shards**; `company_persons` is SQLite and outside it.
+- **No prerender or sitemap impact.** None of the affected surfaces is prerendered and none emits
+  a `<loc>`; `/settlement/:id/companies` and `/sofia/companies` are SPA-only.
+- **No `db:refresh` cycle.** tr → declarations → resolve:persons → anchors → `mp_tr_role` is a
+  chain, not a loop. The one existing cycle in this area (graph → tr-company-place → interreg,
+  documented in CLAUDE.md) is untouched: `person_link_n` reads `person_role`, which is upstream
+  of all three.
+- **`tr_search_shape.test.ts` already covers the new column** — it fails when 003's CREATE list
+  and its reconcile list disagree, so `person_key` on `tr_person_roles` cannot land on a fresh
+  clone only. It does **not** cover new tables, so `tr_person` needs its own shape assertion.
+
+### 12.9 Pre-implementation checklist
+
+Settle these before the first line of code; each changes what gets built.
+
+| # | Decision | Owner |
+|---|---|---|
+| 1 | Extract the EGN hash at all — §11.3 changes a standing, gated policy | repo owner |
+| 2 | Re-key with HMAC vs store the TR hash verbatim | repo owner (§11.3 recommends HMAC) |
+| 3 | Publish the residual keyless fold matches, or only count them (§5 of mp-tr-edges) | repo owner |
+| 4 | Private schema for `person_egn_anchor` vs catalogue filter (§12.3 says schema) | repo owner |
+| 5 | Verify `gs://…/parliament/company-connections/` before writing §11.8a as an outage | anyone, `gsutil` |
+| 6 | Confirm the 15 GB re-parse can run on the machine that will do it (§12.2) | operator |
