@@ -23,7 +23,6 @@ import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
-import { useCycleKind } from "@/data/area/useCycleKind";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -103,13 +102,11 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
-  const cycle = useCycleKind();
   const { findMpsByRegion } = useMps();
   const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const { mpName } = useCandidateName();
 
-  const isParliamentaryCycle = cycle.kind === "parliament";
-  const nsFolder = isParliamentaryCycle ? electionToNsFolder(selected) : null;
+  const nsFolder = electionToNsFolder(selected);
   const mir = oblastToMir(oblast);
 
   // Mirror MyAreaRepresentativesStrip's resolution so column order matches
@@ -153,7 +150,7 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
     [lang],
   );
 
-  if (!isParliamentaryCycle || !mir || mpRows.length === 0) return null;
+  if (!mir || mpRows.length === 0) return null;
   if (!isLoading && items.length === 0) return null;
 
   return (

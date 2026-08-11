@@ -23,7 +23,6 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { initials, normalizeMpName as normalize } from "@/lib/utils";
-import { useCycleKind } from "@/data/area/useCycleKind";
 import { useMpSignals } from "@/data/myarea/useMpSignals";
 
 type Props = {
@@ -53,7 +52,6 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
-  const cycle = useCycleKind();
   const { findMpsByRegion } = useMps();
   const { candidates } = useCandidates();
   const { lookup: lookupParliamentGroup, colorForPartyShort } =
@@ -62,11 +60,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
   const { mpName } = useCandidateName();
   const { findRegion } = useRegions();
 
-  // Non-parliamentary cycles don't seat MPs of their own — leave the strip
-  // empty rather than guessing. The Mayor & council section below the hero
-  // covers local cycles instead.
-  const isParliamentaryCycle = cycle.kind === "parliament";
-  const nsFolder = isParliamentaryCycle ? electionToNsFolder(selected) : null;
+  const nsFolder = electionToNsFolder(selected);
   // Effective oblast list — one for most places, three for the Sofia city
   // aggregate. The МИР codes drive the per-region MP fetch.
   const oblastList = useMemo(
@@ -154,7 +148,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
   // Don't render the section for local/EU/presidential cycles or when the
   // MIR mapping is missing — the strip would be empty otherwise and the
   // header alone would feel like a broken state.
-  if (!isParliamentaryCycle || mirs.length === 0 || rows.length === 0) {
+  if (mirs.length === 0 || rows.length === 0) {
     return null;
   }
 
@@ -281,7 +275,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
                 {regionLabel ??
                   mirs.map((m) => `МИР ${m}`).join(lang === "bg" ? ", " : ", ")}
               </Link>{" "}
-              ({cycle.slug})
+              ({selected})
             </p>
           );
         }
@@ -298,7 +292,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({
               МИР {mirs[0]}
               {regionName ? ` · ${regionName}` : ""}
             </Link>{" "}
-            ({cycle.slug})
+            ({selected})
           </p>
         );
       })()}

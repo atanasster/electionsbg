@@ -16,12 +16,9 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
-import { Card } from "@/components/ui/card";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
-import { useCycleKind } from "@/data/area/useCycleKind";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
@@ -57,7 +54,6 @@ export const MyAreaScreen: FC = () => {
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
-  const cycle = useCycleKind();
   const { findMunicipality } = useMunicipalities();
 
   // No need to mirror the path :id into `?area=` — AreaAnchorProvider now
@@ -125,11 +121,6 @@ export const MyAreaScreen: FC = () => {
       }
     : { oblast: area.oblast };
 
-  // chmi banner: when the selected cycle is a partial local election, the
-  // mayor card downstream may show a freshly elected replacement. Surface
-  // that context above the dashboard so users don't miss the framing.
-  const showChmiBanner = cycle.kind === "chmi";
-
   // Names the place the education card's fallback figures ACTUALLY come from.
   // Inside Sofia that is Столична община, not the район the settlement sits in:
   // МОН publishes the city as one aggregate, so с. Бистрица showing "община
@@ -179,17 +170,6 @@ export const MyAreaScreen: FC = () => {
             район (obshtina S2xxx). Auto-hides everywhere else. Helps
             users jump between райони without bouncing through search. */}
         <MyAreaSofiaRaionStrip activeObshtina={area.obshtina} />
-
-        {showChmiBanner ? (
-          <Card className="p-3 border-amber-500/40 bg-amber-500/5 flex items-center gap-2">
-            <AlertTriangle className="size-4 text-amber-500 shrink-0" />
-            <p className="text-sm">
-              {lang === "bg"
-                ? `Частични избори за кмет — ${cycle.date}.`
-                : `Partial mayoral election — ${cycle.date}.`}
-            </p>
-          </Card>
-        ) : null}
 
         {/* Action band — election-imminent countdown only (within 60
             days). Past activity (council votes, procurement, EU
