@@ -207,14 +207,34 @@ When a new filing season opens (typically May for prior fiscal year):
 
 5. **Spot-check the dashboard** at `/?_=` (cache-bust) — the "Бизнес връзки на депутатите" tile should show the new year reflected in any MP whose declarations grew. The tile filters by current parliament's NS folder; switch elections to verify older NSes still populate.
 
-6. **Commit**:
+6. **Regenerate the declarations-hub blob** (mandatory whenever `companies-index.json` moved):
    ```bash
-   git add public/parliament/declarations public/parliament/companies-index.json \
-           public/parliament/mp-management public/parliament/connections.json \
-           public/parliament/mp-connections public/parliament/connections-rankings.json \
-           data/parliament/company-connections-stats.json
+   npm run db:gen-declarations-hub-stats
+   ```
+   The `/governance/declarations` companies tile quotes THIS FILE rather than a table —
+   `data/governance/declarations_hub_stats.json` stores `companies` / `companyMps` read
+   straight out of `companies-index.json`, precisely so the tile and its destination cannot
+   disagree. Nothing else regenerates it outside a full `db:refresh`, so a rebuild that stops
+   at step 5 leaves the tile quoting the previous vintage. That is not silent — it is the one
+   drift in this skill with a red gate: `declarations_hub_stats.data.test.ts` re-reads both
+   files and fails the CI Vitest run (it needs no Postgres, so it does not skip). Caught
+   2026-08-11, when the 2015-2020 MP backfill took the index 2,761 → 3,269 and the tile stayed
+   at 2,761.
+
+   The generator's other four figures come from Postgres, so it publishes whatever the local
+   database currently holds. If the person layer has not been reloaded since the declarations
+   changed, run this after `/update-persons` rather than before it.
+
+7. **Commit**:
+   ```bash
+   git add data/parliament/declarations data/parliament/companies-index.json \
+           data/parliament/mp-management data/parliament/connections.json \
+           data/parliament/mp-connections data/parliament/connections-rankings.json \
+           data/governance/declarations_hub_stats.json
    git commit -m "Refresh declarations for 2026 filing year"
    ```
+   (The tree is `data/parliament/`, not `public/parliament/` — that path holds only `votes`,
+   so the older form of this block failed on its first argument.)
 
 ## Data-integrity contract
 
