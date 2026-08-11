@@ -12,6 +12,7 @@
 // It lives in its own module rather than beside <SessionAbsentees> so the rule can be
 // imported by a test without the component file exporting anything but components.
 
+import { foldedParties, groupLabeller } from "@/data/parliament/votes/groups";
 import type { SessionFile } from "@/data/parliament/votes/types";
 
 export interface AbsentMp {
@@ -27,6 +28,8 @@ export interface AbsentMp {
 export const fullyAbsent = (session: SessionFile): AbsentMp[] => {
   const dayItems = session.sessions.length;
   if (dayItems === 0) return [];
+  const parties = foldedParties(session.mpParty);
+  const labelOf = groupLabeller(session.mpParty);
   const onRoll = new Map<number, number>();
   const missed = new Map<number, number>();
   for (const item of session.sessions) {
@@ -45,7 +48,9 @@ export const fullyAbsent = (session: SessionFile): AbsentMp[] => {
     out.push({
       mpId,
       name: session.mpNames?.[String(mpId)] ?? `MP ${mpId}`,
-      party: session.mpParty?.[String(mpId)] ?? "",
+      // Canonical group, published under the day's own spelling — the list sorts by party,
+      // so a split would separate two members of one group (groups.ts).
+      party: labelOf(parties[String(mpId)] ?? ""),
     });
   }
   return out.sort(

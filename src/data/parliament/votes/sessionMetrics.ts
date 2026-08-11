@@ -4,6 +4,7 @@ import type {
   VoteValue,
 } from "@/data/parliament/votes/types";
 import { majorityFor } from "@/data/parliament/votes/majority";
+import { foldedParties, groupLabeller } from "@/data/parliament/votes/groups";
 
 export interface PartyTally {
   party: string;
@@ -48,6 +49,11 @@ const castCount = (item: SessionItem): number =>
 
 export const computeSessionMetrics = (session: SessionFile): SessionMetrics => {
   const mpParty = session.mpParty ?? {};
+  // Bucket by canonical group key, publish the day's own spelling. `party` on every field
+  // this returns — PartyTally, the majorityByParty keys, each dissenter — is the LABEL, so
+  // a consumer only ever handles one form. Only majorityFor sees the key.
+  const parties = foldedParties(mpParty);
+  const labelOf = groupLabeller(mpParty);
   const castItems = session.sessions.filter((it) => castCount(it) > 0);
   const perItem: ItemMetrics[] = [];
 
@@ -60,12 +66,18 @@ export const computeSessionMetrics = (session: SessionFile): SessionMetrics => {
   for (const item of castItems) {
     const byParty = new Map<string, PartyTally>();
     for (const v of item.votes) {
-      const party = mpParty[String(v.mpId)] ?? "—";
+      const key = parties[String(v.mpId)] ?? "—";
       const row =
-        byParty.get(party) ??
-        ({ party, yes: 0, no: 0, abstain: 0, absent: 0 } as PartyTally);
+        byParty.get(key) ??
+        ({
+          party: labelOf(key),
+          yes: 0,
+          no: 0,
+          abstain: 0,
+          absent: 0,
+        } as PartyTally);
       row[v.vote]++;
-      byParty.set(party, row);
+      byParty.set(key, row);
     }
     const partyTallies = [...byParty.values()].sort(
       (a, b) =>
@@ -77,15 +89,16 @@ export const computeSessionMetrics = (session: SessionFile): SessionMetrics => {
     );
 
     const majorityByParty = new Map<string, VoteValue | null>();
-    for (const t of partyTallies) {
-      majorityByParty.set(t.party, majorityFor(item, t.party, mpParty));
+    for (const [key, t] of byParty) {
+      majorityByParty.set(t.party, majorityFor(item, key, parties));
     }
 
     const dissenters: ItemMetrics["dissenters"] = [];
     for (const v of item.votes) {
       if (v.vote === "absent") continue;
-      const party = mpParty[String(v.mpId)];
-      if (!party) continue;
+      const key = parties[String(v.mpId)];
+      if (!key) continue;
+      const party = labelOf(key);
       const maj = majorityByParty.get(party);
       if (!maj) continue;
       if (v.vote !== maj) {

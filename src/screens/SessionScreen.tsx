@@ -20,6 +20,11 @@ import { SessionDefections } from "@/screens/components/votes/SessionDefections"
 import { SessionAbsentees } from "@/screens/components/votes/SessionAbsentees";
 import { computeSessionMetrics } from "@/data/parliament/votes/sessionMetrics";
 import { majorityFor } from "@/data/parliament/votes/majority";
+import {
+  foldedParties,
+  groupLabeller,
+  groupOf,
+} from "@/data/parliament/votes/groups";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
 
 // Threshold for switching the per-session visualization from per-item party
@@ -313,13 +318,18 @@ export const SessionScreen: FC = () => {
                   sessionMpId != null
                     ? item.votes.find((v) => v.mpId === sessionMpId)?.vote
                     : null;
+                // Canonical key on both sides — majorityFor compares them (groups.ts).
                 const focusedParty =
                   sessionMpId != null
-                    ? session.mpParty?.[String(sessionMpId)]
+                    ? groupOf(session.mpParty, sessionMpId)
                     : null;
                 const focusedMajority =
                   focusedParty && session.mpParty
-                    ? majorityFor(item, focusedParty, session.mpParty)
+                    ? majorityFor(
+                        item,
+                        focusedParty,
+                        foldedParties(session.mpParty),
+                      )
                     : null;
                 const isDissent =
                   !!focusedVote &&
@@ -445,9 +455,11 @@ const PerPartyBreakdown: FC<{
   const { t } = useTranslation();
   const rows = useMemo(() => {
     if (!mpParty) return [];
+    const parties = foldedParties(mpParty);
+    const labelOf = groupLabeller(mpParty);
     const byParty = new Map<string, Record<VoteValue, number>>();
     for (const v of item.votes) {
-      const party = mpParty[String(v.mpId)] ?? "—";
+      const party = labelOf(parties[String(v.mpId)] ?? "—");
       const row = byParty.get(party) ?? {
         yes: 0,
         no: 0,

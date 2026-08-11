@@ -1,6 +1,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
+import { foldedParties, groupLabeller } from "@/data/parliament/votes/groups";
 import type {
   SessionFile,
   SessionItem,
@@ -93,9 +94,17 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
     for (const id of Object.keys(session.mpParty ?? {})) allMps.add(Number(id));
     for (const it of sortedItems) for (const v of it.votes) allMps.add(v.mpId);
 
+    // Canonical group (groups.ts), labelled with the day's own spelling: the party axis is
+    // one row per group, so an unfolded split would draw a group's members across two rows
+    // and halve the denominator of both.
+    const parties = foldedParties(session.mpParty);
+    const labelOf = groupLabeller(session.mpParty);
+    const partyOf = (mpId: number): string =>
+      labelOf(parties[String(mpId)] ?? "—");
+
     const partySize = new Map<string, number>();
     for (const mpId of allMps) {
-      const p = session.mpParty?.[String(mpId)] ?? "—";
+      const p = partyOf(mpId);
       partySize.set(p, (partySize.get(p) ?? 0) + 1);
     }
 
@@ -109,7 +118,7 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
         });
       }
       for (const v of it.votes) {
-        const party = session.mpParty?.[String(v.mpId)] ?? "—";
+        const party = partyOf(v.mpId);
         const entry = cellMap.get(`${party}#${it.item}`);
         if (!entry) continue;
         entry.counts[v.vote]++;

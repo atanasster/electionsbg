@@ -4,6 +4,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { TOTAL_SEATS } from "@/screens/utils/seatAllocation";
+import { foldedParties, groupLabeller } from "@/data/parliament/votes/groups";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
 
 // Hemicycle representation of a single roll-call item. Each seat is one MP,
@@ -70,10 +71,13 @@ export const SessionVoteHemicycle: FC<Props> = ({ item, mpParty, mpNames }) => {
 
   const dots = useMemo(() => {
     if (!mpParty) return [];
-    // Bucket votes by party.
+    // Bucket votes by CANONICAL group (groups.ts), labelled with the day's own spelling —
+    // a group split across two spellings would seat as two arcs of one bench.
+    const parties = foldedParties(mpParty);
+    const labelOf = groupLabeller(mpParty);
     const byParty = new Map<string, { mpId: number; vote: VoteValue }[]>();
     for (const v of item.votes) {
-      const party = mpParty[String(v.mpId)] ?? "—";
+      const party = labelOf(parties[String(v.mpId)] ?? "—");
       const arr = byParty.get(party) ?? [];
       arr.push({ mpId: v.mpId, vote: v.vote });
       byParty.set(party, arr);
