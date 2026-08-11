@@ -17,7 +17,14 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { exec, getPool, withClient, end, isServingDatabase } from "./lib/pg";
+import {
+  exec,
+  getPool,
+  withClient,
+  end,
+  isServingDatabase,
+  vacuumAfterReload,
+} from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   createStageTable,
@@ -433,6 +440,15 @@ export const loadFundsPg = async (
       });
       await c.query("COMMIT");
     });
+
+    // Both tables above were rebuilt by TRUNCATE + insert inside ONE
+    // transaction, which leaves them with an EMPTY visibility map that
+    // autovacuum will never fill (see `vacuumAfterReload`). Without this,
+    // `funds_fit_basis()` — called on every /funds view — plans its
+    // `count(*) FROM fund_projects` as a Seq Scan over all 8,780 pages instead
+    // of a 78-page index-only scan, and the funds-fit buffer ceiling fails.
+    // Outside the transactions above: VACUUM cannot run in a transaction block.
+    await vacuumAfterReload("fund_beneficiaries", "fund_projects");
   }
 
   // Precomputed page payloads (verbatim, keyed by kind+key).

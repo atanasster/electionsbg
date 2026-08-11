@@ -268,6 +268,46 @@ export const withReadOnlyTx = async <T>(
     }
   });
 
+/**
+ * VACUUM (ANALYZE) tables that were just rebuilt by a single-transaction
+ * `TRUNCATE` + `INSERT`/`COPY`. Call it AFTER the load's COMMIT — never inside
+ * `withTx`, since VACUUM cannot run in a transaction block.
+ *
+ * This is not tidying, and autovacuum does NOT cover it. That reload shape
+ * leaves `relallvisible = 0`: TRUNCATE mints a new relfilenode with an empty
+ * visibility map, and every page is then written by a transaction that has not
+ * committed yet, so nothing can be marked all-visible. The insert-threshold
+ * autovacuum that fires afterwards runs mid-`db:refresh`, where a concurrent
+ * loader step holds back the xmin horizon — so it marks NOTHING, resets
+ * `n_ins_since_vacuum` to 0, and, with `n_dead_tup` also 0, never revisits the
+ * table. The empty map is therefore PERMANENT, not a transient post-load state.
+ *
+ * The cost is that no index-only scan is possible on that table, ever. Measured
+ * on `fund_projects` (82,011 rows / 8,780 pages), which `funds_fit_basis()`
+ * counts on every /funds view: `count(*)` planned as a Seq Scan touching all
+ * 8,780 pages instead of an Index Only Scan over the smallest index (78 pages,
+ * `Heap Fetches: 0`) — 25 ms local, and prod is a db-g1-small reading cold over
+ * the Cloud SQL proxy under a 10 s `statement_timeout`.
+ *
+ * Placement matters for the same reason autovacuum fails: run at the end of the
+ * loader, nothing else is in flight, so the horizon is current and the bits
+ * actually get set. `db:refresh` chains its steps with `&&`, so that is true
+ * there too.
+ */
+export const vacuumAfterReload = async (
+  ...tables: readonly string[]
+): Promise<void> => {
+  await withClient(async (c) => {
+    for (const t of tables) {
+      if (!/^[a-z_][a-z0-9_]*$/.test(t))
+        throw new Error(
+          `vacuumAfterReload: unsafe identifier ${JSON.stringify(t)}`,
+        );
+      await c.query(`VACUUM (ANALYZE) ${t}`);
+    }
+  });
+};
+
 export const end = async (): Promise<void> => {
   if (pool) {
     await pool.end();

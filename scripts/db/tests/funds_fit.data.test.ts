@@ -403,6 +403,37 @@ const buffersFor = async (sql: string, params: unknown[]): Promise<number> =>
     return sumExecutionBuffers(rows);
   });
 
+test.skipIf(skip)(
+  "fund_projects keeps the visibility map its cheap plan depends on",
+  async () => {
+    // Runs BEFORE the buffer ceiling below because it is the same defect stated in the
+    // language of its CAUSE. `funds_fit_basis()` counts `fund_projects` on every /funds view,
+    // and that count is only cheap as an INDEX-ONLY scan — which Postgres will not plan at all
+    // unless the visibility map is populated. The loader rebuilds the table with TRUNCATE +
+    // insert inside one transaction, which leaves `relallvisible = 0` permanently (autovacuum
+    // fires mid-`db:refresh`, marks nothing because a concurrent step holds the xmin horizon,
+    // resets its own counter and never revisits) — so the plan silently degrades to a Seq Scan
+    // over the whole table.
+    //
+    // Measured 2026-08-11: the ceiling test failed at 31,934 buffers against 6,000, of which
+    // 29,423 were this one arm. Nothing about that number says "visibility map", so the first
+    // reading was a function-body regression in 143 — which was untouched. This assertion
+    // names the cause and the fix instead.
+    const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
+      `SELECT relpages, relallvisible FROM pg_class WHERE relname = 'fund_projects'`,
+    );
+    assert.ok(vm, "fund_projects is missing");
+    assert.ok(
+      vm.relallvisible >= vm.relpages * 0.9,
+      `fund_projects has visibility-map coverage on ${vm.relallvisible} of ${vm.relpages} pages — ` +
+        "count(*) cannot use an index-only scan, so funds_fit_basis() seq-scans the whole table " +
+        "on every /funds view. The loader must VACUUM after its single-transaction TRUNCATE+insert " +
+        "(scripts/db/lib/pg.ts vacuumAfterReload); to repair an already-loaded database run " +
+        "`VACUUM (ANALYZE) fund_projects;`",
+    );
+  },
+);
+
 test.skipIf(skip)("the resolver stays cheap enough to serve live", async () => {
   // ALL THREE QUERIES the route issues, not just one. A per-request figure that counted the ИСУН
   // arm alone described about half the real cost, and the point of a ceiling is that it bounds
