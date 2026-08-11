@@ -11,7 +11,14 @@
 
 SET check_function_bodies = off;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS sector_contractor_stats AS
+-- DROP+CREATE, not IF NOT EXISTS — see the fuller note in 017_company_relationships.sql.
+-- `IF NOT EXISTS` is a no-op once the matview exists, so an edit to the CPV bucketing,
+-- the €0-consortium exclusion or the percentile logic below would reach a fresh clone
+-- and nothing else, while load_pg.ts kept REFRESHing it. Verified before changing: no
+-- stored-query dependent (038 reads it from a string-bodied function, which records no
+-- edge), so no CASCADE; added populate measured at 406 ms.
+DROP MATERIALIZED VIEW IF EXISTS sector_contractor_stats;
+CREATE MATERIALIZED VIEW sector_contractor_stats AS
 WITH base AS (
   SELECT left(cpv, 2)                 AS division,
          contractor_eik              AS eik,

@@ -37,44 +37,49 @@ const SCHEMA_DIR = path.join(REPO_ROOT, "scripts/db/schema/pg");
 /**
  * Matviews declared `IF NOT EXISTS` with no DROP in their own file, and WHY that is accepted.
  *
- * Every entry is a body that cannot change on a warm database. Two kinds:
+ * Every entry is a body that cannot change on a warm database. One kind is legitimate:
  *
- *   "by-design"  — the file documents why it must not drop, and carries an escape hatch.
- *   "unreviewed" — pre-existing, found when this gate was written, NOT audited. Listed so the
- *                  class is visible rather than silently tolerated. Each is a latent instance
- *                  of the defect above; removing one means either adding the DROP or proving
- *                  another path recreates it.
+ *   "by-design" — a FIXED one-row wrapper over a `CREATE OR REPLACE` function. The body here
+ *                 is a single `SELECT fn(…)` with no reason to change, and the logic that does
+ *                 change lives in the function, which propagates on every apply. Dropping such
+ *                 a wrapper buys nothing and, for 077, actively broke a loader.
+ *
+ * The five entries this list started with (2026-08-10) were split by SHAPE, not syntax. Three
+ * were real aggregate bodies — awarder_totals (017), sector_contractor_stats (018),
+ * agri_beneficiary (046) — full of rules that exist because a previous spelling was wrong, i.e.
+ * exactly the changes that must propagate. Each now DROPs above its CREATE and has left this
+ * list. The two below are wrappers, and the earlier draft of this file mislabelled
+ * procurement_by_settlement_cache "unreviewed" only because it grouped on the syntax.
+ *
+ * Before any of that, all five were checked for ACTUAL drift against both the local database
+ * and Cloud SQL, by rebuilding each file's body as a throwaway probe matview and comparing
+ * `pg_get_viewdef` of both (so each side goes through Postgres's own re-printer, which is what
+ * makes a definition comparison possible at all). All five were in sync: the defect was latent
+ * everywhere, never live.
  *
  * A NEW matview must not join this list without a reason of the first kind.
  */
-const KNOWN: Record<string, { kind: "by-design" | "unreviewed"; why: string }> =
-  {
-    dual_corpus_rankings_cache: {
-      kind: "by-design",
-      why:
-        "077 deliberately DROPs nothing — its DROP turned every db:load:pg into a 2BP01 " +
-        "once 145 read the cache (see dual_corpus_dependents.data.test.ts, which asserts " +
-        "the file text stays DROP-free). It is a fixed one-column wrapper over a function " +
-        "whose body CREATE OR REPLACE rewrites in place, and 077's header documents the " +
-        "one-time manual DROP for the only change that needs it (a return-type change).",
-    },
-    awarder_totals: {
-      kind: "unreviewed",
-      why: "017. Pre-existing; found 2026-08-10 when this gate was written. Not audited.",
-    },
-    sector_contractor_stats: {
-      kind: "unreviewed",
-      why: "018. Pre-existing; found 2026-08-10 when this gate was written. Not audited.",
-    },
-    procurement_by_settlement_cache: {
-      kind: "unreviewed",
-      why: "030. Pre-existing; found 2026-08-10 when this gate was written. Not audited.",
-    },
-    agri_beneficiary: {
-      kind: "unreviewed",
-      why: "046. Pre-existing; found 2026-08-10 when this gate was written. Not audited.",
-    },
-  };
+const KNOWN: Record<string, { kind: "by-design"; why: string }> = {
+  dual_corpus_rankings_cache: {
+    kind: "by-design",
+    why:
+      "077 deliberately DROPs nothing — its DROP turned every db:load:pg into a 2BP01 " +
+      "once 145 read the cache (see dual_corpus_dependents.data.test.ts, which asserts " +
+      "the file text stays DROP-free). It is a fixed one-column wrapper over a function " +
+      "whose body CREATE OR REPLACE rewrites in place, and 077's header documents the " +
+      "one-time manual DROP for the only change that needs it (a return-type change).",
+  },
+  procurement_by_settlement_cache: {
+    kind: "by-design",
+    why:
+      "030, and structurally the SAME shape as dual_corpus_rankings_cache above: its whole " +
+      "body is `SELECT procurement_by_settlement(NULL, NULL) AS r`, one row, over a " +
+      "CREATE OR REPLACE function that carries every rule and propagates on every apply. " +
+      "A frozen one-liner with nothing in it to freeze. Reclassified from 'unreviewed' " +
+      "2026-08-10 after review: the first draft grouped it with the real aggregate bodies " +
+      "because they share a keyword, not because they share a risk.",
+  },
+};
 
 type Decl = { file: string; name: string; dropped: boolean };
 

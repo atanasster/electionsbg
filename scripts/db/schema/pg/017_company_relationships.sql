@@ -16,7 +16,22 @@ SET check_function_bodies = off;
 
 -- Buyer (awarder) grand totals across ALL contractors — reused by the capture
 -- share here and available to the sector/geo features. REFRESHed in load_pg.ts.
-CREATE MATERIALIZED VIEW IF NOT EXISTS awarder_totals AS
+--
+-- DROP+CREATE, not IF NOT EXISTS. `IF NOT EXISTS` is a no-op the moment the matview
+-- exists, so an edit to the body below would reach a fresh clone and NOTHING else,
+-- while load_pg.ts kept REFRESHing it (line ~525) — a current timestamp and current
+-- row counts over an old definition, which no row count and no error can reveal.
+-- The same class the 003/008/019/022/071 family carried; see 008_connections.sql
+-- for the fuller account and matview_warm_apply.test.ts for the gate.
+--
+-- Verified before changing: no stored-query dependent (so no CASCADE — a bare DROP
+-- fails loudly with 2BP01 if one ever appears, instead of deleting it), and the
+-- added populate is 797 ms locally against a contracts load measured in tens of
+-- minutes. load_pg.ts applies this file BEFORE its REFRESH, and exec() sends the
+-- file as one implicit transaction, so the swap is atomic: readers go from the old
+-- populated matview to the new one with no unpopulated window.
+DROP MATERIALIZED VIEW IF EXISTS awarder_totals;
+CREATE MATERIALIZED VIEW awarder_totals AS
   SELECT awarder_eik,
          COALESCE(SUM(amount_eur), 0) AS buyer_eur,
          (COUNT(*))::int              AS buyer_count

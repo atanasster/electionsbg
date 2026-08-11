@@ -84,8 +84,18 @@ CREATE TABLE IF NOT EXISTS agri_payloads (
 -- Only EIK-bearing rows: /farm/:eik is the destination, so a beneficiary
 -- without one (a natural person — `eik` is NULL for those) cannot be a result.
 -- Same per-row landing rule the НЗОК hospital group applies.
+--
+-- DROP+CREATE, not IF NOT EXISTS — see the fuller note in 017_company_relationships.sql.
+-- `IF NOT EXISTS` is a no-op once the matview exists, so an edit to any of the rules
+-- written down above — the LONGEST-spelling pick, the EIK-only restriction, the stored
+-- Latin fold — would reach a fresh clone and nothing else, while ingest.ts kept
+-- REFRESHing it (scripts/agri/ingest.ts). Those rules each exist because a previous
+-- spelling was wrong on thousands of rows, which is exactly the kind of change that must
+-- propagate. Verified before changing: no stored-query dependent (so no CASCADE), and the
+-- added populate is 1.78 s over agri_subsidies' ~2.5M rows.
 -- ==========================================================================
-CREATE MATERIALIZED VIEW IF NOT EXISTS agri_beneficiary AS
+DROP MATERIALIZED VIEW IF EXISTS agri_beneficiary;
+CREATE MATERIALIZED VIEW agri_beneficiary AS
   SELECT eik,
          -- The LONGEST spelling, matching what the ingest stores on the
          -- /farm page. min() picked a different one for 1,379 of 16,702
