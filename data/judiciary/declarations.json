@@ -1,19 +1,26 @@
 {
-  "generatedAt": "2026-07-10T02:05:42.235Z",
+  "generatedAt": "2026-08-11T07:39:54.646Z",
   "source": {
     "publisher": "Инспекторат към Висшия съдебен съвет (ИВСС)",
     "url": "https://www.inspectoratvss.bg/bg/page/129",
     "register": "http://62.176.124.194",
     "description": "Регистър на декларациите по чл. 175а, ал. 1 ЗСВ на съдии, прокурори и следователи, плюс списъците на ИВСС за неподадени в срок декларации и установени несъответствия."
   },
-  "latestYear": 2025,
+  "latestYear": 2026,
   "totals": {
-    "declarations": 46528,
-    "magistrates": 5556,
+    "declarations": 51040,
+    "magistrates": 5579,
     "firstYear": 2017,
-    "lastYear": 2025
+    "lastYear": 2026
   },
   "years": [
+    {
+      "year": 2026,
+      "declarations": 4512,
+      "magistrates": 4309,
+      "annual": 3282,
+      "change": 1230
+    },
     {
       "year": 2025,
       "declarations": 5094,
@@ -80,36 +87,36 @@
   ],
   "filingCalendar": {
     "basis": "annual",
-    "total": 27985,
+    "total": 31262,
     "deadline": "15.05",
     "byMonth": [
       {
         "month": 1,
-        "count": 396
+        "count": 469
       },
       {
         "month": 2,
-        "count": 609
+        "count": 682
       },
       {
         "month": 3,
-        "count": 1003
+        "count": 1158
       },
       {
         "month": 4,
-        "count": 4681
+        "count": 5317
       },
       {
         "month": 5,
-        "count": 18413
+        "count": 20608
       },
       {
         "month": 6,
-        "count": 1886
+        "count": 2030
       },
       {
         "month": 7,
-        "count": 145
+        "count": 146
       },
       {
         "month": 8,
@@ -143,19 +150,19 @@
       },
       {
         "day": 4,
-        "count": 370
+        "count": 462
       },
       {
         "day": 5,
-        "count": 632
+        "count": 739
       },
       {
         "day": 7,
-        "count": 563
+        "count": 731
       },
       {
         "day": 8,
-        "count": 524
+        "count": 682
       },
       {
         "day": 9,
@@ -167,23 +174,23 @@
       },
       {
         "day": 11,
-        "count": 1054
+        "count": 1215
       },
       {
         "day": 12,
-        "count": 1674
+        "count": 1983
       },
       {
         "day": 13,
-        "count": 1826
+        "count": 2066
       },
       {
         "day": 14,
-        "count": 2158
+        "count": 2490
       },
       {
         "day": 15,
-        "count": 2054
+        "count": 2244
       },
       {
         "day": 16,
@@ -195,23 +202,23 @@
       },
       {
         "day": 18,
-        "count": 325
+        "count": 473
       },
       {
         "day": 19,
-        "count": 432
+        "count": 607
       },
       {
         "day": 20,
-        "count": 173
+        "count": 193
       },
       {
         "day": 21,
-        "count": 117
+        "count": 134
       },
       {
         "day": 22,
-        "count": 101
+        "count": 113
       },
       {
         "day": 23,
@@ -223,19 +230,19 @@
       },
       {
         "day": 26,
-        "count": 103
+        "count": 119
       },
       {
         "day": 27,
-        "count": 97
+        "count": 112
       },
       {
         "day": 28,
-        "count": 105
+        "count": 122
       },
       {
         "day": 29,
-        "count": 121
+        "count": 139
       },
       {
         "day": 30,
@@ -306,12 +313,6 @@
           "filedLate": true,
           "position": "Съдия",
           "court": "Върховен административен съд"
-        },
-        {
-          "name": "Светлана Георгиева Петрова",
-          "filedLate": true,
-          "position": "Следовател",
-          "court": "СлО към ОП-Кюстендил"
         },
         {
           "name": "София Стефанова Тютюнджиева",
