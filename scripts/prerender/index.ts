@@ -1,15 +1,11 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import {
-  DEFAULT_OG_IMAGE,
-  PrerenderRoute,
-  SITE_URL,
-  prerenderRoutes,
-} from "./routes";
+import { PrerenderRoute, SITE_URL, prerenderRoutes } from "./routes";
 import { buildDynamicRoutes } from "./dynamicRoutes";
 import { buildSiteNav } from "./bodyBuilders";
-import { escapeHtml } from "./html";
+import { RenderVariant, encodeUrlPath, renderSeoBlock } from "./seoBlock";
+import { loadEnv } from "vite";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,90 +16,42 @@ const PUBLIC_ASSETS = path.join(PROJECT_ROOT, "public");
 const SEO_BLOCK_RE = /<!-- SEO -->([\s\S]*?)<!-- \/SEO -->/;
 const BODY_BLOCK_RE = /<!-- BODY -->([\s\S]*?)<!-- \/BODY -->/;
 
-// Inline JSON-LD must escape "</" so a payload string can't break out of the
-// <script> tag. https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
-const safeJsonLd = (obj: object): string =>
-  JSON.stringify(obj).replace(/<\/(script)/gi, "<\\/$1");
+// `vite build` runs in mode "production" unless --mode is passed, and nothing
+// in package.json passes one. NODE_ENV is NOT that mode — Vite sets NODE_ENV
+// *from* the mode, so reading it back would be a second, independent input that
+// can silently disagree with the bundle's own env resolution. Any shell that
+// exports NODE_ENV would then make this read a different .env file than the
+// bundle did, yielding DATA_BASE="" and a same-origin href that hosting answers
+// with the SPA shell at 200.
+const BUILD_MODE = "production";
 
-// Per-segment percent-encode so Cyrillic/spaces in the URL emitted to crawlers
-// are RFC 3986 compliant. The on-disk path stays raw — Firebase Hosting decodes
-// the request before matching against the filesystem, so `dist/candidate/Иван
-// Иванов/index.html` is reachable at `/candidate/%D0%98%D0%B2%D0%B0%D0%BD%20...`.
-const encodeUrlPath = (p: string): string =>
-  p.split("/").map(encodeURIComponent).join("/");
+// Origin the runtime data fetches resolve to, read through Vite's OWN env
+// loader. That is not ceremony: a preload href must match the eventual fetch
+// URL byte-for-byte or the browser downloads the file TWICE, so re-deriving the
+// base by hand-parsing .env.production would be a second source of truth for
+// the one string that must not drift.
+const DATA_BASE =
+  loadEnv(BUILD_MODE, PROJECT_ROOT, "VITE_").VITE_DATA_BASE_URL ?? "";
 
-type RenderVariant = {
-  lang: "bg" | "en";
-  title: string;
-  description: string;
-  bodyHtml?: string;
-  jsonLd?: object[];
-  selfUrl: string; // URL for og:url
-  altUrl?: string; // companion-language URL (for hreflang alternate)
-  // If set, <link rel="canonical"> points here instead of selfUrl, and
-  // hreflang alternates are suppressed (the canonical target owns them).
-  canonicalUrl?: string;
-};
-
-const renderSeoBlock = (
-  route: PrerenderRoute,
-  variant: RenderVariant,
-): string => {
-  const ogImage = route.ogImage
-    ? route.ogImage.startsWith("http")
-      ? route.ogImage
-      : `${SITE_URL}${route.ogImage}`
-    : DEFAULT_OG_IMAGE;
-  const title = escapeHtml(variant.title);
-  const description = escapeHtml(variant.description);
-  // Twitter falls back to og:title / og:description when twitter-specific
-  // tags are absent — drop the redundant pair to save bytes per page.
-  // og:image:alt improves accessibility for shared cards.
-  const canonicalHref = variant.canonicalUrl ?? variant.selfUrl;
-  const lines = [
-    "<!-- SEO -->",
-    `    <title>${title}</title>`,
-    `    <meta name="description" content="${description}" />`,
-    `    <meta property="og:title" content="${title}" />`,
-    `    <meta property="og:description" content="${description}" />`,
-    `    <meta property="og:url" content="${variant.selfUrl}" />`,
-    `    <meta property="og:image" content="${ogImage}" />`,
-    `    <meta property="og:image:alt" content="${title}" />`,
-    `    <meta property="og:locale" content="${variant.lang === "en" ? "en_US" : "bg_BG"}" />`,
-    `    <meta name="twitter:image" content="${ogImage}" />`,
-    `    <link rel="canonical" href="${canonicalHref}" />`,
-  ];
-  // Skip hreflang alternates when this page canonicalizes to a different URL —
-  // alternates belong on the canonical target, not on the variant pointing at it.
-  if (!variant.canonicalUrl) {
-    if (variant.altUrl) {
-      // Bidirectional hreflang — each language declares both itself and the
-      // alternate; x-default points to the BG (default) variant.
-      const bgUrl = variant.lang === "bg" ? variant.selfUrl : variant.altUrl;
-      const enUrl = variant.lang === "en" ? variant.selfUrl : variant.altUrl;
-      lines.push(`    <link rel="alternate" hreflang="bg" href="${bgUrl}" />`);
-      lines.push(`    <link rel="alternate" hreflang="en" href="${enUrl}" />`);
-      lines.push(
-        `    <link rel="alternate" hreflang="x-default" href="${bgUrl}" />`,
-      );
-    } else {
-      lines.push(
-        `    <link rel="alternate" hreflang="bg" href="${variant.selfUrl}" />`,
-      );
-      lines.push(
-        `    <link rel="alternate" hreflang="x-default" href="${variant.selfUrl}" />`,
-      );
-    }
+// Belt-and-braces on the above: the base Vite inlined into the entry chunk is
+// the only origin the app will actually request, so compare against it rather
+// than trusting that two env resolutions agreed. Closes the whole class — a
+// stale or missing .env.production (it is gitignored, so a clean clone has
+// none) fails the build instead of shipping ~248k pages of dead hints.
+const assertBaseMatchesBundle = (routes: PrerenderRoute[]) => {
+  if (!DATA_BASE || !routes.some((r) => r.preloadData?.length)) return;
+  const assetsDir = path.join(DIST, "assets");
+  if (!fs.existsSync(assetsDir)) return;
+  const entry = fs.readdirSync(assetsDir).find((f) => /^index-.*\.js$/.test(f));
+  if (!entry) return;
+  const js = fs.readFileSync(path.join(assetsDir, entry), "utf-8");
+  if (!js.includes(DATA_BASE)) {
+    throw new Error(
+      `preload base ${DATA_BASE} is absent from the built bundle (${entry}) — ` +
+        `the prerender and \`vite build\` resolved different env modes. Every ` +
+        `preload href would miss the fetch it is meant to warm.`,
+    );
   }
-  if (variant.jsonLd && variant.jsonLd.length) {
-    for (const obj of variant.jsonLd) {
-      lines.push(
-        `    <script type="application/ld+json">${safeJsonLd(obj)}</script>`,
-      );
-    }
-  }
-  lines.push("    <!-- /SEO -->");
-  return lines.join("\n");
 };
 
 const renderBodyBlock = (variant: RenderVariant): string => {
@@ -131,7 +79,10 @@ const writeVariant = (
       "dist/index.html is missing the <!-- BODY --> ... <!-- /BODY --> block.",
     );
   }
-  let html = template.replace(SEO_BLOCK_RE, renderSeoBlock(route, variant));
+  let html = template.replace(
+    SEO_BLOCK_RE,
+    renderSeoBlock(route, variant, DATA_BASE),
+  );
   html = html.replace(BODY_BLOCK_RE, renderBodyBlock(variant));
   // Swap the document language attribute when emitting an English variant.
   if (variant.lang === "en") {
@@ -218,6 +169,7 @@ const main = async () => {
     if (!byPath.has(r.path)) byPath.set(r.path, r);
   }
   const routes = Array.from(byPath.values());
+  assertBaseMatchesBundle(routes);
   routes.forEach((route) => writeRoute(template, route));
   const englishCount = routes.filter((r) => !!r.english).length;
   console.log(

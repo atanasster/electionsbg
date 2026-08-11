@@ -21,6 +21,22 @@ export type PrerenderRoute = {
   // candidate /sections, /donations) so crawlers consolidate signal to the
   // parent and stop reporting these as "Crawled - currently not indexed".
   canonicalUrl?: string;
+  // Data files this route fetches on its FIRST render, written exactly as the
+  // path handed to dataUrl() in src/ (e.g. "/macro.json"). Each becomes a
+  // <link rel="preload" as="fetch" crossorigin> in the head.
+  //
+  // Why: #root is empty, so a data fetch is discovered only after the browser
+  // has run the entry bundle, the i18n chunk AND the route chunk — five serial
+  // round trips before the first data byte is requested. Measured on
+  // /indicators/economy (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU): the HTML lands
+  // at 762ms and macro.json is not even REQUESTED until 2341ms. Preloading
+  // starts it alongside the JS instead.
+  //
+  // Only list a fetch that is UNCONDITIONAL on first render. A preload for a
+  // request the page may never make is a wasted download, and one the browser
+  // warns about in the console. A path that does not match the eventual
+  // fetch URL byte-for-byte is worse — it downloads the file twice.
+  preloadData?: string[];
   // English variant for /en/{path}. When present we also emit the EN file and
   // wire bidirectional hreflang alternates between the two URLs.
   english?: {
@@ -439,6 +455,9 @@ type StaticPageOpts = {
   // no /funds in between — so the crumb Google renders under the result skips
   // the section the page actually belongs to.
   breadcrumbParent?: { name: string; nameEn?: string; path: string };
+  // See PrerenderRoute.preloadData. Applies to BOTH language variants — the EN
+  // page runs the same hooks against the same data files.
+  preloadData?: string[];
   english?: {
     title: string;
     description: string;
@@ -459,6 +478,7 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
     ogImage: opts.ogImage,
     bodyHtml: opts.bodyHtml,
     ...(opts.canonicalUrl ? { canonicalUrl: opts.canonicalUrl } : {}),
+    ...(opts.preloadData ? { preloadData: opts.preloadData } : {}),
     jsonLd: [
       buildWebPageLd({
         title: opts.title,
@@ -2030,6 +2050,29 @@ export const prerenderRoutes: PrerenderRoute[] = [
       "Реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство, потребителско доверие и Economic Sentiment Indicator за България от 2005 г., разположени по мандати на правителствата.",
     breadcrumbName: "Икономически показатели",
     ogImage: "/og/indicators-economy.png",
+    // All four are fetched unconditionally on first render — verified in the
+    // network trace, not inferred:
+    //   macro.json / macro_peers.json — route-specific. useMacro and
+    //     useMacroPeers carry no `enabled` gate, and the screen calls
+    //     usePeerIndicatorAnnual outside the compare toggle, so the peers
+    //     payload loads even with comparison off.
+    //   governments.json / canonical_parties.json — NOT route-specific. Both
+    //     are header-driven and therefore fetched on EVERY page: Header.tsx
+    //     renders <ElectionsSelect> and <CabinetAnchorPill> unconditionally,
+    //     and CabinetAnchorPill calls useCanonicalParties() above its own
+    //     `if (!anchor) return null`. governments.json comes from
+    //     cabinetAnchorContext's useGovernments().
+    // Because the last two are site-wide, declaring them per route duplicates
+    // them onto every route that opts in. If a second route is wired, move the
+    // pair into index.html's shared head instead (it supports
+    // %VITE_DATA_BASE_URL% substitution at build time) and keep preloadData for
+    // genuinely route-specific payloads.
+    preloadData: [
+      "/macro.json",
+      "/macro_peers.json",
+      "/governments.json",
+      "/canonical_parties.json",
+    ],
     bodyHtml: `
 <h1>Индикатори за икономиката на България</h1>
 <p>Тримесечни макроикономически показатели от Евростат, поставени паралелно с мандатите на правителствата. Включват реален БВП (растеж YoY), ХИПЦ инфлация и нейната разбивка по ECOICOP подгрупи (храна, енергия, услуги, базова), безработица, трудови доходи, индустриално производство и оборот в търговията на дребно.</p>

@@ -63,6 +63,30 @@ canonical on ~248k pages named a redirecting URL; see `docs/plans/parliament-hub
 `hreflang` redirects — the older test asserted only that the canonical *string* was right, which is
 why this survived unnoticed.
 
+**The prerender resolves `VITE_DATA_BASE_URL` a SECOND time, and it must agree with the
+bundle's copy.** A route may declare `preloadData` (`scripts/prerender/routes.ts`) — the data
+files it fetches on first render — and `scripts/prerender/index.ts` emits each as
+`<link rel="preload" as="fetch" crossorigin fetchpriority="low">`. The href is built by
+re-resolving the data origin through Vite's `loadEnv`, so prerender correctness now depends on
+the **gitignored** `.env.production` being present and on the env MODE matching the one
+`vite build` used. It is pinned to the literal `"production"` for that reason: `vite build`
+takes no `--mode` anywhere in `package.json`, and Vite sets `NODE_ENV` *from* the mode, so
+reading `NODE_ENV` back would be an independent input that can silently disagree.
+
+A mismatch is **not** a build failure. It yields an empty base, every hint becomes a
+same-origin `/macro.json`, and `data/**` is not deployed to hosting — so the catch-all answers
+with the SPA shell at **200**. Per page, in both languages, that is four wasted shell downloads
+and four dead hints, with the real fetches still going to the bucket afterwards. Same failure
+signature as the `/court/**` build-time dependency below: exit 0, quietly worse pages.
+
+Two gates cover it. `scripts/prerender/index.ts` refuses to write when the resolved base is
+absent from the built entry chunk, and `tests/perf.spec.ts` compares each emitted href's origin
+against that chunk. `fetchpriority="low"` is load-bearing rather than cosmetic — `as="fetch"`
+defaults to HIGH, which puts the data in bandwidth competition with the render-blocking JS the
+page needs in order to paint at all; measured, HIGH is a net LCP loss at both 1.6 Mbps and
+10 Mbps. Note the whole hint set is still a small net loss at 1.6 Mbps, so re-measure before
+adding a fifth path to a route.
+
 **`npm run deploy` ships hosting only.** When a change spans hosting and the `db` function
 — a new `/api/db` route, a new hosting rewrite pointing at it — deploy in this order:
 

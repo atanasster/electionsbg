@@ -753,3 +753,56 @@ test.describe("performance", () => {
     expect(oversized, JSON.stringify(oversized, null, 2)).toEqual([]);
   });
 });
+
+// The data preload hints (scripts/prerender/dataPreload.ts) are only useful if
+// their href is the origin the bundle actually fetches. That is a BUILD-TIME
+// coupling between two independent env resolutions — `vite build`'s and the
+// prerender's — and when they disagree nothing fails: the hints just point at
+// the hosting origin, which answers `/macro.json` with the SPA shell at 200.
+//
+// The unit test in scripts/prerender/dataPreload.test.ts cannot see this,
+// because it supplies the base itself as a constant. This is the only gate that
+// compares the emitted href against the base Vite inlined into the entry chunk.
+test.describe("data preload hints", () => {
+  const ECONOMY_HTML = `${DIST_DIR}/indicators/economy/index.html`;
+
+  const hintsIn = (html: string): string[] =>
+    [
+      ...html.matchAll(/<link rel="preload" as="fetch"[^>]+href="([^"]+)"/g),
+    ].map((m) => m[1]);
+
+  test("the economy page declares its data hints", () => {
+    const hints = hintsIn(fs.readFileSync(ECONOMY_HTML, "utf8"));
+    expect(hints.length, "no data preload hints in the economy page").toBe(4);
+    for (const h of hints) {
+      // A hint the browser cannot reuse is worse than no hint: as="fetch"
+      // without crossorigin is a different CORS mode than fetch() uses, so the
+      // response is discarded and the file downloaded twice.
+      expect(h).toMatch(/\.json$/);
+    }
+    const html = fs.readFileSync(ECONOMY_HTML, "utf8");
+    expect(html).toContain('as="fetch" crossorigin fetchpriority="low"');
+  });
+
+  test("hint origins match the base inlined in the built bundle", () => {
+    const html = fs.readFileSync(ECONOMY_HTML, "utf8");
+    const entry = html.match(
+      /src="\/assets\/(index-[A-Za-z0-9._-]+\.js)"/,
+    )?.[1];
+    expect(
+      entry,
+      "could not locate the entry chunk from the shell",
+    ).toBeTruthy();
+    const js = fs.readFileSync(`${DIST_DIR}/assets/${entry}`, "utf8");
+
+    for (const href of hintsIn(html)) {
+      const origin = new URL(href, "https://electionsbg.com").origin;
+      expect(
+        js.includes(origin) || origin === "https://electionsbg.com",
+        `preload origin ${origin} is absent from the bundle — the prerender ` +
+          `and \`vite build\` resolved different env modes, so every hint ` +
+          `misses the fetch it is meant to warm`,
+      ).toBe(true);
+    }
+  });
+});
