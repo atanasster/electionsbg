@@ -99,8 +99,10 @@ export const PersonPortfolioComposition: FC<{ series: WealthPoint[] }> = ({
                 tick={{ fontSize: 11 }}
                 stroke="hsl(var(--muted-foreground))"
               />
+              {/* 68 — see PersonWealthTrajectory: "€220 хил." does not fit a 52px axis and
+                  loses its leading € to the SVG clip. */}
               <YAxis
-                width={52}
+                width={68}
                 tick={{ fontSize: 11 }}
                 tickFormatter={(v: number) => formatEurCompact(v, locale)}
                 stroke="hsl(var(--muted-foreground))"

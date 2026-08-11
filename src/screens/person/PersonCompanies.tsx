@@ -52,8 +52,10 @@ const CompanyMoney: FC<{ c: ProfileCompany }> = ({ c }) => {
     (c.fundsEur ?? 0) > 0 ||
     (c.subsidiesEur ?? 0) > 0;
   if (!any) return null;
+  // Left-aligned under the company name on a phone, right-aligned beside it from sm up
+  // (see the row below for why it stops sharing a line).
   return (
-    <span className="shrink-0 space-y-0.5 text-right text-xs font-medium text-foreground">
+    <span className="shrink-0 space-y-0.5 text-xs font-medium text-foreground sm:text-right">
       {c.procuredEur != null && c.procuredEur > 0 && (
         <span className="block whitespace-nowrap">
           {formatEurCompact(c.procuredEur)}
@@ -147,7 +149,11 @@ export const PersonCompanies: FC<{
                 key={c.eik}
                 className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
               >
-                <div className="flex items-baseline justify-between gap-3">
+                {/* Stacked on a phone: the money block is whitespace-nowrap and shrink-0
+                    ("€1 млн. от 2 договора" ≈ 150px of a 295px card), which left the name so
+                    little room that its legal form dropped to a line of its own beside a
+                    value still sitting on the first. */}
+                <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
                   <span className="min-w-0 text-sm">
                     <Link
                       to={`/company/${c.eik}`}

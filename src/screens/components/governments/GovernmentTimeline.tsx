@@ -34,6 +34,7 @@ import type {
   PeerQuarterlyPoint,
 } from "@/data/macro/useMacroPeers";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
+import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
@@ -417,6 +418,14 @@ const MOBILE_SCROLL_MIN_PILL_PX = 32;
 const MOBILE_SCROLL_TARGET_TOTAL_PX = 800;
 const MOBILE_SCROLL_HORIZONTAL_PX = 64;
 
+// Compact strip: the label threshold is in PIXELS, measured off the rendered
+// strip — NOT a percentage. A percentage is width-blind, and the compact strip
+// is the one variant that runs at wildly different widths: the same 8% that is
+// a readable 64px under a full-width chart is 23px inside a phone-width card,
+// where every surname renders as "Б…". Roughly the width of the shortest PM
+// surname at text-[10px] plus the pill's px-1 padding.
+const COMPACT_LABEL_MIN_PX = 46;
+
 const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string =>
   iso ? formatDate(iso, lang) : "—";
 
@@ -540,6 +549,11 @@ export const CabinetStrip: FC<{
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
   const isSmall = useMediaQueryMatch("sm");
+  // Rendered width of the aligned strip, for the compact px label threshold.
+  // Deliberately NO fallback guess: 0 means "not measured yet" and suppresses
+  // every label for one paint, rather than latching a wrong width and printing
+  // a row of one-letter stubs.
+  const [setStripEl, stripWidth] = useMeasuredWidth();
   const selectable =
     typeof onToggle === "function" || typeof onAnchor === "function";
   const selectedSet = useMemo(() => new Set(selectedIds ?? []), [selectedIds]);
@@ -672,20 +686,26 @@ export const CabinetStrip: FC<{
   }
 
   // Compact context strip: a slim band with horizontal-only labels, shown only
-  // on pills wide enough to read (≥8% of the span) so a long, many-cabinet
-  // window stays elegant. Otherwise the standard tall/rotated behaviour.
+  // on pills wide enough to READ — a pixel floor converted to this strip's own
+  // percentage domain, so the same component stays legible under a full-width
+  // chart and inside a phone-width card. Otherwise the standard tall/rotated
+  // behaviour, whose thresholds are genuinely about tenure share.
   const horizontalThreshold = compact
     ? 0
     : isSmall
       ? PILL_HORIZONTAL_THRESHOLD_MOBILE
       : PILL_HORIZONTAL_THRESHOLD_DESKTOP;
   const labelThreshold = compact
-    ? 8
+    ? stripWidth > 0
+      ? (COMPACT_LABEL_MIN_PX / stripWidth) * 100
+      : Infinity
     : isSmall
       ? PILL_LABEL_THRESHOLD_MOBILE
       : PILL_LABEL_THRESHOLD;
+  const lastIdx = governments.length - 1;
   return (
     <div
+      ref={setStripEl}
       className={cn(
         "flex mb-1 rounded overflow-hidden",
         compact ? "h-7" : isSmall ? "h-24" : "h-14",
@@ -695,7 +715,7 @@ export const CabinetStrip: FC<{
         paddingRight: fullWidth ? 0 : insets.paddingRight,
       }}
     >
-      {governments.map((g) => {
+      {governments.map((g, i) => {
         // Clamp tenure to the visible domain so a cabinet extending past either
         // edge (charts that show only a recent window) still tiles edge-to-edge.
         // A no-op when xDomain is the full span (the tooltip keeps real dates).
@@ -716,73 +736,88 @@ export const CabinetStrip: FC<{
         const highlighted = isSelected || isAnchored;
         const dim = selectable && anySelected && !highlighted;
         return (
-          <UxTooltip
+          // The percentage width lives on a box THIS component owns, never on
+          // the tooltip's child: on touch the shared Tooltip inserts a wrapper
+          // <span> between the two, and a percentage resolved against that span
+          // collapses every pill to its own label width — the strip stops
+          // tiling and stops lining up with the chart above it, on phones only.
+          // `triggerClassName` makes that wrapper fill this box on the touch
+          // path; on desktop the pill IS this box's child and fills it directly.
+          <div
             key={`pill-${g.id}`}
-            content={
-              <PillTooltip g={g} allGovernments={governments} lang={lang} />
-            }
+            className={cn(
+              "h-full min-w-0",
+              i < lastIdx && "border-r border-background/40",
+            )}
+            style={{ width: `${widthPct}%` }}
           >
-            <div
-              role={selectable ? "button" : undefined}
-              tabIndex={selectable ? 0 : undefined}
-              aria-pressed={selectable ? isSelected : undefined}
-              onClick={selectable ? () => handleClick(g.id) : undefined}
-              onKeyDown={
-                selectable
-                  ? (e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        handleClick(g.id);
-                      }
-                    }
-                  : undefined
+            <UxTooltip
+              triggerClassName="block h-full"
+              content={
+                <PillTooltip g={g} allGovernments={governments} lang={lang} />
               }
-              className={cn(
-                "h-full min-w-0 flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0",
-                selectable
-                  ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
-                  : "cursor-help",
-                isAnchored
-                  ? ANCHOR_SHADOW
-                  : isSelected
-                    ? SELECTED_SHADOW
-                    : null,
-              )}
-              style={{
-                width: `${widthPct}%`,
-                backgroundColor: colorForGovernmentSolid(g, colorFor),
-                color:
-                  g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
-                opacity:
-                  g.type === "caretaker"
-                    ? highlighted
-                      ? 1
-                      : dim
-                        ? 0.3
-                        : 0.6
-                    : highlighted
-                      ? 1
-                      : dim
-                        ? 0.45
-                        : 0.95,
-              }}
             >
-              {showLabel && horizontal && (
-                <span className="truncate px-1">{surname}</span>
-              )}
-              {showLabel && !horizontal && (
-                <span
-                  className="px-0.5 leading-none whitespace-nowrap"
-                  style={{
-                    writingMode: "vertical-rl",
-                    transform: "rotate(180deg)",
-                  }}
-                >
-                  {surname}
-                </span>
-              )}
-            </div>
-          </UxTooltip>
+              <div
+                role={selectable ? "button" : undefined}
+                tabIndex={selectable ? 0 : undefined}
+                aria-pressed={selectable ? isSelected : undefined}
+                onClick={selectable ? () => handleClick(g.id) : undefined}
+                onKeyDown={
+                  selectable
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          handleClick(g.id);
+                        }
+                      }
+                    : undefined
+                }
+                className={cn(
+                  "h-full w-full min-w-0 flex items-center justify-center text-[10px] font-medium overflow-hidden",
+                  selectable
+                    ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
+                    : "cursor-help",
+                  isAnchored
+                    ? ANCHOR_SHADOW
+                    : isSelected
+                      ? SELECTED_SHADOW
+                      : null,
+                )}
+                style={{
+                  backgroundColor: colorForGovernmentSolid(g, colorFor),
+                  color:
+                    g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
+                  opacity:
+                    g.type === "caretaker"
+                      ? highlighted
+                        ? 1
+                        : dim
+                          ? 0.3
+                          : 0.6
+                      : highlighted
+                        ? 1
+                        : dim
+                          ? 0.45
+                          : 0.95,
+                }}
+              >
+                {showLabel && horizontal && (
+                  <span className="truncate px-1">{surname}</span>
+                )}
+                {showLabel && !horizontal && (
+                  <span
+                    className="px-0.5 leading-none whitespace-nowrap"
+                    style={{
+                      writingMode: "vertical-rl",
+                      transform: "rotate(180deg)",
+                    }}
+                  >
+                    {surname}
+                  </span>
+                )}
+              </div>
+            </UxTooltip>
+          </div>
         );
       })}
     </div>

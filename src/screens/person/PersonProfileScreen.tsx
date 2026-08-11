@@ -283,9 +283,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       {/* Money-footprint + presence KPI row */}
       {kpis.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {/* text-xl below sm — two tiles per row on a phone leave ~135px of content box, and
+              a compact euro figure ("€194,6 хил.") joins its unit with a non-breaking space, so
+              it cannot wrap out of an overflow: at text-2xl it just escapes the card. */}
           {kpis.map((k) => (
             <StatCard key={k.key} label={k.label}>
-              <div className="text-2xl font-bold text-foreground">
+              <div className="text-xl font-bold text-foreground sm:text-2xl">
                 {k.value}
               </div>
             </StatCard>

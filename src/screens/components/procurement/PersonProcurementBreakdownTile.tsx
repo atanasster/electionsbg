@@ -53,40 +53,44 @@ export const PersonProcurementBreakdownTile: FC<{
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2 pt-1">
+        {/* Label and € share one line, the contract count sits under them. Keeping the count
+            INLINE with the label is what broke on a phone: `truncate` on an inline <Link> is
+            inert (it needs a block box), so a long company name pushed the count onto a second
+            line and orphaned its unit word next to a value still sitting on the first. */}
         {shown.map((r) => (
-          <div key={r.id} className="flex items-baseline justify-between gap-3">
-            <div className="min-w-0 flex-1">
+          <div key={r.id} className="min-w-0">
+            <div className="flex items-baseline justify-between gap-2">
               {r.href ? (
                 <Link
                   to={r.href}
-                  className="truncate text-sm text-primary hover:underline"
+                  className="min-w-0 truncate text-sm text-primary hover:underline"
                   title={r.label}
                 >
                   {r.label}
                 </Link>
               ) : (
                 <span
-                  className="truncate text-sm text-muted-foreground"
+                  className="min-w-0 truncate text-sm text-muted-foreground"
                   title={r.label}
                 >
                   {r.label}
                 </span>
               )}
-              <span className="ml-1.5 text-xs text-muted-foreground tabular-nums">
-                · {t("pp_stake_proc_contracts", { count: r.contractCount })}
+              <span className="shrink-0 text-sm font-semibold tabular-nums">
+                {formatEurCompact(r.totalEur, i18n.language)}
               </span>
-              <div className="mt-1 h-1.5 w-full overflow-hidden rounded bg-muted">
-                <div
-                  className="h-full rounded bg-primary/60"
-                  style={{
-                    width: `${Math.max(3, (r.totalEur / maxEur) * 100)}%`,
-                  }}
-                />
-              </div>
             </div>
-            <span className="shrink-0 text-sm font-semibold tabular-nums">
-              {formatEurCompact(r.totalEur, i18n.language)}
-            </span>
+            <div className="text-xs text-muted-foreground tabular-nums">
+              {t("pp_stake_proc_contracts", { count: r.contractCount })}
+            </div>
+            <div className="mt-1 h-1.5 w-full overflow-hidden rounded bg-muted">
+              <div
+                className="h-full rounded bg-primary/60"
+                style={{
+                  width: `${Math.max(3, (r.totalEur / maxEur) * 100)}%`,
+                }}
+              />
+            </div>
           </div>
         ))}
       </CardContent>

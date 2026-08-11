@@ -95,7 +95,7 @@ export const CandidateTopSettlementsTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(64px,1fr)_auto_auto_auto_auto] gap-x-2 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(64px,1fr)_auto_auto_auto_auto] gap-x-1.5 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_col_place_short")}
         </span>

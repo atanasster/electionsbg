@@ -37,8 +37,16 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
       <Card>
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <StatCard label={t("pp_cohort_declared")}>
-              <div className="text-2xl font-bold text-foreground">
+            {/* The subject's own figure takes the full row on a phone: it is the headline of
+                the comparison, and it is also the longest string here — a half-width tile is
+                ~103px of content box, while "€194,6 хил." joins its unit with a non-breaking
+                space and so overflows instead of wrapping. Median and percentile are shorter
+                and share the second row. */}
+            <StatCard
+              label={t("pp_cohort_declared")}
+              className="col-span-2 sm:col-span-1"
+            >
+              <div className="text-xl font-bold text-foreground sm:text-2xl">
                 {formatEurCompact(b.netEur, locale)}
               </div>
             </StatCard>
@@ -48,7 +56,7 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
                 unconditionally printed a blank tile on the 14/45 slices under the floor. */}
             <StatCard label={t("pp_cohort_median", { cohort: cohortLabel })}>
               {b.medianEur != null ? (
-                <div className="text-2xl font-bold text-foreground">
+                <div className="text-xl font-bold text-foreground sm:text-2xl">
                   {formatEurCompact(b.medianEur, locale)}
                 </div>
               ) : (
@@ -59,7 +67,7 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
             </StatCard>
             <StatCard label={t("pp_cohort_percentile")}>
               {b.percentile != null ? (
-                <div className="text-2xl font-bold text-foreground">
+                <div className="text-xl font-bold text-foreground sm:text-2xl">
                   {b.percentile}%
                 </div>
               ) : (

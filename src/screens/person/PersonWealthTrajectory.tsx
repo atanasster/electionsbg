@@ -102,8 +102,12 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
                 tick={{ fontSize: 11 }}
                 stroke="hsl(var(--muted-foreground))"
               />
+              {/* 68, not 52: the Bulgarian compact unit is a WORD ("€220 хил." ≈ 53px at
+                  11px, before the tick margin), so a 52px axis clipped the leading € off
+                  every label wide enough to matter. The English form ("€220K") fits either
+                  way, which is why this read as fine for so long. */}
               <YAxis
-                width={52}
+                width={68}
                 tick={{ fontSize: 11 }}
                 tickFormatter={fmtAxis}
                 stroke="hsl(var(--muted-foreground))"

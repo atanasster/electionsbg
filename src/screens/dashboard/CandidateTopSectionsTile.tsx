@@ -86,7 +86,7 @@ export const CandidateTopSectionsTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(72px,1fr)_auto_auto_auto_auto] gap-x-2 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(72px,1fr)_auto_auto_auto_auto] gap-x-1.5 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("section")}
         </span>
@@ -116,7 +116,10 @@ export const CandidateTopSectionsTile: FC<Props> = ({
             underline={false}
             className="contents"
           >
-            <span className="truncate font-medium tabular-nums">
+            {/* text-xs below sm so the 9-digit section id fits the column whole. Every id in
+                this list shares its leading digits (same oblast, same município), so a
+                truncated one is not merely abbreviated — every row reads "212000…". */}
+            <span className="truncate font-medium tabular-nums text-xs sm:text-sm">
               {r.section}
             </span>
             <span className="tabular-nums text-xs text-muted-foreground text-right">

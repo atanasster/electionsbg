@@ -35,8 +35,15 @@ export const StatCard: FC<PropsWithChildren<Props>> = ({
   children,
 }) => {
   const { t } = useTranslation();
+  // `to` paints an absolutely-positioned chevron in the top-right corner, which
+  // is OUT of flow — so a label long enough to reach it (any 3-word Cyrillic
+  // title at phone width) runs straight under the glyph. Reserve its gutter.
   const labelEl = (
-    <div className="text-sm font-medium text-muted-foreground">{label}</div>
+    <div
+      className={cn("text-sm font-medium text-muted-foreground", to && "pr-6")}
+    >
+      {label}
+    </div>
   );
   const labelWithHint = hint ? (
     <Hint text={hint} underline={false}>

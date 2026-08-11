@@ -78,12 +78,21 @@ const Metric: FC<MetricProps> = ({
           aria-hidden
         />
       ) : null}
-      <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+      {/* pr-4 when `to`: the chevron above is absolutely positioned (out of flow), so a
+          two-word Cyrillic label runs under it at phone width. */}
+      <div
+        className={`flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground ${
+          to ? "pr-4" : ""
+        }`}
+      >
         <Icon className="h-3.5 w-3.5 shrink-0" />
         <span className="line-clamp-2 break-words leading-tight">{label}</span>
       </div>
+      {/* text-xl below sm: these tiles sit two-per-row on a phone (~135px of content box),
+          and a compact euro figure carries a non-breaking space ("€194,6 хил.") so it cannot
+          wrap — at text-2xl it simply escapes the card. */}
       <div
-        className={`text-2xl font-bold tabular-nums leading-tight ${
+        className={`text-xl sm:text-2xl font-bold tabular-nums leading-tight ${
           warn ? "text-amber-600" : ""
         }`}
       >
