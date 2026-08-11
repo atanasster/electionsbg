@@ -50,6 +50,7 @@ import { parseName } from "./nameParts";
 import { writeIngestState } from "../lib/ingest-state";
 import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
+import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "./bridgeB";
 import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
@@ -2148,30 +2149,38 @@ async function main(): Promise<void> {
     // the cap and carried by the name-match caveat shown on the person page. Runs in SQL (the
     // folds live in PG); ON CONFLICT dedups against Bridge-A rows on the same (person, company,
     // role).
-    // Narrow to eligible persons FIRST (people-unique public 3-part folds — ~14k), THEN cap
-    // the footprint per fold via the idx_tr_person_roles_fold index. Counting distinct uics
-    // over the whole 1.2M-row table before filtering is a table-scan; this is index-driven.
-    const FOOTPRINT_CAP = 5;
+    // The eligibility + footprint CTEs live in ./bridgeB.ts — shared with the data test
+    // that asserts both guards still exclude somebody, so the rule cannot be enforced in
+    // one place and measured in another.
+    //
+    // ⚠️ SET-BASED, AND MATERIALIZED. The obvious spelling of this — a correlated
+    // `(SELECT count(DISTINCT uic) … WHERE name_fold = e.name_fold) BETWEEN 1 AND $1`
+    // per eligible person — ran for 19-20 MINUTES and dominated the whole resolve. The
+    // aggregate was never the problem; the PLAN was. Postgres inlined both CTEs, split
+    // `BETWEEN` into two independent SubPlans (so the footprint was counted TWICE per
+    // person), hoisted the uniqueness anti-join ABOVE them (so it counted folds it was
+    // about to discard), and — the actual cost — estimated ONE surviving row where there
+    // are 17,415, then picked a Nested Loop whose INNER side was a full 1.34M-row Seq
+    // Scan of tr_person_roles, re-executed once per capped person.
+    //
+    // Joining once into `hits` and aggregating that set instead makes the whole thing
+    // index- and hash-driven. Measured 2026-08-11 on the local corpus (131,677 person /
+    // 1,340,793 tr_person_roles): 53,743 eligible, 17,415 within the cap, 44,087 rows
+    // emitted, 0.35 s and 221k buffers.
+    //
+    // MATERIALIZED is what KEEPS it. The row estimate is still wrong — the anti-join
+    // reports rows=1 — so without the optimisation barrier the planner is free to
+    // re-inline and rediscover exactly the plan above. The barrier is what makes the bad
+    // estimate harmless rather than catastrophic.
     const bridgeB = await c.query(
-      `WITH elig AS (
-         SELECT p.person_id, p.name_fold
-           FROM person p
-          WHERE p.name_parts = 3 AND p.is_public_figure
-            AND NOT EXISTS (
-              SELECT 1 FROM person p2
-               WHERE p2.name_fold = p.name_fold AND p2.person_id <> p.person_id)
-       ),
-       capped AS (
-         SELECT e.person_id, e.name_fold FROM elig e
-          WHERE (SELECT count(DISTINCT t.uic) FROM tr_person_roles t
-                  WHERE t.name_fold = e.name_fold) BETWEEN 1 AND $1
-       )
+      `WITH ${BRIDGE_B_CTE}
        INSERT INTO person_role (person_id, source, ref, role, confidence)
-       SELECT DISTINCT c.person_id,
-              CASE WHEN t.role IN ('ngo_board','ngo_representative') THEN 'ngo' ELSE 'tr' END,
-              t.uic, t.role, 'high'
-         FROM capped c
-         JOIN tr_person_roles t ON t.name_fold = c.name_fold
+       SELECT DISTINCT h.person_id,
+              CASE WHEN h.role IN ('ngo_board','ngo_representative') THEN 'ngo' ELSE 'tr' END,
+              h.uic, h.role, 'high'
+         FROM hits h
+         JOIN footprint f ON f.person_id = h.person_id
+        WHERE f.n_uic <= $1
        ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
       [FOOTPRINT_CAP],
     );

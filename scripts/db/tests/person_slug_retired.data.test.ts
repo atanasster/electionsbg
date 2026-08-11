@@ -21,6 +21,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "../../person/bridgeB";
 
 // Gated on Postgres being REACHABLE, not on migration 103 having been applied. Folding
 // "table missing" into the skip — the obvious shape — makes a never-applied migration
@@ -302,24 +303,15 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "the Bridge-B footprint cap still excludes people",
   async () => {
+    // The SAME CTEs the resolver attaches through, imported rather than restated: a
+    // near-copy here could go on passing against a rule the writer no longer applies,
+    // which on this particular guard means measuring a bridge nobody built.
     const [row] = await allRows<{ over: string; within: string }>(
-      `WITH elig AS (
-       SELECT p.person_id, p.name_fold
-         FROM person p
-        WHERE p.name_parts = 3 AND p.is_public_figure
-          AND NOT EXISTS (SELECT 1 FROM person p2
-                           WHERE p2.name_fold = p.name_fold
-                             AND p2.person_id <> p.person_id)
-     ),
-     counted AS (
-       SELECT e.person_id,
-              (SELECT count(DISTINCT t.uic) FROM tr_person_roles t
-                WHERE t.name_fold = e.name_fold) AS n
-         FROM elig e
-     )
-     SELECT count(*) FILTER (WHERE n > 5)            AS over,
-            count(*) FILTER (WHERE n BETWEEN 1 AND 5) AS within
-       FROM counted`,
+      `WITH ${BRIDGE_B_CTE}
+       SELECT count(*) FILTER (WHERE n_uic > $1)             AS over,
+              count(*) FILTER (WHERE n_uic BETWEEN 1 AND $1) AS within
+         FROM footprint`,
+      [FOOTPRINT_CAP],
     );
     assert.ok(
       Number(row.over) > 0,
