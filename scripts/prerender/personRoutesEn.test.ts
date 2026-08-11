@@ -11,10 +11,13 @@
 // gets re-broken on the other.
 //
 // Runs over the real manifest and the real election folders, so a new place code, role or card
-// kind cannot reintroduce a Cyrillic /en title without failing here.
+// kind cannot reintroduce a Cyrillic /en title without failing here. The election folders are
+// gitignored pipeline output, so the candidate half also runs on a synthesized corpus that is
+// present everywhere — see the note above that block for why both halves exist.
 
-import { describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { buildCandidateRoutes, buildPersonRoutes } from "./dynamicRoutes";
 import { transliterateName } from "@/data/candidates/transliterateName";
@@ -175,22 +178,116 @@ describe("buildCandidateRoutes — the /en half", () => {
   const en = new Map(
     regions.map((r) => [r.oblast, r.long_name_en || r.name_en || r.name]),
   );
-  const candidateRoutes = buildCandidateRoutes(path.join(ROOT, "data"), bg, en);
+
+  // Unlike the person manifest above, the election folders this family reads are NOT
+  // committed — `.gitignore` drops `/data/2*/*` as regenerated pipeline output — so CI
+  // checks out a tree with no candidates.json at all and every assertion below reads 0
+  // routes. That is why the two halves of this block are split rather than skipped:
+  //
+  //   - the SYNTHESIZED corpus runs everywhere, CI included, and holds the rule itself;
+  //   - the REAL corpus adds the scale the rule was broken at, and skips where absent.
+  //
+  // A plain `skipIf` over the whole block would leave the 25,024-title defect gated only on
+  // a machine that has run the pipeline — i.e. nowhere that a change is reviewed.
+  const DATA = path.join(ROOT, "data");
+  const haveCorpus =
+    fs.existsSync(DATA) &&
+    fs
+      .readdirSync(DATA)
+      .some(
+        (f) =>
+          /^\d{4}_\d{2}_\d{2}$/.test(f) &&
+          fs.existsSync(path.join(DATA, f, "candidates.json")),
+      );
+
+  describe("on a synthesized one-election corpus", () => {
+    // No parliament/index.json, which is the shape that regressed: `mpByName` covers MPs
+    // only, so a non-MP candidate is the fallback path and every route here takes it.
+    // Written to a temp tree rather than committed under __fixtures__ because the builder
+    // takes a DIRECTORY and the whole input is three literals.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "candidate-routes-"));
+    const folder = path.join(root, "data", "2026_04_19");
+    fs.mkdirSync(folder, { recursive: true });
+    const NAMES = [
+      "Иван Георгиев Такучев",
+      "Мария Петрова Иванова-Стоянова",
+      "Ясен Кънчев Жеков",
+    ];
+    fs.writeFileSync(
+      path.join(folder, "candidates.json"),
+      JSON.stringify(
+        NAMES.map((name, i) => ({
+          name,
+          oblast: "BLG",
+          partyNum: 1,
+          pref: `10${i + 1}`,
+        })),
+      ),
+    );
+    fs.writeFileSync(
+      path.join(folder, "cik_parties.json"),
+      JSON.stringify([
+        { number: 1, name: "ПП ИМА ТАКЪВ НАРОД", nickName: "ИТН" },
+      ]),
+    );
+    afterAll(() => fs.rmSync(root, { recursive: true, force: true }));
+
+    const routes = buildCandidateRoutes(path.join(root, "data"), bg, en);
+
+    it("carries no Cyrillic in any English title", () => {
+      expect(routes.length).toBe(NAMES.length);
+      const bad = routes
+        .filter((r) => CYRILLIC.test(r.english?.title ?? ""))
+        .map((r) => `${r.path}: ${r.english?.title}`);
+      expect(bad).toEqual([]);
+      // Pinned, because "no Cyrillic" is also satisfied by an empty or missing title — and
+      // the two mirrors have to differ in the NAME slot, which is what the defect collapsed.
+      const sample = routes.find((r) => r.path === `candidate/${NAMES[0]}`);
+      expect(sample?.title).toBe(
+        "Иван Георгиев Такучев — кандидат за народен представител (2026) | electionsbg.com",
+      );
+      expect(sample?.english?.title).toBe(
+        "Ivan Georgiev Takuchev — Parliamentary candidate (2026) | electionsbg.com",
+      );
+    });
+
+    it("keeps the Bulgarian name reachable as a tagged alias", () => {
+      const missing = routes
+        .filter(
+          (r) =>
+            !/<p><small>Bulgarian name: <span lang="bg">[^<]*<\/span><\/small><\/p>/.test(
+              r.english?.bodyHtml ?? "",
+            ),
+        )
+        .map((r) => r.path);
+      expect(missing).toEqual([]);
+      expect(
+        routes.find((r) => r.path === `candidate/${NAMES[0]}`)?.english
+          ?.bodyHtml,
+      ).toContain(`<span lang="bg">${NAMES[0]}</span>`);
+    });
+  });
 
   // mpByName covers MPs only, so before 2026-08-10 every non-MP candidate fell back to the
   // raw Cyrillic name: 25,024 of 26,386 English titles, roughly twice the person family.
-  it("carries no Cyrillic in any English title", () => {
-    expect(candidateRoutes.length).toBeGreaterThan(20_000);
-    const bad = candidateRoutes
-      .filter((r) => CYRILLIC.test(r.english?.title ?? ""))
-      .map((r) => `${r.path}: ${r.english?.title}`);
-    expect(bad).toEqual([]);
-  });
+  describe.skipIf(!haveCorpus)("over the real election folders", () => {
+    const candidateRoutes = haveCorpus
+      ? buildCandidateRoutes(DATA, bg, en)
+      : [];
 
-  it("keeps the Bulgarian name reachable as a tagged alias", () => {
-    const withAlias = candidateRoutes.filter((r) =>
-      /<span lang="bg">/.test(r.english?.bodyHtml ?? ""),
-    );
-    expect(withAlias.length).toBeGreaterThan(20_000);
+    it("carries no Cyrillic in any English title", () => {
+      expect(candidateRoutes.length).toBeGreaterThan(20_000);
+      const bad = candidateRoutes
+        .filter((r) => CYRILLIC.test(r.english?.title ?? ""))
+        .map((r) => `${r.path}: ${r.english?.title}`);
+      expect(bad).toEqual([]);
+    });
+
+    it("keeps the Bulgarian name reachable as a tagged alias", () => {
+      const withAlias = candidateRoutes.filter((r) =>
+        /<span lang="bg">/.test(r.english?.bodyHtml ?? ""),
+      );
+      expect(withAlias.length).toBeGreaterThan(20_000);
+    });
   });
 });

@@ -1,6 +1,7 @@
 import fs from "fs";
+import os from "os";
 import path from "path";
-import { describe, it, expect } from "vitest";
+import { afterAll, describe, it, expect } from "vitest";
 import type { RegionInfo } from "@/data/dataTypes";
 import {
   buildGovernancePlaceBody,
@@ -15,6 +16,7 @@ import {
   buildLocalRegionRoutes,
   buildOblastRoutes,
 } from "./dynamicRoutes";
+import type { PrerenderRoute } from "./routes";
 
 const PROJECT_ROOT = path.join(__dirname, "..", "..");
 const REGIONS_FILE = path.join(
@@ -219,23 +221,64 @@ describe("no two prerendered region routes declare the same identity", () => {
     );
   });
 
-  it("/local/:cycle/region/:oblast — BG and EN", () => {
-    const routes = buildLocalRegionRoutes(PROJECT_ROOT, REGIONS);
-    expectDistinct(
-      "buildLocalRegionRoutes",
-      routes.map((r) => ({
-        key: r.path,
-        fields: [
-          r.title,
-          r.description,
-          h1(r.bodyHtml),
-          r.english?.title,
-          r.english?.description,
-          h1(r.english?.bodyHtml),
-        ],
-      })),
-    );
+  const localFields = (r: PrerenderRoute) => ({
+    key: r.path,
+    fields: [
+      r.title,
+      r.description,
+      h1(r.bodyHtml),
+      r.english?.title,
+      r.english?.description,
+      h1(r.english?.bodyHtml),
+    ],
   });
+
+  // buildLocalRegionRoutes takes its region list from each cycle's
+  // data/<cycle>/regions_summary.json, and `.gitignore` drops `/data/2*/*` as regenerated
+  // pipeline output — so on CI (and any fresh clone) the real tree yields zero routes and
+  // this gate would pass by never running. The cycle list is synthesized instead, from the
+  // SAME committed regions.json the builder labels against: every code, not just the 29 a
+  // given cycle happens to hold, so it is a superset of what the real corpus can cover.
+  const SYNTH_ROOT = fs.mkdtempSync(path.join(os.tmpdir(), "local-regions-"));
+  const SYNTH_CYCLES = ["2023_10_29_mi", "2019_10_27_mi"];
+  fs.mkdirSync(path.join(SYNTH_ROOT, "src/data/json"), { recursive: true });
+  fs.writeFileSync(
+    path.join(SYNTH_ROOT, "src/data/json/local_elections.json"),
+    JSON.stringify(SYNTH_CYCLES.map((name) => ({ name, kind: "regular" }))),
+  );
+  for (const cycle of SYNTH_CYCLES) {
+    fs.mkdirSync(path.join(SYNTH_ROOT, "data", cycle), { recursive: true });
+    fs.writeFileSync(
+      path.join(SYNTH_ROOT, "data", cycle, "regions_summary.json"),
+      JSON.stringify({ regions: REGIONS.map((r) => ({ oblast: r.oblast })) }),
+    );
+  }
+  afterAll(() => fs.rmSync(SYNTH_ROOT, { recursive: true, force: true }));
+
+  it("/local/:cycle/region/:oblast — BG and EN (every region code)", () => {
+    const routes = buildLocalRegionRoutes(SYNTH_ROOT, REGIONS);
+    // One route per code per cycle. regions.json carries no SOF row — that code is minted
+    // by the local pipeline and dropped by the builder — so nothing is filtered here, and
+    // the real-corpus test below is what exercises that branch.
+    expect(routes.length).toBe(REGIONS.length * SYNTH_CYCLES.length);
+    expectDistinct("buildLocalRegionRoutes", routes.map(localFields));
+  });
+
+  // The real corpus adds the two things a synthesized region list cannot: the SOF skip, and
+  // a cycle whose own regions_summary.json repeats a code — which would ship two routes
+  // under one path.
+  const haveCycles = fs
+    .readdirSync(path.join(PROJECT_ROOT, "data"))
+    .some((f) =>
+      fs.existsSync(path.join(PROJECT_ROOT, "data", f, "regions_summary.json")),
+    );
+  it.skipIf(!haveCycles)(
+    "/local/:cycle/region/:oblast — BG and EN (the real cycles)",
+    () => {
+      const routes = buildLocalRegionRoutes(PROJECT_ROOT, REGIONS);
+      expectDistinct("buildLocalRegionRoutes", routes.map(localFields));
+    },
+  );
 });
 
 // A source-level gate, because the defect is a COMPOSITION pattern rather than
