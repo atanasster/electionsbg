@@ -622,16 +622,15 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
    the emitted chain on 2026-07-29):
 
    ```bash
-   # BEFORE the resolve — it reads these; an empty table publishes blanks, not an error
+   # BEFORE the resolve — it reads all three; an empty/stale one publishes blanks, not an error
    npm run db:load:place-dim:pg:cloud          # 117 — mir/obshtina labels on ~76.5k roles
    npm run db:load:judicial-bodies:pg:cloud    # 116 — the court on ~2,700 magistrate roles
-   npm run db:resolve:persons:cloud            # ~5 min, measured 2026-08-05 — NOT the "multi-hour" CLAUDE.md claims
+   npm run db:load:declarations:pg:cloud       # phase 1 — rewrites subject_ref AND is what the
+                                               #   resolve reads for the register gold key
+   npm run db:resolve:persons:cloud            # 1733 s (28.9 min) measured 2026-08-11 on a
+                                               #   49,627-filing corpus; the "~5 min, 2026-08-05"
+                                               #   this line used to claim was 5.8x optimistic
    # AFTER the resolve — 115 drops person_role.place, taking the municipal roster matview with it
-   # BOTH declaration phases, phase 1 FIRST. Phase 1 rewrites declaration.subject_ref (the
-   # officials slug for the exec/muni tiers); --resolve only JOINs person_role.ref = subject_ref
-   # and fills person_id — it never rewrites the ref. Emitting only --resolve after a roster
-   # re-slug leaves the stale ref joining to nothing (see the table below).
-   npm run db:load:declarations:pg:cloud                # phase 1 — rewrites subject_ref
    npm run db:load:declarations:pg:cloud -- --resolve   # re-applies 102, rebuilds that matview
    npm run db:load:official-candidate-links:pg:cloud    # re-decorates + REFRESHes it
    npm run db:load:person-elections:pg:cloud
@@ -639,6 +638,26 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
    npm run db:load:person-search:pg:cloud              # the combined-search index (reads persons-browse)
    npm run db:load:graph:pg:cloud                       # LAST — the /connections graph (reads persons-browse facets + tr + procurement)
    ```
+
+   **Why phase 1 moved ABOVE the resolve on 2026-08-11.** It used to sit below it, with a
+   comment reading "BOTH declaration phases, phase 1 FIRST" — which meant first *of the two
+   phases*, not first *of the chain*. CLAUDE.md has always said the cloud order is phase 1 →
+   resolve → `--resolve`, and this block contradicted it. The cost is specific:
+   `registerIdByRef()` reads `declaration` for the Сметна палата gold key, so a resolve that
+   runs before phase 1 keys against the PREVIOUS filing set. Measured on the 2026-08-11
+   deploy, which published a 1,644-filing MP backfill: the cloud resolve reported **778
+   mentions aliased to an MP id where local reported 929**, and prod ended at 132 MP↔declarant
+   split pairs against local's 124 — the entire benefit of the backfill, absent, with every
+   row count on both sides reconciling exactly (49,627 filings, 5,575 mp-tier, 935 refs).
+   Re-running resolve → `--resolve` → the five downstream loaders fixed it, at the cost of a
+   second ~65-minute pass.
+
+   **It is invisible unless phase 1 CHANGES something.** On a deploy where the declaration
+   corpus is unmoved, the resolve reads the same table either way, which is why the wrong
+   order survived. Note the OTHER symptom CLAUDE.md predicts for this misordering — officials
+   postings publishing undated — did NOT appear, because prod already held the older filings
+   and so already had their `subject_ref`; only the 1,644 new ones were unseen. Do not use
+   "office dates look fine" as evidence the order was right.
 
    What each omission costs, all of them green-locally / blank-on-prod:
 

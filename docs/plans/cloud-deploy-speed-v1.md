@@ -1762,3 +1762,81 @@ criterion's *scope*, both from the same run:
   (`PGPASSFILE=/Users/atanasster/data-bg/.pgpass`) when invoking `psql` by hand;
   `lib/pg.ts` resolves it automatically for the loaders.
 - `.pgpass` is cloud-only — `db:dump` local does not need it.
+
+---
+
+### F22 — the PERSON chain is the second hour, and nothing had ever timed it
+
+Measured end to end on 2026-08-11 while publishing an MP-declarations backfill
+(1,644 filings recovered from register years 2015-2020) plus the Tier-2b merge
+change. Every step is a `:cloud` wrapper against the proxy at `127.0.0.1:5434`;
+`rc=0` throughout.
+
+| step | seconds | note |
+|---|---:|---|
+| `db:load:place-dim:pg:cloud` | **228** | NOT the usual no-op — see below |
+| `db:load:judicial-bodies:pg:cloud` | 6 | |
+| `db:resolve:persons:cloud` | **1733** | 28.9 min |
+| `db:load:declarations:pg:cloud` (phase 1) | 136 | |
+| `db:load:declarations:pg:cloud -- --resolve` | **791** | 13.2 min |
+| `db:load:official-candidate-links:pg:cloud` | 6 | |
+| `db:load:person-elections:pg:cloud` | 160 | |
+| `db:load:persons-browse:pg:cloud` | 461 | |
+| `db:load:person-search:pg:cloud` | 481 | |
+| `db:load:graph:pg:cloud` | 249 | |
+| **total** | **4251** | **70.8 min** |
+
+**This plan's scope line says "the other 30 `:cloud` scripts included" and then
+never costs them.** The person chain alone is comparable to the procurement legs
+this plan was written to fix, and it is a hard serial dependency — nine of the ten
+steps read what the one before them wrote — so none of it parallelises without
+restructuring.
+
+**The resolve estimate in circulation was 4.4-5.8x optimistic.** `process-watch-report`
+carried `# ~5 min, measured 2026-08-05 — NOT the "multi-hour" CLAUDE.md claims`.
+Measured here **twice on the same day and the same corpus**: **1733 s cold, 1332 s
+warm** (the second run followed 40 minutes later, with the instance's cache hot).
+Both prior claims are wrong in opposite directions. The reconciliation is corpus
+growth — this run resolved against 49,627 filings where the August-05 run had
+~47,000 — and the spread between the two runs is a caution in itself: a single
+datapoint on this step is worth ±20%. Treat **~25-30 min** as the planning figure.
+
+The 400 s cold/warm spread also means the chain cannot be costed by summing
+best-case step times; the first person deploy after any instance restart pays the
+cold number on every step, not just the resolve.
+
+**`place-dim` is cheap only when it no-ops, and the guidance to "emit it
+unconditionally" is about correctness, not cost.** Its fingerprint check found the
+dimension had moved, so it fired the refresh it guards — 119
+(`procurement_settlement_rank`, `procurement_geo_payloads`) and 123
+(`procurement_settlement_payloads`) — taking 228 s instead of seconds. Worth
+knowing before budgeting a deploy window. It used `REFRESH … CONCURRENTLY`, so
+`/procurement/by-settlement` and the settlement pages stayed readable throughout;
+this is NOT the AccessExclusive stall CLAUDE.md warns about for a plain REFRESH.
+
+**A `db:load:*:cloud` wrapper reads the on-disk artifacts, not local Postgres —
+except the resolve, which reads the cloud DATABASE.** That asymmetry is what makes
+the chain order load-bearing rather than cosmetic, and it produced a real defect on
+this deploy: see the ordering note now in `process-watch-report`'s person-chain
+block. In short — the emitted chain ran `db:resolve:persons:cloud` BEFORE
+declarations phase 1, so the resolve keyed the register gold key against the
+previous filing set: **778 mentions aliased to an MP id where local reported 929**,
+and 132 MP↔declarant split pairs against local's 124. Every row count on both sides
+reconciled exactly (49,627 / 5,575 / 935), which is why it needed a
+content-level check to notice at all. The correction cost a second pass of
+resolve → `--resolve` → five downstream loaders: **3700 s**, taking the whole publish
+from 4251 s to **7951 s (132.5 min)**. After it, prod matched local exactly on all six
+checked figures (124 pairs / 72 MPs / 49,627 filings / 49,627 resolved / 4,625
+filing-dated roles / 0 unlicensed merges).
+
+**Cost model consequence for this plan.** The person chain has the same shape the
+procurement legs had before Phase 1-4: a long serial tail dominated by two steps
+(`resolve` 41%, `--resolve` 19% — 60% of the total between them), where the
+expensive work is recomputed on a 0.5-vCPU instance rather than shipped from a
+machine that already computed it. `db:refresh` performs the identical resolve
+locally in ~5-6 min. Whether the person tables can be SHIPPED (the `lib/ship.ts`
+pattern) rather than recomputed is unexamined and is the obvious next question —
+the blocker to check first is that `person_slug_lock` accumulates per database, so
+a shipped `person` table would import slug decisions the target never made
+(CLAUDE.md's `person:slugs:cloud` note explains why the two databases hand the same
+people different slugs).
