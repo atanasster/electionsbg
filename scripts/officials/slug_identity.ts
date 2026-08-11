@@ -49,6 +49,47 @@ export const personGuid = (xmlFile: string): string | null => {
 export const personGuidFromSourceUrl = (url: string): string | null =>
   personGuid(url.split("/").pop() ?? "");
 
+/** `PERSON_GUID_FILE` as a Postgres POSIX pattern over a whole `source_url`,
+ *  for the one consumer that cannot import this module: the SQL inside
+ *  `scripts/person/resolve_persons.ts`'s `registerIdByRef()`.
+ *
+ *  It lives HERE, beside the regex it mirrors, because the two must agree and
+ *  the resolver is where disagreement is invisible. Read as a person id, a bare
+ *  per-document guid makes one declarant look like two — and the resolver's
+ *  guard is `HAVING count(DISTINCT guid) = 1`, so an extra id does not produce a
+ *  wrong merge, it produces NO KEY AT ALL and the ref falls back to the
+ *  name-based tiers with nothing logged. Measured 2026-08-11 on the naive
+ *  pattern (a bare guid matched anywhere in the URL): 70 refs skipped as
+ *  "two register persons", of which **2** actually were. The other 68 lost the
+ *  register's own identity assertion to a filename shape.
+ *
+ *  Anchored on `/` … `.xml$` so it can only ever match the last path segment,
+ *  which is what `personGuid` sees. `person_register_guid.data.test.ts` runs both
+ *  over every `declaration.source_url` in the corpus and fails on any drift, and
+ *  `slug_identity.test.ts` covers the shapes the corpus does not contain.
+ *
+ *  TWO DELIBERATE DIVERGENCES from `personGuid`, both of which the corpus cannot
+ *  currently exercise (0 untrimmed and 0 slash-free `source_url` today) and so
+ *  cannot be caught by the corpus gate alone:
+ *   - **trimming is the caller's job.** `personGuid` calls `.trim()`; this does
+ *     not, because a stored URL with surrounding whitespace is a load defect
+ *     rather than a filename shape, and silently accepting one here would hide it.
+ *   - **a `/` is required.** `personGuid` runs on a filename, this on a URL, so a
+ *     bare `<GUID>123.xml` with no path yields null here. Every `source_url` is
+ *     built from `REGISTER_BASE`, so a slash-free one is likewise a defect. */
+export const PERSON_GUID_SQL_PATTERN =
+  "/([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})[0-9]+\\.xml$";
+
+/** The pre-2026-08 extractor: any guid, anywhere in the URL, sequence suffix not
+ *  required — i.e. one that cannot tell a person id from a per-document one.
+ *
+ *  Exported ONLY as the baseline `PERSON_GUID_SQL_PATTERN` is measured against,
+ *  so the gate can prove the narrowing still discriminates. It must never be a
+ *  live extractor again; it is here precisely so a second copy stops being
+ *  written by hand, which is how the original survived as long as it did. */
+export const LEGACY_ANY_GUID_SQL_PATTERN =
+  "([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})";
+
 /** Every person id a set of filings actually proves. Filings that prove none are
  *  dropped rather than contributing a document id nothing can ever match. */
 export const personGuidsOf = (sourceUrls: Iterable<string>): Set<string> => {

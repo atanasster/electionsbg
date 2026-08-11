@@ -21,10 +21,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end } from "../db/lib/pg";
+import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
 
-// The register stamps every filing `<person GUID><filing sequence>.xml`.
-const GUID_RE =
-  "([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})";
+// The register stamps MOST filings `<person GUID><filing sequence>.xml` — but not all, and
+// the difference is the whole point of importing this rather than restating it. In the
+// 2019-2023 folders it also emitted a BARE guid with no sequence suffix, which is
+// per-DOCUMENT; read as a person id it makes one declarant look like one stranger per extra
+// filing. This file used to carry its own pattern that matched either, so its `clean`
+// exclusion below covered 70 refs where the resolver skips 2 — leaving the 61 refs the
+// narrowing newly keys as precisely the population this gate did not check.
+const GUID_RE = PERSON_GUID_SQL_PATTERN;
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -46,15 +52,18 @@ afterAll(async () => {
 });
 
 // The core invariant. One register person = one person row. The exclusion mirrors the
-// resolver's own collision guard exactly: a subject_ref carrying MORE than one GUID is two
-// register persons collapsed onto one officials slug (what scripts/officials/
-// _slug_collisions.json splits by hand), so the resolver skips the key there rather than
-// guessing — and those subjects can legitimately stay split until the slug is fixed.
+// resolver's own collision guard exactly — it uses the resolver's own pattern to do it: a
+// subject_ref carrying MORE than one PERSON guid is two register persons collapsed onto one
+// officials slug (what scripts/officials/_slug_collisions.json splits by hand), so the
+// resolver skips the key there rather than guessing — and those subjects can legitimately
+// stay split until the slug is fixed. "Exactly" is load-bearing and was once untrue: with a
+// pattern that also matched per-document guids this excluded 70 refs against the resolver's
+// 2, and the 61 it wrongly excluded were the only ones whose key had just changed.
 test.skipIf(skip)("a register person resolves to one person row", async () => {
   const split = await allRows<{ guid: string; refs: string; persons: string }>(
     `WITH dg AS (
        SELECT person_id, tier, subject_ref,
-              upper(substring(source_url from '${GUID_RE}')) AS guid
+              upper(substring(source_url from $1)) AS guid
          FROM declaration WHERE person_id IS NOT NULL
      ), clean AS (
        SELECT subject_ref FROM dg WHERE guid IS NOT NULL
@@ -65,6 +74,7 @@ test.skipIf(skip)("a register person resolves to one person row", async () => {
        FROM dg WHERE guid IS NOT NULL AND subject_ref IN (SELECT subject_ref FROM clean)
       GROUP BY guid HAVING count(DISTINCT person_id) > 1
       LIMIT 5`,
+    [GUID_RE],
   );
   assert.equal(
     split.length,

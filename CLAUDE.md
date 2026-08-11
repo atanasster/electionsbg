@@ -295,6 +295,21 @@ correct only because the resolver does it itself. The collapse only ever re-poin
 `active` + public-figure person, so a chain with no servable end is left broken and reported
 rather than quietly made to look healthy — `person_slug_retired.data.test.ts` fails on it.
 
+**The resolver's SECOND gold key is recoverable only from a filename shape**, and a
+re-resolve that moves the key count by tens is this rather than a data change. The Сметна
+палата stamps most filings `<PERSON-GUID><filing-seq>.xml`, and that GUID is what stitches an
+MP to their ministerial declarations and one official to their several postings — but in the
+2019-2023 folders it also emitted a BARE guid with **no** sequence suffix, which is
+per-DOCUMENT. Read as an identity it makes one declarant look like one stranger per extra
+filing, and since `registerIdByRef()` guards with `HAVING count(DISTINCT guid) = 1` the cost
+is not a wrong merge but **no key at all, with nothing logged**. Measured 2026-08-11: 70 refs
+were being skipped as "two register persons" and 2 actually were. The rule lives once, in
+`PERSON_GUID_SQL_PATTERN` (`scripts/officials/slug_identity.ts`), and
+`person_register_guid.data.test.ts` runs the SQL and JS forms over the whole corpus. Do not
+restate the pattern anywhere — the officials ingest had already learned this (66 document ids
+once sat in `_slug_collisions.json`, splitting real people into orphan profiles) and the
+resolver's own copy had not.
+
 **A re-slug also invalidates `declaration.subject_ref`, and `--resolve` alone CANNOT repair
 it.** For the `exec` and `muni` tiers `subject_ref` IS the officials slug, read out of the
 per-person shard JSON by declarations **phase 1** (the `mp` tier keys on `mpId` and

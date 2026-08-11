@@ -50,6 +50,7 @@ import { parseName } from "./nameParts";
 import { writeIngestState } from "../lib/ingest-state";
 import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
+import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
 import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
@@ -497,43 +498,77 @@ const fields = (
 // GUID is two register persons collapsed onto one slug (the case
 // scripts/officials/_slug_collisions.json exists to split); it is SKIPPED rather than
 // guessed at, so an unlisted collision can never union two people through this key.
+//
+// ONLY the `<GUID><filing-seq>.xml` filename shape carries a person id, which is why the
+// pattern is imported from scripts/officials/slug_identity.ts rather than written here.
+// In the 2019-2023 folders the register also emitted a BARE guid with no sequence suffix,
+// and that one is per-DOCUMENT: read as an identity it makes one declarant look like one
+// stranger per extra filing. The officials ingest learned this (66 document ids once sat in
+// _slug_collisions.json, splitting real people into orphan profiles); this query had not.
+// The HAVING guard means the cost was not a wrong merge but a MISSING key — measured
+// 2026-08-11, 70 refs were skipped as "two register persons" and 68 of them were one person
+// with a bare-guid filing, so 68 officials/MP refs silently lost the register's own identity
+// assertion and fell back to the name tiers. Атанас Зафиров Зафиров was one: his exec slug's
+// stray id is `255f6c79-…-77e8b1401ddb`, the very document guid slug_identity.ts cites.
+//
+// Narrowing the pattern can only ever REMOVE candidate guids, so it cannot invent a union:
+// a ref goes 2-guids → 1 (key restored, asserted by the register), or 1 document guid → 0.
+// A genuine two-person ref still has two person ids and is still skipped.
+//
+// That second case drops nothing ONLY while a document guid stays unique to one ref, and
+// the alias UNION below is the one thing that could break that premise — it attaches ONE
+// source_url to TWO subject_refs by design, so a bare-guid filing reached through an alias
+// WOULD have unioned them. Measured 2026-08-11: 0 bare guids are shared by more than one
+// ref, so nothing is lost today; `person_register_guid.data.test.ts` asserts it rather than
+// leaving it as an assumption, because its violation would be silent in exactly the way the
+// original bug was. If it ever fires, this needs a bare-guid fallback for that ref.
+/**
+ * Every (subject_ref, source_url) the gold key is derived from — `declaration` UNION the
+ * dropped duplicates (migration 101).
+ *
+ * `declaration` holds at most ONE row per source_url, so a slug whose every filing was
+ * written under another slug too — an official holding two posts — has no row here at all
+ * and would get NO gold key, which is exactly how one man became two person rows with his
+ * role on one and his wealth on the other. The alias table is the evidence the loader would
+ * otherwise discard. The HAVING guard in `registerIdByRef` is unchanged and still decides
+ * everything: a ref that ends up carrying two distinct GUIDs is still SKIPPED, so widening
+ * the input can only add a union the register itself asserts, never invent one.
+ *
+ * Exported so `person_register_guid.data.test.ts` measures the SAME population the resolver
+ * reads. The two agree on today's corpus, but nothing structural held them together: an
+ * alias contributing a guid its own `declaration` row does not would leave that gate
+ * asserting over a set the resolver never sees.
+ */
+export const REGISTER_GUID_SOURCE_SQL = `
+  SELECT subject_ref, source_url FROM declaration
+  UNION
+  -- FOLD-AGREEMENT GATE. Accept an alias only when the register printed the SAME name on
+  -- both listings (compared on translit_bg_latin, so re-casing / re-spacing / a dropped
+  -- "д-р" still agree). A shared source_url is the register's own claim that the two
+  -- listings are one filing, but this key overrides every namesake veto downstream, so a
+  -- bad row must not be able to merge two differently-named people on the strength of a
+  -- URL alone. An alias whose name disagrees is simply not used — the ref keeps whatever
+  -- key its own filings give it.
+  SELECT a.subject_ref, a.source_url
+    FROM declaration_subject_alias a
+    JOIN declaration d2 ON d2.source_url = a.source_url
+   WHERE a.declarant_name IS NULL
+      OR translit_bg_latin(a.declarant_name) = translit_bg_latin(d2.declarant_name)`;
+
 async function registerIdByRef(): Promise<Map<string, string>> {
   const present = await allRows<{ reg: string | null }>(
     `SELECT to_regclass('public.declaration')::text AS reg`,
   );
   if (!present[0]?.reg) return new Map(); // cold bootstrap — declarations not loaded yet
-  // UNION the dropped duplicates (migration 101). `declaration` holds at most ONE row
-  // per source_url, so a slug whose every filing was written under another slug too —
-  // an official holding two posts — has no row here at all and would get NO gold key,
-  // which is exactly how one man became two person rows with his role on one and his
-  // wealth on the other. The alias table is the evidence the loader would otherwise
-  // discard. The HAVING guard below is unchanged and still decides everything: a ref
-  // that ends up carrying two distinct GUIDs is still SKIPPED, so widening the input
-  // can only add a union the register itself asserts, never invent one.
   const rows = await allRows<{ subject_ref: string; guid: string }>(
     `SELECT subject_ref, min(guid) AS guid
        FROM (SELECT subject_ref,
-                    upper(substring(source_url from
-                      '([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})')) AS guid
-               FROM (SELECT subject_ref, source_url FROM declaration
-                     UNION
-                     -- FOLD-AGREEMENT GATE. Accept an alias only when the register printed
-                     -- the SAME name on both listings (compared on translit_bg_latin, so
-                     -- re-casing / re-spacing / a dropped "д-р" still agree). A shared
-                     -- source_url is the register's own claim that the two listings are one
-                     -- filing, but this key overrides every namesake veto downstream, so a
-                     -- bad row must not be able to merge two differently-named people on
-                     -- the strength of a URL alone. An alias whose name disagrees is simply
-                     -- not used — the ref keeps whatever key its own filings give it.
-                     SELECT a.subject_ref, a.source_url
-                       FROM declaration_subject_alias a
-                       JOIN declaration d2 ON d2.source_url = a.source_url
-                      WHERE a.declarant_name IS NULL
-                         OR translit_bg_latin(a.declarant_name)
-                            = translit_bg_latin(d2.declarant_name)) u) d
+                    upper(substring(source_url from $1)) AS guid
+               FROM (${REGISTER_GUID_SOURCE_SQL}) u) d
       WHERE guid IS NOT NULL
       GROUP BY subject_ref
      HAVING count(DISTINCT guid) = 1`,
+    [PERSON_GUID_SQL_PATTERN],
   );
   return new Map(rows.map((r) => [r.subject_ref, `cacbg:${r.guid}`]));
 }

@@ -14,8 +14,11 @@
 import { describe, expect, it } from "vitest";
 import {
   foreignPersonGuids,
+  LEGACY_ANY_GUID_SQL_PATTERN,
+  PERSON_GUID_SQL_PATTERN,
   personGuid,
   personGuidFilings,
+  personGuidFromSourceUrl,
   personGuidsOf,
   workOf,
 } from "./slug_identity";
@@ -217,5 +220,59 @@ describe("foreignPersonGuids — the cross-year collision test", () => {
     expect(
       foreignPersonGuids([...onDisk, url("2018", other)], [onDisk[0]]),
     ).toEqual(["A0555741-4ECE-4404-BB6C-2FB9B319E145"]);
+  });
+});
+
+// The SQL dialect of the same rule — the one `registerIdByRef()` binds. Its corpus gate
+// (scripts/db/tests/person_register_guid.data.test.ts) is exact but auto-skips wherever
+// Postgres is absent, i.e. on CI and on any fresh clone, and it can only ever cover shapes
+// the corpus actually contains. This runs everywhere and covers the ones it does not.
+//
+// `new RegExp` is a faithful stand-in for Postgres here because the pattern uses only
+// constructs both engines read identically — `[0-9A-Fa-f]`, `{n}`, `[0-9]+`, `\.`, `$`.
+describe("PERSON_GUID_SQL_PATTERN", () => {
+  const sql = new RegExp(PERSON_GUID_SQL_PATTERN);
+  const viaSql = (u: string) => sql.exec(u)?.[1]?.toUpperCase() ?? null;
+
+  it.each([
+    url("2025", `${ZAFIROV_PERSON}212195.xml`),
+    url("2024", `${ZAFIROV_PERSON.toLowerCase()}181432.xml`),
+    url("2020", ZAFIROV_BARE),
+  ])("agrees with personGuidFromSourceUrl on %s", (u) => {
+    expect(viaSql(u)).toBe(personGuidFromSourceUrl(u));
+  });
+
+  it("rejects the bare per-document guid — the whole point of the suffix", () => {
+    expect(viaSql(url("2020", ZAFIROV_BARE))).toBeNull();
+  });
+
+  // The two DELIBERATE divergences from `personGuid`, documented on the constant. Both are
+  // absent from today's corpus (0 untrimmed, 0 slash-free `source_url`), so the corpus gate
+  // cannot see them and only a hand-written case can pin the intent.
+  it("does not trim — a stored URL with whitespace is a load defect, not a shape", () => {
+    const padded = ` ${url("2025", `${ZAFIROV_PERSON}212195.xml`)} `;
+    expect(viaSql(padded)).toBeNull();
+    // The TS side DOES trim, so this is the one input where the two legitimately differ.
+    expect(personGuidFromSourceUrl(padded)).toBe(ZAFIROV_PERSON);
+  });
+
+  it("requires a path separator — it reads a URL, not a bare filename", () => {
+    expect(viaSql(`${ZAFIROV_PERSON}212195.xml`)).toBeNull();
+  });
+
+  it("matches only the LAST path segment", () => {
+    // A guid-shaped folder name must not be mistaken for the filing's own id.
+    expect(viaSql(`${URL_BASE}/${ZAFIROV_PERSON}999/other-doc.xml`)).toBeNull();
+  });
+});
+
+describe("LEGACY_ANY_GUID_SQL_PATTERN", () => {
+  // Kept ONLY as the baseline the narrowing is measured against. This test is what stops it
+  // being quietly "fixed" into a second live extractor: it must stay permissive, because a
+  // gate that compares two identical patterns proves nothing.
+  it("still matches a bare document guid, unlike its replacement", () => {
+    const u = url("2020", ZAFIROV_BARE);
+    expect(new RegExp(LEGACY_ANY_GUID_SQL_PATTERN).test(u)).toBe(true);
+    expect(new RegExp(PERSON_GUID_SQL_PATTERN).test(u)).toBe(false);
   });
 });
