@@ -18,7 +18,18 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, dbReachable, withClient, end } from "../lib/pg";
+import {
+  allRows,
+  dbReachable,
+  withClient,
+  end,
+  // The threshold and the repair command, IMPORTED rather than re-typed. Both were hand-copied
+  // here once and both had already drifted from the loader that owns them: the local bar was
+  // stricter (0.9) than `visibilityMapShort`, and the local repair string omitted `PARALLEL 0`,
+  // which pg.ts documents as required on the docker Postgres.
+  visibilityMapShort,
+  vacuumRepairSql,
+} from "../lib/pg";
 // The SHARED buffer parser. A hand-rolled /shared (?:hit|read)=(\d+)/ is the exact defect
 // explain_buffers.ts exists to retire — it matches „shared hit=" but not the bare „read=", so it
 // scores only what was already CACHED. Measured here before the fix: 914 against a true 2,617.
@@ -419,17 +430,44 @@ test.skipIf(skip)(
     // 29,423 were this one arm. Nothing about that number says "visibility map", so the first
     // reading was a function-body regression in 143 — which was untouched. This assertion
     // names the cause and the fix instead.
-    const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
-      `SELECT relpages, relallvisible FROM pg_class WHERE relname = 'fund_projects'`,
+    // Qualified by namespace and relkind. `relname` is unique only PER SCHEMA, and this repo's
+    // loaders routinely create stage twins, so a bare `WHERE relname = …` can measure a different
+    // relation than the one being served and report a shortfall on a table that is fine — sending
+    // the next reader to the wrong file, which is the exact failure this gate exists to prevent.
+    const [vm] = await allRows<{
+      relpages: number;
+      relallvisible: number;
+      has_rows: boolean;
+    }>(
+      `SELECT c.relpages, c.relallvisible,
+              EXISTS (SELECT 1 FROM fund_projects) AS has_rows
+         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE n.nspname = ANY(current_schemas(false))
+          AND c.relkind = 'r' AND c.relname = 'fund_projects'`,
     );
     assert.ok(vm, "fund_projects is missing");
+    // BOTH columns are planner estimates maintained by VACUUM/ANALYZE, and TRUNCATE resets
+    // `relpages` to 0 — so on a database loaded WITHOUT the fix, before auto-analyze fires, the
+    // row reads 0/0 and every coverage predicate is vacuously satisfied. Measured: a probe table
+    // holding 20,000 rows with a wholly empty map reads `relpages = 0`, and the bar this gate
+    // used to carry (`relallvisible >= relpages * 0.9`) returned TRUE on it — green on precisely
+    // the defect it was written for. Assert the table is MEASURED before asserting its coverage,
+    // so "never analyzed" is its own loud state rather than a pass.
     assert.ok(
-      vm.relallvisible >= vm.relpages * 0.9,
+      !vm.has_rows || vm.relpages > 0,
+      "fund_projects holds rows but pg_class reports relpages = 0 — nothing has ANALYZEd it " +
+        "since its TRUNCATE+insert, so the planner is flying blind AND no index-only scan is " +
+        "possible. This gate cannot measure coverage in that state; it is the defect, not an " +
+        `excuse to skip. Run \`${vacuumRepairSql("fund_projects")}\``,
+    );
+    assert.ok(
+      !visibilityMapShort(vm.relpages, vm.relallvisible),
       `fund_projects has visibility-map coverage on ${vm.relallvisible} of ${vm.relpages} pages — ` +
         "count(*) cannot use an index-only scan, so funds_fit_basis() seq-scans the whole table " +
         "on every /funds view. The loader must VACUUM after its single-transaction TRUNCATE+insert " +
         "(scripts/db/lib/pg.ts vacuumAfterReload); to repair an already-loaded database run " +
-        "`VACUUM (ANALYZE) fund_projects;`",
+        `\`${vacuumRepairSql("fund_projects")}\`. The generic, table-driven form of this check ` +
+        "is reload_visibility_map.data.test.ts — this one stays because it names the SERVING cost.",
     );
   },
 );
