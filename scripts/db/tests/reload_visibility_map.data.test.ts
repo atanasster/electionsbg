@@ -19,16 +19,36 @@
 // Both instances found so far were discovered by accident, and the first was
 // initially misread as a function-body regression in a file nobody had edited.
 //
+// The threshold itself lives in `visibilityMapShort` (scripts/db/lib/pg.ts), shared
+// with the loader's own post-vacuum read-back so the two cannot disagree about what
+// healthy looks like, and unit-tested in lib/pg.test.ts — without that, every green
+// run here would prove only that the check never fires.
+//
 // Requires the Postgres store. Auto-skips when it is unreachable or the table has
 // not been loaded, exactly like the other *.data.test.ts gates.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, dbReachable, end } from "../lib/pg";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  allRows,
+  dbReachable,
+  end,
+  vacuumRepairSql,
+  visibilityMapShort,
+} from "../lib/pg";
+
+const REPO = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
 
 // One entry per table a loader rebuilds with the single-transaction TRUNCATE
-// shape, naming the loader that must call `vacuumAfterReload` for it. Add a row
-// here when a new loader joins the pattern — that is the whole point of the file.
+// shape, naming the loader that must call `vacuumAfterReload` for it. This list is
+// checked against the loaders' actual calls below, so it cannot quietly fall behind
+// them — it did once already, missing `nzok_activity_monthly`.
 //
 // `contracts` is deliberately ABSENT: it is stage-MERGEd rather than truncated
 // (load_pg.ts, RowExclusiveLock so readers never block), and its map survives a
@@ -46,6 +66,16 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
     table: "nzok_activity_facility_periods",
     loader: "db:load:nzok-activities:pg",
   },
+  { table: "nzok_activity_monthly", loader: "db:load:nzok-activities:pg" },
+];
+
+// Every loader that vacuums, so the static check below can read their call sites.
+const LOADER_FILES = [
+  "load_pg.ts",
+  "load_tenders_pg.ts",
+  "load_annexes_pg.ts",
+  "load_nzok_activities_pg.ts",
+  "load_funds_pg.ts",
 ];
 
 const haveDb = await dbReachable();
@@ -55,25 +85,67 @@ afterAll(async () => {
   if (haveDb) await end();
 });
 
+// Runs WITHOUT a database — a divergence between the loaders and this list is a
+// source-level fact, and the list is what CLAUDE.md's runbook and table count point at.
+test("every table a loader vacuums is listed here", () => {
+  const declared = new Set(RELOADED.map((r) => r.table));
+  const called = new Set<string>();
+  for (const f of LOADER_FILES) {
+    const src = readFileSync(path.join(REPO, "db", f), "utf8");
+    // `vacuumAfterReload("a", "b")`, including the multi-line prettier form.
+    for (const m of src.matchAll(/vacuumAfterReload\(([^)]*)\)/g))
+      for (const q of m[1].matchAll(/"([a-z_][a-z0-9_]*)"/g)) called.add(q[1]);
+  }
+  assert.ok(called.size > 0, "found no vacuumAfterReload call sites to check");
+  const missing = [...called].filter((t) => !declared.has(t)).sort();
+  assert.deepEqual(
+    missing,
+    [],
+    `these tables are vacuumed by a loader but not listed in RELOADED, so nothing ` +
+      `verifies the vacuum actually took: ${missing.join(", ")}. Add them here (and to ` +
+      `the repair command in CLAUDE.md).`,
+  );
+});
+
 for (const { table, loader } of RELOADED) {
   test.skipIf(skip)(`${table} keeps its visibility map`, async () => {
+    // Namespace- and relkind-qualified: `relname` alone is unique only per schema.
     const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
-      `SELECT relpages, relallvisible FROM pg_class WHERE relname = $1`,
+      `SELECT c.relpages, c.relallvisible
+         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE n.nspname = ANY(current_schemas(false))
+          AND c.relkind IN ('r', 'm') AND c.relname = $1`,
       [table],
     );
     // Not loaded on this checkout — a gitignored-input loader that skipped, or a
     // partial refresh. Absent is that loader's problem, not this file's.
     if (!vm || vm.relpages === 0) return;
     assert.ok(
-      vm.relallvisible >= vm.relpages * 0.9,
+      !visibilityMapShort(vm.relpages, vm.relallvisible),
       `${table} has visibility-map coverage on ${vm.relallvisible} of ${vm.relpages} pages, ` +
         `so no index-only scan can be planned against it. ${loader} rebuilds it with ` +
         `TRUNCATE + insert inside one transaction and must call vacuumAfterReload ` +
         `(scripts/db/lib/pg.ts) after its COMMIT. To repair an already-loaded database: ` +
-        `\`VACUUM (ANALYZE) ${table};\``,
+        `\`${vacuumRepairSql(table)}\``,
     );
   });
 }
+
+/** The parliament window the /procurement/tenders browser defaults to, read from the
+ *  table that DEFINES it (`procurement_scopes`, maintained by db:load:procurement-scopes:pg)
+ *  rather than pinned. A hardcoded date keeps passing after the next election — a narrower
+ *  window is still index-only — it just stops testing the scope its comment claims, which is
+ *  the same silent drift CLAUDE.md already warns about for the January year rollover.
+ *  The current parliament is the open-ended `ns:` row. Null when the scopes loader has not
+ *  run, in which case the caller falls back rather than inventing a date. */
+const defaultScopeStart = async (): Promise<string | null> => {
+  const [row] = await allRows<{ date_from: string }>(
+    `SELECT date_from FROM procurement_scopes
+      WHERE scope_key LIKE 'ns:%' AND date_to IS NULL AND date_from IS NOT NULL
+      ORDER BY date_from DESC LIMIT 1`,
+  ).catch(() => []);
+  return row?.date_from ?? null;
+};
 
 // The one member of that list whose empty map was COSTING something, asserted as
 // the property rather than as a page count.
@@ -88,8 +160,7 @@ for (const { table, loader } of RELOADED) {
 // With relallvisible = 0 that plan survives in NAME only. Measured 2026-08-11 on
 // the default (this-parliament) scope: 5,047 buffers and `Heap Fetches: 6088`,
 // restored to 87 and `Heap Fetches: 0`. Neither 113 nor the corpus had changed.
-// A buffer ceiling alone would not say why, so assert Heap Fetches directly —
-// that number is 0 or it is the row count, with nothing in between.
+// A buffer ceiling alone would not say why, so assert Heap Fetches directly.
 test.skipIf(skip)(
   "the tenders browser aggregate is index-only in fact, not just in name",
   async () => {
@@ -97,29 +168,53 @@ test.skipIf(skip)(
       "SELECT count(*)::int AS n FROM tenders",
     );
     if (!t || t.n === 0) return; // tenders not loaded on this checkout
+    const from = await defaultScopeStart();
+    if (!from) return; // procurement_scopes not loaded — no default window to test
 
-    // The browser's own aggregate, windowed the way its default scope windows it.
     const plan = await allRows<{ "QUERY PLAN": string }>(
       `EXPLAIN (ANALYZE, BUFFERS)
        SELECT count(*) AS n, sum(estimated_value_eur) AS s
        FROM tenders WHERE publication_date >= $1`,
-      ["2026-04-19"],
+      [from],
     );
     const text = plan.map((r) => r["QUERY PLAN"]).join("\n");
 
     const fetches = /Heap Fetches: (\d+)/.exec(text);
+    if (!fetches) {
+      // Read the map BEFORE blaming 113. An empty map is itself a leading cause of
+      // this plan disappearing entirely — the planner costs an index-only scan from
+      // the relallvisible/relpages fraction, so at 0 the estimate collapses toward a
+      // plain index scan and can lose to a Seq Scan outright. That is exactly what
+      // happened to fund_projects in fdbdca7869. Sending the reader to an untouched
+      // migration and an untouched route file first would reproduce the very
+      // misdiagnosis this file exists to prevent.
+      const [vm] = await allRows<{ relpages: number; relallvisible: number }>(
+        `SELECT relpages, relallvisible FROM pg_class WHERE relname = 'tenders'`,
+      );
+      const why =
+        vm && visibilityMapShort(vm.relpages, vm.relallvisible)
+          ? `tenders' visibility map covers only ${vm.relallvisible}/${vm.relpages} pages, ` +
+            `which on its own can cost the planner the index-only scan — fix that first: ` +
+            `\`${vacuumRepairSql("tenders")}\``
+          : `tenders' visibility map is intact, so this is migration 113's ` +
+            `idx_tenders_order INCLUDE payload or db_table.js's aggBase routing`;
+      assert.fail(
+        `the tenders count+sum is no longer an Index Only Scan at all — ${why}:\n${text}`,
+      );
+    }
+
+    // Not `=== 0`, though the distinction it drew is real ("0 or the row count, with
+    // nothing in between"). tenders measures 42,071/42,072 — one trailing page short,
+    // exactly the effect visibilityMapShort tolerates — and this window selects the
+    // NEWEST rows, which after a COPY reload sit at the end of the heap, i.e. on that
+    // page. So the honest bound is "nowhere near the row count": 50 is two orders of
+    // magnitude under the 6,088 regression value and cannot be reached by an empty map.
     assert.ok(
-      fetches,
-      `the tenders count+sum is no longer an Index Only Scan at all — migration 113's ` +
-        `idx_tenders_order INCLUDE payload or db_table.js's aggBase routing has been lost:\n${text}`,
-    );
-    assert.equal(
-      Number(fetches[1]),
-      0,
+      Number(fetches[1]) < 50,
       `the tenders count+sum reports Heap Fetches: ${fetches[1]} — the plan is named an ` +
-        `Index Only Scan but reads every tuple from the heap, which is what an empty ` +
+        `Index Only Scan but reads its tuples from the heap, which is what an empty ` +
         `visibility map does to it. db:load:tenders:pg must VACUUM after its reload; to ` +
-        `repair now run \`VACUUM (ANALYZE) tenders;\`\n${text}`,
+        `repair now run \`${vacuumRepairSql("tenders")}\`\n${text}`,
     );
   },
 );

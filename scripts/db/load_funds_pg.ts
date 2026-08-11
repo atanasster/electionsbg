@@ -395,6 +395,15 @@ export const loadFundsPg = async (
       await c.query("COMMIT");
     });
 
+  // Same single-transaction TRUNCATE shape as everything else on this path, so the
+  // same empty visibility map (see vacuumAfterReload). Vacuumed HERE, under the guard
+  // that actually reloaded it, rather than down in the projects block below: that
+  // block additionally requires `existsSync(BY_CONTRACT_DIR)`, and by-contract is
+  // gitignored — so on a fresh clone this table was emptied and never vacuumed, with
+  // its own gate then blaming a `vacuumAfterReload` call that was already there.
+  // A table's vacuum must not be conditioned on a different table's input existing.
+  if (!payloadsOnly) await vacuumAfterReload("fund_beneficiaries");
+
   // Per-project table (by-contract shards — one project per file).
   let projects = 0;
   if (!payloadsOnly && existsSync(BY_CONTRACT_DIR)) {
@@ -441,14 +450,14 @@ export const loadFundsPg = async (
       await c.query("COMMIT");
     });
 
-    // Both tables above were rebuilt by TRUNCATE + insert inside ONE
-    // transaction, which leaves them with an EMPTY visibility map that
-    // autovacuum will never fill (see `vacuumAfterReload`). Without this,
-    // `funds_fit_basis()` — called on every /funds view — plans its
+    // Rebuilt by TRUNCATE + insert inside ONE transaction, which leaves an EMPTY
+    // visibility map that autovacuum will never fill (see `vacuumAfterReload`).
+    // Without this, `funds_fit_basis()` — called on every /funds view — plans its
     // `count(*) FROM fund_projects` as a Seq Scan over all 8,780 pages instead
     // of a 78-page index-only scan, and the funds-fit buffer ceiling fails.
     // Outside the transactions above: VACUUM cannot run in a transaction block.
-    await vacuumAfterReload("fund_beneficiaries", "fund_projects");
+    // (fund_beneficiaries is vacuumed at its own reload above, not here.)
+    await vacuumAfterReload("fund_projects");
   }
 
   // Precomputed page payloads (verbatim, keyed by kind+key).

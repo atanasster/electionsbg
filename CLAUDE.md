@@ -1606,8 +1606,10 @@ insert-threshold autovacuum that fires afterwards runs mid-`db:refresh` where a 
 holds back the xmin horizon — it marks nothing, resets `n_ins_since_vacuum` to 0, and with
 `n_dead_tup` also 0 never revisits the table. The fix is `vacuumAfterReload()`
 (`scripts/db/lib/pg.ts`), called after the load's COMMIT — never inside `withTx`, since VACUUM
-cannot run in a transaction block. Eight tables across five loaders are wired to it, listed in
-`reload_visibility_map.data.test.ts`.
+cannot run in a transaction block. Nine tables across five loaders are wired to it, listed in
+`reload_visibility_map.data.test.ts` — which reads the loaders' own call sites and fails if any
+vacuumed table is missing from that list, so the two cannot drift. `shipTable()` vacuums its
+destination itself, so a new `TRUNCATE_SQL` entry is covered without touching its caller.
 
 **This is the rare defect that is invisible from every angle a reviewer normally checks**: row
 counts reconcile, the corpus is correct, the migration is untouched, and the plan is still
@@ -1623,12 +1625,15 @@ than the `tenders_list` view as the other half of that fix. With an empty map th
 optimisation is given back silently — measured locally 2026-08-11 on the default scope, **5,047
 buffers with `Heap Fetches: 6088`, against 87 and `Heap Fetches: 0` after**. Prod is a
 db-g1-small reading cold over the proxy under a 10 s `statement_timeout`, so it is worse there.
-Every `:cloud` loader run now vacuums, but a database loaded before this shipped stays in the bad
-state until its next reload — and a contracts or tenders reload is ~68 min. Repair it directly
-instead (safe any time, and the tenders one is ~2.5 s per 42k pages):
+Every `:cloud` loader run now vacuums — including the ones that publish by `shipTable()`, whose
+`company_founded` was the one destination no caller covered and which no LOCAL gate can ever see,
+because the local copy of that table is upserted rather than truncated. But a database loaded
+before this shipped stays in the bad state until its next reload, and a contracts or tenders
+reload is ~68 min. Repair it directly instead (safe any time, and the tenders one is ~2.5 s per
+42k pages):
 
 ```bash
-psql "$DATABASE_URL" -c "VACUUM (ANALYZE) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, fund_projects, fund_beneficiaries;"
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE, PARALLEL 0) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, nzok_activity_monthly, fund_projects, fund_beneficiaries, company_founded;"
 ```
 
 Two things about the repair are easy to get backwards:

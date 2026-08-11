@@ -324,30 +324,84 @@ export const withReadOnlyTx = async <T>(
  * `tenders` (42,072 pages / 14 indexes): 2.5 s serial, against a default that
  * does not complete.
  */
+const SAFE_IDENTIFIER = /^[a-z_][a-z0-9_]*$/;
+
+/** The repair command, in ONE spelling. Exported because the runtime warning below, the
+ *  `reload_visibility_map` gate's failure message and the CLAUDE.md runbook all quote it,
+ *  and three hand-written copies had already drifted: `PARALLEL 0` — which this file
+ *  documents as REQUIRED on the docker Postgres, whose 64 MB `/dev/shm` cannot fit the DSM
+ *  segment a 14-index parallel vacuum asks for — was present in the prose and missing from
+ *  every command. The warning was the sharpest case: it fires on the very machine where
+ *  that ceiling was measured and handed the operator a command that dies there. */
+export const vacuumRepairSql = (...tables: readonly string[]): string =>
+  `VACUUM (ANALYZE, PARALLEL 0) ${tables.join(", ")};`;
+
+/**
+ * Is this table's visibility map short enough to mean "the map was never built"?
+ *
+ * ONE definition, shared by the post-vacuum read-back below and the
+ * `reload_visibility_map` gate, so the loader's warning and the test cannot disagree
+ * about what healthy looks like.
+ *
+ * The bar is deliberately low, because the defect is not a few percent of drift — it is
+ * `relallvisible = 0`, every time. Two measurements set it:
+ *
+ * - **A ratio near 1.0 rejects healthy tables.** `contracts` is stage-MERGEd rather than
+ *   truncated and is the standing proof that a map survives a reload — and under ordinary
+ *   update churn it sits at 102,366/120,624 = **84.9%**. A 90% bar fires on it. So do
+ *   `contract_first_seen` (74.5%) and `graph_company_node` (68.9%). A gate that cries wolf
+ *   on a working table gets muted, which costs the whole file.
+ * - **A pure ratio is TIGHTER than an exact compare on small tables.** The slack that is
+ *   actually needed is the trailing partly-filled page — an absolute effect, one page. A
+ *   10% ratio absorbs that only above 10 pages; at `relpages = 3` it demands 3 of 3.
+ *
+ * Hence the smaller of "all but two pages" and "half the table". Worked through:
+ * 0/527 → short (the nzok defect state); 42,071/42,072 → fine (tenders, one trailing page);
+ * 102,366/120,624 → fine (contracts); 2/3 → fine; 0/3 → short.
+ *
+ * Blind spot, stated rather than hidden: at `relpages <= 2` the absolute term goes to zero
+ * or negative and nothing can ever be reported. That is intended — a one-page table is a
+ * single heap read whether or not an index-only scan is available, so there is no cost to
+ * detect. `nzok_activity_monthly` (1 page) lives there.
+ */
+export const visibilityMapShort = (
+  relpages: number,
+  relallvisible: number,
+): boolean =>
+  relpages > 0 && relallvisible < Math.min(relpages - 2, relpages * 0.5);
+
 export const vacuumAfterReload = async (
   ...tables: readonly string[]
 ): Promise<void> => {
-  await withClient(async (c) => {
-    for (const t of tables) {
-      if (!/^[a-z_][a-z0-9_]*$/.test(t))
-        throw new Error(
-          `vacuumAfterReload: unsafe identifier ${JSON.stringify(t)}`,
-        );
-      await c.query(`VACUUM (ANALYZE, PARALLEL 0) ${t}`);
-    }
+  // Validate the WHOLE list before issuing any VACUUM. Interleaved, a bad name in
+  // position two would throw only after position one had already been vacuumed (2.5 s
+  // on tenders), so a caller could not treat the throw as "nothing happened".
+  for (const t of tables)
+    if (!SAFE_IDENTIFIER.test(t))
+      throw new Error(
+        `vacuumAfterReload: unsafe identifier ${JSON.stringify(t)}`,
+      );
 
-    // Did it actually take? An empty table (relpages 0) has nothing to mark and
-    // is not a shortfall. 90% rather than 100%: the final partly-filled page is
-    // legitimately unmarked, so an exact compare would cry wolf on every table.
-    const { rows: short } = await c.query<{
+  await withClient(async (c) => {
+    for (const t of tables) await c.query(`VACUUM (ANALYZE, PARALLEL 0) ${t}`);
+
+    // Did it actually take? Qualified by namespace and relkind: `relname` is unique only
+    // per schema, and the VACUUMs above resolve through `search_path` — so an unqualified
+    // read-back can measure a different relation than the one it just vacuumed and report
+    // a shortfall that does not exist.
+    const { rows } = await c.query<{
       relname: string;
       relpages: number;
       relallvisible: number;
     }>(
-      `SELECT relname, relpages, relallvisible FROM pg_class
-        WHERE relname = ANY($1) AND relpages > 0
-          AND relallvisible < relpages * 0.9`,
+      `SELECT c.relname, c.relpages, c.relallvisible
+         FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE n.nspname = ANY(current_schemas(false))
+          AND c.relkind IN ('r', 'm') AND c.relname = ANY($1)`,
       [tables],
+    );
+    const short = rows.filter((r) =>
+      visibilityMapShort(r.relpages, r.relallvisible),
     );
     if (short.length === 0) return;
 
@@ -368,9 +422,9 @@ export const vacuumAfterReload = async (
           .map((r) => `${r.relname} (${r.relallvisible}/${r.relpages} pages)`)
           .join(", ") +
         ` — index-only scans stay unavailable there. Cause: ${because}. ` +
-        `The load itself is fine; re-run \`VACUUM (ANALYZE) ${short
-          .map((r) => r.relname)
-          .join(", ")};\` once nothing long-running is in flight.`,
+        `The load itself is fine; re-run \`${vacuumRepairSql(
+          ...short.map((r) => r.relname),
+        )}\` once nothing long-running is in flight.`,
     );
   });
 };

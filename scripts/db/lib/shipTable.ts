@@ -28,6 +28,7 @@ import {
   withClient,
   getPool,
   isServingDatabase,
+  vacuumAfterReload,
 } from "./pg";
 
 /** True when the database this process will ship INTO is the Cloud SQL proxy rather than
@@ -110,6 +111,21 @@ export const shipTable = async (table: string): Promise<number> => {
       throw new Error(
         `${table} ship mismatch: local ${localCount} → destination ${dstCount}`,
       );
+
+    // The TRUNCATE above mints a new relfilenode and the COPY fills it, so the
+    // DESTINATION's visibility map is empty and no index-only scan can be planned
+    // there — see vacuumAfterReload for why autovacuum never repairs that.
+    //
+    // Here rather than in each caller, so a fourth TRUNCATE_SQL entry is covered by
+    // construction. That was not academic: `procurement_normalcy_cache` and
+    // `tender_normalcy_cache` were covered only because load_pg / load_tenders_pg
+    // happen to vacuum them for their own reasons, while `company_founded` — shipped
+    // by load_company_founded_pg, which has no such call — was not covered at all.
+    // That gap is CLOUD-ONLY and structurally invisible to the local gate, because
+    // the local `company_founded` is upserted rather than truncated (636/636 pages
+    // marked), so the one database in the bad state is the one nothing tests.
+    await vacuumAfterReload(table);
+
     console.log(`  ${table}: shipped ${dstCount} row(s) from local → cloud`);
     return dstCount;
   } finally {
