@@ -153,9 +153,9 @@ export const rebuildDerived = async (args: {
   console.log(`→ computing similarity headline per NS`);
   const similarityHeadlineByNs: Record<string, SimilarityHeadlineSlice> = {};
   for (const ns of nsKeys) {
-    const sessions = byNs.get(ns)!;
-    const latest = sessions.reduce((a, b) => (b.date > a.date ? b : a));
-    const slice = computeSimilarityHeadline(similarityByNs[ns], latest);
+    // The whole NS, not just its last day: affiliation is read from the last sitting, but
+    // the spelling published for it is the corpus-wide one (see the file's header).
+    const slice = computeSimilarityHeadline(similarityByNs[ns], byNs.get(ns)!);
     if (slice) similarityHeadlineByNs[ns] = slice;
   }
   writeJson(path.join(DERIVED_DIR, "similarity_headline.json"), {
