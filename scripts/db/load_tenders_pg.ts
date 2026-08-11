@@ -13,7 +13,15 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { allRows, getPool, exec, execEach, withTx, end } from "./lib/pg";
+import {
+  allRows,
+  getPool,
+  exec,
+  execEach,
+  withTx,
+  vacuumAfterReload,
+  end,
+} from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
@@ -293,6 +301,26 @@ export const loadTendersPg = async (): Promise<{
       `lot names recovered for ${res[0].enrich_contract_lot_names} contracts`,
     );
   }
+
+  // Fill the visibility map both tables were rebuilt without. Last, so nothing
+  // else in this loader is still holding back the xmin horizon — see
+  // vacuumAfterReload for why autovacuum never does this itself.
+  //
+  // `tenders` is the one on a hot serving path, and it had SILENTLY GIVEN BACK
+  // migration 113. That file exists to make the /procurement/tenders browser's
+  // count+sum and its two facet GROUP BYs Index-Only Scans over idx_tenders_order
+  // (its measured target: 4,357 buffers → 75), and db_table.js routes them at the
+  // base table rather than the tenders_list view for the same reason. With
+  // relallvisible = 0 the plan is still *named* an Index Only Scan but every tuple
+  // visits the heap: measured 2026-08-11 on the default (this-parliament) scope,
+  // 5,047 buffers with `Heap Fetches: 6088`, restored to 87 with `Heap Fetches: 0`.
+  // Nothing about 113 or the corpus had changed — the reload shape alone undid it.
+  //
+  // tender_normalcy_cache is here because the same transaction shape leaves it in
+  // the same state, not because it costs anything today: its only reader is a PK
+  // point lookup returning `payload`, which is not in the index, so no index-only
+  // scan was ever possible for it (5 buffers either way).
+  await vacuumAfterReload("tenders", "tender_normalcy_cache");
 
   return { rows: rows.length, years: [...years].sort() };
 };

@@ -15,7 +15,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { getPool, exec, withTx, end } from "./lib/pg";
+import { getPool, exec, withTx, vacuumAfterReload, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
@@ -189,9 +189,15 @@ const main = async (): Promise<void> => {
     });
   });
 
-  // Fresh TRUNCATE+COPY leaves reltuples=0 until autovacuum; ANALYZE so the first
-  // contract_annexes() call plans against real stats.
-  await exec("ANALYZE procurement_annexes");
+  // Fresh TRUNCATE+COPY leaves reltuples=0 until autovacuum, so the first
+  // contract_annexes() call would plan blind. VACUUM (ANALYZE) rather than a bare
+  // ANALYZE: the same single-transaction shape ALSO leaves relallvisible = 0 for
+  // good (see vacuumAfterReload), and only a vacuum fills that. Latent today —
+  // contract_annexes() is an index scan on (contract_key, publication_date) that
+  // reads ten columns the index does not carry, so it visits the heap regardless
+  // (130 buffers, measured) — but the ANALYZE was needed anyway and this is the
+  // same statement.
+  await vacuumAfterReload("procurement_annexes");
   console.log("✓ done");
   await end();
 };

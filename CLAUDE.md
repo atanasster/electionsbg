@@ -1596,6 +1596,58 @@ a dated role with no basis, on the mp count collapsing, and on `person_by_slug` 
 MP's terms in a tie order (the profile keeps the first row of a deduped seat, so an
 unordered `jsonb_agg` would let the term shown change between two resolves of the same data).
 
+### The visibility map a TRUNCATE-reload throws away — and the one cloud repair it needs
+
+A loader that rebuilds a table with `TRUNCATE` + `INSERT`/`COPY` inside ONE transaction leaves
+`relallvisible = 0` **permanently**, so Postgres cannot plan an index-only scan on it ever
+again. TRUNCATE mints a new relfilenode with an empty map; every page is then written by a
+transaction that has not committed, so nothing can be marked all-visible; and the
+insert-threshold autovacuum that fires afterwards runs mid-`db:refresh` where a concurrent step
+holds back the xmin horizon — it marks nothing, resets `n_ins_since_vacuum` to 0, and with
+`n_dead_tup` also 0 never revisits the table. The fix is `vacuumAfterReload()`
+(`scripts/db/lib/pg.ts`), called after the load's COMMIT — never inside `withTx`, since VACUUM
+cannot run in a transaction block. Eight tables across five loaders are wired to it, listed in
+`reload_visibility_map.data.test.ts`.
+
+**This is the rare defect that is invisible from every angle a reviewer normally checks**: row
+counts reconcile, the corpus is correct, the migration is untouched, and the plan is still
+*named* an Index Only Scan — it just reports `Heap Fetches: <every row>`. Both instances found
+so far were found by accident, and the first was initially read as a function-body regression in
+a file nobody had edited. `contracts` is the counter-example that locates the cause: it is
+stage-MERGEd rather than truncated, and its map survives a reload intact.
+
+**Cloud SQL carries the same exposure, and `tenders` is the one that costs something.** Migration
+113 exists to make the `/procurement/tenders` browser's count+sum and its two facet GROUP BYs
+Index-Only Scans over `idx_tenders_order`, and `db_table.js` routes them at the base table rather
+than the `tenders_list` view as the other half of that fix. With an empty map the whole
+optimisation is given back silently — measured locally 2026-08-11 on the default scope, **5,047
+buffers with `Heap Fetches: 6088`, against 87 and `Heap Fetches: 0` after**. Prod is a
+db-g1-small reading cold over the proxy under a 10 s `statement_timeout`, so it is worse there.
+Every `:cloud` loader run now vacuums, but a database loaded before this shipped stays in the bad
+state until its next reload — and a contracts or tenders reload is ~68 min. Repair it directly
+instead (safe any time, and the tenders one is ~2.5 s per 42k pages):
+
+```bash
+psql "$DATABASE_URL" -c "VACUUM (ANALYZE) tenders, tender_normalcy_cache, procurement_normalcy_cache, procurement_annexes, nzok_activities, nzok_activity_facility_periods, fund_projects, fund_beneficiaries;"
+```
+
+Two things about the repair are easy to get backwards:
+
+- **`PARALLEL 0` is required on the local docker Postgres, not optional.** Parallel vacuum
+  allocates one DSM segment up front and the container's `/dev/shm` default is 64 MB, so
+  `VACUUM (ANALYZE) tenders` (14 indexes) dies with `could not resize shared memory segment …
+  to 67145792 bytes`. `vacuumAfterReload` passes it for that reason. Nothing is lost: VACUUM
+  parallelises the index-vacuum phase only, and a freshly reloaded table has `n_dead_tup = 0`,
+  so that phase has no work to do.
+- **A VACUUM run while any long transaction is open marks NOTHING and still reports success.**
+  It is the same held-back-horizon mechanism that defeats autovacuum. Measured on a standalone
+  `db:load:nzok-activities:pg` with a concurrent `db:resolve:persons` 15 minutes into one
+  snapshot: `last_vacuum` stamped, `relallvisible` still 0, loader exit 0. `vacuumAfterReload`
+  therefore reads the map back and WARNS with the blocking pid rather than throwing — the load
+  has already committed and the data is fine, so the shortfall is worth reporting, not worth
+  aborting a `db:refresh` chain over. On Cloud SQL, which serves traffic continuously, expect
+  this to fire occasionally; re-run the VACUUM above when it does.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

@@ -290,9 +290,39 @@ export const withReadOnlyTx = async <T>(
  * the Cloud SQL proxy under a 10 s `statement_timeout`.
  *
  * Placement matters for the same reason autovacuum fails: run at the end of the
- * loader, nothing else is in flight, so the horizon is current and the bits
- * actually get set. `db:refresh` chains its steps with `&&`, so that is true
- * there too.
+ * loader, so the horizon is current and the bits actually get set. `db:refresh`
+ * chains its steps with `&&`, so nothing else of its own is in flight there.
+ *
+ * But "nothing else is in flight" is an ASSUMPTION, not a guarantee, and when it
+ * is false this function is a silent no-op — it holds the same held-back-horizon
+ * mechanism that defeats autovacuum, and VACUUM reports success either way.
+ * Measured 2026-08-11 on a standalone `db:load:nzok-activities:pg`: a concurrent
+ * `db:resolve:persons` had held one snapshot open for 15 minutes, the VACUUM ran
+ * and stamped `last_vacuum`, `relallvisible` stayed 0, and the loader exited 0.
+ * Cloud SQL is the case that matters — it serves live traffic continuously, so
+ * there is always some chance a request's snapshot is older than the reload.
+ *
+ * So the map is READ BACK and a shortfall is reported, naming the oldest holder.
+ * It WARNS rather than throws: this runs after the load has committed, the data
+ * is correct, and the shortfall is repairable by re-running the VACUUM later —
+ * aborting the loader here would turn a slow plan into a broken `db:refresh`
+ * chain, which is the same trade `PARALLEL 0` below is making. The point is only
+ * that it stops being invisible, which is the entire defect class.
+ *
+ * `PARALLEL 0` is not a tuning knob — it is what makes this callable at all on a
+ * table with many indexes. Parallel vacuum allocates one DSM segment up front,
+ * and the docker Postgres runs with the container default `/dev/shm` of 64 MB:
+ * `VACUUM (ANALYZE) tenders` (14 indexes) died with `could not resize shared
+ * memory segment … to 67145792 bytes: No space left on device`. That throw would
+ * land AFTER the loader's COMMIT, which is the worst place for it — `db:refresh`
+ * chains with `&&` and its only verification (`test:data`) is the LAST step, so
+ * a post-commit abort publishes the corpus and leaves the whole suite unrun.
+ *
+ * Nothing is lost by disabling it. Parallelism in VACUUM covers the index-vacuum
+ * phase only, and these tables were just rebuilt — `n_dead_tup = 0`, so there are
+ * no dead index entries to reclaim and that phase has no work to do. Measured on
+ * `tenders` (42,072 pages / 14 indexes): 2.5 s serial, against a default that
+ * does not complete.
  */
 export const vacuumAfterReload = async (
   ...tables: readonly string[]
@@ -303,8 +333,45 @@ export const vacuumAfterReload = async (
         throw new Error(
           `vacuumAfterReload: unsafe identifier ${JSON.stringify(t)}`,
         );
-      await c.query(`VACUUM (ANALYZE) ${t}`);
+      await c.query(`VACUUM (ANALYZE, PARALLEL 0) ${t}`);
     }
+
+    // Did it actually take? An empty table (relpages 0) has nothing to mark and
+    // is not a shortfall. 90% rather than 100%: the final partly-filled page is
+    // legitimately unmarked, so an exact compare would cry wolf on every table.
+    const { rows: short } = await c.query<{
+      relname: string;
+      relpages: number;
+      relallvisible: number;
+    }>(
+      `SELECT relname, relpages, relallvisible FROM pg_class
+        WHERE relname = ANY($1) AND relpages > 0
+          AND relallvisible < relpages * 0.9`,
+      [tables],
+    );
+    if (short.length === 0) return;
+
+    // Name the cause, not just the symptom — the fix is "re-run the VACUUM when
+    // that transaction is gone", which is unguessable from a coverage number.
+    const { rows: holder } = await c.query<{ pid: number; running: string }>(
+      `SELECT pid, (now() - xact_start)::text AS running
+         FROM pg_stat_activity
+        WHERE backend_xmin IS NOT NULL AND pid <> pg_backend_pid()
+        ORDER BY age(backend_xmin) DESC LIMIT 1`,
+    );
+    const because = holder[0]
+      ? `pid ${holder[0].pid} has held a snapshot open for ${holder[0].running}`
+      : "no snapshot holder is visible now, so this may be a transient race";
+    console.warn(
+      `[pg] VACUUM left the visibility map short on ` +
+        short
+          .map((r) => `${r.relname} (${r.relallvisible}/${r.relpages} pages)`)
+          .join(", ") +
+        ` — index-only scans stay unavailable there. Cause: ${because}. ` +
+        `The load itself is fine; re-run \`VACUUM (ANALYZE) ${short
+          .map((r) => r.relname)
+          .join(", ")};\` once nothing long-running is in flight.`,
+    );
   });
 };
 

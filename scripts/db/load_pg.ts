@@ -12,7 +12,14 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withClient, withTx, end } from "./lib/pg";
+import {
+  getPool,
+  exec,
+  withClient,
+  withTx,
+  vacuumAfterReload,
+  end,
+} from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
@@ -597,6 +604,26 @@ export const loadPg = async (): Promise<{
   // cannot change their contents. They're kept fresh by load_tenders_pg (which
   // re-runs 042's DROP+CREATE) and kzk_appeals.ts --apply. The contracts_list
   // VIEW that joins them picks up new contracts automatically (it's a view).
+
+  // Fill the visibility map procurement_normalcy_cache is rebuilt without —
+  // TRUNCATE + INSERT inside one transaction on the local path (064b via `exec`),
+  // TRUNCATE + COPY on the cloud one (shipTable), both of which leave
+  // relallvisible = 0 for good. See vacuumAfterReload. Last, so nothing else here
+  // is still holding the xmin horizon back.
+  //
+  // LATENT, not a live cost: the cache's only reader is a PK point lookup
+  // returning `payload` (functions/db_routes.js, "procurement-normalcy"), and
+  // `payload` is not in the index — so that Index Scan visits the heap either way
+  // (5 buffers, measured). It is fixed here because 46,412 pages of permanently
+  // unmarked heap is a trap for the NEXT reader, which is exactly how the
+  // `tenders` case arrived: an aggregate written against an index that already
+  // covered it, silently degraded to full heap fetches.
+  //
+  // `contracts` is NOT in this list and needs no vacuum — it is stage-MERGEd
+  // rather than truncated (RowExclusiveLock, see the merge above), so its map
+  // survives a reload: 102,366 of 120,624 pages marked, against 0 for every table
+  // on the TRUNCATE path.
+  await vacuumAfterReload("procurement_normalcy_cache");
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };

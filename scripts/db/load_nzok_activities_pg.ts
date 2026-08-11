@@ -35,7 +35,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, withClient, end } from "./lib/pg";
+import { exec, withClient, vacuumAfterReload, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   buildActivityEikResolver,
@@ -656,6 +656,22 @@ const main = async (): Promise<void> => {
 
     await c.query("COMMIT");
   });
+
+  // All three tables above were TRUNCATEd and refilled inside that ONE
+  // transaction, which leaves relallvisible = 0 permanently — autovacuum fires
+  // mid-chain against a held-back xmin horizon, marks nothing, and never revisits
+  // (see vacuumAfterReload). Outside the withClient block: VACUUM cannot run in a
+  // transaction block, and this one issues its own BEGIN.
+  //
+  // Latent today. nzok_activities_overview() aggregates broadly enough that no
+  // index covers it — measured 1,003 buffers before and 1,002 after, i.e. the
+  // plan does not change. Fixed because the state is a trap for the next reader,
+  // not because it is costing anything now.
+  await vacuumAfterReload(
+    "nzok_activities",
+    "nzok_activity_monthly",
+    "nzok_activity_facility_periods",
+  );
 
   const unmappedCases = actRows
     .filter((r) => !r[4])
