@@ -146,12 +146,15 @@ test("every procedure the search can offer has activity rows behind it", async (
 
 test("the agri beneficiary dimension is BUILT, not just created", async (t) => {
   if (!agriLoaded) return t.skip();
-  // The sharp one. 046 creates agri_beneficiary with CREATE MATERIALIZED VIEW
-  // IF NOT EXISTS at the TOP of runAgriIngest — three statements before the
-  // stage build — so on a cold database it is derived from an EMPTY
-  // agri_subsidies and IF NOT EXISTS guarantees no later apply repairs it. The
-  // typeahead would then answer "no matches" for all 16.7k beneficiaries with
-  // nothing failing. The ingest now REFRESHes it after the corpus commits.
+  // The sharp one, and the mechanism is ORDERING rather than syntax. 046 applies
+  // at the TOP of runAgriIngest — three statements before the stage build and the
+  // DELETE+INSERT publish — so whatever that apply populates is the PRE-load
+  // corpus. (It used to be worse: the matview was CREATE MATERIALIZED VIEW IF NOT
+  // EXISTS, so on a cold database it was derived from an EMPTY agri_subsidies and
+  // no later apply could repair it. 046 now DROP+CREATEs, which fixes that half
+  // and leaves this one.) Either way the typeahead answers for the wrong vintage —
+  // "no matches" for all 16.7k beneficiaries on a cold build — with nothing
+  // failing. The ingest REFRESHes it after the corpus commits; this asserts it.
   const [row] = await allRows<{ n: string; src: string }>(`
     SELECT (SELECT count(*) FROM agri_beneficiary)::text AS n,
            (SELECT count(DISTINCT eik) FROM agri_subsidies

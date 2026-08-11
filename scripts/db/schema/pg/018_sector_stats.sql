@@ -15,8 +15,11 @@ SET check_function_bodies = off;
 -- `IF NOT EXISTS` is a no-op once the matview exists, so an edit to the CPV bucketing,
 -- the €0-consortium exclusion or the percentile logic below would reach a fresh clone
 -- and nothing else, while load_pg.ts kept REFRESHing it. Verified before changing: no
--- stored-query dependent (038 reads it from a string-bodied function, which records no
--- edge), so no CASCADE; added populate measured at 406 ms.
+-- stored-query dependent — its only readers are company_sectors and sector_peers BELOW
+-- IN THIS FILE, both `LANGUAGE sql` string bodies, which record no pg_depend edge. (038
+-- is NOT a reader: its header prose names this matview, but sector_peers_window ranks
+-- live from `contracts`, which is that file's whole reason for existing.) So no CASCADE;
+-- added populate measured at 406 ms.
 DROP MATERIALIZED VIEW IF EXISTS sector_contractor_stats;
 CREATE MATERIALIZED VIEW sector_contractor_stats AS
 WITH base AS (

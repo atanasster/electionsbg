@@ -131,6 +131,26 @@ CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_fold_trgm
 -- The ranking the typeahead orders by, so a broad term stops at the cap.
 CREATE INDEX IF NOT EXISTS idx_agri_beneficiary_total
   ON agri_beneficiary (total_eur DESC);
+-- Explicit, rather than left to the ALTER DEFAULT PRIVILEGES in roles_readonly.sql:
+-- that is a one-time MANUAL step, and now that the matview is recreated on every
+-- apply the ACL is re-derived on every db:load:agri:pg[:cloud] rather than once per
+-- database. It also silently requires the loader to connect as the role those
+-- defaults were declared for. The failure shape if that assumption is ever wrong is
+-- 42501 on the /subsidies typeahead, with the corpus fully loaded and every row count
+-- reconciling.
+--
+-- ROLE-GUARDED (the 117/130 shape), unlike the bare GRANTs in 017/018 — and the
+-- difference is not cosmetic. This is the ONLY grant in 046, so before it the file
+-- applied fine on a database where roles_readonly.sql had never run. Unguarded it
+-- would raise 42704 there and roll back the WHOLE file (exec() sends it as one
+-- implicit transaction), taking agri_subsidies, agri_payloads and every index with
+-- it — i.e. adding this line would have broken db:load:agri:pg on a fresh clone.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON agri_beneficiary TO app_readonly;
+  END IF;
+END $$;
 
 CREATE OR REPLACE FUNCTION agri_beneficiary_search(p_term text, p_limit int DEFAULT 8)
 RETURNS jsonb LANGUAGE sql STABLE AS $$

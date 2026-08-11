@@ -729,13 +729,17 @@ export const runAgriIngest = async ({
     await c.query("DROP TABLE IF EXISTS agri_payloads_stage");
   });
 
-  // The beneficiary dimension behind the /subsidies search typeahead. It MUST
-  // be refreshed here, after the corpus commits, and it is the one object in
-  // 046 that a re-apply cannot repair: `CREATE MATERIALIZED VIEW IF NOT EXISTS`
-  // runs at the TOP of this function, three statements before the stage build,
-  // so on a cold database it is created from an EMPTY agri_subsidies and stays
-  // empty for ever — the search would answer "no matches" for all 16.7k
-  // beneficiaries with nothing failing anywhere.
+  // The beneficiary dimension behind the /subsidies search typeahead. It MUST be
+  // refreshed here, after the corpus commits, and the reason is ORDERING — not
+  // syntax. 046 now DROP+CREATEs the matview (it used to be
+  // `CREATE MATERIALIZED VIEW IF NOT EXISTS`, which no re-apply could repair), so
+  // an apply does populate it. But the apply runs at the TOP of this function,
+  // three statements before the stage build and the DELETE+INSERT publish — so
+  // what it populates is the PRE-load corpus.
+  //
+  // Deleting this REFRESH on the grounds that "the apply builds it now" therefore
+  // leaves the typeahead one vintage behind with the corpus fully loaded, no error
+  // anywhere and no row count moving.
   await withClient(async (c) => {
     await c.query("REFRESH MATERIALIZED VIEW agri_beneficiary");
     const { rows } = await c.query<{ n: string }>(
