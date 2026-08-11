@@ -253,7 +253,50 @@ Direct yield on the 172 is 1 pair (Зафиров), because only one pair has a 
 at all (§4). The other 57 refs are a different, larger win: officials whose several postings
 now key to one person.
 
-## 4. Lever C — the register gold key is exhausted for this population. **1 of 172.**
+## 4. Lever C — sized exactly, and NOT run. **8 of the residual 132.**
+
+> **Measured 2026-08-11 from the register's own year listings** — no crawl needed, because a
+> declaration's filename carries its person GUID, so `list.xml` alone answers what the
+> backfill would yield.
+>
+> | register year | MP filings we do not hold |
+> |---|---:|
+> | 2015 | 259 |
+> | 2016 | 259 |
+> | 2017 | 569 |
+> | 2018 | 256 |
+> | 2019 | 260 |
+> | 2020 | 256 |
+> | **total** | **1,859** over **431 distinct declarants** |
+>
+> **202 of those 431 GUIDs already sit on an officials slug**, so the backfill would mint
+> 202 Tier-0 gold unions — the strongest kind, needing no gate change at all. Its effect on
+> *this* plan's problem is **8 of the 132 residual pairs**; the rest of the value is the
+> audit's D5, an MP wealth history the corpus simply does not have.
+>
+> **The two prerequisites are verified.** D7 is already fixed — the year comes from
+> `latestRegisterYear()` with `DECL_YEARS` as the documented override, not a literal. And
+> D5's destructive overwrite is fixed too: the writer now calls `mergeDeclarations(existing,
+> decls, targetFolders)`, authoritative for its target year and additive elsewhere, so a
+> 2015-2020 run cannot destroy the 2021-2025 filings. That was worth checking before
+> proposing the command rather than after.
+>
+> ```bash
+> DECL_YEARS=2015,2016,2017,2018,2019,2020 npm run data -- --declarations
+> npm run db:load:declarations:pg && npm run db:resolve:persons \
+>   && npm run db:load:declarations:pg -- --resolve
+> ```
+>
+> **Left un-run, deliberately, and this is a scope call rather than a blocker.**
+> `parseFinancialDeclarations` does not stop after writing the per-MP files — it goes on to
+> rebuild the company index and run the TR integration, so the command above is ~1,859
+> fetches plus a multi-stage rebuild that rewrites a wide set of committed files. Firing
+> that autonomously for 8 pairs, in a repo where another session was committing throughout,
+> is the wrong side of the line; and one-off backfills are an operator action here by
+> convention. The measurement is the deliverable, so the decision can be made on numbers
+> instead of on a guess.
+
+## 4a. Why the gold key is otherwise exhausted for this population. **1 of 172.**
 
 Cross-checking every officials-side GUID against the MP-category cache
 (`raw_data/declarations/`, 783 distinct GUIDs): **1 of 172** appears in both, and that one
@@ -343,8 +386,11 @@ belong in the same queue, as splits rather than merges.
    question is whether the HTML page `/bg/MP/{id}` carries a biography the JSON API omits —
    untested, because parliament.bg was unreachable. Probe first; write nothing until it
    answers.
-5. **Lever C — backfill MP register years 2015-2020.** Do it for the corpus (audit D5/D7),
-   not for this number.
+5. **Lever C — sized, not run.** 1,859 MP filings across 2015-2020 over 431 declarants, of
+   whom **202 already sit on an officials slug** (→ 202 Tier-0 gold unions). Worth **8** of
+   the residual 132 here; the rest of the value is the audit's D5. Both prerequisites are
+   verified fixed (§4). Not fired autonomously — the command drags a full company-index and
+   TR rebuild behind it, and one-off backfills are an operator action here.
 
 ## Not levers
 
