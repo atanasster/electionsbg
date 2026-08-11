@@ -161,7 +161,45 @@ yields 2025-2025 alone, so it is a floor for the sitewide case rather than a fix
    (`parse_daily_filing.ts:158`). His АЙВИ АРХ stake was entered 2019-12-18, so he is invisible
    even though the feed contains the filing that removed him.
 
-### The recovery vector, already on disk: `ShareTransfers`
+### The recovery vector, already on disk: `ShareTransfers` — SHIPPED (parser)
+
+`parse_daily_filing.ts` now emits a `share_transferred` event per `ShareTransfer` record and
+`state_replay.ts` records it as an EXIT. Measured over all 1,666 daily files: **161,951
+transfer events naming 115,150 distinct transferors**, 93,568 of them sole owners and 68,383
+partners.
+
+**The role is always `partner`, the generic shareholder** — the node states none, and the
+seller's prior stake is not recoverable from it. A first draft inferred `sole_owner` whenever
+the BUYER ended up sole owner; that is the ordinary ООД buy-out (two съдружници at 50%, one
+buys the other out) and it asserted 100% ownership for people who held half — 34.2% of the
+rows it so labelled. `partner` under-specifies a genuine ЕООД seller instead, which is the
+right direction to be wrong in: it invents nothing.
+
+**A recovered row carries `added_at = NULL`, not the filing date.** The transfer says when
+the stake was given up and nothing about when it was acquired, and a null start is what
+structurally prevents a two-bound period: `PersonTimelineTile` already drops rows with no
+start rather than drawing a zero-length bar. Encoding the exit date in both columns would
+have made the row indistinguishable from a real one-day tenure.
+
+**The dedupe must match a record erased EARLIER IN THE SAME FILING, not just an active one.**
+A SubDeed lists its sections in fixed order and `Partners`/`Erase` precedes `ShareTransfers`,
+so on an ООД→ЕООД consolidation the seller is already erased when the transfer replays.
+Measured over the feed's first 150 days: matching only active records minted 768 duplicates
+of 12,220 rows (6.3%); matching same-filing erasures too brings it to 76 of 10,822 (0.70%),
+and the residual is consistent with people who sold one stake while holding another.
+
+**Validation against the case that prompted this**: the parser independently recovers both
+of Иван Георгиев Такучев's exits — АЙВИ АРХ on **2022-09-27** and УНИСОН ГРУП on
+**2025-08-13** — matching the two `До дата` values papagal publishes, exactly, from a source
+we already held. Note this is still a NAME match and settles nothing about whether those two
+EIKs belong to the Ивайловград chief architect; see the namesake section below.
+
+The replay stamps an EXISTING active shareholder record where it has one and only mints a row
+when it does not, so a person the feed already tracked is not double-counted. A minted row
+carries `addedAt === erasedAt`, which is how "exit observed, entry unknown" is recorded — no
+consumer may render a period from it.
+
+Original analysis:
 
 The 2022-09-27 filing for АЙВИ АРХ contains, verbatim:
 

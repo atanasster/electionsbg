@@ -298,6 +298,73 @@ const eventsFromMetaGroup = (
   ];
 };
 
+/**
+ * `ShareTransfers` → one exit event per `ShareTransfer`, naming the transferor.
+ *
+ * The ONLY node in this feed that names somebody leaving. Every other person section
+ * describes who IS there; an `Erase` can only retire a record the replay already holds, so
+ * a stake entered before the 2021-01-01 feed window is otherwise invisible even when the
+ * filing that ended it is on disk. See TrShareTransferEvent.
+ *
+ * ROLE: always `partner`, the generic shareholder, because the node states no role and the
+ * seller's prior stake is not recoverable from it.
+ *
+ * An earlier draft inferred `sole_owner` whenever the BUYER ended up sole owner. That is
+ * wrong for the ordinary ООД buy-out — two съдружници at 50% each, one buys the other out —
+ * where the buyer becomes sole owner and the SELLER never was one. Measured across the
+ * corpus, it mislabelled 34.2% of the rows it marked `sole_owner`, i.e. it asserted 100%
+ * ownership for people who held half.
+ *
+ * `partner` under-specifies a genuine ЕООД seller instead, and that is the right direction
+ * to be wrong in: understating a stake invents nothing, whereas `sole_owner` is a positive
+ * claim about how much of a company somebody owned.
+ */
+const eventsFromShareTransferGroup = (
+  group: Wrapped,
+  uic: string,
+  companyName: string | null,
+): TrChangeEvent[] => {
+  const groupAttrs = group.$;
+  // Erase on a transfer group retracts the registration itself; there is no exit to record
+  // and the record it would name is not in state either.
+  if (groupAttrs?.FieldOperation === "Erase") return [];
+  const fieldIdent = groupAttrs?.FieldIdent ?? "";
+  const filingDate = formatFilingDate(groupAttrs);
+
+  const out: TrChangeEvent[] = [];
+  const records = (group.ShareTransfer as Arr<Wrapped>) ?? [];
+  for (const rec of records) {
+    const oldOwner = (rec.OldOwner as Arr<Wrapped>)?.[0];
+    if (!oldOwner) continue;
+    const { name: oldName, country } = extractPersonName(oldOwner);
+    // No name is no exit. A transferor we cannot name cannot be attached to anybody.
+    if (!oldName) continue;
+
+    const newOwner = (rec.NewOwner as Arr<Wrapped>)?.[0];
+    const newName = newOwner ? extractPersonName(newOwner).name : null;
+
+    // Record id must be unique within (uic, field_ident): several transfers can settle in
+    // one filing, and they share the group's FieldIdent.
+    const recordId = attr(rec, "RecordID");
+    if (!recordId) continue;
+
+    out.push({
+      kind: "share_transferred",
+      uic,
+      companyName,
+      oldOwnerName: oldName,
+      newOwnerName: newName,
+      role: "partner",
+      shareAmount: parseShareAmount(firstText(rec.ShareAmount as Arr<Wrapped>)),
+      country,
+      filingDate,
+      recordId,
+      fieldIdent,
+    });
+  }
+  return out;
+};
+
 const handleSubDeed = (
   sub: Wrapped,
   uic: string,
@@ -307,6 +374,17 @@ const handleSubDeed = (
   for (const [key, val] of Object.entries(sub)) {
     if (key === "$" || key === "_") continue;
     if (!Array.isArray(val)) continue;
+
+    if (key === "ShareTransfers") {
+      for (const group of val) {
+        if (typeof group === "object" && group !== null) {
+          out.push(
+            ...eventsFromShareTransferGroup(group as Wrapped, uic, companyName),
+          );
+        }
+      }
+      continue;
+    }
 
     // PERSON SECTIONS: each section's array contains 1+ "groups", each with
     // a FieldOperation/FieldIdent on $ and Person records inside.

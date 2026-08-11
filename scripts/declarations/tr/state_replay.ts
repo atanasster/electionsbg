@@ -74,6 +74,57 @@ export const replayEvents = (
       // on a brand-new deed often arrives before any Company meta event, so
       // record the deed's CompanyName opportunistically when we encounter it.
       if (ev.companyName && !c.name) c.name = ev.companyName;
+    } else if (ev.kind === "share_transferred") {
+      const c = ensureCompany(state, ev.uic, ev.filingDate);
+      const key = personKey(ev.recordId, ev.fieldIdent);
+
+      // If the replay already holds a shareholder record for this person, the transfer is
+      // simply their exit — stamp it and add nothing. Minting a second row would
+      // double-count them in every "companies where X held a role" lookup.
+      //
+      // "Already holds" MUST include a record erased in this same filing, not just an
+      // active one. A SubDeed lists its sections in fixed order and `Partners`/`Erase`
+      // precedes `ShareTransfers`, so on an ООД→ЕООД consolidation the seller is already
+      // erased by the time the transfer is replayed. Measured on a contiguous replay of the
+      // first 150 days: matching only active records minted 768 duplicates out of 12,220
+      // rows (6.3%), and the rate climbs as the window widens.
+      const target = normalizePersonName(ev.oldOwnerName);
+      let stamped = false;
+      for (const p of c.persons.values()) {
+        if (p.nameNormalized !== target) continue;
+        // Only a SHAREHOLDER can transfer a share. A manager of the same name is a
+        // different record and erasing them would retire a sitting director on the
+        // strength of a share sale.
+        if (p.role !== "partner" && p.role !== "sole_owner") continue;
+        if (p.erasedAt === null) {
+          p.erasedAt = ev.filingDate;
+          stamped = true;
+        } else if (p.erasedAt === ev.filingDate) {
+          // Erased earlier in this same filing — already accounted for.
+          stamped = true;
+        }
+      }
+      if (!stamped && !c.persons.has(key)) {
+        // The recovery case: a shareholder the feed never saw arrive, because their stake
+        // predates the 2021-01-01 window. `addedAt` is NULL — the transfer states when they
+        // left and nothing about when they arrived, and a null start is what stops a
+        // consumer drawing a period out of a single observed instant.
+        c.persons.set(key, {
+          role: ev.role,
+          name: ev.oldOwnerName,
+          nameNormalized: target,
+          positionLabel: null,
+          country: ev.country,
+          shareAmount: ev.shareAmount,
+          shareCurrency: null,
+          recordId: ev.recordId,
+          groupId: null,
+          fieldIdent: ev.fieldIdent,
+          addedAt: null,
+          erasedAt: ev.filingDate,
+        });
+      }
+      if (ev.companyName && !c.name) c.name = ev.companyName;
     } else if (ev.kind === "person_section_erased") {
       const c = state.get(ev.uic);
       if (!c) continue;

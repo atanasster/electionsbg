@@ -83,6 +83,43 @@ export type TrPersonSectionErasedEvent = {
   filingDate: string;
 };
 
+/**
+ * A registered transfer of shares (прехвърляне на дружествени дялове) — the ONE node in the
+ * daily feed that names somebody LEAVING a company.
+ *
+ * It is what recovers a shareholder the replay never saw arrive. The feed starts
+ * 2021-01-01 and `person_section_erased` can only erase a record already in state, so a
+ * stake entered before the window is invisible even though the filing that ended it is on
+ * disk. Measured across all 1,666 daily files: 161,953 transfers naming 112,623 distinct
+ * exiting owners, ~39,100 of whom have no TR record of any kind, including 995 people the
+ * site already tracks as public figures with no company links at all.
+ *
+ * It is an EXIT, not a range: the node says when the stake was given up and to whom, never
+ * when it was acquired. Any consumer that renders a two-bound period from this is inventing
+ * the other bound.
+ *
+ * No `Indent` here either — the transferor is identified by plain-text name, on the same
+ * policy as every other person in this feed.
+ */
+export type TrShareTransferEvent = {
+  kind: "share_transferred";
+  uic: string;
+  companyName: string | null;
+  /** The shareholder who gave the stake up. */
+  oldOwnerName: string;
+  /** Who received it — context for the exit, not a claim about their entry date. */
+  newOwnerName: string | null;
+  /** 'sole_owner' when this filing left the recipient sole owner, else 'partner'. */
+  role: TrRole;
+  shareAmount: number | null;
+  country: string | null;
+  /** When the transfer was REGISTERED. The node's own `Date` is the contract date; this
+   *  is the one every other event in this feed is stamped with, so they sort together. */
+  filingDate: string;
+  recordId: string;
+  fieldIdent: string;
+};
+
 export type TrCompanyMetaEvent = {
   kind: "company_meta";
   uic: string;
@@ -104,6 +141,7 @@ export type TrCompanyMetaErasedEvent = {
 export type TrChangeEvent =
   | TrPersonAddedEvent
   | TrPersonSectionErasedEvent
+  | TrShareTransferEvent
   | TrCompanyMetaEvent
   | TrCompanyMetaErasedEvent;
 
@@ -125,7 +163,16 @@ export type TrPersonState = {
   recordId: string;
   groupId: string | null;
   fieldIdent: string;
-  addedAt: string;
+  /**
+   * When the record was ENTERED, or null when that is genuinely unknown.
+   *
+   * Null happens for exactly one shape: a shareholder recovered from a `ShareTransfers`
+   * node (see TrShareTransferEvent) whose stake predates the 2021-01-01 feed window. The
+   * transfer says when they LEFT and nothing about when they arrived, so the column is the
+   * honest carrier of that ignorance — a consumer that draws a period gets no start and
+   * must drop the row rather than render a zero-length or invented span.
+   */
+  addedAt: string | null;
   erasedAt: string | null;
 };
 

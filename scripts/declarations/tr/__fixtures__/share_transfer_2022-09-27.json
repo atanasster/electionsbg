@@ -1,0 +1,322 @@
+{
+ "Message": [
+  {
+   "Body": [
+    {
+     "Deeds": [
+      {
+       "Deed": [
+        {
+         "$": {
+          "DeedStatus": "N",
+          "CompanyName": "АЙВИ АРХ",
+          "GUID": "b5dc457973e5450a9786a2b274dc8d1e",
+          "UIC": "205945260",
+          "LegalForm": "EOOD"
+         },
+         "_": "",
+         "IncomingPackageInfo": [
+          {
+           "$": {
+            "IncomingNumber": "20220920164214",
+            "IncomingGuid": "dcfd288a1d2e41a4ab0879efaf7b996c",
+            "PackageType": "ForChange",
+            "LeadingApp": "A4"
+           },
+           "_": "",
+           "Documents": [
+            {
+             "_": ""
+            }
+           ]
+          }
+         ],
+         "SubDeed": [
+          {
+           "$": {
+            "SubUIC": "0015",
+            "SubUICType": "MainCircumstances",
+            "SubDeedStatus": "A"
+           },
+           "_": "",
+           "Managers": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00070",
+              "FieldEntryNumber": "20220927145226",
+              "FieldActionDate": "2022-09-27T14:52:26",
+              "FieldEntryDate": "2022-09-27T14:52:26"
+             },
+             "_": "",
+             "Manager": [
+              {
+               "$": {
+                "RecordIncomingNumber": "20220920164214",
+                "RecordID": "183957093",
+                "GroupID": "36875014"
+               },
+               "_": "",
+               "Person": [
+                {
+                 "$": {
+                  "CompetentAuthorityForRegistration": "",
+                  "RegistrationNumber": "",
+                  "ForeignRegisterCode": "",
+                  "ForeignLegalFormCode": "",
+                  "CountryCode": "BGR",
+                  "CountryCodeBRIS": "",
+                  "LegalForm": "",
+                  "Position": "",
+                  "IsForeignTraderText": "0"
+                 },
+                 "_": "",
+                 "Name": [
+                  {
+                   "_": "Емилия Матеева Такучева"
+                  }
+                 ],
+                 "IndentType": [
+                  {
+                   "_": "EGN"
+                  }
+                 ],
+                 "CountryID": [
+                  {
+                   "_": "1"
+                  }
+                 ],
+                 "CountryName": [
+                  {
+                   "_": "БЪЛГАРИЯ"
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ],
+           "SoleCapitalOwner": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00230",
+              "RecordIncomingNumber": "20220920164214",
+              "FieldEntryNumber": "20220927145226",
+              "FieldActionDate": "2022-09-27T14:52:26",
+              "FieldEntryDate": "2022-09-27T14:52:26",
+              "RecordID": "168815596",
+              "GroupID": "36875014"
+             },
+             "_": "",
+             "Subject": [
+              {
+               "$": {
+                "CompetentAuthorityForRegistration": "",
+                "RegistrationNumber": "",
+                "ForeignRegisterCode": "",
+                "ForeignLegalFormCode": "",
+                "CountryCode": "",
+                "CountryCodeBRIS": "",
+                "LegalForm": "",
+                "Position": "",
+                "IsForeignTraderText": "0"
+               },
+               "_": "",
+               "Name": [
+                {
+                 "_": "Георги Иванов Такучев"
+                }
+               ],
+               "IndentType": [
+                {
+                 "_": "EGN"
+                }
+               ],
+               "CountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "CountryName": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ]
+              }
+             ]
+            }
+           ],
+           "ShareTransfers": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "00240",
+              "FieldEntryNumber": "20220927145226",
+              "FieldActionDate": "2022-09-27T14:52:26",
+              "FieldEntryDate": "2022-09-27T14:52:26"
+             },
+             "_": "",
+             "ShareTransfer": [
+              {
+               "$": {
+                "RecordIncomingNumber": "20220920164214",
+                "RecordID": "183957094",
+                "GroupID": "36875014"
+               },
+               "_": "",
+               "OldOwner": [
+                {
+                 "$": {
+                  "CompetentAuthorityForRegistration": "",
+                  "RegistrationNumber": "",
+                  "ForeignRegisterCode": "",
+                  "ForeignLegalFormCode": "",
+                  "CountryCode": "",
+                  "CountryCodeBRIS": "",
+                  "LegalForm": "",
+                  "Position": "",
+                  "IsForeignTraderText": "0"
+                 },
+                 "_": "",
+                 "Name": [
+                  {
+                   "_": "Иван Георгиев Такучев"
+                  }
+                 ],
+                 "IndentType": [
+                  {
+                   "_": "EGN"
+                  }
+                 ],
+                 "CountryID": [
+                  {
+                   "_": ""
+                  }
+                 ],
+                 "CountryName": [
+                  {
+                   "_": ""
+                  }
+                 ]
+                }
+               ],
+               "NewOwner": [
+                {
+                 "$": {
+                  "CompetentAuthorityForRegistration": "",
+                  "RegistrationNumber": "",
+                  "ForeignRegisterCode": "",
+                  "ForeignLegalFormCode": "",
+                  "CountryCode": "",
+                  "CountryCodeBRIS": "",
+                  "LegalForm": "",
+                  "Position": "",
+                  "IsForeignTraderText": "0"
+                 },
+                 "_": "",
+                 "Name": [
+                  {
+                   "_": "Георги Иванов Такучев"
+                  }
+                 ],
+                 "IndentType": [
+                  {
+                   "_": "EGN"
+                  }
+                 ],
+                 "CountryID": [
+                  {
+                   "_": ""
+                  }
+                 ],
+                 "CountryName": [
+                  {
+                   "_": ""
+                  }
+                 ]
+                }
+               ],
+               "ShareAmount": [
+                {
+                 "_": "50"
+                }
+               ],
+               "Date": [
+                {
+                 "_": "15.09.2022"
+                }
+               ],
+               "OldOwnerCountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "OldOwnerCountryName": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ],
+               "NewOwnerCountryID": [
+                {
+                 "_": "1"
+                }
+               ],
+               "NewOwnerCountryName": [
+                {
+                 "_": "БЪЛГАРИЯ"
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "$": {
+            "SubUIC": "0015",
+            "SubUICType": "G1_ActAnnouncement",
+            "SubDeedStatus": "A"
+           },
+           "_": "",
+           "StatementsAJ": [
+            {
+             "$": {
+              "FieldOperation": "Add",
+              "FieldIdent": "1001AJ",
+              "FieldEntryNumber": "20220927145226",
+              "FieldActionDate": "2022-09-27T14:52:26",
+              "FieldEntryDate": "2022-09-27T14:52:26"
+             },
+             "_": "",
+             "StatementAJ": [
+              {
+               "$": {
+                "RecordIncomingNumber": "20220920164214",
+                "RecordID": "184013169",
+                "GroupID": "36875014",
+                "ActModeText": "Актуален дружествен договор/учредителен акт/устав",
+                "ActModeValue": "36",
+                "Description": "",
+                "ActDate": "",
+                "ActYear": "",
+                "ActID": "8309d371b7004141b46edde5aafab10b",
+                "ActWithErasedPersonalData": "1"
+               },
+               "_": ""
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
