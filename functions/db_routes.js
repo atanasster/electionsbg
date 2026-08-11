@@ -3864,13 +3864,9 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
-  // Slim roster for the procurement combined search.
-  "magistrate-search": async (dbRows) => {
-    const rows = await dbRows("SELECT magistrate_search() AS r", []).catch(
-      missingMigrationEmpty,
-    );
-    return { body: rows[0]?.r ?? { roster: [] } };
-  },
+  // `magistrate-search` (the slim roster for the procurement combined search) was RETIRED
+  // here — see the tombstone in 070_magistrates.sql for why, and for why retiring it does
+  // not cost a departed magistrate their findability. Its replacement is `person-search`.
   // Top-N (by declared-company count) + stats → the /judiciary tile.
   "magistrate-overview": async (dbRows, q) => {
     const limit = clampInt(q.limit, 8, 1, 5000);

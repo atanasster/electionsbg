@@ -93,21 +93,38 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     AND m.decl_year = (SELECT max(decl_year) FROM magistrate);
 $$;
 
--- Slim roster for the procurement combined search. Deliberately NOT scoped to the current
--- bench, unlike the tile/browse/company surfaces above: this one exists to FIND a named
--- person, and a magistrate who left the bench is exactly who a reader searching an old
--- name is looking for. It publishes no year-labelled claim about them — `year` here is the
--- register's latest, and each row carries only name/court/company-count.
+-- TOMBSTONE — `magistrate_search()` is RETIRED (2026-08-11). DROP, no CREATE, the same shape
+-- 025/031 use for the two cache matviews 124 replaced.
+--
+-- It was the whole-roster payload for the procurement combined search, and it was the one
+-- consumer deliberately left UNSCOPED when this table stopped tracking the latest year and
+-- began retaining departed magistrates: a magistrate who left the bench is exactly who a
+-- reader searching an old name is looking for. That reasoning was sound; the function had
+-- simply stopped being how the site delivers it. a1900e91de (2026-08-01) replaced the client
+-- roster (`useMagistrateSearchRoster`) with the ranked /api/db/person-search index and
+-- removed the hook, but not this function or its route — so for ten days it served 432 KB
+-- to nobody, and grew with the roster in a payload-ceiling gate that budgeted for it.
+--
+-- Retiring it costs no findability, which is the only thing that made it worth keeping:
+-- every magistrate — CURRENT BENCH AND RETAINED — resolves to a person row and lands in
+-- person_browse_table at tier 'P', which is exactly what person_search's P arm selects.
+-- Measured 2026-08-11: 3,594 of 3,594 magistrate rows carry a `person_role`, and all 3,594
+-- (3,134 current + 460 retained) sit at tier 'P'.
+--
+-- The corollary is a STALENESS trigger, not a structural gap, and it is the thing to get
+-- right: person_search is a standalone loader, so a magistrate roster reload does not reach
+-- the search index by itself. Until `db:load:person-search:pg[:cloud]` re-runs, the retained
+-- magistrates are unfindable there — measured on this database mid-change, 393 of the 460
+-- were missing from person_search while all 460 were already in person_browse_table. That is
+-- the retention's own purpose defeated, at a 200, with every row count reconciling.
+--
+-- No dependents to break: checked against pg_proc bodies, pg_rewrite view definitions and
+-- pg_depend — the function was a leaf, called only by the dead route.
+--
+-- The DROP rides `db:load:magistrates:pg[:cloud]` (load_magistrates_pg.ts applies this file),
+-- so no hand-run apply_functions step is owed. Deploy order does not matter either: the route
+-- is already gone, and `missingMigrationEmpty` degraded a 42883 from it anyway.
 DROP FUNCTION IF EXISTS magistrate_search();
-CREATE OR REPLACE FUNCTION magistrate_search()
-RETURNS jsonb LANGUAGE sql STABLE AS $$
-  SELECT jsonb_build_object(
-    'year', (SELECT max(decl_year) FROM magistrate),
-    'roster', COALESCE((SELECT jsonb_agg(jsonb_build_object(
-      'name', name, 'court', court, 'companies', company_count
-    ) ORDER BY name) FROM magistrate), '[]'::jsonb)
-  );
-$$;
 
 -- Overview for the /judiciary „декларирани дружества" tile — stats + the top
 -- `p_limit` by company count (each with its companies + financials). The table spans

@@ -1322,6 +1322,17 @@ MISSING table to empty tiers** (so it never 500s on a first deploy before this l
 **STALE** table still serves the previous vintage at a 200 — so this is the same "green locally,
 stale on prod" trap as the loaders above. `person_search.data.test.ts` fails on an absent/empty table.
 
+**`db:load:magistrates:pg[:cloud]` is a fourth trigger, and it is the one the list above reads as
+somebody else's problem.** The other three name a table this loader reads DIRECTLY; a magistrate
+roster reload reaches it only transitively — magistrates → `db:resolve:persons` → persons-browse →
+here — so nothing in the chain looks like a person_search dependency. It is: since 070's
+`magistrate_search()` was retired, `person_search` is the ONLY surface that makes a magistrate
+findable by name, and the whole point of the roster retention (6af09bd0c6) is that a magistrate who
+leaves the ИВСС register stays findable. Measured 2026-08-11, mid-change: **393 of the 460 retained
+magistrates were missing from `person_search` while all 460 were already in `person_browse_table`** —
+the retention's own purpose defeated, at a 200, with every row count reconciling. Re-run this loader
+after any magistrate reload, on both sides.
+
 Last of the person-layer standalone loaders — the connections graph (migrations 127 + 128 + 129,
 `db:load:graph:pg`), the three `graph_*` tables (`graph_edge` / `graph_company_node` /
 `graph_person_node`) + the down-sampled `graph_payloads` blob behind `/connections` and the re-pointed

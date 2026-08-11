@@ -63,13 +63,11 @@ const CEILINGS: [route: string, kb: number, measuredKb: number][] = [
   ["municipal-officials-search-index", 1050, 791],
   ["procurement-rankings", 560, 425],
   ["procurement-flow", 490, 375],
-  // 374 → 432 KB because the magistrate roster stopped tracking the latest year and started
-  // retaining departed magistrates (3,134 → 3,594 rows); this route is deliberately the one
-  // unscoped consumer, since a magistrate who left the bench is exactly who a reader
-  // searching an old name wants. The ceiling goes 490 → 560 to keep this file's ~1.3x
-  // headroom rule — at 490 the margin was 1.13x, tight enough that ordinary corpus growth
-  // would fire it, which is the false alarm the header warns turns ceilings into noise.
-  ["magistrate-search", 560, 432],
+  // `magistrate-search` sat here at 490/374 and was briefly re-budgeted to 560/432 when the
+  // magistrate roster began retaining departed magistrates. It is GONE instead: the route had
+  // no caller at all since a1900e91de, so the honest fix was deleting it, not sizing it.
+  // A route nothing fetches does not need headroom — see the tombstone in 070_magistrates.sql.
+  // The `assert.ok(fn, …)` below is what forces that choice to be made explicitly.
   ["cpv-catalog", 460, 355],
   ["dual-corpus-rankings", 320, 246],
   ["procurement-by-settlement", 175, 133],
