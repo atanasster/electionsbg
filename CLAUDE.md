@@ -368,6 +368,41 @@ resolve simply finds an empty alias table and ~2,700 magistrate roles publish wi
 court, green locally and blank on prod. See
 `docs/plans/person-role-place-consolidation-v1.md` (T2).
 
+**`db:load:magistrates:pg:cloud` is itself a PREREQUISITE of the resolve, not merely a
+trigger for the loader above**, and it is the newest member of this section:
+
+```bash
+npm run db:load:magistrates:pg:cloud   # BEFORE db:load:judicial-bodies:pg:cloud → db:resolve:persons:cloud
+```
+
+`magistrate_holdings.json` used to be a latest-year snapshot, so the ИВСС register's yearly
+turnover deleted every magistrate who stopped filing — and since `resolve_persons.ts` builds
+its magistrate mentions from `SELECT name, court FROM magistrate`, that deleted their person
+row and 404'd every `/person` URL they had been served under. The roster now ACCUMULATES
+(each magistrate's most recent annual filing), which is only useful if the serving database
+has it: run the resolve against a cloud `magistrate` table that predates the change and prod
+drops the same 462 people at a 200, with every row count reconciling. `magistrate` is loaded
+ONLY by this command on the cloud side. `magistrate_roster_retention.data.test.ts` catches it
+locally; nothing checks the cloud.
+
+**One-off, and Cloud SQL needs it by hand.** The retention's first cut keyed the roster on the
+register's RAW name, so a magistrate the ИВСС re-spelled between years (hyphen spacing —
+„… Средкова - Петрова" in 2025, „… Средкова-Петрова" in 2026) survived as two rows and minted
+TWO person rows for one human. The writer now drops a retained record whose `normName` is
+already on the current bench, which deletes the duplicate profile — and orphans the slug it
+was served under. Unlike the 462, the redirect target here genuinely exists and is the same
+person, so these two get one:
+
+```sql
+INSERT INTO person_slug_retired (slug, target_slug) VALUES
+  ('maya-sredkova-petrova-9sqndm',   'maya-sredkova-petrova-j1j9ru'),
+  ('milena-kirova-stoyanova-1lk9uj', 'milena-kirova-stoyanova-1aa2jp')
+ON CONFLICT (slug) DO UPDATE SET target_slug = EXCLUDED.target_slug;
+```
+
+Only needed on a database that ran the roster's first cut (2026-08-11). It cannot recur: the
+dedupe runs before emission, so a re-spelling is never published again.
+
 **It is now ALSO what makes `/court/:bodyCode` truthful.** `judicial_body_source_name` is the
 un-folded bridge `judicial_body_detail()` joins `court_load` through — the raw-name→body fold lives
 in TypeScript, so SQL cannot do it. Applying 116 with `apply_functions.ts` (the normal way a

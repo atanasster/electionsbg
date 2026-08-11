@@ -245,3 +245,64 @@ test("the ВСС workload series attaches to the court that has the magistrates"
     "a court's magistrates and its workload are on two different bodies",
   );
 });
+
+// THE BASIS OF THE „Магистрати" STAT CARD, pinned.
+//
+// `magistrate` retains departed magistrates at their last filing (see
+// magistrate_roster_retention.data.test.ts) so a register turnover cannot delete a /person
+// page. That widening silently moved this card by up to 16% on 279 prerendered pages the
+// first time it shipped — 2,739 current-bench rows joined the bridge alongside 321 retained
+// ones — because 116 counted the table with no year predicate. The card is captioned
+// „с декларации в ИВСС" with no year and sits beside a workload series that IS year-labelled,
+// so a reader takes it as current staffing.
+//
+// Asserted against the CURRENT BENCH rather than against a fixed number, so the next roster
+// widening cannot move it silently either. judicial_body_index() shares the predicate and
+// uses the count as its search ranking; the second assertion keeps the two in step.
+test("the /court magistrate count is the current bench, not the whole roster", async (t) => {
+  if (!bodiesLoaded) return t.skip();
+  const drift = await allRows<{
+    body_code: string;
+    served: number;
+    cur: number;
+  }>(`
+    WITH cur AS (
+      SELECT s.body_code, count(*)::int AS n
+        FROM judicial_body_source_name s
+        JOIN magistrate m ON m.court = s.source_name
+       WHERE m.decl_year = (SELECT max(decl_year) FROM magistrate)
+       GROUP BY s.body_code
+    )
+    SELECT b.body_code,
+           (judicial_body_detail(b.body_code) ->> 'magistrates')::int AS served,
+           COALESCE(cur.n, 0) AS cur
+      FROM judicial_body b
+      LEFT JOIN cur ON cur.body_code = b.body_code
+     WHERE (judicial_body_detail(b.body_code) ->> 'magistrates')::int
+             IS DISTINCT FROM COALESCE(cur.n, 0)
+     LIMIT 5`);
+  assert.deepEqual(
+    drift.map(
+      (d) => `${d.body_code}: serves ${d.served}, current bench ${d.cur}`,
+    ),
+    [],
+    "the /court Магистрати card is not counting the current bench — it has absorbed the " +
+      "retained half of the roster, which reads as current staffing on a card with no year",
+  );
+
+  const rank = await allRows<{ body_code: string }>(`
+    WITH idx AS (
+      SELECT (e ->> 'bodyCode') AS body_code, (e ->> 'magistrates')::int AS n
+        FROM jsonb_array_elements(judicial_body_index()) e
+    )
+    SELECT idx.body_code FROM idx
+     WHERE idx.n IS DISTINCT FROM
+           (judicial_body_detail(idx.body_code) ->> 'magistrates')::int
+     LIMIT 5`);
+  assert.deepEqual(
+    rank.map((r) => r.body_code),
+    [],
+    "judicial_body_index() and judicial_body_detail() disagree on the magistrate count — " +
+      "the index drives /court search ranking, so the two must share one basis",
+  );
+});

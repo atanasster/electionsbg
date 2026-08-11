@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T14:53:08.983Z",
+  "generatedAt": "2026-08-11T16:36:50.004Z",
   "source": {
     "publisher": "Инспекторат към Висшия съдебен съвет (ИВСС)",
     "register": "http://62.176.124.194",
@@ -8,8 +8,10 @@
   "year": 2026,
   "stats": {
     "magistratesScanned": 3134,
-    "magistratesEmitted": 3596,
-    "magistratesRetained": 462,
+    "magistratesEmitted": 3594,
+    "magistratesRetained": 460,
+    "respelledDropped": 71,
+    "respelledPublished": 2,
     "fromCache": 3134,
     "fetched": 0,
     "failed": 0,
@@ -34512,18 +34514,6 @@
       }
     },
     {
-      "name": "Мая Георгиева Средкова - Петрова",
-      "declYear": 2025,
-      "position": null,
-      "court": "Районен съд Велинград",
-      "companies": [],
-      "financials": {
-        "bankCashLv": 33512,
-        "securitiesLv": 0,
-        "realEstateCount": 0
-      }
-    },
-    {
       "name": "Мая Георгиева Средкова-Петрова",
       "declYear": 2026,
       "position": null,
@@ -35371,18 +35361,6 @@
       "companies": [],
       "financials": {
         "bankCashLv": 145348,
-        "securitiesLv": 0,
-        "realEstateCount": 0
-      }
-    },
-    {
-      "name": "Милена Георгиева Кирова-Стоянова",
-      "declYear": 2025,
-      "position": null,
-      "court": "Районна прокуратура - Варна",
-      "companies": [],
-      "financials": {
-        "bankCashLv": 107586,
         "securitiesLv": 0,
         "realEstateCount": 0
       }

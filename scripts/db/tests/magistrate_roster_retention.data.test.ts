@@ -48,6 +48,19 @@ afterAll(async () => {
 test.skipIf(skip)(
   "no magistrate the person layer has served has left the roster",
   async () => {
+    // "…and is now UNREACHABLE" is the second half of the invariant, and it is what makes the
+    // assertion survive the re-spelling dedupe. The writer deliberately drops a retained
+    // record whose normalised name is already on the current bench (it was the same human
+    // under a second spelling, and keeping it split them across two /person profiles), which
+    // legitimately removes that raw name from the roster — but the human is still served, and
+    // the orphaned slug gets a redirect to them. Exempting on the REDIRECT rather than on a
+    // re-derived normName keeps the rule in one place: the normalisation lives in TypeScript
+    // (`@/data/judiciary/normName`), and restating it in SQL here is exactly the drift this
+    // repo keeps getting bitten by.
+    //
+    // The teeth are unaffected: a roster that reverts to latest-year-only orphans ~460
+    // magistrates whose mention no longer exists, so the resolver cannot pair them and NONE of
+    // them gets a redirect (that is the whole reason this file exists).
     const dropped = await allRows<{ name: string }>(
       `SELECT substr(l.mention_id, 12) AS name
          FROM person_slug_lock l
@@ -55,6 +68,10 @@ test.skipIf(skip)(
           AND NOT EXISTS (
                 SELECT 1 FROM magistrate m
                  WHERE m.name = substr(l.mention_id, 12))
+          AND NOT EXISTS (
+                SELECT 1 FROM person p WHERE p.slug = l.slug)
+          AND NOT EXISTS (
+                SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)
         LIMIT 5`,
     );
     assert.deepEqual(
@@ -93,6 +110,61 @@ test.skipIf(skip)(
     );
   },
 );
+
+// Retention must not RESURRECT a serving magistrate under a second spelling — the mirror image
+// of the defect this file exists for, and the one the first cut of the retention shipped.
+// `magistrate.name` is a PK on the register's RAW string and the register is inconsistent about
+// hyphen spacing across years („… Средкова - Петрова" in 2025, „… Средкова-Петрова" in 2026), so
+// a retained row can be the same human as a current one. resolve_persons.ts keys its mention on
+// that raw name and cannot merge two same-name magistrates (no corroborant — the merge the
+// codebase forbids), so each spelling mints its own person row: one human, two live indexable
+// /person profiles, each holding half the record. Measured 2026-08-11: 2 pairs, 4 person rows.
+//
+// `name_norm` is also the /person lookup key, so a collision additionally makes
+// magistrate_by_name() ambiguous — see the newest-filing test below.
+test.skipIf(skip)("no two magistrates share a normalised name", async () => {
+  const dupes = await allRows<{ name_norm: string; names: string }>(
+    `SELECT name_norm,
+            string_agg(name || ' @' || decl_year, ' | ' ORDER BY decl_year) AS names
+       FROM magistrate GROUP BY name_norm HAVING count(*) > 1`,
+  );
+  assert.deepEqual(
+    dupes,
+    [],
+    "two magistrate rows normalise to one name — the roster is retaining a prior-year " +
+      "SPELLING of someone still on the bench, which splits one human across two /person " +
+      "profiles. Fix in scripts/judiciary/__write_magistrate_holdings.ts (it drops a retained " +
+      "record whose normName is already on the current bench), NOT in the resolver, which " +
+      "cannot tell a spelling variant from a genuine namesake",
+  );
+});
+
+// The /person tile must serve a magistrate's MOST RECENT filing. `name_norm` is not unique and
+// the table spans years, so an unordered LIMIT 1 publishes an arbitrary row — a year-stale
+// declared-cash figure on a named judge, self-consistently labelled with its own older year,
+// which is why it reads as correct. Survives the dedupe above: two genuine namesakes whose
+// spellings normalise together would still hit the arbitrary pick.
+test.skipIf(skip)("magistrate_by_name serves the newest filing", async () => {
+  const stale = await allRows<{
+    name_norm: string;
+    served: number;
+    newest: number;
+  }>(
+    `SELECT m.name_norm,
+            (magistrate_by_name(m.name_norm) ->> 'year')::int AS served,
+            max(m.decl_year)                                  AS newest
+       FROM magistrate m
+      GROUP BY m.name_norm
+     HAVING (magistrate_by_name(m.name_norm) ->> 'year')::int < max(m.decl_year)
+      LIMIT 5`,
+  );
+  assert.deepEqual(
+    stale,
+    [],
+    "magistrate_by_name() returned an older filing than the table holds — /person is " +
+      "publishing a stale declared figure. Its ORDER BY has been dropped or weakened",
+  );
+});
 
 // The retention must not leak into the year-labelled surfaces. `magistrate_overview()` says
 // „N магистрати … за <year> г. (от M проверени)", so it is scoped to the current bench; a

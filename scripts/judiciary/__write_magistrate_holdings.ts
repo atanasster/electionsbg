@@ -15,14 +15,20 @@
 // captures the connection (which companies) robustly without a per-table parse.
 //
 // Scope of THIS slice (see docs/plans/judiciary-vss-v1.md §6):
-//   - LATEST year, annual declarations only (the current-holdings snapshot);
+//   - each magistrate's MOST RECENT annual declaration. The roster ACCUMULATES rather
+//     than tracking the current bench, so the ИВСС register's yearly turnover cannot
+//     delete a person page (see the `byName` comment below for the whole argument).
+//     Fetching stays latest-year only; earlier years survive from the cache;
 //   - ownership + participation company NAMES only (not related-persons, not the
 //     asset tables); a name → EIK only on a unique Commerce-Registry match.
-// We emit EVERY magistrate we parse (the full latest-year roster), not just the few
-// with a declared company — Postgres serves one record at a time, so the person page
-// + search cover all ~3.1k while the „декларирани дружества" tile stays holder-only
-// (server-side WHERE company_count > 0). Companies stay sparse (most magistrates are
-// barred from management); financials are attached where the parse found figures.
+// We emit EVERY magistrate we parse, not just the few with a declared company —
+// Postgres serves one record at a time, so the person page + search cover all ~3.6k
+// while the „декларирани дружества" tile stays holder-only (server-side WHERE
+// company_count > 0). Companies stay sparse (most magistrates are barred from
+// management); financials are attached where the parse found figures.
+// `stats` is SPLIT BY BASIS: magistratesScanned / withHoldings / withFinancials /
+// totalCompanies / resolvedEik describe the CURRENT bench, which is what the tile's
+// „за <година>" sentence claims; `magistratesRetained` counts the rest.
 // NB the financials are best-effort and UNSAMPLED beyond the original hand-checked
 // set — the high tail (a handful over ~1M лв) is likely extraction noise, so they are
 // shown as informational ("следа, не доказателство"), never a ranking or a total.
@@ -41,6 +47,10 @@ import path from "path";
 import { DatabaseSync } from "node:sqlite";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
+// The SAME normaliser load_magistrates_pg.ts writes into `magistrate.name_norm` and the
+// client hook looks a person up by. The retention dedupe below has to collapse exactly the
+// spellings that would collide downstream, so it cannot use a local approximation.
+import { normName } from "@/data/judiciary/normName";
 
 const require = createRequire(import.meta.url);
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -362,12 +372,53 @@ const main = async (): Promise<void> => {
   for (const e of index)
     if (e.batch === "annual" && (byName.get(e.name)?.year ?? -1) < e.year)
       byName.set(e.name, { name: e.name, pdf: e.pdf, year: e.year });
+
+  // …but a RETAINED record whose normalised name is already on the current bench is not a
+  // departure at all — it is the same serving magistrate under a second spelling, and it must
+  // be dropped.
+  //
+  // The register is inconsistent about hyphen spacing across years („… Средкова - Петрова" in
+  // 2025, „… Средкова-Петрова" in 2026) and `magistrate.name` is a PK on the RAW string, so
+  // both spellings survive the widening as separate rows. resolve_persons.ts keys its mention
+  // on that raw name and CANNOT merge them — two same-name magistrates with no corroborant is
+  // exactly the merge this codebase forbids — so each spelling mints its own person row. The
+  // first cut of this retention did that to two real serving judges: it stopped 462 people
+  // losing a /person page and, in the same change, gave 2 people a second one, splitting each
+  // human's record across two indexable profiles.
+  //
+  // Fixed HERE rather than in the resolver, which cannot tell a spelling variant from a
+  // genuine namesake. Upstream it is knowable: same normalised name, still filing this year.
+  // `normName` is the loader's and the client hook's shared normaliser, so this collapses
+  // exactly the spellings that would collide in `magistrate.name_norm` downstream.
+  // Gate: magistrate_roster_retention.data.test.ts ("no two magistrates share a normalised
+  // name"), so a third spelling next year fails loudly instead of minting a third profile.
+  const currentNorms = new Set(
+    [...byName.values()]
+      .filter((r) => r.year === latestYear)
+      .map((r) => normName(r.name)),
+  );
+  // Two counts, because they mean different things. MOST of these are prior-year spellings
+  // that were never fetched and so were never going to be emitted anyway — removing them is
+  // pre-emptive, and stops one becoming a duplicate profile if it is ever cached. The number
+  // that MATTERS is how many were already published, i.e. had a cache entry: those are the
+  // ones currently splitting a human across two /person pages.
+  const respelled: { name: string; year: number }[] = [];
+  for (const [key, r] of byName)
+    if (r.year !== latestYear && currentNorms.has(normName(r.name))) {
+      respelled.push({ name: r.name, year: r.year });
+      byName.delete(key);
+    }
+
   let roster = [...byName.values()];
   if (Number.isFinite(limit)) roster = roster.slice(0, limit);
 
   const cache: Record<string, CacheEntry> = fs.existsSync(CACHE)
     ? JSON.parse(fs.readFileSync(CACHE, "utf8"))
     : {};
+
+  // Which of the dropped re-spellings we had actually PUBLISHED (see the two-counts note
+  // above). Only these were live duplicate profiles; the rest were never emitted.
+  const respelledPublished = respelled.filter((r) => cache[r.name]);
 
   let fetched = 0;
   let failed = 0;
@@ -501,7 +552,17 @@ const main = async (): Promise<void> => {
       magistratesEmitted: magistrates.length,
       // Carried for identity from an earlier filing year: magistrates who have left the
       // bench and whose /person page would otherwise 404 with no redirect possible.
+      // The claim "left the bench" is only true because the dedupe above drops a retained
+      // record whose normalised name is still on the current roster — without it this
+      // silently counted serving judges the register had merely re-spelled.
       magistratesRetained: magistrates.length - current.length,
+      // Dropped as re-spellings of a CURRENT magistrate rather than departures. Reported so
+      // a register that starts churning spellings is visible instead of just quieter.
+      // `Dropped` is roster-level (mostly prior-year spellings never fetched, removed
+      // pre-emptively); `Published` is the subset we had actually emitted before — the ones
+      // that were splitting one human across two /person profiles.
+      respelledDropped: respelled.length,
+      respelledPublished: respelledPublished.length,
       fromCache: scanned - fetched - failed,
       fetched,
       failed,
@@ -512,6 +573,38 @@ const main = async (): Promise<void> => {
     },
     magistrates,
   };
+  // THE COMMITTED ARTIFACT IS THE FLOOR — refuse to publish a set that loses anyone from it.
+  //
+  // A retained magistrate reaches this output only if `cache[name]` exists, and the cache is
+  // raw_data/judiciary/holdings_cache.json: GITIGNORED, ~1.6 MB, on one machine. So the
+  // committed OUT is the only durable record of who we have published. If that cache is
+  // pruned, rebuilt, or the writer runs on a second machine, the roster still lists every
+  // annual filer but only the cached ones survive — and the output silently reverts to the
+  // latest-year snapshot this file exists to end. The console would read
+  // `emitted 3,134 (0 retained …)`, which looks like a normal run, and the loss only becomes
+  // visible after a full reload AND re-resolve, as 404s.
+  //
+  // Same `--allow-shrink` shape load_kzk_decisions_pg.ts uses, and for the same reason: a
+  // corpus whose real source is host state rather than anything committed.
+  if (fs.existsSync(OUT) && !process.argv.includes("--allow-shrink")) {
+    const prev = JSON.parse(fs.readFileSync(OUT, "utf8")) as {
+      magistrates?: { name: string }[];
+    };
+    const now = new Set(magistrates.map((m) => m.name));
+    // The dedupe above legitimately removes re-spellings, so they are not a loss.
+    const dropped = new Set(respelled.map((r) => r.name));
+    const lost = (prev.magistrates ?? [])
+      .map((m) => m.name)
+      .filter((n) => !now.has(n) && !dropped.has(n));
+    if (lost.length)
+      throw new Error(
+        `${lost.length} magistrate(s) in the committed roster are absent from this build — ` +
+          `their /person URLs would 404 with no redirect possible. Almost always a cold or ` +
+          `pruned ${CACHE}; re-fetch it, or pass --allow-shrink if the removal is intended.\n  ` +
+          lost.slice(0, 10).join("\n  "),
+      );
+  }
+
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n");
   // NB: this JSON is the loader input for Postgres (scripts/db/load_magistrates_pg.ts,
@@ -528,7 +621,19 @@ const main = async (): Promise<void> => {
       // URL survives. `roster.length` is every annual filer the index knows; the gap to
       // emitted is prior-year magistrates never fetched (a deliberate non-crawl).
       `  emitted ${magistrates.length} (${magistrates.length - current.length} retained ` +
-      `from earlier years; ${roster.length} annual filers in the index)`,
+      `from earlier years; ${roster.length} annual filers in the index)` +
+      (respelled.length
+        ? `\n  ${respelled.length} retained record(s) dropped as a re-spelling of a CURRENT ` +
+          `magistrate, not a departure — ${respelledPublished.length} of them previously ` +
+          `published${
+            respelledPublished.length
+              ? `: ${respelledPublished
+                  .slice(0, 5)
+                  .map((r) => `${r.name} @${r.year}`)
+                  .join("; ")}`
+              : ""
+          }`
+        : ""),
   );
   for (const m of magistrates
     .filter((m) => m.companies.length > 0)

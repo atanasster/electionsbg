@@ -106,6 +106,18 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "magistrate_roster_retention.data.test.ts",
   },
   {
+    after: "db:load:judicial-bodies:pg",
+    before: "db:load:magistrates:pg",
+    why:
+      "load_judicial_bodies_pg.ts's own header declares it, and nothing enforced it: the " +
+      "dimension is built from `SELECT DISTINCT court FROM magistrate` ∪ court_load, so a " +
+      "stale magistrate table means a stale set of bodies and aliases. It matters more since " +
+      "the roster started retaining departed magistrates — that carries 72 court strings the " +
+      "dimension had never seen (2 new bodies). db:resolve:persons then reads " +
+      "judicial_body_alias for every magistrate's court, so running first publishes ~2,700 " +
+      "magistrate roles against the previous vintage",
+  },
+  {
     after: "db:load:funds-fit:pg",
     before: "db:load:funds:pg",
     why:

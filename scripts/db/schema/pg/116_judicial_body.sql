@@ -103,9 +103,15 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ORDER BY c.year, c.judges DESC NULLS LAST, c.name COLLATE "C"
   ),
   mags AS (
+    -- CURRENT BENCH ONLY, matching magistrate_overview() in 070. `magistrate` retains
+    -- departed magistrates at their last filing so a register turnover cannot delete a
+    -- /person page, and this card is captioned „с декларации в ИВСС" with no year and read
+    -- as current staffing — counting a judge who left in 2025 into it moved the stat by up
+    -- to 16% on 279 prerendered pages (measured 2026-08-11: 2,739 current vs 321 retained).
     SELECT count(*)::int AS n
     FROM magistrate m
     WHERE m.court IN (SELECT source_name FROM src)
+      AND m.decl_year = (SELECT max(decl_year) FROM magistrate)
   )
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM b) THEN NULL
     ELSE jsonb_build_object(
@@ -152,9 +158,13 @@ $$;
 CREATE OR REPLACE FUNCTION judicial_body_index()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH m AS (
+    -- Current bench only, for the same reason judicial_body_detail() scopes — and here it
+    -- matters twice over: this count is also the SEARCH RANKING, so retained magistrates
+    -- would decide which court a reader typing „софия" is offered first.
     SELECT s.body_code, count(*)::int AS n
     FROM judicial_body_source_name s
     JOIN magistrate g ON g.court = s.source_name
+    WHERE g.decl_year = (SELECT max(decl_year) FROM magistrate)
     GROUP BY s.body_code
   )
   SELECT COALESCE(jsonb_agg(jsonb_build_object(

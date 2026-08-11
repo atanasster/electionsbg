@@ -48,6 +48,15 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
 $$;
 
 -- One magistrate record for the /person page (financials + companies). Name-matched.
+--
+-- The ORDER BY is load-bearing, not cosmetic. `name_norm` is NOT unique — it collapses case,
+-- spaces and hyphens — and the table now spans years, so one magistrate can hold two rows
+-- (and two genuine namesakes always could). An unordered LIMIT 1 then picks arbitrarily:
+-- measured 2026-08-11, a serving judge's /person page published her 2025 declared cash
+-- (33,512 лв) while her 2026 filing (40,594 лв) sat in the same table. The payload's own
+-- 'year' field makes that self-consistent rather than obviously wrong, which is what makes it
+-- easy to miss. Newest filing wins; `name` breaks the tie so the pick is stable across
+-- reloads. Gate: magistrate_roster_retention.data.test.ts.
 DROP FUNCTION IF EXISTS magistrate_by_name(text);
 CREATE OR REPLACE FUNCTION magistrate_by_name(p_norm text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -59,7 +68,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'realEstateCount', m.real_estate_count),
     'companies', magistrate_companies_json(m.name)
   )
-  FROM magistrate m WHERE m.name_norm = p_norm LIMIT 1;
+  FROM magistrate m WHERE m.name_norm = p_norm
+  ORDER BY m.decl_year DESC NULLS LAST, m.name
+  LIMIT 1;
 $$;
 
 -- Magistrates who declared the company at `eik` (company page) + the decl year.
@@ -99,9 +110,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
 $$;
 
 -- Overview for the /judiciary „декларирани дружества" tile — stats + the top
--- `p_limit` by company count (each with its companies + financials). The table now
--- holds the FULL latest-year roster, so the tile filters to company_count > 0; it
--- shows 8 and fetches all HOLDERS on expand (not the 3.1k-strong full roster).
+-- `p_limit` by company count (each with its companies + financials). The table spans
+-- YEARS (it retains departed magistrates — see the `cur` CTE below), so the tile scopes
+-- to the current bench and filters to company_count > 0; it shows 8 and fetches all
+-- HOLDERS on expand (not the full roster).
 DROP FUNCTION IF EXISTS magistrate_overview(int);
 CREATE OR REPLACE FUNCTION magistrate_overview(p_limit int)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
