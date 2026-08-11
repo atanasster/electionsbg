@@ -362,9 +362,12 @@ export const LocalSettlementDashboardCards: FC<{
   cycle: string;
 }> = ({ ekatte, cycle }) => {
   const { t } = useTranslation();
-  const { name, obshtina, municipality, kmetstvo, isLoading } =
+  const { name, kmetstvoObshtina, municipality, kmetstvo, isLoading } =
     useLocalSettlement(ekatte, cycle);
-  const chmiEvents = useChmiHistory(obshtina);
+  // The by-elections are keyed the same way the race is — a Sofia кметство's партиален вот is
+  // filed under 'SOF', never under the village's район — so this reads the кметство code, not
+  // the parent one.
+  const chmiEvents = useChmiHistory(kmetstvoObshtina);
   const { data: trendsFile } = useLocalPlaceTrend("s", ekatte);
 
   const kmetstvoEvents = useMemo(() => {
@@ -441,10 +444,16 @@ export const LocalSettlementDashboardCards: FC<{
     return prev;
   }, [latestKmetstvo, currentByElection, kmetstvoEvents, kmetstvo, cycleIso]);
 
-  if (isLoading && !municipality) {
+  // The кметство race and the parent bundle come from two different shards, and on a PARTIAL
+  // cycle only one of them usually exists: a chmi folder holds just the municipalities that
+  // voted, so a Sofia village's район shard is missing while the SOF bundle carrying its
+  // by-election is present. Bailing on the parent alone declared "no local-election data" for
+  // a settlement whose race we hold and whose /person badge links here by the winner's name.
+  const hasAnything = !!municipality || !!featuredKmetstvo;
+  if (isLoading && !hasAnything) {
     return <p className="text-sm text-muted-foreground">{t("loading")}</p>;
   }
-  if (!municipality) {
+  if (!hasAnything) {
     return (
       <p className="text-sm text-muted-foreground">
         {t("local_election_no_data")}
@@ -462,7 +471,7 @@ export const LocalSettlementDashboardCards: FC<{
             latestKind={featuredKind}
             previous={previousContests}
           />
-        ) : (
+        ) : municipality ? (
           <StatCard
             label={
               <div className="flex items-center gap-2">
@@ -477,7 +486,7 @@ export const LocalSettlementDashboardCards: FC<{
               })}
             </p>
           </StatCard>
-        )}
+        ) : null}
       </DashboardSection>
 
       {/* How this settlement itself voted over the cycles — sits high, right
@@ -499,9 +508,13 @@ export const LocalSettlementDashboardCards: FC<{
         </DashboardSection>
       ) : null}
 
-      <DashboardSection id="local-overview" title={t("local_sec_councils")}>
-        <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
-      </DashboardSection>
+      {/* Absent on a partial cycle that did not include this settlement's own município —
+          the кметство race above is then all this cycle holds for the place. */}
+      {municipality ? (
+        <DashboardSection id="local-overview" title={t("local_sec_councils")}>
+          <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
+        </DashboardSection>
+      ) : null}
     </div>
   );
 };

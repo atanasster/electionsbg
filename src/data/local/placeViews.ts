@@ -33,6 +33,8 @@
 // município page, never a settlement page — detected via the S2xxx obshtina
 // shape.
 
+import regions from "@/data/json/regions.json";
+import { canonicalObshtina } from "@/lib/obshtinaPlace";
 import { findCityRayon } from "./cityRayonCatalog";
 
 export type PlaceLevel =
@@ -66,9 +68,15 @@ export const isSofiaRayonObshtina = (code?: string | null): boolean =>
 // indicators / transfers all use). `SOF00` is the canonical Governance id;
 // `SOF` (the local code) is accepted too so the local SOF page's switcher
 // resolves the same triad.
+// There is a THIRD synonym, `SFO_CITY` (the Court-of-Audit officials roster's synthetic
+// code), and it reaches these builders through person_role.place_code on an officials seat —
+// so a code-blind `/governance/${code}` would name a município no resolver knows. The synonym
+// set is NOT restated here: `canonicalObshtina` in src/lib/obshtinaPlace.ts declares itself
+// its authority, and a second hand-maintained list is how `useAreaResolver` came to accept
+// two of the three.
 export const SOFIA_CITY_GOVERNANCE_ID = "SOF00";
 export const isSofiaCityObshtina = (code?: string): boolean =>
-  code === "SOF00" || code === "SOF";
+  canonicalObshtina(code) === "SFO_CITY";
 
 // Governance dashboard URL. Resolves for every tier except a polling section
 // (which has no governance of its own — it drops to its settlement via the
@@ -88,6 +96,35 @@ export const governanceUrl = (p: PlaceRef): string | null => {
   if (p.level === "municipality" && p.obshtina)
     return `/governance/${p.obshtina}`;
   return null;
+};
+
+// МОН publishes Столична община as one aggregate, so its rows key on S23 — but the three
+// Sofia МИР have no region node: parliamentary splits the city into S23/S24/S25 with no
+// region GeoJSON of its own, which is why /governance/region/:oblast redirects SOF to the
+// município dashboard. Send all three straight there rather than to a degenerate region
+// page carrying regions.json's placeholder name ("23").
+const SOFIA_CITY_MIR = new Set(["S23", "S24", "S25"]);
+
+// `32` is Извън страната — a МИР for out-of-country voting with no municipalities, no
+// GeoJSON and no page: the prerenderer enumerates region routes as
+// `regions.filter(r => r.oblast !== "32")`. The SPA would render a titled shell with empty
+// tiles for it, which is the "dead link" the docstring below rules out.
+const KNOWN_OBLAST = new Set(
+  regions.map((r) => r.oblast).filter((o) => o !== "32"),
+);
+
+/**
+ * An oblast / МИР code → its Governance region page, or null when the code is not a region
+ * we serve — a dead link is worse than plain text, and the callers pass codes from sources
+ * that can carry one we do not (МОН's obshtina prefixes, a person's typed place).
+ *
+ * Separate from `governanceUrl({ level: "region" })`, which is a pure rewrite for a code the
+ * caller already knows is a region: this one VALIDATES and folds Sofia.
+ */
+export const oblastGovernanceUrl = (oblast: string): string | null => {
+  if (SOFIA_CITY_MIR.has(oblast))
+    return `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
+  return KNOWN_OBLAST.has(oblast) ? `/governance/region/${oblast}` : null;
 };
 
 // Consumption (Потребление) dashboard URL — the cost-of-living view of a

@@ -22,6 +22,7 @@ import { useSettlementsInfo } from "../settlements/useSettlements";
 import { useMunicipalities } from "../municipalities/useMunicipalities";
 import type { MunicipalityInfo, SettlementInfo } from "../dataTypes";
 import { findCityRayon, isCityRayonId } from "../local/cityRayonCatalog";
+import { isSofiaCityObshtina } from "../local/placeViews";
 
 export type ResolvedArea =
   | {
@@ -63,7 +64,10 @@ const SOFIA_CITY_MUNICIPALITY: MunicipalityInfo = {
   oblast: "S23",
   loc: "23.3219,42.6977",
 };
-const isSofiaCityId = (id: string): boolean => id === "SOF00" || id === "SOF";
+// Which ids mean Столична община is NOT restated here — `isSofiaCityObshtina` reads the
+// canonical fold in src/lib/obshtinaPlace.ts. This copy accepted `SOF00`/`SOF` and not
+// `SFO_CITY`, so a /governance/SFO_CITY (the officials roster's code, now reachable from a
+// /person office badge) resolved to `unknown` and rendered the unknown-place screen.
 
 export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
   // No id (e.g. AreaPill with no active anchor) → nothing to resolve, so skip
@@ -110,7 +114,7 @@ export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
     }
 
     // Sofia city aggregate — synthetic município (not in municipalities.json).
-    if (isSofiaCityId(id)) {
+    if (isSofiaCityObshtina(id)) {
       return {
         kind: "municipality",
         id,

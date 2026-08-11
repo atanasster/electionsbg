@@ -13,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfileState } from "./usePersonProfile";
 import { officeTermPhrases } from "./officeTerm";
 import { foldOffices } from "./offices";
+import { officePlaceHref } from "./officePlaceHref";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
@@ -217,21 +218,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       if (label !== r.role) return label;
     }
     return r.sourceLabel;
-  };
-
-  // A local-election office (mayor / councillor) is drilling-linkable: its ref is
-  // `<cycle>:<obshtinaCode>:…`, which maps 1:1 onto the município dashboard
-  // /local/:cycle/:obshtinaCode (SOF resolves the synthetic Sofia city bundle).
-  // Only `local`-source rows carry that ref — an officials-roster row with a
-  // place has no local-election page, so it stays plain text.
-  const localOfficeHref = (r: {
-    source: string;
-    ref: string;
-  }): string | null => {
-    if (r.source !== "local") return null;
-    const [cycle, obshtinaCode] = r.ref.split(":");
-    if (!cycle || !obshtinaCode) return null;
-    return `/local/${cycle}/${obshtinaCode}`;
   };
 
   // Regulator seat code → localized label; unknown codes pass through.
@@ -539,7 +525,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                       </div>
                       {placeText(r) &&
                         (() => {
-                          const href = localOfficeHref(r);
+                          const href = officePlaceHref(r);
                           return href ? (
                             <Link
                               to={href}
