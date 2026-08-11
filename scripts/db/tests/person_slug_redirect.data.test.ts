@@ -178,12 +178,28 @@ test.skipIf(skip)(
     // $1 is substituted rather than re-typed so the comparison can never drift from the
     // string the Cloud Function actually runs. The inline query's aliases (r/p/old) do not
     // collide with q.
+    // `zz-%` is excluded because collapse_slug_chains.data.test.ts seeds its fixtures
+    // (`zz-collapse-a` → `zz-collapse-b` → …) with a COMMITTED insert rather than a
+    // rolled-back transaction — it has to, since collapseSlugRedirectChains() runs on its
+    // own pool connections and would not see an uncommitted row. Those rows are therefore
+    // globally visible for the length of that file's run, and this is the one assertion
+    // here that scans the WHOLE table, so a concurrent run saw them and failed on
+    // `zz-collapse-a`: a deliberately dangling target, which 103 (chain-following,
+    // is_public_figure) and the inline query (082's servability) are SUPPOSED to disagree
+    // about. That is the fixture doing its job, not a corpus defect — measured 2026-08-11,
+    // and it is why this file passes when run alone and fails inside `npm run test:data`.
+    //
+    // Scoped to the fixture namespace rather than fixed by serialising the two files: the
+    // assertion is about the agreement of the two implementations over the REAL retired
+    // corpus, and no corpus slug can begin `zz-` (every one is a name transliteration or
+    // `mp-<id>`, per SLUG_SHAPE in person_slug_retired.data.test.ts).
     const [r] = await allRows<{ n: string; sample: string | null }>(
       `SELECT count(*)::text AS n,
               min(q.slug) AS sample
          FROM person_slug_retired q
          LEFT JOIN LATERAL (${RETIRED_TARGET_SQL.replace("$1", "q.slug")}) inline ON true
-        WHERE person_slug_redirect(q.slug) IS DISTINCT FROM inline.slug`,
+        WHERE q.slug NOT LIKE 'zz-%'
+          AND person_slug_redirect(q.slug) IS DISTINCT FROM inline.slug`,
     );
     assert.equal(
       r.n,

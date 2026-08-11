@@ -342,11 +342,26 @@ const main = async (): Promise<void> => {
     batch: string;
   }> = JSON.parse(fs.readFileSync(INDEX, "utf8"));
   const latestYear = Math.max(...index.map((e) => e.year));
-  // One declaration per magistrate: the latest-year annual filing.
-  const byName = new Map<string, { name: string; pdf: string }>();
+  // One declaration per magistrate: their MOST RECENT annual filing — NOT "everyone who
+  // filed in the latest year".
+  //
+  // The ИВСС roster turns over every year: the 2026 register dropped 462 magistrates who
+  // had filed in 2025. Keying the roster on `latestYear` deleted them from `magistrate`,
+  // which deleted their mention in resolve_persons.ts (it builds them from
+  // `SELECT name, court FROM magistrate`), which deleted their person row — 404ing every
+  // /person URL they had ever been served under. No redirect can repair that: the person
+  // is gone, so there is nothing to redirect TO, and the ~15 with a same-name person are
+  // namesakes ("Николай Иванов Николов" has ~17 distinct people), so pointing at one would
+  // attribute a stranger's judicial record. A magistrate who leaves the bench is still the
+  // subject of the declarations they DID file, and that record is the accountability
+  // archive — so the roster accumulates instead of tracking the current bench.
+  //
+  // Gate: scripts/db/tests/person_slug_retired.data.test.ts ("no slug the lock has served
+  // is dead without a redirect"), which this recurrence broke on 2026-08-11.
+  const byName = new Map<string, { name: string; pdf: string; year: number }>();
   for (const e of index)
-    if (e.year === latestYear && e.batch === "annual" && !byName.has(e.name))
-      byName.set(e.name, { name: e.name, pdf: e.pdf });
+    if (e.batch === "annual" && (byName.get(e.name)?.year ?? -1) < e.year)
+      byName.set(e.name, { name: e.name, pdf: e.pdf, year: e.year });
   let roster = [...byName.values()];
   if (Number.isFinite(limit)) roster = roster.slice(0, limit);
 
@@ -357,8 +372,15 @@ const main = async (): Promise<void> => {
   let fetched = 0;
   let failed = 0;
   for (let i = 0; i < roster.length; i++) {
-    const { name, pdf } = roster[i];
+    const { name, pdf, year } = roster[i];
     if (cache[name]) continue;
+    // Fetch only the CURRENT bench. Widening the roster above must not turn this into a
+    // 1,732-PDF crawl of the register as a side effect — a prior-year magistrate we have
+    // never parsed simply stays out of the emitted set, exactly like a parse failure does
+    // (see the emission below). The cache is keyed by NAME and already holds everyone ever
+    // fetched, so every magistrate we have previously published survives from it; the rest
+    // are a deliberate, separate backfill.
+    if (year !== latestYear) continue;
     try {
       let bytes: Uint8Array;
       if (localDir) {
@@ -419,6 +441,10 @@ const main = async (): Promise<void> => {
         });
       return {
         name: r.name,
+        // The year of the filing this record was parsed from — per magistrate now that the
+        // roster spans years. `file.year` (the register's latest) is no longer a truthful
+        // stand-in for it, and it is what every "за <година>" label reads.
+        declYear: r.year,
         position: cleanPosition(c.court) ?? cleanPosition(c.position),
         court: cleanCourt(c.court),
         companies,
@@ -427,6 +453,7 @@ const main = async (): Promise<void> => {
     })
     .filter(Boolean) as Array<{
     name: string;
+    declYear: number;
     position: string | null;
     court: string | null;
     companies: Array<{
@@ -439,20 +466,25 @@ const main = async (): Promise<void> => {
   }>;
   magistrates.sort((a, b) => a.name.localeCompare(b.name, "bg"));
 
-  const totalCompanies = magistrates.reduce(
-    (s, m) => s + m.companies.length,
-    0,
-  );
-  const resolved = magistrates.reduce(
+  // Every headline stat below is scoped to the LATEST year, because that is what the
+  // /judiciary tile's sentence claims: "N магистрати са посочили … в декларацията си …
+  // за <year> г. (от M проверени)". The roster now also carries magistrates whose last
+  // filing was 2017-2025, and counting those into `withHoldings` would leave the
+  // arithmetic right and the sentence false — a 2019 filing reported as a 2026 one.
+  // They are reported separately as `magistratesRetained`.
+  const current = magistrates.filter((m) => m.declYear === latestYear);
+  const scanned = roster.filter((r) => r.year === latestYear).length;
+  const totalCompanies = current.reduce((s, m) => s + m.companies.length, 0);
+  const resolved = current.reduce(
     (s, m) => s + m.companies.filter((c) => c.eik).length,
     0,
   );
-  const withHoldings = magistrates.filter((m) => m.companies.length > 0).length;
+  const withHoldings = current.filter((m) => m.companies.length > 0).length;
   const fin = (m: { financials: Financials }): boolean =>
     m.financials.bankCashLv > 0 ||
     m.financials.securitiesLv > 0 ||
     m.financials.realEstateCount > 0;
-  const withFinancials = magistrates.filter(fin).length;
+  const withFinancials = current.filter(fin).length;
   const out = {
     generatedAt: new Date().toISOString(),
     source: {
@@ -463,10 +495,14 @@ const main = async (): Promise<void> => {
     },
     year: latestYear,
     stats: {
-      magistratesScanned: roster.length,
-      // The full roster we emit (scanned minus fetch/parse failures).
+      // Latest-year only — the denominator in the tile's "(от M проверени)".
+      magistratesScanned: scanned,
+      // The full roster we emit (scanned minus fetch/parse failures), ALL years.
       magistratesEmitted: magistrates.length,
-      fromCache: roster.length - fetched - failed,
+      // Carried for identity from an earlier filing year: magistrates who have left the
+      // bench and whose /person page would otherwise 404 with no redirect possible.
+      magistratesRetained: magistrates.length - current.length,
+      fromCache: scanned - fetched - failed,
       fetched,
       failed,
       withHoldings,
@@ -484,9 +520,15 @@ const main = async (): Promise<void> => {
   // index/search JSON is emitted any more.
 
   console.log(
-    `\nwrote ${OUT}\n  scanned ${roster.length}, emitted ${magistrates.length}, ` +
+    `\nwrote ${OUT}\n  ${latestYear}: scanned ${scanned}, ` +
       `with holdings ${withHoldings}, with financials ${withFinancials}, ` +
-      `companies ${totalCompanies} (${resolved} EIK-resolved), failed ${failed}`,
+      `companies ${totalCompanies} (${resolved} EIK-resolved), failed ${failed}\n` +
+      // Named separately from `scanned` because they are NOT of this year: these are
+      // magistrates off the current bench, carried at their last filing so their /person
+      // URL survives. `roster.length` is every annual filer the index knows; the gap to
+      // emitted is prior-year magistrates never fetched (a deliberate non-crawl).
+      `  emitted ${magistrates.length} (${magistrates.length - current.length} retained ` +
+      `from earlier years; ${roster.length} annual filers in the index)`,
   );
   for (const m of magistrates
     .filter((m) => m.companies.length > 0)

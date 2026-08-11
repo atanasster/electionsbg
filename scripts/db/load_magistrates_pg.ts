@@ -49,6 +49,10 @@ interface Financials {
 }
 interface Magistrate {
   name: string;
+  /** Year of the filing this record was parsed from. The roster spans years (a magistrate
+   *  who left the bench keeps their last filing), so the file-level `year` — the register's
+   *  latest — is not a truthful stand-in. Optional: older artifacts predate the field. */
+  declYear?: number;
   position: string | null;
   court: string | null;
   companies: Company[];
@@ -105,7 +109,7 @@ const run = async (): Promise<void> => {
             normName(m.name),
             m.position,
             m.court,
-            file.year,
+            m.declYear ?? file.year,
             m.companies.length,
             m.financials?.bankCashLv ?? null,
             m.financials?.securitiesLv ?? null,

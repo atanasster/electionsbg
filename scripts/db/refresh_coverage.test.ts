@@ -94,6 +94,18 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "a date_basis the office periods simply vanish from /person with nothing failing",
   },
   {
+    after: "db:resolve:persons",
+    before: "db:load:magistrates:pg",
+    why:
+      "the resolver builds its magistrate mentions from `SELECT name, court FROM " +
+      "magistrate`, so that table decides which magistrates get a person row and a " +
+      "/person slug at all. Running first resolves them from the PREVIOUS roster — and " +
+      "since the roster now retains magistrates who have left the bench specifically so " +
+      "their URL survives the ИВСС register's yearly turnover, a stale one silently drops " +
+      "the people that retention exists to keep (462 of them in 2026). See " +
+      "magistrate_roster_retention.data.test.ts",
+  },
+  {
     after: "db:load:funds-fit:pg",
     before: "db:load:funds:pg",
     why:

@@ -74,10 +74,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ) ORDER BY m.name), '[]'::jsonb)
   )
   FROM magistrate_company mc JOIN magistrate m ON m.name = mc.magistrate_name
-  WHERE mc.eik = p_eik;
+  WHERE mc.eik = p_eik
+    -- Current bench only, for the same reason magistrate_overview() scopes: the payload
+    -- carries ONE `year` for the whole list, so a retained magistrate's older filing would
+    -- be published under the latest year's label. Keeping this scoped also means the
+    -- roster change below adds nothing to the company page that was not already there.
+    AND m.decl_year = (SELECT max(decl_year) FROM magistrate);
 $$;
 
--- Slim roster for the procurement combined search.
+-- Slim roster for the procurement combined search. Deliberately NOT scoped to the current
+-- bench, unlike the tile/browse/company surfaces above: this one exists to FIND a named
+-- person, and a magistrate who left the bench is exactly who a reader searching an old
+-- name is looking for. It publishes no year-labelled claim about them — `year` here is the
+-- register's latest, and each row carries only name/court/company-count.
 DROP FUNCTION IF EXISTS magistrate_search();
 CREATE OR REPLACE FUNCTION magistrate_search()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -96,20 +105,36 @@ $$;
 DROP FUNCTION IF EXISTS magistrate_overview(int);
 CREATE OR REPLACE FUNCTION magistrate_overview(p_limit int)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH top AS (
+  WITH cur AS (
+    -- THE CURRENT BENCH, and every figure below is scoped to it.
+    --
+    -- `magistrate` no longer tracks one year: it retains a magistrate who has left the
+    -- bench, keyed to their last annual filing, so the register's yearly turnover stops
+    -- deleting their person row and 404ing their /person URL (462 of them in 2026 — see
+    -- the roster comment in scripts/judiciary/__write_magistrate_holdings.ts). This tile
+    -- labels everything „за <year> г.", so counting a 2019 filing into it would leave the
+    -- arithmetic right and the sentence false. The retained rows are still served
+    -- individually by magistrate_by_name(), which carries each magistrate's OWN year.
     SELECT * FROM magistrate
+     WHERE decl_year = (SELECT max(decl_year) FROM magistrate)
+  ),
+  top AS (
+    SELECT * FROM cur
     WHERE company_count > 0
     ORDER BY company_count DESC, name LIMIT p_limit
   )
   SELECT jsonb_build_object(
     'year', (SELECT max(decl_year) FROM magistrate),
     'stats', jsonb_build_object(
-      'withHoldings', (SELECT count(*) FROM magistrate WHERE company_count > 0),
-      'rosterTotal', (SELECT count(*) FROM magistrate),
-      'totalCompanies', (SELECT count(*) FROM magistrate_company),
+      'withHoldings', (SELECT count(*) FROM cur WHERE company_count > 0),
+      'rosterTotal', (SELECT count(*) FROM cur),
+      'totalCompanies', (SELECT count(*) FROM magistrate_company mc
+                          JOIN cur c ON c.name = mc.magistrate_name),
       'magistratesScanned', (SELECT coalesce(max(rows_total),0)
         FROM ingest_batches WHERE source = 'magistrate'),
-      'resolvedEik', (SELECT count(*) FROM magistrate_company WHERE eik IS NOT NULL)
+      'resolvedEik', (SELECT count(*) FROM magistrate_company mc
+                       JOIN cur c ON c.name = mc.magistrate_name
+                      WHERE mc.eik IS NOT NULL)
     ),
     'magistrates', COALESCE((SELECT jsonb_agg(jsonb_build_object(
       'name', t.name, 'position', t.position, 'court', t.court,
@@ -135,5 +160,9 @@ CREATE OR REPLACE VIEW magistrate_holdings_table AS
     (SELECT string_agg(mc.name, ', ' ORDER BY mc.ord)
        FROM magistrate_company mc WHERE mc.magistrate_name = m.name) AS companies
   FROM magistrate m
-  WHERE m.company_count > 0;
+  WHERE m.company_count > 0
+    -- Current bench only — this browse is the tile's „виж всички", so its row count has to
+    -- reconcile with the tile's `withHoldings`. See magistrate_overview() for why the
+    -- table itself now spans years.
+    AND m.decl_year = (SELECT max(decl_year) FROM magistrate);
 GRANT SELECT ON magistrate_holdings_table TO app_readonly;

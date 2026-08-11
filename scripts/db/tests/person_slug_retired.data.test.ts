@@ -195,9 +195,33 @@ test.skipIf(skip)("the redirect mapping is populated", async () => {
 // changes exactly that, which is why this assertion has to exist BEFORE those 5,000 pages
 // are published rather than after Google has collected the 404s.
 //
-// Fix when this fails: rebuild the map with
-// `migrate_slug_normalisation.ts --redirects <map>` and load it with
-// `npm run person:slug-redirects -- <map>`.
+// Fix when this fails: FIRST find out which source the orphans came from —
+//
+//   SELECT split_part(l.mention_id, ':', 1) AS source, count(DISTINCT l.slug)
+//     FROM person_slug_lock l
+//    WHERE NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = l.slug)
+//      AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)
+//    GROUP BY 1;
+//
+// because the two causes need OPPOSITE fixes and the officials one used to be documented
+// here as if it were the only one:
+//
+//   * `official_exec` / `official_muni` — a re-slug. The human is still in the corpus under
+//     a new ref, so a redirect exists and is mandatory: rebuild the map with
+//     `migrate_slug_normalisation.ts --redirects <map>` and load it with
+//     `npm run person:slug-redirects -- <map>`.
+//   * `magistrate` — a ROSTER TURNOVER, and that path cannot fix it. It is officials-only
+//     twice over: load_slug_redirects.ts rejects the keys outright (OFFICIALS_SLUG wants a
+//     6-HEX hash, and these carry resolve_persons.ts's base36 one — `albena-koleva-ugig7i`),
+//     and it resolves targets through person_officials_sources(). There is also nothing to
+//     redirect TO: measured 2026-08-11, 439 of 454 had no person row, no person_role and no
+//     declaration anywhere, and the other 15 had only NAMESAKES ("Николай Иванов Николов" is
+//     ~17 distinct people), so a name-matched redirect would attribute one human's judicial
+//     record to another. The cause is upstream — see the roster comment in
+//     scripts/judiciary/__write_magistrate_holdings.ts. The magistrate roster must RETAIN
+//     departed magistrates at their last filing; if this fires for `magistrate` again, that
+//     retention has regressed. magistrate_roster_retention.data.test.ts pins it directly and
+//     will fail first.
 //
 // Liveness is read from `person` here, and from the in-memory `liveSlugs` in
 // resolve_persons.ts's sibling warning. That difference is deliberate, not drift: the
