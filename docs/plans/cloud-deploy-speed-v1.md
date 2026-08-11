@@ -1829,6 +1829,23 @@ from 4251 s to **7951 s (132.5 min)**. After it, prod matched local exactly on a
 checked figures (124 pairs / 72 MPs / 49,627 filings / 49,627 resolved / 4,625
 filing-dated roles / 0 unlicensed merges).
 
+**`bucket:sync` never deletes, and on this tree that is a correctness problem, not
+just clutter.** Both the `bucket:sync` and `bucket:sync:paths` commands run
+`gsutil rsync` WITHOUT `-d`, so an artifact that disappears locally stays served.
+Measured on this deploy: the parliament rebuild dropped 10 `mp-management/*.json`
+files — MPs whose name-based TR roles the name-frequency guard now suppresses,
+because the companies-index grew and more names read as frequent — and all 10 were
+still live on the bucket after a successful sync (896 local against 906 remote).
+Those are precisely the attributions the guard had just WITHDRAWN, left publicly
+readable, against this repo's standing rule that a wrong public link is an
+accusation. Removed by hand here; the general fix is either `-d` on a scoped sync
+or a post-sync orphan check, and neither exists today.
+
+Note also that `gsutil -m` interleaves parallel progress output, so `Copying
+file://…` lines get overwritten by progress bars and a line-oriented grep of the
+log **undercounts uploads badly** — it showed 7 objects where 896 had in fact
+uploaded. Verify a sync against `gsutil ls -l` timestamps, never against the log.
+
 **Cost model consequence for this plan.** The person chain has the same shape the
 procurement legs had before Phase 1-4: a long serial tail dominated by two steps
 (`resolve` 41%, `--resolve` 19% — 60% of the total between them), where the
