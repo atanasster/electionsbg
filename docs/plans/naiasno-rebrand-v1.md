@@ -92,42 +92,109 @@ refuses to run without both sides verified).
 
 ## 2. Register the domain and connect it to Firebase
 
-### 2.1 Registration (`.bg`)
+### 2.1 Registrar choice
 
-`.bg` is run by **Register.BG**. GoDaddy is not a `.bg` registrar and falsely reports
-`.bg` names as taken — ignore it. Use Register.BG directly or a Bulgarian registrar
-(SuperHosting, ICDSoft, Jump.bg).
+`.bg` is run by **Register.BG**, which both operates the registry and sells direct.
+**GoDaddy is not an accredited `.bg` registrar** and falsely reports `.bg` names as
+taken — ignore what it says. A Bulgarian registrar is required.
 
-What the registry requires: the name must be 3–63 chars, Latin or Cyrillic letters,
-digits and hyphen, first and last a letter or digit — `naiasno` qualifies — and
-**identification of the registrant**: a valid ID document for an individual, or company
-documents (актуално състояние / ЕИК) for a legal entity. Signing the application with a
-**КЕП** (qualified electronic signature) satisfies the identification step directly and
-is the fastest path; without one, expect a signed заявка and possibly a пълномощно, and
-a manual review of a day or more rather than minutes.
+Live retail prices, read from each provider's own pricing page on **2026-08-09**, VAT
+included, in EUR (Bulgaria adopted the euro on 2026-01-01, so any BGN figure you find
+online is stale):
 
-Decide the registrant now: **register it to the legal entity if one exists**, not to a
-person. A personal registration is painful to transfer later and ties the brand to one
-individual.
+| Registrar | `.bg` first year | **`.bg` renewal** | `.com` reg / renewal | `.бг` |
+|---|---|---|---|---|
+| **Jump.BG** | €29.60 | **€29.60** — flat, no step-up | €15.29 / €16.31 | €11.66 |
+| **ICDSoft** | €32.40 standalone · €23.76 bundled with hosting | €32.40 | — | — |
+| **SuperHosting** | €30.17 promo (list €39.93) | **€39.93** | €17.47 promo / €27.60 | — |
 
-Also register, same session:
-- `naiasno.com` — defensive, and the fallback canonical under **D1**.
-- Optionally `наясно.бг` (Cyrillic IDN). **Not recommended to use** — it adds punycode
-  confusion to every share link for no reach — but it is cheap to deny to a squatter.
+**Judge on the renewal column, not the first year.** SuperHosting's promotional first
+year is the cheapest of the three and its renewal is the most expensive by €10/yr —
+that is the standard shape and it is the number you pay every year after the first.
 
-### 2.2 DNS
+**Recommendation: Jump.BG**, on a flat €29.60 with no renewal step-up, and the cheapest
+`.com` and `.бг` in the table so all three names sit on one invoice and one renewal
+date. **ICDSoft is the equally defensible alternative** — a 1993-founded, accredited
+registrar with the best-documented `.bg` process of the three, at €2.80/yr more; take it
+if you value the documentation over the price. Register.BG direct is a fourth option and
+its control panel is visibly of another era; the €10/yr spread across the whole table is
+not worth optimising, so pick on process quality.
 
-Point the domain's nameservers at a DNS host you can change quickly. Register.BG's own
-DNS works; **Cloudflare DNS is the better choice** purely for operational speed —
-instant record changes and per-record TTL control, which matters on flip day.
+Do **not** split the names across providers to chase a few euro. One control panel, one
+renewal date, one account to lose.
+
+**Registrant identity — decide before you start.** Register it to the **legal entity if
+one exists**, not to a person: a personal registration is painful to transfer and ties
+the brand to one individual. Turn on **auto-renew** in the same session.
+
+### 2.2 What the registry requires
+
+- **Name rules:** 3–63 characters, Latin or Cyrillic letters, digits and hyphen; first
+  and last character a letter or digit. `naiasno` qualifies.
+- **Identification of the registrant is mandatory** — a valid ID document for an
+  individual, company documents (актуално състояние / ЕИК) for a legal entity. For an
+  entity in the Търговски регистър the registrar verifies it independently, so no
+  paperwork is needed from you beyond the name.
+- **КЕП is *not* mandatory, but it is the difference between hours and days.** Signing
+  the заявка with a qualified electronic signature (**B-Trust** or **Evrotrust** are the
+  accepted providers) gets the domain registered **within a few hours**. Without one, the
+  path is a notarised заявка (and possibly a пълномощно) sent by courier, and ICDSoft
+  states plainly that registration then "can take several days".
+- **Protected vs unprotected (защитен/незащитен) still exists**, and it is *not* an
+  eligibility or price tier — it is whether you file a document proving your basis for
+  the name. An unprotected registration is valid and immediate, but can be challenged in
+  arbitration by someone with grounds predating it. `Наясно` has no trademark behind it
+  today, so this will be an unprotected registration. Worth knowing, not worth blocking
+  on; revisit if the brand is ever trademarked.
+
+**If you already hold a КЕП, use it — that single choice is worth more than the entire
+€10/yr price spread above.**
+
+Also register in the same session:
+- `naiasno.com` — defensive, and the fallback canonical under **D1**. GoDaddy is fine
+  for this one if you prefer to keep it on the existing account, but see the
+  one-invoice argument above.
+- `наясно.бг` at €11.66 — **do not use it**, it puts punycode in every share link for no
+  reach, but at that price it is worth denying to a squatter.
+
+### 2.3 DNS
+
+All three registrars allow external nameservers, and `.bg` has a useful property: the
+registrant can manage NS records **directly at Register.BG** regardless of which
+registrar sold the name, so DNS control is not hostage to the registrar choice.
+
+**Use Cloudflare DNS in DNS-only mode ("grey cloud"), not the registrar's DNS.** It is
+free, it gives per-record TTL control, and — the actual reason — it makes the registrar
+choice above purely a price-and-paperwork decision, since none of the DNS behaviour then
+depends on it.
+
+**Do not enable the Cloudflare proxy (orange cloud).** Firebase provisions its SSL
+certificate by checking that the records resolve to Firebase's own IPs; proxying puts a
+second CDN in front of a CDN and interferes with provisioning.
 
 **Lower TTLs to 300s at least 48h before the flip** and raise them back afterwards. A
 24h TTL on the old A records turns a rollback from "five minutes" into "tomorrow".
 
-### 2.3 Firebase custom domains — and the one constraint that shapes the whole design
+### 2.4 The Firebase records
 
-**Firebase Hosting redirects are configured per SITE, not per domain.** There is no host
-condition in `firebase.json`'s `redirects` — the full-config reference documents
+Firebase Hosting uses **A + AAAA records, not CNAME**, so it works at the apex.
+Per domain you add:
+
+| Record | Purpose |
+|---|---|
+| `TXT` | ownership verification — **must stay in place permanently**, not just during setup |
+| `A` → `199.36.158.100` | apex and `www` |
+| `AAAA` | IPv6, same hosts |
+
+SSL provisioning is usually a few hours and **can take up to 24 hours**. Budget for that
+on flip day rather than discovering it on flip day. Note also the platform limit of **20
+subdomains per apex domain** (SSL minting) — irrelevant now, worth knowing before someone
+proposes per-section subdomains.
+
+### 2.5 Firebase custom domains — and the one constraint that shapes the whole design
+
+**Firebase Hosting redirects in `firebase.json` are configured per SITE, not per domain.**
+There is no host condition — the full-config reference documents
 `source`/`regex`/`destination`/`type` and nothing that reads the `Host` header. So:
 
 > **Attaching both `electionsbg.com` and `naiasno.bg` to the `main` target serves byte-identical
@@ -178,8 +245,26 @@ ranking:
   the URL contract must survive, and so must percent-encoded Cyrillic paths (settlement
   and person slugs). Both go in the flip-day check list.
 
+On the capture syntax: `:rest*` captures **everything, including the query string and
+hash**, so `?elections=` / `?pscope=` / `?cabinet=` survive. That closes one of the three
+traps above by construction; the other two still need testing.
+
 Because the legacy site is redirect-only, it has no file-count exposure — which matters,
 since `dist/` is already ~248k files and a 453k-file deploy has failed outright.
+
+> **There may be a shortcut — verify it, do not assume it.** The Firebase console's
+> custom-domain setup carries an optional *"redirect all requests on this custom domain
+> to a second specified domain"* checkbox, which **is** host-aware and would remove the
+> need for a second site entirely. But the documentation describes it only for the
+> `www` ↔ apex case and states **nothing** about whether it preserves the request path
+> and query string, or whether it emits 301 or 302. A root-only redirect would collapse
+> ~147,000 URLs onto the homepage — the worst possible outcome, and one that looks
+> healthy from the browser address bar.
+>
+> So: once `naiasno.bg` is live, attach a throwaway subdomain with the checkbox on and
+> curl a deep path with a query string at it. **One hop, 301, path and query intact** →
+> use it and skip the legacy site. Anything else → the two-site design above, which is
+> fully under our control and provably correct.
 
 Attachment order on flip day: add `naiasno.bg` to `main` and let its certificate
 provision **first** (Firebase issues the cert after the A records resolve; this can take
@@ -552,10 +637,16 @@ the footer or the About page.
 | Domain literals in `llms-full{,.en}.txt` | 450 each (build-generated) | `grep -c` |
 | Hosting targets today | `main` → `elections-bg`, `ai` → `electionsbg-ai` | `.firebaserc` |
 | `naiasno.bg` / `naiasno.com` availability | **both available 2026-08-09** | registry WHOIS |
+| `.bg` renewal, cheapest of three | €29.60/yr (Jump.BG), flat | provider pricing pages, 2026-08-09 |
+| Social handles `naiasno` | all seven free | per-platform checks, 2026-08-09 |
 
 Sources consulted for the external facts:
 [Register.BG](https://www.register.bg/),
-[SuperHosting: .BG registration](https://help.superhosting.bg/register-domain-bg.html),
+[Jump.BG domain pricing](https://www.jump.bg/domains/),
+[ICDSoft: .BG registration](https://www.icdsoft.com/bg/domains/bg),
+[SuperHosting domain pricing](https://www.superhosting.bg/newdomain-cheap.php),
+[SuperHosting: .BG domains FAQ](https://help.superhosting.bg/bg-domains-faq.html),
+[Firebase Hosting custom domain](https://firebase.google.com/docs/hosting/custom-domain),
 [Firebase Hosting full config](https://firebase.google.com/docs/hosting/full-config),
 [NapoleonCat — Social media users in Bulgaria](https://stats.napoleoncat.com/social-media-users-in-bulgaria/),
 [DataReportal — Digital 2026: Bulgaria](https://datareportal.com/reports/digital-2026-bulgaria).
