@@ -1,7 +1,15 @@
 {
   "obshtina": "PER32",
-  "generatedAt": "2026-08-09T08:48:03.984Z",
+  "generatedAt": "2026-08-11T09:02:09.804Z",
   "events": [
+    {
+      "date": "2026-08-10",
+      "kind": "tender",
+      "headline_bg": "Обявена поръчка: Община Перник · „Изготвяне оценка на съответствието на инвестиционните проекти и упраж · €42K (прогнозна)",
+      "headline_en": "Tender announced: Община Перник · „Изготвяне оценка на съответствието на инвестиционните проекти и упраж · €42K (estimated)",
+      "amountEur": 41925.93,
+      "link": "/tenders/00589-2026-0045"
+    },
     {
       "date": "2026-08-03",
       "kind": "eu_funds",
@@ -89,11 +97,27 @@
     },
     {
       "date": "2026-06-25",
-      "kind": "tender",
-      "headline_bg": "Обявена поръчка: Община Перник · „Изграждане на паркинг пред бл.79, бл.80 и бл.81 в кв. Тева, гр. Перни · €420K (прогнозна)",
-      "headline_en": "Tender announced: Община Перник · „Изграждане на паркинг пред бл.79, бл.80 и бл.81 в кв. Тева, гр. Перни · €420K (estimated)",
-      "amountEur": 420000,
-      "link": "/tenders/00589-2026-0038"
+      "kind": "council_resolution",
+      "headline_bg": "Общинският съвет гласува: (no title parsed)",
+      "headline_en": "Municipal council voted: (no title parsed)",
+      "link": "https://www.obs-pernik.bg/wp-content/uploads/2026/08/ПРОТОКОЛ-№6-25.06.2026г.docx",
+      "detail": "21–0–3"
+    },
+    {
+      "date": "2026-06-25",
+      "kind": "council_resolution",
+      "headline_bg": "Общинският съвет гласува: (no title parsed)",
+      "headline_en": "Municipal council voted: (no title parsed)",
+      "link": "https://www.obs-pernik.bg/wp-content/uploads/2026/08/ПРОТОКОЛ-№6-25.06.2026г.docx",
+      "detail": "26–0–1"
+    },
+    {
+      "date": "2026-06-25",
+      "kind": "council_resolution",
+      "headline_bg": "Общинският съвет гласува: (no title parsed)",
+      "headline_en": "Municipal council voted: (no title parsed)",
+      "link": "https://www.obs-pernik.bg/wp-content/uploads/2026/08/ПРОТОКОЛ-№6-25.06.2026г.docx",
+      "detail": "25–0–1"
     },
     {
       "date": "2025-11-13",
@@ -215,33 +239,6 @@
       "headline_bg": "Interreg: „Интерпретиране на балканското фолклорно наследство\" · €84K",
       "headline_en": "Interreg: \"Интерпретиране на балканското фолклорно наследство\" · €84K",
       "amountEur": 84098.14,
-      "detail": "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
-      "programPeriod": "2014-2020"
-    },
-    {
-      "date": "2019-12-18",
-      "kind": "eu_funds",
-      "headline_bg": "Interreg: „Екологичното образование - мост за устойчиво развитие на трансграничния регион\" · €45K",
-      "headline_en": "Interreg: \"Екологичното образование - мост за устойчиво развитие на трансграничния регион\" · €45K",
-      "amountEur": 45120.09,
-      "detail": "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
-      "programPeriod": "2014-2020"
-    },
-    {
-      "date": "2016-11-23",
-      "kind": "eu_funds",
-      "headline_bg": "Interreg: „“Инвестиция в здравето и просперитета на младежта в Българо-Сръбския регион ”\" · €313K",
-      "headline_en": "Interreg: \"“Инвестиция в здравето и просперитета на младежта в Българо-Сръбския регион ”\" · €313K",
-      "amountEur": 313324.26,
-      "detail": "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
-      "programPeriod": "2014-2020"
-    },
-    {
-      "date": "2016-11-22",
-      "kind": "eu_funds",
-      "headline_bg": "Interreg: „Туризъм и традиции - цветни, забавни, атрактивни\" · €331K",
-      "headline_en": "Interreg: \"Туризъм и традиции - цветни, забавни, атрактивни\" · €331K",
-      "amountEur": 330797.7,
       "detail": "ИНТЕРРЕГ - ИПП България - Сърбия 2014-2020",
       "programPeriod": "2014-2020"
     }
