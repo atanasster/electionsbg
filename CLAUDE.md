@@ -385,6 +385,36 @@ drops the same 462 people at a 200, with every row count reconciling. `magistrat
 ONLY by this command on the cloud side. `magistrate_roster_retention.data.test.ts` catches it
 locally; nothing checks the cloud.
 
+**The current bench is `magistrate_current` (a view in 070), and 070 must reach a database
+BEFORE 116 does.** Because the roster retains departed magistrates, every count captioned in
+the present tense has to exclude them — and that predicate used to be copied six times across
+070, 116 and `scripts/db/lib/seo_courts.ts`. "Someone missed one" then fired twice in one day
+(5325a6ef37 scoped 116's two counts, fabf683666 the prerender's, hours apart), so the rule is
+named once and the copies read it. The consequence for deploys: 116's two functions now
+select a view that only 070 creates, and 116 sets `check_function_bodies = false`, so applying
+it alone to a warm database SUCCEEDS and then raises 42P01 on the first `/court` call. Ship
+them together, 070 first:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  070_magistrates.sql 116_judicial_body.sql
+```
+
+`db:load:magistrates:pg[:cloud]` applies 070, so a roster reload carries the view; a
+function-body fix in 116 on its own does not wait for one. Two properties of 070 protect the
+dependency and must not be undone: the view is `CREATE OR REPLACE`, never `DROP` (a DROP in
+this loader-applied file is the 2BP01 that stalled `db:load:pg` for a day — 077/145 — and
+`DROP … CASCADE` is the silent variant of 003), and 116's references stay in `LANGUAGE sql`
+STRING bodies, which record no `pg_depend` edge; converting them to PG14+ `BEGIN ATOMIC` would
+make a future DROP in 070 fail 116 outright.
+
+Related, from the same consolidation: `magistrate.decl_year` is now `NOT NULL`, because
+`decl_year = max(...)` is NULL-false and one year-less row would vanish from every
+current-bench count at once. Warm databases get it from a GUARDED reconcile at the foot of
+070 — guarded because the loader applies the schema BEFORE it truncates and reloads, so an
+unconditional `SET NOT NULL` against a legacy NULL row would abort the ingest in the apply
+phase and leave the corpus on its previous vintage.
+
 **One-off, and Cloud SQL needs it by hand.** The retention's first cut keyed the roster on the
 register's RAW name, so a magistrate the ИВСС re-spelled between years (hyphen spacing —
 „… Средкова - Петрова" in 2025, „… Средкова-Петрова" in 2026) survived as two rows and minted

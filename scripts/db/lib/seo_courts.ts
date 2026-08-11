@@ -95,19 +95,17 @@ type Row = {
 // rather than interpolating "5.68" verbatim and silently losing toFixed().
 const QUERY = `
   WITH src AS (SELECT body_code, source_name FROM judicial_body_source_name),
-  -- CURRENT BENCH ONLY — the same predicate judicial_body_detail() and
-  -- judicial_body_index() carry, and the reason is sharper here than in either.
-  -- \`magistrate\` retains departed magistrates at their last filing so a register
-  -- turnover cannot delete a /person page, and this number is written into STATIC
-  -- HTML as an undated present-tense sentence ("N магистрати с декларации от този
-  -- орган") and as schema.org numberOfEmployees. Unscoped it absorbs the retained
-  -- half: 122 of the 279 bodies over-counted, one by 23. Prerendered prose cannot
-  -- be corrected by a reload the way a served payload can — the next build is the
-  -- only fix — so this copy is the one that must not drift.
+  -- CURRENT BENCH ONLY — magistrate_current (070), the same view judicial_body_detail()
+  -- and judicial_body_index() read, so this build-time reader cannot diverge from the
+  -- page it prerenders. The reason is sharper here than in either: this number is
+  -- written into STATIC HTML as an undated present-tense sentence ("N магистрати с
+  -- декларации от този орган") and as schema.org numberOfEmployees. Against the raw
+  -- table it absorbs the retained half — 122 of the 279 bodies over-counted, one by 23
+  -- — and prerendered prose cannot be corrected by a reload the way a served payload
+  -- can, since the next build is the only fix.
   mags AS (
     SELECT s.body_code, count(*)::int AS n
-    FROM src s JOIN magistrate m ON m.court = s.source_name
-    WHERE m.decl_year = (SELECT max(decl_year) FROM magistrate)
+    FROM src s JOIN magistrate_current m ON m.court = s.source_name
     GROUP BY s.body_code
   ),
   yrs AS (

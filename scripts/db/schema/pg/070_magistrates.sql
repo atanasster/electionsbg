@@ -11,7 +11,14 @@ CREATE TABLE IF NOT EXISTS magistrate (
   name_norm         text NOT NULL,
   position          text,
   court             text,
-  decl_year         int,
+  -- NOT NULL because every count captioned in the present tense filters on it, and
+  -- `decl_year = max(decl_year)` is NULL-FALSE: one row written without a year would
+  -- vanish from the /court card, the search ranking, the /judiciary tile and the
+  -- prerender at once, with every row count reconciling and nothing red. The writer
+  -- always has one (`m.declYear ?? file.year`, where the file-level year is required),
+  -- so this constrains what is already true. Warm databases get it from the reconcile
+  -- at the foot of this file — see there for why that one cannot be unconditional.
+  decl_year         int NOT NULL,
   company_count     int NOT NULL DEFAULT 0,
   -- Informational financial figures (лв), best-effort from the declaration.
   bank_cash_lv      numeric,
@@ -22,6 +29,47 @@ CREATE INDEX IF NOT EXISTS idx_magistrate_name_norm ON magistrate (name_norm);
 -- The /judiciary tile is ranked by declared-company count.
 CREATE INDEX IF NOT EXISTS idx_magistrate_company_count
   ON magistrate (company_count DESC);
+
+-- ==========================================================================
+-- THE CURRENT BENCH — the one definition every present-tense count reads.
+--
+-- `magistrate` retains a magistrate who has left the bench, keyed to their last annual
+-- filing, so the ИВСС register's yearly turnover stops deleting their person row and
+-- 404ing their /person URL (462 of them in 2026 — see the roster comment in
+-- scripts/judiciary/__write_magistrate_holdings.ts). Every figure captioned in the
+-- present tense („с декларации в ИВСС", „за <година> г.") therefore wants THIS, not the
+-- table: counting a 2019 filing into one leaves the arithmetic right and the sentence
+-- false.
+--
+-- WHY A VIEW RATHER THAN THE PREDICATE REPEATED. It was repeated — six times across
+-- three files and two languages — and "someone missed one" fired TWICE IN ONE DAY:
+-- 5325a6ef37 scoped the two counts in 116 and missed the third in seo_courts.ts, which
+-- fabf683666 then fixed hours later after a gate caught the /court card and the
+-- prerendered page disagreeing. A seventh consumer would inherit the same coin flip.
+-- Named once, there is no predicate left to forget.
+--
+-- CREATE OR REPLACE, NEVER DROP. Once 116's two functions and magistrate_holdings_table
+-- below read this, a `DROP VIEW` in a loader-applied migration is the 2BP01 that stalled
+-- db:load:pg for a day (077/145), and `DROP … CASCADE` is the silent variant that
+-- deleted three matviews on every TR load (003). This file is applied by
+-- load_magistrates_pg.ts on every magistrate load, which is exactly that position.
+--
+-- `SELECT *` is deliberate: a pass-through view cannot drift from its table, and
+-- CREATE OR REPLACE VIEW permits appending a column, so a new `magistrate` column
+-- reaches consumers without a second column list to keep in step.
+CREATE OR REPLACE VIEW magistrate_current AS
+  SELECT * FROM magistrate
+   WHERE decl_year = (SELECT max(decl_year) FROM magistrate);
+
+-- roles_readonly.sql's ALTER DEFAULT PRIVILEGES already covers a view created by
+-- postgres; this is the explicit belt-and-braces 070 keeps for its other view. Guarded
+-- because roles_readonly.sql is a one-time MANUAL step — unguarded it raises 42704 on a
+-- cold bootstrap and rolls back the whole file, leaving no view at all.
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON magistrate_current TO app_readonly;
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS magistrate_company (
   magistrate_name text NOT NULL REFERENCES magistrate (name) ON DELETE CASCADE,
@@ -84,13 +132,12 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'company', mc.name, 'stakePct', mc.stake_pct
     ) ORDER BY m.name), '[]'::jsonb)
   )
-  FROM magistrate_company mc JOIN magistrate m ON m.name = mc.magistrate_name
-  WHERE mc.eik = p_eik
-    -- Current bench only, for the same reason magistrate_overview() scopes: the payload
-    -- carries ONE `year` for the whole list, so a retained magistrate's older filing would
-    -- be published under the latest year's label. Keeping this scoped also means the
-    -- roster change below adds nothing to the company page that was not already there.
-    AND m.decl_year = (SELECT max(decl_year) FROM magistrate);
+  -- Current bench only, for the same reason magistrate_overview() scopes: the payload
+  -- carries ONE `year` for the whole list, so a retained magistrate's older filing would
+  -- be published under the latest year's label. Keeping this scoped also means the
+  -- roster retention adds nothing to the company page that was not already there.
+  FROM magistrate_company mc JOIN magistrate_current m ON m.name = mc.magistrate_name
+  WHERE mc.eik = p_eik;
 $$;
 
 -- TOMBSTONE — `magistrate_search()` is RETIRED (2026-08-11). DROP, no CREATE, the same shape
@@ -135,17 +182,12 @@ DROP FUNCTION IF EXISTS magistrate_overview(int);
 CREATE OR REPLACE FUNCTION magistrate_overview(p_limit int)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH cur AS (
-    -- THE CURRENT BENCH, and every figure below is scoped to it.
-    --
-    -- `magistrate` no longer tracks one year: it retains a magistrate who has left the
-    -- bench, keyed to their last annual filing, so the register's yearly turnover stops
-    -- deleting their person row and 404ing their /person URL (462 of them in 2026 — see
-    -- the roster comment in scripts/judiciary/__write_magistrate_holdings.ts). This tile
-    -- labels everything „за <year> г.", so counting a 2019 filing into it would leave the
-    -- arithmetic right and the sentence false. The retained rows are still served
-    -- individually by magistrate_by_name(), which carries each magistrate's OWN year.
-    SELECT * FROM magistrate
-     WHERE decl_year = (SELECT max(decl_year) FROM magistrate)
+    -- Every figure below is scoped to the current bench — this tile labels everything
+    -- „за <year> г.", so counting a 2019 filing into it would leave the arithmetic right
+    -- and the sentence false. The retained rows are still served individually by
+    -- magistrate_by_name(), which carries each magistrate's OWN year. See
+    -- magistrate_current above for what the view is and why the rule lives there.
+    SELECT * FROM magistrate_current
   ),
   top AS (
     SELECT * FROM cur
@@ -188,10 +230,29 @@ CREATE OR REPLACE VIEW magistrate_holdings_table AS
     m.company_count,
     (SELECT string_agg(mc.name, ', ' ORDER BY mc.ord)
        FROM magistrate_company mc WHERE mc.magistrate_name = m.name) AS companies
-  FROM magistrate m
-  WHERE m.company_count > 0
-    -- Current bench only — this browse is the tile's „виж всички", so its row count has to
-    -- reconcile with the tile's `withHoldings`. See magistrate_overview() for why the
-    -- table itself now spans years.
-    AND m.decl_year = (SELECT max(decl_year) FROM magistrate);
+  -- Current bench only — this browse is the tile's „виж всички", so its row count has to
+  -- reconcile with the tile's `withHoldings`. See magistrate_current for why the table
+  -- itself spans years.
+  FROM magistrate_current m
+  WHERE m.company_count > 0;
 GRANT SELECT ON magistrate_holdings_table TO app_readonly;
+
+-- ==========================================================================
+-- Reconcile for WARM databases — CREATE TABLE IF NOT EXISTS above is a no-op on them,
+-- so a column constraint added to it reaches only fresh clones (the same trap 003's
+-- reconcile block exists for).
+--
+-- GUARDED rather than a bare ALTER, and the guard is the whole point. load_magistrates_pg.ts
+-- applies this file at line 63 and TRUNCATEs + reloads at line 90 — schema FIRST — so an
+-- unconditional SET NOT NULL against a database still holding a legacy NULL row would abort
+-- the loader in the APPLY phase, before the reload that would have cleaned it. That is the
+-- 077 shape exactly: the ingest reports success, the corpus keeps the previous vintage, and
+-- nothing is red. A database that cannot take the constraint is told and keeps working;
+-- magistrate_roster_retention.data.test.ts is what fails loudly on an actual NULL.
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM magistrate WHERE decl_year IS NULL) THEN
+    RAISE WARNING 'magistrate.decl_year holds NULLs — NOT NULL not applied. Every current-bench count silently drops those rows (decl_year = max(...) is NULL-false). Reload with db:load:magistrates:pg, then re-apply this file.';
+  ELSE
+    ALTER TABLE magistrate ALTER COLUMN decl_year SET NOT NULL;
+  END IF;
+END $$;

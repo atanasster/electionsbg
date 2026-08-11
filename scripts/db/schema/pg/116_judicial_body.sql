@@ -76,12 +76,17 @@ CREATE INDEX IF NOT EXISTS idx_judicial_body_place ON judicial_body (place_code)
 -- The workload join goes through judicial_body_source_name because the fold
 -- that maps a raw name to a body lives in TypeScript; see that table's comment.
 -- ==========================================================================
--- court_load (069) and magistrate (070) are loaded by their own operator-run
--- loaders and are NOT in resolve_persons.ts's SCHEMA_FILES, so this file must
--- still apply on a database where neither exists. LANGUAGE sql bodies are
--- validated at CREATE time, and exec() sends the file as ONE transaction — so
--- an unvalidatable body here would roll the whole migration back and abort
--- db:resolve:persons on a cold bootstrap.
+-- court_load (069) and magistrate + magistrate_current (070) are loaded by their
+-- own operator-run loaders and are NOT in resolve_persons.ts's SCHEMA_FILES, so
+-- this file must still apply on a database where none of them exists. LANGUAGE
+-- sql bodies are validated at CREATE time, and exec() sends the file as ONE
+-- transaction — so an unvalidatable body here would roll the whole migration
+-- back and abort db:resolve:persons on a cold bootstrap.
+--
+-- It is also what keeps the magistrate_current reference below from recording a
+-- pg_depend edge onto 070: a LANGUAGE sql STRING body registers no dependency
+-- (only the PG14+ BEGIN ATOMIC form does), so modernising these two bodies would
+-- make a future DROP in 070 the 2BP01 that file's header warns about.
 SET check_function_bodies = false;
 
 CREATE OR REPLACE FUNCTION judicial_body_detail(p_code text)
@@ -103,15 +108,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ORDER BY c.year, c.judges DESC NULLS LAST, c.name COLLATE "C"
   ),
   mags AS (
-    -- CURRENT BENCH ONLY, matching magistrate_overview() in 070. `magistrate` retains
-    -- departed magistrates at their last filing so a register turnover cannot delete a
-    -- /person page, and this card is captioned „с декларации в ИВСС" with no year and read
-    -- as current staffing — counting a judge who left in 2025 into it moved the stat by up
-    -- to 16% on 279 prerendered pages (measured 2026-08-11: 2,739 current vs 321 retained).
+    -- CURRENT BENCH ONLY (magistrate_current, defined in 070). This card is captioned
+    -- „с декларации в ИВСС" with no year and is read as current staffing — counting a
+    -- judge who left in 2025 into it moved the stat by up to 16% on 279 prerendered
+    -- pages (measured 2026-08-11: 2,739 current vs 321 retained).
     SELECT count(*)::int AS n
-    FROM magistrate m
+    FROM magistrate_current m
     WHERE m.court IN (SELECT source_name FROM src)
-      AND m.decl_year = (SELECT max(decl_year) FROM magistrate)
   )
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM b) THEN NULL
     ELSE jsonb_build_object(
@@ -163,8 +166,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- would decide which court a reader typing „софия" is offered first.
     SELECT s.body_code, count(*)::int AS n
     FROM judicial_body_source_name s
-    JOIN magistrate g ON g.court = s.source_name
-    WHERE g.decl_year = (SELECT max(decl_year) FROM magistrate)
+    JOIN magistrate_current g ON g.court = s.source_name
     GROUP BY s.body_code
   )
   SELECT COALESCE(jsonb_agg(jsonb_build_object(

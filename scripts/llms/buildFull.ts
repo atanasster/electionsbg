@@ -563,7 +563,14 @@ const buildCorpus = (
         // without it the table can only answer "per judge", never "in total".
         // Same court_load row, so it is a dash on exactly the same bodies.
         hasLoad ? fmtInt(c.judges ?? 0, lang) : "—",
-        c.sourcesBuilt ? fmtInt(c.magistrates, lang) : "—",
+        // A dash, not a 0, when the register names no current-bench magistrate —
+        // matching the other two consumers of this figure, which both decline to
+        // make the claim: the page gates its sentence on `magistrates > 0`
+        // (dynamicRoutes.ts) and orgNodeLd drops numberOfEmployees entirely
+        // (jsonLd.ts). Writing "0" here would have this table assert zero
+        // magistrates for 9 bodies in a corpus whose own intro says a dash is not
+        // a zero — the one place that asymmetry is read by a machine.
+        c.sourcesBuilt && c.magistrates > 0 ? fmtInt(c.magistrates, lang) : "—",
         hasLoad ? judicialNum(c.filedPerMonth, lang) : "—",
         hasLoad ? judicialNum(c.resolvedPerMonth, lang) : "—",
         hasLoad ? String(c.year) : "—",

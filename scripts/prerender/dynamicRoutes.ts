@@ -3733,13 +3733,27 @@ export const buildCourtRoutes = async (): Promise<PrerenderRoute[]> => {
     // — see the URL contract in CLAUDE.md. Emitted only when there IS a roster:
     // 13 bodies have no magistrate, and pointing a crawler at an empty filtered
     // list is a thin page it will hold against the linking one.
+    //
+    // THE LINK RESOLVES TO A WIDER SET THAN THE COUNT ABOVE IT, deliberately, so
+    // the wording says "всички" / "everyone" rather than repeating `magsBg`'s
+    // number. `b.magistrates` is the CURRENT BENCH (magistrate_current, 070);
+    // person_browse_table is built from person_role, which resolve_persons.ts
+    // fills from an UNSCOPED read of `magistrate` — deliberately, since the whole
+    // point of the retention is that a departed magistrate keeps a /person page.
+    // Measured on srs 2026-08-11: the sentence says 153, the list holds 176 (175
+    // magistrates across every year + 1 executive).
+    //
+    // It is NOT a spelling-fold gap, which is the natural second guess and is
+    // wrong: person_browse_table.institution is `judicial_body.name` (120), so
+    // the filter already folds all 10 srs source spellings. The year scope is the
+    // whole of it.
     const rosterHref = `${SITE_URL}/persons?court=${encodeURIComponent(b.name)}`;
     const rosterHrefEn = `${SITE_URL}/en/persons?court=${encodeURIComponent(b.name)}`;
     const rosterLinkBg = hasMags
-      ? `<a href="${rosterHref}">магистратите ${bgIn(b.name)} ${nm}</a>, `
+      ? `<a href="${rosterHref}">всички магистрати ${bgIn(b.name)} ${nm} в регистъра на ИВСС</a>, `
       : "";
     const rosterLinkEn = hasMags
-      ? `<a href="${rosterHrefEn}">the magistrates here</a>, `
+      ? `<a href="${rosterHrefEn}">everyone on record here in the Judicial Inspectorate register</a>, `
       : "";
 
     const faqBg: Array<{ question: string; answer: string }> = [];

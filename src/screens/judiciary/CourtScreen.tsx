@@ -190,12 +190,22 @@ export const CourtScreen: FC = () => {
 
           <p className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm">
             {/* The magistrate roster filters on the institution NAME, not the
-                body_code — see the URL contract in CLAUDE.md. */}
+                body_code — see the URL contract in CLAUDE.md.
+
+                "Всички" / "everyone" is load-bearing: this list is WIDER than the
+                Магистрати card above it. That card is the current bench
+                (magistrate_current, 070); person_browse_table is built from
+                person_role, which resolve_persons.ts fills from an UNSCOPED read of
+                `magistrate`, because the retention exists precisely so a departed
+                magistrate keeps a /person page. Measured on srs 2026-08-11: the card
+                says 153, this list holds 176. Not a spelling-fold gap — the filter
+                already folds all 10 source spellings, since
+                person_browse_table.institution is judicial_body.name (120). */}
             <Link
               to={`/persons?court=${encodeURIComponent(data.name)}`}
               className="text-primary hover:underline"
             >
-              {bg ? "Магистратите тук →" : "Magistrates here →"}
+              {bg ? "Всички в регистъра оттук →" : "Everyone on record here →"}
             </Link>
             <Link to="/judiciary" className="text-primary hover:underline">
               ← {bg ? "Съдебна власт" : "The judiciary"}
