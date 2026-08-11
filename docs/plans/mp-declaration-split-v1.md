@@ -130,6 +130,69 @@ Two variants, and the choice is the user's:
 Either way the AND with the existing conditions stays: 3-part, non-ambiguous, identical
 patronymic, no patronymic conflict.
 
+### SHIPPED — and the licence is narrower than this section first assumed
+
+| | before | after |
+|---|---:|---:|
+| MP↔declarant split pairs | 172 | **132** |
+| MPs affected | 119 | **80** |
+| declarations reunited with their MP | — | **135** |
+| MP↔official name-merges above the mass-name cap | 8 | **0** |
+
+**Four corrections the repo's own gates and a review forced, all worth keeping written
+down — every one of them a version of "absence of evidence read as evidence".**
+
+**`registerPeople = 1` is evidence about the REGISTER, not about the name.** It means one
+person of that name has ever *filed* — which says nothing about how many exist outside it.
+A ЦИК candidate row is a name on a ballot list and a `local` row a name on a council roll;
+neither implies a filing, so a namesake who never declared is invisible to the count. The
+first cut let that licence any source and produced **145 unlicensed cross-source merges** —
+none of them MPs — including „Александър Иванов Иванов" (a mass name, 47 companies) folded
+across `candidate` + `official_exec`. `person_resolve.data.test.ts`'s cross-source
+invariant caught every one. The arm now merges only sources its counts COVER: `mp` (via
+`mpPeople`) and the Court-of-Audit roster sources (via `registerPeople`), the latter read
+from `OFFICIAL_DECLARATION_SOURCES` rather than restated, so `president` / `mep` /
+`diplomat` cannot fall out of the licence the way they once fell out of
+`startsWith("official")`.
+
+**The anchor is per IDENTITY, not per row.** Requiring every *mention* to be from a counted
+source rejected the target population itself — nearly every MP also holds candidacies,
+gold-keyed to the same mp id by Tier 0 — and took the arm from 42 merged pairs to **2**. A
+row inside a component is there because a gold key or corroborant put it there, so it adds
+no unvouched-for identity; what must be anchored is each of the two components being
+joined. A candidate-only or local-only component still has no anchor and is still refused.
+
+**The count itself went blind exactly where it mattered.** `registerPeople` counted distinct
+GUIDs, but a `subject_ref` whose filings ALL carry bare per-document guids contributes
+nothing to that count — so a fold with two declarants, one of them guid-less, scored 1 and
+read as unique. Same defect as §3, one level down: 11 folds were in that state. It now counts
+per IDENTITY — distinct person-guids plus one for each guid-less ref — so a declarant we
+cannot name refuses the merge instead of vanishing from it.
+
+**2b was the only name-based rule in `cluster.ts` with no mass-name cap.** `samePartyOffice`
+and councillor-`sameLocalSeat` both cap at 12; the mayor exemption does not transfer, since
+it rests on one village having one mayor and no seat is exclusive here. Live merges ran to
+`namesake_risk` **70**. A cap is not a return to the proxy — 2a asks `<= 1` and refuses a man
+for sitting on two boards, while `<= 12` asks only "is this a mass collision", which is the
+one question the number can answer. Cost: 3 pairs.
+
+**The gate cited as safety evidence is blind to this population.**
+`person_resolve.data.test.ts`'s cross-source invariant exempts any person holding an
+`exact_id` role, and `confidence` is written per PERSON rather than per role — so an MP, whose
+candidacies are gold-keyed, is exempt for every other role they carry. All **136** MP↔official
+common-name persons are invisible to it. Its green says nothing about Tier 2b, and an earlier
+draft of this section read it as though it did. The two bounding conditions are now asserted
+directly on the merged population instead.
+
+`scripts/person/cluster.test.ts` covers the rule hermetically (48 tests, no database),
+including the mass-name cap and an order-independence check — 2b's own unions change what
+`find()` returns and the iteration order descends from unordered `SELECT`s, so the component
+split is snapshot before any 2b union rather than read live.
+`scripts/db/tests/person_tier2_people_count.data.test.ts` pins the OUTCOME rather than
+re-deriving the rule in SQL — a second dialect of a merge rule is the drift this repo keeps
+paying for (`shlyo_query_fold`, the vote-outcome bucketing) — plus the two over-merge
+assertions above, which returned 8 before the cap and 0 after.
+
 ## 3. Lever B — 68 of the 70 "collisions" were a resolver bug. **SHIPPED.**
 
 `registerIdByRef()` skips any `subject_ref` carrying more than one GUID (`HAVING

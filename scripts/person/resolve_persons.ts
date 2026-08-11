@@ -1335,11 +1335,21 @@ async function collect(): Promise<Raw[]> {
   return out;
 }
 
-// Fold the raw name parts and full names with the ONE normalizer (SQL), and look up
-// the namesake company-count — one round trip each, keyed by the distinct strings.
-async function foldAndScore(
-  raw: Raw[],
-): Promise<{ fold: Map<string, string>; namesake: Map<string, number> }> {
+// Fold the raw name parts and full names with the ONE normalizer (SQL), and look up the
+// per-fold scores Tier 2 reads — one round trip each, keyed by the distinct strings.
+//
+// THREE numbers, and the difference between them is the whole point:
+//   • `namesake`      — companies an officer of this name appears on (Tier 2a's proxy);
+//   • `registerPeople` — DIFFERENT PEOPLE the Сметна палата knows by this name;
+//   • `mpPeople`       — different MPs of this name in the parliament roster.
+// The last two are counts of real per-person ids, which is what Tier 2b needs and what
+// `namesake` was standing in for badly. See `Mention.registerPeople` in ./cluster.ts.
+async function foldAndScore(raw: Raw[]): Promise<{
+  fold: Map<string, string>;
+  namesake: Map<string, number>;
+  registerPeople: Map<string, number>;
+  mpPeople: Map<string, number>;
+}> {
   const strs = new Set<string>();
   for (const r of raw) {
     strs.add(r.given);
@@ -1361,7 +1371,65 @@ async function foldAndScore(
   const namesake = new Map(
     ncRows.map((r) => [r.name_fold, Number(r.company_count)]),
   );
-  return { fold, namesake };
+
+  // How many distinct declarants the register knows by each full name. Folded with the
+  // SAME normalizer as the mention side (translit_bg_latin), so the two keys are
+  // comparable by construction rather than by coincidence. A fold absent from this map
+  // scores 0 = "the register has never seen this name", which Tier 2b treats as NOT
+  // attested — the distinction that keeps it from merging on an absence of evidence.
+  //
+  // Scoped to the folds actually in play; the register holds ~21k distinct names and the
+  // whole point is to answer for the ones this run is clustering.
+  const declPresent = await allRows<{ reg: string | null }>(
+    `SELECT to_regclass('public.declaration')::text AS reg`,
+  );
+  // Counted per IDENTITY, not per GUID — a distinct person guid, PLUS one for each
+  // subject_ref whose filings carry no person guid at all.
+  //
+  // Counting guids alone made the number blind exactly where it most needed to see. In the
+  // 2019-2023 folders the register emitted bare per-DOCUMENT guids, and a ref whose every
+  // filing is one of those contributes NOTHING to a `count(DISTINCT guid)` — so a fold with
+  // two declarants, one of them guid-less, scores 1 and reads as unique. That is the same
+  // "absence read as evidence" this whole change exists to remove, one level down: measured
+  // 2026-08-11, 11 folds are in that state. A guid-less ref is a declarant we cannot name,
+  // which is a reason to refuse the merge and not to overlook the person.
+  const rpRows = declPresent[0]?.reg
+    ? await allRows<{ f: string; n: string }>(
+        `WITH scoped AS (
+           SELECT translit_bg_latin(d.declarant_name) AS f, d.subject_ref,
+                  upper(substring(d.source_url from $1)) AS guid
+             FROM declaration d
+            WHERE translit_bg_latin(d.declarant_name) = ANY($2::text[]))
+         SELECT f,
+                ( (SELECT count(DISTINCT s2.guid) FROM scoped s2
+                    WHERE s2.f = s.f AND s2.guid IS NOT NULL)
+                + (SELECT count(*) FROM (
+                     SELECT s3.subject_ref FROM scoped s3
+                      WHERE s3.f = s.f
+                      GROUP BY s3.subject_ref
+                     HAVING count(s3.guid) = 0) g) )::text AS n
+           FROM scoped s
+          GROUP BY f`,
+        [PERSON_GUID_SQL_PATTERN, fullFolds],
+      )
+    : [];
+  const registerPeople = new Map(rpRows.map((r) => [r.f, Number(r.n)]));
+
+  // The parliament side, counted from the mentions themselves rather than re-queried: an
+  // `mp` mention's ref IS the mp id, so distinct refs per fold is distinct MPs of that
+  // name. Reading it from `raw` also means it cannot disagree with the roster this run
+  // actually loaded.
+  const mpIdsByFold = new Map<string, Set<string>>();
+  for (const r of raw) {
+    if (r.source !== "mp") continue;
+    const f = fold.get(r.display)!;
+    (mpIdsByFold.get(f) ?? mpIdsByFold.set(f, new Set()).get(f)!).add(r.ref);
+  }
+  const mpPeople = new Map(
+    [...mpIdsByFold].map(([f, ids]) => [f, ids.size] as const),
+  );
+
+  return { fold, namesake, registerPeople, mpPeople };
 }
 
 type M = Mention & { raw: Raw; nameFold: string };
@@ -1437,7 +1505,7 @@ async function main(): Promise<void> {
   for (const f of SCHEMA_FILES)
     await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
   const raw = await collect();
-  const { fold, namesake } = await foldAndScore(raw);
+  const { fold, namesake, registerPeople, mpPeople } = await foldAndScore(raw);
 
   // §6 privacy gate: a person is public only if some source they hold defaults public
   // (person_source.public_default). All current sources are public, but tr/donor/ngo
@@ -1495,6 +1563,8 @@ async function main(): Promise<void> {
     nameParts: r.nameParts,
     ambiguous: r.ambiguous,
     namesakeRisk: namesake.get(fold.get(r.display)!) ?? 0,
+    registerPeople: registerPeople.get(fold.get(r.display)!) ?? 0,
+    mpPeople: mpPeople.get(fold.get(r.display)!) ?? 0,
     nameFold: fold.get(r.display)!,
     corroborants: {
       party: r.cParty,

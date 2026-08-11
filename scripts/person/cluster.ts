@@ -15,6 +15,44 @@
 // Callers block first: every mention passed to clusterBlock() shares one
 // (givenFold, familyFold) key (plan §2a — the patronymic is never the block key).
 
+import { OFFICIAL_DECLARATION_SOURCES } from "../../src/lib/officialSources";
+
+/**
+ * The only sources Tier 2b may merge — the ones its two people-counts actually COVER.
+ *
+ * `mpPeople` counts distinct mp ids on the fold, so `mp` is covered. `registerPeople`
+ * counts distinct Сметна палата declarants, so the Court-of-Audit roster sources are
+ * covered — and `OFFICIAL_DECLARATION_SOURCES` is imported rather than restated because
+ * that set is already the answer to "whose ref is a declaration slug", and a hand-copied
+ * list here would silently omit `president` / `mep` / `diplomat` exactly as the
+ * `startsWith("official")` test once did.
+ *
+ * Everything else — `candidate`, `local`, `tr`, `donor`, `magistrate`, `ngo` — is OUTSIDE
+ * both counts. A person of that name can exist there without ever appearing in either
+ * register, so "unique in the register" is not evidence about them. See condition (3) in
+ * Tier 2b.
+ */
+const COUNTED_SOURCES: ReadonlySet<string> = new Set<string>([
+  "mp",
+  ...OFFICIAL_DECLARATION_SOURCES,
+]);
+
+/**
+ * Mass-name backstop for Tier 2b. NOT a return to the company-count gate 2b replaces — the
+ * difference is the threshold's job. Tier 2a asks `namesakeRisk <= 1`, which refuses a man
+ * for sitting on two boards; this asks `<= 12`, the same value `samePartyOffice` and
+ * councillor-`sameLocalSeat` already use to mean "this fold is not a mass collision".
+ *
+ * It is here because 2b's licence is weakest exactly where the name is commonest, and for a
+ * reason the counts cannot see: the register only knows people who have FILED. On
+ * „Владимир Иванов Иванов" (44 companies) or „Петър Георгиев Петров" (70), one declarant of
+ * the name is evidence about that declarant and very little about whether the MP is him.
+ * Every other name-based rule in this file carries such a cap; 2b was the only one without.
+ * The mayor exemption in `sameLocalSeat` does not transfer — it rests on one village having
+ * one mayor, and no seat is exclusive here.
+ */
+const TIER2B_NAMESAKE_CAP = 12;
+
 export type Corroborants = {
   party?: string | null;
   place?: string | null; // municipality / oblast
@@ -50,8 +88,27 @@ export type Mention = {
   patronymicFold: string | null;
   nameParts: 2 | 3;
   ambiguous: boolean; // 4+ token guess (nameParts.ts)
-  /** Distinct-company count for the folded name — the namesake / defamation guard. */
+  /** Distinct-company count for the folded name — the namesake / defamation guard.
+   *  NOT a count of people; see Tier 2b in `clusterBlock` for why that matters. */
   namesakeRisk: number;
+  /**
+   * How many DIFFERENT people the Сметна палата register knows by this exact full name —
+   * distinct per-declarant filing GUIDs on the fold (`PERSON_GUID_SQL_PATTERN`). A real
+   * person key, unlike `namesakeRisk`.
+   *
+   * **0 means the register has never seen this name, NOT that the name is unique**, which
+   * is why Tier 2b demands exactly 1 rather than `<= 1`. Measured 2026-08-11: a `<= 1`
+   * reading would newly permit merges on 3,142 folds, 1,469 of them with no register
+   * presence at all — i.e. it would read absence of evidence as evidence of uniqueness, on
+   * folds where nothing has ever attested who these people are.
+   *
+   * Optional so existing callers and fixtures default to "not attested" (no new merge).
+   */
+  registerPeople?: number;
+  /** Distinct parliament mp ids carrying this exact full name fold — the other real
+   *  per-person key. Unlike the register count this may legitimately be 0 (most people are
+   *  not MPs), so Tier 2b only requires it not to exceed 1. */
+  mpPeople?: number;
   corroborants: Corroborants;
 };
 
@@ -338,27 +395,115 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
       )
         union(i, j);
 
-  // Tier 2 — same UNIQUE full name. given+family are equal across the whole block, so
-  // the full name is fixed by the patronymic. Merge mentions that share a patronymic
-  // ONLY when that full name is globally unique (namesakeRisk <= 1), 3-part, and not an
-  // ambiguous (4+ token) guess. A common full name (namesakeRisk > 1) is NOT safe to
-  // merge on the name alone — many people share it — so it stays separate for review.
+  // Tier 2 — same UNIQUE full name. given+family are equal across the whole block, so the
+  // full name is fixed by the patronymic. Two arms, both requiring a 3-part, non-ambiguous
+  // name with a present patronymic.
+  const shapeEligible = (m: Mention): boolean =>
+    m.nameParts === 3 && !m.ambiguous && !!m.patronymicFold;
+
   const byPatronymic = new Map<string, number[]>();
   mentions.forEach((m, i) => {
-    if (
-      m.nameParts !== 3 ||
-      m.ambiguous ||
-      m.namesakeRisk > 1 ||
-      !m.patronymicFold
-    )
-      return;
+    if (!shapeEligible(m)) return;
     const arr =
-      byPatronymic.get(m.patronymicFold) ??
-      byPatronymic.set(m.patronymicFold, []).get(m.patronymicFold)!;
+      byPatronymic.get(m.patronymicFold!) ??
+      byPatronymic.set(m.patronymicFold!, []).get(m.patronymicFold!)!;
     arr.push(i);
   });
-  for (const idxs of byPatronymic.values())
+
+  // Tier 2a (the original rule) — merge when the full name is globally unique
+  // (namesakeRisk <= 1). A common full name is NOT safe to merge on the name alone.
+  //
+  // Kept even though the number is the wrong one, because dropping it would UN-merge
+  // people who are merged today — a separate decision from adding merges, and one that
+  // re-splits live public profiles. `namesakeRisk` is
+  // `officer_name_counts.company_count`: how many COMPANIES an officer of this name
+  // appears on, not how many people bear it. So it refuses a man for sitting on two
+  // boards (Ивайло Ангелов Московски scores 2; both companies are his) and accepts one
+  // whose name happens to touch no company at all — measured, 11 MP profiles are merged
+  // today on a fold the register itself knows two declarants for.
+  for (const idxs of byPatronymic.values()) {
+    const legacy = idxs.filter((i) => mentions[i].namesakeRisk <= 1);
+    for (let j = 1; j < legacy.length; j++) union(legacy[0], legacy[j]);
+  }
+
+  // Tier 2b — the same question asked of PEOPLE instead of companies: does either register
+  // we are joining know two different people by this exact full name? Both counts are real
+  // per-person ids (the Сметна палата filing GUID, the parliament mp id), so this measures
+  // the thing the tier is about rather than a proxy for it. Same claim shape as 2a — "no
+  // alternative candidate exists", never positive proof — on a directly measured variable.
+  //
+  // It is the same move Bridge B already made when it replaced this proxy with a direct
+  // people-uniqueness test, and it exists because 2a leaves an MP's ministerial or mayoral
+  // declarations sitting on a person row of their own: 172 such pairs, every one of them
+  // blocked by `namesakeRisk` alone and by nothing else.
+  //
+  // FIVE conditions, and each removes a specific way of being wrong:
+  //  0. `namesakeRisk <= TIER2B_NAMESAKE_CAP` — the mass-name backstop. See the constant for
+  //     why a cap is not a return to the proxy this arm replaces.
+  //  1. `registerPeople === 1` — POSITIVE attestation. Not `<= 1`: see the field's comment,
+  //     0 means the register has never seen the name.
+  //  2. `mpPeople <= 1` — the parliament roster must not hold two of them either. May be 0;
+  //     most people are not MPs.
+  //  3. EACH OF THE TWO COMPONENTS is ANCHORED by a source one of the counts actually
+  //     COVERS. This is the condition that makes the licence sound, and getting its scope
+  //     right took two attempts.
+  //
+  //     Why it is needed: `registerPeople = 1` means "exactly one person of this name has
+  //     ever FILED a declaration", which says nothing about how many people of that name
+  //     exist outside the register. A `candidate` row is a name on a ЦИК list and a `local`
+  //     row a name on a council roll; neither implies a filing, so a namesake who never
+  //     declared is invisible to the count and would be merged into the one who did.
+  //     Measured without this condition: 145 unlicensed cross-source merges — none of them
+  //     MPs — including „Александър Иванов Иванов" (a mass name, 47 companies) folded
+  //     across `candidate` + `official_exec`. `person_resolve.data.test.ts`'s cross-source
+  //     invariant caught every one.
+  //
+  //     Why it is per-COMPONENT and not per-mention: nearly every MP also holds `candidate`
+  //     mentions, gold-keyed to the same mp id by Tier 0. Demanding that EVERY mention be
+  //     counted therefore rejected the whole group over rows already proven to be the same
+  //     person — measured, it took this arm from 42 merged pairs to 2. A mention sitting
+  //     inside a component is there because a gold key or a corroborant put it there, so it
+  //     adds no unvouched-for identity; what must be anchored is each IDENTITY being joined.
+  //     A component that is candidate-only or local-only has no counted anchor and is still
+  //     refused.
+  //  4. the group must resolve to EXACTLY TWO components. This is the conservative variant
+  //     of docs/plans/mp-declaration-split-v1.md §2: a third identity on the fold is a third
+  //     decision, and merging two of three is picking one without evidence. Measured, it
+  //     costs little now — after the register gold key stopped being lost to per-document
+  //     guids, the crowded folds it excludes had mostly collapsed anyway.
+  //
+  // A `tr` mention is excluded by (3) as a side effect, and that is the right reason: a TR
+  // officer row is a name on a company filing with no person key behind it, so it is exactly
+  // what neither count can vouch for. Bridge B attaches a public person's own TR footprint
+  // under its own people-uniqueness guard instead.
+  // The component split every group is judged against is SNAPSHOT FIRST, before any 2b
+  // union runs. Reading it live made the tier order-dependent: 2b's own unions change what
+  // `find()` returns, patronymic groups can share a component (a 2-part mention merged into
+  // one of them by Tier 1 carries no patronymic and sits in no group of its own), and the
+  // iteration order descends from unordered `SELECT`s over `official_roster` / `magistrate`.
+  // Identical input could therefore produce different merges from run to run — on public
+  // identity, which must be reproducible.
+  const rootBefore = mentions.map((_, i) => find(i));
+  for (const idxs of byPatronymic.values()) {
+    if (idxs.length < 2) continue;
+    const group = idxs.map((i) => mentions[i]);
+    if (!group.every((m) => m.namesakeRisk <= TIER2B_NAMESAKE_CAP)) continue;
+    if (!group.every((m) => m.registerPeople === 1)) continue;
+    if (!group.every((m) => (m.mpPeople ?? 0) <= 1)) continue;
+    const components = new Map<number, Mention[]>();
+    for (const i of idxs) {
+      const root = rootBefore[i];
+      (components.get(root) ?? components.set(root, []).get(root)!).push(
+        mentions[i],
+      );
+    }
+    if (components.size !== 2) continue;
+    const anchored = [...components.values()].every((ms) =>
+      ms.some((m) => COUNTED_SOURCES.has(m.source)),
+    );
+    if (!anchored) continue;
     for (let j = 1; j < idxs.length; j++) union(idxs[0], idxs[j]);
+  }
 
   // Collect components.
   const comps = new Map<number, number[]>();

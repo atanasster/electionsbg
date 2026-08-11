@@ -708,4 +708,275 @@ describe("clusterBlock", () => {
     expect(r.merges).toHaveLength(0);
     expect(r.reviewCandidates).toHaveLength(0);
   });
+
+  // Tier 2b — the people-counted arm. Every case below has `namesakeRisk: 5`, i.e. Tier 2a
+  // refuses all of them, so any merge here is 2b's and nothing else's.
+  describe("Tier 2b — unique in both registers", () => {
+    // The population this arm exists for: an MP and the officials slug their ministerial
+    // declarations were filed under. Same full name, no shared corroborant (a minister has
+    // an institution, not an oblast, so party+place can never fire) and a namesakeRisk that
+    // counts the man's own two companies.
+    const mp = (over: Partial<Mention> = {}) =>
+      base({
+        id: "mp:1",
+        source: "mp",
+        nameParts: 3,
+        patronymicFold: "angelov",
+        namesakeRisk: 5,
+        registerPeople: 1,
+        mpPeople: 1,
+        ...over,
+      });
+    const official = (over: Partial<Mention> = {}) =>
+      base({
+        id: "official:x",
+        source: "official_exec",
+        nameParts: 3,
+        patronymicFold: "angelov",
+        namesakeRisk: 5,
+        registerPeople: 1,
+        mpPeople: 1,
+        ...over,
+      });
+
+    it("merges an MP with the officials slug holding their declarations", () => {
+      const r = clusterBlock([mp(), official()]);
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds.sort()).toEqual(["mp:1", "official:x"]);
+      // No gold key was involved — this is a name-plus-uniqueness merge, not exact_id.
+      expect(r.merges[0].confidence).toBe("high");
+      expect(r.reviewCandidates).toHaveLength(0);
+    });
+
+    it("refuses when the register knows TWO declarants of the name", () => {
+      const r = clusterBlock([
+        mp({ registerPeople: 2 }),
+        official({ registerPeople: 2 }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates[0].reason).toBe("identical_fullname");
+    });
+
+    // The one that separates "unique" from "unknown". 0 is the register never having seen
+    // the name, and a `<= 1` reading would merge here — on two people nothing has ever
+    // attested. Measured, that reading newly merges 1,469 folds with no register presence.
+    it("refuses when the register has never seen the name (0, not 1)", () => {
+      const r = clusterBlock([
+        mp({ registerPeople: 0, mpPeople: 0, source: "local" }),
+        official({ registerPeople: 0, mpPeople: 0, source: "local" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("refuses when the parliament roster holds two MPs of the name", () => {
+      const r = clusterBlock([mp({ mpPeople: 2 }), official({ mpPeople: 2 })]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    // A TR officer row is a name on a company filing with no person key behind it, so
+    // neither count can vouch for it. Merging one into a named official is the accusation
+    // the whole file exists to prevent; Bridge B attaches a public person's own companies
+    // under its own guard instead.
+    it("refuses to sweep a TR mention in, however unique the name", () => {
+      const r = clusterBlock([
+        official(),
+        base({
+          id: "tr:123",
+          source: "tr",
+          nameParts: 3,
+          patronymicFold: "angelov",
+          namesakeRisk: 5,
+          registerPeople: 1,
+          mpPeople: 1,
+        }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    // The conservative variant. A third identity on the fold is a third decision, and
+    // merging two of three would be picking one of them with no evidence for the choice.
+    it("refuses a fold carrying a third identity", () => {
+      const r = clusterBlock([
+        mp(),
+        official(),
+        official({ id: "official:y" }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+      expect(r.reviewCandidates[0].reason).toBe("identical_fullname");
+    });
+
+    // …but two components is what it asks for, not two mentions: a pair already merged by
+    // an earlier tier still counts as one, so a gold-keyed pair plus a stray official is a
+    // legal 2-component group.
+    it("counts components, not mentions — a Tier-0 pair is one identity", () => {
+      const r = clusterBlock([
+        mp({ hardId: "1" }),
+        official({ id: "official:gold", hardId: "1" }),
+        official(),
+      ]);
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds.sort()).toEqual([
+        "mp:1",
+        "official:gold",
+        "official:x",
+      ]);
+      // A Tier-0 edge formed part of it, so the group keeps the stronger confidence.
+      expect(r.merges[0].confidence).toBe("exact_id");
+    });
+
+    // The licence's scope, and the condition the first cut of this arm was missing.
+    // `registerPeople = 1` means "one person of this name has ever FILED", which is
+    // evidence about the register and about nothing outside it. A ЦИК candidate row or a
+    // council roll carries no filing, so a namesake who never declared is invisible to the
+    // count — and merging on it produced 145 unlicensed cross-source merges on the real
+    // corpus, „Александър Иванов Иванов" among them.
+    it.each(["candidate", "local", "tr", "donor", "magistrate", "ngo"])(
+      "refuses a %s-only identity — outside both counts, so neither vouches for it",
+      (source) => {
+        const r = clusterBlock([
+          official(),
+          base({
+            id: `${source}:1`,
+            source,
+            nameParts: 3,
+            patronymicFold: "angelov",
+            namesakeRisk: 5,
+            registerPeople: 1,
+            mpPeople: 1,
+          }),
+        ]);
+        expect(r.merges).toHaveLength(0);
+      },
+    );
+
+    // …but the anchor is per IDENTITY, not per row. Nearly every MP also holds candidacies,
+    // gold-keyed to the same mp id by Tier 0, and those rows add no unvouched-for identity
+    // — they are already proven to be that MP. Requiring every mention to be counted took
+    // this arm from 42 merged pairs to 2 on the real corpus.
+    it("allows an uncounted mention that a gold key already put in the component", () => {
+      const r = clusterBlock([
+        mp({ hardId: "1" }),
+        base({
+          id: "cand:1",
+          source: "candidate",
+          hardId: "1",
+          nameParts: 3,
+          patronymicFold: "angelov",
+          namesakeRisk: 5,
+          registerPeople: 1,
+          mpPeople: 1,
+        }),
+        official(),
+      ]);
+      expect(r.merges).toHaveLength(1);
+      expect(r.merges[0].memberIds.sort()).toEqual([
+        "cand:1",
+        "mp:1",
+        "official:x",
+      ]);
+    });
+
+    // …and the counted sources are read from the ONE set that already answers "whose ref is
+    // a declaration slug", so a dedicated source cannot fall out of the licence the way
+    // `president` / `mep` / `diplomat` once fell out of `startsWith("official")`.
+    it.each(["official_exec", "official_muni", "president", "mep", "diplomat"])(
+      "merges an MP with a %s role — a counted source",
+      (source) => {
+        const r = clusterBlock([mp(), official({ source })]);
+        expect(r.merges).toHaveLength(1);
+      },
+    );
+
+    it("still refuses a differing patronymic — 2b never crosses full names", () => {
+      const r = clusterBlock([mp(), official({ patronymicFold: "petrov" })]);
+      expect(r.merges).toHaveLength(0);
+    });
+
+    it("still refuses a 2-part or ambiguous name", () => {
+      expect(
+        clusterBlock([mp(), official({ nameParts: 2, patronymicFold: null })])
+          .merges,
+      ).toHaveLength(0);
+      expect(
+        clusterBlock([mp(), official({ ambiguous: true })]).merges,
+      ).toHaveLength(0);
+    });
+
+    // The mass-name backstop. 2b's licence is weakest exactly where the name is commonest,
+    // because the register only knows people who have FILED — on „Владимир Иванов Иванов"
+    // (44 companies) one declarant of the name says very little about whether the MP is him.
+    // Every other name-based rule in cluster.ts carries this cap; 2b shipped without one and
+    // a review caught live merges up to namesakeRisk 70.
+    it("refuses a mass name even when both registers call it unique", () => {
+      expect(
+        clusterBlock([mp({ namesakeRisk: 44 }), official({ namesakeRisk: 44 })])
+          .merges,
+      ).toHaveLength(0);
+      // …and still fires just under the cap, so the threshold is doing the discriminating
+      // rather than the rule being off entirely.
+      expect(
+        clusterBlock([mp({ namesakeRisk: 12 }), official({ namesakeRisk: 12 })])
+          .merges,
+      ).toHaveLength(1);
+    });
+
+    // 2b's own unions change what `find()` returns, and patronymic groups can share a
+    // component, so reading the component split live made the tier depend on mention order —
+    // which descends from unordered SQL. Public identity has to be reproducible.
+    it("is order-independent", () => {
+      const block = [
+        mp({ hardId: "1" }),
+        base({
+          id: "cand:1",
+          source: "candidate",
+          hardId: "1",
+          nameParts: 3,
+          patronymicFold: "angelov",
+          namesakeRisk: 5,
+          registerPeople: 1,
+          mpPeople: 1,
+        }),
+        official(),
+        base({
+          id: "official:other",
+          source: "official_muni",
+          nameParts: 3,
+          patronymicFold: "petrov",
+          namesakeRisk: 5,
+          registerPeople: 1,
+          mpPeople: 1,
+        }),
+      ];
+      const norm = (ms: { memberIds: string[] }[]) =>
+        ms
+          .map((m) => [...m.memberIds].sort().join("|"))
+          .sort()
+          .join(" // ");
+      expect(norm(clusterBlock([...block].reverse()).merges)).toBe(
+        norm(clusterBlock(block).merges),
+      );
+    });
+
+    // Absent fields default to "not attested", so every pre-existing caller and fixture
+    // keeps exactly its old behaviour.
+    it("is inert when the counts are absent", () => {
+      const r = clusterBlock([
+        base({
+          id: "a",
+          source: "official_exec",
+          nameParts: 3,
+          patronymicFold: "angelov",
+          namesakeRisk: 5,
+        }),
+        base({
+          id: "b",
+          source: "official_muni",
+          nameParts: 3,
+          patronymicFold: "angelov",
+          namesakeRisk: 5,
+        }),
+      ]);
+      expect(r.merges).toHaveLength(0);
+    });
+  });
 });
