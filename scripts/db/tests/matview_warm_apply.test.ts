@@ -25,11 +25,40 @@
 //
 // A definition-drift check is a DIFFERENT question ("has it drifted YET?"), needs a database,
 // and does not replace this one. When you do need it — auditing a KNOWN entry below, or
-// checking prod after a body edit — the way to ask it is: rebuild the file's body as a
-// throwaway probe matview and compare `pg_get_viewdef` of probe and deployed. Both sides then
-// go through Postgres's own re-printer, so no hand-written normaliser is involved. (An earlier
-// draft of this header called such a check infeasible for exactly that normaliser reason; the
-// probe technique is the answer to it, and the audit recorded below used it.)
+// checking prod after a body edit — here is the recipe, MEASURED against all 38 matviews in
+// this schema rather than sketched:
+//
+//   1. Extract the body between the CREATE's `AS` and its terminating `;`. Reuse
+//      `declarations()` below rather than writing a second parser: a drift checker whose
+//      parser has diverged from the gate's is the same class of defect as two producers of
+//      one label. Track paren depth AND string/dollar-quote state — a `;` inside a literal
+//      would truncate the body. (No body in the tree does that today; a naive paren-only
+//      scan agrees with a quote-aware one on 38/38, so the hazard is latent, not live.)
+//   2. STRIP a trailing `WITH [NO] DATA`. It is a CREATE option, not part of the query, and
+//      14 of the 38 bodies carry one — appending your own yields `WITH NO DATA WITH NO DATA`
+//      and a syntax error. This is the step that makes or breaks the recipe.
+//   3. Create the body as a throwaway VIEW, not a matview. Measured: `pg_get_viewdef` output
+//      is byte-identical on all 38, and views cost ~40 ms for the whole schema against ~76 ms
+//      — no storage, no relfilenode, and the `WITH NO DATA` clause is not even legal on a
+//      view, so step 2 cannot be forgotten twice.
+//   4. Wrap each probe in its own SAVEPOINT, and the run in a rolled-back transaction. Without
+//      the savepoint one syntax error aborts the transaction and every LATER probe reports
+//      "current transaction is aborted" — one parse failure becomes a total absence of results
+//      that still exits 0.
+//   5. Compare `pg_get_viewdef(probe)` against `pg_get_viewdef(deployed)`. Both sides go
+//      through Postgres's own re-printer, so no hand-written normaliser is involved — which
+//      is what makes the comparison possible at all. (An earlier draft of this header called
+//      such a check infeasible for want of a normaliser; that was the wrong reason.)
+//
+// WHAT IT ANSWERS, EXACTLY: "has the DEFINITION changed", not "has the MEANING changed".
+// Verified by perturbation — whitespace and keyword case report IN SYNC (the normaliser works),
+// and a changed predicate, an added column and a dropped COALESCE all report DRIFT. But
+// reordering `A AND B` to `B AND A` also reports DRIFT, so a semantics-preserving reformat of
+// a KNOWN entry will fail and need re-blessing. Do not read DRIFT as "the deployed body is
+// wrong"; read it as "these two texts are no longer the same text".
+//
+// It also needs CREATE on the schema (a read-only auditor cannot run it) and takes AccessShare
+// on every referenced table, so it queues behind a heavy DDL load like any other reader.
 // ══════════════════════════════════════════════════════════════════════════════════════
 
 import { test } from "vitest";
@@ -61,10 +90,11 @@ const SCHEMA_DIR = path.join(REPO_ROOT, "scripts/db/schema/pg");
  * procurement_by_settlement_cache "unreviewed" only because it grouped on the syntax.
  *
  * Before any of that, all five were checked for ACTUAL drift against both the local database
- * and Cloud SQL, by rebuilding each file's body as a throwaway probe matview and comparing
- * `pg_get_viewdef` of both (so each side goes through Postgres's own re-printer, which is what
- * makes a definition comparison possible at all). All five were in sync: the defect was latent
- * everywhere, never live.
+ * and Cloud SQL, using the probe recipe in this file's header. All five were in sync: the
+ * defect was latent everywhere, never live. (That run used probe MATVIEWS; the header now
+ * specifies VIEWS, which were measured afterwards to give identical output for half the cost.
+ * The result stands either way — the two forms were compared on all 38 matviews in the tree
+ * and agreed byte for byte.)
  *
  * A NEW matview must not join this list without meeting the wrapper test above.
  */
