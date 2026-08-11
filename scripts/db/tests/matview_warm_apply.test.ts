@@ -28,12 +28,24 @@
 // checking prod after a body edit — here is the recipe, MEASURED against all 38 matviews in
 // this schema rather than sketched:
 //
-//   1. Extract the body between the CREATE's `AS` and its terminating `;`. Reuse
-//      `declarations()` below rather than writing a second parser: a drift checker whose
-//      parser has diverged from the gate's is the same class of defect as two producers of
-//      one label. Track paren depth AND string/dollar-quote state — a `;` inside a literal
-//      would truncate the body. (No body in the tree does that today; a naive paren-only
-//      scan agrees with a quote-aware one on 38/38, so the hazard is latent, not live.)
+//   1. Extract the body between the CREATE's `AS` and its terminating `;`. EXTEND
+//      `declarations()` below to return the body and its match index — it returns only
+//      name/flags today, so "reuse it" is not yet followable — rather than writing a second
+//      parser: a drift checker whose parser has diverged from the gate's is the same class of
+//      defect as two producers of one label.
+//
+//      Track paren depth AND string/dollar-quote state. TWO hazards, and the second is
+//      inherited from the very function this step tells you to extend: a `;` inside a literal
+//      truncates the body, and `declarations()`'s own `--` stripping (the per-line replace
+//      below) is quote-BLIND, so a `--` inside a literal truncates the line before your scan
+//      begins. Neither is live — no matview body in the tree contains either, and a naive
+//      paren-only scan agrees with a quote-aware one on 38/38.
+//
+//      "Latent" here does NOT mean "a shape nobody writes". The `;`-inside-a-literal pattern
+//      already occurs four times in this schema directory — in `COMMENT ON … IS '…'` prose in
+//      134/135/136 ("15,096 stand; the rest carry…") — it has simply not landed inside a
+//      matview body yet. Handle both, or the day one does is the day the extraction silently
+//      returns a truncated body and the comparison reports a DRIFT that is not there.
 //   2. STRIP a trailing `WITH [NO] DATA`. It is a CREATE option, not part of the query, and
 //      14 of the 38 bodies carry one — appending your own yields `WITH NO DATA WITH NO DATA`
 //      and a syntax error. This is the step that makes or breaks the recipe.
