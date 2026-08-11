@@ -1,0 +1,90 @@
+[
+  {
+    "file": "avatar_youtube_800.png",
+    "platform": "YouTube",
+    "slot": "avatar",
+    "w": 800,
+    "h": 800,
+    "note": "channel picture (displays 98px)"
+  },
+  {
+    "file": "avatar_tiktok_800.png",
+    "platform": "TikTok",
+    "slot": "avatar",
+    "w": 800,
+    "h": 800,
+    "note": "profile photo (displays 200px)"
+  },
+  {
+    "file": "avatar_instagram_1080.png",
+    "platform": "Instagram",
+    "slot": "avatar",
+    "w": 1080,
+    "h": 1080,
+    "note": "profile photo (displays 320px)"
+  },
+  {
+    "file": "avatar_linkedin_400.png",
+    "platform": "LinkedIn",
+    "slot": "avatar",
+    "w": 400,
+    "h": 400,
+    "note": "page logo (min 300x300)"
+  },
+  {
+    "file": "avatar_x_400.png",
+    "platform": "X",
+    "slot": "avatar",
+    "w": 400,
+    "h": 400,
+    "note": "profile photo"
+  },
+  {
+    "file": "avatar_pinterest_800.png",
+    "platform": "Pinterest",
+    "slot": "avatar",
+    "w": 800,
+    "h": 800,
+    "note": "profile photo (displays 165px)"
+  },
+  {
+    "file": "avatar_telegram_1280.png",
+    "platform": "Telegram",
+    "slot": "avatar",
+    "w": 1280,
+    "h": 1280,
+    "note": "channel photo"
+  },
+  {
+    "file": "avatar_wordmark_1080.png",
+    "platform": "any",
+    "slot": "avatar (alt)",
+    "w": 1080,
+    "h": 1080,
+    "note": "wordmark variant — matches the current Facebook profile picture"
+  },
+  {
+    "file": "banner_youtube_2560x1440.png",
+    "platform": "YouTube",
+    "slot": "channel banner",
+    "w": 2560,
+    "h": 1440,
+    "note": "safe area 1235x338 centred — everything readable is inside it"
+  },
+  {
+    "file": "banner_x_1500x500.png",
+    "platform": "X",
+    "slot": "header",
+    "w": 1500,
+    "h": 500,
+    "note": "content upper-centre — the avatar overlaps the lower left"
+  },
+  {
+    "file": "banner_linkedin_1128x191.png",
+    "platform": "LinkedIn",
+    "slot": "page cover",
+    "w": 1128,
+    "h": 191,
+    "note": "content right of centre — the page logo covers the left ~220px"
+  }
+]

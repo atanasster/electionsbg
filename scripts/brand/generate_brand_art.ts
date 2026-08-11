@@ -24,6 +24,17 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createCanvas, loadImage, type SKRSContext2D } from "@napi-rs/canvas";
 import sharp from "sharp";
+import {
+  CORAL,
+  FONT,
+  INK,
+  INK2,
+  MUTED,
+  WHITE,
+  drawWordmark,
+  proceduralBg,
+  registerFonts,
+} from "./lib/brandMark.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -41,99 +52,11 @@ const loadGeminiEnv = (): void => {
   }
 };
 
-// ---- brand tokens — reused from the site theme (src/index.css):
-// dark navy --background + coral-peach --accent (the site's signature accent).
-const INK = "#0b1224"; // site dark --background (#0B1224 deep navy)
-const INK2 = "#070b16";
-const CORAL = "#df6b43"; // site --accent (coral peach #DF6B43)
-const WHITE = "#f2f5f8"; // site dark --foreground
-const MUTED = "#9aa7bd"; // site dark --muted-foreground
-const FONT =
-  '"Inter", system-ui, -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", "DejaVu Sans", sans-serif';
+// Brand tokens, the wordmark and the background textures all come from the
+// shared mark — see lib/brandMark.ts. They used to be duplicated here, which
+// is how the Facebook covers and the channel art could have drifted apart.
 
 type Ctx = SKRSContext2D;
-
-const roundRect = (
-  ctx: Ctx,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r: number,
-) => {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-};
-
-/** Wordmark "наясно" — white, with an amber highlighter swipe under the
- *  "ясно" half (the на+ясно = "into clarity" pun). */
-const drawWordmark = (
-  ctx: Ctx,
-  x: number,
-  baseline: number,
-  size: number,
-  align: "left" | "center" = "left",
-) => {
-  ctx.font = `800 ${size}px ${FONT}`;
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-  const word = "наясно";
-  const naW = ctx.measureText("на").width;
-  const yasnoW = ctx.measureText("ясно").width;
-  const totalW = ctx.measureText(word).width;
-  const startX = align === "center" ? x - totalW / 2 : x;
-  // amber swipe under the "ясно" portion
-  ctx.fillStyle = CORAL;
-  roundRect(
-    ctx,
-    startX + naW - size * 0.03,
-    baseline + size * 0.08,
-    yasnoW + size * 0.06,
-    size * 0.17,
-    size * 0.06,
-  );
-  ctx.fill();
-  ctx.fillStyle = WHITE;
-  ctx.fillText(word, startX, baseline);
-  return { startX, totalW };
-};
-
-const proceduralBg = (ctx: Ctx, w: number, h: number) => {
-  const g = ctx.createLinearGradient(0, 0, w, h);
-  g.addColorStop(0, INK2);
-  g.addColorStop(1, INK);
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, w, h);
-  // sparse data dots
-  for (let i = 0; i < 220; i++) {
-    const px = (i * 73.13) % w;
-    const py = (i * 129.7) % h;
-    ctx.globalAlpha = 0.05 + ((i * 7) % 10) / 60;
-    ctx.fillStyle = i % 9 === 0 ? CORAL : "#8fa0bf";
-    ctx.beginPath();
-    ctx.arc(px, py, i % 9 === 0 ? 3 : 1.6, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalAlpha = 1;
-  // amber glow bottom-right
-  const rg = ctx.createRadialGradient(
-    w * 0.86,
-    h * 0.9,
-    0,
-    w * 0.86,
-    h * 0.9,
-    w * 0.5,
-  );
-  rg.addColorStop(0, "rgba(223,107,67,0.32)");
-  rg.addColorStop(1, "rgba(223,107,67,0)");
-  ctx.fillStyle = rg;
-  ctx.fillRect(0, 0, w, h);
-};
 
 type GenConfig = Record<string, unknown>;
 type ImgPart = {
@@ -307,6 +230,7 @@ const buildShareCard = () => {
 
 const main = async () => {
   loadGeminiEnv();
+  registerFonts();
   mkdirSync(OUT_DIR, { recursive: true });
   console.log(`Model: ${MODEL}\nOut:   ${OUT_DIR}\n`);
 
