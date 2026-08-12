@@ -15,6 +15,8 @@
 import { FC } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
+import { rollcallCoverage } from "@/data/parliament/rollcallCoverage";
+import { PersonNoRollcallNote } from "./PersonNoRollcallNote";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
 import { MpScorecardTile } from "@/screens/components/candidates/MpScorecardTile";
 import { MpVotingSection } from "@/screens/components/candidates/MpVotingSection";
@@ -47,8 +49,17 @@ export const PersonMpSections: FC<{
   // ~300 KB roll-call fetch) only when the roster entry POSITIVELY lists the NSes served and
   // this isn't one. The by-id shard leaves nsFolders empty for many (esp. former) MPs, so an
   // empty/absent list means "unknown" → render and let MpVotingSection self-hide if empty.
+  //
+  // The proven-absent case additionally rules it out, so the page makes exactly ONE statement
+  // about the roll-call. Without that, `?elections=2014_10_05` (ns "43") on an MP with
+  // nsFolders ["43"] satisfied both: the voting section mounted and paid its fetch WHILE the
+  // note said no record exists, and the scorecard's loyalty/attendance tiles pointed at a
+  // `#parliament` anchor that vanishes when the section self-hides. `?elections=` is in the
+  // usePreserveParams allowlist, so arriving from a 2014 page is an ordinary path.
+  const coverage = rollcallCoverage(entry?.nsFolders, entry?.hasRollcall);
   const ns = electionToNsFolder(selected);
   const maybeServedInSelectedNs =
+    coverage !== false &&
     ns != null &&
     (entry?.nsFolders?.length ? entry.nsFolders.includes(ns) : true);
 
@@ -69,6 +80,13 @@ export const PersonMpSections: FC<{
       {maybeServedInSelectedNs && (
         <MpVotingSection name={name} linkSlug={linkSlug} mpId={mpId} />
       )}
+      {/* …and when there is no voting record to show because the corpus does not reach this
+          MP, SAY so rather than leaving a blank. Self-hides on anything short of a proven
+          negative — see the component. */}
+      <PersonNoRollcallNote
+        nsFolders={entry?.nsFolders}
+        hasRollcall={entry?.hasRollcall}
+      />
       {/* Declared ASSETS/wealth (property, bank, vehicles). The declared company STAKES that
           used to live here moved into the unified <PersonCompanies> "Фирми" section, folded
           onto the registry company they belong to.

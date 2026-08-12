@@ -33,6 +33,11 @@ export type MpIndexEntry = {
   position: string | null;
   birthDate: string | null;
   nsFolders: string[];
+  /** Is this MP anywhere in the roll-call corpus? Served by `mp_entry()` (105) ONLY — the
+   *  roster shard and the matviews do not carry it, so it is `undefined` off that route
+   *  and `rollcallCoverage` treats that as "unknown". It cannot be derived from
+   *  `nsFolders`: see `rollcallCoverage.ts` for the 70-MP measurement. */
+  hasRollcall?: boolean;
   isCurrent: boolean;
 };
 

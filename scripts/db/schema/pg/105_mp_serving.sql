@@ -337,7 +337,29 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- Not in the JSON shard: the person this MP resolved to, so a caller holding only
     -- an mp id can link to /person without a second round trip.
     'personSlug',         (SELECT l.person_slug FROM mp_person_link l
-                            WHERE l.mp_id = t.mp_id)
+                            WHERE l.mp_id = t.mp_id),
+    -- Is this MP anywhere in the roll-call corpus? The ONLY authoritative answer, and the
+    -- reason it cannot be derived on the client: `nsFolders` is the ROSTER's view, and
+    -- `mp_profile` and `mp_seat` are partly disjoint id spaces — 527 `mp_seat.mp_id`s have
+    -- no profile row, and the same human is routinely one id in each. Measured: 293
+    -- profiles have max(nsFolders) < 44, and 70 of them (24%) ARE in `mp_seat`, mostly at
+    -- NS 44 — the parliament that straddles the corpus boundary. Жельо Иванов Бойчев is
+    -- profile 2671 with ns_folders {42,43} and seat 779 at NS 44.
+    --
+    -- So a page that reasons from `nsFolders` alone tells those 70 we hold no roll-call
+    -- for their terms while we are holding their votes — publishing OUR id-linking gap as
+    -- the National Assembly's failure to publish.
+    --
+    -- The name arm is deliberate and is NOT an identity claim: it only ever SUPPRESSES a
+    -- statement. A false positive (a namesake in the corpus) costs silence, which is the
+    -- status quo; a false negative costs a published falsehood. That asymmetry is why a
+    -- name match is admissible here and nowhere near an attribution.
+    'hasRollcall', EXISTS (
+      SELECT 1 FROM mp_seat s
+       WHERE s.mp_id = t.mp_id
+          OR upper(regexp_replace(btrim(s.name), '\s+', ' ', 'g'))
+           = upper(regexp_replace(btrim(t.name), '\s+', ' ', 'g'))
+    )
   )
   FROM target t;
 $$;

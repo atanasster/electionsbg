@@ -35,6 +35,87 @@ describe("locale bundles", () => {
     );
   });
 
+  test("bg and en interpolate the same variables, none of them reserved", () => {
+    // Two failure modes, both silent and both demonstrated by this repo:
+    //
+    //   1. A variable named after an i18next OPTION is never interpolated — it is consumed
+    //      as configuration. `t("…", { ns: 44 })` threw "namespaces.forEach is not a
+    //      function" and rendered nothing, because `ns` selects a namespace.
+    //   2. BG and EN drifting apart on placeholders: one bundle renders the number, the
+    //      other prints a sentence with a hole in it. Key-set parity above cannot see
+    //      inside the values.
+    const RESERVED = new Set([
+      "ns",
+      "lng",
+      "lngs",
+      "count",
+      "context",
+      "defaultValue",
+      "replace",
+      "keySeparator",
+      "nsSeparator",
+      "interpolation",
+      "parseMissingKeyHandler",
+    ]);
+    const vars = (s: string) =>
+      [...s.matchAll(/\{\{\s*([\w.]+)/g)].map((m) => m[1]).sort();
+
+    // Keys whose bundles legitimately interpolate DIFFERENT variables, because the two
+    // languages need different material from the same call. Each was checked at its call
+    // site; all three supply every variable both bundles use.
+    //
+    //   company_conn_check_degree — the call passes `degree` AND `ord`; Bulgarian needs the
+    //     ordinalised form („на 3-та степен"), English takes the bare number.
+    //   budget_executed_sofar     — the call passes `year`; BG says „за 2026 г.", EN just
+    //     "so far", which reads better without it.
+    //   nsh_feed_sub_dissent_one  — English bakes the count into the singular ("…once"),
+    //     Bulgarian states it („1 път").
+    //
+    // Deliberately a short list with reasons rather than a relaxed rule: a variable in one
+    // bundle and not the other is normally a sentence rendering with a hole in it.
+    const DRIFT_OK = new Set([
+      "company_conn_check_degree",
+      "budget_executed_sofar",
+      "nsh_feed_sub_dissent_one",
+    ]);
+
+    const bgB = bg as Record<string, unknown>;
+    const enB = en as Record<string, unknown>;
+    const drift: string[] = [];
+    const staleAllowance: string[] = [];
+    const reserved: string[] = [];
+    let checked = 0;
+    for (const [k, bv] of Object.entries(bgB)) {
+      const ev = enB[k];
+      if (typeof bv !== "string" || typeof ev !== "string") continue;
+      const bvVars = vars(bv);
+      if (bvVars.length === 0 && vars(ev).length === 0) continue;
+      checked += 1;
+      const differs = bvVars.join("|") !== vars(ev).join("|");
+      if (differs && !DRIFT_OK.has(k)) drift.push(k);
+      // An allowance that no longer describes a real difference is worse than no allowance:
+      // it silently covers whatever that key becomes next.
+      if (!differs && DRIFT_OK.has(k)) staleAllowance.push(k);
+      for (const v of bvVars) if (RESERVED.has(v)) reserved.push(`${k}: ${v}`);
+    }
+    // `count` is i18next's plural selector and IS legitimately interpolated, so it must be
+    // exempt or every plural key trips this.
+    assert.deepEqual(
+      reserved.filter((r) => !r.endsWith(": count")),
+      [],
+      "keys using a reserved i18next option as an interpolation variable",
+    );
+    assert.deepEqual(drift, [], "bg/en interpolation drift");
+    assert.deepEqual(
+      staleAllowance,
+      [],
+      "DRIFT_OK entries whose bundles no longer differ — remove them",
+    );
+    // Non-vacuity: a regex that matched nothing would pass every assertion above.
+    assert.ok(checked > 50, `expected many interpolated keys, saw ${checked}`);
+    assert.ok(vars("a {{x}} b {{ y }}").join() === "x,y", "the scanner works");
+  });
+
   test("no key holds an empty string in either bundle", () => {
     // An empty value is worse than a missing one: `t()` returns "" rather than falling back
     // to the key or the inline default, so the label silently disappears from the page.

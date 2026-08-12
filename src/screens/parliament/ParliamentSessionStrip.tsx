@@ -31,6 +31,8 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
+import { ROLLCALL_FIRST_NS } from "@/data/parliament/rollcallCoverage";
+import { nsOrdinal } from "@/data/parliament/nsOrdinal";
 import type { StripDay as FeedStripDay } from "@/data/parliament/useParliamentHubFeed";
 import { buildStripWindow, type StripSource } from "./stripWindow";
 import { barGeometry, SEGMENT_CLASS } from "./stripBars";
@@ -93,8 +95,12 @@ export const ParliamentSessionStrip: FC<{
   if (days.length === 0) {
     return (
       <p className="rounded-xl border border-border bg-card px-4 py-6 text-sm text-muted-foreground">
-        {t("nsh_strip_no_data") ||
-          "No roll-call votes for the selected parliament — the data starts with the 44th National Assembly."}
+        {/* The boundary is interpolated from ROLLCALL_FIRST_NS, not spelled out: this
+            string and the person page's out-of-corpus note both state it, and a backfill
+            that moved one and not the other would have the site disagree with itself. */}
+        {t("nsh_strip_no_data", {
+          firstNs: nsOrdinal(String(ROLLCALL_FIRST_NS), i18n.language ?? "bg"),
+        })}
       </p>
     );
   }
