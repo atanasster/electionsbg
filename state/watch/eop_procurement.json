@@ -1,11 +1,15 @@
 {
-  "detail": "latest published day 2026-08-10; 11/12 recent days published, hash 6ad72836e8890281",
-  "fingerprint": "6ad72836e8890281",
-  "lastChanged": "2026-08-11T06:09:08.095Z",
-  "lastChecked": "2026-08-11T06:09:08.095Z",
+  "detail": "latest published day 2026-08-11; 11/12 recent days published, hash 6b03e48239586b10",
+  "fingerprint": "6b03e48239586b10",
+  "lastChanged": "2026-08-12T06:09:05.168Z",
+  "lastChecked": "2026-08-12T06:09:05.168Z",
   "meta": {
-    "latestDay": "2026-08-10",
+    "latestDay": "2026-08-11",
     "days": [
+      {
+        "day": "2026-08-11",
+        "len": 485239
+      },
       {
         "day": "2026-08-10",
         "len": 301158
@@ -45,10 +49,6 @@
       {
         "day": "2026-08-01",
         "len": 2
-      },
-      {
-        "day": "2026-07-31",
-        "len": 407506
       }
     ]
   }
