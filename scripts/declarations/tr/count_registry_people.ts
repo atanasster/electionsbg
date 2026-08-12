@@ -109,9 +109,25 @@ export const writeRefusal = (
   next: number,
   prev: number,
   allowShrink = false,
+  nextShared = -1,
+  prevShared = -1,
 ): string | null => {
   if (!next)
     return "REFUSING to write an empty artifact — nothing matched the feed.";
+  // The SHARED count is the number that actually arms the guard, and it can collapse while
+  // the fold count holds: an under-count moves folds from `>1` to `1`, it does not delete
+  // them. Watching rows alone would pass a run that took the shared set from 23,174 to zero.
+  if (
+    !allowShrink &&
+    prevShared > 0 &&
+    nextShared >= 0 &&
+    nextShared < prevShared * SHRINK_FLOOR
+  )
+    return (
+      `REFUSING to write: folds shared by 2+ people fall from ` +
+      `${prevShared.toLocaleString()} to ${nextShared.toLocaleString()} — an UNDER-COUNT, ` +
+      `which fails OPEN. Every fold that stops reading ">1" starts reading "one person".`
+    );
   if (!allowShrink && prev && next < prev * SHRINK_FLOOR)
     return (
       `REFUSING to write: ${next.toLocaleString()} folds against ` +
@@ -210,10 +226,19 @@ const main = async (): Promise<void> => {
   // The FULL table, not just the shared folds. A shared-only artifact cannot distinguish
   // "one person" from "never observed", so every guard built on it fails OPEN in silence —
   // see 148's three-state note. Sorted so the committed file has a stable diff.
-  const prev = fs.existsSync(OUT)
-    ? fs.readFileSync(OUT, "utf8").trimEnd().split("\n").length
-    : 0;
-  const refusal = writeRefusal(byFold.size, prev, allowShrink);
+  const prevLines = fs.existsSync(OUT)
+    ? fs.readFileSync(OUT, "utf8").trimEnd().split("\n")
+    : [];
+  const prevShared = prevLines.filter(
+    (l) => Number(l.split("\t")[1]) > 1,
+  ).length;
+  const refusal = writeRefusal(
+    byFold.size,
+    prevLines.length,
+    allowShrink,
+    shared,
+    prevShared,
+  );
   if (refusal) {
     console.error(refusal);
     process.exitCode = 1;

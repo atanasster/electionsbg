@@ -82,6 +82,21 @@ describe("writeRefusal — a truncated run must not overwrite a good artifact", 
     const { writeRefusal } = await import("./count_registry_people");
     expect(writeRefusal(100, 456_398, true)).toBeNull();
   });
+
+  it("catches an UNDER-count, which leaves the row count untouched", async () => {
+    // The failure the row guard cannot see, and the one that matters: a damaged pass keeps
+    // every fold and moves them from "2+ people" to "1 person". Rows hold at 456,398 while the
+    // shared set collapses — and every fold that stops reading ">1" starts reading "one
+    // person", which is precisely what licenses Bridge B to publish a namesake's companies.
+    const { writeRefusal } = await import("./count_registry_people");
+    expect(writeRefusal(456_398, 456_398, false, 200, 23_174)).toMatch(
+      /UNDER-COUNT/,
+    );
+    // Ordinary churn in the shared set is fine.
+    expect(writeRefusal(456_398, 456_398, false, 23_000, 23_174)).toBeNull();
+    // Unknown (-1) must not fire it — a first run has nothing to compare.
+    expect(writeRefusal(456_398, 456_398, false, -1, -1)).toBeNull();
+  });
 });
 
 describe("count_registry_people — the source cannot persist an EGN hash", () => {

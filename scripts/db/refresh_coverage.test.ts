@@ -84,6 +84,16 @@ test("db:refresh exists and still chains npm run steps", () => {
 // step (re)builds; membership alone cannot express that.
 const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
   {
+    after: "db:resolve:persons",
+    before: "db:load:tr-name-fold-people:pg",
+    why:
+      "tr-attribution-basis-v1 §2.4: both fold-keyed mints in the resolver read " +
+      "tr_name_fold_people to decide whether a name belongs to ONE registry person. " +
+      "Bridge B now requires positive evidence (people_n = 1), so running the resolver " +
+      "first — against an empty or absent table — reads every fold as unmeasured and mints " +
+      "NO tr roles at all, silently emptying the company list on ~13k public figures",
+  },
+  {
     after: "db:load:pg",
     before: "db:pg:bootstrap",
     why:
