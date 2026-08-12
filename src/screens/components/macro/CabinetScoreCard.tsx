@@ -19,6 +19,7 @@ import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import type { MacroPayload } from "@/data/macro/useMacro";
 import {
   cabinetMetricsFor,
+  emptyCabinetMetrics,
   type CabinetMetrics,
 } from "@/data/macro/kpiSelectors";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
@@ -93,7 +94,22 @@ const toneFromSignedDelta = (
 
 export const CabinetScoreDetail: FC<{
   government: Government;
-  macro: MacroPayload;
+  /**
+   * Optional: without it the card renders its FULL layout — ribbon, name, type,
+   * tenure, parties, all six labelled cells — with an em-dash for every value,
+   * because everything except the values comes from `government`.
+   *
+   * That is what lets a caller render the card as soon as governments.json
+   * lands instead of waiting for macro.json. On /governments the wait cost
+   * 0.2016 CLS (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU): the card was gated on
+   * `macro`, so it inserted ~208px above a body that had already painted.
+   *
+   * Unlike the chart placeholders in this codebase there is no pending/settled
+   * distinction to make. The em-dash IS the honest terminal state for a metric
+   * that never arrives, so a permanently failed macro.json leaves a card that
+   * still says who governed and when — not an empty reserved box.
+   */
+  macro?: MacroPayload;
   className?: string;
 }> = ({ government: g, macro, className }) => {
   const { t, i18n } = useTranslation();
@@ -101,7 +117,7 @@ export const CabinetScoreDetail: FC<{
   const { colorFor } = useCanonicalParties();
   const { data: allGovernments } = useGovernments();
   const metrics: CabinetMetrics = useMemo(
-    () => cabinetMetricsFor(g, macro),
+    () => (macro ? cabinetMetricsFor(g, macro) : emptyCabinetMetrics(g.id)),
     [g, macro],
   );
 

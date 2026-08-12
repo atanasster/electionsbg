@@ -119,7 +119,15 @@ export const GovernmentsScreen = () => {
         />
       ) : null}
 
-      {macro && selectedCabinets.length > 0 ? (
+      {/* Deliberately NOT gated on `macro`. The default selection is the
+          incumbent cabinet, so this card is on screen for every visitor, and
+          gating it on the second payload meant it appeared ~208px tall above a
+          body that had already painted — 0.2016 CLS, measured on the built dist
+          (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU), in every run where macro.json
+          landed after governments.json. The card carries its own not-yet state:
+          everything but the six values comes from `government`, so it renders
+          at its final size and the numbers fill in where the em-dashes are. */}
+      {selectedCabinets.length > 0 ? (
         <section className="mb-8 mt-3 flex flex-col gap-2">
           {selectedCabinets.map((g) => (
             <CabinetScoreDetail key={g.id} government={g} macro={macro} />

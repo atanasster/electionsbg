@@ -109,6 +109,26 @@ export type CabinetMetrics = {
   netEuFundsEurBn: number | null;
 };
 
+/**
+ * Every metric unknown — for a consumer that has the cabinet but not macro.json
+ * yet. Each field is already `number | null` and every renderer formats null as
+ * an em-dash, so a card built from this has the exact layout of the one that
+ * replaces it: same cells, same labels, same height. That is what lets a page
+ * render the card immediately instead of inserting it when the payload lands.
+ *
+ * Lives beside the type so TypeScript fails the day a metric is added and this
+ * is not extended.
+ */
+export const emptyCabinetMetrics = (govId: string): CabinetMetrics => ({
+  govId,
+  avgGdpGrowth: null,
+  avgInflation: null,
+  avgUnemployment: null,
+  debtChangePpGdp: null,
+  avgBudgetBalancePpGdp: null,
+  netEuFundsEurBn: null,
+});
+
 // Fractional position of a point on the year axis. Mid-quarter for quarterly,
 // mid-year for annual. Mirrors pointToFractionalX from useMacro.ts but inlined
 // to avoid a dependency cycle.
