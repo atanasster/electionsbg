@@ -30,6 +30,16 @@ export type MpIndexEntry = {
   currentRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   currentPartyGroupShort: string | null;
+  /** The coalition this MP was ELECTED with, off their own parliament.bg profile. The two
+   *  above come from the CURRENT-NS roster, so they are null for every former MP — this is
+   *  the only party 1,443 of the 2,122 roster entries carry.
+   *
+   *  ONE value per person, so a CAREER badge and not per-parliament: against the
+   *  roll-call-derived group for the 72 MPs who changed group it matches the last NS 12
+   *  times, the first 4, both 17, and neither endpoint 27. Render it as "elected with";
+   *  never as the group they sat with in a given NS, and never write it into
+   *  `person_role.party`. Optional because only `mp_entry()` (105) serves it. */
+  electedWith?: string | null;
   position: string | null;
   birthDate: string | null;
   nsFolders: string[];

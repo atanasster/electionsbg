@@ -48,6 +48,7 @@ import { transliterateName } from "../../src/data/candidates/transliterateName";
 import { buildAvatars } from "./build_avatars";
 import { writeMpByIdShards } from "./lib/writeMpById";
 import { parseRegion, seatedRegionOf } from "./lib/region";
+import { electedWithOf } from "./lib/electedWith";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
@@ -393,23 +394,31 @@ const buildEnglishName = (raw: RawProfile, bgName: string): string => {
   return transliterateName(bgName);
 };
 
-/** The coalition off the profile record, cleaned for display.
+/** The fields of `Mp` that `buildIndexEntry` actually reads off the roster.
  *
- *  parliament.bg wraps most of these in literal double quotes — the raw value is
- *  `"\"Коалиция за България\""` — and some carry an unbalanced opening quote alone
- *  (`ПП "ГЕРБ`), because the field is a free-text label rather than a reference. Strip the
- *  quoting and collapse whitespace; do NOT try to normalise the name itself, since the
- *  canonical mapping lives in data/canonical_parties.json and is the consumer's job. */
-const electedWithOf = (raw: RawProfile): string | null => {
-  const v = (raw.A_ns_CoalL_value ?? "")
-    .replace(/[„“”"]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  return v || null;
+ *  Named rather than left implicit so `runReindex`, which reconstructs this half from a
+ *  previous index rather than from a roster fetch, is checked by the compiler instead of
+ *  double-cast past it. The next field `buildIndexEntry` starts reading would otherwise be
+ *  `undefined` at runtime with no error — structurally the same failure as the nsFolders
+ *  loss, one field over. */
+export type RosterHalf = {
+  id: number;
+  /** Nullable here where `Mp` has it required: `runReindex` carries it from a previous
+   *  index, and a sitting MP whose region never parsed is stored as null. */
+  region: Mp["region"] | null;
+  partyGroup: string | null;
+  partyGroupShort: string | null;
+  position: string | null;
+  /** Only ever a FALLBACK — `raw` supplies the name on every real call — so optional, and
+   *  `runReindex` (which always has a profile blob) legitimately omits them. Naming them
+   *  is the point: the double-cast this replaced hid that they were read at all. */
+  givenName?: string;
+  middleName?: string;
+  familyName?: string;
 };
 
 const buildIndexEntry = (
-  mp: Mp | null,
+  mp: RosterHalf | null,
   raw: RawProfile,
   isCurrent: boolean,
   scrapedAt: string,
@@ -1023,6 +1032,7 @@ const runReindex = (opts: { out: string }): void => {
   const profilesDir = path.join(opts.out, "profiles");
 
   let rebuilt = 0;
+  const shrunk: number[] = [];
   const mps = prev.mps.map((old) => {
     const f = path.join(profilesDir, `${old.id}.json`);
     if (!fs.existsSync(f)) return old;
@@ -1034,14 +1044,14 @@ const runReindex = (opts: { out: string }): void => {
     }
     // The roster half of the entry, reconstructed from what the previous index holds so
     // buildIndexEntry sees exactly the inputs the online path would have handed it.
-    const mp: Mp | null = old.isCurrent
-      ? ({
+    const mp: RosterHalf | null = old.isCurrent
+      ? {
           id: old.id,
           region: old.currentRegion,
           partyGroup: old.currentPartyGroup,
           partyGroupShort: old.currentPartyGroupShort,
           position: old.position,
-        } as unknown as Mp)
+        }
       : null;
     rebuilt += 1;
     const next = buildIndexEntry(mp, raw, old.isCurrent, old.scrapedAt);
@@ -1052,13 +1062,36 @@ const runReindex = (opts: { out: string }): void => {
     next.nsFolders = [
       ...new Set([...(old.nsFolders ?? []), ...next.nsFolders]),
     ].sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    if (next.nsFolders.length < (old.nsFolders ?? []).length)
+      shrunk.push(old.id);
     return next;
   });
+
+  // runHistory refuses to overwrite the index with a near-empty roster (MIN_DEDUPED); this
+  // path needs the equivalent, and the field to guard is the one it cannot fully re-derive.
+  // The union above should make this unreachable — it is here because the loss it describes
+  // happened once, reached the committed artifact, and nothing reported it: the loader has
+  // no shrink guard, and `reindexed N/N` counts entries that HAD a profile, not entries
+  // that came out right.
+  if (shrunk.length)
+    throw new Error(
+      `--reindex would shrink nsFolders on ${shrunk.length} MP(s) (${shrunk.slice(0, 5).join(", ")}…). ` +
+        `Refusing to write: that array is what 105's per-NS fan-out and mpSeats' seat gate read.`,
+    );
 
   fs.writeFileSync(indexFile, JSON.stringify({ ...prev, mps }));
   console.log(
     `✓ reindexed ${rebuilt}/${prev.mps.length} entries from cached profiles → ${indexFile}`,
   );
+
+  // The two artifacts runHistory writes in the same breath as index.json. The shard
+  // writer's own header calls a shard "that single roster entry, exactly as it appears in
+  // index.json's mps[]", so writing one without the others leaves them contradicting each
+  // other — and the shard tree IS published (it is not in bucket:sync's exclusion list).
+  // Nothing catches it: the parity gate that compares shard to mp_entry() iterates the
+  // SHARD's keys, so a field present in the function and absent from the shard is invisible.
+  writeMpByIdShards(mps, opts.out);
+  buildAvatars(opts.out);
 };
 
 const __filename = fileURLToPath(import.meta.url);
@@ -1125,6 +1158,13 @@ const cli = command({
     // is now: download.)
     const wantsPhotos = args.photos !== false;
     if (args.reindex) {
+      // Exclusive rather than silently winning: an operator combining "rebuild from cache"
+      // with "full scrape" means one of them, and guessing which is how a --all that never
+      // ran gets reported as a scrape.
+      if (args.all)
+        throw new Error(
+          "--reindex and --all are exclusive: --reindex rebuilds index.json from the cached profiles (no network), --all re-fetches everything.",
+        );
       runReindex({
         out: args.out.endsWith("/2024_10_27/parliament")
           ? path.resolve(__dirname, "../../data/parliament")

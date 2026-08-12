@@ -14,13 +14,28 @@ Pulls MP data (photos, bios, region, party, term history) from `parliament.bg`'s
 
 ## When to use which command
 
-The scraper at `scripts/parliament/scrape_mps.ts` has three operational modes. Pick based on intent:
+The scraper at `scripts/parliament/scrape_mps.ts` has four operational modes. Pick based on intent:
 
 | Intent | Command | Time | Network calls |
 |---|---|---|---|
 | **First-time scrape** (e.g. after fresh clone, no `index.json`) | `npx tsx scripts/parliament/scrape_mps.ts --all` | ~10 min | ~5200 |
 | **New parliament was seated** (e.g. 52nd NS sworn in after April 2026 election) | `npx tsx scripts/parliament/scrape_mps.ts --all --refresh-current` | ~2 min | ~240 + new IDs |
 | **Just want current 240 MPs as a per-election bundle** | `npx tsx scripts/parliament/scrape_mps.ts --profiles --photos` | ~3 min | ~240 + 240 photos |
+| **Re-emit `index.json` after adding an emitted FIELD** (no new data — the profiles are already on disk) | `npx tsx scripts/parliament/scrape_mps.ts --reindex` | ~2 s | **none** |
+
+`--reindex` needs an existing `index.json` and is exclusive with `--all`. It rebuilds every
+entry from the cached `profiles/{id}.json`, then rewrites `by-id/` and `avatars.json` in the
+same breath — the three are one artifact set and a run that writes only the first leaves them
+contradicting each other.
+
+**It cannot re-derive everything.** The roster half of an entry — `currentRegion`,
+`currentPartyGroup(Short)`, `position`, `isCurrent`, `scrapedAt` — has no counterpart in a
+profile blob and is carried over verbatim from the previous index. `nsFolders` is the subtle
+one: `oldnsList` holds only PAST parliaments, so the CURRENT folder and the name-dedupe's
+folder union both come from the online path. It is UNIONED with the previous value rather
+than replaced, and the run refuses to write if any MP's folder set would shrink. The first
+cut did neither and silently dropped "52" from all 240 sitting MPs (156 entries emptied),
+which reaches 105's per-NS fan-out and `mpSeats.ts`'s seat gate.
 
 **Default to `--all --refresh-current` when in doubt** — it is idempotent, keeps cached files, and produces correct output whether or not a new NS has been seated.
 
@@ -197,5 +212,18 @@ If you change the scraper's output schema, update these in lockstep:
 - `RawProfile` and `MpProfile` types in `src/data/parliament/useMpProfile.tsx`
 - `PROFILE_KEEP` set in `scripts/parliament/scrape_mps.ts` if adding a new field from the API
 - `AvatarsFile` in `scripts/parliament/build_avatars.ts` + `useMpAvatars.tsx` if the photo path or party-group fields the avatar projection depends on change
+
+A field that must also reach Postgres (as `seatedRegion` and `electedWith` do) needs four
+more, and stopping at `index.json` is the easy mistake — the roster loads green and the field
+is simply absent from every serving surface:
+- the column in `scripts/db/schema/pg/104_mp_roster.sql` — **and** a matching
+  `ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS …` in the reconcile block at the foot of
+  that file, since `CREATE TABLE IF NOT EXISTS` is a no-op on a warm database
+- BOTH lists in `scripts/db/load_mp_roster_pg.ts` (the column names and the value generator —
+  they are positional)
+- the `jsonb_build_object` key in `mp_entry()`, `scripts/db/schema/pg/105_mp_serving.sql`
+- a gate: `mp_serving.data.test.ts` compares `mp_entry()` to the by-id shard in both
+  directions, so a field served but not sharded now fails there; a field the route does not
+  serve needs its own assertion in `mp_roster.data.test.ts` (see `elected_with`).
 
 The match key is `normalizedName = name.toUpperCase().replace(/\s+/g, " ").trim()`. CIK candidate names are title-cased, parliament.bg names are uppercase, so normalization is required — do not rely on case-sensitive equality.

@@ -66,6 +66,17 @@ CREATE TABLE IF NOT EXISTS mp_profile (
   seated_region_name        text,
   current_party_group       text,
   current_party_group_short text,
+  -- The coalition the MP was ELECTED with, off their own profile record. The two columns
+  -- above come from the CURRENT-NS roster, so they are NULL for all ~1,880 former MPs;
+  -- this is populated for 1,683 of the 2,122 rows, of which 1,443 have no party anywhere
+  -- else. Same shape as seated_region_*: present for the people the roster forgets.
+  --
+  -- ONE value per person, so it is a career badge and NOT per-parliament. Measured
+  -- against the roll-call-derived group for the 72 MPs who changed group, it matches the
+  -- last NS 12 times, the first 4, both 17, and neither endpoint 27. Render it as
+  -- "elected with"; never as the group they sat with in a given NS, and never write it
+  -- into person_role.party (whose contract is the group ENTERED per parliament).
+  elected_with              text,
   position_title            text,
   birth_date                date,
   -- Which parliaments this MP sat in ("39" … "52"). The scope dimension every
@@ -111,6 +122,9 @@ CREATE TABLE IF NOT EXISTS mp_car (
 
 CREATE INDEX IF NOT EXISTS idx_mp_car_mp ON mp_car (mp_id);
 
--- Self-healing for a database created before the seated МИР existed.
+-- Self-healing for a database created before these columns existed. `CREATE TABLE IF NOT
+-- EXISTS` above is a no-op on a warm database, so every new column needs a line here or it
+-- reaches a fresh clone and nothing else — the drift 003 documents.
 ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_code text;
 ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_name text;
+ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS elected_with text;

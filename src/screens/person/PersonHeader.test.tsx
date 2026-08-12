@@ -41,6 +41,17 @@ vi.mock("@/data/dashboard/usePersonElections", () => ({
 vi.mock("@/data/parties/usePartyInfo", () => ({
   usePartyInfo: () => ({ findParty: () => undefined }),
 }));
+// The party badge's third tier (`electedWith`) resolves its label and colour through the
+// canonical-parties fold, which is a real React Query hook. Stubbed rather than wrapped in a
+// QueryClientProvider: this file is about the H1/avatar locale split, and a live query would
+// make every case here depend on a fetch it does not care about.
+vi.mock("@/data/parties/useCanonicalParties", () => ({
+  useCanonicalParties: () => ({
+    findCanonicalNickName: () => undefined,
+    colorFor: () => undefined,
+    partyGroupShortLabel: (s?: string | null) => s ?? null,
+  }),
+}));
 
 const profile = {
   slug: "ivan-georgiev-takuchev-c39f00",

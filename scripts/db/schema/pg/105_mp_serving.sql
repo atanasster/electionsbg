@@ -325,6 +325,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                           END,
     'currentPartyGroup',      t.current_party_group,
     'currentPartyGroupShort', t.current_party_group_short,
+    -- The coalition the MP was ELECTED with. The two above are a CURRENT-NS roster
+    -- lookup, so they are NULL for every former MP; this is the only party any of them
+    -- carries. A career badge, not a per-parliament fact — see 104's column comment.
+    'electedWith',            t.elected_with,
     'position',           t.position_title,
     'birthDate',          t.birth_date,
     'nsFolders',          to_jsonb(t.ns_folders),

@@ -454,6 +454,13 @@ test.skipIf(skip)("mp_entry reproduces the by-id shard", async () => {
   // as an INSTANT below, not as text: Postgres renders "+00:00" where the shard wrote
   // "Z" — same moment, different spelling, and 105 documents the choice.
   const IGNORED = new Set(["personSlug", "scrapedAt"]);
+
+  // Keys mp_entry() serves that the shard is NOT expected to carry, named explicitly. The
+  // reverse direction below is the point: this test claimed "in both directions" while
+  // looping over the shard's keys only, so a field added to the FUNCTION and never written
+  // to the shards passed silently — which is exactly the shape of `electedWith` (all 2,122
+  // shards lacked it until runReindex began writing them) and of `hasRollcall`.
+  const FN_ONLY = new Set(["personSlug", "hasRollcall"]);
   const diffs: string[] = [];
   let compared = 0;
 
@@ -492,6 +499,12 @@ test.skipIf(skip)("mp_entry reproduces the by-id shard", async () => {
           `mp ${mp_id}.${k}: shard ${JSON.stringify(shard[k])} vs fn ${JSON.stringify(entry[k])}`,
         );
       }
+    }
+    // The direction the comment above always claimed and the loop never checked.
+    for (const k of Object.keys(entry)) {
+      if (FN_ONLY.has(k)) continue;
+      if (!(k in shard))
+        diffs.push(`mp ${mp_id}: fn key '${k}' missing from the shard`);
     }
     const shardAt = shard.scrapedAt as string | null;
     const fnAt = entry.scrapedAt as string | null;

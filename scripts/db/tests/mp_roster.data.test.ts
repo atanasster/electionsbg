@@ -143,3 +143,44 @@ test.skipIf(skip)(
     }
   },
 );
+
+// `elected_with` has no other backstop, unlike its sibling `seated_region_*` — that one is
+// held to the by-id shard by mp_serving.data.test.ts, while this column is deliberately NOT
+// in the /api/db/mp-roster contract above (the route does not serve it). So a scraper
+// regression emitting null for all 2,122 would load green and blank 1,443 party badges with
+// nothing red anywhere.
+test.skipIf(skip)(
+  "elected_with keeps its coverage and its contract",
+  async () => {
+    const [cov] = await allRows<{ total: number; filled: number }>(
+      "SELECT count(*)::int AS total, count(elected_with)::int AS filled FROM mp_profile",
+    );
+    assert.ok(cov, "mp_profile is empty — run db:load:mp-roster:pg");
+    // 1,683 of 2,122 measured 2026-08-12. A FLOOR, not an equality: the roster grows, and
+    // parliament.bg can start publishing the field for MPs that lack it today.
+    assert.ok(
+      cov.filled > 1_600,
+      `only ${cov.filled}/${cov.total} MPs carry elected_with`,
+    );
+
+    // The quoting parliament.bg wraps most of these in must not survive into the column —
+    // it is rendered verbatim on the person page when the canonical fold does not know it.
+    const [quoted] = await allRows<{ n: number }>(
+      `SELECT count(*)::int AS n FROM mp_profile WHERE elected_with ~ '["„“”«»]'`,
+    );
+    assert.equal(quoted.n, 0, "elected_with retains parliament.bg's quoting");
+
+    // THE invariant the whole of §0b is built around, enforced mechanically for the first
+    // time. `elected_with` is ONE value per career; `person_role.party` is the group ENTERED
+    // per parliament, derived from the roll-call seat. Measured against the 72 MPs who
+    // changed group, the two agree on neither endpoint 27 times — so writing one from the
+    // other would publish a per-term claim the data cannot support.
+    const [leak] = await allRows<{ n: number }>(
+      `SELECT count(*)::int AS n
+       FROM person_role r
+       JOIN mp_profile m ON m.mp_id::text = split_part(r.ref, ':', 1)
+      WHERE r.source = 'mp' AND r.party IS NOT NULL AND r.party = m.elected_with`,
+    );
+    assert.equal(leak.n, 0, "person_role.party was written from elected_with");
+  },
+);
