@@ -54,7 +54,25 @@ Two additions, one of them a reversal.
 |---|---|---|
 | 12 | **The choropleth ships.** v1.1's T10.4 ruled it out; that reasoned from one candidate metric (per-resident) and over-generalised to the map. The objection to per-resident holds and is sharpened — population is the wrong denominator for a *fiscal capacity* question — but чл. 130а т. 3 normalises by the município's own expenditure base and carries a legal threshold to anchor the palette, so it is the default layer and the confound is controlled rather than warned about. | **T13**, T10.4 |
 | 13 | **Indicators integration.** A national `municipalCommitments` series patched into `macro.json` on the exact `fetch_arrears.ts` path, one `indicatorsRegistry` entry, and a tile on `/indicators/fiscal` — but explicitly **not** a `CabinetBudgetScorecard` column, which would attribute 265 mayors' commitments to a PM·FM duo. | **T14** |
-| 14 | **`/indicators` takes the NATIONAL aggregate only** (operator direction), so the number sits directly against the deficit, the fiscal reserve and the debt emissions already on that page. Per-município stays on `/governance`; the map is no longer embedded on `/indicators`. The comparison itself is the payoff: municipal commitments are ~47% of the fiscal reserve and roughly one year's deficit, while appearing in none of them. | **T14.0**, T13.5 |
+| 14 | **`/indicators` takes the NATIONAL aggregate only** (operator direction), so the number sits directly against the deficit, the fiscal reserve and the debt emissions already on that page. Per-município stays on `/governance`; the map is no longer embedded on `/indicators`. The comparison itself is the payoff: municipal commitments are ~48% of the fiscal reserve and roughly one year's deficit, while appearing in none of them. | **T14.0**, T13.5 |
+
+## v1.3 audit — 2026-08-11, adversarial pass
+
+Hunting for false assumptions rather than re-reading the reasoning. **Five, four of them
+load-bearing**, all verified against the codebase and the workbook rather than argued.
+
+| # | false assumption | reality | fix |
+|---|---|---|---|
+| 15 | **"Migration 147 — next free number (146 is `tender_dossier`)"** | **147 is taken** — `147_tender_search_text.sql`. CLAUDE.md documented it the whole time; the claim came from a stale `ls` instead of reading the context. | **148** everywhere — T2.1 |
+| 16 | **"It must NOT get a `bucket_sync_paths.ts` entry"** (T2.7) | **Backwards.** `isExcluded` guards only the *top-level argument*; a scoped `bucket:sync:paths -- budget` rsyncs the whole tree, so absence of an entry means it **is** uploaded. The file's own comment records this exact failure for `parliament/company-connections`: ~16.8k shards pushed to a bucket where nothing reads them. | a **`CHILD_EXCLUDES`** entry — T2.7 |
+| 17 | **"Sofia → `SOF`, joins `place_dim`"** | **There is no Столична община row anywhere.** `place_dim` has 295 obshtina rows — 24 of them S2xxx districts — and **zero** `SOF*` codes; `municipalities.json` has none either. МФ 7200 maps to nothing, so T3.5's own gate would fail on the largest município in the country. | synthetic **`SOF00`** — T1.6, T3.5 |
+| 18 | **"Name-match against `municipalities.json`"** (T0.7) | **Mis-assigns 7 of 265, in two classes.** Sofia district names collide with real municipalities — `Средец` → BGS06 *or* S2401, `Искър` → PVN23 *or* S2414 — so a naive match puts a real município's fiscal data on a Sofia district page. And `Бяла` is two genuinely different municipalities (VAR05, RSE04) that a name cannot separate at all. | **T1.6** — a verified deterministic rule |
+| 19 | **T14.0a's comparison table mixes quarters** | Commitments **Q3-2025** against fiscal reserve **2025-Q4**. Q3 and Q4 commitments genuinely differ (Q3-2024 €3.43bn vs Q4-2024 €3.38bn), and the plan's own T5.3 already flags **2024-Q4 reserve as missing**, so there is no clean 2024 stock comparison either. | same-quarter only — T14.0a |
+
+Two smaller gaps folded in with them: the МФ code prefix is now the crosswalk's backbone and
+needs its own gate (T1.6); and `place_dim` holding 295 obshtina rows against Bulgaria's 265
+municipalities means any "everything resolves" assertion must run **workbook → code**, never
+the reverse.
 
 ---
 
@@ -272,11 +290,13 @@ in force. The finding is the **level and the growth rate**, not that a positive 
 ### T0.7 New task surfaced: the municipality key is an МФ code, not EKATTE
 
 Col A is the МФ/ЕБК municipal code (`5101` Банско … `7805`), not the `RSE27`-style obshtina
-code the repo uses everywhere. Col B carries the name, so the crosswalk is buildable by
-name-matching against `data/municipalities.json` — but it must be **built once, committed and
-gated**, not done inline at parse time. Fold into T1 as `municipal_fiscal/codes.ts` with a test
-asserting all 265 resolve; an unresolved código means a município silently never appears on any
-page (T3.5 already covers the database side).
+code the repo uses everywhere. Built once, committed and gated as
+`scripts/budget/municipal_fiscal/codes.ts`; never resolved inline at parse time.
+
+**This section originally said "the crosswalk is buildable by name-matching against
+`data/municipalities.json`". That is false and the failure is silent** — it mis-assigns 7 of
+265, including putting a Burgas or Pleven município's liabilities on a Sofia district page
+(audit #18). **T1.6** carries the verified rule; read that, not this paragraph.
 
 ---
 
@@ -404,6 +424,59 @@ year's workbook parses fewer municipalities than the previous year's, refuse and
 than write. A partial ingest that anti-joins is how you silently delete 200 municipalities and
 still reconcile every row count.
 
+### T1.6 The crosswalk — МФ code → obshtina, verified 2026-08-11
+
+**Name-matching alone is wrong**, and its two failure classes are both silent (audit #18). The
+rule below resolves **264 of 265 deterministically**, plus one curated alias. It was run against
+the real workbook; these are measurements, not a design sketch.
+
+**The МФ code's first two digits encode the oblast.** 27 prefixes over the 265 rows, a clean
+bijection to oblast once two artefacts are accounted for: the two `Бяла` rows (which the prefix
+is precisely what *resolves*), and the known `PDV-00` vs `PDV` inconsistency in
+`municipalities.json` — a pre-existing quirk, not a crosswalk failure.
+
+```
+51 BLG · 52 BGS · 53 VAR · 54 VTR · 55 VID · 56 VRC · 57 GAB · 58 DOB · 59 KRZ
+60 KNL · 61 LOV · 62 MON · 63 PAZ · 64 PER · 65 PVN · 66 PDV · 67 RAZ · 68 RSE
+69 SLS · 70 SLV · 71 SML · 72 SOF · 73 SFO · 74 SZR · 75 TGV · 76 HKV · 77 SHU · 78 JAM
+```
+
+So the key is **`(prefix → oblast, normalised name)`**, with:
+
+- **Sofia districts excluded from the candidate set.** The workbook has one Sofia row (7200);
+  leaving S2xxx in makes `Средец` and `Искър` ambiguous, and picking wrong puts a Burgas or
+  Pleven município's liabilities on a Sofia district page.
+- **`norm()` collapses whitespace entirely**, not merely normalises it — the workbook writes
+  `Вълчидол` where `municipalities.json` has `Вълчи дол`.
+- **One curated alias: `Добричка` (5804) = `Добрич-селска` (DOB15).** The only genuine name
+  difference in the corpus. It is a one-line table, not a fuzzy matcher — a fuzzy fallback here
+  would silently re-open exactly the collisions the prefix just closed.
+
+Verified outcomes: `Бяла` → VAR05 / RSE04 correctly split · `Средец` → BGS06 · `Искър` → PVN23 ·
+264 distinct codes + Sofia.
+
+**Gate it three ways** (`municipal_fiscal_crosswalk.test.ts`): every workbook row resolves;
+the prefix→oblast map is still a bijection; and no resolved code is an S2xxx district. The
+second is what catches МФ renumbering an oblast, which would otherwise re-assign a whole region
+silently.
+
+### T1.7 Sofia is `SOF00` — a synthetic code with no dimension row
+
+**There is no Столична община row in `place_dim` or `municipalities.json`** (audit #17). Sofia
+exists in both only as its 24 S2xxx districts. The repo's established convention for the city
+aggregate is the synthetic **`SOF00`** — `/governance/SOF00` is a live route, `SettlementsScreen`
+and `AreaPill` both document it as "no município row", and `FundsMuniMapTile` uses it as its
+`SOFIA_SYNTH`.
+
+So МФ 7200 → `SOF00`, and three consequences follow:
+
+- `place_dim` joins must be **LEFT** with a curated label fallback for `SOF00`, or Sofia renders
+  nameless;
+- **T3.5's "every obshtina resolves in `place_dim`" gate must allowlist `SOF00`** — as written it
+  fails on the largest município in the country;
+- the S2xxx district dashboards resolve *to* `SOF00` (T10.2), which is the same direction
+  `MyAreaMunicipalBudgetTile` already goes.
+
 **T1.5 A município absent from ONE quarter is not a shrunken file.** ИСО filings can be late,
 so `T1.4`'s coverage floor must be evaluated per *file*, not per município: refuse a workbook
 whose row count drops, but allow an individual município to be missing from a quarter it did
@@ -418,13 +491,15 @@ gitignored.
 
 ---
 
-## T2 — Postgres (migration 147) + loader
+## T2 — Postgres (migration 148) + loader
 
-**T2.1 `147_municipal_fiscal.sql`** — next free number (146 is `tender_dossier`).
+**T2.1 `148_municipal_fiscal.sql`.** *Not* 147 — that is `tender_search_text` (audit #15).
+148 is free as of 2026-08-11; re-check `ls scripts/db/schema/pg/` before writing, since a
+concurrent session added 147 during this one.
 
 ```sql
 CREATE TABLE IF NOT EXISTS municipal_fiscal (
-  obshtina text NOT NULL,          -- resolved EKATTE code (place_dim)
+  obshtina text NOT NULL,          -- resolved EKATTE code; 'SOF00' for Sofia (T1.7, synthetic)
   mf_code int NOT NULL,            -- МФ/ЕБК code as published — keep the source key
   fiscal_year int NOT NULL,
   quarter smallint NOT NULL,       -- no DEFAULT: the grain is real, make callers state it
@@ -493,7 +568,7 @@ Join `place_dim` for the BG/EN município label. Do not mint a second dictionary
 
 - Reads only `data/budget/municipal_fiscal/` (committed) — so it is a pure-load step and works
   on a fresh clone. **Skip-and-warn when absent, throw on malformed**, matching the nzok family.
-- Applies 147 itself.
+- Applies 148 itself.
 - **Stage merge** (`scripts/db/lib/stage_merge.ts`), not TRUNCATE+rebuild: this is a serving
   path and a plain TRUNCATE takes an AccessExclusiveLock that 55P03s live readers.
 - `vacuumAfterReload()` after the COMMIT — outside `withTx`, since VACUUM cannot run in a
@@ -519,20 +594,38 @@ browser by themselves. Three routes:
 - the national browse rides the existing **`/api/db/table`** registry engine (a
   `municipal_fiscal` resource), so T10.1 needs no bespoke route.
 
-**Degrade a missing migration to an empty payload**, in the `procurement_settlement_payloads`
+**Degrade a missing migration (148) to an empty payload**, in the `procurement_settlement_payloads`
 (123) shape rather than the `cpv_catalog` (121) one: the tiles self-suppress on empty, so an
 orderless first deploy shows nothing instead of 500ing, and the log line
 (`mf:not-built`, once per process) is the signal that the cloud loader never ran. Deploy order
 is then cosmetic — but keep the documented rule anyway: **`db:load:municipal-fiscal:pg:cloud`
 before `npm run deploy:db`.**
 
-**T2.7 Serving is Postgres-only — the JSON is loader input, not a served artifact.**
+**T2.7 Serving is Postgres-only — and that needs an EXCLUDE, not the absence of an entry.**
 `data/budget/` is bucket-served via `dataUrl()`, so `data/budget/municipal_fiscal/*.json` would
-be picked up by `bucket:sync` and become a *second* serving path for the same numbers, free to
-drift from the table. It must **not** get a `bucket_sync_paths.ts` entry, and the UI reads
-`/api/db/*` only. This matches the funds family's PG-only rule and the repo's standing "no
-JSON-from-PG generation" line; the one thing to avoid is the halfway state where a tile fetches
-JSON and a browse queries PG.
+become a *second* serving path for the same numbers, free to drift from the table. The UI reads
+`/api/db/*` only.
+
+**An earlier draft said "must not get a `bucket_sync_paths.ts` entry". That is backwards**
+(audit #16). `isExcluded` guards only the **top-level argument**; the directory rsync's own `-x`
+carries just `.DS_Store`. So a scoped `npm run bucket:sync:paths -- budget` — which the operator
+runs for the rest of the budget tree — walks straight into `municipal_fiscal/` and uploads it.
+Absence of an entry means *included*.
+
+It needs a **`CHILD_EXCLUDES`** entry:
+
+```ts
+{ path: "budget/municipal_fiscal", isDir: true },
+```
+
+That file's own comment documents this precise failure for `parliament/company-connections`:
+without a child exclude, the natural scoped push "recursively uploaded all ~16.8k per-EIK shards
+to the bucket, where nothing reads them". Same shape, same fix. Note the two mechanisms are
+deliberately kept in lockstep — add the `isExcluded` branch too if the subtree should also be
+refused as a direct argument.
+
+This matches the funds family's PG-only rule and the standing "no JSON-from-PG generation" line;
+the state to avoid is the halfway one where a tile fetches JSON and a browse queries PG.
 
 Note this cuts the other way from `hub_stats.json` / `sector_stats.json`, which *are* committed
 bucket-synced artifacts derived from PG — that pattern exists because those are read by a hub
@@ -579,7 +672,7 @@ violate it (alert if it moves), never on individual rows.
 **T3.4** Coverage floor: refuse a year with fewer municipalities than the previous year (T1.4's
 rule, enforced at the database too).
 
-**T3.5** Every `obshtina` resolves in `place_dim`. An unresolvable code means the workbook uses
+**T3.5** Every `obshtina` resolves in `place_dim`, **allowlisting the synthetic `SOF00`** (T1.7 — as originally written this gate fails on Столична община, the largest município in the country). Run the assertion **workbook → code**, never the reverse: `place_dim` holds 295 obshtina rows against Bulgaria's 265 municipalities, so a reverse check would report 30 phantom failures. An unresolvable code means the workbook uses
 a naming scheme we mis-mapped, and it will otherwise surface as a município that silently never
 appears on any page.
 
@@ -682,10 +775,18 @@ plotted as a collapse.
 11. **The published ratios switch denominator by quarter** — планирани разходи in Q1–Q3,
     отчетени / средногодишни-4г in Q4 — so cols 54–62 are *not* a quarterly series and only the
     Q4 column is the чл. 130а criterion. Chart the levels; re-derive every ratio.
-12. **Col A is the МФ/ЕБК code, not EKATTE** (T0.7). Name-match once into a committed,
-    gated crosswalk; never resolve inline at parse time.
+12. **Col A is the МФ/ЕБК code, not EKATTE, and a NAME MATCH IS NOT ENOUGH** — it mis-assigns
+    7 of 265, two of them onto Sofia districts. Key on `(МФ prefix → oblast, folded name)`
+    with S2xxx excluded; see T1.6. Sofia is the synthetic `SOF00` (T1.7).
 13. **Both workbooks per year, not one.** Each carries three quarters and they overlap only on
     Q4; taking one file a year silently drops half the series.
+14. **A `bucket_sync_paths.ts` subtree is INCLUDED by default.** `isExcluded` guards only the
+    top-level argument, so PG-only JSON under a synced parent needs a `CHILD_EXCLUDES` entry —
+    absence of an entry uploads it. T2.7.
+15. **Compare stocks only at the SAME quarter.** Q3 and Q4 municipal commitments genuinely
+    differ; the reserve/deficit/debt table is where this goes wrong. T14.0a.
+16. **Check the migration number against `ls`, not against memory.** 147 was taken by a
+    concurrent session mid-plan. T2.1.
 
 ---
 
@@ -1104,19 +1205,29 @@ indicators pages are a national time-series dashboard; a 265-row dimension there
 All four are already in `macro.json` / `debt-emissions*.json`, in EUR million, on the same annual
 axis and the same `xDomainFor(governments)` cabinet strip that `IndicatorsFiscalScreen` uses:
 
-| series | latest | source |
-|---|---|---|
-| **Municipal поети ангажименти** | **€4.16bn** (Q3-2025) | this ingest |
-| Фискален резерв | €8.93bn (2025-Q4) | `series.fiscalReserve` |
-| ESA deficit | €4.06bn (2025) | `esaBalanceAnnual` × `nominalGdp` |
-| Gross issuance | €8.89bn (2025) | `debt-emissions*.json`, `DebtEmissionsTable` |
-| Government debt | €34.6bn (2025) | `govDebtNominal` |
+| series | value | as of | source |
+|---|---|---|---|
+| **Municipal поети ангажименти** | **€4.16bn** | **2025-Q3** | this ingest |
+| Фискален резерв | €8.64bn | **2025-Q3** | `series.fiscalReserve` |
+| — *stocks above are same-quarter; flows below are annual* — | | | |
+| ESA deficit | €4.06bn | FY2025 | `esaBalanceAnnual` × `nominalGdp` |
+| Gross issuance | €8.89bn | FY2025 | `debt-emissions*.json`, `DebtEmissionsTable` |
+| Government debt | €34.6bn | 2025-Q4 | `govDebtNominal` |
 
-Municipal forward commitments are **~47% of the entire national fiscal reserve, ~47% of a
-year's gross issuance, and roughly the size of one year's deficit** — while appearing in none
-of them. That is the comparison the page exists to make, and it needs no editorialising.
+Municipal forward commitments are **~48% of the entire national fiscal reserve at the same
+quarter**, and roughly the size of a year's deficit or a year's gross issuance — while appearing
+in none of them. That is the comparison the page exists to make, and it needs no editorialising.
 
-**Two framing rules, both easy to get wrong and both load-bearing:**
+**⚠ Stock comparisons must be same-quarter, and an earlier draft of this table was not**
+(audit #19). It read commitments at Q3-2025 against the reserve at Q4-2025. Q3 and Q4
+commitments genuinely differ — measured, Q3-2024 €3.43bn vs Q4-2024 €3.38bn — so mixing them is
+not a rounding matter. **2025-Q3 is currently the only quarter where both stocks exist**, because
+**2024-Q4 fiscal reserve is missing from our series** (T5.3) and the 2025-Q4 municipal workbook
+is not yet published (T7.3). Backfilling that one reserve quarter is what unlocks the Q4-2024
+year-end comparison, which is the one the rest of the page is built on — so **T5.3 is a
+prerequisite for this tile**, not an unrelated tidy-up.
+
+**Two more framing rules, both easy to get wrong and both load-bearing:**
 
 - **Stock vs flow.** Commitments, the reserve and the debt are **stocks**; the deficit and
   issuance are **annual flows**. "Commitments ≈ one year's deficit" is a *scale illustration*,
