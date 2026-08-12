@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-11T06:19:32.078Z",
+  "generatedAt": "2026-08-12T06:43:53.639Z",
   "nodes": [
     {
       "id": "src:water",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-12T06:09:05.168Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-08-12T06:09:05.168Z"
         }
       ],
       "x": 28,
@@ -680,7 +680,7 @@
       "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-12T06:09:05.168Z",
       "skills": [
         "update-open-calls"
       ],
@@ -690,7 +690,7 @@
           "label": "ИСУН — отворени процедури",
           "url": "https://eumis2020.government.bg/bg/s/Procedure/Active",
           "cadence": "daily",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-08-12T06:09:05.168Z"
         },
         {
           "id": "sp2023_indicative",
@@ -1252,7 +1252,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-12T06:09:05.168Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1264,7 +1264,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-08-12T06:09:05.168Z"
         },
         {
           "id": "eurostat_policy",
@@ -1579,7 +1579,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-12T06:09:05.168Z",
       "skills": [
         "update-prices"
       ],
@@ -1589,7 +1589,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-08-12T06:09:05.168Z"
         }
       ],
       "x": 28,
@@ -1794,7 +1794,7 @@
       "url": "https://ember-energy.org/data/",
       "origin": "intl",
       "cadence": "monthly",
-      "freshness": "2026-07-14T06:08:38.433Z",
+      "freshness": "2026-08-12T06:09:05.168Z",
       "skills": [
         "update-energy"
       ],
@@ -1811,7 +1811,7 @@
           "label": "Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
           "cadence": "monthly",
-          "freshness": "2026-07-14T06:08:38.433Z"
+          "freshness": "2026-08-12T06:09:05.168Z"
         }
       ],
       "x": 28,
