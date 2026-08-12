@@ -1083,6 +1083,44 @@ and no UI — may classify on it.**
 ## 11. T4 — EGN-hash person key for TR attribution · T5 — retiring the stale GCS trees
 ### (evidence + design, 2026-08-11)
 
+> ## ⚠️ §11.3–§11.5 ARE SUPERSEDED — shipped differently, and better (2026-08-12)
+>
+> [tr-attribution-basis-v1.md](tr-attribution-basis-v1.md) shipped this work as its §2 while
+> this section was being written. **The measurements in §11.1–§11.2 stand and were confirmed
+> independently.** The DESIGN in §11.3–§11.5 did not survive contact, and the difference is not
+> a matter of taste:
+>
+> **1. It persists a COUNT, not a key.** `scripts/declarations/tr/count_registry_people.ts`
+> digests each `Indent` with a **per-run** salt at read time, counts distinct digests per name
+> fold in memory, and writes only the integer to `data/person/tr_name_fold_people.tsv`
+> (456,398 folds, 23,174 shared). No hash, no cluster id, no pseudonymous column — so §11.3's
+> HMAC re-key, its secret provisioning, its `dist/` grep gate and §12.6 are all **moot**, and
+> the four privacy gates are untouched rather than "changed in shape". That is a strictly
+> better posture than the one §11.3 recommended.
+>
+> **2. §11.4's anchor design is REFUTED, on a measured case.** I claimed one declared-stake
+> anchor could split a footprint. Their §2.2 checks it: the `Indent` on „Иван Георгиев Такучев"
+> in a 2022 filing is byte-identical to the one in a 2025 filing, so the registry's key does
+> say the two Plovdiv companies are one person — **and nothing bridges that person to the
+> public figure**, because no officials, declarations or CACBG source carries an EGN or its
+> hash. The registry→public-figure bridge stays a name match whatever we do. Their conclusion
+> is the correct one and I had it backwards: *"the right use of it is refusal — it tells you
+> when to stop attributing, not who to attribute to."* So there is no identity/candidate/
+> **EVICTED** triple; there is `people_n = 1` → attribute, anything else → refuse.
+>
+> **3. Most of §11.5 already exists under other names.** `person_name_ambiguity` shipped as
+> `tr_name_fold_people` (migration 148 + `db:load:tr-name-fold-people:pg`); `person_egn_anchor`
+> is not built and must not be — which also retires **§12.3's `/db` privilege hole**, since
+> there is no key and no anchor table to enumerate. §12.2's "15 GB backfill the daily flip
+> cannot produce" is real but already solved: `npm run tr:count-people` scans the whole feed in
+> **5.6 s** and commits a ~14 MB artifact every other machine reads.
+>
+> **What remains live in §11:** §11.1/§11.2's measurements, §11.6's perf work, §11.7/§11.8's
+> retirement, §12.1's watcher wiring (still required — see §11.10), §12.4's three corrections,
+> §12.5's column-population point (now about `fold_people_n`, not `person_key`), and §12.7's
+> AI-harness re-run. `person_key` as a `JoinKey` in §2.1 is **withdrawn**: no such key is
+> persisted, so no link can carry it. §11.10 records what the shipped work leaves undone.
+
 Everything in §11.1–§11.2 was measured against `raw_data/tr/daily/` (1,666 day files, the whole
 2021-01-01→ window), `raw_data/tr/state.sqlite`, `raw_data/tr/cr_deeds.sqlite` and local
 Postgres.
@@ -1465,6 +1503,48 @@ reason this is sequenced after T4 rather than folded into it. Note §11.8 and §
 depend on T4 at all — their replacements shipped months ago. They are here because they are the
 same class of debt and the same retirement discipline, and because doing them together means
 writing the `bucket_sync_paths` gate once.
+
+### 11.10 🔴 What the shipped guard leaves undone — mp-management is now the last surface still making the retracted claim
+
+Measured 2026-08-12, after `tr-attribution-basis-v1` steps 1–7 landed. The guard was applied to
+the person layer (`resolve_persons.ts`, `bridgeB.ts`, `person_search`, `person_browse_table`) —
+`person_role` at `source='tr'` fell from 200,849 to **192,214** as it refused shared and
+unmeasured folds. **The three static shard families were not in that plan's scope and did not
+move.**
+
+Re-running §3's overlap against the guarded person layer:
+
+| | |
+|---|---|
+| `mp-management` (MP, company) pairs | 2,014 |
+| still reproduced by `person_role` tr/ngo | **1,112** (was 1,294 — the guard removed 182) |
+| MPs whose fold the registry says holds **more than one** person | **121 of 896** |
+| MPs whose fold is unmeasured | 14 |
+| **file pairs held by a shared-fold MP** | **410** |
+| of those, graded `medium` | **337** |
+
+So `parliament/mp-management/*.json` — served from the bucket, read by `MpManagementRoles` and
+`MpProfileSections` on every `/candidate/:id` and `/person/:slug` — currently publishes **410
+(person, company) attributions that the registry's own key says rest on a name belonging to more
+than one human**, while `/persons`, `person_search` and the `/person` companies list have already
+stopped. Two surfaces disagreeing about one named person is exactly the defect
+[tr-attribution-basis-v1 §0.2](tr-attribution-basis-v1.md) calls the worst this family can carry;
+the guard closed it on one side only.
+
+**This is now the strongest argument for the migration in
+[mp-tr-edges-pg-v1.md](mp-tr-edges-pg-v1.md), and it changes that plan's Tier 1 design a third
+time.** Tier 1 is neither the verbatim confidence-model port (its original draft) nor the
+key-based triple (§11.4, refuted above). It is: build `mp_tr_role` from `tr_person_roles`,
+**gated on `tr_name_fold_people.people_n = 1` — the same table, the same one definition the
+person layer already reads.** The old `COMMON_NAME_TR_ROWS = 11` row-count heuristic is a proxy
+for precisely what that table now measures directly, and it should be deleted rather than ported:
+it both over-suppresses (it drops a rare-name MP's whole medium set on a busy registered agent)
+and under-suppresses (11 officer rows is not the same question as 11 people).
+
+The corroboration arms (TR seat ∈ MP region, self-declared stake, same-party witness) survive as
+what they always were — evidence that *raises* confidence — but they no longer carry the load,
+and no arm may promote a shared fold. That is the §2.2 rule: corroboration cannot tell you which
+of 135 people the row belongs to.
 
 ### 11.9 What this does NOT do
 
