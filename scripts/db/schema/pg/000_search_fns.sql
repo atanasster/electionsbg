@@ -161,6 +161,29 @@ BEGIN
   DROP VIEW IF EXISTS contracts_list;
   EXECUTE 'CREATE VIEW contracts_list AS SELECT c.*' || cols
        || ' FROM contracts c' || joins;
-  EXECUTE 'GRANT SELECT ON contracts_list TO app_readonly';
+  -- Role-guarded. It takes the plpgsql IF rather than the DO $$ … $$ wrapper used at the
+  -- top level of a migration only because it is already inside a function body.
+  --
+  -- WHERE IT ACTUALLY FIRES, since "runs at call time" invites the wrong conclusion: every
+  -- caller is a `SELECT rebuild_contracts_list();` at the foot of a MIGRATION (042, 050,
+  -- 087, 088, 112), so it executes during load_pg.ts's apply phase — before readShards()
+  -- and before a single row is COPY'd. Bare, on a cluster where nothing has created
+  -- app_readonly, the failure is therefore the same loud-and-early abort as any apply-time
+  -- GRANT: the migration's implicit transaction rolls back and the loader stops. plpgsql
+  -- has no autonomous transactions, so "the view is recreated but ungranted" cannot happen
+  -- — the DROP and CREATE roll back with it. (112's near-identical guard IS the late shape:
+  -- rebuild_contract_risk_cache() is called standalone at load_pg.ts:538, after the corpus
+  -- is copied. Do not copy that comment back here.)
+  --
+  -- The DROP+CREATE above is why the GRANT belongs in the function at all rather than once
+  -- at apply time: a recreated view gets a fresh ACL. roles_readonly.sql's ALTER DEFAULT
+  -- PRIVILEGES normally refills it — which is also why a REVOKE-then-rebuild check CANNOT
+  -- tell whether this line works, and why the gate in contracts_list_grant.data.test.ts
+  -- suppresses the default first. That backstop only fires when the creating role is the
+  -- one the defaults were declared for, which is exactly what 046's header says not to
+  -- assume.
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT SELECT ON contracts_list TO app_readonly';
+  END IF;
 END;
 $fn$ LANGUAGE plpgsql;
