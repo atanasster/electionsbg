@@ -491,11 +491,13 @@ gitignored.
 
 ---
 
-## T2 — Postgres (migration 148) + loader
+## T2 — Postgres (migration 149) + loader
 
-**T2.1 `148_municipal_fiscal.sql`.** *Not* 147 — that is `tender_search_text` (audit #15).
-148 is free as of 2026-08-11; re-check `ls scripts/db/schema/pg/` before writing, since a
-concurrent session added 147 during this one.
+**T2.1 `149_municipal_fiscal.sql`.** *Not* 147 (`tender_search_text`, audit #15) and *not*
+148 — a concurrent session took `148_person_company_basis.sql` while this plan was being
+written, which is the second time the number moved mid-plan. **Re-check
+`ls scripts/db/schema/pg/` immediately before writing the file**, every time; the number is
+not reservable and trusting a written one is how two migrations collide.
 
 ```sql
 CREATE TABLE IF NOT EXISTS municipal_fiscal (
@@ -568,7 +570,7 @@ Join `place_dim` for the BG/EN município label. Do not mint a second dictionary
 
 - Reads only `data/budget/municipal_fiscal/` (committed) — so it is a pure-load step and works
   on a fresh clone. **Skip-and-warn when absent, throw on malformed**, matching the nzok family.
-- Applies 148 itself.
+- Applies 149 itself.
 - **Stage merge** (`scripts/db/lib/stage_merge.ts`), not TRUNCATE+rebuild: this is a serving
   path and a plain TRUNCATE takes an AccessExclusiveLock that 55P03s live readers.
 - `vacuumAfterReload()` after the COMMIT — outside `withTx`, since VACUUM cannot run in a
@@ -594,7 +596,7 @@ browser by themselves. Three routes:
 - the national browse rides the existing **`/api/db/table`** registry engine (a
   `municipal_fiscal` resource), so T10.1 needs no bespoke route.
 
-**Degrade a missing migration (148) to an empty payload**, in the `procurement_settlement_payloads`
+**Degrade a missing migration (149) to an empty payload**, in the `procurement_settlement_payloads`
 (123) shape rather than the `cpv_catalog` (121) one: the tiles self-suppress on empty, so an
 orderless first deploy shows nothing instead of 500ing, and the log line
 (`mf:not-built`, once per process) is the signal that the cloud loader never ran. Deploy order
