@@ -20,6 +20,7 @@
     "db:load:company-founded:pg": "tsx scripts/db/load_company_founded_pg.ts",
     "db:load:company-founded:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:company-founded:pg",
     "tr:cr-deeds": "tsx scripts/declarations/tr/fetch_cr_deeds.ts",
+    "tr:count-people": "tsx scripts/declarations/tr/count_registry_people.ts",
     "db:load:cr-founding:pg": "tsx scripts/db/load_cr_founding_pg.ts",
     "db:load:cr-nkid:pg": "tsx scripts/db/load_cr_nkid_pg.ts",
     "db:load:cr-nkid:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:cr-nkid:pg",

@@ -62,6 +62,13 @@ export const isExcluded = (rel: string): string | null => {
     return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
+  // The registry people-count artifact: a 12 MB LOADER SOURCE for tr_name_fold_people
+  // (migration 148, db:load:tr-name-fold-people:pg), never fetched by a browser. Same rule
+  // as opencalls/ above, with two extra reasons to be sure: .tsv is not in GZIP_EXTS so it
+  // would go up UNCOMPRESSED, and a stale public copy of a name→people-count table is a
+  // worse thing to leave lying around than a stale copy of most artifacts.
+  if (rel === "person/tr_name_fold_people.tsv")
+    return "person/tr_name_fold_people.tsv is a PG load source (db:load:tr-name-fold-people:pg)";
   // Per-MP bio profile shards: served from Cloud SQL (mp_profile_detail, schema 110,
   // /api/db/mp-profile) since persons-pg-retirement-v1 T2.3b. Kept on disk as the loader
   // SOURCE + the rollcall/name-casing build scripts read them; never re-upload. The sibling
@@ -142,6 +149,9 @@ export const isExcluded = (rel: string): string | null => {
 // blanket `search_index.json` match: parliament/votes/derived/search_index.json IS bucket-
 // served, so the pattern must be anchored to the officials path.
 const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
+  // Under the still-served person/ parent (prerender_slugs.json), so a scoped
+  // `bucket:sync:paths -- person` must not carry the 12 MB load source up with it.
+  { path: "person/tr_name_fold_people.tsv", isDir: false },
   { path: "officials/municipal/by_obshtina", isDir: true },
   { path: "officials/municipal/search_index.json", isDir: false },
   // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
