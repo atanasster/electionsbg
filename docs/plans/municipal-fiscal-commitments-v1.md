@@ -46,6 +46,15 @@ Two further notes that are not defects but change sequencing: the workbook's `С
 T12 so it is a decision rather than an oversight; and the cached negative-trends PDF is
 **provenance + national cross-check only** — it is not parsed (T12).
 
+## v1.2 — 2026-08-11, operator direction
+
+Two additions, one of them a reversal.
+
+| # | change | lands in |
+|---|---|---|
+| 12 | **The choropleth ships.** v1.1's T10.4 ruled it out; that reasoned from one candidate metric (per-resident) and over-generalised to the map. The objection to per-resident holds and is sharpened — population is the wrong denominator for a *fiscal capacity* question — but чл. 130а т. 3 normalises by the município's own expenditure base and carries a legal threshold to anchor the palette, so it is the default layer and the confound is controlled rather than warned about. | **T13**, T10.4 |
+| 13 | **Indicators integration.** A national `municipalCommitments` series patched into `macro.json` on the exact `fetch_arrears.ts` path, one `indicatorsRegistry` entry, and a tile on `/indicators/fiscal` — but explicitly **not** a `CabinetBudgetScorecard` column, which would attribute 265 mayors' commitments to a PM·FM duo. | **T14** |
+
 ---
 
 ## 0. What is actually published, and why we do not have it
@@ -935,12 +944,14 @@ is the reading error to avoid.
 - **`/procurement` cross-link** — T6.2's two-source comparison, per município.
 - **A `naiasno-post`** on the 46× finding once the backfill lands and the trend is multi-year.
 
-### T10.4 What NOT to build
+### T10.4 The choropleth — see T13
 
-No map choropleth in v1. Commitments per resident is dominated by whether a município is
-mid-way through a big EU project, so the map would render project timing as municipal
-recklessness — a strong visual making a claim the data does not support. Revisit only with a
-multi-year series where a *sustained* level can be distinguished from a spike.
+v1.1 of this plan said "no choropleth", on the grounds that commitments per resident is
+dominated by EU-project timing and the map would render project phase as recklessness.
+**Half of that was right and the conclusion was wrong.** Per resident *is* the wrong metric,
+for a sharper reason than stated — but the dataset carries several metrics that choropleth
+honestly, including one that controls for exactly the confound in question. Specified in
+**T13**.
 
 ---
 
@@ -990,6 +1001,128 @@ Recorded so each is a decision rather than an oversight.
 
 ---
 
+## T13 — The per-município choropleth
+
+### T13.0 Correcting v1.1
+
+The earlier "don't build it" was reasoned from one candidate metric — **поети ангажименти на
+жител** — and then generalised to the map itself. That generalisation was wrong. The objection
+to per-resident is real and is worth stating precisely, because it is what picks the default
+layer:
+
+> Population is the wrong denominator for a *fiscal capacity* question. A €20m commitment in a
+> município that spends €10m a year is a genuinely different fact from the same €20m in one that
+> spends €200m — but per-resident normalises by *people*, not by capacity, so a small município
+> mid-project reads as reckless purely because its denominator is small.
+
+The fix is not to drop the map. It is to normalise by the município's own expenditure base —
+which is exactly what **чл. 130а т. 3 already does**, and it comes with a legal threshold to
+anchor the palette. So the map ships, with a default layer that controls for the confound.
+
+### T13.1 Layers
+
+Built on the same primitives as `FundsMuniMapTile` (`FeatureMap` + `LeafletMap` +
+`SVGMapContainer` + `useSofiaMergedNationMap` + `MapLayout`), which is already a per-муни
+choropleth with a multi-metric header toggle — copy its shape, including the Sofia
+district → `SOF00` fallback and `resolveRow`/`metricValue` split.
+
+| layer | metric | palette anchor | why it maps honestly |
+|---|---|---|---|
+| **default** | **поети ангажименти ÷ средногодишни разходи 4 г.** (чл. 130а т. 3) | **50%** — the legal threshold | Self-normalising against the município's own fiscal capacity. This is the layer that answers "who has committed beyond their means". |
+| | чл. 130а — брой изпълнени критерии | 0–6 discrete, break at **3** | Bounded, ordinal, official. The single most map-friendly field in the dataset. |
+| | в процедура по финансово оздравяване | binary | An official administrative status, not a derived one (T1.1b). Two-tone. |
+| | просрочени ÷ отчетени разходи (т. 4) | **5%** threshold | Bounded ratio with a legal line. |
+| | събираемост ДНИ + ДПрС (т. 6) | diverging around the **national mean** | A tax-administration quality measure, wholly independent of project timing — and a different story from the liability layers. |
+| opt-in | поети ангажименти на жител | quantile | Kept, **never default**, and its caption names the confound (T13.3). |
+
+### T13.2 Palettes are threshold-anchored, not min–max
+
+A sequential min–max ramp on a ratio that has a *legal* threshold hides the threshold: the
+darkest município is whoever is highest, and the reader cannot see who is over the line. Every
+layer above with a stated threshold uses it as the palette break — below the line in one hue
+ramp, above it in another — so the map answers "who is over" at a glance and the ranking within
+each side is secondary. `sequentialColor` (`censusMetrics.ts`) serves the ramps; the break is
+ours.
+
+**Fixed class breaks across years, not per-year rescaling.** A per-year quantile palette makes
+every year look identical — the whole country always spans the same colours — which destroys the
+one thing a multi-year map is for. Fix the breaks once so 2019 → 2024 is a comparable sequence.
+
+### T13.3 The two states that must not be silently coloured
+
+- **Did not file that quarter** (T1.5) is `absent`, not zero. It renders in a distinct
+  no-data hatch and is named in the legend with a count. Colouring it as 0 would put a
+  non-filing município at "no commitments" — the healthiest shade in the country.
+- **Sofia** resolves the S2xxx districts to Столична община's single row, so the 24 districts
+  all take the city-wide value. That is the existing `SOF00` convention and it is correct, but
+  the tooltip must say so, or a reader concludes the districts were measured separately.
+
+### T13.4 The time control that answers the original objection
+
+A **year selector** (Q4-2019 … Q4-2024 once T7.2's backfill lands) plus a **3-year mean** mode.
+The mean is what distinguishes a sustained commitment level from a single project spike — the
+exact discrimination the v1.1 objection said was missing. Ship the year selector with the map;
+the mean mode needs ≥3 year-ends, so it arrives with the backfill.
+
+Until the backfill lands the map has **one year** and the spike/sustained distinction is not yet
+available. Say so in the caption rather than shipping a single-year map that reads as a
+standing characterisation.
+
+### T13.5 Where it lives
+
+Primary: a tile on **T10.1's `/governance/municipal-finance`**, above the table — map for the
+pattern, table for the detail, both driven by the same `?year` / layer state.
+Secondary: the same component embedded on **`/indicators/fiscal`** (T14.2). Do not build two.
+
+---
+
+## T14 — Indicators dashboards
+
+### T14.1 A national series in `macro.json` — the arrears precedent, exactly
+
+`fetch_arrears.ts` already patches `series.arrears` + `indicators.arrears` into
+`data/macro.json` from a manual-drop parse. Municipal commitments follow the same path:
+a national annual series `municipalCommitments` (Q4 sum across all filing municipalities,
+EUR million), emitted by T1's ingest and patched in the same way, with
+`indicators.municipalCommitments` carrying the МФ attribution and the чл. 130г ал. 2 basis.
+
+Two siblings are worth emitting at the same time, because the story is the *contrast* between
+them and a consumer that has to sum three tables to get it will not bother:
+`municipalExpenseObligations` and `municipalArrears`. The last one is independently checkable
+against `series.arrears`' local arm — the T3.1 reconciliation, now visible on the page.
+
+### T14.2 `/indicators/fiscal` — a tile, not a row in the cabinet scorecard
+
+Add a `MunicipalCommitmentsTile` beside `FdiMonthlyTile`: the three national stocks on one
+axis (the 46× contrast is the whole point and it needs one scale to land), the year selector,
+and T13's map embedded beneath.
+
+**Do not add a column to `CabinetBudgetScorecard`.** That table attributes fiscal outcomes to
+PM·FM duos, and municipal commitments are the doing of 265 separately-elected mayors and
+councils — a column there would assert national-government responsibility for a number the
+national government does not set. The legitimate national link is the *fiscal relationship*
+(чл. 53 transfers in, чл. 130ж interest-free loans out), which is a tile's worth of material
+and not a scorecard column.
+
+That distinction is the same one T11.2 makes about never summing state debt with municipal
+commitments — different debtors, different mandates, adjacent on the page and never combined.
+
+### T14.3 `indicatorsRegistry` — one entry, deliberately
+
+Register **`municipalCommitments`** as a `fiscal`-domain KPI (`direction: "none"`) so it gets a
+landing-grid tile with sparkline and YoY. `direction` is `none` on purpose: rising commitments
+are not straightforwardly bad — they are also what an EU-programme delivery wave looks like —
+and a red down-arrow would editorialise a number whose sign we are not in a position to judge.
+
+Do **not** register the other two. Three near-identical fiscal KPI tiles crowd the landing grid
+for one story; the tile in T14.2 is where the comparison belongs.
+
+**`arrears` is currently a series with no registry entry** — consumed only by
+`CabinetBudgetScorecard`. Leave that as-is; folding it in is a separate decision about the
+landing grid, not part of this ingest.
+
+---
+
 ## Open decisions for the operator
 
 **T0 is done and the files are in hand.** Three decisions remain:
@@ -998,9 +1131,19 @@ Recorded so each is a decision rather than an oversight.
    release's middle column is the previous year's Q4. Recommendation: **take the five
    Q3-anchored releases 2020–2024** → Q4-2019 … Q4-2024 plus a Q3 series. If the naming rule
    breaks on the older ones, stop at whatever resolves and report the real names (T7.3).
-2. **Scope of first cut** — data layer only (T1–T5), or through T10.2's municipality tile? The
-   data layer alone makes the analysis answerable. Recommendation: **T1–T5 + T8**, because the
-   watcher is what stops the corpus silently going stale a quarter from now, and it is cheap.
+2. **Scope of first cut.** T13 and T14 both want the **backfill first**, for different reasons:
+   the map's 3-year-mean mode needs ≥3 year-ends to distinguish a spike from a level (T13.4),
+   and the indicators series is a sparkline that reads as noise with one point (T14.1). So the
+   ordering that gets the most from the least work is:
+
+   **(a) T1–T5 + T8** — the corpus, the gates, and the watcher that stops it going stale.
+   **(b) T7.2's five files** — five manual downloads, unlocking Q4-2019 … Q4-2024.
+   **(c) T14** — the national series and the `/indicators/fiscal` tile: smallest surface, and
+   it makes the finding public.
+   **(d) T13 + T10.1/T10.2** — the map and the per-município pages, which need the most design.
+
+   Doing (d) before (b) ships a single-year map that reads as a standing characterisation of
+   265 named municipalities, which is the one outcome worth avoiding.
 3. **Is the generic `manualRequest` channel (T8.2) in scope here, or its own change?** It is
    ~40 lines across `types.ts` / `report.ts` / the skill, it unblocks this source, and it
    retro-fits at least eight existing manual-step sources. Recommendation: **do it here** — it
