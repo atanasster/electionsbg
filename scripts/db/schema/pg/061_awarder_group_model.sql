@@ -133,4 +133,8 @@ SELECT jsonb_build_object(
 FROM head, sup, bycpv, bycpvcon, bymethod, byyear, byunit;
 $$;
 
-GRANT EXECUTE ON FUNCTION awarder_group_model(text[], text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION awarder_group_model(text[], text, text) TO app_readonly;
+  END IF;
+END $$;

@@ -166,10 +166,29 @@ Each tier is one commit, and each is independently shippable.
   verification rather than an apply.
 
 **Per-file verification, which is the real work and must not be skipped:** apply the file, then
-confirm the object's ACL is unchanged — `has_table_privilege('app_readonly', '<obj>', 'SELECT')`
-must still be `true`. A guard that silently stops granting is worse than the bare form it replaced,
-because it degrades to `42501` on a serving endpoint instead of failing at apply time. That is the
-one way this sweep can make things worse, and it is a real risk on Class B's function signatures.
+confirm the object is still readable by `app_readonly`. A guard that silently stops granting is
+worse than the bare form it replaced, because it degrades to `42501` on a serving endpoint instead
+of failing at apply time. That is the one way this sweep can make things worse, and it is a real
+risk on Class B's function signatures.
+
+> **The obvious way to check this is VACUOUS, in three different ways, and each one was written
+> and believed before being caught.** A bare `has_table_privilege(...)` / `has_function_privilege(...)`
+> returns `true` for a guard that can never fire. Confirmed by pointing a guard at a role that does
+> not exist and watching every check still pass. Three separate backstops produce the false green:
+>
+> 1. **`ALTER DEFAULT PRIVILEGES … GRANT SELECT ON TABLES`** — most of these files `DROP`+`CREATE`
+>    their object, and the fresh one is auto-granted. Suppress it inside the test transaction with
+>    `ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE SELECT ON TABLES FROM
+>    app_readonly`. `IN SCHEMA public` is load-bearing — without it the ALTER hits a different
+>    `pg_default_acl` row and the suppression silently does nothing.
+> 2. **`EXECUTE` is granted to `PUBLIC` by default**, so *every* function check is true regardless
+>    of any per-role grant. Needs `REVOKE EXECUTE ON FUNCTION … FROM PUBLIC` as well as from the role.
+> 3. **`ALTER DEFAULT PRIVILEGES … GRANT EXECUTE ON FUNCTIONS`** — the function-side twin of (1).
+>
+> A correct check therefore: open a transaction, revoke from the role *and* from `PUBLIC`, suppress
+> both default-privilege classes, assert the privilege is now **false** (the non-vacuity step —
+> without it the rest proves nothing), apply the file, assert **true**, `ROLLBACK`. Roll back rather
+> than clean up in a `finally`: these are cluster-visible mutations and vitest runs files in parallel.
 
 ## 7. The gate
 
