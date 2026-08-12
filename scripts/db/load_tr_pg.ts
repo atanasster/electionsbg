@@ -12,7 +12,14 @@ import { execSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import type { PoolClient } from "pg";
-import { getPool, exec, withClient, withTx, end } from "./lib/pg";
+import {
+  end,
+  exec,
+  getPool,
+  refreshMatviewConcurrently,
+  withClient,
+  withTx,
+} from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
@@ -423,26 +430,11 @@ export const loadTrPg = async (): Promise<{
   // path (tr:daily-refresh, db:load:tr:pg:cloud) nothing was refreshing it. It was
   // invisible only because 003's CASCADE deleted the matview outright; with the
   // relation now surviving, staleness is what is left to close.
-  // Guarded on existence — 071 is owned by the magistrate loader and a TR-only
-  // database may not have it.
-  //
-  // CONCURRENTLY once it is POPULATED, matching declaration_stake_company below:
-  // 071 supplies the UNIQUE index CONCURRENTLY requires, and this matview is on a
-  // serving path too (magistrate_politician_links() in 071, plus 099), so a plain
-  // REFRESH blocks those readers for its whole duration on every TR load. Only the
-  // first-ever run pays that — a matview created WITH NO DATA cannot be refreshed
-  // CONCURRENTLY, which is why the populated state is probed rather than assumed.
-  const officerCounts = await getPool()
-    .query(
-      `SELECT c.relispopulated AS populated FROM pg_class c
-        WHERE c.oid = to_regclass('public.company_officer_counts')`,
-    )
-    .then((r) => r.rows[0] as { populated: boolean } | undefined)
-    .catch(() => undefined);
-  if (officerCounts)
-    await exec(
-      `REFRESH MATERIALIZED VIEW ${officerCounts.populated ? "CONCURRENTLY " : ""}company_officer_counts`,
-    );
+  // Non-blocking: this matview is READ on a serving path (magistrate_politician_links()
+  // in 071, and 099), so a plain REFRESH would block those readers for its whole
+  // duration on every TR load. 071 supplies the UNIQUE index that allows it, and owns
+  // the object — a TR-only database may not have it at all, which the helper skips.
+  await refreshMatviewConcurrently("company_officer_counts");
 
   // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
   // depend on tr_officers + contracts + cabinets + officer_name_counts (above).
@@ -605,17 +597,10 @@ export const loadTrPg = async (): Promise<{
   // serving pre-ingest links, and nothing in the declarations loader would notice (that
   // path only rebuilds the matview when declarations themselves are reloaded).
   //
-  // CONCURRENTLY is safe here — 096 creates a UNIQUE index on (declaration_id, seq, uic) —
-  // and keeps /person pages served while the ~6s rebuild runs. Guarded on the object
-  // existing, since 096 is owned by the declarations loader and may not be applied yet.
-  const hasStakeCompany = await getPool()
-    .query("SELECT to_regclass('public.declaration_stake_company') AS t")
-    .then((r) => r.rows[0]?.t != null)
-    .catch(() => false);
-  if (hasStakeCompany)
-    await exec(
-      "REFRESH MATERIALIZED VIEW CONCURRENTLY declaration_stake_company",
-    );
+  // Non-blocking, so /person keeps serving through the rebuild — 096 supplies the UNIQUE
+  // index on (declaration_id, seq, uic) that allows it, and owns the object, so a database
+  // where the declarations loader has never run is skipped rather than failed.
+  await refreshMatviewConcurrently("declaration_stake_company");
 
   // person_browse_table (120) — the third matview 003's CASCADE used to delete —
   // is deliberately NOT refreshed here. It folds six upstream datasets and is a

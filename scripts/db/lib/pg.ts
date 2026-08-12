@@ -220,6 +220,46 @@ export const execEach = async (sql: string): Promise<void> => {
   });
 };
 
+/**
+ * REFRESH a matview without blocking its readers, when that is possible.
+ *
+ * A plain `REFRESH MATERIALIZED VIEW` takes an AccessExclusiveLock for the whole rebuild, so
+ * every reader of a SERVED matview is blocked — or, past the pool's statement_timeout, 500s —
+ * for its full duration. `CONCURRENTLY` takes an ExclusiveLock instead and leaves SELECTs
+ * running. It needs two things, and the second is the one that bites:
+ *
+ *   • a UNIQUE index on the matview — a permanent property of the migration that defines it;
+ *   • the matview must ALREADY BE POPULATED. One created `WITH NO DATA` raises 55000
+ *     (`object_not_in_prerequisite_state`) rather than returning zero rows, which is exactly
+ *     the first-ever run on a cold database. So the populated state is PROBED, never assumed,
+ *     and that one run pays the blocking refresh.
+ *
+ * Returns false when the matview does not exist — callers refresh objects owned by other
+ * loaders' migrations, which may not have been applied yet, and a missing one is a skip.
+ *
+ * This exists because the rule was written out twice and then a third caller got it wrong:
+ * `company_officer_counts` is on a serving path (`magistrate_politician_links()` in 071, and
+ * 099), refreshed CONCURRENTLY by load_tr_pg and BLOCKINGLY by load_magistrates_pg. Same
+ * matview, same readers, two answers.
+ */
+export const refreshMatviewConcurrently = async (
+  name: string,
+): Promise<boolean> => {
+  const state = await getPool()
+    .query(
+      `SELECT c.relispopulated AS populated FROM pg_class c
+        WHERE c.oid = to_regclass($1)`,
+      [`public.${name}`],
+    )
+    .then((r) => r.rows[0] as { populated: boolean } | undefined)
+    .catch(() => undefined);
+  if (!state) return false;
+  await exec(
+    `REFRESH MATERIALIZED VIEW ${state.populated ? "CONCURRENTLY " : ""}${name}`,
+  );
+  return true;
+};
+
 export const allRows = async <T = Record<string, unknown>>(
   sql: string,
   params?: unknown[],

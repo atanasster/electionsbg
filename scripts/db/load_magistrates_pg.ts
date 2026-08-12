@@ -10,7 +10,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, withClient, end } from "./lib/pg";
+import { end, exec, refreshMatviewConcurrently, withClient } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 // Shared with the client hook (usePersonMagistrateHoldings) so the /person lookup key
@@ -69,7 +69,14 @@ const run = async (): Promise<void> => {
     await exec(readFileSync(CONNECTIONS_FN, "utf8"));
     // company_officer_counts is created empty by 071; populate it from the freshly
     // loaded tr_officers so the bridge's hub-company guard has current counts.
-    await exec("REFRESH MATERIALIZED VIEW company_officer_counts");
+    //
+    // CONCURRENTLY once populated, matching load_tr_pg — this matview is READ on a serving
+    // path (magistrate_politician_links() in 071, and 099), so a plain REFRESH blocks those
+    // readers for its whole duration. It was a plain REFRESH here while the other loader
+    // refreshed the same object concurrently: same matview, same readers, two answers.
+    // The first-ever run still pays the blocking form, because 071 creates it WITH NO DATA
+    // and CONCURRENTLY raises 55000 on an unpopulated matview.
+    await refreshMatviewConcurrently("company_officer_counts");
   } catch (e) {
     console.warn(
       `magistrate: skipped 071 bridge fn (connections tables not present yet): ${
