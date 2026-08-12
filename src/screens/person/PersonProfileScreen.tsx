@@ -461,6 +461,78 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
           one small query's latency on a page that is DB-driven end to end. */}
       {!electoralPending && (
         <>
+          {/* WHO THIS IS, before what they are worth. The page used to open on the wealth
+            trajectory and reach "Длъжности" only after five analytical blocks, so the one
+            section that says what the person actually DID was last. Identity leads; the
+            analysis follows it.
+            Kept inside the electoralPending gate with the rest — the gate exists to stop the
+            electoral skeleton collapsing under already-painted sections (CLS 0.32), and that
+            applies to this block exactly as it did to the ones below. */}
+          {offices.length > 0 && (
+            <DashboardSection
+              id="person-offices"
+              title={t("pp_offices")}
+              icon={Landmark}
+            >
+              <Card>
+                <CardContent className="space-y-2 pt-6">
+                  {offices.map((r) => (
+                    <div
+                      key={`${r.source}:${r.ref}:${r.role}`}
+                      className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                    >
+                      {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
+                        so no separate role code is appended. The period sits UNDER it rather
+                        than beside the place badge: it is a property of the office, and the
+                        badge on the right is already a link target. */}
+                      <div className="min-w-0">
+                        <span className="text-sm font-medium">
+                          {officeHeading(r)}
+                        </span>
+                        {r.terms.length > 0 && (
+                          <div className="text-xs text-muted-foreground">
+                            {/* Comma-joined stretches, newest first. A seat lost and
+                              regained is two stretches, never one long range. */}
+                            {r.terms
+                              .map((p) => String(t(p.key, p.params)))
+                              .join(", ")}
+                          </div>
+                        )}
+                      </div>
+                      {placeText(r) &&
+                        (() => {
+                          const href = officePlaceHref(r);
+                          return href ? (
+                            <Link
+                              to={href}
+                              className="shrink-0 text-xs text-primary hover:underline"
+                            >
+                              {placeText(r)}
+                            </Link>
+                          ) : (
+                            <span className="shrink-0 text-xs text-muted-foreground">
+                              {placeText(r)}
+                            </span>
+                          );
+                        })()}
+                    </div>
+                  ))}
+                  {/* What the dates above MEAN, once per basis actually shown — inline, not
+                    in a hover tooltip. "декларация при встъпване 15.04.2021" is only an
+                    honest string BECAUSE of this note, and a native `title` (or the shared
+                    hover tooltip) is invisible on touch and unreachable by keyboard, i.e.
+                    absent for most readers. `term` is a mandate and says what it looks
+                    like it says, so it carries no note. */}
+                  {termNotes.length > 0 && (
+                    <p className="pt-1 text-xs text-muted-foreground">
+                      {termNotes.map((k) => t(k)).join(" ")}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            </DashboardSection>
+          )}
+
           {/* Declared-wealth trajectory (Court of Audit), across every tier the person filed in.
             Self-hides below 2 asset-bearing years, so it shows only where there is a real
             history to plot — regardless of whether the assets themselves come from the MP or
@@ -531,72 +603,6 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
             when nothing matches. */}
           {p.roles.some((r) => r.source === "magistrate") && (
             <PersonMagistrateHoldingsTile name={p.name} />
-          )}
-
-          {/* Offices held */}
-          {offices.length > 0 && (
-            <DashboardSection
-              id="person-offices"
-              title={t("pp_offices")}
-              icon={Landmark}
-            >
-              <Card>
-                <CardContent className="space-y-2 pt-6">
-                  {offices.map((r) => (
-                    <div
-                      key={`${r.source}:${r.ref}:${r.role}`}
-                      className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                    >
-                      {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
-                        so no separate role code is appended. The period sits UNDER it rather
-                        than beside the place badge: it is a property of the office, and the
-                        badge on the right is already a link target. */}
-                      <div className="min-w-0">
-                        <span className="text-sm font-medium">
-                          {officeHeading(r)}
-                        </span>
-                        {r.terms.length > 0 && (
-                          <div className="text-xs text-muted-foreground">
-                            {/* Comma-joined stretches, newest first. A seat lost and
-                              regained is two stretches, never one long range. */}
-                            {r.terms
-                              .map((p) => String(t(p.key, p.params)))
-                              .join(", ")}
-                          </div>
-                        )}
-                      </div>
-                      {placeText(r) &&
-                        (() => {
-                          const href = officePlaceHref(r);
-                          return href ? (
-                            <Link
-                              to={href}
-                              className="shrink-0 text-xs text-primary hover:underline"
-                            >
-                              {placeText(r)}
-                            </Link>
-                          ) : (
-                            <span className="shrink-0 text-xs text-muted-foreground">
-                              {placeText(r)}
-                            </span>
-                          );
-                        })()}
-                    </div>
-                  ))}
-                  {/* What the dates above MEAN, once per basis actually shown — inline, not
-                    in a hover tooltip. "декларация при встъпване 15.04.2021" is only an
-                    honest string BECAUSE of this note, and a native `title` (or the shared
-                    hover tooltip) is invisible on touch and unreachable by keyboard, i.e.
-                    absent for most readers. `term` is a mandate and says what it looks
-                    like it says, so it carries no note. */}
-                  {termNotes.length > 0 && (
-                    <p className="pt-1 text-xs text-muted-foreground">
-                      {termNotes.map((k) => t(k)).join(" ")}
-                    </p>
-                  )}
-                </CardContent>
-              </Card>
-            </DashboardSection>
           )}
 
           {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
