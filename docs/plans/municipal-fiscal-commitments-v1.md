@@ -54,6 +54,7 @@ Two additions, one of them a reversal.
 |---|---|---|
 | 12 | **The choropleth ships.** v1.1's T10.4 ruled it out; that reasoned from one candidate metric (per-resident) and over-generalised to the map. The objection to per-resident holds and is sharpened — population is the wrong denominator for a *fiscal capacity* question — but чл. 130а т. 3 normalises by the município's own expenditure base and carries a legal threshold to anchor the palette, so it is the default layer and the confound is controlled rather than warned about. | **T13**, T10.4 |
 | 13 | **Indicators integration.** A national `municipalCommitments` series patched into `macro.json` on the exact `fetch_arrears.ts` path, one `indicatorsRegistry` entry, and a tile on `/indicators/fiscal` — but explicitly **not** a `CabinetBudgetScorecard` column, which would attribute 265 mayors' commitments to a PM·FM duo. | **T14** |
+| 14 | **`/indicators` takes the NATIONAL aggregate only** (operator direction), so the number sits directly against the deficit, the fiscal reserve and the debt emissions already on that page. Per-município stays on `/governance`; the map is no longer embedded on `/indicators`. The comparison itself is the payoff: municipal commitments are ~47% of the fiscal reserve and roughly one year's deficit, while appearing in none of them. | **T14.0**, T13.5 |
 
 ---
 
@@ -938,9 +939,9 @@ is the reading error to avoid.
 
 - **`/budget`** — a national line: municipal commitments beside the state deficit, since the
   reader who came for "how big is the deficit" is exactly the reader missing this.
-- **`/indicators/fiscal`** — `CabinetBudgetScorecard` already renders national arrears per
-  cabinet-year. Add the **municipal commitments** column beside it; it is the same table's
-  natural fourth measure and the contrast (arrears flat, commitments 2.8×) is the finding.
+- **`/indicators/fiscal`** — **superseded by T14.** An earlier draft proposed a
+  `CabinetBudgetScorecard` column here; T14.2 rules that out (it would attribute 265 mayors'
+  commitments to a PM·FM duo) and replaces it with a national tile. Read T14.
 - **`/procurement` cross-link** — T6.2's two-source comparison, per município.
 - **A `naiasno-post`** on the 46× finding once the backfill lands and the trend is multi-year.
 
@@ -1068,15 +1069,64 @@ Until the backfill lands the map has **one year** and the spike/sustained distin
 available. Say so in the caption rather than shipping a single-year map that reads as a
 standing characterisation.
 
-### T13.5 Where it lives
+### T13.5 Where it lives — `/governance` only
 
-Primary: a tile on **T10.1's `/governance/municipal-finance`**, above the table — map for the
-pattern, table for the detail, both driven by the same `?year` / layer state.
-Secondary: the same component embedded on **`/indicators/fiscal`** (T14.2). Do not build two.
+A tile on **T10.1's `/governance/municipal-finance`**, above the table: map for the pattern,
+table for the detail, both driven by the same `?year` and layer state.
+
+**Not on `/indicators/fiscal`.** An earlier draft embedded it there as a secondary surface;
+T14.0 supersedes that. `/indicators` is the national time-series dashboard and takes the
+aggregate only — a 265-município map there duplicates this page and blurs the split between the
+two views. One map, one home.
 
 ---
 
 ## T14 — Indicators dashboards
+
+### T14.0 `/indicators` takes the NATIONAL aggregate only — that is the whole design
+
+Operator direction, 2026-08-11: the indicators dashboards carry the **national** number, so it
+sits directly against the three fiscal series already on that page.
+
+That is a clean split and it should be stated as a rule rather than a preference:
+
+| surface | grain | question |
+|---|---|---|
+| `/indicators/fiscal` | **national aggregate** | how big is this against the deficit, the reserve and the debt? |
+| `/governance/*` | **per-município** | which общини, and how does mine compare? |
+
+**No per-município data on `/indicators`** — no map (T13.5), no table, no município names. The
+indicators pages are a national time-series dashboard; a 265-row dimension there duplicates
+`/governance/municipal-finance` and blurs what each page is for.
+
+### T14.0a What the comparison actually shows — and it is the reason to build this
+
+All four are already in `macro.json` / `debt-emissions*.json`, in EUR million, on the same annual
+axis and the same `xDomainFor(governments)` cabinet strip that `IndicatorsFiscalScreen` uses:
+
+| series | latest | source |
+|---|---|---|
+| **Municipal поети ангажименти** | **€4.16bn** (Q3-2025) | this ingest |
+| Фискален резерв | €8.93bn (2025-Q4) | `series.fiscalReserve` |
+| ESA deficit | €4.06bn (2025) | `esaBalanceAnnual` × `nominalGdp` |
+| Gross issuance | €8.89bn (2025) | `debt-emissions*.json`, `DebtEmissionsTable` |
+| Government debt | €34.6bn (2025) | `govDebtNominal` |
+
+Municipal forward commitments are **~47% of the entire national fiscal reserve, ~47% of a
+year's gross issuance, and roughly the size of one year's deficit** — while appearing in none
+of them. That is the comparison the page exists to make, and it needs no editorialising.
+
+**Two framing rules, both easy to get wrong and both load-bearing:**
+
+- **Stock vs flow.** Commitments, the reserve and the debt are **stocks**; the deficit and
+  issuance are **annual flows**. "Commitments ≈ one year's deficit" is a *scale illustration*,
+  not an equivalence, and the copy must say so. Charting a stock and a flow on one axis without
+  labelling which is which is the single most common way this comparison goes wrong.
+- **Not a component.** Municipal commitments are **not** inside the deficit, the debt or the
+  reserve. The consolidated cash deficit books a municipal payment when it is *made*, so these
+  are invisible nationally until paid — which is precisely why they are worth showing. Never
+  render them stacked with, summed into, or subtracted from any of the three. Adjacent bars on
+  a shared scale; separate legend entries; a one-line note that they are additional.
 
 ### T14.1 A national series in `macro.json` — the arrears precedent, exactly
 
@@ -1093,9 +1143,16 @@ against `series.arrears`' local arm — the T3.1 reconciliation, now visible on 
 
 ### T14.2 `/indicators/fiscal` — a tile, not a row in the cabinet scorecard
 
-Add a `MunicipalCommitmentsTile` beside `FdiMonthlyTile`: the three national stocks on one
-axis (the 46× contrast is the whole point and it needs one scale to land), the year selector,
-and T13's map embedded beneath.
+Add a `MunicipalCommitmentsTile` beside `FdiMonthlyTile`. Two stories, national only:
+
+1. **The three municipal stocks on one axis** — ангажименти / задължения / просрочени. The 46×
+   contrast is the point and needs one scale to land.
+2. **The scale comparison of T14.0a** — commitments against the reserve, the deficit and gross
+   issuance, on the shared cabinet strip, obeying both framing rules (stock vs flow labelled,
+   never stacked or summed).
+
+No map, no município names (T14.0). A "виж по общини" link carries the reader to
+`/governance/municipal-finance` for the per-município view.
 
 **Do not add a column to `CabinetBudgetScorecard`.** That table attributes fiscal outcomes to
 PM·FM duos, and municipal commitments are the doing of 265 separately-elected mayors and
