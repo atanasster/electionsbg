@@ -25,6 +25,7 @@ import {
   type WgiDimension,
 } from "@/data/macro/useMacroPeers";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Flag } from "./Flag";
 import {
   GEO_SHORT_BG,
@@ -102,6 +103,44 @@ const WgiTooltip = ({
   );
 };
 
+// Geo chips + the year note. Extracted for the reason ViewToggle and
+// CofogLegend were: the loading placeholder renders it too, and the copy that
+// placeholder made had drifted from this one already — it omitted the year
+// span entirely, so the row held six items while the loaded row holds seven.
+//
+// `year` is null while the payload is in flight. The span still renders, with a
+// non-breaking space, because it is the item that owns `ml-auto` and the row's
+// line box. What that does NOT reserve is the year text's WIDTH, so if that text
+// is what tips this flex-wrap row onto a second line, the wrap still moves on
+// arrival. Measured at Pixel 5 with the default peer set the row is one line in
+// both states, so today it does not; a wider label or a seventh peer could
+// change that, and the honest fix then is a width, not another guess here.
+const WgiLegend: FC<{
+  geos: PeerGeo[];
+  shortLabel: Record<PeerGeo, string>;
+  year: string | null;
+}> = ({ geos, shortLabel, year }) => (
+  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+    {geos.map((g) => (
+      <span key={g} className="inline-flex items-center gap-1.5">
+        <Flag geo={g} size={11} title={shortLabel[g]} />
+        <span
+          className={cn(
+            g === "BG"
+              ? "font-semibold text-foreground"
+              : "text-muted-foreground",
+          )}
+        >
+          {shortLabel[g]}
+        </span>
+      </span>
+    ))}
+    <span className="text-[10px] text-muted-foreground/70 ml-auto">
+      {year ?? " "}
+    </span>
+  </div>
+);
+
 export const EuCompareWgiRadar: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
@@ -140,11 +179,14 @@ export const EuCompareWgiRadar: FC = () => {
 
   // Same reservation the small-multiples grid makes, for the same reason: hold
   // the plot's own h-[340px] while the peers query is unsettled rather than
-  // collapsing to a line of text and expanding on arrival. This view is only
-  // reachable by clicking "наложени", so it never scored in the /indicators/
-  // compare measurement — CLS discounts shifts within 500ms of an input — but a
-  // reader who flips the view while the payload is still in flight sees the
-  // same growth, and the reservation costs one branch.
+  // collapsing to a line of text and expanding on arrival.
+  //
+  // This view sits behind the "наложени" toggle, so the /indicators/compare
+  // measurement — which never clicked — never exercised it. That is the only
+  // reason it did not score there, and it is NOT an exemption: `hadRecentInput`
+  // discounts a shift for 500ms after the click, and on the throttled profile
+  // the payload routinely lands later than that. A reader who flips the view
+  // mid-fetch sees the growth and it counts.
   //
   // Pending ONLY: useMacroPeers' fetcher returns undefined on a non-ok
   // response and react-query calls that SUCCESS, so `!wgi` is permanent after a
@@ -153,24 +195,9 @@ export const EuCompareWgiRadar: FC = () => {
     return (
       <div className="flex flex-col gap-3">
         <div className="h-[340px] w-full">
-          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+          <Skeleton className="h-full w-full" />
         </div>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
-          {geos.map((g) => (
-            <span key={g} className="inline-flex items-center gap-1.5">
-              <Flag geo={g} size={11} title={shortLabel[g]} />
-              <span
-                className={cn(
-                  g === "BG"
-                    ? "font-semibold text-foreground"
-                    : "text-muted-foreground",
-                )}
-              >
-                {shortLabel[g]}
-              </span>
-            </span>
-          ))}
-        </div>
+        <WgiLegend geos={geos} shortLabel={shortLabel} year={null} />
       </div>
     );
   }
@@ -243,25 +270,13 @@ export const EuCompareWgiRadar: FC = () => {
           </RadarChart>
         </ResponsiveContainer>
       </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
-        {geos.map((g) => (
-          <span key={g} className="inline-flex items-center gap-1.5">
-            <Flag geo={g} size={11} title={shortLabel[g]} />
-            <span
-              className={cn(
-                g === "BG"
-                  ? "font-semibold text-foreground"
-                  : "text-muted-foreground",
-              )}
-            >
-              {shortLabel[g]}
-            </span>
-          </span>
-        ))}
-        <span className="text-[10px] text-muted-foreground/70 ml-auto">
-          {t("eu_compare_wgi_year", { year: resolvedYear ?? wgi.latestYear })}
-        </span>
-      </div>
+      <WgiLegend
+        geos={geos}
+        shortLabel={shortLabel}
+        year={t("eu_compare_wgi_year", {
+          year: resolvedYear ?? wgi.latestYear,
+        })}
+      />
     </div>
   );
 };

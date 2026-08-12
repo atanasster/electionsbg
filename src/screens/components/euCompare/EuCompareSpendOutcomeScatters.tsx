@@ -32,6 +32,7 @@ import {
   type PeerGeo,
 } from "@/data/macro/useMacroPeers";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Flag } from "./Flag";
 import {
   GEO_COLOR,
@@ -221,7 +222,7 @@ const MiniScatter: FC<{
           {t(explainerKey)}
         </p>
         <div className="h-[220px] w-full">
-          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+          <Skeleton className="h-full w-full" />
         </div>
       </div>
     );

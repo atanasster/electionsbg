@@ -21,6 +21,7 @@ import {
   type CofogCode,
 } from "@/data/macro/useCofog";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { PeerGeo } from "@/data/macro/useMacroPeers";
 import {
   GEO_SHORT_BG,
@@ -45,8 +46,10 @@ const sumPct = (
 // The stacked chart's logical height, in the same units as its viewBox. At
 // module scope because the loading placeholder reserves it before any of the
 // per-render geometry below is computed — one value, so the reservation cannot
-// drift from the chart that replaces it.
-const CHART_H = 260;
+// drift from the chart that replaces it. Exported so the test asserts against
+// this constant rather than a copy of its current value, which would go stale
+// as a false failure the day the chart is resized.
+export const CHART_H = 260;
 
 // Function-colour legend. Its own component because the loading placeholder
 // renders it too: the entry list is a fixed constant and every label is a
@@ -158,10 +161,7 @@ export const EuCompareCofogMultiples: FC = () => {
     return (
       <div className="flex flex-col gap-4">
         <div className="overflow-x-auto">
-          <div
-            className="w-full animate-pulse rounded bg-muted/40"
-            style={{ height: CHART_H }}
-          />
+          <Skeleton className="w-full" style={{ height: CHART_H }} />
         </div>
         <CofogLegend />
       </div>

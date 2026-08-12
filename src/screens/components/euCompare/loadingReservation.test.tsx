@@ -31,7 +31,7 @@ vi.mock("react-i18next", () => ({
 
 import { EuCompareWgiSmallMultiples } from "./EuCompareWgiSmallMultiples";
 import { EuCompareWgiRadar } from "./EuCompareWgiRadar";
-import { EuCompareCofogMultiples } from "./EuCompareCofogMultiples";
+import { CHART_H, EuCompareCofogMultiples } from "./EuCompareCofogMultiples";
 import { EuCompareSpendOutcomeScatters } from "./EuCompareSpendOutcomeScatters";
 import { TOGGLEABLE_PEERS } from "./usePeerSelection";
 
@@ -49,12 +49,14 @@ const failedFetch = () =>
     .spyOn(globalThis, "fetch")
     .mockImplementation(async () => new Response("", { status: 404 }));
 
-const renderPanel = (ui: ReactNode) => {
+// `route` seeds the URL, which is where the peer selection lives — "/?peers="
+// is the every-peer-deselected state, a URL the peer chips themselves write.
+const renderPanel = (ui: ReactNode, route = "/") => {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[route]}>
       <QueryClientProvider client={client}>{ui}</QueryClientProvider>
     </MemoryRouter>,
   );
@@ -94,6 +96,18 @@ describe("EuCompareWgiSmallMultiples", () => {
     expect(boxes(container, "h-[200px]")).toBe(0);
   });
 
+  // Every peer deselected: there is no grid to hold, and the settled path says
+  // so in one line. Holding an empty grid instead inserts that line late.
+  it("reserves the no-peers line, not an empty grid, when every peer is deselected", () => {
+    pendingFetch();
+    const { container } = renderPanel(
+      <EuCompareWgiSmallMultiples />,
+      "/?peers=",
+    );
+    expect(boxes(container, "h-[200px]")).toBe(0);
+    expect(container.textContent).toContain("eu_compare_wgi_no_peers");
+  });
+
   // The toggle renders during loading, so the placeholder has to follow it —
   // otherwise clicking "наложени" mid-fetch does nothing until the payload
   // lands, and the swap when it does is the shift all over again.
@@ -109,6 +123,37 @@ describe("EuCompareWgiSmallMultiples", () => {
 });
 
 describe("EuCompareWgiRadar", () => {
+  // The legend is a flex-wrap row whose LAST item is the year note. A
+  // placeholder that omits it renders one item fewer, and on a narrow viewport
+  // that item is what decides whether the row wraps to a second line — so the
+  // parity that matters is item count, not the year's text.
+  it("renders the same legend items pending and loaded", async () => {
+    const legendItems = (c: HTMLElement) =>
+      c.querySelector("div.flex.flex-wrap")?.children.length ?? 0;
+
+    pendingFetch();
+    const pendingRender = renderPanel(<EuCompareWgiRadar />);
+    const whilePending = legendItems(pendingRender.container);
+
+    vi.spyOn(globalThis, "fetch").mockImplementation(
+      async () =>
+        new Response(
+          JSON.stringify({ wgi: { latestYear: 2024, series: {} } }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        ),
+    );
+    const loaded = renderPanel(<EuCompareWgiRadar />);
+    // Wait for the YEAR, not for the legend container: the pending state renders
+    // that container too, so waiting on it compares pending against pending and
+    // the assertion can never fail.
+    await waitFor(() =>
+      expect(loaded.container.textContent).toContain("eu_compare_wgi_year"),
+    );
+
+    expect(whilePending).toBeGreaterThan(0);
+    expect(whilePending).toBe(legendItems(loaded.container));
+  });
+
   it("reserves its plot while pending and collapses once settled empty", async () => {
     pendingFetch();
     const pendingRender = renderPanel(<EuCompareWgiRadar />);
@@ -154,9 +199,9 @@ describe("EuCompareCofogMultiples", () => {
   it("reserves the chart's own height while pending", () => {
     pendingFetch();
     const { container } = renderPanel(<EuCompareCofogMultiples />);
-    // 260 is the chart's viewBox height, read from the same constant the loaded
-    // <svg height> uses — not a number chosen to match a screenshot.
-    expect(reservedHeights(container)).toContain("260px");
+    // Read from the constant the loaded <svg height> uses, so resizing the
+    // chart moves the assertion with it instead of failing as a stale literal.
+    expect(reservedHeights(container)).toContain(`${CHART_H}px`);
     expect(container.textContent).not.toContain("gov_macro_unavailable");
   });
 
@@ -166,6 +211,6 @@ describe("EuCompareCofogMultiples", () => {
     await waitFor(() =>
       expect(container.textContent).toContain("gov_macro_unavailable"),
     );
-    expect(reservedHeights(container)).not.toContain("260px");
+    expect(reservedHeights(container)).not.toContain(`${CHART_H}px`);
   });
 });

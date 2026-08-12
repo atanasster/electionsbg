@@ -27,6 +27,7 @@ import {
   type WgiDimension,
 } from "@/data/macro/useMacroPeers";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Flag } from "./Flag";
 import { EuCompareWgiRadar } from "./EuCompareWgiRadar";
 import {
@@ -129,7 +130,7 @@ const PeerPanel: FC<{
       </div>
       <div className="h-[200px] w-full">
         {pending ? (
-          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+          <Skeleton className="h-full w-full" />
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={rows} outerRadius="68%">
@@ -306,18 +307,28 @@ export const EuCompareWgiSmallMultiples: FC = () => {
             leave it looking broken for the second the fetch takes. The overlaid
             view reserves its own plot. */}
         {mode === "small" ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {peerPanels.map((g) => (
-              <PeerPanel
-                key={g}
-                peerGeo={g}
-                rows={[]}
-                shortLabel={shortLabel}
-                lang={lang}
-                pending
-              />
-            ))}
-          </div>
+          peerPanels.length === 0 ? (
+            // Mirrors the settled path below: with every peer deselected
+            // (`?peers=`, a URL the chips write and a reader can share) there is
+            // no grid to hold open, so hold the line that replaces it instead.
+            // Reserving an empty grid here would insert those ~20px late.
+            <p className="text-sm text-muted-foreground">
+              {t("eu_compare_wgi_no_peers")}
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {peerPanels.map((g) => (
+                <PeerPanel
+                  key={g}
+                  peerGeo={g}
+                  rows={[]}
+                  shortLabel={shortLabel}
+                  lang={lang}
+                  pending
+                />
+              ))}
+            </div>
+          )
         ) : (
           <EuCompareWgiRadar />
         )}

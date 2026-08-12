@@ -37,6 +37,7 @@ import { Tooltip as UxTooltip } from "@/ux/Tooltip";
 import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useMps } from "@/data/parliament/useMps";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -549,7 +550,7 @@ export const CabinetStripSlot: FC<{
   // keeps exactly the class list the loaded strip gives it — that equality is
   // what CabinetStrip.test.tsx asserts, and it is the thing that stops the two
   // from drifting apart.
-  const fill = <div className="h-full w-full animate-pulse bg-muted/40" />;
+  const fill = <Skeleton className="h-full w-full rounded-none" />;
   return isSmall && mobileScrollable ? (
     <div className="overflow-x-auto pb-1" aria-hidden>
       <div className={cn(band, "w-full")}>{fill}</div>
