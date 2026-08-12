@@ -219,12 +219,6 @@ candidate AS (
    WHERE norm IS NOT NULL
 ),
 -- Gate C: how many active people share this folded name. 1 = unambiguous.
-fold_share AS (
-  SELECT name_fold, count(*) AS n
-    FROM person
-   WHERE status = 'active'
-   GROUP BY 1
-),
 -- Gate B′: the registry independently places THE DECLARED HOLDER at this candidate EIK —
 -- the declarant when they hold it themselves, the named spouse/child when they do not.
 confirmed AS (
@@ -239,10 +233,23 @@ confirmed AS (
 -- The uniqueness gate A used to apply to NAMES, applied instead to what survived the
 -- registry check. Two companies both bearing the declared name AND both employing someone
 -- of the holder's name is not a resolution, it is a coin flip — dropped, as before.
+-- ONE PASS, not a correlated re-scan. This used to read
+--   WHERE (SELECT count(*) FROM confirmed x
+--           WHERE x.declaration_id = cf.declaration_id AND x.seq = cf.seq) = 1
+-- which re-scans the whole `confirmed` CTE once per row of `confirmed` — quadratic, and
+-- `confirmed` is materialised because it is referenced twice, so nothing optimises it away.
+-- It survived locally only because this database has never been ANALYZEd (n_live_tup = 0 on
+-- every tr_* table), so the planner assumed tiny inputs and chose a nested loop over data
+-- that really is small. Against real statistics it does not: measured on Cloud SQL, the whole
+-- build ran 4 h 41 m and was cancelled, holding an AccessExclusiveLock and 500ing
+-- /api/db/person-stake-procurement the entire time. The local plan showed the cost estimate
+-- as 8.8e12.
 resolved AS (
-  SELECT * FROM confirmed cf
-   WHERE (SELECT count(*) FROM confirmed x
-           WHERE x.declaration_id = cf.declaration_id AND x.seq = cf.seq) = 1
+  SELECT * FROM (
+    SELECT cf.*, count(*) OVER (PARTITION BY cf.declaration_id, cf.seq) AS n_for_stake
+      FROM confirmed cf
+  ) z
+   WHERE z.n_for_stake = 1
 )
 SELECT rs.declaration_id,
        rs.seq,
@@ -259,7 +266,6 @@ SELECT rs.declaration_id,
        rs.holder_name,
        rs.holder_is_declarant
   FROM resolved rs
-  JOIN fold_share fs ON fs.name_fold = rs.confirm_fold
  -- Gate C, on the SAME person gate B confirmed. `= 1` and not `<= 1`: n = 0 means the
  -- person layer has no row for that name, which is NOT evidence the name is unique — it is
  -- not a census (Моника Любомирова Станишева is an officer at 14 companies and absent from
@@ -268,7 +274,14 @@ SELECT rs.declaration_id,
  -- The price is the same one 096 already pays and names: this drops the `АКТИВ ГРУП` case
  -- that motivated the family arm, because the holder there is exactly such a person. Recall
  -- loss is cheaper than false attribution.
- WHERE fs.n = 1;
+ --
+ -- A per-row COUNT through idx_person_name_fold, not a join to a `fold_share` CTE that
+ -- aggregated all ~130k active folds up front. That CTE could not be hash-joined — the plan
+ -- came out as a Nested Loop with `Join Filter: (cf.confirm_fold = fs.name_fold)`, i.e. the
+ -- whole fold table re-walked per candidate row. Here the subquery is an index lookup per
+ -- surviving row (~10.9k of them) and the aggregate over the other 130k folds is never built.
+ WHERE (SELECT count(*) FROM person p2
+         WHERE p2.name_fold = rs.confirm_fold AND p2.status = 'active') = 1;
 
 CREATE UNIQUE INDEX declaration_stake_company_pkey
   ON declaration_stake_company (declaration_id, seq, uic);
