@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -72,10 +72,25 @@ const ORDER: MpAssetCategory[] = [
   "debt",
 ];
 
+/** How many unvalued items show before the list collapses. Everything past this is one
+ *  click away, not a separate page: the items are already in the rollup, so expanding
+ *  costs no request. */
+const UNVALUED_PREVIEW = 12;
+
 export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const { t, i18n } = useTranslation();
   const { rollup, isLoading: assetsLoading } = useMpAssets(name);
   const { declarations, isLoading: declsLoading } = useMpDeclarations(name);
+  // Scoped to the FILING, not to the component instance. None of the three render sites
+  // passes a `key`, and neither /person/:slug nor /candidate/:id remounts on a param
+  // change — React Router reconciles the same element position. A plain boolean therefore
+  // survives a person→person navigation whenever the target is already in the React Query
+  // cache (staleTime: Infinity repo-wide, i.e. every back/forward), and the next person's
+  // card renders pre-expanded from a click the reader made on somebody else.
+  // `sourceUrl` is already this component's join key for picking the declaration, so it is
+  // the identity the disclosure belongs to — it also collapses when the same person's
+  // rollup moves to a newer filing.
+  const [expandedFor, setExpandedFor] = useState<string | null>(null);
 
   if (!rollup) {
     // Reserve the typical card height while data is in flight so the
@@ -106,6 +121,9 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const unvaluedItems: MpAsset[] = (latestDecl?.assets ?? []).filter(
     (a) => a.category !== "debt" && a.valueEur == null,
   );
+  const showAllUnvalued = expandedFor === rollup.sourceUrl;
+  // One id per card, so two of these on one page cannot both claim `#mp-assets-unvalued`.
+  const unvaluedListId = `mp-assets-unvalued-${linkSlug ?? name}`;
 
   // Income from Table 12 of the same declaration. Only rows where at least
   // one party (declarant or spouse) has a non-zero amount are kept.
@@ -286,8 +304,14 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
               {t("mp_assets_unvalued_heading") ||
                 "Items declared without value"}
             </div>
-            <ul className="text-xs text-muted-foreground space-y-0.5">
-              {unvaluedItems.slice(0, 12).map((a, i) => {
+            <ul
+              id={unvaluedListId}
+              className="text-xs text-muted-foreground space-y-0.5"
+            >
+              {(showAllUnvalued
+                ? unvaluedItems
+                : unvaluedItems.slice(0, UNVALUED_PREVIEW)
+              ).map((a, i) => {
                 const parts: string[] = [];
                 // Real estate has rich description; cash/bank/investment
                 // rows usually have only a category and currency, so fall
@@ -327,9 +351,30 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                   </li>
                 );
               })}
-              {unvaluedItems.length > 12 && (
-                <li className="italic">
-                  +{unvaluedItems.length - 12} {t("mp_assets_more") || "more"}
+              {/* The overflow used to be a dead italic line reading "+3 още" — wrong word
+                  order in Bulgarian, and unclickable, although the items were already in
+                  memory. The only way to the rest of the list was the card's "Виж детайли"
+                  link to another page. */}
+              {unvaluedItems.length > UNVALUED_PREVIEW && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpandedFor((v) =>
+                        v === rollup.sourceUrl ? null : rollup.sourceUrl,
+                      )
+                    }
+                    aria-expanded={showAllUnvalued}
+                    aria-controls={unvaluedListId}
+                    className="italic text-primary hover:underline"
+                  >
+                    {showAllUnvalued
+                      ? t("mp_assets_show_less") || "Show less"
+                      : t("mp_assets_show_more", {
+                          count: unvaluedItems.length - UNVALUED_PREVIEW,
+                          defaultValue: "Show {{count}} more items",
+                        })}
+                  </button>
                 </li>
               )}
             </ul>
