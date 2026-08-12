@@ -34,14 +34,19 @@
 -- next resolve and silently wrong afterwards, and an FK would make the roster load
 -- order-dependent on a resolve it has no other reason to wait for.
 --
--- person_role already holds the mapping — source = 'mp', ref = mp_id::text, covered by
+-- person_role already holds the mapping — source = 'mp', ref = the mp id, covered by
 -- idx_person_role_source_ref — and it is rewritten by the same resolve that moves the
 -- ids, so it cannot go stale. Every person-keyed surface in 105 joins through it.
 
 CREATE TABLE IF NOT EXISTS mp_profile (
   -- parliament.bg's own MP id. Stable across scrapes and across parliaments: it keys
   -- the photo binaries (parliament/photos/<mp_id>.webp, the one person artifact that
-  -- stays on the bucket) and person_role.ref for source = 'mp'.
+  -- stays on the bucket) and the LEADING FIELD of person_role.ref for source = 'mp'.
+  --
+  -- That ref is `'<mpId>'` for an MP the roster lists no parliaments for (945 of 3,873 rows)
+  -- and `'<mpId>:<ns>'` — one row per mandate — for the rest. Every consumer therefore joins
+  -- through `split_part(r.ref, ':', 1)`, never on `ref` itself; 105's header carries the
+  -- same note. A join written against the bare form matches only a quarter of the corpus.
   mp_id                     integer PRIMARY KEY,
   name                      text    NOT NULL,
   name_en                   text,
@@ -89,7 +94,7 @@ CREATE TABLE IF NOT EXISTS mp_profile (
 -- The current-roster read ("who sits today") is the one hot filter; everything else
 -- goes through the 105 matviews, which carry their own indexes.
 CREATE INDEX IF NOT EXISTS idx_mp_profile_current ON mp_profile (mp_id) WHERE is_current;
--- Both sides of the person_role join key are indexed: idx_person_role_source_ref
+-- The mp_profile side of the person_role join key is indexed: idx_person_role_source_ref
 -- covers (source, ref); this covers the text cast used to meet it.
 CREATE INDEX IF NOT EXISTS idx_mp_profile_ref ON mp_profile ((mp_id::text));
 

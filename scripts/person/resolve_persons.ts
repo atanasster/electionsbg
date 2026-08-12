@@ -72,7 +72,7 @@ import {
 } from "../parsers_local/localPersonRefs";
 
 import { buildLocalTermIndex, localTermBounds } from "./localTerms";
-import { seatsForMp } from "./mpSeats";
+import { seatsForMp, mandatesForMp } from "./mpSeats";
 import { NS_TERM_START } from "../../src/data/parliament/nsFolders";
 import {
   UnmappedGroupShortError,
@@ -138,9 +138,43 @@ const canonicalGroup = (
 //
 // A term ends the day before the next begins. The newest parliament has no
 // successor, so its `end_date` is NULL — still sitting, not unknown.
+//
+// THE `date_basis` THESE ROWS CARRY IS `'term'`, AND THE BOUNDS ARE ELECTION DATES. 081
+// defines `'election'` as "the election that produced the mandate … the mandate legally
+// starts at the constitutive session, days to weeks later", which is literally what these
+// are — the 39th convened 18 days after its election. The label stays `'term'` because it
+// is the PARLIAMENT's term that is being named, bounded by the elections that seated it and
+// its successor, and because that is the only bound that tells a short parliament from a
+// partially-ingested one (the 45th sat 17 days; the 44th sat four years and we hold five
+// months). 081's definition of `'term'` was widened to say so. Relabelling these to
+// `'election'` would render every MP mandate with the proxy-date phrasing the UI reserves
+// for a filing, which is the opposite of the intent.
+// Parliaments the site holds no ELECTION for, so `NS_TERM_START` — which is keyed off the
+// election that seated each one — cannot reach them. `oldnsList` goes back exactly one
+// further than our corpus does (39 appears on 124 profiles; the minimum folder across all
+// 2,122 is exactly 39), so this is a one-row table and stays one row.
+//
+// NOT added to ELECTION_TO_NS: that map is keyed by the election folders the site actually
+// serves, and inventing a `2001_06_17` key there would imply a `data/` tree that does not
+// exist and put a dead option in the election selector.
+//
+// SAFE ONLY WHILE HISTORIC ENTRIES EXTEND THE BOTTOM of the range. A term's end is computed
+// as the day before its successor's start, so an entry inserted into a GAP would silently
+// re-end its predecessor. 39 is the new minimum, so nothing else moves.
+const NS_TERM_START_HISTORIC: Record<string, string> = {
+  // XXXIX НС. 2001-06-17 is the ELECTION; the chamber convened on 2001-07-05. The election
+  // date is used deliberately and consistently with every other entry here — see the
+  // `date_basis` note below for why, and do not "correct" it to the constitutive session
+  // without moving all thirteen.
+  "39": "2001-06-17",
+};
+
 const NS_TERM_BOUNDS: Map<number, { start: string; end: string | null }> =
   (() => {
-    const starts = Object.entries(NS_TERM_START)
+    const starts = Object.entries({
+      ...NS_TERM_START_HISTORIC,
+      ...NS_TERM_START,
+    })
       .map(([ns, d]) => ({ ns: Number(ns), start: d }))
       .filter((x) => Number.isFinite(x.ns))
       .sort((a, b) => a.ns - b.ns);
@@ -166,27 +200,52 @@ type MpRoleRow = {
 };
 
 /**
- * The person_role rows for ONE mp mention — one per parliament they actually
- * sat in, keyed `'<mpId>:<ns>'` (T3).
+ * The person_role rows for ONE mp mention — one per parliament they sat in, keyed
+ * `'<mpId>:<ns>'` (T3), each dated with that parliament's term.
  *
- * An MP with no roll-call coverage keeps a SINGLE row with the bare `'<mpId>'`
- * ref and a NULL party: NS 39-43 predate the corpus and 1,263 profiles carry no
- * `nsFolders` at all. That mixed shape is deliberate and safe — every consumer
- * reads the id with `split_part(ref, ':', 1)`, which returns the whole string
- * when there is no colon. Minting a `'<mpId>:0'` would be worse: it would claim
- * a parliament that does not exist.
+ * TWO SOURCES, ASKED DIFFERENT QUESTIONS. `mandatesForMp` says WHICH parliaments (the
+ * roster's own list unioned with the roll-call corpus's record of who was in the room,
+ * matched by name — see mpSeats.ts for why that join is admissible there and nowhere near
+ * an attribution). `seatsForMp` says which GROUP they entered each one with, and keeps its
+ * stricter id guard, because a wrong match there hands somebody another member's party
+ * while a wrong match here only dates an office.
+ *
+ * So a mandate with no roll-call seat is still emitted — dated, with a NULL party. That is
+ * the whole point of this function: before it, the 1,559 MP roles outside the corpus
+ * carried no dates at all, and the profile rendered "Народен представител" with no period
+ * while the header knew perfectly well it had been two terms.
+ *
+ * ONE ROW PER MANDATE rather than one span across the career, because 70 of the 296 datable
+ * MPs have a GAP in theirs — a single "2001 – 2013" would assert continuous service for
+ * nearly a quarter of them. `foldOffices` already renders several stretches as several.
+ *
+ * An MP the roster lists no parliaments for keeps the SINGLE bare `'<mpId>'` row, undated:
+ * 1,263 profiles carry no `nsFolders`, and parliament.bg publishes nothing else about them,
+ * so there is no term to name. That mixed shape is deliberate and safe — every consumer
+ * reads the id with `split_part(ref, ':', 1)`, which returns the whole string when there is
+ * no colon, and the two matviews that fan out on it already use `DISTINCT ON`. Minting a
+ * `'<mpId>:0'` would be worse: it would claim a parliament that does not exist.
  */
-const mpRoleRowsFor = (ref: string): MpRoleRow[] => {
+export const mpRoleRowsFor = (ref: string): MpRoleRow[] => {
   const bare = [{ ref, party: null, startDate: null, endDate: null }];
   const mpId = Number.parseInt(ref, 10);
   if (!Number.isFinite(mpId)) return bare;
-  const seats = seatsForMp(mpId);
-  if (!seats.length) return bare;
-  return seats.map((s) => {
-    const bounds = NS_TERM_BOUNDS.get(s.ns);
+
+  const mandates = mandatesForMp(mpId);
+  if (!mandates.length) return bare;
+
+  // The group per parliament, where the corpus has one. Keyed by NS so a mandate the
+  // roll-call does not reach simply finds nothing rather than borrowing a neighbour's.
+  const groupByNs = new Map(
+    seatsForMp(mpId).map((s) => [s.ns, s.entryGroupShort]),
+  );
+
+  return mandates.map((ns) => {
+    const bounds = NS_TERM_BOUNDS.get(ns);
+    const short = groupByNs.get(ns);
     return {
-      ref: `${mpId}:${s.ns}`,
-      party: canonicalGroup(s.entryGroupShort, mpId, s.ns),
+      ref: `${mpId}:${ns}`,
+      party: short ? canonicalGroup(short, mpId, ns) : null,
       startDate: bounds?.start ?? null,
       endDate: bounds?.end ?? null,
     };

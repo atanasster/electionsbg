@@ -145,11 +145,19 @@ CREATE TABLE IF NOT EXISTS person_role (
     CHECK (confidence IN ('exact_id', 'high', 'medium', 'review', 'manual')),
   -- WHAT the two dates above MEAN, because the sources that fill them measure different
   -- events and a bare date range would present them as one kind of fact:
-  --   'term'     the mandate itself (MP terms — the only basis populated before
-  --              person-enrichment-v1; an actual start and end of office).
+  --   'term'     the PARLIAMENT's term, bounded by the election that seated it and the one
+  --              that seated its successor (MP roles). Not the oath: a chamber convenes days
+  --              to weeks after its election — the 39th on 2001-07-05, 18 days after — so a
+  --              'term' row overstates each end of an individual mandate by that much.
+  --              The election bound is deliberate and is the only one that distinguishes a
+  --              SHORT parliament from a partially-ingested one: the 45th sat 17 days and we
+  --              hold all of them, the 44th sat four years and we hold five months, and the
+  --              sittings alone cannot tell those apart. See NS_TERM_BOUNDS in
+  --              scripts/person/resolve_persons.ts, which is the only writer.
   --   'election' the election that PRODUCED the mandate, parsed off the cycle in
-  --              person_role.ref. The mandate legally starts at the constitutive session,
-  --              days to weeks later, so this is the event and not the oath.
+  --              person_role.ref — a CANDIDACY, where no term is implied at all. Distinct
+  --              from 'term' above, which also starts on an election date but names a period
+  --              of office rather than the event.
   --   'filing'   the date a встъпителна / при напускане declaration was FILED with the
   --              Сметна палата. ЗПКОНПИ gives a one-month window, so it trails the real
   --              date by up to ~30 days and is an upper bound, never the appointment.

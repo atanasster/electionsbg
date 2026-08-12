@@ -70,12 +70,6 @@ export type MpSeat = {
   entryGroupShort: string;
 };
 
-type SessionFile = {
-  ns?: number;
-  date?: string;
-  mpParty?: Record<string, string>;
-};
-
 /** mpId → the set of NS numbers index.json says that PERSON sat in. */
 export const loadNsFolders = (): Map<number, Set<number>> => {
   const out = new Map<number, Set<number>>();
@@ -99,6 +93,59 @@ export const loadNsFolders = (): Map<number, Set<number>> => {
   return out;
 };
 
+type SessionRead = {
+  file: string;
+  ns: number;
+  date: string;
+  mpParty?: Record<string, string>;
+  mpNames?: Record<string, string>;
+};
+
+/**
+ * Walk the session corpus ONCE, handing each usable day to `cb`.
+ *
+ * Both indexes below need `ns` and a per-seat map off the same 613 files (~290 MB), so
+ * without this each pays the walk and the JSON parse separately — and the resolver builds
+ * both. It also puts the malformed-file report in one place: a day that fails to parse is
+ * the ONLY source of the entry group for every MP who first appeared on it, so losing one
+ * silently re-points those seats at a later session's group.
+ */
+const forEachSession = (
+  dir: string,
+  cb: (s: SessionRead) => void,
+): { skipped: string[] } => {
+  const skipped: string[] = [];
+  if (!fs.existsSync(dir)) return { skipped };
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    // Sort by filename (YYYY-MM-DD.json) so a file with no `date` field still lands in
+    // chronological order rather than at the mercy of readdir.
+    .sort();
+  for (const file of files) {
+    let session: Omit<SessionRead, "file" | "ns" | "date"> & {
+      ns?: number;
+      date?: string;
+    };
+    try {
+      session = JSON.parse(fs.readFileSync(path.join(dir, file), "utf-8"));
+    } catch {
+      skipped.push(file);
+      continue;
+    }
+    const ns = Number(session.ns);
+    if (!Number.isFinite(ns)) continue;
+    cb({
+      file,
+      ns,
+      date: session.date ?? file.replace(/\.json$/, ""),
+      mpParty: session.mpParty,
+      mpNames: session.mpNames,
+    });
+  }
+  return { skipped };
+};
+
 /**
  * Build the full mpId → seats index.
  *
@@ -114,45 +161,20 @@ export const buildMpSeatIndex = (): Map<number, MpSeat[]> => {
     console.warn(`mpSeats: ${SESSIONS_DIR} missing — no seats resolvable`);
     return result;
   }
-  const skipped: string[] = [];
-
   // (ns, mpId) → { date, short } for the earliest date seen so far.
   const earliest = new Map<string, { date: string; short: string }>();
 
-  const files = fs
-    .readdirSync(SESSIONS_DIR)
-    .filter((f) => f.endsWith(".json"))
-    // Sort by filename (YYYY-MM-DD.json) so a file with no `date` field still
-    // lands in chronological order rather than at the mercy of readdir.
-    .sort();
-
-  for (const f of files) {
-    let session: SessionFile;
-    try {
-      session = JSON.parse(
-        fs.readFileSync(path.join(SESSIONS_DIR, f), "utf-8"),
-      ) as SessionFile;
-    } catch {
-      // A malformed day must not take the whole index down — but it must not be
-      // silent either. That file is the ONLY source of the entry group for every
-      // MP who first appeared on it, so losing it re-points those seats at a
-      // later session's group: the last-seen error gate 5.3 exists to prevent,
-      // applied to a subset and invisible.
-      skipped.push(f);
-      continue;
-    }
-    const ns = Number(session.ns);
-    if (!Number.isFinite(ns) || !session.mpParty) continue;
-    const date = session.date ?? f.replace(/\.json$/, "");
-
+  const { skipped } = forEachSession(SESSIONS_DIR, (session) => {
+    if (!session.mpParty) return;
     for (const [rawId, short] of Object.entries(session.mpParty)) {
       const mpId = Number.parseInt(rawId, 10);
       if (!Number.isFinite(mpId) || !short) continue;
-      const key = `${ns}\t${mpId}`;
+      const key = `${session.ns}\t${mpId}`;
       const prev = earliest.get(key);
-      if (!prev || date < prev.date) earliest.set(key, { date, short });
+      if (!prev || session.date < prev.date)
+        earliest.set(key, { date: session.date, short });
     }
-  }
+  });
 
   for (const [key, { short }] of earliest) {
     const [nsStr, idStr] = key.split("\t");
@@ -216,4 +238,188 @@ export const latestSeatForMp = (mpId: number): MpSeat | undefined => {
 export const __resetMpSeatCache = () => {
   cached = undefined;
   built = false;
+};
+
+// ── MANDATES: which parliaments a person actually sat in ────────────────────
+//
+// A DIFFERENT question from `seatsForMp` above, and it needs a different join.
+//
+// `seatsForMp` answers "which group did this person ENTER parliament n with", so a wrong
+// match hands them another member's party — hence its §0f guard, which drops any seat whose
+// NS the profile does not claim. That guard must not be relaxed.
+//
+// This one answers only "did this person sit in parliament n". `nsFolders` alone cannot
+// answer it: `oldnsList` covers PAST parliaments only, and `mp_profile` / `mp_seat` are
+// partly disjoint id spaces — 527 seat ids have no profile row, and the same human is
+// routinely one id in each. Жельо Иванов Бойчев is profile 2671 with folders {42,43} and
+// seat 779 at NS 44. Measured on the current corpus: of the 296 undated MP roles that have
+// any folders, 107 hold a seat in an NS their folder list omits — 36%.
+//
+// So the union is by NAME, which this repo otherwise treats as never an identity. TWO
+// guards make it admissible for a write here, and they cover DIFFERENT collision classes —
+// the second is not a refinement of the first, it is the one the first structurally cannot
+// see:
+//
+//   1. ROSTER AMBIGUITY. A folded name held by two profiles is dropped outright, so neither
+//      can be handed the other's seat. Measured: 0 of 2,122 profiles collide today, so this
+//      guard currently fires for nobody — it is here for the day that changes.
+//
+//   2. CORPUS AMBIGUITY, i.e. two distinct humans sharing a folded name where only one has
+//      a profile. Guard 1 is blind to it: it only ever compares profiles with each other,
+//      and "every MP has a profile" is FALSE — 4 session names resolve to no profile at all
+//      (ИВАЙЛО ГЕОРГИЕВ СТАЙКОВ, ЛЮБОМИР ЙОРДАНОВ ПОПЙОРДАНОВ, ЦВЕТОМИР ДОНЕВ КОНОВ,
+//      ИВАН МИХАЙЛОВ АЛЕКСИЕВ). The corpus really contains such a pair: two Иван Йорданов
+//      Димитровs sat in the 45th at once, in different groups, and on 2021-04-29 it spells
+//      both plainly so both fold onto profile 3537.
+//
+//      The detector is exact and costs nothing: two seat ids folding to ONE profile on ONE
+//      session day. Nobody holds two seats at once, so that is either an ingest duplicate or
+//      a namesake — 43 (day, profile) pairs across the corpus. Those profiles lose their
+//      name-derived mandates and keep their roster ones, i.e. they degrade to the behaviour
+//      before this function existed.
+//
+// A dropped mandate leaves a person's list as incomplete as it is today. A wrong one dates
+// an office they never held.
+
+/** Case, internal whitespace and hyphen SPACING — and deliberately nothing more.
+ *
+ *  The hyphen rule is the one CLAUDE.md records being learned from „Средкова - Петрова" vs
+ *  „Средкова-Петрова", which minted two person rows for one human. 68 profiles carry a tight
+ *  hyphen and the corpus spells at least one of them spaced (`МИРЕНА НИКОЛАЕВА ГУГЛЕВА -
+ *  ИВАНОВА` → profile 5330), so without it that mandate is simply lost.
+ *
+ *  It stops SHORT of stripping punctuation, which every other fold in this repo does, and
+ *  that is not an oversight: parliament.bg disambiguates the namesake pair above with a
+ *  TRAILING DOT (`ИВАН ЙОРДАНОВ ДИМИТРОВ.` is a different man), so a punctuation-stripping
+ *  fold would merge two humans. Guard 2 above is what makes that safe to rely on rather than
+ *  hope for — the corpus is inconsistent about the dot, and 0 profile names carry one.
+ *
+ *  Hyphen normalisation is safe in both directions: it MERGES keys, so it can only increase
+ *  what both guards detect, never hide a collision from them. */
+const foldName = (s: string): string =>
+  s
+    .toUpperCase()
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+/** mpId → every NS this person sat in, from BOTH the roster's own list and the roll-call
+ *  corpus's record of who was in the room.
+ *
+ *  Malformed session files are skipped SILENTLY here because `buildMpSeatIndex` walks the
+ *  same directory and reports them. That delegation holds for the resolver, which builds
+ *  both — a standalone caller of this function alone gets no such report. */
+export const buildMandateIndex = (
+  // Defaulted rather than read from a module const so a test can point it at a fixture
+  // corpus without an env-var seam in production code.
+  root: string = REPO_ROOT,
+): Map<number, Set<number>> => {
+  const indexJson = path.join(root, "data/parliament/index.json");
+  const sessionsDir = path.join(root, "data/parliament/votes/sessions");
+  const out = new Map<number, Set<number>>();
+  if (!fs.existsSync(indexJson)) {
+    console.warn(`mpSeats: ${indexJson} missing — no mandates resolvable`);
+    return out;
+  }
+  const idx = JSON.parse(fs.readFileSync(indexJson, "utf-8")) as {
+    mps?: { id: number; name?: string; nsFolders?: string[] }[];
+  };
+  const mps = idx.mps ?? [];
+
+  // Seed from the roster's own list — authoritative per entry, incomplete as a whole.
+  for (const mp of mps) {
+    const folders = (mp.nsFolders ?? [])
+      .map((f) => Number.parseInt(String(f), 10))
+      .filter((n) => Number.isFinite(n));
+    if (folders.length) out.set(mp.id, new Set(folders));
+  }
+
+  // name → mpId, but ONLY for names that identify exactly one profile. A name held by two
+  // profiles is dropped from the index entirely, so neither of them can be handed the
+  // other's seat.
+  const byName = new Map<string, number | null>();
+  for (const mp of mps) {
+    if (!mp.name) continue;
+    const k = foldName(mp.name);
+    byName.set(k, byName.has(k) ? null : mp.id);
+  }
+
+  if (!fs.existsSync(sessionsDir)) {
+    console.warn(`mpSeats: ${sessionsDir} missing — roster mandates only`);
+    return out;
+  }
+
+  // Collected across the whole walk, then applied — a profile poisoned by the LAST session
+  // file must lose the mandates the first one gave it, so nothing may be committed to `out`
+  // until every day has been read.
+  const fromName = new Map<number, Set<number>>();
+  const poisoned = new Set<number>();
+
+  forEachSession(sessionsDir, (session) => {
+    if (!session.mpNames) return;
+    // Which seat ids folded onto each profile ON THIS DAY — guard 2's detector.
+    const seatsPerProfile = new Map<number, Set<string>>();
+    for (const [seatId, name] of Object.entries(session.mpNames)) {
+      if (!name) continue;
+      const mpId = byName.get(foldName(name));
+      if (mpId == null) continue; // unknown, or roster-ambiguous → fail closed
+      const seats = seatsPerProfile.get(mpId) ?? new Set<string>();
+      seats.add(seatId);
+      seatsPerProfile.set(mpId, seats);
+      const set = fromName.get(mpId) ?? new Set<number>();
+      set.add(session.ns);
+      fromName.set(mpId, set);
+    }
+    for (const [mpId, seats] of seatsPerProfile)
+      if (seats.size > 1) poisoned.add(mpId);
+  });
+
+  for (const [mpId, nss] of fromName) {
+    if (poisoned.has(mpId)) continue;
+    const set = out.get(mpId) ?? new Set<number>();
+    for (const ns of nss) set.add(ns);
+    out.set(mpId, set);
+  }
+
+  if (poisoned.size)
+    console.warn(
+      `mpSeats: ${poisoned.size} profile(s) held two seats on one session day — ` +
+        `an ingest duplicate or a namesake the roster cannot tell apart. Their ` +
+        `name-derived mandates are dropped (roster folders kept): ` +
+        `${[...poisoned].slice(0, 8).join(", ")}${poisoned.size > 8 ? " …" : ""}`,
+    );
+
+  // The signal buildMpSeatIndex is careful to keep, for the same reason: an index.json that
+  // parses but yields no usable `mps` would send every MP back to a bare undated row —
+  // 2,928 dated rows silently gone, resolver exit 0.
+  if (!out.size)
+    console.warn(
+      `mpSeats: EMPTY mandate index — check ${indexJson} and ${sessionsDir}`,
+    );
+  else if (!fromName.size)
+    // Distinguishable from a folders-only corpus only by this line: it is the signature of
+    // a fold change or an upstream rename of `mpNames`.
+    console.warn(
+      `mpSeats: the name join matched NOTHING across ${sessionsDir} — check the mpNames field and foldName`,
+    );
+  return out;
+};
+
+let mandateCache: Map<number, Set<number>> | undefined;
+let mandatesBuilt = false;
+
+/** Every parliament this MP sat in, ascending. Memoised on the ATTEMPT, like seatsForMp —
+ *  the resolver calls it once per MP role and one build reads all 613 session files. */
+export const mandatesForMp = (mpId: number): number[] => {
+  if (!mandatesBuilt) {
+    mandateCache = buildMandateIndex();
+    mandatesBuilt = true;
+  }
+  return [...(mandateCache?.get(mpId) ?? [])].sort((a, b) => a - b);
+};
+
+/** Test seam — drops the mandate cache so the next call rebuilds. */
+export const __resetMandateCache = () => {
+  mandateCache = undefined;
+  mandatesBuilt = false;
 };
