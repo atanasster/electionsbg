@@ -73,8 +73,17 @@ WITH filed AS (
   SELECT d.person_id, d.fiscal_year AS fy, count(*) AS stake_rows
     FROM declaration d
     JOIN declaration_stake s ON s.declaration_id = d.declaration_id
+    JOIN person p ON p.person_id = d.person_id
    WHERE d.person_id IS NOT NULL
      AND s.company_name IS NOT NULL
+     -- The person's OWN stakes, matching the resolved CTE below. Both sides must count the
+     -- same population or "every declared stake resolved" compares a declarant-only numerator
+     -- against a whole-filing denominator, and no one with a spouse's company is ever clean.
+     --
+     -- 096's own function, never a copy of its predicate: declaration_stake carries no flag,
+     -- so this side has to re-derive what the matview stored, and a second spelling of the
+     -- rule is how the two drift. declared_vs_registry.data.test.ts pins the call.
+     AND stake_holder_is_declarant(s.holder_name, p.name_fold)
      AND d.declaration_type = 'Annualy'
      AND d.fiscal_year IS NOT NULL
    GROUP BY 1, 2
@@ -86,18 +95,28 @@ resolved AS (
          array_agg(DISTINCT sc.uic) AS uics
     FROM declaration_stake_company sc
     JOIN declaration d ON d.declaration_id = sc.declaration_id
-   WHERE d.declaration_type = 'Annualy'
+   -- The person's OWN stakes. The matview also resolves rows the filing attributes to a
+   -- spouse or a child; counting those here would compare a resolved-row total against a
+   -- filed denominator that is every stake row on the filing, and the two would agree for
+   -- the wrong reason. This measure is about how much of a person's own declared portfolio
+   -- we can name an EIK for.
+   WHERE sc.holder_is_declarant
+     AND d.declaration_type = 'Annualy'
      AND d.fiscal_year IS NOT NULL
    GROUP BY 1, 2
 ),
 -- (2) only person-years where EVERY declared stake resolved. An unresolved row could BE
 -- the company below, so a partial resolution cannot support the claim.
 clean AS (
-  SELECT f.person_id, f.fy, COALESCE(r.uics, '{}') AS declared_uics,
-         f.stake_rows
+  -- An INNER join, because the LEFT one could not fire: resolved_rows is count(*) over a
+  -- group, so it is >= 1 wherever the row exists at all, and stake_rows is >= 1 by the same
+  -- argument — a person-year with no resolved row can never satisfy the equality. Written as
+  -- a LEFT JOIN + COALESCE it read as if "clean with zero resolutions" were a reachable
+  -- state, which is the opposite of the rule this CTE enforces.
+  SELECT f.person_id, f.fy, r.uics AS declared_uics, f.stake_rows
     FROM filed f
-    LEFT JOIN resolved r ON r.person_id = f.person_id AND r.fy = f.fy
-   WHERE COALESCE(r.resolved_rows, 0) = f.stake_rows
+    JOIN resolved r ON r.person_id = f.person_id AND r.fy = f.fy
+   WHERE r.resolved_rows = f.stake_rows
 ),
 registry AS (
   -- (3) shareholder roles only, (4) overlapping the fiscal year.
@@ -176,13 +195,17 @@ const main = async (): Promise<void> => {
     WITH filed AS (
       SELECT d.person_id, d.fiscal_year fy, count(*) n
         FROM declaration d JOIN declaration_stake s USING (declaration_id)
+        JOIN person p ON p.person_id = d.person_id
        WHERE d.person_id IS NOT NULL AND s.company_name IS NOT NULL
+         -- Own stakes on BOTH sides, as in the main query above.
+         AND stake_holder_is_declarant(s.holder_name, p.name_fold)
          AND d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
        GROUP BY 1, 2),
     resolved AS (
       SELECT sc.person_id, d.fiscal_year fy, count(*) n
         FROM declaration_stake_company sc JOIN declaration d USING (declaration_id)
-       WHERE d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
+       WHERE sc.holder_is_declarant
+         AND d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
        GROUP BY 1, 2)
     SELECT count(*)::text filed_years,
            count(*) FILTER (WHERE COALESCE(r.n, 0) = f.n)::text clean_years,
@@ -200,17 +223,23 @@ const main = async (): Promise<void> => {
     "whose own declaration does not list it — which has innocent explanations this script",
     "cannot rule out, the largest being that the registry link is matched by NAME.",
     "",
-    `- person-years with an ANNUAL stakes table: **${ctx.filed_years}**`,
-    `- of those, every stake row resolved to an EIK (usable): **${ctx.clean_years}**`,
-    `- skipped, because at least one stake row did not resolve: **${ctx.skipped_years}**`,
+    `- person-years with an ANNUAL stakes table listing the declarant's OWN stake: **${ctx.filed_years}**`,
+    `- of those, every OWN stake row resolved to an EIK (usable): **${ctx.clean_years}**`,
+    `- skipped, because at least one OWN stake row did not resolve: **${ctx.skipped_years}**`,
     "",
     `**Coverage is the headline number here.** Only ${ctx.clean_years} of ${ctx.filed_years}`,
     "person-years are usable, because `declaration_stake_company` resolves a declared company",
-    "NAME to an EIK only when the name is unique in the registry AND the registry",
-    "independently places that person there. Where one row fails to resolve, the whole",
-    "person-year is unusable — the unresolved row could be the very company we would",
-    "otherwise report as missing. Widening resolution, not widening this query, is what",
-    "would make the exercise representative.",
+    "NAME to an EIK only when the registry independently places the declared holder at a",
+    "company of that name, and exactly one such company survives that check. Where one row",
+    "fails to resolve, the whole person-year is unusable — the unresolved row could be the",
+    "very company we would otherwise report as missing. Widening resolution, not widening",
+    "this query, is what would make the exercise representative.",
+    "",
+    "**Both figures count the declarant's OWN stakes only.** Tables 10/11 name a holder per",
+    "row and it is often a spouse or a child; those are out of scope on both sides, since",
+    "чл.37 asks the declarant about their own participations. A person-year in which every",
+    "stake belongs to a family member therefore does not appear above at all, rather than",
+    "appearing as unusable.",
     `- rows reported: **${rows.length}**${
       shown.length < rows.length ? ` (showing ${shown.length})` : ""
     }`,

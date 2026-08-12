@@ -96,17 +96,29 @@ test.skipIf(skip)(
   async () => {
     // Every registry name that ends in the LETTERS of a legal form — the exact population
     // the anchor bug mangles — plus a broad sample for general agreement.
+    //
+    // The targeted arm is taken WHOLE (9,268 rows) rather than sharing a LIMIT with the broad
+    // one. It used to: `(regex OR uic LIKE '1%') ORDER BY uic LIMIT 40000` sorts the low EIKs
+    // to the front, so only 525 of those 9,268 survived the cut and just 41 of them came from
+    // the regex arm — 94% of the population this test exists for went unsampled, and the
+    // ORDER BY added to fix the flakiness is what caused it. The mutation was still caught,
+    // on a twentieth of the margin the comment claimed.
     const rows = await allRows<{ name: string; sql: string | null }>(`
-      SELECT name, declared_company_norm(name) AS sql
-        FROM tr_companies
-       WHERE entity_class = 'company'
-         AND (name ~ '(АД|ОД|ЕТ|КД|СД)$' OR uic LIKE '1%')
-       -- ORDER BY, so the sample is the SAME 40k rows every run. A bare LIMIT let the
-       -- planner return different rows each time, which made this gate flaky.
-       ORDER BY uic
-       LIMIT 40000
+      (SELECT name, declared_company_norm(name) AS sql
+         FROM tr_companies
+        WHERE entity_class = 'company' AND name ~ '(АД|ОД|ЕТ|КД|СД)$')
+      UNION ALL
+      (SELECT name, declared_company_norm(name)
+         FROM tr_companies
+        WHERE entity_class = 'company' AND uic LIKE '1%'
+        -- ORDER BY, so the broad arm is the SAME 40k rows every run. A bare LIMIT let the
+        -- planner return different rows each time, which made this gate flaky.
+        ORDER BY uic
+        LIMIT 40000)
     `);
-    assert.ok(rows.length > 1000, "sample too small to be meaningful");
+    // Floored against the targeted arm alone, so a future truncation of it fails loudly
+    // rather than silently shrinking the sample back to a rounding error.
+    assert.ok(rows.length > 9000, "sample too small to be meaningful");
     const disagree = rows.filter((r) => {
       const oracle = normIndependently(r.name);
       const got = r.sql ?? "";
@@ -152,50 +164,356 @@ test.skipIf(skip)(
   },
 );
 
-// GATE A, part two: the resolution must be unique under the independent key as well. A name
-// borne by two trading companies must have been DROPPED, not resolved to one of them.
+// Every published row, with the two names the gates turn on: the declarant's fold, and the
+// fold of whoever the FILING says holds the stake. `translit_bg_latin` is the repo-wide name
+// fold — the same one person.name_fold is built with — so reading it here is reading an
+// input, not re-running a gate. Everything the gates actually decide (which companies are
+// candidates, which are confirmed, whether one survives) is recomputed in TypeScript below.
+type Published = {
+  declaration_id: string;
+  seq: number;
+  slug: string;
+  uic: string;
+  company_name: string;
+  share_size: string | null;
+  stake_kind: string | null;
+  item_type: string | null;
+  stake_year: number;
+  holder_name: string | null;
+  holder_is_declarant: boolean;
+  name_fold: string;
+  holder_fold: string | null;
+};
+
+const published = haveDb
+  ? await allRows<Published>(`
+      SELECT sc.declaration_id::text, sc.seq, p.slug, sc.uic, sc.company_name,
+             sc.share_size, sc.stake_kind, sc.item_type, sc.stake_year,
+             sc.holder_name, sc.holder_is_declarant, p.name_fold,
+             translit_bg_latin(sc.holder_name) AS holder_fold
+        FROM declaration_stake_company sc
+        JOIN person p ON p.person_id = sc.person_id
+    `)
+  : [];
+
+const confirmFoldOf = (r: Published): string =>
+  r.holder_name == null ? r.name_fold : (r.holder_fold ?? "");
+
+// GATE A′ + GATE B + UNIQUENESS, recomputed end to end.
+//
+// Gate A used to require the declared name to identify ONE trading company outright, and this
+// test asserted exactly that. It no longer does: a name borne by two companies is now allowed
+// through when the registry itself settles which — the declared holder is an owner or officer
+// at one of them and not the other. So the property to hold is no longer "ambiguous names are
+// dropped" but the stronger, harder one: THE PUBLISHED EIK IS THE ONLY CANDIDATE THE HOLDER'S
+// OWN REGISTRY FOOTPRINT ADMITS. A name still ambiguous after the footprint speaks must be
+// dropped, not resolved to a first match.
 test.skipIf(skip)(
-  "no resolved name matches two trading companies",
+  "each published EIK is the only candidate the declared holder is registered at",
   async () => {
-    const declared = await allRows<{ company_name: string }>(
-      "SELECT DISTINCT company_name FROM declaration_stake_company",
+    assert.ok(published.length > 0, "nothing published — fixture is empty");
+
+    const registry = await allRows<{ uic: string; name: string }>(
+      "SELECT uic, name FROM tr_companies WHERE entity_class = 'company'",
     );
-    const registry = await allRows<{ name: string }>(
-      "SELECT name FROM tr_companies WHERE entity_class = 'company'",
-    );
-    const byNorm = new Map<string, number>();
+    const byNorm = new Map<string, string[]>();
     for (const c of registry) {
       const k = normIndependently(c.name);
-      byNorm.set(k, (byNorm.get(k) ?? 0) + 1);
+      if (!k) continue;
+      const at = byNorm.get(k);
+      if (at) at.push(c.uic);
+      else byNorm.set(k, [c.uic]);
     }
-    const ambiguous = declared
-      .map((d) => d.company_name)
-      .filter((n) => (byNorm.get(normIndependently(n)) ?? 0) > 1);
+
+    // The footprint, raw: every owner/officer record whose folded name is one the published
+    // rows confirm on. Two tables because the register records the two roles separately.
+    const folds = [...new Set(published.map(confirmFoldOf))].filter(Boolean);
+    const foot = await allRows<{ uic: string; name_fold: string }>(
+      `SELECT uic, name_fold FROM tr_person_roles WHERE name_fold = ANY($1)
+       UNION
+       SELECT uic, name_fold FROM tr_officers     WHERE name_fold = ANY($1)`,
+      [folds],
+    );
+    const atCompany = new Set(foot.map((f) => `${f.name_fold} ${f.uic}`));
+
+    const bad: string[] = [];
+    for (const r of published) {
+      const fold = confirmFoldOf(r);
+      const candidates = byNorm.get(normIndependently(r.company_name)) ?? [];
+      const confirmed = candidates.filter((u) => atCompany.has(`${fold} ${u}`));
+      const where = `${r.slug} "${r.company_name}" => ${r.uic}`;
+      if (!candidates.includes(r.uic))
+        bad.push(`${where}: resolved EIK does not bear the declared name`);
+      else if (confirmed.length === 0)
+        bad.push(`${where}: "${fold}" is registered at none of the candidates`);
+      else if (confirmed.length > 1)
+        bad.push(
+          `${where}: still ambiguous after the footprint (${confirmed.join(", ")}) — must be dropped`,
+        );
+      else if (confirmed[0] !== r.uic)
+        bad.push(`${where}: the footprint singles out ${confirmed[0]} instead`);
+    }
+    assert.deepEqual(bad.slice(0, 15), [], `${bad.length} bad resolution(s)`);
+  },
+);
+
+// A stake row names ONE company, so it may resolve to at most one EIK. The matview's PK is
+// (declaration_id, seq, uic), which permits two rows per stake — that is the shape a
+// widened gate A produces if the uniqueness requirement is ever dropped rather than moved,
+// and it would render one declared holding as two companies on the profile.
+test.skipIf(skip)("no stake row resolves to more than one EIK", async () => {
+  const seen = new Map<string, Set<string>>();
+  for (const r of published) {
+    const k = `${r.declaration_id}#${r.seq}`;
+    const at = seen.get(k);
+    if (at) at.add(r.uic);
+    else seen.set(k, new Set([r.uic]));
+  }
+  const multi = [...seen.entries()].filter(([, u]) => u.size > 1);
+  assert.deepEqual(
+    multi.map(([k, u]) => `${k} => ${[...u].join(", ")}`),
+    [],
+    "a single declared stake was resolved to several companies",
+  );
+});
+
+// GATE C, on the person the name match actually places.
+//
+// It used to be asserted of the DECLARANT, which was right while every row was confirmed
+// through the declarant. Now a family row is confirmed through its holder, so the declarant's
+// own namesake risk is beside the point for it: the declarant's identity comes from the
+// declaration, not from a name match into the registry. What must hold is that the CONFIRMING
+// name belongs to exactly one active person.
+//
+// `= 1`, never `<= 1`. Zero means the person layer holds nobody by that name, which is not
+// evidence the name is unique — `person` is not a census. 624 candidate rows sit at zero.
+test.skipIf(skip)(
+  "every published row's confirming name identifies exactly one active person",
+  async () => {
+    const counts = await allRows<{ fold: string; n: string }>(
+      `SELECT name_fold AS fold, count(*) n FROM person
+        WHERE status = 'active' AND name_fold = ANY($1) GROUP BY 1`,
+      [[...new Set(published.map(confirmFoldOf))].filter(Boolean)],
+    );
+    const byFold = new Map(counts.map((c) => [c.fold, Number(c.n)]));
+    const risky = published.filter(
+      (r) => (byFold.get(confirmFoldOf(r)) ?? 0) !== 1,
+    );
     assert.deepEqual(
-      ambiguous,
+      [
+        ...new Set(
+          risky.map(
+            (r) =>
+              `${r.slug}/${r.uic}: "${confirmFoldOf(r)}" matches ${byFold.get(confirmFoldOf(r)) ?? 0} active person(s)`,
+          ),
+        ),
+      ].slice(0, 15),
       [],
-      "an ambiguous declared name was resolved instead of dropped",
+      "gate C is not holding on the confirming person",
     );
   },
 );
 
-// GATE C: a declarant whose folded name is shared by another active person cannot be placed
-// at an EIK by a name match, so they must not be published. Computed from `person` directly.
-test.skipIf(skip)("no published declarant has an active namesake", async () => {
-  const rows = await allRows<{ slug: string; fold: string; shared: string }>(`
-    SELECT DISTINCT p.slug, p.name_fold AS fold,
-           (SELECT count(*) FROM person p2
-             WHERE p2.name_fold = p.name_fold AND p2.status = 'active') AS shared
-      FROM declaration_stake_company sc
-      JOIN person p ON p.person_id = sc.person_id
+// The own arm, stated separately. On an own row the confirming name IS the declarant's, so
+// this is subsumed by the test above and is deliberately no stronger than it — the point is
+// that a future widening of gate C (a second identity source, say) cannot quietly relax the
+// arm carrying the declarant's own money without a second gate going red.
+test.skipIf(skip)(
+  "no OWN-arm row belongs to a namesake-ambiguous declarant",
+  async () => {
+    const counts = await allRows<{ fold: string; n: string }>(
+      `SELECT name_fold AS fold, count(*) n FROM person
+      WHERE status = 'active' AND name_fold = ANY($1) GROUP BY 1`,
+      [[...new Set(published.map((r) => r.name_fold))]],
+    );
+    const byFold = new Map(counts.map((c) => [c.fold, Number(c.n)]));
+    const risky = published.filter(
+      (r) => r.holder_is_declarant && (byFold.get(r.name_fold) ?? 0) !== 1,
+    );
+    assert.deepEqual(
+      [...new Set(risky.map((r) => `${r.slug} ("${r.name_fold}")`))],
+      [],
+      "a namesake-ambiguous declarant was published on their own arm",
+    );
+  },
+);
+
+// THE ATTRIBUTION RULE, which is the whole reason the family arm carries a flag rather than
+// simply joining the rest. A spouse's company is not the filer's holding: it may be shown,
+// attributed to its holder, and it must not enter any money figure computed for the filer.
+//
+// Non-emptiness is asserted first and is not padding — the two checks below are both
+// vacuously true of an empty family arm, so without it a regression that silently stopped
+// resolving family rows would leave this file green.
+test.skipIf(skip)(
+  "family holdings are published but never counted as the person's",
+  async () => {
+    const family = published.filter((r) => !r.holder_is_declarant);
+    assert.ok(
+      family.length > 0,
+      "no family-held stake resolved at all — the holder arm has stopped working",
+    );
+    assert.deepEqual(
+      family.filter((r) => r.holder_name == null).map((r) => r.slug),
+      [],
+      "a row with no declared holder was flagged as somebody else's",
+    );
+
+    // What the serving function publishes as the PERSON's public money, against the arm the
+    // matview says each EIK came from.
+    const served = await allRows<{ slug: string; eik: string }>(`
+    WITH target AS MATERIALIZED (
+      SELECT DISTINCT p.slug FROM declaration_stake_company sc
+        JOIN person p ON p.person_id = sc.person_id
+    )
+    SELECT t.slug, e ->> 'eik' AS eik
+      FROM target t
+      CROSS JOIN LATERAL jsonb_array_elements(person_stake_procurement(t.slug)) e
   `);
-  const risky = rows.filter((r) => Number(r.shared) > 1);
-  assert.deepEqual(
-    risky.map((r) => `${r.slug} (${r.shared} share "${r.fold}")`),
-    [],
-    "a namesake-ambiguous person was published — gate C is not holding",
-  );
-});
+    const own = new Set(
+      published
+        .filter((r) => r.holder_is_declarant)
+        .map((r) => `${r.slug} ${r.uic}`),
+    );
+    const leaked = served.filter((s) => !own.has(`${s.slug} ${s.eik}`));
+    assert.deepEqual(
+      leaked.map((l) => `${l.slug}/${l.eik}`),
+      [],
+      "a company the filing attributes to someone else was counted as the person's public money",
+    );
+  },
+);
+
+// THE COLLAPSE, recomputed independently — one row per (person, company) out of many filings.
+//
+// This is the test the byte-stability one below CANNOT be: both of its calls read the same
+// heap in the same order, so they agree by construction whatever the sort key is. The
+// property that matters is that the published row does not depend on physical row order, and
+// the only way to check it is to derive the winner from raw rows under the documented rule.
+//
+// It exists because the key was NOT a total order: `(stake_year, declaration_id)` left 332
+// own-arm groups tied — one filing listing a company twice, as a share row and a role row —
+// and 168 of them disagreed on a collapsed field. Measured on the rows actually served, 8 of
+// 70 flipped `stakeKind` and 7 flipped `shareSize` between the two possible tiebreaks. A
+// board seat published as a shareholding, under a conflict-of-interest heading, differently
+// after each REFRESH of identical data.
+//
+// The rule, from 096: latest year, then latest filing, then prefer the SHARE row where one
+// filing declares both, then lowest seq. `firstYear`/`lastYear` come from the same own-arm
+// rows — asserted here because both money tests take the span AS GIVEN and only recompute the
+// contract arithmetic over it, so a regression that widened the span to include family years
+// would leave every other assertion in this file green.
+test.skipIf(skip)(
+  "each served row is the latest own declaration for that company",
+  async () => {
+    const served = await allRows<{
+      slug: string;
+      eik: string;
+      declared_name: string | null;
+      share_size: string | null;
+      stake_kind: string | null;
+      item_type: string | null;
+      first_year: string;
+      last_year: string;
+    }>(`
+      WITH target AS MATERIALIZED (
+        SELECT DISTINCT p.slug FROM declaration_stake_company sc
+          JOIN person p ON p.person_id = sc.person_id
+      )
+      SELECT t.slug,
+             e ->> 'eik'          AS eik,
+             e ->> 'declaredName' AS declared_name,
+             e ->> 'shareSize'    AS share_size,
+             e ->> 'stakeKind'    AS stake_kind,
+             e ->> 'itemType'     AS item_type,
+             e ->> 'firstYear'    AS first_year,
+             e ->> 'lastYear'     AS last_year
+        FROM target t
+        CROSS JOIN LATERAL jsonb_array_elements(person_stake_procurement(t.slug)) e
+    `);
+    assert.ok(served.length > 0, "nothing served — fixture is empty");
+
+    const own = new Map<string, Published[]>();
+    for (const r of published) {
+      if (!r.holder_is_declarant) continue;
+      const k = `${r.slug} ${r.uic}`;
+      const at = own.get(k);
+      if (at) at.push(r);
+      else own.set(k, [r]);
+    }
+
+    // 096's ORDER BY, written out. Negative = a sorts first.
+    const rank = (a: Published, b: Published): number =>
+      b.stake_year - a.stake_year ||
+      Number(b.declaration_id) - Number(a.declaration_id) ||
+      Number(b.stake_kind === "share") - Number(a.stake_kind === "share") ||
+      a.seq - b.seq;
+
+    const bad: string[] = [];
+    for (const s of served) {
+      const rows = own.get(`${s.slug} ${s.eik}`) ?? [];
+      if (rows.length === 0) {
+        bad.push(`${s.slug}/${s.eik}: served with no own-arm row behind it`);
+        continue;
+      }
+      // The key must decide, not the scan: no two rows may tie on all of it.
+      const ties = rows.filter((r) =>
+        rows.some((o) => o !== r && rank(r, o) === 0),
+      );
+      if (ties.length > 0) {
+        bad.push(
+          `${s.slug}/${s.eik}: ${ties.length} rows tie on the whole sort key — the pick is scan order`,
+        );
+        continue;
+      }
+      const win = [...rows].sort(rank)[0];
+      const years = rows.map((r) => r.stake_year);
+      const at = `${s.slug}/${s.eik}`;
+      if (s.declared_name !== win.company_name)
+        bad.push(
+          `${at}: declaredName ${s.declared_name} !== ${win.company_name}`,
+        );
+      if (s.share_size !== win.share_size)
+        bad.push(`${at}: shareSize ${s.share_size} !== ${win.share_size}`);
+      if (s.stake_kind !== win.stake_kind)
+        bad.push(`${at}: stakeKind ${s.stake_kind} !== ${win.stake_kind}`);
+      if (s.item_type !== win.item_type)
+        bad.push(`${at}: itemType ${s.item_type} !== ${win.item_type}`);
+      if (Number(s.first_year) !== Math.min(...years))
+        bad.push(`${at}: firstYear ${s.first_year} !== ${Math.min(...years)}`);
+      if (Number(s.last_year) !== Math.max(...years))
+        bad.push(`${at}: lastYear ${s.last_year} !== ${Math.max(...years)}`);
+    }
+    assert.deepEqual(
+      bad.slice(0, 15),
+      [],
+      `${bad.length} served row(s) disagree`,
+    );
+  },
+);
+
+// FIXTURE: Сергей Станишев, the profile this arm was built for (person-page-completeness-v1
+// T4a). Both of his own-filed stakes must stay unlinked, for two different reasons — which is
+// what makes the pair worth pinning:
+//
+//   • „Призма Къмпани ЕООД" is declared with NO holder, so it is his own, and no company of
+//     that name has him in its registry footprint. Gate B drops it. This is the false-
+//     attribution case: the block's premise is "the registry confirms this", and it does not.
+//   • „Актив груп ЕООД" is held by Моника Любомирова Станишева, who is an officer at 14
+//     companies and ABSENT FROM `person` entirely. Gate C's `= 1` therefore drops it. It is
+//     the case that motivated the family arm, and it is not recoverable without an identity
+//     source the person layer does not have; see 096's header.
+test.skipIf(skip)(
+  "the Stanishev filing publishes neither of its unconfirmed stakes",
+  async () => {
+    const his = published.filter((r) => r.slug === "mp-868");
+    assert.deepEqual(
+      his.map((r) => `${r.company_name} => ${r.uic}`),
+      [],
+      "a Stanishev stake resolved that no registry footprint confirms",
+    );
+  },
+);
 
 // THE MONEY, recomputed in TypeScript from raw contract rows. This is what catches the annex
 // double-count (a 'contractAmendment' row added on top of an already post-annex amount_eur)

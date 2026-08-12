@@ -5,27 +5,40 @@
 -- catastrophically wrong, because THE DECLARATION FORM CARRIES NO EIK.
 --
 -- Tables 10/11 record a company NAME and a registered office, nothing more —
--- declaration_stake.uic is 100% NULL across all 7,824 stake rows and always will be; the
--- column exists for a source that turned out not to supply it. So every link from a
+-- declaration_stake.uic is 100% NULL across all 15,304 stake rows (measured 2026-08-12) and
+-- always will be; the column exists for a source that turned out not to supply it. Every link
+-- from a
 -- declared stake to a contractor has to be RESOLVED, and a wrong resolution publishes
 -- "this official's company won public money" against a named person who owns no such thing.
 --
 -- Hence three deliberately narrow gates. A row is published only when ALL hold:
 --
---   A. NAME UNIQUENESS — the normalised declared name matches exactly one TRADING company
---      in the Търговски регистър (entity_class='company': the register also holds ~31k NGOs,
---      читалища, cooperatives and foreign branches, and a declared ООД resolving against an
+--   A. NAME CANDIDACY — every TRADING company bearing the normalised declared name is a
+--      candidate (entity_class='company': the register also holds ~31k NGOs, читалища,
+--      cooperatives and foreign branches, and a declared ООД resolving against an
 --      association is a false match that also inflates the ambiguity denominator).
---      Ambiguous names are DROPPED, never resolved to a first match.
+--      Gate A used to demand the name identify exactly one company OUTRIGHT; that threw away
+--      the case the registry itself can settle — two active `АКТИВ ГРУП` ЕООД exist and only
+--      one has the declared holder as an officer. The uniqueness requirement is not dropped,
+--      it MOVES to after gate B: a name still ambiguous once the footprint has spoken is
+--      dropped, never resolved to a first match.
 --
---   B. INDEPENDENT CONFIRMATION — the TR itself records the declarant at that exact EIK, as
---      an owner (tr_person_roles) or an officer (tr_officers), matched on name_fold. The link
---      then rests on two independent sources that agree (the person said so on their
+--   B. INDEPENDENT CONFIRMATION — the TR itself records THE DECLARED HOLDER at that exact EIK,
+--      as an owner (tr_person_roles) or an officer (tr_officers), matched on name_fold. The
+--      link then rests on two independent sources that agree (the person said so on their
 --      declaration, and the state registry says so of its own accord), not on a string
 --      similarity.
 --
---   C. IDENTITY UNAMBIGUITY — the declarant's folded name is NOT shared by two or more active
---      `person` records. This gate exists because B is a name_fold match and name_fold carries
+--      THE HOLDER, not the filer. Tables 10/11 name a holder per row and it is often a
+--      spouse or a child: 8,526 of 15,304 stake rows carry one and only 4,431 are the filer.
+--      Asking about the declarant for all of them did two things wrong — it could never
+--      confirm the ~4,095 family rows however good the evidence, and it CONFIRMED 235 of them
+--      off the declarant's own presence at the company, publishing "my wife owns X" as the
+--      filer's own holding because the filer happened to be an officer there. 187 of those
+--      235 no longer resolve, which is the fix and not a regression.
+--
+--   C. IDENTITY UNAMBIGUITY — the CONFIRMING person's folded name is NOT shared by two or
+--      more active `person` records. This gate exists because B is a name_fold match and name_fold carries
 --      no birth date and no EGN: when seven distinct people fold to "Георги Иванов Славов",
 --      the registry row at that EIK may belong to any of them, and gate B confirms nothing.
 --      Publishing under those conditions attributes a company — and its public money — to
@@ -33,6 +46,19 @@
 --      39 otherwise-servable person/company pairs, 36%) and that is the correct price:
 --      recall loss is cheaper than false attribution. See person.namesake_risk (082), which
 --      the site already maintains for exactly this "name match — identity not verified" case.
+--
+--      `n = 1`, never `n <= 1`. For a family holder n = 0 is common — 624 candidate rows —
+--      and it means the person layer holds no row for that name, which is NOT evidence the
+--      name is unique: `person` is not a census, and Моника Любомирова Станишева is an
+--      officer at 14 companies while absent from it entirely. Admitting n = 0 would publish
+--      those 624 on no identity evidence at all. It costs the `АКТИВ ГРУП` case that
+--      motivated the family arm; the same price, paid for the same reason.
+--
+-- WHAT THE FAMILY ARM IS FOR, AND WHAT IT IS NOT. `holder_is_declarant` marks whose holding
+-- a row describes. EVERY MONEY CONSUMER MUST FILTER ON IT: a spouse's company is not the
+-- filer's holding and its contracts are not the filer's public money.
+-- `person_stake_procurement()` below does. Measured: 2,043 own rows (563 people) and 391
+-- family rows (157 people).
 --
 -- WHAT IS DELIBERATELY *NOT* DONE:
 --   * The resolved uic is NOT written back into declaration_stake. That table is a faithful
@@ -82,6 +108,23 @@ RETURNS text LANGUAGE sql IMMUTABLE AS $$
   '');
 $$;
 
+-- WHOSE stake a declared row describes, in ONE place.
+--
+-- The stored `holder_is_declarant` column below is built from this, and so is the declared
+-- SIDE of scripts/person/declared_vs_registry.ts — which cannot read the column, because it
+-- counts rows of `declaration_stake`, where no flag exists. That report divides one by the
+-- other, so the two sides must apply the same rule or it prints a coverage fraction its own
+-- rows are not drawn from. Before this function they were four hand-copied predicates in two
+-- SQL strings with no gate on any of them; now there is one definition and a test that the
+-- script calls it. Same reason PERSON_GUID_SQL_PATTERN and shlyoRules.ts exist.
+--
+-- A NULL holder means the declarant: tables 10/11 leave it blank for one's own holding, and
+-- the интереси forms (all 3,364 'role' + 125 'sole_trader' rows) have no holder column at all.
+CREATE OR REPLACE FUNCTION stake_holder_is_declarant(p_holder text, p_name_fold text)
+RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
+  SELECT p_holder IS NULL OR translit_bg_latin(p_holder) = p_name_fold;
+$$;
+
 -- The resolution layer: one row per (stake row → confirmed EIK).
 CREATE MATERIALIZED VIEW declaration_stake_company AS
 WITH stake AS (
@@ -102,6 +145,34 @@ WITH stake AS (
          -- puts every filing's stake on the year it was actually held.
          COALESCE(d.fiscal_year, d.declaration_year) AS stake_year,
          p.name_fold,
+         -- WHOSE holding this is. Tables 10/11 carry a holder per row, and it is NOT always
+         -- the declarant: 8,526 of 15,304 stake rows name one and only 4,431 of those are
+         -- the filer — the rest are a spouse or a child. Gate B used to ask only whether the
+         -- TR placed the DECLARANT at the company, so ~4,095 rows could never be confirmed
+         -- no matter how good the evidence for them was.
+         --
+         -- FOLD EQUALITY, which is exact, so it errs in both directions and only one of them
+         -- is safe. A declarant who writes their own name in a VARIANT form — a maiden name
+         -- against a hyphenated `person` row, „Адриана Иванова Попова" vs „Адриана Иванова
+         -- Попова-Кръстева" — is classed as FAMILY, and their own company drops out of their
+         -- own money: 42 rows share the first two name tokens with the declarant and differ
+         -- on the fold, of which 3 are published. That is under-attribution, which is the
+         -- right way to be wrong here.
+         --
+         -- The CONVERSE is the residual unsafe path, and gate C cannot see it: a spouse or
+         -- child whose three names fold identically to the filer's — a father and son sharing
+         -- all three — is classed as OWN, and the second person is typically absent from
+         -- `person`, so fold_share still counts n = 1 on the declarant alone. Rare, and the
+         -- only way a family holding can still reach the filer's money.
+         s.holder_name,
+         stake_holder_is_declarant(s.holder_name, p.name_fold) AS holder_is_declarant,
+         -- The person the gates below must vouch for. One column so gate B and gate C can
+         -- never end up asking about different people — which is the specific way a family
+         -- arm goes wrong: confirm the spouse, then check the declarant for namesakes.
+         CASE
+           WHEN s.holder_name IS NULL THEN p.name_fold
+           ELSE translit_bg_latin(s.holder_name)
+         END AS confirm_fold,
          declared_company_norm(s.company_name) AS norm
     FROM declaration_stake s
     JOIN declaration d ON d.declaration_id = s.declaration_id
@@ -109,15 +180,22 @@ WITH stake AS (
    WHERE s.company_name IS NOT NULL
      AND length(declared_company_norm(s.company_name)) > 2
 ),
--- Gate A: exactly one TRADING company bears this normalised name. HAVING count(*) = 1 is
--- what drops the ambiguous names rather than picking one.
-unique_name AS (
-  SELECT declared_company_norm(name) AS norm, min(uic) AS uic
-    FROM tr_companies
-   WHERE entity_class = 'company'
-     AND declared_company_norm(name) IS NOT NULL
-   GROUP BY 1
-  HAVING count(*) = 1
+-- Gate A′: every TRADING company bearing this normalised name is a CANDIDATE, and gate B
+-- below is what narrows them. The old gate A demanded the name identify exactly one company
+-- outright, which threw away the case the registry itself can settle: two active `АКТИВ ГРУП`
+-- ЕООД exist, and only one of them has the declared holder as an officer.
+--
+-- The uniqueness requirement has not been dropped, only MOVED — see `resolved`. A name that
+-- stays ambiguous after the footprint check is still dropped, never resolved to a first match.
+candidate AS (
+  -- The norm is computed ONCE per registry row. Written as `SELECT … WHERE norm IS NOT NULL`
+  -- over a subquery rather than repeating the call in both clauses: it is four chained
+  -- regexp_replace's over 986,864 companies, and the planner does not fold the second call.
+  SELECT norm, uic FROM (
+    SELECT declared_company_norm(name) AS norm, uic
+      FROM tr_companies
+     WHERE entity_class = 'company') z
+   WHERE norm IS NOT NULL
 ),
 -- Gate C: how many active people share this folded name. 1 = unambiguous.
 fold_share AS (
@@ -125,27 +203,51 @@ fold_share AS (
     FROM person
    WHERE status = 'active'
    GROUP BY 1
+),
+-- Gate B′: the registry independently places THE DECLARED HOLDER at this candidate EIK —
+-- the declarant when they hold it themselves, the named spouse/child when they do not.
+confirmed AS (
+  SELECT st.*, c.uic
+    FROM stake st
+    JOIN candidate c ON c.norm = st.norm
+   WHERE EXISTS (SELECT 1 FROM tr_person_roles r
+                  WHERE r.uic = c.uic AND r.name_fold = st.confirm_fold)
+      OR EXISTS (SELECT 1 FROM tr_officers o
+                  WHERE o.uic = c.uic AND o.name_fold = st.confirm_fold)
+),
+-- The uniqueness gate A used to apply to NAMES, applied instead to what survived the
+-- registry check. Two companies both bearing the declared name AND both employing someone
+-- of the holder's name is not a resolution, it is a coin flip — dropped, as before.
+resolved AS (
+  SELECT * FROM confirmed cf
+   WHERE (SELECT count(*) FROM confirmed x
+           WHERE x.declaration_id = cf.declaration_id AND x.seq = cf.seq) = 1
 )
-SELECT st.declaration_id,
-       st.seq,
-       st.person_id,
-       un.uic,
-       st.company_name,
-       st.share_size,
-       st.stake_kind,
-       st.item_type,
-       st.value_eur,
-       st.stake_year
-  FROM stake st
-  JOIN unique_name un ON un.norm = st.norm
-  JOIN fold_share fs ON fs.name_fold = st.name_fold
- -- Gate C: no namesake ambiguity, so gate B's name match identifies one person.
- WHERE fs.n = 1
- -- Gate B: the registry independently places this person at this EIK.
-   AND (EXISTS (SELECT 1 FROM tr_person_roles r
-                 WHERE r.uic = un.uic AND r.name_fold = st.name_fold)
-     OR EXISTS (SELECT 1 FROM tr_officers o
-                 WHERE o.uic = un.uic AND o.name_fold = st.name_fold));
+SELECT rs.declaration_id,
+       rs.seq,
+       rs.person_id,
+       rs.uic,
+       rs.company_name,
+       rs.share_size,
+       rs.stake_kind,
+       rs.item_type,
+       rs.value_eur,
+       rs.stake_year,
+       -- WHOSE it is. Every money consumer must filter on this: a spouse's company is not
+       -- the declarant's holding and its contracts are not their public money.
+       rs.holder_name,
+       rs.holder_is_declarant
+  FROM resolved rs
+  JOIN fold_share fs ON fs.name_fold = rs.confirm_fold
+ -- Gate C, on the SAME person gate B confirmed. `= 1` and not `<= 1`: n = 0 means the
+ -- person layer has no row for that name, which is NOT evidence the name is unique — it is
+ -- not a census (Моника Любомирова Станишева is an officer at 14 companies and absent from
+ -- it entirely). Reading absence as uniqueness would admit 624 holder rows on no evidence.
+ --
+ -- The price is the same one 096 already pays and names: this drops the `АКТИВ ГРУП` case
+ -- that motivated the family arm, because the holder there is exactly such a person. Recall
+ -- loss is cheaper than false attribution.
+ WHERE fs.n = 1;
 
 CREATE UNIQUE INDEX declaration_stake_company_pkey
   ON declaration_stake_company (declaration_id, seq, uic);
@@ -174,20 +276,52 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
            max(sc.stake_year) AS last_year,
            -- The MOST RECENTLY declared share, not max() — share_size is text, so max() is
            -- a lexicographic comparison that returns "50" over "250" and "50 %" over "100 %".
-           (array_agg(sc.company_name ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+           --
+           -- THE SORT KEY MUST BE A TOTAL ORDER, and (stake_year, declaration_id) is not one:
+           -- ONE filing can list the same company on several `seq` rows — a share row and a
+           -- role row, a "100%" and a "управител", two spellings of the name. 332 own-arm
+           -- groups are tied that way and 168 of them DISAGREE on a field collapsed here, so
+           -- with the tie unresolved array_agg returns whichever row the scan reached first —
+           -- the matview's physical heap order, which every REFRESH rewrites. Measured on the
+           -- rows actually served: 8 of 70 flip stake_kind and 7 flip share_size between the
+           -- two possible tiebreaks. That is a board seat rendering as a shareholding, under a
+           -- conflict-of-interest heading, non-deterministically, on a named person's profile —
+           -- the exact claim declaration_events.data.test.ts was written to defend.
+           --
+           -- All four aggregates carry the SAME key on purpose: they are four fields of ONE
+           -- row, and a key that differed between them would compose a stake that was never
+           -- declared (one filing's share size against another's kind).
+           --
+           -- Where a filing declares BOTH a share and a role in one company, both are true and
+           -- the tiebreak picks the SHARE. Stated as a rule rather than left to `seq`, which
+           -- happens to agree 76 times out of 77 because the form lists shares first — the
+           -- heading is an ownership claim, and the role is the lesser included fact.
+           -- `seq` last makes the order total: it is unique within a declaration, and a group
+           -- is already per (person, company).
+           (array_agg(sc.company_name ORDER BY sc.stake_year DESC, sc.declaration_id DESC,
+                      (sc.stake_kind = 'share') DESC, sc.seq))[1]
              AS declared_name,
-           (array_agg(sc.share_size ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+           (array_agg(sc.share_size ORDER BY sc.stake_year DESC, sc.declaration_id DESC,
+                      (sc.stake_kind = 'share') DESC, sc.seq))[1]
              AS share_size,
            -- Same "most recently declared" rule as the share size. A person who
            -- declared a shareholding and later a board seat in one company is
            -- described by the LATEST thing they said, not by an aggregate of
            -- both — and never by max(), for the reason above.
-           (array_agg(sc.stake_kind ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+           (array_agg(sc.stake_kind ORDER BY sc.stake_year DESC, sc.declaration_id DESC,
+                      (sc.stake_kind = 'share') DESC, sc.seq))[1]
              AS stake_kind,
-           (array_agg(sc.item_type ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+           (array_agg(sc.item_type ORDER BY sc.stake_year DESC, sc.declaration_id DESC,
+                      (sc.stake_kind = 'share') DESC, sc.seq))[1]
              AS item_type
       FROM declaration_stake_company sc
       JOIN pick ON pick.person_id = sc.person_id
+     -- THE PERSON'S OWN holdings only. The matview also carries stakes the filing
+     -- attributes to a spouse or a child, and this function's whole output is money —
+     -- contracts the company won, presented as this person's declared interest. A family
+     -- row here would publish somebody else's company as theirs, with its public money.
+     -- The family arm is served separately; see the holder_is_declarant column.
+     WHERE sc.holder_is_declarant
      GROUP BY sc.uic
   ),
   -- Aggregate contracts per company ONCE, then join.

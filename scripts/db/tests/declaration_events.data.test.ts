@@ -232,18 +232,47 @@ test.skipIf(skip)(
 // declaration_stake → declaration_stake_company → the payload — and it is the LAST one
 // that silently dropped it before.
 test.skipIf(skip)("the stake payload says when a row is a role", async () => {
-  // The company must actually HOLD contracts: person_stake_procurement inner-joins its
-  // `won` aggregate, so a role in a company with no procurement record yields an empty
-  // payload and would fail this for the wrong reason. Same filters the function applies.
-  const [{ slug }] = await allRows<{ slug: string }>(
+  // THE FIXTURE MUST BE SELECTED ON THE PROPERTY ASSERTED, not on membership.
+  //
+  // Three filters make a role reach the payload as a role, and picking a slug that satisfies
+  // only the first turns this gate red against correct data:
+  //
+  //   • the company must actually HOLD contracts — person_stake_procurement inner-joins its
+  //     `won` aggregate, so a role in a company with no procurement record yields an empty
+  //     payload;
+  //   • `holder_is_declarant` — since 096 grew its family arm the matview also holds roles
+  //     the filing attributes to a spouse or a child, and the function correctly omits those
+  //     from the person's own money;
+  //   • the role must be THE LATEST thing declared about that company. The function collapses
+  //     per EIK to the most recent declaration, so someone who declared a board seat in 2019
+  //     and a shareholding in 2023 renders `share`, correctly.
+  //
+  // Selecting on membership alone admitted 24 slugs of which 12 fail the assertion — the
+  // second alphabetically among them. It passed on whichever slug sorted first, so a re-slug,
+  // a newly public person or a fresh filing would have broken it against data that is right.
+  const picks = await allRows<{ slug: string }>(
     `SELECT p.slug FROM person p
-       JOIN declaration_stake_company sc ON sc.person_id = p.person_id
-      WHERE sc.stake_kind = 'role' AND p.status = 'active' AND p.is_public_figure
+       JOIN LATERAL (
+         SELECT sc.uic,
+                (array_agg(sc.stake_kind ORDER BY sc.stake_year DESC, sc.declaration_id DESC,
+                           (sc.stake_kind = 'share') DESC, sc.seq))[1] AS latest_kind
+           FROM declaration_stake_company sc
+          WHERE sc.person_id = p.person_id AND sc.holder_is_declarant
+          GROUP BY sc.uic) l ON l.latest_kind = 'role'
+      WHERE p.status = 'active' AND p.is_public_figure
         AND EXISTS (SELECT 1 FROM contracts c
-                     WHERE c.contractor_eik = sc.uic AND c.tag = 'contract'
+                     WHERE c.contractor_eik = l.uic AND c.tag = 'contract'
                        AND c.consortium_role IS DISTINCT FROM 'member')
       ORDER BY p.slug LIMIT 1`,
   );
+  // Destructuring an empty result throws "Cannot destructure property 'slug' of 'undefined'",
+  // which reads as a harness bug rather than as the genuinely interesting signal that no
+  // eligible fixture exists any more.
+  assert.ok(
+    picks.length > 0,
+    "no active public person has a declared role as their latest own stake at a contract-holding company",
+  );
+  const { slug } = picks[0];
   const [{ r }] = await allRows<{
     r: { stakeKind: string | null; itemType: string | null }[];
   }>("SELECT person_stake_procurement($1) AS r", [slug]);

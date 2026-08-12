@@ -45,50 +45,48 @@ afterAll(async () => {
   await end();
 });
 
-test.skipIf(skip)(
-  "a declared stake resolves only when the registry independently agrees",
-  async () => {
-    // Gate B of 096, restated as an assertion: every resolved stake must have the same
-    // person placed at that EIK by the registry. Without it the report's denominator would
-    // include name-only guesses and its numerator would be false accusations.
-    const [r] = await allRows<{ n: string }>(
-      `SELECT count(*) n
-         FROM declaration_stake_company sc
-         JOIN person p ON p.person_id = sc.person_id
-        WHERE NOT EXISTS (SELECT 1 FROM tr_person_roles t
-                           WHERE t.uic = sc.uic AND t.name_fold = p.name_fold)
-          AND NOT EXISTS (SELECT 1 FROM tr_officers o
-                           WHERE o.uic = sc.uic AND o.name_fold = p.name_fold)`,
-    );
-    assert.equal(
-      Number(r.n),
-      0,
-      `${r.n} resolved stakes the registry does not corroborate`,
-    );
-  },
-);
+// GATE B IS NOT ASSERTED HERE, and the previous attempt is worth recording because it looked
+// like the file's most important test and could not fail.
+//
+// It counted own-arm rows for which the registry does not place `p.name_fold` at `sc.uic`,
+// and asserted 0. But 096 sets `confirm_fold = p.name_fold` exactly when the row is own-arm,
+// and gate B already requires a footprint at `confirm_fold` — so the predicate is
+// unsatisfiable by construction, not by correctness. It is not inert, either: the same
+// predicate flags 323 rows on the family arm the test excludes. That is precisely the
+// anti-pattern stake_procurement.data.test.ts's header forbids ("A test that ... repeats the
+// matview's WHERE clause is not a test"), and the trap it records as having hidden four live
+// defects. Gate B's real coverage lives there, in "each published EIK is the only candidate
+// the declared holder is registered at", which rebuilds the footprint from raw
+// tr_person_roles / tr_officers rows in TypeScript.
 
 test.skipIf(skip)(
   "most person-years are UNUSABLE, and the report must keep saying so",
   async () => {
     // The honest headline. Only person-years where every declared stake resolved can support
-    // a "missing" claim, and that is a small minority — measured 178 of 2,389. If this ratio
-    // ever inverted without the resolution rate improving, the filter would have broken open
-    // and the report would be listing unresolved names as concealed ones.
+    // a "missing" claim, and that is a small minority — measured 283 of 1,528 (2026-08-12).
+    // If this ratio ever inverted without the resolution rate improving, the filter would
+    // have broken open and the report would be listing unresolved names as concealed ones.
     //
-    // Computed on the SAME annual basis as the script. On a wider one this gate would pass
-    // while the script's own coverage line moved, which is the drift it exists to catch.
+    // Computed on the SAME basis as the script — annual filings AND the declarant's own
+    // stakes. On a wider one this gate would pass while the script's own coverage line moved,
+    // which is the drift it exists to catch, and which it then suffered itself: when the
+    // script grew the holder filter and this query did not, the gate went on measuring
+    // 329 of 2,580 — 1,052 person-years the report no longer reports on, and a usable count
+    // 16% above the number it prints. Both assertions stayed green throughout.
     const [r] = await allRows<{ filed: string; clean: string }>(
       `WITH filed AS (
          SELECT d.person_id, d.fiscal_year fy, count(*) n
            FROM declaration d JOIN declaration_stake s USING (declaration_id)
+           JOIN person p ON p.person_id = d.person_id
           WHERE d.person_id IS NOT NULL AND s.company_name IS NOT NULL
+            AND stake_holder_is_declarant(s.holder_name, p.name_fold)
             AND d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
           GROUP BY 1, 2),
        resolved AS (
          SELECT sc.person_id, d.fiscal_year fy, count(*) n
            FROM declaration_stake_company sc JOIN declaration d USING (declaration_id)
-          WHERE d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
+          WHERE sc.holder_is_declarant
+            AND d.declaration_type = 'Annualy' AND d.fiscal_year IS NOT NULL
           GROUP BY 1, 2)
        SELECT count(*)::text filed,
               count(*) FILTER (WHERE COALESCE(r.n, 0) = f.n)::text clean
@@ -139,6 +137,31 @@ test("the declared side is restricted to ANNUAL filings", () => {
     !/COALESCE\(d\.fiscal_year, d\.declaration_year\)/.test(SCRIPT),
     "the COALESCE year is 096's rule for ATTRIBUTING a stake; inverted here it re-admits " +
       "point-in-time filings as year statements",
+  );
+});
+
+test("both queries count the declarant's OWN stakes on both sides", () => {
+  // The newest member of the class above, and the one the family arm introduced. The declared
+  // side cannot read `holder_is_declarant` — it counts rows of `declaration_stake`, where no
+  // flag exists — so it calls 096's `stake_holder_is_declarant()`, which is the one definition
+  // of the rule. Both halves of the fraction must carry it: filtering only the numerator
+  // compares own-held resolutions against a denominator of every stake on the filing, so
+  // nobody with a spouse's company is ever clean; filtering only the denominator does the
+  // reverse. It appears four times — `filed` and `resolved`, in the row query and in the
+  // coverage query.
+  const declared = SCRIPT.match(/stake_holder_is_declarant\(/g) ?? [];
+  const resolved = SCRIPT.match(/sc\.holder_is_declarant/g) ?? [];
+  assert.ok(
+    declared.length >= 2,
+    `the declared side must call stake_holder_is_declarant() in both queries, found ${declared.length}`,
+  );
+  assert.ok(
+    resolved.length >= 2,
+    `the resolved side must filter holder_is_declarant in both queries, found ${resolved.length}`,
+  );
+  assert.ok(
+    !/translit_bg_latin\(s\.holder_name\)/.test(SCRIPT),
+    "the holder rule was restated inline instead of calling 096's stake_holder_is_declarant()",
   );
 });
 
