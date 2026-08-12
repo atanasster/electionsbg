@@ -11,36 +11,85 @@ import { useBudgetLaws } from "@/data/governments/useBudgetLaws";
 import { useMacro } from "@/data/macro/useMacro";
 import { CabinetBudgetScorecard } from "@/screens/components/macro/CabinetBudgetScorecard";
 import { IzdrazhkaHeatmapTile } from "@/screens/components/budget/IzdrazhkaHeatmapTile";
+import { useIzdrazhkaByInstitution } from "@/data/budget/useIzdrazhkaByInstitution";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
 
 export const IndicatorsCabinetBudgetsScreen = () => {
   const { t } = useTranslation();
-  const { data: governments } = useGovernments();
-  const { data: financeMinisters } = useFinanceMinisters();
-  const { data: budgetLaws } = useBudgetLaws();
-  const { data: macro } = useMacro();
+  const governmentsQ = useGovernments();
+  const financeMinistersQ = useFinanceMinisters();
+  const budgetLawsQ = useBudgetLaws();
+  const macroQ = useMacro();
+  const heatmapQ = useIzdrazhkaByInstitution();
+
+  // Nothing below the header renders until EVERY payload has settled, and this
+  // page is the one in the group that genuinely needs the whole set rather than
+  // the primary one.
+  //
+  // It measured 1.3276 CLS — 13x the CWV budget, the worst route here (built
+  // dist, Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU). Three separate arrivals each
+  // shoved visible content off the viewport, and fixing them one at a time just
+  // moved the score between them: gate the body on governments.json and the
+  // heatmap tile still inserted above the footnotes (0.6430); gate the footnotes
+  // on the heatmap too and the SCORECARD still grew underneath both as
+  // macro.json and budget_laws.json arrived (0.6637), because it renders from
+  // four payloads and is nearly empty until the last of them lands.
+  //
+  // Reserving in place would mean inventing a height for an era-grouped table
+  // whose row count is the data — a guess, and a wrong guess is still a shift.
+  // The page has two honest states: its header, or all of it. The cost is that
+  // the hero waits for the slowest of five payloads instead of the first; the
+  // header is real content, and everything else appends below it, which shifts
+  // nothing.
+  //
+  // `isPending`, never the data: every one of these fetchers turns a non-ok
+  // response into a resolved undefined/null/[] that react-query records as
+  // SUCCESS. Keyed on the data, a single 404 would leave this page showing its
+  // header for ever.
+  const pending =
+    governmentsQ.isPending ||
+    financeMinistersQ.isPending ||
+    budgetLawsQ.isPending ||
+    macroQ.isPending ||
+    heatmapQ.isPending;
+
+  const header = (
+    <>
+      <Title>{t("cabinet_budgets_heading")}</Title>
+      <IndicatorsNav />
+    </>
+  );
+
+  if (pending) {
+    return <div className="pb-12">{header}</div>;
+  }
+
+  const governments = governmentsQ.data ?? [];
+  const financeMinisters = financeMinistersQ.data ?? [];
+  const budgetLaws = budgetLawsQ.data ?? [];
 
   return (
     <div className="pb-12">
-      <Title>{t("cabinet_budgets_heading")}</Title>
-      <IndicatorsNav />
-      {governments ? (
-        <CabinetBudgetScorecard
-          governments={governments}
-          financeMinisters={financeMinisters ?? []}
-          budgetLaws={budgetLaws ?? []}
-          macro={macro}
-        />
-      ) : null}
+      {header}
+      <CabinetBudgetScorecard
+        governments={governments}
+        financeMinisters={financeMinisters}
+        budgetLaws={budgetLaws}
+        macro={macroQ.data}
+      />
       <IzdrazhkaHeatmapTile
-        financeMinisters={financeMinisters ?? []}
-        budgetLaws={budgetLaws ?? []}
+        financeMinisters={financeMinisters}
+        budgetLaws={budgetLaws}
       />
       {/* Full methodology + sources sit below the charts so the visualisation
           gets the top of the page. Split into self-contained, labelled blocks in
           a responsive grid — fills the full-width dashboard without the random
-          mid-sentence breaks a single paragraph flowed into CSS columns gives. */}
+          mid-sentence breaks a single paragraph flowed into CSS columns gives.
+
+          Being LAST is what made this block the victim of every late arrival
+          above it, and why the whole-page gate above is what fixes it: reached
+          here, everything that could push this block already exists. */}
       <div className="mt-8 border-t border-border/40 pt-4">
         <p className="mb-4 text-sm font-medium text-foreground">
           {t("cabinet_budgets_about_lead")}
