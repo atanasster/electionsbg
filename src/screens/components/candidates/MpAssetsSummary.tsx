@@ -343,7 +343,14 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
             rel="noreferrer"
             className="inline-flex items-center gap-1 text-primary hover:underline"
           >
-            register.cacbg.bg · {rollup.latestDeclarationYear}
+            {/* The PERIOD the filing covers, not the year it was lodged — the axis the card
+                header above already uses and the axis every filing row beneath this card
+                uses. `periodYear` in 090's vocabulary; reconstructed from two fields the
+                type already carries, since an annual is filed the May after the year it
+                closes. Left on `latestDeclarationYear`, the same document was labelled 2025
+                here and 2024 one line below (measured on mp-1588). */}
+            register.cacbg.bg ·{" "}
+            {rollup.fiscalYear ?? rollup.latestDeclarationYear}
             <ExternalLink className="h-3 w-3" />
           </a>
           <span>

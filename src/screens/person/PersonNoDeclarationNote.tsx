@@ -33,8 +33,8 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { FileQuestion, Wallet } from "lucide-react";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { FileQuestion } from "lucide-react";
+import { DeclarationsSection } from "./DeclarationsSection";
 import { Card, CardContent } from "@/ux/Card";
 
 /** The offices that genuinely fall outside the central register. `local`/`village_mayor` is
@@ -64,11 +64,7 @@ export const PersonNoDeclarationNote: FC<{
   // the electoral block and "Длъжности" with nothing to attach it to. The absence should
   // occupy the slot the presence would have.
   return (
-    <DashboardSection
-      id="declarations"
-      title={t("mp_section_assets") || "Assets & declarations"}
-      icon={Wallet}
-    >
+    <DeclarationsSection>
       <Card>
         <CardContent className="flex items-start gap-2 pt-6 text-sm text-muted-foreground">
           <FileQuestion className="mt-0.5 size-4 shrink-0" aria-hidden />
@@ -80,6 +76,6 @@ export const PersonNoDeclarationNote: FC<{
           </span>
         </CardContent>
       </Card>
-    </DashboardSection>
+    </DeclarationsSection>
   );
 };

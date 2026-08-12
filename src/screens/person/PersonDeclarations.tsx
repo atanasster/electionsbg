@@ -13,8 +13,8 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Wallet, ExternalLink, ChevronDown, ChevronRight } from "lucide-react";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { ExternalLink, ChevronDown, ChevronRight } from "lucide-react";
+import { DeclarationsSection } from "./DeclarationsSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,20 @@ const declTypeKey = (type: string): string =>
     Other: "pp_decl_type_other",
   })[type] ?? "pp_decl_type_other";
 
-export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
+export const PersonDeclarations: FC<{
+  slug: string;
+  /** Mounted INSIDE the MP assets section, which already owns the `#declarations`
+   *  heading, the register link and the net-worth headline. Renders the filing list
+   *  alone — no `DeclarationsSection`, no stat cards — so an MP gets one section rather
+   *  than two with the same DOM id. The caveat rides WITH the list, which is where it
+   *  belongs; the MP section above carries a different, source-level note
+   *  (`mp_assets_source_note`), so no text is repeated.
+   *
+   *  It also drops the asset-bearing requirement: bare mode's job is the LIST, and a
+   *  person whose only filings are assetless (an incompatibility shell) still has a
+   *  record worth showing under a headline somebody else supplied. */
+  bare?: boolean;
+}> = ({ slug, bare }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "bg" ? "bg-BG" : "en-US";
   const rows = usePersonDeclarations(slug);
@@ -84,14 +97,18 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
     };
   }, [rows]);
 
+  // Narrowed ONCE, above both exits, so neither branch needs a non-null assertion to hand
+  // `rows` to FilingList. (The standalone path could lean on "summary != null implies rows
+  // is non-empty", but that invariant lives fifty lines away and survives refactors that
+  // break it.)
+  if (!rows || rows.length === 0) return null;
+
+  if (bare) return <FilingList rows={rows} locale={locale} />;
   if (!summary) return null;
   const { latest } = summary;
 
   return (
-    <DashboardSection
-      id="declarations"
-      title={t("mp_section_assets") || "Assets & declarations"}
-      icon={Wallet}
+    <DeclarationsSection
       subtitle={
         <a
           href={latest.sourceUrl}
@@ -108,6 +125,7 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
         <StatCard label={t("officials_net_worth") || "Net worth"}>
           <div className="text-2xl font-bold text-foreground">
             {formatEurCompact(summary.net, locale)}
+            <IncompleteMark row={latest} />
           </div>
           {summary.deltaNet != null &&
             summary.priorYear != null &&
@@ -138,16 +156,54 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
         </StatCard>
       </div>
 
-      {/* Every filing on record, newest first, each expandable to its detail. */}
+      <FilingList rows={rows} locale={locale} />
+    </DeclarationsSection>
+  );
+};
+
+/** The "this total is known to be incomplete" marker. 090 drops any asset row above
+ *  `asset_row_ceiling_eur()` (€50m) out of the sums rather than publishing an obvious typo
+ *  as wealth, and reports how many it dropped — "no silent caps". `/officials/assets` and
+ *  the `/persons` money column already render it; this block, which is where the individual
+ *  filing is actually shown, was the one staying silent.
+ *
+ *  Zero filings hit the ceiling in today's corpus, so this renders nowhere yet. That is the
+ *  reason to wire it now rather than later: the day a €3.58bn typo lands, the page either
+ *  marks it or asserts a capped figure as whole. */
+const IncompleteMark: FC<{ row: DeclarationListItem }> = ({ row }) => {
+  const { t } = useTranslation();
+  if (!row.excludedAssetRows) return null;
+  const label = t("pp_decl_excluded_rows", {
+    count: row.excludedAssetRows,
+    defaultValue:
+      "{{count}} декларирани позиции с неправдоподобна стойност не са включени в сбора.",
+  });
+  return (
+    <span className="align-super text-xs text-muted-foreground" title={label}>
+      *<span className="sr-only">{label}</span>
+    </span>
+  );
+};
+
+/** Every filing on record, newest first, each expandable to its detail. Shared by the
+ *  standalone block and by `bare` mode, so an MP and an official see one list built by one
+ *  renderer — the divergence this component was created to end (audit T3.3). */
+const FilingList: FC<{ rows: DeclarationListItem[]; locale: string }> = ({
+  rows,
+  locale,
+}) => {
+  const { t } = useTranslation();
+  return (
+    <>
       <ul className="mt-4 divide-y divide-border rounded-md border border-border">
-        {rows!.map((r) => (
+        {rows.map((r) => (
           <FilingRow key={r.id} row={r} locale={locale} />
         ))}
       </ul>
       <p className="mt-2 text-xs text-muted-foreground">
         {t("pp_wealth_caveat")}
       </p>
-    </DashboardSection>
+    </>
   );
 };
 
@@ -157,12 +213,19 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
 }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  // The row is a disclosure widget: the button mounts/unmounts FilingDetail below. Without
+  // the pair a screen reader announces only "button" — no indication that a panel exists,
+  // opened or collapsed — and in `bare` mode this list is the ONLY route to per-filing
+  // detail for an MP.
+  const panelId = `filing-${row.id}`;
 
   return (
     <li>
       <div className="flex items-center hover:bg-muted/40">
         <button
           type="button"
+          aria-expanded={open}
+          aria-controls={panelId}
           onClick={() => setOpen((o) => !o)}
           className="flex flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
         >
@@ -202,6 +265,7 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
               is the D2 bug in miniature. Show a dash. */}
           <span className="shrink-0 tabular-nums">
             {row.assetCount > 0 ? formatEurCompact(row.netEur, locale) : "—"}
+            {row.assetCount > 0 && <IncompleteMark row={row} />}
           </span>
         </button>
         {/* Every filing links to its own XML on the register, not just the section
@@ -218,7 +282,11 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
       </div>
-      {open && <FilingDetail id={row.id} locale={locale} />}
+      {open && (
+        <div id={panelId}>
+          <FilingDetail id={row.id} locale={locale} />
+        </div>
+      )}
     </li>
   );
 };

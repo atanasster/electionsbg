@@ -18,6 +18,7 @@ import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
+import { useMpOwnsDeclarations } from "./useMpOwnsDeclarations";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonNoDeclarationNote } from "./PersonNoDeclarationNote";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
@@ -55,7 +56,8 @@ import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
-import { useMpAssets } from "@/data/parliament/useMpAssets";
+import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
+import { useMpEntry } from "@/data/parliament/useMpEntry";
 import { useNoindex } from "@/lib/useNoindex";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
@@ -64,10 +66,61 @@ const fmtElection = (d: string): string => {
   return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
 };
 
-// The shared person dashboard body — rendered by /person/:slug and (Phase 5) /candidate/:id.
+// The shared person dashboard — rendered by /person/:slug and (Phase 5) /candidate/:id.
 // Pure render over an already-fetched profile; fetching lives in usePersonProfile so both
 // entry routes can share it.
+//
+// This outer shell exists ONLY to establish the MP context, because a component cannot sit
+// inside a provider it renders itself. Every name-keyed MP hook in the body resolves its id
+// through `useMpIdForName`, which on a context MISS enables the ~950 KB roster and returns
+// `undefined` until it lands. That window is what made `useMpOwnsDeclarations` false for an
+// MP who owns the declarations section, so a cold page painted the standalone block and then
+// tore it down — destroying the `#declarations` scroll target a deep link had just been
+// anchored to. Supplying the id here enables those hooks on render 1, and makes them resolve
+// the SAME id the sections use (mpId comes from `person_role.ref`, and `mp_id` is not a
+// person key — resolving a gate by name and its content by id is how the two could disagree).
+//
+// `null` for a non-MP is exactly the old no-provider behaviour, and any hook called with a
+// name that does not match `p.name` still falls back to the roster as before.
 export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
+  // The MP id (for the avatar photo + party ring) from an mp role, else a mp-{id} candidacy.
+  //
+  // The ref is '<mpId>' for an MP with no roll-call coverage and '<mpId>:<ns>'
+  // for one with it (mp-party-affiliation-v1 T3), so take the FIRST field.
+  // Matching `^\d+$` against the whole string silently dropped all 562 MPs with
+  // per-NS refs through to the candidacy fallback below, where at least one
+  // resolved to a different member's id — a dead avatar and a wrong /candidate
+  // link, with nothing to indicate it.
+  const mpId = useMemo(() => {
+    const mp = p.roles.find((r) => r.source === "mp");
+    const mpHead = mp?.ref.split(":")[0];
+    if (mpHead && /^\d+$/.test(mpHead)) return Number(mpHead);
+    for (const r of p.roles) {
+      const m = /:mp-(\d+)$/.exec(r.ref);
+      if (m) return Number(m[1]);
+    }
+    return null;
+  }, [p.roles]);
+
+  // The single-shard `/api/db/mp-entry?id=` fetch, NOT the roster. PersonHeader makes the
+  // same call inside; React Query dedupes on the key, so this costs no extra request.
+  const { entry: mpEntry } = useMpEntry(mpId);
+
+  return (
+    <CandidateMpProvider
+      value={
+        mpId != null ? { id: mpId, name: p.name, entry: mpEntry ?? null } : null
+      }
+    >
+      <PersonDashboardBody p={p} mpId={mpId} />
+    </CandidateMpProvider>
+  );
+};
+
+const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
+  p,
+  mpId,
+}) => {
   const { t, i18n } = useTranslation();
 
   // NOINDEX the non-public served pages (S5). A verified private owner (is_public_figure=false,
@@ -93,25 +146,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       live = false;
     };
   }, [p.slug]);
-
-  // The MP id (for the avatar photo + party ring) from an mp role, else a mp-{id} candidacy.
-  //
-  // The ref is '<mpId>' for an MP with no roll-call coverage and '<mpId>:<ns>'
-  // for one with it (mp-party-affiliation-v1 T3), so take the FIRST field.
-  // Matching `^\d+$` against the whole string silently dropped all 562 MPs with
-  // per-NS refs through to the candidacy fallback below, where at least one
-  // resolved to a different member's id — a dead avatar and a wrong /candidate
-  // link, with nothing to indicate it.
-  const mpId = useMemo(() => {
-    const mp = p.roles.find((r) => r.source === "mp");
-    const mpHead = mp?.ref.split(":")[0];
-    if (mpHead && /^\d+$/.test(mpHead)) return Number(mpHead);
-    for (const r of p.roles) {
-      const m = /:mp-(\d+)$/.exec(r.ref);
-      if (m) return Number(m[1]);
-    }
-    return null;
-  }, [p.roles]);
 
   // Held offices — mp / officials / magistrate / local mayor+councillor. A person can hold
   // the same office across many cycles (e.g. councillor ×5), so dedupe by (source, role,
@@ -174,10 +208,11 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     candidacies.length > 0,
   );
 
-  // Does the MP register carry declared assets for this person? Same query
-  // PersonMpSections/MpAssetsSummary run, deduped by React Query, so it costs
-  // nothing extra and both sides agree on which declarations block to show.
-  const { rollup: mpAssetRollup } = useMpAssets(p.name);
+  // Does the MP block below own the page's one `#declarations` section? The predicate is
+  // shared with PersonMpSections rather than re-derived on each side, so the two cannot
+  // disagree about which one renders it — and this body runs INSIDE the MP context its
+  // parent establishes, so it resolves on render 1 rather than after the roster.
+  const mpOwnsDeclarations = useMpOwnsDeclarations(p.name, mpId);
 
   // The place badge, in the reader's language. Both labels are precomputed by the
   // resolver (migration 115); judicial bodies are Bulgarian-only by design — there is no
@@ -463,6 +498,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
             <PersonMpSections
               name={p.name}
               mpId={mpId}
+              slug={p.slug}
               hasMoneyTimeline={p.procuredEur > 0}
             />
           )}
@@ -471,18 +507,24 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
             component spanning every tier the person filed in (executive / municipal /
             magistrate), replacing the three divergent per-tier renderers and the D2 "empty
             latest filing" bug. It reads person_declarations(slug) directly, so it needs no
-            per-slug shard list. Rendered as the non-MP counterpart: an MP's assets still come
-            from PersonMpSections above (voting-bundled), and someone who holds an mp id but
-            filed only as an official — a minister who never took a seat — falls through to
-            here whenever the MP side has nothing, so exactly one block renders. It self-hides
-            when the person has no asset-bearing filing. */}
-          {!mpAssetRollup && <PersonDeclarations slug={p.slug} />}
+            per-slug shard list.
+            Rendered as the non-MP counterpart, and the gate is the MP block's OWN predicate
+            rather than a lookalike: someone who holds an mp id but filed only as an official
+            — a minister who never took a seat — falls through to here, while an MP gets the
+            filing list nested inside the MP section instead. Exactly one `#declarations`
+            either way, in flight as well as settled. It self-hides when the person has no
+            asset-bearing filing. */}
+          {!mpOwnsDeclarations && <PersonDeclarations slug={p.slug} />}
 
           {/* …and when that block finds nothing because the office is not IN the register,
             say so. Every declarations component above self-hides when empty, which renders
             "never had to file" and "should have filed and did not" as the same blank page.
-            Role-driven, so it cannot excuse a genuine gap — see the component. */}
-          <PersonNoDeclarationNote roles={p.roles} />
+            Role-driven, so it cannot excuse a genuine gap — see the component.
+            It opens the same `#declarations` section, so it rides the same predicate: its
+            own role gate already makes it disjoint from the MP block (no MP holds only
+            exempt offices), but "disjoint by construction" is an argument, and one shared
+            condition is a guarantee. Measured at 0 people reachable either way. */}
+          {!mpOwnsDeclarations && <PersonNoDeclarationNote roles={p.roles} />}
 
           {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
             judiciary counterpart to the officials' assets block. Name-matched, so it self-hides

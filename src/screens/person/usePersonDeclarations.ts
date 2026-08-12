@@ -34,6 +34,13 @@ export type DeclarationListItem = {
   assetCount: number;
   stakeCount: number;
   eventCount: number;
+  /** How many declared asset rows 090 left OUT of `assetsEur`/`netEur` because their value
+   *  exceeded `asset_row_ceiling_eur()` (€50m) — an implausible figure is almost always a
+   *  units typo, and totalling it would publish a billionaire. Non-zero means the sums on
+   *  this row UNDERSTATE by an unknown amount and must be marked, never presented as whole
+   *  ("no silent caps", 090's header). `/officials/assets` and the `/persons` money column
+   *  already honour it. */
+  excludedAssetRows: number;
 };
 
 export const usePersonDeclarations = (

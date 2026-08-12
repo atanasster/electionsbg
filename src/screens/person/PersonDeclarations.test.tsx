@@ -35,6 +35,7 @@ const filing = (
     assetCount: 0,
     stakeCount: 0,
     eventCount: 0,
+    excludedAssetRows: 0,
     ...o,
   };
   // 090 serves periodYear = COALESCE(fiscal_year, declaration_year); derive it here
@@ -146,5 +147,76 @@ describe("PersonDeclarations", () => {
       expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
     );
     expect(container).toBeEmptyDOMElement();
+  });
+
+  // `bare` mounts the block INSIDE the MP assets section, which already owns the heading,
+  // the register link and the net-worth headline. Two things must hold or the MP page gets
+  // a duplicate `#declarations` (a deep-link target) or a duplicated headline.
+  describe("bare mode", () => {
+    it("renders the filing list with no section heading and no stat cards", async () => {
+      stub([
+        filing({
+          id: 10,
+          year: 2024,
+          fiscalYear: 2024,
+          type: "Vacate",
+          institution: "Европейски парламент",
+          positionTitle: "Член",
+          assetsEur: 965411,
+          debtsEur: 12127,
+          netEur: 953283,
+          assetCount: 28,
+        }),
+        filing({
+          id: 20,
+          year: 2017,
+          fiscalYear: 2016,
+          institution: "Народно събраниe",
+          assetsEur: 207270,
+          netEur: 207270,
+          assetCount: 4,
+        }),
+      ]);
+      const { container } = render(<PersonDeclarations slug="mp-868" bare />);
+      await waitFor(() =>
+        expect(screen.getByText("pp_wealth_caveat")).toBeInTheDocument(),
+      );
+      // The actual invariant: no second `#declarations`. Asserting the absence of the
+      // heading STRING instead would keep passing if the section kept its id and lost its
+      // title, or if the translation key were renamed — and the id, not the title, is the
+      // deep-link target this split could break.
+      expect(container.querySelector("#declarations")).toBeNull();
+      expect(screen.queryByText("mp_section_assets")).not.toBeInTheDocument();
+      // No stat cards: the headline net worth belongs to MpAssetsSummary, and printing it
+      // twice invites the two to disagree.
+      expect(screen.queryByText("officials_net_worth")).not.toBeInTheDocument();
+      // Both filings listed, each on the PERIOD it covers (2016, not the 2017 it was
+      // lodged in) with its own register link.
+      expect(screen.getByText("2024")).toBeInTheDocument();
+      expect(screen.getByText("2016")).toBeInTheDocument();
+      expect(screen.getAllByRole("link")).toHaveLength(2);
+    });
+
+    it("still lists an assetless filing, which the standalone block hides", async () => {
+      // The standalone block headlines a net worth, so with nothing asset-bearing it has
+      // nothing to say and self-hides. Bare mode's job is the LIST, and "filed an
+      // incompatibility declaration in 2018" is a record worth showing under a headline
+      // somebody else supplied.
+      const rows = [
+        filing({ id: 1, year: 2018, type: "Other", assetCount: 0 }),
+      ];
+      stub(rows);
+      const { container: standalone } = render(<PersonDeclarations slug="x" />);
+      await waitFor(() =>
+        expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
+      );
+      expect(standalone).toBeEmptyDOMElement();
+
+      stub(rows);
+      render(<PersonDeclarations slug="x" bare />);
+      await waitFor(() =>
+        expect(screen.getByText("pp_decl_type_other")).toBeInTheDocument(),
+      );
+    });
   });
 });
