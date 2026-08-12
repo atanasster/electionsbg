@@ -351,6 +351,20 @@ type IndexEntry = {
   seatedRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   currentPartyGroupShort: string | null;
+  // The coalition/party the MP was ELECTED with, off their own profile record — present
+  // for former MPs, where `currentPartyGroup` above (a CURRENT-NS roster lookup) is null
+  // for all ~1,880 of them. 3,715 of 4,284 cached profiles carry it; restricted to the
+  // 2,122 rows of this index, 1,683 have it and 1,443 of those show no party anywhere
+  // else today.
+  //
+  // CAVEAT, and it is the same shape as seatedRegion's: parliament.bg holds ONE value per
+  // person, so it is a career badge and NOT attributable to a parliament. Measured against
+  // the roll-call-derived per-NS group for the 72 MPs who changed group, it matches the
+  // LAST NS 12 times, the FIRST 4, both 17, and neither endpoint 27 — so a consumer may
+  // render it as "elected with", never as "the group they sat with in NS n", and it must
+  // never be written into `person_role.party`, whose contract is the group entered per
+  // parliament (mp-party-affiliation-v1 §2).
+  electedWith: string | null;
   position: string | null;
   birthDate: string | null;
   nsFolders: string[]; // e.g. ["38","39","40","41"]
@@ -377,6 +391,21 @@ const buildEnglishName = (raw: RawProfile, bgName: string): string => {
     .trim();
   if (en) return titleCaseBgName(en);
   return transliterateName(bgName);
+};
+
+/** The coalition off the profile record, cleaned for display.
+ *
+ *  parliament.bg wraps most of these in literal double quotes — the raw value is
+ *  `"\"Коалиция за България\""` — and some carry an unbalanced opening quote alone
+ *  (`ПП "ГЕРБ`), because the field is a free-text label rather than a reference. Strip the
+ *  quoting and collapse whitespace; do NOT try to normalise the name itself, since the
+ *  canonical mapping lives in data/canonical_parties.json and is the consumer's job. */
+const electedWithOf = (raw: RawProfile): string | null => {
+  const v = (raw.A_ns_CoalL_value ?? "")
+    .replace(/[„“”"]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return v || null;
 };
 
 const buildIndexEntry = (
@@ -409,6 +438,7 @@ const buildIndexEntry = (
     seatedRegion: seatedRegionOf(raw),
     currentPartyGroup: mp?.partyGroup ?? null,
     currentPartyGroupShort: mp?.partyGroupShort ?? null,
+    electedWith: electedWithOf(raw),
     position: mp?.position ?? null,
     birthDate: raw.A_ns_MP_BDate || null,
     nsFolders: folders,
@@ -949,6 +979,88 @@ const main = async (opts: {
   }
 };
 
+/**
+ * Rebuild index.json from the CACHED profiles, with no network at all.
+ *
+ * `buildIndexEntry` is pure given a profile blob, so a change that only adds an
+ * emitted field needs no re-scrape — but `--all` cannot express that: it opens by
+ * fetching the current-NS roster and dies without parliament.bg. That left the only
+ * route to a new index field being a full ~2,100-id walk of a site this repo's own
+ * notes describe as flaky, to recover data already sitting on disk.
+ *
+ * The fields that come from the CURRENT-NS roster rather than from a profile —
+ * currentRegion, currentPartyGroup(Short), position, isCurrent — cannot be re-derived
+ * here, so they are carried over verbatim from the existing index. `scrapedAt` is kept
+ * for the same reason and to keep the file byte-stable for unchanged MPs.
+ *
+ * **`nsFolders` is a FIFTH such field and the least obvious**, because only part of it
+ * comes from the profile. `buildIndexEntry` fills it from the profile's `oldnsList`, which
+ * covers PAST parliaments only — the CURRENT folder is appended afterwards, in the online
+ * path, from the roster response's `A_ns_CL_value`, and the dedup merge above then UNIONS
+ * the sets of records that collapse onto one person ("never lose a term"). Neither input
+ * exists here. So the rebuilt value is merged with the old one rather than replacing it.
+ *
+ * Measured when this was missed: re-emitting 2,122 entries took `nsFolders` coverage from
+ * 859 MPs to 703 — all 240 sitting members silently lost folder "52", and 22 further
+ * folder-entries across the 39th-47th vanished with the dedup union that produced them.
+ * `db:resolve:persons` then refused to publish (1,281 MP roles resolved a parliamentary
+ * group against a floor of 1,400), which is the only reason it was caught.
+ *
+ * Refuses to run without an existing index: there would be nothing to carry over, and
+ * writing one from profiles alone would silently blank the sitting members' roster
+ * fields.
+ */
+const runReindex = (opts: { out: string }): void => {
+  const indexFile = path.join(opts.out, "index.json");
+  if (!fs.existsSync(indexFile))
+    throw new Error(
+      `--reindex needs an existing ${indexFile} to carry the current-NS fields over from; run a full scrape first.`,
+    );
+  const prev = JSON.parse(fs.readFileSync(indexFile, "utf8")) as {
+    mps: IndexEntry[];
+    [k: string]: unknown;
+  };
+  const profilesDir = path.join(opts.out, "profiles");
+
+  let rebuilt = 0;
+  const mps = prev.mps.map((old) => {
+    const f = path.join(profilesDir, `${old.id}.json`);
+    if (!fs.existsSync(f)) return old;
+    let raw: RawProfile;
+    try {
+      raw = JSON.parse(fs.readFileSync(f, "utf8")) as RawProfile;
+    } catch {
+      return old;
+    }
+    // The roster half of the entry, reconstructed from what the previous index holds so
+    // buildIndexEntry sees exactly the inputs the online path would have handed it.
+    const mp: Mp | null = old.isCurrent
+      ? ({
+          id: old.id,
+          region: old.currentRegion,
+          partyGroup: old.currentPartyGroup,
+          partyGroupShort: old.currentPartyGroupShort,
+          position: old.position,
+        } as unknown as Mp)
+      : null;
+    rebuilt += 1;
+    const next = buildIndexEntry(mp, raw, old.isCurrent, old.scrapedAt);
+    // Union rather than replace — see the nsFolders paragraph above. Union and not a
+    // straight carry-over so a profile that legitimately gained a term still contributes
+    // it; the old value can only ever be a superset of what a profile alone can produce,
+    // so in practice this restores the roster folder and the dedup merge.
+    next.nsFolders = [
+      ...new Set([...(old.nsFolders ?? []), ...next.nsFolders]),
+    ].sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    return next;
+  });
+
+  fs.writeFileSync(indexFile, JSON.stringify({ ...prev, mps }));
+  console.log(
+    `✓ reindexed ${rebuilt}/${prev.mps.length} entries from cached profiles → ${indexFile}`,
+  );
+};
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -981,6 +1093,12 @@ const cli = command({
       long: "all",
       defaultValue: () => false,
     }),
+    // Re-emit index.json from the cached profiles. No network — see runReindex.
+    reindex: flag({
+      type: optional(boolean),
+      long: "reindex",
+      defaultValue: () => false,
+    }),
     refreshCurrent: flag({
       type: optional(boolean),
       long: "refresh-current",
@@ -1006,6 +1124,14 @@ const cli = command({
     // since the flag is positive, omitting it means "do the default", which
     // is now: download.)
     const wantsPhotos = args.photos !== false;
+    if (args.reindex) {
+      runReindex({
+        out: args.out.endsWith("/2024_10_27/parliament")
+          ? path.resolve(__dirname, "../../data/parliament")
+          : args.out,
+      });
+      return;
+    }
     if (args.all) {
       const out = args.out.endsWith("/2024_10_27/parliament")
         ? path.resolve(__dirname, "../../data/parliament")
