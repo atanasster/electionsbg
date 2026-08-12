@@ -282,9 +282,31 @@ Procurement is served from **Postgres**, so publishing means reloading the Cloud
 npm run db:load:pg:cloud            # contracts
 npm run db:load:tenders:pg:cloud    # tenders
 npm run db:load:awarder-seats:pg:cloud
+npm run db:load:tender-dossier:pg:cloud   # ЦАИС ЕОП dossier + tender search — see below
 npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
 npm run db:load:graph:pg:cloud            # /connections company money — see below
 ```
+
+`db:load:tender-dossier:pg:cloud` publishes the ЦАИС ЕОП per-procedure dossier (146) and
+the `tender_search_text` index behind the tenders document search (147). Three things
+about it differ from every other line above:
+
+- **Its input is a gitignored local SQLite capture** — `raw_data/procurement/eop_dossier.sqlite`,
+  written by `npx tsx scripts/procurement/ingest_eop_dossier.ts` (a rate-limited ~26 h
+  crawl of a shared public register, an operator action, not part of this ingest). It is
+  therefore only useful on a machine that has earned that capture; elsewhere it applies
+  the DDL and exits 0, which is the intended outcome rather than a failure.
+- **It is safe to run even when you have no capture, and worth running once anyway**:
+  147 carries the `app_readonly` GRANTs for 146's seven tables, which shipped with none.
+  Missing grants are invisible locally (the loader connects as the owner) and would
+  surface only as `/api/db` 42501 on Cloud SQL against a corpus whose row counts all
+  reconcile. As of 2026-08-12 the dossier family has not been deployed at all, so this
+  is a first-deploy precaution rather than a repair of something currently broken.
+- **The tenders search does NOT depend on it**, by design — `db:load:tenders:pg:cloud`
+  applies 147 itself, so `tender_search_text` exists (empty) wherever `tenders` does.
+  That matters because the search arm has no degrade path: a missing table would be a
+  500 on every `/procurement/tenders` search, not a narrower answer. Empty simply means
+  the document arm adds no hits.
 
 The last TWO are not procurement tables and are easy to forget for exactly that reason.
 `person_browse_table` (migration 120, the `/persons` browser) computes `public_money_eur`

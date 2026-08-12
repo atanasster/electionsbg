@@ -36,7 +36,7 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
   "db:load:tender-dossier:pg": {
     axes: ["uncommitted-input"],
     ranBy:
-      "the tender-dossier ingest, by hand (CLAUDE.md, ЦАИС ЕОП dossier section)",
+      "npx tsx scripts/procurement/ingest_eop_dossier.ts, by hand (CLAUDE.md, tender_dossier / migration 146 section)",
     reason:
       "reads the gitignored raw_data/procurement/eop_dossier.sqlite capture — absent on a fresh clone, and re-earning it is a ~26h crawl of a shared public register",
   },

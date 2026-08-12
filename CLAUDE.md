@@ -723,8 +723,24 @@ one. `mp_similarity` stores `dot` + `overlap`, NOT an agreement rate: the score 
 are calibrated for is a cosine (`score = dot / (norm_a * norm_b)` via `mp_vote_norm`), and
 substituting a rate would relabel "voting twins" sitewide.
 
-`tender_search_text` (migration 147, `db:load:tender-dossier:pg`) is the ЦАИС ЕОП
-tender-dossier corpus's SEARCH index — the long „Кратко описание", every rendered
+`tender_dossier` + six sibling tables (migration 146, `db:load:tender-dossier:pg`) are
+the ЦАИС ЕОП per-procedure capture — the attachment manifest, the parsed обявления, the
+award-stage trail, contract items, buyer profiles and extracted document TEXT (never
+document bytes; the 3.65 TB blob tier was dropped, so `/api/db/tender-document` mints a
+signed redirect out to app.eop.bg instead). **`db:load:tender-dossier:pg` is 146's ONLY
+applier** — the tenders loader below carries 147 but NOT 146 — so a database that never
+ran this loader has the search index and none of the corpus.
+
+Its input is `raw_data/procurement/eop_dossier.sqlite`, **gitignored**, written by
+`npx tsx scripts/procurement/ingest_eop_dossier.ts` — a rate-limited ~26 h crawl of a
+shared public register, so it is an operator action rather than a pipeline step
+(`--probe` first to gauge the block state; `--to-year` for a stratified sample).
+`scripts/procurement/ingest_eop_spec_text.ts` is the tier-B pass over the same store:
+sign → fetch → extract text → **discard the bytes**. There is no `npm run` alias for
+either, on purpose — neither belongs in a chain.
+
+`tender_search_text` (migration 147, applied by `db:load:tender-dossier:pg` **and** by
+`db:load:tenders:pg`) is that corpus's SEARCH index — the long „Кратко описание", every rendered
 обявление and every extracted specification, folded per procedure so the words a
 reader actually searches for are findable. `tenders.subject` is a 138-char headline,
 so before this a procurement for nine kinds of coffee was searchable only as
@@ -750,8 +766,12 @@ live-breaking deploy hazard rather than the customary staleness:**
   the capture guard first, `db:load:tender-dossier:pg:cloud` on a machine without the
   crawl printed „Nothing to load", applied no DDL and exited **0** — a deploy that
   looks successful and creates nothing. 147 also carries the `app_readonly` GRANTs for
-  146's seven tables, which shipped with none, so applying it is what repairs an
-  already-deployed 146 (invisible locally, `/api/db` 42501 on Cloud SQL).
+  146's seven tables, which shipped with none — so applying it is also what would repair
+  a 146 that had already reached a serving database. (As of 2026-08-12 none has: the
+  whole dossier family is local-only. The hazard is real but latent, and it is
+  invisible locally because every loader and data test connects as the owner; it would
+  surface only as `/api/db` 42501 on Cloud SQL against a corpus whose row counts all
+  reconcile.)
 - **COVERAGE IS THE POINT, and it is small.** 1,861 of 237,321 procedures (0.78%) at
   the time of writing. The arm may therefore only ever **ADD** hits — it is one OR arm
   beside buyer and subject, so a missing row can fail to add a hit and never suppress
@@ -776,11 +796,40 @@ Two performance rules are load-bearing and both were measured, not reasoned:
   10 s `statement_timeout`. The cost is real — no mid-word or near-spelling matching on
   document text.
 
+**Three routes read this family, and one of them has a cache rule that is easy to
+undo.** `/api/db/tender-dossier` (the per-procedure page), `/api/db/tender-document`
+(the signed-URL redirect) and `/api/db/tender-search-coverage` all ship with
+`npm run deploy:db`.
+
+**A loader that applies 147 MUST reach the serving database BEFORE the `deploy:db` that
+ships these routes** — either `db:load:tenders:pg:cloud` or
+`db:load:tender-dossier:pg:cloud`, both apply it. Deploying first is a **500** on every
+`/procurement/tenders` search keystroke and every `?q=` deep link, not a narrower
+answer, because `db_table.js` reads the table unconditionally and `badRequest()`
+rethrows anything that is not a `DbRequestError`. The other two routes impose no
+ordering of their own: `tender-dossier` catches 42P01 → `null` and
+`tender-search-coverage` degrades to nulls.
+
+`/api/db/tender-document` carries **`"Cache-Control": "no-store"` in `firebase.json`**,
+and its entry must sit **AFTER** the `/api/db/**` rule — Firebase applies the **LAST**
+matching header, so placed before it the `no-store` is dead config and the route
+silently inherits `max-age=300, s-maxage=3600`. (That is not hypothetical: it shipped
+that way and was caught by review. The global `**` rule sitting at index 0 with
+`no-cache` is the independent proof of the direction — first-match-wins would make
+every asset on the site uncacheable.) The register's blob URLs are S3v4-presigned with
+a **30-minute expiry**, so a cached redirect is a link that works when it is written
+and 403s later — the failure arrives long after the deploy that caused it. The
+function cannot fix this itself: a hosting `headers` rule overrides a function-set
+`Cache-Control`, which is why the header lives in `firebase.json` rather than beside
+the route. `firebase_person_rewrite.test.ts` holds the order.
+
 Related, from the same step and applying to **every** DbDataTable: the free-text arms
 now escape `%` and `_`. They are LIKE wildcards, so before this any user typing one
 turned the search into a scan of everything — measured, `50%_x` on tenders was
 **11,672 ms** end to end, past the `statement_timeout`, of which 8,256 ms was
-`buyer_fold ILIKE '%50%_x%'` matching all 237,321 rows. Now 188 ms. The `searchFold`
+`buyer_fold ILIKE '%50%_x%'` — a pattern the trigram index can extract nothing usable
+from, so it returns all 237,321 rows as candidates and the heap recheck then discards
+236,496. Now 188 ms. The `searchFold`
 arms escape in SQL rather than in JS, because their text is produced server-side by
 `translit_bg_latin` and a JS-side escape would be undone by the transliteration.
 

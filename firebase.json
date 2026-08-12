@@ -333,20 +333,20 @@
           ]
         },
         {
-          "source": "/api/db/tender-document",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-store"
-            }
-          ]
-        },
-        {
           "source": "/api/db/**",
           "headers": [
             {
               "key": "Cache-Control",
               "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=600"
+            }
+          ]
+        },
+        {
+          "source": "/api/db/tender-document",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
             }
           ]
         }

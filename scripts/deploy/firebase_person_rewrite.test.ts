@@ -87,6 +87,31 @@ describe("firebase.json person rewrites", () => {
     }
   });
 
+  it("/api/db/tender-document is no-store, and AFTER /api/db/** so it wins", () => {
+    // ⚠️ ORDER IS THE WHOLE POINT, and it is easy to get backwards: Firebase applies
+    // the LAST matching header rule, not the first. Placed before /api/db/**, the
+    // no-store is dead config and the route inherits
+    // `max-age=300, s-maxage=3600` — which is exactly the bug it exists to prevent.
+    // The route 302s to an S3v4 presigned blob URL with a THIRTY-MINUTE expiry, so a
+    // cached redirect is a link that works when written and 403s later, long after
+    // the deploy that caused it. The function cannot fix this itself: a hosting
+    // headers rule overrides a function-set Cache-Control.
+    const api = headers.findIndex((h) => h.source === "/api/db/**");
+    const doc = headers.findIndex(
+      (h) => h.source === "/api/db/tender-document",
+    );
+    expect(
+      doc,
+      "/api/db/tender-document header rule missing",
+    ).toBeGreaterThanOrEqual(0);
+    expect(api).toBeGreaterThanOrEqual(0);
+    expect(
+      doc,
+      "no-store must come AFTER /api/db/** — last matching header wins",
+    ).toBeGreaterThan(api);
+    expect(cacheControl("/api/db/tender-document")).toBe("no-store");
+  });
+
   it("caches /person/** after the global ** — but with NO browser max-age", () => {
     const globalAll = headers.findIndex((h) => h.source === "**");
     for (const src of ["/person/**", "/en/person/**"]) {

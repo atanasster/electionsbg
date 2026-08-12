@@ -363,6 +363,49 @@ search. The search + `ORDER BY` + `LIMIT` seq-scan fence applies on a much large
 
 **B4 — brand lock-in signal**: a named brand without "или еквивалент" in the spec text.
 
+## 5.1 Implementation log — what actually shipped (2026-08-12)
+
+Steps 1–8 (A6–A9, B1–B4) are committed; step 9 (A10 — wiring) is the change you are
+reading. What is NOT done is a **deploy**: 146,
+147, both loaders, the three routes and the `firebase.json` header are local only, and
+no deploy authorization has been given. The tier-A crawl has also only been run for a
+sample — **1,861 of 237,321 procedures, 0.78%** — so every coverage-dependent claim in
+this document is about a sample, not the corpus.
+
+Findings from implementation that contradict or extend what is written above:
+
+- **§13.8 (multi-EIK drop) is still open and deliberately unfixed.** 561 records / 304
+  procedures never entered the corpus. Fixing it changes the corpus, so it needs a
+  reload plus a redeploy — a decision, not a cleanup.
+- **B4 publishes NO verdict.** The brand-lock-in signal this plan asks for measured
+  87.6% match rate against all 142 extracted specifications — Roman numerals from
+  „Част III", a German-language spec, PVC/SN8/D400, USB/LED/HDMI, EU programme codes.
+  A false positive asserts a named buyer breached ЗОП чл. 49 ал. 2, so at 1-in-8
+  precision it is withheld (`BRAND_SIGNAL_PUBLISHABLE = false`) and reports „not
+  checkable" instead. The code path and the measurement are kept for a next attempt;
+  the six dossier signals are otherwise live and tri-state.
+- **B3's search fence note was right about the risk and wrong about the mechanism.**
+  The danger was not `ORDER BY` + `LIMIT`: it was that a correlated `EXISTS` cannot
+  join a BitmapOr, which took the whole tenders search from 37 ms to 6,617 ms — a
+  regression on every search, not only ones the dossier answers. Shipped as an
+  uncorrelated InitPlan array (21.5 ms). Separately, `%>` trigram matching is
+  unusable on document-length text (0.073 ms vs 13,490 ms), so document search is
+  full-text only and has no mid-word matching.
+- **The blob tier stays dead** (§12), and nothing here revisits it. Documents are
+  linked out to app.eop.bg via a signed-URL redirect; only extracted TEXT is stored.
+- **Three defects were found in already-committed code and fixed en route.** 146 was
+  written with no `app_readonly` GRANTs at all — latent rather than live, since nothing
+  here is deployed, but invisible locally because every loader and test connects as the
+  owner. Every DbDataTable free-text arm treated a user-typed `%` or `_` as a LIKE
+  wildcard: measured 11,672 ms for `50%_x` on tenders, past the statement_timeout, and
+  reachable by any visitor on several pages (the trigram index extracts nothing usable
+  from such a pattern, so it returns all 237,321 rows as candidates and the heap recheck
+  discards 236,496). And the `no-store` on
+  `/api/db/tender-document` was **dead config** — Firebase applies the LAST matching
+  header rule and the entry had been placed BEFORE `/api/db/**`, so the redirect
+  inherited `max-age=300, s-maxage=3600` while the presigned URL it points at expires
+  in 30 minutes. All three were review findings, not things testing surfaced.
+
 ## 6. Remaining unknowns
 
 Most of the original list is now measured (§10). What is left:
