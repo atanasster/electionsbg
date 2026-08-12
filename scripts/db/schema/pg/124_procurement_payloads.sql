@@ -186,4 +186,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_pp_kind_scope
 -- here for the reason the header gives: the route catches its own errors and degrades to the
 -- live functions, so a database where the default privileges were never applied would not fail
 -- loudly. It would serve the slow path forever, correctly, with nothing red anywhere.
-GRANT SELECT ON procurement_payloads TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON procurement_payloads TO app_readonly;
+  END IF;
+END $$;

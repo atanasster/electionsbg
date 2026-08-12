@@ -38,7 +38,11 @@ CREATE TABLE IF NOT EXISTS transport_project_link (
   PRIMARY KEY (key, a_town, b_town)
 );
 CREATE INDEX IF NOT EXISTS idx_transport_project_link_key ON transport_project_link (key);
-GRANT SELECT ON transport_project_link TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON transport_project_link TO app_readonly;
+  END IF;
+END $$;
 
 -- Windowed [from, to) with sargable COALESCE bounds (matches scopeByWindow's half-open,
 -- string-compared guard so the awarder_eik index is kept), tag='contract' only. Returns two
@@ -116,4 +120,8 @@ SELECT jsonb_build_object(
     FROM pt), '[]'::jsonb)
 );
 $$;
-GRANT EXECUTE ON FUNCTION transport_project_map(text[], text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION transport_project_map(text[], text, text) TO app_readonly;
+  END IF;
+END $$;

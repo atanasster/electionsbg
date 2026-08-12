@@ -292,7 +292,11 @@ CREATE MATERIALIZED VIEW officer_name_counts AS
   GROUP BY o.name_fold;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_officer_name_counts_fold
   ON officer_name_counts(name_fold);
-GRANT SELECT ON officer_name_counts TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON officer_name_counts TO app_readonly;
+  END IF;
+END $$;
 
 DROP FUNCTION IF EXISTS company_person_path(text, text, int);
 CREATE OR REPLACE FUNCTION company_person_path(

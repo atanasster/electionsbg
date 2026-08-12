@@ -66,7 +66,11 @@ CREATE INDEX IF NOT EXISTS idx_kzk_appeals_buyer  ON kzk_appeals(buyer_eik);
 DROP INDEX IF EXISTS idx_kzk_appeals_date;
 CREATE INDEX IF NOT EXISTS idx_kzk_appeals_date
   ON kzk_appeals(complaint_date DESC NULLS LAST, complaint_no DESC);
-GRANT SELECT ON kzk_appeals TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON kzk_appeals TO app_readonly;
+  END IF;
+END $$;
 
 -- ---------------------------------------------------------------------------
 -- The ONE definition of "is this appeal suspended".
@@ -165,7 +169,11 @@ SELECT t.*,
   EXISTS (SELECT 1 FROM kzk_appeals k WHERE k.unp = t.unp
           AND kzk_effective_suspension(k.suspension, k.status)) AS appeal_suspended
 FROM tenders t;
-GRANT SELECT ON tenders_list TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON tenders_list TO app_readonly;
+  END IF;
+END $$;
 
 -- Contracts join to an appeal via their procedure: contracts.ocid → tenders.unp
 -- → kzk_appeals. A correlated EXISTS ballooned to ~480ms on the amount-sorted
@@ -178,7 +186,11 @@ CREATE MATERIALIZED VIEW appealed_ocids AS
   SELECT DISTINCT t.ocid FROM tenders t JOIN kzk_appeals k ON k.unp = t.unp
   WHERE t.ocid IS NOT NULL AND t.ocid <> '';
 CREATE UNIQUE INDEX IF NOT EXISTS idx_appealed_ocids ON appealed_ocids(ocid);
-GRANT SELECT ON appealed_ocids TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON appealed_ocids TO app_readonly;
+  END IF;
+END $$;
 
 -- Ocids whose procedure had an appeal КЗК UPHELD (уважена = the buyer's decision
 -- annulled) — the authoritative "found improper" signal that feeds the contract
@@ -188,7 +200,11 @@ CREATE MATERIALIZED VIEW upheld_ocids AS
   SELECT DISTINCT t.ocid FROM tenders t JOIN kzk_appeals k ON k.unp = t.unp
   WHERE k.outcome = 'уважена' AND t.ocid IS NOT NULL AND t.ocid <> '';
 CREATE UNIQUE INDEX IF NOT EXISTS idx_upheld_ocids ON upheld_ocids(ocid);
-GRANT SELECT ON upheld_ocids TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON upheld_ocids TO app_readonly;
+  END IF;
+END $$;
 
 -- contracts_list (SELECT c.* + appeal flags) is rebuilt by the shared
 -- rebuild_contracts_list() (000_search_fns.sql) so this migration and 050
@@ -240,4 +256,8 @@ SELECT a.complaint_no,
        (t.unp IS NOT NULL) AS resolved
 FROM kzk_appeals a
 LEFT JOIN tenders t ON t.unp = a.unp;
-GRANT SELECT ON kzk_appeals_list TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON kzk_appeals_list TO app_readonly;
+  END IF;
+END $$;

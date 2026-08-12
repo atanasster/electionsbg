@@ -43,7 +43,11 @@ CREATE MATERIALIZED VIEW company_officer_counts AS
   FROM tr_officers WHERE name_fold <> '' GROUP BY uic;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_company_officer_counts_uic
   ON company_officer_counts(uic);
-GRANT SELECT ON company_officer_counts TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON company_officer_counts TO app_readonly;
+  END IF;
+END $$;
 
 DROP FUNCTION IF EXISTS magistrate_politician_links(text, int);
 CREATE OR REPLACE FUNCTION magistrate_politician_links(

@@ -449,4 +449,8 @@ $$;
 
 -- Views (unlike functions) are not covered by the ALTER DEFAULT PRIVILEGES that
 -- auto-grants functions, so grant the matview read explicitly.
-GRANT SELECT ON person_wealth_year TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON person_wealth_year TO app_readonly;
+  END IF;
+END $$;

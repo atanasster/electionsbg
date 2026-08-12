@@ -99,4 +99,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   ) t;
 $$;
 
-GRANT SELECT ON declaration_obligation TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON declaration_obligation TO app_readonly;
+  END IF;
+END $$;

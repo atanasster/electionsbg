@@ -76,7 +76,11 @@ CREATE INDEX IF NOT EXISTS idx_psr_scope_contracts
 CREATE INDEX IF NOT EXISTS idx_psr_fold
   ON procurement_settlement_rank USING gin (name_fold gin_trgm_ops);
 
-GRANT SELECT ON procurement_settlement_rank TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON procurement_settlement_rank TO app_readonly;
+  END IF;
+END $$;
 
 -- ── The map + header payload: one row per scope ──────────────────────────────────────────
 -- Everything the page needs that is NOT the table: the four KPI tiles, the "national
@@ -129,4 +133,8 @@ WITH NO DATA;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_pgp_scope
   ON procurement_geo_payloads (scope_key);
 
-GRANT SELECT ON procurement_geo_payloads TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON procurement_geo_payloads TO app_readonly;
+  END IF;
+END $$;

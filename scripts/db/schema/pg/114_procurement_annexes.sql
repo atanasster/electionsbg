@@ -46,7 +46,11 @@ CREATE TABLE IF NOT EXISTS procurement_annexes (
 -- The read path is always "this contract's annexes, in publication order".
 CREATE INDEX IF NOT EXISTS idx_procurement_annexes_contract
   ON procurement_annexes (contract_key, publication_date);
-GRANT SELECT ON procurement_annexes TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON procurement_annexes TO app_readonly;
+  END IF;
+END $$;
 
 -- Serving helper: one contract's annexes as an ordered jsonb array, plus the
 -- one derived fact the §0b finding turns on — how many DISTINCT annex

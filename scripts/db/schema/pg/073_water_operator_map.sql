@@ -28,7 +28,11 @@ CREATE TABLE IF NOT EXISTS water_operator_geo (
   lng          double precision,
   lat          double precision
 );
-GRANT SELECT ON water_operator_geo TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON water_operator_geo TO app_readonly;
+  END IF;
+END $$;
 
 -- Geolocated operators + windowed procurement metric. Windowed [from, to) with
 -- sargable COALESCE bounds (matches scopeByWindow's half-open, string-compared guard
@@ -76,4 +80,8 @@ FROM agg a
 JOIN water_operator_geo g ON g.eik = a.eik
 WHERE g.lng IS NOT NULL AND g.lat IS NOT NULL;
 $$;
-GRANT EXECUTE ON FUNCTION water_operator_map(text[], text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION water_operator_map(text[], text, text) TO app_readonly;
+  END IF;
+END $$;

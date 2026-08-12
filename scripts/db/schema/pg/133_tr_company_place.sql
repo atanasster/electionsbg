@@ -77,7 +77,11 @@ CREATE INDEX IF NOT EXISTS idx_tr_company_place_ekatte_pol
   ON tr_company_place (ekatte) WHERE political_n > 0;
 CREATE INDEX IF NOT EXISTS idx_tr_company_place_obshtina_pol
   ON tr_company_place (obshtina) WHERE political_n > 0;
-GRANT SELECT ON tr_company_place TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON tr_company_place TO app_readonly;
+  END IF;
+END $$;
 
 -- One place's companies: the total we can place there, the two counts the tile
 -- leads with, and the top `p_limit` rows.
@@ -138,4 +142,8 @@ SELECT jsonb_build_object(
     JOIN tr_companies c ON c.uic = t.uic), '[]'::jsonb)
 );
 $$;
-GRANT EXECUTE ON FUNCTION place_companies(text, text, int) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION place_companies(text, text, int) TO app_readonly;
+  END IF;
+END $$;

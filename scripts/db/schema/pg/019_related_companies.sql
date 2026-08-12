@@ -33,7 +33,11 @@ CREATE MATERIALIZED VIEW owner_name_counts AS
   GROUP BY name_fold;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_owner_name_counts_fold
   ON owner_name_counts(name_fold);
-GRANT SELECT ON owner_name_counts TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON owner_name_counts TO app_readonly;
+  END IF;
+END $$;
 
 DROP FUNCTION IF EXISTS company_related(text);
 CREATE OR REPLACE FUNCTION company_related(p_eik text)

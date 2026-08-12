@@ -174,10 +174,38 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT person_by_settlement_core(person_slug_tr_eiks(p_slug), p_from, p_to);
 $$;
 
-GRANT EXECUTE ON FUNCTION person_by_company_core(text[], text, text)              TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_by_settlement_core(text[], text, text)           TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_slug_tr_eiks(text)                               TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_procurement_by_company(text, text, text)         TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_procurement_by_settlement(text, text, text)      TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_procurement_by_company_slug(text, text, text)    TO app_readonly;
-GRANT EXECUTE ON FUNCTION person_procurement_by_settlement_slug(text, text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_by_company_core(text[], text, text)              TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_by_settlement_core(text[], text, text)           TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_slug_tr_eiks(text)                               TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_procurement_by_company(text, text, text)         TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_procurement_by_settlement(text, text, text)      TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_procurement_by_company_slug(text, text, text)    TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION person_procurement_by_settlement_slug(text, text, text) TO app_readonly;
+  END IF;
+END $$;

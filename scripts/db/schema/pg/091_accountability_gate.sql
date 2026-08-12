@@ -97,4 +97,8 @@ ORDER BY p.person_id,
   CASE r.role WHEN 'cabinet' THEN 1 WHEN 'deputy_minister' THEN 2 ELSE 3 END,
   r.ref;
 
-GRANT SELECT ON accountability_senior TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON accountability_senior TO app_readonly;
+  END IF;
+END $$;

@@ -33,7 +33,11 @@ CREATE TABLE IF NOT EXISTS transport_facility_geo (
   lng          double precision,
   lat          double precision
 );
-GRANT SELECT ON transport_facility_geo TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON transport_facility_geo TO app_readonly;
+  END IF;
+END $$;
 
 -- Geolocated entities + windowed procurement metric. Windowed [from, to) with
 -- sargable COALESCE bounds (matches scopeByWindow's half-open, string-compared
@@ -82,4 +86,8 @@ FROM agg a
 JOIN transport_facility_geo g ON g.eik = a.eik
 WHERE g.lng IS NOT NULL AND g.lat IS NOT NULL;
 $$;
-GRANT EXECUTE ON FUNCTION transport_facility_map(text[], text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION transport_facility_map(text[], text, text) TO app_readonly;
+  END IF;
+END $$;

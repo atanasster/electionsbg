@@ -30,7 +30,11 @@ CREATE TABLE IF NOT EXISTS cpv_catalog (
   cpv  text PRIMARY KEY,
   "desc" text NOT NULL
 );
-GRANT SELECT ON cpv_catalog TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON cpv_catalog TO app_readonly;
+  END IF;
+END $$;
 
 -- DELETE + INSERT inside one transaction, not TRUNCATE: TRUNCATE takes an
 -- AccessExclusive lock that blocks the serving route, and this table is small

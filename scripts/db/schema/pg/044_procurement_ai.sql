@@ -202,8 +202,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   );
 $$;
 
-GRANT EXECUTE ON FUNCTION tender_corpus_search(int, text[], text, text, text[], int) TO app_readonly;
-GRANT EXECUTE ON FUNCTION kzk_appeals_summary() TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION tender_corpus_search(int, text[], text, text, text[], int) TO app_readonly;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION kzk_appeals_summary() TO app_readonly;
+  END IF;
+END $$;
 
 -- Full-corpus cache for the kzk-appeals-summary route (no-arg, called
 -- identically every request). Serving from a matview makes the response a

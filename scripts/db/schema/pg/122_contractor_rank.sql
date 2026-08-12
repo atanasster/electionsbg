@@ -118,7 +118,11 @@ LEFT JOIN mp ON mp.eik = a.eik
 WHERE a.is_all = 1 OR a.division IS NOT NULL;
 $$;
 
-GRANT EXECUTE ON FUNCTION contractor_ranks_windowed(text, text) TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION contractor_ranks_windowed(text, text) TO app_readonly;
+  END IF;
+END $$;
 
 -- ── The ranking: one row per (scope, contractor, division|'ALL') ──────────────────────────
 -- WITH NO DATA for the same lock reason as 119: the loader populates it via REFRESH
@@ -158,7 +162,11 @@ CREATE INDEX IF NOT EXISTS idx_contractor_rank_contracts
 CREATE INDEX IF NOT EXISTS idx_contractor_rank_fold
   ON contractor_rank USING gin (name_fold gin_trgm_ops);
 
-GRANT SELECT ON contractor_rank TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON contractor_rank TO app_readonly;
+  END IF;
+END $$;
 
 -- ── The KPI blob: one row per scope ──────────────────────────────────────────────────────
 -- The 3 headline KPIs a per-row table can't compute. Built FROM contractor_rank
@@ -193,4 +201,8 @@ WITH NO DATA;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_contractor_scope_kpis_scope
   ON contractor_scope_kpis (scope_key);
 
-GRANT SELECT ON contractor_scope_kpis TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON contractor_scope_kpis TO app_readonly;
+  END IF;
+END $$;

@@ -99,4 +99,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_psp_scope_ekatte
 -- more here: the route catches its own errors and degrades to the live function, so a
 -- database where the default privileges were never applied would not fail loudly. It would
 -- serve the slow path forever, correctly, with nothing red anywhere.
-GRANT SELECT ON procurement_settlement_payloads TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON procurement_settlement_payloads TO app_readonly;
+  END IF;
+END $$;

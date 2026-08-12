@@ -39,4 +39,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_company_person_roles_key
   ON company_person_roles(key);
 CREATE INDEX IF NOT EXISTS idx_company_person_roles_uic
   ON company_person_roles(uic);
-GRANT SELECT ON company_person_roles TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON company_person_roles TO app_readonly;
+  END IF;
+END $$;

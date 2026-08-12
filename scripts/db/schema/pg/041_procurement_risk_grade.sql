@@ -74,7 +74,11 @@ CREATE TABLE IF NOT EXISTS buyer_appeal_stats (
   decided   int NOT NULL DEFAULT 0,
   upheld    int NOT NULL DEFAULT 0
 );
-GRANT SELECT ON buyer_appeal_stats TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON buyer_appeal_stats TO app_readonly;
+  END IF;
+END $$;
 
 -- Smoothed upheld rate: upheld / max(decided, 3) — a 3-appeal prior so a lone
 -- 1-of-1 upheld reads 0.33, not a noisy 1.0; a systematic pattern still →1.0.
@@ -396,7 +400,11 @@ CREATE MATERIALIZED VIEW awarder_risk_grade_ranking AS
 
 CREATE INDEX IF NOT EXISTS idx_awarder_risk_grade_score
   ON awarder_risk_grade_ranking (score DESC);
-GRANT SELECT ON awarder_risk_grade_ranking TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON awarder_risk_grade_ranking TO app_readonly;
+  END IF;
+END $$;
 
 -- Per-scope precomputed leaderboards so the tile follows the /procurement pscope
 -- selector (all / y:<year> / ns:<election>) WITHOUT a ~330ms live windowed scan
@@ -421,7 +429,11 @@ CREATE TABLE IF NOT EXISTS awarder_risk_grade_scoped (
 );
 CREATE INDEX IF NOT EXISTS idx_arg_scoped_key_score
   ON awarder_risk_grade_scoped (scope_key, score DESC);
-GRANT SELECT ON awarder_risk_grade_scoped TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON awarder_risk_grade_scoped TO app_readonly;
+  END IF;
+END $$;
 
 -- Top-N getter for the leaderboard tile (jsonb, one round-trip). p_scope selects
 -- the precomputed window ('all' default); optional grade floor via p_min_score.

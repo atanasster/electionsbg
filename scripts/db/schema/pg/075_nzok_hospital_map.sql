@@ -28,7 +28,11 @@ CREATE TABLE IF NOT EXISTS nzok_hospital_geo (
   lng          double precision,
   lat          double precision
 );
-GRANT SELECT ON nzok_hospital_geo TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON nzok_hospital_geo TO app_readonly;
+  END IF;
+END $$;
 
 -- Geolocated hospitals + live НЗОК metrics. Only hospitals with a point AND a
 -- payments row in the latest period are returned. Determinism (see
@@ -91,4 +95,8 @@ SELECT jsonb_build_object(
   )
 );
 $$;
-GRANT EXECUTE ON FUNCTION nzok_hospital_map() TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION nzok_hospital_map() TO app_readonly;
+  END IF;
+END $$;

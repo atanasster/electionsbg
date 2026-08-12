@@ -144,9 +144,52 @@ export const getPool = (): Pool => {
 // pinned client (not a fire-and-forget pool `connect` handler) also avoids the
 // pg@8.22 "client is already executing a query" deprecation, which fired when
 // the connect-time query and the caller's first query stacked on one client.
+/** null = not yet probed. Cached per process, since the answer cannot change mid-run in any
+ *  way that matters and this sits on the DDL path of every loader. */
+let readonlyRolePresent: boolean | null = null;
+
+/**
+ * Warn ONCE per process when DDL grants to `app_readonly` on a cluster that has no such role.
+ *
+ * This exists because the guard sweep (docs/plans/grant-role-guard-sweep-v1.md) INVERTED the
+ * failure mode it fixed. A bare `GRANT` on a roleless cluster raised 42704 and rolled its whole
+ * migration back — destructive, but loud and impossible to miss. Now every guard simply skips:
+ * the load SUCCEEDS, the objects are created with no ACL, and the first symptom is 42501 on a
+ * serving endpoint against a corpus that looks perfectly loaded. Measured, isolated and rolled
+ * back: with the role absent the DO block completes with no error and no ACL entry appears.
+ *
+ * `db:refresh` covers itself with an ORDER_PAIRS entry pinning `db:pg:bootstrap` in front of
+ * `db:load:pg`. That mitigation does NOT reach two paths, which is why this lives here rather
+ * than in a loader: `db:load:tr:pg` applies six guarded migrations and is a REFRESH_EXCLUSIONS
+ * member run standalone by `tr:daily-refresh` and two watch skills; and every `:cloud` publish
+ * is outside Tier 0 by design, since `bootstrap_roles.ts` refuses non-local targets and creating
+ * a LOGIN role on the serving database stays the hand-run step roles_readonly.sql describes.
+ *
+ * On the DDL path rather than in each loader deliberately: a new loader cannot forget to call it.
+ */
+const warnIfGrantingToAbsentRole = async (
+  c: PoolClient,
+  sql: string,
+): Promise<void> => {
+  if (readonlyRolePresent !== null || !sql.includes("app_readonly")) return;
+  const { rows } = await c.query(
+    `SELECT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') AS ok`,
+  );
+  readonlyRolePresent = rows[0].ok === true;
+  if (readonlyRolePresent) return;
+  console.warn(
+    `[pg] app_readonly does not exist on ${redactUrl(connectionUrl())}, and this DDL grants to it.\n` +
+      `     Every role guard will SKIP, so the objects are created with NO privileges and the\n` +
+      `     load will report success — /api/db then fails with 42501 against a corpus that looks\n` +
+      `     fully loaded. Fix: \`npm run db:pg:bootstrap\` (local), or apply\n` +
+      `     scripts/db/schema/pg/roles_readonly.sql by hand (serving database), then re-run this loader.`,
+  );
+};
+
 export const exec = async (sql: string): Promise<void> => {
   await withClient(async (c) => {
     await c.query("SELECT similarity('', '')");
+    await warnIfGrantingToAbsentRole(c, sql);
     await c.query(sql);
   });
 };
@@ -172,6 +215,7 @@ export const execEach = async (sql: string): Promise<void> => {
   const statements = splitSqlStatements(sql);
   await withClient(async (c) => {
     await c.query("SELECT similarity('', '')");
+    await warnIfGrantingToAbsentRole(c, sql);
     for (const stmt of statements) await c.query(stmt);
   });
 };

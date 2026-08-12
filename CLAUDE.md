@@ -35,7 +35,15 @@ npm run db:pg:bootstrap  # Create the app_readonly role (step 2 of db:refresh)
                      # disagrees with the GRANT CONNECT in roles_readonly.sql.
                      # There is deliberately NO :cloud twin — creating a LOGIN role
                      # on Cloud SQL stays the hand-run, password-set-out-of-band
-                     # step roles_readonly.sql's header describes.
+                     # step roles_readonly.sql's header describes. What covers the
+                     # cloud side (and db:load:tr:pg, a REFRESH_EXCLUSIONS member
+                     # this chain never reaches) is a WARNING on the DDL path:
+                     # exec()/execEach() print once per process when the SQL grants
+                     # to app_readonly and the role is absent. That matters because
+                     # the guards INVERTED the failure — a bare GRANT used to 42704
+                     # and roll its file back, loudly; a guard just skips, the load
+                     # SUCCEEDS, and the objects carry no ACL until /api/db 42501s
+                     # against a corpus that looks fully loaded.
                      # Why it exists: roles are CLUSTER-wide, so a virgin pgdata
                      # volume has no app_readonly, and 34 migrations GRANT to it
                      # bare. exec() sends a migration as ONE transaction, so the

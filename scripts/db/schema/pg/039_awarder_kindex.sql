@@ -94,7 +94,11 @@ ORDER BY share_pct DESC, linked_eur DESC;
 
 CREATE INDEX IF NOT EXISTS idx_awarder_kindex_share
   ON awarder_kindex_ranking (share_pct DESC);
-GRANT SELECT ON awarder_kindex_ranking TO app_readonly;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON awarder_kindex_ranking TO app_readonly;
+  END IF;
+END $$;
 
 -- Top-N getter for the dashboard tile (jsonb, one round-trip).
 DROP FUNCTION IF EXISTS awarder_kindex_top(int);
