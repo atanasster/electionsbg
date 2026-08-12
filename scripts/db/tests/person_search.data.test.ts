@@ -129,15 +129,21 @@ test.skipIf(skip)("keys and hrefs are well-formed per tier", async () => {
       WHERE tier='P' AND (key NOT LIKE 'slug:%' OR href NOT LIKE '/person/%')`,
   );
   assert.equal(badP, 0, `${badP} P rows have a malformed key/href`);
-  // V/N rows have TWO valid shapes since S4: a VERIFIED private (a real person minted from the
-  // Commerce Registry) carries a 'slug:' key + identity_confidence='verified'; a name-fold row
-  // carries a 'fold:' key + 'name_fold'. Both route to /person/…
+  // V/N rows have THREE valid shapes. A private person MINTED from the Commerce Registry
+  // carries a 'slug:' key and either 'verified' or — since tr-attribution-basis-v1 §2.6 —
+  // 'shared_name', which is the same mint on a fold the registry says several people share.
+  // Those are served, not hidden, so they must be findable by name; a name-fold row carries a
+  // 'fold:' key + 'name_fold'. All three route to /person/…
+  //
+  // The rule is stated as "a minted person is slug-keyed", not as a list of the minted
+  // identity values, so a fourth value cannot make 4,407 servable pages unfindable while this
+  // still passes — which is exactly what the two-value form did when 'shared_name' arrived.
   const badVN = await count(
     `SELECT count(*) n FROM person_search
       WHERE tier IN ('V','N')
         AND (href NOT LIKE '/person/%'
-             OR identity_confidence NOT IN ('verified','name_fold')
-             OR (identity_confidence = 'verified' AND key NOT LIKE 'slug:%')
+             OR identity_confidence NOT IN ('verified','shared_name','name_fold')
+             OR (identity_confidence <> 'name_fold' AND key NOT LIKE 'slug:%')
              OR (identity_confidence = 'name_fold' AND key NOT LIKE 'fold:%'))`,
   );
   assert.equal(badVN, 0, `${badVN} V/N rows are malformed`);

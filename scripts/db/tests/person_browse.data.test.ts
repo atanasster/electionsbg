@@ -158,12 +158,16 @@ test.skipIf(skip)(
   "no review-status or non-public person is served",
   async () => {
     // A verified private owner (S4) is is_public_figure=false but DELIBERATELY served (tier V);
-    // only a review-status or non-public-NON-verified person is a leak.
+    // only a review-status or non-public-NON-verified person is a leak. 'shared_name'
+    // (tr-attribution-basis-v1 §2.6) is the SAME Tier-V mint on a fold the registry says
+    // several people share — kept and labelled rather than excluded, because deleting them
+    // would orphan ~4.4k /person URLs — so it is served on exactly the same terms.
     const leaked = await count(
       `SELECT count(*) n FROM person_browse_table b
        JOIN person p ON p.slug = b.slug
       WHERE p.status <> 'active'
-         OR (NOT p.is_public_figure AND p.identity_confidence <> 'verified')`,
+         OR (NOT p.is_public_figure
+             AND p.identity_confidence NOT IN ('verified', 'shared_name'))`,
     );
     assert.equal(leaked, 0, `${leaked} gated person(s) reached the browser`);
   },
@@ -909,10 +913,14 @@ test("resolve_persons.ts mints the Tier-V private owners", () => {
     /tmp_tierv/,
     "the Tier-V mint block is missing from the resolver",
   );
+  // The mint stamps 'verified', or 'shared_name' when the registry itself records several
+  // people under the fold — asserted on the CASE that chooses between them, so dropping the
+  // label (and silently publishing a known-shared name as verified) fails here.
   assert.match(
     src,
-    /'active', 'verified'/,
-    "the Tier-V mint must stamp is_public_figure=false + identity_confidence='verified'",
+    /'shared_name' ELSE 'verified' END/,
+    "the Tier-V mint must stamp is_public_figure=false + identity_confidence " +
+      "'verified' | 'shared_name'",
   );
 });
 

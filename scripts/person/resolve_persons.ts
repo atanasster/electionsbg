@@ -2117,6 +2117,58 @@ async function main(): Promise<void> {
     }
   });
 
+  // ── Registry people-count preflight (tr-attribution-basis-v1 §2.5) ────────
+  // Bridge B now requires POSITIVE evidence that a fold belongs to one registry person, so an
+  // absent or empty tr_name_fold_people does not degrade the bridge — it switches it off, and
+  // ~13k public figures lose every company on their page. That is the safe direction and a
+  // terrible thing to do silently, so refuse and name the loader. Before the transaction, like
+  // the MP-party check below: a bad build must not publish at all.
+  const [foldCount] = await allRows<{ n: string; shared: string }>(
+    `SELECT count(*) n, count(*) FILTER (WHERE people_n > 1) shared
+       FROM tr_name_fold_people`,
+  ).catch(() => [{ n: "0", shared: "0" }]);
+  if (Number(foldCount.n) === 0)
+    throw new Error(
+      `tr_name_fold_people is empty or absent. Bridge B requires positive evidence that a ` +
+        `name belongs to ONE registry person, so with this table unloaded it mints nothing ` +
+        `and every public figure's company list goes empty. Run ` +
+        `\`npm run db:load:tr-name-fold-people:pg\` (or the :cloud twin) first — the input is ` +
+        `the committed data/person/tr_name_fold_people.tsv.`,
+    );
+  // Print what the guard WITHHOLDS, not just what it holds. Both refusals are invisible
+  // otherwise: a public figure whose fold the registry says is shared, or has never seen,
+  // simply has no companies, and an empty section looks identical to a person who owns
+  // nothing. The unmeasured arm especially — those are real people losing a real footprint
+  // to an absence of evidence, which is the right call and still a cost worth reading.
+  const [gate] = await allRows<{
+    minted: string;
+    shared: string;
+    unmeasured: string;
+  }>(
+    `WITH cand AS (
+       SELECT p.name_fold FROM person p
+        WHERE p.name_parts = 3 AND p.is_public_figure
+          AND NOT EXISTS (SELECT 1 FROM person p2
+                           WHERE p2.name_fold = p.name_fold
+                             AND p2.person_id <> p.person_id)
+          AND EXISTS (SELECT 1 FROM tr_person_roles t
+                       WHERE t.name_fold = p.name_fold)
+     )
+     SELECT count(*) FILTER (WHERE f.people_n = 1)     AS minted,
+            count(*) FILTER (WHERE f.people_n > 1)     AS shared,
+            count(*) FILTER (WHERE f.name_fold IS NULL) AS unmeasured
+       FROM cand LEFT JOIN tr_name_fold_people f USING (name_fold)`,
+  );
+  console.log(
+    `registry people-count: ${Number(foldCount.n).toLocaleString()} folds, ` +
+      `${Number(foldCount.shared).toLocaleString()} shared by 2+ people`,
+  );
+  console.log(
+    `  bridge-B gate: ${Number(gate.minted).toLocaleString()} folds admitted, ` +
+      `${Number(gate.shared).toLocaleString()} refused (registry says several people), ` +
+      `${Number(gate.unmeasured).toLocaleString()} refused (fold never observed in the feed)`,
+  );
+
   // ── MP party preflight (T2) ───────────────────────────────────────────────
   // Both checks run BEFORE the transaction, so a bad build refuses rather than
   // publishing a degraded column.
@@ -2286,10 +2338,20 @@ async function main(): Promise<void> {
     //     with distinct namesakes and so capped a real footprint at a single company; and
     //   • that footprint is ≤ FOOTPRINT_CAP companies — small enough that a globally-unique
     //     3-part name across a handful of firms is that one person, not colliding owners.
-    // The residual risk (a 3-part name shared with an unrelated private owner) is bounded by
-    // the cap and carried by the name-match caveat shown on the person page. Runs in SQL (the
-    // folds live in PG); ON CONFLICT dedups against Bridge-A rows on the same (person, company,
-    // role).
+    // The residual risk (a 3-part name shared with an unrelated private owner) is now bounded
+    // by THREE things, and the third replaced a claim that was never true: this comment used to
+    // say the risk was "carried by the name-match caveat shown on the person page", but that
+    // caveat is gated on `isPublicFigure === false` while this bridge only ever fires for
+    // public figures — the two populations are disjoint by construction, so it had never
+    // rendered on a single Bridge-B page and could not.
+    //
+    // What actually bounds it: the FOOTPRINT_CAP; the registry-uniqueness guard in
+    // BRIDGE_B_CTE, which refuses a fold the Commerce Registry says is several people (or has
+    // never seen); and the per-company `linkBasis` 082 now emits, which marks every one of
+    // these companies as name-matched on the page itself.
+    //
+    // Runs in SQL (the folds live in PG); ON CONFLICT dedups against Bridge-A rows on the same
+    // (person, company, role).
     // The eligibility + footprint CTEs live in ./bridgeB.ts — shared with the data test
     // that asserts both guards still exclude somebody, so the rule cannot be enforced in
     // one place and measured in another.
@@ -2372,13 +2434,24 @@ async function main(): Promise<void> {
     const tierVIns = await c.query(
       `INSERT INTO person (display_name, given_fold, patronymic_fold, family_fold,
                            name_parts, slug, is_public_figure, namesake_risk, status,
-                           identity_confidence)
-       SELECT name,
-              split_part(name_fold,' ',1), split_part(name_fold,' ',2), split_part(name_fold,' ',3),
+                           identity_confidence, fold_people_n)
+       SELECT v.name,
+              split_part(v.name_fold,' ',1), split_part(v.name_fold,' ',2),
+              split_part(v.name_fold,' ',3),
               3,
-              replace(name_fold,' ','-') || '-' || substr(md5(name_fold),1,6),
-              false, 0, 'active', 'verified'
-         FROM tmp_tierv
+              replace(v.name_fold,' ','-') || '-' || substr(md5(v.name_fold),1,6),
+              false, 0, 'active',
+              -- 'shared_name' when the REGISTRY itself records several people under this fold
+              -- (tr-attribution-basis-v1 §2.6). These people are KEPT and labelled rather than
+              -- excluded: this table is rebuilt from scratch every resolve, so dropping them
+              -- would delete ~4.5k person rows and orphan their /person URLs with no valid
+              -- redirect target — the magistrate-roster 404 class. A NULL count is UNMEASURED,
+              -- not "one person", so it stays 'verified' and the page says only that the
+              -- identity is a name match.
+              CASE WHEN f.people_n > 1 THEN 'shared_name' ELSE 'verified' END,
+              f.people_n
+         FROM tmp_tierv v
+         LEFT JOIN tr_name_fold_people f ON f.name_fold = v.name_fold
        -- DEFEND THE SLUG. The slug shape (kebab(fold)+'-'+md5[:6]) is the SAME family as
        -- officialSlug()/the public name-hash path, and NOT IN person guards the FOLD, not the
        -- SLUG — a Tier-V fold genuinely absent from person can still land on an existing public/
@@ -2390,6 +2463,27 @@ async function main(): Promise<void> {
        ON CONFLICT (slug) DO NOTHING`,
     );
     tierVPersons = tierVIns.rowCount ?? 0;
+
+    // Carry the registry's people-count onto EVERY person, not just the Tier-V mint above.
+    //
+    // Set-based rather than threaded through the COPY: personRows is built in JS long before
+    // this transaction, so the alternative is holding all 456k folds in memory to decorate it.
+    //
+    // ⚠️ THIS IS THE COLUMN THAT GOES SILENTLY NULL. `person` is DELETEd and rebuilt every
+    // run, so if this statement is ever dropped the column comes back NULL for everybody, the
+    // profile card and the /persons chip both fall back to the weaker "not verified" wording,
+    // and NOTHING errors — the `date_basis` failure class 081 documents at length.
+    // tr_name_fold_people.data.test.ts asserts the population directly for that reason, and it
+    // asserts it BEFORE the shared_name check, which would otherwise pass over an empty set.
+    const stamped = await c.query(
+      `UPDATE person p SET fold_people_n = f.people_n
+         FROM tr_name_fold_people f
+        WHERE f.name_fold = p.name_fold
+          AND p.fold_people_n IS DISTINCT FROM f.people_n`,
+    );
+    console.log(
+      `  fold_people_n stamped on ${(stamped.rowCount ?? 0).toLocaleString()} persons`,
+    );
     // Attach every company of each minted owner. Joined back through the shared fold; confidence
     // 'high' so 120's roles CTE (confidence IN exact_id/high/manual) surfaces them. tr_person_roles
     // is the full-history officer/owner table (same fold as tr_officers).
@@ -2399,7 +2493,15 @@ async function main(): Promise<void> {
          FROM person p
          JOIN tmp_tierv v ON v.name_fold = p.name_fold
          JOIN tr_person_roles t ON t.name_fold = v.name_fold
-        WHERE p.identity_confidence = 'verified'
+        -- BOTH Tier-V identities. This predicate is an ON-CONFLICT orphan guard (it pairs
+        -- with the slug-collision DO NOTHING above, so a fold that failed to mint a person
+        -- gets no roles), and introducing 'shared_name' quietly gave it a second job it was
+        -- never meant to have: left at = 'verified' it withheld every company from the 4,407
+        -- people the label is FOR — 20,479 roles, 12,576 companies and €12.90bn, published at
+        -- zero. Worse than a wrong number, it is the decision inverted: §2.6 chose to KEEP
+        -- these people and label them, and an empty profile is a deletion with extra steps.
+        -- Any future identity value that is served must be listed here too.
+        WHERE p.identity_confidence IN ('verified', 'shared_name')
        ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
     );
     // Re-anchor the sequence past the just-minted ids.

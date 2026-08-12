@@ -113,11 +113,18 @@ const main = async (): Promise<void> => {
          (key, name, tier, position_type, primary_role, party, place_label, top_eik,
           firms_count, public_money_eur, has_photo, identity_confidence, href, rank_static)
        SELECT 'slug:' || slug, name, 'V', position_type, NULL, NULL, NULL, NULL,
-              coalesce(companies_n, 0), coalesce(public_money_eur, 0), false, 'verified',
+              coalesce(companies_n, 0), coalesce(public_money_eur, 0), false,
+              identity_confidence,
               '/person/' || slug,
               500 + ln(1 + greatest(0, coalesce(public_money_eur, 0)))
          FROM person_browse_table
-        WHERE tier = 'V' AND identity_confidence = 'verified'`,
+        -- BOTH Tier-V identities: 'shared_name' is the same money-linked private owner on a
+        -- fold the registry says is several people (081). They are SERVED — /person renders
+        -- them with a stronger caveat rather than hiding them — so leaving this at
+        -- = 'verified' would make 4,407 servable pages unfindable by name, which is the one
+        -- thing this index exists to prevent. The confidence is carried through rather than
+        -- hard-coded, so the badge the UI shows matches the row it came from.
+        WHERE tier = 'V' AND identity_confidence IN ('verified', 'shared_name')`,
     );
 
     // V/N arm — the remaining name-fold TR owners, with BROAD public money. Anti-joined against

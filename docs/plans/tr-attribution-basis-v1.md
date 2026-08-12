@@ -80,9 +80,10 @@ This asks whether the fold is unique among people **we have resolved**, not amon
 **exist**. A private namesake never enters `person` unless the Tier-V money gate happens to
 mint them, so the guard is blind in exactly the case it exists for.
 
-Replaying that clause verbatim against the registry's own person key (§A.2): of **16,724**
-eligible (person, fold) pairs, **1,995 (11.9%) sit on a fold the registry proves is two or more
-people**, 14,240 are confirmed a single person, and 489 are unmeasured. Of the contaminated
+Replaying that clause verbatim against the registry's own person key (§A.2): of **17,861**
+eligible folds, **2,785 (15.6%) sit on a fold the registry proves is two or more people**,
+14,578 are confirmed a single person, and 498 are unmeasured. (Earlier drafts said 1,995 of
+16,724 — measured before the counter was corrected to exclude 154,995 legal entities.) Of the contaminated
 population, 722 are on prerendered pages, 228 carry a money figure and the largest is €983.3m.
 
 `namesake_risk` does not close this: it counts a name's COMPANIES, not its PEOPLE, and the
@@ -98,7 +99,7 @@ fold rather than whether it is one person.
 | | Bridge B | Tier-V |
 |---|---:|---:|
 | population | 16,724 eligible pairs | 68,783 persons |
-| **on a provably multi-person fold** | **1,995 (11.9%)** | **4,497 (6.5%)** |
+| **on a provably multi-person fold** | **2,785 (15.6%)** | **4,407 (6.4%)** |
 | unmeasured folds | 489 (2.9%) | 13,805 (20.1%) |
 | carrying money | 228 | 4,269 |
 | largest attributed figure | €983.3m | **€2,423.9m** |
@@ -379,7 +380,7 @@ bundle them with 4-7.
   3. **Tier-V labels.** Every person with `fold_people_n > 1` reads `identity_confidence =
      'shared_name'`, and none reads `'verified'`. Vacuous without assertion 2 — keep them
      together.
-  4. **Coverage has a floor.** Measured folds ÷ `tr_person_roles` folds ≥ 85% (today 90.6%).
+  4. **Coverage has a floor.** Measured ÷ Bridge-B-gated folds ≥ 90% (today 97.2%).
      This is the §6 decay alarm, and it must fail rather than warn.
 - **`PersonCompanies.test.tsx`** — a `declared`-only person shows no footnote; a mixed person
   shows it; a `name_match` company carries the marker and a `declared` one does not. Asserted on
@@ -390,8 +391,8 @@ bundle them with 4-7.
 
 ## §6 The coverage decays, and that is the uncomfortable part
 
-The guard covers **489,326 of 539,999** `tr_person_roles` folds (90.6%); 50,673 (9.4%) have no
-measurement at all. That share will **fall, not rise**: the CR Deeds capture carries **no
+The guard covers **97.2%** of the folds it gates (17,363 of 17,861); over the whole
+`tr_person_roles` universe it is 78.5%. That share will **fall, not rise**: the CR Deeds capture carries **no
 `Indent`, no EGN and no 64-hex of any kind** (verified against the stored bodies), and it is the
 growth path — 29,777 of 1.02M companies today, with
 [cr-deeds-capture-v1](cr-deeds-capture-v1.md) targeting the 478k missing-owner tail. Every
@@ -461,7 +462,16 @@ Bridge B's `elig` + `capped` clauses, and the current Tier-V population
 | Bridge B | 16,724 | 489 | 14,240 | **1,995** |
 | Tier-V | 68,783 | 13,805 | 50,481 | **4,497** |
 
-Coverage over the footprint universe: **489,326 of 539,999** `tr_person_roles` folds measured.
+Coverage, on the denominator that matters — the folds Bridge B actually gates (public, 3-part,
+people-unique, with a TR footprint): **17,363 of 17,861 measured (97.2%)**, splitting into 14,578
+minted, **2,785 refused as shared** and 498 refused as unmeasured.
+
+⚠️ The global figure over ALL `tr_person_roles` folds is **78.5%**, not the 90.6% earlier drafts
+of this plan reported. Both corrections come from the same fix: the first cut of the counter
+matched on `Indent` alone and so counted 154,995 legal entities (`IndentType: UIC`) as people.
+The global number is also the wrong instrument — it is dominated by folds no public figure has
+(officer rows whose "name" is a company, sentence-shaped names), so it moves for reasons that
+never touch a person page. The data test's floor is set on the candidate set for that reason.
 
 ### A.3 Both shares are floors
 
