@@ -15,6 +15,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { useMpScorecard } from "@/data/parliament/useMpScorecard";
+import { gridCols } from "./scorecardGrid";
 
 // Anchors on the person/candidate dashboard each scorecard metric drills into
 // (the fuller breakdown lives further down the same page). Passed in by the
@@ -39,6 +40,15 @@ const formatPct = (frac: number | null, locale: string): string => {
     maximumFractionDigits: 1,
   }).format(frac);
 };
+
+/** Does this metric have a value worth rendering? ONE predicate, shared with the formatters
+ *  below, because they disagreed: the tile admitted a metric on `!= null` while the
+ *  formatters dashed on `!Number.isFinite`, so a NaN or an Infinity would have slipped
+ *  through the filter and rendered the exact dash-under-a-confident-label this tile exists
+ *  to remove. No input reaches that state today (both SQL functions emit through
+ *  `jsonb_build_object(…, round(…))`, so the client gets JSON numbers), which is why it is
+ *  worth closing now rather than after a future route returns a numeric string. */
+const has = (v: number | null): v is number => v != null && Number.isFinite(v);
 
 const formatCompactEur = (value: number | null, locale: string): string => {
   if (value == null || !Number.isFinite(value)) return "—";
@@ -122,14 +132,18 @@ const Metric: FC<MetricProps> = ({
 
 export const MpScorecardTile: FC<Props> = ({ name, links }) => {
   const { t, i18n } = useTranslation();
-  const { scorecard, isLoading } = useMpScorecard(name);
+  const { scorecard, isLoading, maxMetrics } = useMpScorecard(name);
   const lang = i18n.language;
 
   if (isLoading) {
+    // Sized to the CEILING the hook can name without fetching, not to a fixed four. Before
+    // the metric list became variable, four was exactly right — skeleton and settled layout
+    // were identical by construction. Now, for the majority of MPs (no roll-call coverage),
+    // four boxes reserve two phone rows for a block that settles to one.
     return (
       <div className="my-4" aria-hidden>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[0, 1, 2, 3].map((i) => (
+        <div className={`grid gap-3 ${gridCols(maxMetrics)}`}>
+          {Array.from({ length: maxMetrics }, (_, i) => (
             <div
               key={i}
               className="h-[110px] animate-pulse rounded-xl border bg-muted/40"
@@ -186,53 +200,68 @@ export const MpScorecardTile: FC<Props> = ({ name, links }) => {
     scorecard.connectedContracts.rank <=
       Math.max(1, Math.ceil(scorecard.connectedContracts.cohortSize / 10));
 
+  // Only metrics that HAVE a value are rendered. A dash is not a measurement — it is the
+  // absence of one, and the four tiles gave no way to tell "this MP votes with their group
+  // 62% of the time" from "we hold no roll-call for the parliaments this MP sat in".
+  //
+  // That second case is the majority, not an edge: the roll-call corpus starts 2020-10-28
+  // (NS 44, itself only partial), so of 2,122 MPs on file 1,556 can never have a loyalty or
+  // attendance figure. Every one of them used to render two dashes under confident labels.
+  //
+  // `hasAny` above is the same predicate applied to all four at once, so this list cannot be
+  // empty here today. The guard below it is kept anyway: it is the only thing standing
+  // between a future widening of `hasAny` (e.g. "has a rank") and a `GRID_COLS[0]`.
+  // The grid then sizes itself to what survived rather than reserving four columns and
+  // filling the gaps with nothing.
+  const metrics = [
+    has(scorecard.loyalty.value) && {
+      key: "loyalty",
+      icon: Vote,
+      label: t("mp_scorecard_loyalty") || "Party loyalty",
+      value: formatPct(scorecard.loyalty.value, lang),
+      context: loyaltyContext,
+      to: links?.loyalty,
+    },
+    has(scorecard.attendance.value) && {
+      key: "attendance",
+      icon: CalendarCheck,
+      label: t("mp_scorecard_attendance") || "Attendance",
+      value: formatPct(scorecard.attendance.value, lang),
+      context: attendanceContext,
+      warn: attendanceWarn,
+      to: links?.attendance,
+    },
+    has(scorecard.netWorth.value) && {
+      key: "netWorth",
+      icon: Wallet,
+      label: t("mp_scorecard_net_worth") || "Declared net worth",
+      value: formatCompactEur(scorecard.netWorth.value, lang),
+      context: netWorthContext,
+      to: links?.netWorth,
+    },
+    has(scorecard.connectedContracts.value) && {
+      key: "connectedContracts",
+      icon: Landmark,
+      label:
+        t("mp_scorecard_connected_contracts") || "Contracts to connected firms",
+      value: formatCompactEur(scorecard.connectedContracts.value, lang),
+      context: contractsContext,
+      warn: contractsWarn,
+      to: links?.connectedContracts,
+    },
+  ].filter((m): m is Exclude<typeof m, false> => m !== false);
+
+  if (metrics.length === 0) return null;
+
   return (
     <section
       aria-label={t("mp_scorecard_label") || "MP scorecard"}
       className="my-4"
     >
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Metric
-          icon={Vote}
-          label={t("mp_scorecard_loyalty") || "Party loyalty"}
-          value={formatPct(scorecard.loyalty.value, lang)}
-          context={loyaltyContext}
-          to={links?.loyalty}
-        />
-        <Metric
-          icon={CalendarCheck}
-          label={t("mp_scorecard_attendance") || "Attendance"}
-          value={formatPct(scorecard.attendance.value, lang)}
-          context={attendanceContext}
-          warn={attendanceWarn}
-          to={links?.attendance}
-        />
-        <Metric
-          icon={Wallet}
-          label={t("mp_scorecard_net_worth") || "Declared net worth"}
-          value={formatCompactEur(scorecard.netWorth.value, lang)}
-          context={netWorthContext}
-          to={scorecard.netWorth.value != null ? links?.netWorth : undefined}
-        />
-        <Metric
-          icon={Landmark}
-          label={
-            t("mp_scorecard_connected_contracts") ||
-            "Contracts to connected firms"
-          }
-          value={
-            scorecard.connectedContracts.value == null
-              ? "—"
-              : formatCompactEur(scorecard.connectedContracts.value, lang)
-          }
-          context={contractsContext}
-          warn={contractsWarn}
-          to={
-            scorecard.connectedContracts.value != null
-              ? links?.connectedContracts
-              : undefined
-          }
-        />
+      <div className={`grid gap-3 ${gridCols(metrics.length)}`}>
+        {metrics.map(({ key, ...m }) => (
+          <Metric key={key} {...m} />
+        ))}
       </div>
     </section>
   );

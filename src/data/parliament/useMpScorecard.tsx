@@ -105,7 +105,13 @@ const medianOf = (sortedDesc: number[]): number | null => {
  *  caller can then skip rendering the tile entirely. */
 export const useMpScorecard = (
   name?: string | null,
-): { scorecard: MpScorecard; isLoading: boolean } => {
+): {
+  scorecard: MpScorecard;
+  isLoading: boolean;
+  /** The most metrics that can resolve for this MP, known before any fetch — so a loading
+   *  skeleton reserves the right height rather than a fixed four. See its computation. */
+  maxMetrics: number;
+} => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
   // Resolve via CandidateMpContext on the candidate page (no roster fetch for
@@ -231,9 +237,21 @@ export const useMpScorecard = (
     };
 
     // --- Connected contracts ---------------------------------------------
-    // mp_scorecard() returns the MP's connected-contract total + rank + cohort
-    // over all connected MPs (value=null when the MP has no connections; the
-    // cohort context still shows so the UI can render "0 vs N average").
+    // mp_scorecard() returns the MP's connected-contract total + rank + cohort over all
+    // connected MPs.
+    //
+    // `value` is null in TWO states this function cannot tell apart: the MP has no linked
+    // companies at all, and the MP's linked companies won nothing. 034's `me` reads
+    // `ranked` ← `polagg` ← an inner join to contractors PRESENT in `contracts`, so an MP
+    // whose firms hold no contract row is absent from the aggregate entirely rather than
+    // summing to 0. The scorecard therefore DROPS the metric rather than dashing it, and a
+    // genuine "linked firms, €0 won" finding is currently unpublishable — making it
+    // representable needs a `linkedFirms` count out of 034, which ships via
+    // apply_functions.ts and no loader carries.
+    //
+    // (An earlier version of this comment promised the UI could render "0 vs N average".
+    // It never could: `rankContext` returns null when rank is null, which it is for exactly
+    // these MPs, so the old tile showed a bare dash with no context.)
     const sc = scorecardQuery.data;
     const connectedContracts: ScorecardMetric = {
       value: sc?.value ?? null,
@@ -272,6 +290,20 @@ export const useMpScorecard = (
     netWorthRankQuery.isLoading ||
     (mpId != null && scorecardQuery.isLoading);
 
+  // The most tiles that can possibly resolve, known SYNCHRONOUSLY — before any fetch — so a
+  // loading skeleton can reserve the right height instead of always four.
+  //
+  // `servedInSelectedNs` is the same roster check that decides whether the roll-call fetch
+  // happens at all, and it is exactly what rules loyalty + attendance out. For the 1,556 of
+  // 2,122 MPs whose parliaments predate the corpus this is 2, not 4 — a skeleton of four
+  // reserves two phone rows for a block that settles to one, and the tile sits above the
+  // fold on /person/:slug where that shift is scored.
+  //
+  // It is a CEILING, not a prediction: net worth and connected contracts can still fail to
+  // resolve, so a residual shrink remains. It removes the systematic over-reservation for
+  // the majority case, which is the part that was avoidable.
+  const maxMetrics = servedInSelectedNs ? 4 : 2;
+
   if (!mpId) {
     return {
       scorecard: {
@@ -282,8 +314,9 @@ export const useMpScorecard = (
         hasAny: false,
       },
       isLoading: false,
+      maxMetrics,
     };
   }
 
-  return { scorecard, isLoading };
+  return { scorecard, isLoading, maxMetrics };
 };
