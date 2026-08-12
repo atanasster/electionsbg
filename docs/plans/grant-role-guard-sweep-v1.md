@@ -1,6 +1,15 @@
 # Role-guarding the bare `GRANT`s in `scripts/db/schema/pg/` — v1
 
-**Status:** SCOPED. Nothing changed. No migration touched.
+**Status:** DONE (2026-08-11). All tiers shipped; zero bare GRANTs remain repo-wide, and
+`scripts/db/grant_role_guard.test.ts` keeps it that way. Two numbers in this plan were wrong
+and are corrected in place: the count was 48 across 26 files, not 59 across 34 (the extra 11
+were already guarded by two idioms the first inventory did not recognise), and §6's
+verification recipe was vacuous — see the box there.
+
+**Superseded by the implementation in:** Tier 0 `fed3f0b`, Tier 1 `44f10ad29a`, Class C
+`b268d5bd44`, Tier 2 `3954f9862a`, Tier 3 `869773df37`.
+
+**Original status:** SCOPED. Nothing changed. No migration touched.
 **Measured:** 2026-08-11 against local Postgres `postgres://postgres:postgres@localhost:5433/electionsbg`
 and against the working tree at `f0a74ed33d`.
 **Occasion:** `f0a74ed33d` guarded the second of 070's two grants. That fixed one file's internal
@@ -195,7 +204,8 @@ risk on Class B's function signatures.
 Without a gate the sweep decays: the next migration copies the bare form from a neighbour, because
 34 files' worth of precedent is what a new file gets written against.
 
-`scripts/db/tests/grant_role_guard.test.ts` — a **pure parser test**, no database, so it runs in
+`scripts/db/grant_role_guard.test.ts` (SHIPPED — note the path: not under `tests/`, which is the
+`.data.test.ts` home this section argues against) — a **pure parser test**, no database, so it runs in
 `test:unit` and cannot be skipped by an absent Postgres (unlike `.data.test.ts`, which auto-skips —
 exactly the property that would let this rot on CI):
 

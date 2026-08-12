@@ -23,7 +23,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client } from "pg";
-import { allRows, dbReachable, end, exec, LOCAL_DATABASE_URL } from "../lib/pg";
+import { allRows, dbReachable, end, LOCAL_DATABASE_URL } from "../lib/pg";
 
 const haveDb = await dbReachable();
 const VIRGIN = "zz_bootstrap_roles_probe";
@@ -147,7 +147,14 @@ test("the bootstrap grants what the loaders actually need", async (t) => {
     "app_readonly has no USAGE on public — every query would 42501",
   );
 
-  // Re-applying must stay idempotent: db:refresh runs this on every invocation, not just the
-  // first, so a second run has to be a no-op rather than an error.
-  await exec(readFileSync(SCHEMA, "utf8"));
+  // NO re-apply here, deliberately. An earlier draft ended with `exec(roles_readonly.sql)` to
+  // assert idempotence, and that made this file both a victim and a CAUSE of the repo's known
+  // "test:data flaky under load" shape: the file's `GRANT SELECT ON ALL TABLES IN SCHEMA
+  // public` touches every relation in the schema, which in a 152-file parallel suite contends
+  // with everything. It passed alone and failed in the full run.
+  //
+  // Nothing is lost. Idempotence is covered where it is cheap and deterministic: the
+  // virgin-database test above applies the file end to end, and `db:refresh` runs
+  // `db:pg:bootstrap` on every invocation rather than only the first — so a non-idempotent
+  // file would break the chain immediately, loudly, and outside the test suite.
 });
