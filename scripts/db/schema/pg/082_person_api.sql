@@ -15,13 +15,28 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- donor-only individual) is internal-only and must never be served, even by slug.
     SELECT * FROM person
      WHERE slug = p_slug AND status = 'active'
-       AND (is_public_figure OR identity_confidence = 'verified') LIMIT 1
+       -- 'shared_name' is the SAME Tier-V private as 'verified', on a fold the registry says
+       -- is two or more people (081, tr-attribution-basis-v1 §2.6). It is served, not hidden:
+       -- excluding it would delete ~4.5k /person URLs with no redirect target. The profile
+       -- labels it instead, from foldPeopleN below. Any new gate on 'verified' needs this too.
+       AND (is_public_figure OR identity_confidence IN ('verified', 'shared_name')) LIMIT 1
   )
   SELECT jsonb_build_object(
     'slug', pick.slug,
     'name', pick.display_name,
     'namesakeRisk', pick.namesake_risk,
     'isPublicFigure', pick.is_public_figure,
+    -- How many DISTINCT people the Commerce Registry itself records under this name fold,
+    -- and how this person's identity was established. Together they let the page say
+    -- "the registry shows N people with this name" instead of the weaker "we could not
+    -- verify" — see 148 and 081.
+    --
+    -- ⚠️ NULL means UNMEASURED, never 1. The fold was not observed in the TR daily feed's
+    -- window (9.4% of folds, and the share GROWS as the CR-Deeds arm widens, since that
+    -- source publishes no identity key at all). A consumer that renders NULL as "one
+    -- person" turns an absence of evidence into a reassurance.
+    'foldPeopleN', pick.fold_people_n,
+    'identityConfidence', pick.identity_confidence,
     'facets', COALESCE((
       SELECT jsonb_agg(DISTINCT s.facet)
       FROM person_role r JOIN person_source s ON s.key = r.source
@@ -106,6 +121,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       SELECT jsonb_agg(jsonb_build_object(
         'eik', tr.ref, 'name', c.name, 'legalForm', c.legal_form,
         'seat', c.seat, 'status', c.status, 'roles', tr.roles,
+        -- HOW this person↔company link was established, so the page can caveat the ones
+        -- that rest on a name. 'declared' = the pair is in person_company_bridge_a (148):
+        -- a curated register (declared interests / ИВСС чл.175а) put this COMPANY on this
+        -- person. 'name_match' = everything else, i.e. Bridge B or the Tier-V mint found it
+        -- by folded name alone.
+        --
+        -- ⚠️ SAME RULE AS 120's tr_link_basis, AND THAT IS THE POINT. Both read the same
+        -- view now, because the browser caveating a company list while the profile did not
+        -- was the defect this column exists to end (tr-attribution-basis-v1 §0.2).
+        -- person_company_basis.data.test.ts reconciles the two per person.
+        --
+        -- ⚠️ 'declared' IS NOT A CONFIRMED IDENTITY. Bridge A keeps the TR officers on a
+        -- linked EIK whose (given, family) match the person, so the company link is
+        -- register-sourced and the officer row inside it is still a name match. UI copy
+        -- must not upgrade this to "потвърдена самоличност".
+        'linkBasis', CASE WHEN ba.uic IS NOT NULL THEN 'declared' ELSE 'name_match' END,
         'procuredEur', pr.eur, 'contracts', pr.n,
         -- every public-money stream this company touches, keyed on the same EIK
         -- (person-candidate-merge-v1): ЗОП contracts (above), ИСУН EU funds, ДФЗ subsidies.
@@ -122,6 +153,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         GROUP BY r.ref
       ) tr
       LEFT JOIN tr_companies c ON c.uic = tr.ref
+      -- The curated (person, company) pairs — 766 rows, keyed, so this is a lookup per
+      -- company rather than a scan (measured 0.266 ms / 10 buffers for the whole view at a
+      -- fixed person_id).
+      LEFT JOIN person_company_bridge_a ba
+             ON ba.person_id = pick.person_id AND ba.uic = tr.ref
       LEFT JOIN LATERAL (
         SELECT round(sum(ct.amount_eur)::numeric, 2) AS eur, count(*) AS n
         FROM contracts ct WHERE ct.contractor_eik = tr.ref AND ct.tag = 'contract'
@@ -415,7 +451,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH pick AS (
     SELECT person_id FROM person
      WHERE slug = p_slug AND status = 'active'
-       AND (is_public_figure OR identity_confidence = 'verified') LIMIT 1
+       -- 'shared_name' is the SAME Tier-V private as 'verified', on a fold the registry says
+       -- is two or more people (081, tr-attribution-basis-v1 §2.6). It is served, not hidden:
+       -- excluding it would delete ~4.5k /person URLs with no redirect target. The profile
+       -- labels it instead, from foldPeopleN below. Any new gate on 'verified' needs this too.
+       AND (is_public_figure OR identity_confidence IN ('verified', 'shared_name')) LIMIT 1
   ),
   eiks AS (
     SELECT DISTINCT r.ref AS uic

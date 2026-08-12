@@ -151,7 +151,12 @@ WITH pub AS (
          is_public_figure, identity_confidence
   FROM person
   WHERE status = 'active'
-    AND (is_public_figure OR identity_confidence = 'verified')
+    -- 'shared_name' is the same Tier-V private as 'verified', on a fold the registry says is
+    -- two or more people (081). It MUST be listed here as well as in 082's two gates: those
+    -- serve the /person profile, this builds /persons, and a person served by one and not the
+    -- other is a row that vanishes from the browser while its page stays live — with the
+    -- browser chip that exists to LABEL it having nothing left to attach to.
+    AND (is_public_figure OR identity_confidence IN ('verified', 'shared_name'))
 ),
 roles AS (
   -- Public-safe roles only, decorated with their facet + score. This is the ONLY place
@@ -325,27 +330,17 @@ decl_inst AS (
 -- on fold people-uniqueness + a 3-part name + a ≤5-company footprint), which is what the
 -- 'name_match' caveat on the page is about.
 --
--- ⚠️ THIS BODY IS DUPLICATED, and only for one more step. `person_company_bridge_a` in
--- 148_person_company_basis.sql is the same query, created so that 082 can classify each
--- company on /person the way this matview classifies it for /persons. Step 2 of
--- tr-attribution-basis-v1 replaces this CTE with `SELECT * FROM person_company_bridge_a`
--- and the duplication ends. Until then the two MUST stay identical: they disagree only if
--- someone edits one, and the result is the profile and the browser making different claims
--- about the same named person — §0.2 of that plan calls it the worst bug this table carries.
+-- ⚠️ THE DEFINITION LIVES IN 148_person_company_basis.sql, NOT HERE. It used to be an
+-- inline CTE, which is precisely why /person could not caveat what /persons caveated: 082
+-- had no way to see it. Both now read this one view, so the profile's per-company
+-- `linkBasis` and this table's `tr_link_basis` cannot disagree about a named person —
+-- §0.2 of tr-attribution-basis-v1 calls that disagreement the worst bug this table carries,
+-- and person_company_basis.data.test.ts reconciles them per person.
+--
+-- load_persons_browse_pg.ts applies 148 before this file for that reason; a matview body is
+-- resolved at CREATE time, so the reverse order fails with 42P01.
 bridge_a AS (
-  SELECT DISTINCT pr.person_id, cp.eik AS uic
-    FROM company_politicians cp
-    JOIN person_role pr
-      ON (cp.kind = 'mp' AND pr.source = 'mp'
-          AND split_part(pr.ref, ':', 1) = replace(cp.ref, '/candidate/mp-', ''))
-      OR (cp.kind = 'official'
-          AND pr.source IN ('official_exec', 'official_muni', 'public_sector')
-          AND pr.ref = replace(cp.ref, '/officials/', ''))
-  UNION
-  SELECT DISTINCT pr.person_id, mc.eik
-    FROM magistrate_company mc
-    JOIN person_role pr ON pr.source = 'magistrate' AND pr.ref = mc.magistrate_name
-   WHERE mc.eik IS NOT NULL AND NOT mc.eik_ambiguous
+  SELECT person_id, uic FROM person_company_bridge_a
 ),
 companies AS (
   SELECT person_id, ref AS uic FROM roles WHERE source = 'tr' GROUP BY 1, 2

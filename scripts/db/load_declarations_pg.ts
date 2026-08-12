@@ -148,10 +148,18 @@ const MP_SERVING_SCHEMA = path.join(
 // missing relation, and person_browse.data.test.ts reads the absence as "Postgres down" and
 // SKIPS the eleven tests that would have caught it. The standalone
 // db:load:persons-browse:pg loader remains the entry point for a contracts-only refresh.
-const PERSON_BROWSE_SCHEMA = path.join(
-  ROOT,
-  "scripts/db/schema/pg/120_person_browse.sql",
-);
+//
+// 148 RIDES WITH IT, and the order is not optional: 120's matview body now selects from
+// `person_company_bridge_a` (the Bridge-A definition it used to carry inline), and a matview
+// body is resolved at CREATE time. Applying 120 alone against a database without the view
+// raises 42P01 — AFTER 090's DROP … CASCADE has already taken person_browse_table — so the
+// failure mode is the one this block exists to prevent, just moved one migration along.
+// db:refresh hides it by running db:resolve:persons (which applies 148) first; a standalone
+// `--resolve`, including the documented Cloud SQL publish step, does not.
+const PERSON_BROWSE_SCHEMA = [
+  path.join(ROOT, "scripts/db/schema/pg/148_person_company_basis.sql"),
+  path.join(ROOT, "scripts/db/schema/pg/120_person_browse.sql"),
+];
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -745,7 +753,7 @@ const resolve = async () => {
   await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
   // And the /persons browser, last of the four CASCADE victims — after 108 above, whose
   // official_candidate_link it reads for the non-MP photos.
-  await exec(fs.readFileSync(PERSON_BROWSE_SCHEMA, "utf-8"));
+  for (const f of PERSON_BROWSE_SCHEMA) await exec(fs.readFileSync(f, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE

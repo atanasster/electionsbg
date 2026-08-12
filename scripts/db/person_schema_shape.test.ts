@@ -9,7 +9,7 @@
 //   npm run test:unit
 
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,50 +21,58 @@ const ROOT = path.resolve(
 const read = (rel: string): string =>
   readFileSync(path.join(ROOT, rel), "utf8");
 
-/** The migration filenames a module's SCHEMA_FILES array lists, in apply order.
- *
- *  Parsed from the array literal rather than by `indexOf` over the whole file: both of these
- *  modules name migrations in prose comments long before the list (`load_persons_browse_pg`
- *  does it on line 1), so a naive index comparison reports the order of the DOCUMENTATION and
- *  passes or fails for reasons that have nothing to do with what is applied. */
-const schemaFileOrder = (rel: string): string[] => {
-  const src = read(rel);
-  const open = src.indexOf("SCHEMA_FILES = [");
-  if (open < 0) return [];
-  const close = src.indexOf("];", open);
-  const block = src.slice(open, close);
-  // The two modules spell entries differently — the resolver lists bare filenames, the
-  // browse loader path.join()s a repo-relative path — so the prefix is optional.
-  return [
-    ...block.matchAll(/["'](?:[^"']*\/)?(\d{3}_[a-z0-9_]+\.sql)["']/g),
-  ].map((m) => m[1]);
-};
-
-describe("148_person_company_basis has automated appliers", () => {
-  // The objects 148 creates are READ by 082 (person_by_slug's per-company linkBasis) and by
-  // 120 (its bridge_a). Both are LANGUAGE-sql / matview bodies resolved at CREATE time, so a
-  // database where 148 never ran fails those files with 42P01 rather than degrading. When
-  // this was first written 148 had NO applier at all — its own header claimed two that did
-  // not reference it — and nothing in the suite noticed, because every other db test asks a
-  // different question.
+describe("148_person_company_basis is applied wherever its dependents are", () => {
+  // 082 (`person_by_slug`, a LANGUAGE sql body) and 120 (a matview body) both read
+  // `person_company_bridge_a`, and both are resolved at CREATE time — so applying either to a
+  // database without 148 raises 42P01 and takes the whole file with it. For 120 that is worse
+  // than a failed apply: 090's `DROP … CASCADE` has already removed person_browse_table by
+  // then, so /persons is left pointing at a missing relation.
+  //
+  // ⚠️ THE APPLIER SET IS DERIVED, NOT LISTED, and that is the whole point of this gate. Its
+  // first version named the two appliers by hand and shipped green while a THIRD —
+  // load_declarations_pg.ts, which re-applies 120 on every `--resolve` — had no 148 line at
+  // all. A hand-written list encodes the same incomplete belief the bug came from.
   const MIGRATION = "148_person_company_basis.sql";
+  const DEPENDENTS = ["082_person_api.sql", "120_person_browse.sql"];
 
-  it("is applied by the resolver, before 082", () => {
-    const order = schemaFileOrder("scripts/person/resolve_persons.ts");
-    expect(order).toContain(MIGRATION);
-    // Order matters as much as presence: 082's body reads the view.
-    expect(order.indexOf(MIGRATION)).toBeLessThan(
-      order.indexOf("082_person_api.sql"),
-    );
-  });
+  // Files that name a migration inside a STRING LITERAL are applying it; prose comments in
+  // these modules refer to migrations by number ("120's matview body"), not by quoted
+  // filename, so this does not sweep them in.
+  const quoted = (file: string, migration: string): number =>
+    file.search(new RegExp(`["'][^"']*${migration.replace(".", "\\.")}["']`));
 
-  it("is applied by the persons-browse loader, before 120", () => {
-    const order = schemaFileOrder("scripts/db/load_persons_browse_pg.ts");
-    expect(order).toContain(MIGRATION);
-    expect(order.indexOf(MIGRATION)).toBeLessThan(
-      order.indexOf("120_person_browse.sql"),
+  const tsFiles = (dir: string): string[] =>
+    readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap((e) =>
+      e.isDirectory()
+        ? tsFiles(path.join(dir, e.name))
+        : e.name.endsWith(".ts") && !e.name.endsWith(".test.ts")
+          ? [path.join(dir, e.name)]
+          : [],
     );
-  });
+
+  for (const dependent of DEPENDENTS) {
+    it(`every module applying ${dependent} applies ${MIGRATION} first`, () => {
+      const appliers = tsFiles("scripts").filter(
+        (f) => quoted(read(f), dependent) >= 0,
+      );
+      expect(
+        appliers.length,
+        `no module applies ${dependent} — the detector has stopped finding appliers`,
+      ).toBeGreaterThan(0);
+
+      const broken = appliers.filter((f) => {
+        const src = read(f);
+        const at148 = quoted(src, MIGRATION);
+        return at148 < 0 || at148 > quoted(src, dependent);
+      });
+      expect(
+        broken,
+        `these modules apply ${dependent} without applying ${MIGRATION} before it — ` +
+          `${dependent} reads person_company_bridge_a and is resolved at CREATE time, so ` +
+          `they raise 42P01 on any database where 148 has not run by hand`,
+      ).toEqual([]);
+    });
+  }
 });
 
 describe("081 takes no unguarded exclusive lock on a served person table", () => {
