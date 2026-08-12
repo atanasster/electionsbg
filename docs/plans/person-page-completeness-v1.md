@@ -333,11 +333,41 @@ for those people and changes `foldOffices`' input. Grep every `source='mp'` cons
 The 1,263 with no `oldnsList` keep their bare undated row. That is correct and must be stated in
 the code comment: parliament.bg publishes nothing, so there is nothing to fall back to.
 
-### T2.3 Give the МЕП role a term
+### T2.3 Give the МЕП role a term — **WITHDRAWN, measured 2026-08-12**
 
-EP terms are fixed and public (8th 2014-07-01 → 2019-07-01, 9th 2019-07-02 → 2024-07-15). Date the
-`mep` role from the term that contains the filing rather than from the filing itself, so it stops
-rendering as „декларация при напускане". Small static table beside `NS_TERM_BOUNDS`.
+The step said: EP terms are fixed and public (8th 2014-07-01 → 2019-07-01, 9th 2019-07-02 →
+2024-07-15), so date the `mep` role from the term containing the filing rather than from the filing
+itself, and it stops rendering as „декларация при напускане".
+
+**Do not implement it.** It rests on a premise the corpus refutes, and it would replace a measured
+bound with a worse inference. Four findings, all against the 34 `mep` roles and the 132 EP filings
+that resolve to them:
+
+- **The filing is not attributable to one term.** 18 of the 33 MEPs with EP filings have filings on
+  BOTH sides of the 8th/9th boundary. "The term containing the filing" is undefined for 55% of them,
+  and picking either end erases the other mandate.
+- **A term start is not a mandate start.** The register knows only that somebody filed as an MEP in
+  a given year. A replacement who joined in 2023 would be dated from 2019-07-02 — an overstatement
+  of up to a full term, on a page that names the person. `nsFolders` has no counterpart here:
+  **there is no MEP roster in this repo**, authoritative or otherwise.
+- **Service gaps are undetectable, so the span cannot be split either.** 18 of 33 have a gap in
+  their filing YEARS, and every one of them is the missing 2020 filing — a register artifact, not
+  a period out of office. Reading those as gaps would invent absences; ignoring them is the only
+  option, which means one span or nothing.
+- **The ref cannot be widened to carry per-term rows.** `person_role.ref` for `source='mep'` is the
+  officials slug, and 132 rows join `declaration.subject_ref` to it. A `<slug>:<term>` shape breaks
+  that fill, which is the "NULL `person_id`, filing drops off /person" failure CLAUDE.md documents.
+
+**What is already true.** These dates come from the Сметна палата's own встъпителна / при напускане
+filings — `min(Entry)` / `max(Vacate)` per posting — and carry `date_basis = 'filing'` precisely
+because ЗПКОНПИ allows a month, making each an upper bound. The profile renders them with an inline
+note saying exactly that. The step treated an honest, caveated label as a defect; it is the correct
+presentation of the only evidence there is.
+
+**What would unblock it:** an actual roster of Bulgarian MEPs by term (europarl.europa.eu publishes
+one). With that, `mep` becomes the same shape as T2.2 — authoritative membership per term, dated
+from a static bounds table — and the ref question can be settled on its own merits. Until then, a
+term here is a guess wearing a mandate's clothes.
 
 **Exit:** `/person/mp-868` header shows a red БСП badge linking to `/party/БСП?elections=2005_06_25`;
 Длъжности reads „Народен представител · 39 НС (2001–2005), 40 НС (2005–2009) · Варна".
