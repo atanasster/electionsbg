@@ -45,7 +45,15 @@ const ROOT = path.resolve(
   "..",
   "..",
 );
-const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/120_person_browse.sql");
+// Applied in order, in one transaction with the build below. 148 first: 120's matview body
+// selects from `person_company_bridge_a` (the Bridge-A definition it used to carry inline),
+// and a matview body is resolved at CREATE time, so the reverse order fails with 42P01. 148
+// additionally needs `company_politicians` — which 120 already reads, so this adds no new
+// precondition to this loader.
+const SCHEMA_FILES = [
+  path.join(ROOT, "scripts/db/schema/pg/148_person_company_basis.sql"),
+  path.join(ROOT, "scripts/db/schema/pg/120_person_browse.sql"),
+];
 
 /** Tables the matview folds. Absent OR EMPTY, the build still succeeds and publishes
  *  blanks — an empty mp_profile costs every photo, an empty contracts costs the whole
@@ -182,7 +190,7 @@ const main = async (): Promise<void> => {
   // back leaves the previous good table in place instead.
   await withTx(async (c) => {
     await c.query("SELECT similarity('', '')"); // pg_trgm preload, as exec() does
-    await c.query(readFileSync(SCHEMA, "utf8"));
+    for (const f of SCHEMA_FILES) await c.query(readFileSync(f, "utf8"));
 
     const {
       rows: [s],

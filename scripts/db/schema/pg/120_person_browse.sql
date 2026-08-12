@@ -324,6 +324,14 @@ decl_inst AS (
 -- a person holds in TR got there through Bridge B (name discovery, gated at resolve time
 -- on fold people-uniqueness + a 3-part name + a ≤5-company footprint), which is what the
 -- 'name_match' caveat on the page is about.
+--
+-- ⚠️ THIS BODY IS DUPLICATED, and only for one more step. `person_company_bridge_a` in
+-- 148_person_company_basis.sql is the same query, created so that 082 can classify each
+-- company on /person the way this matview classifies it for /persons. Step 2 of
+-- tr-attribution-basis-v1 replaces this CTE with `SELECT * FROM person_company_bridge_a`
+-- and the duplication ends. Until then the two MUST stay identical: they disagree only if
+-- someone edits one, and the result is the profile and the browser making different claims
+-- about the same named person — §0.2 of that plan calls it the worst bug this table carries.
 bridge_a AS (
   SELECT DISTINCT pr.person_id, cp.eik AS uic
     FROM company_politicians cp

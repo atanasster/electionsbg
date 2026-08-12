@@ -55,10 +55,13 @@ public arm that table reads 337 `declared`, 58 `mixed`, **13,058 `name_match`**.
 The two surfaces must not disagree about the same person — the same file calls that "the worst
 bug this table can carry".
 
-**`confidence` is not a usable proxy for the basis.** Bridge A holds 849 (person, uic) pairs;
-only 62 coincide with an `exact_id` role and 345 have no `tr` role at all. Deriving the basis
-from `confidence` would mislabel 442 corroborated links as name matches — safe in direction,
-but it would put the profile and the browser in disagreement, which is the thing being fixed.
+**`confidence` is not a usable proxy for the basis.** Bridge A holds **766 distinct (person,
+uic) pairs**; only 49 carry an `exact_id` role and 367 have no `tr` role at all. Deriving the
+basis from `confidence` would mislabel the remaining 350 corroborated pairs as name matches —
+safe in direction, but it would put the profile and the browser in disagreement, which is the
+thing being fixed. (The 62 `exact_id` rows counted in the table above are ROLES; one pair can
+hold several, e.g. manager + sole_owner. An earlier draft of this plan reported 849/62/345 by
+counting join rows rather than pairs.)
 
 **`declared` is not a confirmed identity, and the copy must not say it is.** Bridge A takes the
 TR officers on an EIK the person is independently linked to and keeps those "whose name matches
@@ -120,7 +123,11 @@ later demote. Ship it first and alone.
 
 ### 1.1 One definition of Bridge A, consumed by both surfaces
 
-New migration `147_person_company_basis.sql`:
+New migration `148_person_company_basis.sql` (147 is `tender_search_text`).
+**Number collision to settle with whoever owns
+[municipal-fiscal-commitments-v1.md](municipal-fiscal-commitments-v1.md) §T2.1** — that plan
+reserves 148 for `148_municipal_fiscal.sql`, but no such file exists and this one is on disk,
+so that reservation should move to 149.
 
 ```sql
 CREATE OR REPLACE VIEW person_company_bridge_a AS
@@ -130,8 +137,8 @@ CREATE OR REPLACE VIEW person_company_bridge_a AS
   SELECT DISTINCT pr.person_id, mc.eik FROM magistrate_company mc JOIN person_role pr …;
 ```
 
-Small by construction — `company_politicians` 522 rows, `magistrate_company` 245 usable, 849
-resulting pairs — so a view is the right shape and a matview would be a refresh trigger for
+Small by construction — `company_politicians` 522 rows, `magistrate_company` 245 usable, **766
+resulting pairs** — so a view is the right shape and a matview would be a refresh trigger for
 nothing. **Measured, not assumed**: `SELECT * FROM person_company_bridge_a WHERE person_id = $1`
 runs in **0.266 ms over 10 buffers**, the predicate pushed into two `person_role_pkey`
 index-only scans with `company_politicians` never executed. Hold that as the ceiling in the
@@ -147,13 +154,13 @@ Then:
   cannot contradict itself. PG-side agreement with 120 is a test obligation (§5), not a second
   stored producer.
 
-**These three files ship in ONE `apply_functions.ts` command, 147 first.** `person_by_slug` is
+**These three files ship in ONE `apply_functions.ts` command, 148 first.** `person_by_slug` is
 `LANGUAGE sql STABLE` with no `check_function_bodies = false`, so it is validated at CREATE and
 applying it against a database without the view fails the whole file with `42P01` — the trap
 CLAUDE.md documents for 081 → 082:
 
 ```bash
-DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 147_person_company_basis.sql 082_person_api.sql 120_person_browse.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 148_person_company_basis.sql 082_person_api.sql 120_person_browse.sql
 ```
 
 120 is `DROP MATERIALIZED VIEW … CASCADE` + CREATE, so it comes back empty until
@@ -250,7 +257,7 @@ Committing it means a fresh clone, CI and Cloud SQL all apply the same guard, so
 cannot publish more on one machine than another — the "green locally, different on prod" class
 this repo keeps paying for. The counter needs `raw_data/`; nothing else does.
 
-`147_person_company_basis.sql` also creates `tr_name_fold_people (name_fold text primary key,
+`148_person_company_basis.sql` also creates `tr_name_fold_people (name_fold text primary key,
 people_n int)`; `scripts/db/load_tr_name_fold_people_pg.ts`
 (`db:load:tr-name-fold-people:pg[:cloud]`) loads it from the committed file. Committed input, so
 it belongs in `db:refresh` proper — no `REFRESH_EXCLUSIONS` entry — placed **before
@@ -330,7 +337,7 @@ Instead:
 
 | # | Step | Where | Cost |
 |---|---|---|---|
-| 1 | Apply 147 + 082 + 120 (one command, 147 first) | local, then cloud | seconds |
+| 1 | Apply 148 + 082 + 120 (one command, 148 first) | local, then cloud | seconds |
 | 2 | `db:load:persons-browse:pg[:cloud]` (120 was DROP+CREATE) | both | minutes |
 | 3 | Ship the UI (T1.2) | `npm run deploy` | — |
 | 4 | `npm run tr:count-people`, commit the artifact | local only, needs `raw_data/` | ~6 s |
@@ -363,9 +370,16 @@ bundle them with 4-7.
   has three jobs:
   1. **Bridge B discriminates.** No `person_role` row at `source='tr'` on a person whose fold is
      shared *or* unmeasured. Zero is the passing value; it starts at 1,995 + 489.
-  2. **Tier-V labels.** Every person with `fold_people_n > 1` reads `identity_confidence =
-     'shared_name'`, and none reads `'verified'`.
-  3. **Coverage has a floor.** Measured folds ÷ `tr_person_roles` folds ≥ 85% (today 90.6%).
+  2. **`fold_people_n` is actually populated.** Every person whose fold IS in
+     `tr_name_fold_people` carries a non-NULL `fold_people_n`. This assertion has to come
+     first, because `person` is DELETEd and rebuilt every resolve and the column only arrives
+     if the resolver's `copyRows` list names it — the `date_basis` failure class 081 documents.
+     Dropped from that list, every row is NULL, and assertion 3 below then passes **over an
+     empty set** while the guard has silently reverted to "everything is unmeasured".
+  3. **Tier-V labels.** Every person with `fold_people_n > 1` reads `identity_confidence =
+     'shared_name'`, and none reads `'verified'`. Vacuous without assertion 2 — keep them
+     together.
+  4. **Coverage has a floor.** Measured folds ÷ `tr_person_roles` folds ≥ 85% (today 90.6%).
      This is the §6 decay alarm, and it must fail rather than warn.
 - **`PersonCompanies.test.tsx`** — a `declared`-only person shows no footnote; a mixed person
   shows it; a `name_match` company carries the marker and a `declared` one does not. Asserted on
@@ -410,8 +424,9 @@ attached.
 ## §8 Out of scope, and why
 
 - **Persisting any cluster id or hash.** §2.1. Revisit only if a corroborated-company →
-  verified-footprint promotion becomes worth it, which needs Bridge A to be much larger than 849
-  pairs.
+  verified-footprint promotion becomes worth it, which needs Bridge A to be much larger than it
+  is today (§0.2) — stated as a comparison rather than a number so the threshold cannot go stale
+  the way the pre-audit 849 did.
 - **Raising `FOOTPRINT_CAP`.** Independent question, and
   [cr-deeds-capture-v1.md](cr-deeds-capture-v1.md) already flags that backfilled owners will push
   people over it.

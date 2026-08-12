@@ -80,8 +80,11 @@ CREATE TABLE IF NOT EXISTS person (
   -- Privacy gate (plan §6): default OFF. A public /person page is minted only when
   -- the resolver opts a person in (holds public office, or bridges to public money).
   is_public_figure boolean NOT NULL DEFAULT false,
-  -- Distinct-company count for the name = the defamation guard, carried onto the
-  -- person so every consumer inherits one <= N gate instead of re-deriving it.
+  -- Distinct-COMPANY count for the name. DEPRECATED as a namesake guard — it counts
+  -- companies, not people, and the profile ignores it entirely
+  -- (tr-attribution-basis-v1 §0.3). `fold_people_n` below is what this was reaching for;
+  -- new consumers read that one. Retiring this column has consumers beyond that plan
+  -- (§8), so both exist for now.
   namesake_risk    integer NOT NULL DEFAULT 0,
   -- 'review' = aggressive-merge holding area; NEVER rendered publicly until promoted.
   status           text NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'review')),
@@ -91,20 +94,79 @@ CREATE TABLE IF NOT EXISTS person (
   -- ≤5-firm, money-linked owner (is_public_figure stays FALSE; the name is a strong but
   -- name-only identity). Consumers gate/serve on it: 082 serves a 'verified' private on /person,
   -- and 120 places it in the частен-сектор (tier V) slice, never the public default.
+  --
+  -- 'shared_name' is the SAME Tier-V mint on a fold the registry itself says is two or more
+  -- people (fold_people_n > 1) — tr-attribution-basis-v1 §2.6. It is served exactly like
+  -- 'verified' and labelled differently: excluding these people instead would delete the
+  -- person row (this table is rebuilt from scratch every resolve), orphaning ~4.5k /person
+  -- URLs with no valid redirect target — the magistrate-roster 404 class. So they stay, and
+  -- the page says the registry shows N people under this name rather than the weaker "we
+  -- could not verify". EVERY consumer that serves 'verified' must serve this too.
   identity_confidence text NOT NULL DEFAULT 'resolved'
-                        CHECK (identity_confidence IN ('resolved', 'verified')),
+                        CHECK (identity_confidence IN ('resolved', 'verified', 'shared_name')),
+  -- Distinct registry PEOPLE under this person's name fold, copied from tr_name_fold_people
+  -- at resolve time so every consumer inherits one number instead of re-deriving it.
+  -- NULL means UNMEASURED — the fold was never observed in the TR daily feed's window — and
+  -- must never be rendered as 1. This is what namesake_risk above was reaching for and could
+  -- not express: that column counts a name's COMPANIES, not its PEOPLE.
+  fold_people_n    integer CHECK (fold_people_n IS NULL OR fold_people_n >= 1),
   created_at       timestamptz NOT NULL DEFAULT now(),
   updated_at       timestamptz NOT NULL DEFAULT now()
 );
 -- CREATE TABLE IF NOT EXISTS won't add identity_confidence to an already-built person table, so
 -- ALTER it in (S4). Idempotent.
 ALTER TABLE person ADD COLUMN IF NOT EXISTS identity_confidence text NOT NULL DEFAULT 'resolved';
-DO $$ BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'person_identity_confidence_check') THEN
-    ALTER TABLE person ADD CONSTRAINT person_identity_confidence_check
-      CHECK (identity_confidence IN ('resolved', 'verified'));
-  END IF;
+ALTER TABLE person ADD COLUMN IF NOT EXISTS fold_people_n integer;
+-- Guarded on the constraint's DEFINITION, not on its existence. Both halves matter:
+--
+--   • Guarding on EXISTENCE (what this file did before 'shared_name') leaves a warm database
+--     on the two-value form for ever, and the resolver then raises 23514 the first time it
+--     labels a Tier-V person 'shared_name' — mid-rebuild, on a machine where every migration
+--     reported success.
+--   • Guarding on NOTHING (an unconditional DROP + ADD) takes an AccessExclusiveLock on
+--     `person` on EVERY apply, including the steady-state no-op — and `exec()` sends a
+--     migration as one transaction, so it is held to COMMIT, across everything below. That is
+--     the hazard measured for person_role 70 lines down ("eight readers stacked behind one
+--     ALTER"), on the table person_by_slug reads for every /person, /persons and /connections
+--     request, in a file `add_override.ts` runs against a live database by hand.
+--
+-- So: skip in the steady state, fail fast rather than head a lock queue, and add NOT VALID so
+-- the row scan does not happen under the lock. Widening cannot be violated by rows that
+-- satisfied the narrower list, so validating separately is sound.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_constraint
+              WHERE conrelid = 'person'::regclass
+                AND conname  = 'person_identity_confidence_check'
+                AND pg_get_constraintdef(oid) LIKE '%shared_name%')
+  THEN RETURN; END IF;
+
+  SET LOCAL lock_timeout = '3s';
+  ALTER TABLE person DROP CONSTRAINT IF EXISTS person_identity_confidence_check;
+  ALTER TABLE person ADD CONSTRAINT person_identity_confidence_check
+    CHECK (identity_confidence IN ('resolved', 'verified', 'shared_name')) NOT VALID;
 END $$;
+
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_constraint
+              WHERE conrelid = 'person'::regclass
+                AND conname  = 'person_fold_people_n_check')
+  THEN RETURN; END IF;
+
+  SET LOCAL lock_timeout = '3s';
+  ALTER TABLE person ADD CONSTRAINT person_fold_people_n_check
+    CHECK (fold_people_n IS NULL OR fold_people_n >= 1) NOT VALID;
+END $$;
+
+-- Outside the guards, so a run that timed out mid-way still converges. VALIDATE takes only a
+-- ShareUpdateExclusiveLock, which readers do not contend with, and both are no-ops once valid.
+DO $$ BEGIN
+  ALTER TABLE person VALIDATE CONSTRAINT person_identity_confidence_check;
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+DO $$ BEGIN
+  ALTER TABLE person VALIDATE CONSTRAINT person_fold_people_n_check;
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
 CREATE INDEX IF NOT EXISTS idx_person_name_fold ON person (name_fold);
 -- The blocking key: candidates to merge/search share (given_fold, family_fold).
 CREATE INDEX IF NOT EXISTS idx_person_block ON person (given_fold, family_fold);

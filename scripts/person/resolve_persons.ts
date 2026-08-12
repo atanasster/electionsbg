@@ -1523,6 +1523,18 @@ const SCHEMA_FILES = [
   // db:load:place-dim:pg fills it; an empty table only costs blank labels, never an error.
   "117_place_dim.sql",
   "085_person_elections.sql",
+  // The Bridge-A view + the fold people-count table (148). MUST precede 082, whose
+  // `companies` array reads the view for each company's `linkBasis` — a LANGUAGE sql body
+  // is validated at CREATE time, so the wrong order fails the whole file with 42P01. Same
+  // rule as 085 → 082 and 117 → 082 above.
+  //
+  // Its view body needs `company_politicians` (008) and `magistrate_company` (070), and
+  // NEITHER is listed here on purpose. This adds no cold-bootstrap exposure: the Bridge-A
+  // block below already SELECTs both unguarded, so a database missing them fails this
+  // resolve either way — 148 only moves the failure earlier and names it better. Listing
+  // 008 would be actively worse, since it DROPs `officer_name_counts`, a matview other
+  // migrations read, and this file would then drop it on every resolve.
+  "148_person_company_basis.sql",
   "082_person_api.sql",
   "083_person_review.sql",
   "084_person_connections.sql",
