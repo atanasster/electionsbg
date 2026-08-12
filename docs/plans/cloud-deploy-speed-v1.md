@@ -1857,3 +1857,81 @@ the blocker to check first is that `person_slug_lock` accumulates per database, 
 a shipped `person` table would import slug decisions the target never made
 (CLAUDE.md's `person:slugs:cloud` note explains why the two databases hand the same
 people different slugs).
+
+---
+
+### F23 — the whole publish, measured: 5 h 34 m over 25 steps, and it is TWO whales
+
+F22 timed the person chain. This is the complete post-watch-report publish, run
+2026-08-11/12 in the corrected order, every step `rc=0`.
+
+| step | s | share |
+|---|---:|---:|
+| `prices --backfill` (2 days) | **6690** | **33.4%** |
+| `db:load:pg:cloud` (contracts) | **5006** | **25.0%** |
+| `db:resolve:persons:cloud` | 1637 | 8.2% |
+| `db:load:procurement-scopes:pg:cloud` | 1333 | 6.7% |
+| `db:load:tenders:pg:cloud` | 1277 | 6.4% |
+| `db:load:declarations:pg:cloud -- --resolve` | 921 | 4.6% |
+| `db:load:awarder-seats:pg:cloud` | 895 | 4.5% |
+| `db:load:persons-browse:pg:cloud` | 520 | 2.6% |
+| `db:load:person-search:pg:cloud` | 493 | 2.5% |
+| `db:load:graph:pg:cloud` | 259 | 1.3% |
+| `db:load:transport-project-map:pg:cloud` | 216 | 1.1% |
+| `bucket:sync:paths` (15 paths) | 202 | 1.0% |
+| `kzk_appeals.ts --apply` (live crawl) | 193 | 1.0% |
+| `db:load:person-elections:pg:cloud` | 177 | 0.9% |
+| `db:load:tr-company-place:pg:cloud` | 74 | 0.4% |
+| `db:load:annexes:pg:cloud` | 60 | 0.3% |
+| the other 9 steps, summed | 85 | 0.4% |
+| **total** | **20023** | **5 h 34 m** |
+
+**Two steps are 58.4% of the publish and seven are 88.7%.** Nine steps finish in
+under 20 s. Any future work on this plan that is not aimed at `prices` or
+`contracts` is rounding error.
+
+**`prices` is the largest step in the entire publish and this plan has never
+mentioned it.** 6690 s to publish a TWO-DAY windowed backfill — more than the
+whole contracts corpus. The load itself is fast (both days' facts land in the
+first few minutes: +6,012 then +202,123, with 0 unmatched SKUs); the cost is the
+payload rebuild that follows, `[product-days] 3,000 head products in 16
+weight-balanced batches`, each batch a multi-minute `WITH head AS (SELECT
+unnest($1::bigint[]) …)` on the 0.5-vCPU instance. It logs only at phase
+boundaries, so it is silent for ~30-minute stretches and looks hung when it is
+not — check `pg_stat_activity` rather than the log. This is the same
+recompute-on-the-small-instance shape the plan's Phase 1-4 fixed elsewhere, and
+it is now the single biggest target.
+
+**`contracts` has drifted to 5006 s (83.4 min) from the ~68 min in CLAUDE.md.**
+The corpus is 408,832 rows. Re-baseline the figure quoted in the docs.
+
+**The scoped matviews are refreshed THREE times in one chain.** `db:load:pg`
+refreshes all six (119/122/123/124 + the two settlement ones); `awarder-seats`
+refreshes 119/123/124 because it moves which buyer sits where; `procurement-scopes`
+then refreshes all six again. Each loader is individually correct — it guards its
+own inputs — and no loader knows another already did the work. Combined
+895 + 1333 = 2228 s, of which a large part is duplicated. A publish-level
+"refresh the scoped set once, at the end" would be the cheapest large win after
+the two whales.
+
+**`magistrates` costs 15 seconds and its omission costs 481 people.** It is a
+`db:resolve:persons` PREREQUISITE (CLAUDE.md is explicit), and the emitted chain
+had it in the standalone group AFTER the person steps. Running it there does not
+help: the resolve has already happened. Measured on the first pass of this
+publish, prod served 3,113 magistrate persons against local's 3,594 — 481
+profiles missing at a 200, every row count reconciling — until magistrates was
+moved above `judicial-bodies` → `resolve`. **Ordering, not cost:** the fix is 15 s
+in the right place and ~30 min of re-resolve in the wrong one.
+
+**`resolve_persons` measured a fourth time: 1637 s.** Same-day range on an
+unchanged corpus is **1332-1733 s** across four runs. Plan for ~27 min ±15%; a
+single datapoint on this step is not worth quoting.
+
+**Prod verified against local after the run** — magistrate persons 3594/3594,
+MP↔declarant split pairs 124/124, MPs affected 72/72, contracts 408,832/408,832,
+declarations resolved 49,627, unlicensed cross-source merges 0. One asymmetry
+worth noting in the other direction: prod has **3133** magistrate roles carrying a
+court against local's 3124, because the cloud run did magistrates →
+`judicial-bodies` → resolve in that order while local's `judicial_body` table
+predates its last magistrate load. Local is the stale one; a local
+`db:load:judicial-bodies:pg` + re-resolve would close it.
