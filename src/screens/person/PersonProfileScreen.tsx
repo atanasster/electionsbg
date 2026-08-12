@@ -606,7 +606,12 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
           )}
 
           {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
-          <PersonCompanies companies={p.companies} name={p.name} mpId={mpId} />
+          <PersonCompanies
+            companies={p.companies}
+            name={p.name}
+            mpId={mpId}
+            slug={p.slug}
+          />
 
           {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
           {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}

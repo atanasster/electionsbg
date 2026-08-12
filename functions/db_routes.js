@@ -4533,13 +4533,31 @@ const DB_ROUTES = {
   },
   // Declared company stakes whose company holds public contracts (audit T3.8). The
   // declaration form carries no EIK, so every row here is a RESOLVED link that passed
-  // all three of 096's gates — unique TRADING-company name in the TR, the registry
-  // independently placing this person at that EIK, and no namesake sharing their folded
-  // name. Unconfirmed and namesake-risky matches are absent, not flagged.
+  // all three of 096's gates — the declared name bears on a trading company that the TR
+  // independently records THE DECLARED HOLDER at, exactly one such company survives, and
+  // that holder's folded name identifies exactly one active person. Unconfirmed,
+  // ambiguous and namesake-risky matches are absent, not flagged.
+  //
+  // The person's OWN stakes only: 096 also resolves holdings a filing attributes to a
+  // spouse or a child, and this payload is money attributed to the subject.
   "person-stake-procurement": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: [] };
     const rows = await dbRows("SELECT person_stake_procurement($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // The other 84% — declared stakes that did NOT resolve, each with the register's reason:
+  // `absent` (nothing bears the name), `ambiguous` (several trading companies do — their
+  // EIKs ride along), `unconfirmed` (one does, but the register does not record the declared
+  // holder there) or `namesake` (it does, and that name is shared, so 096 will not name a
+  // person). Nothing here is a link; the profile has always shown these as one
+  // undifferentiated list, which reads as a single failure when it is four different facts.
+  "person-declared-stake-status": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_declared_stake_status($1) AS r", [
       slug,
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };

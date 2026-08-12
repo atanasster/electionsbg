@@ -1,4 +1,4 @@
-// Route-level unit tests for the three person-declaration API routes (audit T3.8/T3.9/T3.10),
+// Route-level unit tests for the four person-declaration API routes (audit T3.8/T3.9/T3.10),
 // added to close the D1 gap: the SQL behind these is covered by scripts/db/tests/*.data.test.ts,
 // but the JS route layer (param handling, the missing-migration degradation, the shape guards,
 // and — most importantly — the T3.10 privacy contract) had no test at all.
@@ -125,6 +125,42 @@ test("person-stake-procurement degrades to [] for either missing-migration code"
   }
 });
 
+// ─── person-declared-stake-status (T4b) ─────────────────────────────────────────────────
+test("person-declared-stake-status returns [] without a slug and skips the DB", async () => {
+  const db = mockDb([{ r: [{ declaredName: "X" }] }]);
+  const res = await DB_ROUTES["person-declared-stake-status"](db, {});
+  assert.deepEqual(res.body, []);
+  assert.equal(db.calls.length, 0, "no DB call without a slug");
+});
+
+test("person-declared-stake-status degrades to [] for either missing-migration code", async () => {
+  // The degrade matters more here than on its siblings: this route explains why a declared
+  // stake is NOT linked, so a client that receives nothing must fall back to the old
+  // undifferentiated list — never to a reason it made up.
+  for (const code of MIGRATION_CODES) {
+    const res = await DB_ROUTES["person-declared-stake-status"](
+      mockDb(migrationMissing(code)),
+      { slug: "mp-868" },
+    );
+    assert.deepEqual(res.body, [], `code ${code} → []`);
+  }
+});
+
+test("person-declared-stake-status passes the reasons through untouched", async () => {
+  const payload = [
+    { declaredName: "Актив груп ЕООД", reason: "ambiguous", eik: null,
+      candidates: [{ eik: "121891779" }, { eik: "125577092" }] },
+    { declaredName: "Питстрой 13 ЕООД", reason: "linked", eik: "204361427", candidates: [] },
+  ];
+  const res = await DB_ROUTES["person-declared-stake-status"](
+    mockDb([{ r: payload }]),
+    { slug: "mp-868" },
+  );
+  // The route must not reshape, sort or filter: the refusal semantics live in 096, and a
+  // route that dropped `candidates` would turn "several bear this name" into a bare denial.
+  assert.deepEqual(res.body, payload);
+});
+
 test("person-stake-procurement passes the row array through", async () => {
   const rows = [{ eik: "112028994", companyName: "РАДИО СОТ" }];
   const res = await DB_ROUTES["person-stake-procurement"](
@@ -138,7 +174,7 @@ test("person-stake-procurement passes the row array through", async () => {
 
 // ─── the load-bearing degradation boundary ──────────────────────────────────────────────
 // missingMigrationEmpty catches ONLY 42883/42P01. Every other DB error must propagate — a
-// broadened catch would silently turn a query failure into an empty result on all three
+// broadened catch would silently turn a query failure into an empty result on all four
 // routes while every test above still passed. Lock the boundary.
 test("a non-migration DB error propagates on every route", async () => {
   const realError = Object.assign(new Error("syntax error"), { code: "42601" });
@@ -158,6 +194,15 @@ test("a non-migration DB error propagates on every route", async () => {
       DB_ROUTES["person-stake-procurement"](mockDb(realError), { slug: "x" }),
     /syntax error/,
     "person-stake-procurement must not swallow a real error",
+  );
+
+  await assert.rejects(
+    () =>
+      DB_ROUTES["person-declared-stake-status"](mockDb(realError), {
+        slug: "mp-868",
+      }),
+    /syntax error/,
+    "person-declared-stake-status must not swallow a real error",
   );
 });
 

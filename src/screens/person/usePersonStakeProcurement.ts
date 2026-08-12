@@ -1,12 +1,17 @@
 // Declared company stakes whose company holds public contracts (audit T3.8), served via
 // /api/db/person-stake-procurement (096 person_stake_procurement).
 //
-// Every row already passed 096's three gates: the declared company name resolves to exactly
-// one TRADING company in the Търговски регистър, the registry independently records this
-// person at that EIK, and the person's folded name is not shared by another active person
-// (so that registry match identifies one individual). The declaration form carries no EIK,
-// so an unresolved, ambiguous or namesake-risky stake is simply absent from this payload —
-// there is no low-confidence tier for the client to render or filter.
+// Every row already passed 096's three gates: the declared company name bears on a trading
+// company in the Търговски регистър that the register independently records THE DECLARED
+// HOLDER at, exactly one such company survives that check, and that holder's folded name
+// identifies exactly one active person. The declaration form carries no EIK, so an
+// unresolved, ambiguous or namesake-risky stake is simply absent from this payload — there
+// is no low-confidence tier for the client to render or filter. Why each absent one is
+// absent IS available, separately and never as a link: useDeclaredStakeStatus.
+//
+// THE PERSON'S OWN STAKES ONLY. 096 also resolves holdings a filing attributes to a spouse
+// or a child; this payload is money attributed to the subject, so it carries none of them.
+// They surface on the Companies section, attributed to their holder and with no money.
 //
 // All money is rounded server-side; the client never recomputes a figure.
 

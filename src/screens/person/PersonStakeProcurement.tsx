@@ -2,13 +2,18 @@
 //
 // The one conflict-of-interest surface in the person profile — and the one with the
 // narrowest evidentiary base, because the declaration form records a company NAME and no
-// EIK. Every row rendered here passed all three of 096's gates: the name resolves to exactly
-// one TRADING company in the Търговски регистър, the registry independently places this
-// person at that EIK, and the person's folded name is not shared by another active person
-// (so that registry match identifies one individual, not one of seven namesakes). Ambiguous,
-// unconfirmed and namesake-risky stakes never reach the client, so there is nothing here to
-// caveat as "possible match" — the caveat is that these are DECLARED holdings matched to
-// public contract records.
+// EIK. Every row rendered here passed all three of 096's gates: the declared name bears on a
+// trading company that the Търговски регистър independently records THE DECLARED HOLDER at,
+// exactly one such company survives that check, and that holder's folded name identifies
+// exactly one active person (`= 1`, not `<= 1` — absence from `person` is not evidence of
+// uniqueness, so the registry match identifies one individual and not one of seven namesakes). Ambiguous, unconfirmed and namesake-risky stakes never reach the client, so
+// there is nothing here to caveat as "possible match" — the caveat is that these are DECLARED
+// holdings matched to public contract records.
+//
+// AND ONLY THE PERSON'S OWN. Tables 10/11 name a holder per row and it is usually a spouse or
+// a child; 096 resolves those too, and they are excluded here because everything below is
+// money attributed to the subject. They appear in the Companies section instead, attributed to
+// the holder the filing names and carrying no figure.
 //
 // FRAMING (same discipline as docs/methodology/accumulation-gap.md): owning a company that
 // wins public contracts is lawful, and the declaration is the system working as designed.

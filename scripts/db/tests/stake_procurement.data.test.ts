@@ -492,6 +492,262 @@ test.skipIf(skip)(
   },
 );
 
+// THE REMAINDER'S REASONS (096 person_declared_stake_status, T4b).
+//
+// This payload explains a REFUSAL — why 84% of declared stakes are not linked — so its failure
+// mode is not an empty list, it is a reason that reads as weaker or stronger than the truth.
+// Several of them are one word apart and mean different things about a NAMED company or a
+// named person: `absent` says no company of that name is registered, `unconfirmed` says one is
+// and the register does not place the declared holder in it, `namesake` says it places someone
+// of that name and the name is shared, `unverified` says it places someone of that name and we
+// hold nobody by it. Publishing any of these as another is a false statement about the world.
+//
+// Recomputed here from raw `tr_companies`, `tr_person_roles`, `tr_officers` and `person` rows
+// through the file's own independent normaliser, never by re-running the function's own CASE.
+test.skipIf(skip)(
+  "every unlinked stake carries the reason the register actually supports",
+  async () => {
+    // The sample must include the FAMILY arm: `linked` exists for it, and a person whose only
+    // resolutions are family rows (mp-2647 is exactly that) is invisible to an own-arm-only
+    // sample. Drawn from `published` unfiltered for that reason.
+    const slugs = [...new Set(published.map((r) => r.slug))]
+      .sort()
+      .slice(0, 60);
+    assert.ok(slugs.length > 10, "sample too small to be meaningful");
+
+    const rows = await allRows<{
+      slug: string;
+      declared_name: string;
+      holder_name: string | null;
+      reason: string;
+      eik: string | null;
+      candidates: { eik: string; name: string | null }[];
+    }>(
+      `SELECT s AS slug, e ->> 'declaredName' AS declared_name,
+              e ->> 'holderName' AS holder_name, e ->> 'reason' AS reason,
+              e ->> 'eik' AS eik, e -> 'candidates' AS candidates
+         FROM unnest($1::text[]) s
+         CROSS JOIN LATERAL jsonb_array_elements(person_declared_stake_status(s)) e`,
+      [slugs],
+    );
+    assert.ok(rows.length > 0, "no declared stakes for the sampled people");
+
+    // No bucket may be empty. Without this, a CASE that collapsed two reasons into one would
+    // leave every per-row assertion below satisfied — the reason it exists is that the first
+    // cut of this test asserted `unconfirmed` and `namesake` IDENTICALLY, so rewriting the
+    // CASE to emit only one of them stayed green.
+    const counts = new Map<string, number>();
+    for (const r of rows) counts.set(r.reason, (counts.get(r.reason) ?? 0) + 1);
+    for (const reason of ["linked", "absent", "unconfirmed", "ambiguous"])
+      assert.ok(
+        (counts.get(reason) ?? 0) > 0,
+        `no "${reason}" row in a ${rows.length}-row sample — the bucket collapsed`,
+      );
+
+    const registry = await allRows<{ uic: string; name: string }>(
+      "SELECT uic, name FROM tr_companies WHERE entity_class = 'company'",
+    );
+    const byNorm = new Map<string, string[]>();
+    for (const c of registry) {
+      const k = normIndependently(c.name);
+      if (!k) continue;
+      const at = byNorm.get(k);
+      if (at) at.push(c.uic);
+      else byNorm.set(k, [c.uic]);
+    }
+
+    // The confirming fold per (slug, declared name, holder) — the SAME triple the function
+    // groups on. Keyed on the name alone, this oracle collapses exactly where the pipeline
+    // used to, and the 192 rows that published a refusal as a link passed it.
+    const foldOf = new Map<string, string>();
+    const stakes = await allRows<{
+      slug: string;
+      company_name: string;
+      holder_name: string | null;
+      fold: string;
+    }>(
+      `SELECT p.slug, s.company_name, s.holder_name,
+              CASE WHEN s.holder_name IS NULL THEN p.name_fold
+                   ELSE translit_bg_latin(s.holder_name) END AS fold
+         FROM declaration_stake s
+         JOIN declaration d ON d.declaration_id = s.declaration_id
+         JOIN person p ON p.person_id = d.person_id
+        WHERE p.slug = ANY($1) AND s.company_name IS NOT NULL`,
+      [slugs],
+    );
+    const key = (slug: string, name: string, holder: string | null): string =>
+      `${slug} ${normIndependently(name)} ${normIndependently(holder ?? "")}`;
+    for (const r of stakes)
+      foldOf.set(key(r.slug, r.company_name, r.holder_name), r.fold);
+
+    // The raw footprint and the raw person counts — the two inputs gates B and C turn on.
+    const folds = [...new Set(foldOf.values())];
+    const foot = await allRows<{ uic: string; name_fold: string }>(
+      `SELECT uic, name_fold FROM tr_person_roles WHERE name_fold = ANY($1)
+       UNION
+       SELECT uic, name_fold FROM tr_officers     WHERE name_fold = ANY($1)`,
+      [folds],
+    );
+    const atCompany = new Set(foot.map((f) => `${f.name_fold} ${f.uic}`));
+    const nPerson = new Map(
+      (
+        await allRows<{ fold: string; n: string }>(
+          `SELECT name_fold AS fold, count(*) n FROM person
+            WHERE status = 'active' AND name_fold = ANY($1) GROUP BY 1`,
+          [folds],
+        )
+      ).map((c) => [c.fold, Number(c.n)]),
+    );
+
+    // What the matview resolved, per (person, name, HOLDER) — never per (person, name).
+    const linkedTo = new Map<string, string>();
+    for (const r of published)
+      linkedTo.set(key(r.slug, r.company_name, r.holder_name), r.uic);
+
+    const bad: string[] = [];
+    for (const r of rows) {
+      const k = key(r.slug, r.declared_name, r.holder_name);
+      const at = `${r.slug} "${r.declared_name}" / ${r.holder_name ?? "self"}`;
+      const cands = byNorm.get(normIndependently(r.declared_name)) ?? [];
+      const resolved = linkedTo.get(k);
+      const fold = foldOf.get(k);
+      const hasFootprint = cands.some((u) => atCompany.has(`${fold} ${u}`));
+
+      // `linked` must mean the matview resolved THIS holder's claim, and nothing else may
+      // carry an EIK. This is the pair that catches a refusal published as a link.
+      if (resolved != null && r.reason !== "linked")
+        bad.push(`${at}: resolved to ${resolved} but reported "${r.reason}"`);
+      if (r.reason === "linked" && resolved == null)
+        bad.push(`${at}: reported linked with no matview row for this holder`);
+      if ((r.eik != null) !== (r.reason === "linked"))
+        bad.push(`${at}: eik ${r.eik} against reason "${r.reason}"`);
+      if (r.reason === "linked" && r.eik !== resolved)
+        bad.push(`${at}: linked to ${r.eik}, matview says ${resolved}`);
+
+      // The claims about the register, checked against the register.
+      if (r.reason === "absent" && cands.length > 0)
+        bad.push(
+          `${at}: "absent" but ${cands.length} compan(ies) bear the name`,
+        );
+      if (r.reason === "ambiguous" && cands.length < 2)
+        bad.push(`${at}: "ambiguous" but only ${cands.length} candidate(s)`);
+      if (["unconfirmed", "namesake", "unverified"].includes(r.reason)) {
+        if (cands.length !== 1)
+          bad.push(
+            `${at}: "${r.reason}" but ${cands.length} candidates, expected 1`,
+          );
+        // The property that separates the three, recomputed rather than restated.
+        if (r.reason === "unconfirmed" && hasFootprint)
+          bad.push(
+            `${at}: "unconfirmed" but "${fold}" IS in the register there`,
+          );
+        if (r.reason !== "unconfirmed" && !hasFootprint)
+          bad.push(
+            `${at}: "${r.reason}" with no registry footprint for "${fold}"`,
+          );
+        const n = nPerson.get(fold ?? "") ?? 0;
+        if (r.reason === "namesake" && n < 2)
+          bad.push(
+            `${at}: "namesake" but "${fold}" matches ${n} active person(s)`,
+          );
+        if (r.reason === "unverified" && n > 1)
+          bad.push(
+            `${at}: "unverified" but "${fold}" matches ${n} — that is a namesake`,
+          );
+      }
+
+      // Candidates are named ONLY where naming them all is the honest move. Anywhere else an
+      // EIK beside a person's name is the assertion the gates declined to make.
+      const named = r.candidates.map((c) => c.eik);
+      if (r.reason !== "ambiguous" && named.length > 0)
+        bad.push(
+          `${at}: "${r.reason}" named ${named.join(", ")} — only ambiguous may`,
+        );
+      if (r.reason === "ambiguous") {
+        const wrong = named.filter((e) => !cands.includes(e));
+        if (named.length !== cands.length || wrong.length > 0)
+          bad.push(
+            `${at}: candidates ${named.join(", ")} against register ${cands.join(", ")}`,
+          );
+      }
+    }
+    assert.deepEqual(bad.slice(0, 15), [], `${bad.length} wrong reason(s)`);
+  },
+);
+
+// One declared name resolves to at most one EIK PER HOLDER. The per-row gate above is a
+// different property, and this is the one `byname`'s min(sc.uic) rests on — possible to
+// violate in principle (two family holders of one declared name, each confirmed at a
+// different company), so it is asserted rather than assumed.
+test.skipIf(skip)(
+  "one declared name resolves to at most one EIK per holder",
+  async () => {
+    const seen = new Map<string, Set<string>>();
+    for (const r of published) {
+      const k = `${r.slug} ${normIndependently(r.company_name)} ${normIndependently(r.holder_name ?? "")}`;
+      const at = seen.get(k);
+      if (at) at.add(r.uic);
+      else seen.set(k, new Set([r.uic]));
+    }
+    assert.deepEqual(
+      [...seen.entries()]
+        .filter(([, u]) => u.size > 1)
+        .map(([k, u]) => `${k} => ${[...u].join(", ")}`),
+      [],
+      "one holder's claim on one declared name resolved to several companies",
+    );
+  },
+);
+
+// One verdict per declared name AND HOLDER, not per filing. A person who declared the same
+// company for eight years has one unresolved company, and eight identical rows saying so would
+// read as eight separate problems — but their SPOUSE's claim on the same company is a
+// different question with a different answer, so it keeps its own row.
+test.skipIf(skip)(
+  "the reasons are deduplicated by declared name and holder",
+  async () => {
+    const rows = await allRows<{
+      slug: string;
+      declared_name: string;
+      holder_name: string | null;
+    }>(
+      `SELECT s AS slug, e ->> 'declaredName' AS declared_name,
+            e ->> 'holderName' AS holder_name
+       FROM unnest($1::text[]) s
+       CROSS JOIN LATERAL jsonb_array_elements(person_declared_stake_status(s)) e`,
+      [[...new Set(published.map((r) => r.slug))].sort().slice(0, 40)],
+    );
+    assert.ok(rows.length > 0, "no verdicts for the sampled people");
+    const seen = new Map<string, number>();
+    for (const r of rows) {
+      const k = `${r.slug} ${normIndependently(r.declared_name)} ${normIndependently(r.holder_name ?? "")}`;
+      seen.set(k, (seen.get(k) ?? 0) + 1);
+    }
+    assert.deepEqual(
+      [...seen.entries()]
+        .filter(([, n]) => n > 1)
+        .map(([k, n]) => `${k} x${n}`),
+      [],
+      "one holder's claim on one declared company was reported more than once",
+    );
+    // The client keys on exactly this pair, so a duplicate would silently drop a verdict —
+    // and a key that collapsed two holders would hand one of them the other's answer, which is
+    // the defect the per-holder grouping exists to prevent. Verified non-vacuous: the sample
+    // does contain names carrying more than one holder.
+    const perName = new Map<string, Set<string>>();
+    for (const r of rows) {
+      const k = `${r.slug} ${normIndependently(r.declared_name)}`;
+      const at = perName.get(k) ?? new Set<string>();
+      at.add(normIndependently(r.holder_name ?? ""));
+      perName.set(k, at);
+    }
+    assert.ok(
+      [...perName.values()].some((h) => h.size > 1),
+      "no declared company in the sample has two holders — this gate proves nothing",
+    );
+  },
+);
+
 // FIXTURE: Сергей Станишев, the profile this arm was built for (person-page-completeness-v1
 // T4a). Both of his own-filed stakes must stay unlinked, for two different reasons — which is
 // what makes the pair worth pinning:
@@ -713,7 +969,7 @@ test.skipIf(skip)("the payload is byte-stable across calls", async () => {
 test.skipIf(skip)(
   "the serving function enforces the privacy gate",
   async () => {
-    const hidden = await allRows<{ slug: string; r: unknown[] }>(`
+    const hidden = await allRows<{ slug: string; r: unknown[]; s: unknown[] }>(`
     WITH target AS MATERIALIZED (
       SELECT DISTINCT p.slug
         FROM declaration_stake_company sc
@@ -721,13 +977,25 @@ test.skipIf(skip)(
        WHERE p.status <> 'active' OR NOT p.is_public_figure
        LIMIT 50
     )
-    SELECT t.slug, person_stake_procurement(t.slug) AS r FROM target t
+    SELECT t.slug, person_stake_procurement(t.slug) AS r,
+           person_declared_stake_status(t.slug) AS s
+      FROM target t
   `);
-    const leaked = hidden.filter((h) => (h.r as unknown[]).length > 0);
+    const leaked = hidden.filter(
+      (h) => (h.r as unknown[]).length > 0 || (h.s as unknown[]).length > 0,
+    );
     assert.deepEqual(
       leaked.map((l) => l.slug),
       [],
       "a non-public / non-active person was served stake rows",
     );
+    // BOTH functions, because both serve declaration-derived facts about a named person off
+    // the same `person` predicate, and the newer one carries a company name and an EIK. The
+    // local corpus may hold no hidden person with stakes, in which case this is vacuous —
+    // which is itself worth saying rather than reading as coverage.
+    if (hidden.length === 0)
+      console.warn(
+        "privacy gate: no non-public person with declared stakes in this corpus — vacuous",
+      );
   },
 );

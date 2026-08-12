@@ -95,7 +95,10 @@
 -- Consequence accepted: glued spellings like "Смарт ТрейнингЕООД" no longer strip and simply
 -- fail to match. A missed link is a non-event; a wrong link is a false accusation.
 DROP MATERIALIZED VIEW IF EXISTS declaration_stake_company CASCADE;
-DROP FUNCTION IF EXISTS declared_company_norm(text);
+-- No DROP FUNCTION here: idx_tr_companies_declared_norm below is an EXPRESSION index over this
+-- function, so a DROP would fail (2BP01) on any database that already has it. CREATE OR REPLACE
+-- rewrites the body in place and the index is rebuilt from the new definition — same reasoning
+-- as the 077/003 DROP removals in CLAUDE.md, arrived at from the index side.
 CREATE OR REPLACE FUNCTION declared_company_norm(p_name text)
 RETURNS text LANGUAGE sql IMMUTABLE AS $$
   SELECT nullif(
@@ -124,6 +127,24 @@ CREATE OR REPLACE FUNCTION stake_holder_is_declarant(p_holder text, p_name_fold 
 RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
   SELECT p_holder IS NULL OR translit_bg_latin(p_holder) = p_name_fold;
 $$;
+
+-- The registry side of the name join, indexed.
+--
+-- The matview build below pays one sequential pass over ~998k companies either way, which is
+-- fine. `person_declared_stake_status` does NOT: it joins on the same expression per REQUEST,
+-- and without this index every call re-evaluated four chained regexp_replace over the whole
+-- register — measured 20,093 buffers and 1.99 s, against the ~2,000 this repo budgets for a
+-- call every profile view makes, on a db-g1-small under a 10 s statement_timeout. With it,
+-- 13.8 ms.
+--
+-- DELIBERATELY NOT IN `LOAD_INDEXES` (scripts/db/load_tr_pg.ts), unlike the eleven secondary
+-- indexes that loader drops for the COPY and rebuilds after. Two reasons. It would make the TR
+-- load depend on 096's function existing — a routine `db:load:tr:pg:cloud` failing on a
+-- database where 096 was never applied is a worse trade than what it buys. And what it buys is
+-- small: the expression over the whole indexed population is 2.0 s and the index is 44 MB, on
+-- a load that is 34.9 minutes on Cloud SQL. So the COPY maintains it, on purpose.
+CREATE INDEX IF NOT EXISTS idx_tr_companies_declared_norm
+  ON tr_companies (declared_company_norm(name)) WHERE entity_class = 'company';
 
 -- The resolution layer: one row per (stake row → confirmed EIK).
 CREATE MATERIALIZED VIEW declaration_stake_company AS
@@ -394,3 +415,164 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     JOIN won w ON w.uic = h.uic
   ), '[]'::jsonb);
 $$;
+
+-- ---------------------------------------------------------------------------
+-- WHY A DECLARED STAKE IS NOT LINKED — the remainder, with its reason.
+--
+-- `person_stake_procurement` above publishes the 15.9% of declared stakes that resolve. The
+-- other 84.1% are the ones the profile has always shown under „Декларирани дялове (не в
+-- Търговския регистър)" as an undifferentiated list, which conflates four different facts
+-- about the register and reads as one failure. Measured over the stake rows of active public
+-- figures (2026-08-12):
+--
+--   linked            2,434  15.9%   resolved to one EIK — link it
+--   no such company   6,124  40.1%   nothing in the register bears that name at all
+--   one candidate     6,260  41.0%   a company of that name exists, but:
+--                                      4,818  the declared holder is not recorded there
+--                                      1,442  someone of that name IS, and the name is
+--                                             shared — gate C will not name a person
+--   several           463     3.0%   more than one trading company bears the name
+--
+-- The plan (person-page-completeness-v1 T4) called for three buckets and predicted 40% in
+-- „няма съвпадение в ТР". The 40.1% is exact; what it did not predict is that the LARGEST
+-- group is not that one. Folding those 6,260 into "no match in the register" would state
+-- something false about a named company — it exists — so the client keeps three visual
+-- buckets (linked / not asserted / absent) and this function supplies the reason per row.
+--
+-- IT RETURNS THE LINKED ROWS TOO, for one reason: the family arm. A spouse's holding resolves
+-- to a company that is by definition NOT in the subject's own registry footprint, so the
+-- client's name match against that footprint cannot find it and it falls into this same
+-- remainder — fully resolved, and otherwise the only row on the list a reader could not click.
+--
+-- WHAT THIS MUST NOT DO. The unresolved arm is exactly the population 096's gates exist to
+-- keep off the page, so no unresolved row may look like a link. `candidates` carries EIKs
+-- only for the `ambiguous` reason, where naming them all is the honest move and picking one
+-- is the defect; for `unconfirmed` and `namesake` it is empty, because a single named company
+-- plus a person's name beside it IS the assertion the gates refuse to make.
+--
+-- Keyed on the declarant's RAW declared string, never on a normalised form. The client
+-- matches it against its own list with its own normaliser, applied to both sides — so the
+-- two normalisers never have to agree, which is the failure mode a shared key would invite.
+DROP FUNCTION IF EXISTS person_declared_stake_status(text);
+CREATE OR REPLACE FUNCTION person_declared_stake_status(p_slug text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH pick AS (
+    SELECT person_id, name_fold FROM person
+     WHERE slug = p_slug AND status = 'active' AND is_public_figure
+     LIMIT 1
+  ),
+  -- One row per declared stake, with the name the gates would confirm on.
+  st AS (
+    SELECT s.declaration_id, s.seq, s.company_name,
+           declared_company_norm(s.company_name) AS norm,
+           s.holder_name,
+           stake_holder_is_declarant(s.holder_name, pk.name_fold) AS holder_is_declarant,
+           CASE WHEN s.holder_name IS NULL THEN pk.name_fold
+                ELSE translit_bg_latin(s.holder_name) END AS confirm_fold
+      FROM declaration_stake s
+      JOIN declaration d ON d.declaration_id = s.declaration_id
+      JOIN pick pk ON pk.person_id = d.person_id
+     WHERE s.company_name IS NOT NULL
+       AND length(declared_company_norm(s.company_name)) > 2
+  ),
+  -- Collapse repeat filings: a person who declared the same company for eight years has one
+  -- unresolved company, not eight.
+  --
+  -- GROUPED BY (norm, confirm_fold), NEVER BY NAME ALONE. Resolution is a function of both:
+  -- the same declared name can be refused for the filer and resolved through their spouse,
+  -- which is the entire point of T4a's holder arm. Keyed on the name only, `bool_or(linked)`
+  -- reported the refused row as `linked` and handed it the spouse's EIK — 192 stake rows, 91
+  -- mixed (person, name) groups, 23 of them refusing the SUBJECT'S OWN claim and then
+  -- publishing it as their link. Worked example, mp-2647 / „АЛ И КО АД": the register does not
+  -- place him there, it places his wife, and the profile anchored the company to him with the
+  -- attribution stripped by any_own. A refusal published as a link is the one outcome every
+  -- gate in this file exists to prevent.
+  byname AS (
+    -- Every column qualified `st.`: the LEFT JOIN below brings a second `company_name` and
+    -- `holder_name` into scope, and an unqualified one is an ambiguity error at best and the
+    -- matview's own copy at worst.
+    SELECT st.norm,
+           st.confirm_fold,
+           min(st.company_name) AS company_name,
+           -- Uniform within the group: holder_is_declarant is itself a function of
+           -- confirm_fold, so every row here agrees.
+           bool_or(st.holder_is_declarant) AS holder_is_declarant,
+           -- The RAW holder string, kept even for the declarant's own rows. It is half the
+           -- client's join key, and nulling it for own rows (as the first cut did) is what
+           -- let a family row and an own row of the same name collide on one key.
+           min(st.holder_name) AS holder_name,
+           -- min() is safe only because no (person, declared name, holder) group has resolved
+           -- to two EIKs. That is ASSERTED, not implied: two family holders of one declared
+           -- name, each confirmed at a different company, would both resolve legitimately.
+           -- See "one declared name resolves to at most one EIK per holder" in
+           -- stake_procurement.data.test.ts — the per-ROW gate above is a different property.
+           min(sc.uic) AS uic,
+           bool_or(sc.uic IS NOT NULL) AS linked
+      FROM st
+      LEFT JOIN declaration_stake_company sc
+        ON sc.declaration_id = st.declaration_id AND sc.seq = st.seq
+     GROUP BY st.norm, st.confirm_fold
+  ),
+  cand AS (
+    SELECT DISTINCT b.norm, c.uic, c.name
+      FROM (SELECT DISTINCT norm FROM byname WHERE NOT linked) b
+      JOIN tr_companies c
+        ON c.entity_class = 'company'
+       AND declared_company_norm(c.name) = b.norm
+  )
+  SELECT COALESCE((
+    SELECT jsonb_agg(jsonb_build_object(
+      -- The declarant's own string, verbatim — half the client's join key.
+      'declaredName', b.company_name,
+      -- The other half, and the attribution. The RAW holder the filing names, or null when it
+      -- named none. `holderIsDeclarant` says which of those two it is, so a consumer never has
+      -- to re-derive the fold comparison to know whose holding a row describes.
+      'holderName', b.holder_name,
+      'holderIsDeclarant', b.holder_is_declarant,
+      'reason', CASE
+                  WHEN b.linked THEN 'linked'
+                  WHEN n.n = 0 THEN 'absent'
+                  WHEN n.n > 1 THEN 'ambiguous'
+                  WHEN NOT fp.any_footprint THEN 'unconfirmed'
+                  -- Gate C refuses on `n <> 1`, so a footprint that did not resolve was
+                  -- blocked for one of TWO reasons and they are not the same claim. `n >= 2`
+                  -- means the name is shared and we cannot say which person. `n = 0` means
+                  -- the person layer holds nobody by that name — 263 of 740 such names, 35.5%
+                  -- of the rows — and calling that "shared by more than one person" states
+                  -- something about the world that nothing in this database supports.
+                  WHEN ps.n_person > 1 THEN 'namesake'
+                  ELSE 'unverified'
+                END,
+      -- The resolved EIK, for 'linked' only.
+      'eik', b.uic,
+      'companyName', (SELECT name FROM tr_companies WHERE uic = b.uic),
+      -- Named ONLY for 'ambiguous'. See the note above: for a single unconfirmed candidate,
+      -- printing its EIK beside a person's name is the claim the gates declined to make.
+      'candidates', CASE WHEN NOT b.linked AND n.n > 1 THEN COALESCE((
+          SELECT jsonb_agg(jsonb_build_object('eik', c.uic, 'name', c.name) ORDER BY c.uic)
+            FROM cand c WHERE c.norm = b.norm
+        ), '[]'::jsonb) ELSE '[]'::jsonb END
+    ) ORDER BY b.company_name, b.confirm_fold)
+    FROM byname b
+    CROSS JOIN LATERAL (SELECT count(*) AS n FROM cand c WHERE c.norm = b.norm) n
+    CROSS JOIN LATERAL (
+      SELECT EXISTS (
+        SELECT 1 FROM cand c
+         WHERE c.norm = b.norm
+           AND (EXISTS (SELECT 1 FROM tr_person_roles r
+                         WHERE r.uic = c.uic AND r.name_fold = b.confirm_fold)
+             OR EXISTS (SELECT 1 FROM tr_officers o
+                         WHERE o.uic = c.uic AND o.name_fold = b.confirm_fold))
+      ) AS any_footprint
+    ) fp
+    CROSS JOIN LATERAL (
+      SELECT count(*) AS n_person FROM person p2
+       WHERE p2.name_fold = b.confirm_fold AND p2.status = 'active'
+    ) ps
+  ), '[]'::jsonb);
+$$;
+
+-- No GRANT: 096 issues none, deliberately. EXECUTE on a function is granted to PUBLIC by
+-- default, and the matview it reads is covered by the readonly role's blanket grant rather
+-- than per-file — adding a bare one here would reintroduce exactly the 42704-on-cold-bootstrap
+-- shape the role-guard sweep removed from 48 other files.

@@ -444,6 +444,34 @@ Gate: extend `PersonStakeProcurement.test.tsx` and add a data test asserting (a)
 resolves to >1 ЕИК, (b) every holder-arm row carries `holder_is_declarant = false`, (c) the
 Stanishev fixture resolves `АКТИВ ГРУП` to `121891779` and leaves `ПРИЗМА КЪМПАНИ` unlinked.
 
+### What T4 actually shipped, where it differs from the above (2026-08-12)
+
+Three deviations, all measured rather than chosen:
+
+- **Gate C is `n = 1`, never `n <= 1`, so `АКТИВ ГРУП` does NOT resolve** — the case that
+  motivated the whole holder arm. Its declared holder, Моника Любомирова Станишева, is an
+  officer at 14 companies and **absent from `person` entirely**, so `n = 0`. Admitting `n = 0`
+  would publish 624 candidate rows on no identity evidence at all: `person` is not a census, and
+  "we hold nobody by that name" is not "that name is unique". The gate's price, paid the same way
+  the plan already accepts it elsewhere. `ПРИЗМА КЪМПАНИ` is unlinked as specified — for a
+  different reason (no registry footprint), which is why the pair is worth pinning.
+- **The remainder splits three ways in the UI over SIX reasons in the payload**, not three. The
+  plan's three buckets came from an assumption that the non-absent remainder was ambiguity; it is
+  not. Measured over the stake rows of active public figures: `absent` 40.1% (the plan's 40%
+  prediction, exact), `unconfirmed` 31.6% — a company of that name IS registered and does not
+  record the declared holder — `namesake` + `unverified` 9.5%, `ambiguous` 3.0%, `linked` 15.9%.
+  Calling the 31.6% „няма съвпадение в ТР" states something false about a company that exists,
+  which is the same class of error the split exists to end.
+- **The verdict is keyed per (declared name, declared HOLDER)**, which the plan does not mention
+  and which turns out to be load-bearing. Resolution is a function of both — that is what the
+  holder arm means — so a name keyed alone lets a company refused for the filer inherit the
+  resolution obtained through their spouse: 192 stake rows, 23 of them refusing the subject's own
+  claim and then publishing it as their link.
+
+A fourth thing the plan could not have known: `person_stake_procurement`'s "most recently
+declared" collapse was not a total order, so 8 of 70 served rows could render a board seat as a
+shareholding depending on the matview's physical row order. Fixed in the same step (T4a).
+
 ---
 
 ## Tier 5 — curated party-leader roster
