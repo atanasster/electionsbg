@@ -13,6 +13,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { DeclaredStakeStatus } from "./useDeclaredStakeStatus";
 import type { MpDeclaration } from "@/data/dataTypes";
+import type { ProfileCompany } from "./usePersonProfile";
 
 const statusRows = vi.hoisted(() => ({
   current: [] as DeclaredStakeStatus[] | undefined,
@@ -64,12 +65,39 @@ const status = (
   ...extra,
 });
 
-const draw = () =>
+const draw = (companies: ProfileCompany[] = [], foldPeopleN?: number | null) =>
   render(
     <MemoryRouter>
-      <PersonCompanies companies={[]} name="Тест Тестов" mpId={1} slug="p-1" />
+      <PersonCompanies
+        companies={companies}
+        name="Тест Тестов"
+        mpId={1}
+        slug="p-1"
+        foldPeopleN={foldPeopleN}
+      />
     </MemoryRouter>,
   );
+
+/** A registry company on this person's page, defaulting to the name-matched basis. */
+const company = (
+  name: string,
+  linkBasis?: ProfileCompany["linkBasis"],
+): ProfileCompany =>
+  ({
+    eik: name === "ПЪРВА" ? "111" : "999",
+    name,
+    legalForm: "ЕООД",
+    seat: null,
+    status: "active",
+    roles: ["manager"],
+    linkBasis,
+    procuredEur: null,
+    contracts: null,
+    fundsEur: null,
+    fundsPaidEur: null,
+    fundProjects: null,
+    subsidiesEur: null,
+  }) as ProfileCompany;
 
 const links = (): string[] =>
   screen
@@ -241,5 +269,63 @@ describe("PersonCompanies — the declared-stakes remainder", () => {
     for (const n of ["Първа ЕООД", "Втора ЕООД", "Трета ЕООД"])
       expect(screen.getAllByText(n)).toHaveLength(1);
     expect(links()).toEqual(["/company/111"]);
+  });
+});
+
+// ── The link BASIS (tr-attribution-basis-v1 §1.2) ────────────────────────────
+//
+// The defect these cover: the namesake caveat used to render for anyone with any company, so
+// it said nothing about WHICH company rested on a name — and it told the ~340 people whose
+// every holding is register-confirmed that their own declared interests might be somebody
+// else's. Asserted on the words rather than on a class, per PersonMoneyCells.test.tsx.
+describe("PersonCompanies — the link basis", () => {
+  const NAMESAKE = /Лицата в Търговския регистър се идентифицират/;
+
+  it("marks a name-matched company and caveats the card", () => {
+    draw([company("ВТОРА")]);
+    expect(screen.getAllByText("по име").length).toBe(1);
+    expect(screen.getByText(NAMESAKE)).toBeTruthy();
+  });
+
+  it("leaves a fully declared footprint unmarked and uncaveated", () => {
+    // The reassurance has to be earned: every contributing company is register-confirmed, so
+    // there is nothing here for the namesake sentence to qualify.
+    draw([company("ПЪРВА", "declared")]);
+    expect(screen.queryByText("по име")).toBeNull();
+    expect(screen.queryByText(NAMESAKE)).toBeNull();
+  });
+
+  it("marks only the name-matched half of a mixed footprint", () => {
+    // 60 people are 'mixed'. A card-level caveat alone either over-qualifies the curated row
+    // or under-qualifies the rest, which is why the mark is per company.
+    draw([company("ПЪРВА", "declared"), company("ВТОРА", "name_match")]);
+    expect(screen.getAllByText("по име").length).toBe(1);
+    expect(screen.getByText(NAMESAKE)).toBeTruthy();
+  });
+
+  it("treats a MISSING linkBasis as a name match, never as declared", () => {
+    // An older 082 (a cloud database mid-deploy) omits the field. The two ways to be wrong
+    // are not symmetric: a needless caveat costs nothing, claiming a company is confirmed
+    // when it is not is the failure this whole plan exists to end.
+    draw([company("ВТОРА", undefined)]);
+    expect(screen.getAllByText("по име").length).toBe(1);
+  });
+
+  it("states the registry's own people-count when it has one", () => {
+    // Matched WITHOUT the numeral: i18next is not initialised in jsdom, so `t` returns the
+    // defaultValue verbatim and {{n}} is not substituted here. The count itself rides on the
+    // key in src/locales/*/translation.json; what this asserts is the rendering RULE — that
+    // the sentence appears at all, and (below) only when the fold is measured and shared.
+    draw([company("ВТОРА")], 3);
+    expect(screen.getByText(/различни лица с това име/)).toBeTruthy();
+  });
+
+  it("says nothing when the fold is UNMEASURED — absence is not reassurance", () => {
+    // null means the fold was never observed in the feed's window, which is 9.4% of folds and
+    // growing. Rendering it as "1 person" would turn missing evidence into a clean bill.
+    draw([company("ВТОРА")], null);
+    expect(screen.queryByText(/различни лица с това име/)).toBeNull();
+    draw([company("ВТОРА")], 1);
+    expect(screen.queryByText(/различни лица с това име/)).toBeNull();
   });
 });

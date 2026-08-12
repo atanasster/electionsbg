@@ -10,7 +10,11 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PersonProfile, usePersonProfileState } from "./usePersonProfile";
+import {
+  PersonProfile,
+  usePersonProfileState,
+  isSharedNameIdentity,
+} from "./usePersonProfile";
 import { officeTermPhrases } from "./officeTerm";
 import { foldOffices } from "./offices";
 import { officePlaceHref } from "./officePlaceHref";
@@ -326,9 +330,23 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
           <CardContent className="flex items-start gap-2 py-3 text-sm text-amber-800 dark:text-amber-300">
             <Info className="mt-0.5 h-4 w-4 shrink-0" />
             <span>
-              {i18n.language === "bg"
-                ? "Самоличността е по съвпадение на име и не е потвърдена. Данните обединяват фирмите, регистрирани на това име, и може да обхващат повече от един човек."
-                : "Identity is a name match, not verified. The data aggregates the companies registered under this name and may span more than one person."}
+              {/* Two different claims, and the stronger one must not be softened into the
+                  weaker. "not verified" describes OUR uncertainty; when the registry itself
+                  records several people under this name, the page says THAT — a fact about
+                  the source, not a hedge about us.
+                  Keyed rather than inlined so a wording correction reaches both languages
+                  from src/locales, and read through isSharedNameIdentity so this card and
+                  the /persons chip cannot decide the same claim from different columns. */}
+              {isSharedNameIdentity(p)
+                ? t("pp_identity_shared_name", {
+                    n: p.foldPeopleN ?? 2,
+                    defaultValue:
+                      "Търговският регистър съдържа поне {{n}} различни лица с това име. Данните обединяват фирмите, регистрирани на името, и почти сигурно смесват повече от един човек.",
+                  })
+                : t("pp_identity_name_match", {
+                    defaultValue:
+                      "Самоличността е по съвпадение на име и не е потвърдена. Данните обединяват фирмите, регистрирани на това име, и може да обхващат повече от един човек.",
+                  })}
             </span>
           </CardContent>
         </Card>
@@ -611,6 +629,11 @@ const PersonDashboardBody: FC<{ p: PersonProfile; mpId: number | null }> = ({
             name={p.name}
             mpId={mpId}
             slug={p.slug}
+            /* Only when the amber card above did NOT already say it. That card renders for
+               private (Tier-V) people; public figures never see it, and they are exactly the
+               Bridge-B population this sentence is for — so between the two, every page that
+               should carry the count carries it, and none carries it twice. */
+            foldPeopleN={p.isPublicFigure === false ? undefined : p.foldPeopleN}
           />
 
           {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}

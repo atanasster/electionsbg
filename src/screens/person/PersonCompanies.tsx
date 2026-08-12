@@ -144,12 +144,38 @@ const CompanyMoney: FC<{ c: ProfileCompany }> = ({ c }) => {
   );
 };
 
+/** Absent linkBasis is treated as a name match, never as declared.
+ *
+ *  A cloud database still serving a 082 older than tr-attribution-basis-v1 omits the field,
+ *  and the two ways to be wrong are not symmetric: calling a curated link a name match costs
+ *  a caveat nobody needed, while calling a name match "declared" tells a reader we confirmed
+ *  a company belongs to a named person when we did not. */
+const isNameMatch = (c: ProfileCompany): boolean => c.linkBasis !== "declared";
+
+/** The small "по име" mark on a company whose link rests on a name.
+ *
+ *  Same wording source as the /persons money cell (`person_namesake_disclosure`), so the two
+ *  surfaces cannot drift into describing the same uncertainty differently. */
+const NameMatchMark: FC<{ label: string }> = ({ label }) => {
+  const { t } = useTranslation();
+  return (
+    <span
+      className="ml-1 shrink-0 whitespace-nowrap rounded-full bg-amber-100 px-1.5 py-0.5 align-middle text-[10px] text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+      title={label}
+    >
+      {t("pp_link_name_match", { defaultValue: "по име" })}
+    </span>
+  );
+};
+
 export const PersonCompanies: FC<{
   companies: ProfileCompany[];
   name: string;
   mpId: number | null;
   slug: string;
-}> = ({ companies, name, mpId, slug }) => {
+  /** Distinct registry people on this person's fold; null/undefined = unmeasured. */
+  foldPeopleN?: number | null;
+}> = ({ companies, name, mpId, slug, foldPeopleN }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
@@ -267,6 +293,29 @@ export const PersonCompanies: FC<{
                         {" "}
                         {c.legalForm}
                       </span>
+                    )}
+                    {/* Per company, because the basis is per company: 60 people hold one
+                        curated company alongside several name-matched ones, and a single
+                        card-level caveat either over-qualifies the curated row or
+                        under-qualifies the rest.
+                        A 'declared' row carries no mark. That is the ABSENCE of a caveat, not
+                        a positive claim — deliberately, since `declared` means a register put
+                        the COMPANY on this person and the officer row inside it is still a
+                        name match, so a "confirmed" badge would overstate it. (The cacbg
+                        attribution line below is MP-only, so on a magistrate's or mayor's
+                        profile there is no source line either; adding one for the non-MP
+                        registers is open work, tracked in the plan.) */}
+                    {isNameMatch(c) && (
+                      <NameMatchMark
+                        label={t("person_namesake_disclosure", {
+                          // A defaultValue so a dropped or renamed key shows a SENTENCE rather than
+                          // the bare identifier — on the one line whose job is to qualify a claim
+                          // about a named person. src/locales/*/translation.json stays the source
+                          // translators edit; this is the last-resort fallback.
+                          defaultValue:
+                            "Лицата в Търговския регистър се идентифицират само по име, затова тези записи може да обединяват различни хора с еднакво име.",
+                        })}
+                      />
                     )}
                     <span className="block text-xs text-muted-foreground">
                       {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
@@ -418,12 +467,41 @@ export const PersonCompanies: FC<{
             </div>
           )}
 
-          {/* Namesake caveat — lives HERE (was an orphaned page-bottom note): the registry
-              footprint is name-matched (no ЕГН), so it belongs with the company records it
-              qualifies, not after the EIK-exact money timeline. */}
-          {companies.length > 0 && (
-            <div className="mt-3 border-t pt-3 text-xs text-muted-foreground">
-              {t("person_namesake_disclosure")}
+          {/* Namesake caveat — lives HERE (was an orphaned page-bottom note): it belongs with
+              the company records it qualifies, not after the EIK-exact money timeline.
+              CONDITIONAL since tr-attribution-basis-v1: it used to render for anyone with any
+              company, which told the ~340 people whose every holding is register-confirmed
+              that their own declared interests might belong to somebody else. Now it appears
+              only when at least one company on this page actually rests on a name. */}
+          {companies.some(isNameMatch) && (
+            <div className="mt-3 space-y-1 border-t pt-3 text-xs text-muted-foreground">
+              <div>
+                {t("person_namesake_disclosure", {
+                  // A defaultValue so a dropped or renamed key shows a SENTENCE rather than
+                  // the bare identifier — on the one line whose job is to qualify a claim
+                  // about a named person. src/locales/*/translation.json stays the source
+                  // translators edit; this is the last-resort fallback.
+                  defaultValue:
+                    "Лицата в Търговския регистър се идентифицират само по име, затова тези записи може да обединяват различни хора с еднакво име.",
+                })}
+              </div>
+              {/* The registry's own count, when we have it. This is the difference between
+                  "we could not verify" and "the register itself lists N people under this
+                  name" — the second is a fact a reader can act on. Rendered ONLY for >1:
+                  null means unmeasured (see PersonProfile.foldPeopleN) and 1 needs no
+                  sentence. */}
+              {foldPeopleN != null && foldPeopleN > 1 && (
+                <div className="font-medium text-amber-700 dark:text-amber-400">
+                  {/* `n`, not i18next's `count`: passing `count` switches the lookup to the
+                      plural key family (…_one / …_other) and the defaultValue below stops
+                      being used, which renders the bare key to the reader. */}
+                  {t("pp_fold_people_n", {
+                    n: foldPeopleN,
+                    defaultValue:
+                      "Търговският регистър съдържа поне {{n}} различни лица с това име.",
+                  })}
+                </div>
+              )}
             </div>
           )}
         </CardContent>

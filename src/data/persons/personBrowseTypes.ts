@@ -16,8 +16,18 @@ export interface PersonBrowseRow {
   slug: string | null;
   /** position_type CODE (politician/executive/…/private_sector). */
   positionType: string | null;
-  /** 'resolved' (public) | 'name_fold' (a NAME match, not a verified identity — badge it). */
-  identityConfidence: "resolved" | "name_fold";
+  /** How this row's identity was established. FOUR values reach the browser, not two — this
+   *  type declared only 'resolved' | 'name_fold' until tr-attribution-basis-v1, which made
+   *  every consumer's exhaustive-looking check silently miss the largest group:
+   *
+   *    'resolved'    cross-source identity (the public tier)
+   *    'verified'    a Tier-V private owner the RESOLVER minted from the registry by name
+   *                  fold — 68,783 rows, name-only identity, and the chip did not badge them
+   *    'shared_name' the same mint on a fold the registry positively says is ≥2 people
+   *    'name_fold'   the ~4.4k browse-only rows 120 synthesises on the fly
+   *
+   *  Everything except 'resolved' rests on a name and must be badged. */
+  identityConfidence: "resolved" | "verified" | "shared_name" | "name_fold";
   name: string;
   /** Only ~4% of the corpus has a face (2,120 MPs + ≤192 officials). */
   photoUrl: string | null;

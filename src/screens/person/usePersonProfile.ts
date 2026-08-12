@@ -43,6 +43,16 @@ export type ProfileCompany = {
   seat: string | null;
   status: string | null;
   roles: string[];
+  /** HOW this person↔company link was established (082, via person_company_bridge_a).
+   *
+   *  'declared' = a curated register (declared interests / ИВСС чл.175а) put this COMPANY on
+   *  this person. 'name_match' = it was found by folded name alone.
+   *
+   *  NOT a confirmed identity even when 'declared': the company link is register-sourced, but
+   *  the officer row inside it is still matched on (given, family). UI copy must not upgrade
+   *  it to "потвърдена самоличност". Optional because a cloud database served by a 082 older
+   *  than tr-attribution-basis-v1 omits it — treat absent as 'name_match', never as declared. */
+  linkBasis?: "declared" | "name_match";
   procuredEur: number | null;
   contracts: number | null;
   fundsEur: number | null;
@@ -82,6 +92,18 @@ export type PersonProfile = {
   name: string;
   namesakeRisk: number;
   isPublicFigure: boolean;
+  /** How many DISTINCT people the Commerce Registry records under this person's name fold.
+   *
+   *  ⚠️ null means UNMEASURED, never 1. The fold was not observed in the TR daily feed's
+   *  window (9.4% of folds, a share that GROWS as the CR-Deeds arm widens, since that source
+   *  publishes no identity key at all), or this database predates the loader. Rendering null
+   *  as "one person" turns an absence of evidence into a reassurance, which is the exact
+   *  failure the three-state design exists to prevent. */
+  foldPeopleN?: number | null;
+  /** 'resolved' = cross-source identity. 'verified' = a Tier-V private owner minted from the
+   *  registry by name fold. 'shared_name' = the same mint on a fold the registry says is two
+   *  or more people. */
+  identityConfidence?: "resolved" | "verified" | "shared_name";
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
@@ -94,6 +116,23 @@ export type PersonProfile = {
   regulators: RegulatorSeat[];
   aliases: string[];
 };
+
+/** Does the registry itself say several people share this person's name?
+ *
+ *  Reads BOTH signals and returns true if EITHER says so, because they are written by
+ *  different steps of the same resolve: `fold_people_n` is copied onto every person, while
+ *  `identity_confidence = 'shared_name'` is set only on the Tier-V mint. A resolver that
+ *  populated one and dropped the other — the `copyRows` / `date_basis` failure class this
+ *  repo has shipped before — would otherwise leave the profile card and the browser chip
+ *  making different claims about one named person, which tr-attribution-basis-v1 §0.2 calls
+ *  the worst bug this family can carry.
+ *
+ *  Fail-safe by construction: disagreement produces the caveat, never its absence. */
+export const isSharedNameIdentity = (p: {
+  foldPeopleN?: number | null;
+  identityConfidence?: string;
+}): boolean =>
+  p.identityConfidence === "shared_name" || (p.foldPeopleN ?? 0) > 1;
 
 /** The four states a profile lookup can be in. `missing` and `failed` are DELIBERATELY
  *  distinct, and conflating them is what this type exists to prevent.

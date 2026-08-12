@@ -442,16 +442,35 @@ export const PersonsBrowserScreen: FC = () => {
                 className="h-7 w-7 shrink-0"
               />
               <span className="text-sm font-medium">{p.name}</span>
-              {p.identityConfidence === "name_fold" ? (
+              {/* EVERY name-derived identity, expressed as "not 'resolved'" rather than as a
+                  list of the name-based values. This used to test `=== "name_fold"`, which is
+                  the ~4.4k rows 120 mints on the fly — so the 68,783 Tier-V people the
+                  RESOLVER mints, who read 'verified', carried no mark at all despite having
+                  exactly the same name-only identity. Enumerating the name-based values
+                  instead would repeat that bug's shape: a fifth one goes unbadged the day it
+                  is added. 'resolved' is the ONLY cross-source identity, so it is the only
+                  safe thing to name. 'shared_name' — the subset the registry positively says
+                  is several people — gets the stronger label. */}
+              {p.identityConfidence !== "resolved" ? (
                 <span
                   className="whitespace-nowrap rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] text-amber-800 dark:bg-amber-950 dark:text-amber-300"
                   title={
-                    isBg
-                      ? "Самоличността е по съвпадение на име, не е потвърдена"
-                      : "Identity is a name match, not verified"
+                    p.identityConfidence === "shared_name"
+                      ? isBg
+                        ? "Търговският регистър съдържа няколко различни лица с това име — записите почти сигурно смесват повече от един човек"
+                        : "The Commercial Register records several different people under this name — these records almost certainly span more than one person"
+                      : isBg
+                        ? "Самоличността е по съвпадение на име, не е потвърдена"
+                        : "Identity is a name match, not verified"
                   }
                 >
-                  {isBg ? "по име" : "name match"}
+                  {p.identityConfidence === "shared_name"
+                    ? isBg
+                      ? "няколко лица"
+                      : "several people"
+                    : isBg
+                      ? "по име"
+                      : "name match"}
                 </span>
               ) : null}
             </Link>
