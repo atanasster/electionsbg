@@ -24,12 +24,18 @@ vi.mock("react-i18next", () => ({
 vi.mock("@/data/parties/useCanonicalParties", () => ({
   useCanonicalParties: () => ({ colorFor: () => "#123456" }),
 }));
-vi.mock("@/ux/useMediaQueryMatch", () => ({ useMediaQueryMatch: () => false }));
+// Mutable so the slot cases below can exercise BOTH band heights (the strip is
+// h-24 on a phone, h-14 above it). Defaults to false, which is what the
+// alignment cases above assume.
+const media = vi.hoisted(() => ({ isSmall: false }));
+vi.mock("@/ux/useMediaQueryMatch", () => ({
+  useMediaQueryMatch: () => media.isSmall,
+}));
 // The pill tooltip pulls in MP avatars and the parliament roster; it is only mounted once a
 // pill is opened, which this layout guard never does.
 vi.mock("@/data/parliament/useMps", () => ({ useMps: () => ({ data: [] }) }));
 
-import { CabinetStrip } from "./GovernmentTimeline";
+import { CabinetStrip, CabinetStripSlot } from "./GovernmentTimeline";
 import { TouchProvider } from "@/ux/TouchProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -129,4 +135,89 @@ describe("CabinetStrip (aligned)", () => {
     const { container } = renderStrip(false);
     expect(container.textContent?.trim()).toBe("");
   });
+});
+
+// /indicators/compare renders the strip only once governments.json has landed. Rendering
+// the whole SECTION conditionally meant that arrival inserted 149px above a page that was
+// already laid out and moved all of it down — 0.1267 of that page's 0.1531 CLS, in every
+// run of the measurement (built dist, Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU, served at the
+// electionsbg.com origin). The slot holds the band open from first paint instead.
+//
+// What is asserted is not a pixel count but that the two agree: the slot renders the same
+// band the loaded strip does, at both viewport sizes. A height copied into the call site
+// would pass a fixed-number test and still drift the day the strip's own class changes.
+const bandClasses = (container: HTMLElement): string[] => {
+  const band = container.querySelector("div.flex.mb-1.rounded");
+  expect(band, "no strip band rendered").not.toBeNull();
+  return (
+    [...band!.classList]
+      // The loaded strip sizes its band to its pills (w-max inside the scroll container);
+      // the empty slot has none to size to. Width is not what reserves vertical space.
+      .filter((c) => !c.startsWith("w-"))
+      .sort()
+  );
+};
+
+describe("CabinetStripSlot", () => {
+  it.each([
+    ["above sm — the h-14 band", false, false],
+    ["phone width — the h-24 scrolling band", true, false],
+    // No screen passes both flags today. Asserted anyway because the height
+    // rule resolves them in a set order, and the slot has to resolve it the
+    // same way or the first screen that does gets a shift back.
+    ["compact, above sm", false, true],
+    ["compact, phone width", true, true],
+  ])(
+    "reserves the same band the loaded strip renders, %s",
+    (_label, small, compact) => {
+      media.isSmall = small as boolean;
+      // Same jsdom gaps renderStrip papers over: the strip measures itself, and
+      // TouchProvider resolves (pointer: coarse) on mount.
+      if (!window.ResizeObserver) {
+        window.ResizeObserver = class {
+          observe() {}
+          unobserve() {}
+          disconnect() {}
+        } as unknown as typeof ResizeObserver;
+      }
+      vi.stubGlobal(
+        "matchMedia",
+        vi.fn(() => ({
+          matches: false,
+          addEventListener() {},
+          removeEventListener() {},
+        })),
+      );
+      try {
+        const loaded = render(
+          <TouchProvider>
+            <TooltipProvider>
+              <CabinetStrip
+                governments={GOVS}
+                xDomain={DOMAIN}
+                lang="bg"
+                mobileScrollable
+                compact={compact as boolean}
+                fullWidth
+              />
+            </TooltipProvider>
+          </TouchProvider>,
+        );
+        const slot = render(
+          <CabinetStripSlot mobileScrollable compact={compact as boolean} />,
+        );
+        expect(bandClasses(slot.container)).toEqual(
+          bandClasses(loaded.container),
+        );
+        // The phone variant's band sits inside a scroll container that adds its own
+        // padding to the reserved height, so the slot has to reproduce that too.
+        expect(!!slot.container.querySelector("div.overflow-x-auto.pb-1")).toBe(
+          !!loaded.container.querySelector("div.overflow-x-auto.pb-1"),
+        );
+      } finally {
+        media.isSmall = false;
+        vi.unstubAllGlobals();
+      }
+    },
+  );
 });

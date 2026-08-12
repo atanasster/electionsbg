@@ -107,7 +107,12 @@ const PeerPanel: FC<{
   rows: Row[];
   shortLabel: Record<PeerGeo, string>;
   lang: "bg" | "en";
-}> = ({ peerGeo, rows, shortLabel, lang }) => {
+  /** Render the panel's chrome around an EMPTY plot — the peers query is still
+   *  in flight. Everything above the plot (both flags, both labels) comes from
+   *  the URL peer selection and the locale, so the pending panel is the same
+   *  box at the same height as the one that replaces it. */
+  pending?: boolean;
+}> = ({ peerGeo, rows, shortLabel, lang, pending = false }) => {
   return (
     <div className="flex flex-col gap-1.5 rounded-lg border bg-card p-3">
       <div className="flex items-center justify-between text-[11px]">
@@ -123,63 +128,112 @@ const PeerPanel: FC<{
         </span>
       </div>
       <div className="h-[200px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={rows} outerRadius="68%">
-            <PolarGrid stroke="hsl(var(--border))" />
-            <PolarAngleAxis
-              dataKey="dim"
-              tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
-            />
-            <PolarRadiusAxis
-              domain={[-1.5, 1.5]}
-              tick={false}
-              axisLine={false}
-              tickCount={4}
-            />
-            <Radar
-              key="EU27_2020"
-              name="EU27"
-              dataKey="EU27_2020"
-              stroke={GEO_COLOR.EU27_2020}
-              strokeWidth={1.2}
-              strokeDasharray="4 3"
-              fill={GEO_COLOR.EU27_2020}
-              fillOpacity={0}
-              isAnimationActive={false}
-            />
-            <Radar
-              key={peerGeo}
-              name={shortLabel[peerGeo]}
-              dataKey={peerGeo}
-              stroke={GEO_COLOR[peerGeo]}
-              strokeWidth={1.5}
-              fill={GEO_COLOR[peerGeo]}
-              fillOpacity={0.1}
-              isAnimationActive={false}
-            />
-            <Radar
-              key="BG"
-              name={shortLabel.BG}
-              dataKey="BG"
-              stroke={GEO_COLOR.BG}
-              strokeWidth={2.2}
-              fill={GEO_COLOR.BG}
-              fillOpacity={0.28}
-              isAnimationActive={false}
-            />
-            <Tooltip
-              cursor={{
-                stroke: "hsl(var(--muted-foreground))",
-                strokeWidth: 0.5,
-                strokeDasharray: "2 3",
-              }}
-              content={(props) => (
-                <PanelTooltip {...props} shortLabel={shortLabel} />
-              )}
-            />
-          </RadarChart>
-        </ResponsiveContainer>
+        {pending ? (
+          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart data={rows} outerRadius="68%">
+              <PolarGrid stroke="hsl(var(--border))" />
+              <PolarAngleAxis
+                dataKey="dim"
+                tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+              />
+              <PolarRadiusAxis
+                domain={[-1.5, 1.5]}
+                tick={false}
+                axisLine={false}
+                tickCount={4}
+              />
+              <Radar
+                key="EU27_2020"
+                name="EU27"
+                dataKey="EU27_2020"
+                stroke={GEO_COLOR.EU27_2020}
+                strokeWidth={1.2}
+                strokeDasharray="4 3"
+                fill={GEO_COLOR.EU27_2020}
+                fillOpacity={0}
+                isAnimationActive={false}
+              />
+              <Radar
+                key={peerGeo}
+                name={shortLabel[peerGeo]}
+                dataKey={peerGeo}
+                stroke={GEO_COLOR[peerGeo]}
+                strokeWidth={1.5}
+                fill={GEO_COLOR[peerGeo]}
+                fillOpacity={0.1}
+                isAnimationActive={false}
+              />
+              <Radar
+                key="BG"
+                name={shortLabel.BG}
+                dataKey="BG"
+                stroke={GEO_COLOR.BG}
+                strokeWidth={2.2}
+                fill={GEO_COLOR.BG}
+                fillOpacity={0.28}
+                isAnimationActive={false}
+              />
+              <Tooltip
+                cursor={{
+                  stroke: "hsl(var(--muted-foreground))",
+                  strokeWidth: 0.5,
+                  strokeDasharray: "2 3",
+                }}
+                content={(props) => (
+                  <PanelTooltip {...props} shortLabel={shortLabel} />
+                )}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        )}
       </div>
+    </div>
+  );
+};
+
+// "Изглед" — small multiples vs the legacy overlaid radar. Its own component
+// because the loading placeholder renders it too: nothing in it depends on the
+// payload (both labels are translation keys, the mode is local state), so it is
+// part of the shape that must be there from first paint rather than something
+// that arrives with the data.
+const ViewToggle: FC<{
+  mode: "small" | "overlaid";
+  setMode: (m: "small" | "overlaid") => void;
+}> = ({ mode, setMode }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex items-center justify-end gap-1.5 text-[11px]">
+      <span className="text-muted-foreground mr-1">
+        {t("eu_compare_wgi_view_label")}
+      </span>
+      <button
+        type="button"
+        aria-pressed={mode === "small"}
+        onClick={() => setMode("small")}
+        className={cn(
+          "px-2 py-0.5 rounded-full border transition-colors",
+          mode === "small"
+            ? "bg-foreground text-background border-transparent"
+            : "bg-background text-muted-foreground border-border hover:bg-accent/10",
+        )}
+      >
+        {t("eu_compare_wgi_view_small")}
+      </button>
+      <button
+        type="button"
+        aria-pressed={mode === "overlaid"}
+        onClick={() => setMode("overlaid")}
+        className={cn(
+          "px-2 py-0.5 rounded-full border transition-colors",
+          mode === "overlaid"
+            ? "bg-foreground text-background border-transparent"
+            : "bg-background text-muted-foreground border-border hover:bg-accent/10",
+        )}
+      >
+        {t("eu_compare_wgi_view_overlaid")}
+      </button>
     </div>
   );
 };
@@ -187,7 +241,7 @@ const PeerPanel: FC<{
 export const EuCompareWgiSmallMultiples: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: peers } = useMacroPeers();
+  const { data: peers, isPending: peersPending } = useMacroPeers();
   const { geos } = usePeerSelection();
   const electionYear = useCompareSnapshotYear();
   const wgi = peers?.wgi;
@@ -219,6 +273,67 @@ export const EuCompareWgiSmallMultiples: FC = () => {
     return pickByYear(bgSeries, electionYear)?.year ?? null;
   }, [wgi, electionYear]);
 
+  // Filter out BG and EU27 — these are baked into every panel as the anchor +
+  // reference. Only render a panel per user-toggleable peer. Derived from the
+  // URL peer selection, so the panel COUNT is known before macro_peers.json is.
+  const peerPanels = geos.filter((g) => g !== "BG" && g !== "EU27_2020");
+
+  // While the peers query is unsettled this is the first thing the section
+  // renders, and collapsing it to one line of text is what made the section
+  // grow 208px → 1284px when macro_peers.json landed. Measured on
+  // /indicators/compare (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU) that growth
+  // pushed the snapshot table below it clean out of the viewport and scored
+  // 0.2230 — the largest single shift on the page.
+  //
+  // There is no scalar height to reserve here, because the loaded state is a
+  // grid of small multiples rather than one plot. So the placeholder is the
+  // grid itself: the same wrapper, the same toggle row, one PeerPanel per
+  // selected peer, each around the same fixed h-[200px] plot. Every input to
+  // that shape (peer selection, locale) is available before the payload is, so
+  // it reserves what actually arrives rather than an estimate of it.
+  //
+  // Pending ONLY. useMacroPeers' fetcher returns undefined on a non-ok
+  // response and react-query records that as SUCCESS, so `!wgi` is permanent
+  // after a failed fetch — reserving on it would hold a page of empty panels
+  // for ever. A settled-but-empty payload falls through to the line of text
+  // below, exactly as before.
+  if (peersPending) {
+    return (
+      <div className="flex flex-col gap-3">
+        <ViewToggle mode={mode} setMode={setMode} />
+        {/* Mode-aware, like the loaded return below — the toggle is live while
+            the payload is in flight, so a placeholder that ignored `mode` would
+            leave it looking broken for the second the fetch takes. The overlaid
+            view reserves its own plot. */}
+        {mode === "small" ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {peerPanels.map((g) => (
+              <PeerPanel
+                key={g}
+                peerGeo={g}
+                rows={[]}
+                shortLabel={shortLabel}
+                lang={lang}
+                pending
+              />
+            ))}
+          </div>
+        ) : (
+          <EuCompareWgiRadar />
+        )}
+        {/* The year footnote's text needs the payload, but its line box does
+            not — reserving it with the same classes keeps the last 18px from
+            shifting too, without inventing a year to display. */}
+        <div
+          className="text-[10px] text-muted-foreground/70 mt-1 text-right"
+          aria-hidden
+        >
+          &nbsp;
+        </div>
+      </div>
+    );
+  }
+
   if (!wgi || rows.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -227,43 +342,9 @@ export const EuCompareWgiSmallMultiples: FC = () => {
     );
   }
 
-  // Filter out BG and EU27 — these are baked into every panel as the anchor +
-  // reference. Only render a panel per user-toggleable peer.
-  const peerPanels = geos.filter((g) => g !== "BG" && g !== "EU27_2020");
-
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-end gap-1.5 text-[11px]">
-        <span className="text-muted-foreground mr-1">
-          {t("eu_compare_wgi_view_label")}
-        </span>
-        <button
-          type="button"
-          aria-pressed={mode === "small"}
-          onClick={() => setMode("small")}
-          className={cn(
-            "px-2 py-0.5 rounded-full border transition-colors",
-            mode === "small"
-              ? "bg-foreground text-background border-transparent"
-              : "bg-background text-muted-foreground border-border hover:bg-accent/10",
-          )}
-        >
-          {t("eu_compare_wgi_view_small")}
-        </button>
-        <button
-          type="button"
-          aria-pressed={mode === "overlaid"}
-          onClick={() => setMode("overlaid")}
-          className={cn(
-            "px-2 py-0.5 rounded-full border transition-colors",
-            mode === "overlaid"
-              ? "bg-foreground text-background border-transparent"
-              : "bg-background text-muted-foreground border-border hover:bg-accent/10",
-          )}
-        >
-          {t("eu_compare_wgi_view_overlaid")}
-        </button>
-      </div>
+      <ViewToggle mode={mode} setMode={setMode} />
 
       {mode === "small" ? (
         peerPanels.length === 0 ? (

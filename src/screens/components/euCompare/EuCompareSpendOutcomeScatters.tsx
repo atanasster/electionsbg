@@ -27,6 +27,7 @@ import {
 } from "recharts";
 import { useCofog, type CofogCode } from "@/data/macro/useCofog";
 import {
+  useMacroPeers,
   usePeerIndicatorAnnual,
   type PeerGeo,
 } from "@/data/macro/useMacroPeers";
@@ -60,10 +61,16 @@ const useScatterData = (
   points: ScatterPoint[];
   euX: number | null;
   euY: number | null;
+  /** True while EITHER source is still in flight. A scatter needs both — the
+   *  x from cofog.json, the y from macro_peers.json — so "not loaded yet" is
+   *  the union, not whichever one this component happens to notice first. */
+  pending: boolean;
 } => {
-  const { data: cofog } = useCofog();
+  const { data: cofog, isPending: cofogPending } = useCofog();
+  const { isPending: peersPending } = useMacroPeers();
   const outcome = usePeerIndicatorAnnual(outcomeKey);
-  return useMemo(() => {
+  const pending = cofogPending || peersPending;
+  const data = useMemo(() => {
     // Pick the COFOG composition year ≤ electionYear. Walk peerSeriesByYear
     // back from electionYear to find the latest year that has data.
     const byYear = cofog?.peerSeriesByYear ?? {};
@@ -105,6 +112,7 @@ const useScatterData = (
     }
     return { points, euX, euY };
   }, [cofog, outcome, visibleGeos, spendCode, shortLabel, electionYear]);
+  return { ...data, pending };
 };
 
 // Custom tooltip — Recharts' default labels rows as "x" and "y" which is
@@ -187,13 +195,37 @@ const MiniScatter: FC<{
   const { geos } = usePeerSelection();
   const electionYear = useCompareSnapshotYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
-  const { points, euX, euY } = useScatterData(
+  const { points, euX, euY, pending } = useScatterData(
     spendCode,
     outcomeKey,
     geos,
     shortLabel,
     electionYear,
   );
+
+  // Both sources still in flight — hold the card's real shape. Title and
+  // explainer are translation keys and the plot box is a fixed h-[220px], so
+  // the placeholder is the loaded card minus its marks. Measured on
+  // /indicators/compare (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU), this section
+  // grew 356px → 1028px on arrival when both cards collapsed to a line.
+  //
+  // Pending ONLY: both fetchers resolve to undefined on a non-ok response,
+  // which react-query records as SUCCESS, so a failed fetch would otherwise
+  // reserve two empty cards permanently. Once settled, `points.length < 3`
+  // collapses to the one-line message exactly as before.
+  if (pending) {
+    return (
+      <div className="rounded border border-border/50 p-3">
+        <h3 className="text-sm font-semibold mb-1">{t(titleKey)}</h3>
+        <p className="text-[11px] text-muted-foreground mb-2">
+          {t(explainerKey)}
+        </p>
+        <div className="h-[220px] w-full">
+          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+        </div>
+      </div>
+    );
+  }
 
   if (points.length < 3) {
     return (

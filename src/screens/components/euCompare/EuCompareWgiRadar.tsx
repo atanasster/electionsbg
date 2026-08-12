@@ -105,7 +105,7 @@ const WgiTooltip = ({
 export const EuCompareWgiRadar: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: peers } = useMacroPeers();
+  const { data: peers, isPending: peersPending } = useMacroPeers();
   const { geos } = usePeerSelection();
   const electionYear = useCompareSnapshotYear();
   const wgi = peers?.wgi;
@@ -137,6 +137,43 @@ export const EuCompareWgiRadar: FC = () => {
     const bgSeries = wgi.series[firstDim]?.BG;
     return pickByYear(bgSeries, electionYear)?.year ?? null;
   }, [wgi, electionYear]);
+
+  // Same reservation the small-multiples grid makes, for the same reason: hold
+  // the plot's own h-[340px] while the peers query is unsettled rather than
+  // collapsing to a line of text and expanding on arrival. This view is only
+  // reachable by clicking "наложени", so it never scored in the /indicators/
+  // compare measurement — CLS discounts shifts within 500ms of an input — but a
+  // reader who flips the view while the payload is still in flight sees the
+  // same growth, and the reservation costs one branch.
+  //
+  // Pending ONLY: useMacroPeers' fetcher returns undefined on a non-ok
+  // response and react-query calls that SUCCESS, so `!wgi` is permanent after a
+  // failed fetch and must still collapse to the message below.
+  if (peersPending) {
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="h-[340px] w-full">
+          <div className="h-full w-full animate-pulse rounded bg-muted/40" />
+        </div>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+          {geos.map((g) => (
+            <span key={g} className="inline-flex items-center gap-1.5">
+              <Flag geo={g} size={11} title={shortLabel[g]} />
+              <span
+                className={cn(
+                  g === "BG"
+                    ? "font-semibold text-foreground"
+                    : "text-muted-foreground",
+                )}
+              >
+                {shortLabel[g]}
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (!wgi || data.length === 0) {
     return (

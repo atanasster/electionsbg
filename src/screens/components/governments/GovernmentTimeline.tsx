@@ -495,6 +495,72 @@ const PillTooltip: FC<{
   );
 };
 
+// The strip's band is a FIXED height per variant — the pills tile horizontally
+// inside it, so neither the cabinet count nor the label lengths change how tall
+// it is. Named once here because two renders need the same answer: the strip
+// itself, and the empty slot a caller holds open while governments.json is
+// still in flight (CabinetStripSlot below).
+const stripBandClass = (o: {
+  compact: boolean;
+  isSmall: boolean;
+  mobileScrollable?: boolean;
+}): string =>
+  cn(
+    "flex mb-1 rounded overflow-hidden",
+    // The horizontally scrolling phone variant is ALWAYS the tall band — its
+    // narrow pills carry rotated labels that need the height — so it is checked
+    // before `compact`. No caller passes both flags today; stating the
+    // precedence here is what stops that from becoming a silent height change
+    // for whoever first does.
+    o.isSmall && o.mobileScrollable
+      ? "h-24"
+      : o.compact
+        ? "h-7"
+        : o.isSmall
+          ? "h-24"
+          : "h-14",
+  );
+
+/**
+ * The strip's slot, empty — for a screen that renders the strip only once
+ * `governments` has arrived.
+ *
+ * Inserting the strip into an already-laid-out page pushes everything below it
+ * down. Measured on /indicators/compare (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU):
+ * the strip's section arrived 149px tall and moved the whole body by that much,
+ * scoring 0.1267 of the page's 0.1531 CLS — in all five runs, and the only
+ * component of it that was not ordering-dependent. Holding the slot open from
+ * first paint takes that term to 0.
+ *
+ * Unlike the chart placeholders in this file there is no pending/settled
+ * distinction to make, because there is nothing to collapse to: the slot IS the
+ * strip's own height, so a governments.json that never arrives leaves exactly
+ * the band that would have been there — not a page of empty boxes.
+ */
+export const CabinetStripSlot: FC<{
+  mobileScrollable?: boolean;
+  compact?: boolean;
+}> = ({ mobileScrollable = false, compact = false }) => {
+  const isSmall = useMediaQueryMatch("sm");
+  const band = stripBandClass({ compact, isSmall, mobileScrollable });
+  // Mirrors the `isSmall && mobileScrollable` branch below, whose scroll
+  // container adds its own pb-1 to the band height.
+  // The fill is a child rather than classes on the band itself, so the band
+  // keeps exactly the class list the loaded strip gives it — that equality is
+  // what CabinetStrip.test.tsx asserts, and it is the thing that stops the two
+  // from drifting apart.
+  const fill = <div className="h-full w-full animate-pulse bg-muted/40" />;
+  return isSmall && mobileScrollable ? (
+    <div className="overflow-x-auto pb-1" aria-hidden>
+      <div className={cn(band, "w-full")}>{fill}</div>
+    </div>
+  ) : (
+    <div className={band} aria-hidden>
+      {fill}
+    </div>
+  );
+};
+
 export const CabinetStrip: FC<{
   governments: Government[];
   xDomain: [number, number];
@@ -600,7 +666,12 @@ export const CabinetStrip: FC<{
     });
     return (
       <div className="overflow-x-auto pb-1">
-        <div className="flex mb-1 rounded overflow-hidden h-24 w-max">
+        <div
+          className={cn(
+            stripBandClass({ compact, isSmall, mobileScrollable }),
+            "w-max",
+          )}
+        >
           {governments.map((g, i) => {
             const surname = cabinetShortLabel(g, governments, lang);
             const widthPx = pillWidthsPx[i];
@@ -706,10 +777,7 @@ export const CabinetStrip: FC<{
   return (
     <div
       ref={setStripEl}
-      className={cn(
-        "flex mb-1 rounded overflow-hidden",
-        compact ? "h-7" : isSmall ? "h-24" : "h-14",
-      )}
+      className={stripBandClass({ compact, isSmall })}
       style={{
         paddingLeft: fullWidth ? 0 : insets.paddingLeft,
         paddingRight: fullWidth ? 0 : insets.paddingRight,

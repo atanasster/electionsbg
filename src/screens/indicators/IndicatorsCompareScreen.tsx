@@ -43,7 +43,10 @@ import { EuCompareInequalityPanel } from "@/screens/components/euCompare/EuCompa
 import { EuCompareSpendOutcomeScatters } from "@/screens/components/euCompare/EuCompareSpendOutcomeScatters";
 import { EuCompareSourcesStrip } from "@/screens/components/euCompare/EuCompareSourcesStrip";
 import { usePeerSelection } from "@/screens/components/euCompare/usePeerSelection";
-import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
+import {
+  CabinetStrip,
+  CabinetStripSlot,
+} from "@/screens/components/governments/GovernmentTimeline";
 import { SelectedCabinetCallout } from "@/screens/components/governments/SelectedCabinetCallout";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { IndicatorsNav } from "./indicatorsNav";
@@ -93,8 +96,15 @@ export const IndicatorsCompareScreen: FC = () => {
 
       <IndicatorsNav />
 
-      {xDomain && governments ? (
-        <section className="mb-5">
+      {/* The section renders from first paint, with the strip's band held open
+          as an empty slot until governments.json lands. Rendering the whole
+          section conditionally is what this page used to do, and inserting it
+          into a laid-out page moved the entire body down 149px — measured as
+          0.1267 of its 0.1531 CLS (Pixel 5, 150ms RTT, 1.6Mbps, 4x CPU), the
+          one term present in every run. The caption below is a translation key
+          with no data behind it, so it belongs outside the conditional too. */}
+      <section className="mb-5">
+        {xDomain && governments ? (
           <CabinetStrip
             governments={governments}
             xDomain={xDomain}
@@ -104,18 +114,20 @@ export const IndicatorsCompareScreen: FC = () => {
             anchoredId={anchor?.cabinet.id ?? null}
             onAnchor={setAnchor}
           />
-          <div className="mt-2 text-[11px] text-muted-foreground">
-            {stripCaption}
-          </div>
-          {selectedCabinet ? (
-            <SelectedCabinetCallout
-              government={selectedCabinet}
-              lang={lang}
-              className="mt-2"
-            />
-          ) : null}
-        </section>
-      ) : null}
+        ) : (
+          <CabinetStripSlot mobileScrollable />
+        )}
+        <div className="mt-2 text-[11px] text-muted-foreground">
+          {stripCaption}
+        </div>
+        {selectedCabinet ? (
+          <SelectedCabinetCallout
+            government={selectedCabinet}
+            lang={lang}
+            className="mt-2"
+          />
+        ) : null}
+      </section>
 
       <section className="mb-6">
         <EuComparePeerStrip />

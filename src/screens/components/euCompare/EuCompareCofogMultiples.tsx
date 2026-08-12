@@ -42,10 +42,38 @@ const sumPct = (
   );
 };
 
+// The stacked chart's logical height, in the same units as its viewBox. At
+// module scope because the loading placeholder reserves it before any of the
+// per-render geometry below is computed — one value, so the reservation cannot
+// drift from the chart that replaces it.
+const CHART_H = 260;
+
+// Function-colour legend. Its own component because the loading placeholder
+// renders it too: the entry list is a fixed constant and every label is a
+// translation key, so it is part of the section's shape rather than something
+// that arrives with cofog.json.
+const CofogLegend: FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+      {[...COFOG_STACK_ORDER].reverse().map((code) => (
+        <span key={code} className="inline-flex items-center gap-1">
+          <span
+            aria-hidden
+            className="inline-block h-2 w-2 rounded-sm"
+            style={{ background: COFOG_FUNCTION_COLOR[code as FunctionCode] }}
+          />
+          <span className="text-muted-foreground">{t(`cofog_${code}`)}</span>
+        </span>
+      ))}
+    </div>
+  );
+};
+
 export const EuCompareCofogMultiples: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: cofog } = useCofog();
+  const { data: cofog, isPending: cofogPending } = useCofog();
   const { geos: allGeos } = usePeerSelection();
   const electionYear = useCompareSnapshotYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
@@ -111,6 +139,35 @@ export const EuCompareCofogMultiples: FC = () => {
       .slice(0, 3);
   }, [peerSeries]);
 
+  // Note this section waits on cofog.json, NOT on the peers payload every other
+  // panel here reads — it lands first, and its section grew 192px → 796px on
+  // arrival (measured on /indicators/compare: Pixel 5, 150ms RTT, 1.6Mbps, 4x
+  // CPU). Reserve the chart's own height plus the legend, which is a fixed list
+  // of translation keys and so is renderable before any data.
+  //
+  // What is NOT reserved: the three BG-vs-EU27 delta lines and the year
+  // footnote, ~60px whose text does not exist until the payload does. The
+  // chart is the dominant term and the one with an exact answer; inventing a
+  // line count for the rest would trade a measured shift for a guessed one.
+  //
+  // Pending ONLY — useCofog's fetcher returns undefined on a non-ok response
+  // and react-query records that as SUCCESS, so `!cofog` is permanent after a
+  // failed fetch. A settled-but-empty payload collapses to the line of text
+  // below, as before.
+  if (cofogPending) {
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="overflow-x-auto">
+          <div
+            className="w-full animate-pulse rounded bg-muted/40"
+            style={{ height: CHART_H }}
+          />
+        </div>
+        <CofogLegend />
+      </div>
+    );
+  }
+
   if (!cofog || !year || Object.keys(peerSeries).length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -131,7 +188,7 @@ export const EuCompareCofogMultiples: FC = () => {
   // geos are visible.
   const barSlot = 80;
   const barWidth = 44;
-  const chartH = 260;
+  const chartH = CHART_H;
   const padTop = 12;
   const padBottom = 28;
   const plotH = chartH - padTop - padBottom;
@@ -343,19 +400,7 @@ export const EuCompareCofogMultiples: FC = () => {
         </svg>
       </div>
 
-      {/* Function-color legend */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
-        {[...COFOG_STACK_ORDER].reverse().map((code) => (
-          <span key={code} className="inline-flex items-center gap-1">
-            <span
-              aria-hidden
-              className="inline-block h-2 w-2 rounded-sm"
-              style={{ background: COFOG_FUNCTION_COLOR[code as FunctionCode] }}
-            />
-            <span className="text-muted-foreground">{t(`cofog_${code}`)}</span>
-          </span>
-        ))}
-      </div>
+      <CofogLegend />
 
       {/* Annotated BG-vs-EU27 deltas — the editorial value-add */}
       {deltas.length > 0 && (
