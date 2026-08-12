@@ -40,6 +40,12 @@ const STORE_FILE = path.resolve(
   "../../raw_data/procurement/eop_dossier.sqlite",
 );
 const SCHEMA_FILE = path.resolve(__dirname, "schema/pg/146_tender_dossier.sql");
+// 147 also carries the app_readonly GRANTs for 146's tables, which shipped without
+// any. Applied here so a cloud load repairs an already-deployed 146 (see 147's head).
+const SEARCH_SCHEMA_FILE = path.resolve(
+  __dirname,
+  "schema/pg/147_tender_search_text.sql",
+);
 
 // ---- shapes of the captured bodies (loose: we read a subset) ----------------
 
@@ -527,14 +533,104 @@ const scopedMerge = async (
   await c.query(`DROP TABLE IF EXISTS ${stage}`);
 };
 
+// B3 — the searchable body (147_tender_search_text.sql).
+//
+// Built in SQL FROM THE TABLES THIS RUN JUST WROTE, not from the store, for one
+// reason: the body must be exactly what the dossier route serves. Re-deriving it
+// from the capture would let the two drift on any projection change — a document
+// the parser started rejecting would vanish from the page and stay findable, which
+// is the worse half of a search bug, since the hit leads to a page that does not
+// contain the word.
+//
+// ⚠️ SCOPED TO THE CAPTURED УНП, like every merge above. An unscoped rebuild would
+// see the 99.2% of the corpus this run did not capture as rows to delete.
+const rebuildSearchText = async (
+  c: Parameters<Parameters<typeof withTx>[0]>[0],
+  unps: string[],
+): Promise<void> => {
+  await c.query(
+    // ⚠️ THE SCOPE IS REPEATED INSIDE BOTH SUBQUERIES, not only on the driving table.
+    // Postgres cannot push the outer qual through a GROUP BY, so without it both
+    // aggregate the WHOLE corpus and discard 99%+ of the result. Measured with a
+    // 5-УНП scope: 25.3 ms / 1,205 buffers / Seq Scans, against 5.2 ms / 268 buffers
+    // / index scans when scoped. The sort feeding the document aggregate carries
+    // extracted PDF text, so at full capture the unscoped form is an external sort of
+    // the entire document corpus on every re-projection — which would make this
+    // loader's cost a function of TOTAL corpus size rather than of capture size, and
+    // re-projecting freely after a parser change is the property it exists to have.
+    //
+    // string_agg is ORDERed for the same reason the merge compares payloads: without
+    // it the concatenation order is plan-dependent, so an unchanged capture can
+    // produce a different string and defeat the change-detection guard below.
+    `INSERT INTO tender_search_text (t_unp, fold)
+     SELECT d.unp,
+            -- concat_ws SKIPS nulls rather than propagating them, so a procedure
+            -- with no notice text still contributes its description. A plain ‖
+            -- would null the whole row out.
+            translit_bg_latin(concat_ws(' ', d.description_text, n.txt, x.txt))
+       FROM tender_dossier d
+       LEFT JOIN (
+         SELECT unp, string_agg(text, ' ' ORDER BY publication_id) txt
+           FROM tender_notice
+          WHERE unp = ANY($1::text[]) AND coalesce(text, '') <> '' GROUP BY unp
+       ) n ON n.unp = d.unp
+       LEFT JOIN (
+         SELECT doc.unp, string_agg(t.text, ' ' ORDER BY doc.document_id) txt
+           FROM tender_document doc
+           JOIN tender_document_text t ON t.md5 = doc.md5
+          WHERE doc.unp = ANY($1::text[]) AND coalesce(t.text, '') <> ''
+          GROUP BY doc.unp
+       ) x ON x.unp = d.unp
+      WHERE d.unp = ANY($1::text[])
+        -- A procedure whose three sources are all empty gets NO ROW rather than an
+        -- empty one: an empty row would still count toward tender_search_coverage(),
+        -- inflating the figure a UI uses to say how much of the corpus it searched.
+        AND coalesce(concat_ws(' ', d.description_text, n.txt, x.txt), '') <> ''
+     ON CONFLICT (t_unp) DO UPDATE SET fold = EXCLUDED.fold
+      WHERE tender_search_text.fold IS DISTINCT FROM EXCLUDED.fold`,
+    [unps],
+  );
+  // The capture can REMOVE text (a document withdrawn, a parse that now rejects),
+  // so a procedure in scope that no longer projects a body must lose its row —
+  // otherwise it stays findable by a word the register no longer publishes.
+  await c.query(
+    `DELETE FROM tender_search_text s
+      WHERE s.t_unp = ANY($1::text[])
+        AND NOT EXISTS (
+          SELECT 1 FROM tender_dossier d
+           WHERE d.unp = s.t_unp
+             AND coalesce(d.description_text, '') <> ''
+        )
+        AND NOT EXISTS (
+          SELECT 1 FROM tender_notice n
+           WHERE n.unp = s.t_unp AND coalesce(n.text, '') <> ''
+        )
+        AND NOT EXISTS (
+          SELECT 1 FROM tender_document doc
+            JOIN tender_document_text t ON t.md5 = doc.md5
+           WHERE doc.unp = s.t_unp AND coalesce(t.text, '') <> ''
+        )`,
+    [unps],
+  );
+};
+
 const main = async (args: { apply: boolean }): Promise<void> => {
+  // ⚠️ DDL FIRST, BEFORE THE CAPTURE GUARD. The schema needs no capture, and 147 is
+  // what repairs 146's missing app_readonly GRANTs on an already-deployed database —
+  // precisely the case where the gitignored ~26 h capture is absent. With the guard
+  // first, `db:load:tender-dossier:pg:cloud` on such a machine printed "Nothing to
+  // load", applied no DDL and exited 0: a deploy that looks successful and creates
+  // nothing, leaving every tenders search reading a table that does not exist.
+  await exec(fs.readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(fs.readFileSync(SEARCH_SCHEMA_FILE, "utf8"));
+
   if (!fs.existsSync(STORE_FILE)) {
     console.log(
-      `→ no capture at ${STORE_FILE} — run ingest_eop_dossier.ts first. Nothing to load.`,
+      `→ schema applied; no capture at ${STORE_FILE} — run ingest_eop_dossier.ts first.`,
     );
+    await getPool().end();
     return;
   }
-  await exec(fs.readFileSync(SCHEMA_FILE, "utf8"));
 
   const store = new EopDossierStore(STORE_FILE);
   const sc = readScope(store);
@@ -545,7 +641,6 @@ const main = async (args: { apply: boolean }): Promise<void> => {
 
   if (!args.apply) {
     // Count without holding: the generators are lazy, so this walks and discards.
-    // Walks and discards — the generators are lazy, so this counts without holding.
     const count = (g: Iterable<unknown[]>): number => {
       let n = 0;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -601,6 +696,7 @@ const main = async (args: { apply: boolean }): Promise<void> => {
       [],
     );
     await scopedMerge(c, "tender_document_text", genDocText(store), null, []);
+    await rebuildSearchText(c, sc.unps);
   });
   store.close();
 
@@ -611,7 +707,8 @@ const main = async (args: { apply: boolean }): Promise<void> => {
      UNION ALL SELECT 'tender_announcement', count(*)::text FROM tender_announcement
      UNION ALL SELECT 'tender_contract_item', count(*)::text FROM tender_contract_item
      UNION ALL SELECT 'tender_buyer_profile', count(*)::text FROM tender_buyer_profile
-     UNION ALL SELECT 'tender_document_text', count(*)::text FROM tender_document_text`,
+     UNION ALL SELECT 'tender_document_text', count(*)::text FROM tender_document_text
+     UNION ALL SELECT 'tender_search_text', count(*)::text FROM tender_search_text`,
   );
   console.log(
     `✓ loaded → ${rows.map((r) => `${r.t}=${Number(r.n).toLocaleString()}`).join(", ")}`,

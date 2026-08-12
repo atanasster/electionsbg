@@ -317,7 +317,15 @@ const REGISTRY = {
     columns: {
       // filter:"in" so the project-file resolver can fetch procedures by УНП
       // set (unp IN (...)) — the tender side of the contract↔tender spine.
-      unp: { type: "text", filter: "in" },
+      //
+      // searchPrefix: a УНП is the identifier a reader PASTES (out of a decision, a
+      // news article, an АОП link), and until this it was not searchable at all —
+      // `05947-2023-0042` returned total:0 on the live site while the tender existed
+      // and its page rendered (plan §13.7). Prefix, not '%q%': unp is the PRIMARY
+      // KEY, so `LIKE 'q%'` is an index range scan while a leading wildcard is a
+      // 237k seq-scan on a column with no trigram index. Prefix also answers the
+      // useful partial — '05947-2023' is every procedure that buyer opened that year.
+      unp: { type: "text", filter: "in", search: true, searchPrefix: true },
       ocid: { type: "text" },
       // Projected badge, not filterable — correlated EXISTS can't be index-driven
       // as a WHERE predicate (full ~125k scan). See the contracts note above.
@@ -347,6 +355,33 @@ const REGISTRY = {
         search: true,
         searchCol: "subject_fold",
         searchText: true,
+      },
+      // B3 — the dossier body: the long description, the rendered обявление and the
+      // extracted specification text (147_tender_search_text.sql). NOT a column of
+      // `tenders` and never selected, sorted or filtered — search only. It exists
+      // because `subject` is a 138-char headline, so the words a reader searches for
+      // (the nine coffee types, the brand a spec names) are absent from the corpus.
+      //
+      // ⚠️ ADDS HITS, NEVER REMOVES THEM. It is one OR arm among several, so a
+      // procedure still matches on buyer or subject exactly as before. That property
+      // is what makes it safe at 0.78% dossier coverage: a missing row can only fail
+      // to add a hit, never suppress one. It must never become a filter or a facet,
+      // where absence would read as "no such procedure" for the 99.2% not yet crawled.
+      dossier_text: {
+        type: "text",
+        search: true,
+        searchInSet: {
+          table: "tender_search_text",
+          // `t_unp`, not `unp`. The array form above is UNCORRELATED, so nothing
+          // is ambiguous today — the distinct name is a guard against the exact
+          // refactor that comment warns off. Written as a correlated
+          // `EXISTS (… WHERE unp = unp)`, two identically-named columns would bind
+          // BOTH sides to the inner scope: a tautology matching every tender, valid
+          // SQL, raising nothing. With a distinct name that mistake cannot compile.
+          key: "t_unp",
+          on: "unp",
+          col: "fold",
+        },
       },
       procedure_type: { type: "text", sort: true, filter: "in" },
       // Exact-code `in` (not division prefix) so a curated topic deep-link can
@@ -1673,9 +1708,15 @@ const buildWhere = (r, req, opts = {}) => {
       const ors = [];
       let rawIdx = null; // "%g%" for the plain contiguous-substring arms
       let gIdx = null; // raw g, shared by the fold + FTS arms
+      // ⚠️ `%` and `_` are LIKE WILDCARDS and must be escaped, or a query containing
+      // one silently becomes a scan of everything. Measured before this: the query
+      // "50%_x" on tenders took 11,672 ms end to end — past the 10 s
+      // statement_timeout, i.e. a 500 — of which 8,256 ms was `buyer_fold ILIKE
+      // '%50%_x%'` matching all 237,321 rows. Any user can type it.
+      const likeEscape = (v) => v.replace(/([\\%_])/g, "\\$1");
       const rawParam = () => {
         if (rawIdx == null) {
-          params.push(`%${g}%`);
+          params.push(`%${likeEscape(g)}%`);
           rawIdx = params.length;
         }
         return rawIdx;
@@ -1706,12 +1747,59 @@ const buildWhere = (r, req, opts = {}) => {
               : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
                   ` OR ${target} %> translit_bg_latin($${i}))`,
           );
+        } else if (d.searchInSet) {
+          // Side-table text search, folded back into the OR as an INDEXED EQUALITY
+          // on the base relation's key.
+          //
+          // ⚠️ THE `= ANY(ARRAY(...))` SHAPE IS THE WHOLE POINT — do not "simplify"
+          // it to a correlated EXISTS or an IN (SELECT …). A correlated subquery
+          // cannot participate in a BitmapOr, so it drags the ENTIRE search off its
+          // indexes: measured on the tenders corpus for "кафе", the other arms plan
+          // as a BitmapOr in 37 ms, and adding an EXISTS arm made the whole thing a
+          // Seq Scan at 6,617 ms — a 178x regression on every tender search, not
+          // just on searches this arm can answer. As an InitPlan array the side
+          // lookup runs ONCE and the key equality joins the BitmapOr as one more
+          // index scan: 21.5 ms, faster than the baseline.
+          //
+          // FTS only, no `%>` trigram fallback: word_similarity recomputes trigram
+          // sets over the whole body per row and these bodies are documents —
+          // measured 0.073 ms vs 13,490 ms on 1,861 rows. See 147's header.
+          const { table, key, on, col, limit } = d.searchInSet;
+          const i = gParam();
+          // Bounded so a stop-word query cannot mint a giant array (one btree probe
+          // per element). Truncation is SAFE HERE AND ONLY HERE because this arm is
+          // purely additive — a dropped key can fail to add a hit, never suppress
+          // one another arm found. It would not be safe on a filter.
+          //
+          // ORDER BY is not cosmetic: the page query and the count query are built
+          // separately from this same descriptor, so an unordered LIMIT can truncate
+          // to a DIFFERENT subset in each. That yields a total the rows do not add up
+          // to — a wrong answer rather than an incomplete one. Ordering on the key
+          // makes the truncated set identical across both.
+          const n = Number.isInteger(limit) && limit > 0 ? limit : 5000;
+          ors.push(
+            `${on} = ANY(ARRAY(SELECT ${key} FROM ${table}` +
+              ` WHERE to_tsvector('simple', ${col}) @@ fold_prefix_tsquery($${i})` +
+              ` ORDER BY ${key} LIMIT ${n}))`,
+          );
+        } else if (d.searchPrefix) {
+          // Anchored prefix on an indexed identifier column. `LIKE 'q%'` is a btree
+          // range scan; '%q%' would seq-scan. Escapes the LIKE metacharacters so a
+          // query containing % or _ matches literally instead of turning into a
+          // wildcard that scans everything.
+          params.push(`${likeEscape(g)}%`);
+          ors.push(`${target} LIKE $${params.length}`);
         } else if (d.searchFold) {
           // Transliterated contiguous substring — entity-name columns whose fold
           // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
           // for names.
+          // The fold is produced server-side by translit_bg_latin, so the escape has
+          // to happen there too — escaping the JS-side param would be undone by the
+          // transliteration. Backslash first, or it re-escapes its own output.
           ors.push(
-            `${target} ILIKE '%' || translit_bg_latin($${gParam()}) || '%'`,
+            `${target} ILIKE '%' || replace(replace(replace(` +
+              `translit_bg_latin($${gParam()}),` +
+              ` '\\', '\\\\'), '%', '\\%'), '_', '\\_') || '%'`,
           );
         } else {
           // Plain raw-column contiguous substring (trigram-indexed raw columns).

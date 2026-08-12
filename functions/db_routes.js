@@ -1534,6 +1534,38 @@ const DB_ROUTES = {
   //
   // Degrades to `null` on a database where 146 has not been applied, so the page
   // and the deploy are order-independent — same posture as procurement_settlement.
+  // How much of the tender corpus the B3 document search can actually see.
+  //
+  // ⚠️ THE POINT IS THAT THIS IS SMALL. The dossier crawl is ~26 h and has run for a
+  // sample — 1,861 of 237,321 procedures at the time of writing. Any UI that says it
+  // searched documents MUST say how much: "no results" from a 0.78%-covered index
+  // reads as "no such tender", which is the failure this repo keeps rediscovering
+  // (the "0 complaints" parser regression, the „част от" coverage-line rule).
+  //
+  // Two live numbers, never a constant — the fraction moves in both directions as
+  // the crawl advances and as the tenders corpus grows. Degrades to nulls rather
+  // than 500ing on a database where 147 has not been applied: a page that cannot
+  // state its coverage should omit the claim, not fail.
+  "tender-search-coverage": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT covered, corpus FROM tender_search_coverage()",
+      [],
+    ).catch(missingMigrationEmpty);
+    const r = rows[0];
+    if (!r) return { body: { covered: null, corpus: null, pct: null } };
+    const covered = Number(r.covered);
+    const corpus = Number(r.corpus);
+    return {
+      body: {
+        covered,
+        corpus,
+        // Rounded to 2dp so a genuinely tiny share never renders as a bare "0%",
+        // which reads as "nothing indexed" rather than "a small sample".
+        pct: corpus > 0 ? Math.round((covered / corpus) * 10000) / 100 : null,
+      },
+    };
+  },
+
   "tender-dossier": async (dbRows, q) => {
     const unp = s(q, "unp");
     if (!unp) return { status: 400, body: { error: "missing unp" } };

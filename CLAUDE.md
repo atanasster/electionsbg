@@ -723,6 +723,67 @@ one. `mp_similarity` stores `dot` + `overlap`, NOT an agreement rate: the score 
 are calibrated for is a cosine (`score = dot / (norm_a * norm_b)` via `mp_vote_norm`), and
 substituting a rate would relabel "voting twins" sitewide.
 
+`tender_search_text` (migration 147, `db:load:tender-dossier:pg`) is the ЦАИС ЕОП
+tender-dossier corpus's SEARCH index — the long „Кратко описание", every rendered
+обявление and every extracted specification, folded per procedure so the words a
+reader actually searches for are findable. `tenders.subject` is a 138-char headline,
+so before this a procurement for nine kinds of coffee was searchable only as
+„Доставка на хранителни продукти".
+
+```bash
+npm run db:load:tender-dossier:pg:cloud
+```
+
+**Three things about it invert the usual rules of this file, and the first is a
+live-breaking deploy hazard rather than the customary staleness:**
+
+- **The tenders search reads it UNCONDITIONALLY — there is no degrade.** `db_table.js`
+  emits `… FROM tender_search_text …` on every global search of the `tenders`
+  resource, and `db_routes.js`'s `badRequest()` rethrows a non-`DbRequestError`, so a
+  `42P01` is a **500** on every `/procurement/tenders` search box keystroke and every
+  `?q=` deep link. That is why **`load_tenders_pg.ts` applies 147**, not just the
+  dossier loader: `db:load:tender-dossier:pg` is a `REFRESH_EXCLUSIONS` member whose
+  input is a gitignored ~26 h crawl, so on most machines it has nothing to do. The
+  table now exists wherever `tenders` does, EMPTY if never filled — which is exactly
+  the pre-B3 behaviour, since the arm then adds no hits.
+- **Its loader applies DDL BEFORE checking for the capture.** The order matters: with
+  the capture guard first, `db:load:tender-dossier:pg:cloud` on a machine without the
+  crawl printed „Nothing to load", applied no DDL and exited **0** — a deploy that
+  looks successful and creates nothing. 147 also carries the `app_readonly` GRANTs for
+  146's seven tables, which shipped with none, so applying it is what repairs an
+  already-deployed 146 (invisible locally, `/api/db` 42501 on Cloud SQL).
+- **COVERAGE IS THE POINT, and it is small.** 1,861 of 237,321 procedures (0.78%) at
+  the time of writing. The arm may therefore only ever **ADD** hits — it is one OR arm
+  beside buyer and subject, so a missing row can fail to add a hit and never suppress
+  one. It must never become a filter, a facet or a count: absence there would read as
+  „no such procedure" for the 99.2% not yet crawled. `/api/db/tender-search-coverage`
+  returns the two live numbers any UI must cite before claiming it searched documents.
+
+Two performance rules are load-bearing and both were measured, not reasoned:
+
+- **The arm is `unp = ANY(ARRAY(SELECT …))`, never a correlated `EXISTS`.** An EXISTS
+  cannot participate in a BitmapOr, so it drags the WHOLE tender search onto a Seq
+  Scan — 37 ms (the pre-existing arms) → **6,617 ms**, a 178x regression on every
+  search, not only ones the dossier can answer. As an uncorrelated InitPlan array the
+  side lookup runs once and the key equality joins the BitmapOr: 21.5 ms. The inner
+  key is named `t_unp` so the correlated form cannot be written by accident — with two
+  columns called `unp`, `WHERE unp = unp` binds both sides to the inner scope, a
+  tautology matching every tender that raises nothing.
+- **FTS only — deliberately NO gin_trgm index**, unlike every other fold here. The
+  `%>` word-similarity arm that 009 pairs with FTS on `subject_fold` recomputes
+  trigram sets over the whole body per row, and these bodies are documents: **0.073 ms
+  vs 13,490 ms** on 1,861 rows. At corpus scale that arm is minutes, i.e. past the
+  10 s `statement_timeout`. The cost is real — no mid-word or near-spelling matching on
+  document text.
+
+Related, from the same step and applying to **every** DbDataTable: the free-text arms
+now escape `%` and `_`. They are LIKE wildcards, so before this any user typing one
+turned the search into a scan of everything — measured, `50%_x` on tenders was
+**11,672 ms** end to end, past the `statement_timeout`, of which 8,256 ms was
+`buyer_fold ILIKE '%50%_x%'` matching all 237,321 rows. Now 188 ms. The `searchFold`
+arms escape in SQL rather than in JS, because their text is produced server-side by
+`translit_bg_latin` and a JS-side escape would be undone by the transliteration.
+
 `transport_facility_geo` (migration 132, `db:load:transport-facility-map:pg`) is the static
 crosswalk behind the `/sector/transport` facility map — the same 073/074 family as the water
 and МВР maps, in `db:refresh`, curated from `TRANSPORT_ENTITIES` with a Варна physical-facility

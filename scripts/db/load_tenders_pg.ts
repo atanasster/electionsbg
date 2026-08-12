@@ -64,6 +64,15 @@ const TENDER_NORMALCY_FILE = path.join(SCHEMA_DIR, "067_tender_normalcy.sql");
 // and rebuilt here rather than recomputed per request — the route it replaces was
 // a full scan + external sort on every browser mount (17-21 s on prod, one 500).
 const CPV_CATALOG_FILE = path.join(SCHEMA_DIR, "121_cpv_catalog.sql");
+// ⚠️ NOT this loader's own data — applied here because db_table.js reads
+// `tender_search_text` on EVERY global search of the `tenders` resource with no
+// degrade path (a 42P01 there is a 500, not a narrower answer). Its natural owner,
+// load_tender_dossier_pg.ts, cannot be the only applier: it is a REFRESH_EXCLUSIONS
+// member and its input is a gitignored ~26 h capture, so on most machines it has
+// nothing to do. Applying it from the loader that owns `tenders` makes the table
+// exist wherever the column it protects exists. Creating it EMPTY is correct — the
+// search arm then simply adds no hits, which is the pre-B3 behaviour.
+const SEARCH_TEXT_FILE = path.join(SCHEMA_DIR, "147_tender_search_text.sql");
 const TENDER_NORMALCY_BUILD_FILE = path.join(
   SCHEMA_DIR,
   "067b_tender_normalcy_build.sql",
@@ -136,6 +145,7 @@ export const loadTendersPg = async (): Promise<{
   // ensures they exist even when the tenders loader runs standalone (not via the
   // full db:refresh where load_pg applies 005 first).
   await exec(readFileSync(TRACKING_FILE, "utf8"));
+  await exec(readFileSync(SEARCH_TEXT_FILE, "utf8"));
 
   const { rows, years } = readShards();
 

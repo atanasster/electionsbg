@@ -441,7 +441,10 @@ test("contractor_rankings searches the name FOLD, with the term folded", () => {
     scope: { col: "scope_key", val: "all" },
     filters: { global: "sofarma" },
   });
-  assert.match(whereSql, /name_fold ILIKE '%' \|\| translit_bg_latin/);
+  // The fold arm wraps the transliteration in LIKE-metacharacter escaping — see
+  // "LIKE metacharacters are escaped on the pre-existing arms too".
+  assert.match(whereSql, /name_fold ILIKE '%' \|\| replace\(replace\(replace\(/);
+  assert.match(whereSql, /translit_bg_latin\(\$\d\)/);
 });
 
 test("contractor_rankings sum/max aggregate only the agg-marked total_eur", () => {
@@ -956,4 +959,174 @@ test("an EMPTY tier filter must NOT drop the public floor (presence != effect)",
     "empty tier:[] suppressed the defaultFilter — a raw/malformed caller would see the private arm",
   );
   assert.ok(params.includes("P"));
+});
+
+// ---------------------------------------------------------------------------
+// B3 — the two search arms added for the tender dossier
+// (docs/plans/tender-dossier-ingest-v1.md, 147_tender_search_text.sql).
+
+const tenders = REGISTRY.tenders;
+
+test("unp is searchable at all — plan §13.7", () => {
+  // Pasting a УНП returned total:0 on the live site while the tender existed and
+  // its page rendered, because `unp` carried filter:"in" and no `search`.
+  const { whereSql } = buildWhere(tenders, {
+    filters: { global: "05947-2023-0042" },
+  });
+  assert.ok(whereSql.includes("unp LIKE"), "unp arm present");
+});
+
+test("unp searches by PREFIX, never a leading wildcard", () => {
+  // `unp` has no trigram index; '%q%' is a 237k seq-scan, while 'q%' is a range
+  // scan on idx_tenders_unp_pattern (measured 125 ms → 0.058 ms).
+  const { whereSql, params } = buildWhere(tenders, {
+    filters: { global: "05947-2023" },
+  });
+  assert.ok(whereSql.includes("unp LIKE"));
+  assert.ok(
+    params.includes("05947-2023%"),
+    "anchored prefix param, not %…%",
+  );
+  assert.ok(
+    !params.includes("%05947-2023%"),
+    "no leading-wildcard param for the unp arm",
+  );
+});
+
+test("unp prefix escapes LIKE metacharacters", () => {
+  // Unescaped, a query containing % matches everything through this arm.
+  const { params } = buildWhere(tenders, { filters: { global: "50%_x" } });
+  assert.ok(
+    params.includes("50\\%\\_x%"),
+    `expected escaped param, got ${JSON.stringify(params)}`,
+  );
+});
+
+test("the dossier arm is an uncorrelated ARRAY subquery, NOT an EXISTS", () => {
+  // ⚠️ THE performance property of this step, and it is invisible in a functional
+  // test. A correlated EXISTS cannot join a BitmapOr, so it drags the whole tender
+  // search onto a Seq Scan: measured for "кафе", 37 ms (baseline) → 6,617 ms
+  // (EXISTS) → 21.5 ms (this form). The regression would hit every search, not
+  // only ones the dossier can answer.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "кафе" } });
+  assert.ok(
+    whereSql.includes("unp = ANY(ARRAY(SELECT t_unp FROM tender_search_text"),
+    `expected the InitPlan array form, got: ${whereSql}`,
+  );
+  assert.ok(
+    !/EXISTS\s*\(\s*SELECT[^)]*tender_search_text/.test(whereSql),
+    "must not be a correlated EXISTS",
+  );
+});
+
+test("the dossier arm is FTS-only — no %> trigram fallback", () => {
+  // word_similarity recomputes trigram sets over the whole body per row, and these
+  // bodies are documents: 0.073 ms (FTS) vs 13,490 ms (%>) on 1,861 rows.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "кафе" } });
+  const arm = whereSql.slice(whereSql.indexOf("tender_search_text"));
+  assert.ok(arm.includes("fold_prefix_tsquery"), "FTS arm present");
+  assert.ok(!arm.includes("%>"), "no trigram arm on the dossier body");
+});
+
+test("the dossier arm is bounded, so a stop-word cannot mint a giant array", () => {
+  const { whereSql } = buildWhere(tenders, { filters: { global: "на" } });
+  assert.match(whereSql, /tender_search_text[\s\S]*LIMIT \d+\)\)/);
+});
+
+test("dossier_text is search-only: never selected, sorted, filtered or faceted", () => {
+  // It is not a column of `tenders`. If it ever reached the projection, an ORDER BY
+  // or a GROUP BY, every tenders query would fail with 42703.
+  assert.ok(
+    !tenders.select.includes("dossier_text"),
+    "dossier_text must not be in the select list",
+  );
+  const def = tenders.columns.dossier_text;
+  assert.ok(!def.sort, "no sort");
+  assert.ok(!def.filter, "no filter");
+  // `facet` is the one remaining key that would GROUP BY a column that isn't there.
+  assert.ok(!def.facet && !def.facetExpr, "no facet");
+  // …and it must not be viewOnly either, which would reroute aggregates to the view.
+  assert.ok(!def.viewOnly);
+});
+
+test("globalCols can select the dossier arm alone", () => {
+  const { whereSql } = buildWhere(tenders, {
+    filters: { global: "кафе", globalCols: ["dossier_text"] },
+  });
+  assert.ok(whereSql.includes("tender_search_text"), "dossier arm kept");
+  assert.ok(!whereSql.includes("buyer_fold"), "buyer arm dropped");
+  assert.ok(!whereSql.includes("subject_fold"), "subject arm dropped");
+});
+
+test("the capped dossier subquery is ORDERed, so page and count truncate alike", () => {
+  // The page query and the count query are built separately from this descriptor.
+  // An unordered LIMIT can truncate to a different subset in each, producing a
+  // total the rows do not add up to — wrong, not merely incomplete.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "на" } });
+  assert.match(whereSql, /ORDER BY t_unp LIMIT \d+\)\)/);
+});
+
+test("every searchInSet descriptor is well-formed", () => {
+  // A typo in any of these interpolates straight into SQL as an identifier and
+  // fails at query time, not at load time.
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const [id, d] of Object.entries(r.columns ?? {})) {
+      if (!d.searchInSet) continue;
+      for (const k of ["table", "key", "on", "col"])
+        assert.match(
+          d.searchInSet[k] ?? "",
+          /^[a-z_][a-z0-9_]*$/,
+          `${name}.${id}.searchInSet.${k} must be a bare identifier`,
+        );
+      assert.ok(d.search, `${name}.${id} needs search:true to ever be used`);
+      // The outer key must be a real, selectable column of the base relation.
+      assert.ok(
+        r.columns[d.searchInSet.on],
+        `${name}.${id}.searchInSet.on must name a column of ${name}`,
+      );
+      // Distinct inner/outer names — see 147's header: identical ones make the
+      // correlated form a silent tautology.
+      assert.notEqual(d.searchInSet.key, d.searchInSet.on);
+    }
+});
+
+test("LIKE metacharacters are escaped on the pre-existing arms too", () => {
+  // Measured before this: "50%_x" on tenders took 11,672 ms end to end — past the
+  // 10 s statement_timeout — because `buyer_fold ILIKE '%50%_x%'` matched all
+  // 237,321 rows. Any user can type it. Now 188 ms.
+  const { whereSql, params } = buildWhere(tenders, {
+    filters: { global: "50%_x" },
+  });
+  // The contiguous-substring arm's param escapes in JS. Note the BARE term is also
+  // pushed, unescaped, and must stay that way: it feeds fold_prefix_tsquery() and
+  // translit_bg_latin(), where a backslash is a literal character and not an escape.
+  // tenders reaches LIKE only through the unp PREFIX arm.
+  assert.ok(
+    params.includes("50\\%\\_x%"),
+    `expected an escaped prefix pattern, got ${JSON.stringify(params)}`,
+  );
+  assert.ok(!params.includes("50%_x%"), "unescaped prefix must not be sent");
+
+  // contracts is the resource that still uses the plain `%q%` raw arm, which is the
+  // one measured at 8,256 ms of the 11,672 ms total.
+  const cp = buildWhere(contracts, { filters: { global: "50%_x" } }).params;
+  assert.ok(
+    cp.includes("%50\\%\\_x%"),
+    `expected an escaped substring pattern, got ${JSON.stringify(cp)}`,
+  );
+  assert.ok(!cp.includes("%50%_x%"), "unescaped substring must not be sent");
+  // …and the fold arm, whose text is produced server-side, escapes in SQL.
+  assert.ok(
+    whereSql.includes("replace(replace(replace("),
+    "fold arm escapes translit output",
+  );
+});
+
+test("a search still ORs the pre-existing arms — the dossier only ADDS hits", () => {
+  // Safety property at 0.78% dossier coverage: a missing dossier row can fail to
+  // add a hit, never suppress one buyer_name/subject already found.
+  const { whereSql } = buildWhere(tenders, { filters: { global: "кафе" } });
+  for (const arm of ["buyer_fold", "subject_fold", "tender_search_text"])
+    assert.ok(whereSql.includes(arm), `${arm} arm present`);
+  assert.ok(whereSql.includes(" OR "), "arms are ORed, not ANDed");
 });
