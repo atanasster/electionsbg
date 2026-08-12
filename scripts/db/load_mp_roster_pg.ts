@@ -77,6 +77,9 @@ interface RosterEntry {
   seatedRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   currentPartyGroupShort: string | null;
+  // The coalition the MP was ELECTED with. A career badge, not a per-parliament fact —
+  // see 104's column comment for the measurement.
+  electedWith: string | null;
   position: string | null;
   birthDate: string | null;
   nsFolders: string[];
@@ -202,8 +205,76 @@ const run = async (): Promise<void> => {
     );
   }
 
+  // ns_folders COVERAGE. The guard above asks whether the folders are well-FORMED; this
+  // asks whether they are still THERE, which is the failure that actually happened.
+  //
+  // A sitting MP sits in the current parliament by definition, so every `isCurrent` row
+  // must carry the highest folder in the file. The scraper's online path enforces exactly
+  // this — it appends the roster's own folder to each sitting MP — but the value is not
+  // reconstructible from a cached profile, whose `oldnsList` covers PAST parliaments only.
+  // So any path that re-emits index.json without the roster silently drops it for all 240
+  // sitting members, and `--reindex` did (2026-08-11, coverage 859 → 703 MPs, folder "52"
+  // 240 → 0). Nothing failed here: this loader accepted the corrupt file and published it,
+  // and it surfaced two steps later when db:resolve:persons refused at its own floor
+  // ("only 1281 mp role(s) resolved a group, expected >= 1400"). That is too late — the
+  // roster is what feeds the resolver, so the check belongs on this side of it.
+  const folderNums = roster.flatMap((m) =>
+    (m.nsFolders ?? []).map((f) => parseInt(f, 10)).filter(Number.isFinite),
+  );
+  const sitting = roster.filter((m) => m.isCurrent);
+  if (folderNums.length && sitting.length) {
+    const maxFolder = String(Math.max(...folderNums));
+    const missing = sitting.filter(
+      (m) => !(m.nsFolders ?? []).includes(maxFolder),
+    );
+    if (missing.length)
+      throw new Error(
+        `mp_roster: ${missing.length}/${sitting.length} sitting MP(s) do not carry the ` +
+          `current NS folder "${maxFolder}" (e.g. ${missing
+            .slice(0, 3)
+            .map((m) => `${m.id}=[${(m.nsFolders ?? []).join(",")}]`)
+            .join(", ")}). ` +
+          `index.json was almost certainly re-emitted from cached profiles without the ` +
+          `roster — see runReindex in scripts/parliament/scrape_mps.ts. Refusing to load: ` +
+          `db:resolve:persons reads this and would publish an MP layer with no current ` +
+          `parliament.`,
+      );
+  }
+
   await withClient(async (client) => {
     await client.query("BEGIN");
+
+    // …and the same question asked of the WHOLE file. Two reasons it is not redundant.
+    //
+    // FIRST, the check above degrades as the damage widens, because `maxFolder` is derived
+    // from the file being validated. Strip "52" from every sitting MP and the max becomes
+    // "51" — which 88 of the 240 legitimately hold, having served in the 51st too — so the
+    // structural check catches 152 rather than 240, and would catch NONE at all in the
+    // limiting case where every sitting member is a returning one. Replayed on the real
+    // 2026-08-11 corruption: 152/240 flagged, 10.9% of folder-entries lost.
+    //
+    // SECOND, `nsFolders` also accumulates via the scraper's dedup merge, which unions the
+    // sets of duplicate records that collapse onto one person — folders no single profile
+    // on disk can supply. That loss is invisible per-row (each MP still has *some*) and
+    // shows only in the total: the same re-emit dropped 22 entries across the 39th-47th.
+    //
+    // Compared against what is already loaded rather than a pinned constant, since the
+    // roster legitimately grows.
+    const [{ prev }] = (
+      await client.query<{ prev: string }>(
+        `SELECT coalesce(sum(array_length(ns_folders, 1)), 0)::text AS prev FROM mp_profile`,
+      )
+    ).rows;
+    const incoming = folderNums.length;
+    if (Number(prev) > 0 && incoming < Number(prev) * 0.95)
+      throw new Error(
+        `mp_roster: ns_folders entries would drop ${prev} → ${incoming} ` +
+          `(${(100 - (incoming / Number(prev)) * 100).toFixed(1)}% loss). A term the ` +
+          `dedup merge recovered cannot be rebuilt from profiles alone, so this is not ` +
+          `self-healing. Re-run the scrape against parliament.bg, or pass ` +
+          `MP_ROSTER_ALLOW_SHRINK=1 if the roster genuinely shrank.`,
+      );
+
     await client.query("TRUNCATE mp_profile");
     await copyRows(
       client,
@@ -221,6 +292,7 @@ const run = async (): Promise<void> => {
         "seated_region_name",
         "current_party_group",
         "current_party_group_short",
+        "elected_with",
         "position_title",
         "birth_date",
         "ns_folders",
@@ -242,6 +314,7 @@ const run = async (): Promise<void> => {
             m.seatedRegion?.name ?? null,
             m.currentPartyGroup,
             m.currentPartyGroupShort,
+            m.electedWith ?? null,
             m.position,
             birthDate(m.birthDate),
             // text[] literal — the folders are digit strings ("39".."52"), so no
