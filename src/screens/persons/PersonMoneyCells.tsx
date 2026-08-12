@@ -175,7 +175,7 @@ export const PersonMoneyCell: FC<{ row: PersonBrowseRow }> = ({ row }) => {
         // fallback, dropping or renaming it renders the literal key to the reader — on the
         // one tooltip whose whole job is to qualify a claim about a named person.
         defaultValue:
-          "Лицата в Търговския регистър се идентифицират само по име, затова тези записи може да обединяват различни хора с еднакво име.",
+          "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
       })}`
     : base;
 

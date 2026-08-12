@@ -313,7 +313,7 @@ export const PersonCompanies: FC<{
                           // about a named person. src/locales/*/translation.json stays the source
                           // translators edit; this is the last-resort fallback.
                           defaultValue:
-                            "Лицата в Търговския регистър се идентифицират само по име, затова тези записи може да обединяват различни хора с еднакво име.",
+                            "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
                         })}
                       />
                     )}
@@ -482,7 +482,7 @@ export const PersonCompanies: FC<{
                   // about a named person. src/locales/*/translation.json stays the source
                   // translators edit; this is the last-resort fallback.
                   defaultValue:
-                    "Лицата в Търговския регистър се идентифицират само по име, затова тези записи може да обединяват различни хора с еднакво име.",
+                    "Лицата в Търговския регистър се идентифицират тук по име — регистърът публикува и идентификатор от ЕГН, но ние не го използваме, затова тези записи може да обединяват различни хора с еднакво име.",
                 })}
               </div>
               {/* The registry's own count, when we have it. This is the difference between
