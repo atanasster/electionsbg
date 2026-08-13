@@ -24,10 +24,20 @@ export const ConfidenceBadge: FC<{
   const tooltip =
     reason ??
     (isHigh
-      ? t("tr_confidence_high_tooltip") ||
-        "Corroborated by declaration, region or party-witness match."
+      ? // ⚠️ THESE TWO STRINGS DESCRIBE THE LINK BASIS, not a confidence grade. The high/medium
+        // scale this component was built for is gone: `augment_mp_roles.ts` now maps 'declared'
+        // to "high" and everything else to "medium", so `high` means a curated register put this
+        // COMPANY on this person and `medium` means it was found by name. The old copy named the
+        // three corroboration rules (declaration, region, same-party witness) that were deleted
+        // with integrate.ts's phase 2 — it described a computation that no longer runs.
+        //
+        // `high` is still NOT a confirmed identity: Bridge A keeps the officers on an
+        // independently-linked EIK whose name matches, so the company link is register-sourced
+        // and the officer row inside it is a name match. See 148's header and LinkBasisMark.
+        t("tr_confidence_high_tooltip") ||
+        "A curated register (declared interests / ИВСС чл. 175а) links this company to this person. The officer row inside it is still matched by name."
       : t("tr_confidence_medium_tooltip") ||
-        "Name match only — the MP shares a name with a TR officer of this company but no further corroborating signal was found.");
+        "Found by name in the Commerce Registry, not from a declared interest. Names the registry records for more than one person are refused outright.");
   return (
     <span
       title={tooltip}

@@ -1,22 +1,72 @@
-// Unit test for augmentCompaniesIndexWithMpRoles — the graph-free re-derivation of companies-index
-// `mpRoles` (+ TR-only company entries) that replaced the retired connections-graph tail step
-// (connections-engine-v1 §P4.3). This is the gate the reviewer asked for: mpRoles going empty is a
-// silent, build-green live-data regression (/mp/companies, CompaniesHqTile, procurement crossReference
-// all read it), so pin that the augmentation actually writes non-empty mpRoles + adds TR-only companies.
-// No network, no DB — runs the module against a throwaway fixture dir.
+// Unit test for augmentCompaniesIndexWithMpRoles — the re-derivation of companies-index
+// `mpRoles` (+ registry-only company entries). mpRoles going empty is a silent, build-green
+// live-data regression (/mp/companies and the procurement crossReference read it), so this pins
+// that the augmentation actually writes non-empty mpRoles and adds registry-only companies.
+//
+// The SOURCE is now Postgres, not the retired mp-management shards, so `allRows` is stubbed:
+// the fixture rows below are the rows that query returns. No network, no database — and the
+// two DEGRADE paths (unreachable, empty result) are asserted here too, because both must leave
+// the previous vintage alone rather than retracting every link on the site.
 
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, vi } from "vitest";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+
+const rows = vi.hoisted(() => ({
+  current: [] as Record<string, unknown>[],
+  fail: false,
+  ended: false,
+}));
+vi.mock("../db/lib/pg", () => ({
+  allRows: async () => {
+    if (rows.fail) throw new Error("connect ECONNREFUSED");
+    return rows.current;
+  },
+  // The module closes the pool on both paths — a batch script must not hold the process open
+  // for the pool's ~10 s idle tail. Stubbed rather than omitted so the test fails if that call
+  // is ever dropped, not merely if it is added.
+  end: async () => {
+    rows.ended = true;
+  },
+}));
+
 import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
+
+/** MP 1 holds ALPHA (uic A100, matches the declared entry) + ГАМА (C300, registry-only). */
+const DEFAULT_ROWS = [
+  {
+    mp_id: 1,
+    mp_name: "Иван Иванов",
+    uic: "A100",
+    company_name: "ALPHA OOD",
+    legal_form: "OOD",
+    seat: null,
+    status: "active",
+    role: "manager",
+    erased_at: null,
+    declared: true,
+  },
+  {
+    mp_id: 1,
+    mp_name: "Иван Иванов",
+    uic: "C300",
+    company_name: "ГАМА ЕООД",
+    legal_form: "EOOD",
+    seat: "София",
+    status: "active",
+    role: "sole_owner",
+    erased_at: new Date("2024-01-01"),
+    declared: false,
+  },
+];
 
 const tmpDirs: string[] = [];
 const mkFixture = (): string => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "augment-mp-roles-"));
   tmpDirs.push(root);
   const parliament = path.join(root, "parliament");
-  fs.mkdirSync(path.join(parliament, "mp-management"), { recursive: true });
+  fs.mkdirSync(parliament, { recursive: true });
   // A declared company (uic A100, MP already has a stake) + a plain declared company (B200, no TR role).
   fs.writeFileSync(
     path.join(parliament, "companies-index.json"),
@@ -59,40 +109,17 @@ const mkFixture = (): string => {
       ],
     }),
   );
-  // MP 1 manages ALPHA (uic A100, matches the declared entry) + GAMMA (uic C300, TR-only, not declared).
-  fs.writeFileSync(
-    path.join(parliament, "mp-management", "1.json"),
-    JSON.stringify({
-      mpId: 1,
-      mpName: "Иван Иванов",
-      roles: [
-        {
-          uic: "A100",
-          companyName: "ALPHA OOD",
-          role: "manager",
-          erasedAt: null,
-          confidence: "high",
-        },
-        {
-          uic: "C300",
-          companyName: "ГАМА ЕООД",
-          legalForm: "EOOD",
-          seat: "София",
-          status: "active",
-          role: "sole_owner",
-          erasedAt: "2024-01-01",
-          confidence: "low",
-        },
-      ],
-    }),
-  );
   return root;
 };
 
 afterEach(() => {
   for (const d of tmpDirs.splice(0))
     fs.rmSync(d, { recursive: true, force: true });
+  rows.current = DEFAULT_ROWS;
+  rows.fail = false;
+  rows.ended = false;
 });
+rows.current = DEFAULT_ROWS;
 
 const read = (root: string) =>
   JSON.parse(
@@ -118,9 +145,9 @@ const read = (root: string) =>
 describe("augmentCompaniesIndexWithMpRoles", () => {
   const stringify = (o: object) => JSON.stringify(o, null, 0);
 
-  it("re-derives mpRoles from mp-management onto the matching declared company", () => {
+  it("re-derives mpRoles from the person layer onto the matching declared company", async () => {
     const root = mkFixture();
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const out = read(root);
     const alpha = out.companies.find((c) => c.tr?.uic === "A100")!;
     // Stale mpRoles cleared + re-derived: MP 1 is a manager here (confidence low→medium coerced).
@@ -135,9 +162,9 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     ]);
   });
 
-  it("adds a TR-only company the MP manages but never declared", () => {
+  it("adds a registry-only company the MP holds but never declared", async () => {
     const root = mkFixture();
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const out = read(root);
     const gamma = out.companies.find((c) => c.tr?.uic === "C300");
     expect(gamma, "TR-only company C300 should be appended").toBeTruthy();
@@ -154,9 +181,9 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     ]);
   });
 
-  it("keeps declared-stake-only companies and drops nothing MP-linked", () => {
+  it("keeps declared-stake-only companies and drops nothing MP-linked", async () => {
     const root = mkFixture();
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const out = read(root);
     // BETA has a stake but no TR role → kept with empty mpRoles.
     const beta = out.companies.find((c) => c.slug === "beta")!;
@@ -166,15 +193,15 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     expect(out.companies).toHaveLength(3);
   });
 
-  it("is idempotent — a second run reproduces the first byte-for-byte (no re-appended TR-only)", () => {
+  it("is idempotent — a second run reproduces the first byte-for-byte (no re-appended TR-only)", async () => {
     const root = mkFixture();
     const p = path.join(root, "parliament", "companies-index.json");
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const first = fs.readFileSync(p, "utf-8");
     const gammaSlug = read(root).companies.find(
       (c) => c.tr?.uic === "C300",
     )!.slug;
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     expect(fs.readFileSync(p, "utf-8")).toBe(first);
     // The TR-only company keeps its base slug on re-run (byUic re-finds it — no `-2`).
     expect(read(root).companies.find((c) => c.tr?.uic === "C300")!.slug).toBe(
@@ -182,27 +209,26 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     );
   });
 
-  it("suffixes a TR-only company whose name collides with an existing base slug", () => {
+  it("suffixes a registry-only company whose name collides with an existing base slug", async () => {
     const root = mkFixture();
     // An MP-managed TR-only company (uic Z900) whose name slugifies to the SAME base as the declared
     // "ALPHA OOD" (slug "alpha") must be appended under a disambiguated `-2` slug, not overwrite alpha.
-    fs.writeFileSync(
-      path.join(root, "parliament", "mp-management", "2.json"),
-      JSON.stringify({
-        mpId: 2,
-        mpName: "Мара",
-        roles: [
-          {
-            uic: "Z900",
-            companyName: "ALPHA OOD",
-            role: "manager",
-            erasedAt: null,
-            confidence: "medium",
-          },
-        ],
-      }),
-    );
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    rows.current = [
+      ...DEFAULT_ROWS,
+      {
+        mp_id: 2,
+        mp_name: "Мара",
+        uic: "Z900",
+        company_name: "ALPHA OOD",
+        legal_form: null,
+        seat: null,
+        status: null,
+        role: "manager",
+        erased_at: null,
+        declared: false,
+      },
+    ];
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const out = read(root);
     const declaredAlpha = out.companies.find((c) => c.tr?.uic === "A100")!;
     const trOnlyAlpha = out.companies.find((c) => c.tr?.uic === "Z900")!;
@@ -210,22 +236,72 @@ describe("augmentCompaniesIndexWithMpRoles", () => {
     expect(trOnlyAlpha.slug).toBe("ALPHA-OOD-2"); // TR-only collides → disambiguated
   });
 
-  it("skips a TR-only role with an empty / '-' company name (no entry appended)", () => {
+  it("skips a registry-only role with an empty / '-' company name (no entry appended)", async () => {
     const root = mkFixture();
-    fs.writeFileSync(
-      path.join(root, "parliament", "mp-management", "3.json"),
-      JSON.stringify({
-        mpId: 3,
-        mpName: "Георги",
-        roles: [
-          { uic: "N000", companyName: "-", role: "manager", erasedAt: null },
-          { uic: "N001", companyName: "   ", role: "partner", erasedAt: null },
-        ],
-      }),
-    );
-    augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    rows.current = [
+      ...DEFAULT_ROWS,
+      {
+        mp_id: 3,
+        mp_name: "Георги",
+        uic: "N000",
+        company_name: "-",
+        legal_form: null,
+        seat: null,
+        status: null,
+        role: "manager",
+        erased_at: null,
+        declared: false,
+      },
+      {
+        mp_id: 3,
+        mp_name: "Георги",
+        uic: "N001",
+        company_name: "   ",
+        legal_form: null,
+        seat: null,
+        status: null,
+        role: "partner",
+        erased_at: null,
+        declared: false,
+      },
+    ];
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
     const out = read(root);
     expect(out.companies.find((c) => c.tr?.uic === "N000")).toBeUndefined();
     expect(out.companies.find((c) => c.tr?.uic === "N001")).toBeUndefined();
+  });
+
+  // ── The two degrade paths ────────────────────────────────────────────────────────────
+  // Both must leave the PREVIOUS vintage alone. `mpRoles` drives a published cross-reference,
+  // so clearing it on a build machine with no database would silently retract every MP↔company
+  // link on the site — a build-green live-data regression, which is what this file exists for.
+
+  it("leaves mpRoles untouched when Postgres is unreachable", async () => {
+    const root = mkFixture();
+    rows.fail = true;
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    expect(rows.ended).toBe(true); // the pool is closed on the failure path too
+    const out = read(root);
+    const alpha = out.companies.find((c) => c.tr?.uic === "A100")!;
+    // The STALE role the fixture seeded is still there — proof nothing was rewritten.
+    expect(alpha.mpRoles).toEqual([
+      {
+        mpId: 9,
+        mpName: "STALE",
+        role: "x",
+        isCurrent: true,
+        confidence: "medium",
+      },
+    ]);
+  });
+
+  it("leaves mpRoles untouched when the person layer returns nothing", async () => {
+    const root = mkFixture();
+    rows.current = [];
+    await augmentCompaniesIndexWithMpRoles({ publicFolder: root, stringify });
+    const out = read(root);
+    expect(
+      out.companies.find((c) => c.tr?.uic === "A100")!.mpRoles,
+    ).toHaveLength(1);
   });
 });

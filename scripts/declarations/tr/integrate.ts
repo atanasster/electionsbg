@@ -1,7 +1,7 @@
 /**
  * Phase 5 — integrate the reconstructed TR SQLite into the public/ outputs.
  *
- * Two outputs:
+ * ONE output now (it had two — see (2) below):
  *
  *   1. Augment `public/parliament/companies-index.json`. For every entry whose
  *      declared name matches a row in `companies`, attach a `tr` object:
@@ -10,16 +10,11 @@
  *      matches an MP in `public/parliament/index.json` (catches the case where
  *      a sitting MP's spouse / family member runs a company the MP declared).
  *
- *   2. Write `public/parliament/mp-management/{mpId}.json` for every MP whose
- *      normalized name appears in `company_persons`. Each role gets a
- *      `confidence` field per the slice-3 design:
- *
- *        high   = exact full-name match AND (TR seat contains MP region
- *                 OR another MP from the same party already declared a stake
- *                 in this UIC)
- *        medium = exact full-name match only
- *        (low / surname-only — suppressed entirely; too noisy for Bulgarian
- *         common names like Иван Иванов / Мария Петрова)
+ *   (2) — REMOVED. This module used to also write
+ *      `public/parliament/mp-management/{mpId}.json` with a hand-built high/medium confidence
+ *      model over name matches. `mp_tr_roles` (migration 150) serves that from the gated
+ *      `person_role` set instead, so a name the Commerce Registry says belongs to more than
+ *      one human is REFUSED rather than graded. See the tombstone at the phase's old site.
  *
  * If the SQLite isn't present (i.e. the user hasn't run Phase 3+4 yet), this
  * module logs a warning and returns — `npm run prod` should still succeed.
@@ -37,48 +32,10 @@ import type {
   TrCompanyOfficer,
 } from "../../../src/data/dataTypes";
 
-// ⚠️ LOCAL, and no longer the serving contract. `MpManagementRole` in src/data/dataTypes.ts is
-// now what /api/db/mp-management (migration 150) returns — gated on tr_name_fold_people, with
-// `linkBasis` where this had `confidence`. This writer still produces the LEGACY shard file,
-// which nothing reads any more; the shape is pinned here so the two cannot be confused, and
-// both this type and this writer die with the shard family (mp-tr-edges-pg-v1 §4 Tier 3).
-type LegacyMpManagementRole = {
-  uic: string;
-  companyName: string | null;
-  legalForm: string | null;
-  seat: string | null;
-  status: string;
-  role: string;
-  positionLabel: string | null;
-  sharePercent: number | null;
-  addedAt: string;
-  erasedAt: string | null;
-  confidence: "high" | "medium";
-  confidenceReason: string;
-};
-type LegacyMpManagementFile = {
-  mpId: number;
-  mpName: string;
-  generatedAt: string;
-  total: number;
-  roles: LegacyMpManagementRole[];
-};
-
-/** Threshold for "this name is too common in TR for a bare name match to stand
- * on its own". 11+ officer/owner rows ≈ the top 0.5% of the name-frequency
- * distribution (~68% of names appear exactly once). */
-export const COMMON_NAME_TR_ROWS = 11;
-
-/** Phase-2a name-frequency guard, as a pure decision so it can be tested
- * without the SQLite. For a common name, a role survives only on its OWN
- * corroboration — corroboration never transfers from one company to another.
- * A rare name keeps everything, medium included. */
-export const applyNameFrequencyGuard = <T extends { confidence: string }>(
-  roles: T[],
-  nameRows: number,
-  threshold: number = COMMON_NAME_TR_ROWS,
-): T[] =>
-  nameRows >= threshold ? roles.filter((r) => r.confidence === "high") : roles;
+// COMMON_NAME_TR_ROWS + applyNameFrequencyGuard were REMOVED with phase 2 below — the
+// registry now counts people per name fold directly (tr_name_fold_people, 148), so the
+// officer-row proxy they implemented is not a weaker version of that measurement, it is a
+// different and wrong one. See the phase-2 tombstone.
 
 // ---- Inputs ----------------------------------------------------------------
 
@@ -218,19 +175,6 @@ const declarationFingerprints = (
   };
 };
 
-const normalizeName = (s: string) =>
-  s.toUpperCase().replace(/\s+/g, " ").trim();
-
-// ---- DB row shapes (raw from sqlite; TS lacks decltype) --------------------
-
-type CompanyRow = {
-  uic: string;
-  name: string | null;
-  legal_form: string | null;
-  seat: string | null;
-  status: string | null;
-  last_updated: string | null;
-};
 type PersonRow = {
   uic: string;
   role: string;
@@ -285,40 +229,22 @@ export type IntegrateTrArgs = {
 export type IntegrateTrResult = {
   companiesEnriched: number;
   companiesUnmatched: number;
-  mpFilesWritten: number;
-  mpHighConfidence: number;
-  mpMediumConfidence: number;
-  mpRolesSuppressed: number;
-  mpRolesFreqSuppressed: number;
-  mpsSkippedNotSeated: number;
 };
 
-// Editorial suppression list for confirmed false-positive name matches.
-// Lives at data/declarations/tr_match_suppressions.json so Phase-2 web-search
-// verification can append to it programmatically. See the file's own entries
-// for the rationale on each suppression.
-type TrMatchSuppressionEntry = {
-  mpId: number;
+/** One row of the TR SQLite `companies` table, as the fingerprint index reads it. */
+type CompanyRow = {
   uic: string;
-  mpName?: string;
-  companyName?: string;
-  reason?: string;
-  sources?: string[];
-  verifiedAt?: string;
+  name: string;
+  legal_form: string | null;
+  seat: string | null;
+  status: string | null;
+  last_updated: string | null;
 };
 
-const loadTrMatchSuppressions = (publicFolder: string): Set<string> => {
-  const file = path.join(
-    publicFolder,
-    "declarations",
-    "tr_match_suppressions.json",
-  );
-  if (!fs.existsSync(file)) return new Set();
-  const entries = JSON.parse(
-    fs.readFileSync(file, "utf-8"),
-  ) as TrMatchSuppressionEntry[];
-  return new Set(entries.map((e) => `${e.mpId}|${e.uic}`));
-};
+// The editorial suppression list (data/declarations/tr_match_suppressions.json) went with
+// phase 2: it existed to overrule individual false-positive NAME matches one at a time, and
+// the registry's own people-per-fold count refuses that whole class up front instead. The
+// file is left on disk — it records what was found by hand — but nothing reads it now.
 
 export const integrateTr = ({
   publicFolder,
@@ -492,241 +418,31 @@ export const integrateTr = ({
     uicToDeclaredMpIds.set(uic, set);
   }
 
-  // ---- (2) Per-MP management roles --------------------------------------
-
-  const allRolesByName = db.prepare(
-    `SELECT cp.uic, cp.role, cp.name, cp.name_norm, cp.position_label,
-            cp.share_percent, cp.added_at, cp.erased_at,
-            c.name AS company_name, c.legal_form, c.seat, c.status
-       FROM company_persons cp
-       JOIN companies c ON c.uic = cp.uic
-      WHERE cp.name_norm = ?`,
-  );
-
-  // Name-frequency table: how many TR officer/owner rows carry each normalized
-  // name. A name appearing many times across unrelated companies is either a
-  // very common Bulgarian name (Иван Иванов) or a registered agent / notary
-  // who represents dozens of shell companies — in both cases a pure name match
-  // to an MP is unreliable. The full distribution: ~68% of names appear once,
-  // only ~0.5% appear 11+ times. See COMMON_NAME_TR_ROWS below.
-  const nameFrequency = new Map<string, number>();
-  for (const row of db
-    .prepare(
-      `SELECT name_norm, COUNT(*) AS n FROM company_persons GROUP BY name_norm`,
-    )
-    .iterate() as IterableIterator<{ name_norm: string; n: number }>) {
-    nameFrequency.set(row.name_norm, row.n);
-  }
-  type RoleRow = PersonRow & {
-    company_name: string | null;
-    legal_form: string | null;
-    seat: string | null;
-    status: string | null;
-  };
-
-  const mpManagementDir = path.join(
-    publicFolder,
-    "parliament",
-    "mp-management",
-  );
-  // Wipe and recreate so per-MP files from prior runs (including non-seated
-  // profiles now excluded by the cohort filter, or MPs whose roles were all
-  // suppressed via tr_match_suppressions.json) don't linger and feed into
-  // downstream consumers like build_connections_graph.ts phase 2.
-  if (fs.existsSync(mpManagementDir)) {
-    for (const file of fs.readdirSync(mpManagementDir)) {
-      if (file.endsWith(".json")) {
-        fs.unlinkSync(path.join(mpManagementDir, file));
-      }
-    }
-  }
-  fs.mkdirSync(mpManagementDir, { recursive: true });
-
-  let mpFilesWritten = 0;
-  let mpHighConfidence = 0;
-  let mpMediumConfidence = 0;
-  let mpRolesSuppressed = 0;
-  let mpsSkippedNotSeated = 0;
-  let mpRolesFreqSuppressed = 0;
-
-  const trMatchSuppressions = loadTrMatchSuppressions(publicFolder);
-
-  // Index MP party-group → set of mpIds. Used for the "same-party already
-  // declared this UIC" arm of the high-confidence rule.
-  const partyGroupToMpIds = new Map<string, Set<number>>();
-  for (const mp of mpIndex.mps) {
-    if (!mp.currentPartyGroup) continue;
-    const set =
-      partyGroupToMpIds.get(mp.currentPartyGroup) ?? new Set<number>();
-    set.add(mp.id);
-    partyGroupToMpIds.set(mp.currentPartyGroup, set);
-  }
-
-  for (const mp of mpIndex.mps) {
-    // Cohort filter: parliament.bg's `--all` scrape includes every profile id,
-    // which sweeps in non-seated candidates (people in their member DB who
-    // never held a mandate — typically electoral-list candidates who lost).
-    // For TR matching we only want actual MPs. A profile passes when at least
-    // one of these is true:
-    //   - currently seated (`isCurrent`), OR
-    //   - has at least one historical NS folder (parliament.bg covers ~38th NS
-    //     onward), OR
-    //   - filed a CACBG declaration (covers pre-1997 mandates and any case
-    //     where parliament.bg's `oldnsList` is incomplete), OR
-    //   - has a real photo (parliament.bg returns the blank silhouette for
-    //     non-seated candidate profiles — the scraper strips it to "").
-    // Without this check, a common name like "Пламен Иванов Иванов" attached
-    // to a never-seated candidate profile would still match every TR officer
-    // with the same name and surface on the procurement page as an "MP".
-    const isSeatedCohort =
-      mp.isCurrent ||
-      mp.nsFolders.length > 0 ||
-      mpIdsWithDeclarations.has(mp.id) ||
-      !!mp.photoUrl;
-    if (!isSeatedCohort) {
-      mpsSkippedNotSeated++;
-      continue;
-    }
-    const rows = allRolesByName.all(mp.normalizedName) as RoleRow[];
-    if (rows.length === 0) continue;
-
-    const regionName = mp.currentRegion?.name ?? null;
-    const region = regionName ? normalizeName(regionName) : null;
-    const partyMpIds = mp.currentPartyGroup
-      ? partyGroupToMpIds.get(mp.currentPartyGroup)
-      : null;
-
-    const roles: LegacyMpManagementRole[] = [];
-    for (const r of rows) {
-      if (trMatchSuppressions.has(`${mp.id}|${r.uic}`)) {
-        mpRolesSuppressed++;
-        continue;
-      }
-      const seatNorm = r.seat ? normalizeName(r.seat) : "";
-      const seatMatch = !!region && seatNorm.includes(region);
-      const declaredMps = uicToDeclaredMpIds.get(r.uic);
-      // Self-declaration is the strongest possible witness: the MP themselves
-      // filed a stake in this UIC, which independently confirms the identity
-      // behind the TR name match. Distinct from partyMatch, which corroborates
-      // via a different same-party MP's declaration.
-      const selfMatch = !!declaredMps && declaredMps.has(mp.id);
-      const partyMatch =
-        !!declaredMps &&
-        !!partyMpIds &&
-        Array.from(declaredMps).some(
-          (id) => id !== mp.id && partyMpIds.has(id),
-        );
-
-      let confidence: "high" | "medium" = "medium";
-      const reasons: string[] = ["full-name match"];
-      if (seatMatch) {
-        confidence = "high";
-        reasons.push(`seat contains MP region "${regionName}"`);
-      }
-      if (selfMatch) {
-        confidence = "high";
-        reasons.push("MP declared a stake in this UIC");
-      }
-      if (partyMatch) {
-        confidence = "high";
-        reasons.push(`same-party MP also declared this UIC`);
-      }
-
-      if (confidence === "high") mpHighConfidence++;
-      else mpMediumConfidence++;
-
-      roles.push({
-        uic: r.uic,
-        companyName: r.company_name,
-        legalForm: r.legal_form,
-        seat: r.seat,
-        status: r.status ?? "unknown",
-        role: r.role,
-        positionLabel: r.position_label,
-        sharePercent: r.share_percent,
-        addedAt: r.added_at ?? "",
-        erasedAt: r.erased_at,
-        confidence,
-        confidenceReason: reasons.join("; "),
-      });
-    }
-
-    // Phase 2a — name-frequency guard. If the MP's normalized name is common
-    // in TR (COMMON_NAME_TR_ROWS+ officer rows across unrelated companies),
-    // a bare name match is not evidence of identity — keep ONLY the roles that
-    // earned a high-confidence corroboration of their own (region overlap /
-    // self-declared stake / same-party witness) and drop the rest.
-    //
-    // Corroboration does NOT transfer between companies, and assuming it did
-    // was this guard's original defect: it dropped the medium set only when
-    // NOT ONE role was corroborated, so a single high-confidence hit certified
-    // every namesake behind it. Measured on "Георги Иванов Георгиев" (mpId
-    // 5113) — 320 TR roles, exactly 1 high — the site attributed 319 unrelated
-    // companies across the whole country to him, e.g. Агроинвест-24 in
-    // с. Динково (Видин), which he never declared. Those rows fed the
-    // "companies HQ'd here" tile, /mp/company/{slug} and the MP-tied
-    // procurement/funds cross-reference, all of which read as fact.
-    //
-    // This is the same conclusion the PG person layer reaches independently:
-    // Tier-V only mints an identity for a ≤5-company owner fold, so it refuses
-    // this fold outright and /company/208117541 correctly shows 0 political
-    // links. An MP with a rare name is untouched — the guard never fires.
-    const nameRows = nameFrequency.get(mp.normalizedName) ?? 0;
-    const keptRoles = applyNameFrequencyGuard(roles, nameRows);
-    const dropped = roles.length - keptRoles.length;
-    if (dropped > 0) {
-      mpRolesFreqSuppressed += dropped;
-      mpMediumConfidence -= dropped;
-    }
-    if (keptRoles.length === 0) continue;
-
-    // Currently-active first, then most-recent erasures.
-    keptRoles.sort((a, b) => {
-      if ((a.erasedAt === null) !== (b.erasedAt === null)) {
-        return a.erasedAt === null ? -1 : 1;
-      }
-      return (b.addedAt || "").localeCompare(a.addedAt || "");
-    });
-
-    const file: LegacyMpManagementFile = {
-      mpId: mp.id,
-      mpName: mp.name,
-      generatedAt: new Date().toISOString(),
-      total: keptRoles.length,
-      roles: keptRoles,
-    };
-    fs.writeFileSync(
-      path.join(mpManagementDir, `${mp.id}.json`),
-      stringify(file),
-      "utf-8",
-    );
-    mpFilesWritten++;
-  }
+  // ---- (2) Per-MP management roles — REMOVED --------------------------------
+  //
+  // This phase wrote `public/parliament/mp-management/{mpId}.json` for every MP whose
+  // normalized name appeared in `company_persons`, graded high/medium by a hand-built
+  // confidence model and filtered by a name-FREQUENCY guard (COMMON_NAME_TR_ROWS = 11).
+  //
+  // All of it is gone, replaced by `mp_tr_roles` (migration 150) reading the gated
+  // `person_role` set. The frequency guard in particular was deleted rather than ported: it
+  // counted officer ROWS as a proxy for "is this name one person", written before anything
+  // could measure that. The Commerce Registry publishes a per-person key on its daily feed and
+  // `tr_name_fold_people` (148) now counts distinct people per name fold directly, so the
+  // proxy was wrong in both directions — it dropped a rare-name MP's whole medium set behind
+  // one busy registered agent, and let a name held by two people with six companies each pass.
+  //
+  // See docs/plans/mp-tr-edges-pg-v1.md §4 and data-hub-lateral-edges-v1 §11.10.
 
   db.close();
 
   console.log(
-    `[tr/integrate] wrote ${mpFilesWritten} mp-management file(s) — ` +
-      `${mpHighConfidence} high-confidence roles, ${mpMediumConfidence} medium` +
-      (mpRolesSuppressed
-        ? `, ${mpRolesSuppressed} suppressed via tr_match_suppressions.json`
-        : "") +
-      (mpRolesFreqSuppressed
-        ? `, ${mpRolesFreqSuppressed} suppressed by name-frequency guard`
-        : "") +
-      (mpsSkippedNotSeated
-        ? `, ${mpsSkippedNotSeated} non-seated profile(s) skipped`
-        : ""),
+    `[tr/integrate] enriched ${companiesEnriched} companies-index entr(ies), ` +
+      `${companiesUnmatched} unmatched`,
   );
 
   return {
     companiesEnriched,
     companiesUnmatched,
-    mpFilesWritten,
-    mpHighConfidence,
-    mpMediumConfidence,
-    mpRolesSuppressed,
-    mpRolesFreqSuppressed,
-    mpsSkippedNotSeated,
   };
 };

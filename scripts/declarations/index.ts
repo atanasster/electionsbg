@@ -34,8 +34,6 @@ import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
-import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
-import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
 // Shared with the officials ingest and registerFolderYear() — see
 // scripts/lib/cacbg_register.ts for why this must not be redeclared.
 import { REGISTER_BASE, latestRegisterYear } from "../lib/cacbg_register";
@@ -428,13 +426,13 @@ export const parseFinancialDeclarations = async ({
   // has not been ingested.
   buildOfficialsCompanyLinks({ stringify });
 
-  // Augment companies-index with `mpRoles` (TR-only MP↔company relationships) + the TR-only company
-  // entries an MP manages but never declared. Re-derived from the mp-management/*.json files
-  // integrateTr just wrote — this replaces the tail step of the RETIRED static connections graph
-  // (build_connections_graph.ts), which is the SOLE writer of `mpRoles`. Must run AFTER integrateTr and
-  // BEFORE build_companies_by_{settlement,obshtina}. See docs/plans/connections-engine-v1.md §P4.3.
-  // (/connections + the /person tile now read the live PG graph engine, not this pass.)
-  augmentCompaniesIndexWithMpRoles({ publicFolder, stringify });
+  // Augment companies-index with `mpRoles` + the registry-only company entries an MP holds but
+  // never declared. Re-derived from POSTGRES (the gated person_role tr/ngo set), not from the
+  // mp-management shards it used to read — those are retired, and reading them back was what
+  // made them a build-time input rather than merely a serving artifact. Sole writer of
+  // `mpRoles`. Needs db:resolve:persons to have run; degrades to leaving the previous vintage
+  // when Postgres is unreachable. See docs/plans/mp-tr-edges-pg-v1.md §4 Tier 3.
+  await augmentCompaniesIndexWithMpRoles({ publicFolder, stringify });
 
   // Phase 7: per-EIK Commerce-Registry connections to people in power,
   // consumed by the /company/:eik page. Reads state.sqlite + the parliament
@@ -446,16 +444,9 @@ export const parseFinancialDeclarations = async ({
   // entry, fall back to it for companies with no declared office string.
   reEnrichCompaniesIndex({ publicFolder, stringify });
 
-  // Per-settlement shards for the "Companies HQ'd here" tile. Reads the
-  // now-graph-enriched companies-index.json (with `ekatteHQ` and `mpRoles`
-  // populated) and emits public/parliament/companies-by-ekatte/{index,
-  // {ekatte}-summary, {ekatte}-page-NNN}.json. Must run AFTER the graph pass
-  // so mpRoles is on every entry.
-  buildCompaniesBySettlement({ publicFolder, stringify });
-
-  // Municipality-grain rollup of the same data — emits the matching
-  // companies-by-obshtina/ shard family for the муни-page tile.
-  buildCompaniesByObshtina({ publicFolder, stringify });
+  // The per-settlement and per-municipality shard builders that used to run here are GONE:
+  // /settlement/:id/companies is served live from Postgres (place_mp_companies, migration 151).
+  // See docs/plans/mp-tr-edges-pg-v1.md §4 Tier 3.
 
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
   // home/party/candidate "MPs by declared assets" tiles.

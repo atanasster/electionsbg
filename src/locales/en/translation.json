@@ -1559,8 +1559,8 @@
   "tr_last_updated": "Last updated",
   "tr_currently_active": "currently active",
   "tr_role_ended": "ended",
-  "tr_confidence_high": "high confidence",
-  "tr_confidence_medium": "medium confidence",
+  "tr_confidence_high": "from a register",
+  "tr_confidence_medium": "name match",
   "tr_status_active": "active",
   "tr_status_in_liquidation": "in liquidation",
   "tr_status_bankrupt": "bankrupt",
@@ -5947,5 +5947,7 @@
   "pp_link_name_match": "name match",
   "place_companies_see_mp_linked_all": "All companies here linked to people in public life",
   "tr_management_name_match_hint": "Linked by name from the Commerce Registry, not from a declared interest.",
-  "companies_hq_screen_error": "This list could not be loaded right now."
+  "companies_hq_screen_error": "This list could not be loaded right now.",
+  "tr_confidence_high_tooltip": "A curated register (declared interests / ИВСС чл. 175а) links this company to this person. The officer row inside it is still matched by name.",
+  "tr_confidence_medium_tooltip": "Found by name in the Commerce Registry, not from a declared interest. Names the registry records for more than one person are refused outright."
 }

@@ -25,8 +25,6 @@ import {
   annotatePerMpDeclarationsWithSlugs,
   reEnrichCompaniesIndex,
 } from "./build_company_index";
-import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
-import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
 import { integrateTr } from "./tr/integrate";
 import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
@@ -99,7 +97,7 @@ const reparseAll = () => {
   );
 };
 
-const main = () => {
+const main = async () => {
   const skipReparse = process.argv.includes("--skip-reparse");
   if (skipReparse) {
     console.log("[rebuild-all] phase 1 — SKIPPED (--skip-reparse)");
@@ -118,7 +116,7 @@ const main = () => {
   integrateTr({ publicFolder: DATA, rawFolder: RAW, stringify });
 
   console.log("[rebuild-all] phase 5 — augmentCompaniesIndexWithMpRoles");
-  augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
+  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
 
   // Phases 5a–5c mirror the tail of the real pipeline (declarations/index.ts).
   // Without them a change to integrateTr / augment_mp_roles lands in
@@ -128,11 +126,8 @@ const main = () => {
   console.log("[rebuild-all] phase 5a — reEnrichCompaniesIndex");
   reEnrichCompaniesIndex({ publicFolder: DATA, stringify });
 
-  console.log("[rebuild-all] phase 5b — buildCompaniesBySettlement");
-  buildCompaniesBySettlement({ publicFolder: DATA, stringify });
-
-  console.log("[rebuild-all] phase 5c — buildCompaniesByObshtina");
-  buildCompaniesByObshtina({ publicFolder: DATA, stringify });
+  // phases 5b/5c (the per-settlement and per-municipality shard builders) are GONE —
+  // /settlement/:id/companies is served live from Postgres (migration 151).
 
   console.log("[rebuild-all] phase 6 — buildAssetsRankings");
   buildAssetsRankings({ publicFolder: DATA, stringify });
@@ -146,4 +141,9 @@ const main = () => {
   console.log("[rebuild-all] done");
 };
 
-main();
+// `main` is async since phase 5 reads Postgres. Surface a rejection rather than letting the
+// process exit 0 on an unhandled one — this script rewrites committed artifacts.
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
+});

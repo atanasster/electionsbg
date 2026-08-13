@@ -1559,8 +1559,8 @@
   "tr_last_updated": "Последна актуализация",
   "tr_currently_active": "в момента",
   "tr_role_ended": "приключила на",
-  "tr_confidence_high": "висока сигурност",
-  "tr_confidence_medium": "средна сигурност",
+  "tr_confidence_high": "от регистър",
+  "tr_confidence_medium": "по име",
   "tr_status_active": "активно",
   "tr_status_in_liquidation": "в ликвидация",
   "tr_status_bankrupt": "в несъстоятелност",
@@ -5947,5 +5947,7 @@
   "pp_link_name_match": "по име",
   "place_companies_see_mp_linked_all": "Всички фирми тук, свързани с публични лица",
   "tr_management_name_match_hint": "Свързано по име от Търговския регистър, не от деклариран интерес.",
-  "companies_hq_screen_error": "Списъкът не може да бъде зареден в момента."
+  "companies_hq_screen_error": "Списъкът не може да бъде зареден в момента.",
+  "tr_confidence_high_tooltip": "Курирано публично изброяване (декларирани интереси / ИВСС чл. 175а) свързва тази фирма с това лице. Самият запис за длъжността вътре в нея пак е съвпадение по име.",
+  "tr_confidence_medium_tooltip": "Намерено по име в Търговския регистър, не от деклариран интерес. Имена, под които регистърът води повече от един човек, се отхвърлят изцяло."
 }

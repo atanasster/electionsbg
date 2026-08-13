@@ -25,7 +25,17 @@ const DATA = path.join(REPO, "data");
 
 const stringify = (o: object): string => JSON.stringify(o, null, 0);
 
-augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
-buildAssetsRankings({ publicFolder: DATA, stringify });
-buildCarMakes({ publicFolder: DATA, stringify });
-buildDataProvenance({ publicFolder: DATA, stringify });
+// Sequenced rather than fired-and-forgotten: the augment reads Postgres and is async, so a
+// bare call would let the three builders below run against a companies-index it has not
+// finished rewriting, and would swallow its rejection at exit 0.
+const main = async (): Promise<void> => {
+  await augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
+  buildAssetsRankings({ publicFolder: DATA, stringify });
+  buildCarMakes({ publicFolder: DATA, stringify });
+  buildDataProvenance({ publicFolder: DATA, stringify });
+};
+
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
+});

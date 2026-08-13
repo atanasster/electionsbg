@@ -321,37 +321,10 @@ const main = async (): Promise<void> => {
             `(file=${enriched.length}, returned=${result.companiesEnriched})`,
         );
 
-        // mp-management dir should exist (even if empty).
-        const mpDir = path.join(tmpParliamentDir, "mp-management");
-        assert(
-          fs.existsSync(mpDir),
-          "mp-management dir created (even if no MP names matched)",
-        );
-        const writtenFiles = fs
-          .readdirSync(mpDir)
-          .filter((f) => f.endsWith(".json"));
-        assert(
-          writtenFiles.length === result.mpFilesWritten,
-          `mp-management file count matches return value ` +
-            `(disk=${writtenFiles.length}, returned=${result.mpFilesWritten})`,
-        );
-        // If any files were written, validate one — must have well-shaped roles.
-        if (writtenFiles.length > 0) {
-          const sample = JSON.parse(
-            fs.readFileSync(path.join(mpDir, writtenFiles[0]), "utf-8"),
-          );
-          assert(
-            typeof sample.mpId === "number" && Array.isArray(sample.roles),
-            `mp-management file has mpId + roles[]`,
-          );
-          assert(
-            sample.roles.every(
-              (r: { confidence: string }) =>
-                r.confidence === "high" || r.confidence === "medium",
-            ),
-            "every role has confidence in {high, medium} (low is suppressed)",
-          );
-        }
+        // The mp-management assertions are GONE with the phase that wrote those files.
+        // /api/db/mp-management serves them from Postgres now (migration 150); the coverage
+        // moved to scripts/db/tests/mp_tr_roles.data.test.ts, which can assert what this
+        // never could — that a name the registry says belongs to two people is refused.
       }
 
       fs.rmSync(tmpPublic, { recursive: true, force: true });
