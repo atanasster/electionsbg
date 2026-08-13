@@ -1054,6 +1054,32 @@ two-tier „newest row that HAS the figure" pick (§2.2) — copy
 `src/data/budget/useBudgetHubStats.ts`, `budget_hub_stats.data.test.ts` with the basis assertions
 and the byte budget. **The peer bands move here and `macro_peers.json` leaves `/budget`.**
 
+### ⚠️ [2026-08-13] T5 AND T6 ARE IN THE WRONG ORDER — read this before starting T5
+
+T5 builds a registry of 14 tiles; T6 builds the 14 pages they point at. Measured against
+`src/routes.tsx` after T4: **none of the 14 destinations is routed.** So T5 as written cannot
+ship — §11's second gate is „every `to` is absolute AND in the routed list", which is precisely
+the dead-link check, and it would fail on all 14. Nor should it be weakened: a hub whose every
+tile 404s is worse than no hub.
+
+Three ways out, and the third is the one to take:
+
+1. **Loosen the gate for one tier.** No — that gate exists because dead links are what this
+   pattern ships, and a gate that is off when it would fire is not a gate.
+2. **Stub the 14 routes in T5.** No — a routed path with no prerender entry serves the SPA
+   shell, so to a crawler each is a duplicate of the homepage. That is the exact defect §1.2
+   says the module already has, multiplied by fourteen.
+3. **Interleave: build each page and its tile together.** Do T6's pages first — each is
+   self-contained and needs only the T3 routes, which exist — then T5's registry over
+   destinations that are already live. The registry's `to` list is then a description of the
+   tree rather than a promise about it.
+
+Concretely: run T6.1–T6.14 first, then T5.1-3, then T5.4–T5.6. The tier numbering below is
+left as-is so the plan's own history stays readable; this note is the running order.
+
+The dependency was invisible while the plan was being written because both tiers are „the
+hub" in one's head. It became visible the moment T4 landed and the next step was real.
+
 ### T5 — The hub
 
 - **T5.1** `src/screens/budget/budgetRegistry.ts` — 4 bands, 14 tiles, 14 accents, pure data.
