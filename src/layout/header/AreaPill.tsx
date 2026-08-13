@@ -9,6 +9,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
+import { onPlaceNode } from "@/data/area/areaAnchor";
 import { MapPin, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
@@ -91,11 +92,7 @@ export const AreaPill: FC = () => {
           // ?area= alone would leave the path-derived anchor live and
           // the pill would re-render immediately. Navigate away first
           // so the clear sticks. (region/country nodes aren't anchors.)
-          if (
-            /^(?:\/en)?\/governance\/(?!region(?:\/|$)).+/.test(
-              location.pathname,
-            )
-          ) {
+          if (onPlaceNode(location.pathname)) {
             navigate("/my-area");
           }
         }}

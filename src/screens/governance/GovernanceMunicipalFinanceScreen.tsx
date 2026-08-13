@@ -38,10 +38,9 @@ import {
   SORTS,
   type SortKey,
 } from "./municipalFinanceFilters";
+import { MunicipalFiscalMapTile } from "./MunicipalFiscalMapTile";
 import { cn } from "@/lib/utils";
 
-// The чл. 130а thresholds, for the marks beside each ratio. Values are stored
-// as PERCENTS, so these are too.
 // The чл. 130а thresholds, for the marks beside each ratio. Values are stored
 // as PERCENTS, so these are too.
 //
@@ -207,6 +206,20 @@ export const GovernanceMunicipalFinanceScreen: FC = () => {
       )}
       {!isPending && !isError && rows.length === 0 && filters.year == null && (
         <p className="text-sm text-muted-foreground">{t("mf_browse_empty")}</p>
+      )}
+
+      {/* Map ABOVE the table — pattern first, detail second — and both driven
+          by the same `?year` and `?layer`, so one URL carries what the reader
+          was actually looking at. The map shows the whole country regardless of
+          the table's filters: a filtered map with an unfiltered legend would be
+          read as national coverage. */}
+      {rows.length > 0 && (
+        <MunicipalFiscalMapTile
+          rows={rows}
+          layerId={filters.layer}
+          onLayerChange={(layer) => patch({ layer })}
+          year={year}
+        />
       )}
 
       {rows.length > 0 && (

@@ -41,6 +41,7 @@ const row = (
   criteria_evaluable: [1, 2, 3],
   population: 10_000,
   commitments_per_capita_eur: 100,
+  collection_avg_pct: 76,
   suppressed_fields: null,
   ...over,
 });
@@ -235,5 +236,45 @@ describe("applyFilters", () => {
     const before = rows.map((r) => r.name_bg);
     applyFilters(rows, f({ sort: "arrears" }));
     expect(rows.map((r) => r.name_bg)).toEqual(before);
+  });
+});
+
+describe("parseFilters / toParams — the ?layer state", () => {
+  it("defaults to the capacity-normalised layer, not to per-resident", () => {
+    // The map's whole premise: population is not a measure of fiscal capacity,
+    // so per-resident may exist and may never be what a bare URL selects.
+    expect(parseFilters(new URLSearchParams()).layer).toBe("commitmentsPct");
+  });
+
+  it("accepts a known layer id", () => {
+    expect(parseFilters(new URLSearchParams("layer=arrearsPct")).layer).toBe(
+      "arrearsPct",
+    );
+    expect(parseFilters(new URLSearchParams("layer=perCapita")).layer).toBe(
+      "perCapita",
+    );
+  });
+
+  it("drops an unknown layer back to the default", () => {
+    // Passing it through would colour 265 municipalities with a palette
+    // anchored to nothing.
+    expect(parseFilters(new URLSearchParams("layer=bribes")).layer).toBe(
+      "commitmentsPct",
+    );
+    expect(parseFilters(new URLSearchParams("layer=constructor")).layer).toBe(
+      "commitmentsPct",
+    );
+  });
+
+  it("round-trips a non-default layer and omits the default", () => {
+    // The layer travels in the URL so a shared link carries the map the reader
+    // was looking at — a link that silently reverts sends a different claim.
+    expect(toParams(f({ layer: "collection" })).get("layer")).toBe(
+      "collection",
+    );
+    expect(toParams(f({ layer: "commitmentsPct" })).get("layer")).toBeNull();
+    expect(parseFilters(toParams(f({ layer: "criteria" }))).layer).toBe(
+      "criteria",
+    );
   });
 });

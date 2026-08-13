@@ -27,6 +27,7 @@ import { useCallback, useMemo, type PropsWithChildren } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import {
   AREA_ANCHOR_PARAM,
+  AREA_PATH_RE,
   AreaAnchorContext,
   AreaAnchorSetterContext,
   type AreaAnchor,
@@ -35,12 +36,10 @@ import {
 // Extract `<id>` from a `/governance/<id>` pathname. Matches both
 // `/governance/` and `/en/governance/` (the English-locale prefix) so the
 // anchor survives language switches. The `region/` and `sectors` segments are
-// excluded via a negative lookahead — the oblast node and the state-sector hub
-// are not personal place anchors; the bare `/governance` country node has no
-// trailing segment and so never matches.
-const AREA_PATH_RE =
-  /^(?:\/en)?\/governance\/(?!(?:region|sectors)(?:\/|$))([^/?#]+)/;
-
+// excluded via a negative lookahead — none of the static pages under
+// /governance is a personal place anchor; the bare `/governance` country node
+// has no trailing segment and so never matches. The list is exported and
+// gated, because "remember to add it" failed the first time it was tested.
 const extractPathId = (pathname: string): string | null => {
   const m = AREA_PATH_RE.exec(pathname);
   return m ? decodeURIComponent(m[1]) : null;

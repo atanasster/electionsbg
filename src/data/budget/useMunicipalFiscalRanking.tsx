@@ -60,6 +60,17 @@ export interface MunicipalFiscalRankingRow {
   /** The only cross-município comparable. Absolute commitments put Столична
    *  община first every year by construction, which tells a reader nothing. */
   commitments_per_capita_eur: number | null;
+  /** чл. 130а т. 6 — the averaged ДНИ/ДПрС collection rate. Year-end only.
+   *  Independent of every liability figure above: it measures tax
+   *  administration rather than project timing.
+   *
+   *  ADDED to `municipal_fiscal_ranking`'s OUT columns after the route shipped.
+   *  A serving database on the previous 149 returns rows without it, so the
+   *  field is `undefined` and the map's collection layer paints all 265
+   *  municipalities the no-data colour — which reads as a data gap rather than
+   *  as an unapplied migration. `npm run db:load:municipal-fiscal:pg:cloud`
+   *  (or `apply_functions.ts 149_municipal_fiscal.sql`) is what fixes it. */
+  collection_avg_pct: number | null;
   /** Fields withheld for this row, by name. A figure absent from the row and
    *  named here is „frozen upstream"; absent and NOT named is „never
    *  published". */

@@ -26,6 +26,12 @@ vi.mock("react-i18next", () => ({
   }),
 }));
 vi.mock("@/ux/Title", () => ({ Title: () => null }));
+// The map drags in Leaflet + d3-geo + the nation geometry, none of which jsdom
+// can render and none of which these assertions are about. It has its own
+// tests; here it only needs to not exist.
+vi.mock("./MunicipalFiscalMapTile", () => ({
+  MunicipalFiscalMapTile: () => <div data-testid="map" />,
+}));
 
 const mockRanking = vi.fn();
 vi.mock("@/data/budget/useMunicipalFiscalRanking", async (orig) => ({
@@ -59,6 +65,7 @@ const row = (
     criteria_evaluable: [2, 3, 4],
     population: 4_546,
     commitments_per_capita_eur: 3_800,
+    collection_avg_pct: 76,
     suppressed_fields: null,
     ...over,
   }) as MunicipalFiscalRankingRow;

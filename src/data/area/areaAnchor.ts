@@ -45,3 +45,32 @@ export const useSetAreaAnchor = (): ((id: string | null) => void) => {
   const setter = useContext(AreaAnchorSetterContext);
   return setter ?? (() => undefined);
 };
+
+/** Static `/governance/<segment>` pages that are NOT personal place anchors.
+ *
+ *  Every page added under `/governance/` competes with the `:id` place node for
+ *  this regex, and losing is silent: the header pill pins the path segment as
+ *  though it were a place, `?area=` starts travelling with it, and the reader
+ *  carries a bogus anchor around the site. `municipal-finance` shipped that way
+ *  for exactly as long as it took to look at the header.
+ *
+ *  `governanceNonPlace.test.ts` (beside this file) derives the expected set from `routes.tsx`,
+ *  so a new static page cannot be added without joining this list. */
+export const GOVERNANCE_NON_PLACE_SEGMENTS = [
+  "region",
+  "sectors",
+  "overview",
+  "declarations",
+  "municipal-finance",
+] as const;
+
+export const AREA_PATH_RE = new RegExp(
+  `^(?:/en)?/governance/(?!(?:${GOVERNANCE_NON_PLACE_SEGMENTS.join("|")})(?:/|$))([^/?#]+)`,
+);
+
+/** True when this path IS the place node — i.e. the anchor is path-derived and
+ *  clearing `?area=` alone would not clear it. Shared with `AreaPill`'s × so the
+ *  two cannot disagree about which URLs are places; before this the pill's own
+ *  copy of the regex excluded `region` and nothing else. */
+export const onPlaceNode = (pathname: string): boolean =>
+  AREA_PATH_RE.test(pathname);

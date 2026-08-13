@@ -408,6 +408,11 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
   -- lengths; the reverse is not, and the browse marks the individual criteria.
   criteria_met smallint[], criteria_evaluable smallint[],
   population int, commitments_per_capita_eur double precision,
+  -- The чл. 130а т. 6 collection layer on the map. Wholly independent of the
+  -- liability layers — it measures tax administration rather than project
+  -- timing — which is what makes it worth a layer of its own rather than a
+  -- column nobody reads.
+  collection_avg_pct double precision,
   suppressed_fields text[]
 ) LANGUAGE sql STABLE AS $$
   -- Year-end only: the чл. 130а ratios are annual, and ranking an interim
@@ -426,6 +431,7 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
          -- a division error — and NULL sorts last under DESC NULLS LAST below,
          -- which is the honest place for "we cannot rank this one".
          mf.commitments_eur / NULLIF(op.population, 0),
+         mf.collection_avg_pct,
          mf.suppressed_fields
   FROM municipal_fiscal mf
   LEFT JOIN place_dim pd

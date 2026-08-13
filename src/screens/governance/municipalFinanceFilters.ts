@@ -8,6 +8,7 @@
 // and looks like a ranking.
 
 import type { MunicipalFiscalRankingRow } from "@/data/budget/useMunicipalFiscalRanking";
+import { DEFAULT_LAYER, LAYERS, type LayerId } from "./municipalFiscalLayers";
 
 /** Sortable columns, and what each one MEANS as a ranking.
  *
@@ -44,6 +45,10 @@ export interface MunicipalFinanceFilters {
   recovery: boolean;
   /** Year-end to rank. NULL = the newest the corpus carries. */
   year: number | null;
+  /** Which choropleth layer is showing. In the URL so a shared link carries the
+   *  map a reader was actually looking at — a link that silently reverts to the
+   *  default sends the recipient to a different claim. */
+  layer: LayerId;
 }
 
 export const DEFAULTS: MunicipalFinanceFilters = {
@@ -53,10 +58,14 @@ export const DEFAULTS: MunicipalFinanceFilters = {
   crit: null,
   recovery: false,
   year: null,
+  layer: DEFAULT_LAYER,
 };
 
 const isSortKey = (v: string | null): v is SortKey =>
   v != null && Object.prototype.hasOwnProperty.call(SORTS, v);
+
+const isLayerId = (v: string | null): v is LayerId =>
+  v != null && LAYERS.some((l) => l.id === v);
 
 export const parseFilters = (
   params: URLSearchParams,
@@ -64,6 +73,7 @@ export const parseFilters = (
   const rawCrit = Number(params.get("crit"));
   const rawYear = Number(params.get("year"));
   const sort = params.get("sort");
+  const layer = params.get("layer");
   return {
     sort: isSortKey(sort) ? sort : DEFAULT_SORT,
     asc: params.get("asc") === "1",
@@ -80,6 +90,9 @@ export const parseFilters = (
       Number.isInteger(rawYear) && rawYear >= 2000 && rawYear <= 2100
         ? rawYear
         : null,
+    // Falls back to the DEFAULT layer rather than through: an unknown id would
+    // otherwise colour every município with a palette anchored to nothing.
+    layer: isLayerId(layer) ? layer : DEFAULT_LAYER,
   };
 };
 
@@ -98,6 +111,7 @@ export const toParams = (
   set("crit", f.crit == null ? null : String(f.crit));
   set("recovery", f.recovery ? "1" : null);
   set("year", f.year == null ? null : String(f.year));
+  set("layer", f.layer === DEFAULTS.layer ? null : f.layer);
   return p;
 };
 
