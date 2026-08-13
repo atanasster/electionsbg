@@ -35,10 +35,11 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
     for (const e of manual) {
       const m = e.manual;
       sections.push(`- **${flat(e.source.label)}**: ${flat(m.instruction)}`);
+      const link = (v: string): string => `[${flat(v)}](${flat(v)})`;
       sections.push(
         m.dropDir
-          ? `  Save from ${flat(m.url)} into ${code(m.dropDir)}:`
-          : `  Source: ${flat(m.url)}`,
+          ? `  Save from ${link(m.url)} into ${code(m.dropDir)}:`
+          : `  Source: ${link(m.url)}`,
       );
       for (const f of m.files ?? []) sections.push(`  - ${code(f)}`);
     }
