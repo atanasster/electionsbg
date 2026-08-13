@@ -185,6 +185,7 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+
 // SHLIOKAVITSA — the second needle. Returns the folded query REWRITTEN into the spellings a
 // Bulgarian actually types (6umen, 4erven, sofiq), or null when the query has no rewrite.
 //
@@ -4305,6 +4306,38 @@ const DB_ROUTES = {
       [ns, mpId, minShared, lim],
     ).catch(matviewRows("mp_similarity"));
     return { body: rows[0]?.r ?? { top: [], bottom: [] } };
+  },
+  // An MP's Commerce-Registry management roles → the „Управленски роли" block on
+  // /candidate/:id and /person/:slug (migration 150). Replaces the static
+  // parliament/mp-management/{mpId}.json shard family, which was bucket-served.
+  //
+  // The role SET is not computed here — it is the same gated person_role tr/ngo set the
+  // profile reads, so the blocks on one page cannot disagree about one named person. Note
+  // 082 SPLITS that set in two (`companies` for source tr, `ngos` for source ngo) while this
+  // returns it whole, because the shard it replaces listed читалище trusteeships beside
+  // company directorships. Same set, different partition. Companies whose name fold the
+  // Commerce Registry says is shared by more than one human, or has never been observed, are
+  // refused upstream by resolve_persons.
+  //
+  // TWO empty answers, and they are not the same thing. `null` = no such servable person (an
+  // unknown mp_id, or one flipped out of status='active'); `{…, roles: []}` = a real MP who
+  // holds nothing the guard will publish — the COMMON case, 1,367 of 2,122 MPs today. The
+  // static shard 404'd for both; both consumers render nothing on either.
+  //
+  // ⚠️ THE REPOINT IS NOT A URL SWAP. This payload deliberately drops `generatedAt`,
+  // `confidence` and `confidenceReason` from the shard's `MpManagementFile` type (150's header
+  // says why the confidence model is gone) and adds `linkBasis`. `MpManagementRoles` reads
+  // `confidence`/`confidenceReason` for its badge and would render `undefined`, so that badge
+  // has to move onto `linkBasis` BEFORE `useMpManagement` stops fetching the bucket file.
+  "mp-management": async (dbRows, q) => {
+    // parliament.bg profile ids are 5 digits today; the ceiling only exists so a junk param
+    // is a null body rather than a 22P02 on the int bind.
+    const mpId = clampInt(q.mp, 0, 1, 9_999_999);
+    if (!mpId) return { body: null };
+    const rows = await dbRows("SELECT mp_tr_roles($1) AS r", [mpId]).catch(
+      missingMigration(null),
+    );
+    return { body: rows[0]?.r ?? null };
   },
   // Person↔person edges (shared company, association-noise-guarded) → the Connections
   // component (§8) + the future personConnections AI tool. Reads the unified graph (128/084).
