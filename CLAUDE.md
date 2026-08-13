@@ -979,8 +979,20 @@ sends the file as ONE transaction the target gets **no `municipal_fiscal` table 
 not merely unlabelled rows. `refresh_coverage.test.ts` carries the pair for the local chain;
 nothing covers the cloud side.
 
-Three things about it are easy to get backwards:
+Four things about it are easy to get backwards:
 
+- **The corpus has TWO consumers, and the loader is only one of them.** It also feeds three
+  NATIONAL series in `data/macro.json` — `municipalCommitments` /
+  `municipalExpenseObligations` / `municipalArrears`, behind the `/indicators/fiscal`
+  commitments tile — built by `scripts/macro/municipal_stocks.ts`. `fetch_eurostat.ts` is
+  the durable writer (it pushes them onto `CURATED_INDICATORS`, so a macro refresh carries
+  them), and `npm run macro:municipal-stocks` folds them into an existing `macro.json` when
+  the corpus moved and nothing else did. A new quarter that reaches only the PG loader
+  leaves `/indicators/fiscal` a quarter behind at a 200 — `macro.json` is bucket-served from
+  the committed file, so nothing about the database refreshes it. Note the assembler's
+  10%-shrink regression gate exempts these three by RATIO (`MAY_SHRINK`) but not at zero:
+  losing a quarter is designed behaviour here — МФ freezes a column and the ingest withholds
+  it rather than carrying it forward — while dropping to no points at all still aborts.
 - **The corpus is the LOADER'S input, and the fetch half is manual.**
   `data/budget/municipal_fiscal/*.json` is committed and the loader is pure-load (works on a
   fresh clone, no network). What produces it is

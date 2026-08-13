@@ -57,6 +57,7 @@ import type {
 } from "@/screens/components/governments/indicatorToggle";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { formatDate } from "@/lib/formatDate";
+import { STOCKS } from "@/screens/components/macro/municipalStocks";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -80,6 +81,10 @@ const isoFromElectionKey = (key: string) => key.replace(/_/g, "-");
 // Colours may repeat across charts (gdpGrowth and inflationCore both green,
 // inflation and inflationEnergy both red) — they never appear in the same
 // chart together, so within-chart contrast is what matters.
+const MUNICIPAL_STOCK_COLORS = Object.fromEntries(
+  STOCKS.map((s) => [s.key, s.color]),
+) as Record<(typeof STOCKS)[number]["key"], string>;
+
 const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   // economy
   gdpGrowth: "#10b981",
@@ -114,6 +119,12 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   // Minfin КФП — cash balance + arrears (annual)
   cashBalance: "#f43f5e",
   arrears: "#b45309",
+  // The three municipal liability stocks. They are never drawn on THIS
+  // timeline — they belong to MunicipalCommitmentsTile, which owns the palette
+  // — but this map is total, so they need an entry. Read from that tile's own
+  // STOCKS rather than restated, so a palette tweak cannot leave the two
+  // disagreeing in the one place nobody would look.
+  ...MUNICIPAL_STOCK_COLORS,
   // HICP breakdown (stacked area uses these directly)
   inflationFood: "#f59e0b",
   inflationEnergy: "#dc2626",

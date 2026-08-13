@@ -233,6 +233,7 @@
     "db:load:agri:pg": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/db/load_agri_pg.ts",
     "db:load:agri:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:agri:pg",
     "db:load:municipal-fiscal:pg": "tsx scripts/db/load_municipal_fiscal_pg.ts",
+    "macro:municipal-stocks": "tsx scripts/macro/patch_municipal_stocks.ts",
     "db:load:municipal-fiscal:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:municipal-fiscal:pg",
     "funds:ingest-projects": "tsx ./scripts/funds/projects_ingest.ts",
     "funds:crawl-interreg": "tsx ./scripts/funds/interreg/crawl.ts",

@@ -194,7 +194,14 @@ Once the workbook is in `data/_cache/minfin_municipal_fiscal/`:
 ```bash
 npx tsx scripts/budget/municipal_fiscal/ingest.ts   # → data/budget/municipal_fiscal/*.json
 npm run db:load:municipal-fiscal:pg                 # → the municipal_fiscal table
+npm run macro:municipal-stocks                      # → the 3 national series in data/macro.json
 ```
+
+**The THIRD is easy to forget and fails silently.** The corpus has two consumers: the
+`/governance` surfaces read Postgres and move after the second command, while
+`/indicators/fiscal` is bucket-served from the committed `data/macro.json` and moves only
+after the third. Skip it and the national commitments tile keeps serving the previous
+quarter at a 200 with every row count reconciling.
 
 Only the SECOND is in `db:refresh` — the ingest has no npm alias and is not in the chain,
 because its input is the gitignored drop directory. So a `db:refresh` re-loads whatever JSON

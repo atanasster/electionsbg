@@ -24,6 +24,7 @@ import { DebtEmissionsTable } from "@/screens/components/governments/DebtEmissio
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { FdiMonthlyTile } from "@/screens/components/macro/FdiMonthlyTile";
+import { MunicipalCommitmentsTile } from "@/screens/components/macro/MunicipalCommitmentsTile";
 import { ChartSources, IndicatorsPageHeader } from "./indicatorsShared";
 
 const FISCAL_INDICATOR_KEYS: MacroIndicatorKey[] = [
@@ -377,6 +378,31 @@ export const IndicatorsFiscalScreen = () => {
         />
         <FdiMonthlyTile />
       </section>
+
+      {/* Gated on the series rather than rendered unconditionally: the tile
+          self-suppresses when the corpus is absent or still loading, and a
+          heading + explainer + sources block standing over nothing reads as a
+          broken section rather than an unpublished one. */}
+      {(macro?.series.municipalCommitments?.length ?? 0) > 0 && (
+        <section id="municipal-commitments" className="mb-10 scroll-mt-20">
+          <h2 className="text-lg font-semibold mb-3">
+            {t("municipal_fiscal_heading")}
+          </h2>
+          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+            {t("municipal_fiscal_explainer")}
+          </p>
+          <ChartSources
+            prefix={t("governments_chart_sources_prefix")}
+            sources={[
+              {
+                href: "https://www.minfin.bg/bg/810",
+                label: t("municipal_fiscal_minfin_source"),
+              },
+            ]}
+          />
+          <MunicipalCommitmentsTile />
+        </section>
+      )}
 
       <section id="debt-emissions" className="mb-10 scroll-mt-20">
         <h2 className="text-lg font-semibold mb-3">

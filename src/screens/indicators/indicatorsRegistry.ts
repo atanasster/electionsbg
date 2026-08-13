@@ -219,6 +219,44 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
   },
   // Non-landing entries — also formatted here so domain pages can reuse the
   // formatters consistently.
+  // The three municipal liability stocks. Registered for its FORMATTERS, and
+  // deliberately NOT on the landing grid — this block is the non-landing half
+  // of the file, and `LANDING_KPI_ORDER` is the only list either consumer
+  // iterates.
+  //
+  // Two reasons it stays here rather than joining that list. The same list also
+  // mints a `CabinetKpiTile` on /governments/:id, whose framing is
+  // „term-start → term-end, with a signed delta" — and that attributes movement
+  // in 265 separately elected mayors' commitment stock to a PM·FM duo, which is
+  // exactly what the plan (T14.2) rules out for `CabinetBudgetScorecard`. And
+  // the series is 4 points long today, one above `SPARKLINE_MIN_POINTS`, so a
+  // single withheld quarter would take the sparkline away again. Revisit once
+  // T15's per-era backfill lands.
+  //
+  // `direction: "none"` because rising commitments are not straightforwardly
+  // bad — they are also what an EU-programme delivery wave looks like — so a
+  // red arrow would editorialise a sign we cannot judge.
+  municipalCommitments: {
+    key: "municipalCommitments",
+    domain: "fiscal",
+    direction: "none",
+    format: eurMnToBn,
+    // The series is EUR MILLIONS and the headline is billions, so the delta
+    // needs the same conversion — `yoyChangeFor` returns an absolute delta in
+    // the series' own units. `deltaSuffix: "%"` here would render the
+    // 2025-Q2 move as „+1133.8 %" instead of „+€1.13B". Same pairing as
+    // `fiscalReserve` above.
+    deltaSuffix: "",
+    formatDelta: (d) => `€${(d / 1000).toFixed(2)}B`,
+    // 5y rather than 10y for when it matters: once T15's backfill lands this is
+    // a quarterly series running to 2016, and a 10y window would carry 40
+    // points into a 120px sparkline. It changes nothing today — `KpiSparkline`
+    // takes its x-domain from the points it is handed, so with 4 points 5 and
+    // 10 select the same set.
+    sparklineYears: 5,
+    peerEligible: false,
+    anchor: "municipal-commitments",
+  },
   cpi: {
     key: "cpi",
     domain: "governance",

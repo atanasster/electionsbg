@@ -24,6 +24,10 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { CASH_META } from "./fetch_cash_balance";
+import {
+  MUNICIPAL_STOCK_KEYS,
+  municipalStockIndicators,
+} from "./municipal_stocks";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +46,12 @@ const MIN_POINTS_MONTHLY = 180; // ~15 years of monthly data
 // compared to the previously-committed data/macro.json, abort. Catches the
 // "filter narrowed silently" case the SKILL.md describes.
 const REGRESSION_THRESHOLD = 0.1; // 10% drop = trip
+
+// Curated series built from a COMMITTED CORPUS rather than fetched, which may
+// legitimately lose a point (see the regression check below). Derived from the
+// municipal-stock module itself so a fourth stock cannot be added on one side
+// only. Reads no files — the corpus is loaded once, at the push below.
+const MAY_SHRINK = new Set(MUNICIPAL_STOCK_KEYS);
 
 const EUROSTAT_BASE =
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data";
@@ -1485,6 +1495,18 @@ CURATED_INDICATORS.push({
   series: loadArrears(),
 });
 
+// The three municipal liability stocks (поети ангажименти / задължения за
+// разходи / просрочени задължения), summed over all reporting municipalities
+// from the committed per-município corpus. Built in `./municipal_stocks` so the
+// side-patcher there and this assembler cannot disagree about a figure or a
+// caption. Quarterly, because these are STOCKS: they may only be compared at
+// the same quarter, and they never sum over time.
+//
+// They are NOT a component of the deficit, the debt or the fiscal reserve on
+// this page — the consolidated cash balance books a municipal payment when it
+// is made, so they are invisible nationally until paid.
+CURATED_INDICATORS.push(...municipalStockIndicators());
+
 // Cash budget balance (касов баланс по КФП) — the МФ headline cash deficit/
 // surplus, distinct from the Eurostat ESA balance above. Recent years come from
 // our own КФП ingest (data/budget/index.json); older years from a manual МФ drop
@@ -1883,11 +1905,23 @@ const main = async () => {
       // for this key, abort when the new fetch returns materially fewer
       // points. Catches the case where the upstream still answers but with
       // a narrower window (e.g. dimension filter changed semantics).
+      //
+      // MAY_SHRINK exempts the corpus-derived curated series from the RATIO,
+      // but never from the floor of one point. Those three are 4-5 points long
+      // and their central design rule is that a quarter МФ froze is WITHHELD
+      // rather than carried forward — so losing one is a 25% drop, i.e. designed
+      // behaviour tripping a gate written for a network fetch that came back
+      // short. Left in place it aborts the whole rebuild (every unrelated
+      // Eurostat and World Bank series with it) under a message that names
+      // Eurostat. Dropping to ZERO stays fatal: that is an absent corpus on a
+      // machine whose macro.json already carries the series — a broken
+      // checkout, not a design case.
       if (prior && prior[ind.key]) {
         const prev = prior[ind.key].length;
         if (prev > 0) {
           const drop = (prev - data.length) / prev;
-          if (drop > REGRESSION_THRESHOLD) {
+          const gated = !MAY_SHRINK.has(ind.key) || data.length === 0;
+          if (gated && drop > REGRESSION_THRESHOLD) {
             throw new Error(
               `safety check: ${ind.key} dropped from ${prev} → ${data.length} points (${(drop * 100).toFixed(1)}% < -${(REGRESSION_THRESHOLD * 100).toFixed(0)}%). ` +
                 `Upstream filter likely tightened. ` +

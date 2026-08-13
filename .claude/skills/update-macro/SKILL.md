@@ -262,7 +262,24 @@ Two layers of count-based guards are enforced automatically (since adding the `m
 
 2. **Regression vs. prior committed run.** Before writing, each fetched series is compared against the same `key` in the previously-committed `data/macro.json`. If the count dropped by more than 10%, throws `safety check: <key> dropped from P → C points (X% < -10%)`. Catches the gradual case where the upstream still answers but with a narrower window (dimension filter semantics changed). Run the same script after a clean fetch to re-seed the baseline.
 
-Curated series (CPI, Eurobarometer, EU funds) bypass both checks — they're inline constants in `fetch_eurostat.ts` and self-validating.
+Curated series bypass the **first** check only (the absolute floor) — the inline-constant
+ones (CPI, Eurobarometer, EU funds) are self-validating. They are still subject to the
+**regression** check, which is deliberate: `arrears`, `cashBalance` and `fiscalReserve` are
+read from committed caches, and a cache that went missing would otherwise blank a live
+series.
+
+The one exemption is `MAY_SHRINK` — the three municipal-stock series
+(`municipalCommitments` / `municipalExpenseObligations` / `municipalArrears`), derived from
+`data/budget/municipal_fiscal/*.json`. Those may legitimately LOSE a quarter, because МФ
+freezes a column between releases and the ingest withholds it rather than carrying it
+forward; on a 4-point series that is a 25% drop, so without the exemption designed behaviour
+would abort the **whole** rebuild — every unrelated Eurostat and World Bank series with it —
+under a message naming Eurostat. They are exempt from the RATIO, not from zero: dropping to
+no points while a prior series exists is a broken checkout and still throws.
+
+A municipal-corpus change is also its own refresh trigger, and it does **not** need this
+script: `npm run macro:municipal-stocks` folds the three series into an existing
+`macro.json` without a network round trip. See `scripts/macro/patch_municipal_stocks.ts`.
 
 Intentional non-fatal skips:
 

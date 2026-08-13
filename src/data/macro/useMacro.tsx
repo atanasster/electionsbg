@@ -38,6 +38,9 @@ export type MacroIndicatorKey =
   | "cashBalance"
   // Minfin — overdue obligations / просрочени задължения (annual year-end stock)
   | "arrears"
+  | "municipalCommitments"
+  | "municipalExpenseObligations"
+  | "municipalArrears"
   // Eurostat — FDI (annual, BPM6)
   | "fdiInward"
   // Eurostat — HICP breakdown (quarterly)
