@@ -84,6 +84,10 @@ import { electionYearSuffix } from "./electionYear";
 import { oblastLabel } from "@/lib/oblastName";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
+import {
+  WATER_SECTOR_EIKS,
+  VIK_HOLDING_SUB_EIKS,
+} from "@/lib/vikReferenceData";
 import { readIndexableProcedures } from "../funds/procedures_index";
 import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
@@ -1197,6 +1201,16 @@ const waterFacts = (() => {
     floodEurMln: Math.round(j.totalEur / 1e6),
     floodContracts: j.contractCount,
     floodAwarders: j.awarderCount,
+    // DERIVED, never hand-written. This page is the INDEXED copy of /water, and
+    // it carried "~26 regional operators" in four places — title, description and
+    // both bodies — describing the HOLDING group while the page it mirrors shows
+    // the whole sector. That is the same claim the 2026-08-13 audit removed from
+    // the SPA, surviving in the half a crawler actually reads; verifying on the
+    // dev server cannot see it, because the dev server never serves the
+    // prerender. vikReferenceData.ts's header bans restating this count in prose
+    // precisely because every hand-written copy of it went stale at once.
+    operatorCount: WATER_SECTOR_EIKS.length,
+    regionalCount: VIK_HOLDING_SUB_EIKS.length,
   };
 })();
 
@@ -2797,15 +2811,15 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "water",
     title:
       "Води (ВиК) — обществените поръчки на водния сектор | electionsbg.com",
-    description: `Консолидиран изглед на обществените поръчки на Български ВиК холдинг и неговите ~26 регионални дружества, плюс ${waterFacts.floodEurMln} млн. € за почистване и корекция на речни корита и дерета — по данни от регистъра на обществените поръчки (АОП/ЦАИС ЕОП).`,
+    description: `Консолидиран изглед на обществените поръчки на ${waterFacts.operatorCount} оператора във водния сектор — регионалните ВиК дружества, общинските оператори, концесията за София, Напоителни системи и язовирите — плюс ${waterFacts.floodEurMln} млн. € за почистване и корекция на речни корита и дерета, по данни от регистъра на обществените поръчки (АОП/ЦАИС ЕОП).`,
     breadcrumbName: "Води (ВиК)",
     ogImage: "/og/water.png",
     bodyHtml: `
 <h1>Води (ВиК) — обществените поръчки на водния сектор</h1>
-<p>Български ВиК холдинг е принципал на около 26 регионални ВиК дружества. Централата почти не купува — поръчките са в дружествата. Тази страница ги събира на едно място: консолидираните обществени поръчки на групата и какво купуват по функция.</p>
+<p>Почти всяка област има свое регионално ВиК дружество; София се обслужва от концесия, а в Пазарджик регионалното дружество е в ликвидация и услугата е разпределена между общински оператори. Български ВиК холдинг е принципал на ${waterFacts.regionalCount} от регионалните дружества, но централата почти не купува — поръчките са в самите оператори. Тази страница събира и ${waterFacts.operatorCount}-те оператора на едно място: консолидираните им обществени поръчки и какво купуват по функция.</p>
 <h2>Какво ще намерите тук</h2>
 <ul>
-<li><strong>Дружествата в групата</strong> — поръчките на всяко ВиК дружество, с връзка към неговата страница.</li>
+<li><strong>Дружествата във водния сектор</strong> — поръчките на всеки оператор, с връзка към неговата страница.</li>
 <li><strong>Какво купуват — по функция</strong> — строителство на мрежи, водоснабдяване, канализация и пречистване, тръби и помпи, електроенергия.</li>
 <li><strong>Почистване на речни корита</strong> — ${waterFacts.floodEurMln} млн. € по ${waterFacts.floodContracts} договора от ${waterFacts.floodAwarders} възложителя за почистване и корекция на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи".</li>
 </ul>
@@ -2814,14 +2828,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
     english: {
       title:
         "Water (ВиК) — public procurement of the water sector | electionsbg.com",
-      description: `A consolidated view of the Bulgarian Water Holding and its ~26 regional operators' public procurement, plus €${waterFacts.floodEurMln}M on cleaning and regulating riverbeds and gullies — from the public-procurement register (АОП/ЦАИС ЕОП).`,
+      description: `A consolidated view of the public procurement of ${waterFacts.operatorCount} operators in Bulgaria's water sector — the regional water companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams — plus €${waterFacts.floodEurMln}M on cleaning and regulating riverbeds and gullies, from the public-procurement register (АОП/ЦАИС ЕОП).`,
       breadcrumbName: "Water (ВиК)",
       bodyHtml: `
 <h1>Water (ВиК) — public procurement of the water sector</h1>
-<p>The Bulgarian Water Holding is the principal of ~26 regional water operators. The parent buys almost nothing — the procurement is in the operators. This page brings them together: the group's consolidated public procurement and what they buy by function.</p>
+<p>Almost every province has its own regional water company; Sofia is served by a concession, and in Pazardzhik the regional company is in liquidation with the service split across municipal operators. The Bulgarian Water Holding is the principal of ${waterFacts.regionalCount} of the regional companies, but the parent buys almost nothing — the procurement is in the operators themselves. This page brings all ${waterFacts.operatorCount} together: their consolidated public procurement and what they buy by function.</p>
 <h2>What you'll find</h2>
 <ul>
-<li><strong>Operators in the group</strong> — each water operator's procurement, linking to its own page.</li>
+<li><strong>Operators in the water sector</strong> — each operator's procurement, linking to its own page.</li>
 <li><strong>What they buy — by function</strong> — network construction, water supply, sewerage and treatment, pipes and pumps, electricity.</li>
 <li><strong>Riverbed cleaning</strong> — €${waterFacts.floodEurMln}M across ${waterFacts.floodContracts} contracts from ${waterFacts.floodAwarders} awarders for cleaning and regulating riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems.</li>
 </ul>
@@ -3076,6 +3090,36 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>The EU comparison is on a different basis</strong> — Eurostat measures the whole general-government sector (state, municipalities and social funds), while the figure above is the cash execution of the state budget alone.</li>
 </ul>
 <p>See also <a href="${SITE_URL}/en/budget/revenue">where the money comes from</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/deviations",
+    ogImage: "/og/budget-deviations.png",
+    title: "План срещу отчет по разпоредители | electionsbg.com",
+    description:
+      "Колко е гласувал парламентът на всеки първостепенен разпоредител, колко е бил изменен планът и колко е похарчено — с двете разлики, показани поотделно.",
+    breadcrumbName: "План срещу отчет",
+    bodyHtml: `
+<h1>План срещу отчет по разпоредители</h1>
+<p>Законът за държавния бюджет определя таван за всеки първостепенен разпоредител. Тази страница проследява три числа за всеки от тях: планът по закона, изменението (ако е имало ЗИД) и отчетът за изпълнението.</p>
+<h2>Две разлики, а не една</h2>
+<p>„Похарчил е повече, отколкото законът е дал“ и „парламентът е дал повече през годината“ са различни констатации. Една обща колона „отклонение“ ги смесва и мълчаливо избира първата. Затова тук те са две отделни колони — спрямо гласувания закон и спрямо плана, който реално е бил в сила.</p>
+<h2>Покритието се чете преди класацията</h2>
+<p>Малка част от разпоредителите публикуват отчет за изпълнението. Страницата започва с това колко от тях са го направили за избраната година, защото класация без този ред би твърдяла нещо, което данните не поддържат. Липсващият отчет е на съответното ведомство, а не пропуск в данните тук — а за текуща година отчетите още не са дължими.</p>
+<p>Виж и <a href="${SITE_URL}/budget/ministries">разпоредителите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
+    english: {
+      title: "Plan Versus Outturn by Spending Unit | electionsbg.com",
+      description:
+        "What parliament voted each first-level spending unit, how the plan was amended, and what was spent — with the two differences shown separately.",
+      breadcrumbName: "Plan versus outturn",
+      bodyHtml: `
+<h1>Plan versus outturn, by spending unit</h1>
+<p>The state budget act sets a ceiling for every first-level spending unit. This page tracks three figures for each: the plan as voted, the amendment (where there was one) and the execution report.</p>
+<h2>Two differences, not one</h2>
+<p>„Spent more than the act allowed“ and „parliament allowed more during the year“ are different findings. A single „deviation“ column merges them and silently picks the first. They are two separate columns here — against the act as voted, and against the plan actually in force.</p>
+<h2>Coverage is read before the ranking</h2>
+<p>Only a small share of spending units publish an execution report. The page opens with how many did so for the selected year, because a ranking without that line would assert something the data cannot support. A missing report belongs to the body concerned rather than being a gap here — and for a year still running, reports are not yet due.</p>
+<p>See also the <a href="${SITE_URL}/en/budget/ministries">spending units</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
     },
   }),
   staticPage({

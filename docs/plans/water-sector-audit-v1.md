@@ -48,6 +48,12 @@ oblasti; the set carried 25 regional operators and exactly three gaps:
 | `200167154` | Кюстендилска вода ЕООД — the **Кюстендил** regional operator | 8,751,158 | 56 | 2011–2026 |
 | `205323041` | ВиК услуги ЕООД — the **live Пазарджик** operator | 14,691,865 | 73 | 2019–2026 |
 
+The third is oblast-level by *coverage*, not by type: it ships as `municipal`,
+because Пазарджик's services fragmented across municipal operators after the
+liquidation, so the oblast genuinely has no regional monopoly. That is recorded as
+a named exception to the completeness rule rather than papered over by promoting a
+municipal row — see step 1.
+
 Разград was represented only by ВиК Исперих and Кюстендил only by ВиК Дупница,
 both municipal. Кюстендилска вода is independently confirmed by its НКИД division
 36 «ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ». Пазарджик is the sharpest case: the set
@@ -60,8 +66,9 @@ holding is principal of *~26* operators, and 25 existing `holding_sub` + these
 two − the liquidated Пазарджик shell = 26 live.
 
 **F3 — three municipal operators missing (€1.6M):** `822104714` ВКС Пещера
-€1,399,157 / 12, `822106633` ВКТВ Велинград €158,731 / 3, `208403279` ВиК Елин
-Пелин €51,000 / 1. Same class as the ten municipals already in the set.
+€1,399,157 / 12, `822106633` ВКТВ Велинград €158,731 / 3 (all in Feb 2013 — it
+ships marked `dormant`), `208403279` ВиК Елин Пелин €51,000 / 1. Same class as the
+ten municipals already in the set.
 
 **F4 — `205756975` ДП „Управление и стопанисване на язовири"** €15,944,916 / 129 /
 2019–2026 — the state dam enterprise. Confirmed by the operator's owner decision
@@ -69,7 +76,9 @@ to include it on the same precedent as Напоителни системи, as a
 
 **F5 — no regression tests.** `sector_stats.data.test.ts` had zero water coverage.
 
-Headline impact of F2+F3+F4: **+€73,740,272 (+2.3%)**, 38 → 45 operators.
+Headline impact of F2+F3+F4: **+€73,740,287 (+2.31%)**, 38 → 45 operators. (The
+seven per-EIK figures above sum to €73,740,288 — the €1 is each row's independent
+rounding, not a discrepancy.)
 
 ## Steps
 
@@ -88,6 +97,17 @@ Headline impact of F2+F3+F4: **+€73,740,272 (+2.3%)**, 38 → 45 operators.
   Свищов EIK is already documented;
 - update the header: the new resolution date, the oblast-completeness rule that
   found F2, and the unverified-ownership caveat on `205323041`.
+
+**Liveness became a FIELD, which the plan did not anticipate.** Review established
+that the completeness rule as first written was unsatisfiable by its own data —
+the only trace that `822106665` was defunct lived inside the Bulgarian display
+string „(в ликвидация)", and a gate that regexes a display name is not a gate. So
+`WaterOperator` gained `status?: "liquidated" | "dormant"`, `successorEik`,
+`national?: true` (the three nationwide rows are not any oblast's coverage) and
+`aliases`. `822106665` is `liquidated` → `205323041`; `822106633` (ВКТВ Велинград,
+last contract Feb 2013) is `dormant`. The rule now has two named exceptions —
+София (столица), served by the concession, and Пазарджик — and both are asserted
+in *both* directions, so an exemption that silently stops being true also fails.
 
 `VikSubsidiaryTile`'s `TYPE_LABEL` is a total `Record<WaterOperatorType, …>`, so
 the new union member is a compile error there until labelled — intended.
@@ -122,30 +142,90 @@ group company would be a new wrong-attribution defect in place of the old one.
 ### Step 3 — regression tests
 
 Extend `scripts/db/tests/sector_stats.data.test.ts` (PG-backed, auto-skips when
-Postgres is down). Bands and inequalities only — the corpus grows fortnightly:
+Postgres is down). Bands and inequalities for anything the corpus moves — with
+**one deliberate exception**, the reconciliation, which is exact:
 
-- the water headline for `all` inside a band whose floor catches an over-trim or a
-  zeroed source and whose ceiling catches EIK re-leakage;
-- **the EIK-set copies are equal** — `SECTOR_EIKS.water`, `WATER_SECTOR_EIKS` and
-  `SECTOR_BROWSE_PACKS.water.eiks` are the same set (the drift tripwire; there is
-  no `SECTOR_DASHBOARDS.water`, water being bespoke);
-- each of the seven newly added EIKs is present and its per-EIK € exceeds a floor;
-- the known name-collision EIKs (a Басейнова дирекция, a РИОСВ, Център за
-  подводна археология) are absent from `WATER_OPERATORS`;
-- every oblast has at least one non-liquidated operator (the invariant that would
-  have caught F2 at the time it was introduced);
-- `basis === "procurement"` for water.
+- `basis === "procurement"`, and the headline for `all` inside a band whose floor
+  catches an over-trim or a zeroed source and whose ceiling catches EIK
+  re-leakage;
+- **the headline EQUALS a live Σ over `WATER_SECTOR_EIKS`.** This is what actually
+  gates the generator's copy of the EIK-set: the generator *imports* the constant,
+  so comparing the arrays is a tautology, whereas a sum moves if either side does
+  — including a blob nobody regenerated, which is exactly what it caught;
+- **the copies that CAN drift stay in lockstep** — `SECTOR_BROWSE_PACKS.water.eiks`
+  vs `WATER_SECTOR_EIKS` (a tripwire: it compares an array to itself today and
+  only becomes a real comparison if a copy stops importing), plus an assertion
+  that `SECTOR_DASHBOARDS.water` stays absent, water being bespoke;
+- each of the seven newly added EIKs is present and its per-EIK € exceeds a floor
+  set at roughly half the measured spend;
+- **every member LOOKS like a water body in the corpus, under every spelling** —
+  the positive half, and the one the audit family is named for. A denylist only
+  catches the wrong bodies somebody already thought of; a wrong-but-real EIK
+  passes every other gate here, including the exact reconciliation, because both
+  sides read the same constant and move together. Mutation-checked against МВР
+  ДУССД `129010157`, the €301M directorate the defense audit nearly took;
+- the known name-collision EIKs (a Басейнова дирекция, a РИОСВ, Център за подводна
+  археология, the retired ВиК Свищов EIK) are absent;
+- the sector and holding totals stay a band apart, so neither can be pointed at
+  the other's EIK-set.
+
+**The oblast-completeness rule lives in `src/lib/vikReferenceData.test.ts`, not
+here, and that is deliberate**: it needs no database, so it still runs on a fresh
+clone and in a database-less CI leg, where every gate in this file skips. Same for
+the duplicate-EIK check, which has to run on the raw `WATER_OPERATORS` rows —
+asserting `WATER_SECTOR_EIKS` is deduped can never fail, since it is built as
+`[...new Set(...)]`.
 
 ### Step 4 — regenerate and publish
 
-- `npm run db:gen-sector-stats` — diff old vs new `sector_stats.json`; only water
-  may move, and by ~+2.3%.
-- `npm run db:load:water-operator-map:pg` — `water_operator_geo` is built from
-  `WATER_SECTOR_EIKS`, so the seven new operators need pins. Cloud twin
-  `db:load:water-operator-map:pg:cloud` is a deploy step, nothing runs it
-  automatically.
-- Gates: `npx tsc -b`, `npm run lint`, the touched vitest suites, and
-  `npx vitest run scripts/db/tests/sector_stats.data.test.ts`.
-- Deploy: `sector_stats.json` is bucket-served —
-  `npm run bucket:sync:paths -- procurement/derived/sector_stats.json`; the code
-  changes need `npm run deploy`.
+**The regeneration landed inside step 3, not after it**, because step 3's own
+reconciliation gate fails against a stale blob — which is exactly what it is for,
+and it caught the pre-audit €3,195,586,273 on its first run. The two are one
+change: a test asserting the blob is current cannot be committed green while it
+is not.
+
+- `npm run db:gen-sector-stats` — **done**. Only water moved, +2.31% on `all`
+  (€3,195,586,273 → €3,269,326,560) across 29 scopes; no other sector changed.
+- `npm run db:load:water-operator-map:pg` — **done**: 45 operators, 40 with a
+  pin. The five without one (ВиК Димитровград, ВиК Добрич ЕООД, ВиК Свищов, ВКС
+  Пещера, ВиК Елин Пелин) are small municipal operators whose seat does not
+  resolve through `awarder_seats`; the loader documents that degrade and the map
+  omits them. Two of the five are newly added.
+- Gates: `npx tsc -b` clean, lint clean on every touched file, 854 unit tests
+  across 63 files, 10/10 in `sector_stats.data.test.ts`.
+- Verified live on the dev server: `/water` renders „Дружествата във водния
+  сектор", Софийска вода appears with its `концесия` chip (it was absent from
+  every tile before), the new Пазарджик operator renders, the overflow reads
+  „+ още 20 оператора", and no caption says „на групата". The
+  `/governance/sectors` water tile reads €157 млн. for `ns:2026_04_19` — the
+  regenerated value; the old blob would have shown €154 млн.
+
+**The prerendered `/water` page was a FIFTH copy of the F1 claim, and the one that
+matters most.** `scripts/prerender/routes.ts` carried „принципал на около 26
+регионални дружества … поръчките на групата" and „Дружествата в групата" — plus
+the English twins — in the `<title>`, the `<description>` and both bodies. So the
+HTML a crawler indexes went on attributing Софийска вода and ДП УСЯ to the holding
+after the SPA had stopped. **Verifying on the dev server could not see this: the
+dev server never serves the prerender.** Fixed here, with the counts derived from
+`WATER_SECTOR_EIKS` / `VIK_HOLDING_SUB_EIKS` (45 / 27) rather than hand-written a
+fifth time.
+
+**Deploy — nothing here is automatic, and `npm run deploy` does NOT build.** It is
+`firebase deploy --only hosting:main`, which uploads whatever `dist/` already
+holds. Skipping the build ships the map's 45 pins and the €3.27bn hub tile while
+`/water` keeps serving the old bundle counting 26 EIKs — F1 re-created inverted,
+on prod, silently. In order:
+
+```bash
+npm run db:load:water-operator-map:pg:cloud                        # the 7 new pins
+npm run bucket:sync:paths -- procurement/derived/sector_stats.json # the hub tile
+npm run build                                                      # ⚠️ NOT optional
+npm run deploy                                                     # bundle + prerender
+```
+
+The operator map is a Cloud SQL table behind `/api/db/water-operator-map`, so
+without the first command prod's map keeps 38 pins while every other surface
+counts 45. `sector_stats.json` is bucket-served (not Firebase-hosted), so
+`npm run deploy` alone does **not** move the hub tile. And the prerendered
+`/water` HTML is emitted by `npm run build`, so without the third command the
+indexed copy keeps the holding-group claim this step removed.
