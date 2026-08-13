@@ -94,6 +94,15 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "merely unlabelled rows",
   },
   {
+    after: "db:load:budget-hub:pg",
+    before: "db:load:budget-muni:pg",
+    why:
+      "156's matview is built over 152-155, and db:load:budget-muni:pg is what APPLIES " +
+      "those four (db:load:budget:pg, which fills the state half, is in " +
+      "REFRESH_EXCLUSIONS and never runs in the chain). Applying 156 first raises 42P01 " +
+      "on budget_fiscal_year and rolls the file back",
+  },
+  {
     after: "db:load:budget-muni:pg",
     before: "db:load:place-dim:pg",
     why:

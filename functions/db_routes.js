@@ -348,6 +348,18 @@ const budgetFy = (q) => {
 };
 
 const budgetRoutes = () => ({
+  // The hub's ONE stat call. Replaces 1,202 KB across four eager fetches with
+  // ~1 KB — and the peer bands it carries are the three scalars that made
+  // macro_peers.json 66% of that payload.
+  "budget-hub-stats": async (dbRows, q) => {
+    const rows = await dbRows("SELECT budget_hub_stats($1::int) AS r", [
+      budgetFy(q),
+    ]).catch(budgetMiss("hub-stats", null));
+    // null, never a zero-shaped object: a hub that renders EUR 0 across the board
+    // is indistinguishable from a real answer, and this is the one payload every
+    // visitor sees.
+    return { body: rows[0]?.r ?? null };
+  },
   "budget-year": async (dbRows, q) => {
     const rows = await dbRows(
       "SELECT budget_year_summary($1::int, $2::text) AS r",
