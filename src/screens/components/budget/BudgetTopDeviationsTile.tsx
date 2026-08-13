@@ -187,6 +187,19 @@ export const BudgetTopDeviationsTile: FC<{ fiscalYear?: number | null }> = ({
               ).replace("{{requested}}", String(fiscalYear))}
             </span>
           ) : null}
+          {/* The tile and /budget/deviations rank DIFFERENTLY and must say so:
+              this is top-5 by variance PERCENT over the reconciliation shards,
+              with a €20M floor and a minimum-variance filter; the page is every
+              covered unit by ABSOLUTE €, straight from Postgres. On FY2024 the
+              tile's #1 is the page's #3. Two „largest deviations" lists that
+              disagree, neither naming its basis, is the §6 defect. */}
+          {" · "}
+          <Link
+            to="/budget/deviations"
+            className="text-primary hover:underline"
+          >
+            {t("budget_dev_see_all")}
+          </Link>
         </p>
       </CardHeader>
       <CardContent className="pt-0">

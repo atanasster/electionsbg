@@ -393,6 +393,12 @@ CREATE OR REPLACE FUNCTION budget_variance(
   )
   SELECT jsonb_build_object(
     'fiscalYear', p_fy,
+    -- Whether the FISCAL YEAR has closed, from budget_fiscal_year — not
+    -- inferred client-side from „is this the newest year we have". Those two
+    -- disagree every January, when the just-closed year is still the newest
+    -- and a consumer would tell the reader it is still running. NULL when the
+    -- year is not in the dimension at all.
+    'complete', (SELECT complete FROM budget_fiscal_year WHERE fiscal_year = p_fy),
     -- UNITS, not rows. by-admin rows are (nodeId × kind), so a row count read
     -- as a number of ministries over-states by 1.8x-2.9x.
     'coveredUnits', (SELECT count(DISTINCT node_id) FROM scoped WHERE executed_eur IS NOT NULL),
