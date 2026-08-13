@@ -38,6 +38,30 @@ export interface WatchState {
   lastChanged: string; // ISO UTC; equals lastChecked on first run
 }
 
+/** Something a HUMAN must fetch or paste before any ingest can run.
+ *
+ *  Distinct from `changed` on purpose. "Changed" means an upstream moved and a
+ *  downstream skill can now run; this means the pipeline is BLOCKED until
+ *  someone does something a script cannot. At least eight sources in this repo
+ *  are in that position — TI CPI and Eurobarometer (manual paste), the
+ *  `manual-pdf` ministry execution reports, `minfin_program_otchet`,
+ *  `capital_programs` and its UNWATCHABLE Vidin entry, LISI, НОИ B1 — and each
+ *  currently records the fact in prose somewhere else, where the daily report
+ *  cannot surface it.
+ *
+ *  The report renders these ABOVE „Changed", because an ingest whose input is
+ *  missing cannot be run at all. */
+export interface ManualRequest {
+  /** One line: what the operator must do. */
+  instruction: string;
+  /** Where to get it. */
+  url: string;
+  /** Exact filenames to save, when they are derivable. */
+  files?: string[];
+  /** Where they go, repo-relative. */
+  dropDir?: string;
+}
+
 export interface WatchSource {
   // Must match the state filename: state/watch/<id>.json.
   id: string;
@@ -54,6 +78,27 @@ export interface WatchSource {
   // Optional override for the report's "what changed" line. Default just shows
   // current detail. Receives previous state (null on first run) and current fp.
   describe?(prev: WatchState | null, curr: Fingerprint): string;
+  /** Non-null when a human must fetch something before any ingest can run.
+   *
+   *  Evaluated on EVERY run — including runs where this source is off-cadence
+   *  or its fetch failed, which is why `curr` is nullable: nothing was fetched
+   *  on those paths. Three ways this could silently stop reporting, all closed
+   *  deliberately:
+   *
+   *    - keyed on `changed`: a still-missing file does not move a fingerprint,
+   *      so the source reports `unchanged` while the request stands;
+   *    - keyed on the check window: none of the sources this exists for is
+   *      daily (four monthly, three weekly), so a monthly source's outstanding
+   *      download would surface on 1 day in 29;
+   *    - dropped on `error`: an unreachable upstream does not make the missing
+   *      file go away.
+   *
+   *  So it must be answerable WITHOUT a fresh fingerprint. Derive from `prev`
+   *  or from what is on disk; treat `curr` as extra information when present. */
+  manualRequest?(
+    prev: WatchState | null,
+    curr: Fingerprint | null,
+  ): ManualRequest | null;
 }
 
 export type ReportStatus =
@@ -68,4 +113,6 @@ export interface ReportEntry {
   status: ReportStatus;
   line: string;
   error?: string;
+  /** Populated by the runner when `manualRequest()` returned non-null. */
+  manual?: ManualRequest;
 }

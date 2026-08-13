@@ -1,4 +1,4 @@
-import type { ReportEntry } from "./types";
+import type { ManualRequest, ReportEntry } from "./types";
 import { formatSofia } from "./fingerprint";
 
 export const renderReport = (entries: ReportEntry[], runAt: string): string => {
@@ -13,6 +13,36 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
 
   const sections: string[] = [];
   sections.push(`# Watch report — ${today} (${dateLabel} Europe/Sofia)`);
+
+  // ABOVE „Changed", because a missing input blocks the ingest entirely — there
+  // is nothing to run even when the upstream did move. Rendered only when
+  // something is outstanding: a permanent empty section is one everybody learns
+  // to scroll past, and this one has to still be readable on the day it matters.
+  // Nothing about a ManualRequest is trusted markdown, and `files` is
+  // documented as upstream-derived. A newline in `instruction` emits a literal
+  // „## Changed" heading ABOVE the real one, with a fabricated bullet under it;
+  // a backtick in `dropDir` breaks the code span. Flattened rather than
+  // escaped: these are one-line fields by contract, so collapsing whitespace is
+  // both the fix and an assertion about the shape.
+  const flat = (v: string): string => v.replace(/\s+/g, " ").trim();
+  const code = (v: string): string => "`" + flat(v).replace(/`/g, "'") + "`";
+
+  const manual = entries.filter(
+    (e): e is ReportEntry & { manual: ManualRequest } => e.manual != null,
+  );
+  if (manual.length > 0) {
+    sections.push("\n## Manual downloads needed");
+    for (const e of manual) {
+      const m = e.manual;
+      sections.push(`- **${flat(e.source.label)}**: ${flat(m.instruction)}`);
+      sections.push(
+        m.dropDir
+          ? `  Save from ${flat(m.url)} into ${code(m.dropDir)}:`
+          : `  Source: ${flat(m.url)}`,
+      );
+      for (const f of m.files ?? []) sections.push(`  - ${code(f)}`);
+    }
+  }
 
   sections.push("\n## Changed");
   if (changed.length === 0) {

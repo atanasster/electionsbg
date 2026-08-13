@@ -14,7 +14,13 @@ import { SOURCES } from "./sources/index";
 import { readState, writeState } from "./state";
 import { renderReport } from "./report";
 import { CADENCE_WINDOW_MS, dueForCheck } from "./cadence";
-import type { ReportEntry, WatchState } from "./types";
+import type {
+  Fingerprint,
+  ManualRequest,
+  ReportEntry,
+  WatchSource,
+  WatchState,
+} from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +32,27 @@ const main = async (): Promise<void> => {
 
   const nowMs = Date.parse(runAt);
 
+  // Asking is deliberately separated from checking. A request-builder that
+  // throws must not turn a SUCCESSFUL fingerprint into an `error` entry whose
+  // state has already been written — and it must never be the reason a source
+  // stops reporting, because a persistently-buggy builder would then hide the
+  // very download it exists to ask for.
+  const askManual = (
+    src: WatchSource,
+    prev: WatchState | null,
+    curr: Fingerprint | null,
+  ): ManualRequest | undefined => {
+    if (!src.manualRequest) return undefined;
+    try {
+      return src.manualRequest(prev, curr) ?? undefined;
+    } catch (e) {
+      console.warn(
+        `[watch] ${src.id}: manualRequest() threw — ${e instanceof Error ? e.message : String(e)}`,
+      );
+      return undefined;
+    }
+  };
+
   for (const src of SOURCES) {
     const prev = readState(src.id);
 
@@ -36,10 +63,18 @@ const main = async (): Promise<void> => {
       const nextDueMs =
         Date.parse(prev!.lastChecked) + CADENCE_WINDOW_MS[src.cadence];
       const nextDue = new Date(nextDueMs).toISOString().slice(0, 10);
+      // Off-cadence still ASKS. A missing file blocks the ingest every day, not
+      // only on the days the upstream is due — and none of the sources this
+      // capability exists for is daily (four monthly, three weekly), so keying
+      // the request to the check window would surface a monthly source's
+      // outstanding download on 1 day in 29. That is the same silence the
+      // design set out to prevent, reached through cadence instead of through
+      // `changed`. `curr` is null here: nothing was fetched this run.
       entries.push({
         source: src,
         status: "skipped",
         line: `${prev!.detail} · next check ${nextDue}`,
+        manual: askManual(src, prev, null),
       });
       continue;
     }
@@ -67,7 +102,14 @@ const main = async (): Promise<void> => {
         lastChanged: changed ? runAt : prev!.lastChanged,
       };
       writeState(src.id, next);
-      entries.push({ source: src, status, line });
+      // AFTER the state write: the request describes what is outstanding NOW,
+      // so it must see the fingerprint this run produced, not the previous one.
+      entries.push({
+        source: src,
+        status,
+        line,
+        manual: askManual(src, prev, curr),
+      });
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       entries.push({
@@ -75,6 +117,10 @@ const main = async (): Promise<void> => {
         status: "error",
         line: msg,
         error: msg,
+        // An unreachable upstream does not make the outstanding download go
+        // away — if anything it is the run where the operator most needs to be
+        // told. `curr` is null: the fetch is what failed.
+        manual: askManual(src, prev, null),
       });
       // Don't update state on error — leave previous fingerprint intact so the
       // next successful run can still detect "changed since last good".
