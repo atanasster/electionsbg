@@ -138,7 +138,9 @@ describe("intensity — the other scale kinds", () => {
     expect(intensity(criteria, 3, COHORT)).toBe(0);
     expect(intensity(criteria, 2, COHORT)!).toBeLessThan(0);
     expect(intensity(criteria, 4, COHORT)!).toBeGreaterThan(0);
-    expect(intensity(criteria, 6, COHORT)).toBe(1);
+    // SEVEN criteria, per МФ's own enumeration — so 7 saturates, not 6.
+    expect(intensity(criteria, 7, COHORT)).toBe(1);
+    expect(intensity(criteria, 6, COHORT)!).toBeLessThan(1);
   });
 
   it("renders the binary layer at the two extremes and nothing between", () => {

@@ -10,13 +10,13 @@
 //      columns, never as a total, and the copy says the outermost contains the
 //      other two.
 //   2. **The criteria count is OURS; `in_recovery_procedure` is the
-//      ministry's.** „N от 6" is our re-derivation of the чл. 130а criteria
+//      ministry's.** „N от 7" is our re-derivation of the чл. 130а criteria
 //      from published levels; „оздравяване" is an administrative fact about a
 //      чл. 130д procedure the município itself declared. Separate columns,
 //      separate labels, never merged into one „distressed" flag.
 //      (`meets_threshold`, the boolean form of the first, is deliberately NOT
 //      rendered — the count carries the same claim without inviting a yes/no
-//      reading of a threshold that needs three of six.)
+//      reading of a threshold that needs three of seven.)
 //
 // Sorted per resident by default (see `municipalFinanceFilters`). Year-end
 // rows only — the чл. 130а ratios are annual, so an interim quarter would be
@@ -29,8 +29,16 @@ import { Title } from "@/ux/Title";
 import { Link } from "@/ux/Link";
 import {
   useMunicipalFiscalRanking,
+  useMunicipalFiscalYears,
   type MunicipalFiscalRankingRow,
 } from "@/data/budget/useMunicipalFiscalRanking";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   applyFilters,
   parseFilters,
@@ -72,7 +80,8 @@ const COLUMNS: {
   { key: "commitments", labelKey: "mf_tile_commitments", kind: "eur" },
   { key: "commitmentsPct", labelKey: "mf_col_commitments_pct", kind: "pct" },
   { key: "obligations", labelKey: "mf_tile_obligations", kind: "eur" },
-  // The ratio for чл. 130а т. 2. Without it a município reading „2 от 6" showed
+  // The ratio for чл. 130а т. 3 (МФ's numbering). Without it a município
+  // reading „2 от 7" showed
   // the evidence for at most two of the three criteria actually evaluated.
   { key: "obligationsPct", labelKey: "mf_col_obligations_pct", kind: "pct" },
   { key: "arrears", labelKey: "mf_tile_arrears", kind: "eur" },
@@ -120,6 +129,7 @@ export const GovernanceMunicipalFinanceScreen: FC = () => {
   const { rows, isPending, isError } = useMunicipalFiscalRanking(
     filters.year ?? undefined,
   );
+  const years = useMunicipalFiscalYears();
   const shown = useMemo(() => applyFilters(rows, filters), [rows, filters]);
 
   const patch = (next: Partial<typeof filters>) =>
@@ -182,6 +192,29 @@ export const GovernanceMunicipalFinanceScreen: FC = () => {
             {t("mf_filter_crit", { count: n })}
           </button>
         ))}
+        {/* Hidden until there is a choice to make: with one year-end the
+            picker is a control that cannot do anything, and offering a year the
+            corpus does not cover serves an empty page. */}
+        {years.length > 1 && (
+          <Select
+            value={String(filters.year ?? years[0])}
+            onValueChange={(v) => patch({ year: Number(v) })}
+          >
+            <SelectTrigger
+              aria-label={t("mf_browse_year")}
+              className="h-9 w-auto gap-1 rounded-md text-sm"
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent align="start">
+              {years.map((y) => (
+                <SelectItem key={y} value={String(y)}>
+                  {t("mf_browse_year_option", { year: y })}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
         <span className="text-xs text-muted-foreground">
           {t("mf_browse_showing", { shown: shown.length, total: rows.length })}
         </span>
@@ -320,7 +353,7 @@ const Row: FC<{
             className={cn(
               "py-1.5 px-2 text-right tabular-nums",
               // Marked, not coloured as an alarm: exceeding one чл. 130а
-              // threshold is not distress — the statute needs three of six.
+              // threshold is not distress — the statute needs three of seven.
               over && "font-semibold",
             )}
             title={
@@ -340,8 +373,8 @@ const Row: FC<{
         );
       })}
       <td className="py-1.5 px-2 text-right tabular-nums">
-        {/* „N от 6", never „N от evaluable" — the denominator a reader needs is
-            the statute's six. `evaluable` qualifies it in the tooltip, because
+        {/* „N от 7", never „N от evaluable" — the denominator a reader needs is
+            the statute's seven. `evaluable` qualifies it in the tooltip, because
             only 3 of the 6 are computable from the quarterly workbook. */}
         {evaluable === 0 ? (
           "—"

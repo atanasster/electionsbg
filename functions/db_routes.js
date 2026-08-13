@@ -3704,6 +3704,31 @@ const DB_ROUTES = {
   // which is why it is preferred over a per-resident sort: it normalises by
   // fiscal capacity rather than by population, so a small município mid-project
   // does not read as reckless purely because its denominator is small.
+  // The YEAR-ENDS the corpus actually covers, newest first — the year picker's
+  // option list. Derived rather than hard-coded because it grows with every
+  // backfill and every new МФ release, and a hard-coded list offers a year that
+  // serves an empty page (the `?pscope=y:<new year>` failure documented for the
+  // procurement scopes).
+  //
+  // Q4 only: an interim quarter is not a year-end, and the чл. 130а ratios it
+  // carries are measured against a different denominator.
+  "municipal-fiscal-years": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT DISTINCT fiscal_year FROM municipal_fiscal
+        WHERE quarter = 4 ORDER BY fiscal_year DESC`,
+      [],
+    ).catch((e) => {
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mf:not-built:years",
+          "municipal_fiscal is absent — serving no year list. Run db:load:municipal-fiscal:pg:cloud.",
+        );
+        return [];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows.map((r) => Number(r.fiscal_year)) };
+  },
   "municipal-fiscal-ranking": async (dbRows, q) => {
     // `Number(...) || 300` sent ?limit=0 to 300 rather than to the floor of 1,
     // and ?limit=12.5 straight to a 22P02.

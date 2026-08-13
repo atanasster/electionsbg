@@ -102,3 +102,22 @@ export const useMunicipalFiscalRanking = (year?: number) => {
   // has commitments".
   return { rows: data ?? [], isPending, isError };
 };
+
+/** The year-ends the corpus covers, newest first.
+ *
+ *  Fetched rather than derived from the ranking, because the ranking returns
+ *  ONE year — so a picker built from it could only ever offer the year already
+ *  showing. Degrades to an empty list, which hides the picker rather than
+ *  offering a year that serves an empty page. */
+export const useMunicipalFiscalYears = () => {
+  const { data } = useQuery({
+    queryKey: ["municipal_fiscal_years"] as [string],
+    queryFn: async (): Promise<number[]> => {
+      const r = await fetch("/api/db/municipal-fiscal-years");
+      if (!r.ok) throw new Error(`municipal-fiscal-years: ${r.status}`);
+      return r.json();
+    },
+    staleTime: Infinity,
+  });
+  return data ?? [];
+};

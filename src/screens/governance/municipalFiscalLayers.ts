@@ -91,7 +91,10 @@ export const LAYERS: Layer[] = [
       (r.criteria_evaluable?.length ?? 0) === 0
         ? null
         : (r.criteria_met?.length ?? 0),
-    scale: { kind: "ordinal", max: 6, at: 3 },
+    // SEVEN, per МФ's own enumeration — see CRITERIA_TOTAL in the loader. The
+    // break stays at 3 because the statute's threshold is „three or more"
+    // regardless of the total.
+    scale: { kind: "ordinal", max: 7, at: 3 },
     format: (v) => `${v}`,
     caveatKey: "mf_map_caveat_criteria",
   },

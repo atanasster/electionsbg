@@ -34,9 +34,13 @@ vi.mock("./MunicipalFiscalMapTile", () => ({
 }));
 
 const mockRanking = vi.fn();
+const mockYears = vi.fn(() => [] as number[]);
 vi.mock("@/data/budget/useMunicipalFiscalRanking", async (orig) => ({
   ...(await orig<Record<string, unknown>>()),
   useMunicipalFiscalRanking: () => mockRanking(),
+  // Stubbed too: it is a second useQuery, and unmocked it needs a
+  // QueryClientProvider these assertions have no other use for.
+  useMunicipalFiscalYears: () => mockYears(),
 }));
 
 import { GovernanceMunicipalFinanceScreen } from "./GovernanceMunicipalFinanceScreen";
@@ -156,5 +160,22 @@ describe("GovernanceMunicipalFinanceScreen — rendering", () => {
     renderAt("?sort=arrears", { rows: [row()] });
     const sorted = document.querySelectorAll('th[aria-sort="descending"]');
     expect(sorted).toHaveLength(1);
+  });
+});
+
+describe("GovernanceMunicipalFinanceScreen — the year picker", () => {
+  it("is hidden when the corpus covers a single year-end", () => {
+    // A control that cannot change anything is worse than no control.
+    mockYears.mockReturnValue([2024]);
+    renderAt("", { rows: [row()] });
+    expect(screen.queryByLabelText("mf_browse_year")).toBeNull();
+    mockYears.mockReturnValue([]);
+  });
+
+  it("offers every year-end the corpus covers, newest first", () => {
+    mockYears.mockReturnValue([2024, 2023, 2022]);
+    renderAt("", { rows: [row()] });
+    expect(screen.getByLabelText("mf_browse_year")).toBeVisible();
+    mockYears.mockReturnValue([]);
   });
 });

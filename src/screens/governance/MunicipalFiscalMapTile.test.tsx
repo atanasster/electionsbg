@@ -185,7 +185,7 @@ describe("MunicipalFiscalMapTile", () => {
     expect(screen.getByText("mf_recovery_yes")).toBeVisible();
   });
 
-  it("keeps the of-six denominator in the criteria tooltip", () => {
+  it("keeps the of-seven denominator in the criteria tooltip", () => {
     renderMap(
       [row("BLG18", { criteria_met: [3, 4] }), row("SOF00")],
       "criteria",
@@ -210,9 +210,12 @@ describe("MunicipalFiscalMapTile", () => {
     expect(screen.getByText(/mf_map_legend_break:/)).toHaveTextContent("50");
   });
 
-  it("says the corpus covers one year, so a spike is not a trend", () => {
+  it("says it draws one year at a time, and that the mean is still missing", () => {
+    // The corpus has nine year-ends since the backfill, so „one year" stopped
+    // being a limit and became a choice — but averaging them is still not
+    // possible, and that is the part the caption must keep saying.
     renderMap([row("BLG18"), row("SOF00")]);
-    expect(screen.getByText("mf_map_single_year")).toBeVisible();
+    expect(screen.getByText("mf_map_one_year_at_a_time")).toBeVisible();
   });
 
   it("carries the per-resident caveat on the layer that needs it", () => {

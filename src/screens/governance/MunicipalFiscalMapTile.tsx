@@ -17,10 +17,11 @@
 //     existing SOF00 convention and is right, but the tooltip must SAY so or a
 //     reader concludes the districts were measured separately.
 //
-// ONE YEAR, for now. The map cannot yet distinguish a sustained commitment
-// level from a single project spike — that needs the three-year mean, which
-// needs three year-ends, which arrives with T15's backfill. The caption says
-// so rather than letting a single year read as a standing characterisation.
+// ONE YEAR AT A TIME, chosen with the browse's year picker. The backfill gave
+// the corpus nine year-ends, so a reader can now step through them — but the
+// map still draws one, and it cannot yet AVERAGE them. Separating a sustained
+// commitment level from a single project spike needs a 3-year-mean layer,
+// which is the remaining gap and is what the caption says.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -392,11 +393,13 @@ export const MunicipalFiscalMapTile: FC<{
             {t(layer.caveatKey)}
           </p>
         )}
-        {/* Not a disclaimer to be trimmed later: with one year-end the map
-            cannot separate a sustained level from a single project spike, and
-            saying so is what stops a snapshot reading as a characterisation. */}
+        {/* The map shows ONE year-end at a time. That was a hard limit while
+            the corpus held a single year; since the backfill it is a choice the
+            reader makes with the picker above, so the line says which year is
+            drawn and that the others are reachable — not that the data does not
+            exist. A 3-year-mean layer is the remaining gap. */}
         <p className="mt-1 text-[11px] text-muted-foreground">
-          {t("mf_map_single_year")}
+          {t("mf_map_one_year_at_a_time")}
         </p>
       </CardContent>
     </Card>

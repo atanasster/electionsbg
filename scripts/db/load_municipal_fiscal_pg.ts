@@ -96,13 +96,32 @@ const pgArray = (v: readonly (string | number)[] | null | undefined) =>
 /** Which чл. 130а criteria this row could evaluate AT ALL from this source, and
  *  which of those are met.
  *
- *  Only three of the six are computable from the workbook, and saying so is the
- *  point of the pair. т. 1 needs debt SERVICE (плащания) — the workbook
- *  publishes only the debt STOCK, so it is not derivable here. т. 5 needs three
- *  consecutive years of budget balance. т. 6 needs the national collection mean.
- *  Reporting "2 met" without reporting "of 3 checked" invites the reader to
- *  apply the ≥3 rule to a partial count. */
-export const CRITERIA_TOTAL = 6;
+ *  SEVEN, not six — and the numbering below is МФ'с own. The ministry's
+ *  year-end workbooks enumerate the criteria explicitly, one column each, and
+ *  they run 1..7:
+ *
+ *    1. плащания по общинския дълг      — debt SERVICE
+ *    2. номинал на издадените гаранции  — guarantees
+ *    3. налични задължения за разходи   — obligations      ✓ computable
+ *    4. налични поети ангажименти       — commitments      ✓ computable
+ *    5. налични просрочени задължения   — arrears          ✓ computable
+ *    6. отрицателно салдо три години    — balance
+ *    7. събираемост под средната        — collection
+ *
+ *  An earlier model had six and numbered obligations/commitments/arrears
+ *  2/3/4 — it had dropped the GUARANTEES criterion and renumbered everything
+ *  after it one low. That published „N от 6" against a statute that asks for
+ *  seven, and stored `criteria_met` indices naming the wrong criteria. Verified
+ *  against every Q4-anchored release in the cache (2016-2024): all seven, same
+ *  order, every year.
+ *
+ *  Three of the seven are computable here, and saying so is the point of the
+ *  pair. т. 1 needs debt SERVICE (плащания) — the workbook publishes only the
+ *  debt STOCK. т. 2 needs the guarantee nominal. т. 6 needs three consecutive
+ *  years of budget balance. т. 7 needs the national collection mean. Reporting
+ *  „2 met" without reporting „of 3 checked" invites the reader to apply the ≥3
+ *  rule to a partial count. */
+export const CRITERIA_TOTAL = 7;
 
 export const evaluateCriteria = (
   r: MunicipalFiscalQuarter,
@@ -134,14 +153,17 @@ export const evaluateCriteria = (
     evaluable.push(n);
     if (pct > threshold) met.push(n);
   };
-  // т. 2 — задължения за разходи > 15% of the 4-year average
-  consider(2, r.ratios.obligationsPct, "expenseObligations", 15);
-  // т. 3 — поети ангажименти > 50% of the 4-year average
-  consider(3, r.ratios.commitmentsPct, "commitments", 50);
-  // т. 4 — просрочени задължения > 5% of the year's reported expenditure
-  consider(4, r.ratios.arrearsPct, "arrears", 5);
+  // МФ's own numbering — see CRITERIA_TOTAL. These three are the computable
+  // ones; 1, 2, 6 and 7 need inputs this workbook does not publish.
+  // т. 3 — налични задължения за разходи > 15% of the 4-year average
+  consider(3, r.ratios.obligationsPct, "expenseObligations", 15);
+  // т. 4 — налични поети ангажименти > 50% of the 4-year average
+  consider(4, r.ratios.commitmentsPct, "commitments", 50);
+  // т. 5 — налични просрочени задължения > 5% of the year's reported expenditure
+  consider(5, r.ratios.arrearsPct, "arrears", 5);
 
-  // The чл. 130а rule is "three or more of six", and the criteria are MONOTONE:
+  // The чл. 130а rule is "three or more of SEVEN", and the criteria are
+  // MONOTONE:
   // an unevaluated one can only ever add to the count. So three met is already
   // decisive TRUE even with three unchecked, and — the other direction — a
   // verdict is only FALSE when every criterion was evaluable and fewer than
