@@ -15,7 +15,7 @@
 // year's list.
 //
 // NO „who voted for it" SECTION. `budget_document.adopted_by_item_id` is NULL
-// on all 48 rows, so the roll-call edge §7.4 describes has no data behind it.
+// on all 33 rows, so the roll-call edge §7.4 describes has no data behind it.
 // Rendering it from a title regex is what `bill`'s TypeScript stem split exists
 // to prevent — a title carrying „второ гласуване" in a procedural position is a
 // first reading. An unbuilt section beats a fabricated one.
@@ -57,22 +57,16 @@ export const BudgetLawScreen: FC = () => {
     [present],
   );
 
-  // 15 of the corpus's 48 records are duplicates — the same title, URL and
-  // date under two `document_id` slug variants (a definite article), so FY2024
-  // lists 19 documents that are 11. That is an ingest defect and this page is
-  // the first surface to expose it; deduping HERE stops the page publishing one
-  // document twice without pretending to have fixed the corpus.
-  const rows = useMemo(() => {
-    const seen = new Set<string>();
-    return (documents?.rows ?? []).filter((r) => {
-      const key = `${r.url ?? ""}|${r.titleBg ?? ""}|${r.publishedOn ?? ""}`;
-      // A row with neither URL nor title has no identity to dedupe on; keep it.
-      if (!r.url && !r.titleBg) return true;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-  }, [documents]);
+  // NO DEDUPE HERE. The corpus carries each document once — held at ingest by
+  // `mergeDocuments` (scripts/budget/documents.ts), which drops a
+  // machine-derived record the build no longer mints. This page used to dedupe
+  // on (url, title, date) because 15 of the corpus's 48 records were the same
+  // 15 execution reports twice, under a pre-canonicalisation `document_id`
+  // slug; that made FY2024 list 19 documents that were 11. Deduping here only
+  // ever fixed this page — `budget_document`, the hub ledger's document counts
+  // and the OGP coverage score all read the same corpus and none of them
+  // dedupe — so the invariant belongs upstream, where it now is.
+  const rows = documents?.rows ?? [];
   const title = t("budget_law_title");
 
   return (

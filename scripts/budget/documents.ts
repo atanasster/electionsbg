@@ -293,15 +293,65 @@ const parseBulnaoAuditReports = (html: string): BudgetDocument[] => {
   return out;
 };
 
+// Kinds whose ENTIRE id-space this builder enumerates from a committed config
+// constant, with no network input: EXECUTION_REPORTS, AMENDMENT_DV_MATERIALS,
+// INTERIM_BUDGET_LAWS, FUND_BUDGET_LAWS. For these — and only these — "absent
+// from `fresh`" means "no longer part of the corpus" rather than "this run
+// couldn't see it", so a prior entry that the build no longer produces is a
+// stale record and is dropped.
+//
+// The other three kinds are deliberately OUT, because for them an absence is
+// ambiguous: `law` is enumerated from the fetched КФП resources ∪
+// LAW_DV_MATERIALS (a short feed would retire real law years), `audit-report`
+// comes from a best-effort scrape that yields [] on any structural surprise,
+// and `kfp-feed` exists only when the feed parsed. Pruning on those would turn
+// a fetch failure into a silent retraction.
+const PRUNABLE_KINDS: ReadonlySet<BudgetDocument["kind"]> = new Set([
+  "execution-report",
+  "amendment",
+  "interim-law",
+  "fund-law",
+]);
+
 // Merge freshly-built auto entries with whatever is already committed,
 // preserving any manually-curated document (discovery: "manual" or any entry
 // the operator has enriched). Auto entries only replace prior auto entries.
-const mergeDocuments = (
+//
+// A prior machine-derived entry of a PRUNABLE_KINDS kind that this build no
+// longer produces is DROPPED. Without that, an id-minting change strands the
+// old id in the committed file for ever: the merge is keyed on `id`, so a
+// record whose id nobody mints again is never revisited, and the file
+// accumulates one duplicate per renamed document. That is not hypothetical —
+// it is how 15 of the corpus's 48 records came to be the same 15 execution
+// reports twice, under `exec-admin-ministerstvoto-na-…` (the pre-
+// canonicalExecutionAdminId slug, minted from the ministry's definite-article
+// label) beside the `exec-admin-ministerstvo-na-…` the builder mints today.
+export const mergeDocuments = (
   previous: BudgetDocument[],
   fresh: BudgetDocument[],
 ): BudgetDocument[] => {
+  // Per kind, the ids this build produced. A kind that produced NOTHING is
+  // absent from the map and therefore prunes nothing — an empty config (or a
+  // builder that threw before contributing) must never wipe a whole family,
+  // which is the same refusal the budget loader's shrink floor makes.
+  const freshIdsByKind = new Map<string, Set<string>>();
+  for (const d of fresh) {
+    if (!PRUNABLE_KINDS.has(d.kind)) continue;
+    const ids = freshIdsByKind.get(d.kind) ?? new Set<string>();
+    ids.add(d.id);
+    freshIdsByKind.set(d.kind, ids);
+  }
+  const isStale = (d: BudgetDocument): boolean => {
+    if (d.discovery === "manual") return false; // curated — never ours to drop
+    const ids = freshIdsByKind.get(d.kind);
+    return ids !== undefined && !ids.has(d.id);
+  };
+
   const byId = new Map<string, BudgetDocument>();
-  for (const d of previous) byId.set(d.id, d);
+  for (const d of previous) {
+    if (isStale(d)) continue;
+    byId.set(d.id, d);
+  }
   for (const d of fresh) {
     const prior = byId.get(d.id);
     if (prior && prior.discovery !== "auto") continue; // keep curated entry
@@ -316,6 +366,18 @@ const mergeDocuments = (
   });
 };
 
+// The PRUNABLE_KINDS half of the corpus: every document this builder can
+// enumerate from a committed config alone, with no network. Exported because it
+// is exactly the input `mergeDocuments` prunes against — a repair that needs to
+// drop stale records offline uses this rather than a second copy of the id
+// rules, which is what let the two spellings diverge in the first place.
+export const buildConfigDocuments = (): BudgetDocument[] => [
+  ...buildInterimLawDocuments(),
+  ...buildFundLawDocuments(),
+  ...buildAmendmentDocuments(),
+  ...buildExecutionDocuments(),
+];
+
 export const buildDocuments = (
   parsed: ParsedResource[],
   bulnaoHtml: string | null,
@@ -324,10 +386,7 @@ export const buildDocuments = (
   const fresh: BudgetDocument[] = [
     buildKfpDocument(parsed),
     ...buildLawDocuments(parsed),
-    ...buildInterimLawDocuments(),
-    ...buildFundLawDocuments(),
-    ...buildAmendmentDocuments(),
-    ...buildExecutionDocuments(),
+    ...buildConfigDocuments(),
   ];
   if (bulnaoHtml) {
     try {

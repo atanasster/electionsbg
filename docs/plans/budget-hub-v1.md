@@ -216,8 +216,11 @@ consequences:
 
 ### 2.4 The document corpus, counted
 
-`documents.json` holds 48 records: **execution-report 30, law 9, amendment 2, audit-report 2,
-fund-law 2, interim-law 2, kfp-feed 1.** Stages per year run `law` (2018-2020) →
+`documents.json` holds 33 records: **execution-report 15, law 9, amendment 2, audit-report 2,
+fund-law 2, interim-law 2, kfp-feed 1.** (It held 48 until 2026-08-13: 15 execution reports were
+in it twice under a pre-`canonicalExecutionAdminId` `document_id` slug, which `mergeDocuments`
+never revisited because the merge is keyed on `id`. Pruned at ingest; gated in
+`scripts/budget/documents.test.ts` and `budget_pg_roundtrip.data.test.ts`.) Stages per year run `law` (2018-2020) →
 `law + execution` (2021, 2025, 2026) → `law + amendment + execution` (2022-2024).
 
 Two things follow, and §7.4 builds on both: **only two amendment documents exist**, so a
@@ -714,7 +717,7 @@ to meaning one thing.
 
 **From OGP/IBP.**
 
-`budget_document.obs_category` maps each of the 48 records onto the eight key documents, and the
+`budget_document.obs_category` maps each of the 33 records onto the eight key documents, and the
 page scores the frame, naming which are present and which are not.
 
 ⚠️ **[2026-08-13, T6.6] Two corrections to this paragraph, both caught in review, both of which
@@ -733,7 +736,7 @@ had already reached code.**
 The `citizens-budget` slot correctly stays unticked — we do not ingest it — which is exactly the
 distinction correction 1 exists to preserve.
 
-**The roll-call edge is NOT built.** `budget_document.adopted_by_item_id` is NULL on all 48 rows,
+**The roll-call edge is NOT built.** `budget_document.adopted_by_item_id` is NULL on all 33 rows,
 so „who voted for each budget" has no data behind it. Resolving it is ingest work; the section is
 absent rather than inferred, per the rule immediately below.
 

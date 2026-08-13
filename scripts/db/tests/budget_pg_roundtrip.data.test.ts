@@ -371,6 +371,40 @@ test.skipIf(stateSkip)(
 );
 
 test.skipIf(stateSkip)(
+  "budget_document carries each document once, whatever its id",
+  async () => {
+    // `mergeDocuments` is keyed on `id`, so a change to how an id is MINTED
+    // strands the old id in the committed file for ever — nothing mints it
+    // again, so nothing revisits it. That shipped: 15 of documents.json's 48
+    // records were the same 15 execution reports twice, under the pre-
+    // `canonicalExecutionAdminId` slug taken from the ministry's
+    // definite-article label („Министерството на …" → `admin-ministerstvoto-
+    // na-…`) beside the `admin-ministerstvo-na-…` the law parser uses. Same
+    // title, same URL, same date; only the id differed — so every consumer
+    // counting documents over-counted by 45% and /budget/law listed FY2024's
+    // 11 documents as 19.
+    //
+    // Asserted HERE, against the served table, because that is where every
+    // consumer reads it: the page-level dedupe this replaced fixed one surface
+    // and left the hub ledger's counts and the OGP coverage score wrong.
+    const rows = await allRows<{
+      title_bg: string;
+      ids: string[];
+    }>(
+      `SELECT title_bg, array_agg(document_id ORDER BY document_id) ids
+         FROM budget_document
+        GROUP BY title_bg, url, published_on
+       HAVING count(*) > 1`,
+    );
+    assert.deepEqual(
+      rows.map((r) => r.ids.join(" = ")),
+      [],
+      "one document is in budget_document under more than one document_id",
+    );
+  },
+);
+
+test.skipIf(stateSkip)(
   "adopted_by_item_id is never inferred — it is NULL until T6.6 resolves it",
   async () => {
     const [r] = await allRows<{ n: string }>(

@@ -189,10 +189,19 @@ describe("BudgetLawScreen", () => {
     expect(stateOf(byId["mid-year-review"].labelBg)).toBe("absent");
   });
 
-  it("lists one document once, however many ids the corpus gave it", async () => {
-    // 15 of the corpus's 48 records are the same document under two
-    // `document_id` slug variants — same title, same URL, same date. FY2024
-    // lists 19 records that are 11 documents.
+  it("renders the corpus faithfully rather than deduping it", async () => {
+    // This page used to dedupe on (url, title, date), because 15 of the
+    // corpus's 48 records were the same 15 execution reports under a
+    // pre-canonicalisation `document_id` slug and FY2024 listed 19 documents
+    // that were 11. That is fixed at ingest now (mergeDocuments drops a
+    // machine-derived record the build no longer mints; the invariant is gated
+    // in scripts/budget/documents.test.ts), so the page must NOT filter.
+    //
+    // The distinction is not cosmetic. A display-time dedupe fixed this page
+    // and nothing else — `budget_document`, the hub ledger's document counts
+    // and the OGP coverage score read the same corpus and none of them dedupe
+    // — so it hid a live corpus defect behind one correct-looking surface.
+    // Restoring it would re-hide the next one.
     payload = {
       ...THIN_YEAR,
       rows: [
@@ -201,12 +210,13 @@ describe("BudgetLawScreen", () => {
       ],
     };
     renderIt();
-    await screen.findByText(/Закон за държавния бюджет/);
-    expect(screen.getAllByText(/Закон за държавния бюджет/)).toHaveLength(1);
+    await waitFor(() =>
+      expect(screen.getAllByText(/Закон за държавния бюджет/)).toHaveLength(2),
+    );
   });
 
   it("never claims a document was adopted without a vote", async () => {
-    // `adopted_by_item_id` is NULL on all 48 rows — unresolved ingest work, not
+    // `adopted_by_item_id` is NULL on all 33 rows — unresolved ingest work, not
     // a fact about the vote. Any UI that renders that absence as „no recorded
     // vote" publishes a false claim about parliament.
     renderIt();

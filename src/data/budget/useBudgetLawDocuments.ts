@@ -63,7 +63,7 @@ export const useBudgetLawDocuments = (fy: number | null) => {
     queryKey: ["budget-documents", fy] as const,
     queryFn: () => fetchDocuments(fy),
     // `enabled`, like every sibling hook. Without it a null `fy` calls the
-    // route UNFILTERED, and `budget_documents(NULL)` returns all 48 rows across
+    // route UNFILTERED, and `budget_documents(NULL)` returns all 33 rows across
     // ten fiscal years — rendered under „Публикувано за  г." (i18next
     // interpolates the null as an empty string). Transient on every cold load,
     // since `fy` is null until hub-stats answers, and PERMANENT whenever
