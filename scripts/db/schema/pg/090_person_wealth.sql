@@ -119,12 +119,26 @@
 -- someone already sits at −€47M net worth, so a single slightly larger filing would have
 -- crossed a symmetric ceiling and jumped that person's headline by €50M with no signal.
 --
--- WHY €50M, AND THE MARGIN IS NOT SYMMETRIC. Measured over the whole corpus: 235 asset rows
--- exceed €1M, 27 exceed €5M, 10 exceed €10M, and exactly ONE exceeds €50M. Upward the
--- margin is 71× (€3.58bn vs €50M). Downward it is thin: the largest kept row is that
--- €47.05M debt, 6% under the line — though since the ceiling is assets-only, the largest
--- kept ASSET is €12.7M, a 3.9× margin. Re-measure both on every ingest; the margin IS the
--- argument, so do not raise the ceiling without re-deriving it.
+-- WHY €100M, AND THE MARGIN IS NOT SYMMETRIC. Measured over the whole corpus (2026-08-13):
+-- 185 asset rows exceed €1M, 18 exceed €5M, 10 exceed €10M, and NONE exceeds €50M. Upward
+-- the margin is 36× (€3.58bn vs €100M); downward the largest kept ASSET is €43.35M, a 2.3×
+-- margin. Re-measure both on every ingest; the margin IS the argument, so do not raise the
+-- ceiling without re-deriving it.
+--
+-- IT WAS €50M UNTIL 2026-08-13, and what moved is the corpus, not the reasoning. The largest
+-- real asset used to be €12.7M — a 3.9× margin — and it is now a single €43.35M row, 13% under
+-- the old line: 84,787,939 shares of Марешки Холд АД at 84,787,939 лв, filed by an MP's spouse
+-- (declaration 582, 2018). That row is REAL, and it is worth recording how that was settled,
+-- because "count equals price" is exactly the shape of a misparse. Table 9 names its cells —
+-- „Брой на ценните книги" (3) and „Цена на придобиването /лв./" (7) — and the parser reads them
+-- separately, so the equality is the declarant's, not ours: 1-лв nominal shares. The
+-- independent check is the registry, which records that company's capital as 101,011,213.53 лв
+-- (tr_companies.funds_amount), i.e. the holding is ~84% of a company whose capital comfortably
+-- exceeds it. A €50M line 1.15× above a real holding no longer separates artifacts from
+-- holdings — it was one mid-size АД stake away from silently excluding a genuine fortune from
+-- an accountability leaderboard, which is the same class of error as publishing the artifact.
+-- No row changes state at €100M today (nothing sits between the two lines); what changes is
+-- that the next such holding is counted instead of quietly dropped.
 --
 -- WHAT IT DOES NOT DO. The row is still stored, and declaration_detail() still renders it
 -- exactly as filed — we do not edit the register. Only the AGGREGATES skip it, and
@@ -142,7 +156,7 @@
 -- The ceiling as a function rather than a literal repeated at four sites, so raising it is
 -- one edit and so a data test can assert against the same number the matview uses.
 CREATE OR REPLACE FUNCTION asset_row_ceiling_eur()
-RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT 50000000::numeric $$;
+RETURNS numeric LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT 100000000::numeric $$;
 
 DROP MATERIALIZED VIEW IF EXISTS person_wealth_year CASCADE;
 CREATE MATERIALIZED VIEW person_wealth_year AS

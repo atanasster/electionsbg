@@ -230,9 +230,17 @@ test.skipIf(skip)("the ceiling has nothing left to exclude", async () => {
   // The headroom, measured on the population the ceiling actually applies to.
   // `value_eur <= ceiling` would be vacuous — a kept row is under the ceiling by
   // construction — so this asks the question that matters: how close is the largest
-  // legitimate ASSET to the line? At €12.7M against €50M that is 3.9×. If it ever
+  // legitimate ASSET to the line? At €43.35M against €100M that is 2.3×. If it ever
   // approaches 1×, the ceiling stops separating artifacts from holdings and the whole
   // argument fails.
+  //
+  // It fired once, on 2026-08-13, and the answer was to RAISE the ceiling rather than
+  // relax this assertion: the corpus had grown a real €43.35M holding (84,787,939 лв of
+  // Марешки Холд АД, whose registered capital tr_companies puts at 101,011,213.53 лв)
+  // that sat 13% under the old €50M line. A gate this close does not merely stop
+  // catching artifacts — it starts excluding fortunes from an accountability
+  // leaderboard, silently, which is the failure the ceiling exists to avoid in the
+  // other direction. See the "IT WAS €50M UNTIL" block in 090.
   const [a] = await allRows<{ largest: string }>(
     `SELECT COALESCE(max(value_eur), 0) largest FROM declaration_asset
         WHERE category <> 'debt' AND value_eur <= asset_row_ceiling_eur()`,

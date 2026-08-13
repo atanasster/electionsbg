@@ -18,7 +18,7 @@ import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
 import { readSessionFacts } from "../prerender/votesFacts";
-import { mostDivergentPairSlug } from "@/screens/parliament/seeds";
+import { mostDivergentPairPath } from "@/screens/parliament/seeds";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
@@ -687,7 +687,13 @@ const enumerateVotes = (rootUrl: string) => {
       byNs?: Record<string, { parties?: string[]; matrix?: number[][] }>;
     }>(`${projectPath}/data/parliament/votes/derived/party_correlation.json`);
     const slice = correlation?.byNs?.[ns];
-    const pair = mostDivergentPairSlug(slice?.parties, slice?.matrix);
+    // RAW `А--Б`, the same helper the PRERENDER uses — never the ...Slug variant.
+    // pushUrl runs every path through encodeUrlPath, so an already-encoded pair is
+    // encoded a second time: `%D0%9F` becomes `%25D0%259F` and the sitemap names a URL
+    // nobody can reach, while the prerendered canonical carries the single-encoded form.
+    // This shipped that way — the two spellings are only visible when the family is
+    // actually enumerated, and this URL first entered the sitemap on 2026-08-13.
+    const pair = mostDivergentPairPath(slice?.parties, slice?.matrix);
     if (pair) {
       pushUrl(`${rootUrl}/votes/between/${pair}`, lastmod);
       pushUrl(`${rootUrl}/en/votes/between/${pair}`, lastmod);

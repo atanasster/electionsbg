@@ -206,6 +206,30 @@ DO $$ BEGIN
   END IF;
 END $$;
 
+-- Put back what the DROP … CASCADE above just took. `risk_upheld_ocid` (112) is a view
+-- over upheld_ocids, so every apply of this file destroys it — the same "you break it,
+-- you restore it" contract `rebuild_contracts_list()` discharges twenty lines below, and
+-- migration_drop_dependents.data.test.ts sanctions this CASCADE on exactly that promise.
+--
+-- The promise was only half kept: 112 recreates the view inside
+-- rebuild_contract_risk_cache(), and load_tenders_pg.ts applies this file WITHOUT calling
+-- that function. db:refresh hides it (kzk:rejoin rebuilds two steps later), so the gap is
+-- only visible after a STANDALONE db:load:tenders:pg — which is the documented way to
+-- publish a tenders reload, on Cloud SQL as well as locally. Nothing breaks while the view
+-- is missing (its only reader is the rebuild, which recreates it first), but the database
+-- is left without an object its migration says it has, and the ACL gate reads that as a
+-- broken GRANT.
+--
+-- Kept a plain view rather than calling rebuild_contract_risk_cache() here: the rebuild is
+-- a 409k-row DELETE+INSERT and this file is applied by a loader. Restoring the object is
+-- this file's debt; refreshing the cache's CONTENT stays kzk_dependents.ts's job.
+DO $$ BEGIN
+  EXECUTE 'CREATE OR REPLACE VIEW risk_upheld_ocid AS SELECT ocid FROM upheld_ocids';
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    EXECUTE 'GRANT SELECT ON risk_upheld_ocid TO app_readonly';
+  END IF;
+END $$;
+
 -- contracts_list (SELECT c.* + appeal flags) is rebuilt by the shared
 -- rebuild_contracts_list() (000_search_fns.sql) so this migration and 050
 -- (lot_name) never drift. It guards on `contracts` existing (a tenders-only load

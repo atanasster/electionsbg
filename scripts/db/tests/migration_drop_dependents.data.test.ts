@@ -183,10 +183,19 @@ const boundedDdlTx = async <T>(fn: (c: PoolClient) => Promise<T>): Promise<T> =>
       await c.query(`SET LOCAL lock_timeout = '${DDL_LOCK_TIMEOUT}'`);
       return await fn(c);
     } catch (e) {
-      if ((e as { code?: string })?.code === "55P03")
+      // 55P03 is the lock_timeout above firing; 40P01 is the SAME contention arriving by
+      // the other door, and it was missing until 2026-08-13. A probe that takes ACCESS
+      // EXCLUSIVE on 33 tables in one transaction, while sibling files read those tables in
+      // theirs, is a textbook deadlock cycle — and Postgres resolves it by killing one side
+      // BEFORE the lock_timeout can fire, so the friendly message below was unreachable in
+      // exactly the case it was written for. Observed: a full `npm run test:data` failed
+      // here with a bare "deadlock detected" and no hint, while the file passed alone.
+      const code = (e as { code?: string })?.code;
+      if (code === "55P03" || code === "40P01")
         throw new Error(
-          `database busy — this probe needs ACCESS EXCLUSIVE on the TR tables and gave up ` +
-            `after ${DDL_LOCK_TIMEOUT} rather than head-of-line blocking every other reader. ` +
+          `database busy — this probe needs ACCESS EXCLUSIVE on the TR tables and ` +
+            `${code === "40P01" ? "deadlocked against a concurrent reader" : `gave up after ${DDL_LOCK_TIMEOUT}`} ` +
+            `rather than head-of-line blocking every other reader. ` +
             `This is the known "test:data flaky under load" shape and does NOT mean 003 has ` +
             `regressed: re-run this file alone (npx vitest run ` +
             `scripts/db/tests/migration_drop_dependents.data.test.ts) against an idle ` +

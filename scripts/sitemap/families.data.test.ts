@@ -56,6 +56,21 @@ afterAll(async () => {
 const inFamily = (family: string): string[] =>
   LOCS.filter((p) => p.startsWith(family) || p.startsWith(`/en${family}`));
 
+/** A <loc> is percent-encoded; the file the prerender writes is not — `dist/votes/between/
+ *  ПБ--ВЪЗРАЖДАНЕ/index.html` sits behind `<loc>…/%D0%9F%D0%91--…`. So the dist probe below
+ *  has to decode, or every non-ASCII family is a permanent false positive. It stayed
+ *  invisible while the only Cyrillic-carrying family was absent from the sitemap; the day
+ *  the pair route was enumerated, this test failed on a URL that was perfectly correct.
+ *  Malformed escapes (a literal `%` in a path) throw rather than decode, and for those the
+ *  raw string is the right thing to probe. */
+const asFilePath = (loc: string): string => {
+  try {
+    return decodeURIComponent(loc);
+  } catch {
+    return loc;
+  }
+};
+
 test("the sitemap names every gated family in both languages", () => {
   // A guard on the guards: if the enumerators regress to emitting nothing, the
   // parity assertions below would pass vacuously.
@@ -90,7 +105,7 @@ for (const family of [
   test(`every ${family} <loc> has a dist/<path>/index.html`, (t) => {
     if (!haveDist) return t.skip();
     const missing = inFamily(family).filter(
-      (p) => !fs.existsSync(path.join(DIST, p, "index.html")),
+      (p) => !fs.existsSync(path.join(DIST, asFilePath(p), "index.html")),
     );
     assert.deepEqual(
       missing.slice(0, 10),

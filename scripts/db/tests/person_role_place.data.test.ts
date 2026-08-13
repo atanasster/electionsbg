@@ -305,17 +305,67 @@ test.skipIf(skip)(
       Number(row.multi) > 200,
       `only ${row.multi} multi-parliament MPs — the per-NS rows are missing`,
     );
-    // Every row of one person carries the SAME code, by construction — so this
-    // is the only place the inaccuracy is visible at all.
+    // Every row of one ROSTER PROFILE carries the same code, by construction — the
+    // seat is read once per parliament.bg mp id (index.json's `seatedRegion`) and
+    // replicated across that id's parliaments. So this is the only place the
+    // inaccuracy is visible at all.
+    //
+    // ⚠️ THE GRAIN IS THE PROFILE, NOT THE PERSON, and this assertion said `person`
+    // until 2026-08-13 — true only for as long as no human held two profiles.
+    // parliament.bg has three (it re-registers an MP who changes name: id 2454
+    // „Мая Божидарова Манолова" and id 3252 „…Манолова-Найденова" are one woman,
+    // same birth date, and the person layer merges them on that gold key — correctly).
+    // Each profile carries its own seat, so the merged person legitimately shows
+    // Кюстендил on one and Благоевград on the other. Asserting at the person grain
+    // turned a correct merge into a red gate; asserting at the profile grain still
+    // catches what §2d is about — the replication rule itself changing.
     const [{ n }] = await allRows<{ n: string }>(
       `SELECT count(*) n FROM (
-         SELECT person_id FROM person_role WHERE source = 'mp'
-          GROUP BY person_id HAVING count(DISTINCT place_code) > 1) q`,
+         SELECT person_id, split_part(ref, ':', 1) AS mp_id
+           FROM person_role WHERE source = 'mp'
+          GROUP BY 1, 2 HAVING count(DISTINCT place_code) > 1) q`,
     );
     assert.equal(
       Number(n),
       0,
-      "an MP has two different place_codes — the replication rule changed without §2d being revisited",
+      "one MP roster profile carries two place_codes — the replication rule changed without §2d being revisited",
+    );
+
+    // And the cross-profile case is BOUNDED and visible rather than silent. A person
+    // holding several profiles is the only way a merged MP can show two МИР at all,
+    // so a jump here means the roster grew duplicates (or the merge started firing on
+    // something weaker than the birth-date gold key) — either of which is a person-layer
+    // change, not a place-layer one. Measured 2026-08-13: 3 multi-profile people, 1 of
+    // them seated from two different МИР.
+    const [dup] = await allRows<{ people: string; two_codes: string }>(
+      `WITH profiles AS (
+         SELECT person_id, count(DISTINCT split_part(ref, ':', 1)) AS n_mp_ids,
+                count(DISTINCT place_code) AS n_codes
+           FROM person_role WHERE source = 'mp'
+          GROUP BY person_id)
+       SELECT count(*) FILTER (WHERE n_mp_ids > 1)::text                  AS people,
+              count(*) FILTER (WHERE n_mp_ids > 1 AND n_codes > 1)::text  AS two_codes
+         FROM profiles`,
+    );
+    assert.ok(
+      Number(dup.people) <= 20,
+      `${dup.people} MPs hold more than one parliament.bg profile (expected a handful) — ` +
+        `the roster gained duplicates or the merge widened`,
+    );
+    // Every person with two codes must be explained by two profiles. This is what makes
+    // the profile-grain assertion above safe to weaken to: with no duplicate profiles the
+    // two assertions are identical, so the gate does not go quiet on a single-profile corpus.
+    const [{ unexplained }] = await allRows<{ unexplained: string }>(
+      `SELECT count(*)::text AS unexplained FROM (
+         SELECT person_id FROM person_role WHERE source = 'mp'
+          GROUP BY person_id
+         HAVING count(DISTINCT place_code) > 1
+            AND count(DISTINCT split_part(ref, ':', 1)) = 1) q`,
+    );
+    assert.equal(
+      Number(unexplained),
+      0,
+      "an MP shows two МИР from a SINGLE roster profile — that is the replication rule breaking",
     );
     assert.ok(
       Number(row.moved) > 50,

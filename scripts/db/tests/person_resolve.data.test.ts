@@ -13,6 +13,7 @@ import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "../../person/bridgeB";
+import { TIER_V_SERVED_IDENTITIES_SQL } from "../../person/tierV";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -109,9 +110,15 @@ test.skipIf(skip)(
 //     is `hits` capped by `footprint`, which is exactly what resolve_persons.ts INSERTs.
 //   Bridge V (money-linked private owner, TIER-V) — a person-shaped fold that was NOT already
 //     a person, is money-linked (contracts ∪ subsidies ∪ funds), and holds ≤5 firms in total.
-//     These people are minted PRIVATE (is_public_figure=false) with identity_confidence
-//     ='verified', a strong but NAME-ONLY identity, and get their whole footprint attached on
-//     the exact entity — see the TIER-V block in scripts/person/resolve_persons.ts.
+//     These people are minted PRIVATE (is_public_figure=false) with a NAME-ONLY identity, and
+//     get their whole footprint attached on the exact entity — see the TIER-V block in
+//     scripts/person/resolve_persons.ts. The identity values that licence the attachment are
+//     IMPORTED from ./tierV rather than spelled here, because this clause has already been
+//     wrong once in exactly that way: the mint gained 'shared_name' beside 'verified' (a fold
+//     the REGISTRY records as several people — kept and labelled per §2.6, not excluded), the
+//     resolver's role INSERT was widened with it, and this hand-written 'verified' then read
+//     20,399 deliberate attachments across 4,405 people as unlicensed. Same failure shape as
+//     the Bridge B copy this file used to carry, and the same fix.
 // A tr/ngo role satisfying NONE of the three is an unlicensed attribution and must never exist.
 // (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
 // mechanism — so both facets carry the same licensing invariant.)
@@ -160,9 +167,9 @@ test.skipIf(skip)(
         AND NOT EXISTS (     -- Bridge B: people-unique public 3-part fold, ≤ FOOTPRINT_CAP, exact entity
           SELECT 1 FROM licensed l
            WHERE l.person_id = p.person_id AND l.uic = r.ref)
-        AND NOT (            -- Bridge V: money-linked private owner, verified name-only identity
+        AND NOT (            -- Bridge V: money-linked private owner, name-only identity
           p.name_parts = 3 AND NOT p.is_public_figure
-          AND p.identity_confidence = 'verified'
+          AND p.identity_confidence IN (${TIER_V_SERVED_IDENTITIES_SQL})
           AND p.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
           AND (SELECT count(DISTINCT o.uic) FROM tr_officers o
                 WHERE o.name_fold = p.name_fold) BETWEEN 1 AND 5

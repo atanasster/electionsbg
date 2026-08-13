@@ -51,6 +51,7 @@ import { writeIngestState } from "../lib/ingest-state";
 import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 import { BRIDGE_B_CTE, FOOTPRINT_CAP } from "./bridgeB";
+import { TIER_V_SERVED_IDENTITIES_SQL } from "./tierV";
 import { PERSON_GUID_SQL_PATTERN } from "../officials/slug_identity";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
@@ -2507,8 +2508,10 @@ async function main(): Promise<void> {
         -- people the label is FOR — 20,479 roles, 12,576 companies and €12.90bn, published at
         -- zero. Worse than a wrong number, it is the decision inverted: §2.6 chose to KEEP
         -- these people and label them, and an empty profile is a deletion with extra steps.
-        -- Any future identity value that is served must be listed here too.
-        WHERE p.identity_confidence IN ('verified', 'shared_name')
+        -- The list is imported rather than spelled here because the licensing GATE
+        -- (person_resolve.data.test.ts) reads the same one: its hand-written copy stayed at
+        -- 'verified' and turned 20,399 deliberate attachments into "unlicensed roles".
+        WHERE p.identity_confidence IN (${TIER_V_SERVED_IDENTITIES_SQL})
        ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
     );
     // Re-anchor the sequence past the just-minted ids.
