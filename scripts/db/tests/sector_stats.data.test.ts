@@ -65,6 +65,35 @@
 //       carries (the positive half — a wrong-but-real EIK passes every other gate,
 //       since the test and the generator read the same constant and both move
 //       together while the headline just inflates).
+//
+//  · ENERGY (audit 2026-08-13, docs/plans/energy-sector-audit-v1.md) — the third
+//    MULTI-member PROCUREMENT sector, and the one whose MONEY was already clean:
+//    the headline reconciled to the euro at every one of the 30 scopes and the
+//    EIK-set survived both sweeps unchanged. It is pinned here anyway, because
+//    "audited and correct" is a state that decays silently and had no gate at all.
+//    Two shapes differ from transport's:
+//     - ⚠ BEH ITSELF AWARDS NOTHING. Every other sector's "every curated EIK is a
+//       real awarder" gate would fail on the holding parent (831373560, 0
+//       contracts — it is a pure holding company), so it is exempted BY NAME
+//       rather than by loosening the gate for everyone;
+//     - the four copies are NOT all equal, uniquely so far. ENERGY_MEMBER_EIKS
+//       (the dashboard) omits the ЕСО МЕР branch code that ENERGY_SECTOR_EIKS
+//       (the hub) carries — a documented, intentional collapse. The test asserts
+//       the difference is EXACTLY that branch and that it stays immaterial, so
+//       the collapse cannot quietly grow into a real divergence.
+//    The universe gate is transport's, with `holding` allowed to be empty — the
+//    one legitimately money-less universe in the codebase, and the reason this
+//    gate needs a per-universe floor list rather than "every universe carries
+//    money". That arm counts CONTRACTS rather than euros: "awards nothing" is a
+//    claim about rows, and the corpus holds 140 contracts with a NULL amount, so
+//    a €0 sum is also what a holding with untotalled contracts would look like.
+//
+//    Both of the energy-only gates (the branch materiality line and the holding
+//    arm) assert their SUBJECT still exists before measuring it. Each was
+//    absence-equivalent when first written — remove the branch, or remove БЕХ from
+//    ENERGY_ENTITIES, and the measurement is 0/undefined and the test goes green
+//    reporting perfect health. A gate over an expected-empty thing has to prove
+//    the thing is still there.
 
 import { test, describe, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -88,6 +117,22 @@ import {
   transportUniverseOf,
   type TransportUniverse,
 } from "@/lib/transportReferenceData";
+import {
+  ENERGY_SECTOR_EIKS,
+  ENERGY_MEMBER_EIKS,
+  ENERGY_ENTITIES,
+  BEH_EIK,
+  ENERGY_MINISTRY_EIK,
+  universeOf as energyUniverseOf,
+  type EnergyUniverse,
+} from "@/lib/energyReferenceData";
+// The generator's own window maths — imported, never re-derived here. See the
+// ns: arm of the energy scope test for why a local copy would be worthless.
+import {
+  newestFirst,
+  parliamentWindow,
+  type ElectionRef,
+} from "@/data/scope/windows";
 
 // Anchor to the module, not the cwd, so a read failure can't escape the PG-skip.
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
@@ -744,6 +789,372 @@ describe("transport sector (procurement / МТС)", () => {
         [],
         `transport-sector members whose corpus name is not a transport body — a ` +
           `wrong EIK inflates the headline while every other gate stays green:\n  ` +
+          offenders.join("\n  "),
+      );
+    },
+  );
+});
+
+describe("energy sector (procurement / БЕХ)", () => {
+  test.skipIf(skip)(
+    "hub headline is procurement and reconciles EXACTLY to the EIK-set",
+    async () => {
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      const e = stats["all"]?.energy;
+      assert.ok(e, "sector_stats.json['all'].energy must exist");
+      assert.equal(e.kind, "eur");
+      assert.equal(
+        e.basis,
+        "procurement",
+        "БЕХ is a commercial group whose real spend IS its tender flow — unlike a " +
+          "pass-through ministry, it must not be moved onto a budget basis (the МЕ " +
+          "policy line is ~€5.9M and is deliberately not in the group at all)",
+      );
+
+      // ~€10.22bn at the 2026-08-13 audit, the largest procurement sector on the
+      // site. The floor is set below the smallest single-member loss that would
+      // matter (dropping ЕСО at €2.22bn lands at ~€8.0bn), so a silent trim fails
+      // here rather than reading as ordinary corpus drift.
+      assert.ok(
+        e.value > 9_000_000_000 && e.value < 16_000_000_000,
+        `energy procurement €${e.value} out of expected band 9.0–16.0bn`,
+      );
+
+      assert.equal(
+        e.value,
+        await sectorSum(ENERGY_SECTOR_EIKS),
+        "headline ≠ Σ contracts over ENERGY_SECTOR_EIKS — regenerate " +
+          "sector_stats.json (npm run db:gen-sector-stats) or reconcile the EIK-set",
+      );
+    },
+  );
+
+  test.skipIf(skip)("every scope reconciles, not just `all`", async () => {
+    // The headline gate above pins ONE of the 30 scopes. A window-boundary bug
+    // (an off-by-one on a parliament's dissolution date, a year bucket built
+    // from the wrong column) leaves `all` exactly right and moves the windows
+    // underneath it — which is the shape the audit's scope table was built to
+    // rule out, so it is worth keeping ruled out.
+    //
+    // THREE year windows spanning the corpus — 2019 is the Балкански поток capex
+    // spike (€2.06bn, the largest single year), 2020 its trough (€52.7M), 2024 an
+    // ordinary year — plus TWO parliament windows, which are the ones that can
+    // actually drift: a year bucket is a fixed string prefix, while an ns window is
+    // computed from elections.json. That is why the ns bounds come from
+    // `parliamentWindow`, the SAME function the generator calls, rather than dates
+    // copied into this file — a local copy would agree with itself for ever and
+    // never see the dissolution off-by-one this test names as its motivation.
+    const stats = readJson<SectorStats>(
+      "data/procurement/derived/sector_stats.json",
+    );
+    const elections = newestFirst(
+      readJson<ElectionRef[]>("src/data/json/elections.json"),
+    );
+    const nsWindow = (name: string): [string, string, string] => {
+      const { from, to } = parliamentWindow(elections, name);
+      return [`ns:${name}`, from ?? "0000", to ?? "9999"];
+    };
+    const WINDOWS: Array<[string, string, string]> = [
+      ["y:2019", "2019-01-01", "2020-01-01"],
+      ["y:2020", "2020-01-01", "2021-01-01"],
+      ["y:2024", "2024-01-01", "2025-01-01"],
+      nsWindow("2024_10_27"),
+      nsWindow("2026_04_19"),
+    ];
+    for (const [scope, from, to] of WINDOWS) {
+      const stat = stats[scope]?.energy;
+      assert.ok(stat, `sector_stats.json['${scope}'].energy must exist`);
+      // ⚠ `contracts.date` is TEXT, not date — compare as text, the way the
+      // generator does (`c.date >= COALESCE($1,'0000')`). ISO-8601 sorts
+      // lexicographically so the window is still correct, and a `::date` cast
+      // here does not merely fail: it would be comparing a different thing
+      // from the code under test.
+      const [row] = await allRows<{ eur: string }>(
+        `select coalesce(round(sum(amount_eur)),0)::text eur
+             from contracts
+            where tag='contract' and awarder_eik = any($1)
+              and date >= $2 and date < $3`,
+        [[...ENERGY_SECTOR_EIKS], from, to],
+      );
+      assert.equal(
+        stat.value,
+        Number(row?.eur ?? 0),
+        `${scope}: headline €${stat.value} ≠ Σ contracts €${row?.eur} in that window`,
+      );
+    }
+  });
+
+  test.skipIf(skip)("the EIK-set copies stay in lockstep", () => {
+    // Mostly the same tripwire shape as water/transport — the browse pack assigns
+    // ENERGY_SECTOR_EIKS by reference, so that comparison is an array against
+    // ITSELF and passing trivially IS the desired state; it becomes a real
+    // comparison the moment a copy hardcodes digits.
+    //
+    // ⚠ The members check below is NOT that. SECTOR_DASHBOARDS.energy.members is
+    // nine hand-written EIK literals (it carries per-member bilingual names and
+    // group labels, so it cannot just spread the constant), which makes it the one
+    // genuine content assertion in this test — do not prune it as duplicate of the
+    // others.
+    assert.deepEqual(
+      [...SECTOR_BROWSE_PACKS.energy.eiks],
+      [...ENERGY_SECTOR_EIKS],
+      "SECTOR_BROWSE_PACKS.energy.eiks drifted from ENERGY_SECTOR_EIKS",
+    );
+    assert.equal(
+      SECTOR_DASHBOARDS.energy.leadEik,
+      BEH_EIK,
+      "the dashboard's lead EIK is no longer the БЕХ holding",
+    );
+
+    // ⚠ The one INTENTIONAL divergence in this file. The dashboard rolls up
+    // ENERGY_MEMBER_EIKS, which omits the ЕСО МЕР branch code the hub's
+    // ENERGY_SECTOR_EIKS carries. Assert the difference is EXACTLY that branch —
+    // an unexplained third state (a member dropped from one side, a new EIK added
+    // to only one) is the drift this whole test class exists to catch.
+    assert.deepEqual(
+      SECTOR_DASHBOARDS.energy.members.map((m) => m.eik),
+      [...ENERGY_MEMBER_EIKS],
+      "SECTOR_DASHBOARDS.energy.members drifted from ENERGY_MEMBER_EIKS",
+    );
+    const onlyInHub = ENERGY_SECTOR_EIKS.filter(
+      (e) => !ENERGY_MEMBER_EIKS.includes(e),
+    );
+    const onlyInDashboard = ENERGY_MEMBER_EIKS.filter(
+      (e) => !ENERGY_SECTOR_EIKS.includes(e),
+    );
+    assert.deepEqual(
+      onlyInHub,
+      ["1752013040"],
+      "the hub/dashboard difference is no longer just the ЕСО МЕР branch",
+    );
+    assert.deepEqual(
+      onlyInDashboard,
+      [],
+      "the dashboard carries an EIK the hub headline does not count",
+    );
+
+    // The ministry is the group's principal, not a member — folding its ~€5.9M
+    // policy line into a generation-and-grid rollup would relabel the sector.
+    assert.ok(
+      !ENERGY_SECTOR_EIKS.includes(ENERGY_MINISTRY_EIK),
+      "Министерство на енергетиката must not be a member of the БЕХ group",
+    );
+  });
+
+  test.skipIf(skip)(
+    "the documented hub/dashboard gap stays immaterial",
+    async () => {
+      // The collapse above is only defensible while the branch is a rounding
+      // error (~€75K against €10.2bn). If ЕСО ever starts awarding through it at
+      // scale, the two surfaces would publish visibly different totals for the
+      // same group and the omission would need revisiting rather than documenting.
+      const gapEiks = ENERGY_SECTOR_EIKS.filter(
+        (e) => !ENERGY_MEMBER_EIKS.includes(e),
+      );
+      // Without this the test is ABSENCE-EQUIVALENT: drop the branch from
+      // ENERGY_SECTOR_EIKS entirely and the sum is €0, which sails under the
+      // ceiling and reports the gap as healthier than ever. Assert there IS a gap
+      // to measure before measuring it.
+      assert.deepEqual(
+        gapEiks,
+        ["1752013040"],
+        "there is no longer a hub/dashboard gap to measure — this test has gone " +
+          "vacuous; reconcile it with the lockstep test above",
+      );
+      const gap = await sectorSum(gapEiks);
+      assert.ok(
+        gap < 1_000_000,
+        `the ЕСО branch now awards €${gap} — above the €1M materiality line, so ` +
+          `the dashboard's omission of it is no longer safe to treat as documented`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "every money-bearing universe carries real money — and `holding` legitimately does not",
+    async () => {
+      // Transport's gate, which caught a €348M mode rendered as €3.7M. Floors are
+      // roughly half the measured spend, so corpus growth cannot trip them and a
+      // universe collapsing to a token member does.
+      const FLOORS: Array<[EnergyUniverse, number, string]> = [
+        ["gas", 1_500_000_000, "Газ (Булгартрансгаз + Булгаргаз)"],
+        ["coal", 1_200_000_000, "Въглища (ТЕЦ + Мини Марица изток)"],
+        ["grid", 1_000_000_000, "Електропренос (ЕСО)"],
+        ["nuclear", 900_000_000, "Ядрена енергия (АЕЦ Козлодуй)"],
+        ["hydro", 200_000_000, "ВЕЦ и търговия (НЕК + ВЕЦ Козлодуй)"],
+      ];
+
+      const rows = await allRows<{ eik: string; eur: string }>(
+        `select awarder_eik eik, coalesce(round(sum(amount_eur)),0)::text eur
+           from contracts
+          where tag='contract' and awarder_eik = any($1)
+          group by 1`,
+        [[...ENERGY_SECTOR_EIKS]],
+      );
+      const byUniverse = new Map<string, number>();
+      for (const r of rows) {
+        const u = energyUniverseOf(r.eik);
+        if (u) byUniverse.set(u, (byUniverse.get(u) ?? 0) + Number(r.eur));
+      }
+
+      for (const [universe, floor, label] of FLOORS) {
+        assert.ok(
+          ENERGY_ENTITIES.some((e) => e.universe === universe),
+          `universe "${universe}" (${label}) has no entities at all`,
+        );
+        const eur = byUniverse.get(universe) ?? 0;
+        assert.ok(
+          eur >= floor,
+          `${label} has €${eur}, below the €${floor} floor — a universe has ` +
+            `collapsed to a token member, which the hub headline cannot show`,
+        );
+      }
+
+      // `holding` is the exception and must STAY one: БЕХ is a pure holding that
+      // awards no ЗОП of its own. A non-zero here is not a win — it means either a
+      // real change at the parent, or a subsidiary's contracts being attributed to
+      // it, which would double-count against the subsidiary's own line.
+      //
+      // Counted in CONTRACTS, not euros, for two independent reasons. „Awards
+      // nothing" is a claim about rows: the corpus carries 140 contracts with a
+      // NULL amount_eur, so a €-sum of 0 is also what a holding with untotalled
+      // contracts looks like. And the whole gate would be absence-equivalent if it
+      // only read the aggregate map — remove БЕХ from ENERGY_ENTITIES and
+      // `byUniverse.get("holding")` is undefined, which passes. So assert the
+      // entity still exists first.
+      assert.ok(
+        ENERGY_ENTITIES.some(
+          (e) => e.eik === BEH_EIK && e.universe === "holding",
+        ),
+        "БЕХ is no longer the `holding` entity — this gate has gone vacuous",
+      );
+      const [beh] = await allRows<{ n: string }>(
+        `select count(*)::text n from contracts
+          where tag='contract' and awarder_eik = $1`,
+        [BEH_EIK],
+      );
+      assert.equal(
+        Number(beh?.n ?? 0),
+        0,
+        `БЕХ (the holding parent) now has ${beh?.n} contracts — verify this is a ` +
+          `real change at the parent and not a re-attribution of a subsidiary's ` +
+          `spend, which would double-count against that subsidiary's own line`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "the anti-allowlist stays out, and every member is a real awarder",
+    async () => {
+      // The reference-data header's "explicitly OUT" block, as assertions. These
+      // are not hypothetical: every one of them was surfaced by the audit's name
+      // sweep over енерг|тец|аец|топлофикац|газ|вец|мини|електро|ядрен, and each
+      // was rejected for a stated reason. Admitting any private or municipal body
+      // here turns a state-spending total into an industry total.
+      const MUST_NOT_BE_MEMBERS: Array<[string, string]> = [
+        [
+          "130277958",
+          "Електроразпределителни мрежи Запад — private ЕРП (€1.74bn)",
+        ],
+        ["115552190", "ЕВН Електроразпределение — private ЕРП (€1.23bn)"],
+        ["104518621", "Електроразпределение Север — private ЕРП (€468M)"],
+        ["831609046", "Топлофикация София — MUNICIPAL, not state (€610M)"],
+        ["130533432", "Овергаз мрежи — private gas distribution (€186M)"],
+        ["130020522", "КонтурГлобал Марица изток 3 — 73% private JV (€175M)"],
+        ["201383265", "ICGB — 50/50 JV, awards under its own EIK"],
+        ["103551629", "ТЕЦ Варна — privatised (€37.7M)"],
+        ["109513731", "ТЕЦ Бобов дол — privatised (€15.9M)"],
+        ["115016602", "ЕВН България топлофикация — private heat (€109M)"],
+        ["121683785", "Столичен електротранспорт — municipal transport, matched „електро“"], // prettier-ignore
+        ["000185872", "ПГ по ядрена енергетика „Курчатов“ — a SCHOOL, matched „ядрен“"], // prettier-ignore
+        ["000193250", "Община Козлодуй — the TOWN, matched „козлодуй“"],
+        ["130098909", "КЕВР — regulator, not a commercial buyer"],
+        ["000697567", "АЯР — regulator, not a commercial buyer"],
+        ["121459246", "АУЕР — agency, not a commercial buyer"],
+      ];
+      for (const [eik, label] of MUST_NOT_BE_MEMBERS)
+        assert.ok(
+          !ENERGY_SECTOR_EIKS.includes(eik),
+          `${label} (${eik}) must not be an energy-sector member`,
+        );
+
+      // Every curated EIK resolves to a real awarder — catches a typo that would
+      // contribute €0 for ever and never surface in any total.
+      //
+      // ⚠ БЕХ is exempt, and this is the only such exemption in the file: the
+      // holding parent awards nothing (see the universe gate above), so it is
+      // legitimately absent from `contracts` while being a correct member of the
+      // group. Exempting it BY EIK rather than relaxing the gate keeps the check
+      // sharp for the other nine.
+      const expectAwarding = ENERGY_SECTOR_EIKS.filter((e) => e !== BEH_EIK);
+      const rows = await allRows<{ eik: string }>(
+        `select distinct awarder_eik eik from contracts
+          where tag='contract' and awarder_eik = any($1)`,
+        [[...expectAwarding]],
+      );
+      const seen = new Set(rows.map((r) => r.eik));
+      const missing = expectAwarding
+        .filter((e) => !seen.has(e))
+        .map((e) => `${e} (${ENERGY_ENTITIES.find((x) => x.eik === e)?.name})`);
+      assert.deepEqual(
+        missing,
+        [],
+        `curated energy EIKs with no contracts at all: ${missing.join(", ")}`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "every member LOOKS like an energy body in the corpus, under every spelling",
+    async () => {
+      // The POSITIVE half. A denylist only catches the wrong bodies somebody
+      // already thought of — the defense near-miss was two МВР directorates worth
+      // €370M that no denylist named — and a wrong-but-real EIK passes every other
+      // gate here, since the test and the generator read the SAME constant.
+      //
+      // Checked against EVERY distinct awarder_name, not min(): this set carries
+      // 157 of them. ЕСО is the reason — its regional МЕР units award under the
+      // PARENT EIK under their own names („Мрежови експлоатационен район - русе",
+      // „УПРАВЛЕНИЕ МЕР СОФИЯ ОБЛАСТ"), with no „ЕСО" or „енерг" anywhere in the
+      // string, so a min(name) check would have passed while 100+ spellings went
+      // unexamined. Булгартрансгаз also appears as the typo „Булгартрасгаз",
+      // which „газ" still catches.
+      //
+      // „марица" rather than „мини": „мини" is a substring of „МИНИстерство", so a
+      // mining stem would silently accept any ministry that got added by mistake.
+      //
+      // ⚠ The three-letter stems are BOUNDARY-GUARDED, and that is not tidiness.
+      // Bare `аец|тец|вец` are substrings of ordinary Bulgarian place and school
+      // names — Община Лясков|ЕЦ|, Прав|ЕЦ|, Медков|ЕЦ|, „О|ТЕЦ| Паисий", „Здрав|ЕЦ|"
+      // — all measured in this corpus, i.e. the gate would have waved through
+      // exactly the wrong-domain class it exists to catch. Cyrillic lookarounds
+      // rather than \b: JS \b is ASCII-only, so it treats every Cyrillic letter as
+      // a boundary and would silently do nothing here.
+      //
+      // Still a check on KIND, not a classifier, and worth being explicit about
+      // what it therefore cannot do: „Овергаз", „Община Козлодуй", „Община Марица"
+      // and Министерство на енергетиката all MATCH. They are kept out by the
+      // anti-allowlist above, which is the layer that owns them — this one exists
+      // to catch a member from an entirely different domain (the МВР-into-defense
+      // shape), which no denylist can name in advance.
+      const ENERGY_NAME =
+        /електроенерг|електрическ|енергиен|енергетик|марица|козлодуй|газ|есо еад|системен оператор|мрежови експлоатационен|управление\s+мер|(?<![а-я])(аец|тец|вец)(?![а-я])/i;
+      const rows = await allRows<{ eik: string; name: string }>(
+        `select distinct awarder_eik eik, awarder_name name
+           from contracts
+          where tag='contract' and awarder_eik = any($1)`,
+        [[...ENERGY_SECTOR_EIKS]],
+      );
+      const offenders = rows
+        .filter((r) => !ENERGY_NAME.test(r.name))
+        .map((r) => `${r.eik} → "${r.name}"`);
+      assert.deepEqual(
+        offenders,
+        [],
+        `energy-sector members whose corpus name is not an energy body — a wrong ` +
+          `EIK inflates the headline while every other gate stays green:\n  ` +
           offenders.join("\n  "),
       );
     },

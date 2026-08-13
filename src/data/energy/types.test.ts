@@ -8,10 +8,13 @@
 
 import { describe, it, expect } from "vitest";
 import plantsFile from "../../../data/energy/plants.json";
+import generationFile from "../../../data/energy/generation.json";
 import {
+  ENERGY_FUELS,
   installedPlants,
   isInstalled,
   isStateLinked,
+  type EnergyGeneration,
   type PlantFuel,
   type PlantOwnership,
   type PlantStatus,
@@ -20,6 +23,7 @@ import {
 } from "./types";
 
 const file = plantsFile as PowerPlantsFile;
+const generation = generationFile as EnergyGeneration;
 
 const plant = (over: Partial<PowerPlant> = {}): PowerPlant => ({
   id: "p",
@@ -76,17 +80,25 @@ describe("the committed fleet (data/energy/plants.json)", () => {
     const all = sumMw(file.plants);
     const installed = sumMw(installedPlants(file.plants));
     expect(installed).toBeLessThan(all); // today: 13 608 < 15 908
-    expect(installed).toBe(
-      sumMw(file.plants.filter((p) => p.status !== "planned")),
+    // Stated as "the excluded capacity is exactly the planned capacity" rather
+    // than re-deriving the basis with a `status !== "planned"` filter. That
+    // filter is the DENY-LIST types.ts documents at length as the wrong rule, so
+    // encoding it here would pin the test to the semantics the fix removed — and
+    // would fail on a correctly-classified new status such as "under-construction".
+    expect(all - installed).toBe(
+      sumMw(file.plants.filter((p) => p.status === "planned")),
     );
   });
 
   it("reports a fleet total in the band the real Bulgarian fleet occupies", () => {
-    // A band, not a magic number — the fleet is curated and moves. The ceiling
-    // is what matters: 15.9 GW (planned capacity back in the basis) is out.
+    // A band, not a magic number — the fleet is curated and moves. The ceiling is
+    // the load-bearing half: the defect it must catch is 15.908 GW (planned
+    // capacity back in the basis). 15.5 leaves ~1.9 GW of headroom, which matters
+    // because the "Други соларни паркове (разпределени)" row is an aggregate that
+    // grows on every refresh — a 15.0 ceiling would fire on a correct update.
     const gw = sumMw(installedPlants(file.plants)) / 1000;
     expect(gw).toBeGreaterThan(12);
-    expect(gw).toBeLessThan(15);
+    expect(gw).toBeLessThan(15.5);
   });
 
   it("keeps the state/JV share off the planned unit's thumb", () => {
@@ -107,5 +119,32 @@ describe("the committed fleet (data/energy/plants.json)", () => {
     const coal = installedPlants(file.plants).filter((p) => p.fuel === "coal");
     expect(coal.length).toBeGreaterThan(0);
     expect(coal.every(isInstalled)).toBe(true);
+  });
+});
+
+describe("the committed generation series (data/energy/generation.json)", () => {
+  // The stacked fuel-mix bar divides each fuel by the REPORTED totalGen, not by
+  // the sum of its own segments, so an Ember fuel bucket missing from
+  // ENERGY_FUELS does not throw — the bar just stops short of 100% and the
+  // legend's percentages quietly no longer add up. That is the failure this
+  // pins; it is the generation tile's equivalent of the plants defect.
+  const latest = generation.years[generation.years.length - 1];
+
+  it("every fuel present in the data has a label in ENERGY_FUELS", () => {
+    const known = new Set(ENERGY_FUELS.map((f) => f.key));
+    const unmapped = Object.keys(latest.byFuel).filter((k) => !known.has(k));
+    expect(unmapped).toEqual([]);
+  });
+
+  it("the fuel breakdown reconciles to the reported total", () => {
+    const sum = Object.values(latest.byFuel).reduce((a, v) => a + v, 0);
+    expect(latest.totalGen).not.toBeNull();
+    // Float TWh to two decimals — an exact compare would fail on ordinary
+    // rounding in the Ember export.
+    expect(Math.abs(sum - (latest.totalGen ?? 0))).toBeLessThan(0.01);
+  });
+
+  it("the latest row is the one latestYear names", () => {
+    expect(latest.year).toBe(generation.latestYear);
   });
 });
