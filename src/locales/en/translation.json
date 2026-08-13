@@ -6127,5 +6127,18 @@
   "budget_dev_delta_note_no_amendments": "The source publishes no adjusted plan by spending unit for this year, so there is only one difference to show — against the act as voted.",
   "budget_dev_source": "Source: Ministry of Finance — the state budget act, the adjusted plan and per-unit execution reports, via data.egov.bg.",
   "budget_dev_see_all": "All spending units, by absolute difference",
-  "budget_dev_coverage_pending": "The year is still running, so execution reports are not yet due. What is missing here is the calendar, not silence."
+  "budget_dev_coverage_pending": "The year is still running, so execution reports are not yet due. What is missing here is the calendar, not silence.",
+  "budget_law_title": "The eight key budget documents",
+  "budget_law_description": "Which of the documents used to judge whether a budget is public exist for Bulgaria — and what was published for each year.",
+  "budget_law_intro": "The international standard (Open Budget Survey) names eight documents that together make a budget traceable — from the framework before it is tabled to the independent audit after it closes. This is which of them are collected on this site, and what exactly was published for the selected year.",
+  "budget_law_frame_h": "The frame: eight documents",
+  "budget_law_frame_score": "{{covered}} of {{total}} are collected on this site.",
+  "budget_law_frame_caveat": "This is coverage HERE, not a score for the country. A document that is not ticked may well exist and simply not be collected in this database — the site mainly gathers what is published as open data. For an international assessment of Bulgaria, see the Open Budget Survey.",
+  "budget_law_present": "present",
+  "budget_law_absent": "missing",
+  "budget_law_year_h": "Published for {{fy}}",
+  "budget_law_year_empty": "No documents are collected for this year.",
+  "budget_law_year_note": "The ticks above cover the whole site while this list is one year, so the two do not match. The monthly КФП reports, for instance, are not filed against a particular year and appear in no year's list.",
+  "budget_law_source": "Source: the Ministry of Finance and the National Audit Office — acts, amendments, execution reports and audit reports, via data.egov.bg and the bodies' own sites.",
+  "budget_law_see_all": "The eight key budget documents"
 }

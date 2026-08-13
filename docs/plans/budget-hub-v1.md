@@ -715,9 +715,27 @@ to meaning one thing.
 **From OGP/IBP.**
 
 `budget_document.obs_category` maps each of the 48 records onto the eight key documents, and the
-page scores the frame: *„България публикува N от 8 ключови бюджетни документа"*, naming which are
-present and which are not. §3.1: the missing one is the **citizens budget**, and that is what this
-module is — a claim worth making once, in the place where it is checkable.
+page scores the frame, naming which are present and which are not.
+
+⚠️ **[2026-08-13, T6.6] Two corrections to this paragraph, both caught in review, both of which
+had already reached code.**
+
+1. **The score is NOT *„България публикува N от 8"*.** Four slots have no ingest at all, so the
+   corpus can only support a sentence about THIS SITE. „We do not collect X" is not „Bulgaria does
+   not publish X", and the difference is the whole distance between a coverage note and a false
+   accusation. The page says „на този сайт са събрани 4 от 8".
+2. **The claim that Bulgaria publishes no citizens budget is FALSE.** IBP'"'"'s own Open Budget Survey
+   records one in 2019, 2021 and 2023 — 67/100 for content in the last round, cited by title and
+   URL on minfin.bg. The claim was in this plan, in `load_budget_pg.ts`'"'"'s comment, in the page copy
+   in both languages, and a test asserted its presence. All four are corrected;
+   `BudgetLawScreen.test.tsx` now asserts the page makes NO country-level non-publication claim.
+
+The `citizens-budget` slot correctly stays unticked — we do not ingest it — which is exactly the
+distinction correction 1 exists to preserve.
+
+**The roll-call edge is NOT built.** `budget_document.adopted_by_item_id` is NULL on all 48 rows,
+so „who voted for each budget" has no data behind it. Resolving it is ingest work; the section is
+absent rather than inferred, per the rule immediately below.
 
 **The cross-module edge nobody else can build.** We own both the budget-document corpus and the
 roll-call corpus (migration 134, `vote_item`; migration 136, `bill`). Every ЗДБРБ and every ЗИД

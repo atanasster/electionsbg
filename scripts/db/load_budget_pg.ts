@@ -297,9 +297,13 @@ const DOCUMENT: StageMergeSpec = {
 // being forced into the nearest slot. /budget/law scores the frame from this,
 // so a wrong entry there becomes a claim about what Bulgaria publishes.
 //
-// The one Bulgaria does NOT publish is the CITIZENS BUDGET — a plain-language
-// version of the budget. Nothing maps to it here, and that absence is the
-// point rather than a gap in the mapping.
+// FOUR slots have no kind mapping to them: pre-budget-statement,
+// executive-budget-proposal, citizens-budget and mid-year-review. That is a
+// statement about WHAT THIS REPO INGESTS, never about what Bulgaria publishes —
+// an earlier version of this comment claimed Bulgaria issues no citizens budget
+// and that is false (IBP's Open Budget Survey records one in 2019, 2021 and
+// 2023, scored 67/100 in the last round). /budget/law therefore frames its
+// score as coverage here and makes no country-level claim.
 const OBS_CATEGORY: Record<string, string | null> = {
   law: "enacted-budget",
   "interim-law": "enacted-budget",

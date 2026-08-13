@@ -6,6 +6,7 @@
 
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   ChevronDown,
   ChevronRight,
@@ -241,6 +242,13 @@ export const BudgetJourneyTile: FC<{
         <p className="text-xs text-muted-foreground">
           {t("budget_journey_subtitle") ||
             "Law → execution → audit, per fiscal year."}
+          {/* This tile shows the year's OWN chain. /budget/law scores the same
+              corpus against the OGP/IBP eight-document frame — the question
+              „what is missing entirely", which a per-year chain cannot ask. */}
+          {" · "}
+          <Link to="/budget/law" className="text-primary hover:underline">
+            {t("budget_law_see_all")}
+          </Link>
         </p>
       </CardHeader>
       <CardContent className="pt-0">
