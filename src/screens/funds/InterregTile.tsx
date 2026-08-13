@@ -81,8 +81,11 @@ export const InterregTile: FC = () => {
   const p2127 = overview.periods["2021-2027"];
   const p1420 = overview.periods["2014-2020"];
 
+  // data-og is the og:image capture's anchor AND its wait-for (scripts/og/capture-screens.ts).
+  // It sits below the `!overview` guard on purpose: the attribute only exists once the tile
+  // has data, so a capture waiting on it cannot photograph the loading state.
   return (
-    <Card>
+    <Card data-og="funds-interreg">
       <CardContent className="p-4 flex flex-col gap-4">
         <div>
           <h2 className="text-sm font-semibold">{t("interreg_title")}</h2>

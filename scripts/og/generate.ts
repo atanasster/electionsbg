@@ -337,6 +337,35 @@ const main = async () => {
   );
 
   renderStaticPageCard(
+    "Държавен бюджет — методология",
+    "Откъде идват числата и какво точно мери всяко от тях",
+    [
+      { label: "източник", value: "МФ / КФП" },
+      { label: "раздели", value: "5" },
+      { label: "отчет", value: "натрупан" },
+      { label: "тип", value: "методология" },
+    ],
+    "budget-methodology.png",
+  );
+
+  // /votes/between is a rendered card rather than a screenshot on purpose. It is
+  // a PICKER whose body is the disagreements between two chosen groups, and the
+  // corpus for the current parliament has none — so every framing of the live
+  // page is either an empty state or a seeded pair the reader did not choose.
+  // Re-open this as a screenshot once the 52nd's roll-call votes are ingested.
+  renderStaticPageCard(
+    "Сравни две парламентарни групи",
+    "Точките, по които две групи са гласували срещуположно",
+    [
+      { label: "избираш", value: "2 групи" },
+      { label: "показва", value: "разногласия" },
+      { label: "източник", value: "поименни" },
+      { label: "обхват", value: "по НС" },
+    ],
+    "votes-between.png",
+  );
+
+  renderStaticPageCard(
     "Къде отидоха гласовете — методология",
     "Поток на гласовете между два парламентарни вота",
     [

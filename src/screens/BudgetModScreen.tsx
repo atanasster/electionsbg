@@ -140,7 +140,9 @@ export const BudgetModScreen: FC = () => {
                 {t("mod_browser_none")}
               </p>
             ) : (
-              <ul className="divide-y">
+              // data-og is the og:image capture's wait-for (scripts/og/capture-screens.ts) —
+              // on the populated branch, so it cannot resolve on the empty-search state.
+              <ul data-og="budget-mod" className="divide-y">
                 {filtered.map((r) => (
                   <li key={r.ordinal}>
                     <button

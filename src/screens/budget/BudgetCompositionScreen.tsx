@@ -129,7 +129,14 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
         className="mt-5"
       />
 
-      <section aria-label={title} className="my-4 space-y-6">
+      {/* data-og keys the og:image capture (scripts/og/capture-screens.ts). It carries `kind`
+          because /budget/revenue and /budget/spending are the SAME component — a shared marker
+          would give the two pages one share card between them. */}
+      <section
+        aria-label={title}
+        data-og={`budget-${kind}`}
+        className="my-4 space-y-6"
+      >
         <p className="max-w-3xl text-sm text-muted-foreground">{t(introKey)}</p>
 
         {stats?.yearsAvailable?.length ? (
@@ -205,10 +212,15 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
                     <div className="flex items-baseline justify-between gap-3 text-sm">
                       <span>
                         {/* `label_en` is populated, so serving the Bulgarian
-                            label on /en is a choice rather than a fallback. */}
-                        {i18n.language === "bg"
-                          ? (l.labelBg ?? l.labelEn)
-                          : (l.labelEn ?? l.labelBg)}
+                            label on /en is a choice rather than a fallback.
+                            `||`, NOT `??`: an unmapped КФП line stores the
+                            EMPTY STRING rather than NULL, and `??` sails past
+                            it — measured, „Трансфери (нето)" (58% of
+                            expenditure) rendered as a blank row on /en for
+                            FY2021-2024, with its amount and share beside it. */}
+                        {(i18n.language === "bg"
+                          ? l.labelBg || l.labelEn
+                          : l.labelEn || l.labelBg) || null}
                       </span>
                       <span className="shrink-0 tabular-nums">
                         {l.executedEur == null ? "—" : formatEur(l.executedEur)}

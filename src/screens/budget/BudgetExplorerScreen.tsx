@@ -229,7 +229,13 @@ export const BudgetExplorerScreen: FC = () => {
               : null}
           </p>
         ) : (
-          <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
+          // data-og is the og:image capture's wait-for (scripts/og/capture-screens.ts). It sits
+          // on the POPULATED branch, so a capture waiting on it can photograph neither the
+          // skeleton above nor the empty-level message beside it.
+          <div
+            data-og="budget-explorer"
+            className="rounded-xl border bg-card shadow-sm overflow-hidden"
+          >
             <div className="flex items-baseline justify-between gap-3 border-b px-4 py-3">
               <span className="text-sm font-semibold">
                 {t("budget_explorer_level_total") || "Общо за нивото"}

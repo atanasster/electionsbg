@@ -1269,6 +1269,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   },
   staticPage({
     path: "sverka",
+    ogImage: "/og/sverka.png",
     title:
       "Сверка на местните избори — длъжностни лица срещу ЦИК | electionsbg.com",
     description:
@@ -1286,6 +1287,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "customs/warehouses",
+    ogImage: "/og/customs-warehouses.png",
     title: "Лицензирани акцизни складодържатели — регистър | electionsbg.com",
     description:
       "Пълен регистър на лицензираните акцизни складодържатели в България — фирмите с лиценз да държат горива, тютюн и алкохол под отложено плащане на акциз, по категория, брой складове и обществени поръчки.",
@@ -1301,6 +1303,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "local/chmi",
+    ogImage: "/og/local-chmi.png",
     title: "Извънредни местни избори в България | electionsbg.com",
     description:
       "Хронологичен преглед на всички извънредни (частични и нови) местни избори за кметове на общини, кметства и райони.",
@@ -1530,6 +1533,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "parties",
+    ogImage: "/og/parties.png",
     title: `Партии на парламентарните избори${YEAR_SUFFIX} — резултати и мандати | electionsbg.com`,
     description:
       "Пълен списък на партиите и коалициите, участвали в последния парламентарен вот — гласове, проценти и мандати, плюс линкове към подробни профили.",
@@ -1577,6 +1581,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "regions",
+    ogImage: "/og/regions.png",
     title: `Резултати по области — парламентарни избори${YEAR_SUFFIX} в България | electionsbg.com`,
     description:
       "Резултати на парламентарните избори в България по области (28 МИР) — победител, гласове и активност за всяка област.",
@@ -2374,6 +2379,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // of them would be 2,120 more files against a dist that already holds 253k and a
     // Firebase ceiling on file COUNT. The picker is the crawlable entry point.
     path: "parliament/similarity",
+    ogImage: "/og/parliament-similarity.png",
     title: "Гласово сходство между депутатите | electionsbg.com",
     description:
       "Кой народен представител гласува най-близо до кого — избери депутат и виж пълното класиране по сходство на вота, изчислено от поименните гласувания.",
@@ -2388,6 +2394,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     // The group-pair picker. /votes/between/:pair stays SPA-only for the same reason.
     path: "votes/between",
+    ogImage: "/og/votes-between.png",
     title: "Сравни две парламентарни групи | electionsbg.com",
     description:
       "Избери две парламентарни групи и виж точките, по които са гласували срещуположно — от поименните гласувания в Народното събрание.",
@@ -2404,6 +2411,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     // a standing analysis, not a per-request view, so a crawler should get the real head
     // tags rather than the SPA shell.
     path: "parliament/correlation",
+    ogImage: "/og/parliament-correlation.png",
     title: "Корелация на гласуването в НС | electionsbg.com",
     description:
       "Кои парламентарни групи гласуват еднакво и кои се разминават — матрица на съвпаденията между вотовете на мнозинството във всяка двойка групи по поименните гласувания.",
@@ -2431,6 +2439,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/municipal-finance",
+    ogImage: "/og/governance-municipal-finance.png",
     title:
       "Общински финанси — какво е договорено за следващи години | electionsbg.com",
     description:
@@ -2635,6 +2644,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "judiciary/magistrates",
+    ogImage: "/og/judiciary-magistrates.png",
     title: "Магистрати с декларирани дружества (ИВСС) | electionsbg.com",
     description:
       "Съдиите, прокурорите и следователите, посочили търговско дружество (дялове/акции/участие) в имуществената си декларация по чл. 175а ЗСВ — разпознати по име в Търговския регистър. Търсеща и сортируема таблица.",
@@ -2761,6 +2771,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "water/operators",
+    ogImage: "/og/water-operators.png",
     title:
       "ВиК оператори — поръчки, конкуренция и еврофондове | electionsbg.com",
     description:
@@ -2860,6 +2871,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/mod",
+    ogImage: "/og/budget-mod.png",
     title:
       "Минимален осигурителен доход по професия (МОД) 2026 | electionsbg.com",
     description:
@@ -2971,6 +2983,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/ministries",
+    ogImage: "/og/budget-ministries.png",
     title:
       "Разпоредители с бюджет — всички първостепенни разпоредители | electionsbg.com",
     description:
@@ -2997,6 +3010,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/revenue",
+    ogImage: "/og/budget-revenue.png",
     title: "Откъде идват парите на държавата | electionsbg.com",
     description:
       "Приходите на държавния бюджет по източник — данъчни, неданъчни и помощи — за всяка бюджетна година, с движението през годините и сравнение с ЕС.",
@@ -3029,7 +3043,44 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/spending",
+    ogImage: "/og/budget-spending.png",
+    title: "За какво харчи държавата | electionsbg.com",
+    description:
+      "Разходите на държавния бюджет по вид — текущи, капиталови, лихви и трансфери — за всяка бюджетна година, с движението през годините и сравнение с ЕС.",
+    breadcrumbName: "За какво харчи държавата",
+    bodyHtml: `
+<h1>За какво харчи държавата</h1>
+<p>Тази страница показва разходите на държавния бюджет за избраната година, разбити по вид, така както ги отчита Министерството на финансите — и как се променят през годините.</p>
+<h2>Три неща, които е добре да се знаят за числата</h2>
+<ul>
+<li><strong>Голяма част не се харчи от държавния бюджет.</strong> Редът „Трансфери (нето)“ е парите, прехвърлени на НОИ, НЗОК, общините и университетите, които после ги харчат — през 2024 г. това е 58% от раздела. За какво отиват парите в целия сектор „Държавно управление“ виж разреза по функция.</li>
+<li><strong>Вноската в бюджета на ЕС се отчита отделно</strong> от разходите и не е включена в сумата тук — тя е самостоятелен раздел на касовия отчет.</li>
+<li><strong>Отчетът по КФП е натрупан</strong> от началото на годината, затова всяка година е показана с последния си отчетен период. Събирането на месеците би преброило едни и същи пари многократно.</li>
+<li><strong>Сравнението с ЕС е на друга основа</strong> — Евростат мери целия сектор „Държавно управление“ (държава, общини и осигурителни фондове), а горното число е касовият отчет само на държавния бюджет.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget/revenue">откъде идват парите</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
+    english: {
+      title: "What Bulgaria's State Budget Is Spent On | electionsbg.com",
+      description:
+        "State budget expenditure by type — current, capital, interest and transfers — for each fiscal year, with the trend over time and an EU comparison.",
+      breadcrumbName: "What the state spends on",
+      bodyHtml: `
+<h1>What the state spends on</h1>
+<p>This page shows state budget expenditure for the selected year, broken down by type exactly as the Ministry of Finance reports it — and how it has moved over the years.</p>
+<h2>Three things worth knowing about the figures</h2>
+<ul>
+<li><strong>Much of it is not spent by the state budget.</strong> The „Трансфери (нето)“ line is money passed to the pension and health funds, municipalities and universities, which then spend it — 58% of the section in 2024. For what the money goes on across the whole general-government sector, see the functional breakdown.</li>
+<li><strong>Bulgaria's contribution to the EU budget is reported separately</strong> from expenditure and is not included in the total here — it is its own section of the cash report.</li>
+<li><strong>КФП reporting is cumulative</strong> from the start of the year, so each year is shown at its latest reported period. Adding the months would count the same money many times over.</li>
+<li><strong>The EU comparison is on a different basis</strong> — Eurostat measures the whole general-government sector (state, municipalities and social funds), while the figure above is the cash execution of the state budget alone.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/budget/revenue">where the money comes from</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/explorer",
+    ogImage: "/og/budget-explorer.png",
     title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",
     description:
       "Пропътувай държавния бюджет ниво по ниво: по първостепенен разпоредител (МФ) или по функция (COFOG, Евростат). Всяко ниво показва своя сбор и дела си от предходното.",
@@ -3064,6 +3115,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "budget/methodology",
+    ogImage: "/og/budget-methodology.png",
     title: "Методология — Държавен бюджет на България | electionsbg.com",
     description:
       "Откъде идват данните за държавния бюджет на electionsbg.com и как се обработват — КФП на Министерство на финансите, Закон за държавния бюджет и годишните отчети на първостепенните разпоредители.",
@@ -3337,6 +3389,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "demographics/regions",
+    ogImage: "/og/demographics-regions.png",
     title: "Демография на 28-те области — Преброяване 2021 | electionsbg.com",
     description:
       "Сортируема таблица с демографските показатели на 28-те административни области от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост.",
@@ -3358,6 +3411,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "demographics/municipalities",
+    ogImage: "/og/demographics-municipalities.png",
     title: "Демография на 265-те общини — Преброяване 2021 | electionsbg.com",
     description:
       "Сортируема таблица с демографските показатели на 265-те общини на България от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост, с филтър по име.",
@@ -4288,6 +4342,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "preferences",
+    ogImage: "/og/preferences.png",
     title:
       "Преференциален вот по партии — парламентарни избори | electionsbg.com",
     description:
@@ -4300,6 +4355,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "flash-memory",
+    ogImage: "/og/flash-memory.png",
     title: "Машинно гласуване — обхват и отклонения | electionsbg.com",
     description:
       "Доклад за машинното гласуване в България — секции с/без флашка, добавени и липсващи СУЕМГ устройства, хартиен заместител.",
@@ -4311,6 +4367,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "recount",
+    ogImage: "/og/recount.png",
     title: "Повторно преброяване — отклонения по партии | electionsbg.com",
     description:
       "Доклад за повторното преброяване на бюлетините в българските парламентарни избори — секции с разлика между първо и второ броене.",
@@ -4410,6 +4467,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/focus",
+    ogImage: "/og/funds-focus-index.png",
     title: "Тематични досиета по европейските средства | electionsbg.com",
     description:
       "Досиета по теми — къщи за гости, пътища, земеделие, училища, общинска инфраструктура: какво показват договорите по всяка.",
@@ -4431,6 +4489,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/interreg",
+    ogImage: "/og/funds-interreg.png",
     title:
       "Interreg — трансграничните проекти, които ИСУН не съдържа | electionsbg.com",
     description:
@@ -4462,6 +4521,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/dual-corpus",
+    ogImage: "/og/funds-dual-corpus.png",
     title: "Фирми с обществени поръчки и европейски грантове | electionsbg.com",
     description:
       "Кои фирми печелят и обществени поръчки, и европейски средства — подредени по сбора на двете, със сигнала за връзка с депутат.",
@@ -4487,6 +4547,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/places",
+    ogImage: "/og/funds-places.png",
     title:
       "Европейските средства по места — общини и области | electionsbg.com",
     description:
@@ -4515,6 +4576,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/absorption",
+    ogImage: "/og/funds-absorption.png",
     title:
       "Усвояване на европейските средства — колко е изплатено | electionsbg.com",
     description:
@@ -4544,6 +4606,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/beneficiaries",
+    ogImage: "/og/funds-beneficiaries.png",
     title:
       "Бенефициенти по европейските програми (ИСУН 2020) | electionsbg.com",
     description:
@@ -4572,6 +4635,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "funds/programmes",
+    ogImage: "/og/funds-programmes.png",
     title:
       "Оперативни програми в ИСУН 2020 — договорено и усвоено | electionsbg.com",
     description:

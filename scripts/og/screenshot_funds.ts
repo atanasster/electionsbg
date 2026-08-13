@@ -63,15 +63,12 @@ const specs: Spec[] = [
     waitFor: "h1",
     settleMs: 1500,
   },
-  {
-    // The open-calls register. `waitFor` is the TABLE and not `h1`, because the rows arrive from
-    // /api/db/table after the shell paints — shooting on the heading alone would capture the
-    // empty skeleton, which is the one thing this card must not show.
-    route: "/funds/calls?elections=2026_04_19",
-    file: "funds-calls.png",
-    waitFor: "table tbody tr",
-    settleMs: 1500,
-  },
+  // funds-calls MOVED to scripts/og/capture-screens.ts (slug `funds-calls`).
+  // This script clips {x:0,y:0} unconditionally and hides no site chrome, so the
+  // card it produced here was half nav bar and community banner with the table
+  // starting below the fold — measured, not assumed. capture-screens.ts drops
+  // the header and anchors the clip on the h1. Do not re-add a spec here: two
+  // producers writing one file is the shape that drifts.
   {
     route: "/funds/focus/guest-houses?elections=2026_04_19",
     file: "funds-focus.png",
@@ -79,6 +76,28 @@ const specs: Spec[] = [
     settleMs: 1500,
   },
 ];
+
+// Optional CLI filter, by output file stem:
+//   npx tsx scripts/og/screenshot_funds.ts funds-calls
+// Shoot ONE card rather than the whole set. Without this the script re-frames
+// every /funds card on every run, so fixing one that was never captured also
+// re-shoots five that were fine — and a page that has moved since comes back
+// worse, silently, because nothing downstream looks at the pixels. Unknown
+// stems fail loudly rather than shooting nothing (matches screenshot_sectors).
+const only = process.argv
+  .slice(2)
+  .flatMap((a) => a.split(","))
+  .map((s) => s.trim().replace(/\.png$/, ""))
+  .filter(Boolean);
+const known = specs.map((s) => s.file.replace(/\.png$/, ""));
+const unknown = only.filter((s) => !known.includes(s));
+if (unknown.length)
+  throw new Error(
+    `unknown card(s): ${unknown.join(", ")} — known: ${known.join(", ")}`,
+  );
+const selected = only.length
+  ? specs.filter((s) => only.includes(s.file.replace(/\.png$/, "")))
+  : specs;
 
 const run = async (): Promise<void> => {
   fs.mkdirSync(OG_DIR, { recursive: true });
@@ -89,7 +108,7 @@ const run = async (): Promise<void> => {
       deviceScaleFactor: 2, // existing og images are 2400x1260 — 2x retina
     });
     const page = await context.newPage();
-    for (const spec of specs) {
+    for (const spec of selected) {
       const url = `${BASE}${spec.route}`;
       console.log(`→ ${url}`);
       await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });

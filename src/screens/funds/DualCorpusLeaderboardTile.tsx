@@ -101,8 +101,10 @@ export const DualCorpusLeaderboardTile: FC<{ rowCount?: number }> = ({
 
   const visible = data.rows.slice(0, rowCount);
 
+  // data-og: the og capture's anchor and wait-for. Below the `!data` guard, so it cannot
+  // resolve on the loading state. See scripts/og/capture-screens.ts.
   return (
-    <Card>
+    <Card data-og="funds-dual-corpus">
       <CardContent className="space-y-3 p-3 md:p-4">
         {/* Headline strip over the full intersection (not just the shown rows). */}
         <div className="flex flex-wrap gap-x-8 gap-y-2 border-b pb-3">

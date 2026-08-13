@@ -20,6 +20,15 @@ const OG_H = 630;
 const DEV_URL = process.env.OG_BASE_URL ?? "http://localhost:5173";
 const OUT_DIR = path.resolve("public/og");
 
+// The viewport for an `anchor: "h1"` capture. The content column tracks the
+// viewport width, so at the shared 1280 it is ~1264 and a 1200 clip centred on
+// it shaves ~32px off BOTH sides — measured, /funds/beneficiaries lost the first
+// two letters of its breadcrumb on the left and the last money column on the
+// right. At 1200 the column fits the clip with margin to spare. This is the same
+// "the layout, not the content, is what the crop is fighting" case the
+// `viewport` field documents, with the fix at the other end of the range.
+const OG_CLIP_VIEWPORT = { width: 1200, height: 1400 };
+
 type Capture = {
   slug: string; // output filename (slug.png in public/og/)
   routePath: string; // dev-server path, no leading slash
@@ -730,6 +739,298 @@ const captures: Capture[] = [
     waitFor: '[data-og="attendance"]',
     anchor: '[data-og="attendance"]',
     leftAlign: true,
+    settleMs: 2500,
+  },
+
+  // ---------------------------------------------------------------------------
+  // The 26 pages that were still falling through to the site-wide OG card. They
+  // clustered by FAMILY — every /funds sub-page, five /budget, both
+  // /demographics — which is the tell that nobody forgets one page, they forget
+  // a module.
+  //
+  // Two recipes, and the choice is per page rather than per family:
+  //   • a chart or map hero      → anchor on the visual, centerOnAnchor
+  //   • a ranked list or a table → anchor on `h1`, top-aligned
+  // `h1` is the right anchor for the second kind because HIDE_CHROME_CSS drops
+  // the site header, so `h1` is the top of the page: the clip then reads title →
+  // intro → the first rows, which is what the page is. It is full-width (1264px
+  // measured), so the default centered clipX lands at 40 and the card keeps the
+  // whole content column. Do NOT add leftAlign to an h1-anchored entry — it
+  // pins the clip to the h1's own left edge, which is not the content's.
+  //
+  // Every `waitFor` names something that exists only once DATA is in hand (a
+  // populated-branch `data-og`, a row link, a recharts surface). A container
+  // that mounts empty would let the capture photograph the skeleton.
+  // ---------------------------------------------------------------------------
+
+  // --- /funds sub-pages -------------------------------------------------------
+  {
+    slug: "funds-places",
+    routePath: "funds/places",
+    // The município choropleth IS the page — centre the clip on it.
+    waitFor: ".leaflet-container",
+    anchor: ".leaflet-container",
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "funds-absorption",
+    routePath: "funds/absorption",
+    // The money-flow Sankey. Matched on aria-label rather than on a class, so a
+    // Recharts/D3 swap underneath does not silently reframe the card.
+    waitFor:
+      'svg[aria-label*="Поток на парите"], svg[aria-label*="Money flow"]',
+    anchor: 'svg[aria-label*="Поток на парите"], svg[aria-label*="Money flow"]',
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "funds-beneficiaries",
+    routePath: "funds/beneficiaries",
+    waitFor: '[data-og="funds-beneficiaries"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-programmes",
+    routePath: "funds/programmes",
+    // The row links prove the 47 programmes have loaded.
+    waitFor: 'a[href^="/funds/programme/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-dual-corpus",
+    routePath: "funds/dual-corpus",
+    waitFor: '[data-og="funds-dual-corpus"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-interreg",
+    routePath: "funds/interreg",
+    waitFor: '[data-og="funds-interreg"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "funds-focus-index",
+    routePath: "funds/focus",
+    // NOT `funds-focus` — that slug is the per-THEME card (screenshot_funds.ts
+    // shoots it off /funds/focus/guest-houses) which every /funds/focus/<slug>
+    // child already references. The index had no card of its own: the children
+    // were shareable and the page they hang off was not.
+    waitFor: 'a[href^="/funds/focus/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+  },
+  {
+    slug: "funds-calls",
+    routePath: "funds/calls",
+    // /funds/calls was the one route in the repo whose declared ogImage pointed
+    // at a file that had never been written: screenshot_funds.ts carried the
+    // spec and nobody had run it, so both language variants shipped an og:image
+    // that 404s. That spec is gone — it clipped {x:0,y:0} with the site header
+    // still in the DOM, so its card was chrome down to the fold.
+    // The rows arrive from /api/db/table after the shell paints, so wait on a
+    // row and not on the heading.
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+
+  // --- /budget sub-pages ------------------------------------------------------
+  {
+    slug: "budget-revenue",
+    routePath: "budget/revenue",
+    // Scoped to the section: an unscoped `ul > li` also matches the nav, which
+    // HIDE_CHROME_CSS hides from view but leaves in the DOM.
+    waitFor: '[data-og="budget-revenue"] ul > li',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "budget-spending",
+    routePath: "budget/spending",
+    // The other half of BudgetCompositionScreen. Its data-og carries the
+    // component's `kind`, which for this ROUTE is `expenditure` — the URL says
+    // spending and the prop says expenditure, so the two do not match and the
+    // marker follows the prop.
+    waitFor: '[data-og="budget-expenditure"] ul > li',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "budget-explorer",
+    routePath: "budget/explorer",
+    waitFor: '[data-og="budget-explorer"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "budget-ministries",
+    routePath: "budget/ministries",
+    waitFor: 'a[href^="/budget/ministry/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "budget-mod",
+    routePath: "budget/mod",
+    waitFor: '[data-og="budget-mod"] li',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2000,
+  },
+
+  // --- parliament / votes -----------------------------------------------------
+  {
+    slug: "parliament-similarity",
+    routePath: "parliament/similarity",
+    // The picker, not a ranking: this page renders nothing until an MP is
+    // chosen, and the avatar wall with its party chips is what a reader lands
+    // on. Seeding an MP would put a card in front of a subject nobody picked.
+    waitFor: 'a[href^="/parliament/similarity/"]',
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "parliament-correlation",
+    routePath: "parliament/correlation",
+    // The signature visual is the party x party cosine MATRIX at the top of the
+    // page, which is a plain grid — not Recharts. So anchor on `h1` and let the
+    // clip fall over it. Centring on `.recharts-wrapper` instead frames the
+    // time-series card 1,000px further down AND, being only 878px wide, shifts
+    // the 1200px clip left until the sidebar beside it is sliced mid-word.
+    // `.recharts-surface` is still the wait-for: it is drawn after the matrix,
+    // so it proves the whole page has its data.
+    waitFor: ".recharts-surface",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+
+  // --- demographics -----------------------------------------------------------
+  {
+    slug: "demographics-regions",
+    routePath: "demographics/regions",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "demographics-municipalities",
+    routePath: "demographics/municipalities",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+
+  // --- registers and rankings whose hero is their table ------------------------
+  {
+    slug: "governance-municipal-finance",
+    routePath: "governance/municipal-finance",
+    // A choropleth of the 265 municipalities sits above the table — centre on it.
+    waitFor: ".leaflet-container",
+    anchor: ".leaflet-container",
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "judiciary-magistrates",
+    routePath: "judiciary/magistrates",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "water-operators",
+    routePath: "water/operators",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "customs-warehouses",
+    routePath: "customs/warehouses",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "sverka",
+    routePath: "sverka",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "local-chmi",
+    routePath: "local/chmi",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+
+  // --- the national election tab pages ----------------------------------------
+  // All four carry the election in their H1, so the card is dated and has to be
+  // re-shot when a new election lands — same as the dashboard card.
+  {
+    slug: "parties",
+    routePath: "parties?elections=2026_04_19",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "regions",
+    routePath: "regions?elections=2026_04_19",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "preferences",
+    routePath: "preferences?elections=2026_04_19",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "flash-memory",
+    routePath: "flash-memory?elections=2026_04_19",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
+    settleMs: 2500,
+  },
+  {
+    slug: "recount",
+    routePath: "recount?elections=2026_04_19",
+    waitFor: "table tbody tr",
+    anchor: "h1",
+    viewport: OG_CLIP_VIEWPORT,
     settleMs: 2500,
   },
 ];

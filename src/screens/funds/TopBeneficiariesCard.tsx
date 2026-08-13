@@ -22,8 +22,10 @@ export const TopBeneficiariesCard: FC<{
 }> = ({ rows, rowCount = 15 }) => {
   const { t, i18n } = useTranslation();
   const visible = rows.slice(0, rowCount);
+  // data-og: the og capture's anchor and wait-for. Every caller renders this only when
+  // `rows.length`, so its presence means the ranking is drawn. See scripts/og/capture-screens.ts.
   return (
-    <Card>
+    <Card data-og="funds-beneficiaries">
       <CardContent className="p-3 text-sm md:p-4">
         <ul className="flex flex-col divide-y divide-border">
           {visible.map((r, i) => (
