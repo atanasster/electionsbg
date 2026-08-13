@@ -55,6 +55,18 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.moss,
       },
       {
+        // The one liability the state's own headline numbers exclude: the
+        // consolidated cash deficit books a municipal payment when it is made,
+        // so a município's forward commitments are invisible nationally until
+        // they are paid. That is why it belongs on this cluster rather than
+        // beside a sector — it is a TIER of government, not a policy area.
+        id: "municipal-finance",
+        titleKey: "mf_browse_nav",
+        descKey: "gov_hub_municipal_finance_desc",
+        to: "/governance/municipal-finance",
+        accent: TILE_ACCENTS.wine,
+      },
+      {
         id: "sectors",
         titleKey: "sectors_hub_nav",
         descKey: "gov_hub_sectors_desc",

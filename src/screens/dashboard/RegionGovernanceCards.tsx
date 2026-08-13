@@ -24,6 +24,7 @@ import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { RegionalIndicatorsTile } from "./RegionalIndicatorsTile";
 import { MunicipalTransfersTile } from "./MunicipalTransfersTile";
+import { RegionMunicipalFiscalTile } from "@/screens/governance/RegionMunicipalFiscalTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { EducationPlaceSection } from "./EducationPlaceSection";
 import { MyAreaPropertyStockTile } from "@/screens/myarea/MyAreaPropertyStockTile";
@@ -75,6 +76,10 @@ export const RegionGovernanceCards: FC<Props> = ({ regionCode }) => {
           icon={Wallet}
         >
           <MunicipalTransfersTile regionCode={regionCode} />
+          {/* Money-IN then money-OWED, at the level where the pattern shows:
+              financial distress clusters regionally in a way neither the
+              265-row national table nor a single município page reveals. */}
+          <RegionMunicipalFiscalTile oblast={regionCode} />
           <RegionalIndicatorsTile regionCode={regionCode} />
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
             {/* Census is published at city level, not per Sofia МИР, so the

@@ -1,9 +1,11 @@
 // Named accent palette for infographic tiles (see InfographicTile / SceneFrame).
 //
 // One hex per accent, each chosen to hold on BOTH grounds the app renders on —
-// the cream light theme (#F1ECE0) and the navy dark theme (#0B1224). That means
-// mid lightness (~48–58%) and moderate chroma: too dark and it vanishes on navy,
-// too pale and it washes out on cream.
+// the cream light theme (#F1ECE0) and the navy dark theme (#0B1224). In
+// practice that means mid lightness and moderate chroma: too dark and it
+// vanishes on navy, too pale and it washes out on cream. The tokens actually
+// span ~38–56% — the „~48–58%" this note used to claim is met by only 5 of 21,
+// so treat it as a direction rather than a rule and eyeball a new one.
 //
 // These are the ONLY place a raw hex should live. Tiles reference a token
 // (`TILE_ACCENTS.teal`), never a literal. The tile then derives its text, badge
@@ -43,6 +45,15 @@ export const TILE_ACCENTS = {
   // tile at a glance — violet is the only clearly distinct hue left in that grid.
   // Distinct from justice's `plum` (#7a5a8f, pinker) and `indigo` (#7f85a3, greyer),
   // which live in other clusters.
+  wine: "#96455f", // municipal finances — the 21st token, minted because the money
+  // cluster grew a 21st tile and the palette had exactly 20. A desaturated
+  // red-violet. Its nearest neighbour in hue is `rose` (#c14b57) at Δh 13°,
+  // which is far wider than pairs already shipping (green/emerald 0.2°,
+  // olive/brass 0.3°); `plum` (#7a5a8f) is bluer again. All four clusters
+  // render on ONE page — which is why the uniqueness gate exists — so
+  // „different cluster" is not separation and the hue distance is what counts.
+  // Note this is the second-lowest contrast on navy of the 21 (2.94:1); it
+  // carries decorative fills only, never text before the foreground-mix.
 } as const;
 
 export type TileAccent = (typeof TILE_ACCENTS)[keyof typeof TILE_ACCENTS];

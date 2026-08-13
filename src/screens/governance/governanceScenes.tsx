@@ -528,7 +528,44 @@ const Subsidies: FC = () => (
   </SceneFrame>
 );
 
+// Общински финанси — three NESTED bars, largest to smallest, which is the one
+// idea the whole surface exists to convey: commitments contain obligations
+// contain arrears. Drawn as concentric brackets rather than a stack, because a
+// stack is exactly the reading the page spends its copy refusing.
+const MunicipalFinance: FC = () => (
+  <SceneFrame>
+    {[
+      { w: 190, y: 34, o: 0.9 },
+      { w: 110, y: 62, o: 0.7 },
+      { w: 46, y: 90, o: 0.5 },
+    ].map(({ w, y, o }) => (
+      <rect
+        key={y}
+        x={40}
+        y={y}
+        width={w}
+        height={18}
+        rx={4}
+        fill="var(--sector)"
+        opacity={o}
+      />
+    ))}
+    <text
+      x={250}
+      y={70}
+      textAnchor="middle"
+      fontSize="26"
+      fontWeight="700"
+      fill="var(--sector)"
+      opacity=".85"
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
+  "municipal-finance": MunicipalFinance,
   persons: PersonsScene,
   demographics: Demographics,
   budget: Budget,

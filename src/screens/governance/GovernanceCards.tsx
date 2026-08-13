@@ -50,6 +50,7 @@ import { GovernanceMacroTile } from "./GovernanceMacroTile";
 import { GovernmentStabilityTile } from "./GovernmentStabilityTile";
 import { GovernanceObservationsTile } from "./GovernanceObservationsTile";
 import { GovernanceDebtTile } from "./GovernanceDebtTile";
+import { GovernanceMunicipalCommitmentsTile } from "./GovernanceMunicipalCommitmentsTile";
 import { GovernancePricesTile } from "./GovernancePricesTile";
 
 // Governance topics that map onto article tags. We reuse the existing
@@ -172,6 +173,14 @@ export const GovernanceCards: FC = () => {
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 mt-3">
             <GovernanceObservationsTile />
             <GovernanceDebtTile />
+          </div>
+          {/* Deliberately ADJACENT to the debt tile, and deliberately not in
+              the same grid cell: state debt is watched monthly and municipal
+              commitments are watched by nobody, which is the comparison worth
+              making. The two are never summed — different governments,
+              different accounting bases — so they stay separately labelled. */}
+          <div className="mt-3">
+            <GovernanceMunicipalCommitmentsTile />
           </div>
           <div className="mt-3">
             <BudgetPeerComparisonTile />
