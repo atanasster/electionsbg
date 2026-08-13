@@ -1,6 +1,9 @@
 // "What you pay" tile for /sector/energy — household electricity price, BG vs the
-// EU. The citizen-facing counterpoint to the €8.96bn of state spending: BG has
-// among the LOWEST household electricity prices in the EU (~half the average).
+// EU. The citizen-facing counterpoint to the group's state spending (no € quoted
+// here on purpose — see the note in EnergyThematicTiles): BG has among the LOWEST
+// household electricity prices in the EU. The gap is NOT a constant and is not
+// stated here — it has closed from 39% to 47% of the EU average in five
+// semesters; the tile renders whatever `latestCommonPrice` returns.
 // Full-history (scope-independent). Data: Eurostat nrg_pc_204 (CC — © EU).
 
 import { FC } from "react";
@@ -11,6 +14,21 @@ import { latestCommonPrice } from "@/data/energy/types";
 
 const BG_COLOR = "#c9702f";
 const EU_COLOR = "#7f85a3";
+
+/** The sentence beside the ratio, DERIVED from it. It used to read "сред
+ *  най-ниските в съюза" unconditionally — true today at 47%, but a claim the
+ *  tile kept making regardless of what the series said, and the gap has closed
+ *  from 39% to 47% in five semesters. Deriving it means the prose can never
+ *  contradict the number printed next to it. The 75% cut keeps "among the
+ *  lowest" for a genuine outlier and steps down to a plain comparison before it
+ *  becomes a stretch. */
+const verdict = (pctOfEu: number): { bg: string; en: string } => {
+  if (pctOfEu <= 75)
+    return { bg: "сред най-ниските в съюза", en: "among the lowest in the union" }; // prettier-ignore
+  if (pctOfEu < 100)
+    return { bg: "под средното за ЕС", en: "below the EU average" };
+  return { bg: "над средното за ЕС", en: "above the EU average" };
+};
 
 export const EnergyPriceTile: FC = () => {
   const { i18n } = useTranslation();
@@ -73,7 +91,7 @@ export const EnergyPriceTile: FC = () => {
               <span className="font-semibold" style={{ color: BG_COLOR }}>
                 {cmp.pctOfEu}%
               </span>{" "}
-              от средната цена за ЕС — сред най-ниските в съюза.
+              от средната цена за ЕС — {verdict(cmp.pctOfEu).bg}.
             </>
           ) : (
             <>
@@ -81,7 +99,7 @@ export const EnergyPriceTile: FC = () => {
               <span className="font-semibold" style={{ color: BG_COLOR }}>
                 {cmp.pctOfEu}%
               </span>{" "}
-              of the EU average — among the lowest in the union.
+              of the EU average — {verdict(cmp.pctOfEu).en}.
             </>
           )}
         </p>

@@ -1,14 +1,32 @@
 // Signature energy tiles for the /sector/energy dashboard — the substance the
-// generic KPI row + spend-by-year/top-contractors can't express. All render off
-// the SAME awarder_group_model fetch the dashboard already makes (react-query
-// dedupes on the shared ENERGY_MEMBER_EIKS key), so no extra network cost.
+// generic KPI row + spend-by-year/top-contractors can't express. Six tiles from
+// two independent sources:
 //
-//  1. Invisible-€14bn call-out — Козлодуй 7/8 (AP1000), the largest energy
-//     investment in the country's history, is procured OUTSIDE ЦАИС → €0 in the
-//     corpus. The pack's thesis, stated in one tile.
-//  2. Single-bid gauge — group weak-competition share, gated on bid coverage.
-//  3. Per-unit spend — where the €9.76bn group actually spends, by subsidiary,
-//     coloured by energy universe (nuclear / coal / grid / gas / hydro).
+//  PROCUREMENT — these two ride the SAME awarder_group_model fetch the dashboard
+//  already makes (react-query dedupes on the shared ENERGY_MEMBER_EIKS key), so
+//  they add no network cost:
+//   · Per-unit spend — where the group actually spends, by subsidiary, coloured
+//     by energy universe (nuclear / coal / grid / gas / hydro).
+//   · Single-bid gauge — group weak-competition share, gated on bid coverage.
+//
+//  PHYSICAL SYSTEM — each fetches its own committed JSON (data/energy/*.json) and
+//  is scope-independent, i.e. NOT affected by the ?pscope window:
+//   · Generation mix (generation.json) · Power plants (plants.json)
+//   · Household price vs the EU (prices.json)
+//
+//  CONSTANT — the invisible-€14bn call-out: Козлодуй 7/8 (AP1000), the largest
+//  energy investment in the country's history, is procured OUTSIDE ЦАИС → €0 in
+//  the corpus. The pack's thesis, stated in one tile, and the only € here that is
+//  hardcoded on purpose (a curated program cost, not a corpus figure).
+//
+// ⚠ Do NOT quote a group € in these comments. The corpus reloads fortnightly and
+// nothing gates a comment, so two headers had drifted to €9.76bn and €8.96bn —
+// two different figures for one group, neither current. There is also no single
+// right number to pin: the hub tile sums ENERGY_SECTOR_EIKS (with the ЕСО branch)
+// per scope in sector_stats.json, while these tiles sum ENERGY_MEMBER_EIKS
+// (without it) under the ACTIVE scope, whose default is one parliament rather
+// than the whole corpus — two bases, ~1.5 orders of magnitude apart. Read
+// whichever you mean at its source.
 //
 // CSS/flex bars only (no chart lib) — same house rule as SectorCharts, so they
 // render instantly for the OG screenshot.
