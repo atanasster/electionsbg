@@ -1,6 +1,6 @@
 ---
 name: dashboard-hub
-description: Build or rework a module front page (a "hub") — the tile-grid landing that fronts a topic's sub-pages, like /parliament, /procurement or /governance/sectors. Covers the whole shape: the tile registry, bespoke SVG scenes, the ONE small precomputed stat blob that replaces per-tile artifact fetches, band structure and naming, destination reachability, and the gates that keep every figure honest. Use when the user asks to build a hub / module landing / dashboard front page for a topic, to restructure an existing hub's tiles or sections, to add a tile, or to cut a hub's payload. Encodes the defect classes this pattern reliably produces — undeclared bases, figures that are arithmetically right and false as a sentence, seeded destinations, dead links, and captions that describe a different chart.
+description: Build or rework a module front page (a "hub") — the tile-grid landing that fronts a topic's sub-pages, like /parliament, /procurement or /governance/sectors. Covers the whole shape: the tile registry, bespoke SVG scenes, the ONE small precomputed stat blob that replaces per-tile artifact fetches, band structure and naming, destination reachability, the three artifacts every hub page and sub-page must ship (a prerendered static page, a sitemap <loc> in BOTH route_defs lists, and its own og:image screenshot of a chart or map), and the gates that keep every figure honest. Use when the user asks to build a hub / module landing / dashboard front page for a topic, to restructure an existing hub's tiles or sections, to add a tile, to cut a hub's payload, or to check a module's pages for prerender / sitemap / og:image coverage. Encodes the defect classes this pattern reliably produces — undeclared bases, figures that are arithmetically right and false as a sentence, seeded destinations, dead links, captions that describe a different chart, pages with no sitemap entry, and share cards that 404 or fall back to the site-wide default.
 allowed-tools:
   - Read
   - Bash
@@ -172,11 +172,10 @@ Three tests, in order. Each has failed in production.
    gate so a new destination has to be declared and a deleted route breaks loudly.
 2. **Reachable.** Every sub-page the module owns must be linked from the hub, or it is an
    orphan nothing indexes.
-3. **Crawlable.** A routed SPA path with no prerender entry serves the shell — so to a
-   crawler it is a duplicate of the homepage. Add a `staticPage` entry and verify
-   `dist/<path>/index.html` exists after the build. **Do not prerender per-entity
-   parameterised routes** (2,120 members = 2,120 files against a ceiling on file COUNT);
-   prerender the PICKER instead.
+3. **Crawlable and shareable.** A routed SPA path with no prerender entry serves the shell
+   — so to a crawler it is a duplicate of the homepage. The hub AND every sub-page it fronts
+   needs a static page, a sitemap `<loc>` and its own og:image. That is §5, and all three
+   have been forgotten separately.
 
 ### Seeded destinations are a smell — prefer a picker
 
@@ -251,7 +250,134 @@ and returns nothing at all. Two traps if you touch it: the client table has alre
 gated on an unambiguous Latin trigger, because `y → ъ` cannot tell a typed „y" from the one
 `translit_bg_latin` emits for й — ungated it fired on 13.6% of ordinary Cyrillic names.
 
-## 5. Language
+## 5. Every page ships three artifacts
+
+The hub **and every sub-page it fronts** needs all three. A page missing one is not broken:
+it renders, it passes the suite, and it is either invisible or unshareable. Every failure
+named below is live in this repo as written.
+
+| Artifact | Declared in | What its absence costs |
+|---|---|---|
+| **Static page** | `staticPage({…})` in `scripts/prerender/routes.ts` | The SPA shell is served — to a crawler the page is a duplicate of the homepage |
+| **Sitemap `<loc>`** | BOTH lists in `scripts/sitemap/route_defs.ts`, then `npm run sitemap`, then COMMIT the XML | The page is never enumerated; discovery depends on a crawler following an internal link |
+| **og:image** | `ogImage:` on the route **and** a captured file in `public/og/` | The share card is the site-wide default, so every page in the module shares one picture |
+
+Do all three in the **same commit as the screen**. Each lives in a different file from the
+route, none is derived from the others, and the clustering below is the tell: nobody forgets
+one page, they forget a module.
+
+### 5.1 Static page
+
+`staticPage({ path, title, description, breadcrumbName, bodyHtml, ogImage, preloadData,
+english: {…} })`. Four things to get right:
+
+- **`path` carries no leading and no trailing slash.** Hosting is `trailingSlash: false`, and
+  the EN root is `/en`, never `/en/` — see the URL rule in `CLAUDE.md`.
+- **Write a real `bodyHtml`.** It is what a crawler reads, and it is the only part of the
+  page a crawler that runs no JS ever sees. A `staticPage` with a title and no body is a stub
+  with good metadata. Add the route to `tests/seo.spec.ts` with a `minBodyChars` — the suite
+  checks body length only for routes listed there.
+- **Add the `english:` block**, or the page has no EN mirror and an `/en` sitemap entry for
+  it would be a claim about a page that does not exist.
+- **Verify the file.** `npm run build`, then check `dist/<path>/index.html` is there. The
+  prerender exits 0 when it writes nothing.
+
+**Do not prerender per-entity parameterised routes** (2,120 members = 2,120 files against a
+ceiling on file COUNT); prerender the PICKER instead.
+
+### 5.2 Sitemap — two lists, and a committed artifact
+
+`scripts/sitemap/route_defs.ts` holds **two** lists that look like one:
+
+- **`routeDefs(year)`** emits the **Bulgarian** `<loc>`. Needs `path` and `file:`, whose
+  mtime becomes the `lastmod`. Point `file:` at the artifact the page RENDERS, not at the
+  screen's `.tsx` — otherwise `lastmod` is the date somebody last touched the JSX.
+- **`ENGLISH_STATIC_PAGES`** emits **only** `/en/<slug>`. It is not derived from the other
+  list and does not imply it.
+
+Three traps, all currently shipping:
+
+- **The EN list alone gets you the mirror and not the original.** `/sofia/parties`,
+  `/sofia/preferences`, `/sofia/flash-memory`, `/sofia/recount`, `/consumption/electricity`
+  and `/consumption/gas` are in `ENGLISH_STATIC_PAGES` and in no `routeDefs` entry — so the
+  sitemap names the English mirror of six pages and not the Bulgarian original.
+- **A `file:` that does not exist SKIPS THE ENTRY SILENTLY.** `scripts/sitemap/index.ts` does
+  `if (!fileExists) return;`, so a typo in that path costs the page its `<loc>` with no
+  warning and no failure.
+- **`npm run sitemap` is manual and its output is COMMITTED.** Adding both entries changes
+  nothing until you run it and commit `public/sitemap*.xml`. `/budget/explorer`,
+  `/budget/ministries` and `/budget/revenue` have their entries and no `<loc>` today, because
+  the committed XML predates them.
+
+Prerendered right now with no `<loc>` in either language: `/governance/sectors` — a HUB —
+plus `/demographics/regions`, `/demographics/municipalities`, `/parliament/similarity`,
+`/parliament/correlation` and `/votes/between`.
+
+`scripts/sitemap/families.data.test.ts` checks the OTHER direction (every `<loc>` has a
+`dist/` file behind it). Nothing checks this one.
+
+### 5.3 og:image — a screenshot of the page's best visual
+
+Three producers. Pick by what the page actually has:
+
+| The page has | Producer | Output |
+|---|---|---|
+| a chart, map or hero worth looking at | add a `Capture` to the table in `scripts/og/capture-screens.ts` | `public/og/<slug>.png` |
+| a FAMILY of pages needing identical framing | a `scripts/og/screenshot_<family>.ts` (sectors, funds, procurement, regional, transport…) | `public/og/<family>-<id>.png` |
+| prose only — a methodology or definitions page | `renderStaticPageCard(…)` in `scripts/og/generate.ts` | a rendered 4-tile card, emitted by `postbuild` |
+
+**Prefer the screenshot.** A hub or a dashboard always has something better to show than four
+text tiles. Frame the element that IS the page's argument — the chart, the map, the
+hemicycle, the choropleth — not the KPI row and not the page header.
+
+Mechanics that are easy to get wrong:
+
+- **The captures are MANUAL.** `postbuild` runs `generate.ts` only; nothing runs Playwright.
+
+  ```bash
+  npm run dev                                       # another shell
+  npx tsx scripts/og/capture-screens.ts <slug>      # ONE slug
+  ```
+
+  Always pass the slug. Re-shooting the whole table re-frames cards you did not change, and a
+  page that has moved since comes back worse. `OG_BASE_URL=http://localhost:5174` when the
+  dev server took another port.
+- **Reference it as `.png`** in `routes.ts` even though the shipped file is `.webp` —
+  `scripts/images/optimize.ts` converts `dist/og/**` and rewrites every reference.
+- **`waitFor` must name something that exists only after DATA loads** — `[data-og="x"]
+  .recharts-surface`, a Leaflet tile pane. A container mounts empty, and the card becomes a
+  screenshot of a skeleton. Put a `data-og="…"` attribute on the element rather than keying
+  on class names, which a refactor renames silently.
+- **Prefer a static-data anchor over an `/api/db` one.** The `water` capture anchors on the
+  riverbed tile for exactly this reason: a capture whose visual depends on a live route
+  quietly produces an empty card whenever that route is down.
+- **1280 is Tailwind's `xl` and the clip is 1200 wide.** A hub IS a tile grid, so at the
+  default viewport it renders four columns and the clip slices the fourth down the middle.
+  Set the per-capture `viewport` below 1280 for three full columns.
+
+Both directions of drift are live today and neither fails anything:
+
+- **Referenced, never captured.** `/funds/calls` declares `ogImage: "/og/funds-calls.png"`;
+  `screenshot_funds.ts` has the entry and the file has never been written. Both language
+  variants ship an `og:image` that 404s. `tests/seo.spec.ts` asserts only
+  `toMatch(/^https?:\/\//)` — which an absolute URL to a missing file satisfies.
+- **Captured, never referenced.** `public/og/funds-focus.png` exists and every
+  `/funds/focus/<slug>` child uses it, while the `/funds/focus` landing carries no `ogImage`
+  at all. The children are shareable and the page they hang off is not.
+
+**A missing `ogImage` is silent by design** — `seoBlock.ts` falls through to
+`DEFAULT_OG_IMAGE`. 28 of the 1,185 entries in `prerenderRoutes` are on that fallback, and
+they cluster by family: seven `/funds/*` sub-pages, five `/budget/*`, both `/demographics/*`,
+`/parliament/similarity`, `/parliament/correlation`.
+
+**Audit a module before you add to it.** Two loops over `prerenderRoutes` in a scratch script
+answer all of it — which paths have no `ogImage`, which `ogImage` paths have no file under
+`public/og/`, and which paths have no `<loc>` in `public/sitemap*.xml`. That is how every
+figure in this section was measured.
+
+---
+
+## 6. Language
 
 Write the target language, not a translation of the English. This is a repo convention
 (`feedback_bg_language`) and hub copy breaks it constantly, because a tile description is
@@ -268,7 +394,7 @@ the Bulgarian reads like a diagram label, it is a calque.
 
 ---
 
-## 6. Rendering rules that keep being violated
+## 7. Rendering rules that keep being violated
 
 **Calendar days are formatted in UTC.** `new Date("2026-07-31T00:00:00Z")` through an
 `Intl.DateTimeFormat` with no `timeZone` renders "30 юли" for every reader west of UTC — so
@@ -303,7 +429,7 @@ back on — an id. Publish the aggregate instead, and link to where the names ar
 
 ---
 
-## 7. Postgres-backed routes
+## 8. Postgres-backed routes
 
 If a tile's destination or the hub itself reads `/api/db/*`:
 
@@ -324,7 +450,7 @@ If a tile's destination or the hub itself reads `/api/db/*`:
 
 ---
 
-## 8. Gates to write
+## 9. Gates to write
 
 Not optional, and each exists because its absence shipped something:
 
@@ -342,6 +468,17 @@ Not optional, and each exists because its absence shipped something:
 | A scoped source returns out-of-scope rows for a query that has them | Scope silently filtering — invisible, because the page still shows results |
 | Each search group's cap is independent | An in-scope group eating the out-of-scope budget |
 | Every see-all param is read by its destination | A link advertising a filtered page and delivering an unfiltered one |
+| Every routed sub-page of the module has a `staticPage` entry | The shell served to crawlers as a homepage duplicate |
+| Every routed sub-page has a BG `routeDefs` entry, and an `ENGLISH_STATIC_PAGES` one iff it has an `english:` block | The `/sofia/*` + `/consumption/*` class — the mirror indexed, the original not |
+| Every `routeDefs` `file:` exists on disk | The silent skip that costs a page its `<loc>` |
+| Every prerendered path in the module has a `<loc>` in the COMMITTED sitemap | Both entries present, `npm run sitemap` never re-run |
+| Every sub-page carries its own `ogImage` (or is on a reasoned exemption list) | A whole module sharing the site-wide default card |
+| Every `ogImage` path resolves to a file under `public/og/` | An `og:image` that 404s — the absolute-URL check passes |
+| Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route | A card shot and wired to nothing |
+
+The og:image gates are the ones that read as ceremony and are not: `tests/seo.spec.ts`
+asserts `og:image` `toMatch(/^https?:\/\//)`, which the site-wide fallback AND a URL to a
+missing file both satisfy. Every failure §5 names is green today.
 
 **Then check the gate can fail.** Break each clause and watch it fire. In this pattern's
 history: a gate asserted `max(id) >= count(*)`, true of any gap-free sequence — the very
@@ -361,7 +498,7 @@ away from the right one.
 
 ---
 
-## 9. Verify in the browser
+## 10. Verify in the browser
 
 **Four of the last defects were found by looking at the page, not by the suite** — a missing
 `outcome` field rendering `votes_outcome_undefined`, two off-by-one dates, raw vote sums, and
@@ -371,23 +508,37 @@ edit matched nothing.
 After every visible change: `preview_start`, load the page, and read the DOM — the rendered
 figures, the hrefs, the grid's last-row count, the console. Then click the thing you built.
 
+**And OPEN the captured PNG.** A capture reports success on any 1200×630 clip it managed to
+take, including one of a loading skeleton, an empty chart, a cookie banner or the fourth
+column of a tile grid sliced down the middle. Nothing downstream looks at the pixels — the
+image is only ever seen by a reader on Facebook. `Read` the file.
+
 ---
 
-## 10. Shipping order
+## 11. Shipping order
 
-Hosting last, always.
+Hosting last, always. The two manual `public/` writers come FIRST, because `vite build`
+copies `public/` into `dist/` — run them after the build and they ship one deploy late.
 
 ```bash
-npm run db:load:<x>:pg:cloud          # 1. tables the routes read
-npm run deploy:db                     # 2. the function
-npm run bucket:sync:paths -- <path>   # 3. bucket-served artifacts
-npm run build                         # 4. prerender (needs its own local PG inputs)
-npm run deploy                        # 5. hosting
+npm run dev                                    # 0. another shell, for the captures
+npx tsx scripts/og/capture-screens.ts <slug>   # 1. og card → public/og/<slug>.png
+npm run sitemap                                # 2. rewrites public/sitemap*.xml — COMMIT it
+npm run db:load:<x>:pg:cloud                   # 3. tables the routes read
+npm run deploy:db                              # 4. the function
+npm run bucket:sync:paths -- <path>            # 5. bucket-served artifacts
+npm run build                                  # 6. prerender + og cards + png→webp
+npm run deploy                                 # 7. hosting
 ```
 
-**Step 3 is the one that gets skipped.** A new bucket-served shard that has not been synced
-means the hub ships and its data-driven bands silently render nothing — the fetch 404s, the
-hook returns `undefined`, and the bands return `null`. Check the bucket before deploying.
+**Steps 1 and 2 are the ones that get skipped**, because neither is wired into anything:
+`postbuild` runs `generate.ts` but no Playwright capture, and `npm run sitemap` is a manual
+command whose output is committed. Skipping 1 ships an `og:image` pointing at a file that
+does not exist; skipping 2 ships a page with no `<loc>`. Both are 200s.
+
+**Step 5 is the third.** A new bucket-served shard that has not been synced means the hub
+ships and its data-driven bands silently render nothing — the fetch 404s, the hook returns
+`undefined`, and the bands return `null`. Check the bucket before deploying.
 
 `npm run deploy` does **not** build. Deploying without building ships a stale `dist/`.
 
@@ -396,7 +547,7 @@ just-deployed route 404s, retry with a cache-buster before debugging.
 
 ---
 
-## 11. What a hub cannot fix
+## 12. What a hub cannot fix
 
 A hub surfaces a data layer; it does not repair one. When a tile's figure is empty or a
 destination is thin, find out which of the two it is before touching the hub:
@@ -415,7 +566,7 @@ makes the gap permanent.
 
 ---
 
-## 12. Keeping this skill current
+## 13. Keeping this skill current
 
 **When the user gives a new requirement or correction for a hub, fold it into this file in
 the same turn** — not at the end of the session, not "if it comes up again". Every section
@@ -428,7 +579,7 @@ similarity views read as offcuts" is why anyone will follow it.
 
 ---
 
-## 13. Working style
+## 14. Working style
 
 - **Implement, then run `/code-review` in a subagent, then repair.** In this pattern's
   history the review found 2–5 real defects per step and the rate did not fall with
