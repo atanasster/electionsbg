@@ -3167,7 +3167,17 @@ const CASES: Case[] = [
   {
     q: "Колко въглищни централи има в България?",
     tool: "powerPlants",
-    facts: { coal_plants: /\d/, coal_exit: /20\d\d/ },
+    // The two fleet facts are pinned because they were the WRONG ones: a planned
+    // AP1000 counted as installed made this ~15.9 GW / 60%, and `coal_plants:
+    // /\d/` matched happily throughout. One decimal of GW is loose enough for an
+    // ordinary curation edit and tight enough to catch planned capacity
+    // re-entering the basis.
+    facts: {
+      coal_plants: /^6$/,
+      coal_exit: /20\d\d/,
+      fleet_total_gw: /^13\.\d GW$/,
+      fleet_state_share: /^5\d%$/,
+    },
   },
   {
     q: "Кои електроцентрали са държавни и кои частни?",

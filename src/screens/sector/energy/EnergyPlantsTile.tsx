@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { usePowerPlants } from "@/data/energy/usePowerPlants";
+import { installedPlants, isStateLinked } from "@/data/energy/types";
 import type {
   PlantFuel,
   PlantOwnership,
@@ -111,14 +112,24 @@ export const EnergyPlantsTile: FC = () => {
   if (!data) return null;
 
   const plants = data.plants;
-  const max = Math.max(...plants.map((p) => p.capacityMw ?? 0)) || 1;
-  const totalMw = plants.reduce((a, p) => a + (p.capacityMw ?? 0), 0);
-  // state + JV (partial-state) count as state-linked capacity.
-  const stateMw = plants
-    .filter((p) => p.ownership === "state" || p.ownership === "jv")
+  // Every AGGREGATE below is over the plants that exist today. A `planned` row
+  // still renders (badged "планирана") — the row is informative, but counting it
+  // as installed capacity is not: see isInstalled in @/data/energy/types.
+  const installed = installedPlants(plants);
+  const totalMw = installed.reduce((a, p) => a + (p.capacityMw ?? 0), 0);
+  // state + JV (partial-state) count as state-linked capacity (isStateLinked).
+  const stateMw = installed
+    .filter(isStateLinked)
     .reduce((a, p) => a + (p.capacityMw ?? 0), 0);
-  const coalPlants = plants.filter((p) => p.fuel === "coal");
+  const coalPlants = installed.filter((p) => p.fuel === "coal");
   const statePct = totalMw > 0 ? Math.round((stateMw / totalMw) * 100) : 0;
+  // The bar SCALE spans every RENDERED row, not just the installed ones — the
+  // aggregates above are the claim, the bars are a comparison, and scaling to
+  // the largest installed plant would clamp the bigger planned AP1000 to the
+  // same full bar as АЕЦ Козлодуй 5-6 (2 300 vs 2 006 MW rendering identically).
+  // Seeded with 1 rather than `|| 1`: Math.max() of an empty list is -Infinity,
+  // which is truthy, so the fallback would never have fired.
+  const max = Math.max(1, ...plants.map((p) => p.capacityMw ?? 0));
 
   return (
     <Card className="md:col-span-2">

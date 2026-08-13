@@ -23,6 +23,8 @@ import type {
 import {
   ENERGY_FUELS,
   RENEWABLE_KEYS,
+  installedPlants,
+  isStateLinked,
   latestCommonPrice,
 } from "../../src/data/energy/types";
 
@@ -200,16 +202,22 @@ export const powerPlants = async (
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const data = await fetchData<PowerPlantsFile>("/energy/plants.json");
-  const coal = data.plants
+  // Everything below counts only what exists today — a `planned` unit is not
+  // installed capacity (see isInstalled in src/data/energy/types). The planned
+  // AP1000 was putting 2 300 MW into both fleet facts. The coal list rides the
+  // same basis as the tile's: no coal row is planned today, but the chart's own
+  // subtitle says „Инсталирана мощност по централа", so an unbuilt plant must
+  // never reach it — and a divergence invisible until the curated data changes
+  // is exactly how the fleet defect survived.
+  const installed = installedPlants(data.plants);
+  const coal = installed
     .filter((p) => p.fuel === "coal")
     .sort((a, b) => (b.capacityMw ?? 0) - (a.capacityMw ?? 0));
-  const totalMw = data.plants.reduce((a, p) => a + (p.capacityMw ?? 0), 0);
-  const stateMw = data.plants
-    .filter((p) => p.ownership === "state" || p.ownership === "jv")
+  const totalMw = installed.reduce((a, p) => a + (p.capacityMw ?? 0), 0);
+  const stateMw = installed
+    .filter(isStateLinked)
     .reduce((a, p) => a + (p.capacityMw ?? 0), 0);
-  const coalState = coal.filter(
-    (p) => p.ownership === "state" || p.ownership === "jv",
-  ).length;
+  const coalState = coal.filter(isStateLinked).length;
 
   return {
     tool: "powerPlants",
@@ -232,8 +240,13 @@ export const powerPlants = async (
     ],
     viz: "bar",
     facts: {
-      total_gw: `${(totalMw / 1000).toFixed(1)} GW`,
-      state_share: `${Math.round((stateMw / totalMw) * 100)}%`,
+      // `fleet_` prefixes are load-bearing, not verbose: these two are
+      // WHOLE-FLEET figures sitting beside four coal_* facts in a coal-titled
+      // envelope, and the free-form LLM path receives the bare key names — a
+      // `total_gw` next to `coal_plants: 6` invites "the 6 coal plants total
+      // 13.6 GW". Same rule CLAUDE.md states for funds_hub_stats.
+      fleet_total_gw: `${(totalMw / 1000).toFixed(1)} GW`,
+      fleet_state_share: `${totalMw > 0 ? Math.round((stateMw / totalMw) * 100) : 0}%`,
       coal_plants: coal.length,
       coal_state: coalState,
       coal_private: coal.length - coalState,
