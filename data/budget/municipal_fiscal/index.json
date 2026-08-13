@@ -1,8 +1,12 @@
 {
-  "generatedAt": "2026-08-13T01:24:04.225Z",
+  "generatedAt": "2026-08-13T07:33:41.517Z",
   "source": "minfin.bg/bg/810 — Финансови показатели за общините (ЗПФ чл. 130г ал. 2); manually downloaded (Cloudflare blocks automation), parsed by scripts/budget/municipal_fiscal/",
   "newestQuarter": "2025-Q3",
   "quarters": [
+    {
+      "period": "2024-Q1",
+      "municipalityCount": 265
+    },
     {
       "period": "2024-Q2",
       "municipalityCount": 265
@@ -16,6 +20,10 @@
       "municipalityCount": 265
     },
     {
+      "period": "2025-Q1",
+      "municipalityCount": 265
+    },
+    {
       "period": "2025-Q2",
       "municipalityCount": 265
     },
@@ -26,7 +34,8 @@
   ],
   "sourceFiles": [
     "1. quarterly-reports-Q22024-Q42024-Q22025-website.xlsx",
-    "1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx"
+    "1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx",
+    "3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx"
   ],
   "anomalies": [
     "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter"
