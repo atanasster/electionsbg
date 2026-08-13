@@ -66,6 +66,18 @@ export const TransportModeSplitTile: FC<{ units: TransportUnitAgg[] }> = ({
   if (rows.length < 2 || total <= 0) return null;
   const max = Math.max(...rows.map((m) => m.totalEur));
 
+  // The bars are per-AWARDER, so the ministry's own line is not HQ spending: in every
+  // scope where it is material it is almost entirely rail bought centrally — the PSO
+  // contract with БДЖ plus the rolling-stock orders (measured 2026-08-13: 99% of МТС's
+  // spend in each of the three years it exceeds €20M). Two things follow that a reader
+  // cannot see from the bars, so the footnote says them: rail's real share is larger
+  // than its own bar, and the PSO money goes to another member of this same group
+  // rather than out of it. The share is DERIVED and the caveat only renders when the
+  // slice is big enough to mislead — a hardcoded € would be false on most scopes,
+  // since the PSO lots landed on one day in 2026.
+  const ministryShare = (rows.find((m) => m.universe === "ministry")?.totalEur ?? 0) / total; // prettier-ignore
+  const showPassthrough = ministryShare >= 0.1;
+
   return (
     <Card id="mode-split">
       <CardHeader className="pb-2">
@@ -114,6 +126,13 @@ export const TransportModeSplitTile: FC<{ units: TransportUnitAgg[] }> = ({
             </div>
           );
         })}
+        {showPassthrough && (
+          <p className="pt-1 text-[11px] text-muted-foreground/80">
+            {bg
+              ? `Внимание при разчитането: „Министерство (централа)“ е ${(ministryShare * 100).toLocaleString(loc, { maximumFractionDigits: 0 })}% тук, но почти всичко в него също е железопътно — договорът за обществена услуга (PSO) с БДЖ и поръчките за нови мотриси се възлагат от министерството, а не от превозвача. Реалният дял на железниците е по-голям от стълбчето им, а тези пари остават вътре в групата, вместо да излязат от нея.`
+              : `Read with care: „Ministry (HQ)“ is ${(ministryShare * 100).toLocaleString(loc, { maximumFractionDigits: 0 })}% here, but nearly all of it is rail too — the public-service (PSO) contract with БДЖ and the new-train orders are awarded by the ministry, not by the operator. Rail's real share is larger than its own bar, and this money stays inside the group rather than leaving it.`}
+          </p>
+        )}
         <p className="pt-1 text-[11px] text-muted-foreground/80">
           {bg
             ? "Договорена стойност по вид транспорт, в избрания обхват. Пътната инфраструктура (АПИ) е отделен сектор и не е включена тук."
