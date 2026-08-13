@@ -227,3 +227,161 @@ DO $$ BEGIN
     GRANT SELECT ON municipal_fiscal TO app_readonly;
   END IF;
 END $$;
+
+-- ---------------------------------------------------------------------------
+-- Serving layer. Kept in this file rather than a sibling migration so the
+-- loader's "applies 149" covers the functions too — a serving function in its
+-- own file is the "applied, never loaded" shape CLAUDE.md warns about, where a
+-- body fix reaches local and never reaches the serving database.
+--
+-- The place label joins on COALESCE(governance_code, code): ordinary общини are
+-- keyed by `code` (RSE27), while Sofia's city-wide row is `SFO_CITY` carrying
+-- `governance_code = 'SOF00'`. Joining on `code` alone leaves the largest
+-- município in the country nameless.
+-- ---------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
+  p_obshtina text,
+  p_year     int DEFAULT NULL
+) RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH pick AS (
+    SELECT mf.*
+    FROM municipal_fiscal mf
+    WHERE mf.obshtina = p_obshtina
+      AND (p_year IS NULL OR mf.fiscal_year = p_year)
+    ORDER BY mf.fiscal_year DESC, mf.quarter DESC
+    LIMIT 1
+  )
+  SELECT to_jsonb(row) FROM (
+    SELECT
+      p.obshtina, p.mf_code, p.fiscal_year, p.quarter,
+      COALESCE(pd.name_bg, p.name_bg) AS name_bg,
+      pd.name_en,
+      pd.oblast_code,
+      p.currency,
+      p.commitments_eur, p.expense_obligations_eur, p.arrears_eur,
+      p.revenue_eur, p.expenditure_eur, p.budget_balance_eur,
+      p.cash_on_hand_eur, p.debt_stock_eur,
+      p.expenditure_avg4y_eur,
+      p.arrears_pct, p.obligations_pct, p.commitments_pct,
+      p.arrears_basis, p.obligations_basis, p.commitments_basis,
+      p.collection_dni_pct, p.collection_dprs_pct, p.collection_avg_pct,
+      p.criteria_met, p.criteria_evaluable, p.meets_threshold,
+      p.in_recovery_procedure,
+      -- Named so the UI can say WHY a figure is missing rather than showing a
+      -- blank that reads as zero.
+      p.suppressed_fields,
+      -- The full quarterly series for this município, oldest first.
+      (SELECT jsonb_agg(jsonb_build_object(
+                'fiscalYear', s.fiscal_year, 'quarter', s.quarter,
+                'commitmentsEur', s.commitments_eur,
+                'expenseObligationsEur', s.expense_obligations_eur,
+                'arrearsEur', s.arrears_eur,
+                'cashOnHandEur', s.cash_on_hand_eur,
+                'suppressedFields', s.suppressed_fields)
+              ORDER BY s.fiscal_year, s.quarter)
+       FROM municipal_fiscal s WHERE s.obshtina = p.obshtina) AS series
+    FROM pick p
+    LEFT JOIN place_dim pd
+      ON pd.kind = 'obshtina' AND COALESCE(pd.governance_code, pd.code) = p.obshtina
+  ) row;
+$$;
+
+CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
+  p_year  int DEFAULT NULL,
+  p_limit int DEFAULT 300
+) RETURNS TABLE (
+  obshtina text, name_bg text, name_en text, oblast_code text,
+  fiscal_year int, quarter smallint,
+  commitments_eur double precision, commitments_pct double precision,
+  expense_obligations_eur double precision, obligations_pct double precision,
+  arrears_eur double precision, arrears_pct double precision,
+  cash_on_hand_eur double precision, debt_stock_eur double precision,
+  meets_threshold boolean, in_recovery_procedure boolean,
+  suppressed_fields text[]
+) LANGUAGE sql STABLE AS $$
+  -- Year-end only: the чл. 130а ratios are annual, and ranking an interim
+  -- quarter against a year-end one compares two different denominators.
+  SELECT mf.obshtina,
+         COALESCE(pd.name_bg, mf.name_bg), pd.name_en, pd.oblast_code,
+         mf.fiscal_year, mf.quarter,
+         mf.commitments_eur, mf.commitments_pct,
+         mf.expense_obligations_eur, mf.obligations_pct,
+         mf.arrears_eur, mf.arrears_pct,
+         mf.cash_on_hand_eur, mf.debt_stock_eur,
+         mf.meets_threshold, mf.in_recovery_procedure,
+         mf.suppressed_fields
+  FROM municipal_fiscal mf
+  LEFT JOIN place_dim pd
+    ON pd.kind = 'obshtina' AND COALESCE(pd.governance_code, pd.code) = mf.obshtina
+  WHERE mf.quarter = 4
+    AND mf.fiscal_year = COALESCE(
+          p_year, (SELECT max(fiscal_year) FROM municipal_fiscal WHERE quarter = 4))
+  ORDER BY mf.commitments_pct DESC NULLS LAST, mf.commitments_eur DESC NULLS LAST
+  -- GREATEST/LEAST IGNORE NULLs, so a NULL p_limit silently clamped to 1 row.
+  -- NULL means unbounded here, matching open_calls_list — a count path through
+  -- the function must not saturate at its own ceiling.
+  LIMIT CASE WHEN p_limit IS NULL THEN NULL
+             ELSE LEAST(GREATEST(p_limit, 1), 1000) END;
+$$;
+
+CREATE OR REPLACE FUNCTION municipal_fiscal_national(
+  p_year int DEFAULT NULL,
+  p_quarter smallint DEFAULT NULL
+) RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH target AS (
+    SELECT COALESCE(p_year, max(fiscal_year)) AS y FROM municipal_fiscal
+  ), scope AS (
+    SELECT mf.* FROM municipal_fiscal mf, target t
+    WHERE mf.fiscal_year = t.y
+      AND mf.quarter = COALESCE(
+            p_quarter,
+            (SELECT max(quarter) FROM municipal_fiscal m2
+             WHERE m2.fiscal_year = t.y))
+  )
+  SELECT to_jsonb(row) FROM (
+    SELECT
+      (SELECT y FROM target) AS fiscal_year,
+      (SELECT max(quarter) FROM scope) AS quarter,
+      count(*) AS municipality_count,
+      -- Each total is reported WITH the number of municipalities behind it. A
+      -- sum over a column the ingest suppressed is not zero, it is unknown, and
+      -- a bare total would publish the difference as a collapse.
+      sum(commitments_eur)          AS commitments_eur,
+      count(commitments_eur)        AS commitments_n,
+      sum(expense_obligations_eur)  AS expense_obligations_eur,
+      count(expense_obligations_eur) AS expense_obligations_n,
+      sum(arrears_eur)              AS arrears_eur,
+      count(arrears_eur)            AS arrears_n,
+      sum(cash_on_hand_eur)         AS cash_on_hand_eur,
+      count(cash_on_hand_eur)       AS cash_on_hand_n,
+      sum(debt_stock_eur)           AS debt_stock_eur,
+      count(debt_stock_eur)         AS debt_stock_n,
+      count(*) FILTER (WHERE in_recovery_procedure) AS in_recovery_n,
+      -- A boolean FILTER counts NULL as false, which would publish
+      -- „0 municipalities meet the чл. 130а threshold" when the truth is
+      -- „unknown for all 265" — and it would sit beside in_recovery_n: 17 in
+      -- the same payload, composing into a quotable claim that is not true.
+      -- The three counts are reported separately so a consumer cannot collapse
+      -- them by accident.
+      count(*) FILTER (WHERE meets_threshold IS TRUE)  AS meets_threshold_n,
+      count(*) FILTER (WHERE meets_threshold IS FALSE) AS below_threshold_n,
+      count(*) FILTER (WHERE meets_threshold IS NULL)  AS threshold_unknown_n,
+      -- Every field withheld for AT LEAST ONE município in this period — the
+      -- state a consumer must be able to distinguish from a genuine zero. It is
+      -- deliberately "any", not "every": one withheld município already makes
+      -- the national sum an undercount, and `<field>_n` beside each total says
+      -- how many rows are actually behind it.
+      (SELECT array_agg(DISTINCT f)
+         FROM scope s2, unnest(COALESCE(s2.suppressed_fields, '{}')) f) AS suppressed_fields
+    FROM scope
+  ) row;
+$$;
+
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT EXECUTE ON FUNCTION municipal_fiscal_by_obshtina(text, int) TO app_readonly;
+    GRANT EXECUTE ON FUNCTION municipal_fiscal_ranking(int, int) TO app_readonly;
+    GRANT EXECUTE ON FUNCTION municipal_fiscal_national(int, smallint) TO app_readonly;
+  END IF;
+END $$;
