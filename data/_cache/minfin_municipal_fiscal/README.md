@@ -113,31 +113,47 @@ serve the raw file instead of an archive-framed page.
 are the input for the backfill, not because anything reads them yet. What the
 survey found:
 
-| era | sheet | cols | приходи · просрочени · задължения · ангажименти |
-|---|---|---|---|
-| 2016–2020 | `за сайта` (also `общини`, `фин. показатели`, `OLAP-2020`) | — | a different layout entirely |
-| 2021 | `показатели` | 59 | c27 · c39 · c42 · c45 |
-| 2022–2023 | `показатели` | 62 | c30 · c42 · c45 · c48 |
-| 2024–2025 | `показатели` | 65 | c30 · **c45** · **c48** · **c51** |
+**Key this table on the file's measured SHAPE, never on its year.** Layout is not
+a function of the year: `quarterly reports Q42022-Q42023-website-16.04.2024.xlsx`
+is a 2022–2023 file *with* a `показатели` sheet at **46 cols, c21/c29/c31/c33** —
+building a parser from a year-keyed table would read it four columns off, which
+is the very misattribution this section warns about.
 
-Three things make this a parser-per-era job rather than a tweak, and each would
-fail SILENTLY if ignored:
+| cols | приходи · просрочени · задължения · ангажименти | seen on |
+|---|---|---|
+| 59 | c27 · c39 · c42 · c45 | 2021 3-period |
+| 62 | c30 · c42 · c45 · c48 | 2022–2023 3-period |
+| 65 | c30 · **c45** · **c48** · **c51** | 2024–2025 3-period (the only supported one) |
+| 46 | c21 · c29 · c31 · c33 | the Q4-anchored 2-period releases |
+| — | a different layout entirely | `за сайта`, `общини`, `фин. показатели`, `OLAP-2020` |
+
+Three things make this a parser-per-shape job rather than a tweak, and each
+would fail SILENTLY if ignored:
 
 - **The money-group offsets shift.** Reading a 2022 workbook with the 2024 map
   returns `задължения` where `просрочени` is expected — the exact misattribution
   the pillar exists to prevent, at a 200 with every row count reconciling.
-- **The sheet name is not stable.** Only 4 of 27 files carry `показатели`.
+- **The sheet name is not stable, and lookup is CASE-SENSITIVE.** 6 of 27 files
+  carry `показатели` exactly; a 7th (`…Q42018-Q42019.xlsx`) spells it
+  `Показатели` with a capital П. The ingest now matches case-insensitively, so
+  that one is recognised rather than silently filed under "unparsed era".
 - **The period label is not stable** — `Q1-2021 г.` in 2021 against `2022 Q1` in
   2022, so `PERIOD_RE` matches one and not the other.
 
 **The Q4-anchored releases (`Q42020-Q42021` and friends) are a different corpus
-again, and the most valuable one.** They carry no `показатели` sheet, publish
-per-year expenditure back four years, and — uniquely — state the чл. 130а
-criteria EXPLICITLY: one column per criterion, plus „Брой на критериите … на
-които отговаря" and „Община за финансово оздравяване". That is the verdict this
-repo currently cannot derive (only 3 of 6 criteria are computable from the
-quarterly sheet). Note they list **seven** criteria, not six — worth resolving
-against the statute before trusting either count.
+again, and the most valuable one.** They publish per-year expenditure back four
+years and — uniquely — state the чл. 130а criteria EXPLICITLY: one column per
+criterion, plus „Брой на критериите … на които отговаря" and „Община за финансово
+оздравяване". That is the verdict this repo currently cannot derive (only 3 of 6
+criteria are computable from the quarterly sheet).
+
+Three cautions before building on them. The criteria live on their OWN sheet
+whose name varies three ways — including a Latin/Cyrillic `danni`/`данни` switch
+— so "the Q4 releases have no `показатели` sheet" is false for 2 of the 6; the
+criteria are a sheet-level fact, not a file-level one. Their columns shift too
+(c23–c29 against c25–c31). And they list **seven** criteria rather than six,
+verified across all six files — resolve that against the statute before trusting
+either count.
 
 ## How to refresh / add quarters
 

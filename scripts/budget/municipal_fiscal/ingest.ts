@@ -44,6 +44,7 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
+  rmSync,
   writeFileSync,
 } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -62,6 +63,21 @@ const OUT_DIR = resolve(__dirname, "../../../data/budget/municipal_fiscal");
 
 const SHEET_POKAZATELI = "показатели";
 const SHEET_RECOVERY = "общини фин. оздр.";
+
+/** A workbook from an era this parser does not support — the ONLY condition
+ *  that may be skipped. Everything else (a shifted column map, a corrupt zip,
+ *  an out-of-memory) must propagate: an unconditional catch would swallow the
+ *  period-alignment gate, whose whole message is „re-read the column map before
+ *  trusting any figure", and a future release with a shifted column would then
+ *  skip at exit 0 among two dozen visually identical lines. */
+class UnsupportedEraError extends Error {
+  readonly kind: "no-sheet" | "column-map";
+  constructor(file: string, kind: "no-sheet" | "column-map", detail: string) {
+    super(`${file}: ${detail}`);
+    this.name = "UnsupportedEraError";
+    this.kind = kind;
+  }
+}
 
 /** Level fields that carry money and can therefore go stale in a partial
  *  re-issue. Ordered as the workbook groups them. */
@@ -127,19 +143,44 @@ const readWorkbook = (file: string): FileParse => {
     type: "buffer",
   });
   const grid = (name: string): unknown[][] => {
-    const sheet = wb.Sheets[name];
-    if (!sheet) throw new Error(`${file}: missing sheet „${name}"`);
+    // Sheet lookup is CASE-SENSITIVE and МФ has shipped „Показатели" with a
+    // capital П, so a case-blind match is the difference between an era we
+    // support and one we appear not to.
+    const key =
+      Object.keys(wb.Sheets).find(
+        (k) => k.toLowerCase() === name.toLowerCase(),
+      ) ?? name;
+    const sheet = wb.Sheets[key];
+    if (!sheet)
+      throw new UnsupportedEraError(
+        file,
+        "no-sheet",
+        `no „${name}" sheet (has: ${Object.keys(wb.Sheets).slice(0, 4).join(", ")})`,
+      );
     return XLSX.utils.sheet_to_json<unknown[]>(sheet, {
       header: 1,
       defval: null,
       blankrows: true,
     });
   };
+  // Probe the indicators sheet FIRST: it is the one whose absence defines the
+  // era, and reporting „no общини фин. оздр. sheet" for a 2016 workbook names
+  // the wrong reason.
+  const pokazateli = grid(SHEET_POKAZATELI);
   const inRecovery = parseRecoverySheet(grid(SHEET_RECOVERY));
-  const out = parsePokazateli(grid(SHEET_POKAZATELI), {
-    sourceFile: file,
-    inRecovery,
-  });
+  let out;
+  try {
+    out = parsePokazateli(pokazateli, { sourceFile: file, inRecovery });
+  } catch (e) {
+    // A column map that does not align is ALSO an era we do not parse — but it
+    // is the dangerous kind, because the sheet looked right. Classified
+    // separately so it can never be read as ordinary archive noise.
+    const msg = (e as Error).message;
+    if (/column layout has changed|expected \d+ period columns/.test(msg)) {
+      throw new UnsupportedEraError(file, "column-map", msg);
+    }
+    throw e;
+  }
   const quarters = out.periods.map((p) => qKey(p));
   return {
     file,
@@ -272,16 +313,47 @@ const main = () => {
   // every current one. A file that parses but is malformed still throws.
   const parsed: FileParse[] = [];
   const unsupported: string[] = [];
+  const shifted: string[] = [];
   for (const f of files) {
     try {
       parsed.push(readWorkbook(f));
     } catch (e) {
-      unsupported.push(`${f}: ${(e as Error).message}`);
+      // Narrow on purpose. A layout we have never taught the parser is data we
+      // do not have yet; anything else is a defect, and skipping it would turn
+      // a loud failure into a line in a list nobody reads.
+      if (!(e instanceof UnsupportedEraError)) throw e;
+      (e.kind === "column-map" ? shifted : unsupported).push(e.message);
     }
   }
   if (parsed.length === 0) {
     throw new Error(
-      `no workbook in ${DROP_DIR} matches the supported layout:\n  ${unsupported.join("\n  ")}`,
+      `no workbook in ${DROP_DIR} matches the supported layout:\n  ${[...unsupported, ...shifted].join("\n  ")}`,
+    );
+  }
+  // `parsed.length > 0` is far too weak a floor once the drop directory holds an
+  // archive: 25 of 27 skip today, so one surviving file would pass. What must
+  // hold is that the NEWEST release parsed — if МФ shifts a column in the next
+  // one, that file lands among two dozen skip lines and the corpus quietly
+  // stops advancing while every count still reconciles.
+  // "Newest" is the highest QUARTER a filename mentions, not the lexicographic
+  // maximum — the current releases are prefixed „1. " and would sort BELOW an
+  // unprefixed 2023 one. The filename is only a hint for the periods (row 2 is
+  // the truth), but for ordering releases it is the only signal available
+  // before parsing.
+  const newestQuarterOf = (f: string): string => {
+    const found = [...f.matchAll(/Q([1-4])[- ]?(\d{4})/gi)].map(
+      (m) => `${m[2]}-Q${m[1]}`,
+    );
+    return found.sort().slice(-1)[0] ?? "";
+  };
+  const newest = [...files]
+    .sort((a, b) => (newestQuarterOf(a) < newestQuarterOf(b) ? -1 : 1))
+    .slice(-1)[0];
+  if (newest && !parsed.some((p) => p.file === newest)) {
+    throw new Error(
+      `the newest workbook in the drop directory did not parse: ${newest}\n` +
+        "A shifted column map on the CURRENT release is a defect, not an era we do not support. " +
+        `Skipped for: ${[...shifted, ...unsupported].find((m) => m.startsWith(newest)) ?? "unknown"}`,
     );
   }
   const warnings = parsed.flatMap((p) =>
@@ -315,7 +387,14 @@ const main = () => {
   const quarters = [...byQuarter.keys()].sort();
 
   console.log(`files    : ${parsed.length} parsed of ${files.length} present`);
-  for (const u of unsupported) console.log(`  skipped ${u}`);
+  if (unsupported.length > 0)
+    console.log(
+      `  ${unsupported.length} from an unparsed era (no supported sheet)`,
+    );
+  // Printed individually, unlike the era skips: a sheet that looks right with a
+  // map that does not align is the shape a SHIFTED CURRENT release takes, and
+  // burying it in a count is how that would pass as archive noise.
+  for (const m of shifted) console.log(`  ⚠ column map mismatch — ${m}`);
   console.log(`quarters : ${quarters.join(" · ")}`);
   for (const w of warnings) console.log(`  ⚠ ${w}`);
   for (const a of anomalies) console.log(`  ⚠ ${a}`);
@@ -326,6 +405,19 @@ const main = () => {
   }
 
   mkdirSync(OUT_DIR, { recursive: true });
+  // Remove quarter files this run no longer produces. Without this an orphan
+  // survives: the LOADER globs OUT_DIR rather than reading index.json, so a
+  // release that stops covering a quarter leaves that quarter still loading
+  // from a stale file while index.json says it does not exist.
+  for (const f of readdirSync(OUT_DIR)) {
+    const m = /^(\d{4}-Q[1-4])\.json$/.exec(f);
+    if (m && !quarters.includes(m[1])) {
+      rmSync(resolve(OUT_DIR, f));
+      console.log(
+        `  removed orphan ${f} — no release covers that quarter any more`,
+      );
+    }
+  }
   for (const q of quarters) {
     const rows = byQuarter.get(q)!;
     writeFileSync(
@@ -355,7 +447,6 @@ const main = () => {
       municipalityCount: byQuarter.get(q)!.length,
     })),
     sourceFiles: parsed.map((p) => p.file),
-    unsupportedFiles: unsupported,
     anomalies,
     warnings,
   };
