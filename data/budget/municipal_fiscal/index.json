@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T08:47:20.789Z",
+  "generatedAt": "2026-08-13T09:02:23.924Z",
   "source": "minfin.bg/bg/810 — Финансови показатели за общините (ЗПФ чл. 130г ал. 2); manually downloaded (Cloudflare blocks automation), parsed by scripts/budget/municipal_fiscal/",
   "newestQuarter": "2025-Q3",
   "quarters": [
@@ -120,6 +120,14 @@
       "municipalityCount": 265
     },
     {
+      "period": "2023-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2023-Q3",
+      "municipalityCount": 265
+    },
+    {
       "period": "2023-Q4",
       "municipalityCount": 265
     },
@@ -179,11 +187,15 @@
     "quarterly reports Q42017-Q42018-za saita.xlsx",
     "quarterly reports Q42019-Q42020-website.xlsx",
     "quarterly reports Q42022-Q42023-website-16.04.2024.xlsx",
-    "quarterly-reports-Q12023-Q42023-Q12024-website.xlsx"
+    "quarterly-reports-Q12023-Q42023-Q12024-website.xlsx",
+    "quarterly-reports-Q22022-Q42022-Q22023-website.xlsx",
+    "quarterly-reports-Q32022-Q42022-Q32023-website.xlsx"
   ],
   "anomalies": [
     "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter",
     "2022-Q1 differs between releases on expenseObligations, commitments — keeping the later one („quarterly reports Q12022-Q42022-Q12023-website.xlsx\")",
+    "2022-Q2 differs between releases on expenseObligations, commitments — keeping the later one („quarterly-reports-Q22022-Q42022-Q22023-website.xlsx\")",
+    "2022-Q3 differs between releases on expenseObligations, commitments — keeping the later one („quarterly-reports-Q32022-Q42022-Q32023-website.xlsx\")",
     "2024-Q1 differs between releases on cashOnHand — keeping the later one („3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx\")",
     "official чл. 130а criteria attached to 1325 row(s) across 2018, 2020, 2021, 2023, 2024"
   ],
