@@ -23,6 +23,25 @@
 //       health is NOT a procurement-basis sector;
 //     - НЗОК 121858220 is a real, signature awarder in the corpus (its own thin
 //       ЗОП line) — proves the EIK isn't a typo while staying far below payout.
+//
+//  · WATER (audit 2026-08-13, docs/plans/water-sector-audit-v1.md) — a MULTI-member
+//    PROCUREMENT sector, so the tripwires are the opposite shape to health's:
+//     - the headline must RECONCILE EXACTLY to a live sum over WATER_SECTOR_EIKS,
+//       which is what actually gates the generator's copy of the EIK-set (it
+//       imports the constant, so an array-identity check is a tautology; a sum is
+//       not — any EIK added, dropped or mistyped on either side moves it);
+//     - each of the seven operators the audit ADDED is present above a per-EIK
+//       floor. The audit found them worth €73.7M, three of them whole oblasti
+//       with no regional operator at all, and a silent re-trim would look exactly
+//       like the state it fixed;
+//     - the sector and the HOLDING group stay far apart. They are two different
+//       questions (/water vs /awarder/206086428) and the failure mode is one
+//       collapsing into the other — which the prose figure for that gap could not
+//       catch, having gone stale during the audit that wrote it;
+//     - the name-collision EIKs a regex sweep surfaces (Басейнови дирекции,
+//       РИОСВ, Център за подводна археология) stay OUT. They are МОСВ bodies
+//       already counted in `environment`, so admitting one double-counts across
+//       two sectors.
 
 import { test, describe, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -33,6 +52,12 @@ import { allRows, end } from "../lib/pg";
 import { SECTOR_DASHBOARDS } from "@/screens/sector/sectorDashboards";
 import { SECTOR_BROWSE_PACKS } from "@/screens/components/procurement/sectorPacks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import {
+  WATER_SECTOR_EIKS,
+  VIK_HOLDING_SUB_EIKS,
+  VIK_HOLDING_EIK,
+  WATER_OPERATORS,
+} from "@/lib/vikReferenceData";
 
 // Anchor to the module, not the cwd, so a read failure can't escape the PG-skip.
 const ROOT = path.resolve(fileURLToPath(import.meta.url), "../../../../");
@@ -224,6 +249,238 @@ describe("health sector (payout / НЗОК)", () => {
       assert.ok(
         eur < 1_000_000_000,
         `НЗОК own procurement €${eur} suspiciously high`,
+      );
+    },
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Σ amount_eur over an EIK-set, whole corpus — the `all` scope's definition. */
+const sectorSum = async (eiks: readonly string[]): Promise<number> => {
+  const [r] = await allRows<{ eur: string }>(
+    `select coalesce(round(sum(amount_eur)),0)::text eur
+       from contracts
+      where tag='contract' and awarder_eik = any($1)`,
+    [[...eiks]],
+  );
+  return Number(r?.eur ?? 0);
+};
+
+describe("water sector (procurement / ВиК)", () => {
+  test.skipIf(skip)(
+    "hub headline is procurement and reconciles EXACTLY to the EIK-set",
+    async () => {
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      const w = stats["all"]?.water;
+      assert.ok(w, "sector_stats.json['all'].water must exist");
+      assert.equal(w.kind, "eur");
+      assert.equal(
+        w.basis,
+        "procurement",
+        "water must front the operators' own tender flow — it has no ministry seat",
+      );
+
+      // Band first, so a wildly wrong number fails with a readable message rather
+      // than an equality diff. ~€3.27bn at the 2026-08-13 audit.
+      assert.ok(
+        w.value > 3_000_000_000 && w.value < 6_000_000_000,
+        `water procurement €${w.value} out of expected band 3.0–6.0bn`,
+      );
+
+      // THE lockstep gate. The generator imports WATER_SECTOR_EIKS, so comparing
+      // the arrays proves nothing; comparing the emitted total against a live sum
+      // over the same constant catches any drift on either side — including a
+      // stale blob nobody regenerated after the reference data moved.
+      assert.equal(
+        w.value,
+        await sectorSum(WATER_SECTOR_EIKS),
+        "headline ≠ Σ contracts over WATER_SECTOR_EIKS — regenerate " +
+          "sector_stats.json (npm run db:gen-sector-stats) or reconcile the EIK-set",
+      );
+    },
+  );
+
+  test.skipIf(skip)("the EIK-set copies stay in lockstep", () => {
+    // Today this compares the browse pack's array to ITSELF — sectorPacks.tsx
+    // assigns `eiks: WATER_SECTOR_EIKS` by reference, so it passes trivially,
+    // and that passing IS the desired state. It is a TRIPWIRE, not a content
+    // gate: it turns into a real comparison the moment someone replaces the
+    // import with a literal list of digits, which is the drift the four-copy
+    // rule exists to prevent.
+    assert.deepEqual(
+      [...SECTOR_BROWSE_PACKS.water.eiks],
+      [...WATER_SECTOR_EIKS],
+      "SECTOR_BROWSE_PACKS.water.eiks drifted from WATER_SECTOR_EIKS — a copy " +
+        "has stopped deriving from the reference data",
+    );
+    // Water is bespoke (/water), so unlike health it has no generic dashboard
+    // entry — assert that, so adding one silently gains a fifth unchecked copy.
+    assert.equal(
+      SECTOR_DASHBOARDS.water,
+      undefined,
+      "water gained a SECTOR_DASHBOARDS entry — add it to this lockstep check",
+    );
+    // NOTE: no duplicate-EIK assertion here. WATER_SECTOR_EIKS is built as
+    // [...new Set(...)], so asserting it is deduped can never fail. The check
+    // that CAN fail runs on the right input — the raw WATER_OPERATORS rows — in
+    // src/lib/vikReferenceData.test.ts, which needs no database.
+  });
+
+  test.skipIf(skip)(
+    "every operator the 2026-08-13 audit added is present and material",
+    async () => {
+      // Per-EIK floors ≈ half the measured spend, so ordinary corpus growth can
+      // never trip them but a removal or a mistyped digit does. Разград and
+      // Кюстендил are whole oblasti that had NO regional operator before this;
+      // Пазарджик's live operator was absent while its liquidated predecessor
+      // stood in for the oblast.
+      const ADDED: Array<[string, number, string]> = [
+        ["826043778", 20_000_000, "Водоснабдяване-Дунав (Разград)"],
+        ["205756975", 8_000_000, "ДП УСЯ (язовири)"],
+        ["205323041", 8_000_000, "ВиК услуги (Пазарджик, live)"],
+        ["200167154", 5_000_000, "Кюстендилска вода"],
+        ["822104714", 500_000, "ВКС (Пещера)"],
+        ["822106633", 50_000, "ВКТВ (Велинград)"],
+        ["208403279", 10_000, "ВиК Елин Пелин"],
+      ];
+      for (const [eik, , label] of ADDED)
+        assert.ok(
+          WATER_SECTOR_EIKS.includes(eik),
+          `${label} (${eik}) dropped out of WATER_SECTOR_EIKS`,
+        );
+
+      const rows = await allRows<{ eik: string; eur: string }>(
+        `select awarder_eik eik, coalesce(round(sum(amount_eur)),0)::text eur
+           from contracts
+          where tag='contract' and awarder_eik = any($1)
+          group by 1`,
+        [ADDED.map(([e]) => e)],
+      );
+      const byEik = new Map(rows.map((r) => [r.eik, Number(r.eur)]));
+      for (const [eik, floor, label] of ADDED) {
+        const eur = byEik.get(eik) ?? 0;
+        assert.ok(
+          eur >= floor,
+          `${label} (${eik}) has €${eur}, below the €${floor} floor — ` +
+            `either the EIK is wrong or its contracts left the corpus`,
+        );
+      }
+    },
+  );
+
+  test.skipIf(skip)(
+    "the sector and the holding group do not collapse into each other",
+    async () => {
+      // /water answers "what does the water sector buy"; /awarder/206086428
+      // answers "what does Български ВиК холдинг's group buy". The sector is the
+      // strict superset, and the gap is dominated by Софийска вода — a Veolia
+      // CONCESSION that must never be counted as a holding company.
+      const holding = [VIK_HOLDING_EIK, ...VIK_HOLDING_SUB_EIKS];
+      for (const e of holding)
+        assert.ok(
+          WATER_SECTOR_EIKS.includes(e),
+          `holding member ${e} missing from the sector set`,
+        );
+      assert.ok(
+        holding.length < WATER_SECTOR_EIKS.length,
+        "the holding group must stay strictly narrower than the sector",
+      );
+
+      const [sector, group] = [
+        await sectorSum(WATER_SECTOR_EIKS),
+        await sectorSum(holding),
+      ];
+      assert.ok(sector > group, "sector total must exceed the holding group's");
+      // ~€896M at the audit. A band, not a figure — this is the number an earlier
+      // draft hard-coded in three source files and got wrong in all three.
+      const gap = sector - group;
+      assert.ok(
+        gap > 600_000_000 && gap < 1_600_000_000,
+        `sector−holding gap €${gap} out of band — one universe may have been ` +
+          `pointed at the other's EIK-set`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "name-collision bodies stay out, and every member is a real awarder",
+    async () => {
+      // Each of these matches a водоснабдяване/води name sweep and is NOT a water
+      // operator. The first four are МОСВ bodies already inside ENV_SECTOR_EIKS,
+      // so admitting one double-counts it across two sector tiles.
+      const MUST_NOT_BE_MEMBERS: Array<[string, string]> = [
+        ["114597909", "Басейнова дирекция — Дунавски район"],
+        ["103776654", "Басейнова дирекция — Черноморски район"],
+        ["000530415", "РИОСВ"],
+        ["000697371", "Дирекция ЕМП към МОСВ"],
+        ["102819095", "Център за подводна археология"],
+        // The retired ВиК Свищов EIK: the SAME company as 200736851, so
+        // including it would render two rows for one operator and double-count.
+        ["000120252", "ВиК Свищов (retired EIK)"],
+      ];
+      for (const [eik, label] of MUST_NOT_BE_MEMBERS)
+        assert.ok(
+          !WATER_SECTOR_EIKS.includes(eik),
+          `${label} (${eik}) must not be a water-sector member`,
+        );
+
+      // Every curated EIK resolves to a real awarder — catches a typo that would
+      // silently contribute €0 and never show up in any total.
+      const rows = await allRows<{ eik: string }>(
+        `select distinct awarder_eik eik from contracts
+          where tag='contract' and awarder_eik = any($1)`,
+        [[...WATER_SECTOR_EIKS]],
+      );
+      const seen = new Set(rows.map((r) => r.eik));
+      const missing = WATER_SECTOR_EIKS.filter((e) => !seen.has(e)).map(
+        (e) => `${e} (${WATER_OPERATORS.find((o) => o.eik === e)?.name})`,
+      );
+      assert.deepEqual(
+        missing,
+        [],
+        `curated water EIKs with no contracts at all: ${missing.join(", ")}`,
+      );
+    },
+  );
+
+  test.skipIf(skip)(
+    "every member LOOKS like a water body in the corpus, under every spelling",
+    async () => {
+      // The POSITIVE half, and the one the audit family is named for. A denylist
+      // only catches the wrong bodies somebody already thought of; the defense
+      // near-miss was two МВР directorates worth €370M that no denylist named.
+      // A wrong-but-real EIK passes every other gate here — including the exact
+      // reconciliation, because the test and the generator read the SAME
+      // constant, so both sides move together and the headline just inflates.
+      //
+      // Checked against EVERY distinct awarder_name, not min(): the corpus
+      // carries many spellings per EIK and asserting one lets the others rot.
+      // Deliberately loose — it must accept „в и К ООД", which is how seven
+      // members are recorded — so it is a sanity check on KIND, not a
+      // classifier. Pairs with the denylist above, which handles the near-misses
+      // this cannot: „Център за подводна археология" contains „водна", and the
+      // retired ВиК Свищов EIK is a genuine water company excluded for being a
+      // duplicate of 200736851 rather than for not being water.
+      const WATER_NAME =
+        /водоснабдяване|в и к|вик|вода|водна|напоителн|язовир|канализац/i;
+      const rows = await allRows<{ eik: string; name: string }>(
+        `select distinct awarder_eik eik, awarder_name name
+           from contracts
+          where tag='contract' and awarder_eik = any($1)`,
+        [[...WATER_SECTOR_EIKS]],
+      );
+      const offenders = rows
+        .filter((r) => !WATER_NAME.test(r.name))
+        .map((r) => `${r.eik} → "${r.name}"`);
+      assert.deepEqual(
+        offenders,
+        [],
+        `water-sector members whose corpus name is not a water body — a wrong ` +
+          `EIK inflates the headline while every other gate stays green:\n  ` +
+          offenders.join("\n  "),
       );
     },
   );
