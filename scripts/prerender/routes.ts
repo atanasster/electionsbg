@@ -3052,9 +3052,9 @@ export const prerenderRoutes: PrerenderRoute[] = [
     bodyHtml: `
 <h1>За какво харчи държавата</h1>
 <p>Тази страница показва разходите на държавния бюджет за избраната година, разбити по вид, така както ги отчита Министерството на финансите — и как се променят през годините.</p>
-<h2>Три неща, които е добре да се знаят за числата</h2>
+<h2>Четири неща, които е добре да се знаят за числата</h2>
 <ul>
-<li><strong>Голяма част не се харчи от държавния бюджет.</strong> Редът „Трансфери (нето)“ е парите, прехвърлени на НОИ, НЗОК, общините и университетите, които после ги харчат — през 2024 г. това е 58% от раздела. За какво отиват парите в целия сектор „Държавно управление“ виж разреза по функция.</li>
+<li><strong>Голяма част не се харчи от държавния бюджет.</strong> Редът „Трансфери (нето)“ е парите, прехвърлени на НОИ, НЗОК, общините и университетите, които после ги харчат — през 2024 г. това е 58% от раздела.</li>
 <li><strong>Вноската в бюджета на ЕС се отчита отделно</strong> от разходите и не е включена в сумата тук — тя е самостоятелен раздел на касовия отчет.</li>
 <li><strong>Отчетът по КФП е натрупан</strong> от началото на годината, затова всяка година е показана с последния си отчетен период. Събирането на месеците би преброило едни и същи пари многократно.</li>
 <li><strong>Сравнението с ЕС е на друга основа</strong> — Евростат мери целия сектор „Държавно управление“ (държава, общини и осигурителни фондове), а горното число е касовият отчет само на държавния бюджет.</li>
@@ -3068,9 +3068,9 @@ export const prerenderRoutes: PrerenderRoute[] = [
       bodyHtml: `
 <h1>What the state spends on</h1>
 <p>This page shows state budget expenditure for the selected year, broken down by type exactly as the Ministry of Finance reports it — and how it has moved over the years.</p>
-<h2>Three things worth knowing about the figures</h2>
+<h2>Four things worth knowing about the figures</h2>
 <ul>
-<li><strong>Much of it is not spent by the state budget.</strong> The „Трансфери (нето)“ line is money passed to the pension and health funds, municipalities and universities, which then spend it — 58% of the section in 2024. For what the money goes on across the whole general-government sector, see the functional breakdown.</li>
+<li><strong>Much of it is not spent by the state budget.</strong> The „Трансфери (нето)“ line is money passed to the pension and health funds, municipalities and universities, which then spend it — 58% of the section in 2024.</li>
 <li><strong>Bulgaria's contribution to the EU budget is reported separately</strong> from expenditure and is not included in the total here — it is its own section of the cash report.</li>
 <li><strong>КФП reporting is cumulative</strong> from the start of the year, so each year is shown at its latest reported period. Adding the months would count the same money many times over.</li>
 <li><strong>The EU comparison is on a different basis</strong> — Eurostat measures the whole general-government sector (state, municipalities and social funds), while the figure above is the cash execution of the state budget alone.</li>

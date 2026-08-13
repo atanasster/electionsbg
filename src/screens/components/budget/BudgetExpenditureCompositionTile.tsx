@@ -221,6 +221,15 @@ export const BudgetExpenditureCompositionTile: FC<{
               </Link>
             </>
           ) : null}
+          {/* Inline rather than on its own line: stacked under the existing
+              „see details" this tile showed two arrow links where the revenue
+              tile beside it shows one. /budget/spending is the same money on
+              the four-part spine, and without this link the page has no
+              inbound route anywhere in the app. */}
+          {" · "}
+          <Link to="/budget/spending" className="text-primary hover:underline">
+            {t("budget_spending_see_all")}
+          </Link>
         </p>
       </CardHeader>
       <CardContent className="pt-0">

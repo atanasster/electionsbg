@@ -135,6 +135,24 @@ const LINE_LABELS_EN: Record<string, string> = {
   "Други операции по финансирането": "Other financing operations",
 };
 
+/** Collapse runs of whitespace so a key lookup survives МФ's own inconsistent
+ *  spacing. Built once; a per-call rebuild would rescan the table for every
+ *  line of every snapshot. */
+const LINE_LABELS_EN_NORM: Record<string, string> = Object.fromEntries(
+  Object.entries(LINE_LABELS_EN).map(([k, v]) => [
+    k.replace(/\s+/g, " ").trim(),
+    v,
+  ]),
+);
+
+/** The English label for a КФП line, or "" when we genuinely have no
+ *  translation. Consumers must treat "" as absent — it is a real state, not a
+ *  usable label. */
+export const labelEn = (labelBg: string): string =>
+  LINE_LABELS_EN[labelBg] ??
+  LINE_LABELS_EN_NORM[labelBg.replace(/\s+/g, " ").trim()] ??
+  "";
+
 // Hierarchy reconstruction. The КФП source table is a single label column with
 // no indentation or code signal — a 2-3 level tree flattened by row order.
 // "Tax revenue" (24.6B) is followed by 8 rows that sum exactly to it; those
@@ -443,7 +461,13 @@ export const parseEgovResource = (
     if (!current) continue; // pre-section rows (shouldn't happen) — skip
     const line: KfpSnapshotLine = {
       labelBg: label,
-      labelEn: LINE_LABELS_EN[label] ?? "",
+      // Whitespace-normalised: МФ's own spelling drifts between vintages, and
+      // an exact-key miss yields "" — a label that renders as nothing on /en
+      // rather than as an obvious gap. „Трансфери  (нето)" carries a DOUBLE
+      // space in the 2021-2023 workbooks and a single one from 2025, so the
+      // same line was translated in some years and blank in others. That row
+      // is 58% of expenditure.
+      labelEn: labelEn(label),
       planned,
       executed,
       depth: 0,
