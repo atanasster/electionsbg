@@ -579,6 +579,28 @@ export const DataSources = () => {
             </ul>
           </DataGroup>
 
+          <DataGroup title={t("municipal_fiscal_section")}>
+            <ul className="space-y-2">
+              <SourceItem
+                href="https://www.minfin.bg/bg/810"
+                label={t("municipal_fiscal_minfin_source")}
+              />
+              <SourceItem
+                href="https://data.europa.eu/data/datasets/4229?locale=bg"
+                label={t("municipal_fiscal_catalogue_source")}
+              />
+            </ul>
+            {/* The provenance split matters more here than for most sources:
+                only задължения за разходи is computed by МФ from the chart of
+                accounts. Commitments come from the municipality's own сметка
+                9200, and arrears are entered by the municipality the finding
+                falls on. A reader deciding how much to trust a number should be
+                told that on the page that lists the source. */}
+            <p className="mt-3 text-xs text-muted-foreground">
+              {t("municipal_fiscal_source_note")}
+            </p>
+          </DataGroup>
+
           <DataGroup title={t("fiscal_reserve_section")}>
             <ul className="space-y-2">
               <SourceItem

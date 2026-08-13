@@ -5949,5 +5949,9 @@
   "tr_management_name_match_hint": "Linked by name from the Commerce Registry, not from a declared interest.",
   "companies_hq_screen_error": "This list could not be loaded right now.",
   "tr_confidence_high_tooltip": "A curated register (declared interests / ИВСС чл. 175а) links this company to this person. The officer row inside it is still matched by name.",
-  "tr_confidence_medium_tooltip": "Found by name in the Commerce Registry, not from a declared interest. Names the registry records for more than one person are refused outright."
+  "tr_confidence_medium_tooltip": "Found by name in the Commerce Registry, not from a declared interest. Names the registry records for more than one person are refused outright.",
+  "municipal_fiscal_section": "Municipal financial indicators",
+  "municipal_fiscal_minfin_source": "Ministry of Finance — municipal financial indicators (quarterly, ЗПФ чл. 130г ал. 2)",
+  "municipal_fiscal_catalogue_source": "EU Open Data Portal — dataset description for „Финансови показатели за общините“",
+  "municipal_fiscal_source_note": "The indicators do not carry equal weight. Obligations for expenditure are computed by the Ministry of Finance from the budget-organisation chart of accounts; commitments come from the municipality's own account 9200, and arrears are self-reported by the municipality on off-balance-sheet accounts 9921–9929 — so the figure used to judge whether a municipality is in financial difficulty is filed by the municipality it concerns. Not audited."
 }

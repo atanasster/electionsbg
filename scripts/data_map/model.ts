@@ -551,6 +551,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "ipop_mrrb",
       "iisda_doklad",
       "iisda_mayors",
+      "municipal_fiscal_due",
     ],
     skills: [
       "update-budget",
@@ -1358,6 +1359,26 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "municipal_fiscal",
+    label: {
+      bg: "Финансови показатели на общините",
+      en: "Municipal financial indicators",
+    },
+    detail: {
+      bg: "поети ангажименти, задължения, просрочия",
+      en: "commitments, obligations, arrears",
+    },
+    desc: {
+      bg: "Тримесечните финансови показатели на всички 265 общини (ЗПФ чл. 130г ал. 2) — трите различни вида задължения, които публичните финанси разграничават: поети ангажименти за разходи (договорени, дължими през следващи бюджетни години), задължения за разходи (начислени, но още не просрочени) и просрочени задължения. МФ публикува и трите, но в публичния дебат се цитират почти само просрочията — а те са десетки пъти по-малки от поетите ангажименти (46 пъти към края на 2024 г.). Плюс приходите, разходите, салдото, наличните средства и дълга на всяка община, и критериите по чл. 130а за финансово затруднение. Сервира се от Postgres (municipal_fiscal).",
+      en: "Quarterly financial indicators for all 265 municipalities (ЗПФ чл. 130г ал. 2) — the three distinct liability stocks Bulgarian public finance separates: contracted commitments falling due in later budget years, invoiced obligations not yet overdue, and overdue arrears. MoF publishes all three, but public debate cites almost only the arrears — which are tens of times smaller than the commitments (46× at end-2024). Plus each municipality's revenue, expenditure, balance, cash position and debt, and the чл. 130а financial-difficulty criteria. Served from Postgres (municipal_fiscal).",
+    },
+    // No `path`: Postgres-only, like ds:prices and ds:agri. The committed JSON
+    // under data/budget/municipal_fiscal/ is the loader's input and is excluded
+    // from bucket sync twice over, so naming it here would invite a reader of
+    // /data to expect a download that does not exist.
+    tags: ["fiscal", "local"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1974,6 +1995,10 @@ export const EDGES: [string, string][] = [
   ["src:vss", "ds:ngo"],
   ["src:dv", "ds:budget"],
   ["src:ministries", "ds:budget"],
+  ["src:ministries", "ds:municipal_fiscal"],
+  ["ds:municipal_fiscal", "f:governance"],
+  ["ds:municipal_fiscal", "f:budget"],
+  ["ds:municipal_fiscal", "f:indicators"],
   ["src:ministries", "ds:macro"],
   ["src:ministries", "ds:localgov"],
   ["src:municipalities", "ds:budget"],
