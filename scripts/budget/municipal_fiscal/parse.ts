@@ -37,37 +37,148 @@ import type {
 } from "./types";
 
 /** 1-based first column of each 3-wide group, in workbook order. */
-const GROUP = {
-  revenueShare: 3,
-  localCoverage: 6,
-  balanceShare: 9,
-  debtToOwnRevenue: 12,
-  debtPerCapita: 15,
-  arrearsToOwnRevenue: 18,
-  populationPerEmployee: 21,
-  wageShare: 24,
-  capitalShare: 27,
-  revenue: 30,
-  expenditure: 33,
-  budgetBalance: 36,
-  cashOnHand: 39,
-  debtStock: 42,
-  arrears: 45,
-  expenseObligations: 48,
-  commitments: 51,
-  arrearsRatio: 54,
-  obligationsRatio: 57,
-  commitmentsRatio: 60,
+/** The column map is RESOLVED FROM THE HEADER TITLES, not hard-coded.
+ *
+ *  МФ has shipped at least four layouts of this sheet — 58, 59, 62 and 65
+ *  columns — and the money groups sit at a different offset in each: просрочени
+ *  is c39 in the 2016-2021 releases, c42 in 2022-2023 and c45 in 2024-2025.
+ *  Reading a 2022 workbook with the 2024 map returns `задължения` where
+ *  `просрочени` belongs, which is a silent misattribution at a 200 with every
+ *  row count reconciling — the exact defect this module exists to prevent.
+ *
+ *  A per-era table was the obvious fix and is the wrong one: the 2016 release
+ *  is uniformly ONE column left of 2017-2021, so the table needs a row per
+ *  variant and a new variant is a silent misread until somebody notices. The
+ *  titles, by contrast, have been stable for a decade. Anchored on those, one
+ *  code path reads every era — and the period-alignment check below still
+ *  verifies the result, so a title that matched the wrong column fails loudly
+ *  rather than shifting the money.
+ *
+ *  Every pattern is anchored at the start of the title, because the RATIO
+ *  columns repeat the money columns' wording after „Дял на …" — an unanchored
+ *  „Просрочени задължения" matches the ratio group nine columns later. */
+const GROUP_TITLES = {
+  revenueShare: /^1\.\s*Дял на приходите/i,
+  localCoverage: /^2\.\s*Покритие на разходите/i,
+  balanceShare: /^3\.\s*Бюджетно салдо/i,
+  debtToOwnRevenue: /^4\.\s*Размер на дълга/i,
+  debtPerCapita: /^5\.\s*Просрочени задължения като процент/i,
+  arrearsToOwnRevenue: /^6\.\s*Население на един/i,
+  populationPerEmployee: /^7\.\s*Дял на разходите за заплати/i,
+  wageShare: /^8\.\s*Дял на капиталовите разходи/i,
+  capitalShare: /^9\./,
+  revenue: /^Общински приходи по чл\.?\s*45/i,
+  expenditure: /^Общински разходи по чл\.?\s*45/i,
+  budgetBalance: /^Бюджетно салдо/i,
+  cashOnHand: /^Налични средства/i,
+  debtStock: /^Размер на общинския дълг/i,
+  arrears: /^Просрочени задължения по бюджет/i,
+  expenseObligations: /^Задължения за разходи по бюджет/i,
+  commitments: /^Поети ангажименти за разходи по бюджет/i,
+  arrearsRatio: /^Дял на просрочените задължения/i,
+  obligationsRatio: /^Дял на задълженията за разходи/i,
+  commitmentsRatio: /^Дял на поетите ангажименти/i,
 } as const;
 
-/** Single-column fields, all on the year-end period. */
-const COLLECTION_COL = { dni: 63, dprs: 64, avg: 65 } as const;
+const COLLECTION_TITLES = {
+  dni: /^Събираемост на данъка?\s+върху недвижимите имоти/i,
+  dprs: /^Събираемост на данъка?\s+върху превозните средства/i,
+  // No `\b` anywhere in these patterns: JS word boundaries are defined on
+  // ASCII word characters, so between a Cyrillic letter and a space there is
+  // no boundary at all and the match silently fails.
+  avg: /^Осреднен[оаи].*събираемост/i,
+} as const;
+
+export type GroupKey = keyof typeof GROUP_TITLES;
+/** 1-based first column per group. `null` for a group this era omits — only
+ *  `cashOnHand` is legitimately absent (the pre-2024 releases publish no
+ *  „Налични средства" group), and every other absence is an error. */
+export type ColumnMap = Record<GroupKey, number | null> & {
+  collection: Record<keyof typeof COLLECTION_TITLES, number | null>;
+};
+
+/** The РМС 436/2017 indicator groups. The 2016 release ships eight of the nine,
+ *  so they are read where present and left null where not — unlike the money
+ *  groups, whose absence is fatal. */
+const INDICATOR_GROUPS: GroupKey[] = [
+  "revenueShare",
+  "localCoverage",
+  "balanceShare",
+  "debtToOwnRevenue",
+  "debtPerCapita",
+  "arrearsToOwnRevenue",
+  "populationPerEmployee",
+  "wageShare",
+  "capitalShare",
+];
+
+/** Groups whose absence means we are not reading this workbook correctly. The
+ *  three stocks are the point of the corpus; the rest anchor the layout. */
+const REQUIRED_GROUPS: GroupKey[] = [
+  "revenue",
+  "expenditure",
+  "budgetBalance",
+  "debtStock",
+  "arrears",
+  "expenseObligations",
+  "commitments",
+];
+
+const norm = (v: unknown): string =>
+  v == null ? "" : String(v).replace(/\s+/g, " ").trim();
+
+export const resolveColumns = (titleRow: readonly unknown[]): ColumnMap => {
+  const found = {} as Record<GroupKey, number | null>;
+  for (const key of Object.keys(GROUP_TITLES) as GroupKey[]) {
+    const re = GROUP_TITLES[key];
+    // FIRST match wins, and the patterns are start-anchored, so a ratio title
+    // cannot claim its money group's slot.
+    const at = titleRow.findIndex((c) => re.test(norm(c)));
+    found[key] = at === -1 ? null : at + 1;
+  }
+  const collection = {} as Record<
+    keyof typeof COLLECTION_TITLES,
+    number | null
+  >;
+  for (const key of Object.keys(
+    COLLECTION_TITLES,
+  ) as (keyof typeof COLLECTION_TITLES)[]) {
+    const at = titleRow.findIndex((c) => COLLECTION_TITLES[key].test(norm(c)));
+    collection[key] = at === -1 ? null : at + 1;
+  }
+  const missing = REQUIRED_GROUPS.filter((k) => found[k] == null);
+  if (missing.length > 0) {
+    throw new Error(
+      `municipal_fiscal: header row 1 names no column for ${missing.join(", ")} — ` +
+        "this is not a layout of the индикатори sheet we recognise",
+    );
+  }
+  // The money groups must appear in this order. Out of order means two
+  // patterns matched each other's column, which the period check would not
+  // catch — every group would still align, just against the wrong figures.
+  const seq = REQUIRED_GROUPS.map((k) => found[k] as number);
+  for (let i = 1; i < seq.length; i++) {
+    if (seq[i] <= seq[i - 1]) {
+      throw new Error(
+        `municipal_fiscal: money groups are out of order (${REQUIRED_GROUPS[i - 1]}=c${seq[i - 1]}, ` +
+          `${REQUIRED_GROUPS[i]}=c${seq[i]}) — two title patterns matched the same region`,
+      );
+    }
+  }
+  return { ...found, collection };
+};
 
 const HEADER_ROWS_POKAZATELI = 2;
 /** The recovery sheet carries two extra marker rows above the same header. */
 const HEADER_ROWS_RECOVERY = 4;
 
-const PERIOD_RE = /^(20\d{2})\s*Q([1-4])$/;
+/** Two spellings, a decade apart and both live in the cache: „2022 Q1" from
+ *  2022 onward and „Q1-2021 г." before it. One regex with the year on either
+ *  side, because a parser that knows only the newer one reads every pre-2022
+ *  release as „no periods in the header" — which reports as an unsupported era
+ *  rather than as a label it could have read. */
+const PERIOD_RE =
+  /^(?:(20\d{2})\s*Q([1-4])|Q([1-4])\s*-\s*(20\d{2})(?:\s*г\.?)?)$/;
 
 export const parsePeriodLabel = (
   raw: unknown,
@@ -75,9 +186,13 @@ export const parsePeriodLabel = (
   const label = String(raw ?? "").trim();
   const m = PERIOD_RE.exec(label);
   if (!m) return null;
+  // Groups 1-2 are the „2022 Q1" spelling, 3-4 the „Q1-2021 г." one — and they
+  // are in the OPPOSITE order, so reading m[1]/m[2] blindly would give a
+  // fiscalYear of 1 and a quarter of 2021 for every pre-2022 release.
+  const [year, quarter] = m[1] != null ? [m[1], m[2]] : [m[4], m[3]];
   return {
-    fiscalYear: Number(m[1]),
-    quarter: Number(m[2]) as 1 | 2 | 3 | 4,
+    fiscalYear: Number(year),
+    quarter: Number(quarter) as 1 | 2 | 3 | 4,
     label,
   };
 };
@@ -143,9 +258,10 @@ export const currencyFromTitle = (title: unknown): "BGN" | "EUR" | null => {
  *  group repeats the same sequence, so the first group defines it. */
 export const readPeriods = (
   headerRow: readonly unknown[],
+  anchor: number,
 ): MunicipalFiscalPeriod[] => {
   const out: MunicipalFiscalPeriod[] = [];
-  for (let c = GROUP.revenueShare; c < GROUP.revenueShare + 3; c++) {
+  for (let c = anchor; c < anchor + 3; c++) {
     const p = parsePeriodLabel(headerRow[c - 1]);
     if (p) out.push(p);
   }
@@ -172,17 +288,28 @@ export const parseRecoverySheet = (rows: readonly unknown[][]): Set<number> => {
   return out;
 };
 
-const indicatorsAt = (r: readonly unknown[], i: number): Rms436Indicators => ({
-  revenueSharePct: pct(r[GROUP.revenueShare - 1 + i]),
-  localCoveragePct: pct(r[GROUP.localCoverage - 1 + i]),
-  balanceSharePct: pct(r[GROUP.balanceShare - 1 + i]),
-  debtToOwnRevenuePct: pct(r[GROUP.debtToOwnRevenue - 1 + i]),
-  debtPerCapita: num(r[GROUP.debtPerCapita - 1 + i]),
-  arrearsToOwnRevenuePct: pct(r[GROUP.arrearsToOwnRevenue - 1 + i]),
-  populationPerEmployee: num(r[GROUP.populationPerEmployee - 1 + i]),
-  wageSharePct: pct(r[GROUP.wageShare - 1 + i]),
-  capitalSharePct: pct(r[GROUP.capitalShare - 1 + i]),
-});
+const indicatorsAt = (
+  r: readonly unknown[],
+  i: number,
+  g: ColumnMap,
+): Rms436Indicators => {
+  // An indicator group this era omits reads null rather than reading whatever
+  // sits at a guessed offset. Only the РМС indicators may be absent; the money
+  // groups are required and `resolveColumns` has already refused without them.
+  const at = (k: GroupKey) =>
+    g[k] == null ? null : r[(g[k] as number) - 1 + i];
+  return {
+    revenueSharePct: pct(at("revenueShare")),
+    localCoveragePct: pct(at("localCoverage")),
+    balanceSharePct: pct(at("balanceShare")),
+    debtToOwnRevenuePct: pct(at("debtToOwnRevenue")),
+    debtPerCapita: num(at("debtPerCapita")),
+    arrearsToOwnRevenuePct: pct(at("arrearsToOwnRevenue")),
+    populationPerEmployee: num(at("populationPerEmployee")),
+    wageSharePct: pct(at("wageShare")),
+    capitalSharePct: pct(at("capitalShare")),
+  };
+};
 
 /** Средногодишни разходи за 4 г. — the чл. 130а т. 2/т. 3 denominator, which the
  *  workbook does not publish. Recovered from the commitments pair, falling back
@@ -215,7 +342,34 @@ export const parsePokazateli = (
 ): ParsedWorkbook => {
   const warnings: string[] = [];
   const header = rows[HEADER_ROWS_POKAZATELI - 1] ?? [];
-  const periods = readPeriods(header);
+  // Resolved from the titles BEFORE anything is read, so every offset below is
+  // this workbook's own rather than the newest era's.
+  const g = resolveColumns(rows[0] ?? []);
+  // The period sequence is defined by the first group that HAS one — the 2016
+  // release omits an РМС indicator, so anchoring on a fixed column would read
+  // the sequence from the wrong place.
+  const anchor =
+    INDICATOR_GROUPS.map((k) => g[k]).find((c): c is number => c != null) ??
+    (g.revenue as number);
+  const periods = readPeriods(header, anchor);
+  // The three must be DISTINCT, and this guard is not pedantry — it is the one
+  // thing standing between us and a silently misread corpus.
+  //
+  // The Q4-anchored releases publish TWO periods per group, not three. Read
+  // 3-wide, group N's third column is group N+1's first — so the sequence
+  // comes back [Q4-2018, Q4-2019, Q4-2018] and EVERY group then satisfies the
+  // alignment check below, because every group really does start Q4-2018,
+  // Q4-2019 and is followed by another Q4-2018. The layout check passes, the
+  // periods look plausible, and every figure from the second column onward is
+  // attributed to the wrong group. Requiring distinctness is what turns that
+  // into an unsupported era instead of a wrong number.
+  if (new Set(periods.map((p) => p.label)).size !== periods.length) {
+    throw new Error(
+      `municipal_fiscal: header row ${HEADER_ROWS_POKAZATELI} repeats a period ` +
+        `(${periods.map((p) => p.label).join(", ")}) — this is a 2-period ` +
+        "Q4-anchored release, whose groups are not 3 columns wide",
+    );
+  }
   if (periods.length !== 3) {
     throw new Error(
       `municipal_fiscal: expected 3 period columns in header row ${HEADER_ROWS_POKAZATELI}, got ${periods.length}` +
@@ -227,17 +381,39 @@ export const parsePokazateli = (
   // evidence is already in the header row being read, and an unchecked
   // extrapolation here is exactly the off-by-one that attributes one quarter's
   // money to another — the defect class this module exists to prevent.
-  for (const [name, first] of Object.entries(GROUP)) {
-    for (let i = 0; i < 3; i++) {
-      const got = parsePeriodLabel(header[first - 1 + i]);
-      if (got?.label !== periods[i].label) {
-        throw new Error(
-          `municipal_fiscal: group „${name}" column ${first + i} is ` +
-            `„${got?.label ?? String(header[first - 1 + i] ?? "")}", expected „${periods[i].label}" — ` +
-            "the workbook's column layout has changed; re-read the column map before trusting any figure",
-        );
-      }
+  const aligned = (first: number): boolean =>
+    periods.every(
+      (p, i) => parsePeriodLabel(header[first - 1 + i])?.label === p.label,
+    );
+
+  for (const [name, first] of Object.entries(g)) {
+    // `collection` is single-column and `cashOnHand` may be absent; neither
+    // repeats the period sequence.
+    if (typeof first !== "number") continue;
+    if (aligned(first)) continue;
+
+    // A misaligned РМС INDICATOR is dropped, not fatal. The 2016 release
+    // numbers its indicators differently, and those nine columns are secondary
+    // — nulling one costs a derived percentage nobody charts, while rejecting
+    // the file costs four quarters of the three stocks this corpus exists for.
+    // The money and ratio groups stay strict: a shift there is the
+    // misattribution the whole module is built to prevent.
+    if ((INDICATOR_GROUPS as string[]).includes(name)) {
+      g[name as GroupKey] = null;
+      warnings.push(
+        `${opts.sourceFile}: РМС indicator „${name}" does not align with the ` +
+          "period sequence — dropped for this release rather than read at a " +
+          "guessed offset",
+      );
+      continue;
     }
+
+    const got = parsePeriodLabel(header[first - 1]);
+    throw new Error(
+      `municipal_fiscal: group „${name}" column ${first} is ` +
+        `„${got?.label ?? String(header[first - 1] ?? "")}", expected „${periods[0].label}" — ` +
+        "the workbook's column layout has changed; re-read the column map before trusting any figure",
+    );
   }
 
   // The unit is declared per money GROUP in row 1. Prefer what the source says;
@@ -246,15 +422,15 @@ export const parsePokazateli = (
   // changeover a wrong guess understates two thirds of a file by ~49%.
   const titleRow = rows[0] ?? [];
   const MONEY_GROUPS = [
-    GROUP.revenue,
-    GROUP.expenditure,
-    GROUP.budgetBalance,
-    GROUP.cashOnHand,
-    GROUP.debtStock,
-    GROUP.arrears,
-    GROUP.expenseObligations,
-    GROUP.commitments,
-  ];
+    g.revenue,
+    g.expenditure,
+    g.budgetBalance,
+    g.cashOnHand,
+    g.debtStock,
+    g.arrears,
+    g.expenseObligations,
+    g.commitments,
+  ].filter((c): c is number => c != null);
   const declared = [
     ...new Set(
       MONEY_GROUPS.map((c) => currencyFromTitle(titleRow[c - 1])).filter(
@@ -314,18 +490,29 @@ export const parsePokazateli = (
     periods.forEach((period, i) => {
       const inferred = currencyForYear(period.fiscalYear);
       const currency = declaredUnit ?? inferred;
-      const m = (col: number) => money(r[col - 1 + i], currency);
+      // A group this era omits reads null rather than reading a guessed
+      // offset — `cashOnHand` is the one that is legitimately absent before
+      // 2024, and reading it anyway would silently import the debt column.
+      const m = (col: number | null) =>
+        col == null ? null : money(r[col - 1 + i], currency);
+      const at = (col: number | null) => (col == null ? null : r[col - 1 + i]);
       const ratios = {
-        arrearsPct: pct(r[GROUP.arrearsRatio - 1 + i]),
-        obligationsPct: pct(r[GROUP.obligationsRatio - 1 + i]),
-        commitmentsPct: pct(r[GROUP.commitmentsRatio - 1 + i]),
+        arrearsPct: pct(at(g.arrearsRatio)),
+        obligationsPct: pct(at(g.obligationsRatio)),
+        commitmentsPct: pct(at(g.commitmentsRatio)),
       };
       const collection: CollectionRates | null =
         i === collectionPeriodIdx
           ? {
-              dniPct: pct(r[COLLECTION_COL.dni - 1]),
-              dprsPct: pct(r[COLLECTION_COL.dprs - 1]),
-              avgPct: pct(r[COLLECTION_COL.avg - 1]),
+              dniPct: pct(
+                g.collection.dni == null ? null : r[g.collection.dni - 1],
+              ),
+              dprsPct: pct(
+                g.collection.dprs == null ? null : r[g.collection.dprs - 1],
+              ),
+              avgPct: pct(
+                g.collection.avg == null ? null : r[g.collection.avg - 1],
+              ),
             }
           : null;
 
@@ -335,17 +522,17 @@ export const parsePokazateli = (
         nameBg,
         fiscalYear: period.fiscalYear,
         quarter: period.quarter,
-        commitments: m(GROUP.commitments),
-        expenseObligations: m(GROUP.expenseObligations),
-        arrears: m(GROUP.arrears),
-        revenue: m(GROUP.revenue),
-        expenditure: m(GROUP.expenditure),
-        budgetBalance: m(GROUP.budgetBalance),
-        cashOnHand: m(GROUP.cashOnHand),
-        debtStock: m(GROUP.debtStock),
+        commitments: m(g.commitments),
+        expenseObligations: m(g.expenseObligations),
+        arrears: m(g.arrears),
+        revenue: m(g.revenue),
+        expenditure: m(g.expenditure),
+        budgetBalance: m(g.budgetBalance),
+        cashOnHand: m(g.cashOnHand),
+        debtStock: m(g.debtStock),
         ratios,
         ratioBasis: ratioBasisFor(period.quarter),
-        indicators: indicatorsAt(r, i),
+        indicators: indicatorsAt(r, i, g),
         collection,
         inRecoveryProcedure: inRecovery.has(mf),
         sourceFile: opts.sourceFile,

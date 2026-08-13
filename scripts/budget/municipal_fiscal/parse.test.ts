@@ -41,13 +41,47 @@ const CROSSWALK = new Map([
   [7200, "SOF00"],
 ]);
 
-/** Row 1 carries the group titles, and their trailing unit label is what the
- *  parser reads for the currency. One label per group governs its three period
- *  columns — the unit is a property of the GROUP, not of the period. */
+/** Row 1 carries the group titles. They are load-bearing twice over: the
+ *  parser RESOLVES the column map from them (МФ has shipped four layouts), and
+ *  their trailing unit label is what it reads for the currency. One label per
+ *  group governs its three period columns — the unit is a property of the
+ *  GROUP, not of the period.
+ *
+ *  These are the real 2024-era titles at the real 2024-era offsets, so the
+ *  fixture exercises the resolver rather than bypassing it. */
+const GROUP_TITLE: Record<number, string> = {
+  3: "1. Дял на приходите от общите постъпления",
+  6: "2. Покритие на разходите за местни дейности",
+  9: "3. Бюджетно салдо спрямо общите постъпления",
+  12: "4. Размер на дълга, като процент",
+  15: "5. Просрочени задължения като процент",
+  18: "6. Население на един общински служител",
+  21: "7. Дял на разходите за заплати и осигуровки",
+  24: "8. Дял на капиталовите разходи",
+  27: "9. Дял на капиталовите разходи в общите",
+  30: "Общински приходи по чл. 45, ал. 1, т. 1 от ЗПФ",
+  33: "Общински разходи по чл. 45, ал. 1, т. 2 от ЗПФ",
+  36: "Бюджетно салдо",
+  39: "Налични средства по бюджета",
+  42: "Размер на общинския дълг",
+  45: "Просрочени задължения по бюджет",
+  48: "Задължения за разходи по бюджет",
+  51: "Поети ангажименти за разходи по бюджет",
+  54: "Дял на просрочените задължения по бюджета",
+  57: "Дял на задълженията за разходи по бюджета",
+  60: "Дял на поетите ангажименти по бюджета",
+  63: "Събираемост на данък върху недвижимите имоти (%)",
+  64: "Събираемост на данък върху превозните средства (%)",
+  65: "Осреднена събираемост на двата данъка",
+};
+
+const MONEY_TITLE_COLS = [30, 33, 36, 39, 42, 45, 48, 51];
+
 const titleRow = (unit = "(в лв.)"): unknown[] => {
   const r: unknown[] = new Array(65).fill(null);
-  for (const c of [30, 33, 36, 39, 42, 45, 48, 51]) {
-    r[c - 1] = `Група ${c} ${unit}`;
+  for (const [c, title] of Object.entries(GROUP_TITLE)) {
+    const col = Number(c);
+    r[col - 1] = MONEY_TITLE_COLS.includes(col) ? `${title} ${unit}` : title;
   }
   return r;
 };
@@ -101,7 +135,12 @@ describe("parsePeriodLabel", () => {
 
 describe("readPeriods", () => {
   it("takes the periods from the header row, not the filename", () => {
-    expect(readPeriods(headerRow(["2019 Q3", "2019 Q4", "2020 Q3"]))).toEqual([
+    // The anchor is now passed in: it is the first indicator group this era
+    // actually has, because the 2016 release omits one and a fixed column
+    // would read the sequence from the wrong place.
+    expect(
+      readPeriods(headerRow(["2019 Q3", "2019 Q4", "2020 Q3"]), 3),
+    ).toEqual([
       { fiscalYear: 2019, quarter: 3, label: "2019 Q3" },
       { fiscalYear: 2019, quarter: 4, label: "2019 Q4" },
       { fiscalYear: 2020, quarter: 3, label: "2020 Q3" },
@@ -299,8 +338,12 @@ describe("parsePokazateli", () => {
   });
 
   it("warns when no unit is declared and falls back to the year rule", () => {
+    // Titles present but carrying NO unit suffix — „no unit declared" is a
+    // property of the title text, not of the title row being absent. An empty
+    // row would fail the resolver instead, which is a different case with its
+    // own test.
     const rows = [
-      new Array(65).fill(null),
+      titleRow(""),
       headerRow(["2024 Q3", "2024 Q4", "2025 Q3"]),
       FULL_ROW(),
     ];
@@ -326,12 +369,26 @@ describe("parsePokazateli", () => {
   });
 
   it("refuses a sheet whose header carries no periods", () => {
+    // Titles present so the column map resolves — otherwise this trips the
+    // resolver's own guard and stops testing the period check it names.
+    expect(() =>
+      parsePokazateli([titleRow(), [], row({ 1: 5101 })], {
+        sourceFile: "bad.xlsx",
+        crosswalk: CROSSWALK,
+      }),
+    ).toThrow(/expected 3 period columns/);
+  });
+
+  it("refuses a sheet whose titles name no money groups", () => {
+    // The resolver's own guard, and the one that keeps a 2016 layout from
+    // being read with the 2024 map: no titles means no anchor, and guessing
+    // offsets is how „задължения" gets published as „просрочени".
     expect(() =>
       parsePokazateli([[], [], row({ 1: 5101 })], {
         sourceFile: "bad.xlsx",
         crosswalk: CROSSWALK,
       }),
-    ).toThrow(/expected 3 period columns/);
+    ).toThrow(/names no column for revenue/);
   });
 });
 

@@ -1,8 +1,128 @@
 {
-  "generatedAt": "2026-08-13T07:33:41.517Z",
+  "generatedAt": "2026-08-13T07:54:08.790Z",
   "source": "minfin.bg/bg/810 — Финансови показатели за общините (ЗПФ чл. 130г ал. 2); manually downloaded (Cloudflare blocks automation), parsed by scripts/budget/municipal_fiscal/",
   "newestQuarter": "2025-Q3",
   "quarters": [
+    {
+      "period": "2016-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2016-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2016-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2016-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2017-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2017-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2017-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2017-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2018-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2018-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2018-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2018-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2019-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2019-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2019-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2019-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2020-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2020-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2020-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2020-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2021-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2021-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2021-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2021-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2022-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2022-Q2",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2022-Q3",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2022-Q4",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2023-Q1",
+      "municipalityCount": 265
+    },
+    {
+      "period": "2023-Q4",
+      "municipalityCount": 265
+    },
     {
       "period": "2024-Q1",
       "municipalityCount": 265
@@ -33,12 +153,52 @@
     }
   ],
   "sourceFiles": [
+    "01 quarterly reports Q12020-Q42020-Q12021-website.xlsx",
+    "01 quarterly reports Q22020-Q42020-Q22021-website.xlsx",
+    "01 quarterly reports Q22021-Q42021-Q22022-website.xlsx",
+    "01 quarterly reports Q32019-Q42019-Q32020-website.xlsx",
+    "01-quarterly reports Q22019-Q42019-Q22020-website.xlsx",
     "1. quarterly-reports-Q22024-Q42024-Q22025-website.xlsx",
     "1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx",
-    "3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx"
+    "3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx",
+    "Quarterly reports Q32016-Q42016-Q32017.xlsx",
+    "quarterly reports Q12016-Q42016-Q12017-site.xlsx",
+    "quarterly reports Q12017-Q42017-Q12018-za saita.xlsx",
+    "quarterly reports Q12018-Q42018-Q12019-site.xlsx",
+    "quarterly reports Q12019-Q42019-Q12020-website.xlsx",
+    "quarterly reports Q12021-Q42021-Q12022-website.xlsx",
+    "quarterly reports Q12022-Q42022-Q12023-website.xlsx",
+    "quarterly reports Q22016-Q42016-Q22017- za saita.xlsx",
+    "quarterly reports Q22017-Q42017-Q22018- za saita.xlsx",
+    "quarterly reports Q22018-Q42018-Q22019.xlsx",
+    "quarterly reports Q32017-Q42017-Q32018-za saita.xlsx",
+    "quarterly reports Q32018-Q42018-Q32019.xlsx",
+    "quarterly reports Q32021-Q42021-Q32022.xlsx",
+    "quarterly-reports-Q12023-Q42023-Q12024-website.xlsx"
   ],
   "anomalies": [
-    "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter"
+    "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter",
+    "2022-Q1 differs between releases on expenseObligations, commitments — keeping the later one („quarterly reports Q12022-Q42022-Q12023-website.xlsx\")",
+    "2024-Q1 differs between releases on cashOnHand — keeping the later one („3. quarterly-reports-Q12024-Q42024-Q12025-website.xlsx\")"
   ],
-  "warnings": []
+  "warnings": [
+    "01 quarterly reports Q12020-Q42020-Q12021-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "01 quarterly reports Q22020-Q42020-Q22021-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "01 quarterly reports Q22021-Q42021-Q22022-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "01 quarterly reports Q32019-Q42019-Q32020-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "01-quarterly reports Q22019-Q42019-Q22020-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "Quarterly reports Q32016-Q42016-Q32017.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q12016-Q42016-Q12017-site.xlsx: quarterly reports Q12016-Q42016-Q12017-site.xlsx: РМС indicator „arrearsToOwnRevenue\" does not align with the period sequence — dropped for this release rather than read at a guessed offset",
+    "quarterly reports Q12016-Q42016-Q12017-site.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q12017-Q42017-Q12018-za saita.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q12018-Q42018-Q12019-site.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q12019-Q42019-Q12020-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q12021-Q42021-Q12022-website.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q22016-Q42016-Q22017- za saita.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q22017-Q42017-Q22018- za saita.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q22018-Q42018-Q22019.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q32017-Q42017-Q32018-za saita.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q32018-Q42018-Q32019.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)",
+    "quarterly reports Q32021-Q42021-Q32022.xlsx: no unit declared in row 1 of any money group — falling back to the year rule (лв. through 2025, евро from 2026)"
+  ]
 }

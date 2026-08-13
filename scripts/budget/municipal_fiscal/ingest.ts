@@ -61,7 +61,15 @@ const DROP_DIR = resolve(
 );
 const OUT_DIR = resolve(__dirname, "../../../data/budget/municipal_fiscal");
 
-const SHEET_POKAZATELI = "показатели";
+/** The indicator sheet has been called four things across the cached decade.
+ *  Tried in order; the first that exists wins. „показатели" is last because it
+ *  is the newest and the others are unambiguous. */
+const SHEET_POKAZATELI_CANDIDATES = [
+  "за сайта",
+  "фин. показатели",
+  "общини",
+  "показатели",
+];
 const SHEET_RECOVERY = "общини фин. оздр.";
 
 /** A workbook from an era this parser does not support — the ONLY condition
@@ -142,6 +150,17 @@ const readWorkbook = (file: string): FileParse => {
   const wb = XLSX.read(readFileSync(resolve(DROP_DIR, file)), {
     type: "buffer",
   });
+  /** First candidate sheet that exists, case-insensitively. Returns null when
+   *  none does, so the caller can name the era rather than one missing name. */
+  const findSheet = (names: readonly string[]): string | null => {
+    const keys = Object.keys(wb.Sheets);
+    for (const n of names) {
+      const k = keys.find((x) => x.toLowerCase() === n.toLowerCase());
+      if (k) return k;
+    }
+    return null;
+  };
+
   const grid = (name: string): unknown[][] => {
     // Sheet lookup is CASE-SENSITIVE and МФ has shipped „Показатели" with a
     // capital П, so a case-blind match is the difference between an era we
@@ -166,8 +185,22 @@ const readWorkbook = (file: string): FileParse => {
   // Probe the indicators sheet FIRST: it is the one whose absence defines the
   // era, and reporting „no общини фин. оздр. sheet" for a 2016 workbook names
   // the wrong reason.
-  const pokazateli = grid(SHEET_POKAZATELI);
-  const inRecovery = parseRecoverySheet(grid(SHEET_RECOVERY));
+  const sheetName = findSheet(SHEET_POKAZATELI_CANDIDATES);
+  if (!sheetName)
+    throw new UnsupportedEraError(
+      file,
+      "no-sheet",
+      `none of ${SHEET_POKAZATELI_CANDIDATES.map((n) => `„${n}"`).join(", ")} ` +
+        `(has: ${Object.keys(wb.Sheets).slice(0, 4).join(", ")})`,
+    );
+  const pokazateli = grid(sheetName);
+  // The чл. 130д sheet only appears in the later releases. Its absence is not
+  // an unsupported era — it means „no recovery list published with this
+  // workbook", which is a fact about the release rather than about our parser.
+  const recoveryKey = findSheet([SHEET_RECOVERY]);
+  const inRecovery = recoveryKey
+    ? parseRecoverySheet(grid(recoveryKey))
+    : new Set<number>();
   let out;
   try {
     out = parsePokazateli(pokazateli, { sourceFile: file, inRecovery });
@@ -176,7 +209,11 @@ const readWorkbook = (file: string): FileParse => {
     // is the dangerous kind, because the sheet looked right. Classified
     // separately so it can never be read as ordinary archive noise.
     const msg = (e as Error).message;
-    if (/column layout has changed|expected \d+ period columns/.test(msg)) {
+    if (
+      /column layout has changed|expected \d+ period columns|repeats a period|names no column for|money groups are out of order/.test(
+        msg,
+      )
+    ) {
       throw new UnsupportedEraError(file, "column-map", msg);
     }
     throw e;
