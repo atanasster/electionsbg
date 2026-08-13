@@ -89,6 +89,33 @@ export const isExcluded = (rel: string): string | null => {
   // parliament/photos/*.webp binaries STAY on the bucket (Decision 3).
   if (rel === "parliament/index.json")
     return "parliament/index.json is a PG load source, served from Cloud SQL — never upload it";
+  // The three MP↔company shard families, retired by mp-tr-edges-pg-v1. Unlike most entries
+  // here these are not load sources either — nothing on disk or at build time reads them any
+  // more (step 4 cut augment_mp_roles' loop, which was the last reader). They are served by
+  // mp_tr_roles (150) and place_mp_companies (151) instead, from the GATED person layer, so
+  // the bucket copies do not merely go stale: they publish 410 attributions that rest on a
+  // name the Commerce Registry says belongs to more than one human, which every other surface
+  // has stopped making.
+  if (
+    rel.startsWith("parliament/mp-management") ||
+    rel.startsWith("parliament/companies-by-ekatte") ||
+    rel.startsWith("parliament/companies-by-obshtina")
+  )
+    return "parliament/{mp-management,companies-by-ekatte,companies-by-obshtina}/ are retired — served from Cloud SQL (migrations 150/151)";
+  // ⚠️ THE OBJECTS ARE STILL ON THE BUCKET, AND NO SYNC WILL EVER REMOVE THEM. `gsutil rsync
+  // -x` excludes a match from DELETION as well as from upload ("not copied or deleted" —
+  // gsutil's own help), and syncPaths passes `-x` together with `-d`. So the exclusion above
+  // freezes these 1,542 objects rather than retiring them, exactly as the 2026-07-29 exclusion
+  // froze parliament/company-connections/. Removing them is an explicit, operator-run:
+  //
+  //   gsutil -m rm -r gs://<bucket>/parliament/mp-management \
+  //                   gs://<bucket>/parliament/companies-by-ekatte \
+  //                   gs://<bucket>/parliament/companies-by-obshtina
+  //
+  // Scoping a sync to the trees instead does not work either — isExcluded refuses them as a
+  // top-level argument, by design. Until that rm runs, the bucket keeps serving 410
+  // attributions the site has otherwise retracted; nothing reads them, but nothing removes
+  // them either.
   // Per-MP declaration + assets-rollup shards: served from Cloud SQL (mp_declarations()/
   // mp_assets(), /api/db/mp-declarations + mp-assets) since persons-pg-retirement-v1 T2.1b. Kept
   // on disk only as the parity-test reference (mp_serving / mp_declarations_assets gates); the
@@ -169,6 +196,9 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // Under the still-served parliament/ parent (photos/*.webp), so a scoped
   // `bucket:sync:paths -- parliament` must not re-upload the PG-served profile shards
   // or the roster.
+  { path: "parliament/mp-management", isDir: true },
+  { path: "parliament/companies-by-ekatte", isDir: true },
+  { path: "parliament/companies-by-obshtina", isDir: true },
   { path: "parliament/profiles", isDir: true },
   { path: "parliament/index.json", isDir: false },
   { path: "parliament/declarations", isDir: true },

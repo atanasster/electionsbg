@@ -75,11 +75,11 @@ All under `public/parliament/`:
 |---|---|---|
 | `declarations/{mpId}.json` × ~600 | ~3.6 MB total | One file per MP. Carries the **full** stake schema for `MpFinancialDeclarations`. |
 | `companies-index.json` | 1.1 MB / 89 KB / 48 KB | Aggregate by company. Per-stake fields trimmed to `CompanyIndexStake` projection — see "Why two stake schemas". |
-| `mp-management/{mpId}.json` × ~440 | ~2.0 MB total | TR-derived management roles per MP, with confidence. Empty without TR. |
+| `mp-management/{mpId}.json` *(NO LONGER WRITTEN)* | Retired by mp-tr-edges-pg-v1 — `/api/db/mp-management` (migration 150) serves an MP's registry roles from the gated person layer instead, refusing names the Commerce Registry records for more than one person. `integrate.ts` phase 2, which wrote these, is deleted |
 | `connections.json` | 2.5 MB / 218 KB / 136 KB | Cross-MP/company/person graph for `/connections`. Lazily fetched on that route only. |
 | `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
 | `connections-rankings.json` | 791 KB / 74 KB / 55 KB | Top-MPs / top-companies for the dashboard tile + `/connections` rankings card. **Loaded on every dashboard view** — keep it lean. |
-| `companies-by-ekatte/{ekatte}-summary.json` × ~97 + `{ekatte}-page-NNN.json` paginated (50 companies / page) + `index.json` | ~1 MB total | Per-settlement shards backing the "Companies HQ'd here (MP-linked)" tile on settlement and Sofia capital pages, and the paginated detail screen at `/settlement/:id/companies` (or `/sofia/companies`). Sofia (`68134`) is the only place that needs >1 page today (7). Built from `companies-index.json`'s `ekatteHQ[]` field by `scripts/parliament/build_companies_by_settlement.ts`, after the connections-graph pass populates `mpRoles`. |
+| `companies-by-{ekatte,obshtina}/…` *(NO LONGER WRITTEN)* | Retired by mp-tr-edges-pg-v1 — `/api/db/place-mp-companies` (migration 151) serves these from the gated person layer, covering 1,332 settlements against the shards' 176. Both builders are deleted |
 | `company-connections/{eik}.json` × ~6,900 (gitignored — `data/parliament/`) + `company-connections-stats.json` | ~25 MB total / 350 B | Per-EIK Commerce-Registry connections to people in power — read by `/company/:eik`. Lists the company's officers who personally hold public office (direct) and politicians reached one company-hop away (bridged). Built by `scripts/declarations/tr/build_company_connections.ts` from `state.sqlite` + `connections-search.json` + the executive & municipal officials indexes. The per-EIK dir is a regenerable build artifact (uploaded via `bucket:sync`); the stats summary IS committed. |
 
 The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
@@ -228,13 +228,19 @@ When a new filing season opens (typically May for prior fiscal year):
 7. **Commit**:
    ```bash
    git add data/parliament/declarations data/parliament/companies-index.json \
-           data/parliament/mp-management data/parliament/connections.json \
+           data/parliament/connections.json \
            data/parliament/mp-connections data/parliament/connections-rankings.json \
            data/governance/declarations_hub_stats.json
    git commit -m "Refresh declarations for 2026 filing year"
    ```
    (The tree is `data/parliament/`, not `public/parliament/` — that path holds only `votes`,
    so the older form of this block failed on its first argument.)
+
+   `data/parliament/mp-management` is deliberately NOT in that list any more: it is gitignored
+   since mp-tr-edges-pg-v1 and `git add` exits 1 on it ("paths are ignored"). Note the failure
+   mode if it comes back — the other pathspecs still stage, so the commit succeeds and only the
+   non-zero exit says anything went wrong. `/api/db/mp-management` serves that data now
+   (migration 150) and the shards are no longer written at all.
 
 ## Data-integrity contract
 

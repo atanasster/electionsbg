@@ -269,6 +269,18 @@ functions/.secret.local
 # uploaded to the bucket, not committed. The company-connections-stats.json
 # summary IS committed.
 /data/parliament/company-connections/
+# The three MP↔company shard families, retired by mp-tr-edges-pg-v1. Served live from Cloud
+# SQL now (mp_tr_roles 150, place_mp_companies 151) off the GATED person layer, and unlike the
+# other entries here they are not load sources either — step 4 cut the last build-time reader.
+# Left on disk rather than deleted so two data tests can compare live coverage against what
+# the shards served: scripts/db/tests/place_mp_companies.data.test.ts and mp_tr_roles.data.test.ts.
+# Both WARN and skip that comparison when the directories are absent — they do not fail, so on
+# a fresh clone (or after `git clean -xfd`) that half of the gate is gone and the warning is
+# the only sign. Nothing regenerates them now that both writers are deleted; recovering them
+# means checking out a commit before bffcdc5527.
+/data/parliament/mp-management/
+/data/parliament/companies-by-ekatte/
+/data/parliament/companies-by-obshtina/
 
 # Bulky regenerable budget files — same convention as procurement above. The
 # small metadata (index.json, kfp.json, documents.json, classification/,

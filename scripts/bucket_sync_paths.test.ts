@@ -68,6 +68,50 @@ describe("isExcluded", () => {
   });
 });
 
+describe("the retired MP↔company shard families (mp-tr-edges-pg-v1)", () => {
+  const RETIRED_SHARDS = [
+    "parliament/mp-management",
+    "parliament/companies-by-ekatte",
+    "parliament/companies-by-obshtina",
+  ];
+
+  // THREE places in lockstep, not two. isExcluded guards a top-level argument; CHILD_EXCLUDES
+  // guards a scoped `bucket:sync:paths -- parliament` (which still runs, for photos/); the -x
+  // regex guards the full `bucket:sync`. Any one missing re-uploads all 1,542 files.
+  it("is refused by isExcluded, at the directory and at a file inside it", () => {
+    for (const dir of RETIRED_SHARDS) {
+      expect(isExcluded(dir)).toBeTruthy();
+      expect(isExcluded(`${dir}/anything.json`)).toBeTruthy();
+    }
+  });
+
+  it("is in the -x regex of BOTH bucket:sync and bucket:sync:dry", () => {
+    for (const frag of [
+      "mp-management",
+      "companies-by-ekatte",
+      "companies-by-obshtina",
+    ]) {
+      expect(pkg["bucket:sync"]).toContain(frag);
+      expect(pkg["bucket:sync:dry"]).toContain(frag);
+    }
+  });
+
+  it("a parliament-scoped dir sync cannot re-upload them", () => {
+    const rx = childExcludeRegexes("parliament");
+    for (const dir of RETIRED_SHARDS) {
+      const child = dir.slice("parliament/".length);
+      expect(rx).toContain(`^${child}/.*`);
+    }
+  });
+
+  // The load source they were derived FROM stays: companies-index.json is still read by
+  // /mp/companies and the procurement cross-reference, and augment_mp_roles still writes it.
+  it("spares companies-index.json and the photos the parent is still synced for", () => {
+    expect(isExcluded("parliament/companies-index.json")).toBeFalsy();
+    expect(isExcluded("parliament/photos/1.webp")).toBeFalsy();
+  });
+});
+
 describe("isExcluded — parliament PG-served families (T2.1b/T2.3/T2.4)", () => {
   it("refuses the retired parliament shard trees + roster", () => {
     for (const p of [

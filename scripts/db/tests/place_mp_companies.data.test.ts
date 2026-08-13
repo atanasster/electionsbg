@@ -103,7 +103,18 @@ test.skipIf(skip)(
     // minority rather than the common case. Per-company drift is test 1's job.
     for (const [kind, dir] of Object.entries(SHARDS)) {
       const places = shardPlaces(dir);
-      if (places === null) continue; // retired (step 5) — nothing to compare
+      if (places === null) {
+        // ⚠️ WARN, do not pass silently. Every assertion in this test lives inside this loop,
+        // so an absent directory means ZERO assertions ran and the file still reports green —
+        // the gate is not skipped, it is vacuous. The directories are gitignored and nothing
+        // regenerates them, so this is the state of any fresh clone.
+        console.warn(
+          `[place_mp_companies] ${dir} absent — the coverage comparison did not run. ` +
+            `The shard families are gitignored (see .gitignore); this half of the gate is ` +
+            `only live on a checkout that still has them.`,
+        );
+        continue;
+      }
       const col = kind === "ekatte" ? "ekatte" : "obshtina";
       const r = await one<{ served: string; kept: string; total: string }>(
         `SELECT (SELECT count(DISTINCT ${col}) FROM tr_company_place
