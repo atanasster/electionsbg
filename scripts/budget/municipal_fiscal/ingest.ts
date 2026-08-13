@@ -264,9 +264,28 @@ const main = () => {
     return;
   }
 
-  const parsed = files.map(readWorkbook);
+  // The drop directory legitimately holds MULTIPLE workbook formats — МФ's
+  // layout has changed four times since 2016 (see the README's era table), and
+  // the archive is kept as the backfill's input rather than because anything
+  // reads it yet. So an unparseable file is SKIPPED with its reason, not fatal:
+  // aborting would mean adding one historical workbook breaks the ingest of
+  // every current one. A file that parses but is malformed still throws.
+  const parsed: FileParse[] = [];
+  const unsupported: string[] = [];
+  for (const f of files) {
+    try {
+      parsed.push(readWorkbook(f));
+    } catch (e) {
+      unsupported.push(`${f}: ${(e as Error).message}`);
+    }
+  }
+  if (parsed.length === 0) {
+    throw new Error(
+      `no workbook in ${DROP_DIR} matches the supported layout:\n  ${unsupported.join("\n  ")}`,
+    );
+  }
   const warnings = parsed.flatMap((p) =>
-    p.warnings.map((w) => `${p.file}: ${w}`),
+    p.warnings.map((p2) => `${p.file}: ${p2}`),
   );
 
   // Coverage floor, per FILE (T1.4): a workbook with fewer municipalities than
@@ -295,7 +314,8 @@ const main = () => {
   const { byQuarter, anomalies } = buildQuarters(parsed);
   const quarters = [...byQuarter.keys()].sort();
 
-  console.log(`files    : ${files.length}`);
+  console.log(`files    : ${parsed.length} parsed of ${files.length} present`);
+  for (const u of unsupported) console.log(`  skipped ${u}`);
   console.log(`quarters : ${quarters.join(" · ")}`);
   for (const w of warnings) console.log(`  ⚠ ${w}`);
   for (const a of anomalies) console.log(`  ⚠ ${a}`);
@@ -334,7 +354,8 @@ const main = () => {
       period: q,
       municipalityCount: byQuarter.get(q)!.length,
     })),
-    sourceFiles: files,
+    sourceFiles: parsed.map((p) => p.file),
+    unsupportedFiles: unsupported,
     anomalies,
     warnings,
   };

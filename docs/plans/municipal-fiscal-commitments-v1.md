@@ -1091,6 +1091,44 @@ Say that in the copy; it is the reason the page exists and it is defensible.
 
 ---
 
+## T15 — The historical backfill is FOUR parsers, not one (2026-08-12)
+
+T7.2 assumed one naming rule and one layout back to 2019. The archive says
+otherwise. 27 releases are now cached locally (`data/_cache/minfin_municipal_fiscal/`,
+gitignored; its README carries the full column map per era), covering Q1-2016 →
+Q3-2025 — **nine year-ends, not the five T7.2 planned for**.
+
+**None of the pre-2024 files is ingestible by the current parser, and forcing it
+would be worse than not having them.** The money-group offsets shift by era
+(2021: приходи c27 / просрочени c39; 2022: c30 / c42; 2024: c30 / c45), so the
+2024 map reads `задължения` where `просрочени` belongs — a silent
+misattribution at a 200. The sheet name moves too (only 4 of 27 carry
+`показатели`), and so does the period label (`Q1-2021 г.` vs `2022 Q1`).
+
+So the backfill becomes its own tier, with an era table already measured:
+
+- **T15.1** — 2022–2023 (`показатели`, 62 cols). Closest to the current parser;
+  the column map is a constant shift. Yields Q4-2022, Q4-2023.
+- **T15.2** — 2021 (`показатели`, 59 cols). Same shape, second offset set, plus a
+  `PERIOD_RE` that accepts `Q1-2021 г.`. Yields Q4-2021.
+- **T15.3** — 2016–2020 (`за сайта` / `общини` / `фин. показатели` / `OLAP-2020`).
+  A different layout; survey before estimating. Yields Q4-2016 … Q4-2020.
+- **T15.4 — the Q4-anchored releases, and the highest-value item here.** They are
+  a different corpus, not a 2-period variant: no `показатели` sheet, per-year
+  expenditure back four years, and the чл. 130а criteria stated EXPLICITLY —
+  one column each, a „Брой на критериите" count, and a „Община за финансово
+  оздравяване" flag. That is precisely the verdict the loader currently cannot
+  derive, and it would replace a NULL on 260 of 265 year-end rows with a
+  published one. It also lists **seven** criteria rather than six, which must be
+  reconciled against the statute before either count is trusted.
+
+**Do not treat T15 as a prerequisite for T13/T14.** The map and the sparkline
+want more year-ends and would be better with them, but shipping them on 2024-Q4
+alone is a stated-coverage problem, not a correctness one — whereas a wrongly
+mapped column is a correctness one.
+
+---
+
 ## T12 — Deliberately out of scope for v1
 
 Recorded so each is a decision rather than an oversight.

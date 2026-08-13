@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T19:36:14.478Z",
+  "generatedAt": "2026-08-13T01:06:53.295Z",
   "source": "minfin.bg/bg/810 — Финансови показатели за общините (ЗПФ чл. 130г ал. 2); manually downloaded (Cloudflare blocks automation), parsed by scripts/budget/municipal_fiscal/",
   "newestQuarter": "2025-Q3",
   "quarters": [
@@ -27,6 +27,33 @@
   "sourceFiles": [
     "1. quarterly-reports-Q22024-Q42024-Q22025-website.xlsx",
     "1. quarterly-reports-Q32024-Q42024-Q32025-website.xlsx"
+  ],
+  "unsupportedFiles": [
+    "01 quarterly reports Q12020-Q42020-Q12021-website.xlsx: 01 quarterly reports Q12020-Q42020-Q12021-website.xlsx: missing sheet „показатели\"",
+    "01 quarterly reports Q22020-Q42020-Q22021-website.xlsx: 01 quarterly reports Q22020-Q42020-Q22021-website.xlsx: missing sheet „показатели\"",
+    "01 quarterly reports Q22021-Q42021-Q22022-website.xlsx: 01 quarterly reports Q22021-Q42021-Q22022-website.xlsx: missing sheet „показатели\"",
+    "01 quarterly reports Q32019-Q42019-Q32020-website.xlsx: 01 quarterly reports Q32019-Q42019-Q32020-website.xlsx: missing sheet „показатели\"",
+    "01 quarterly reports Q42020-Q42021-website.xlsx: 01 quarterly reports Q42020-Q42021-website.xlsx: missing sheet „общини фин. оздр.\"",
+    "01-quarterly reports Q22019-Q42019-Q22020-website.xlsx: 01-quarterly reports Q22019-Q42019-Q22020-website.xlsx: missing sheet „показатели\"",
+    "Quarterly reports Q32016-Q42016-Q32017.xlsx: Quarterly reports Q32016-Q42016-Q32017.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q12016-Q42016-Q12017-site.xlsx: quarterly reports Q12016-Q42016-Q12017-site.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q12017-Q42017-Q12018-za saita.xlsx: quarterly reports Q12017-Q42017-Q12018-za saita.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q12018-Q42018-Q12019-site.xlsx: quarterly reports Q12018-Q42018-Q12019-site.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q12019-Q42019-Q12020-website.xlsx: quarterly reports Q12019-Q42019-Q12020-website.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q12021-Q42021-Q12022-website.xlsx: municipal_fiscal: expected 3 period columns in header row 2, got 0 (none parsed)",
+    "quarterly reports Q12022-Q42022-Q12023-website.xlsx: municipal_fiscal: group „commitmentsRatio\" column 60 is „2022 Q4\", expected „2022 Q1\" — the workbook's column layout has changed; re-read the column map before trusting any figure",
+    "quarterly reports Q22016-Q42016-Q22017- za saita.xlsx: quarterly reports Q22016-Q42016-Q22017- za saita.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q22017-Q42017-Q22018- za saita.xlsx: quarterly reports Q22017-Q42017-Q22018- za saita.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q22018-Q42018-Q22019.xlsx: quarterly reports Q22018-Q42018-Q22019.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q32017-Q42017-Q32018-za saita.xlsx: quarterly reports Q32017-Q42017-Q32018-za saita.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q32018-Q42018-Q32019.xlsx: quarterly reports Q32018-Q42018-Q32019.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q32021-Q42021-Q32022.xlsx: quarterly reports Q32021-Q42021-Q32022.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q42016-Q42017.xlsx: quarterly reports Q42016-Q42017.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q42017-Q42018-za saita.xlsx: quarterly reports Q42017-Q42018-za saita.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q42018-Q42019.xlsx: quarterly reports Q42018-Q42019.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q42019-Q42020-website.xlsx: quarterly reports Q42019-Q42020-website.xlsx: missing sheet „показатели\"",
+    "quarterly reports Q42022-Q42023-website-16.04.2024.xlsx: municipal_fiscal: group „localCoverage\" column 6 is „2023 Q4\", expected „2022 Q4\" — the workbook's column layout has changed; re-read the column map before trusting any figure",
+    "quarterly-reports-Q12023-Q42023-Q12024-website.xlsx: municipal_fiscal: group „commitmentsRatio\" column 60 is „2023 Q4\", expected „2023 Q1\" — the workbook's column layout has changed; re-read the column map before trusting any figure"
   ],
   "anomalies": [
     "2025-Q3 is byte-identical to 2025-Q2 for every община on debtStock, expenseObligations, commitments — a frozen column carried forward; those fields are nulled on 2025-Q3, the later quarter"

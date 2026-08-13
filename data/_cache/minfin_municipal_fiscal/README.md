@@ -101,6 +101,44 @@ which matches, exactly:
 
 Three independent МФ publications agree to the lev. Keep this as the T3.1 gate's expected value.
 
+## The historical archive — 27 workbooks, FOUR incompatible formats
+
+Downloaded 2026-08-12 from the Internet Archive (see „Why manual" — minfin's own
+`/upload/` paths 403 even for a plain `curl`, but the Archive's copies are
+byte-identical and unwalled). The URL shape is
+`https://web.archive.org/web/<timestamp>id_/<minfin url>`; `id_` is what makes it
+serve the raw file instead of an archive-framed page.
+
+**Only the 2024+ releases are ingestible today.** The rest are kept because they
+are the input for the backfill, not because anything reads them yet. What the
+survey found:
+
+| era | sheet | cols | приходи · просрочени · задължения · ангажименти |
+|---|---|---|---|
+| 2016–2020 | `за сайта` (also `общини`, `фин. показатели`, `OLAP-2020`) | — | a different layout entirely |
+| 2021 | `показатели` | 59 | c27 · c39 · c42 · c45 |
+| 2022–2023 | `показатели` | 62 | c30 · c42 · c45 · c48 |
+| 2024–2025 | `показатели` | 65 | c30 · **c45** · **c48** · **c51** |
+
+Three things make this a parser-per-era job rather than a tweak, and each would
+fail SILENTLY if ignored:
+
+- **The money-group offsets shift.** Reading a 2022 workbook with the 2024 map
+  returns `задължения` where `просрочени` is expected — the exact misattribution
+  the pillar exists to prevent, at a 200 with every row count reconciling.
+- **The sheet name is not stable.** Only 4 of 27 files carry `показатели`.
+- **The period label is not stable** — `Q1-2021 г.` in 2021 against `2022 Q1` in
+  2022, so `PERIOD_RE` matches one and not the other.
+
+**The Q4-anchored releases (`Q42020-Q42021` and friends) are a different corpus
+again, and the most valuable one.** They carry no `показатели` sheet, publish
+per-year expenditure back four years, and — uniquely — state the чл. 130а
+criteria EXPLICITLY: one column per criterion, plus „Брой на критериите … на
+които отговаря" and „Община за финансово оздравяване". That is the verdict this
+repo currently cannot derive (only 3 of 6 criteria are computable from the
+quarterly sheet). Note they list **seven** criteria, not six — worth resolving
+against the statute before trusting either count.
+
 ## How to refresh / add quarters
 
 1. Open <https://www.minfin.bg/bg/810> in Safari or regular Chrome.
