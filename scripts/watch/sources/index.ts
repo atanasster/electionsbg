@@ -27,6 +27,7 @@ import { isunProcedures } from "./isun_procedures";
 import { sp2023Indicative } from "./sp2023_indicative";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { egovMunicipalExecution } from "./egov_municipal_execution";
+import { municipalFiscalDue } from "./municipal_fiscal_due";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
 import { iisdaServices } from "./iisda_services";
@@ -239,4 +240,5 @@ export const SOURCES: WatchSource[] = [
   aspBenefits,
   gitInspections,
   eurostatRoadSafety,
+  municipalFiscalDue,
 ];
