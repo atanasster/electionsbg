@@ -13,10 +13,12 @@
 -- gates on `tr_name_fold_people` (148). A second table would be a second answer.
 --
 -- That matters more here than it usually does, because `MpManagementRoles` and
--- `PersonCompanies` render on THE SAME PAGE. A table minted by a different rule would put two
--- blocks on one profile disagreeing about which companies belong to one named person — which
+-- `PersonCompanies` are the two surfaces that list one person's companies — mutually exclusive
+-- branches of CandidateScreen rather than literally one page, but a reader reaching the same
+-- person by either route must not be told two different things. A table minted by a different
+-- rule would have them disagree about which companies belong to one named person, which
 -- tr-attribution-basis-v1 §0.2 calls the worst defect this family can carry, and which it had
--- just finished removing from the other block.
+-- just finished removing from the other branch.
 --
 -- ⚠️ SAME SET, DIFFERENT PARTITION — do not read "the same as the companies list" too
 -- literally. 082 SPLITS the gated set in two: `companies` holds source 'tr' and `ngos` holds

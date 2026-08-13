@@ -671,9 +671,21 @@ still bucket-served. Retiring it needs, in order: the screen moved onto the two 
 (it currently reads `mpNames`, `mpParty` and every item's `votes` from the file);
 the routes verified on prod; then `bucket_sync_paths.ts` gaining BOTH an `isExcluded`
 refusal and a `CHILD_EXCLUDES` entry for `parliament/votes/sessions` — one without the
-other still lets `bucket:sync:paths -- parliament` re-upload all 613 files; then a scoped
-`--delete`. The files stay on disk either way: they are the loader's input AND the
-prerender's fact source (`scripts/prerender/votesFacts.ts`).
+other still lets `bucket:sync:paths -- parliament` re-upload all 613 files — **and** the
+`-x` regex in both `bucket:sync` and `bucket:sync:dry` in `package.json`, which is a third
+place `bucket_sync_paths.test.ts` holds in lockstep.
+
+⚠️ **The last step is NOT a scoped `--delete`, and an earlier version of this paragraph said
+it was.** `gsutil rsync -x` excludes a match from DELETION as well as from upload ("not copied
+or deleted", per gsutil's own help), and `syncPaths` passes `-x` together with `-d` — so once
+the exclusions are in place, no sync will ever remove those objects, and scoping a sync to the
+subtree is refused by `isExcluded` by design. The exclusion FREEZES the bucket copy. Removing
+it is an explicit `gsutil -m rm -r gs://<bucket>/parliament/votes/sessions`. Three families are
+in that frozen state today: `parliament/company-connections/` (since 2026-07-29) and the three
+retired MP↔company shard trees (see the section on 150/151 below).
+
+The files stay on disk either way: they are the loader's input AND the prerender's fact
+source (`scripts/prerender/votesFacts.ts`).
 
 **`bill` (migration 136) rides the SAME loader** — `db:load:rollcall:pg` applies 136 and fills
 it, so `db:load:rollcall:pg:cloud` carries it with no extra command. 504 rows, one per
@@ -865,6 +877,90 @@ denormalized column drifting from its source, and on the Sofia call exceeding 40
 The route degrades a missing migration to an empty place, so first-deploy ordering is
 cosmetic. The tile self-suppresses on `count === 0`, so a cloud database that never ran the
 loader simply shows no tile rather than an empty one.
+
+**It gained a THIRD denormalized column, `person_link_n`, and a THIRD trigger with it.**
+That column counts DISTINCT public figures holding a gated registry role at each company —
+`person_role(tr,ngo)` ⨝ `person(active, is_public_figure)` — and it is what
+`place_mp_companies()` (151) filters on. So this loader must now also run **after
+`db:resolve:persons`**, which is what rebuilds `person_role`; `refresh_coverage.test.ts`
+carries the pair, and the local chain already ordered it that way.
+
+⚠️ **`person_link_n` is NOT `political_n` widened, despite reading like it.** `political_n`
+comes from `company_politicians` (008), which is built from `mp_connected`/`pep_connected` and
+therefore MONEY-restricted: **113 companies at 43 places**. `person_link_n` is the whole gated
+identity layer: **10,202 companies at 1,332 settlements / 260 municipalities**. Gating anything
+on the first while the page filters on the second is a live defect that already happened once —
+the tile's link to `/settlement/:id/companies` was hidden on 218 of 260 municipalities and
+1,290 of 1,332 settlements that HAVE a page, and one place (ekatte 80217) had a political link
+with an empty page. `place_companies()` therefore returns BOTH counts and the tile reads
+`personLinkCount`.
+
+### The two MP↔company serving functions, and the shard families they retired
+
+`mp_tr_roles(mp_id)` (migration 150, `/api/db/mp-management`) and
+`place_mp_companies(ekatte, obshtina, page, pageSize)` (migration 151,
+`/api/db/place-mp-companies`) replaced three bucket-served shard families —
+`parliament/mp-management/` (896 files), `companies-by-ekatte/` (376) and
+`companies-by-obshtina/` (270). Plan: `docs/plans/mp-tr-edges-pg-v1.md`, revised by
+`data-hub-lateral-edges-v1.md` §11.10.
+
+**Neither is a table and neither has a loader** — they are "applied, never loaded", and their
+appliers are chosen so a corpus reload carries them: **150 rides `db:resolve:persons`**
+(SCHEMA_FILES, after 148) and **151 rides `db:load:tr-company-place:pg`** (after 133, which
+owns the column it reads). Both were written without an applier first, which is the migration-144
+defect: `db:refresh` then fails at its final `test:data` step on any database not hand-patched,
+and no cloud path ships them at all. Ship a body change on its own with the usual hatch:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts \
+  148_person_company_basis.sql 150_mp_tr_roles.sql 151_place_mp_companies.sql
+```
+
+**148 must be in that command and first**: 150's body joins `person_company_bridge_a`, and a
+`LANGUAGE sql` body is validated at CREATE time, so applying 150 to a database without the view
+fails the whole file with 42P01 — the 081→082 trap again.
+
+Cloud side, in order — nothing here is automatic:
+
+```bash
+npm run db:resolve:persons:cloud            # applies 150
+npm run db:load:graph:pg:cloud              # company_public_money → money_eur, 151's sort key
+npm run db:load:tr-company-place:pg:cloud   # applies 133 + 151, fills person_link_n
+npm run deploy:db                           # the two routes
+npm run deploy                              # ⚠️ NOT optional — see below
+```
+
+⚠️ **`npm run deploy` is the step that actually retires the shards, and leaving it out inverts
+the point of the whole change.** The hooks were repointed in the bundle; until hosting ships
+that bundle, production keeps fetching the frozen bucket copies and keeps publishing the 410
+attributions the person layer refuses. `deploy:db` alone changes nothing a reader sees.
+
+**Ordering `deploy:db` before the loaders is cosmetic but not free.** Both routes degrade a
+missing migration — and they use the NON-logging `missingMigration` variant, unlike the
+`psp:`/`pp:` routes, so a premature deploy reads as „this MP holds no registry roles" and „no
+companies here" indefinitely, with nothing in the logs and nothing red.
+
+**Both refuse a shared name rather than grading it, and that is the whole point.** Neither
+function re-implements a guard: both read `person_role` at source tr/ngo, the set
+`resolve_persons` mints through Bridge A/B and gates on `tr_name_fold_people` (148). So a name
+the Commerce Registry records for more than one person is refused — the shards published 410
+such (MP, company) attributions, of 2,014, while `/persons` and the `/person` profile had
+already stopped. `MpManagementRoles` and `PersonCompanies` are the two
+surfaces that list one person's companies — mutually exclusive branches of `CandidateScreen`
+rather than literally one page, but a reader reaching the same person by either route must not
+be told two different things. That is why 150 derives from `person_role` rather than minting its
+own set, and why both render the basis from the same `person_company_bridge_a` view.
+
+⚠️ **`COMMON_NAME_TR_ROWS = 11` was DELETED, not ported.** It counted officer ROWS as a proxy
+for "is this name one person", and it is wrong in both directions — it dropped a rare-name MP's
+whole medium set behind one busy registered agent, and passed a name held by two people with six
+companies each. Do not reintroduce a row-count heuristic beside a people count.
+
+⚠️ **The bucket objects are still there.** `gsutil rsync -x` excludes a match from DELETION as
+well as upload, and `syncPaths` passes `-x` with `-d`, so the exclusions FREEZE those 1,542
+objects rather than retiring them — the same state `parliament/company-connections/` has been in
+since 2026-07-29. Removing them is an explicit operator action, documented at the exclusion site
+in `scripts/bucket_sync_paths.ts`.
 
 `municipal_fiscal` (migration 149, `db:load:municipal-fiscal:pg`) is the per-município
 quarterly financial-indicators corpus (ЗПФ чл. 130г ал. 2) — 265 общини × quarter, carrying

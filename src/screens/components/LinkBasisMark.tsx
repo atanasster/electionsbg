@@ -2,11 +2,13 @@
 // curated register.
 //
 // ONE definition, used by every surface that renders a company beside a named person — the
-// /person profile's companies list (PersonCompanies) and its registry-roles block
-// (MpManagementRoles), which sit on THE SAME PAGE. Two marks with two wordings on one profile
-// is the drift tr-attribution-basis-v1 §0.2 calls the worst defect this family can carry, and
-// it was already possible: PersonCompanies carried this inline while the roles block below it
-// still showed a high/medium confidence badge minted by a different rule entirely.
+// profile's companies list (PersonCompanies) and its registry-roles block (MpManagementRoles).
+// Those are mutually exclusive branches of CandidateScreen rather than literally one page, but
+// they answer the same question about the same person, so a reader arriving by either route
+// must not be told two different things. Two marks with two wordings is the drift
+// tr-attribution-basis-v1 §0.2 calls the worst defect this family can carry, and it was
+// already live: PersonCompanies carried this inline while the roles block still showed a
+// high/medium confidence badge minted by a different rule entirely.
 //
 // The server decides the basis, not the client — `linkBasis` comes from
 // `person_company_bridge_a` (148) through both 082 and 150, so the two blocks read one view.
