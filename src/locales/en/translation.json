@@ -6061,5 +6061,21 @@
   "municipal_fiscal_section": "Municipal financial indicators",
   "municipal_fiscal_minfin_source": "Ministry of Finance — municipal financial indicators (quarterly, ЗПФ чл. 130г ал. 2); levels in BGN through 2025 and EUR from 2026",
   "municipal_fiscal_catalogue_source": "EU Open Data Portal — dataset description for „Финансови показатели за общините“",
-  "municipal_fiscal_source_note": "The indicators do not carry equal weight. Obligations for expenditure are computed by the Ministry of Finance from the budget-organisation chart of accounts; commitments come from the municipality's own account 9200, and arrears are self-reported by the municipality on off-balance-sheet accounts 9921–9929 — so the figure used to judge whether a municipality is in financial difficulty is filed by the municipality it concerns. Not audited."
+  "municipal_fiscal_source_note": "The indicators do not carry equal weight. Obligations for expenditure are computed by the Ministry of Finance from the budget-organisation chart of accounts; commitments come from the municipality's own account 9200, and arrears are self-reported by the municipality on off-balance-sheet accounts 9921–9929 — so the figure used to judge whether a municipality is in financial difficulty is filed by the municipality it concerns. Not audited.",
+  "budget_explorer_title": "Explore the budget",
+  "budget_explorer_description": "Travel public spending one level at a time — by spending unit within the state budget, or by function across the whole general-government sector.",
+  "budget_explorer_dimension_label": "Dimension",
+  "budget_explorer_dim_admin": "By spending unit",
+  "budget_explorer_dim_functional": "By function",
+  "budget_explorer_path_label": "Path",
+  "budget_explorer_root": "Whole budget",
+  "budget_explorer_caption_admin": "First-level spending units in the State Budget Law (Ministry of Finance). Amounts are as appropriated; open a unit to see its programmes.",
+  "budget_explorer_caption_functional": "Expenditure by function (COFOG) comes from Eurostat and covers the whole general-government sector — the state together with municipalities and the social security funds. It is not a breakdown of the state budget.",
+  "budget_explorer_empty": "No data for this dimension and year.",
+  "budget_explorer_level_total": "Level total",
+  "budget_explorer_source": "Source",
+  "budget_basis_label": "Unit",
+  "budget_basis_gdp": "% of GDP",
+  "budget_basis_share": "% of level",
+  "budget_explorer_empty_coverage": "This dimension only goes up to {{year}}."
 }

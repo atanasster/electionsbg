@@ -236,20 +236,49 @@ CREATE OR REPLACE FUNCTION budget_explorer(
     UNION ALL
     -- functional: COFOG. A different corpus from the admin grain above — see
     -- 153's header — so the payload names its source.
+    -- `p_parent IS NULL` is not optional: COFOG is a FLAT list with no
+    -- children, so without it a drilled URL carried over from the admin tree
+    -- returns the whole S13 breakdown under a breadcrumb naming one ministry,
+    -- at a 200.
     SELECT c.cofog_code, c.name_bg, c.name_en, c.amount_eur, false
       FROM budget_cofog c
-     WHERE p_dimension = 'functional' AND c.fiscal_year = p_fy AND c.cofog_code <> 'TOTAL'
+     WHERE p_dimension = 'functional' AND p_parent IS NULL
+       AND c.fiscal_year = p_fy AND c.cofog_code <> 'TOTAL'
   ), total AS (SELECT sum(amount) AS t FROM rows)
   SELECT jsonb_build_object(
     'fiscalYear', p_fy,
     'dimension', p_dimension,
     'parent', p_parent,
+    -- The parent's NAME, so a shared link shows what it drilled into. Without
+    -- it the node's Cyrillic name appears nowhere on the page for a reader who
+    -- arrives cold — client-held labels only exist for the session that clicked.
+    'parentName', CASE WHEN p_parent IS NULL THEN NULL ELSE coalesce(
+      (SELECT n.name_bg FROM budget_admin_node n WHERE n.node_id = p_parent),
+      (SELECT pf.name_bg FROM budget_program_fact pf
+        WHERE pf.program_code = p_parent AND pf.fiscal_year = p_fy LIMIT 1)) END,
     'basis', lower(coalesce(p_basis, 'eur')),
     -- Named so a caption cannot silently describe the wrong aggregate.
     'source', CASE WHEN p_dimension = 'functional'
                    THEN 'Eurostat gov_10a_exp (S13, general government)'
                    ELSE 'МФ — държавен бюджет' END,
-    'total', (SELECT t FROM total),
+    -- THE TOTAL GOES THROUGH THE BASIS TOO. Left raw it was rendered as a
+    -- percentage by the client: measured, ?basis=gdp printed 8934774699.0%
+    -- where the truth is 8.5%. `share` is 100 by definition at every level —
+    -- it is the denominator — so it is stated rather than divided by itself.
+    'total', CASE
+      WHEN lower(coalesce(p_basis,'eur')) = 'share' THEN 100
+      ELSE budget_apply_basis((SELECT t FROM total), p_basis,
+             (SELECT gdp_eur FROM y), (SELECT t FROM total),
+             (SELECT population FROM y))
+    END,
+    -- The newest year THIS dimension can answer for. COFOG ends where Eurostat
+    -- ends (2024 today) while the admin grain runs to the current budget year,
+    -- so an empty level on FY2026 means „this corpus stops earlier" rather than
+    -- „nothing was spent". Same lesson as 156's ipopLatestYear: a zero that
+    -- reads as an absence has to carry its own coverage.
+    'coverageLatestYear', CASE WHEN p_dimension = 'functional'
+      THEN (SELECT max(fiscal_year) FROM budget_cofog)
+      ELSE (SELECT max(fiscal_year) FROM budget_admin_fact) END,
     'rows', coalesce((
       SELECT jsonb_agg(to_jsonb(r) ORDER BY r.amount DESC NULLS LAST) FROM (
         SELECT key, "nameBg", "nameEn", "hasChildren",

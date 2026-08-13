@@ -2970,6 +2970,40 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/explorer",
+    title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",
+    description:
+      "Пропътувай държавния бюджет ниво по ниво: по първостепенен разпоредител (МФ) или по функция (COFOG, Евростат). Всяко ниво показва своя сбор и дела си от предходното.",
+    breadcrumbName: "Разгледай бюджета",
+    bodyHtml: `
+<h1>Разгледай бюджета</h1>
+<p>Кой харчи парите на държавата и за какво? Тази страница пропътува бюджета ниво по ниво — избираш разрез, после влизаш надолу, а пътят остава видим, за да знаеш къде си.</p>
+<h2>Два разреза, две различни съвкупности</h2>
+<ul>
+<li><strong>По разпоредител</strong> — първостепенните разпоредители по държавния бюджет, както ги записва законът, и програмите на всеки от тях едно ниво по-надолу. Източник: Министерство на финансите.</li>
+<li><strong>По функция</strong> — разходите по функционална класификация (COFOG). Тук съвкупността е ДРУГА: Евростат публикува целия сектор „Държавно управление“ (S13), тоест държавата ПЛЮС общините и осигурителните фондове. Затова числата по функция не са разбивка на държавния бюджет отляво — те са по-широки по построение.</li>
+</ul>
+<p>Всяка сума може да се чете в евро, като процент от БВП или като дял от нивото, в което се намираш.</p>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+    english: {
+      title:
+        "Explore the Budget — by Spending Unit and by Function | electionsbg.com",
+      description:
+        "Travel Bulgaria's state budget one level at a time: by first-level spending unit (Ministry of Finance) or by function (COFOG, Eurostat). Every level shows its own total and its share of the one above.",
+      breadcrumbName: "Explore the budget",
+      bodyHtml: `
+<h1>Explore the budget</h1>
+<p>Who spends the state's money, and on what? This page travels the budget one level at a time — pick a dimension, drill down, and the path stays visible so you know where you are.</p>
+<h2>Two dimensions, two different populations</h2>
+<ul>
+<li><strong>By spending unit</strong> — the first-level spending units named in the State Budget Law, and each one's programmes a level deeper. Source: Ministry of Finance.</li>
+<li><strong>By function</strong> — expenditure by COFOG functional classification. The population here is DIFFERENT: Eurostat publishes the whole general-government sector (S13), which is the state plus municipalities and the social security funds. So the functional figures are not a breakdown of the state budget beside them — they are wider by construction.</li>
+</ul>
+<p>Every amount can be read in euro, as a share of GDP, or as a share of the level you are in.</p>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/methodology",
     title: "Методология — Държавен бюджет на България | electionsbg.com",
     description:

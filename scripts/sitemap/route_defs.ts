@@ -56,6 +56,7 @@ export const ENGLISH_STATIC_PAGES = [
   "indicators/compare",
   "budget",
   "budget/methodology",
+  "budget/explorer",
   "budget/tax-calculator",
   "budget/mod",
   "budget/simulator",
@@ -294,6 +295,10 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/indicators/IndicatorsCompareScreen.tsx`,
   },
   { path: "budget", file: `data/budget/index.json` },
+  {
+    path: "budget/explorer",
+    file: `data/budget/index.json`,
+  },
   {
     path: "budget/methodology",
     file: `src/screens/BudgetMethodologyScreen.tsx`,
