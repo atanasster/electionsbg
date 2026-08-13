@@ -2430,6 +2430,40 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "governance/municipal-finance",
+    title:
+      "Общински финанси — какво е договорено за следващи години | electionsbg.com",
+    description:
+      "Колко е договорила всяка от 265-те общини за следващи бюджетни години, колко дължи по фактури и колко е просрочила — по тримесечните отчети на Министерството на финансите (чл. 130г ал. 2 ЗПФ).",
+    breadcrumbName: "Общински финанси",
+    // NO figures in the prerendered body, deliberately. The numbers move every
+    // quarter and this HTML is only rebuilt on deploy, so a static „€4,16 млрд."
+    // would be a wrong figure served with a correct canonical. The body states
+    // what the page contains and what the three stocks MEAN — which is the part
+    // that does not go stale, and the part a crawler can use.
+    bodyHtml: `
+<h1>Общински финанси — какво е договорено за следващи бюджетни години</h1>
+<p>Българските публични финанси различават <strong>три вложени нива</strong> задължения на общините, а публичната дискусия обикновено вижда само най-вътрешното. Тази страница показва и трите, по всяка от 265-те общини, по тримесечните отчети на Министерството на финансите (чл. 130г ал. 2 ЗПФ).</p>
+<h2>Трите нива</h2>
+<ul>
+<li><strong>Поети ангажименти за разходи</strong> — договорено и неизпълнено към края на периода, дължимо изцяло или частично през <em>следващи</em> бюджетни години. Най-широкото ниво.</li>
+<li><strong>Задължения за разходи</strong> — начислени по фактури, но още не просрочени.</li>
+<li><strong>Просрочени задължения</strong> — с изтекъл срок за плащане. Отчитат се от самата община по задбалансови сметки и не са одитирани.</li>
+</ul>
+<p>Нивата се <strong>застъпват</strong>: поетите ангажименти съдържат другите две, затова не се събират в обща сума. Плащане, договорено за следващата година, никога не е просрочено — затова един национален показател за просрочията не може да види договореното напред.</p>
+<h2>Как да се чете класирането</h2>
+<p>Подредбата по подразбиране е <strong>на жител</strong>. По абсолютна сума Столична община е първа всяка година по конструкция, което не казва нищо за това как се управлява една малка община. Показва се и делът от средногодишните разходи — критерият по чл. 130а ал. 1 т. 3 от Закона за публичните финанси.</p>
+<p>„Отговаря на N от 6 критерия“ е наша преценка по публикуваните нива. „Финансово оздравяване“ е <strong>отделен административен факт</strong> — процедура по чл. 130д, обявена от самата община. Двете не са едно и също и се показват в отделни колони.</p>
+<p>Националната картина е на <a href="${SITE_URL}/indicators/fiscal">фискалните показатели</a>, а за всяка община — на нейното <a href="${SITE_URL}/governance">управленско табло</a>.</p>`.trim(),
+    english: {
+      title:
+        "Municipal finances — what is contracted for later years | electionsbg.com",
+      description:
+        "How much each of Bulgaria's 265 municipalities has contracted for later budget years, how much it has been invoiced for, and how much is overdue — from quarterly Ministry of Finance returns (ЗПФ art. 130г(2)).",
+      breadcrumbName: "Municipal finances",
+    },
+  }),
+  staticPage({
     path: "governance/sectors",
     title:
       "Държавни сектори — пари, договори и институции по сектори | electionsbg.com",

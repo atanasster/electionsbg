@@ -18,8 +18,8 @@
 //      commitment stock at Q2 against a reserve at Q4 compares two different
 //      days.
 //   3. **No município names and no map.** This page is the national aggregate;
-//      the per-município view is T10.1 (/governance/municipal-finance) and does
-//      not exist yet — hence no outbound link, see the note at the foot.
+//      the per-município view is /governance/municipal-finance, which the one
+//      outbound link at the foot points at.
 //
 // The bars are drawn side by side, never stacked, for a fourth reason of their
 // own: the three stocks NEST (commitments ⊃ obligations ⊃ arrears is the
@@ -38,6 +38,7 @@ import {
   YAxis,
 } from "recharts";
 import { useMacro } from "@/data/macro/useMacro";
+import { Link } from "@/ux/Link";
 import {
   buildRows,
   fmtEurM,
@@ -211,13 +212,16 @@ export const MunicipalCommitmentsTile: FC = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* NO per-município link yet. `/governance/municipal-finance` is T10.1 and
-          does not exist — and `routes.tsx` declares a catch-all
-          `governance/:id`, so linking there today does not 404: it renders the
-          place dashboard's „unknown place: municipal-finance" state at a 200.
-          Add the link in the same commit as the page. */}
+      {/* The destination competes with the `governance/:id` catch-all, which
+          matches any single segment. React Router ranks by specificity, so the
+          static path wins — and if that ever stopped being true the URL would
+          render the place dashboard's „unknown place" state at a 200 rather
+          than 404ing. `routes.municipalFinance.test.tsx` asserts it. */}
       <p className="text-xs text-muted-foreground mt-3 max-w-3xl">
-        {t("municipal_fiscal_not_a_component")}
+        {t("municipal_fiscal_not_a_component")}{" "}
+        <Link to="/governance/municipal-finance">
+          {t("municipal_fiscal_see_by_municipality")}
+        </Link>
       </p>
     </div>
   );

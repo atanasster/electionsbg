@@ -201,11 +201,17 @@ describe("MunicipalCommitmentsTile", () => {
     }
   });
 
-  it("links nowhere until the per-município page exists", () => {
-    // `/governance/municipal-finance` is T10.1. Linking there today does not
-    // 404 — the `governance/:id` catch-all renders „unknown place" at a 200 —
-    // so the affordance must stay off until the page lands.
+  it("offers exactly one way out, to the per-município browse", () => {
+    // That route competes with `governance/:id`, a catch-all over any single
+    // segment. React Router ranks by specificity so the static path wins;
+    // `routes.municipalFinance.test.tsx` asserts the outcome, since the day it
+    // stops being true this URL renders the place dashboard's „unknown place"
+    // state at a 200 rather than 404ing.
     const { container } = renderTile(REAL);
-    expect(container.querySelectorAll("a")).toHaveLength(0);
+    const hrefs = [...container.querySelectorAll("a")].map((a) =>
+      a.getAttribute("href"),
+    );
+    expect(hrefs).toHaveLength(1);
+    expect(hrefs[0]).toContain("/governance/municipal-finance");
   });
 });

@@ -30,7 +30,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, dbReachable, end } from "../lib/pg";
+import { allRows, dbReachable, end, withTx } from "../lib/pg";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const haveDb = await dbReachable();
@@ -397,3 +397,227 @@ test.skipIf(skip)("the serving functions answer", async () => {
     assert.ok(k in p, `national payload is missing ${k}`);
   }
 });
+
+// ---------------------------------------------------------------------------
+// The per-resident dimension (obshtina_population) and the two rankings built
+// on it. Every assertion here defends the same thing: a rank or a per-capita
+// figure is a CLAIM ABOUT A COHORT, and a cohort that does not exist must
+// publish nothing rather than „1st".
+
+test.skipIf(skip)(
+  "obshtina_population covers every município in the corpus",
+  async () => {
+    await assertCorpusPresent();
+    const [r] = await allRows<{ missing: string }>(
+      `SELECT count(*)::text AS missing
+       FROM (SELECT DISTINCT obshtina FROM municipal_fiscal) mf
+       LEFT JOIN obshtina_population op ON op.obshtina = mf.obshtina
+      WHERE op.obshtina IS NULL`,
+    );
+    // A gap here does not error anywhere — the município simply sorts last in a
+    // ranking whose default is per resident, i.e. it is buried on the page that
+    // exists to surface it. The loader refuses to publish one; this is the gate
+    // that keeps that refusal honest.
+    assert.equal(r.missing, "0", "municipalities with no census population");
+  },
+);
+
+test.skipIf(skip)(
+  "obshtina_population resolves Sofia, whose census code differs",
+  async () => {
+    await assertCorpusPresent();
+    // The census keys Столична община `SOF46` (place_dim.price_code) while the
+    // fiscal corpus uses the governance code `SOF00`. Unresolved, the largest
+    // município drops out of every per-resident ranking while 264 rows reconcile
+    // perfectly — the exact shape a row count cannot see.
+    const [r] = await allRows<{ population: number | null }>(
+      `SELECT population FROM obshtina_population WHERE obshtina = 'SOF00'`,
+    );
+    assert.ok(r, "Sofia has no population row");
+    assert.ok(
+      Number(r.population) > 1_000_000,
+      `Sofia population is ${r?.population} — a district-sized figure means the alias resolved to the wrong place`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "the ranking's per-capita order is the one it publishes",
+  async () => {
+    await assertCorpusPresent();
+    const rows = await allRows<{
+      name_bg: string;
+      commitments_per_capita_eur: number | null;
+    }>(
+      `SELECT name_bg, commitments_per_capita_eur FROM municipal_fiscal_ranking(NULL, 1000)`,
+    );
+    assert.ok(rows.length > 200, `only ${rows.length} rows ranked`);
+
+    const withValue = rows.filter((r) => r.commitments_per_capita_eur != null);
+    // Descending, and every NULL after every value: a withheld figure is „not
+    // published", so ordering it as 0 would put it above the municipalities that
+    // genuinely contracted least.
+    for (let i = 1; i < withValue.length; i++) {
+      assert.ok(
+        Number(withValue[i - 1].commitments_per_capita_eur) >=
+          Number(withValue[i].commitments_per_capita_eur),
+        `per-capita order breaks at ${withValue[i].name_bg}`,
+      );
+    }
+    const firstNull = rows.findIndex(
+      (r) => r.commitments_per_capita_eur == null,
+    );
+    if (firstNull !== -1) {
+      assert.ok(
+        rows
+          .slice(firstNull)
+          .every((r) => r.commitments_per_capita_eur == null),
+        "a withheld per-capita figure sorted above a published one",
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "per_capita_rank is null unless there is a cohort to rank against",
+  async () => {
+    await assertCorpusPresent();
+    const rows = await allRows<{
+      obshtina: string;
+      rank: number | null;
+      n: number | null;
+      median: number | null;
+      per_cap: number | null;
+      fiscal_year: number;
+      quarter: number;
+    }>(
+      `SELECT p.obshtina,
+            (r->>'per_capita_rank')::int              AS rank,
+            (r->>'per_capita_ranked_count')::int      AS n,
+            (r->>'per_capita_median_eur')::float8     AS median,
+            (r->>'commitments_per_capita_eur')::float8 AS per_cap
+       FROM (SELECT DISTINCT obshtina FROM municipal_fiscal) p,
+            LATERAL (SELECT municipal_fiscal_by_obshtina(p.obshtina, NULL) AS r) x`,
+    );
+    assert.ok(rows.length > 200, `only ${rows.length} municipalities probed`);
+
+    for (const r of rows) {
+      if (r.rank == null) continue;
+      // The defect this caught: the cohort was pinned to Q4 while the picked row
+      // can be an interim quarter, so EVERY município compared against an empty
+      // set and published „1 of 0" — the loudest possible way to render unknown.
+      assert.ok(
+        Number(r.n) > 1,
+        `${r.obshtina} publishes rank ${r.rank} against a cohort of ${r.n}`,
+      );
+      assert.ok(
+        Number(r.rank) >= 1 && Number(r.rank) <= Number(r.n),
+        `${r.obshtina} rank ${r.rank} is outside 1..${r.n}`,
+      );
+      assert.ok(
+        r.per_cap != null,
+        `${r.obshtina} publishes a rank with no per-capita figure`,
+      );
+    }
+    const ranked = rows.filter((r) => r.rank != null);
+    assert.ok(
+      ranked.length > 200,
+      `only ${ranked.length} municipalities got a rank — the cohort predicate is too narrow`,
+    );
+    // One median PER COHORT, grouped by the payload's own period. A bare global
+    // cardinality was the wrong property twice over: it tolerates a real drift
+    // inside one period, and it fails on a third legitimate period — which the
+    // corpus gets as soon as two municipalities' newest complete quarters
+    // diverge, since each payload picks its own.
+    const byPeriod = new Map<string, Set<number>>();
+    for (const r of ranked) {
+      const key = `${r.fiscal_year}-Q${r.quarter}`;
+      const set = byPeriod.get(key) ?? new Set<number>();
+      set.add(Math.round(Number(r.median)));
+      byPeriod.set(key, set);
+    }
+    for (const [period, medians] of byPeriod) {
+      assert.equal(
+        medians.size,
+        1,
+        `municipalities on ${period} disagree on the median: ${[...medians].join(", ")}`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)("ranks the highest per-capita município first", async () => {
+  await assertCorpusPresent();
+  // The bounds gate above (1 <= rank <= n) holds just as well under an INVERTED
+  // comparison — flipping `>` to `<` in the rank subquery would crown the
+  // lowest-spending município and every assertion would still pass. This
+  // re-derives the cohort's own ordering and compares, which is the only form
+  // that can see the direction.
+  const rows = await allRows<{
+    obshtina: string;
+    rank: number;
+    expected: number;
+  }>(
+    `WITH probe AS (
+       SELECT p.obshtina,
+              (r->>'fiscal_year')::int                   AS fy,
+              (r->>'quarter')::int                       AS q,
+              (r->>'per_capita_rank')::int               AS rank,
+              (r->>'commitments_per_capita_eur')::float8 AS per_cap
+         FROM (SELECT DISTINCT obshtina FROM municipal_fiscal) p,
+              LATERAL (SELECT municipal_fiscal_by_obshtina(p.obshtina, NULL) AS r) x
+        WHERE (r->>'per_capita_rank') IS NOT NULL)
+     SELECT obshtina, rank,
+            rank() OVER (PARTITION BY fy, q ORDER BY per_cap DESC)::int AS expected
+       FROM probe`,
+  );
+  assert.ok(rows.length > 200, `only ${rows.length} municipalities ranked`);
+  for (const r of rows) {
+    assert.equal(
+      Number(r.rank),
+      Number(r.expected),
+      `${r.obshtina}: published rank ${r.rank}, cohort order says ${r.expected} — ` +
+        "if EVERY row is off, the comparison is inverted and the least-committed " +
+        "município is being published as the most",
+    );
+  }
+});
+
+test.skipIf(skip)(
+  "149 applies from COLD — every relation precedes the body that reads it",
+  async () => {
+    // The gate the critical finding needed, and one no existing test could be:
+    // every other gate here runs against a database where the objects already
+    // exist, so none can see a migration that only fails where they do NOT.
+    // `obshtina_population` was created 130 lines BELOW the function selecting
+    // it — clean locally, 42P01 on Cloud SQL and on every fresh clone, and
+    // because exec() sends the file as one transaction the whole migration
+    // rolls back.
+    //
+    // Runs inside a transaction that always rolls back, so the live corpus is
+    // untouched even when this fails.
+    const sql = readFileSync(
+      resolve(__dirname, "../schema/pg/149_municipal_fiscal.sql"),
+      "utf8",
+    );
+    await assert.rejects(
+      () =>
+        withTx(async (c) => {
+          await c.query("DROP TABLE IF EXISTS obshtina_population CASCADE");
+          // Must not raise. If it does, the check below reports the real
+          // SQLSTATE rather than the rollback sentinel, and the test fails
+          // naming the cause.
+          await c.query(sql);
+          throw new Error("__rollback__");
+        }),
+      (e: Error) => {
+        assert.equal(
+          e.message,
+          "__rollback__",
+          `149 does not apply to a database without obshtina_population: ${e.message}`,
+        );
+        return true;
+      },
+    );
+  },
+);

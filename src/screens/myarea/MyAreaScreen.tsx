@@ -27,6 +27,7 @@ import { hasUpcomingLocalBallot } from "@/data/myarea/upcomingElections";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
+import { MyAreaMunicipalFiscalTile } from "./MyAreaMunicipalFiscalTile";
 import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
 import { MyAreaTendersTile } from "./MyAreaTendersTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
@@ -280,6 +281,15 @@ export const MyAreaScreen: FC = () => {
           />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
+        {/* „Какво дължи общината" — money-OWED, reading straight on from the
+            money-IN pair above. OUTSIDE that grid on purpose: it is
+            `lg:grid-cols-2` and ProjectsMapTile sizes itself against whichever
+            SIBLING is taller, so a third child pushes it onto a row of its own
+            where it collapses to its `min-h` floor — the fallback that exists
+            to stop it reaching zero, not the intended layout. Full width here
+            also suits it: three bars at one scale read better wide than in a
+            half column. Self-hides when the município has no МФ return. */}
+        <MyAreaMunicipalFiscalTile obshtina={area.obshtina} />
         {/* Interreg — separate from the EU-projects tile above BECAUSE it is a
             separate corpus (ИСУН holds none of it), and pinned here because
             cross-border money lands almost entirely on border municipalities,

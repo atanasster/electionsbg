@@ -44,6 +44,7 @@ export const ENGLISH_STATIC_PAGES = [
   "governance",
   "governance/overview",
   "governance/declarations",
+  "governance/municipal-finance",
   "parliament/attendance",
   "governments",
   "indicators",
@@ -248,6 +249,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "governance/declarations",
     file: `src/screens/governance/GovernanceDeclarationsScreen.tsx`,
+  },
+  {
+    path: "governance/municipal-finance",
+    file: `src/screens/governance/GovernanceMunicipalFinanceScreen.tsx`,
   },
   {
     path: "parliament/attendance",

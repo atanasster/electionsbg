@@ -63,6 +63,11 @@ const GovernanceSectorsScreen = lazy(() =>
     default: m.GovernanceSectorsScreen,
   })),
 );
+const GovernanceMunicipalFinanceScreen = lazy(() =>
+  import("@/screens/governance/GovernanceMunicipalFinanceScreen").then((m) => ({
+    default: m.GovernanceMunicipalFinanceScreen,
+  })),
+);
 
 const AnalysisHubScreen = lazy(() =>
   import("@/screens/analysis/AnalysisHubScreen").then((m) => ({
@@ -1585,6 +1590,21 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <GovernanceDeclarationsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* `governance/:id` further down is a catch-all over any single
+              segment. React Router v7 ranks by SPECIFICITY rather than
+              declaration order, so this static path wins wherever it is
+              written — but it is kept above the catch-all anyway, because a
+              future flattening to a route array would make order the thing
+              that decides. `routes.municipalFinance.test.tsx` asserts the
+              outcome rather than either mechanism. */}
+          <Route
+            path="governance/municipal-finance"
+            element={
+              <LayoutScreen>
+                <GovernanceMunicipalFinanceScreen />
               </LayoutScreen>
             }
           />

@@ -55,6 +55,7 @@ const REPO = path.resolve(
 // reload intact. It is the counter-example that shows the defect belongs to the
 // reload SHAPE and not to bulk loading.
 const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
+  { table: "obshtina_population", loader: "db:load:municipal-fiscal:pg" },
   { table: "fund_projects", loader: "db:load:funds:pg" },
   { table: "fund_beneficiaries", loader: "db:load:funds:pg" },
   { table: "tenders", loader: "db:load:tenders:pg" },

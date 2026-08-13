@@ -979,8 +979,22 @@ sends the file as ONE transaction the target gets **no `municipal_fiscal` table 
 not merely unlabelled rows. `refresh_coverage.test.ts` carries the pair for the local chain;
 nothing covers the cloud side.
 
-Four things about it are easy to get backwards:
+Five things about it are easy to get backwards:
 
+- **It also owns `obshtina_population`**, the NSI Census 2021 per-município
+  denominator behind the per-resident default sort on
+  `/governance/municipal-finance` and the rank on every governance dashboard.
+  Built from the committed `data/census_2021.json`, so it needs no fetch — but
+  it resolves Sofia's census code `SOF46` through **`place_dim.price_code`**,
+  which makes `db:load:place-dim:pg:cloud` a prerequisite for its CONTENT and
+  not merely for the JOIN to compile. The loader REFUSES rather than degrades on
+  an incomplete match: an unresolved município would sort last on the page that
+  exists to surface it. Related, and the reason 149 declares that table at the
+  TOP of the file: a `LANGUAGE sql` body is validated at CREATE time, so a
+  function created above the table it reads raises 42703/42P01 and — exec()
+  sending the file as one transaction — rolls the whole migration back on every
+  database that does not already have it, i.e. everywhere except the machine
+  that wrote it.
 - **The corpus has TWO consumers, and the loader is only one of them.** It also feeds three
   NATIONAL series in `data/macro.json` — `municipalCommitments` /
   `municipalExpenseObligations` / `municipalArrears`, behind the `/indicators/fiscal`

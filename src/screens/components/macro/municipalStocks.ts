@@ -12,10 +12,21 @@ export type StockPoint = MacroPoint & {
   partial?: boolean;
 };
 
+/** The palette for the three nested stocks, keyed on the CONCEPT rather than on
+ *  either surface's column names — /indicators/fiscal reads macro.json keys and
+ *  the município tile reads SQL columns, and a reader carries the meaning from
+ *  one page to the other by colour. Two independent literals is the silent way
+ *  to break that link. */
+export const STOCK_COLOR = {
+  commitments: "#6366f1",
+  obligations: "#f59e0b",
+  arrears: "#dc2626",
+} as const;
+
 export const STOCKS = [
-  { key: "municipalCommitments", color: "#6366f1" },
-  { key: "municipalExpenseObligations", color: "#f59e0b" },
-  { key: "municipalArrears", color: "#dc2626" },
+  { key: "municipalCommitments", color: STOCK_COLOR.commitments },
+  { key: "municipalExpenseObligations", color: STOCK_COLOR.obligations },
+  { key: "municipalArrears", color: STOCK_COLOR.arrears },
 ] as const;
 
 export type StockKey = (typeof STOCKS)[number]["key"];

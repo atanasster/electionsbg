@@ -224,6 +224,106 @@ export const suppressedOf = (r: MunicipalFiscalQuarter): string[] | null => {
   return missing.length > 0 ? [...missing] : null;
 };
 
+const CENSUS_FILE = resolve(__dirname, "../../data/census_2021.json");
+
+interface CensusMunicipality {
+  code: string;
+  nameBg: string;
+  population: number;
+}
+
+/** Census obshtina code → the code `municipal_fiscal` uses.
+ *
+ *  264 of 265 are identical. The one that is not is Sofia: the census keys it
+ *  `SOF46` (which is `place_dim.price_code`) while the fiscal corpus uses the
+ *  governance code `SOF00`. Resolved from `place_dim` rather than hard-coded, so
+ *  a future alias change moves in one place — but the RESULT is asserted
+ *  against a full 265-row match below, because a silently unresolved Sofia
+ *  would drop the largest município out of every per-resident ranking while
+ *  leaving 264 rows that reconcile perfectly. */
+export const resolveCensusCodes = (
+  census: CensusMunicipality[],
+  aliases: {
+    code: string;
+    governanceCode: string | null;
+    priceCode: string | null;
+  }[],
+): Map<string, number> => {
+  const byPrice = new Map<string, string>();
+  for (const a of aliases) {
+    if (a.priceCode) byPrice.set(a.priceCode, a.governanceCode ?? a.code);
+  }
+  const out = new Map<string, number>();
+  for (const m of census) {
+    if (!(m.population > 0)) continue;
+    out.set(byPrice.get(m.code) ?? m.code, m.population);
+  }
+  return out;
+};
+
+/** Fill `obshtina_population` from NSI Census 2021.
+ *
+ *  Rebuilt wholesale each run — it is 265 rows off a committed file, so there
+ *  is nothing to preserve and no reader to block. It REFUSES rather than
+ *  degrades on an incomplete match: the per-resident ranking is the browse's
+ *  default sort, so a município with no population silently sinks to the bottom
+ *  of the page it most needs to be on. */
+export const loadObshtinaPopulation = async (
+  expectedObshtina: Set<string>,
+): Promise<number> => {
+  if (!existsSync(CENSUS_FILE)) {
+    console.warn(
+      `[municipal-fiscal] ${CENSUS_FILE} absent — no per-resident ranking.`,
+    );
+    return 0;
+  }
+  const census = JSON.parse(readFileSync(CENSUS_FILE, "utf8")) as {
+    censusDate?: string;
+    municipalities: CensusMunicipality[];
+  };
+  const aliases = await withClient((c) =>
+    c
+      .query<{
+        code: string;
+        governance_code: string | null;
+        price_code: string | null;
+      }>(
+        `SELECT code, governance_code, price_code FROM place_dim
+          WHERE kind = 'obshtina' AND price_code IS NOT NULL`,
+      )
+      .then((r) => r.rows),
+  );
+  const pop = resolveCensusCodes(
+    census.municipalities,
+    aliases.map((a) => ({
+      code: a.code,
+      governanceCode: a.governance_code,
+      priceCode: a.price_code,
+    })),
+  );
+  const missing = [...expectedObshtina].filter((o) => !pop.has(o)).sort();
+  if (missing.length > 0) {
+    throw new Error(
+      `[municipal-fiscal] ${missing.length} município(s) have no census population ` +
+        `(${missing.slice(0, 5).join(", ")}${missing.length > 5 ? " …" : ""}). ` +
+        "The browse ranks per resident by default, so publishing this would sink " +
+        "them to the bottom of the page rather than surface them. Check the code " +
+        "alias in place_dim.price_code.",
+    );
+  }
+  const year = Number((census.censusDate ?? "2021").slice(0, 4));
+  await withTx(async (c) => {
+    await c.query("TRUNCATE obshtina_population");
+    await copyRows(
+      c,
+      "obshtina_population",
+      ["obshtina", "population", "census_year"],
+      [...pop].map(([o, n]) => [o, n, year]),
+    );
+  });
+  return pop.size;
+};
+
 export const loadMunicipalFiscalPg = async (): Promise<{
   quarters: number;
   rows: number;
@@ -290,10 +390,21 @@ export const loadMunicipalFiscalPg = async (): Promise<{
   });
   await exec(`DROP TABLE IF EXISTS ${SPEC.source}`);
 
+  // After the merge, so the expected roster is the corpus that just landed
+  // rather than the previous vintage.
+  const placed = await loadObshtinaPopulation(
+    new Set(rows.map((r) => String(r[0]))),
+  );
+  console.log(`[municipal-fiscal] population dimension: ${placed} община`);
+
   // Outside the transaction — VACUUM cannot run in one. A stage merge keeps the
   // visibility map, but carrying the call means a future switch to TRUNCATE
   // cannot silently give back index-only scans.
-  await vacuumAfterReload(SPEC.table);
+  // `obshtina_population` is TRUNCATE-reloaded in one transaction, which is
+  // exactly the shape that leaves relallvisible = 0 for ever. Small (2 pages)
+  // but joined by all four subqueries in `municipal_fiscal_by_obshtina`, which
+  // runs on 265 governance dashboards.
+  await vacuumAfterReload(SPEC.table, "obshtina_population");
 
   return { quarters: files.length, rows: rows.length };
 };

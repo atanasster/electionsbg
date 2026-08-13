@@ -204,7 +204,7 @@ DO $$ BEGIN
   END IF;
 END $$;
 
--- The national browse ranks year-end rows by the чл. 130а т. 3 ratio — which
+-- The national browse filters year-end rows; the browse now ORDERs by commitments per resident, so this serves the WHERE rather than the sort — which
 -- the plan's audit #12 chose over per-resident precisely because it normalises
 -- by the município's own fiscal capacity. Keyed on that, not on
 -- `meets_threshold`: the verdict column is NULL until all six criteria are
@@ -239,6 +239,39 @@ END $$;
 -- `governance_code = 'SOF00'`. Joining on `code` alone leaves the largest
 -- município in the country nameless.
 -- ---------------------------------------------------------------------------
+
+-- Population per município, so the browse can rank PER RESIDENT.
+--
+-- That ranking is not decoration: sorted by absolute commitments, Столична
+-- община tops every column by construction, which tells a reader nothing and
+-- buries the small municipalities the page exists to surface.
+--
+-- **Basis: NSI Census 2021's own per-MUNICIPALITY figure** (`data/census_2021.json`
+-- → `municipalities[]`), 265 rows, one per община — not a roll-up over
+-- settlements, so there is nothing to get wrong about Sofia. Note this is a
+-- DIFFERENT number from the one the funds pipeline stores in
+-- `fund_payloads(kind='muni-summary').payload->>'population'`: that one is a
+-- settlement-level sum whose Sofia entry is EKATTE 68134, the CITY CORE
+-- (1,183,400), while Столична община as a fiscal entity is 1,274,290. The
+-- fiscal figures here are the município's, so the município's population is the
+-- only denominator that divides like with like. Do not "reconcile" the two.
+--
+-- The census keys Sofia `SOF46`, which is `place_dim.price_code`; the other 264
+-- codes match `place_dim.code` directly. The loader resolves that alias, so
+-- what is STORED here is already the obshtina code `municipal_fiscal` uses.
+CREATE TABLE IF NOT EXISTS obshtina_population (
+  obshtina    text PRIMARY KEY,
+  population  int  NOT NULL CHECK (population > 0),
+  census_year int  NOT NULL
+);
+
+-- DECLARED BEFORE the two functions that read it, and that is load-bearing
+-- rather than tidy. A `LANGUAGE sql` body is validated at CREATE time, so a
+-- CREATE FUNCTION naming a table that does not exist yet raises 42P01 — and
+-- because exec() sends this file as ONE transaction, the whole migration rolls
+-- back: no table, no functions, no grants. It applies clean on any machine that
+-- already has the table, which is why this ordering can only fail somewhere
+-- else (a cold `db:refresh`, or the warm Cloud SQL this loader publishes to).
 
 CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
   p_obshtina text,
@@ -283,6 +316,54 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
       -- Named so the UI can say WHY a figure is missing rather than showing a
       -- blank that reads as zero.
       p.suppressed_fields,
+      -- The per-resident comparison, computed HERE so the município tile needs
+      -- one small request rather than the whole 265-row ranking.
+      --
+      -- The peer set is the picked row's OWN year-end, not the corpus: ranking
+      -- a 2024 figure against a 2025 cohort would move a município's rank
+      -- whenever anyone else filed. Null-safe throughout — a município with a
+      -- withheld commitments column gets a population and no rank, which is
+      -- honest, rather than a rank of 265.
+      op.population,
+      p.commitments_eur / NULLIF(op.population, 0) AS commitments_per_capita_eur,
+      -- The cohort is the picked row's OWN (year, QUARTER), not a fixed Q4.
+      -- Pinning it to Q4 compared a 2025-Q2 figure against a 2025-Q4 cohort
+      -- that does not exist yet: zero peers, so every município ranked „1 of
+      -- 0" — the loudest possible way to render „unknown". Same-period is the
+      -- rule the whole pillar rests on, and it applies to a rank as much as to
+      -- a ratio.
+      --
+      -- CASE rather than a FILTER clause (FILTER is only valid on an aggregate
+      -- CALL, and these are scalar subqueries), and it guards the COHORT as
+      -- well as the município: a rank with nothing to rank against is null.
+      CASE WHEN p.commitments_eur IS NOT NULL AND op.population > 0
+            AND (SELECT count(*) FROM municipal_fiscal m2
+                   JOIN obshtina_population o2 ON o2.obshtina = m2.obshtina
+                  WHERE m2.quarter = p.quarter AND m2.fiscal_year = p.fiscal_year
+                    AND m2.commitments_eur IS NOT NULL AND o2.population > 0) > 1
+      THEN
+        (SELECT count(*) + 1 FROM municipal_fiscal m2
+           JOIN obshtina_population o2 ON o2.obshtina = m2.obshtina
+          WHERE m2.quarter = p.quarter AND m2.fiscal_year = p.fiscal_year
+            AND m2.commitments_eur IS NOT NULL AND o2.population > 0
+            AND m2.commitments_eur / o2.population
+                > p.commitments_eur / op.population)
+      END AS per_capita_rank,
+      (SELECT count(*) FROM municipal_fiscal m2
+         JOIN obshtina_population o2 ON o2.obshtina = m2.obshtina
+        WHERE m2.quarter = p.quarter AND m2.fiscal_year = p.fiscal_year
+          AND m2.commitments_eur IS NOT NULL AND o2.population > 0)
+        AS per_capita_ranked_count,
+      -- MEDIAN, not mean: the distribution is long-tailed (the top município is
+      -- ~30× the middle one), so a mean would sit above almost every município
+      -- and „above average" would be the normal case.
+      (SELECT percentile_cont(0.5) WITHIN GROUP (
+                ORDER BY m2.commitments_eur / o2.population)
+         FROM municipal_fiscal m2
+         JOIN obshtina_population o2 ON o2.obshtina = m2.obshtina
+        WHERE m2.quarter = p.quarter AND m2.fiscal_year = p.fiscal_year
+          AND m2.commitments_eur IS NOT NULL AND o2.population > 0)
+        AS per_capita_median_eur,
       -- The full quarterly series for this município, oldest first.
       -- snake_case throughout, matching the columns this payload is built from.
       -- An earlier draft had camelCase here and snake_case at the top level —
@@ -299,9 +380,18 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
     FROM pick p
     LEFT JOIN place_dim pd
       ON pd.kind = 'obshtina' AND COALESCE(pd.governance_code, pd.code) = p.obshtina
+    LEFT JOIN obshtina_population op ON op.obshtina = p.obshtina
   ) row;
 $$;
 
+-- DROP before CREATE, and the line is load-bearing: this function grew
+-- `criteria_met` / `criteria_evaluable` / `population` /
+-- `commitments_per_capita_eur` OUT columns, and `CREATE OR REPLACE` cannot
+-- change a function's OUT-parameter row type — it fails with 42P13 and, because
+-- exec() sends this file as ONE transaction, takes the whole migration with it.
+-- Safe here in a way it is not elsewhere (see the CASCADE note in CLAUDE.md):
+-- nothing reads this function from a stored query, only `/api/db` ad hoc.
+DROP FUNCTION IF EXISTS municipal_fiscal_ranking(int, int);
 CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
   p_year  int DEFAULT NULL,
   p_limit int DEFAULT 300
@@ -313,6 +403,11 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
   arrears_eur double precision, arrears_pct double precision,
   cash_on_hand_eur double precision, debt_stock_eur double precision,
   meets_threshold boolean, in_recovery_procedure boolean,
+  -- ARRAYS, not counts — they say WHICH of the six чл. 130а criteria are met
+  -- and which could be evaluated at all. „N от 6" is derivable from the
+  -- lengths; the reverse is not, and the browse marks the individual criteria.
+  criteria_met smallint[], criteria_evaluable smallint[],
+  population int, commitments_per_capita_eur double precision,
   suppressed_fields text[]
 ) LANGUAGE sql STABLE AS $$
   -- Year-end only: the чл. 130а ratios are annual, and ranking an interim
@@ -325,14 +420,27 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_ranking(
          mf.arrears_eur, mf.arrears_pct,
          mf.cash_on_hand_eur, mf.debt_stock_eur,
          mf.meets_threshold, mf.in_recovery_procedure,
+         mf.criteria_met, mf.criteria_evaluable,
+         op.population,
+         -- LEFT JOIN, so a município with no census row yields NULL rather than
+         -- a division error — and NULL sorts last under DESC NULLS LAST below,
+         -- which is the honest place for "we cannot rank this one".
+         mf.commitments_eur / NULLIF(op.population, 0),
          mf.suppressed_fields
   FROM municipal_fiscal mf
   LEFT JOIN place_dim pd
     ON pd.kind = 'obshtina' AND COALESCE(pd.governance_code, pd.code) = mf.obshtina
+  LEFT JOIN obshtina_population op ON op.obshtina = mf.obshtina
   WHERE mf.quarter = 4
     AND mf.fiscal_year = COALESCE(
           p_year, (SELECT max(fiscal_year) FROM municipal_fiscal WHERE quarter = 4))
-  ORDER BY mf.commitments_pct DESC NULLS LAST, mf.commitments_eur DESC NULLS LAST
+  -- PER RESIDENT is the default, and absolute is the trap: on absolute
+  -- commitments Столична община is first every year by construction. The
+  -- statutory ratio breaks the tie, so two municipalities with no census row
+  -- still order sensibly rather than arbitrarily.
+  ORDER BY (mf.commitments_eur / NULLIF(op.population, 0)) DESC NULLS LAST,
+           mf.commitments_pct DESC NULLS LAST,
+           mf.commitments_eur DESC NULLS LAST
   -- GREATEST/LEAST IGNORE NULLs, so a NULL p_limit silently clamped to 1 row.
   -- NULL means unbounded here, matching open_calls_list — a count path through
   -- the function must not saturate at its own ceiling.
@@ -396,6 +504,7 @@ $$;
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT EXECUTE ON FUNCTION municipal_fiscal_by_obshtina(text, int) TO app_readonly;
+    GRANT SELECT ON obshtina_population TO app_readonly;
     GRANT EXECUTE ON FUNCTION municipal_fiscal_ranking(int, int) TO app_readonly;
     GRANT EXECUTE ON FUNCTION municipal_fiscal_national(int, smallint) TO app_readonly;
   END IF;
