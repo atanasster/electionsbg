@@ -107,9 +107,16 @@ group company would be a new wrong-attribution defect in place of the old one.
 - `src/screens/water/WaterScreen.tsx` — call `useWaterSector()`; retitle the
   page's framing from the holding group to the sector, so the map, the search box
   and the five tiles all describe the same 45 operators.
-- `VikSubsidiaryTile` — add the `dams` label and a `variant?: "holding" | "sector"`
-  (default `"holding"`) that switches the tile heading. `VikBrowseSection` filters
-  on `WATER_SECTOR_EIKS`, so it passes `"sector"` too.
+- `VikSubsidiaryTile` — add the `dams` label. **The planned
+  `variant?: "holding" | "sector"` prop was deliberately NOT built**: review
+  established that this tile was ALREADY being handed the sector set on
+  `/procurement/contracts?sector=water` under the group heading, so the live
+  defect was a caller passing the wrong universe — and a `variant` prop is one
+  more thing that same caller can get wrong. The framing is DERIVED instead. The
+  caller passes `universeEiks` (the set it aggregated, a fact it cannot be wrong
+  about) and the tile decides; deriving from the rendered rows alone was rejected
+  in turn because rows are scope-filtered, so a narrow `?pscope` in which only
+  holding members traded would silently flip `/water` back to the group claim.
 - `WaterSearchBox` — add the `dams` label; correct the "38 operators" comments.
 
 ### Step 3 — regression tests

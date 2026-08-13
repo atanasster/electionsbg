@@ -41,6 +41,14 @@ export interface GroupModelResult<Cat extends string> {
 
 const EMPTY_UNITS: GroupUnitAgg[] = [];
 
+/** The EIK set as a query-key STRING — the one named place that turns a group
+ *  into a cache key. Every hook in this family keys on the joined text rather
+ *  than the array, which is what makes array identity a performance question
+ *  and never a correctness one. Shared so the three call sites cannot drift into
+ *  three different separators or orderings. */
+export const useEikParam = (eiks: readonly string[]): string =>
+  useMemo(() => eiks.join(","), [eiks]);
+
 export const useAwarderGroupModel = <Cat extends string>(
   eiks: readonly string[],
   buildModel: (p: GroupModelPayload) => AwarderModel<Cat>,
@@ -52,7 +60,7 @@ export const useAwarderGroupModel = <Cat extends string>(
   const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
-  const eikParam = useMemo(() => [...eiks].join(","), [eiks]);
+  const eikParam = useEikParam(eiks);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["db", "awarder-group-model", eikParam, from, to] as const,

@@ -24,5 +24,5 @@ export const VikBrowseSection: FC<SectorBrowseSectionProps> = ({
       <div className="h-[200px] animate-pulse rounded-xl border bg-card" />
     );
   if (!operators.length) return null;
-  return <VikSubsidiaryTile operators={operators} />;
+  return <VikSubsidiaryTile operators={operators} universeEiks={eiks} />;
 };

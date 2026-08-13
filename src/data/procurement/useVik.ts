@@ -5,17 +5,37 @@
 //
 // CONSOLIDATED GROUP — why this pack fans out over many EIKs. Български ВиК
 // холдинг ЕАД (206086428) is a 61-person parent; the procurement happens in its
-// ~26 regional subsidiaries (each a separate awarder EIK). A pack mounted on the
+// regional subsidiaries (each a separate awarder EIK). A pack mounted on the
 // holding that reported only the parent would understate the group's procurement
 // by orders of magnitude. So on the holding's page we fetch the parent + every
 // believed subsidiary and merge before the model is built. Mounted on any other
 // EIK (a single operator's own page) it stands alone. See
 // docs/plans/water-view-v1.md §2/§4.3 and src/lib/vikReferenceData.ts.
+//
+// ⚠ TWO UNIVERSES, AND THEY ARE NOT THE SAME QUESTION. `useVik` answers "what
+// does Български ВиК холдинг's GROUP buy" and is for /awarder/206086428, whose
+// subject is that legal entity. `useWaterSector` below answers "what does the
+// water SECTOR buy" and is for /water, whose subject is the country's water
+// procurement — concession, irrigation, dams and municipal operators included.
+// The sector is the strict superset; the difference is dominated by Софийска
+// вода, which is a Veolia concession and never a holding company. The size of
+// that gap is a corpus figure, so it is pinned in sector_stats.data.test.ts
+// rather than written here, where it would go stale unnoticed.
+//
+// The /water page used to call `useVik`, so its five tiles counted 26 EIKs while
+// the hub tile linking to it, the map above it and the search box beside it all
+// counted the full sector — the same page showing Софийска вода as a pin and
+// omitting it from every number underneath. That is the split these two hooks
+// exist to keep apart; see docs/plans/water-sector-audit-v1.md.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
-import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
+import {
+  useAwarderGroupModel,
+  useEikParam,
+  type ScopeWindow,
+} from "./useAwarderGroupModel";
 import {
   buildVikModelFromAggregates,
   type VikModel,
@@ -23,6 +43,7 @@ import {
 import {
   VIK_HOLDING_EIK,
   VIK_HOLDING_SUB_EIKS,
+  WATER_SECTOR_EIKS,
   operatorByEik,
 } from "@/lib/vikReferenceData";
 
@@ -43,26 +64,29 @@ export interface VikOperatorAgg {
 
 export interface VikData {
   model: VikModel | null;
-  /** Per-operator totals across the group, € desc (empty off the holding). */
+  /** Per-operator totals across the aggregated set, € desc. */
   operators: VikOperatorAgg[];
-  /** The EIKs actually aggregated (parent + subs on the holding, else [eik]). */
-  groupEiks: string[];
+  /** The EIKs actually aggregated — the holding group, one EIK, or the whole
+   *  sector, depending on which hook you called. Referentially STABLE across
+   *  renders (see the return site), so it is safe in a memo or a query key, and
+   *  `readonly` so a consumer cannot mutate the shared constant it may be. */
+  groupEiks: readonly string[];
   isLoading: boolean;
 }
 
-export const useVik = (
-  eik: string = VIK_HOLDING_EIK,
+/** The shared body — model + per-operator rollup over an EXPLICIT EIK set.
+ *
+ *  One `/api/db/awarder-group-model` call keyed on the joined list, so widening
+ *  the set costs a longer query string rather than a request per EIK.
+ *
+ *  IDENTITY CONTRACT: `eiks` must be referentially stable across renders — a
+ *  memo, or a module constant. It is returned as `groupEiks` and joined into a
+ *  React Query key, so a caller building the array inline would re-key on every
+ *  render. Both exported wrappers below satisfy this; a new one must too. */
+const useVikOver = (
+  eiks: readonly string[],
   windowOverride?: ScopeWindow,
 ): VikData => {
-  // The holding consolidates its group; any other EIK stands alone.
-  const eiks = useMemo(
-    () =>
-      eik === VIK_HOLDING_EIK
-        ? [VIK_HOLDING_EIK, ...VIK_HOLDING_SUB_EIKS]
-        : [eik],
-    [eik],
-  );
-
   const gm = useAwarderGroupModel(
     eiks,
     buildVikModelFromAggregates,
@@ -89,6 +113,10 @@ export const useVik = (
     [gm.byUnit],
   );
 
+  // `eiks` is returned AS GIVEN, never copied: `useVik` memoises it and
+  // `useWaterSector` passes a module constant, so consumers that feed it into a
+  // `useMemo`/query key (useVikFunds joins it) keep a stable identity. A defensive
+  // `[...eiks]` here would be a fresh array every render and defeat that.
   return {
     model: gm.model,
     operators,
@@ -97,10 +125,36 @@ export const useVik = (
   };
 };
 
+/** Български ВиК холдинг's GROUP — the parent plus its believed subsidiaries.
+ *  Mounted on /awarder/206086428, whose subject is that legal entity; any other
+ *  EIK stands alone. NOT the water sector — see the header. */
+export const useVik = (
+  eik: string = VIK_HOLDING_EIK,
+  windowOverride?: ScopeWindow,
+): VikData => {
+  // The holding consolidates its group; any other EIK stands alone.
+  const eiks = useMemo(
+    () =>
+      eik === VIK_HOLDING_EIK
+        ? [VIK_HOLDING_EIK, ...VIK_HOLDING_SUB_EIKS]
+        : [eik],
+    [eik],
+  );
+  return useVikOver(eiks, windowOverride);
+};
+
+/** The whole water SECTOR — every row in WATER_OPERATORS, which is the same set
+ *  the /governance/sectors headline, the operator map, the search box, the browse
+ *  pack and /water/operators use. This is what /water renders, so those surfaces
+ *  cannot report different totals for the same page. */
+export const useWaterSector = (windowOverride?: ScopeWindow): VikData =>
+  // WATER_SECTOR_EIKS is a module constant, so its identity is already stable.
+  useVikOver(WATER_SECTOR_EIKS, windowOverride);
+
 /** Lightweight per-operator rollup for a SET of EIKs via ONE grouped aggregate
  *  (/api/db/awarder-group-rollup) — for the sector browse pack's context strip,
  *  which needs only the per-operator €/count (VikSubsidiaryTile), not the full
- *  corpus. Avoids the 26+-request fan-out `useVik` does for the pack's model. */
+ *  by-function model the group-model call also builds. */
 export const useVikGroupRollup = (
   eiks: readonly string[],
   windowOverride?: ScopeWindow,
@@ -108,7 +162,7 @@ export const useVikGroupRollup = (
   const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
-  const eikParam = useMemo(() => [...eiks].join(","), [eiks]);
+  const eikParam = useEikParam(eiks);
 
   const { data, isLoading } = useQuery({
     queryKey: ["db", "awarder-group-rollup", eikParam, from, to] as const,
@@ -167,7 +221,7 @@ export interface VikFundOp {
 export const useVikFunds = (
   eiks: readonly string[],
 ): { funds: VikFundOp[]; isLoading: boolean } => {
-  const eikParam = useMemo(() => [...eiks].join(","), [eiks]);
+  const eikParam = useEikParam(eiks);
   const { data, isLoading } = useQuery({
     queryKey: ["db", "awarder-funds-rollup", eikParam] as const,
     queryFn: async (): Promise<{

@@ -435,10 +435,14 @@ export const VIK_HOLDING_SUB_EIKS: string[] = WATER_OPERATORS.filter(
  *  derive from it, so those surfaces cannot disagree about what "water" is.
  *
  *  VIK_HOLDING_SUB_EIKS above is the strictly narrower HOLDING group and is not
- *  interchangeable with this: it is €864.2M smaller, excluding the concession
- *  (Софийска вода — the largest water awarder in the country), Напоителни, the
- *  dams enterprise and every municipal operator. Use it only where the subject is
- *  Български ВиК холдинг itself, e.g. /awarder/206086428.
+ *  interchangeable with this: it excludes the concession (Софийска вода — the
+ *  largest water awarder in the country), Напоителни, the dams enterprise and
+ *  every municipal operator, which is roughly a quarter of the sector's money.
+ *  Use it only where the subject is Български ВиК холдинг itself, e.g.
+ *  /awarder/206086428. The exact gap moves with every corpus reload and is
+ *  therefore asserted as a BAND in sector_stats.data.test.ts, never restated in
+ *  prose here — an earlier draft of this file carried €864.2M in three places
+ *  and it was stale before the audit that wrote it had finished.
  *
  *  Deduped because OPERATOR_BY_EIK collapses a repeated EIK silently (last row
  *  wins) while a plain `.map()` would not — and this array is summed. The file

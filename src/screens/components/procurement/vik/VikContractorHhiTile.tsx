@@ -1,9 +1,17 @@
 // "Концентрация на изпълнителите (HHI)" — how concentrated the water sector's ЗОП
 // spend is among contractors, using the Herfindahl-Hirschman Index with the DOJ
 // bands (competitive <1500, moderate ≤2500, high >2500). Computed client-side
-// from the group model's suppliers (no new query), reusing the shared HHI
+// from the aggregated model's suppliers (no new query), reusing the shared HHI
 // banding helpers. Mirrors mon/TextbookConcentrationTile (docs/plans/
 // water-view-v1.md §4.6b).
+//
+// Serves BOTH universes — the holding group on /awarder/206086428 and the whole
+// sector on /water — and unlike VikSubsidiaryTile it is handed suppliers rather
+// than operators, so it cannot tell which. Its copy is therefore universe-NEUTRAL
+// by design: it names "the contracted value", never "the group's". Both languages
+// — the EN string kept saying "the group's" for one commit after the BG one was
+// fixed, which is how a caption asserts holding membership over a Veolia
+// concession in one language only.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -119,8 +127,8 @@ export const VikContractorHhiTile: FC<{
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Индекс на Херфиндал-Хиршман върху дела на изпълнителите в договорената стойност на групата (по DOJ: под 1500 конкурентен, 1500–2500 умерен, над 2500 концентриран). Изчислено от договорите в текущия обхват."
-            : "Herfindahl-Hirschman index over contractors' shares of the group's contracted value (DOJ bands: <1500 competitive, 1500–2500 moderate, >2500 concentrated). Computed from the contracts in the current scope."}
+            ? "Индекс на Херфиндал-Хиршман върху дела на изпълнителите в договорената стойност (по DOJ: под 1500 конкурентен, 1500–2500 умерен, над 2500 концентриран). Изчислено от договорите в текущия обхват."
+            : "Herfindahl-Hirschman index over contractors' shares of the contracted value (DOJ bands: <1500 competitive, 1500–2500 moderate, >2500 concentrated). Computed from the contracts in the current scope."}
         </p>
       </CardContent>
     </Card>

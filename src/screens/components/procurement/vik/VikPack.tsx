@@ -5,7 +5,12 @@
 //
 // PHASE 1 (Tier-A) scope: this renders off the EXISTING procurement corpus with
 // no new ingest — the consolidated group roll-up (the parent procures almost
-// nothing; the ~26 regional operators do) and the by-function category split.
+// nothing; the regional operators do) and the by-function category split.
+//
+// ⚠ This pack is the HOLDING's, so it stays on `useVik` — its subject is
+// Български ВиК холдинг as a legal entity. /water is the SECTOR and uses
+// `useWaterSector`, a strict superset adding the Sofia concession, irrigation,
+// dams and the municipal operators. See useVik.ts's header.
 // The КЕВР loss/tariff choropleths, NSI rationing series, the self-financing
 // bridge hero and the flood-risk feature land in later phases (see
 // docs/plans/water-view-v1.md §10). The primary surface will be the /water screen
@@ -138,7 +143,7 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       )}
 
       {/* Consolidated group — the point of the pack (parent procures ~nothing) */}
-      <VikSubsidiaryTile operators={operators} />
+      <VikSubsidiaryTile operators={operators} universeEiks={groupEiks} />
 
       {/* EU-funds — most water capex is European money, not ЗОП procurement */}
       <VikEuFundsTile funds={funds} />

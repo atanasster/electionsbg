@@ -1,9 +1,11 @@
-// "Дружествата в групата" — the consolidated ВиК-холдинг group: each operator's
-// ЗОП spend in scope, € desc, linking to its own /awarder/:eik page. This is the
-// tile that makes the point the holding's own per-EIK header cannot: the parent
-// (206086428) procures almost nothing; the money is in the ~26 regional
-// operators. Pure from VikOperatorAgg (useVik). Tier-A — renders off the existing
+// Each operator's ЗОП spend in scope, € desc, linking to its own /awarder/:eik
+// page. This is the tile that makes the point a single per-EIK header cannot:
+// the holding parent (206086428) procures almost nothing; the money is in the
+// regional operators. Pure from VikOperatorAgg. Tier-A — renders off the existing
 // corpus with no new ingest. See docs/plans/water-view-v1.md §4.1c.
+//
+// It serves TWO universes and says which one it is showing — see the derivation
+// note at HOLDING_EIKS below, and docs/plans/water-sector-audit-v1.md.
 
 import { FC } from "react";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
@@ -31,25 +33,37 @@ const TYPE_LABEL: Record<WaterOperatorType, { bg: string; en: string }> = {
 const TOP_N = 12;
 
 // This tile is fed TWO different universes — the holding group on
-// /awarder/206086428, and the whole 45-EIK water sector on /water and
-// /procurement/contracts?sector=water — so its framing is DERIVED from the rows
-// it was handed, never passed in. A `variant` prop would be one more thing a
-// caller can get wrong, and the caller getting it wrong is the defect itself:
-// before 2026-08-13 the sector set rendered under the group heading, so the page
-// asserted that Софийска вода (a Veolia concession the reference data says in
-// capitals is never a subsidiary) and ДП УСЯ (a dam enterprise) were companies in
-// Български ВиК холдинг.
+// /awarder/206086428, and the whole water sector on /water and
+// /procurement/contracts?sector=water — so its framing is DERIVED, never passed
+// in. A `variant: "holding" | "sector"` prop would be one more thing a caller can
+// get wrong, and the caller getting it wrong IS the defect: before 2026-08-13 the
+// sector set rendered under the group heading, so the page asserted that Софийска
+// вода (a Veolia concession the reference data says in capitals is never a
+// subsidiary) and ДП УСЯ (a dam enterprise) were companies in Български ВиК
+// холдинг. `universeEiks` is not that prop — the caller states which EIKs it
+// ASKED for, a fact it cannot be wrong about, and the tile still decides.
+//
+// Deriving from `universeEiks` rather than from the rendered rows matters because
+// the rows are already scope-filtered: under a narrow ?pscope a window in which
+// only holding members happened to trade would flip /water back to the group
+// framing with nothing to signal it. The row-based check remains the fallback for
+// a caller with no set to declare.
 const HOLDING_EIKS = new Set([VIK_HOLDING_EIK, ...VIK_HOLDING_SUB_EIKS]);
 
-export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
-  operators,
-}) => {
+export const VikSubsidiaryTile: FC<{
+  operators: VikOperatorAgg[];
+  /** The EIK universe the caller aggregated — scope-independent, so an empty
+   *  window cannot invert the tile's central claim. */
+  universeEiks?: readonly string[];
+}> = ({ operators, universeEiks }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = operators.filter((o) => o.totalEur > 0);
   if (rows.length < 2) return null;
-  const isSector = rows.some((o) => !HOLDING_EIKS.has(o.eik));
+  const isSector = (universeEiks ?? rows.map((o) => o.eik)).some(
+    (e) => !HOLDING_EIKS.has(e),
+  );
   const max = Math.max(...rows.map((o) => o.totalEur));
   const shown = rows.slice(0, TOP_N);
   const rest = rows.slice(TOP_N);
@@ -76,7 +90,10 @@ export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
             <div key={o.eik} className="text-xs">
               <div className="flex items-baseline justify-between gap-2 mb-1">
                 <span className="min-w-0 truncate font-medium">
-                  {o.eik === VIK_HOLDING_EIK ? (
+                  {/* The self-link is suppressed only on the holding's OWN
+                      page. In the sector view the holding is just another row —
+                      and the one a reader is most likely to click. */}
+                  {!isSector && o.eik === VIK_HOLDING_EIK ? (
                     o.name
                   ) : (
                     <AwarderLink
@@ -116,7 +133,7 @@ export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
         {rest.length > 0 && (
           <p className="pt-1 text-[11px] text-muted-foreground">
             {bg
-              ? `+ още ${rest.length} дружества · ${formatEurCompact(restEur, lang)}`
+              ? `+ още ${rest.length} ${isSector ? "оператора" : "дружества"} · ${formatEurCompact(restEur, lang)}`
               : `+ ${rest.length} more operators · ${formatEurCompact(restEur, lang)}`}
           </p>
         )}
