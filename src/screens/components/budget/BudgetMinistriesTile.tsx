@@ -202,9 +202,21 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
   return (
     <Card className="my-4" id="budget-ministries" data-og="budget-ministries">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Landmark className="h-4 w-4" />
-          {t("budget_ministries_title") || "By spending unit"}
+        <CardTitle className="text-base flex items-center justify-between gap-2">
+          <span className="flex items-center gap-2">
+            <Landmark className="h-4 w-4" />
+            {t("budget_ministries_title") || "By spending unit"}
+          </span>
+          {/* Without this the picker is reachable from the sitemap, the
+              prerendered HTML and a typed URL — but from nowhere a reader is
+              standing, which closes plan §1.2's discovery gap for crawlers
+              only. */}
+          <Link
+            to="/budget/ministries"
+            className="text-xs font-normal text-primary hover:underline"
+          >
+            {t("budget_units_see_all")} →
+          </Link>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {(t("budget_ministries_subtitle") ||

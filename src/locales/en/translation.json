@@ -4624,7 +4624,6 @@
   "budget_projection_pending": "full-year projection pending — needs a prior fiscal year for the seasonal baseline",
   "budget_term_no_data": "No budget data for this parliament’s term yet.",
   "candidate_summary_line": "{{votes}} preference votes in the {{date}} election · strongest in {{region}} ({{regionVotes}} preference votes)",
-  "budget_ministries_title": "By spending unit",
   "budget_ministries_subtitle": "Expenditure appropriated by the State Budget Law for fiscal year",
   "budget_top_ministries_subtitle": "Top {{n}} of {{total}} units · fiscal year {{fy}}",
   "budget_top_ministries_see_all": "See all {{count}} other units",
@@ -6077,5 +6076,18 @@
   "budget_basis_label": "Unit",
   "budget_basis_gdp": "% of GDP",
   "budget_basis_share": "% of level",
-  "budget_explorer_empty_coverage": "This dimension only goes up to {{year}}."
+  "budget_explorer_empty_coverage": "This dimension only goes up to {{year}}.",
+  "budget_units_title": "Spending units",
+  "budget_units_description": "Every first-level spending unit in the State Budget Law — what each was appropriated, and which reported execution.",
+  "budget_units_intro": "These are the first-level spending units named in the State Budget Law — not only ministries: the President's Administration, the State Fund for Agriculture, ДАНС, КЕВР and others are here too.",
+  "budget_units_search_placeholder": "Search a spending unit",
+  "budget_units_coverage": "{{covered}} of {{total}} spending units published an execution report. The rest have only a plan — the gap is theirs, not ours.",
+  "budget_units_pending": "Execution reports for {{fy}} are published after the fiscal year closes — so far this is the plan only.",
+  "budget_units_has_report": "reported",
+  "budget_units_empty": "No spending units for this year or search.",
+  "budget_units_source": "Source: the State Budget Law and the annual programme-budget execution reports (Ministry of Finance).",
+  "budget_units_absent_one": "One further spending unit is listed but has no budget in this year.",
+  "budget_units_absent_other": "A further {{count}} spending units are listed but have no budget in this year.",
+  "budget_units_see_all": "All spending units",
+  "budget_ministries_title": "By spending unit"
 }

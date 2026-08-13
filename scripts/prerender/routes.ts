@@ -2970,6 +2970,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/ministries",
+    title:
+      "Разпоредители с бюджет — всички първостепенни разпоредители | electionsbg.com",
+    description:
+      "Всички първостепенни разпоредители по държавния бюджет: колко е разпределено на всеки и кои са публикували отчет за изпълнението.",
+    breadcrumbName: "Разпоредители",
+    bodyHtml: `
+<h1>Разпоредители с бюджет</h1>
+<p>Държавният бюджет се разпределя между първостепенни разпоредители — и това не са само министерства. В списъка са и Администрацията на президента, ДФ „Земеделие“, ДАНС, КЕВР, КФН и други органи, които получават средства направо от бюджета.</p>
+<h2>План и отчет са различни неща</h2>
+<p>За всеки разпоредител законът определя план. Отчет за изпълнението публикуват далеч по-малко от тях — затова страницата казва изрично колко са отчели и колко имат само план. Липсата на отчет е мълчание на съответното ведомство, а не празнота в данните тук.</p>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
+    english: {
+      title: "Budget Spending Units — Every First-Level Unit | electionsbg.com",
+      description:
+        "Every first-level spending unit in Bulgaria's State Budget Law: what each was appropriated, and which published an execution report.",
+      breadcrumbName: "Spending units",
+      bodyHtml: `
+<h1>Budget spending units</h1>
+<p>The state budget is appropriated to first-level spending units — and they are not only ministries. The list also holds the President's Administration, the State Fund for Agriculture, the State Agency for National Security, the energy and financial regulators and other bodies funded directly from the budget.</p>
+<h2>A plan and a report are different things</h2>
+<p>The law sets a plan for every unit. Far fewer publish an execution report, so this page states outright how many reported and how many have only a plan. A missing report is that body's silence, not a gap in the data here.</p>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/explorer",
     title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",
     description:
