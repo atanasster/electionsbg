@@ -51,7 +51,29 @@ import { recordIngestBatch } from "./lib/ingest_changelog";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, "../..");
 const DATA = resolve(REPO, "data");
-const SCHEMA = resolve(__dirname, "schema/pg/154_budget_municipal.sql");
+/**
+ * Every budget migration, in dependency order — and this loader applies ALL of
+ * them while filling only 154's tables.
+ *
+ * That is not tidiness, it is the only place the DDL can live. `LANGUAGE sql`
+ * bodies are validated at CREATE time, so 155's functions raise 42P01 against
+ * absent 152/153 tables and — exec() sending a file as one transaction — roll
+ * the whole migration back. And the loader that fills 152/153 is
+ * `db:load:budget:pg`, which is in REFRESH_EXCLUSIONS and therefore never runs
+ * on a fresh clone or on CI.
+ *
+ * So the in-chain loader carries the schema for the out-of-chain one. The state
+ * tables exist wherever the serving layer does and are EMPTY where the
+ * gitignored admin shards were never available — the 147_tender_search_text
+ * shape. This is what closes the gap T1 opened: before it, NOTHING in
+ * db:refresh applied 152/153 and a cold chain had no budget tables at all.
+ */
+const SCHEMA_FILES = [
+  "152_budget_kfp.sql",
+  "153_budget_admin.sql",
+  "154_budget_municipal.sql",
+  "155_budget_serving.sql",
+].map((f) => resolve(__dirname, "schema/pg", f));
 
 /** `--allow-shrink` — the escape hatch for a retraction that is genuinely real. */
 const ALLOW_SHRINK = process.argv.includes("--allow-shrink");
@@ -603,8 +625,10 @@ export const loadBudgetMuniPg = async (): Promise<{
   placed: number;
   places: number;
 }> => {
-  await exec(readFileSync(SCHEMA, "utf8"));
+  // place_dim FIRST: 155's municipal functions join it, so a missing dimension
+  // is a 42P01 during the apply rather than a clear message afterwards.
   await preflightPlaceDim();
+  for (const file of SCHEMA_FILES) await exec(readFileSync(file, "utf8"));
 
   const place = await buildObshtinaResolver();
   const transfers = loadTransfers(place);

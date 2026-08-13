@@ -310,6 +310,154 @@ const missingMigration = (sentinel) => (e) =>
 // That is the reasoning CLAUDE.md already records for 123/124's `psp:`/`pp:`
 // prefixes; this is the Interreg one. Once per process per label, so a crawler
 // walking 265 municipalities produces one entry, not 265.
+// ── /budget route family ───────────────────────────────────────────────────
+//
+// Factored out because eleven routes share one degrade contract, and repeating
+// it eleven times is eleven chances to drop 55000 from the list.
+const BUDGET_DEGRADE = ["42P01", "42883", "55000", "55P03", "42501"];
+
+/** Degrade to `sentinel`, logging once per process with the loader to run. */
+const budgetMiss = (label, sentinel) => (e) => {
+  if (!BUDGET_DEGRADE.includes(e?.code)) return Promise.reject(e);
+  logMissOnce(
+    `bh:not-built:${label}:${e.code}`,
+    `budget/${label}: read failed (${e.code}) — serving an empty payload. Run ` +
+      "npm run db:load:budget-muni:pg:cloud (schema + municipal), then " +
+      "npm run db:load:budget:pg:cloud (the state corpus).",
+  );
+  return [{ r: sentinel }];
+};
+
+/** The ?basis= control. Unknown values fall through to EUR rather than 400ing:
+ *  a mistyped param must narrow nothing and blank nothing. */
+const BUDGET_BASES = ["eur", "gdp", "share", "capita"];
+const budgetBasis = (q) => {
+  const b = s(q, "basis").toLowerCase();
+  return BUDGET_BASES.includes(b) ? b : "eur";
+};
+
+/** A fiscal year, or null for "the latest". Out-of-range is null, not a 400 —
+ *  every one of these functions treats null as "newest", which is a better
+ *  answer to `?fy=abc` than an error page. */
+const budgetFy = (q) => {
+  const raw = s(q, "fy");
+  if (raw === "") return null;
+  return /^\d{4}$/.test(raw) && Number(raw) >= 1990 && Number(raw) <= 2100
+    ? Number(raw)
+    : null;
+};
+
+const budgetRoutes = () => ({
+  "budget-year": async (dbRows, q) => {
+    const rows = await dbRows(
+      "SELECT budget_year_summary($1::int, $2::text) AS r",
+      [budgetFy(q), budgetBasis(q)],
+    ).catch(budgetMiss("year", null));
+    return { body: rows[0]?.r ?? null };
+  },
+  "budget-series": async (dbRows, q) => {
+    const rows = await dbRows(
+      "SELECT budget_series($1::int, $2::int, $3::text, $4::text) AS r",
+      [
+        budgetFy({ fy: s(q, "from") }),
+        budgetFy({ fy: s(q, "to") }),
+        s(q, "series") || null,
+        budgetBasis(q),
+      ],
+    ).catch(budgetMiss("series", { points: [] }));
+    return { body: rows[0]?.r ?? { points: [] } };
+  },
+  "budget-snapshot": async (dbRows, q) => {
+    const fy = budgetFy(q);
+    if (fy == null)
+      return { status: 400, body: { error: "fy is required (YYYY)" } };
+    const rows = await dbRows(
+      "SELECT budget_snapshot($1::int, $2::text, $3::text) AS r",
+      [fy, s(q, "kind") || null, budgetBasis(q)],
+    ).catch(budgetMiss("snapshot", { sections: [] }));
+    return { body: rows[0]?.r ?? { sections: [] } };
+  },
+  "budget-explorer": async (dbRows, q) => {
+    const fy = budgetFy(q);
+    if (fy == null)
+      return { status: 400, body: { error: "fy is required (YYYY)" } };
+    // The dimension is validated rather than passed through: an unknown one
+    // returns zero rows from every arm of the UNION, which renders as "this
+    // ministry spent nothing" instead of "no such view".
+    const dim = s(q, "dimension") || "admin";
+    if (!["admin", "functional"].includes(dim))
+      return { status: 400, body: { error: "dimension must be admin|functional" } };
+    const rows = await dbRows(
+      "SELECT budget_explorer($1::int, $2::text, $3::text, $4::text) AS r",
+      [fy, dim, s(q, "parent") || null, budgetBasis(q)],
+    ).catch(budgetMiss("explorer", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-ministries": async (dbRows, q) => {
+    const rows = await dbRows(
+      "SELECT budget_admin_list($1::int, $2::text, $3::int) AS r",
+      [budgetFy(q), s(q, "q") || null, clampInt(q.limit, 300, 1, 1000)],
+    ).catch(budgetMiss("ministries", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-ministry": async (dbRows, q) => {
+    const id = s(q, "id");
+    if (!id) return { status: 400, body: { error: "id is required" } };
+    const rows = await dbRows(
+      "SELECT budget_admin_detail($1::text, $2::int) AS r",
+      [id, budgetFy(q)],
+    ).catch(budgetMiss("ministry", null));
+    return { body: rows[0]?.r ?? null };
+  },
+  "budget-functional": async (dbRows, q) => {
+    const fy = budgetFy(q);
+    if (fy == null)
+      return { status: 400, body: { error: "fy is required (YYYY)" } };
+    const rows = await dbRows(
+      "SELECT budget_cofog_list($1::int, $2::text) AS r",
+      [fy, budgetBasis(q)],
+    ).catch(budgetMiss("functional", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-variance": async (dbRows, q) => {
+    const fy = budgetFy(q);
+    if (fy == null)
+      return { status: 400, body: { error: "fy is required (YYYY)" } };
+    const rows = await dbRows("SELECT budget_variance($1::int, $2::int) AS r", [
+      fy,
+      clampInt(q.limit, 20, 1, 200),
+    ]).catch(
+      // The sentinel carries NULL coverage, not 0/0. A degraded payload reading
+      // "0 of 0 units reported" is a claim about the corpus; null is the truth,
+      // and the page renders "not loaded" from it.
+      budgetMiss("variance", { rows: [], coveredUnits: null, totalUnits: null }),
+    );
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-law": async (dbRows, q) => {
+    const rows = await dbRows("SELECT budget_documents($1::int) AS r", [
+      budgetFy(q),
+    ]).catch(budgetMiss("law", { rows: [], obsCategoriesPresent: null }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-municipal": async (dbRows, q) => {
+    const rows = await dbRows(
+      "SELECT budget_muni_list($1::int, $2::text, $3::int) AS r",
+      [budgetFy(q), s(q, "q") || null, clampInt(q.limit, 300, 1, 1000)],
+    ).catch(budgetMiss("municipal", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
+  "budget-municipality": async (dbRows, q) => {
+    const code = s(q, "obshtina");
+    if (!code) return { status: 400, body: { error: "obshtina is required" } };
+    const rows = await dbRows(
+      "SELECT budget_muni_detail($1::text, $2::int) AS r",
+      [code, budgetFy(q)],
+    ).catch(budgetMiss("municipality", null));
+    return { body: rows[0]?.r ?? null };
+  },
+});
+
 const missingMigrationLogged = (label, sentinel, loader) => (e) => {
   if (e?.code !== "42883" && e?.code !== "42P01") return Promise.reject(e);
   logMissOnce(
@@ -3638,6 +3786,24 @@ const DB_ROUTES = {
   // `code = 'SFO_CITY'` with `governance_code = 'SOF00'` — which is why the
   // function joins on COALESCE(governance_code, code): the caller passes SOF00
   // like any other code and gets „Столична община" back.
+  // ── /budget — the state and municipal budget serving layer (migration 155) ──
+  //
+  // Eleven routes over one file. All of them degrade rather than 500, because
+  // 152/153's only FILLER (db:load:budget:pg) is in REFRESH_EXCLUSIONS: a
+  // database can legitimately have the tables and no rows, and — until
+  // db:load:budget-muni:pg has run there — no tables at all.
+  //
+  // The degrade set is the skill's: 42P01 (table absent), 42883 (function
+  // absent — a body change shipped before deploy:db), 55000, 55P03, 42501.
+  // 57014 is DELIBERATELY ABSENT: that is the pool's own statement_timeout, so
+  // the probe has already burned the budget and a fallback cannot finish
+  // either. Degrading is only correct when it beats failing.
+  //
+  // Every miss LOGS once per process under `bh:` — that log, not latency, is
+  // how an operator learns the cloud loader never ran. A zero-shaped budget
+  // payload is indistinguishable from a real answer, which is the whole reason
+  // the line has to exist.
+  ...budgetRoutes(),
   "municipal-fiscal": async (dbRows, q) => {
     const obshtina = s(q, "obshtina").trim().toUpperCase();
     if (!/^[A-Z0-9_]{3,10}$/.test(obshtina))

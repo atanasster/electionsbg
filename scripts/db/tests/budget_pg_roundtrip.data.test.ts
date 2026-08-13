@@ -69,22 +69,38 @@ const skip = !haveDb
       "REFRESH_EXCLUSIONS, so a fresh clone legitimately has no budget tables"
     : false;
 
+/**
+ * APPLIED is not LOADED, and T3 is the change that decoupled them.
+ *
+ * The header above says an empty budget_fiscal_year means the loader broke,
+ * because its inputs are committed. That was true when the ONLY applier was the
+ * loader itself. T3 made the in-chain municipal loader apply 152/153's DDL so
+ * migration 155's bodies compile — so a fresh clone and CI now have the tables,
+ * empty, with no defect at all. Skipping on the DATA rather than on the schema
+ * is what keeps db:refresh green there.
+ */
+const stateSkip =
+  skip ||
+  (Number(
+    (
+      await allRows<{ n: string }>(
+        "SELECT count(*)::text n FROM budget_fiscal_year",
+      )
+    )[0]?.n ?? 0,
+  ) === 0
+    ? "the state corpus is empty — db:load:budget:pg is in REFRESH_EXCLUSIONS, so " +
+      "a fresh clone has the tables (applied by db:load:budget-muni:pg) and no rows"
+    : false);
+
 /** The gitignored half. Absent on CI and on a fresh clone, by design. */
 const haveShards = existsSync(resolve(REPO, "data/budget/reconciliation"));
 const shardSkip =
-  skip ||
+  stateSkip ||
   (!haveShards
     ? "data/budget/reconciliation/ absent — GITIGNORED (bucket-shipped only), " +
       "so this machine has no admin grain to compare against. Run " +
       "`npm run data -- --all` to regenerate it."
     : false);
-
-/** Whether the loader has ever run here. Distinct from "the shards are absent":
- *  a machine WITH shards and an empty table is a broken chain, not a skip. */
-const tableEmpty = async (t: string): Promise<boolean> => {
-  const [r] = await allRows<{ n: string }>(`SELECT count(*)::text n FROM ${t}`);
-  return Number(r?.n ?? 0) === 0;
-};
 
 afterAll(async () => {
   await end();
@@ -92,26 +108,21 @@ afterAll(async () => {
 
 const corpus = loadBudgetCorpus();
 
-test.skipIf(skip)("budget_fiscal_year matches the shard summary", async () => {
-  if (await tableEmpty("budget_fiscal_year")) {
-    // kfp.json and index.json are COMMITTED, so this is never the fresh-clone
-    // case — it means db:load:budget:pg has not run against this database.
-    assert.fail(
-      "budget_fiscal_year is empty. Its inputs are committed files, so this is a " +
-        "loader failure, not a missing-shard skip. Run `npm run db:load:budget:pg`.",
+test.skipIf(stateSkip)(
+  "budget_fiscal_year matches the shard summary",
+  async () => {
+    const years = (corpus.index?.fiscalYears ?? []).map((y) => y.fiscalYear);
+    const rows = await allRows<{ fiscal_year: number }>(
+      "SELECT fiscal_year FROM budget_fiscal_year ORDER BY fiscal_year",
     );
-  }
-  const years = (corpus.index?.fiscalYears ?? []).map((y) => y.fiscalYear);
-  const rows = await allRows<{ fiscal_year: number }>(
-    "SELECT fiscal_year FROM budget_fiscal_year ORDER BY fiscal_year",
-  );
-  assert.deepEqual(
-    rows.map((r) => r.fiscal_year),
-    [...years].sort((a, b) => a - b),
-  );
-});
+    assert.deepEqual(
+      rows.map((r) => r.fiscal_year),
+      [...years].sort((a, b) => a - b),
+    );
+  },
+);
 
-test.skipIf(skip)(
+test.skipIf(stateSkip)(
   "every headline figure equals the ledger's independent derivation",
   async () => {
     let compared = 0;
@@ -150,7 +161,7 @@ test.skipIf(skip)(
   },
 );
 
-test.skipIf(skip)(
+test.skipIf(stateSkip)(
   "budget_kfp_observation is a lossless capture of the shard feed",
   async () => {
     const [r] = await allRows<{ n: string }>(
@@ -244,7 +255,7 @@ test.skipIf(shardSkip)(
   },
 );
 
-test.skipIf(skip)(
+test.skipIf(stateSkip)(
   "the snapshot SECTION frame survives, including what kind cannot express",
   async () => {
     // Sections II and III are BOTH kind = 'expenditure' and III is the EU
@@ -301,7 +312,7 @@ test.skipIf(shardSkip)(
   },
 );
 
-test.skipIf(skip)("a withheld headcount is NULL, never 0", async () => {
+test.skipIf(stateSkip)("a withheld headcount is NULL, never 0", async () => {
   // NSI publishes nothing before 2021 and the shard renders that as an empty
   // breakdown summed to 0. Storing the 0 draws the series falling off a cliff
   // beside 130k budgeted positions — the plan's §2.2 withheld-≠-zero trap.
@@ -338,7 +349,7 @@ test.skipIf(shardSkip)(
   },
 );
 
-test.skipIf(skip)(
+test.skipIf(stateSkip)(
   "budget_document maps every kind onto the OGP frame or explicitly onto none",
   async () => {
     const rows = await allRows<{ kind: string; obs_category: string | null }>(
@@ -359,7 +370,7 @@ test.skipIf(skip)(
   },
 );
 
-test.skipIf(skip)(
+test.skipIf(stateSkip)(
   "adopted_by_item_id is never inferred — it is NULL until T6.6 resolves it",
   async () => {
     const [r] = await allRows<{ n: string }>(
