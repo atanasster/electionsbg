@@ -537,31 +537,55 @@ rewrite.
 ### 6.4 Loaders
 
 ```
-db:load:budget:pg          → 152 + 153   (state corpus)
+db:load:budget:pg          → 152 + 153 DDL, and FILLS them    ← REFRESH_EXCLUSIONS
 db:load:budget-muni:pg     → 154         (municipal corpus — what the state SENDS)
-db:load:budget-hub:pg      → 155 + 156, then REFRESH budget_hub_stats_cache
+db:load:budget-hub:pg      → 152 + 153 DDL, then 155 + 156, then REFRESH
 ```
 
-Each with a `:cloud` twin. Placement in `db:refresh` — **after** `db:load:place-dim:pg` and
-**after `db:load:municipal-fiscal:pg`**, which already sits directly behind it, because 154 joins
-`place_dim` for every municipal label and §8.3 reads `municipal_fiscal` + `obshtina_population`:
+**[2026-08-13] The three loaders sort onto two different sides of `db:refresh`, and the axis is
+the input, not the cost.**
+
+- **`db:load:budget:pg` is in `REFRESH_EXCLUSIONS`, axis `uncommitted-input`.** Its admin and
+  programme grain lives in `data/budget/reconciliation/` and `data/budget/ministries/`, both
+  gitignored — 0 tracked files against 24 and 55 on a machine that has run the pipeline. It is
+  **not** excluded on cost (~2 MB, seconds); recording the right axis matters, since
+  `db-refresh-loader-gaps-v1` §1a documents five loaders that were once mis-sorted by cost when
+  the operative constraint was the input.
+- **`db:load:budget-muni:pg` stays IN the chain.** Its inputs are all COMMITTED — measured,
+  `municipal_transfers` 47/47, `capital_programs` 112/112, `ipop` 265/265,
+  `municipal_execution` 17/17 tracked. Excluding it would be the same mis-sorting in the other
+  direction.
+- **`db:load:budget-hub:pg` stays IN the chain**, and therefore **also applies 152 + 153's
+  DDL**. Without that, a fresh `db:refresh` would reach 155 with no `budget_admin_fact`, and a
+  `LANGUAGE sql` body validated at CREATE time raises 42P01 and rolls the file back. This is the
+  `147_tender_search_text` shape: the tables **exist wherever the serving layer does and are
+  EMPTY where the shards were never available.** Everything downstream must read 0 rows as „not
+  loaded here", never as „the state appropriated nothing".
 
 ```
 … 27. db:load:place-dim:pg
       db:load:municipal-fiscal:pg   ← [2026-08-13] already there
-      db:load:budget:pg             ← NEW
-      db:load:budget-muni:pg        ← NEW
-      db:load:budget-hub:pg         ← NEW
+      db:load:budget-muni:pg        ← NEW  (committed inputs)
+      db:load:budget-hub:pg         ← NEW  (applies the state DDL too)
    28. db:load:procurement-scopes:pg …
+
+   db:load:budget:pg                ← NEW, EXCLUDED — run by update-budget
 ```
 
-Four `ORDER_PAIRS` entries in `refresh_coverage.test.ts` — `place-dim → budget-muni`,
-**`municipal-fiscal → budget-muni`**, `budget → budget-hub`, `budget-muni → budget-hub` — plus
-chain membership so the coverage gate passes.
+Three `ORDER_PAIRS` entries in `refresh_coverage.test.ts` — `place-dim → budget-muni`,
+`municipal-fiscal → budget-muni`, `budget-muni → budget-hub`. There is deliberately **no**
+`budget → budget-hub` pair: the two are on opposite sides of the chain, so a pair asserting an
+order between them would be asserting an order that does not exist.
 
 `vacuumAfterReload()` on every truncate-and-reload destination, with the table names added to
 `reload_visibility_map.data.test.ts` — the visibility map a TRUNCATE throws away is invisible to
 every row count and to the migration diff (`tenders` lost 5 047 buffers to it).
+
+**[2026-08-13] That gate has an allowlist, and adding the tables is only half of it.**
+`LOADER_FILES` in that test enumerates which loaders its static check reads, so a new loader is
+invisible to the check until it is listed there — `load_municipal_fiscal_pg.ts` had a `RELOADED`
+entry and no `LOADER_FILES` entry, so nothing was reading its call site at all. Both halves, or
+the gate silently stops covering the loader it was extended for.
 
 ### 6.5 Watch-skill wiring — the step that goes stale silently
 

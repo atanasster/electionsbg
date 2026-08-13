@@ -58,6 +58,22 @@ export const REFRESH_EXCLUSIONS: Record<string, RefreshExclusion> = {
     reason:
       "same gitignored cr_deeds.sqlite cache; also writes the http_status/attempts columns gated on migration 033",
   },
+  "db:load:budget:pg": {
+    axes: ["uncommitted-input"],
+    ranBy:
+      "the budget ingest path (update-budget), by hand (docs/plans/budget-hub-v1.md T1)",
+    reason:
+      "the admin and programme grain lives in data/budget/reconciliation/ and " +
+      "data/budget/ministries/, both gitignored (bulky regenerable shards, " +
+      "bucket-shipped only) — measured, git ls-files returns 0 for each against 24 " +
+      "and 55 files on a machine that has run the pipeline. NOT excluded on cost: " +
+      "the corpus is ~2 MB and the load is seconds. NOTE this is currently the ONLY " +
+      "applier of 152/153, so a fresh clone has no budget tables at all — " +
+      "budget_pg_roundtrip.data.test.ts skips on that rather than erroring. When T4's " +
+      "db:load:budget-hub:pg ships it will apply the DDL in-chain, and the tables will " +
+      "then exist wherever the serving layer does and be EMPTY where the shards were " +
+      "never available (the 147_tender_search_text shape).",
+  },
 };
 
 /**

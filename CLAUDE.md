@@ -962,6 +962,40 @@ objects rather than retiring them — the same state `parliament/company-connect
 since 2026-07-29. Removing them is an explicit operator action, documented at the exclusion site
 in `scripts/bucket_sync_paths.ts`.
 
+The state-budget corpus (migrations 152 + 153, `db:load:budget:pg`) is the КФП execution feed,
+its per-fiscal-year roll-up, the admin/programme reconciliation, personnel, COFOG and the
+budget-document index. Plan: `docs/plans/budget-hub-v1.md` T1.
+
+```bash
+npm run db:load:budget:pg:cloud
+```
+
+**It is a `REFRESH_EXCLUSIONS` member, and the axis is the INPUT, not the cost.** The admin and
+programme grain lives in `data/budget/reconciliation/` and `data/budget/ministries/`, both
+gitignored (bulky regenerable shards, bucket-shipped only) — measured, `git ls-files` returns 0
+for each against 24 and 55 files on a machine that has run the pipeline. The load itself is
+~2 MB and seconds. Run it from the `update-budget` path, by hand.
+
+Four things about it are easy to get backwards:
+
+- **It is currently the ONLY applier of 152/153**, so a database that has never run it has no
+  budget tables at all — not empty ones. `budget_pg_roundtrip.data.test.ts` probes `pg_class`
+  and SKIPS on that, rather than 42P01-ing `db:refresh` at its final step (the migration-144
+  class). T4's `db:load:budget-hub:pg` will apply the DDL in-chain and close it.
+- **The merges REFUSE a >5% shrink** (`--allow-shrink` overrides). `mergeFromStage`'s delete is
+  an unscoped anti-join and its parity guard compares counts AFTER that delete, so an empty
+  stage wipes the corpus and passes 0 == 0. Measured: an empty admin stage removes 55 nodes,
+  873 facts (via `ON DELETE CASCADE`, so they are not even in the DELETE's count) and 727
+  programme rows, with the loader exiting 0.
+- **`budget_program_fact.node_id` is the OWNING SPENDING UNIT, and `program_code` is the
+  programme.** `by-program.json` keys its rows on a `prog-…` slug and names no owner — 0 of 86
+  join `budget_admin_node` — so the owner is recovered from `data/budget/ministries/`
+  (727/727 rows, 124 programmes, 0 ambiguous). NULL means that gitignored tree was absent, not
+  that the programme has no owner.
+- **`budget_cofog` is a DIFFERENT CORPUS from the rest** — Eurostat `gov_10a_exp`, sector S13
+  general government, which includes municipalities and the social funds. It is NOT a
+  decomposition of the КФП state-budget expenditure it will be rendered beside.
+
 `municipal_fiscal` (migration 149, `db:load:municipal-fiscal:pg`) is the per-município
 quarterly financial-indicators corpus (ЗПФ чл. 130г ал. 2) — 265 общини × quarter, carrying
 the three liability stocks Bulgarian public finance distinguishes and the site previously

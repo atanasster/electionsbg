@@ -68,15 +68,32 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
     loader: "db:load:nzok-activities:pg",
   },
   { table: "nzok_activity_monthly", loader: "db:load:nzok-activities:pg" },
+  // The state-budget corpus. Only `budget_personnel` is DELETE + COPY — the
+  // shape that actually loses the map; the rest are stage-merged and keep it.
+  // They carry the call anyway, for the reason the municipal-fiscal loader
+  // states: a future switch to TRUNCATE must not silently give back
+  // index-only scans.
+  { table: "budget_fiscal_year", loader: "db:load:budget:pg" },
+  { table: "budget_fiscal_year_figure", loader: "db:load:budget:pg" },
+  { table: "budget_kfp_observation", loader: "db:load:budget:pg" },
+  { table: "budget_kfp_snapshot_section", loader: "db:load:budget:pg" },
+  { table: "budget_kfp_snapshot_line", loader: "db:load:budget:pg" },
+  { table: "budget_personnel", loader: "db:load:budget:pg" },
 ];
 
-// Every loader that vacuums, so the static check below can read their call sites.
+// Every loader that vacuums, so the static check below can read their call
+// sites. This list is an ALLOWLIST, so a new loader is invisible to the check
+// until it is added here — which is a hole in the check itself, not in the
+// loader: `load_municipal_fiscal_pg.ts` had a RELOADED entry and no entry here,
+// so nothing was reading its call site.
 const LOADER_FILES = [
   "load_pg.ts",
   "load_tenders_pg.ts",
   "load_annexes_pg.ts",
   "load_nzok_activities_pg.ts",
   "load_funds_pg.ts",
+  "load_municipal_fiscal_pg.ts",
+  "load_budget_pg.ts",
 ];
 
 const haveDb = await dbReachable();
