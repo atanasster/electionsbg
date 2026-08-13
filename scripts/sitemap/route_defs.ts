@@ -45,7 +45,10 @@ export const ENGLISH_STATIC_PAGES = [
   "governance/overview",
   "governance/declarations",
   "governance/municipal-finance",
+  "governance/sectors",
   "parliament/attendance",
+  "demographics/regions",
+  "demographics/municipalities",
   "governments",
   "indicators",
   "indicators/economy",
@@ -58,6 +61,7 @@ export const ENGLISH_STATIC_PAGES = [
   "budget/methodology",
   "budget/explorer",
   "budget/ministries",
+  "budget/revenue",
   "budget/tax-calculator",
   "budget/mod",
   "budget/simulator",
@@ -129,11 +133,23 @@ export const ENGLISH_STATIC_PAGES = [
   "parliament",
   "parliament/cohesion",
   "parliament/embedding",
+  "parliament/similarity",
+  "parliament/correlation",
+  "votes/between",
 ];
 
 export const routeDefs = (year: string): RouteDefs => [
   { path: "index", file: `data/${year}/region_votes.json` },
   { path: "sofia", file: `data/${year}/region_votes.json` },
+  // Sofia's four sub-views. These go in BOTH lists, and until 2026-08-13 only
+  // ENGLISH_STATIC_PAGES carried them — so the sitemap named /en/sofia/parties
+  // and not the canonical /sofia/parties. Same defect as the /funds block below,
+  // recurring on a second family. The `file` matches the parent's: these render
+  // the election corpus, so its mtime is the honest lastmod.
+  { path: "sofia/parties", file: `data/${year}/region_votes.json` },
+  { path: "sofia/preferences", file: `data/${year}/region_votes.json` },
+  { path: "sofia/flash-memory", file: `data/${year}/region_votes.json` },
+  { path: "sofia/recount", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
   { path: "data", file: `src/screens/DataMapScreen.tsx` },
   { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },
@@ -218,6 +234,16 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "consumption/fuel",
     file: `src/screens/consumption/ConsumptionFuelScreen.tsx`,
   },
+  // electricity + gas were in ENGLISH_STATIC_PAGES only — the /en mirror had a
+  // <loc>, the Bulgarian original did not.
+  {
+    path: "consumption/electricity",
+    file: `src/screens/consumption/ConsumptionElectricityScreen.tsx`,
+  },
+  {
+    path: "consumption/gas",
+    file: `src/screens/consumption/ConsumptionGasScreen.tsx`,
+  },
   {
     path: "consumption/chains",
     file: `src/screens/consumption/ConsumptionChainsScreen.tsx`,
@@ -255,6 +281,12 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "governance/municipal-finance",
     file: `src/screens/governance/GovernanceMunicipalFinanceScreen.tsx`,
+  },
+  // The sectors hub. It is prerendered in both languages and had no <loc> in
+  // either — a hub fronting 20+ sector dashboards, discoverable only by crawl.
+  {
+    path: "governance/sectors",
+    file: `src/screens/governance/GovernanceSectorsScreen.tsx`,
   },
   {
     path: "parliament/attendance",
@@ -305,6 +337,10 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `data/budget/index.json`,
   },
   {
+    path: "budget/revenue",
+    file: `data/budget/index.json`,
+  },
+  {
     path: "budget/methodology",
     file: `src/screens/BudgetMethodologyScreen.tsx`,
   },
@@ -323,6 +359,14 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "budget/ministry/:id", file: `budget-ministries-list` },
   { path: "observations", file: `src/screens/ObservationsScreen.tsx` },
   { path: "demographics", file: `src/screens/DemographicsScreen.tsx` },
+  {
+    path: "demographics/regions",
+    file: `src/screens/RegionsDemographicsScreen.tsx`,
+  },
+  {
+    path: "demographics/municipalities",
+    file: `src/screens/MunicipalitiesDemographicsScreen.tsx`,
+  },
 
   // Risk / forensics screens.
   {
@@ -475,6 +519,19 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "parliament/embedding",
     file: `src/screens/ParliamentEmbeddingScreen.tsx`,
   },
+  // The other three alignment views the parliament hub fronts. Prerendered in
+  // both languages, in neither list, so no <loc> at all. `votes/between` is the
+  // PICKER (`votes/between/:pair` is its detail and stays out — the pair pages
+  // are enumerated nowhere and there are O(n²) of them).
+  {
+    path: "parliament/similarity",
+    file: `src/screens/MpSimilarityScreen.tsx`,
+  },
+  {
+    path: "parliament/correlation",
+    file: `src/screens/ParliamentCorrelationScreen.tsx`,
+  },
+  { path: "votes/between", file: `src/screens/PartyPairBreaksScreen.tsx` },
 
   // Party annual financial-report filing-status catalogue (Court of Audit).
   {
