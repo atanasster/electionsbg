@@ -2996,6 +2996,39 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/revenue",
+    title: "Откъде идват парите на държавата | electionsbg.com",
+    description:
+      "Приходите на държавния бюджет по източник — данъчни, неданъчни и помощи — за всяка бюджетна година, с движението през годините и сравнение с ЕС.",
+    breadcrumbName: "Откъде идват парите",
+    bodyHtml: `
+<h1>Откъде идват парите</h1>
+<p>Държавата се издържа основно от данъци. Тази страница показва приходите на държавния бюджет за избраната година, разбити по източник, така както ги отчита Министерството на финансите — и как се променят през годините.</p>
+<h2>Три неща, които е добре да се знаят за числата</h2>
+<ul>
+<li><strong>Отчетът по КФП е натрупан</strong> от началото на годината, затова всяка година е показана с последния си отчетен период. Събирането на месеците би преброило едни и същи пари многократно.</li>
+<li><strong>Незавършена година не е спад.</strong> Текущата бюджетна година е отчетена само до последния публикуван месец и е отбелязана като такава.</li>
+<li><strong>Сравнението с ЕС е на друга основа</strong> — Евростат мери целия сектор „Държавно управление“, а горното число е касовият отчет на държавния бюджет. Двете не са едно и също.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/explorer">разгледай бюджета</a>.</p>`.trim(),
+    english: {
+      title: "Where Bulgaria's State Revenue Comes From | electionsbg.com",
+      description:
+        "State budget revenue by source — tax, non-tax and grants — for each fiscal year, with the trend over time and an EU comparison.",
+      breadcrumbName: "Where the money comes from",
+      bodyHtml: `
+<h1>Where the money comes from</h1>
+<p>The state lives mainly on taxes. This page shows state budget revenue for the selected year, broken down by source exactly as the Ministry of Finance reports it — and how it has moved over the years.</p>
+<h2>Three things worth knowing about the figures</h2>
+<ul>
+<li><strong>КФП reporting is cumulative</strong> from the start of the year, so each year is shown at its latest reported period. Adding the months would count the same money many times over.</li>
+<li><strong>An unfinished year is not a fall.</strong> The current fiscal year is reported only to its latest published month and is marked as such.</li>
+<li><strong>The EU comparison is on a different basis</strong> — Eurostat measures the whole general-government sector, while the figure above is the state budget's cash execution. They are not the same thing.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> and <a href="${SITE_URL}/en/budget/explorer">explore the budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/explorer",
     title: "Разгледай бюджета — по разпоредител и по функция | electionsbg.com",
     description:

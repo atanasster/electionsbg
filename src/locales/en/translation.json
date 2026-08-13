@@ -6089,5 +6089,21 @@
   "budget_units_absent_one": "One further spending unit is listed but has no budget in this year.",
   "budget_units_absent_other": "A further {{count}} spending units are listed but have no budget in this year.",
   "budget_units_see_all": "All spending units",
-  "budget_ministries_title": "By spending unit"
+  "budget_ministries_title": "By spending unit",
+  "budget_revenue_title": "Where the money comes from",
+  "budget_revenue_description": "State budget revenue by source — taxes, social contributions, grants and the rest.",
+  "budget_revenue_intro": "The state lives mainly on taxes. These are the state budget's revenues for the selected year, broken down by source exactly as the Ministry of Finance reports them.",
+  "budget_revenue_source": "Source: Ministry of Finance — state budget execution by major budget indicators (data.egov.bg). The EU comparison is Eurostat.",
+  "budget_comp_level_h": "Total for {{fy}}",
+  "budget_comp_asof": "Reported as of {{period}}",
+  "budget_comp_breakdown_h": "What it is made of",
+  "budget_comp_trend_h": "How it changes over the years",
+  "budget_comp_empty": "No data for this year.",
+  "budget_comp_cumulative_note": "Each year is shown at its latest reported period — КФП figures accumulate from the start of the year, so adding the months would count them many times over.",
+  "budget_comp_eu_h": "How Bulgaria compares in the EU",
+  "budget_comp_eu_body": "{{bg}}% of GDP against an EU average of {{eu}}% — №{{rank}} of {{total}} ({{year}}).",
+  "budget_comp_eu_basis": "The comparison is on Eurostat's general-government basis, not the state-budget cash execution above — the two measure different populations.",
+  "budget_comp_partial": "(to {{period}})",
+  "budget_comp_partial_mix": "This is the split as of {{period}} — the year's structure is still moving, so each share is provisional.",
+  "budget_revenue_see_all": "Revenue over time and against the EU"
 }

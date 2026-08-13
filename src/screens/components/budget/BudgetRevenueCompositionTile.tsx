@@ -12,6 +12,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { ChevronRight, Coins } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -298,6 +299,16 @@ export const BudgetRevenueCompositionTile: FC<{
             (snapFy ?? fiscalYear)}
           {asOf ? ` · ${t("budget_ministries_asof") || "as of"} ${asOf}` : null}
         </p>
+        {/* The tile is one year's pie; /budget/revenue is the same money on the
+            four-part spine (level → composition → trend → EU). Without this the
+            page has no inbound link anywhere in the app — the seeded-destination
+            defect the hub skill names. */}
+        <Link
+          to="/budget/revenue"
+          className="text-xs text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring rounded w-fit"
+        >
+          {t("budget_revenue_see_all")} →
+        </Link>
       </CardHeader>
       <CardContent className="pt-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
