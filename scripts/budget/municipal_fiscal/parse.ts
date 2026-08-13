@@ -197,7 +197,7 @@ export const parsePeriodLabel = (
   };
 };
 
-const num = (v: unknown): number | null => {
+export const num = (v: unknown): number | null => {
   if (v == null) return null;
   if (typeof v === "number") return Number.isFinite(v) ? v : null;
   // Anything non-scalar (`[]` coerces to "") must not become 0. The whitespace
