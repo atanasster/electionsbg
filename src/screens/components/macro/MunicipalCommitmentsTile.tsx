@@ -59,22 +59,37 @@ const TooltipContent: FC<{
   if (!active || !payload?.length) return null;
   const row = payload[0].payload;
   return (
-    <div className={cn(tooltipSurfaceClass, "text-xs")}>
+    <div className={cn(tooltipSurfaceClass, "px-3 py-2 text-xs")}>
       <div className="font-semibold mb-1">{row.period}</div>
-      {STOCKS.map(({ key, color }) =>
-        row[key] == null ? null : (
+      {/* ALL THREE, always — a stock МФ withheld is listed and NAMED as
+          withheld rather than dropped. Omitted, 2025-Q3 renders as a lone
+          arrears bar with no account of where the other two went, which reads
+          as a broken quarter rather than as one the ministry did not publish.
+          That is the module's own „absent is not zero, and say which" rule,
+          applied to the one surface that was still silent about it. */}
+      {STOCKS.map(({ key, color }) => {
+        const v = row[key];
+        return (
           <div key={key} className="flex items-center gap-2">
             <span
               className="inline-block h-2 w-2 rounded-full"
               style={{ backgroundColor: color }}
             />
             <span className="flex-1">{t(`municipal_fiscal_${key}`)}</span>
-            <span className="font-medium tabular-nums">
-              {fmtEurM(row[key] as number, i18n.language)}
+            <span
+              className={
+                v == null
+                  ? "italic text-muted-foreground"
+                  : "font-medium tabular-nums"
+              }
+            >
+              {v == null
+                ? t("municipal_fiscal_never_published")
+                : fmtEurM(v, i18n.language)}
             </span>
           </div>
-        ),
-      )}
+        );
+      })}
       {row.count != null && (
         <div className="mt-1 text-muted-foreground">
           {t("municipal_fiscal_reporting_count", { count: row.count })}

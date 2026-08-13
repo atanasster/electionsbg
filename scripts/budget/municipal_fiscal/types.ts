@@ -142,6 +142,17 @@ export interface MunicipalFiscalQuarter {
    *  directions on a page that names them. */
   inRecoveryProcedure: boolean;
 
+  /** МФ'с OWN чл. 130а verdict, from the year-end-anchored releases, where one
+   *  covers this row. Year-end only, and absent for the years no such release
+   *  reaches.
+   *
+   *  This is the whole set of seven, stated by the ministry — unlike the
+   *  derivation in the loader, which can only check three from the quarterly
+   *  sheet and therefore reports a FLOOR. Where this is present the verdict
+   *  stops being ours: „N от 7" is exact and `meets_threshold` becomes
+   *  decisive in BOTH directions, not just when three are already met. */
+  officialCriteriaMet: number[] | null;
+
   sourceFile: string;
 }
 

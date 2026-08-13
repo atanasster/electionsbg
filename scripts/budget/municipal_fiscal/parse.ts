@@ -535,6 +535,10 @@ export const parsePokazateli = (
         indicators: indicatorsAt(r, i, g),
         collection,
         inRecoveryProcedure: inRecovery.has(mf),
+        // Filled by the ingest from the year-end-anchored releases, which this
+        // parser never sees. Null here means „no official verdict attached
+        // yet", not „no criteria met".
+        officialCriteriaMet: null,
         sourceFile: opts.sourceFile,
       };
       out.push({ ...base, expenditureAvg4yEur: deriveAvg4y(base) });

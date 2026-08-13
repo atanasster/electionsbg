@@ -50,6 +50,8 @@ import {
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as XLSX from "xlsx";
+import { findCriteriaSheet, parseCriteriaSheet } from "./criteria";
+import type { OfficialCriteria } from "./criteria";
 import { diffRoster } from "./codes";
 import { parsePokazateli, parseRecoverySheet } from "./parse";
 import type { MunicipalFiscalQuarter } from "./types";
@@ -115,6 +117,10 @@ interface FileParse {
   quarters: string[];
   /** Index of the release within a chronological sort — higher is newer. */
   rank: number;
+  /** МФ's own чл. 130а verdict for one year-end, where the release carries it.
+   *  Independent of `rows`: the 2-period Q4 releases have this and no quarterly
+   *  data at all, and are read for this alone. */
+  official?: OfficialCriteria | null;
 }
 
 /** Rank releases by their newest quarter, so „later release wins" is a
@@ -185,6 +191,14 @@ const readWorkbook = (file: string): FileParse => {
   // Probe the indicators sheet FIRST: it is the one whose absence defines the
   // era, and reporting „no общини фин. оздр. sheet" for a 2016 workbook names
   // the wrong reason.
+  // The year-end-anchored criteria sheet, where this release carries one. Read
+  // BEFORE the indicators sheet so a release that has only the criteria (the
+  // 2-period Q4 files, which parsePokazateli refuses) still contributes them.
+  const critSheet = findCriteriaSheet(Object.keys(wb.Sheets));
+  const official = critSheet
+    ? parseCriteriaSheet(grid(critSheet), critSheet)
+    : null;
+
   const sheetName = findSheet(SHEET_POKAZATELI_CANDIDATES);
   if (!sheetName)
     throw new UnsupportedEraError(
@@ -214,6 +228,21 @@ const readWorkbook = (file: string): FileParse => {
         msg,
       )
     ) {
+      // The quarterly half is unreadable — but a Q4-anchored release carries
+      // МФ's own criteria and nothing else we can get them from, so it is
+      // returned with no rows rather than discarded. That is the whole reason
+      // these seven files are in the cache.
+      if (official) {
+        return {
+          file,
+          rows: [],
+          mfCodes: [],
+          warnings: official.warnings,
+          quarters: [],
+          rank: 0,
+          official,
+        };
+      }
       throw new UnsupportedEraError(file, "column-map", msg);
     }
     throw e;
@@ -223,9 +252,10 @@ const readWorkbook = (file: string): FileParse => {
     file,
     rows: out.rows,
     mfCodes: out.mfCodes,
-    warnings: out.warnings,
+    warnings: [...out.warnings, ...(official?.warnings ?? [])],
     quarters,
     rank: 0,
+    official,
   };
 };
 
@@ -307,6 +337,46 @@ export const buildQuarters = (
       }
     }
   }
+  // МФ'с own чл. 130а verdict, attached to the Q4 rows it describes.
+  //
+  // Kept as a LAST step over the assembled quarters rather than merged per
+  // file, because the criteria and the quarterly figures for one year-end
+  // routinely arrive in DIFFERENT releases — Q4-2024's criteria are in the
+  // Q4-2023/Q4-2024 file while its money comes from the three 2024/2025
+  // 3-period ones.
+  const officialByYear = new Map<number, OfficialCriteria>();
+  for (const p of ranked) {
+    if (!p.official) continue;
+    const prev = officialByYear.get(p.official.fiscalYear);
+    // Later release wins, on the same rule the money follows.
+    if (
+      !prev ||
+      p.rank >= (ranked.find((x) => x.official === prev)?.rank ?? -1)
+    )
+      officialByYear.set(p.official.fiscalYear, p.official);
+  }
+  let attached = 0;
+  for (const [q, rows] of byQuarter) {
+    const [y, qq] = q.split("-Q");
+    if (qq !== "4") continue;
+    const off = officialByYear.get(Number(y));
+    if (!off) continue;
+    const byMf = new Map(off.rows.map((r) => [r.mfCode, r.met]));
+    for (const r of rows) {
+      const met = byMf.get(r.mfCode);
+      if (met) {
+        r.officialCriteriaMet = met;
+        attached++;
+      }
+    }
+  }
+  if (officialByYear.size > 0) {
+    anomalies.push(
+      `official чл. 130а criteria attached to ${attached} row(s) across ` +
+        `${[...officialByYear.keys()].sort().join(", ")}`,
+    );
+  }
+
   return { byQuarter, anomalies };
 };
 
@@ -402,6 +472,10 @@ const main = () => {
   // because a município missing from ONE quarter it did not file is normal —
   // and is written as absent, never as zero.
   for (const p of parsed) {
+    // A criteria-only parse publishes no quarterly rows at all — the Q4-anchored
+    // releases are read for МФ's чл. 130а verdict and nothing else — so it has
+    // no roster to compare and would read as „265 municipalities missing".
+    if (p.rows.length === 0 && p.official) continue;
     // diffRoster must see the RAW codes the workbook published, not the rows
     // that survived the crosswalk — an МФ code the crosswalk cannot resolve is
     // dropped before this point, so keying on `rows` made the `added` arm

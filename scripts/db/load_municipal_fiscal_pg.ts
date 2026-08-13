@@ -133,6 +133,23 @@ export const evaluateCriteria = (
   if (r.quarter !== 4)
     return { met: null, evaluable: null, meetsThreshold: null };
 
+  // МФ'с OWN verdict wins wherever it reaches. It states all seven, so
+  // `evaluable` is the full set and `meetsThreshold` becomes decisive in BOTH
+  // directions — the derivation below can only ever prove TRUE, because three
+  // of seven checked can reach three met but never rule it out.
+  //
+  // This is not a shortcut around the derivation: it is the difference between
+  // „at least N of the three we could check" and „N, per the ministry". On the
+  // year-ends it covers, nothing here is ours.
+  if (r.officialCriteriaMet) {
+    const all = Array.from({ length: CRITERIA_TOTAL }, (_, i) => i + 1);
+    return {
+      met: r.officialCriteriaMet,
+      evaluable: all,
+      meetsThreshold: r.officialCriteriaMet.length >= 3,
+    };
+  }
+
   const withheld = new Set(suppressedOf(r) ?? []);
   const evaluable: number[] = [];
   const met: number[] = [];

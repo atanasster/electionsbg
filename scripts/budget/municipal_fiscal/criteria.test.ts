@@ -137,3 +137,18 @@ describe("parseCriteriaSheet", () => {
     expect(parse([junk, row(5112, [1])])!.rows).toHaveLength(1);
   });
 });
+
+describe("the Sofia code alias", () => {
+  it("maps 7225 to the 7200 the quarterly corpus uses", () => {
+    // Столична община is 7200 in the quarterly returns and 7225 on these
+    // sheets. Unmapped, the largest município has no official verdict on any
+    // year-end while the other 264 do — and 264 of 265 reads as a rounding
+    // artefact, not as Sofia missing.
+    const out = parse([row(7225, [3, 4, 5])])!;
+    expect(out.rows[0].mfCode).toBe(7200);
+  });
+
+  it("leaves every other code alone", () => {
+    expect(parse([row(5112, [1])])!.rows[0].mfCode).toBe(5112);
+  });
+});

@@ -60,6 +60,18 @@ export interface OfficialCriteria {
   warnings: string[];
 }
 
+/** МФ code aliases used ONLY on these year-end sheets.
+ *
+ *  Столична община is `7200` in the quarterly returns and `7225` here — the
+ *  same alternate code the 2018 Q4-anchored release used. Unmapped, the largest
+ *  município in the country silently has no official чл. 130а verdict on any
+ *  year-end, while the other 264 do: a one-row gap that no count makes visible,
+ *  since 264 of 265 reads as a rounding artefact rather than as Sofia missing.
+ *
+ *  Mapped here rather than in `codes.ts` because it is a property of THIS
+ *  sheet, not of the crosswalk — the quarterly corpus never sees 7225. */
+const MF_ALIAS: Readonly<Record<number, number>> = { 7225: 7200 };
+
 const norm = (v: unknown): string =>
   v == null ? "" : String(v).replace(/\s+/g, " ").trim();
 
@@ -141,8 +153,9 @@ export const parseCriteriaSheet = (
 
   const out: OfficialCriteriaRow[] = [];
   for (const r of rows.slice(headerIdx + 1)) {
-    const mfCode = num(r?.[(mfCol as number) - 1]);
-    if (mfCode == null || mfCode < 1000 || mfCode > 9999) continue;
+    const raw = num(r?.[(mfCol as number) - 1]);
+    if (raw == null || raw < 1000 || raw > 9999) continue;
+    const mfCode = MF_ALIAS[raw] ?? raw;
     const met: number[] = [];
     for (let n = 1; n <= CRITERIA_COUNT; n++) {
       if (criterionMet(r[(critCol.get(n) as number) - 1])) met.push(n);
