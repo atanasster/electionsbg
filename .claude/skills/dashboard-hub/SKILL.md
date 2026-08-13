@@ -253,8 +253,13 @@ gated on an unambiguous Latin trigger, because `y → ъ` cannot tell a typed �
 ## 5. Every page ships three artifacts
 
 The hub **and every sub-page it fronts** needs all three. A page missing one is not broken:
-it renders, it passes the suite, and it is either invisible or unshareable. Every failure
-named below is live in this repo as written.
+it renders, it passes the suite, and it is either invisible or unshareable.
+
+Every failure named below was measured against this repo on **2026-08-13** and fixed the same
+day (`0c1db348ef`, `ef1dee6f24`). They are kept as evidence, in the past tense, because the
+point is the SHAPE — each recurs the next time a module ships.
+`scripts/prerender/ogAndSitemapCoverage.test.ts` now gates all of it; **read that file before
+writing a new gate here**, and add to it rather than beside it.
 
 | Artifact | Declared in | What its absence costs |
 |---|---|---|
@@ -295,7 +300,7 @@ ceiling on file COUNT); prerender the PICKER instead.
 - **`ENGLISH_STATIC_PAGES`** emits **only** `/en/<slug>`. It is not derived from the other
   list and does not imply it.
 
-Three traps, all currently shipping:
+Three traps, all of which had shipped:
 
 - **The EN list alone gets you the mirror and not the original.** `/sofia/parties`,
   `/sofia/preferences`, `/sofia/flash-memory`, `/sofia/recount`, `/consumption/electricity`
@@ -306,15 +311,23 @@ Three traps, all currently shipping:
   warning and no failure.
 - **`npm run sitemap` is manual and its output is COMMITTED.** Adding both entries changes
   nothing until you run it and commit `public/sitemap*.xml`. `/budget/explorer`,
-  `/budget/ministries` and `/budget/revenue` have their entries and no `<loc>` today, because
-  the committed XML predates them.
+  `/budget/ministries` and `/budget/revenue` had their entries and no `<loc>`, because the
+  committed XML predated them — and `/budget/spending` was in the same state a day later.
 
-Prerendered right now with no `<loc>` in either language: `/governance/sectors` — a HUB —
-plus `/demographics/regions`, `/demographics/municipalities`, `/parliament/similarity`,
-`/parliament/correlation` and `/votes/between`.
+Six more were prerendered and in NEITHER list, so they had no `<loc>` in either language:
+`/governance/sectors` — a HUB fronting 20+ dashboards — plus `/demographics/regions`,
+`/demographics/municipalities`, `/parliament/similarity`, `/parliament/correlation` and
+`/votes/between`.
+
+**Two omissions are deliberate and must stay**, and both are the same rule: never list a URL
+that canonicalises somewhere else, because it asks Google to index a page pointing elsewhere.
+`/data-changes` 301s onto `/data/updates`; the 987 `/en/funds/procedure/*` and 11
+`/en/funds/programme/*` mirrors canonicalise back to Bulgarian, since ИСУН publishes no
+English names. `english.canonicalUrl` is the discriminator a gate should read — not a path
+allowlist, which goes stale.
 
 `scripts/sitemap/families.data.test.ts` checks the OTHER direction (every `<loc>` has a
-`dist/` file behind it). Nothing checks this one.
+`dist/` file behind it).
 
 ### 5.3 og:image — a screenshot of the page's best visual
 
@@ -354,26 +367,50 @@ Mechanics that are easy to get wrong:
 - **1280 is Tailwind's `xl` and the clip is 1200 wide.** A hub IS a tile grid, so at the
   default viewport it renders four columns and the clip slices the fourth down the middle.
   Set the per-capture `viewport` below 1280 for three full columns.
+- **`anchor: "h1"` is the recipe for a ranked list or table** — `HIDE_CHROME_CSS` drops the
+  site header, so the `h1` IS the top of the page and the clip reads title → intro → first
+  rows. Two things go with it: pair it with `OG_CLIP_VIEWPORT` (1200), because at 1280 the
+  content column is ~1264 and a centred 1200 clip shaves ~32px off **both** sides — measured,
+  `/funds/beneficiaries` lost the first two letters of its breadcrumb and its last money
+  column; and never add `leftAlign`, which pins the clip to the `h1`'s own left edge rather
+  than the content's.
+- **Centring on the first `.recharts-wrapper` is a trap on a page with several.** On
+  `/parliament/correlation` it framed the time-series card 1,000px below the fold and, the
+  chart being only 878px wide, shifted the 1200px clip left until the sidebar beside it was
+  sliced mid-word — while the page's actual signature visual, the party×party matrix at the
+  top, is a plain grid that Recharts selectors cannot see at all. Anchor on `h1` and let the
+  clip fall over the visual.
 
-Both directions of drift are live today and neither fails anything:
+Both directions of drift had shipped, and neither failed anything:
 
-- **Referenced, never captured.** `/funds/calls` declares `ogImage: "/og/funds-calls.png"`;
-  `screenshot_funds.ts` has the entry and the file has never been written. Both language
-  variants ship an `og:image` that 404s. `tests/seo.spec.ts` asserts only
+- **Referenced, never captured.** `/funds/calls` declared `ogImage: "/og/funds-calls.png"`;
+  `screenshot_funds.ts` had the entry and nobody had run it, so both language variants
+  shipped an `og:image` that 404s. `tests/seo.spec.ts` asserts only
   `toMatch(/^https?:\/\//)` — which an absolute URL to a missing file satisfies.
-- **Captured, never referenced.** `public/og/funds-focus.png` exists and every
-  `/funds/focus/<slug>` child uses it, while the `/funds/focus` landing carries no `ogImage`
-  at all. The children are shareable and the page they hang off is not.
+- **Captured, never referenced.** `public/og/funds-focus.png` existed and every
+  `/funds/focus/<slug>` child used it, while the `/funds/focus` landing carried no `ogImage`
+  at all. The children were shareable and the page they hang off was not.
 
 **A missing `ogImage` is silent by design** — `seoBlock.ts` falls through to
-`DEFAULT_OG_IMAGE`. 28 of the 1,185 entries in `prerenderRoutes` are on that fallback, and
-they cluster by family: seven `/funds/*` sub-pages, five `/budget/*`, both `/demographics/*`,
-`/parliament/similarity`, `/parliament/correlation`.
+`DEFAULT_OG_IMAGE`. 28 of the 1,185 entries in `prerenderRoutes` were on that fallback, and
+they clustered by family: seven `/funds/*` sub-pages, five `/budget/*`, both
+`/demographics/*`, `/parliament/similarity`, `/parliament/correlation`.
+
+**A family script that shoots its whole table is a hazard, not a convenience.** Fixing the
+one card `screenshot_funds.ts` had never written re-framed five that were fine. Give every
+capture script the per-slug filter `screenshot_sectors.ts` has, and pass a slug.
+
+**And `screenshot_*.ts` is not `capture-screens.ts`.** The per-family scripts clip
+`{x:0, y:0}` and hide no chrome, so their card is the nav bar, the community banner and the
+news rail, with the page starting below the fold — which is what `/funds/calls` got the first
+time it was finally shot. `capture-screens.ts` drops the header and anchors the clip. Prefer
+it; a family script earns its place only when the framing is genuinely per-family.
 
 **Audit a module before you add to it.** Two loops over `prerenderRoutes` in a scratch script
 answer all of it — which paths have no `ogImage`, which `ogImage` paths have no file under
 `public/og/`, and which paths have no `<loc>` in `public/sitemap*.xml`. That is how every
-figure in this section was measured.
+figure in this section was measured, and it is now
+`scripts/prerender/ogAndSitemapCoverage.test.ts`.
 
 ---
 
@@ -476,9 +513,10 @@ Not optional, and each exists because its absence shipped something:
 | Every `ogImage` path resolves to a file under `public/og/` | An `og:image` that 404s — the absolute-URL check passes |
 | Every capture slug in `capture-screens.ts` / `screenshot_*.ts` is referenced by some route | A card shot and wired to nothing |
 
-The og:image gates are the ones that read as ceremony and are not: `tests/seo.spec.ts`
+The last seven live in `scripts/prerender/ogAndSitemapCoverage.test.ts` — extend that file
+rather than writing a second one. They read as ceremony and are not: `tests/seo.spec.ts`
 asserts `og:image` `toMatch(/^https?:\/\//)`, which the site-wide fallback AND a URL to a
-missing file both satisfy. Every failure §5 names is green today.
+missing file both satisfy, so every failure §5 names was green when it shipped.
 
 **Then check the gate can fail.** Break each clause and watch it fire. In this pattern's
 history: a gate asserted `max(id) >= count(*)`, true of any gap-free sequence — the very
