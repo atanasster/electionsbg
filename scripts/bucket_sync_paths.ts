@@ -62,6 +62,14 @@ export const isExcluded = (rel: string): string | null => {
     return "opencalls/ is a PG load source, served from Cloud SQL (db:load:open-calls:pg:cloud)";
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
+  // Per-município quarterly fiscal indicators: served from Cloud SQL
+  // (municipal_fiscal, migration 149, db:load:municipal-fiscal:pg:cloud). The
+  // committed data/budget/municipal_fiscal/*.json is the LOADER'S SOURCE, never
+  // a serving artifact — same rule as funds/ and opencalls/ above. It also
+  // needs the CHILD_EXCLUDES twin below, because this branch only guards a
+  // DIRECT argument and the natural push is the whole `budget` subtree.
+  if (rel.startsWith("budget/municipal_fiscal"))
+    return "budget/municipal_fiscal/ is a PG load source (db:load:municipal-fiscal:pg)";
   // The registry people-count artifact: a 12 MB LOADER SOURCE for tr_name_fold_people
   // (migration 148, db:load:tr-name-fold-people:pg), never fetched by a browser. Same rule
   // as opencalls/ above, with two extra reasons to be sure: .tsv is not in GZIP_EXTS so it
@@ -176,6 +184,12 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // all ~16.8k per-EIK shards to the bucket, where nothing reads them: /company/:eik is
   // served from Cloud SQL.
   { path: "parliament/company-connections", isDir: true },
+  // Under the still-served budget/ parent (kfp.json, ministries/, noi/ …), so a
+  // scoped `bucket:sync:paths -- budget` must not re-upload this PG load source.
+  // Without it the isExcluded branch above is dead for the only push anyone
+  // actually runs — the same shape that put ~16.8k company-connection shards on
+  // a bucket where nothing reads them.
+  { path: "budget/municipal_fiscal", isDir: true },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

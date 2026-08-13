@@ -87,7 +87,7 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
     after: "db:load:municipal-fiscal:pg",
     before: "db:load:place-dim:pg",
     why:
-      "149's three serving functions JOIN place_dim, and a LANGUAGE sql body is " +
+      "two of 149's three serving functions JOIN place_dim, and a LANGUAGE sql body is " +
       "validated at CREATE time — so applying the migration against a database " +
       "without place_dim raises 42P01. exec() sends the file as ONE transaction, " +
       "which means a cold bootstrap gets no municipal_fiscal table AT ALL, not " +

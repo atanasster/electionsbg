@@ -866,6 +866,55 @@ The route degrades a missing migration to an empty place, so first-deploy orderi
 cosmetic. The tile self-suppresses on `count === 0`, so a cloud database that never ran the
 loader simply shows no tile rather than an empty one.
 
+`municipal_fiscal` (migration 149, `db:load:municipal-fiscal:pg`) is the per-município
+quarterly financial-indicators corpus (ЗПФ чл. 130г ал. 2) — 265 общини × quarter, carrying
+the three liability stocks Bulgarian public finance distinguishes and the site previously
+collapsed into one. In `db:refresh` right after `db:load:place-dim:pg`; on the cloud side:
+
+```bash
+npm run db:load:municipal-fiscal:pg:cloud
+```
+
+**`db:load:place-dim:pg:cloud` is a hard PREREQUISITE, not merely a trigger.** Two of 149's
+three serving functions JOIN `place_dim`, and a `LANGUAGE sql` body is validated at CREATE
+time —
+so applying the migration to a database without it raises `42P01`, and because `exec()`
+sends the file as ONE transaction the target gets **no `municipal_fiscal` table at all**,
+not merely unlabelled rows. `refresh_coverage.test.ts` carries the pair for the local chain;
+nothing covers the cloud side.
+
+Three things about it are easy to get backwards:
+
+- **The corpus is the LOADER'S input, and the fetch half is manual.**
+  `data/budget/municipal_fiscal/*.json` is committed and the loader is pure-load (works on a
+  fresh clone, no network). What produces it is
+  `scripts/budget/municipal_fiscal/ingest.ts`, which reads the **gitignored**
+  `data/_cache/minfin_municipal_fiscal/` workbooks — minfin.bg serves an interactive
+  Cloudflare Turnstile, so downloading them is an operator action. See that directory's
+  README for the exact filenames.
+- **It is NOT bucket-synced, and that took FOUR exclusions, not one.** There are three
+  independent upload paths into `data/budget/`, and an exclusion on any one of them leaves
+  the other two shipping the corpus:
+  1. `bucket:sync` / `bucket:sync:dry` — a `gsutil rsync -x` regex; needs its own
+     `^budget/municipal_fiscal/.*` arm beside the `funds/` and `opencalls/` ones.
+  2. `bucket:sync:paths -- budget` — `isExcluded` guards only the top-level ARGUMENT, so the
+     scoped push walks into the subtree; that needs the `CHILD_EXCLUDES` twin.
+  3. `npm run budget:ingest -- --upload` — the `update-budget` step, which `gsutil cp -r`s
+     the whole tree. `gsutil cp` has no `-x`, so `uploadTextTree` now expands the top level
+     itself and filters through the SAME `isExcluded`.
+
+  All four live in `scripts/bucket_sync_paths.ts` + `scripts/lib/upload.ts` and read one
+  definition. Removing any of them puts a second copy of a PG load source on a bucket
+  nothing reads — the shape that once pushed ~16.8k company-connection shards.
+- **`meets_threshold` is NULL on almost every row, and that is correct.** Only three of the
+  six чл. 130а ал. 1 criteria are computable from this source — т. 1 needs debt SERVICE
+  (the workbook publishes only the debt STOCK), т. 5 three consecutive years, т. 6 the
+  national collection mean. `criteria_evaluable` records which were checkable, so „2 met"
+  cannot be read as „2 of 6". A verdict is TRUE only when three are actually met (decisive
+  by monotonicity, whatever the unchecked ones say) and FALSE only when all six were
+  evaluable. Measured 2026-08-12: 5 municipalities decisive TRUE, and all 5 are
+  independently on the official чл. 130д recovery list.
+
 `interreg_programmes` / `interreg_operations` / `interreg_partners` (migration 137,
 `db:load:interreg:pg`) are the Interreg cross-border corpus — 1,954 operations, 12,141
 partnerships, 1,493 Bulgarian partner rows, €396.39m — from keep.eu (INTERACT), which is

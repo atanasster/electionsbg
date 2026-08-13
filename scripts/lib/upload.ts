@@ -13,6 +13,9 @@
 //     bucket cache.
 
 import { spawn } from "child_process";
+import { readdirSync } from "node:fs";
+import { join } from "node:path";
+import { isExcluded } from "../bucket_sync_paths";
 
 const BUCKET = process.env.GCS_BUCKET ?? "gs://data-electionsbg-com";
 
@@ -73,6 +76,25 @@ export const uploadTextTree = async (
   const remote = `${BUCKET}/${remoteSubpath.replace(/^\//, "")}`;
   const cache = opts.cacheControl ?? "no-cache, max-age=0";
   await run("find", [dir, "-name", ".DS_Store", "-delete"]);
+
+  // `gsutil cp` has no -x, so the exclusion has to happen before the shell sees
+  // a glob: expand the tree's top level ourselves and drop anything the shared
+  // rule refuses. Reading `isExcluded` rather than restating it is the point —
+  // a PG load source excluded from `bucket:sync` and not from here is still on
+  // the bucket, which is exactly the state this call used to produce.
+  const entries = readdirSync(dir)
+    .filter((name) => {
+      const rel = `${remoteSubpath.replace(/^\/|\/$/g, "")}/${name}`;
+      const reason = isExcluded(rel);
+      if (reason) console.log(`  skip ${rel} — ${reason}`);
+      return !reason;
+    })
+    .map((name) => join(dir, name));
+  if (entries.length === 0) {
+    console.warn(`uploadTextTree: nothing to upload from ${dir}`);
+    return;
+  }
+
   await run("gsutil", [
     "-m",
     "-h",
@@ -80,7 +102,7 @@ export const uploadTextTree = async (
     "cp",
     "-Z", // gzip content-encoding: stored compressed, served Content-Encoding: gzip
     "-r",
-    `${dir}/*`,
+    ...entries,
     `${remote}/`,
   ]);
 };
