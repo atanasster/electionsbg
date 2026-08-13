@@ -137,7 +137,13 @@ test.skipIf(skip)(
     // Measured 2026-08-13, in € million (ours − national):
     const KNOWN_GAPS_EUR_M: Record<number, number> = {
       2017: 0.114,
-      2019: 4.115, // ~5%, much the largest; unexplained, worth a look
+      // ~5%, much the largest — and INVESTIGATED, not merely tolerated. Three
+      // separate releases carry Q4-2019 (the Q1-, Q2- and Q3-2019-anchored
+      // ones) and all three sum to €87.815m to the lev, so this is not a
+      // restatement we picked the wrong side of, nor a parse error: МФ's
+      // quarterly чл. 130г return and its year-end Обобщена справка simply
+      // disagree about 2019. Upstream, and ours to report rather than resolve.
+      2019: 4.115,
       2020: -0.467,
     };
 

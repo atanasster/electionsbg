@@ -1028,8 +1028,12 @@ Five things about it are easy to get backwards:
   All four live in `scripts/bucket_sync_paths.ts` + `scripts/lib/upload.ts` and read one
   definition. Removing any of them puts a second copy of a PG load source on a bucket
   nothing reads — the shape that once pushed ~16.8k company-connection shards.
-- **`meets_threshold` is NULL on almost every row, and that is correct.** Only three of the
-  six чл. 130а ал. 1 criteria are computable from this source — т. 1 needs debt SERVICE
+- **`meets_threshold` is NULL on almost every row WITHOUT an official verdict, and that is
+  correct.** The statute has **SEVEN** criteria, not six — МФ's year-end-anchored releases
+  enumerate them 1..7 and `scripts/budget/municipal_fiscal/criteria.ts` reads them, so on the
+  year-ends those releases cover (2018, 2020, 2021, 2023, 2024 today) the verdict is the
+  ministry's and is decisive in BOTH directions. Elsewhere only three of the seven are
+  computable from this source — т. 1 needs debt SERVICE
   (the workbook publishes only the debt STOCK), т. 5 three consecutive years, т. 6 the
   national collection mean. `criteria_evaluable` records which were checkable, so „2 met"
   cannot be read as „2 of 6". A verdict is TRUE only when three are actually met (decisive
