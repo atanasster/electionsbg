@@ -1538,6 +1538,13 @@ const SCHEMA_FILES = [
   "082_person_api.sql",
   "083_person_review.sql",
   "084_person_connections.sql",
+  // The MP's registry-roles block (150). Applied here because this is the only chain that
+  // rebuilds everything it reads — person_role, person, and 148's bridge view, all above —
+  // and because NOTHING else applied it: an unapplied serving function is not a degraded
+  // page but `db:refresh` failing at its final test:data step, and no cloud path shipping
+  // the route at all. Its 42P01 risk is the ordinary one: 148 precedes it in this list, and
+  // the body is LANGUAGE sql so Postgres validates it at CREATE time.
+  "150_mp_tr_roles.sql",
   // Persistent slug locks (099) — NOT truncated by the rebuild; keeps /person URLs stable
   // across re-resolves. Applied here so the table exists before the locks are read below.
   "099_person_slug_lock.sql",

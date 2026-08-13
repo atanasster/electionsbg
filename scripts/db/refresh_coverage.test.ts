@@ -152,6 +152,17 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "magistrate roles against the previous vintage",
   },
   {
+    after: "db:load:tr-company-place:pg",
+    before: "db:resolve:persons",
+    why:
+      "tr_company_place.person_link_n is DENORMALIZED from person_role(tr,ngo) joined to " +
+      "person(active, is_public_figure) — the column place_mp_companies() FILTERS on, so a " +
+      "stale one does not skew the page, it empties it at a 200. db:resolve:persons is what " +
+      "rebuilds person_role, and this loader already had to follow it for a second reason " +
+      "(company_public_money via graph). Running first publishes the previous resolve's link " +
+      "set to every /settlement/:id/companies page with every row count reconciling",
+  },
+  {
     after: "db:load:funds-fit:pg",
     before: "db:load:funds:pg",
     why:

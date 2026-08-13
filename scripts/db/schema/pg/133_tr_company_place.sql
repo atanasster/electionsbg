@@ -45,8 +45,27 @@ CREATE TABLE IF NOT EXISTS tr_company_place (
   confidence   text,   -- EkatteResolver band: postal_only | postal+name | …
   name         text,   -- tr_companies.name, copied for the ranking tiebreak
   money_eur    double precision NOT NULL DEFAULT 0,
-  political_n  int              NOT NULL DEFAULT 0
+  political_n  int              NOT NULL DEFAULT 0,
+  -- How many PUBLIC FIGURES hold a gated registry role at this company. A third
+  -- denormalized ranking column, and NOT a synonym for political_n beside it:
+  --   political_n     ← company_politicians (008), which is MONEY-restricted — it is built
+  --                     from mp_connected/pep_connected, i.e. politicians linked to a
+  --                     CONTRACTOR. 113 companies at 43 places carry one.
+  --   person_link_n   ← person_role(tr,ngo) ⨝ person(active, is_public_figure), the whole
+  --                     gated identity layer. 13,567 companies at 1,548 places.
+  -- The second is what „MP-linked companies at this place" actually means; the first
+  -- answers the much narrower „…and they won public contracts". Keeping both is deliberate
+  -- — place_companies() ranks on political_n, place_mp_companies() filters on this.
+  person_link_n int             NOT NULL DEFAULT 0
 );
+
+-- RECONCILE — what actually reaches a warm database. `CREATE TABLE IF NOT EXISTS` above is
+-- a no-op once the table exists, and this file is applied by load_tr_company_place_pg.ts on
+-- every run, so without this line the column would land on a fresh clone and on nothing
+-- else. Same rule 003's header states at length; 142 has the worked example for a TYPE
+-- change, which IF NOT EXISTS cannot do.
+ALTER TABLE tr_company_place
+  ADD COLUMN IF NOT EXISTS person_link_n int NOT NULL DEFAULT 0;
 
 -- RANKING INDEXES. The tile's order is politically-linked first, then public
 -- money, then name — so the top-N is an index scan of exactly N rows instead of
@@ -77,6 +96,16 @@ CREATE INDEX IF NOT EXISTS idx_tr_company_place_ekatte_pol
   ON tr_company_place (ekatte) WHERE political_n > 0;
 CREATE INDEX IF NOT EXISTS idx_tr_company_place_obshtina_pol
   ON tr_company_place (obshtina) WHERE political_n > 0;
+-- Same partial shape for the person-link arm, and it is what makes place_mp_companies()
+-- servable at all. Measured WITHOUT it, on Sofia (110,474 rows at ekatte 68134): the planner
+-- sorts the whole place before the semi-join into person_role — 121 ms / 13,459 buffers for
+-- one page. With it the scan is the size of the ANSWER (~800 rows in Sofia, single digits in
+-- a village). `name, uic` ride along so the page ordering is served by the index too rather
+-- than re-sorted, and so the payload stays byte-deterministic.
+CREATE INDEX IF NOT EXISTS idx_tr_company_place_ekatte_person
+  ON tr_company_place (ekatte, money_eur DESC, name, uic) WHERE person_link_n > 0;
+CREATE INDEX IF NOT EXISTS idx_tr_company_place_obshtina_person
+  ON tr_company_place (obshtina, money_eur DESC, name, uic) WHERE person_link_n > 0;
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON tr_company_place TO app_readonly;

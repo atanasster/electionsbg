@@ -4307,6 +4307,46 @@ const DB_ROUTES = {
     ).catch(matviewRows("mp_similarity"));
     return { body: rows[0]?.r ?? { top: [], bottom: [] } };
   },
+  // Companies at a place held by a public figure → /settlement/:id/companies and
+  // /sofia/companies (migration 151). Replaces the `parliament/companies-by-ekatte/` +
+  // `companies-by-obshtina/` shard families — 646 bucket files across 307 places, against
+  // 1,332 settlements and 260 municipalities here.
+  //
+  // ONE route for what was two payload shapes: the shards shipped `{id}-summary.json`
+  // (top-5 + counts) and `{id}-page-NNN.json` (50 rows), which is two fetches and two chances
+  // to disagree about `count`. `pageSize` is the only difference, so the tile asks for 5 and
+  // the page for 50, and the counts come from the same predicate as the rows either way.
+  //
+  // Accepts the same place codes as `place-companies` — Sofia's SFO_CITY and the 24 S#### rayon
+  // codes included, since those 400'd on the sibling route for months.
+  "place-mp-companies": async (dbRows, q) => {
+    const ekatte = s(q, "ekatte");
+    const obshtina = s(q, "obshtina");
+    const empty = {
+      count: 0,
+      personCount: 0,
+      page: 1,
+      pageSize: 0,
+      totalPages: 1,
+      companies: [],
+    };
+    if (
+      !/^\d{5}$/.test(ekatte) &&
+      !/^([A-Z]{3}\d{2}|S\d{4}|SFO_CITY)$/.test(obshtina)
+    )
+      return { status: 400, body: { error: "missing ekatte or obshtina" } };
+    const rows = await dbRows(
+      "SELECT place_mp_companies($1, $2, $3, $4) AS r",
+      // ekatte wins when both are sent, so the answer is always one place.
+      [
+        /^\d{5}$/.test(ekatte) ? ekatte : null,
+        /^\d{5}$/.test(ekatte) ? null : obshtina,
+        clampInt(q.page, 1, 1, 10_000),
+        clampInt(q.pageSize, 50, 1, 200),
+      ],
+    ).catch(missingMigration(empty));
+    return { body: rows[0]?.r ?? empty };
+  },
   // An MP's Commerce-Registry management roles → the „Управленски роли" block on
   // /candidate/:id and /person/:slug (migration 150). Replaces the static
   // parliament/mp-management/{mpId}.json shard family, which was bucket-served.

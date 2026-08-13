@@ -54,6 +54,14 @@ const ROOT = path.resolve(
   "..",
 );
 const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/133_tr_company_place.sql");
+// 151 is applied HERE because nothing else does, and an unapplied serving function is not a
+// degraded page — it is `db:refresh` failing at its final test:data step, and no cloud path
+// shipping the route at all. Same defect 144 carried (CLAUDE.md: "it needed an applier").
+// It reads person_link_n, which 133 above creates, so 133 first.
+const SERVING_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/151_place_mp_companies.sql",
+);
 
 const SPEC: StageMergeSpec = {
   table: "tr_company_place",
@@ -71,6 +79,7 @@ const SPEC: StageMergeSpec = {
     "name",
     "money_eur",
     "political_n",
+    "person_link_n",
   ],
 };
 
@@ -103,6 +112,7 @@ export const loadTrCompanyPlacePg = async (): Promise<{
   unresolved: number;
 }> => {
   await exec(readFileSync(SCHEMA, "utf8"));
+  await exec(readFileSync(SERVING_SCHEMA, "utf8"));
 
   const companies = await allRows<{
     uic: string;
@@ -128,6 +138,25 @@ export const loadTrCompanyPlacePg = async (): Promise<{
     `SELECT eik, count(*) AS n FROM company_politicians GROUP BY eik`,
   ))
     political.set(r.eik, Number(r.n));
+  // The person-link arm — DISTINCT public figures holding a gated registry role, which is a
+  // wider and different question from `political` above (that one is money-restricted: 113
+  // companies, against 13,567 here). It reads person_role, so this loader now depends on
+  // db:resolve:persons having run — see the ORDER_PAIRS entry and the loader header.
+  //
+  // DISTINCT person_id, not count(*): one person can hold two roles at one company (an
+  // `mp` row and an `official` row carry different refs), and counting rows would rank a
+  // two-hat director above two separate people.
+  const personLinks = new Map<string, number>();
+  for (const r of await allRows<{ eik: string; n: string }>(
+    `SELECT r.ref AS eik, count(DISTINCT r.person_id) AS n
+       FROM person_role r
+       JOIN person pe ON pe.person_id = r.person_id
+      WHERE r.source IN ('tr','ngo')
+        AND r.confidence IN ('exact_id','high','manual')
+        AND pe.status = 'active' AND pe.is_public_figure
+      GROUP BY r.ref`,
+  ))
+    personLinks.set(r.eik, Number(r.n));
 
   const resolver = getResolver();
 
@@ -142,6 +171,7 @@ export const loadTrCompanyPlacePg = async (): Promise<{
       boolean | null,
       string,
       string,
+      number,
       number,
       number,
     ]
@@ -170,6 +200,7 @@ export const loadTrCompanyPlacePg = async (): Promise<{
       c.name,
       money.get(c.uic) ?? 0,
       political.get(c.uic) ?? 0,
+      personLinks.get(c.uic) ?? 0,
     ]);
   }
 
