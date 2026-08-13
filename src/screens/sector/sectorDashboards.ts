@@ -164,9 +164,10 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       },
     ],
   },
-  // Транспорт — the МТС state transport group: rail (НКЖИ + БДЖ + ИАЖА), ports
-  // (Пристанищна инфраструктура + Морска администрация), aviation (ГД ГВА) and road
-  // regulation/safety (Автомобилна администрация + ДАБДП). МТС leads; its /awarder
+  // Транспорт — the МТС state transport group: rail (НКЖИ + БДЖ + ИАЖА + ДП ТСВ),
+  // ports and the Danube (Пристанищна инфраструктура + Морска администрация + ИАППД),
+  // aviation (БУЛАТСА + Летище София + ГД ГВА) and road regulation/safety
+  // (Автомобилна администрация + ДАБДП). МТС leads; its /awarder
   // page renders the TransportPack (registered under TRANSPORT_EIK), and so does this
   // dashboard. ⚠ ROAD BUILDING is a SEPARATE sector — АПИ/Автомагистрали are excluded;
   // the pack cross-links to /sector/roads. Метрополитен is municipal, also excluded.

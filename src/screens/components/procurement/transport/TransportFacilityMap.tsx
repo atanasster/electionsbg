@@ -8,9 +8,13 @@
 // ONE /api/db/transport-facility-map call with the contracts corpus folded per
 // entity server-side — no browser geocoding.
 //
-// HONEST-CAPTION RULE (T5.6): all 11 entities are Sofia-REGISTERED; the two
+// HONEST-CAPTION RULE (T5.6): most entities are Sofia-REGISTERED and the two
 // Варна pins are physical-facility overrides (Морска администрация,
-// Пристанищна инфраструктура). Networks (rail, roads) have no single point and
+// Пристанищна инфраструктура), while ИАППД is genuinely seated in Русе. The
+// counts and the city list in the caption are DERIVED from the payload rather
+// than restated — the old copy hardcoded "all 11 … registered in Sofia" and the
+// 2026-08-13 sector audit falsified both halves at once (15 entities, and a
+// third city). Networks (rail, roads) have no single point and
 // АПИ roads are a separate sector — the caption says so, because without it
 // the map reads as "state transport happens in two places".
 
@@ -75,8 +79,8 @@ const bandColor = (bands: Band[], v: number) =>
   (bands.find((b) => v <= b.max) ?? bands[bands.length - 1]).color;
 
 export const TransportFacilityMap: FC<{
-  /** The awarder the pack is mounted on. On the ministry the whole 11-entity
-   *  group is mapped; any other EIK maps just itself. */
+  /** The awarder the pack is mounted on. On the ministry the whole curated
+   *  group (TRANSPORT_ENTITIES) is mapped; any other EIK maps just itself. */
   eik?: string;
   scopeWindow?: ScopeWindow;
   periodLabel?: string | null;
@@ -108,6 +112,27 @@ export const TransportFacilityMap: FC<{
   const presentUniverses = useMemo(() => {
     const set = new Set(facilities.map((d) => d.universe).filter(Boolean));
     return TRANSPORT_UNIVERSES.filter((u) => set.has(u));
+  }, [facilities]);
+
+  // The caption's geography is DERIVED, never restated. It used to hardcode "all 11
+  // entities are Sofia-REGISTERED", which the 2026-08-13 audit falsified twice at once:
+  // the group grew to 15, and ИАППД's seat is Русе, so the map gained a third city
+  // while the caption still explained a two-city one. Counting here means adding a
+  // member can never leave the sentence untrue.
+  const seats = useMemo(() => {
+    const byCity = new Map<string, number>();
+    for (const f of facilities)
+      if (f.settlement)
+        byCity.set(f.settlement, (byCity.get(f.settlement) ?? 0) + 1);
+    const sofia = byCity.get("София") ?? 0;
+    byCity.delete("София");
+    return {
+      total: facilities.length,
+      sofia,
+      outside: [...byCity.entries()].sort(
+        (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "bg"),
+      ),
+    };
   }, [facilities]);
 
   const points = useMemo<SectorMapPoint[]>(() => {
@@ -270,8 +295,8 @@ export const TransportFacilityMap: FC<{
         </div>
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. Всичките 11 структури са РЕГИСТРИРАНИ в София — двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте картата на проектите по-горе; пътното строителство (АПИ) е отделен сектор.`
-            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. All 11 entities are REGISTERED in Sofia — the two Варна markers (Maritime Administration, Port Infrastructure) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see the project map above; road building (АПИ) is a separate sector.`}
+            ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} от ${seats.total} структури са РЕГИСТРИРАНИ в София${seats.outside.length ? `; останалите са в ${seats.outside.map(([c, n]) => (n > 1 ? `${c} (${n})` : c)).join(", ")}` : ""}. Двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте картата на проектите по-горе; пътното строителство (АПИ) е отделен сектор.`
+            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.outside.length ? `; the rest sit in ${seats.outside.map(([c, n]) => (n > 1 ? `${c} (${n})` : c)).join(", ")}` : ""}. The two Варна markers (Maritime Administration, Port Infrastructure) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see the project map above; road building (АПИ) is a separate sector.`}
         </p>
       </CardContent>
     </Card>

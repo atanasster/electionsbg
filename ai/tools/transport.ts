@@ -1,6 +1,7 @@
 // Транспорт tools — the chat surface for the /sector/transport pack. The transport
 // group's procurement is served live from Postgres (the same awarder-group-model the
-// dashboard uses), so these tools aggregate the 11-EIK state-transport group the way
+// dashboard uses), so these tools aggregate the curated state-transport group (every
+// EIK in TRANSPORT_ENTITIES — 15 after the 2026-08-13 audit) the way
 // the pack does, and add the EU-funds absorption the corpus can't show on its own.
 //
 //   transportSpending  — group procurement by MODE (rail/maritime/aviation/road) +

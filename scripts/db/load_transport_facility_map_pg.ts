@@ -6,12 +6,16 @@
 //   EIK  ->  awarder_seats (buyer seat: ekatte · settlement · município · oblast)
 //        ->  data/settlements.json centroid  ->  [lng, lat]
 //
-// SEAT REALITY (stated in the map's caption too): all 11 МТС-group entities are
-// Sofia-REGISTERED, so the seat bridge alone lands everything on София. A small
-// curated PHYSICAL-facility override pins the two maritime bodies to Варна,
-// where their actual operations sit — the map is София (9, paginating cluster)
-// + Варна (2). Networks (rail, roads) have no single point; АПИ roads are a
-// separate sector (see transportReferenceData.ts).
+// SEAT REALITY (derived in the map's caption too, never restated there): almost
+// every МТС-group entity is Sofia-REGISTERED, so the seat bridge alone lands
+// nearly everything on София. A small curated PHYSICAL-facility override pins
+// ДППИ and ИА „Морска администрация" to Варна, where their actual operations
+// sit. ⚠ Since the 2026-08-13 audit that is no longer the only non-Sofia point:
+// ИАППД (000513106) is genuinely SEATED in Русе and needs no override — it
+// resolves through awarder_seats, which makes db:load:awarder-seats:pg a hard
+// prerequisite for its placement and not merely for the join. The map is София
+// (12, paginating cluster) + Варна (2) + Русе (1). Networks (rail, roads) have
+// no single point; АПИ roads are a separate sector (see transportReferenceData.ts).
 //
 // The entity universe is TRANSPORT_ENTITIES — the same constant the sector
 // dashboard, browse pack and awarder-group endpoint use, so the map cannot
@@ -50,7 +54,9 @@ const SOFIA_EKATTE = "68134";
 const SOFIA_LOC: [number, number] = [23.3219, 42.6977];
 
 // Curated physical-facility override: registered seat ≠ where the operation
-// lives. Both maritime bodies run out of Варна.
+// lives. These two maritime bodies are Sofia-registered but run out of Варна.
+// The third maritime body (ИАППД) needs no entry — its registered seat IS Русе,
+// so the awarder_seats bridge places it correctly on its own.
 const FACILITY_TOWN: Record<string, string> = {
   "121797867": "Варна", // ИА „Морска администрация“
   "130316140": "Варна", // ДП „Пристанищна инфраструктура“

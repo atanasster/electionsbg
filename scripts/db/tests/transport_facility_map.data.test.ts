@@ -69,3 +69,22 @@ test.skipIf(skip)(
       );
   },
 );
+
+test.skipIf(skip)("ИАППД sits in Русе, not on the София pin", async () => {
+  // The mirror of the Варна assertion above, and it fails DIFFERENTLY. Варна is a
+  // curated override in the loader, so it can only break by someone editing
+  // FACILITY_TOWN. Русе is the first placement that comes from awarder_seats, and
+  // the loader pins any entity with no seat row — or a Sofia-oblast one — to София
+  // (`viaPin`) rather than failing. So a target database whose awarder_seats lacks
+  // 000513106 silently moves ИАППД to the capital, with full coverage, non-NULL
+  // points and every other assertion here still green.
+  const [row] = await allRows<{ settlement: string | null }>(
+    "SELECT settlement FROM transport_facility_geo WHERE eik = '000513106'",
+  );
+  assert.equal(
+    row?.settlement,
+    "Русе",
+    "ИАППД fell back to the София pin — awarder_seats is missing its row; " +
+      "re-run db:load:awarder-seats:pg before the facility-map loader",
+  );
+});
