@@ -13,9 +13,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import {
   VIK_HOLDING_EIK,
+  VIK_HOLDING_SUB_EIKS,
+  operatorByEik,
   type WaterOperatorType,
 } from "@/lib/vikReferenceData";
-import { operatorByEik } from "@/lib/vikReferenceData";
 import type { VikOperatorAgg } from "@/data/procurement/useVik";
 
 const TYPE_LABEL: Record<WaterOperatorType, { bg: string; en: string }> = {
@@ -24,9 +25,21 @@ const TYPE_LABEL: Record<WaterOperatorType, { bg: string; en: string }> = {
   municipal: { bg: "общинско", en: "municipal" },
   concession: { bg: "концесия", en: "concession" },
   irrigation: { bg: "напояване", en: "irrigation" },
+  dams: { bg: "язовири", en: "dams" },
 };
 
 const TOP_N = 12;
+
+// This tile is fed TWO different universes — the holding group on
+// /awarder/206086428, and the whole 45-EIK water sector on /water and
+// /procurement/contracts?sector=water — so its framing is DERIVED from the rows
+// it was handed, never passed in. A `variant` prop would be one more thing a
+// caller can get wrong, and the caller getting it wrong is the defect itself:
+// before 2026-08-13 the sector set rendered under the group heading, so the page
+// asserted that Софийска вода (a Veolia concession the reference data says in
+// capitals is never a subsidiary) and ДП УСЯ (a dam enterprise) were companies in
+// Български ВиК холдинг.
+const HOLDING_EIKS = new Set([VIK_HOLDING_EIK, ...VIK_HOLDING_SUB_EIKS]);
 
 export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
   operators,
@@ -36,6 +49,7 @@ export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
   const bg = lang === "bg";
   const rows = operators.filter((o) => o.totalEur > 0);
   if (rows.length < 2) return null;
+  const isSector = rows.some((o) => !HOLDING_EIKS.has(o.eik));
   const max = Math.max(...rows.map((o) => o.totalEur));
   const shown = rows.slice(0, TOP_N);
   const rest = rows.slice(TOP_N);
@@ -46,7 +60,13 @@ export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Network className="h-4 w-4" />
-          {bg ? "Дружествата в групата" : "Operators in the group"}
+          {isSector
+            ? bg
+              ? "Дружествата във водния сектор"
+              : "Operators in the water sector"
+            : bg
+              ? "Дружествата в групата"
+              : "Operators in the group"}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-2">
@@ -101,9 +121,13 @@ export const VikSubsidiaryTile: FC<{ operators: VikOperatorAgg[] }> = ({
           </p>
         )}
         <p className="pt-1 text-[11px] text-muted-foreground/80">
-          {bg
-            ? "Консолидиран изглед по всички дружества в групата (АОП/ЦАИС ЕОП). Числото до сумата е броят договори. Принадлежността към холдинга е ориентировъчна — подлежи на сверка с vikholding.bg."
-            : "Consolidated across every operator in the group (АОП/ЦАИС ЕОП). The number by the amount is the contract count. Holding membership is indicative — pending reconciliation with vikholding.bg."}
+          {isSector
+            ? bg
+              ? "Консолидиран изглед по всички оператори във водния сектор (АОП/ЦАИС ЕОП) — регионалните ВиК дружества, общинските оператори, концесията за София, Напоителни системи и язовирите. Не всички са част от холдинга. Числото до сумата е броят договори."
+              : "Consolidated across every operator in the water sector (АОП/ЦАИС ЕОП) — the regional water companies, the municipal operators, the Sofia concession, the irrigation enterprise and the dams. Not all are part of the holding. The number by the amount is the contract count."
+            : bg
+              ? "Консолидиран изглед по всички дружества в групата (АОП/ЦАИС ЕОП). Числото до сумата е броят договори. Принадлежността към холдинга е ориентировъчна — подлежи на сверка с vikholding.bg."
+              : "Consolidated across every operator in the group (АОП/ЦАИС ЕОП). The number by the amount is the contract count. Holding membership is indicative — pending reconciliation with vikholding.bg."}
         </p>
       </CardContent>
     </Card>
