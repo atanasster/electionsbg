@@ -79,6 +79,12 @@ const RELOADED: ReadonlyArray<{ table: string; loader: string }> = [
   { table: "budget_kfp_snapshot_section", loader: "db:load:budget:pg" },
   { table: "budget_kfp_snapshot_line", loader: "db:load:budget:pg" },
   { table: "budget_personnel", loader: "db:load:budget:pg" },
+  // The municipal corpus — all four stage-merged, carrying the call for the
+  // same reason as the state ones above.
+  { table: "budget_muni_transfer", loader: "db:load:budget-muni:pg" },
+  { table: "budget_muni_ipop_project", loader: "db:load:budget-muni:pg" },
+  { table: "budget_muni_capital_project", loader: "db:load:budget-muni:pg" },
+  { table: "budget_muni_execution", loader: "db:load:budget-muni:pg" },
 ];
 
 // Every loader that vacuums, so the static check below can read their call
@@ -94,6 +100,7 @@ const LOADER_FILES = [
   "load_funds_pg.ts",
   "load_municipal_fiscal_pg.ts",
   "load_budget_pg.ts",
+  "load_budget_muni_pg.ts",
 ];
 
 const haveDb = await dbReachable();

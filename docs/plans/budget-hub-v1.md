@@ -798,7 +798,14 @@ The three differ by an order of magnitude, so coverage is part of the tile:
 |---|---|---|---|
 | `muniTransfers` | `/budget/municipal` | **265 / 265** — the Art. 53 envelope, complete by construction | FY2026: €4.89bn основни + €4.35bn делегирани + €255m капиталови |
 | `muniIpop` | `/budget/municipal/investments` | **264 municipalities, 3 492 projects** | **769 спрели** — the number that makes the page worth opening |
-| `muniCapital` | `/budget/municipal/capital` | **26 of 265** — oblast centres only | say „26 областни центъра", never a bare count |
+| `muniCapital` | `/budget/municipal/capital` | **26 of 265** — see the [2026-08-13] note below | say „26 общини", never a bare count |
+
+**[2026-08-13] The 26 are NOT „oblast centres", and an earlier draft of this table said they
+were.** Measured against `place_dim` once the corpus was loaded: six of the 26 are not oblast
+centres at all (Асеновград, Велинград, Дупница, Казанлък, Карлово, Самоков) and seven centres are
+absent. They are simply the municipalities whose capital programme was reachable and parseable.
+So the tile names the COUNT and not a category — „26 общини" — because „26 областни центъра" is
+the skill's headline defect: arithmetically right about the number, false as a sentence.
 
 `municipal_execution` (Ruse and Nikolaevo — **2 of 265**) gets **no tile**. Two municipalities is a
 pilot, not a surface; it stays on those two governance dashboards until the ingest widens. A tile

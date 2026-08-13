@@ -94,6 +94,25 @@ const ORDER_PAIRS: { after: string; before: string; why: string }[] = [
       "merely unlabelled rows",
   },
   {
+    after: "db:load:budget-muni:pg",
+    before: "db:load:place-dim:pg",
+    why:
+      "154's obshtina column resolves every municipal label through place_dim, and the " +
+      "loader preflights it on COLUMNS rather than a row count — the Interreg deploy " +
+      "(2026-08-08) passed a count-based check against a place_dim that had the right " +
+      "5,720 rows and the wrong columns, then failed after writing nothing",
+  },
+  {
+    after: "db:load:budget-muni:pg",
+    before: "db:load:municipal-fiscal:pg",
+    why:
+      "not a data dependency — 154 never reads municipal_fiscal, and must not (they are " +
+      "what the state SENDS vs what municipalities OWE, adjacent and never combined). " +
+      "The order is so the two municipal corpora land together: a db:refresh that " +
+      "reloads one and not the other leaves /budget/municipal and " +
+      "/governance/municipal-finance describing different vintages of the same 265 places",
+  },
+  {
     after: "db:resolve:persons",
     before: "db:load:tr-name-fold-people:pg",
     why:
