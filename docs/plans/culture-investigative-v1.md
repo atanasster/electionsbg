@@ -15,29 +15,37 @@ layer, no EU-funds layer, and an EIK register that omits its largest buyer.
 2. **Ingest everything in Part 2** that serves investigative work and generalises beyond culture.
 3. `/culture` becomes a **dashboard-hub** with a four-subject finder.
 
+**Audit pass (2026-08-13, post-draft).** Every §0 figure was re-derived against local PG and
+every claim about the repo re-checked against the code. The corrections are folded in below and
+marked ⓐ; the audit's structural findings are §1.3 (the filter already exists), §1.3-B
+(`/procurement/contractors` is not servable), §1.7 (the hub blob is a `db:gen-*` artifact) and
+the three new gates in §4. Nothing in Part 2 changed.
+
 ---
 
 ## 0. Every figure below was measured, with its denominator
 
 Per the hub skill §0. Measured 2026-08-13 against local PG (`contracts` 408,967 rows).
+Rows marked **ⓐ** were corrected by the audit pass — the draft's originals are shown struck
+through so the delta stays visible rather than being quietly overwritten.
 
 | Figure | Value | Denominator / basis |
 |---|---|---|
-| Culture group contracts (current 21 EIKs) | **674** | `tag='contract'`, 2011-01-19 → 2026-08-11 |
-| Culture group money | **€145,966,111** | Σ `amount_eur`, post-annex current value |
-| Culture single-bid rate | **40.2%** | 179 of **445 contracts where `number_of_tenderers IS NOT NULL`** — not of 674 |
+| **ⓐ** Culture group contracts (`CULTURE_GROUP_EIKS`, **23** EIKs) | **677** ~~674~~ | `tag='contract'`, whole corpus |
+| **ⓐ** Culture group money | **€146,456,882** ~~€145,966,111~~ | Σ `amount_eur`, post-annex current value |
+| **ⓐ** Culture single-bid rate | **40.0%** ~~40.2%~~ | 179 of **447 contracts where `number_of_tenderers IS NOT NULL`** — not of 677 |
 | **National single-bid baseline** | **40.9%** | 108,413 of 264,837 bid-known, whole corpus |
 | Art-school tier single-bid | **53.0%** | 71 of 134 bid-known |
 | Distinct suppliers | 336 | distinct `contractor_eik`, consortium members excluded |
-| Risk grades | A 387 / B 199 / C 78 / D 10 | `contract_risk_cache.grade`; €87.8m / €28.9m / €23.1m / €6.2m |
+| Risk grades | A 387 / B 199 / C 78 / D 10 | `contract_risk_cache.grade`; €87.8m / €28.9m / €23.1m / €6.2m. **Sums to 674, not 677** — the three-row gap is the draft's set; resolve with T0.0. **No E or F rows exist in culture.** |
 | Annex uplift | €758,745 over 71 contracts | `procurement_annexes.value_diff_eur` |
 | КЗК appeals | 13 across 7 buyers, 1 upheld | `kzk_appeals` on the culture buyer set |
-| **ИСУН grants to culture bodies** | **€474,276,649 / 1,866 projects / 1,527 beneficiaries** | `fund_projects`, beneficiary NAME matched on the culture regex |
+| **ИСУН grants to culture bodies** | **€474,276,649 / 1,866 projects / 1,527 beneficiaries** | `fund_projects`, beneficiary NAME matched on the culture regex — ⚠️ **that regex is not written down anywhere; T0.0** |
 | — of which читалища | €22,140,281 / 1,332 projects / 1,196 beneficiaries | same |
-| — to the 26 named institutions | €56.2m (МК €37.6m, НДК €10.2m, НХА €3.3m …) | `beneficiary_eik` exact |
-| **ДФЗ subsidies to читалища** | **€18,341,814 / 264 rows / 197 beneficiaries**, 2015–2025 | `agri_subsidies`, name-matched **with the `култури` exclusion** |
+| — to the named institutions | €56.2m (МК €37.6m, НДК €10.2m, НХА €3.3m …) | `beneficiary_eik` exact. **ⓐ** the draft called this set "26"; the file holds 23 — same T0.0 |
+| **ДФЗ subsidies to читалища** | **€18,341,814 / 264 rows / 197 beneficiaries**, 2015–2025 | `agri_subsidies`, name-matched **with the `култури` exclusion**. ⚠️ the exclusion is specified; **the base regex it guards is not** — T0.0 |
 | **Interreg — culture BODIES as partners** | **€10,990,255 / 77 rows / 67 partners** | `interreg_partners`, `country='Bulgaria'`, name-matched |
-| **Interreg — culture/heritage-THEMED operations** | **€89,551,792 / 420 rows / 340 BG partners**, only **100 (24%) carry an EIK** | join via `interreg_operations.title_en ~* 'cultur\|heritage\|museum\|theatre\|festival\|art'` |
+| **ⓐ Interreg — culture/heritage-THEMED operations** | **see the ⚠️ below — the draft's €89.55m / 420 rows is inflated ~24% by an unanchored regex and does not reproduce** | join via `interreg_operations.title_en ~* 'cultur\|heritage\|museum\|theatre\|festival\|\yart'` (**anchored**) |
 | Culture-institute directors in the person layer | **198**, all public figures, all with declarations | `person_role source='public_sector' role='cultural_institute'` |
 | Procurement officers („Упълномощено лице по ЗОП") | **782 people / 2,848 filings**, 2018–2025, all resolved to `person_id` | `declaration.category='procurement_officer'` |
 | Cached officials declaration XMLs | **44,142** (1.8 GB), **17,389 distinct `<Work>` employers** | `raw_data/officials/**/*.xml` |
@@ -45,15 +53,40 @@ Per the hub skill §0. Measured 2026-08-13 against local PG (`contracts` 408,967
 | ПИИ-coded procurement | 1,829 tenders · 2,703 contracts · 262 distinct codes | `subject`/`title ~* 'BG-RRP-[0-9]'` |
 | `fund_projects` with a BG-RRP `contract_number` | 14,180 | exact |
 
-> ⚠️ **The single-bid figure is the trap on this page.** Culture is **40.2%** against a
-> national **40.9%** — *typical*, not alarming. A tile showing 40.2% alone asserts something
+> ⚠️ **The single-bid figure is the trap on this page.** Culture is **40.0%** against a
+> national **40.9%** — *typical*, not alarming. A tile showing 40.0% alone asserts something
 > false. The real signal is the art-school tier at **53.0%** (+12 points). Any single-bid tile
 > ships with the baseline as its `metricSecondary` or it does not ship.
+
+> ⚠️ **ⓐ The Interreg thematic regex carries the `култури` defect — in this document, one
+> bullet away from the paragraph warning about it.** The draft's
+> `~* 'cultur|heritage|museum|theatre|festival|art'` leaves `art` **unanchored**. Measured
+> 2026-08-13:
+>
+> | | operations | BG partner rows | Σ `budget_eur` |
+> |---|---|---|---|
+> | regex as drafted | 361 | 329 | €70,898,768 |
+> | with `\yart` (word-anchored) | — | 237 | €54,200,430 |
+> | **matched by the bare `art` substring alone** | **121 (33%)** | **92 (28%)** | **€16,698,338 (24%)** |
+>
+> What the bare substring pulls in: „Cross-Border **Part**nership for Training and Labour
+> mobility", „STIMULATING CITIZENS **PART**ICIPATION TO RECYCLE", „Sm**art** Building –
+> Sm**art** Grid – Sm**art** City". Labour mobility, risk management and smart cities rendered
+> as culture money. **§3.2-B's rule applies to this regex too**, and §4's gate („the exclusion
+> **changes** the number") must cover it — not only the agri one.
+>
+> Second, separate problem: the corrected figures above (329 rows / €70.9m) **do not reproduce
+> the draft's 420 rows / €89.55m / 340 partners** even before anchoring, so the join the draft
+> actually ran is undeclared. Re-derive and publish it (T0.0) before any surface quotes a
+> thematic Interreg number.
 
 > ⚠️ **€474m vs €146m.** ИСУН grants to culture bodies are **3.2× the procurement**. Both are
 > absent from `/culture` today. The EU figure is name-matched (1,527 beneficiaries, mostly
 > читалища) so it is a *floor with a fuzzy edge*; the EIK-exact subset is €56.2m. **Never
 > publish the €474m without naming which matching produced it** — the two differ by 8×.
+> **ⓐ And that matching is not written down anywhere in this plan** — the largest figure in the
+> document is the one with no reproducible definition, which is the §0 rule failing on itself.
+> T0.0 closes it.
 
 > ⚠️ **The `култури` false positive is a €148m error waiting to be published.** The naive
 > culture regex over `agri_subsidies` returns **€166.3m**; the real figure is **€18.3m**. The
@@ -63,11 +96,12 @@ Per the hub skill §0. Measured 2026-08-13 against local PG (`contracts` 408,967
 > „куклен""). Any agri arm ships with the `!~* 'култури'` guard **and a test that asserts the
 > guard changes the number**, or it does not ship.
 
-> ⚠️ **Interreg answers two different questions and they are 8× apart.** "Culture institutions
+> ⚠️ **Interreg answers two different questions and they are ~5× apart.** "Culture institutions
 > doing Interreg" is €11.0m / 67 bodies. "Interreg culture-and-heritage money reaching
-> Bulgaria" is €89.6m / 340 partners — and those partners are overwhelmingly общини and NGOs,
-> not culture institutes. **Only 24% of them carry an EIK**, so an EIK-keyed sector filter
-> silently drops three quarters of the second answer. Pick one per surface and label it; the
+> Bulgaria" is **ⓐ €54.2m / 237 partner rows / 193 partners** (anchored regex; the draft said
+> €89.6m / 340) — and those partners are overwhelmingly общини and NGOs, not culture
+> institutes. **Only 49 of 237 rows (21%) carry an EIK**, so an EIK-keyed sector filter
+> silently drops four fifths of the second answer. Pick one per surface and label it; the
 > thematic arm must be joined through `interreg_operations`, never through a beneficiary set.
 
 ---
@@ -88,17 +122,34 @@ either. Film subsidy is **13% of the money on this page's subject** and 100% of 
 
 ## 1.2 Tier 0 — the EIK register (blocks everything else)
 
-`src/lib/kulturaReferenceData.ts` freezes a 21-EIK allowlist. Measured coverage:
+`src/lib/kulturaReferenceData.ts` freezes an allowlist of **23** EIKs — 3 funders
+(`CULTURE_FUNDER_EIKS`) + 20 `STATE_CULTURE_INSTITUTES`, exported as `CULTURE_GROUP_EIKS`.
+Measured coverage:
 
 | Tier | Buyers | Contracts | Money | Single-bid | Status |
 |---|---|---|---|---|---|
-| A — funders + verified institutes | 21 | 674 | €145.97m | 40.2% (179/445) | **in the roll-up** |
+| **ⓐ** A — funders + verified institutes | **23** ~~21~~ | **677** ~~674~~ | **€146.46m** | **40.0%** (179/447) | **in the roll-up** |
 | B — national art schools incl. **НУКК** | 10 | 196 | €9.48m | **53.0% (71/134)** | **absent from the file entirely** |
-| C — verify-principal (theatres/museums) | 9 | 75 | €14.22m | 37.1% | listed, excluded |
-| D — Шипка-Бузлуджа, НХА, НАИМ | 3 | 94 | €31.96m | 27.1% | absent |
+| C — verify-principal (theatres/museums) | 9 | 75 | €14.22m | 37.1% | listed in `VERIFY_PRINCIPAL_EIKS`, excluded from the roll-up |
+| **ⓐ** D — Шипка-Бузлуджа, НХА, НАИМ | 3 | 94 | €31.96m | 27.1% | ~~absent~~ **two of the three are in `EXCLUDED_EIKS` with a declared principal** — see T0.6 |
 | E — народни читалища | 86 | 134 | €18.05m | 20.0% | out of scope by design |
-| **Universe** | **129** | **1,173** | **€219.68m** | | **66% of the money in scope** |
+| **Universe** | **129** | **1,173** | **€219.68m** | | **~67% of the money in scope** |
 
+- **ⓐ T0.0 — Publish the definitions before anything reads them.** Four of the plan's headline
+  figures are stated without a reproducible basis, which is §0's own rule failing on itself.
+  Land these as **one exported module** (`scripts/culture/cultureMatch.ts` or similar) plus a
+  test that pins each number, and re-derive §0 from it:
+  1. the **ИСУН beneficiary-name regex** behind €474,276,649 — the largest number in the plan;
+  2. the **ДФЗ beneficiary-name regex** the `!~* 'култури'` guard guards (the guard is
+     specified, the thing it guards is not);
+  3. the **Interreg thematic join** — anchored (`\yart`), and reconciled against the draft's
+     420 rows / €89.55m, which the anchored *and* unanchored forms both fail to reproduce;
+  4. the **Tier A set** — the draft's 21 EIKs / 674 contracts / €145.97m is not
+     `CULTURE_GROUP_EIKS` (23 / 677 / €146.46m), and the risk-grade row sums to 674, so the
+     draft's set is inside the grade split too. Either declare the three-row difference or
+     restate everything on `CULTURE_GROUP_EIKS`.
+  Nothing downstream — no tile, no blob, no gate — can be written against a set nobody can
+  reconstruct. This is now step 1's first item.
 - **T0.1 — Add Tier B (10 EIKs).** МК-principal national art schools, in none of the file's
   three lists. **НУКК `831154303`** is the largest buyer in the ACF story (€3.20m) and appears
   in no roll-up, roster, map or search box. Highest single-bid tier in the universe.
@@ -110,25 +161,84 @@ either. Film subsidy is **13% of the money on this page's subject** and 100% of 
   `/procurement/by-settlement`, the settlement payloads and every place surface.
 - **T0.5 — Decide Tier E (читалища).** €18.05m of procurement, **€22.1m of EU grants across
   1,196 beneficiaries**, and the largest culture stream (€88.3m/yr). Recommend: a labelled
-  sub-group, excluded from the headline, reachable from it.
+  sub-group, excluded from the headline, reachable from it. ⓐ Note the ceiling: the
+  `awarder-group-model` route **caps at 300 EIKs and silently `slice(0,300)`s the excess**
+  (`functions/db_routes.js`). The universe is 129; universe + Tier E (86) + T3.1's ~74 ДКИ is
+  ~289. Whatever set the group model is pointed at, it is one roster expansion from silent
+  truncation — add a length assertion at the call site rather than discovering it as a
+  quietly-shrinking total.
+- **ⓐ T0.6 — Decide what the "universe" IS, before Tier D moves.** The draft calls
+  Шипка-Бузлуджа / НХА / НАИМ "absent". Two are not: `EXCLUDED_EIKS` carries `000804161`
+  (Шипка-Бузлуджа, `principal: "mo"`) and `000670919` (НАИМ, `principal: "ban_mon"`), each with
+  a documented reason, and the file's whole design is hand-classification **by principal**.
+  НХА is the same class as НАТФИЗ (`000670723`, excluded as higher-ed/МОН) — so as drafted the
+  plan admits one art academy and keeps the other out. Adding Tier D therefore reverses two
+  standing decisions rather than filling a hole.
 
-**Gate:** a data test enumerating buyers matching the culture regex, subtracting the three
-declared lists, failing on any unclassified buyer above a money floor.
+  **The rule has to be stated first**, because it decides the headline: is the universe
+  *principal = МК* (in which case Tier D is correctly excluded and the sector is ~€188m), or
+  *everything a reader would call culture* (in which case Tier D and the МО military museums
+  belong, at ~€220m, and `EXCLUDED_EIKS`' `principal` field becomes a label rather than a
+  filter)? Both are defensible; they are different pages. T0.1–T0.4 and §1.2's gate cannot be
+  written until this is answered, and neither can §3.2-A's rule.
 
-## 1.3 The generic `?sector=` filter — **DECIDED**
+**Gate:** a data test enumerating buyers matching the culture regex (T0.0's, by name),
+subtracting the declared lists, failing on any unclassified buyer above a money floor. ⓐ It
+takes **four** lists, not three — `CULTURE_GROUP_EIKS`, `VERIFY_PRINCIPAL_EIKS`,
+`EXCLUDED_EIKS` and whatever T0.5 makes читалища.
+
+## 1.3 The generic `?sector=` filter — **DECIDED** · ⓐ **and ~70% already shipped**
 
 One filter, ~20 sector surfaces, no bespoke routes.
 
-- **Registry.** A single `SECTOR_EIKS: Record<SectorKey, readonly string[]>` assembled from the
-  existing per-sector reference modules. **One declaration**, imported by both `src/` and
-  `scripts/` (hub skill §1).
+> ⓐ **The audit's largest structural finding: `?sector=` is not new work.** It exists, it is
+> read, and it already spans the sector packs:
+>
+> - **Read on `/procurement/contracts`** — `ContractsBrowserDbScreen.tsx:75`,
+>   `getSectorBrowsePack(params.get("sector"))`.
+> - **Read on `/procurement/tenders`** — `TendersBrowserDbScreen.tsx:90`, pushing
+>   `{ id: "buyer_eik", value: [...pack.eiks] }`.
+> - **`SECTOR_BROWSE_PACKS` (`src/screens/components/procurement/sectorPacks.tsx:216`) IS the
+>   `SECTOR_EIKS` registry this section proposes to create** — `Record<string, { id, label,
+>   eiks, Section? }>`, **18 entries** (water, roads, noi, nzok, agri, judiciary, defense,
+>   security, revenue, customs, edu, transport, social, environment, regional, administration,
+>   energy, tourism), each sourced from the per-sector reference module, resolved through
+>   `getSectorBrowsePack()`, and referenced from `SectorDashboardConfig.browsePackId`.
+> - **`contracts.awarder_eik` is already `filter:"in"` for exactly this** — see the comment at
+>   `functions/db_table.js:106`: *"so a sector browse pack can pass an EIK-set as a
+>   fixedFilter"*.
+> - **Unknown keys are already dropped** — `getSectorBrowsePack` returns `null`. The
+>   "validated on read" requirement below is already met, and **not** by
+>   `useUrlProcurementFilters`, which does not own this param.
+>
+> **What is actually missing is much narrower**, and the sequencing in §3 was sized against the
+> wrong scope:
+>
+> | | State |
+> |---|---|
+> | a `culture` entry in `SECTOR_BROWSE_PACKS` | ⓐ **absent — one line**, and it alone delivers both Band 3 links |
+> | `?sector` on `/procurement/contractors` | ⓐ **not servable as designed — see §1.3-B** |
+> | `?sector` on the funds / subsidies browsers | genuinely new |
+> | the `role` (awarder vs beneficiary) split | genuinely new |
+> | a SQL `sector_eik` dimension | ⓐ an **optimisation** over today's array-in-request, not a prerequisite — needs its own justification |
+
+- **Registry.** ⓐ **Extend `SECTOR_BROWSE_PACKS`; do not mint a parallel `SECTOR_EIKS`.** A
+  second registry over the same 18 sectors is the drift this section exists to prevent. What it
+  needs is (a) a `culture` entry, (b) the `role` field below, (c) an import path `scripts/` can
+  use — today it lives in a `.tsx` module that pulls in React components (`Section`), so the
+  loader-side split is real work: move the data half to a `.ts` sibling and keep the component
+  map beside it.
 - **SQL.** A `sector_eik(sector_key, eik, role)` dimension loaded from that registry, so
   `db_table.js` resolves `?sector=culture` to an indexed `= ANY(...)` predicate rather than a
-  literal array in the route.
+  literal array in the route. ⓐ **Justify it before building it.** The array form works today
+  at 129 EIKs and the `in` filter is indexed either way; the arguments for the dimension are
+  that `scripts/` and the generators need the same set server-side, and that the 300-EIK route
+  cap (T0.5) disappears. Neither is "the filter doesn't work without it".
 - **`role` is load-bearing.** The same EIK is a BUYER on `contracts`/`tenders` and a
   BENEFICIARY on `fund_projects`/`agri_subsidies`/`interreg_partners`. One column
   (`awarder` | `beneficiary` | `both`) keeps a filter from joining a buyer set to a
-  beneficiary corpus and reporting zero.
+  beneficiary corpus and reporting zero. ⓐ This is the one part of the section with no existing
+  implementation at all — `SECTOR_BROWSE_PACKS` is buyer-only by construction.
 
 **It must span all four money corpora, not just contracts.** Migration 127
 (`company_public_money`) already unions exactly these four arms —
@@ -136,25 +246,58 @@ One filter, ~20 sector surfaces, no bespoke routes.
 union is an established repo pattern with a canonical spec and a data test pinning it. The
 sector filter follows it:
 
-| Corpus | Key | Culture coverage | Caveat |
-|---|---|---|---|
-| `contracts` / `tenders` | `awarder_eik` / `buyer_eik` | €146m (21) → €219.7m (129) | — |
-| `fund_projects` (ИСУН) | `beneficiary_eik` | €56.2m exact / €474.3m name-matched | state which matching |
-| `agri_subsidies` (ДФЗ) | `eik` | €18.3m, **читалища only** | `!~* 'култури'` guard mandatory |
-| `interreg_partners` | `eik` | €11.0m bodies / €89.6m thematic | **only 24% of thematic partners have an EIK** |
+| Corpus | Key | Culture coverage | Caveat | ⓐ Filter state |
+|---|---|---|---|---|
+| `contracts` / `tenders` | `awarder_eik` / `buyer_eik` | €146.5m (23) → €219.7m (129) | — | **already works** — needs a `culture` pack entry |
+| `fund_projects` (ИСУН) | `beneficiary_eik` | €56.2m exact / €474.3m name-matched | state which matching | resource exists in `db_table.js`; no `?sector` reader |
+| `agri_subsidies` (ДФЗ) | `eik` | €18.3m, **читалища only** | `!~* 'култури'` guard mandatory | resource exists; no reader. See open Q6 — may be name-only |
+| `interreg_partners` | `eik` | €11.0m bodies / €54.2m thematic (anchored) | **only 21% of thematic partner rows have an EIK** | **no DbDataTable resource at all** — no browser destination exists |
 
-- **Surfaces.** `?sector=` on `/procurement/contracts`, `/procurement/tenders`,
-  `/procurement/contractors`, and the funds/subsidies browsers; validated on read like every
-  other filter (`useUrlProcurementFilters`) — an unknown key is dropped, never passed through.
+- **Surfaces.** `?sector=` on `/procurement/contracts` ⓐ(done), `/procurement/tenders`
+  ⓐ(done), `/procurement/contractors` ⓐ(**see §1.3-B — not servable**), and the
+  funds/subsidies browsers ⓐ(new). Validated on read — ⓐ already true via
+  `getSectorBrowsePack`; **not** `useUrlProcurementFilters`, which does not own this param, so
+  do not add a duplicate validator there.
 - **Reciprocity gate** (hub skill §4): every sector key a tile links with must be read by the
   destination. A `?sector` landing on an unfiltered browser is the exact failure the see-all
-  rule exists to prevent.
-- **Coverage must be declarable per corpus.** An EIK-keyed filter over Interreg answers 24% of
+  rule exists to prevent. ⓐ **As drafted, this plan fails its own gate twice** — Band 2's
+  headline tile and finder subject 3 both point at `/procurement/contractors?sector=culture`.
+- **Coverage must be declarable per corpus.** An EIK-keyed filter over Interreg answers ~21% of
   the thematic question. The filter returns its own coverage so a surface can say so, the way
   `/api/db/tender-search-coverage` already does.
-- **Why it beats a bespoke route:** the culture set is 21→40 EIKs today and moves with
-  T0.1/T0.2/T3.1. A route bakes a set; a filter reads one — and ~19 other sector surfaces get
-  it free.
+- **Why it beats a bespoke route:** the culture set is 23→~40 EIKs today and moves with
+  T0.1/T0.2/T3.1. A route bakes a set; a filter reads one — ⓐ and the ~18 other sector surfaces
+  **already have it**, which is the strongest available argument for the shape.
+
+### ⓐ 1.3-B `/procurement/contractors?sector=` is not servable — decide the destination
+
+`contractor_rank` (migration 122) has **no buyer dimension**. Its columns are
+`(scope_key, eik, division, name, name_fold, total_eur, contract_count, award_count,
+total_other, is_mp_tied)` — it aggregates CONTRACTORS, while `?sector` is a predicate on the
+BUYER. There is nothing to filter on.
+
+Adding one is not a column. The resource is already a **two-dimensional fan-out** with rollup
+buckets — `functions/db_table.js:1648` documents that omitting `division` unions the `'ALL'`
+row with every per-division row and yields a *~2× double-counted leaderboard served at 200*,
+which is why `defaultFilters` exists. A third dimension multiplies
+`(scope_key × division × sector)` and re-opens exactly that class.
+
+Three options; **the plan currently assumes the first and never states it**:
+
+1. **New precompute arm** — a sector dimension on 122, with the rollup-bucket guard extended.
+   Real cost: 122 already fans ~29.5k contractors × ~30 windows × CPV division ≈ 9 s locally,
+   and every `db:load:procurement-scopes:pg` pays it.
+2. **Live aggregate for the sector case only** — `?sector` bypasses the matview and aggregates
+   `contracts` filtered by `awarder_eik = ANY(...)`. Cheap for 129 buyers; must be measured
+   against the 10 s `statement_timeout` before it is promised, and it makes one surface serve
+   two different query shapes.
+3. **Re-point the two links.** Band 2's "Изпълнители на културата" and finder subject 3 go to
+   `/culture/procurement#contractors` instead — the cross-buyer supplier view (T1.3) is a
+   better answer to that reader's question anyway, and `awarder_group_model` already returns a
+   **complete** per-contractor rollup for an EIK set (§1.4). **Recommended**: it costs nothing,
+   it removes the gate failure, and it keeps 122 single-purpose.
+
+Whichever is chosen, it belongs in step 2 and blocks the Band 2 tile.
 
 ## 1.4 Tier 1 — the procurement layer
 
@@ -162,12 +305,18 @@ Everything here runs on primitives that **already exist**. No new migration.
 
 `awarder_group_model(text[], from, to)` (migration 061) returns, for any EIK set: head totals,
 bid-known/single-bid counts, a **complete** per-contractor rollup and per-CPV buckets. It is
-what the six sector packs run on. Point it at the culture set.
+what the sector packs run on. Point it at the culture set. ⓐ Two constraints from the audit: the
+route **caps at 300 EIKs** and truncates silently (T0.5), and its **complete per-contractor
+rollup is what makes §1.3-B's recommended fix free** — `/culture/procurement#contractors` is a
+render of data this call already returns, not a new query.
 
 - **T1.1** — `useCultureProcurement` over `awarder_group_model` with the resolved set. Reuse
   `buildAwarderModelFromAggregates`; never fetch contract rows client-side.
 - **T1.2** — The aggregates land on `/culture/procurement` (§1.7), not on the hub. The hub gets
   only the two or three headline numbers from the hub blob.
+- **ⓐ T1.2b** — `#contractors`: the sector contractor leaderboard, from T1.1's rollup. This is
+  the destination Band 2 and finder subject 3 point at instead of
+  `/procurement/contractors?sector=culture` (§1.3-B), so it is not optional decoration.
 - **T1.3** — The **cross-buyer supplier** view, which no current surface offers: measured,
   **ДИНАКОРД-БЪЛГАРИЯ ЕООД serves 9 of the culture buyers (€5.38m)**, А1 5 (€14.26m), Форс
   Делта 4, **Д & Д ООД 3, Крипто енерджи ЕООД 3**. One supplier across many small independent
@@ -254,6 +403,39 @@ and sitemap `<loc>` for every new sub-page, `dist/<path>/index.html` verified af
 the hub intro retaining the subsidy vocabulary. Per `project_seo_discovery_gap`, broader-data
 pages already earn ~0 impressions — do not assume the hub inherits the dashboard's traffic.
 
+**ⓐ The move touches five files, not one, and one of them is a BUILD-TIME data dependency:**
+
+1. **`scripts/prerender/routes.ts:229`** — `cultureFacts` **reads `data/culture/overview.json`
+   at build time** and every sentence of the `/culture` prerender body (BG and EN) is
+   interpolated from it: total subsidy, film count, producer count, top-10 share, biggest
+   producer. That body moves *with* the film content to `/culture/subsidies`; the hub's new body
+   needs its own facts source. Same class as the `/court/**` dependency in CLAUDE.md — a
+   missing/renamed file degrades quietly rather than failing the build.
+2. **`scripts/prerender/routes.ts:2505` and `:2544`** — the BG and EN "one entry to every state
+   body" index pages both describe `/culture` as *„филмови субсидии и комисии"* / *"film
+   subsidies and commissions"*. Both become wrong the day the hub ships.
+3. **`scripts/sitemap/route_defs.ts`** — **two** halves, and both need the four new paths: the
+   path list (`:73`) and the path→file map (`:160`).
+4. **`src/routes.tsx`** — four lazy routes, and `scripts/sitemap/families.data.test.ts` gates
+   that every `<loc>` has a real `dist/<path>/index.html`, so run it **after** `npm run build`.
+5. **`scripts/llms/buildFull.ts`** — if a culture section is enumerated there, its refusal gate
+   fires when a section disappears; check before renaming.
+
+**ⓐ Each new sub-page must declare its `ScopeSupport`, and `/culture/funds` has the hard case.**
+`?pscope` is in the `usePreserveParams` allowlist, so a scope minted anywhere else rides onto
+these pages. `/culture` resolves it today via `scopeCultureOverview` (a year re-aggregation over
+`films.json`); the sub-pages inherit nothing.
+
+- `/culture/procurement` — years 2011→current, `allowAll` yes. Straightforward.
+- `/culture/subsidies` — the existing НФЦ coverage, moved verbatim with the body.
+- **`/culture/funds` — `fund_projects` has NO date columns at all** (CLAUDE.md states this;
+  confirmed — the table carries `status` and `duration_months`, no signing/start/end date). A
+  year scope is **not answerable**, so decide now between `useScope({ allowAll: true, years: [] })`
+  with the picker suppressed, or the `/subsidies` pattern of keeping the raw scope and NAMING
+  the gap. What it must not do is show one window and count another — and a Radix `<Select>`
+  whose controlled value matches no item renders **empty**, not as a placeholder.
+- `/culture/institutions` — a register, not a time series; suppress the control.
+
 **Bands** — named for what is in them, each with a one-line `descKey` (hub skill §3). Grid is
 4 columns at `xl`; counts are 4/4/4/3 so no tile is stranded.
 
@@ -262,22 +444,44 @@ pages already earn ~0 impressions — do not assume the hub inherits the dashboa
 The full picture, measured. Six streams on five different bases — which is precisely why each
 tile carries its basis as its `metricSecondary` rather than in a footnote.
 
-| Stream | Amount | Basis |
-|---|---|---|
-| Бюджет на МК | €269.1m / yr | 2026, by law |
-| ИСУН (name-matched) | €474.3m | 1,527 beneficiaries — EIK-exact subset €56.2m |
-| Обществени поръчки | €146.0m (21 EIKs) / €219.7m (universe of 129) | post-annex current value |
-| НФЦ филмови субсидии | €94.9m | 2014–2025, 944 projects |
-| Interreg — тематично | €89.6m | 340 BG partners, 24% EIK-resolved |
-| ДФЗ — читалища | €18.3m | 197 читалища, `култури` excluded |
-| Interreg — културни организации | €11.0m | 67 partners |
+| Stream | Amount | Basis | ⓐ Window |
+|---|---|---|---|
+| Бюджет на МК | €269.1m **/ yr** | 2026, by law | **one year** |
+| ИСУН (name-matched) | €474.3m | 1,527 beneficiaries — EIK-exact subset €56.2m | **undated — the corpus has no date column** |
+| Обществени поръчки | €146.5m (23 EIKs) / €219.7m (universe of 129) | post-annex current value | cumulative, ~2011→now |
+| НФЦ филмови субсидии | €94.9m | 944 projects | cumulative, 2014–2025 |
+| Interreg — тематично | **€54.2m** (anchored) | 237 partner rows, 21% EIK-resolved | cumulative, multi-period |
+| ДФЗ — читалища | €18.3m | 197 читалища, `култури` excluded | cumulative, 2015–2025 |
+| Interreg — културни организации | €11.0m | 67 partners | cumulative, multi-period |
+
+> ⚠️ **ⓐ This table ranks a per-year FLOW against multi-year STOCKS, and the ordering itself
+> asserts something false.** €269.1m/yr sits *below* €474.3m and €146.5m, both of which
+> accumulate over 12–15 years — over the procurement window the МК budget line is roughly
+> **€4bn**. So the list as drafted reads „EU money is 1.8× the national culture budget", which
+> is off by more than an order of magnitude. Putting the basis in `metricSecondary` does not
+> repair an *order*; a reader takes the ranking before the caption.
+>
+> Two of the seven are additionally not windowable at all: ИСУН has no date column, and the
+> Interreg budget is a whole-operation figure spanning programme periods.
+>
+> Pick one and state it: **(a)** normalise everything to a common window and drop what cannot
+> be windowed to a labelled aside; **(b)** split the tile into „годишен поток" and „натрупано
+> от …" as two visually distinct groups; or **(c)** drop the ranking and present the streams in
+> a fixed editorial order. What must not ship is a magnitude-sorted list mixing the two.
 
 | Tile | Destination | Headline · secondary |
 |---|---|---|
 | Еврофондове | `/culture/funds` | €474m ИСУН · „по име на бенефициент; €56m по ЕИК" |
-| Обществени поръчки | `/culture/procurement` | €146m · „674 договора, 336 доставчици" |
+| Обществени поръчки | `/culture/procurement` | ⓐ €146.5m · „677 договора, 336 доставчици" |
 | Филмови субсидии | `/culture/subsidies` | €94.9m · „944 проекта, 2014–2025" |
 | Бюджет на МК | `/budget/ministry/…` | €269.1m · „2026, по закон" |
+
+⚠️ **ⓐ `/governance/sectors` already publishes a culture headline, and it is a third number.**
+`data/procurement/derived/sector_stats.json` carries `culture: { kind: "eur", basis: "budget",
+value: 269051700, year: 2026 }`, written by `db:gen-sector-stats`. If the hub's headline is
+€146.5m or €474m, two surfaces disagree about what „culture" is worth with nothing failing.
+Decide which is canonical and make the other cite it — and note the writer is a generator, so
+changing it is a code change, not a data edit.
 
 **Where ДФЗ and Interreg go.** Neither earns a band-1 tile — €18.3m and €11.0m against a
 €269m budget line would over-weight them, and both are читалища/общини stories rather than
@@ -289,7 +493,7 @@ every sector gets the same six-row breakdown from the same query.
 **Band 2 — „Кой получава" · the recipients, ranked and cross-referenced**
 | Tile | Destination |
 |---|---|
-| Изпълнители на културата | `/procurement/contractors?sector=culture` |
+| Изпълнители на културата | ⓐ `/culture/procurement#contractors` — **NOT** `/procurement/contractors?sector=culture`, which cannot serve it (§1.3-B) |
 | Доставчици на повече от един възложител | `/culture/procurement#network` |
 | Продуценти | `/culture/films` |
 | Читалища и общини | `/culture/funds#chitalishta` |
@@ -297,8 +501,8 @@ every sector gets the same six-row breakdown from the same query.
 **Band 3 — „Как се раздава" · the award mechanics, with the national baseline beside each**
 | Tile | Destination |
 |---|---|
-| Конкуренция | `/procurement/contracts?sector=culture&single=1` |
-| Риск | `/procurement/contracts?sector=culture&grade=C,D,E,F` |
+| Конкуренция | `/procurement/contracts?sector=culture&single=1` ⓐ works the moment the `culture` pack entry lands |
+| Риск | ⓐ `/procurement/contracts?sector=culture&grade=C,D` — **not `C,D,E,F`**: culture has zero E and F rows, and the tile's count must come from the same query as the link, not from the grade list |
 | Анекси и обжалвания | `/culture/procurement#changes` |
 | Кой решава (комисии) | `/culture/subsidies#commissions` |
 
@@ -313,14 +517,64 @@ Rules that apply: **one accent per tile, unique across all four bands** (19 toke
 `TILE_ACCENTS`, 15 needed); **every tile id has a scene** or the page white-screens; **no
 seeded `:param` destinations** — `/culture/institutions` is the picker that replaces them.
 
+⚠️ **ⓐ Six of the fifteen tiles point at a `#anchor`, and nothing gates those.** `#contractors`,
+`#network`, `#changes`, `#chitalishta`, `#spine`, `#people`, `#commissions` — §4's gates check
+that `to` is absolute and in the routed list, which a dead anchor passes. A `#` that resolves to
+nothing is the seeded-destination defect with no error and no 404: the reader lands at the top
+of a long page and concludes the tile lied. Add the anchor-existence gate in §4, and treat each
+anchor as a **named section id the sub-page must declare**, not as a scroll convenience.
+
 **One hub blob**, `data/culture/derived/hub_stats.json` — the ~15 headline numbers, coverage
-flags and nothing else. Generated **from the objects the pipeline already holds in memory**,
-byte-budgeted and gated, in the `--upload` list. No tile fetches an artifact.
+flags and nothing else. Byte-budgeted and gated. No tile fetches an artifact.
+
+> ⚠️ **ⓐ It is a `db:gen-*` artifact, not an ingest output — the draft names the wrong
+> pattern.** „Generated from the objects the pipeline already holds in memory" is the hub
+> skill's rule for a JSON-pipeline hub. This blob unions `contracts` ∪ `fund_projects` ∪
+> `interreg_partners` ∪ `agri_subsidies`, none of which the НФЦ ingest
+> (`scripts/culture/ingest.ts`) has ever seen. It is the `db:gen-hub-stats` /
+> `db:gen-sector-stats` class — the sanctioned JSON-from-PG exception — and that class carries
+> requirements this section omits:
+>
+> - **`REFRESH_GENERATORS` membership** (`scripts/db/refresh_coverage.ts:141`) **plus a place
+>   in the `db:refresh` chain**, or `refresh_coverage.test.ts` fails. A new script dropped into
+>   the generator directory must either join that list or carry the `--write` gate; it cannot
+>   land outside.
+> - **Position AFTER `db:load:interreg:pg`** — the chain's *last* loader. `db:gen-hub-stats` and
+>   `db:gen-sector-stats` sit right after `db:load:ngo-funding:pg`, roughly forty steps earlier;
+>   putting the culture blob beside them regenerates its Interreg and graph-dependent arms from
+>   the **previous** vintage and commits it. That is precisely the drift CLAUDE.md records the
+>   existing slot was chosen to end.
+> - **Skip-and-warn, exit 0, never a partial write** — a half-written blob overwrites a good
+>   served file with a worse one and reconciles against nothing.
+> - **No `:cloud` half.** It is a committed FILE. `data/culture/` is not in the `bucket:sync`
+>   exclusion regex, so it ships automatically on a sync — which also means a local
+>   `db:refresh` is the only thing that makes it current, and a cloud reload does not touch it.
+> - **`--upload` is a different mechanism** (the per-ingest `uploadTextTree`) and is not what
+>   ships this file. Do not wire it there.
 
 ## 1.8 The finder — four subjects on `HubSearch`
 
 Built on `src/ux/search/HubSearch.tsx` + `hubSearchSources.ts`. **Do not build a new box.**
 Declared in `src/screens/culture/cultureSearch.ts` beside the tile registry.
+
+> ⚠️ **ⓐ „Do not build a new box" is ambiguous here, because `/culture` already HAS one — a
+> different one.** `src/screens/culture/CultureSearchBox.tsx` runs on `SectorEntitySearch` +
+> `buildMembersIndex` (`src/screens/sector/membersIndex.ts`), which is the shared mechanism
+> behind **every** sector dashboard via `SectorDashboardConfig.SearchBox`. `HubSearch` +
+> `scopedSources()` is the *other* shared mechanism, used by the parliament and declarations
+> hubs. Both are house patterns; they are not the same one.
+>
+> So this section is a **fork decision**, and it needs to be made explicitly:
+> does `CultureSearchBox` die when `/culture` becomes a hub (and if so, does `SectorEntitySearch`
+> stay the pattern for the other ~18 sector dashboards, leaving culture the odd one out), or
+> does the finder wrap it? It matters beyond this page — **Part 3 is the skill whose job is to
+> unify the sector layer**, and shipping a second search mechanism on the flagship sector
+> surface is the divergence that skill would have to document rather than fix.
+>
+> Recommended: `HubSearch` for the hub (four subjects is past what an entity index does), and
+> **keep the culture roster as an `IndexSource` inside it** — that is subject 3's client index
+> below, and it is the same `buildMembersIndex` data, so nothing is thrown away. `/culture`
+> ceases to have a `SectorEntitySearch`; the sub-pages do not gain one.
 
 **The scope axis here is the SECTOR, not the year.** `/culture`'s `?pscope` is a year picker,
 but a reader searching „Динакорд" wants culture hits first and everything else below — not
@@ -331,7 +585,7 @@ mechanism serves both the finder and the browsers.
 |---|---|---|---|---|---|
 | 1 | Procurement (contracts + tenders) | server, `/api/db/procurement-search` + `?sector` | „Поръчки в културата" (5) | „Поръчки в други сектори" (3) | `/procurement/contracts?sector=culture&q=` |
 | 2 | Public money — ИСУН + Interreg + ДФЗ | server, `search_fund_projects` (086) + `search_interreg_operations` (138) | „Проекти на културни организации" (5) | „Проекти в други сектори" (3) | verify a page reads `?q` first — **no see-all if none does** |
-| 3 | Awarders + companies | **index** (culture roster, instant) + server `/api/db/company-search` | „Културни институции" (6) | „Други фирми и възложители" (3) | `/procurement/contractors?sector=culture&q=` |
+| 3 | Awarders + companies | **index** (culture roster, instant) + server `/api/db/company-search` | „Културни институции" (6) | „Други фирми и възложители" (3) | ⓐ `/culture/procurement#contractors` — **not** `/procurement/contractors?sector=…` (§1.3-B) |
 | 4 | Persons | server, `/api/db/person-search` | — | — | `/persons?q=` |
 
 Three things this design commits to, each because the skill records the failure:
@@ -341,9 +595,16 @@ Three things this design commits to, each because the skill records the failure:
 - **Subject 4 ships as ONE group with `outSource: null`** until T2.2 lands. There is no
   "culture person" subset before the employer bridge exists, and inventing one would make the
   in-scope group empty and the split meaningless. When T2.2 lands it becomes a pair.
-- **Subject 2 ships without a see-all unless a funds page reads `?q`.** `/funds/calls` and
-  `/funds/procedure/:code` do not; grep before linking. A link advertising a filtered
-  destination and delivering an unfiltered one is the declarations-hub defect.
+- **Subject 2 ships without a see-all unless a funds page reads `?q`.** A link advertising a
+  filtered destination and delivering an unfiltered one is the declarations-hub defect.
+  ⓐ **The draft's evidence for this is wrong in both directions, though its conclusion
+  survives.** `/funds/calls` **does** read `?q` — `OpenCallsScreen.tsx:291`,
+  `initialSearch={params.get("q") ?? undefined}` — but it is the OPEN-calls register, so it is
+  the wrong destination for an *awarded*-projects search regardless. The page that should be
+  subject 2's see-all is **`/funds/beneficiaries` (`FundsBeneficiariesScreen`), which reads
+  neither `?q` nor `?sector`** and is not mentioned anywhere in this plan. So the real item is
+  not „grep before linking" but a work item: **wire `?q` + `?sector` into
+  `/funds/beneficiaries`**, then the see-all exists. Until then, no see-all.
 - **Subject 2 is ONE group, not three.** ИСУН, Interreg and ДФЗ are three corpora answering
   one reader question („кой е взел публични пари"), and three groups of two rows each is a
   dropdown nobody scans. Union them server-side, ordered by amount, and put the corpus in each
@@ -403,7 +664,8 @@ the 13 in `contract_risk_cache`:
      estimate.
    
    ⚠️ 112's bit order is **a contract — append only, never renumber**, or historic masks
-   silently re-map. These become bits 13 and 14.
+   silently re-map. These become bits 13 and 14. ⓐ **Verified** — `112` currently ends at
+   `a_nkid << 12` / `f_nkid << 12`, so 13 and 14 are the next free positions.
 
 **7. Compare two institutions side by side.** Culture is 129 buyers of wildly different size;
 a figure means nothing without a peer. Pin two, diff every KPI.
@@ -516,22 +778,29 @@ family without a cloud loader goes stale on prod with every row count reconcilin
 
 ## 3. Sequencing
 
+ⓐ Re-scoped by the audit: **step 0 is new** (nothing can be built against undeclared sets),
+**step 2 shrank** (the filter exists — §1.3), and **step 2b is new** (the contractors
+destination has to be decided before Band 2 can be drawn).
+
 | Step | Contents | Depends on |
 |---|---|---|
-| **1** | T0.1–T0.5 (register, seat, gate) | — |
-| **2** | §1.3 the `?sector=` registry + filter + reciprocity gate | 1 |
+| **ⓐ 0** | **T0.0** — publish the four matching definitions, re-derive §0, pin each number in a test | — |
+| **ⓐ 1** | **T0.6** (what the universe IS) → T0.1–T0.5 (register, seat, gate) | 0 |
+| **ⓐ 2** | A `culture` entry in `SECTOR_BROWSE_PACKS` + the `role` split + the data/component split of that module + `?sector` on the funds/subsidies browsers. **Not** a new registry, **not** a new URL param. | 1 |
+| **ⓐ 2b** | Decide `/procurement/contractors?sector=` (§1.3-B) — recommended: re-point to `/culture/procurement#contractors` | 1 |
 | **3** | T2.1–T2.2 (`declaration.employer` + resolution) — parallel, no external source | — |
 | **4** | T1.6a–c (grant→contract lineage + coverage route) | — |
-| **5** | The hub: routes, registry, scenes, blob, finder (§1.7–1.8) | 1, 2, 4 |
+| **ⓐ 5** | The hub: routes, registry, scenes, finder (§1.7–1.8) + the **prerender/sitemap/llms five-file move** + the per-sub-page `ScopeSupport` + the `CultureSearchBox` fork decision | 1, 2, 2b, 4 |
+| **ⓐ 5b** | The hub blob as a `db:gen-*` generator: `REFRESH_GENERATORS` + a chain slot **after `db:load:interreg:pg`** | 5 |
 | **6** | `/culture/procurement` + `/culture/funds` + `/culture/institutions` bodies | 5 |
 | **7** | T2.3–T2.4 (directors, procurement officers) | 3, 6 |
 | **8** | P1 (full dossier crawl) — operator decision | — |
 | **9** | T3.1 ДКИ register, re-run step 1's gate | 8 optional |
 | **10** | P2, P3 — the two that change what procurement can assert | — |
 | **11** | P4–P10, each with its watcher + cloud loader | — |
-| **12** | **Write the `sector-dashboard` skill** (Part 3) | 1–7 shipped |
+| **12** | **Write the `sector-dashboard` skill** (Part 3) | 0–7 shipped |
 
-Steps 1–7 need **no new external source**. Everything is already on disk or in Postgres.
+Steps 0–7 need **no new external source**. Everything is already on disk or in Postgres.
 
 ---
 
@@ -550,13 +819,23 @@ There are **~20 sector surfaces** and they were each built by hand:
   transport, regional, social, revenue, customs, administration, edu, agri, energy, security,
   environment
 - 6 bespoke views: `/culture`, `/judiciary`, `/defense`, `/pensions`, water, `/subsidies`
-- 6 awarder sector packs (`sectorPacks.tsx`): Roads, NOI, NZOK, VSS, MON, Kultura, Vik,
-  Defense, MVR
+- **ⓐ 18** browse packs in `SECTOR_BROWSE_PACKS` (`sectorPacks.tsx`): water, roads, noi, nzok,
+  agri, judiciary, defense, security, revenue, customs, edu, transport, social, environment,
+  regional, administration, energy, tourism — ⓐ the draft said "6" and then listed 9, and
+  named `Kultura`, **which is not among them**. Culture having no browse pack is the whole of
+  §1.3's remaining contracts/tenders work.
 
 `dashboard-hub` covers the tile grid and `docs/testing-standards.md` the tests. **Nothing
 covers the sector layer**: the EIK register, the four-corpus union, the coverage declarations,
 the risk/competition baselines, the buyer↔beneficiary role split. This plan had to rediscover
 every one of them, and three were found only by measuring.
+
+⚠️ **ⓐ And the strongest argument for the skill is that this plan got the inventory wrong.**
+The draft proposed building a sector-EIK registry and a `?sector` param that already existed
+across 18 sectors, and mis-stated the pack count by 3× — while being the document arguing that
+the sector layer is undocumented. That is the finding: **the layer is not merely undocumented,
+it is undiscoverable enough that a careful plan re-specified it from scratch.** §3.2 gains a
+rule from it — see K.
 
 ## 3.2 What it must carry — the findings, with their evidence
 
@@ -577,25 +856,33 @@ a test asserting the exclusion **changes the number**; `EXCLUDED_EIKS` documents
 false match so a later sweep cannot re-admit it.
 
 **C. Every headline needs its baseline, or it asserts something false.** Culture single-bid is
-**40.2%** against a national **40.9%** — typical. Shown alone it reads as an indictment. Rule:
+**ⓐ 40.0%** against a national **40.9%** — typical. Shown alone it reads as an indictment. Rule:
 a sector rate renders beside the national rate from the same query, and the skill names this
 as the sector-dashboard instance of the hub skill's "arithmetically right, false as a
 sentence" class.
 
-**D. One question, several corpora, several bases.** Culture money is six streams on five
+**D. One question, several corpora, several bases.** Culture money is ⓐ seven streams on five
 bases spanning €11.0m to €474.3m. Rule: follow migration 127's canonical four-arm union, put
 the basis in the label not the footnote, and never sum across bases.
 
-**E. Coverage is a first-class field.** Only **24%** of Bulgarian partners on culture-themed
-Interreg operations carry an EIK, so an EIK-keyed filter answers a quarter of the question at a
+**E. Coverage is a first-class field.** Only **21%** of Bulgarian partner rows on culture-themed
+Interreg operations carry an EIK, so an EIK-keyed filter answers a fifth of the question at a
 200. `tender_search_text` is the precedent: **0.78%** coverage behind a live search. Rule: a
 corpus arm returns its own coverage and the surface states it — the pattern is
 `/api/db/tender-search-coverage`.
 
 **F. Two questions that look like one.** "Culture bodies doing Interreg" (€11.0m) vs "Interreg
-culture money reaching Bulgaria" (€89.6m): 8× apart, different join, different partner
+culture money reaching Bulgaria" (€54.2m): ~5× apart, different join, different partner
 population. Rule: a thematic arm joins through the operation, an institutional arm through the
 beneficiary set, and a surface picks one and labels it.
+
+**ⓐ F2. A flow and a stock are not comparable, and RANKING them is the tell.** Culture's seven
+streams span a **per-year** budget line (€269.1m/yr) and **cumulative** corpora spanning 12–15
+years — plus two (ИСУН, Interreg) that carry no usable date at all. Sorted by magnitude the list
+says „EU money is 1.8× the national culture budget"; on a common window it is roughly the
+inverse. Rule: **normalise to a window or drop the ranking.** A basis in `metricSecondary` does
+not repair an order, because the order is read first. Corollary: before a sector list is sorted,
+each row declares its window, and any row that cannot be windowed leaves the sorted set.
 
 **G. The people layer is where sector dashboards stop.** Every sector has directors who file
 declarations and procurement officers who run its tenders, and none of them are linked to
@@ -613,7 +900,28 @@ rate beside the flag, and word every signal „за проверка".
 
 **J. Deployment.** Every sector table needs a `db:load:*:pg:cloud`, a watcher, a
 `recent_updates` row and a Data Map entry, per `reference_migrated_family_watch_reload`.
-`REFRESH_GENERATORS`/`ORDER_PAIRS` membership for anything derived.
+`REFRESH_GENERATORS`/`ORDER_PAIRS` membership for anything derived. **ⓐ And a sector's hub blob
+is a `db:gen-*` artifact whose chain slot must sit after its LAST input** — the culture blob's
+inputs end at `db:load:interreg:pg`, forty steps past where the existing two generators sit.
+Membership alone cannot catch a wrong slot; only an `ORDER_PAIRS` entry can.
+
+**ⓐ K. Inventory the layer before extending it — the layer is undiscoverable.** This plan
+proposed building a `SECTOR_EIKS` registry and a `?sector=` URL param that **already existed
+across 18 sectors**, and mis-counted the browse packs 6-vs-18. Not from carelessness: the
+registry lives in a `.tsx` under `screens/components/procurement/`, the param is read in two
+`screens/dev/*` browsers, the config that ties them together is in `screens/sector/`, and
+nothing names the mechanism in one place. Rule: **the skill opens with the inventory** — where
+the EIK registry lives, which params exist, which browsers read them, which surfaces are packs
+vs bespoke — and a retrofit starts by reading it, not by grepping. A sector layer whose own
+plan re-specifies it from scratch is the strongest evidence the skill is needed at all.
+
+**ⓐ L. Not every surface can take the filter — check the precompute's dimensions first.**
+`?sector` is a predicate on the BUYER; `contractor_rank` (122) aggregates CONTRACTORS and has no
+buyer dimension, so `/procurement/contractors?sector=` has nothing to filter on and adding a
+dimension re-opens the resource's existing rollup-bucket double-count. Rule: before a hub links
+a filtered destination, confirm the destination's **base relation carries the filtered
+dimension** — a precomputed leaderboard usually does not, and the failure is a tile whose link
+quietly ignores its own filter.
 
 ## 3.3 Shape
 
@@ -634,20 +942,37 @@ too, or stay a distinct, lighter shape. Decide from the retrofits, not in advanc
 
 ## 4. Gates to write (hub skill §8)
 
-- Every culture buyer above a money floor is in exactly one declared list.
+- Every culture buyer above a money floor is in exactly one declared list — ⓐ **four** lists
+  (`CULTURE_GROUP_EIKS`, `VERIFY_PRINCIPAL_EIKS`, `EXCLUDED_EIKS`, читалища), not three.
 - Every tile id has a scene; every `to` is absolute and in the routed list; every sub-page is a
   hub destination; no accent repeats.
-- The hub blob is under its byte budget and every written file is in the `--upload` list.
+- **ⓐ Every `#anchor` a tile emits exists as a section id on its destination page.** Seven are
+  emitted; none is currently checked, and a dead anchor is a silent 200.
+- **ⓐ The hub blob is in `REFRESH_GENERATORS` and its `db:refresh` slot is after every table it
+  reads** (an `ORDER_PAIRS` entry, at minimum vs `db:load:interreg:pg`). It is under its byte
+  budget. It writes nothing on a missing input rather than writing a partial.
 - The single-bid tile renders the national baseline, both numbers from one query, baseline not
   hard-coded.
 - Every figure recomputed from its declared basis, with the **rejected** bases asserted as
-  `notEqual` (179/674 = 26.6% is one word away from 179/445 = 40.2%).
+  `notEqual` (ⓐ 179/677 = 26.4% is one word away from 179/447 = 40.0%).
+- **ⓐ Every §0 figure is derived by calling T0.0's exported matchers** — no figure in the plan,
+  a tile or a caption may come from a query that exists only in someone's shell history. The
+  four that had none: ИСУН €474.3m, ДФЗ €18.3m, Interreg thematic, Tier A.
 - Every `?sector` value a tile emits is read by its destination; every see-all param likewise.
+  ⓐ Assert it against the **actual reader** (`getSectorBrowsePack` + the browser screens), and
+  include `/culture/procurement#contractors` once §1.3-B is settled.
 - The `култури` exclusion **changes** the agri number (€166.3m → €18.3m) — a guard that does
   not move the figure it guards is a guard nobody will keep.
+- **ⓐ The same, for the Interreg thematic regex**: the anchored form must differ from the
+  unanchored one (measured 329 → 237 rows, €70.9m → €54.2m). Every free-text sector matcher
+  ships with this test, not just the agri one.
 - Every corpus arm returns its own coverage, and no surface renders an EIK-keyed Interreg
-  figure without it (24%).
+  figure without it (ⓐ 21%).
+- **ⓐ No sorted money list mixes a per-year flow with a cumulative stock** — each row declares
+  its window, and a row without one is out of the sorted set (§3.2-F2).
 - `sector_eik.role` is honoured: no buyer set is joined to a beneficiary corpus.
+- **ⓐ The `awarder-group-model` call site asserts its EIK set is ≤ 300** — the route
+  `slice(0,300)`s silently, and the culture universe plus Tier E plus T3.1's ДКИ is ~289.
 - A scoped search source returns out-of-scope rows for a query that has them — the test that
   catches scope silently filtering.
 - Each search group's cap is independent.
@@ -658,15 +983,32 @@ too, or stay a distinct, lighter shape. Decide from the retrofits, not in advanc
 
 ## 5. Open questions
 
+ⓐ Q8–Q11 are new, and **Q8 blocks step 1 while Q9 blocks Band 2** — neither can be deferred to
+implementation the way the rest can.
+
 1. **SEO** (§1.7) — moving the film dashboard off `/culture` to `/culture/subsidies`. Needs a
    redirect decision if anything links the old anchors, and prerender entries for four new
-   sub-pages.
+   sub-pages. ⓐ Plus the five-file move listed in §1.7 — the `cultureFacts` build-time read is
+   the one that fails quietly.
 2. **T0.5** — читалища in or out. Recommend a labelled sub-group.
 3. **P1** — authorisation to run the full dossier crawl (~1.4 h against a shared public register).
 4. **§1.9-6** — `nearCeilingAward` needs a measured base rate before it can be called a signal.
 5. **T3.3** — the 9b conflict-flag policy sign-off is still outstanding from the v1 plan.
-6. **§1.3** — whether ДФЗ enters `sector_eik` at all, or stays a читалища-only arm resolved by
-   name. It is the one corpus where no state culture institution appears (0 rows for all 26
-   named EIKs), so an EIK dimension for it may be empty by construction.
+6. **§1.3** — whether ДФЗ enters the sector registry at all, or stays a читалища-only arm
+   resolved by name. It is the one corpus where no state culture institution appears (0 rows for
+   all the named EIKs), so an EIK dimension for it may be empty by construction.
 7. **Part 3** — whether the 14 generic `/sector/<key>` dashboards converge on the hub pattern.
    Decide from the three retrofits, not in advance.
+8. **ⓐ T0.6 — what "the culture universe" IS**: principal = МК (~€188m, Tier D stays out, the
+   register's own design honoured), or everything a reader calls culture (~€220m, Tier D and
+   the МО museums in, `EXCLUDED_EIKS.principal` demoted to a label). **Blocks step 1** — the
+   register gate, the headline and §3.2-A all read the answer.
+9. **ⓐ §1.3-B — the contractors destination**: new precompute dimension on 122, live aggregate
+   for the sector case, or re-point to `/culture/procurement#contractors` (recommended).
+   **Blocks the Band 2 headline tile and finder subject 3.**
+10. **ⓐ §1.8 — the search fork**: does `CultureSearchBox` / `SectorEntitySearch` die on this
+    page in favour of `HubSearch`, and does that make culture the only sector surface on the
+    other mechanism? This is a Part-3 question arriving early.
+11. **ⓐ §1.7 — which culture headline is canonical.** `sector_stats.json` publishes
+    `culture: basis "budget", €269,051,700` for `/governance/sectors`. The hub will publish a
+    different number. Decide which one is the sector's figure, and make the other cite it.
