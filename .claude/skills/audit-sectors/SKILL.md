@@ -1,6 +1,6 @@
 ---
 name: audit-sectors
-description: Audit a government-sector dashboard (the /governance/sectors hub tile + its /sector/:id or bespoke screen) against the raw sources. Verifies the hub headline KPI reconciles to its declared basis (budget/payout/procurement/headcount/score), the sector's awarder EIK-set is honest (no wrong-EIK leakage like the МВР €370M-into-defense error, no missing sibling body, every EIK real and correctly attributed), the four EIK-set copies stay in lockstep (generator SECTOR_EIKS ↔ SECTOR_DASHBOARDS.members ↔ *_SECTOR_EIKS reference data ↔ SECTOR_BROWSE_PACKS), and the derived/bespoke tiles reconcile (category split sums to header, sum==100%, HHI denominator guard, no double-count); then adds PG-backed regression tests and fixes the issues. Use when the user asks to audit / verify / fact-check a sector dashboard or its hub tile, after building a new sector, or when a sector's headline or awarder list looks off. Prefers generic-engine and generator fixes over per-sector hacks; treats a new basis / new sector-hub entry / an EIK-inclusion-boundary judgment call as a design decision to confirm, and otherwise auto-fixes via /implement-plan.
+description: Audit a government-sector dashboard (the /governance/sectors hub tile + its /sector/:id or bespoke screen) against the raw sources, on BOTH sides of the money. Buyer side: the hub headline KPI reconciles to its declared basis (budget/payout/procurement/headcount/score) at every scope, the sector's awarder EIK-set is honest (no wrong-EIK leakage like the МВР €370M-into-defense error, no missing sibling body, every EIK real and correctly attributed), the four EIK-set copies stay in lockstep (generator SECTOR_EIKS ↔ SECTOR_DASHBOARDS.members ↔ *_SECTOR_EIKS reference data ↔ SECTOR_BROWSE_PACKS), and the derived/bespoke tiles reconcile (category split sums to header, sum==100%, HHI denominator guard, no double-count). Beneficiary side: the „Топ изпълнители" leaderboard means what a reader takes it to mean — single-contract/contractor concentration, public bodies as contractors (intra-government transfers rendered as procurement), statutory sole-source awards misread as weak competition, consortium double-counting, EIK-vs-name fragmentation, intra-group circulation (one sector member buying from another, so the money never reached an external market), self-contracting register artifacts, and a leaderboard whose basis differs from the headline's. Then adds PG-backed regression tests and fixes the issues. Use when the user asks to audit / verify / fact-check a sector dashboard, its hub tile or its top-contractors list, after building a new sector, or when a sector's headline, awarder list or beneficiaries look off. Prefers generic-engine and generator fixes over per-sector hacks; treats a new basis / new sector-hub entry / an EIK-inclusion-boundary judgment / excluding a legitimate beneficiary as a design decision to confirm, and otherwise auto-fixes via /implement-plan.
 allowed-tools:
   - Read
   - Bash
@@ -28,18 +28,32 @@ places that must both be honest:
    tiles with curated JSON data files.
 
 A sector is only as honest as (a) its headline reconciling to its declared basis,
-(b) its EIK allowlist including exactly the right bodies, and (c) those two views
-agreeing. A wrong EIK inflates the total (the defense audit's near-miss: МВР
-directorates ДУССД `129010157` €301M + ДКИС `129010698` €70M would have been a
-€370M error); a missing sibling understates it; a moved JSON field silently zeros
-a tile; a budget *function* mislabels unrelated spend as the sector. This skill
+(b) its EIK allowlist including exactly the right bodies, (c) those two views
+agreeing, and (d) its **beneficiary** list meaning what a reader takes it to mean.
+A wrong EIK inflates the total (the defense audit's near-miss: МВР directorates
+ДУССД `129010157` €301M + ДКИС `129010698` €70M would have been a €370M error); a
+missing sibling understates it; a moved JSON field silently zeros a tile; a budget
+*function* mislabels unrelated spend as the sector; and a leaderboard can be right
+to the euro while saying something false about who the money went to. This skill
 audits all of that against the raw data and fixes it.
+
+**(a)–(c) are the buyer side and (d) is the seller side, and they fail
+differently.** A buyer-side defect is almost always a wrong number — fix the data.
+A seller-side defect is usually a *correct* number that reads as a different
+claim — fix the sentence. Phase 2 covers the first, Phase 2b the second; do not
+resolve a Phase 2b finding by filtering rows out of a chart.
 
 Worked precedents this skill is distilled from: the **Отбрана (МО) pack audit**
 (3 adversarial agents — EIK-allowlist leakage, name-regex false positives, budget
 function ≠ defense, per-platform aggregate not reconciling to header, alias-EIK
-double-count) and the **sectors-hub KPI-basis rework** (procurement-only headline
-understated Култура €3k vs a €234M budget → per-basis honest headline).
+double-count); the **sectors-hub KPI-basis rework** (procurement-only headline
+understated Култура €3k vs a €234M budget → per-basis honest headline); the
+**transport audit** (headline exact throughout while a declared universe held only
+the regulator, €3.7M shown for a real €348.2M); and the **energy audit**, which is
+where Phase 2b comes from — the money was clean at all 30 scopes and both EIK
+sweeps came back unchanged, yet the sector's top „изпълнител" was a police
+directorate holding a third of the window, and the defect that *did* exist was in
+a physical-asset tile counting a power plant that has not been built.
 
 ## The four EIK-set copies (keep in lockstep — Failure mode E)
 
@@ -172,6 +186,115 @@ internal totals (Failure mode I), confirm no leva post-2026 (EUR only), and conf
 the file is fresh via its `source`/date. Don't hand-edit a scraped file — re-run its
 skill; hand-fix only a genuine parser/aggregation bug.
 
+## Phase 2b — Validate the BENEFICIARIES (who receives the money)
+
+Everything above audits the **buyer** side: is this the right EIK-set, does the
+headline reconcile. That leaves the other half of every sector page unexamined —
+the „Топ изпълнители" leaderboard and the sentence a reader actually forms, which
+is *"this is who the sector's money goes to"*. A sector can have a perfect
+headline and a leaderboard that means something quite different from what it
+appears to mean.
+
+The energy audit is the worked precedent: the €274M current-parliament headline
+reconciled to the euro, and its top „изпълнител" was **Областна дирекция на МВР —
+Враца at €89.6M**. Nothing was wrong — АЕЦ Козлодуй pays the police to guard the
+plant, CPV 79713000, and the register states the ground (Чл. 164, ал. 1, т. 5 ЗОП,
+exclusive rights). But three facts only a beneficiary pass surfaces: the top
+"supplier" is a **state body**, not a market vendor; the contract is a **statutory
+monopoly**, so its single-bid flag is not a competition failure; and it is **32.7%
+of the whole window** — a third of the sector's money in one row out of 363.
+
+Run these against the same scope you used in Phase 1. **None of J–Q is
+automatically a bug** — most are captioning and interpretation. Report them; fix
+only what is actually wrong.
+
+Two schema traps, both hit while writing these: `round()` on a `double precision`
+needs a `::numeric` cast, and **`contracts.date` is TEXT** — compare it as text
+(ISO-8601 sorts correctly, and it is what the generator does), never `::date`.
+
+```bash
+# Concentration + the top-20 beneficiary list. `pct` is the share of the scope
+# total, which is the number that decides whether the leaderboard is a ranking
+# or a single-row story.
+psql "$PG" -F$'\t' -tAc "
+with w as (
+  select * from contracts
+   where tag='contract' and awarder_eik in (<eiks>) <AND date window>)
+select contractor_eik, min(contractor_name), count(*), round(sum(amount_eur)) eur,
+       round((100.0*sum(amount_eur)/(select sum(amount_eur) from w))::numeric,1) pct
+  from w group by 1 order by 4 desc nulls last limit 20;"
+```
+
+```bash
+# PUBLIC-BODY beneficiaries — money that never leaves the state. Any contractor
+# that is itself an awarder elsewhere in the corpus. On energy this returned the
+# МВР guarding series (€158.8M all-scope) and, less obviously, the БАН
+# archaeological institute at €63.3M across 94 contracts — rescue excavation for
+# pipeline and plant construction, entirely invisible from the buyer side.
+psql "$PG" -F$'\t' -tAc "
+select c.contractor_eik, min(c.contractor_name), count(*), round(sum(c.amount_eur))
+  from contracts c
+ where c.tag='contract' and c.awarder_eik in (<eiks>)
+   and c.contractor_eik in (select distinct awarder_eik from contracts)
+ group by 1 order by 4 desc nulls last limit 20;"
+```
+
+```bash
+# INTRA-GROUP circulation — both sides of the contract are sector members. Money
+# the page presents as "the sector spent X" that in fact moved between two of its
+# own companies. Measured on energy: €141.5M, 1.38% of the headline (ТЕЦ Марица
+# изток 2 buying coal from Мини Марица-изток, subsidiaries paying БЕХ).
+psql "$PG" -F$'\t' -tAc "
+select c.awarder_name, c.contractor_name, count(*), round(sum(c.amount_eur))
+  from contracts c
+ where c.tag='contract' and c.awarder_eik in (<eiks>) and c.contractor_eik in (<eiks>)
+ group by 1,2 order by 4 desc nulls last;"
+```
+
+```bash
+# Is a single-bid award actually a LEGAL monopoly? Join the tender by УНП.
+psql "$PG" -F$'\t' -tAc "
+select c.contractor_name, round(c.amount_eur), t.procedure_type, t.legal_basis
+  from contracts c left join tenders t using (unp)
+ where c.tag='contract' and c.awarder_eik in (<eiks>) and c.number_of_tenderers = 1
+ order by c.amount_eur desc nulls last limit 20;"
+```
+
+```bash
+# Contractor-side hygiene: unresolvable EIKs, NULL money, consortium rows, and
+# the outright impossibility — a body contracting with ITSELF (29 rows / €3.87M
+# corpus-wide, a register artifact where the buyer landed in the supplier field).
+psql "$PG" -F$'\t' -tAc "
+select count(*) filter (where contractor_eik is null or contractor_eik = '') no_eik,
+       count(*) filter (where amount_eur is null)                            no_amount,
+       count(*) filter (where consortium_eik is not null)                    consortium,
+       count(*) filter (where awarder_eik = contractor_eik)                  self_deal
+  from contracts where tag='contract' and awarder_eik in (<eiks>);"
+```
+
+Politically-connected beneficiaries are a fifth probe when `company_politicians`
+is loaded — join it on `contractor_eik` to see what share of the sector's money
+reaches an MP/PEP-linked company. Treat the result the way the person layer does:
+**an EIK-keyed link, never a name match** ([[feedback_name_match_not_identity]]).
+
+### Failure modes (beneficiary side)
+
+| # | Symptom | Detect | Root cause / fix |
+|---|---------|--------|------------------|
+| **J** | One contract or contractor is a huge share of the scope; the "leaderboard" is really one row | `pct` in the concentration probe (energy: 32.7% from 1 of 363 rows) | Usually NOT a bug — a property of a short window. Fix the CAPTION, or surface the share, so a reader does not read a dominated total as a spread. Never silently drop the row. |
+| **K** | The top „изпълнител" is a state body, so the money never leaves government | the public-body probe (МВР ← АЕЦ Козлодуй, €89.6M) | Not a bug — an intra-government transfer rendered as procurement. Label it; do not exclude it, and do not let it read as a private vendor winning the sector. |
+| **L** | A statutory sole-source award is counted as weak competition | `tenders.legal_basis` on the single-bid rows (Чл. 164, ал. 1, т. 5 ЗОП = exclusive rights) | Not a bug in the number, a limit on its meaning. The single-bid gauge is a count-based metric and cannot know this; say so rather than re-scoring it per sector. |
+| **M** | Consortium members each credited the full contract value, or a parent and its own subsidiary both counted | `consortium_eik` / `consortium_role` / `consortium_full_eur`; look for a repeated `consortium_eik` across rows summing above the contract | Real double-count. Fix in the rollup, never per-sector — see the €0-consortium-member guard in Failure mode F. |
+| **N** | One company split across several EIK spellings / name variants, so its true rank is understated | group by `contractor_name` and compare against the group-by-`contractor_eik` ranking; check `contractor_eik_full` | Keyed on the wrong column. Rank by EIK, show the name — the reverse fragments a real beneficiary. |
+| **O** | The leaderboard's basis differs from the headline's | compare Σ of the leaderboard against the headline for the same scope | A tag / window / current-value mismatch (`tag='contract'` excludes amendments — [[reference_procurement_eur_sum_basis]]). The two must share one basis or the page contradicts itself. |
+| **P** | Part of the "sector spend" never left the group — one member bought from another | the intra-group probe (energy: €141.5M / 1.38%, ТЕЦ ← Мини Марица-изток coal, subsidiaries → БЕХ) | Not a double-count — the headline sums awarder-side, so each row is counted once. But "the sector procured €X" implies an external market, and this part of X did not reach one. Surface the share; excluding it changes the sector's definition and is a tier-3 call. Cross-check against the parent/child guard in Failure mode F, which IS a real double-count. |
+| **Q** | A body appears as its own contractor (`awarder_eik = contractor_eik`) | the `self_deal` count in the hygiene probe (29 rows / €3.87M corpus-wide) | A register artifact — the buyer landed in the supplier field. Small and cross-sector, so fix in the ingest/parser if anywhere, never per-sector; report it and leave the row alone if the source really says that. |
+
+⚠️ **A beneficiary finding is rarely a data fix.** J, K and L above were all *correct
+data* — what was missing was a sentence. Resist "fixing" them by filtering the row
+out of the leaderboard: excluding a legitimate €89.6M contract to make a chart look
+more like a market is the one response that turns an honest page into a false one.
+
 ## Phase 3 — Classify fixes
 
 Prefer the highest tier that solves the **class** of problem — never a per-sector
@@ -198,7 +321,13 @@ hack for a systemic bug.
    - an **EIK-inclusion boundary** judgment ("is ВМА part of *defense*?", "does
      transport include Метрополитен?") — where the answer changes the headline
      materially;
-   - a **new universe segmentation** or a new hub-wide narrowing control.
+   - a **new universe segmentation** or a new hub-wide narrowing control;
+   - **excluding or re-labelling a legitimate beneficiary** — suppressing a
+     public-body contractor, splitting intra-government transfers out of a
+     sector total, or exempting statutory sole-source awards from a competition
+     metric. Every one of these makes the page say something new about who got
+     the money, and each is defensible or indefensible only against a stated
+     editorial line. Present the choice with its EUR and share impact.
    Present the specific choice + its EUR impact; don't hardcode it silently.
 
 ## Phase 4 — Regression tests (always)
@@ -218,7 +347,26 @@ Postgres is down). For the audited sector, pin with **bands and inequalities**
 - a **signature true-member EIK is present** and its per-EIK € > floor;
 - for a budget/payout sector: `sector_stats.json[scope][id].basis === '<expected>'`
   and `value` within a band of the source file's resolved year;
-- a bespoke tile's `Σ(parts) === header` assert where Failure mode I bit.
+- a bespoke tile's `Σ(parts) === header` assert where Failure mode I bit;
+- **beneficiary side**, when Phase 2b found anything worth keeping true:
+  - the **top-contractor share ceiling** for a fixed scope, where a dominant row
+    exists (energy: assert the top beneficiary stays under ~50% of the window, so
+    a rollup change that starts crediting a consortium's full value to every
+    member is visible as a share, not just as a total);
+  - a **known public-body beneficiary is still classified as one** — pin the EIK,
+    not the name, and assert it is still reached by whatever labels it. This is
+    the beneficiary twin of the anti-allowlist: it stops a later "clean up the
+    leaderboard" change from quietly turning a state transfer back into an
+    apparent private vendor;
+  - the **leaderboard basis equals the headline basis** — Σ of the per-contractor
+    rollup for a scope == the hub value for that scope. Failure mode O is
+    invisible to every other gate here, because both halves are individually
+    correct.
+
+⚠️ Do **not** pin a beneficiary's rank or a contractor's absolute €. Both move on
+every fortnightly reload, and a leaderboard is supposed to reorder — that is the
+one thing about it that is not a defect. Pin shares, classifications and
+basis-agreement.
 
 EIKs and node slugs are stable — use them as anchors.
 
@@ -231,8 +379,12 @@ EIKs and node slugs are stable — use them as anchors.
   `npm run lint`, the touched vitest suites, and
   `npx vitest run scripts/db/tests/sector_stats.data.test.ts`.
 - Live-check: `/governance/sectors` (the tile's number + caption) and the sector's
-  screen (`to` route) on the dev server — KPI, awarders list, and any tile you
-  touched.
+  screen (`to` route) on the dev server — KPI, awarders list, **the „Топ
+  изпълнители" list** (read the top row as a sentence: is that who a reader would
+  think the sector's money went to?), and any tile you touched. On a lazy-loaded
+  tile a screenshot can come back blank at a scroll offset — read the rendered
+  text and `getBoundingClientRect`/`visibility` via `javascript_tool` instead of
+  concluding the tile is broken.
 - `data/procurement/derived/sector_stats.json` is **bucket-served** (in the
   `bucket:sync` include-list alongside `hub_stats.json`), not Firebase-hosted.
   Deploy the blob with
