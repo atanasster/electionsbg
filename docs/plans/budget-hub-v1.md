@@ -1,32 +1,47 @@
 # /budget as a dashboard hub — v1
 
-**Status:** proposed, 2026-08-12.
+**Status:** proposed, 2026-08-12. **Revised 2026-08-13** — `municipal-fiscal-commitments-v1`
+shipped in full (steps 1–15) between the two dates, which moves the migration numbers, rewrites
+§8 and sharpens §7.1. Every change is marked **[2026-08-13]**.
 **Pattern:** `.claude/skills/dashboard-hub`. Reference implementations: `/parliament` (the shape),
 `/funds` (the PG-backed stat call).
 **Related:** [funds-hub-v1.md](funds-hub-v1.md), [parliament-hub-v1.md](parliament-hub-v1.md),
 [budget-package-2026-ingest-v1.md](budget-package-2026-ingest-v1.md),
 [hub-search-v1.md](hub-search-v1.md).
-**Must be read before T5:** [municipal-fiscal-commitments-v1.md](municipal-fiscal-commitments-v1.md)
-— it is in flight, it owns migration 149, it owns the municipal choropleth, and §8 below is
-written to connect to it rather than duplicate it.
+**Must be read before T2 and T6:**
+[municipal-fiscal-commitments-v1.md](municipal-fiscal-commitments-v1.md) — **shipped**, it owns
+migration 149, the four `/api/db/municipal-fiscal*` routes, `/governance/municipal-finance` and
+the choropleth. §8 is written to sit beside it, not to re-derive it.
 
 ---
 
 ## 1. Why
 
-### 1.1 Measured, dev server, `/budget`, 2026-08-12
+### 1.1 Measured, dev server, `/budget` — re-measured 2026-08-13, unchanged
 
-| | |
-|---|---|
-| page height | **25 215 px** — about twenty-five screens |
-| JSON fetched (budget-owned, excluding the app shell) | **1 752 KB across 16 requests** |
-| the single largest | `macro_peers.json` — **794 KB, 45% of the page**, from which the screen reads **three scalars** (`distribution.TR`, `.TE`, `.B9`) |
-| second largest | `budget/kfp.json` — **347 KB**, of which one of six year snapshots is ever rendered |
-| `BudgetScreen.tsx` | **520 lines**, 13 analysis tiles rendered inline |
+**Two numbers, and they answer different questions.** The distinction matters because the tiles
+below the fold fetch lazily, so a „page weight" figure is ambiguous until the scroll state is
+declared — exactly the kind of undeclared basis §2 exists to prevent.
+
+| | eager (above the fold) | full scroll |
+|---|---|---|
+| JSON fetched, budget-owned | **1 202 KB across 4 requests** | **1 752 KB across 16 requests** |
+| page height | — | **25 215 px**, about twenty-five screens |
+
+The eager four are `macro_peers.json` (794 KB), `kfp.json` (347), `documents.json` (48),
+`index.json` (13). **`macro_peers.json` alone is 66% of the eager payload, and the screen reads
+three scalars out of it** (`distribution.TR`, `.TE`, `.B9`). `kfp.json` carries six year
+snapshots and one is ever rendered.
+
+`BudgetScreen.tsx` is **520 lines**, 13 analysis tiles rendered inline.
 
 For scale: `/parliament` before its conversion pulled 1.65 MB, `/funds` pulled 390 KB. **`/budget`
-is the worst front page in the repo**, and the 794 KB : 3 scalars ratio is worse than anything
-either of those had.
+is the worst front page in the repo** on either measure, and the 794 KB : 3 scalars ratio is worse
+than anything either of those had.
+
+**[2026-08-13]** Re-measured after `2762db9d50` (the locale-bundle work, which ratcheted two
+brotli budgets down): both figures are unchanged. That commit moved the app shell, not the
+module's own fetches.
 
 Full request list, decoded bytes:
 
@@ -50,7 +65,8 @@ investment_program/index.json     0 KB
 ```
 
 Reproduce via `performance.getEntriesByType('resource')` on `/budget` — the exact expression is
-in T0.1.
+in T0.1. **Measure the eager set before scrolling**, then scroll to the bottom and measure again;
+one call after a `scrollTo` gives only the second number and reads as the whole story.
 
 ### 1.2 The discovery half
 
@@ -64,28 +80,48 @@ reason is visible in the routing:
   producers of a `/budget/ministry/…` href are `BudgetMinistriesTile`, `BudgetTopDeviationsTile`
   and `BudgetMinistryScreen`'s own siblings list — the first two sit ~15 000 px down the hub.
 
-**The budget module has 116 indexable URLs and one entry point, and the entry point is a 25 000 px
-scroll.** That is the discovery gap in one sentence, and the skill §4 names the fix: *seeded
-destinations are a smell — prefer a picker.*
+**The budget module has 110 ministry `<loc>`s (55 × BG+EN) plus its six routed pages, and one
+entry point — and the entry point is a 25 000 px scroll.** That is the discovery gap in one
+sentence, and the skill §4 names the fix: *seeded destinations are a smell — prefer a picker.*
+
+*(An earlier draft totalled these as „116 indexable URLs". That mixes two bases in one number —
+it counts the ministry pages bilingually and the routed pages monolingually. In a plan whose §2
+is entirely about declared denominators, the fix is to state the two counts rather than add
+them.)*
 
 ### 1.3 The data half
 
-There are **zero budget tables in Postgres**. The entire module — state and municipal — is
-file-served. On disk:
+**[2026-08-13]** There are **zero *state*-budget tables in Postgres**. One municipal corpus now
+has them — `municipal_fiscal` (migration 149, shipped; §8.0) — but it is the ЗПФ чл. 130а
+liability stocks, a different corpus from anything `/budget` renders. Everything the module
+actually serves is still files. On disk:
 
 ```
 data/budget/nzok                 17 MB   (served by the NZOK pack, not by /budget)
 data/budget/capital_programs    8.8 MB   ← rendered ONLY on /governance place dashboards
 data/budget/ipop                2.9 MB   ← rendered ONLY on /governance place dashboards
 data/budget/municipal_transfers 2.5 MB   ← rendered ONLY on /governance place dashboards
-data/budget/facts               1.7 MB
-data/budget/reconciliation      1.2 MB
-data/budget/ministries          692 KB
+data/budget/facts               1.7 MB   ⚠ GITIGNORED — bucket-shipped only
+data/budget/reconciliation      1.2 MB   ⚠ GITIGNORED — bucket-shipped only
+data/budget/ministries          692 KB   ⚠ GITIGNORED — bucket-shipped only
 data/budget/classification      412 KB
 data/budget/kfp.json            348 KB
 data/budget/municipal_execution 212 KB   ← rendered ONLY on /governance place dashboards
 data/budget/noi                 192 KB
 ```
+
+**[2026-08-13] Those three ⚠ trees are on disk and not in git** — `.gitignore` excludes them
+beside each other as „bulky regenerable shards", and measured, `git ls-files` returns 0 for
+`reconciliation/` and `ministries/` against 24 and 55 files locally. Everything else the module
+reads is committed (`index.json`, `kfp.json`, `documents.json`, `personnel.json`,
+`classification/`, `cofog.json`, `investment_program/`).
+
+That is a constraint on T0, T1 and every gate downstream, not a footnote: **CI and a fresh clone
+cannot see the admin or program grain at all.** So the ledger reports those figures as *not
+derivable* rather than omitting them (T0.2), the loader skips-and-warns rather than throwing
+(T1), and `budget_pg_roundtrip.data.test.ts` must **skip loudly with the reason printed** when
+the shards are absent — never silently compare an empty Postgres against an empty shard set and
+report a lossless capture.
 
 **The municipal tier — 14.4 MB, the largest half of the module — has no path from `/budget` at
 all.** A reader who wants their town's budget must already know to go to `/governance/:place`.
@@ -105,9 +141,9 @@ here is a design decision; it is the ledger the tiles must be written against.**
 | "how many ministries" | `by-admin` **rows** 2026 = 85; **distinct nodeIds** 2026 = 44; 2025 = 47; **files on disk** = 55 (the union across years) | Distinct `nodeId` **for the selected FY**. The row count is (node × kind) and is ~2× |
 | "how much did the state spend" | FY2025 executed €28.38bn; FY2025 planned; FY2026 planned-only | Executed for a complete year, projected for the current one, and say which — `seriesView()` already models this |
 | "what share of GDP" | balance/GDP vs expenditure/GDP; `gdpEur` is annual, against a possibly partial-year cumulative | Only on a complete year or a projection; never on `actualSoFar` |
-| "per resident" | ГРАО **permanent** address vs ГРАО **current** address (`grao_population.json` carries both, as of 2026-06-15) vs census 2021 vs NSI estimate | See §7.1 — per-capita is **opt-in and captioned**, never a default |
+| "per resident" | ГРАО **permanent** address vs ГРАО **current** address (`grao_population.json` carries both, as of 2026-06-15) vs census 2021 (149's `obshtina_population`) vs NSI estimate | See §7.1 — always captioned with its denominator; default only for a RANKING, never for a ramp |
 
-### 2.2 Four traps specific to this corpus
+### 2.2 Five traps specific to this corpus
 
 **`monthsAvailable` is the count of captured monthly observations, NOT the months of the fiscal
 year the figure covers.** FY2021 carries `monthsAvailable: 6, firstPeriod: "2021-06"` and
@@ -130,28 +166,48 @@ them named.** `variancePct` in the shards is executed-vs-plan; `amendmentTrail` 
 „Отклонение" with no basis is ambiguous between „a ministry overspent its law" and „parliament
 re-voted the law". §7.3 turns that ambiguity into a feature.
 
+**[2026-08-13] A WITHHELD figure is not a zero, and this corpus family has already produced one.**
+`municipal_fiscal` 2025-Q3 suppressed `commitments_eur` for all 265 municipalities — МФ froze the
+column and the ingest withheld it rather than carrying it forward. A NULL there reads as „nothing
+contracted", which is the opposite of the truth, so `municipal_fiscal_by_obshtina()` picks the
+newest row that actually **has** the headline figure and only then falls back to the newest row of
+any kind.
+
+The КФП feed can freeze a line the same way. Every serving function in §6.2 that resolves a
+„latest" figure needs the same two-tier pick, and every renderer needs „не е публикувано" as a
+state distinct from „0". This is the skill's *undeclared „not derivable"* trap with a live
+precedent in the neighbouring corpus — copy the resolution rather than rediscovering it.
+
 ### 2.3 The coverage finding that constrains two pages
 
-Executed figures on the admin-grain reconciliation, counted per year:
+Executed figures on the admin-grain reconciliation, per year — **[2026-08-13] re-derived by
+`scripts/budget/hub_ledger.ts` (T0.3), which corrected the v1 draft's unit**:
 
-| FY | rows | distinct nodes | rows carrying `executed` |
-|---|---|---|---|
-| 2018 | 85 | 45 | **0** |
-| 2020 | 123 | 42 | **0** |
-| 2022 | 83 | 45 | **2** |
-| 2023 | 88 | 46 | **9** |
-| 2024 | 97 | 48 | **14** |
-| 2025 | 119 | 47 | **0** |
-| 2026 | 85 | 44 | **0** |
+| FY | spending units | rows | **units** carrying `executed` | rows carrying `executed` |
+|---|---|---|---|---|
+| 2018 | 45 | 85 | **0** | 0 |
+| 2019 | 42 | 114 | **0** | 0 |
+| 2020 | 42 | 123 | **0** | 0 |
+| 2021 | 42 | 79 | **0** | 0 |
+| 2022 | 45 | 83 | **1** | 2 |
+| 2023 | 46 | 88 | **6** | 9 |
+| 2024 | 48 | 97 | **8** | 14 |
+| 2025 | 47 | 119 | **0** | 0 |
+| 2026 | 44 | 85 | **0** | 0 |
 
-`BudgetTopDeviationsTile` („Най-големи отклонения от плана") therefore ranks over **14 of 97
-spending units in its best year and none at all in four of seven years**. The figure is not wrong;
+`BudgetTopDeviationsTile` („Най-големи отклонения от плана") therefore ranks over **8 of 48
+spending units in its best year, and none at all in six of nine years**. The figure is not wrong;
 the impression that it ranks the government's ministries is.
+
+**[2026-08-13] The v1 draft of this section said „14 of 97 spending units" and that was the
+plan committing its own §2.1 error** — 14 and 97 are ROW counts, and rows are (nodeId × kind).
+The units are 8 and 48. Worth leaving on the record: the ledger script T0.2 exists precisely to
+catch this class, and the first thing it did on being run was catch it here.
 
 This is skill §11 territory — *a hub surfaces a data layer, it does not repair one*. Two binding
 consequences:
 
-1. **`/budget/deviations` leads with the coverage, not the ranking**: „14 от 97 разпоредители са
+1. **`/budget/deviations` leads with the coverage, not the ranking**: „8 от 48 разпоредители са
    публикували отчет за 2024". A top-5 without that line asserts something the corpus cannot
    support.
 2. The gap is an **ingest** problem (`scripts/budget/doklad.ts` / the `minfin_program_otchet`
@@ -179,7 +235,7 @@ Questica, Euna) — budgeting products for a finance department, not public anal
 |---|---|---|
 | **[USAspending Spending Explorer](https://www.usaspending.gov/explorer)** | Pick ONE starting dimension (agency / budget function / object class), then drill through a **persistent breadcrumb**, each level showing its own total and its share of the parent. The dimension choice is the first question, not a tab. | **§7.2 — `/budget/explorer`** |
 | **[US Treasury, Your Guide to America's Finances](https://fiscaldata.treasury.gov/americas-finance-guide/)** | Every section answers the same four questions in the same order: **the source of funds, where the money goes, the trend over time, and how the country compares internationally.** A template, not fourteen bespoke pages. | **§7.1 — the four-part page spine + the basis control** |
-| **[World Bank BOOST Open Budget Portal](https://www.worldbank.org/en/programs/boost-portal/boost-data-lab)** | One **variable indicator** control renders the same figure as absolute money, % of GDP, % of total spending, or per capita — and the same control works at subnational grain, which is what makes peer benchmarking possible. | **§7.1 — the basis control**; **§8.2 — municipal peers** |
+| **[World Bank BOOST Open Budget Portal](https://www.worldbank.org/en/programs/boost-portal/boost-data-lab)** | One **variable indicator** control renders the same figure as absolute money, % of GDP, % of total spending, or per capita — and the same control works at subnational grain, which is what makes peer benchmarking possible. | **§7.1 — the basis control**; **§8.3 — municipal peers** |
 | **[Ukraine E-Data / spending.gov.ua](https://ukraine.ua/e-data-ukrainian-transparency-platform-for-national-spending/)** | 262M transaction records, and the front page's move is **„the five largest payments the Treasury made recently"** — a wire, not a dashboard. | **§6.3 — the wire's shape and its `source` discriminator**, so the deferred СЕБРА arm (§3.2) is a union member later rather than a rewrite |
 | **[OGP / IBP open budgets](https://www.opengovpartnership.org/open-gov-guide/fiscal-openness-open-budgets/)** — the eight key budget documents | A **scoring frame**: pre-budget statement, executive's proposal, enacted budget, **citizens budget**, in-year reports, mid-year review, year-end report, audit report. | **§7.4 — `/budget/law`**, and see §3.1 |
 | [IFS](https://ifs.org.uk/be-chancellor) "Be the Chancellor" | A scenario tool. | Already shipped as `/budget/simulator`; the hub links it, nothing new |
@@ -282,8 +338,18 @@ against how the language actually says it, not against its English sibling.
 | — | **`/budget/municipal/capital`** | NEW — 26 oblast-centre capital programmes |
 | `/indicators/budgets` cross-link card | unchanged | stays live below the headline cards |
 
-**Fourteen new pages, fourteen tiles, fourteen distinct accents.** `TILE_ACCENTS` carries 21
-tokens, so this fits — tightly. The uniqueness gate (§10) will fire before the set is balanced.
+**Fourteen new pages, fourteen tiles, fourteen distinct accents.**
+
+**[2026-08-13] `TILE_ACCENTS` now carries 21 tokens and every one is in use.** `wine` was minted
+in step 15 of the municipal-fiscal work precisely because „the money cluster grew a 21st tile and
+the palette had exactly 20". Accents are unique **per page**, not globally, so drawing 14 of the
+21 for `/budget` is fine — but a 22nd tile on any single page needs a new token, and
+`tileAccents.ts` records the method: judge **hue distance**, not cluster membership (pairs already
+shipping sit at Δh 0.2°, so „different cluster" is not separation), and eyeball it on both grounds.
+That file also now corrects its own lightness rule — the „~48–58%" band is met by 5 of 21, so it
+is a direction, not a spec.
+
+The uniqueness gate (§11) will fire before the set is balanced.
 
 Every new page is **self-contained**: its own `Title`, `GovernanceBreadcrumb`, source footer, and
 it owns the fetch its content needs. That ownership is what takes the fetch off the hub.
@@ -303,13 +369,14 @@ must add its `db:load:*:pg:cloud` to the owning watch skill, or prod goes stale 
 check stays green), `reference_stage_merge_reload` (a served table is stage-merged, never
 TRUNCATE-rebuilt).
 
-**Migration numbers: 150–154.** 148 is `person_company_basis` (in flight, untracked);
-**149 is claimed by `municipal-fiscal-commitments-v1` T2** — that plan's own text says 148 and is
-now stale, so re-check `ls scripts/db/schema/pg/` before writing either.
+**[2026-08-13] Migration numbers: 152–156.** The v1 draft said 150–154 and is superseded — since
+then 149 (`municipal_fiscal`), 150 (`mp_tr_roles`) and 151 (`place_mp_companies`) have all landed.
+**Next free is 152.** Re-check `ls scripts/db/schema/pg/` before writing: this file has been wrong
+about the number twice in two days, which is itself the argument for checking rather than reading.
 
 ### 6.1 Tables
 
-**150 — `budget_kfp`**
+**152 — `budget_kfp`**
 
 ```
 budget_kfp_observation (fiscal_year, period, series, constituent_budget)  PK
@@ -325,10 +392,20 @@ budget_kfp_snapshot_line (fiscal_year, period, section_code, line_ord)    PK
 budget_fiscal_year (fiscal_year)                                          PK
     as_of date, complete bool, months_available int,
     first_period, last_period text, gdp_eur double precision,
-    population int,                      -- §7.1; the denominator is NAMED, see below
+    population int,                      -- NATIONAL only — see the [2026-08-13] note
     population_basis text,               -- 'grao_permanent' | 'grao_current' | 'census2021'
     actual_* / planned_* / projected_* double precision, projection_basis text
 ```
+
+**[2026-08-13] `population` here is the NATIONAL denominator only.** The per-município one already
+exists: `obshtina_population` (obshtina, population, census_year — NSI Census 2021), created by
+migration 149 and resolving Sofia's census code `SOF46` through `place_dim.price_code`. Do not
+mint a second one; §8.3 reads 149's.
+
+Note 149's own header records why that table is declared **above** the functions that read it: a
+`LANGUAGE sql` body is validated at CREATE time, so a function naming a not-yet-created table
+raises 42P01 and — `exec()` sending the file as one transaction — rolls the whole migration back
+on every database that does not already have it. 152–156 follow the same ordering.
 
 `double precision`, never `numeric` — node-postgres serialises `numeric` as a string and every
 money cell renders blank while the number is present in the payload (migrations 120 and 142 both
@@ -340,7 +417,7 @@ coverage.
 `population_basis` is a column rather than a convention because §7.1 makes per-capita a user-
 selectable basis, and the three candidate denominators differ materially.
 
-**151 — `budget_admin`**
+**153 — `budget_admin`**
 
 ```
 budget_admin_node (node_id)              PK   -- 55 across all years
@@ -368,7 +445,7 @@ mapping and moves here.
 `adopted_by_item_id` is the cross-module edge — see §7.4. Nullable and **never inferred from a
 title regex**: an unresolved link is NULL, not a guess.
 
-**152 — `budget_municipal`**
+**154 — `budget_municipal`** — *what the state SENDS. See §8.1 for the boundary against 149.*
 
 ```
 budget_muni_transfer (fiscal_year, obshtina)  PK
@@ -390,12 +467,12 @@ already use. That makes `db:load:place-dim:pg` a **hard prerequisite**, not a tr
 districts must say the figure is Stolichna's single row, or a reader concludes the districts were
 measured separately.
 
-**152 creates no `municipal_fiscal` table.** That is migration 149's, owned by the in-flight plan.
-This one **reads** it (§8.2) and must therefore degrade when it is absent.
+**[2026-08-13] 154 creates no `municipal_fiscal` table and no `obshtina_population`.** Both are
+migration 149's and both are **shipped and loaded**. 154 reads them; §8 says how.
 
-### 6.2 Serving functions and routes — 153
+### 6.2 Serving functions and routes — 155
 
-`153_budget_serving.sql`, `CREATE OR REPLACE` only, **no `DROP`** — the 077 lesson: a
+`155_budget_serving.sql`, `CREATE OR REPLACE` only, **no `DROP`** — the 077 lesson: a
 loader-applied migration that DROPs an object another migration reads in a stored query aborts the
 load (2BP01), and with `CASCADE` it silently deletes the dependent and exits 0.
 
@@ -411,7 +488,7 @@ load (2BP01), and with `CASCADE` it silently deletes the dependent and exits 0.
 | `budget_variance(fy, limit)` | `/api/db/budget-variance` | `/budget/deviations` — **returns the coverage pair with every ranking** |
 | `budget_documents(fy)` | `/api/db/budget-law` | `/budget/law` |
 | `budget_muni_list(fy, q, limit)` | `/api/db/budget-municipal` | `/budget/municipal` + HubSearch |
-| `budget_muni_detail(obshtina, fy)` | `/api/db/budget-municipality` | per-municipality panel + §8.2 peers |
+| `budget_muni_detail(obshtina, fy)` | `/api/db/budget-municipality` | per-municipality panel + §8.3 peers |
 
 Every route follows skill §7: **degrade on `42P01 · 55000 · 42501 · 55P03`, never on `57014`**;
 log the miss once per process with the loader to run (`bh:not-built`); the query function returns
@@ -424,9 +501,9 @@ politeness: §2.3 means a consumer receiving only rows **cannot** render an hone
 client-side division would put the denominator in two places, and the skill's corollary — *if a
 number is computed in two places it will drift* — has bitten this pattern twice.
 
-### 6.3 The hub stat call — 154
+### 6.3 The hub stat call — 156
 
-`154_budget_hub_stats.sql`: `budget_hub_stats_cache` (matview) + `budget_hub_stats(fy)` behind
+`156_budget_hub_stats.sql`: `budget_hub_stats_cache` (matview) + `budget_hub_stats(fy)` behind
 **`/api/db/budget-hub-stats`**. Same shape as migration 145 for `/funds`.
 
 Materialised because the live aggregate spans five tables and runs on **every** `/budget` view.
@@ -460,25 +537,27 @@ rewrite.
 ### 6.4 Loaders
 
 ```
-db:load:budget:pg          → 150 + 151   (state corpus)
-db:load:budget-muni:pg     → 152         (municipal corpus)
-db:load:budget-hub:pg      → 153 + 154, then REFRESH budget_hub_stats_cache
+db:load:budget:pg          → 152 + 153   (state corpus)
+db:load:budget-muni:pg     → 154         (municipal corpus — what the state SENDS)
+db:load:budget-hub:pg      → 155 + 156, then REFRESH budget_hub_stats_cache
 ```
 
-Each with a `:cloud` twin. Placement in `db:refresh` — **after** `db:load:place-dim:pg` (step 27),
-because 152 joins `place_dim` for every municipal label:
+Each with a `:cloud` twin. Placement in `db:refresh` — **after** `db:load:place-dim:pg` and
+**after `db:load:municipal-fiscal:pg`**, which already sits directly behind it, because 154 joins
+`place_dim` for every municipal label and §8.3 reads `municipal_fiscal` + `obshtina_population`:
 
 ```
 … 27. db:load:place-dim:pg
-      db:load:budget:pg          ← NEW
-      db:load:budget-muni:pg     ← NEW
-      db:load:budget-hub:pg      ← NEW
+      db:load:municipal-fiscal:pg   ← [2026-08-13] already there
+      db:load:budget:pg             ← NEW
+      db:load:budget-muni:pg        ← NEW
+      db:load:budget-hub:pg         ← NEW
    28. db:load:procurement-scopes:pg …
 ```
 
-Three `ORDER_PAIRS` entries in `refresh_coverage.test.ts` (`place-dim → budget-muni`,
-`budget → budget-hub`, `budget-muni → budget-hub`), plus chain membership so the coverage gate
-passes.
+Four `ORDER_PAIRS` entries in `refresh_coverage.test.ts` — `place-dim → budget-muni`,
+**`municipal-fiscal → budget-muni`**, `budget → budget-hub`, `budget-muni → budget-hub` — plus
+chain membership so the coverage gate passes.
 
 `vacuumAfterReload()` on every truncate-and-reload destination, with the table names added to
 `reload_visibility_map.data.test.ts` — the visibility map a TRUNCATE throws away is invisible to
@@ -513,7 +592,7 @@ One control, `?basis=`, on the hub and every money page. Four values:
 | `eur` *(default)* | none | the figure itself |
 | `gdp` | `budget_fiscal_year.gdp_eur` | already stored, already used by the headline cards |
 | `share` | the parent total at the same level | computed in the same function |
-| `capita` | `budget_fiscal_year.population` + `population_basis` | **opt-in, captioned, never default** |
+| `capita` | `budget_fiscal_year.population` + `population_basis`; at municipal grain, 149's `obshtina_population` | captioned always; default **only for a ranking** — see below |
 
 And every money page answers the same four questions in the same order, so fourteen pages read as
 one module rather than fourteen:
@@ -535,13 +614,27 @@ different fact from the same €20m where €200m is spent, but per-resident nor
 rather than capacity, so a small municipality mid-project reads as reckless purely because its
 denominator is small.
 
-So:
+**[2026-08-13] The shipped implementation drew a sharper line than the v1 draft did, and it is the
+one to copy.** `/governance/municipal-finance` shipped with **`DEFAULT_SORT = "perCapita"`** and
+**`DEFAULT_LAYER = "commitmentsPct"`** (чл. 130а т. 3, normalised by the municipality's own
+four-year expenditure base). Per-resident is not banned — it is:
 
-- `capita` is **opt-in and captioned**, never the default and never the only basis offered.
-- The caption names `population_basis`. ГРАО permanent and ГРАО current differ materially
-  (`grao_population.json` carries both), and permanent over-counts emigrants.
-- At municipal grain the **capacity** basis (`share` against the municipality's own expenditure
-  base) is the one offered first — see §8.2.
+- **the right default for a RANKING**, where the reader is comparing 265 places of wildly
+  different size and needs a size-free comparator to sort by at all;
+- **the wrong default for a CHOROPLETH**, where colouring 265 shapes by a denominator dominated by
+  project timing renders project phase as recklessness, over a whole map, with no way to see the
+  confound.
+
+So the rule is by SURFACE, not by basis: **a ranking may default to per-capita; a ramp defaults to
+the capacity measure.** The v1 draft's flat „opt-in, never default" would have made the shipped
+page's own default illegal, which is how I know it was too coarse.
+
+The rest stands:
+
+- The caption always names the denominator. For the national figure that is `population_basis` —
+  ГРАО permanent and ГРАО current differ materially (`grao_population.json` carries both) and
+  permanent over-counts emigrants. For the municipal figure it is 149's `obshtina_population`,
+  NSI Census 2021, a different vintage again.
 - A page with no defensible denominator offers no basis control rather than a broken one.
 
 **Two rendering rules carried from `08bd7a6185`, because they apply to any ramp this module
@@ -582,13 +675,13 @@ but `budget_admin_fact` carries all three columns per row).**
 ```
 
 Two distinct stories, currently collapsed into one ambiguous word: **a ministry overspent its
-appropriation**, and **parliament re-voted the appropriation**. §2.2's third trap is that the
+appropriation**, and **parliament re-voted the appropriation**. §2.2's **fourth** trap is that the
 existing `variancePct` silently picks the first. Naming both columns is the fix, and it costs
 nothing — the data is already in the row.
 
-**The page still leads with §2.3's coverage line**, and the third column is empty for four of
-seven years. That is honest and it is also the page's own argument: a year where 0 of 97 spending
-units have filed a report is a finding, not a blank.
+**The page still leads with §2.3's coverage line**, and the third column is empty for **six of the
+nine** years. That is honest and it is also the page's own argument: a year where **0 of 44
+spending units** (FY2026) have filed a report is a finding, not a blank.
 
 The route is named `budget_variance`, not `budget_deviations`, so the SQL cannot quietly go back
 to meaning one thing.
@@ -636,7 +729,44 @@ expenditure split the average uses.
 
 ## 8. The municipal band
 
-### 8.1 Three tiles, each declaring its own coverage
+**[2026-08-13] Rewritten. `municipal-fiscal-commitments-v1` is no longer in flight — it shipped.**
+
+### 8.0 What exists now, so this plan does not re-derive it
+
+| shipped | |
+|---|---|
+| corpus | `municipal_fiscal` — 265 municipalities × quarter, **2016-Q1 → 2025-Q3 continuous** (39 quarter files), plus `obshtina_population` (NSI Census 2021) |
+| migration | **149**, with `municipal_fiscal_by_obshtina()`, `municipal_fiscal_ranking()`, `municipal_fiscal_national()` |
+| loader | `db:load:municipal-fiscal:pg[:cloud]`, in `db:refresh` right after `db:load:place-dim:pg` |
+| routes | `/api/db/municipal-fiscal`, `-national`, `-years`, `-ranking` — all four already degrade on a missing table with the loader named in the log |
+| pages | `/governance/municipal-finance` (table + filters + year picker + a 6-layer choropleth), prerendered, in the sitemap |
+| tiles | `MyAreaMunicipalFiscalTile` (per place), `GovernanceMunicipalCommitmentsTile` (governance hub), `RegionMunicipalFiscalTile` (per oblast) |
+| national | the three stocks in `macro.json` → `/indicators/fiscal` |
+
+**So §8's job shrank and got sharper.** The v1 draft budgeted for "connect to a plan in flight and
+degrade when 149 is absent". What is left is a boundary problem, not an integration problem.
+
+### 8.1 The boundary: two municipal money corpora that must never be one figure
+
+This is now the single most important rule in the section, because both corpora are live and a
+reader will see both.
+
+| | what the state **SENDS** | what municipalities **OWE** |
+|---|---|---|
+| corpus | Art. 53 transfer envelope, capital programmes, ИПОП | ЗПФ чл. 130а — commitments, expense obligations, arrears |
+| tables | `budget_muni_*` (154, this plan) | `municipal_fiscal` (149, shipped) |
+| home | **`/budget/municipal*`** | **`/governance/municipal-finance`** |
+| grain | annual, by fiscal year | quarterly |
+
+They are **adjacent and never combined.** Not summed, not netted, not shown as one „municipal
+money" total — the same rule `municipal-fiscal-commitments-v1` T11.2 draws for state debt vs
+municipal commitments, applied one level down. A transfer received and a liability contracted are
+different facts about different years with different debtors.
+
+Each page **links to the other and names what the other holds.** That cross-link is the whole
+integration; anything more is duplication.
+
+### 8.2 Three tiles, each declaring its own coverage
 
 The three differ by an order of magnitude, so coverage is part of the tile:
 
@@ -651,7 +781,7 @@ pilot, not a surface; it stays on those two governance dashboards until the inge
 implying a national municipal-execution view is the skill's „destination counts a different set"
 defect at its most extreme.
 
-### 8.2 Peer comparison — capacity, not population
+### 8.3 Peer comparison — built on 149, not beside it
 
 **From BOOST's subnational benchmarking, with §7.1's denominator discipline applied.**
 
@@ -659,30 +789,51 @@ defect at its most extreme.
 answers nothing — a reader cannot tell whether €14m is a lot without knowing what comparable towns
 get.
 
-- The peer set is **population band × municipality type**, and it is disclosed on the page.
-- The comparison basis is **the municipality's own expenditure base**, read from
-  `municipal_fiscal.expenditure_avg4y_eur` (migration 149) — *not* per resident, per
-  `08bd7a6185`. Per-resident is available as an opt-in basis with its caption.
-- **Degrade when 149 is absent.** That plan is in flight; if `municipal_fiscal` is missing, the
-  peer panel does not render and the transfer table still does. `42P01` → panel omitted, logged
-  once.
+- The peer set is **population band × municipality type**, disclosed on the page. Population comes
+  from **149's `obshtina_population`** (NSI Census 2021); do not mint a second denominator.
+- The comparison basis is **the municipality's own expenditure base**,
+  `municipal_fiscal.expenditure_avg4y_eur` — *not* per resident, per `08bd7a6185`. Per-resident is
+  available as a basis with its caption (§7.1).
+- **[2026-08-13] Reuse `municipal_fiscal_ranking()` rather than writing a second ranker.** It
+  exists, it is loaded, its route degrades correctly, and a parallel implementation would give
+  `/budget/municipal` and `/governance/municipal-finance` two orderings of the same 265 places —
+  the skill's *computed in two places, therefore it will drift* corollary, with the drift visible
+  to any reader who opens both.
+- The absent-149 branch is now a **cold-database** case rather than a not-yet-built one, but it
+  still ships: `42P01` → peer panel omitted, transfer table still renders, logged once.
 
-### 8.3 What this band must NOT do
+**Three semantics of that corpus that any surface reading it must respect** (all from
+`municipal-fiscal-commitments-v1` and CLAUDE.md, all easy to get backwards):
 
-Read `municipal-fiscal-commitments-v1` before building any of it. Three boundaries it sets:
+- **Seven criteria, not six.** МФ's year-end releases enumerate them 1..7.
+- **`meets_threshold` NULL is not FALSE.** It is TRUE only when three are actually met (decisive by
+  monotonicity) and FALSE only when all were evaluable; elsewhere it is NULL because only three of
+  the seven are computable from this source. `criteria_evaluable` records which were checkable, so
+  **„2 met" can never be rendered as „2 of 6"**.
+- **A withheld column is not a zero** — §2.2's [2026-08-13] note; 2025-Q3 is the live instance.
 
-- **The choropleth lives on `/governance/municipal-finance`, and only there** (its T13.5: „one map,
-  one home"). `/budget/municipal` is a table plus the peer panel. Do not add a second map.
-- **`/budget` takes the NATIONAL line only** (its T10.3): municipal commitments beside the state
-  deficit, for the reader who came asking how big the deficit is. One line, on the hub, not a
-  tile.
-- **Never sum state debt with municipal commitments.** Different debtors, different mandates —
-  adjacent and never combined. Its T11.2 draws the same line; a figure that adds them is wrong in
-  a way no row count will show.
+### 8.4 What this band must NOT do
 
-And one rendering rule from the same source, which applies to every municipal surface here: **a
-municipality that did not file renders as a no-data hatch, never as zero.** Colouring a non-filer
-zero puts it at „no commitments" — the healthiest shade in the country.
+Three boundaries `municipal-fiscal-commitments-v1` sets, all now enforceable against shipped code:
+
+- **The choropleth lives on `/governance/municipal-finance`, and only there** (T13.5: „one map,
+  one home"). `/budget/municipal` is a table plus the peer panel. **Do not add a second map** —
+  and note the shipped one has six layers and a year picker, so a thinner second map would also be
+  a worse one.
+- **`/budget` takes the NATIONAL line only** (T10.3): municipal commitments beside the state
+  deficit, for the reader who came asking how big the deficit is. **[2026-08-13] Read it from the
+  `macro.json` series that already exist** — `municipalCommitments`, `municipalExpenseObligations`,
+  `municipalArrears`, the three already behind `/indicators/fiscal` — or from
+  `/api/db/municipal-fiscal-national`. Do not re-aggregate the corpus for one line. Note the macro
+  assembler exempts these three from its 10%-shrink gate by ratio (`MAY_SHRINK`) **but not at
+  zero**: losing a quarter is designed behaviour when МФ freezes a column, dropping to no points
+  is still an abort.
+- **Never sum state debt with municipal commitments**, and — §8.1 — never sum transfers with
+  liabilities either. Different debtors, different mandates, and no row count will show the error.
+
+One rendering rule from the same source applies to every municipal surface here: **a municipality
+that did not file renders as a no-data hatch, never as zero.** Colouring a non-filer zero puts it
+at „no commitments" — the healthiest shade in the country.
 
 Every one of these pages links to `/governance/:place` for the full place dashboard rather than
 reproducing it. **Budget owns the money by level of government; governance owns the place.**
@@ -753,13 +904,16 @@ as links to a filtered page that delivered an unfiltered one.
 | Every `basis` is resolved server-side; no money division in `src/screens/budget/` | grep gate | §7.1's two-places-drift |
 | `capita` is never the default basis, and always captioned with `population_basis` | `budgetBasis.test.ts` | the `08bd7a6185` denominator error |
 | Municipal tiles declare a coverage matching the table | `budget_municipal.data.test.ts` | „26 of 265" rendered as national |
-| No surface sums state debt with municipal commitments | `budget_municipal.data.test.ts` | §8.3 |
+| No surface sums state debt with municipal commitments, **or transfers with liabilities** | `budget_municipal.data.test.ts` | §8.1 / §8.4 |
+| **[2026-08-13]** `/budget/municipal` peers come from `municipal_fiscal_ranking()`, not a local ranker | `budget_municipal.data.test.ts` | two orderings of the same 265 places, visible to any reader who opens both pages |
+| **[2026-08-13]** No second `obshtina_population`; no second choropleth over `municipal_fiscal` | grep gate | duplicating 149 |
+| **[2026-08-13]** A withheld figure renders as „не е публикувано", never as 0 | `budget_serving.data.test.ts` | §2.2's fifth trap — 2025-Q3 is the live instance |
 | `adopted_by_item_id` filters `superseded_by IS NULL`; no title-regex inference | `budget_law.data.test.ts` | §7.4 |
 | A scoped search source returns out-of-scope rows for a query that has them | `budgetSearch.test.ts` | scope silently filtering |
 | Each search group's cap is independent | `budgetSearch.test.ts` | in-scope group eating the out-of-scope budget |
 | Every see-all param is read by its destination | `budgetSearch.test.ts` | filtered link, unfiltered page |
 | Every `<loc>` in `sitemap_budget.xml` has `dist/<path>/index.html` | `scripts/sitemap/families.data.test.ts` (extend) | a committed sitemap outliving a build |
-| No `DROP` in 150–154 read by another migration's stored query | `migration_drop_dependents.data.test.ts` (already generic) | the 077 / 003 class |
+| No `DROP` in 152–156 read by another migration's stored query | `migration_drop_dependents.data.test.ts` (already generic) | the 077 / 003 class |
 | Vacuumed tables listed | `reload_visibility_map.data.test.ts` | the permanent `relallvisible = 0` class |
 
 **Then check each gate can fail.** Break every clause and watch it fire. Two gates in this
@@ -779,17 +933,23 @@ misunderstanding it was meant to catch.
 Hosting last, always.
 
 ```bash
-npm run db:load:place-dim:pg:cloud       # 0.  PREREQUISITE — preflight a COLUMN, not a count
-npm run db:load:budget:pg:cloud          # 1a. state corpus (150+151)
-npm run db:load:budget-muni:pg:cloud     # 1b. municipal corpus (152)
-npm run db:load:budget-hub:pg:cloud      # 1c. serving + stat call (153+154)
+npm run db:load:place-dim:pg:cloud       # 0a. PREREQUISITE — preflight a COLUMN, not a count
+npm run db:load:municipal-fiscal:pg:cloud# 0b. PREREQUISITE for §8.3 peers — already exists
+npm run db:load:budget:pg:cloud          # 1a. state corpus (152+153)
+npm run db:load:budget-muni:pg:cloud     # 1b. municipal corpus (154)
+npm run db:load:budget-hub:pg:cloud      # 1c. serving + stat call (155+156)
 npm run deploy:db                        # 2.  the routes
 npm run build                            # 3.  prerender (14 new static pages + sitemap)
 npm run deploy                           # 4.  hosting
 ```
 
-Step 0 is a prerequisite, not a trigger. Prod's `place_dim` had the right row count and the wrong
+Step 0a is a prerequisite, not a trigger. Prod's `place_dim` had the right row count and the wrong
 columns once already (the Interreg deploy, 2026-08-08), so a count-based preflight passed it.
+
+**[2026-08-13]** Step 0b is a prerequisite only for the peer panel (§8.3), which degrades without
+it — so it does not gate the deploy, but a cloud database that has never run it serves
+`/budget/municipal` with the panel silently absent. Its own loader also depends on `place-dim`,
+so 0a genuinely comes first.
 
 No bucket step: this migration moves data **off** files. `data/budget/**` stays on disk and on the
 bucket for the ingest and for the pages not yet migrated; retiring any of it is a separate decision
@@ -811,35 +971,55 @@ other still lets the subtree re-upload.
     .filter(r => /\.json/.test(r.name))
     .map(r => [r.name.split('/').slice(-2).join('/'), Math.round(r.decodedBodySize/1024)])
   ```
-- **T0.2** `scripts/budget/__measure_hub.ts` — prints every candidate figure with its denominator,
-  committed, so §11's figure gates have something the generator does not use to assert against.
-- **T0.3** Re-confirm §2.3's coverage table against the current shards.
-- **T0.4** `ls scripts/db/schema/pg/` and fix the migration numbers in §6 — 148 and 149 are both
-  in flight.
+- **T0.2** Two files, and the split is load-bearing:
+  - **`scripts/budget/hub_ledger.ts`** — the derivation, imported by
+    `budget_hub_stats.data.test.ts` (T4). This is the artifact §11's figure gates assert
+    against, so it must never share a code path with the generator.
+  - **`scripts/budget/__measure_hub.ts`** — the human view
+    (`npx tsx scripts/budget/__measure_hub.ts --all`). No `npm run` alias, matching the 17
+    unaliased `__smoke_*` / `__write_*` siblings in `scripts/budget/`.
+
+  **Two of its inputs are GITIGNORED** — `data/budget/reconciliation/` and
+  `data/budget/ministries/`, both bucket-shipped only, alongside `facts/`. So on CI and on a
+  fresh clone every admin/program figure is *not derivable*, and the ledger must emit those
+  keys with `value: null` and a basis saying why. An omitted key is invisible to a gate, which
+  would then pass while checking nothing — the vacuous-gate failure skill §8 warns about,
+  arriving through the back door.
+- **T0.3** Re-confirm §2.3's coverage table against the current shards — the table above is
+  produced by `hub_ledger.ts`, not hand-counted.
+- **T0.4** `ls scripts/db/schema/pg/` and fix the migration numbers in §6. **[2026-08-13]** This
+  file has been wrong twice: the v1 draft said 150–154, which 150/151 took within a day. Read the
+  directory, do not read this line.
 
 ### T1 — State corpus into Postgres
 
-150 + 151, `scripts/db/load_budget_pg.ts` (stage-merge, `vacuumAfterReload`, absent-safe on a fresh
+152 + 153, `scripts/db/load_budget_pg.ts` (stage-merge, `vacuumAfterReload`, absent-safe on a fresh
 clone, **throws** on a present-but-malformed input), `db:load:budget:pg[:cloud]`, chain membership
 + `ORDER_PAIRS`, and `budget_pg_roundtrip.data.test.ts` — Postgres is a lossless capture of the
 shards.
 
 ### T2 — Municipal corpus into Postgres
 
-152, `scripts/db/load_budget_muni_pg.ts` with a `place_dim` **column** preflight and a placement
-floor below which it refuses rather than writing NULLs over good rows. Loader wiring + gates as T1.
+**Read `municipal-fiscal-commitments-v1` first** — §8.0 lists what already exists so this tier does
+not re-derive it, and §8.1 is the boundary it must not cross.
+
+154, `scripts/db/load_budget_muni_pg.ts` with a `place_dim` **column** preflight and a placement
+floor below which it refuses rather than writing NULLs over good rows. Loader wiring + gates as T1,
+plus the `municipal-fiscal → budget-muni` `ORDER_PAIRS` entry.
 
 ### T3 — Serving layer
 
-153's eleven functions, eleven routes in `functions/db_routes.js` with the skill §7 degrade
+155's eleven functions, eleven routes in `functions/db_routes.js` with the skill §7 degrade
 contract and `bh:not-built` logging, `EXPLAIN (ANALYZE, BUFFERS)` on the **worst** FY for each
 (nothing over ~2 000 buffers ships live), `budget_serving.data.test.ts`.
 
-**The `basis` parameter lands here**, in SQL, not later in the screens (§7.1).
+**The `basis` parameter lands here**, in SQL, not later in the screens (§7.1). So does the
+two-tier „newest row that HAS the figure" pick (§2.2) — copy
+`municipal_fiscal_by_obshtina()`'s shape rather than reinventing it.
 
 ### T4 — The hub stat call
 
-154, `db:load:budget-hub:pg[:cloud]`, `/api/db/budget-hub-stats`,
+156, `db:load:budget-hub:pg[:cloud]`, `/api/db/budget-hub-stats`,
 `src/data/budget/useBudgetHubStats.ts`, `budget_hub_stats.data.test.ts` with the basis assertions
 and the byte budget. **The peer bands move here and `macro_peers.json` leaves `/budget`.**
 
@@ -853,7 +1033,9 @@ and the byte budget. **The peer bands move here and `macro_peers.json` leaves `/
   → TaxReceiptLead → `TileHubGrid`. DEV console guard for the id↔scene contract.
 - **T5.4** `budgetSearch.ts` + `budgetSearch.test.ts` (§9).
 - **T5.5** The TaxReceiptLead (§7.5).
-- **T5.6** The national municipal-commitments line (§8.3), degrading when 149 is absent.
+- **T5.6** The national municipal-commitments line (§8.4) — read from the `macro.json` series or
+  `/api/db/municipal-fiscal-national`, never re-aggregated. It degrades when 149 is absent, which
+  is now a cold-database case rather than a not-yet-built one.
 
 ### T6 — The fourteen sub-pages
 
@@ -871,7 +1053,11 @@ Municipal last, after reading `municipal-fiscal-commitments-v1`.
   unimported.
 - **T7.2** Re-measure. **Target: under 60 KB and under 6 requests**, from 1 752 KB / 16.
 - **T7.3** A `tests/perf.spec.ts` entry pinning the ceiling, so the next addition argues with a
-  number.
+  number. **[2026-08-13]** Pin **both** figures from §1.1 — eager and full-scroll — since retiring
+  the lazy tiles and retiring the eager four are different wins and one number hides the other.
+  That file already ratchets its brotli budgets downward (`2762db9d50`); follow the same
+  convention rather than adding a parallel mechanism, and note its per-language loop throws on the
+  FIRST language over budget, so a regression in the second is invisible until the first is fixed.
 
 ### T8 — SEO
 
@@ -882,7 +1068,8 @@ emitted URL is the **no-slash** form and that the EN root is `/en`, not `/en/`.
 
 ### Parallel track, NOT a tier — the execution-report parser
 
-§2.3: 14 of 97 spending units carry an executed figure in the best year. That is an ingest gap in
+§2.3: 8 of 48 spending units carry an executed figure in the best year, and none at all in six of
+nine years. That is an ingest gap in
 `scripts/budget/doklad.ts` / `minfin_program_otchet`, and it caps what `/budget/deviations` and
 `/budget/ministries` can ever say — including §7.3's third column. Worth its own plan. **Do not let
 the hub paper over it**: a hub change that hides a resolver gap makes the gap permanent (skill
