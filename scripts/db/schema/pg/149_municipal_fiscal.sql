@@ -244,12 +244,24 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
   p_obshtina text,
   p_year     int DEFAULT NULL
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH pick AS (
-    SELECT mf.*
-    FROM municipal_fiscal mf
+  -- Prefer the newest row that actually HAS the headline figure. The plain
+  -- newest is 2025-Q3, where the ingest suppressed commitments for all 265
+  -- municipalities (a frozen column carried forward), so a default call would
+  -- return null for the one number this whole pillar exists to publish — and a
+  -- null reads as „nothing contracted", not as „withheld". Falls back to the
+  -- newest row of any kind so a município with nothing but suppressed quarters
+  -- still resolves rather than vanishing.
+  WITH scoped AS (
+    SELECT mf.* FROM municipal_fiscal mf
     WHERE mf.obshtina = p_obshtina
       AND (p_year IS NULL OR mf.fiscal_year = p_year)
-    ORDER BY mf.fiscal_year DESC, mf.quarter DESC
+  ), pick AS (
+    SELECT * FROM (
+      SELECT *, 1 AS tier FROM scoped WHERE commitments_eur IS NOT NULL
+      UNION ALL
+      SELECT *, 2 AS tier FROM scoped
+    ) t
+    ORDER BY tier, fiscal_year DESC, quarter DESC
     LIMIT 1
   )
   SELECT to_jsonb(row) FROM (
@@ -272,13 +284,16 @@ CREATE OR REPLACE FUNCTION municipal_fiscal_by_obshtina(
       -- blank that reads as zero.
       p.suppressed_fields,
       -- The full quarterly series for this município, oldest first.
+      -- snake_case throughout, matching the columns this payload is built from.
+      -- An earlier draft had camelCase here and snake_case at the top level —
+      -- one payload, two conventions, which a consumer resolves by guessing.
       (SELECT jsonb_agg(jsonb_build_object(
-                'fiscalYear', s.fiscal_year, 'quarter', s.quarter,
-                'commitmentsEur', s.commitments_eur,
-                'expenseObligationsEur', s.expense_obligations_eur,
-                'arrearsEur', s.arrears_eur,
-                'cashOnHandEur', s.cash_on_hand_eur,
-                'suppressedFields', s.suppressed_fields)
+                'fiscal_year', s.fiscal_year, 'quarter', s.quarter,
+                'commitments_eur', s.commitments_eur,
+                'expense_obligations_eur', s.expense_obligations_eur,
+                'arrears_eur', s.arrears_eur,
+                'cash_on_hand_eur', s.cash_on_hand_eur,
+                'suppressed_fields', s.suppressed_fields)
               ORDER BY s.fiscal_year, s.quarter)
        FROM municipal_fiscal s WHERE s.obshtina = p.obshtina) AS series
     FROM pick p

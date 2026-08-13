@@ -3630,6 +3630,105 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? { facilities: [] } };
   },
+  // Per-município quarterly fiscal indicators (ЗПФ чл. 130г ал. 2, schema 149) →
+  // the governance tile. Takes ?obshtina= and an optional ?year=; without a year
+  // it serves the newest quarter that município filed.
+  //
+  // Sofia is the synthetic SOF00. place_dim DOES carry the city — as
+  // `code = 'SFO_CITY'` with `governance_code = 'SOF00'` — which is why the
+  // function joins on COALESCE(governance_code, code): the caller passes SOF00
+  // like any other code and gets „Столична община" back.
+  "municipal-fiscal": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina").trim().toUpperCase();
+    if (!/^[A-Z0-9_]{3,10}$/.test(obshtina))
+      return { status: 400, body: { error: "missing or malformed obshtina" } };
+    // clampInt, not orNull: a raw string bound to an ::int arg raises 22P02 and
+    // the catch below rethrows it as a 500. `?year=abc`, `?year=2024.5` and a
+    // duplicated `?year=` (which stringifies to "2024,2025") all take that path.
+    const year = q.year == null || s(q, "year") === ""
+      ? null
+      : clampInt(q.year, 0, 2000, 2100) || null;
+    const rows = await dbRows(
+      "SELECT municipal_fiscal_by_obshtina($1, $2::int) AS r",
+      [obshtina, year],
+    ).catch((e) => {
+      // Degrade rather than 500: the tile self-suppresses on a null payload, so
+      // a database that has not run db:load:municipal-fiscal:pg shows no tile
+      // instead of an error. The log line is the signal — latency cannot be,
+      // because an absent corpus is FAST.
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mf:not-built",
+          "municipal_fiscal is absent — serving an empty tile. Run db:load:municipal-fiscal:pg:cloud (place_dim first).",
+        );
+        return [{ r: null }];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows[0]?.r ?? null };
+  },
+  // The national aggregate → the /indicators/fiscal tile and the governance
+  // overview card. Every money total arrives WITH the count of municipalities
+  // behind it, and the three threshold counts (met / below / unknown) arrive
+  // separately — a suppressed column must be legible as unknown rather than as
+  // a collapse to zero.
+  "municipal-fiscal-national": async (dbRows, q) => {
+    const year = q.year == null || s(q, "year") === ""
+      ? null
+      : clampInt(q.year, 0, 2000, 2100) || null;
+    // An out-of-range quarter must 400, not serve a 200 whose met/below/unknown
+    // are all 0 — that is the composed claim („no município meets the чл. 130а
+    // threshold") that migration 149 splits those three counts precisely to
+    // prevent, and it would be indistinguishable from a real answer.
+    const rawQuarter = s(q, "quarter");
+    if (rawQuarter !== "" && !/^[1-4]$/.test(rawQuarter))
+      return { status: 400, body: { error: "quarter must be 1-4" } };
+    const quarter = rawQuarter === "" ? null : Number(rawQuarter);
+    const rows = await dbRows(
+      "SELECT municipal_fiscal_national($1::int, $2::smallint) AS r",
+      [year, quarter],
+    ).catch((e) => {
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mf:not-built:national",
+          "municipal_fiscal is absent — serving no national aggregate. Run db:load:municipal-fiscal:pg:cloud.",
+        );
+        return [{ r: null }];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows[0]?.r ?? null };
+  },
+  // Year-end ranking for the national browse. Ordered by the чл. 130а т. 3 ratio
+  // — commitments against the município's OWN four-year average expenditure —
+  // which is why it is preferred over a per-resident sort: it normalises by
+  // fiscal capacity rather than by population, so a small município mid-project
+  // does not read as reckless purely because its denominator is small.
+  "municipal-fiscal-ranking": async (dbRows, q) => {
+    // `Number(...) || 300` sent ?limit=0 to 300 rather than to the floor of 1,
+    // and ?limit=12.5 straight to a 22P02.
+    const limit = clampInt(q.limit, 300, 1, 1000);
+    const year = q.year == null || s(q, "year") === ""
+      ? null
+      : clampInt(q.year, 0, 2000, 2100) || null;
+    const rows = await dbRows(
+      "SELECT * FROM municipal_fiscal_ranking($1::int, $2::int)",
+      [year, limit],
+    ).catch((e) => {
+      // Logged like its two siblings. An empty browse degrading in silence is
+      // the one of the three most likely to be read as "no municipalities
+      // qualify" rather than as "the loader never ran here".
+      if (e?.code === "42883" || e?.code === "42P01") {
+        logMissOnce(
+          "mf:not-built:ranking",
+          "municipal_fiscal is absent — serving an empty ranking. Run db:load:municipal-fiscal:pg:cloud.",
+        );
+        return [];
+      }
+      return Promise.reject(e);
+    });
+    return { body: rows };
+  },
   // Companies REGISTERED at a place → the "фирми, регистрирани тук" tile on the
   // settlement / municipality governance pages (schema 133). Takes exactly one
   // of ?ekatte= (settlement) or ?obshtina= (municipality code); passing both
