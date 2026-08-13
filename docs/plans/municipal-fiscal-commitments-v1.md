@@ -660,11 +660,15 @@ parser that read the wrong column — the failure that produces a plausible tabl
 municipalities. **And `criteria_met` / `meets_threshold` are NULL on every `quarter <> 4` row**
 (T1.1), which is an assertion, not an implementation detail.
 
-**T3.2a `in_recovery_procedure` must not be derivable from `meets_threshold`** (T1.1b). Assert
-both directions occur in the corpus — a município meeting ≥3 criteria and *not* in a procedure,
-and one in a procedure *not* currently meeting ≥3. If either set is empty the parser has
-probably wired one from the other, and the page would then be asserting a legal status from an
-arithmetic test.
+**T3.2a `in_recovery_procedure` must not be derivable from `meets_threshold`** (T1.1b).
+
+**Only ONE direction is assertable, and that is a finding rather than a shortcut.** The gate
+asserts municipalities in a procedure *without* a TRUE verdict (12 today) — which is what
+proves the flag was read rather than derived. The other direction, a TRUE verdict with no
+procedure, is **0** and is only *reported*: with three of six criteria evaluable a TRUE needs
+all three met, a bar high enough that everyone clearing it is already in a procedure.
+Asserting it would red the suite for something that is not a defect, and a gate that must
+fail today is not a gate. Revisit if т. 1/5/6 ever become computable.
 
 **T3.3** `commitments_eur >= expense_obligations_eur >= arrears_eur` should hold **as a
 reported tendency, not an invariant** — the stocks nest conceptually but are measured on
