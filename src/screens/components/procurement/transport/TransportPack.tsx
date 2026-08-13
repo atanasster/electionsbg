@@ -5,12 +5,15 @@
 // function, contractor HHI, per-unit competition, and the biggest contracts. Mirrors
 // MvrPack.
 //
-// THESIS: the state transport group spends ~€5.9bn through the corpus, and the money
+// THESIS: the state transport group spends ~€7.3bn through the corpus, and the money
 // concentrates in RAIL (НКЖИ + БДЖ) and EU-funded construction. Roads (АПИ) are a
 // SEPARATE sector — excluded here, cross-linked, so the two don't double-count.
 //
 // NOTE: rail dominates; the universe Select lets the reader isolate a mode (rail /
-// maritime / aviation / road / ministry) so "what transport buys" isn't only trains.
+// aviation / maritime / road / ministry) so "what transport buys" isn't only trains.
+// ⚠ Rail dominates by MORE than the mode split shows: ~95% of the „Министерство"
+// slice is itself rail (the 2026 PSO lots + rolling stock), so the ministry bar is a
+// rail passthrough rather than HQ spending — the mode-split footnote says so.
 
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";

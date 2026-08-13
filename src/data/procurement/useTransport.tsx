@@ -5,14 +5,15 @@
 //
 // CONSOLIDATED GROUP — Министерство на транспорта и съобщенията (000695388) is the
 // principal of a group that also awards ЗОП contracts through the rail companies
-// (НКЖИ, БДЖ холдинг/пътнически/товарни), the port-infrastructure company, and the
+// (НКЖИ, БДЖ холдинг/пътнически/товарни, ДП ТСВ), the port-infrastructure company and
+// the Danube agency, the air-navigation enterprise (БУЛАТСА) and Летище София, and the
 // maritime/aviation/road-transport/rail regulators. A pack mounted on the ministry
-// that reported only the central EIK would understate the group (€2.2bn vs ~€5.9bn),
+// that reported only the central EIK would understate the group (€2.4bn vs ~€7.3bn),
 // so on the ministry's page we aggregate the parent + every subordinate. Mounted on
 // any other EIK it stands alone.
 //
 // UNIVERSE FILTER — rail dominates the group (НКЖИ + БДЖ), so the pack lets the reader
-// isolate a mode (rail / maritime / aviation / road / ministry). The active-universe
+// isolate a mode (rail / aviation / maritime / road / ministry). The active-universe
 // model is its own (cached) group-model call over that EIK subset; the whole-group
 // total (for the rail share / footnote) comes from the parallel all-EIKs call — the
 // same query when universe="all".

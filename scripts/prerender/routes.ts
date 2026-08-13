@@ -672,20 +672,20 @@ const SECTOR_PAGES: SectorPageContent[] = [
     bg: {
       title: "Транспорт — парите на държавата за железници, пристанища и БДЖ | electionsbg.com", // prettier-ignore
       description:
-        "Обществените поръчки на държавния транспорт — МТС, НКЖИ, БДЖ, пристанища и регулатори (~€5,9 млрд.): по вид транспорт, европейски средства (усвояване), субсидията за влака на пътник и къде отиват парите. Пътищата (АПИ) са отделен сектор.",
+        "Обществените поръчки на държавния транспорт — МТС, НКЖИ, БДЖ, пристанищата, БУЛАТСА и регулаторите (~€7,3 млрд.): по вид транспорт, европейски средства (усвояване), субсидията за влака на пътник и къде отиват парите. Пътищата (АПИ) са отделен сектор.",
       breadcrumb: "Транспорт",
       h1: "Транспорт — къде отиват парите на държавата",
       intro:
-        "Държавната транспортна група — Министерството на транспорта и съобщенията, НКЖИ, БДЖ (пътнически и товарни превози), Пристанищна инфраструктура и морската, въздушната и железопътната администрация — е сред най-големите възложители в страната. Тази страница показва обществените ѝ поръчки по вид транспорт (железници, пристанища, въздух), усвояването на европейските средства, държавната субсидия за железниците на пътник и картата на структурите по град. Железниците водят. Пътната инфраструктура (АПИ) е отделен сектор.",
+        "Държавната транспортна група — Министерството на транспорта и съобщенията, НКЖИ, БДЖ (пътнически и товарни превози), Пристанищна инфраструктура, БУЛАТСА (ръководството на въздушното движение), Летище София, агенцията за река Дунав и морската, въздушната и железопътната администрация — е сред най-големите възложители в страната. Тази страница показва обществените ѝ поръчки по вид транспорт (железници, въздух, пристанища и Дунав, автомобилен), усвояването на европейските средства, държавната субсидия за железниците на пътник и картата на структурите по град. Железниците водят. Пътната инфраструктура (АПИ) е отделен сектор.",
     },
     en: {
       title: "Transport — Bulgaria's spending on rail, ports and БДЖ | electionsbg.com", // prettier-ignore
       description:
-        "State-transport procurement — МТС, НКЖИ, БДЖ, ports and regulators (~€5.9bn): by mode, EU-funds absorption, the state rail subsidy per passenger and where the money goes. Roads (АПИ) are a separate sector.",
+        "State-transport procurement — МТС, НКЖИ, БДЖ, the ports, air navigation (БУЛАТСА) and the regulators (~€7.3bn): by mode, EU-funds absorption, the state rail subsidy per passenger and where the money goes. Roads (АПИ) are a separate sector.",
       breadcrumb: "Transport",
       h1: "Transport — where the state's money goes",
       intro:
-        "The state transport group — the Ministry of Transport and Communications, НКЖИ (rail infrastructure), БДЖ (passenger and freight), the Port Infrastructure company and the maritime, aviation and railway administrations — is one of the country's largest awarders. This page shows its public procurement by mode (rail, ports, aviation), EU-funds absorption, the state rail subsidy per passenger, and a map of the entities city by city. Railways dominate. Road infrastructure (АПИ) is a separate sector.",
+        "The state transport group — the Ministry of Transport and Communications, НКЖИ (rail infrastructure), БДЖ (passenger and freight), the Port Infrastructure company, БУЛАТСА (air navigation), Sofia Airport, the Danube waterway agency and the maritime, aviation and railway administrations — is one of the country's largest awarders. This page shows its public procurement by mode (rail, aviation, ports and the Danube, road), EU-funds absorption, the state rail subsidy per passenger, and a map of the entities city by city. Railways dominate. Road infrastructure (АПИ) is a separate sector.",
     },
   },
   {
