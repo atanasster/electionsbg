@@ -348,6 +348,24 @@ const main = async () => {
     "budget-methodology.png",
   );
 
+  // Same reasoning as /votes/between below: a rendered card, not a screenshot,
+  // because the page's DEFAULT view is a named empty state — „0 от 44
+  // разпоредители са публикували отчет за 2026 г." — and the years that do have
+  // a table are reached through its own picker. A capture seeded with ?fy=2024
+  // would put a full comparison in the share card for a year the reader does
+  // not land on.
+  renderStaticPageCard(
+    "План срещу отчет по разпоредители",
+    "Таванът по закона, изменението и какво е отчетено",
+    [
+      { label: "числа", value: "3" },
+      { label: "грам", value: "разпоредител" },
+      { label: "източник", value: "МФ" },
+      { label: "период", value: "по година" },
+    ],
+    "budget-deviations.png",
+  );
+
   // /votes/between is a rendered card rather than a screenshot on purpose. It is
   // a PICKER whose body is the disagreements between two chosen groups, and the
   // corpus for the current parliament has none — so every framing of the live
