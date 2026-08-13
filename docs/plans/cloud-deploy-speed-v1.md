@@ -675,6 +675,173 @@ looks healthy to every row-count check in this document.
 
 ---
 
+## Measured deploy profile (2026-08-12) — a PARTIAL publish, 2 h 12 m
+
+Third per-step profile, same method (external wrapper, chain-granular, halts on
+first non-zero exit). **This is not a complete publish and must not be compared
+to the 5 h 13 m headline.** Only two upstreams moved that day, so the chain is
+the procurement + open-calls subset: `tr`, `prices`, `agri`, `funds`,
+`admin-services` and the three crosswalk maps are all absent because nothing
+changed in them. Three further steps were deliberately dropped — see F23.
+
+Ingest published: ЦАИС ЕОП +142 contracts / 85 buyers (already on disk from
+b95995eb05), tenders re-index, ИСУН open calls +1. `db-g1-small`, proxy on
+`127.0.0.1:5434`, no competing load.
+
+(F-numbers are discovery-ordered, not position-ordered: F22-F23 are the
+2026-08-11 person-chain findings and live under `## Operational notes` below.)
+
+| # | step | seconds | | vs 2026-08-09 |
+|--:|---|--:|---|---|
+| 1 | `gcs` (4 paths, 581 objects) | 55 | | 180 (12 paths) |
+| 2 | `open-calls` | 8 | | not in that run |
+| 3 | `contracts` | **4982** | 83.0 min | 5005 → −0.5% |
+| 4 | `annexes` | 137 | | 61 → **+125%** |
+| 5 | `tenders` | **1182** | 19.7 min | 1168 → +1% |
+| 6 | `persons-browse` | **640** | 10.7 min | 137 → **+367%** |
+| 7 | `person-search` | **555** | 9.3 min | 505 → +10% |
+| 8 | `graph` | 195 | | 201 → −3% |
+| 9 | `tr-company-place` | 171 | | 78 → **+119%** |
+| | **total** | **7925** | **2 h 12 m** | |
+
+Verified afterwards, cloud vs local, all equal: `contracts` 405,479 /
+€93,585,357,225.34 (tag='contract') / latest 2026-08-11 · `tenders` 237,386 ·
+`procurement_annexes` 24,152 · `open_calls` 73 · `person_browse_table` 135,708 ·
+`person_search` 581,246 · `company_public_money` 81,373 · `tr_company_place`
+324,039 / 10,202 with a person link. Live: `/api/db/procurement-overview` 200 in
+0.97 s, `/api/db/open-calls` 200 in 0.61 s, `/api/db/contractor-scope-kpis` 200
+in 0.59 s.
+
+The €-parity used `round((sum(amount_eur) filter (...))::numeric, 2)` per the
+2026-08-09 caveat, and matched exactly — confirming that recipe works where the
+raw `double precision` comparison did not.
+
+### F24 — 83 minutes to ship 135 rows: the sharpest instance of F2 yet
+
+`contracts` moved **135 rows (0.033% of 405,479)** and **€24.3 m of €93.6 bn
+(0.026%)**, and cost **4982 s — 99.5% of the 5005 s the 2026-08-09 run paid to
+ship 209 rows**. A 35% smaller delta bought a 0.5% saving.
+
+F2 already states cost is decoupled from volume. This run pins the constant: the
+step is ~83 min *regardless*, so the marginal cost of a row is indistinguishable
+from zero and the fixed cost is the entire bill. Any phase that reduces
+`contracts` must attack the fixed work (RC2 re-ship, RC3 recompute), because
+there is no volume-proportional component left to optimise.
+
+The same holds for `tenders`: 65 procedures changed (0.027%), 1182 s vs 1168 s.
+
+### F25 — `awarder-seats` is a SECOND removable step, and this run verifies it
+
+F20 established that `db:load:procurement-scopes:pg:cloud` can be dropped. This
+run dropped **both** it and `db:load:awarder-seats:pg:cloud`, and afterwards all
+six scoped matviews were `ispopulated = true` with cardinality **identical to
+local**:
+
+| matview | cloud | local |
+|---|--:|--:|
+| `contractor_rank` | 431,432 | 431,432 |
+| `procurement_settlement_payloads` | 26,130 | 26,130 |
+| `procurement_settlement_rank` | 10,242 | 10,242 |
+| `procurement_payloads` | 180 | 180 |
+| `procurement_geo_payloads` | 30 | 30 |
+| `contractor_scope_kpis` | 29 | 29 |
+
+Combined saving against the 2026-08-09 chain: **933 s + the 945 s F1 measured for
+`procurement-scopes` ≈ 31 min**, taken rather than proposed.
+
+⚠️ **State the condition, because it is not unconditional.** `awarder_seats` was
+already byte-equal on both sides (3,864 = 3,864), so skipping it shipped nothing.
+It remains that table's ONLY loader, so a run where a new buyer appears must
+still call it. What is unconditionally duplicate is its *matview refresh* half —
+F8's measured 656 s of its 740 s. The correct fix is still the refresh ledger F1
+proposes; dropping the step is the cheap interim move, and it needs a guard that
+notices when `awarder_seats` itself has changed.
+
+### F26 — step timings are not reproducible, and the cost model rests on single measurements
+
+F22 already flags this for one step ("a single datapoint on this step is worth
+±20%", from the resolve's 1733 s cold / 1332 s warm spread). Pooling every
+profile shows it is general, and much wider than ±20% on the smaller steps —
+including the 2026-08-11 person-chain run, which independently timed three of
+these:
+
+| step | 08-05 | 08-09 | 08-11 | 08-12 | spread |
+|---|--:|--:|--:|--:|--:|
+| `persons-browse` | 362 | 137 | 461 | 640 | **4.7×** |
+| `annexes` | 41 | 61 | — | 137 | **3.3×** |
+| `tr-company-place` | 61 | 78 | — | 171 | **2.8×** |
+| `tr` | 2092 | 2886 | — | — | 1.4× |
+| `contracts` | 3878 | 5005 | — | 4982 | 1.3× |
+| `person-search` | 421 | 505 | 481 | 555 | 1.3× |
+| `graph` | 167 | 201 | 249 | 195 | 1.5× |
+| `tenders` | 1049 | 1168 | — | 1182 | 1.1× |
+
+`persons-browse` swung 4.7× while its output moved by **2 rows** (135,706 →
+135,708). The obvious culprit was ruled out by direct measurement: every table it
+reads had a **100%-complete visibility map** on cloud at the time
+(`contracts` 85,045/85,045 pages, `tenders` 42,085/42,085, `agri_subsidies`
+94,668/94,680, `tr_officers`, `declaration`, `person_role`, `fund_projects` all
+100%) — so `vacuumAfterReload` is working on the cloud side and this is not the
+`relallvisible = 0` regression documented in CLAUDE.md.
+
+The remaining explanation is instance-level: `db-g1-small` is shared-core with
+burst credits, and this chain ran `persons-browse` immediately behind a
+`TRUNCATE`+COPY+VACUUM of `tenders`, where the 08-09 chain had four small steps
+between them. Not established — stated as the leading hypothesis.
+
+**Consequence for the plan:** the large steps (`contracts`, `tenders`) are stable
+to ~±1% and their targets are safe. The small-and-medium steps are not, so
+savings estimates built on a single sample of them (F8's 656 s, F16's 1005 s)
+should carry a ±2-3× band until re-measured. Phase 0's instrumentation should
+record per-step timings on **every** run, not per profiling exercise, so the
+distribution is available rather than three points.
+
+### F27 — a procurement-only publish cannot bring `/connections` to parity
+
+`db:load:graph:pg:cloud` succeeded, and the graph still came out behind local:
+
+| table | local | cloud | gap |
+|---|--:|--:|--:|
+| `person` | 132,543 | 132,541 | −2 |
+| `person_role` | 321,229 | 321,225 | −4 |
+| `company_politicians` | 522 | 522 | = |
+| `graph_company_node` | 87,029 | 87,027 | **−2** |
+| `graph_edge` | 199,681 | 199,677 | **−4** |
+
+The deficit maps 1:1 onto the person layer — 2 missing people → 2 missing company
+nodes, 4 missing roles → 4 missing edges. The loader is correct; it reproduced
+cloud's `person_role` faithfully. **A graph reload cannot close a gap that lives
+upstream of it.**
+
+F22 already prices the person chain (4251 s / 70.8 min, resolve 1733 s), so the
+cost is on record. What this run adds is the **coupling**: `graph` appears in
+both chains, and running it from the procurement side reaches only the freshness
+the person side last established. A procurement publish therefore ships
+`/connections` company *money* correctly (`company_public_money` hit parity at
+81,373) while leaving its *node and edge set* at the person layer's vintage.
+
+So `graph`'s ~200 s in this profile buys strictly less than the same step buys at
+the end of F22's chain, and the two are not interchangeable. When scheduling
+against the phase targets, a run that touches only procurement should be costed
+as **not closing `/connections`** rather than as closing it for 200 s — and if
+parity there matters on a given day, the 70.8 min person chain is the real
+prerequisite, not the graph loader.
+
+The gap this run left is 2 people / 4 edges, which is not worth a 70-minute chain
+on its own; it rides the next `update-persons`.
+
+### One observation, attribution unestablished
+
+`tender_search_text` was **1,861 rows on cloud** afterwards, equal to local.
+CLAUDE.md states (as of this same date) that the dossier family is local-only and
+has never reached a serving database. The `tenders` loader logged nothing about
+the index, and the table was **not** baselined on cloud before the run — so
+whether this publish populated it, or it was already there, is not established.
+Worth resolving before either the CLAUDE.md note or the search-arm deploy
+ordering in it is relied upon.
+
+---
+
 ## Root causes
 
 ### RC1 — Five caches are built twice per load, the first time against stale data
