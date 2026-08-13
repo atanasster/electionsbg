@@ -1515,8 +1515,10 @@ export type PlaceCardSpec = {
   };
   /** Municipality-grain band, fenced off below its own rule.
    *
-   *  Two mutually exclusive forms; `benchmarks` wins when both are passed.
-   *  `cells` is the profile form — up to three standalone figures. `benchmarks`
+   *  Two forms that STACK under one header — pass either or both. (This said
+   *  "mutually exclusive; benchmarks wins" until 2026-08-13, which the code
+   *  below has never done; a caller who believed it would drop their cells.)
+   *  `cells` is the profile form — up to four standalone figures. `benchmarks`
    *  is the comparison form — full-width rows measuring this municipality
    *  against a national reference. The band header names the grain either way,
    *  which is what lets a municipality-grain KPI sit under a settlement-grain
@@ -1819,6 +1821,10 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
 
   // ---- settlement-grain zones, a 2×2 grid of whatever is present ----
   const zones: ((x: number, y: number, w: number, h: number) => void)[] = [];
+  /** Minimum readable height for the tallest zone on this card. Starts at the
+   *  `people` floor (derived at the guard below) and is raised by any zone that
+   *  needs more — see `government`. */
+  let zoneFloor = 268;
 
   const zoneTitle = (t: string, x: number, y: number) => {
     ctx.textAlign = "left";
@@ -1996,6 +2002,22 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
 
   if (spec.government) {
     const gv = spec.government;
+    // The government zone can need MORE than the `people` floor below, and it
+    // is the one zone whose need grows with its content. Its mayor rows are
+    // laid out top-down at a hard 86px floor (the `Math.max(86, …)` on mayorH)
+    // while the council block is pinned to the zone's BOTTOM, so the two
+    // collide silently when the zone is short.
+    //
+    // Derived, both ends measured against the drawing code below: the last
+    // mayor's note has its baseline at y + 48 + n×86 and descends ~6px past it,
+    // while the council block's topmost ink is its label's ascender at
+    // y + h − 89 (baseline y + h − 74). Clearing one past the other needs
+    // h >= 143 + n×86 — 315 for the two-mayor case, which is why a settlement
+    // with its own кметство plus a council overprinted at the 268 baseline.
+    // Declaring it per-card rather than widening the global constant keeps a
+    // one-mayor card (229) at the cheaper floor.
+    if (gv.council)
+      zoneFloor = Math.max(zoneFloor, 143 + Math.min(2, gv.mayors.length) * 86);
     zones.push((x, y, w, h) => {
       const ix = x + 22;
       const iw = w - 44;
@@ -2201,17 +2223,23 @@ export const renderPlaceCard = (spec: PlaceCardSpec): Buffer => {
   // its rows over the one above it, so refuse rather than emit garbage — same
   // contract as renderBarCard.
   //
-  // 268 is derived, not chosen. The tightest zone is `people`: it spends
-  // 168px on the hero, the sex split and its padding, leaving (h - 168) for the
-  // age bands, and an 18px label needs ~20px of pitch to clear the row above.
-  // Five bands therefore need 168 + 5×20 = 268. The floor read 190 until
+  // The 268 baseline is derived, not chosen. The tightest zone is `people`: it
+  // spends 168px on the hero, the sex split and its padding, leaving (h - 168)
+  // for the age bands, and an 18px label needs ~20px of pitch to clear the row
+  // above. Five bands therefore need 168 + 5×20 = 268. The floor read 190 until
   // 2026-08-06, which let a 202px grid through and overprinted the age bands,
   // the party rows and the mayor's note onto the council label — the exact
   // garbling the guard exists to prevent. A six-band card wants ~288 and is
   // still slightly tight here; widen the constant if one ever ships.
-  if (zoneH < 268)
+  //
+  // But 268 alone was ALSO a lie, for the same reason and in the same place: a
+  // `government` zone carrying two mayors and a council needs 315, and at 268
+  // it printed the second mayor's note across the council label — garbling that
+  // this guard passed. Zones that need more than the baseline now say so when
+  // they are pushed, so the floor is per-card rather than a single constant.
+  if (zoneH < zoneFloor)
     throw new Error(
-      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= 268) — drop a zone, shorten the municipality band (a benchmark row costs ${PLACE_BENCH_H}px, a cells row ${132}px), or pass format: "portrait" for 270px more height`,
+      `renderPlaceCard: zones do not fit (${zoneH.toFixed(0)}px each, need >= ${zoneFloor}) — drop a zone, shorten the municipality band (a benchmark row costs ${PLACE_BENCH_H}px, a cells row ${132}px), or pass format: "portrait" for 270px more height`,
     );
 
   zones.forEach((draw, i) => {

@@ -604,6 +604,87 @@ describe("renderPlaceCard", () => {
     ).toThrow(/do not fit/);
   });
 
+  // A settlement with its own кметство gets TWO mayor rows (Step 5 of the
+  // settlement-post skill), and the government zone lays those out top-down at
+  // a hard 86px floor while pinning the council to the zone's bottom. So its
+  // height need grows with its content — 315px against the 268 the `people`
+  // zone sets — and a single global floor cannot see that. с. Трайково shipped
+  // through the 268 guard on 2026-08-13 and printed the second mayor's
+  // "ГЕРБ · първи тур" across the council label; the 190 → 268 widening in
+  // August had fixed only the `people` half of the same bug.
+  const twoMayors = {
+    ...place.government,
+    mayors: [
+      place.government.mayors[0],
+      {
+        role: "кмет на общината",
+        name: "Цветан Цветанов",
+        note: "ГЕРБ",
+        pct: 54.9,
+      },
+    ],
+  };
+
+  it("refuses a two-mayor government zone that a one-mayor card would fit", () => {
+    // Portrait + 3 cells + 3 benchmarks leaves 297px a zone. That clears the
+    // 268 baseline, so the one-mayor form renders — the two-mayor form must not.
+    const band = {
+      label: benchBand.label,
+      cells: [
+        { label: "етнически състав", value: "79,7%" },
+        { label: "евросредства", value: "163,9 млн. €" },
+        { label: "обществени поръчки", value: "118,6 млн. €" },
+      ],
+      benchmarks: benchBand.benchmarks.slice(0, 3),
+    };
+    expect(() =>
+      renderPlaceCard({ ...place, format: "portrait", municipality: band }),
+    ).not.toThrow();
+    expect(() =>
+      renderPlaceCard({
+        ...place,
+        format: "portrait",
+        government: twoMayors,
+        municipality: band,
+      }),
+    ).toThrow(/do not fit/);
+  });
+
+  it("renders two mayors plus a council once the band leaves 315px a zone", () => {
+    // Dropping one benchmark row (68px, split across two grid rows) takes the
+    // zone from 297 to 331 — the floor the two-mayor form actually needs.
+    const png = renderPlaceCard({
+      ...place,
+      format: "portrait",
+      government: twoMayors,
+      municipality: {
+        label: benchBand.label,
+        cells: [
+          { label: "етнически състав", value: "79,7%" },
+          { label: "евросредства", value: "163,9 млн. €" },
+          { label: "обществени поръчки", value: "118,6 млн. €" },
+        ],
+        benchmarks: benchBand.benchmarks.slice(0, 2),
+      },
+    });
+    expect(png.readUInt32BE(16)).toBe(1080);
+    expect(png.readUInt32BE(20)).toBe(1350);
+  });
+
+  it("keeps a one-mayor card at the cheaper floor", () => {
+    // The raised floor is declared by the government zone, not baked into the
+    // constant — so a card with one mayor and a council still renders in the
+    // square canvas that a 315 global floor would have rejected.
+    const png = renderPlaceCard({
+      ...place,
+      municipality: {
+        label: benchBand.label,
+        benchmarks: benchBand.benchmarks.slice(0, 2),
+      },
+    });
+    expect(png.readUInt32BE(20)).toBe(1080);
+  });
+
   it("renders a two-row benchmark band beside the full four-zone grid", () => {
     const png = renderPlaceCard({
       ...place,
