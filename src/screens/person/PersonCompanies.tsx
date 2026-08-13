@@ -31,6 +31,7 @@
 import { FC, Fragment, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { LinkBasisMark, isNameMatch } from "@/screens/components/LinkBasisMark";
 import { Building2, ExternalLink } from "lucide-react";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import {
@@ -144,29 +145,10 @@ const CompanyMoney: FC<{ c: ProfileCompany }> = ({ c }) => {
   );
 };
 
-/** Absent linkBasis is treated as a name match, never as declared.
- *
- *  A cloud database still serving a 082 older than tr-attribution-basis-v1 omits the field,
- *  and the two ways to be wrong are not symmetric: calling a curated link a name match costs
- *  a caveat nobody needed, while calling a name match "declared" tells a reader we confirmed
- *  a company belongs to a named person when we did not. */
-const isNameMatch = (c: ProfileCompany): boolean => c.linkBasis !== "declared";
-
-/** The small "по име" mark on a company whose link rests on a name.
- *
- *  Same wording source as the /persons money cell (`person_namesake_disclosure`), so the two
- *  surfaces cannot drift into describing the same uncertainty differently. */
-const NameMatchMark: FC<{ label: string }> = ({ label }) => {
-  const { t } = useTranslation();
-  return (
-    <span
-      className="ml-1 shrink-0 whitespace-nowrap rounded-full bg-amber-100 px-1.5 py-0.5 align-middle text-[10px] text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-      title={label}
-    >
-      {t("pp_link_name_match", { defaultValue: "по име" })}
-    </span>
-  );
-};
+/** Absent linkBasis is treated as a name match — see LinkBasisMark for why the two ways to be
+ *  wrong are not symmetric. Kept as a local adapter so callers pass a company, not a field. */
+const isNameMatchCompany = (c: ProfileCompany): boolean =>
+  isNameMatch(c.linkBasis);
 
 export const PersonCompanies: FC<{
   companies: ProfileCompany[];
@@ -305,8 +287,8 @@ export const PersonCompanies: FC<{
                         attribution line below is MP-only, so on a magistrate's or mayor's
                         profile there is no source line either; adding one for the non-MP
                         registers is open work, tracked in the plan.) */}
-                    {isNameMatch(c) && (
-                      <NameMatchMark
+                    {isNameMatchCompany(c) && (
+                      <LinkBasisMark
                         label={t("person_namesake_disclosure", {
                           // A defaultValue so a dropped or renamed key shows a SENTENCE rather than
                           // the bare identifier — on the one line whose job is to qualify a claim
@@ -473,7 +455,7 @@ export const PersonCompanies: FC<{
               company, which told the ~340 people whose every holding is register-confirmed
               that their own declared interests might belong to somebody else. Now it appears
               only when at least one company on this page actually rests on a name. */}
-          {companies.some(isNameMatch) && (
+          {companies.some(isNameMatchCompany) && (
             <div className="mt-3 space-y-1 border-t pt-3 text-xs text-muted-foreground">
               <div>
                 {t("person_namesake_disclosure", {

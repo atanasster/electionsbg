@@ -33,11 +33,36 @@ import type {
   CompanyIndexEntry,
 } from "../build_company_index";
 import type {
-  MpManagementFile,
-  MpManagementRole,
   TrCompanyEnrichment,
   TrCompanyOfficer,
 } from "../../../src/data/dataTypes";
+
+// ⚠️ LOCAL, and no longer the serving contract. `MpManagementRole` in src/data/dataTypes.ts is
+// now what /api/db/mp-management (migration 150) returns — gated on tr_name_fold_people, with
+// `linkBasis` where this had `confidence`. This writer still produces the LEGACY shard file,
+// which nothing reads any more; the shape is pinned here so the two cannot be confused, and
+// both this type and this writer die with the shard family (mp-tr-edges-pg-v1 §4 Tier 3).
+type LegacyMpManagementRole = {
+  uic: string;
+  companyName: string | null;
+  legalForm: string | null;
+  seat: string | null;
+  status: string;
+  role: string;
+  positionLabel: string | null;
+  sharePercent: number | null;
+  addedAt: string;
+  erasedAt: string | null;
+  confidence: "high" | "medium";
+  confidenceReason: string;
+};
+type LegacyMpManagementFile = {
+  mpId: number;
+  mpName: string;
+  generatedAt: string;
+  total: number;
+  roles: LegacyMpManagementRole[];
+};
 
 /** Threshold for "this name is too common in TR for a bare name match to stand
  * on its own". 11+ officer/owner rows ≈ the top 0.5% of the name-frequency
@@ -571,7 +596,7 @@ export const integrateTr = ({
       ? partyGroupToMpIds.get(mp.currentPartyGroup)
       : null;
 
-    const roles: MpManagementRole[] = [];
+    const roles: LegacyMpManagementRole[] = [];
     for (const r of rows) {
       if (trMatchSuppressions.has(`${mp.id}|${r.uic}`)) {
         mpRolesSuppressed++;
@@ -663,7 +688,7 @@ export const integrateTr = ({
       return (b.addedAt || "").localeCompare(a.addedAt || "");
     });
 
-    const file: MpManagementFile = {
+    const file: LegacyMpManagementFile = {
       mpId: mp.id,
       mpName: mp.name,
       generatedAt: new Date().toISOString(),

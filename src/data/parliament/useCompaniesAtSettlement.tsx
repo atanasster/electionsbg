@@ -1,85 +1,93 @@
-// MP-linked companies HQ'd at a settlement. Backs the `CompaniesHqTile`
-// (summary shard) and the paginated detail screen (`{ekatte}-page-NNN.json`).
+// Companies registered at a place that a person in public life holds a registry role in —
+// live from Postgres (/api/db/place-mp-companies, migration 151). Backs the paginated
+// /settlement/:id/companies + /sofia/companies screen.
 //
-// Sources written by scripts/parliament/build_companies_by_settlement.ts.
-// 404 means the place has no MP-linked HQs — the tile renders null in that
-// case rather than an empty card. Sofia capital (ekatte 68134) is the only
-// place with multi-page pagination today.
+// Replaces the static `parliament/companies-by-{ekatte,obshtina}/` shard families (646 files,
+// 307 places). Those matched an MP NAME against TR officers with no people-per-name guard;
+// this reads the gated `person_role` set, so it covers 1,332 settlements and 260
+// municipalities — and every row names a resolved person with a /person slug rather than a
+// name that happened to match.
+//
+// ONE hook where there were two. The shards shipped `{id}-summary.json` (top-5 + counts) and
+// `{id}-page-NNN.json` separately, which is two fetches and two chances to disagree about
+// `count`; the route differs only in `pageSize`, so a caller that wants the teaser asks for a
+// small page and reads the same counts.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
 
-export type CompaniesHqRow = {
+/** A person in public life holding a registry role at this company. */
+export type CompaniesHqPerson = {
   slug: string;
-  displayName: string;
-  registeredOffice: string | null;
-  mps: Array<{
-    mpId: number;
-    mpName: string;
-    role: string;
-    isCurrent: boolean;
-  }>;
+  name: string;
+  /** Every capacity this person holds at this company ("manager", "sole_owner", …).
+   *  An ARRAY because 53.1% of (company, person) pairs hold more than one, and a client-side
+   *  dedupe by slug over one-row-per-role silently dropped the others. */
+  roles: string[];
 };
 
-export type CompaniesHqSummary = {
-  ekatte: string;
-  count: number;
-  mpCount: number;
-  totalPages: number;
-  topCompanies: CompaniesHqRow[];
+export type CompaniesHqRow = {
+  uic: string;
+  name: string;
+  legalForm: string | null;
+  status: string | null;
+  /** Public money (contracts ∪ subsidies ∪ funds), 0 when none. */
+  moneyEur: number;
+  people: CompaniesHqPerson[];
 };
 
 export type CompaniesHqPage = {
-  ekatte: string;
-  page: number;
-  totalPages: number;
+  /** Qualifying companies in the whole place, not on this page. */
   count: number;
+  /** DISTINCT people across the whole place — stable as the reader pages. */
+  personCount: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
   companies: CompaniesHqRow[];
 };
 
-const fetchOrNull = async <T,>(url: string): Promise<T | null> => {
-  const r = await fetch(url);
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${url}`);
-  return (await r.json()) as T;
-};
-
-/** Place key — numeric EKATTE (`"56784"`, settlement view) OR an obshtina
- * code (`"PDV22"`, municipality view). Routes to the matching shard family. */
+/** Place key — numeric EKATTE (`"56784"`, settlement view) OR an obshtina code (`"PDV22"`,
+ *  municipality view). Sofia's `SFO_CITY` and the 24 `S####` rayon codes are accepted too. */
 export type CompaniesHqPlace =
   | { kind: "ekatte"; ekatte: string | undefined }
   | { kind: "muni"; obshtina: string | undefined };
 
-const shardBase = (p: CompaniesHqPlace): { dir: string; id: string } => {
-  if (p.kind === "ekatte") {
-    return { dir: "companies-by-ekatte", id: p.ekatte ?? "" };
-  }
-  return { dir: "companies-by-obshtina", id: p.obshtina ?? "" };
+const placeParam = (p: CompaniesHqPlace): string =>
+  p.kind === "ekatte"
+    ? `ekatte=${encodeURIComponent(p.ekatte ?? "")}`
+    : `obshtina=${encodeURIComponent(p.obshtina ?? "")}`;
+
+const placeId = (p: CompaniesHqPlace): string | undefined =>
+  p.kind === "ekatte" ? p.ekatte : p.obshtina;
+
+const fetchPage = async (
+  place: CompaniesHqPlace,
+  page: number,
+  pageSize: number,
+): Promise<CompaniesHqPage | null> => {
+  const r = await fetch(
+    `/api/db/place-mp-companies?${placeParam(place)}&page=${page}&pageSize=${pageSize}`,
+  );
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`db fetch failed: ${r.status} ${r.url}`);
+  return (await r.json()) as CompaniesHqPage | null;
 };
 
-export const useCompaniesHqSummary = (place: CompaniesHqPlace) => {
-  const { dir, id } = shardBase(place);
+export const useCompaniesHqPage = (
+  place: CompaniesHqPlace,
+  page: number,
+  pageSize = 50,
+) => {
+  const id = placeId(place);
   return useQuery({
-    queryKey: ["companies-hq", "summary", dir, id] as const,
-    queryFn: () =>
-      fetchOrNull<CompaniesHqSummary>(
-        dataUrl(`/parliament/${dir}/${id}-summary.json`),
-      ),
-    enabled: !!id,
-    staleTime: Infinity,
-  });
-};
-
-const pad3 = (n: number): string => String(n).padStart(3, "0");
-
-export const useCompaniesHqPage = (place: CompaniesHqPlace, page: number) => {
-  const { dir, id } = shardBase(place);
-  return useQuery({
-    queryKey: ["companies-hq", "page", dir, id, page] as const,
-    queryFn: () =>
-      fetchOrNull<CompaniesHqPage>(
-        dataUrl(`/parliament/${dir}/${id}-page-${pad3(page)}.json`),
-      ),
+    queryKey: [
+      "place-mp-companies",
+      place.kind,
+      id ?? "",
+      page,
+      pageSize,
+    ] as const,
+    queryFn: () => fetchPage(place, page, pageSize),
     enabled: !!id && page >= 1,
     staleTime: Infinity,
   });

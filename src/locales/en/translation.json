@@ -1426,10 +1426,10 @@
   "place_companies_source_note": "Ranked by political link, then by public money received (procurement, subsidies, EU funds and Interreg). The Interreg figures cover 2021-2027 only — keep.eu publishes a partner's national ID for that period alone.",
   "place_companies_see_mp_linked": "See the MP-linked ones ({{count}})",
   "companies_hq_role_declared_stake": "declared stake",
-  "companies_hq_screen_title": "{{name}} — MP-linked companies",
-  "companies_hq_screen_breadcrumb": "MP-linked companies",
-  "companies_hq_screen_lede": "{{count}} companies registered here are linked to {{mpCount}} MP(s) — by declared ownership stake or Commerce Registry officer/owner role.",
-  "companies_hq_screen_empty": "No MP-linked companies found at this address.",
+  "companies_hq_screen_title": "{{name}} — companies linked to people in public life",
+  "companies_hq_screen_breadcrumb": "Companies linked to people in public life",
+  "companies_hq_screen_lede": "{{count}} companies registered here are linked to {{personCount}} people who hold or held public office — MPs, mayors, councillors, magistrates and others — through a manager or owner role in the Commerce Registry.",
+  "companies_hq_screen_empty": "No companies at this address are linked to a person in public life.",
   "companies_hq_screen_pagination_label": "Pagination",
   "cohesion_title": "Parliamentary group cohesion",
   "cohesion_description": "How unified Bulgarian parliamentary groups vote — mean and median cohesion per item across the current parliament.",
@@ -5944,5 +5944,8 @@
   "funds_m_paid": "paid of the grant",
   "funds_m_bg_projects": "projects with a Bulgarian partner",
   "pp_fold_people_n": "The Commercial Register records at least {{n}} different people under this name.",
-  "pp_link_name_match": "name match"
+  "pp_link_name_match": "name match",
+  "place_companies_see_mp_linked_all": "All companies here linked to people in public life",
+  "tr_management_name_match_hint": "Linked by name from the Commerce Registry, not from a declared interest.",
+  "companies_hq_screen_error": "This list could not be loaded right now."
 }

@@ -1078,11 +1078,16 @@ export type TrCompanyEnrichment = {
   currentOwners: TrCompanyOfficer[];
 };
 
-// Per-MP file: public/parliament/mp-management/{mpId}.json
-// Surfaces TR records whose normalized name matches the MP. Confidence model:
-// HIGH = name match + (TR seat city contains MP region OR another MP from the
-// same party already declared a stake in this UIC); MEDIUM = name match only.
-// LOW (surname-only) is suppressed entirely.
+// One registry role on the „Управленски роли" block, served live by `mp_tr_roles` (migration
+// 150) at /api/db/mp-management. Was `public/parliament/mp-management/{mpId}.json`.
+//
+// ⚠️ `confidence`/`confidenceReason` are GONE, and the replacement is not a rename. The shards
+// graded a name match HIGH when it was corroborated (TR seat in the MP's region, a same-party
+// MP's declared stake) and MEDIUM otherwise — a scale invented before anything could measure
+// whether a name belongs to one person. It now can: the route reads the `person_role` set
+// gated on `tr_name_fold_people`, so a shared name is REFUSED rather than graded, and what is
+// left to say about a published row is where the link came from. That is `linkBasis`, from the
+// same `person_company_bridge_a` view the profile's own companies list reads.
 export type MpManagementRole = {
   uic: string;
   companyName: string | null;
@@ -1095,14 +1100,15 @@ export type MpManagementRole = {
   addedAt: string;
   /** null = currently active; ISO date = when the role was erased. */
   erasedAt: string | null;
-  confidence: "high" | "medium";
-  confidenceReason: string;
+  /** 'declared' = a curated register put this COMPANY on this person; 'name_match' = found by
+   *  name. NOT a confirmed identity either way — see LinkBasisMark and 148's header. Optional
+   *  so a cloud database serving a 150 older than this field degrades to a name match. */
+  linkBasis?: "declared" | "name_match";
 };
 
 export type MpManagementFile = {
   mpId: number;
   mpName: string;
-  generatedAt: string;
   total: number;
   roles: MpManagementRole[];
 };

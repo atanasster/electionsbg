@@ -137,14 +137,23 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         -- ("управител", "съдружник"), and a name printed beside a company with no stated
         -- capacity is a weaker and vaguer claim than the shard made. Aggregated per person
         -- so two roles at one company read as one line, not two people.
+        -- ONE ENTRY PER PERSON with their roles collected, not one per (person, role).
+        -- `jsonb_agg(DISTINCT …)` over the triple looked right and was not: 53.1% of
+        -- (company, person) pairs here hold more than one role, so it emitted the same human
+        -- twice and any client dedupe by slug then SILENTLY DROPPED a capacity. Grouping in
+        -- SQL is the only place that can keep both.
         'people', COALESCE((
-          SELECT jsonb_agg(DISTINCT jsonb_build_object(
-                   'slug', pe.slug, 'name', pe.display_name, 'role', r.role))
-            FROM person_role r
-            JOIN person pe ON pe.person_id = r.person_id
-           WHERE r.ref = pgc.uic AND r.source IN ('tr','ngo')
-             AND r.confidence IN ('exact_id','high','manual')
-             AND pe.status = 'active' AND pe.is_public_figure), '[]'::jsonb)
+          SELECT jsonb_agg(jsonb_build_object(
+                   'slug', p2.slug, 'name', p2.display_name, 'roles', p2.roles)
+                 ORDER BY p2.display_name, p2.slug)
+            FROM (SELECT pe.slug, pe.display_name,
+                         jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
+                    FROM person_role r
+                    JOIN person pe ON pe.person_id = r.person_id
+                   WHERE r.ref = pgc.uic AND r.source IN ('tr','ngo')
+                     AND r.confidence IN ('exact_id','high','manual')
+                     AND pe.status = 'active' AND pe.is_public_figure
+                   GROUP BY pe.slug, pe.display_name) p2), '[]'::jsonb)
       ) ORDER BY pgc.money_eur DESC, pgc.name, pgc.uic)
       FROM page pgc
       LEFT JOIN tr_companies c ON c.uic = pgc.uic), '[]'::jsonb)

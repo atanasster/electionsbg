@@ -21,7 +21,6 @@ import {
   type PlaceKey,
   type PlaceCompany,
 } from "@/data/parliament/usePlaceCompanies";
-import { useCompaniesHqSummary } from "@/data/parliament/useCompaniesAtSettlement";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 
@@ -124,11 +123,15 @@ export const PlaceCompaniesTile: FC<Props> = (props) => {
       ? { kind: "muni", obshtina: props.obshtina }
       : { kind: "ekatte", ekatte: props.ekatte };
   const { data, isLoading } = usePlaceCompanies(place);
-  // The MP-linked shard family this tile replaced still backs a full page
-  // (/settlement/:id/companies). Link it only where it has rows, so the tile
-  // never sends a village to an empty list — the shards 404 for most places
-  // now that the namesake matches are gone.
-  const { data: mpLinked } = useCompaniesHqSummary(place);
+  // The full page at /settlement/:id/companies is linked from `politicalCount` on THIS call —
+  // it used to cost a SECOND fetch (the retired `{id}-summary.json` shard) on every governance
+  // dashboard, purely to decide whether to render a link.
+  //
+  // ⚠️ It gates on `personLinkCount` — the page's OWN predicate — and an earlier cut of this
+  // used `politicalCount`, which looks like a subset and is not. Measured: that hid the link
+  // on 218 of the 260 municipalities and 1,290 of the 1,332 settlements that HAVE a page, and
+  // ekatte 80217 has a political link with an empty page. This tile is the page's only entry
+  // point — no sitemap loc, no prerender — so a wrong gate is the page not existing.
 
   if (isLoading) return <SkeletonState />;
   if (!data || data.count === 0) return null;
@@ -190,12 +193,12 @@ export const PlaceCompaniesTile: FC<Props> = (props) => {
           {t("place_companies_source_note")}
         </div>
 
-        {!!mpLinked?.count && (
+        {!!data.personLinkCount && (
           <Link
             to={mpLinkedHref}
             className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
           >
-            {t("place_companies_see_mp_linked", { count: mpLinked.count })}
+            {t("place_companies_see_mp_linked_all")}
           </Link>
         )}
       </CardContent>

@@ -40,6 +40,10 @@ export type PlaceCompanies = {
   count: number;
   moneyCount: number;
   politicalCount: number;
+  /** Companies here held by a public figure — the predicate /settlement/:id/companies pages,
+   *  and NOT a superset of politicalCount despite reading like one. Optional so a database
+   *  serving a 133 older than this field simply hides the link. */
+  personLinkCount?: number;
   companies: PlaceCompany[];
 };
 

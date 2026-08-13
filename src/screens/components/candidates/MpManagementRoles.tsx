@@ -4,7 +4,7 @@ import { ShieldCheck, ExternalLink, CheckCircle2, Circle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import type { MpManagementRole } from "@/data/dataTypes";
-import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
+import { LinkBasisMark, isNameMatch } from "@/screens/components/LinkBasisMark";
 
 const trStatusLabel = (status: string, t: (k: string) => string): string => {
   switch (status) {
@@ -35,8 +35,9 @@ type GroupedRole = {
   legalForm: string | null;
   seat: string | null;
   status: string;
-  confidence: "high" | "medium";
-  confidenceReason: string;
+  /** True when NO role on this company came from a curated register — see LinkBasisMark.
+   *  Grouped pessimistically: `declared` wins, so a company reached both ways is not marked. */
+  nameMatch: boolean;
   /** Earliest non-null erasedAt across the group, or null if any role is active. */
   erasedAt: string | null;
   isActive: boolean;
@@ -54,8 +55,7 @@ const groupRolesByUic = (roles: MpManagementRole[]): GroupedRole[] => {
         legalForm: r.legalForm,
         seat: r.seat,
         status: r.status,
-        confidence: r.confidence,
-        confidenceReason: r.confidenceReason,
+        nameMatch: isNameMatch(r.linkBasis),
         erasedAt: r.erasedAt,
         isActive: r.erasedAt === null,
         roles: [r],
@@ -68,10 +68,9 @@ const groupRolesByUic = (roles: MpManagementRole[]): GroupedRole[] => {
       } else if (existing.erasedAt !== null && r.erasedAt > existing.erasedAt) {
         existing.erasedAt = r.erasedAt;
       }
-      if (r.confidence === "high" && existing.confidence !== "high") {
-        existing.confidence = "high";
-        existing.confidenceReason = r.confidenceReason;
-      }
+      // `declared` on ANY role clears the mark for the company: the register put this company
+      // on this person, which is a fact about the company link, not about one filing row.
+      if (!isNameMatch(r.linkBasis)) existing.nameMatch = false;
     }
   }
   return Array.from(map.values());
@@ -125,10 +124,14 @@ const RoleRow: FC<{ group: GroupedRole }> = ({ group }) => {
         )}
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        <ConfidenceBadge
-          confidence={group.confidence}
-          reason={group.confidenceReason}
-        />
+        {group.nameMatch && (
+          <LinkBasisMark
+            label={
+              t("tr_management_name_match_hint") ||
+              "Свързано по име от Търговския регистър, не от деклариран интерес."
+            }
+          />
+        )}
         <a
           href={`https://portal.registryagency.bg/CR/en/Reports/VerifiedPersonShortInfo?uic=${group.uic}`}
           target="_blank"

@@ -148,6 +148,17 @@ SELECT jsonb_build_object(
                       WHERE p.political_n > 0
                         AND ((p_ekatte IS NOT NULL AND p.ekatte = p_ekatte)
                           OR (p_obshtina IS NOT NULL AND p.obshtina = p_obshtina))),
+  -- The count behind the link to /settlement/:id/companies (151). It must be THIS predicate
+  -- and not `politicalCount`: the two are different questions, and `political_n` is NOT a
+  -- subset of `person_link_n` despite reading like one. Measured 2026-08-12 — gating the link
+  -- on politicalCount hid it on 218 of the 260 municipalities and 1,290 of the 1,332
+  -- settlements that HAVE a page, and ekatte 80217 has a political link with an empty page.
+  -- The tile is that page's only entry point (no sitemap loc, no prerender), so a wrong gate
+  -- is the page not existing.
+  'personLinkCount', (SELECT count(*)::int FROM tr_company_place p
+                       WHERE p.person_link_n > 0
+                         AND ((p_ekatte IS NOT NULL AND p.ekatte = p_ekatte)
+                           OR (p_obshtina IS NOT NULL AND p.obshtina = p_obshtina))),
   'companies', COALESCE((
     SELECT jsonb_agg(jsonb_build_object(
       'uic',       t.uic,

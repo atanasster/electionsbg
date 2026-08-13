@@ -1,5 +1,6 @@
-// Paginated detail page for "Companies HQ'd here (MP-linked)".
-// Reads {ekatte}-page-NNN.json shards (50 companies per page). Wired to:
+// Paginated detail page for "companies here held by someone in public life".
+// Reads /api/db/place-mp-companies (migration 151); was the {ekatte}-page-NNN.json shards.
+// Wired to:
 //   /settlement/:id/companies — per-EKATTE
 //   /sofia/companies          — Sofia capital (ekatte=68134, see route below)
 
@@ -15,54 +16,49 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import {
   useCompaniesHqPage,
-  useCompaniesHqSummary,
   type CompaniesHqPlace,
   type CompaniesHqRow,
 } from "@/data/parliament/useCompaniesAtSettlement";
-import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { decodeEntities } from "@/lib/decodeEntities";
 
 const SOFIA_EKATTE = "68134";
 
-const roleKey = (role: string): string =>
-  role === "declared_stake"
-    ? "companies_hq_role_declared_stake"
-    : `tr_role_${role}`;
-
 const CompanyCard: FC<{ row: CompaniesHqRow }> = ({ row }) => {
   const { t } = useTranslation();
-  const seen = new Set<number>();
-  const uniqueMps = row.mps.filter((m) => {
-    if (seen.has(m.mpId)) return false;
-    seen.add(m.mpId);
-    return true;
-  });
+  // One chip per PERSON with every capacity they hold — 151 groups the roles server-side for
+  // exactly this reason. No client dedupe: doing it here is what dropped a capacity on half
+  // the pairs when the route emitted one row per (person, role).
+  const people = row.people;
   return (
     <Card>
       <CardContent className="p-3 md:p-4">
         <div className="flex items-start gap-3">
           <div className="flex-1 min-w-0">
+            {/* TR ships quoted names HTML-escaped (`&quot;СЛАВЯНА&quot;`) — decode for display
+                only, as /mp/companies and the governance tile do. */}
             <Link
-              to={`/mp/company/${encodeURIComponent(row.slug)}`}
+              to={`/company/${encodeURIComponent(row.uic)}`}
               className="text-base font-medium hover:underline line-clamp-2"
             >
-              {row.displayName}
+              {decodeEntities(row.name)}
             </Link>
-            {row.registeredOffice && (
-              <div className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
-                {row.registeredOffice}
-              </div>
+            {row.legalForm && (
+              <span className="text-xs text-muted-foreground ml-1">
+                {row.legalForm}
+              </span>
             )}
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              {uniqueMps.map((m) => (
+              {people.map((p) => (
                 <Link
-                  key={`${m.mpId}-${m.role}`}
-                  to={`/mp/${m.mpId}`}
+                  key={p.slug}
+                  to={`/person/${encodeURIComponent(p.slug)}`}
                   className="inline-flex items-center gap-1.5 text-xs rounded-full bg-muted px-2 py-0.5 hover:bg-muted/70"
                 >
-                  <MpAvatar mpId={m.mpId} name={m.mpName} />
-                  <span className="truncate max-w-[12rem]">{m.mpName}</span>
+                  <span className="truncate max-w-[12rem]">{p.name}</span>
                   <span className="italic text-muted-foreground">
-                    {t(roleKey(m.role), { defaultValue: m.role })}
+                    {p.roles
+                      .map((r) => t(`tr_role_${r}`, { defaultValue: r }))
+                      .join(", ")}
                   </span>
                 </Link>
               ))}
@@ -97,8 +93,11 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
       ? { kind: "muni", obshtina: id }
       : { kind: "ekatte", ekatte: id };
 
-  const { data: summary } = useCompaniesHqSummary(place);
-  const { data: pageData, isLoading } = useCompaniesHqPage(place, page);
+  const {
+    data: pageData,
+    isLoading,
+    isError,
+  } = useCompaniesHqPage(place, page);
 
   const placeName = useMemo(() => {
     if (sofia) return "София";
@@ -115,8 +114,10 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
 
   if (!sofia && !id) return null;
 
-  const totalPages = summary?.totalPages ?? pageData?.totalPages ?? 1;
-  const count = summary?.count ?? pageData?.count ?? 0;
+  // One payload, so `count`/`totalPages` cannot disagree with the rows the way the shards'
+  // separate summary file could.
+  const totalPages = pageData?.totalPages ?? 1;
+  const count = pageData?.count ?? 0;
   const goToPage = (p: number) => {
     if (p < 1 || p > totalPages) return;
     setSearchParams(p === 1 ? {} : { page: String(p) });
@@ -136,7 +137,7 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
       <div className="my-3 text-sm text-muted-foreground">
         {t("companies_hq_screen_lede", {
           count,
-          mpCount: summary?.mpCount ?? 0,
+          personCount: pageData?.personCount ?? 0,
         })}
       </div>
 
@@ -149,6 +150,14 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
             />
           ))}
         </div>
+      ) : isError ? (
+        // A failed fetch must NOT render the empty state. „Няма фирми, свързани с публично
+        // лице" is a factual claim about this place, and a route that 500s — or a database
+        // where 151 was never applied, which degrades to count: 0 — would otherwise publish
+        // that claim about every settlement in the country.
+        <div className="text-sm text-muted-foreground">
+          {t("companies_hq_screen_error")}
+        </div>
       ) : !pageData || pageData.companies.length === 0 ? (
         <div className="text-sm text-muted-foreground">
           {t("companies_hq_screen_empty")}
@@ -156,7 +165,7 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
       ) : (
         <div className="space-y-2">
           {pageData.companies.map((c) => (
-            <CompanyCard key={c.slug} row={c} />
+            <CompanyCard key={c.uic} row={c} />
           ))}
         </div>
       )}
