@@ -126,12 +126,26 @@ export const TransportFacilityMap: FC<{
         byCity.set(f.settlement, (byCity.get(f.settlement) ?? 0) + 1);
     const sofia = byCity.get("София") ?? 0;
     byCity.delete("София");
+    const outside = [...byCity.entries()].sort(
+      (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "bg"),
+    );
+    // Read as a sentence, not a CSV: the last item joins with „и" / "and", and the
+    // Bulgarian preposition takes its euphonic form from the FIRST item it governs
+    // („във Варна", but „в Русе") — a bare „в" in front of Варна is wrong Bulgarian.
+    const list = (conj: string) =>
+      outside
+        .map(([c, n]) => (n > 1 ? `${c} (${n})` : c))
+        .reduce((acc, s, i, a) =>
+          i === a.length - 1 ? `${acc} ${conj} ${s}` : `${acc}, ${s}`,
+        );
     return {
       total: facilities.length,
       sofia,
-      outside: [...byCity.entries()].sort(
-        (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "bg"),
-      ),
+      hasOutside: outside.length > 0,
+      outsideBg: outside.length
+        ? `${/^[вфВФ]/.test(outside[0][0]) ? "във" : "в"} ${list("и")}`
+        : "",
+      outsideEn: outside.length ? `in ${list("and")}` : "",
     };
   }, [facilities]);
 
@@ -295,8 +309,8 @@ export const TransportFacilityMap: FC<{
         </div>
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} от ${seats.total} структури са РЕГИСТРИРАНИ в София${seats.outside.length ? `; останалите са в ${seats.outside.map(([c, n]) => (n > 1 ? `${c} (${n})` : c)).join(", ")}` : ""}. Двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте картата на проектите по-горе; пътното строителство (АПИ) е отделен сектор.`
-            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.outside.length ? `; the rest sit in ${seats.outside.map(([c, n]) => (n > 1 ? `${c} (${n})` : c)).join(", ")}` : ""}. The two Варна markers (Maritime Administration, Port Infrastructure) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see the project map above; road building (АПИ) is a separate sector.`}
+            ? `Картата отразява избрания времеви обхват${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} от ${seats.total} структури са РЕГИСТРИРАНИ в София${seats.hasOutside ? `; останалите са ${seats.outsideBg}` : ""}. Двата маркера във Варна (Морска администрация, Пристанищна инфраструктура) са реалното място на дейността, не седалището. Мрежите (жп линии, пътища) нямат една точка — вижте картата на проектите по-горе; пътното строителство (АПИ) е отделен сектор.`
+            : `The map reflects the selected time scope${periodLabel ? ` (${periodLabel})` : ""}. ${seats.sofia} of ${seats.total} entities are REGISTERED in Sofia${seats.hasOutside ? `; the rest sit ${seats.outsideEn}` : ""}. The two Варна markers (Maritime Administration, Port Infrastructure) mark where the operation physically sits, not the legal seat. Networks (rail lines, roads) have no single point — see the project map above; road building (АПИ) is a separate sector.`}
         </p>
       </CardContent>
     </Card>
