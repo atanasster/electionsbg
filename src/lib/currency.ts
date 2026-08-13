@@ -90,6 +90,28 @@ export const formatEur = (
   return `€${numberFormatter(locale, opts.decimals ?? 0).format(value)}`;
 };
 
+/** A euro figure whose SIGN is the point — a deficit, a delta, a variance.
+ *
+ *  `formatEur(-1365386)` yields „€-1 365 386", putting the minus between the
+ *  currency symbol and the digits, where it is easy to read past on a column
+ *  scanned for direction. This puts the sign in front of the symbol and uses a
+ *  real minus (U+2212) rather than a hyphen, so „−€1 365 386" reads at a
+ *  glance.
+ *
+ *  `plusForPositive` is for delta columns, where „+€70m" and „€70m" must not
+ *  look alike; leave it off for a level (a deficit is negative, a surplus
+ *  positive, and neither needs a „+"). Zero never takes a sign. */
+export const formatEurSigned = (
+  value: number | null | undefined,
+  locale: string = "bg-BG",
+  opts: { decimals?: number; plusForPositive?: boolean } = {},
+): string => {
+  if (value == null || !Number.isFinite(value)) return "";
+  const sign =
+    value < 0 ? "\u2212" : value > 0 && opts.plusForPositive ? "+" : "";
+  return `${sign}${formatEur(Math.abs(value), locale, opts)}`;
+};
+
 /** A plain count/ratio: "4,3" / "5 835". Returns "—" for null/non-finite. */
 export const formatCount = (
   value: number | null | undefined,

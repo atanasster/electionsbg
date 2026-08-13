@@ -22,7 +22,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Title } from "@/ux/Title";
-import { formatEur } from "@/lib/currency";
+import { formatEur, formatEurSigned } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
@@ -36,7 +36,6 @@ const Delta: FC<{ value: number | null }> = ({ value }) => {
   // The sign goes OUTSIDE the symbol. `formatEur(-1365386)` is „€-1 365 386",
   // which puts the minus between the currency and the digits and is easy to
   // read past on a column where the sign is the whole point.
-  const sign = value > 0 ? "+" : value < 0 ? "−" : "";
   // NO red/green. Neither direction is good or bad here: the note beneath the
   // table says a wide law-delta usually means the ceiling MOVED, so colouring
   // it red contradicts the page's own explanation in the same row — МО is red
@@ -50,8 +49,7 @@ const Delta: FC<{ value: number | null }> = ({ value }) => {
         value === 0 ? "text-muted-foreground" : "font-medium",
       )}
     >
-      {sign}
-      {formatEur(Math.abs(value))}
+      {formatEurSigned(value, undefined, { plusForPositive: true })}
     </span>
   );
 };

@@ -14,6 +14,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   Bar,
   CartesianGrid,
@@ -275,6 +276,14 @@ export const BudgetTrendTile: FC<{
           <LineChart className="h-4 w-4" />
           {t("budget_trend_title") || "Execution trend"}
         </CardTitle>
+        {/* This tile is the SHAPE across years. /budget/execution is one year
+            closed out — plan against outturn line by line, and the identity the
+            balance comes from — which a trend line cannot show. */}
+        <p className="text-xs text-muted-foreground">
+          <Link to="/budget/execution" className="text-primary hover:underline">
+            {t("budget_exec_see_all")}
+          </Link>
+        </p>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
         <div style={{ height: 280, width: "100%" }}>
