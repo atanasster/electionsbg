@@ -93,6 +93,25 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
+    // A large imported JSON object must be emitted as `JSON.parse("…")`, not as
+    // one `export const` per key. Vite's default is the second (namedExports
+    // true, which wins over stringify:"auto" for any object JSON — see
+    // vite:json), and on the translation corpora that costs ~30% of the WIRE
+    // bytes: 6,063 keys become 6,063 minified aliases, each written twice (the
+    // `const` and the default-object entry), so ~40 KB of near-random
+    // identifiers lands between values that would otherwise sit adjacent and
+    // compress against each other. Measured in brotli q11 at the switch:
+    // bg 189,485 → 137,706 B, en 172,586 → 120,401 B. Nothing about the content
+    // changed; both locale budgets in tests/perf.spec.ts were re-ratcheted DOWN
+    // to the new figures.
+    //
+    // Safe here because no module in src/ or tests/ takes a NAMED import from a
+    // .json — every one is a default import — which is the only thing
+    // namedExports:false removes. Kept at "auto" rather than true so the five
+    // small JSONs (regions, elections, seats, …) keep the object-literal form
+    // that is cheaper below V8's 10 kB JSON.parse threshold, which is the
+    // threshold vite:json itself cites.
+    json: { namedExports: false, stringify: "auto" },
     // Pre-bundle every Radix/UI primitive at server startup. Most of these are
     // only reachable through lazily-imported routes, so Vite would otherwise
     // discover them one-at-a-time as you navigate and re-run the dep optimizer

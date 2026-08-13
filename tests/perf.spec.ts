@@ -504,25 +504,35 @@ test.describe("performance", () => {
     // for one language only. Exactly one of these is ever fetched, in parallel
     // with the entry.
     //
-    // Re-ratcheted 2026-08-08 from 177_000 / 161_000, which both went ~0.45%
-    // over. This is the one budget in this test that does NOT measure chunk
+    // Ratcheted DOWN 2026-08-13 from 186_000 / 169_000 — the first move in
+    // either direction that was not about the corpus. `json.namedExports:
+    // false` in vite.config.ts changed the EMIT FORM from one `export const`
+    // per key to `JSON.parse("…")`, which took bg 189_485 → 137_192 and en
+    // 172_586 → 119_571 for a byte-identical corpus (−27.6% / −30.7%). The
+    // cause is documented at that option: 6,063 minified aliases were
+    // interleaved with the values they aliased, so nothing compressed against
+    // its neighbour.
+    //
+    // This is still the one budget in this test that does NOT measure chunk
     // composition — it measures a translation corpus that grows with every
-    // feature, so it burns headroom on a schedule the others do not. The +5%
-    // set on 2026-07-29 was gone in ten days; the 38 keys that finally crossed
-    // it (Interreg, the /funds bands, the НКИД risk flags, the
-    // person-unavailable view) are all real strings, no regression, and nothing
-    // that can be split out of the chunk. Measured at the commit that moved
-    // these: bg 177_837, en 161_690.
+    // feature, so it burns headroom on a schedule the others do not. Measured
+    // over the five days before the fix: bg 177_837 → 189_485, i.e. ~2.3 KB br
+    // per language per day, which eats the +5% below in about three days of
+    // shipping. Reclaiming 50 KB bought roughly four weeks; it is not a
+    // reprieve.
     //
-    // Note EN tripped at the same time but one commit later than BG, so a run
-    // that only reports Bulgarian is not evidence English has room.
+    // And there is no second trick of that kind left. When this trips again the
+    // lever is an i18next namespace split so a screen pulls only the strings it
+    // uses — bg is 790 KB raw and every page still loads all of it. Widening
+    // needs a reason as concrete as the one above.
     //
-    // A third bump is the wrong answer. bg is 947 KB raw and every page loads
-    // all of it; the lever is an i18next namespace split so a screen pulls only
-    // the strings it uses. Do that instead of widening this again.
+    // Note the loop below throws on the FIRST language over budget, and the two
+    // cross at different commits, so a run that names one language is not
+    // evidence the other has room: on the CI run that prompted the fix both
+    // were over and only EN was reported.
     const LOCALE_BUDGETS: Record<string, number> = {
-      bg: 186_000,
-      en: 169_000,
+      bg: 144_000,
+      en: 125_500,
     };
     const locales = fs
       .readdirSync(`${DIST_DIR}/assets`)
