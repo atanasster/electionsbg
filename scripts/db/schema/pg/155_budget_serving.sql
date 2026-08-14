@@ -542,6 +542,77 @@ CREATE OR REPLACE FUNCTION budget_muni_list(
   ) r;
 $$;
 
+-- ── 10b. ИПОП, the municipal investment programme ──────────────────────────
+--
+-- One snapshot (FY2025): 3 492 projects across 264 municipalities, EUR 2.98bn
+-- agreed against EUR 0.99bn paid.
+--
+-- ⚠️ `stalled` IS A THRESHOLD, NOT A VERDICT — agreement >= EUR 100 000 AND
+-- paid < 5% (scripts/budget/ipop/ingest.ts). Two facts qualify the count, and
+-- both are returned so no consumer can present it as „769 abandoned projects":
+--
+--   * THE COHORT. There IS a vintage after all, encoded in the project id as
+--     OP-<yy>. OP-24 is 35.4% paid and OP-25 is 5.5%; 91 of the 769 flags are
+--     the youngest cohort, where under 5% paid is unremarkable. An earlier
+--     version of this comment said the corpus carried no date at all — true of
+--     the columns, false of the ids, and it invited exactly the inference the
+--     rest of the note exists to prevent.
+--   * THE CLAIM. 306 of the 769 (39.8%, EUR 343.4m) already have money
+--     submitted or awaiting payment, so „nothing has been paid" is not
+--     „nothing is happening".
+CREATE OR REPLACE FUNCTION budget_muni_ipop(
+  p_q     text DEFAULT NULL,
+  p_limit int  DEFAULT 300
+) RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH scoped AS (
+    SELECT i.*, coalesce(p.name_bg, i.obshtina) AS name_bg, p.name_en
+      FROM budget_muni_ipop_project i
+      LEFT JOIN place_dim p ON p.code = i.obshtina AND p.kind = 'obshtina'
+  )
+  SELECT jsonb_build_object(
+    'fiscalYear', (SELECT max(fiscal_year) FROM scoped),
+    -- The flag's own definition, in the payload.
+    'stalledRule', jsonb_build_object('minAgreementEur', 100000, 'maxPaidPct', 5),
+    'national', (SELECT jsonb_build_object(
+        'projectCount', count(*), 'municipalityCount', count(DISTINCT obshtina),
+        'agreementEur', sum(agreement_eur), 'paidEur', sum(paid_eur),
+        'stalledCount', count(*) FILTER (WHERE stalled),
+        'stalledAgreementEur', sum(agreement_eur) FILTER (WHERE stalled),
+        -- Of the flagged, how many already have a claim in the pipeline.
+        'stalledWithClaimCount', count(*) FILTER (
+           WHERE stalled AND coalesce(submitted_eur,0) + coalesce(awaiting_eur,0) > 0),
+        'stalledWithClaimEur', sum(agreement_eur) FILTER (
+           WHERE stalled AND coalesce(submitted_eur,0) + coalesce(awaiting_eur,0) > 0),
+        -- Per cohort, so „5% paid" can be read against its own vintage.
+        'cohorts', (SELECT jsonb_agg(to_jsonb(c) ORDER BY c.cohort) FROM (
+             SELECT substring(project_id from 'OP-(\d{2})') AS cohort,
+                    count(*) AS "projectCount",
+                    sum(agreement_eur) AS "agreementEur",
+                    sum(paid_eur) AS "paidEur",
+                    count(*) FILTER (WHERE stalled) AS "stalledCount"
+               FROM scoped
+              WHERE substring(project_id from 'OP-(\d{2})') IS NOT NULL
+              GROUP BY 1) c))
+      FROM scoped),
+    'rows', coalesce((
+      SELECT jsonb_agg(to_jsonb(r) ORDER BY r."agreementEur" DESC NULLS LAST) FROM (
+        SELECT obshtina, name_bg AS "nameBg", name_en AS "nameEn",
+               count(*) AS "projectCount",
+               sum(agreement_eur) AS "agreementEur",
+               sum(paid_eur) AS "paidEur",
+               CASE WHEN sum(agreement_eur) > 0
+                    THEN 100 * sum(paid_eur) / sum(agreement_eur) END AS "paidPct",
+               count(*) FILTER (WHERE stalled) AS "stalledCount"
+          FROM scoped
+         WHERE (p_q IS NULL OR p_q = ''
+                OR name_bg ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%'
+                OR name_en ILIKE '%' || replace(replace(p_q, '%', '\%'), '_', '\_') || '%')
+         GROUP BY obshtina, name_bg, name_en
+         ORDER BY sum(agreement_eur) DESC NULLS LAST
+         LIMIT greatest(1, least(coalesce(p_limit, 300), 1000))
+      ) r), '[]'::jsonb));
+$$;
+
 CREATE OR REPLACE FUNCTION budget_muni_detail(
   p_obshtina text,
   p_fy       int DEFAULT NULL
@@ -592,6 +663,7 @@ DO $$ BEGIN
     GRANT EXECUTE ON FUNCTION budget_documents(int)                         TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_personnel_series()                     TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_list(int, text, int)              TO app_readonly;
+    GRANT EXECUTE ON FUNCTION budget_muni_ipop(text, int)                   TO app_readonly;
     GRANT EXECUTE ON FUNCTION budget_muni_detail(text, int)                 TO app_readonly;
   END IF;
 END $$;

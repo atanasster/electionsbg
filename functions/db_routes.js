@@ -465,6 +465,13 @@ const budgetRoutes = () => ({
     ).catch(budgetMiss("municipal", { rows: [] }));
     return { body: rows[0]?.r ?? { rows: [] } };
   },
+  "budget-municipal-ipop": async (dbRows, q) => {
+    const rows = await dbRows(
+      "SELECT budget_muni_ipop($1::text, $2::int) AS r",
+      [s(q, "q") || null, clampInt(q.limit, 300, 1, 1000)],
+    ).catch(budgetMiss("municipal-ipop", { rows: [] }));
+    return { body: rows[0]?.r ?? { rows: [] } };
+  },
   "budget-municipality": async (dbRows, q) => {
     const code = s(q, "obshtina");
     if (!code) return { status: 400, body: { error: "obshtina is required" } };
