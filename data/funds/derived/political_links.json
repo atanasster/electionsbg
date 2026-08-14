@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-08-05T14:42:29.717Z",
+  "generatedAt": "2026-08-14T06:03:39.137Z",
   "totals": {
-    "flaggedEiks": 852,
-    "mpOnly": 189,
-    "officialOnly": 606,
-    "both": 57,
+    "flaggedEiks": 970,
+    "mpOnly": 219,
+    "officialOnly": 684,
+    "both": 67,
     "debarredFlagged": 0,
-    "contractedEur": 7524827646.02,
-    "paidEur": 3037796277.06,
-    "procurementEur": 2049881247.53
+    "contractedEur": 7637163463.73,
+    "paidEur": 3070678447.37,
+    "procurementEur": 2542633946.28
   },
   "top": [
     {
@@ -197,9 +197,28 @@
       "orgType": "Компания",
       "contractCount": 10,
       "contractedEur": 917831040.48,
-      "paidEur": 667827795.62,
+      "paidEur": 673726498.02,
       "mps": [],
       "officials": [
+        {
+          "slug": "lidiya-spasova-kotseva-stankova-1c82ea",
+          "name": "Лидия Спасова Коцева-Станкова",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "член на СД",
+              "valueEur": null
+            }
+          ]
+        },
         {
           "slug": "stoyan-bratoev-ivanov-2298fc",
           "name": "Стоян Братоев Иванов",
@@ -235,7 +254,7 @@
       "procurementEur": 11606325.7,
       "procurementContractCount": 1,
       "debarred": false,
-      "exposureScore": 26.21
+      "exposureScore": 26.62
     },
     {
       "eik": "121856059",
@@ -269,7 +288,7 @@
       "orgType": "Компания",
       "contractCount": 3,
       "contractedEur": 211393371.05,
-      "paidEur": 93205554.47,
+      "paidEur": 102972176.51,
       "mps": [
         {
           "mpId": 3551,
@@ -494,6 +513,12 @@
               "trRole": "manager",
               "shareSize": null,
               "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
             }
           ]
         }
@@ -523,6 +548,12 @@
           "confidence": "high",
           "latestDeclarationYear": 2025,
           "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            },
             {
               "source": "tr",
               "trRole": "manager",
@@ -1102,12 +1133,18 @@
               "trRole": "manager",
               "shareSize": null,
               "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
             }
           ]
         }
       ],
-      "procurementEur": 1878388.92,
-      "procurementContractCount": 37,
+      "procurementEur": 1904588.92,
+      "procurementContractCount": 38,
       "debarred": false,
       "exposureScore": 23.21
     },
@@ -1144,37 +1181,12 @@
               "valueEur": null
             }
           ]
-        },
-        {
-          "slug": "rumyana-atanasova-yanchevska-f55f05",
-          "name": "Румяна Атанасова Янчевска",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Държавни предприятия",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2024,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "manager",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "manager",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
         }
       ],
       "procurementEur": 910864.38,
       "procurementContractCount": 64,
       "debarred": false,
-      "exposureScore": 22.93
+      "exposureScore": 22.52
     },
     {
       "eik": "837068284",
@@ -1205,8 +1217,8 @@
           ]
         }
       ],
-      "procurementEur": 1836992.23,
-      "procurementContractCount": 19,
+      "procurementEur": 1856992.23,
+      "procurementContractCount": 20,
       "debarred": false,
       "exposureScore": 22.72
     },
@@ -1254,6 +1266,25 @@
       "mps": [],
       "officials": [
         {
+          "slug": "angel-emilov-yankov-c78390",
+          "name": "Ангел Емилов Янков",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членовете на управителните и контролните органи на БЕХ",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2022,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Член на съвета на директорите",
+              "valueEur": null
+            }
+          ]
+        },
+        {
           "slug": "maya-krumova-hristova-9d5b59",
           "name": "Мая Крумова Христова",
           "category": "diplomat",
@@ -1276,7 +1307,120 @@
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 18.28
+      "exposureScore": 18.68
+    },
+    {
+      "eik": "833017552",
+      "name": "\"Мини Марица - изток\" ЕАД",
+      "orgType": "Компания",
+      "contractCount": 21,
+      "contractedEur": 42418073.41,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 1689,
+          "mpName": "Андон Петров Андонов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        },
+        {
+          "mpId": 3693,
+          "mpName": "Тихомир Гочев Тенев",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [
+        {
+          "slug": "elvira-petrova-shopova-c52d82",
+          "name": "Елвира Петрова Шопова",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "tano-braikov-tanev-9c1d62",
+          "name": "Таньо Брайков Танев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "tihomir-gochev-tenev-4b0cce",
+          "name": "Тихомир Гочев Тенев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 48948214.15,
+      "procurementContractCount": 19,
+      "debarred": false,
+      "exposureScore": 24.67
     },
     {
       "eik": "207411593",
@@ -1395,119 +1539,6 @@
       "exposureScore": 18.48
     },
     {
-      "eik": "833017552",
-      "name": "\"Мини Марица - изток\" ЕАД",
-      "orgType": "Компания",
-      "contractCount": 18,
-      "contractedEur": 30594384.54,
-      "paidEur": 0,
-      "mps": [
-        {
-          "mpId": 1689,
-          "mpName": "Андон Петров Андонов",
-          "relations": [
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            }
-          ]
-        },
-        {
-          "mpId": 3693,
-          "mpName": "Тихомир Гочев Тенев",
-          "relations": [
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            }
-          ]
-        }
-      ],
-      "officials": [
-        {
-          "slug": "elvira-petrova-shopova-c52d82",
-          "name": "Елвира Петрова Шопова",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2024,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        },
-        {
-          "slug": "tano-braikov-tanev-9c1d62",
-          "name": "Таньо Брайков Танев",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2025,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        },
-        {
-          "slug": "tihomir-gochev-tenev-4b0cce",
-          "name": "Тихомир Гочев Тенев",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Членовете на управителните и контролните органи на дъщерни дружества",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2025,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 48948214.15,
-      "procurementContractCount": 19,
-      "debarred": false,
-      "exposureScore": 24.34
-    },
-    {
       "eik": "828050351",
       "name": "\"Водоснабдяване и канализация\" ООД, Силистра",
       "orgType": "Компания",
@@ -1614,25 +1645,41 @@
       "exposureScore": 18.53
     },
     {
+      "eik": "202513217",
+      "name": "Фармнет ЕАД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 23205221.7,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 2706,
+          "mpName": "Веселин Найденов Марешки",
+          "relations": [
+            {
+              "kind": "stake",
+              "shareSize": "9926000",
+              "valueEur": 7817775.062249786,
+              "fiscalYear": 2017,
+              "declarationYear": 2018
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 457611591.24,
+      "procurementContractCount": 287,
+      "debarred": false,
+      "exposureScore": 23.64
+    },
+    {
       "eik": "000703415",
       "name": "Български червен кръст",
       "orgType": "Нестопанска организация",
       "contractCount": 14,
       "contractedEur": 20404424.66,
       "paidEur": 14452347.69,
-      "mps": [
-        {
-          "mpId": 3228,
-          "mpName": "Алисе Кямилова Муртезова",
-          "relations": [
-            {
-              "kind": "ngo_board",
-              "isCurrent": true,
-              "confidence": "medium"
-            }
-          ]
-        }
-      ],
+      "mps": [],
       "officials": [
         {
           "slug": "zdravko-milkov-marinov-db6889",
@@ -1695,7 +1742,7 @@
       "procurementEur": 1208213.48,
       "procurementContractCount": 6,
       "debarred": false,
-      "exposureScore": 22.64
+      "exposureScore": 22.42
     },
     {
       "eik": "201847598",
@@ -1792,6 +1839,18 @@
           "confidence": "high",
           "latestDeclarationYear": 2023,
           "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Член на Съвета на директорите - предприети действия за прекратяване",
+              "valueEur": null
+            },
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Член на Съвета на директорите - предприети действия за прекратяване",
+              "valueEur": null
+            },
             {
               "source": "tr",
               "trRole": "director",
@@ -2136,6 +2195,40 @@
       "exposureScore": 21.79
     },
     {
+      "eik": "206027999",
+      "name": "Енери БГ 1 ЕООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 15457001.32,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "iliya-nikolov-lingorski-1780a2",
+          "name": "Илия Николов Лингорски",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членове на УС и на НС на Българската банка за развитие",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2022,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "като член на УС на Three Seas Initiative Investment Fund S.A. SICAV-RAIF, Luxembourg, което инвестиционо дружество се явява действителен краен собственик на дружеството",
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 17.25
+    },
+    {
       "eik": "128000893",
       "name": "Водоснабдяване и канализация ЕООД, Ямбол",
       "orgType": "Компания",
@@ -2155,6 +2248,12 @@
           "confidence": "high",
           "latestDeclarationYear": 2025,
           "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            },
             {
               "source": "tr",
               "trRole": "manager",
@@ -2199,6 +2298,74 @@
       "procurementContractCount": 36,
       "debarred": false,
       "exposureScore": 21.97
+    },
+    {
+      "eik": "206015300",
+      "name": "Ценово Солар Плант ЕООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 12914413.41,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "iliya-nikolov-lingorski-1780a2",
+          "name": "Илия Николов Лингорски",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членове на УС и на НС на Българската банка за развитие",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2022,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "като член на УС на Three Seas Initiative Investment Fund S.A. SICAV-RAIF, Luxembourg, което инвестиционо дружество се явява действителен краен собственик на дружеството",
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 17.07
+    },
+    {
+      "eik": "205958959",
+      "name": "Чирпан Солар Плант ЕООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 12913446.83,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "iliya-nikolov-lingorski-1780a2",
+          "name": "Илия Николов Лингорски",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Членове на УС и на НС на Българската банка за развитие",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2022,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "като член на УС на Three Seas Initiative Investment Fund S.A. SICAV-RAIF, Luxembourg, което инвестиционо дружество се явява действителен краен собственик на дружеството",
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 17.07
     },
     {
       "eik": "206974197",
@@ -2483,6 +2650,12 @@
               "trRole": "manager",
               "shareSize": null,
               "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
             }
           ]
         }
@@ -2569,6 +2742,11 @@
               "confidence": "high"
             },
             {
+              "kind": "sole_owner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
               "kind": "stake",
               "shareSize": "100%",
               "valueEur": 525584.5344431776,
@@ -2604,6 +2782,12 @@
           "confidence": "high",
           "latestDeclarationYear": 2025,
           "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            },
             {
               "source": "tr",
               "trRole": "manager",
@@ -2656,12 +2840,71 @@
       "exposureScore": 22.11
     },
     {
+      "eik": "205101934",
+      "name": "Индустриална зона загоре АД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 8874472.5,
+      "paidEur": 5480379.27,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "radoslav-slavchev-tanev-9341e3",
+          "name": "Радослав Славчев Танев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Търговски дружества",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Изпълнителен директор",
+              "valueEur": null
+            },
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Изпълнителен директор",
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "trifon-stoyanov-trifonov-1cc516",
+          "name": "Трифон Стоянов Трифонов",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "ДП \"Български спортен тотализатор\"",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "член на орган на управление",
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 17.1
+    },
+    {
       "eik": "201617654",
       "name": "Югоизточно държавно предприятие",
       "orgType": "Държавна администрация",
       "contractCount": 3,
       "contractedEur": 7828898.46,
-      "paidEur": 4758149.83,
+      "paidEur": 5193475.35,
       "mps": [],
       "officials": [
         {
@@ -2831,37 +3074,12 @@
               "valueEur": null
             }
           ]
-        },
-        {
-          "slug": "tihomir-iliev-todorov-f746af",
-          "name": "Тихомир Илиев Тодоров",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Държавни предприятия",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2025,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
         }
       ],
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 17.66
+      "exposureScore": 17.51
     },
     {
       "eik": "201619580",
@@ -3212,6 +3430,25 @@
           ]
         },
         {
+          "slug": "nedelin-petev-koleolov-d6049f",
+          "name": "Неделин Петев Колеолов",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "Председател на Съвета на Директорите",
+              "valueEur": null
+            }
+          ]
+        },
+        {
           "slug": "ognyana-ilieva-iorgova-c954e8",
           "name": "Огняна Илиева Йоргова",
           "category": "state_enterprise",
@@ -3225,25 +3462,6 @@
             {
               "source": "tr",
               "trRole": "representative",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        },
-        {
-          "slug": "radostina-deyanova-sitova-c8ff06",
-          "name": "Радостина Деянова Ситова",
-          "category": "state_enterprise",
-          "tier": "executive",
-          "role": "state_enterprise",
-          "institution": "Държавни предприятия",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2024,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
               "shareSize": null,
               "valueEur": null
             }
@@ -3355,188 +3573,6 @@
       "procurementContractCount": 0,
       "debarred": false,
       "exposureScore": 16.01
-    },
-    {
-      "eik": "202295544",
-      "name": "\"Житосвят агро\" ЕООД",
-      "orgType": "Компания",
-      "contractCount": 5,
-      "contractedEur": 4424811.07,
-      "paidEur": 2212405.55,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "stanislav-rumenov-kostadinov-3a58fe",
-          "name": "Станислав Руменов Костадинов",
-          "category": "councillor",
-          "tier": "municipal",
-          "role": "councillor",
-          "institution": null,
-          "municipality": "Карнобат",
-          "confidence": "high",
-          "latestDeclarationYear": null,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "manager",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "sole_owner",
-              "shareSize": "100",
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 16
-    },
-    {
-      "eik": "123079354",
-      "name": "Агенция за регионално икономическо развитие -стара загора",
-      "orgType": "Нестопанска организация",
-      "contractCount": 5,
-      "contractedEur": 4413500.8,
-      "paidEur": 1489995.3,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "temenuzhka-svetoslavova-sotirova-f87e45",
-          "name": "Теменужка Светославова Сотирова",
-          "category": "deputy_mayor",
-          "tier": "municipal",
-          "role": "deputy_mayor",
-          "institution": null,
-          "municipality": "Раднево",
-          "confidence": "high",
-          "latestDeclarationYear": null,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "ngo_board",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 66687.58,
-      "procurementContractCount": 6,
-      "debarred": false,
-      "exposureScore": 19.33
-    },
-    {
-      "eik": "203133495",
-      "name": "\"КОМ Агро\" ООД",
-      "orgType": "Компания",
-      "contractCount": 4,
-      "contractedEur": 4022049.78,
-      "paidEur": 1267712.32,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "kalin-krasimirov-statkov-7fd044",
-          "name": "Калин Красимиров Статков",
-          "category": "councillor",
-          "tier": "municipal",
-          "role": "councillor",
-          "institution": null,
-          "municipality": "Берковица",
-          "confidence": "high",
-          "latestDeclarationYear": null,
-          "roles": [
-            {
-              "source": "declared",
-              "trRole": null,
-              "shareSize": "55",
-              "valueEur": 28172.182653911637
-            }
-          ]
-        }
-      ],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 15.9
-    },
-    {
-      "eik": "813152934",
-      "name": "\"Диагностично - консултативен център 5 варна - света Екатерина\" ЕООД",
-      "orgType": "Медицинско заведение",
-      "contractCount": 1,
-      "contractedEur": 3865918.71,
-      "paidEur": 757924.82,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "galinka-ivanova-pavlova-95b8fc",
-          "name": "Галинка Иванова Павлова",
-          "category": "medical_center",
-          "tier": "executive",
-          "role": "medical_center",
-          "institution": "ДКЦ, МЦ, ЦТХ",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2025,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "manager",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 11386.47,
-      "procurementContractCount": 3,
-      "debarred": false,
-      "exposureScore": 18.66
-    },
-    {
-      "eik": "000715054",
-      "name": "Университетска многопрофилна болница \"Св. Ив. Рилски\" ЕАД - София",
-      "orgType": "Медицинско заведение",
-      "contractCount": 2,
-      "contractedEur": 3476722.77,
-      "paidEur": 0,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "atanas-ivanov-kundurdzhiev-3093b4",
-          "name": "Атанас Иванов Кундурджиев",
-          "category": "hospital_head",
-          "tier": "executive",
-          "role": "hospital_head",
-          "institution": "УМБАЛ “Св.Иван Рилски” ЕАД, гр.София",
-          "municipality": null,
-          "confidence": "high",
-          "latestDeclarationYear": 2025,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            },
-            {
-              "source": "tr",
-              "trRole": "director",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 298078.05,
-      "procurementContractCount": 5,
-      "debarred": false,
-      "exposureScore": 19.54
     }
   ],
   "flaggedEiks": [
@@ -3557,18 +3593,22 @@
     "837068284",
     "000225011",
     "201383265",
+    "833017552",
     "207411593",
     "109513731",
     "203635576",
-    "833017552",
     "828050351",
     "123531939",
+    "202513217",
     "000703415",
     "201847598",
     "207764344",
     "131045382",
     "121399226",
+    "206027999",
     "128000893",
+    "206015300",
+    "205958959",
     "206974197",
     "201570119",
     "206797195",
@@ -3576,6 +3616,7 @@
     "201627506",
     "202162424",
     "175403856",
+    "205101934",
     "201617654",
     "201617412",
     "103061301",
@@ -3587,11 +3628,15 @@
     "200712697",
     "202295544",
     "123079354",
+    "202411276",
+    "831902088",
     "203133495",
     "813152934",
+    "206747979",
     "000715054",
     "827182866",
     "120550180",
+    "130163919",
     "116011316",
     "831605806",
     "825387979",
@@ -3603,6 +3648,7 @@
     "836144261",
     "119603547",
     "121229811",
+    "833105098",
     "175850212",
     "116052117",
     "110032086",
@@ -3612,18 +3658,20 @@
     "125021188",
     "202605690",
     "200053001",
-    "833105098",
     "175081049",
     "102093591",
     "831453003",
-    "127528069",
     "117690845",
     "204336356",
     "831622969",
     "817045463",
+    "106585953",
     "826018141",
     "104055430",
     "110502461",
+    "204461484",
+    "123022626",
+    "202878874",
     "176001209",
     "110503990",
     "200707650",
@@ -3634,6 +3682,7 @@
     "207641975",
     "206305982",
     "200613731",
+    "117527022",
     "177037471",
     "110502867",
     "131240076",
@@ -3641,6 +3690,7 @@
     "176021311",
     "175852880",
     "177154115",
+    "202585323",
     "811200024",
     "175963901",
     "176038428",
@@ -3656,7 +3706,9 @@
     "208309354",
     "207517504",
     "177020504",
+    "111006653",
     "177151222",
+    "200996450",
     "177172234",
     "175936847",
     "203010795",
@@ -3667,11 +3719,12 @@
     "130175000",
     "822090225",
     "131336103",
+    "203616165",
     "204691791",
     "117613126",
     "000289081",
     "202918009",
-    "126005176",
+    "120076088",
     "110001952",
     "114686820",
     "208092497",
@@ -3679,16 +3732,17 @@
     "208041435",
     "208193642",
     "119667699",
-    "204780546",
     "200688189",
     "129007111",
     "107515210",
     "125555587",
+    "104639352",
     "201498495",
     "115740153",
     "123727668",
     "203177082",
     "203125413",
+    "812114464",
     "177181938",
     "203105962",
     "201568004",
@@ -3697,54 +3751,61 @@
     "203789087",
     "201582897",
     "203672717",
-    "000190101",
     "123139451",
     "124141302",
+    "203728315",
     "176768879",
     "121800256",
     "128587533",
     "101732851",
     "127003032",
     "203602334",
+    "201507250",
     "831331134",
+    "126005176",
     "205155330",
     "113061709",
     "205206700",
     "102083469",
     "200872545",
     "119020085",
+    "116560934",
     "125537379",
     "120549872",
     "201429467",
     "177232069",
     "131172383",
-    "204461484",
-    "204103188",
+    "833116575",
     "102872963",
     "102663856",
+    "113588490",
     "119611565",
     "831605845",
     "000689015",
     "124607935",
-    "130206384",
     "117050304",
+    "115352243",
     "201596509",
     "176704710",
     "202930997",
+    "831657540",
+    "201943803",
     "205449182",
     "000014516",
     "201457185",
-    "131335001",
     "203207383",
     "000455927",
     "120008105",
     "831491758",
     "831646048",
     "000090154",
+    "205388313",
     "176574899",
     "107532149",
     "176813178",
+    "204446016",
     "130367715",
+    "204527831",
     "103196110",
     "821177257",
     "040454345",
@@ -3761,24 +3822,31 @@
     "205221264",
     "101536112",
     "831635354",
-    "176186537",
     "201888095",
+    "126525695",
+    "176186537",
     "200594067",
     "833066695",
     "200869353",
     "205207994",
     "128041947",
+    "101004999",
+    "205195378",
     "117622506",
-    "101055748",
     "117010060",
     "107564054",
     "130128163",
+    "125038465",
+    "123745328",
     "119502733",
+    "201682488",
     "121003449",
     "175804952",
     "104064802",
+    "205609676",
     "177246389",
     "204276464",
+    "830174235",
     "127636536",
     "000410056",
     "176222809",
@@ -3786,22 +3854,28 @@
     "205337322",
     "104606078",
     "204572748",
+    "201517223",
     "204882864",
     "201588277",
     "204909172",
     "177074904",
     "828050472",
+    "202792197",
     "126144101",
+    "202564756",
     "176237298",
     "202388240",
     "201664675",
     "108520160",
+    "821166385",
     "206849172",
     "200140011",
+    "200938422",
     "131476144",
     "200697779",
     "117021078",
     "825283119",
+    "116555809",
     "123722607",
     "202849659",
     "121833060",
@@ -3809,7 +3883,9 @@
     "102004532",
     "813192947",
     "130554647",
+    "205724511",
     "131249698",
+    "203381081",
     "203559514",
     "176235500",
     "175844886",
@@ -3819,16 +3895,18 @@
     "177007161",
     "202458906",
     "160044550",
-    "107558418",
     "102267782",
+    "131219139",
     "205346638",
     "000379397",
     "175790260",
     "176554875",
+    "202503002",
     "175874349",
     "121811782",
     "812124202",
     "204592590",
+    "103977963",
     "104054085",
     "825095010",
     "101532410",
@@ -3839,8 +3917,8 @@
     "176730394",
     "000689150",
     "200116925",
+    "205296904",
     "105565474",
-    "176123191",
     "000649348",
     "201330775",
     "000044801",
@@ -3848,29 +3926,38 @@
     "201148790",
     "000762837",
     "000466329",
+    "176123191",
     "125560520",
     "175998304",
+    "000770061",
     "000459306",
     "200167154",
-    "176844825",
-    "122087578",
+    "000463258",
     "200767512",
+    "176844825",
     "131066056",
+    "105582541",
+    "107553129",
     "000214050",
+    "204851712",
     "200111255",
+    "102899052",
     "107548712",
     "175847117",
     "116530670",
+    "830173891",
+    "108690839",
     "000923169",
     "112629703",
-    "115825739",
     "206187780",
     "109593930",
     "205220648",
     "000868979",
+    "115825739",
     "000210493",
     "205738219",
     "000770047",
+    "201750640",
     "000014498",
     "200234845",
     "000283559",
@@ -3883,16 +3970,18 @@
     "114084963",
     "813154554",
     "175761255",
-    "115172747",
+    "120505630",
     "115147345",
     "126073800",
     "000083786",
     "203718577",
     "206536327",
     "000869278",
+    "130963149",
     "175209984",
     "177122249",
     "200067887",
+    "121406838",
     "000456018",
     "121752288",
     "000456580",
@@ -3900,24 +3989,29 @@
     "103792060",
     "121769212",
     "126652270",
-    "000455806",
     "206042339",
     "000183669",
     "000084280",
+    "000455806",
     "201906242",
     "205745904",
     "206679542",
     "204033505",
+    "205421457",
+    "203904037",
     "200062954",
     "115312277",
     "204770025",
     "130101604",
     "160107050",
     "115933138",
+    "117605439",
     "200199807",
     "201476538",
     "202199236",
     "202214656",
+    "203786610",
+    "204806959",
     "205253066",
     "121514988",
     "000124197",
@@ -3935,6 +4029,7 @@
     "000457230",
     "000457604",
     "000456363",
+    "200962284",
     "175434442",
     "104064567",
     "000455845",
@@ -3950,28 +4045,32 @@
     "176455578",
     "201817384",
     "000762068",
-    "000152385",
     "126720807",
     "117695162",
     "202314393",
     "200197279",
+    "101741900",
     "121125663",
     "119626033",
     "200726024",
+    "204124990",
     "102627700",
     "103248895",
     "105575251",
     "107554850",
+    "130467417",
     "147137715",
     "147164000",
     "200622239",
     "200758221",
     "201738862",
+    "201937162",
     "203768562",
     "203969818",
-    "204124990",
+    "000152385",
     "177132923",
     "123104137",
+    "201088279",
     "112669637",
     "000499432",
     "107061494",
@@ -3987,6 +4086,7 @@
     "126657303",
     "000343668",
     "130541888",
+    "115846459",
     "000672261",
     "203414994",
     "176229814",
@@ -4024,7 +4124,6 @@
     "000343134",
     "000456840",
     "000559580",
-    "000560262",
     "000560305",
     "000806059",
     "101543719",
@@ -4069,14 +4168,13 @@
     "000457248",
     "000762093",
     "000183740",
-    "101717486",
     "000559655",
     "000770111",
     "000962834",
     "000522906",
     "203064800",
     "000083836",
-    "115824740",
+    "827211507",
     "000560166",
     "000760761",
     "176989742",
@@ -4093,13 +4191,11 @@
     "000804574",
     "000894511",
     "000923984",
-    "117057633",
     "117066842",
     "117086193",
     "177186814",
     "000283527",
     "000046058",
-    "000283210",
     "000609122",
     "000046609",
     "000046617",
@@ -4108,6 +4204,7 @@
     "000085029",
     "000152360",
     "000283071",
+    "000283210",
     "000283356",
     "000404644",
     "000455966",
@@ -4122,14 +4219,12 @@
     "000762577",
     "000805338",
     "000843278",
-    "106532908",
     "108500706",
     "112075314",
     "114090560",
     "114120142",
     "117057665",
     "124075400",
-    "177036992",
     "000844864",
     "112082294",
     "000343390",
@@ -4176,6 +4271,7 @@
     "000283705",
     "000084849",
     "000084169",
+    "114620813",
     "000804567",
     "000560052",
     "000962970",
@@ -4187,8 +4283,10 @@
     "000456044",
     "176967614",
     "122054628",
+    "203683090",
     "117605866",
-    "203289105",
+    "000124927",
+    "204646534",
     "206019479",
     "204807303",
     "205378657",
@@ -4207,13 +4305,18 @@
     "104073527",
     "104063928",
     "101079037",
-    "000457209",
+    "202161890",
     "000312808",
+    "120540909",
+    "175199371",
+    "030003194",
     "203987346",
     "121704934",
+    "835014672",
     "111540504",
     "117634273",
     "102655436",
+    "113511106",
     "836163459",
     "107558642",
     "112649921",
@@ -4222,19 +4325,22 @@
     "107029685",
     "203717219",
     "201068091",
+    "203896291",
     "203180299",
     "202966915",
     "201433615",
     "104606174",
     "107585430",
     "201630096",
+    "203684908",
     "204500873",
+    "821108108",
     "825393882",
+    "000693113",
     "030420686",
     "101672621",
     "101793690",
     "103799394",
-    "112008155",
     "113567368",
     "115814753",
     "117008230",
@@ -4245,85 +4351,110 @@
     "121755423",
     "121877128",
     "122042572",
+    "123013221",
     "123089062",
     "123156493",
     "124699271",
     "126610588",
+    "126630861",
     "126738029",
+    "127627373",
     "130199413",
-    "130252702",
     "130378264",
     "130478555",
     "147004469",
     "147128125",
     "148061117",
     "175030948",
-    "175054529",
     "175161310",
     "175161997",
+    "175207882",
     "175336539",
+    "175425952",
     "200090708",
     "200165712",
     "200239504",
+    "200303540",
     "200534376",
     "200552303",
+    "200707465",
+    "200723170",
     "200817869",
     "200871482",
     "201048911",
     "201273840",
     "201449053",
     "201470058",
+    "201539390",
     "201550180",
     "201659906",
     "201765375",
+    "201811495",
     "202067302",
+    "202229252",
     "202284416",
     "202352269",
     "202580454",
     "202655070",
     "202798036",
     "202804653",
+    "202988527",
     "203075939",
+    "203113368",
     "203149713",
     "203326551",
+    "203618833",
+    "203972458",
     "204002506",
+    "204079723",
     "204306263",
     "204361427",
+    "204366568",
     "204546828",
+    "204551686",
     "204633652",
     "204843622",
+    "205008818",
+    "205122693",
     "205317316",
     "205384051",
     "205499000",
-    "821108108",
     "831142169",
+    "831915737",
+    "203006522",
     "201785506",
-    "202095497",
+    "202829806",
     "175000428",
     "114085677",
-    "000404249",
+    "118550554",
     "200070794",
+    "203173454",
     "205497316",
     "205082050",
     "201883701",
+    "101610107",
     "126630975",
     "201324911",
+    "175129615",
     "204099526",
     "205452851",
     "115344129",
     "204098759",
     "175400568",
+    "126735200",
     "128563607",
     "200052180",
     "000045216",
     "201254167",
     "204261124",
     "203946666",
+    "200454760",
     "200249085",
     "202924962",
     "202847380",
     "131453957",
     "200061489",
+    "201770907",
     "202390483",
     "202175872",
     "204597370",
@@ -4339,30 +4470,49 @@
     "205052501",
     "203814742",
     "115505907",
+    "203155698",
     "204009340",
     "103835309",
+    "200106589",
     "203308336",
+    "203311994",
     "204177950",
+    "205336035",
+    "106632805",
+    "200529607",
+    "203056910",
     "203816605",
     "204471418",
     "205689537",
     "104667451",
     "201995337",
+    "204279581",
     "205408328",
+    "203290518",
     "204003323",
     "200783776",
+    "117651162",
+    "131372035",
     "114599995",
+    "124643439",
+    "200566655",
     "203143952",
     "130114434",
+    "205118499",
     "203762214",
     "200142845",
     "205564793",
+    "175396148",
+    "200084349",
     "101016987",
     "203961732",
     "204319924",
+    "124658374",
     "205416296",
     "201895148",
+    "203052982",
     "205244761",
+    "203161854",
     "204964553",
     "130508347",
     "206086428",
@@ -4384,11 +4534,15 @@
     "175256096",
     "176060873",
     "177134041",
+    "200230277",
+    "200653131",
     "200817926",
     "201331165",
     "202509012",
+    "203093136",
     "203362889",
     "203876424",
+    "204935726",
     "206030187",
     "206068799",
     "206274782"
