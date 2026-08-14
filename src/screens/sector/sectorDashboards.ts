@@ -331,7 +331,11 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     id: "energy",
     titleKey: "sector_energy_title",
     descKey: "sector_energy_desc",
-    agency: "БЕХ",
+    // МЕ, not БЕХ: the members are the state energy sector by PRINCIPAL, which is
+    // the БЕХ group plus ДП РАО (a чл. 62 ал. 3 ТЗ enterprise under the minister
+    // directly). leadEik stays БЕХ — it is the biggest node and the group hero,
+    // not a claim that every member is its subsidiary.
+    agency: "МЕ",
     leadEik: BEH_EIK,
     browsePackId: "energy",
     ThematicTiles: EnergyThematicTiles,
@@ -389,6 +393,14 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
         eik: "175203485",
         name: { bg: "Булгаргаз", en: "Bulgargaz" },
         group: { bg: "Природен газ", en: "Natural gas" },
+      },
+      {
+        eik: "131218471",
+        name: {
+          bg: "ДП „Радиоактивни отпадъци“ (ДП РАО)",
+          en: "State Enterprise Radioactive Waste (DP RAO)",
+        },
+        group: { bg: "Радиоактивни отпадъци", en: "Radioactive waste" },
       },
     ],
   },

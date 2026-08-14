@@ -1,4 +1,4 @@
-// Енергетика (energy / БЕХ) reference data — the hand-curated EIK universe for
+// Енергетика (energy / МЕ) reference data — the hand-curated EIK universe for
 // the energy sector pack, mirroring src/lib/defenseReferenceData.ts and
 // vikReferenceData.ts (a TS constant, not a generated crosswalk): the multi-
 // entity / alias-merge concerns are the same as the defense and water sets.
@@ -17,6 +17,7 @@
 //   123531939 ТЕЦ Марица изток 2    1 857 c   €0.74bn   lignite thermal
 //   833017552 Мини Марица-изток       802 c   €0.50bn   lignite mining
 //   000649348 НЕК                   1 926 c   €0.33bn   hydro + public trader
+//   131218471 ДП РАО                  481 c   €47.5M    radioactive waste + decom
 //   175203485 Булгаргаз                80 c   €6.7M     gas public supply
 //   106588180 ВЕЦ Козлодуй             10 c   €0.8M     small hydro
 //   831373560 БЕХ (holding parent)      0 c   —         pure holding, no ЗОП
@@ -27,6 +28,16 @@
 // single-bid (3 339 of 9 400 bid-known). Still bigger than the МО group. (The
 // per-EIK € above are an all-tags probe and run ~9% higher because amendments
 // double-count; the group KPI shown in the UI uses the tag='contract' basis.)
+//
+// ⚠ THE SECTOR IS WIDER THAN БЕХ, and the two must not be used interchangeably.
+// ENERGY_SECTOR_EIKS / ENERGY_MEMBER_EIKS are the state energy sector under the
+// Minister of Energy, which is the БЕХ commercial group PLUS ДП РАО — a чл. 62
+// ал. 3 ТЗ state enterprise whose principal is МЕ directly, not БЕХ (see its
+// entry below). ENERGY_ALIAS_EIKS is the narrower HOLDING set and excludes it.
+// ДП РАО is 0.18%–1.86% of the sector in every year measured (0.46% over the
+// whole corpus), so it moves no headline — it is here because a €47M state
+// energy buyer belonged to no sector on the site at all, not because it changes
+// a number.
 //
 // ⚠ CURATED BY EIK ALLOWLIST, NEVER BY NAME REGEX. A name sweep on "козлодуй" /
 // "ядрен" false-positives the town of Козлодуй and everything in it — Община
@@ -66,6 +77,7 @@ export type EnergyUniverse =
   | "hydro" // водна генерация + публичен търговец — НЕК
   | "grid" // пренос на ток — ЕСО
   | "gas" // газ — пренос (Булгартрансгаз) + доставка (Булгаргаз)
+  | "waste" // радиоактивни отпадъци + извеждане от експлоатация (ДП РАО)
   | "ministry" // Министерство на енергетиката (принципал)
   | "regulator"; // КЕВР / АЯР
 
@@ -79,7 +91,9 @@ export interface EnergyEntity {
   ownership: EnergyOwnership;
 }
 
-// One row per distinct EIK. The БЕХ state generation/grid/gas group + principal.
+// One row per distinct EIK. The state energy sector under the Minister of Energy
+// — the БЕХ generation/grid/gas group, the non-БЕХ state enterprise ДП РАО, and
+// the principal ministry itself.
 export const ENERGY_ENTITIES: EnergyEntity[] = [
   { eik: BEH_EIK, name: "Български енергиен холдинг ЕАД", universe: "holding", ownership: "state" }, // prettier-ignore
 
@@ -100,6 +114,21 @@ export const ENERGY_ENTITIES: EnergyEntity[] = [
   // Газ — пренос + публична доставка
   { eik: "175203478", name: "Булгартрансгаз ЕАД", universe: "gas", ownership: "state" }, // prettier-ignore
   { eik: "175203485", name: "Булгаргаз ЕАД", universe: "gas", ownership: "state" }, // prettier-ignore
+
+  // Радиоактивни отпадъци + извеждане от експлоатация на 1-4 блок на АЕЦ Козлодуй.
+  // ⚠ NOT a БЕХ subsidiary — ДП РАО is a state enterprise по чл. 62, ал. 3 от ТЗ,
+  // образувано на основание чл. 78, ал. 1 от ЗБИЯЕ, whose принципал is the Minister
+  // of Energy DIRECTLY: the minister утвърждава its устройствен правилник and the
+  // УС working rules, appoints the substitute representative and receives the annual
+  // отчет, and both funding funds (фонд РАО, фонд ИЕЯС) are „към министъра на
+  // енергетиката". That is why it sits in this file at all — the sector is defined by
+  // its principal, the same rule that puts ПУДООС (also a чл. 62 ал. 3 предприятие)
+  // in the МОСВ set rather than in a holding. Same class as НКЖИ (transport) and the
+  // six държавни горски предприятия (agriculture). Verified 2026-08-13 against the
+  // Правилник за устройството и дейността на ДП РАО (strategy.bg/download/1212946).
+  // It is a real ЗОП buyer (unlike ENERGY_REGULATORS below), so it is folded into the
+  // sector money rather than surfaced as a cross-link.
+  { eik: "131218471", name: "Държавно предприятие „Радиоактивни отпадъци“ (ДП РАО)", universe: "waste", ownership: "state" }, // prettier-ignore
 
   // Принципал (не е част от БЕХ, но е държавният собственик на енергетиката)
   { eik: ENERGY_MINISTRY_EIK, name: "Министерство на енергетиката", universe: "ministry", ownership: "state" }, // prettier-ignore
@@ -178,26 +207,40 @@ export const entityByEik = (eik: string): EnergyEntity | undefined =>
 export const universeOf = (eik: string): EnergyUniverse | undefined =>
   ENTITY_BY_EIK[eik]?.universe;
 
-/** БЕХ + the subsidiaries (parent first, ministry excluded). The pack fans out
- *  over this set on the holding's page; any other EIK stands alone. */
+/** The БЕХ subsidiaries the pack fans out over on the holding's page; any other
+ *  EIK stands alone. ⚠ This is a HOLDING set, not the sector set — so it excludes
+ *  ДП РАО as well as the ministry. ДП РАО's принципал is МЕ directly, so folding
+ *  it here would show the БЕХ group pack on the page of a company БЕХ does not
+ *  own. Use ENERGY_SECTOR_EIKS for anything sector-shaped. */
 export const ENERGY_ALIAS_EIKS: string[] = ENERGY_ENTITIES.filter(
-  (e) => e.eik !== BEH_EIK && e.eik !== ENERGY_MINISTRY_EIK,
+  (e) =>
+    e.eik !== BEH_EIK &&
+    e.eik !== ENERGY_MINISTRY_EIK &&
+    e.universe !== "waste",
 ).map((e) => e.eik);
 
 /** Every state-energy EIK folded by the group model — the input to the
  *  SECTOR_BROWSE_PACKS `energy` entry and the group-rollup endpoint. Includes the
- *  ЕСО branch code so the €2.59bn grid line is complete; excludes the ministry
+ *  ЕСО branch code so the grid line is complete, and ДП РАО, which is under the
+ *  same principal (МЕ) without being a БЕХ subsidiary; excludes the ministry
  *  (a policy buyer, not generation) and district heating (a separate sector). */
 export const ENERGY_SECTOR_EIKS: string[] = [
   ...ENERGY_ENTITIES.filter((e) => e.universe !== "ministry").map((e) => e.eik),
   ...ESO_BRANCH_EIKS,
 ];
 
-/** The БЕХ group members rolled up by the /sector/energy dashboard, in the SAME
+/** The state-energy members rolled up by the /sector/energy dashboard, in the SAME
  *  order as SECTOR_DASHBOARDS.energy `members` — so the dashboard's group-model
  *  fetch and the signature ThematicTiles' fetch share ONE react-query key
- *  (keyed on eiks.join(",")). Excludes the ЕСО branch (~€64K, immaterial) and the
- *  ministry/regulators (not part of the БЕХ commercial group). */
+ *  (keyed on eiks.join(",")). Excludes the ЕСО branch (~€75K, immaterial) and the
+ *  ministry/regulators (not commercial buyers in this sector).
+ *
+ *  ⚠ This list must stay ENERGY_SECTOR_EIKS minus the ЕСО branch, and nothing
+ *  else. It is the hub headline's twin: sector_stats.json sums the sector set
+ *  while these tiles sum this one, so an EIK added to only one side makes two
+ *  surfaces publish different totals for the same sector — which is exactly what
+ *  the "hub/dashboard gap stays immaterial" gate in sector_stats.data.test.ts
+ *  measures. ДП РАО (€47M) is therefore in BOTH, unlike the ЕСО branch. */
 export const ENERGY_MEMBER_EIKS: string[] = [
   BEH_EIK,
   "106513772", // АЕЦ Козлодуй
@@ -208,6 +251,7 @@ export const ENERGY_MEMBER_EIKS: string[] = [
   "175201304", // ЕСО
   "175203478", // Булгартрансгаз
   "175203485", // Булгаргаз
+  "131218471", // ДП РАО — под МЕ, но не е дъщерно на БЕХ
 ];
 
 export const ENERGY_UNIVERSE_LABEL: Record<
@@ -220,6 +264,7 @@ export const ENERGY_UNIVERSE_LABEL: Record<
   hydro: { bg: "ВЕЦ и търговия", en: "Hydro & trading" },
   grid: { bg: "Електропренос", en: "Power grid" },
   gas: { bg: "Природен газ", en: "Natural gas" },
+  waste: { bg: "Радиоактивни отпадъци", en: "Radioactive waste" },
   ministry: { bg: "Министерство", en: "Ministry" },
   regulator: { bg: "Регулатор", en: "Regulator" },
 };

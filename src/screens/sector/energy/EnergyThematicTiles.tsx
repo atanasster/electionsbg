@@ -70,6 +70,7 @@ const UNIVERSE_COLOR: Record<EnergyUniverse, string> = {
   hydro: "#3f6a8a",
   grid: "#2f8fb0",
   gas: "#c9702f",
+  waste: "#6f8f5a",
   ministry: "#8a8f98",
   regulator: "#8a8f98",
 };

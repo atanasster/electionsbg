@@ -1,0 +1,54 @@
+// The sector config is written TWICE, and nothing used to hold the two copies
+// together.
+//
+// SECTOR_CLUSTERS (src/screens/governance/sectorRegistry.ts) fronts a sector on
+// the /governance/sectors hub and on the /procurement hub's featured block;
+// SECTOR_DASHBOARDS (./sectorDashboards.ts) fronts the SAME sector on its own
+// /sector/:id page. Both carry an `agency` — a Cyrillic acronym badge, identical
+// in both languages — and a reader crossing from the hub to the page sees both.
+//
+// This gate exists because that pair silently disagreed. Widening the energy set
+// to the state energy sector under the Minister of Energy (adding ДП РАО, a чл. 62
+// ал. 3 ТЗ enterprise whose principal is МЕ rather than БЕХ) meant relabelling the
+// badge from „БЕХ" to „МЕ" — and the registry copy was found only by grepping for
+// the literal string, not by any failing test. Left alone it would have shipped
+// /governance/sectors saying „БЕХ" and /sector/energy saying „МЕ" for one sector,
+// which reads as two different owners rather than one relabelled set.
+//
+// Deliberately NOT asserted here: that every registry sector has a dashboard.
+// Six of them (water/defense/culture/judiciary/pensions/education) are bespoke
+// screens with no SECTOR_DASHBOARDS entry by design, so the join is an INNER one
+// — this checks agreement where both sides exist, nothing more.
+
+import { describe, it, expect } from "vitest";
+import { SECTOR_CLUSTERS } from "@/screens/governance/sectorRegistry";
+import { SECTOR_DASHBOARDS } from "./sectorDashboards";
+
+const registrySectors = SECTOR_CLUSTERS.flatMap((c) => c.sectors);
+
+describe("sector registry ↔ dashboard config", () => {
+  it("agrees on the agency badge wherever both front the same sector", () => {
+    const shared = registrySectors.filter((s) => SECTOR_DASHBOARDS[s.id]);
+
+    // Without this the test is absence-equivalent: rename every dashboard id and
+    // the join is empty, so nothing is compared and it passes greener than ever.
+    expect(shared.length).toBeGreaterThan(5);
+
+    const disagreements = shared
+      .filter((s) => s.agency !== SECTOR_DASHBOARDS[s.id].agency)
+      .map(
+        (s) =>
+          `${s.id}: registry "${s.agency}" vs dashboard "${SECTOR_DASHBOARDS[s.id].agency}"`,
+      );
+    expect(disagreements).toEqual([]);
+  });
+
+  it("keeps energy on МЕ — the principal, not the holding", () => {
+    // Pinned by name because this is the one badge that is a claim about
+    // OWNERSHIP rather than a label. „БЕХ" would say the sector is the holding
+    // group; it is not — ДП РАО is in the set and БЕХ does not own it. See the
+    // ДП РАО entry in src/lib/energyReferenceData.ts for the legal basis.
+    expect(SECTOR_DASHBOARDS.energy.agency).toBe("МЕ");
+    expect(registrySectors.find((s) => s.id === "energy")?.agency).toBe("МЕ");
+  });
+});

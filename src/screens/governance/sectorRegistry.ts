@@ -54,7 +54,11 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         id: "energy",
         titleKey: "sector_energy_title",
         descKey: "sector_energy_desc",
-        agency: "БЕХ",
+        // МЕ, not БЕХ — the sector is the state energy set by principal (the БЕХ
+        // group plus ДП РАО, which МЕ owns directly). Must match
+        // SECTOR_DASHBOARDS.energy.agency: this badge and that one front the same
+        // sector on /governance/sectors and /procurement respectively.
+        agency: "МЕ",
         to: "/sector/energy",
         accent: TILE_ACCENTS.copper,
       },

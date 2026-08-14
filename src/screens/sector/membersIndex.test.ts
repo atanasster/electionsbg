@@ -56,20 +56,43 @@ describe("MEMBER_SEARCH_MIN", () => {
       .filter((c) => c.members.length >= MEMBER_SEARCH_MIN)
       .map((c) => c.id)
       .sort();
-    // security / regional / environment / transport. Energy (9) and social (6)
-    // are below it; the eight single-member sectors are far below.
+    // security / regional / environment / transport, plus energy — which joined
+    // at exactly the floor when ДП РАО took it from 9 members to 10. Social (6)
+    // is below it; the eight single-member sectors are far below.
     expect(above).toEqual(
-      ["environment", "regional", "security", "transport"].sort(),
+      ["energy", "environment", "regional", "security", "transport"].sort(),
     );
   });
 
-  it("is not knife-edge — any value in [10,11] picks the same four", () => {
+  // ⚠ This USED to assert "not knife-edge — any value in [10,11] picks the same
+  // four". That stopped being true the moment energy landed on 10: the floor now
+  // decides whether energy gets a box, so [10,11] no longer agree. Rather than
+  // widen the range until it passes again (which would assert nothing), it now
+  // pins the two things that are actually load-bearing — energy sits ON the
+  // floor, and the floor is nowhere near the single-member sectors, which is the
+  // margin that makes 10 a judgement call rather than a coin flip.
+  it("puts energy exactly on the floor, and never a single-member sector", () => {
     const pick = (min: number) =>
       Object.values(SECTOR_DASHBOARDS)
         .filter((c) => c.members.length >= min)
         .map((c) => c.id)
-        .sort()
-        .join(",");
-    expect(pick(10)).toBe(pick(11));
+        .sort();
+
+    expect(pick(MEMBER_SEARCH_MIN)).toContain("energy");
+    expect(pick(MEMBER_SEARCH_MIN + 1)).not.toContain("energy");
+
+    // The durable invariant: a one-member sector is 9 clear of the floor, so no
+    // plausible retune of this number mounts a search box over a single chip.
+    const singles = Object.values(SECTOR_DASHBOARDS)
+      .filter((c) => c.members.length === 1)
+      .map((c) => c.id);
+    expect(singles.length).toBeGreaterThan(0); // else the guard is vacuous
+    for (const min of [
+      MEMBER_SEARCH_MIN - 1,
+      MEMBER_SEARCH_MIN,
+      MEMBER_SEARCH_MIN + 1,
+    ]) {
+      for (const id of singles) expect(pick(min)).not.toContain(id);
+    }
   });
 });

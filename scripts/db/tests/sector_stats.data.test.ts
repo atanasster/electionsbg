@@ -120,6 +120,7 @@ import {
 import {
   ENERGY_SECTOR_EIKS,
   ENERGY_MEMBER_EIKS,
+  ENERGY_ALIAS_EIKS,
   ENERGY_ENTITIES,
   BEH_EIK,
   ENERGY_MINISTRY_EIK,
@@ -972,6 +973,73 @@ describe("energy sector (procurement / БЕХ)", () => {
     },
   );
 
+  // ДП РАО (131218471) — added 2026-08-13. The environment-sector audit found it
+  // awarding €47M while belonging to NO sector EIK-set on the site; it is a
+  // чл. 62 ал. 3 ТЗ state enterprise (чл. 78 ал. 1 ЗБИЯЕ) whose принципал is the
+  // Minister of Energy, so the energy set is its home. Three things can silently
+  // undo that, and none is visible to a row count.
+  test.skipIf(skip)(
+    "ДП РАО stays attributed to energy, and only to energy",
+    async () => {
+      const RAO = "131218471";
+
+      // 1. BOTH sides, or the two surfaces publish different sector totals. This is
+      //    the invariant that made the ЕСО-branch collapse tolerable and would NOT
+      //    tolerate a second member: at €47M this is 47x the €1M materiality line
+      //    the gap test above enforces, so a member-only or hub-only ДП РАО breaks
+      //    that test rather than passing quietly. Asserted here too, because the
+      //    failure THERE reads as "the ЕСО branch grew" and would send a reader to
+      //    the wrong EIK entirely.
+      assert.ok(
+        ENERGY_SECTOR_EIKS.includes(RAO),
+        "ДП РАО dropped out of ENERGY_SECTOR_EIKS — the hub headline has stopped " +
+          "counting a €47M state energy buyer that belongs to no other sector",
+      );
+      assert.ok(
+        ENERGY_MEMBER_EIKS.includes(RAO),
+        "ДП РАО dropped out of ENERGY_MEMBER_EIKS — the /sector/energy dashboard " +
+          "now under-counts the hub headline by €47M for the same sector",
+      );
+
+      // 2. It must NOT reach ENERGY_ALIAS_EIKS. That set is the БЕХ HOLDING fan-out
+      //    (it drives the group pack on a subsidiary's /awarder page), and ДП РАО is
+      //    not a БЕХ subsidiary — its principal is МЕ directly. Folding it in would
+      //    render the БЕХ group pack on the page of a company БЕХ does not own,
+      //    which is a false ownership claim rather than a wrong total.
+      assert.ok(
+        !ENERGY_ALIAS_EIKS.includes(RAO),
+        "ДП РАО leaked into ENERGY_ALIAS_EIKS — that is the БЕХ holding set, and " +
+          "ДП РАО is under МЕ directly, not a БЕХ subsidiary",
+      );
+
+      // 3. Exactly ONE browse pack may claim it. The audit found it in zero; the
+      //    opposite failure (two sectors both counting it, e.g. someone reading
+      //    „отпадъци" as an environment concern) would double-count it in the hub
+      //    grid with every per-sector total still reconciling on its own.
+      const claiming = Object.values(SECTOR_BROWSE_PACKS)
+        .filter((p) => p.eiks.includes(RAO))
+        .map((p) => p.id)
+        .sort();
+      assert.deepEqual(
+        claiming,
+        ["energy"],
+        `ДП РАО is claimed by ${claiming.length} browse packs (${claiming.join(", ") || "none"}) ` +
+          "— it must be attributed to energy and nowhere else",
+      );
+
+      // 4. It is a REAL awarder at the size the attribution was argued from. A
+      //    wrong-EIK entry (the МВР €370M-into-defense class) sums to ~nothing;
+      //    the floor is roughly half the measured €47.06M so corpus growth cannot
+      //    trip it. Uses the serving basis, tag='contract'.
+      const rao = await sectorSum([RAO]);
+      assert.ok(
+        rao > 20_000_000,
+        `ДП РАО sums to €${rao} on the serving basis — below the €20M floor the ` +
+          "energy attribution was argued from; verify the EIK before trusting it",
+      );
+    },
+  );
+
   test.skipIf(skip)(
     "every money-bearing universe carries real money — and `holding` legitimately does not",
     async () => {
@@ -984,6 +1052,7 @@ describe("energy sector (procurement / БЕХ)", () => {
         ["grid", 1_000_000_000, "Електропренос (ЕСО)"],
         ["nuclear", 900_000_000, "Ядрена енергия (АЕЦ Козлодуй)"],
         ["hydro", 200_000_000, "ВЕЦ и търговия (НЕК + ВЕЦ Козлодуй)"],
+        ["waste", 20_000_000, "Радиоактивни отпадъци (ДП РАО)"],
       ];
 
       const rows = await allRows<{ eik: string; eur: string }>(
@@ -1139,8 +1208,19 @@ describe("energy sector (procurement / БЕХ)", () => {
       // anti-allowlist above, which is the layer that owns them — this one exists
       // to catch a member from an entirely different domain (the МВР-into-defense
       // shape), which no denylist can name in advance.
+      //
+      // „радиоактивн" is ДП РАО, and it is the one member whose energy membership
+      // is NOT legible from its name — «Държавно предприятие „Радиоактивни
+      // отпадъци"» carries no energy stem at all, because the attribution is by
+      // PRINCIPAL (чл. 78 ал. 1 ЗБИЯЕ → министъра на енергетиката), not by what it
+      // is called. That is precisely why the reasoning lives in a comment on its
+      // entry in energyReferenceData.ts rather than being inferable here: this gate
+      // can only confirm the kind is nuclear-adjacent, never that МЕ is its
+      // principal. Narrow on purpose — it matches radioactive-waste bodies and
+      // nothing else in the corpus, so it cannot wave through a general „отпадъци"
+      // (municipal waste) awarder, which would be an МОСВ concern, not an energy one.
       const ENERGY_NAME =
-        /електроенерг|електрическ|енергиен|енергетик|марица|козлодуй|газ|есо еад|системен оператор|мрежови експлоатационен|управление\s+мер|(?<![а-я])(аец|тец|вец)(?![а-я])/i;
+        /електроенерг|електрическ|енергиен|енергетик|марица|козлодуй|газ|есо еад|системен оператор|мрежови експлоатационен|управление\s+мер|радиоактивн|(?<![а-я])(аец|тец|вец)(?![а-я])/i;
       const rows = await allRows<{ eik: string; name: string }>(
         `select distinct awarder_eik eik, awarder_name name
            from contracts

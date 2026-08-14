@@ -307,7 +307,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   },
   energy: {
     id: "energy",
-    label: { bg: "Енергетика (БЕХ)", en: "Energy (БЕХ)" },
+    label: { bg: "Енергетика (МЕ)", en: "Energy (МЕ)" },
     eiks: ENERGY_SECTOR_EIKS,
   },
   tourism: {

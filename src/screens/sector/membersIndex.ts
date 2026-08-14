@@ -10,10 +10,20 @@ import type { SectorDashboardConfig } from "./sectorDashboards";
  *  acronyms a reader actually types (НКЖИ, БДЖ, ИАЖА) behind the least
  *  guessable full names.
  *
- *  NOT knife-edge: the member counts are 74 / 30 / 27 / 11 / 9 / 6 / 1×8, so
- *  ANY value in [10, 11] selects the same four sectors. Energy at 9 is one
- *  member below the floor — if it grows, it gets a box for free, which is the
- *  case this auto-mount exists for (МВР went from a handful to 74).
+ *  ⚠ Energy DID grow, and this is what that looked like. The counts are now
+ *  74 / 30 / 27 / 11 / 10 / 6 / 1×8: adding ДП РАО (2026-08-13) took energy from
+ *  9 to 10, so it crossed the floor and got a box for free — precisely the
+ *  auto-mount this exists for (МВР went from a handful to 74). Its roster is the
+ *  same shape as МТС's, acronyms a reader types (АЕЦ, ЕСО, НЕК, ДП РАО) behind
+ *  unguessable full names, so the box earns its place at 10 exactly as at 11.
+ *
+ *  The consequence, stated rather than left to be rediscovered: the floor is no
+ *  longer slack. It USED to be true that any value in [10, 11] picked the same
+ *  four sectors; energy now sits exactly ON 10, so 11 would silently take its box
+ *  away. What stays invariant — and is what the test actually guards — is that no
+ *  single-member sector can ever qualify, since the gap from 10 down to 1 is the
+ *  real margin. Moving this number now trades one sector's box; moving it below
+ *  6 changes the feature.
  *
  *  It cannot reach /judiciary: that is a bespoke screen whose 283 bodies are a
  *  PG dimension, not a `members` array. Its finder is T5d. */
