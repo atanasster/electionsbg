@@ -193,6 +193,44 @@ proposes per-section subdomains.
 
 ### 2.5 Firebase custom domains — and the one constraint that shapes the whole design
 
+> ## ✅ SETTLED 2026-08-14 — the console's domain-level redirect does the job
+>
+> Everything below this box was written before the mechanism could be tested. It has
+> now been **measured on `naiasno.bg` itself**, parked as a redirect to
+> `electionsbg.com`, and the answer removes the need for a second hosting site.
+>
+> Firebase's **custom-domain "Redirect to another domain"** option emits a **301,
+> preserving path, query string and percent-encoding, in a single hop**:
+>
+> | Request to `naiasno.bg` | Result |
+> |---|---|
+> | `/procurement/contracts?pscope=y:2025` | 301 → same path **and query** · 1 hop → 200 |
+> | `/about` | 301 → `/about` · 1 hop → 200 |
+> | `/en` | 301 → `/en`, **no slash added** · 1 hop → 200 |
+> | `/settlement/%D0%A1%D0%BE%D1%84%D0%B8%D1%8F` | 301 → encoding intact |
+> | `/funds/contract/BG16RFPR001-1.004-2616` | 301 → path intact |
+> | `/about/` (slash form) | 301 verbatim, then hosting's `trailingSlash:false` normalises · **2 hops** → 200 |
+>
+> So the flip is: attach `electionsbg.com` to the site with the redirect option pointed
+> at `naiasno.bg`, and move `naiasno.bg` to serving. **No `legacy` site, no redirect
+> table, no capture-syntax traps.**
+>
+> **The one residual cost is the trailing-slash form, at two hops.** That is acceptable
+> rather than ideal: every URL this repo emits is the no-slash form (canonical, `og:url`,
+> hreflang, sitemap `<loc>`, the ~590 prerender links), so the indexed set and almost all
+> inbound links are single-hop; only hand-typed or third-party slash URLs pay the extra
+> hop, and Google follows and passes signals across it.
+>
+> **This was measured in the REVERSE direction** (`naiasno.bg` → `electionsbg.com`).
+> The behaviour is a property of the feature, not of the direction, so it carries — but
+> re-run the same probes immediately after the flip rather than assuming it.
+>
+> The two-site design below is retained as the **fallback** if Firebase ever changes
+> this behaviour, and because its analysis of `firebase.json` redirects being
+> host-blind is still true and still the reason the naive approach fails.
+
+---
+
 **Firebase Hosting redirects in `firebase.json` are configured per SITE, not per domain.**
 There is no host condition — the full-config reference documents
 `source`/`regex`/`destination`/`type` and nothing that reads the `Host` header. So:
@@ -201,7 +239,7 @@ There is no host condition — the full-config reference documents
 > content on both origins with no 301 between them.** That is duplicate content across two
 > domains, Google picks a canonical on its own, and the migration silently does not happen.
 
-The correct shape is **two hosting sites**:
+If the console option were unavailable, the correct shape would be **two hosting sites**:
 
 | Site | Target | Domains | Content |
 |---|---|---|---|
@@ -252,7 +290,8 @@ traps above by construction; the other two still need testing.
 Because the legacy site is redirect-only, it has no file-count exposure — which matters,
 since `dist/` is already ~248k files and a 453k-file deploy has failed outright.
 
-> **There may be a shortcut — verify it, do not assume it.** The Firebase console's
+> **RESOLVED — this is what the box at the top of §2.5 records.** Kept for the
+> reasoning. The Firebase console's
 > custom-domain setup carries an optional *"redirect all requests on this custom domain
 > to a second specified domain"* checkbox, which **is** host-aware and would remove the
 > need for a second site entirely. But the documentation describes it only for the
