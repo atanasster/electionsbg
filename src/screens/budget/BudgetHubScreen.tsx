@@ -26,6 +26,8 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { formatEurCompact, formatEurCompactSigned } from "@/lib/currency";
 import { BUDGET_BANDS } from "./budgetRegistry";
 import { BUDGET_SCENES } from "./budgetScenes";
+import { HubSearch } from "@/ux/search/HubSearch";
+import { budgetSearchSources } from "./budgetSearch";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
 interface TileMetric {
@@ -203,6 +205,17 @@ export const BudgetHubScreen: FC = () => {
     [t, metrics],
   );
 
+  // Both sources are server-backed, so nothing is fetched until the reader
+  // types — a visitor who never searches pays nothing for the box.
+  const searchSources = useMemo(
+    () =>
+      budgetSearchSources({
+        fy: stats?.fiscalYear ?? null,
+        bg: i18n.language === "bg",
+      }),
+    [stats?.fiscalYear, i18n.language],
+  );
+
   const pageTitle = t("budget_hub_title");
 
   return (
@@ -217,6 +230,25 @@ export const BudgetHubScreen: FC = () => {
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         {t("budget_hub_intro")}
       </p>
+
+      {/* Directly under the intro and above the first band: the fastest route
+          to a destination, where the tiles are the slow one. A reader who
+          arrives knowing „Министерство на отбраната" or „Пловдив" should not
+          have to work out which of fourteen tiles contains it. */}
+      <HubSearch
+        sources={searchSources}
+        idPrefix="budget-search"
+        className="mt-4 max-w-2xl"
+        title={{ bg: "Търсене в бюджета", en: "Search the budget" }}
+        placeholder={{
+          bg: "разпоредител или община…",
+          en: "a spending unit or a municipality…",
+        }}
+        hint={{
+          bg: "Първостепенните разпоредители и всички 265 общини.",
+          en: "First-level spending units and all 265 municipalities.",
+        }}
+      />
 
       <div data-og="budget-hub">
         <TileHubGrid sections={sections} className="mt-6" />
