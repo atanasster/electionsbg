@@ -79,6 +79,12 @@ import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
 import { MOSV_BUDGET_NODE } from "../../../src/lib/environmentReferenceData";
 import { ministryYearSeriesEur } from "../../../src/data/budget/ministrySeries";
+import {
+  dooPensionsEur,
+  isCompleteNoiYear,
+  type NoiFundLike,
+  type NoiYearLike,
+} from "../../../src/data/budget/noiYear";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -266,19 +272,40 @@ const loadBudgetSeries = (): string[] => {
 };
 
 // Pension: ДОО fund pension outlay per fiscal year.
+//
+// Two rules here, both learned the hard way, and both delegated to noiYear.ts
+// rather than restated — that module is the single interpreter of this file and
+// says so in its header ("Import it; do not re-derive the predicate"). Until
+// 2026-08-14 this generator was the ONLY reader of funds.json outside it.
+//
+//  · SHELL YEARS ARE SKIPPED. The B1 ingest publishes a new fiscal year
+//    mid-cycle as a partial record (`funds: []`, revenue 0, and an
+//    `expenditure`/`pensions` that is really the pension YEARBOOK's grand
+//    total — a different basis: on 2024 it sits 0.53% below the three-fund B1
+//    rollup and 0.06% below the ДОО B1 line). Taking every
+//    year put the 2023 shell's yearbook figure on the `?pscope=y:2023` tile
+//    under basis 'payout', and — because annual() resolves `all` and every
+//    `ns:` scope through the MAX year present — would have flipped the headline
+//    to a partial figure the moment the 2025 shell landed, while /pensions
+//    (guarded) held the last complete year. A tile contradicting the page it
+//    links to, at a 200, with nothing red.
+//  · ДОО ALONE, never `totals.pensions`. That is the three-fund rollup and it
+//    is €52.5m / 0.47% larger — all of it Учителски пенсионен фонд. See the
+//    warning on dooPensionsEur.
+//
+// A complete year always carries its 5500 snapshot, so the null arm is the
+// no-B1-for-ДОО case, which has nothing to publish.
 const funds = readJson<{
-  years?: Array<{
-    fiscalYear: number;
-    totals?: {
-      pensions?: { amountEur?: number };
-      expenditure?: { amountEur?: number };
-    };
-  }>;
+  years?: Array<
+    NoiYearLike & {
+      funds: NoiFundLike[];
+    }
+  >;
 }>("data/budget/noi/funds.json");
 const pensionByYear: Record<number, number> = {};
 for (const y of funds.years ?? []) {
-  const v =
-    y.totals?.pensions?.amountEur ?? y.totals?.expenditure?.amountEur ?? 0;
+  if (!isCompleteNoiYear(y)) continue;
+  const v = dooPensionsEur(y);
   if (v) pensionByYear[y.fiscalYear] = v;
 }
 
@@ -396,7 +423,17 @@ const scopeStats = async (
   }
 
   // Bespoke payouts / score / headcount.
-  out.pension = annual(pensionByYear, year, "eur", "payout");
+  //
+  // pension OMITS its key rather than emitting a €0 payout when the series is
+  // empty. funds.json is TRACKED, so an empty series means a tracked source
+  // moved or lost its shape — and the completeness guard above widened the set
+  // of inputs that reach that state (no complete year; no 5500 snapshot in one).
+  // annual() would return `value: 0`, which this generator then commits over a
+  // good artifact as „ДОО paid nothing" at a 200. A MISSING key instead lets the
+  // tile render its own no-data state — the same way /pensions renders nothing
+  // when flattenFundYear returns null, rather than confidently showing zero.
+  if (Object.keys(pensionByYear).length)
+    out.pension = annual(pensionByYear, year, "eur", "payout");
   // НЗОК: latest is the last FULL year (month 12), not the partial current YTD.
   out.health =
     year != null && nzokByYear[year] != null

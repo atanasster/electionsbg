@@ -15,18 +15,27 @@ import {
   type NoiModel,
 } from "@/lib/noiAttributes";
 import type { NoiFundsFile } from "@/data/budget/types";
-import { latestCompleteNoiYear } from "@/data/budget/noiYear";
+import {
+  DOO_FUND_CODE,
+  fundPensionsEur,
+  latestCompleteNoiYear,
+} from "@/data/budget/noiYear";
 import { toEur } from "@/lib/currency";
 
-/** Държавно обществено осигуряване. The pack is titled "Всеки лев на ДОО" and
- *  the tiles say "изплатени от ДОО", so every figure must be this fund alone —
- *  not the sum across the three funds НОИ administers. УчПФ (5591) and ГВРС
- *  (5592) are separate funds with their own budgets; folding them in shifted
- *  expenditure by ~€54M and moved the contribution/transfer shares by ~0.3pp
- *  against a label that promised ДОО. The budget views (BudgetSocialFundsTile,
- *  BudgetFlowSocialFundsDrilldown) correctly keep the all-funds rollup — they
- *  are about the social funds collectively. */
-const DOO_FUND_CODE = "5500";
+/*  Държавно обществено осигуряване (DOO_FUND_CODE, imported above). The pack is
+ *  titled "Всеки лев на ДОО" and the tiles say "изплатени от ДОО", so every
+ *  figure must be this fund alone — not the sum across the three funds НОИ
+ *  administers. УчПФ (5591) and ГВРС (5592) are separate funds with their own
+ *  budgets; folding them in shifted expenditure by ~€54M and moved the
+ *  contribution/transfer shares by ~0.3pp against a label that promised ДОО.
+ *  The budget views (BudgetSocialFundsTile, BudgetFlowSocialFundsDrilldown)
+ *  correctly keep the all-funds rollup — they are about the social funds
+ *  collectively.
+ *
+ *  The constant and the pension accessor now live in noiYear.ts because the
+ *  sectors-hub generator needs the same figure offline, and reading
+ *  `totals.pensions` there reproduced exactly the ~€52.5M rollup error this
+ *  comment describes — on the hub tile that links to this very pack. */
 
 export { NOI_EIK };
 // The pack takes its scope-window type from here.
@@ -94,7 +103,11 @@ const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
   return {
     fiscalYear: y.fiscalYear,
     expenditureEur: doo.expenditure.amountEur,
-    pensionsEur: bgnToEur(doo.pensionsBgn),
+    // Via the shared accessor, so this pack and the /governance/sectors tile
+    // cannot drift apart again. `?? 0` covers a 5500 snapshot whose pension
+    // line is null (pensionsBgn is nullable, and the guard above only checks
+    // `expenditure`) — same result as the bgnToEur(null) this replaced.
+    pensionsEur: fundPensionsEur(doo) ?? 0,
     benefitsEur: bgnToEur(doo.shortTermBenefitsBgn),
     revenueEur: doo.revenue?.amountEur ?? 0,
     contributionsEur: doo.taxRevenue?.amountEur ?? null,
