@@ -1229,6 +1229,61 @@ for a hub that fetches 1.7.
 way it covers `/court` and `/pension-fund`; a budget section in `llms-full.txt`. Verify every
 emitted URL is the **no-slash** form and that the EN root is `/en`, not `/en/`.
 
+### T9 — the parity backlog *(audit 2026-08-14, after T8)*
+
+Comparing the shipped hub against `/budget/deep-dive` (the pre-migration screen, still live)
+found **one systemic gap and eleven specific ones**. Nothing here is unreachable today — the
+deep-dive serves all of it — but it sits behind a link most readers will not take, which is
+the definition of a regression for a front door.
+
+**THE SYSTEMIC ONE: the new module renders ZERO charts.** Measured — no `ResponsiveContainer`,
+`ComposedChart`, `PieChart`, `LineChart` or `Sankey` in any of the fourteen screens. Every
+figure is a table, a `<div>` bar or text. The legacy tiles carry a ComposedChart trend with a
+dashed projection, a revenue donut, a personnel sparkline and a 1,063-line Sankey. That was
+never a decision — §7.1's four-part spine says „the shape that answers the question", and no
+step chose prose over a chart. 6,213 lines of legacy tiles became 3,873 lines of screens and
+the difference is almost entirely visual.
+
+**The good news is that most of it is UI-only work**, because the serving layer already
+carries the data. `budget_series()` returns the monthly points a trend chart needs;
+`budget_snapshot()` returns `depth` / `isSubtotal` / `groupLabelBg`, which is exactly what
+`budgetFlowModel.ts` consumes, so even the Sankey could be re-pointed at Postgres without a
+migration. Two items need schema work and are marked.
+
+| # | What is missing | Where it was | Cost |
+|---|---|---|---|
+| T9.1 | **Charts, as a class** — pick the shape per page rather than defaulting to a table | everywhere | UI |
+| T9.2 | **Monthly execution trend + dashed projection to December**, with the Еврозона / Избори reference lines | `BudgetTrendTile` → `/budget/execution` | UI — `budget_series()` already returns the points |
+| T9.3 | **„Сравнение спрямо същия период"** — cumulative-to-month-M bars per fiscal year, „% от плана" badge, verdict vs the 5-year median. Gone entirely; no new page has it | `BudgetSamePointTile` → `/budget/execution` | UI |
+| T9.4 | **Maastricht 3%-of-GDP badge.** The locale keys still exist and the payload already carries `gdpEur` + `peerBands.B9` | the deficit card → `/budget/execution` | UI, small |
+| T9.5 | **Вноска в ЕС has no hub tile.** Three of the four headline figures survive as tile metrics; this one is on no hub surface at all | headline card → hub | UI, small |
+| T9.6 | **Revenue donut** — the composition page ranks with `<div>` bars and no chart | `BudgetRevenueCompositionTile` → `/budget/revenue` | UI |
+| T9.7 | **Personnel sparkline** (2017-2025) — `budget_personnel_series()` already returns every point | `BudgetPersonnelTile` → `/budget/personnel` | UI |
+| T9.8 | **Personnel detail: central / territorial / общински split, „незаети > 6 мес.", the 581 administrative structures, and top ministries by personnel spend with headcount and €/yr** | `BudgetPersonnelTile` → `/budget/personnel` | ⚠️ SCHEMA — `budget_personnel` has only `positions_total/filled/vacant`, `nsi_headcount`, `payroll_eur`; the split and the per-ministry breakdown are in the JSON and were never loaded |
+| T9.9 | **Ministry rows lost their procurement footprint and MP-connected flag** — the Phase-4 cross-link from a spending unit to what it buys | `BudgetMinistriesTile` → `/budget/ministries` | ⚠️ SCHEMA — `budget_admin_list` returns `amount, eik, hasExecution, nameBg, nameEn, nodeId` and nothing else |
+| T9.10 | **ЗБДОО per-fund plan**, rendered adjacent to the B1 actuals and deliberately never netted against them | `BudgetSocialFundsTile` → `/budget/social-funds` | UI |
+| T9.11 | **The budget-journey timeline** — per fiscal year: the law, the КФП snapshots published so far, and the Сметна палата audit once it lands. `/budget/law` has the eight-document scorecard and a per-year document list, which is a different object | `BudgetJourneyTile` → `/budget/law` | UI |
+| T9.12 | **The „Бюджети по кабинети" cross-link card** to `/indicators/budgets` — one link, and the only path from the budget module to the cross-cabinet fiscal view | `BudgetScreen` → hub | UI, trivial |
+
+**The Sankey is NOT on that list, and that is a decision rather than an omission** — §5 routes
+it to `/budget/explorer` and §7.2 replaces the whole-tree-in-one-payload shape with one level
+per call. Its five drilldowns each have their own page now. Worth revisiting only as an
+*optional* progressive enhancement on `/budget/explorer` (the data is there), never as the
+page's primary shape, and never on the hub.
+
+**Two things that look like losses and are not:**
+
+- **„За всеки €100" was upgraded, not dropped.** `BudgetCitizenViewTile` showed a
+  population-average split; the hub's receipt takes the reader's own salary and splits it four
+  ways by legal destination. The €100 column is still the empty-input state.
+- **No payroll on `/budget/personnel`** — the Доклад publishes none, and €0 would claim the
+  administration is free. Likewise **no „кой гласува за него" on `/budget/law`**:
+  `budget_document.adopted_by_item_id` is NULL on all 33 rows.
+
+Order: **T9.4, T9.5, T9.12 first** (three small UI fixes that put context back on the pages a
+reader lands on), then **T9.2, T9.3, T9.6, T9.7** (the charts, all UI-only), then **T9.8 and
+T9.9** (the two that need 153/155 columns and a loader pass), then T9.10 and T9.11.
+
 ### Parallel track, NOT a tier — the execution-report parser
 
 §2.3: 8 of 48 spending units carry an executed figure in the best year, and none at all in six of
