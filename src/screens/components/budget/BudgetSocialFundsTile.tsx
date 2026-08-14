@@ -15,6 +15,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { HeartHandshake } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
@@ -153,7 +154,18 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
             {lang === "bg" ? " г." : ""}
           </span>
         </CardTitle>
-        <p className="text-xs text-muted-foreground">{t("noi_tile_intro")}</p>
+        <p className="text-xs text-muted-foreground">
+          {t("noi_tile_intro")}{" "}
+          {/* The tile is the composition; /budget/social-funds is the full
+              account per fund — including the transfer in, without which the
+              balance cannot be reconciled with revenue and spending. */}
+          <Link
+            to="/budget/social-funds"
+            className="text-primary hover:underline"
+          >
+            {t("budget_funds_see_all")}
+          </Link>
+        </p>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
         <div className="flex items-baseline gap-3 flex-wrap">

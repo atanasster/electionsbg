@@ -776,6 +776,11 @@ const BudgetInvestmentsScreen = lazy(() =>
     default: m.BudgetInvestmentsScreen,
   })),
 );
+const BudgetSocialFundsScreen = lazy(() =>
+  import("./screens/budget/BudgetSocialFundsScreen").then((m) => ({
+    default: m.BudgetSocialFundsScreen,
+  })),
+);
 const BudgetMinistryScreen = lazy(() =>
   import("./screens/BudgetMinistryScreen").then((m) => ({
     default: m.BudgetMinistryScreen,
@@ -3036,6 +3041,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <BudgetInvestmentsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/social-funds"
+            element={
+              <LayoutScreen>
+                <BudgetSocialFundsScreen />
               </LayoutScreen>
             }
           />
