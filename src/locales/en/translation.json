@@ -6350,5 +6350,11 @@
   "budget_samepoint_intro": "Every year is cut at the end of {{month}} — the point {{fy}} has reached. КФП figures accumulate from the start of the year, so comparing against previous Decembers shows a collapse every time.",
   "budget_samepoint_verdict": "{{label}}: {{delta}} against the prior years' median.",
   "budget_samepoint_note": "The percentage on the right is execution against the year's statutory plan, which neutralises nominal growth. It is absent for a year running on an interim law with no adopted plan. The comparison is on MAGNITUDE: a deficit that doubled is +100%, not −100%. The median is computed from the prior years only, excluding the current one.",
-  "budget_samepoint_signmismatch": "{{label}}: this year has the opposite sign to the prior ones — a magnitude comparison would mean nothing, so none is shown."
+  "budget_samepoint_signmismatch": "{{label}}: this year has the opposite sign to the prior ones — a magnitude comparison would mean nothing, so none is shown.",
+  "budget_donut_note": "Tax revenue is broken out by tax type; the other sections stay whole. The two levels are not additive — every inner line is already inside its section.",
+  "budget_donut_note_exp": "Expenditure is broken out by type; transfers and the other sections stay whole. The two levels are not additive — every inner line is already inside its section.",
+  "budget_donut_h_revenue": "What the revenue is made of",
+  "budget_donut_h_expenditure": "What the expenditure is made of",
+  "budget_donut_other_n_one": "({{count}} line)",
+  "budget_donut_other_n_other": "({{count}} lines)"
 }

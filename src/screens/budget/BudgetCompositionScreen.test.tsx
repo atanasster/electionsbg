@@ -11,7 +11,7 @@
 //      comparison against the number printed above it.
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import bg from "@/locales/bg/translation.json";
@@ -233,16 +233,26 @@ describe("BudgetCompositionScreen", () => {
       ],
     };
     renderIt({ kind: "expenditure", peerItem: "TE" });
-    await screen.findByText("Текущи разходи");
+    // Scoped: the donut's legend renders the same label, so an unscoped query
+    // now matches twice. What this gate is about is which SECTION the page
+    // resolved, and the breakdown list is where that shows.
+    const list = await screen.findByTestId("budget-breakdown");
+    expect(within(list).getByText("Текущи разходи")).toBeTruthy();
     expect(screen.queryByText("€100")).toBeNull();
   });
 
-  it("shows only the top level, never the nested lines", async () => {
+  it("shows only the top level in the breakdown, never the nested lines", async () => {
     renderIt();
-    await screen.findByText("Данъчни");
-    // ДДС is depth 1 and already inside Данъчни. Rendering both would double
-    // the visible total.
-    expect(screen.queryByText("ДДС")).toBeNull();
+    const list = await screen.findByTestId("budget-breakdown");
+    // ДДС is depth 1 and already inside Данъчни. Rendering both IN THIS LIST
+    // would double the visible total.
+    //
+    // Scoped to the list on purpose: the donut above it renders depth-1 lines
+    // deliberately, and drops their parent so the two levels are never both
+    // counted (budgetSlices.test.ts holds that). The rule this gate protects
+    // is about the BAR LIST, which shows depth-0 and has no such compensation.
+    expect(within(list).getByText("Данъчни")).toBeTruthy();
+    expect(within(list).queryByText("ДДС")).toBeNull();
   });
 
   it("states that the EU band is a different perimeter", async () => {

@@ -11,7 +11,7 @@
 //     COMING IN on the page about money going out, at a 200.
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import bg from "@/locales/bg/translation.json";
@@ -131,7 +131,12 @@ describe("BudgetSpendingScreen", () => {
       ],
     };
     renderEn();
-    expect(await screen.findByText("Текущи разходи")).toBeTruthy();
+    // Scoped to the breakdown list: the donut's legend above it applies the
+    // SAME fallback, so an unscoped query now matches twice. Both falling back
+    // is the correct behaviour — a blank legend row on /en would be the same
+    // defect in a second place.
+    const list = await screen.findByTestId("budget-breakdown");
+    expect(within(list).getByText("Текущи разходи")).toBeTruthy();
   });
 
   it("shows the EXPENDITURE peer band, not revenue's", async () => {

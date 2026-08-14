@@ -24,6 +24,8 @@ import { cn } from "@/lib/utils";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useBudgetSnapshot } from "@/data/budget/useBudgetSnapshot";
+import { buildSlices } from "./budgetSlices";
+import { BudgetDonut } from "./BudgetDonut";
 import { useBudgetSeries } from "@/data/budget/useBudgetSeries";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
@@ -80,6 +82,20 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
   const topLines = useMemo(
     () => (section?.lines ?? []).filter((l) => l.depth === 0),
     [section],
+  );
+
+  /** The donut's slices: ONE depth-0 group opened into its own leaves, every
+   *  other group left whole. Revenue opens „Данъчни приходи" (86% of the
+   *  section, so leaving it closed answers nothing); expenditure opens
+   *  „Разходи" and leaves „Трансфери (нето)" — 58% and a destination rather
+   *  than a type — as a single wedge. */
+  const slices = useMemo(
+    () =>
+      buildSlices(
+        section?.lines ?? [],
+        kind === "revenue" ? "Данъчни приходи" : "Разходи",
+      ),
+    [section, kind],
   );
 
   /** The full-year figure per fiscal year. КФП is CUMULATIVE, so the year's
@@ -179,6 +195,30 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
 
         {/* 2. От какво се състои */}
         <div>
+          {slices.length > 0 ? (
+            <div className="mb-4">
+              <h2 className="mb-2 text-sm font-semibold">
+                {/* A heading per kind. Interpolating the page title produced
+                    „Съставът на откъде идват парите" — the titles are clauses,
+                    not noun phrases, and lower-casing a clause does not make
+                    one. */}
+                {t(
+                  kind === "revenue"
+                    ? "budget_donut_h_revenue"
+                    : "budget_donut_h_expenditure",
+                )}
+              </h2>
+              <BudgetDonut slices={slices} />
+              <p className="mt-2 text-[11px] text-muted-foreground/80">
+                {t(
+                  kind === "revenue"
+                    ? "budget_donut_note"
+                    : "budget_donut_note_exp",
+                )}
+              </p>
+            </div>
+          ) : null}
+
           <h2 className="mb-2 text-sm font-semibold">
             {t("budget_comp_breakdown_h")}
           </h2>
@@ -201,7 +241,15 @@ export const BudgetCompositionScreen: FC<BudgetCompositionProps> = ({
               {t("budget_comp_empty")}
             </p>
           ) : (
-            <ul className="divide-y rounded-xl border bg-card shadow-sm">
+            /* Scoped so the gates below it can name THIS list. The donut's
+               legend renders depth-1 lines by design, so an unscoped
+               `getByText("Данъчни")` now matches twice and an unscoped
+               `queryByText("ДДС")` finds the legend row rather than a
+               double-counted bar. */
+            <ul
+              data-testid="budget-breakdown"
+              className="divide-y rounded-xl border bg-card shadow-sm"
+            >
               {topLines.map((l) => {
                 const share =
                   total && l.executedEur != null && total !== 0
