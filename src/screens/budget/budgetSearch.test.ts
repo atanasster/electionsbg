@@ -38,9 +38,12 @@ describe("budget hub search", () => {
 
   it("sends every see-all to a page that READS ?q", () => {
     const s = sources();
-    const targets = s.map((src) => src.seeAll!("отбрана"));
-    expect(targets[0].to).toMatch(/^\/budget\/ministries\?q=/);
-    expect(targets[1].to).toMatch(/^\/budget\/municipal\?q=/);
+    const targets = s.map((src) => src.seeAll!("отбрана")!);
+    // Both groups must HAVE a see-all — a missing one is the same defect as a
+    // wrong one, and `targets[i]` would otherwise be undefined silently.
+    expect(targets).toHaveLength(2);
+    expect(targets[0]!.to).toMatch(/^\/budget\/ministries\?q=/);
+    expect(targets[1]!.to).toMatch(/^\/budget\/municipal\?q=/);
     // …and the destinations really do read it. Asserted against the screens'
     // source so deleting the param handling breaks this, not just a comment.
     expect(screenSrc("./BudgetMinistriesScreen.tsx")).toContain(
@@ -52,10 +55,10 @@ describe("budget hub search", () => {
   });
 
   it("percent-encodes the query into both see-alls", () => {
-    const [units, munis] = sources().map((s) => s.seeAll!("София & Ко"));
-    expect(units.to).toContain(encodeURIComponent("София & Ко"));
-    expect(munis.to).toContain(encodeURIComponent("София & Ко"));
-    expect(units.to).not.toContain(" ");
+    const [units, munis] = sources().map((s) => s.seeAll!("София & Ко")!);
+    expect(units!.to).toContain(encodeURIComponent("София & Ко"));
+    expect(munis!.to).toContain(encodeURIComponent("София & Ко"));
+    expect(units!.to).not.toContain(" ");
   });
 
   it("throws on a failed fetch rather than reporting no results", async () => {

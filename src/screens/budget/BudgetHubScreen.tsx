@@ -27,6 +27,7 @@ import { formatEurCompact, formatEurCompactSigned } from "@/lib/currency";
 import { BUDGET_BANDS } from "./budgetRegistry";
 import { BUDGET_SCENES } from "./budgetScenes";
 import { HubSearch } from "@/ux/search/HubSearch";
+import { BudgetReceiptCard } from "./BudgetReceiptCard";
 import { budgetSearchSources } from "./budgetSearch";
 import { useBudgetHubStats } from "@/data/budget/useBudgetHubStats";
 
@@ -249,6 +250,11 @@ export const BudgetHubScreen: FC = () => {
           en: "First-level spending units and all 265 municipalities.",
         }}
       />
+
+      {/* THE LEAD, above the tiles: the one thing on this page that answers
+          „what does this cost ME". It renders the €100 average until a salary
+          is entered, so a reader who types nothing still gets an answer. */}
+      <BudgetReceiptCard stats={stats} locale={moneyLocale} className="mt-5" />
 
       <div data-og="budget-hub">
         <TileHubGrid sections={sections} className="mt-6" />

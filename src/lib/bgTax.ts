@@ -215,6 +215,27 @@ export const VAT_CONSUMPTION_SHARE = 0.75;
 
 // Shares of the contribution earmarked for the two pension funds (state
 // pension fund + universal pension fund), by who remits them.
+// The employee-side 13.78% decomposed by its LEGAL DESTINATION. Bulgarian
+// social contributions are hypothecated — each component funds a named fund by
+// statute — so a surface that projects the whole 13.78% across general
+// government over-states every non-social function. чл. 6 КСО + чл. 40 ЗЗО:
+//
+//   пенсии ДОО      6.58%  ─┐
+//   ОЗМ             1.40%   ├─ ДОО (state social security)     = 8.38%
+//   безработица     0.40%  ─┘
+//   УПФ             2.20%  ─── a PRIVATE second-pillar fund, outside S13
+//   здравно (ЗОВ)   3.20%  ─── НЗОК
+//                  ------
+//                  13.78%  = SSC_EMPLOYEE_RATE
+export const HEALTH_EMPLOYEE_RATE = 0.032;
+/** Универсален пенсионен фонд — the second pillar. A PRIVATE account: it never
+ *  enters the general-government sector, so it is not „public spending" at all
+ *  and no functional share applies to it. */
+export const UPF_EMPLOYEE_RATE = 0.022;
+/** What actually reaches ДОО: the remainder of the employee's contribution. */
+export const DOO_EMPLOYEE_RATE =
+  SSC_EMPLOYEE_RATE - HEALTH_EMPLOYEE_RATE - UPF_EMPLOYEE_RATE;
+
 export const PENSION_EMPLOYEE_RATE = 0.0878;
 export const PENSION_EMPLOYER_RATE = 0.1102;
 export const PENSION_SELF_RATE = 0.198;

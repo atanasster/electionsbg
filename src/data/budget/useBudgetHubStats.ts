@@ -66,6 +66,11 @@ export interface BudgetHubStats {
   /** The чл. 53 transfer table's OWN coverage — 2018-2026, wider than
    *  `yearsAvailable` (2021-2026, the КФП feed). */
   muniYears?: number[] | null;
+  /** The ten COFOG functional shares, summing to 100, for the hub's tax
+   *  receipt. ⚠️ S13 — the WHOLE general-government sector, a DIFFERENT
+   *  perimeter from `expenditureExecutedEur` on the same object. Keyed on
+   *  COFOG's own latest year, which trails the КФП feed by two. */
+  cofogShares?: { code: string; pct: number | null }[] | null;
   peerBands: Record<string, BudgetPeerBand> | null;
 }
 

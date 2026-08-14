@@ -6320,5 +6320,20 @@
   "budget_hub_metric_ipop_one": "ИПОП project ({{year}})",
   "budget_hub_metric_ipop_other": "ИПОП projects ({{year}})",
   "budget_hub_deep_dive": "The detailed view (flows and breakdowns)",
-  "budget_hub_tax_calculator": "Tax calculator"
+  "budget_hub_tax_calculator": "Tax calculator",
+  "budget_receipt_title": "Your tax receipt",
+  "budget_receipt_intro": "Enter your gross monthly salary to see what you pay in tax and contributions over a year — and where it goes. Contributions have recipients fixed in law; only the income tax is spread across functions.",
+  "budget_receipt_input_label": "Gross per month (€)",
+  "budget_receipt_input_placeholder": "e.g. 2000",
+  "budget_receipt_your_tax": "in tax and contributions per year",
+  "budget_receipt_no_income": "With no salary entered, the receipt is per €100 of public spending.",
+  "budget_receipt_rest": "The remaining functions",
+  "budget_receipt_disclaimer": "The lower block is an illustration of proportions, not a trace of money: it applies the shares public spending is divided into to your income tax. Nobody follows where your particular euros go. The shares are Eurostat's, for the whole general-government sector (state, municipalities and the social funds), so they do not add up with the state budget figures below. The contributions above are not spread this way — their recipients are fixed by the social insurance and health insurance codes. Nothing you type is stored or sent anywhere.",
+  "budget_receipt_calculator_link": "The full tax calculator (self-employed, children, company) →",
+  "budget_receipt_earmarked_h": "Fixed by law",
+  "budget_receipt_doo": "State social security — pensions, sick pay, maternity, unemployment",
+  "budget_receipt_health": "Health insurance fund",
+  "budget_receipt_upf": "Universal pension fund — your own private account, outside government",
+  "budget_receipt_projected_h": "Income tax ({{amount}}), spread across functions",
+  "budget_receipt_projected_h_avg": "Per €100 of public spending"
 }

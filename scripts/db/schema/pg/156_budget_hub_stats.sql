@@ -187,6 +187,23 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
            -- has nothing else, which cannot happen — TOTAL rides with the ten.
            (SELECT array_agg(DISTINCT fiscal_year ORDER BY fiscal_year)
               FROM budget_cofog)          AS "cofogYears",
+           -- The FUNCTIONAL shares, for the hub's tax receipt (§7.5). Ten rows,
+           -- ~300 bytes, so the hub stays a single call.
+           --
+           -- ⚠️ COFOG, therefore S13 — the WHOLE general-government sector, not
+           -- the state budget the rest of this blob reports. That is the right
+           -- basis for a receipt (a taxpayer funds every level of government,
+           -- and it is what the taxpayer-receipt literature uses) and the WRONG
+           -- one to mix with `expenditureExecutedEur`, so the card names it.
+           -- Keyed on COFOG's own latest year, which is NOT the hub's: the
+           -- Eurostat series ends two years before the КФП feed.
+           (SELECT jsonb_agg(jsonb_build_object('code', c.cofog_code,
+                                                'pct',  c.pct_of_total)
+                             ORDER BY c.pct_of_total DESC)
+              FROM budget_cofog c
+             WHERE c.cofog_code <> 'TOTAL'
+               AND c.fiscal_year = (SELECT max(fiscal_year) FROM budget_cofog)
+               AND c.pct_of_total IS NOT NULL) AS "cofogShares",
            -- The чл. 53 transfer table's OWN coverage: 2018-2026, against the
            -- КФП feed's 2021-2026. A picker built from `yearsAvailable` omits
            -- three years the corpus HAS, and leaves ?fy=2018 rendering
