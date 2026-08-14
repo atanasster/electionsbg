@@ -6,7 +6,7 @@
  *   tsx scripts/posts/post_tool.ts save <spec.json> [--force]
  *   tsx scripts/posts/post_tool.ts pins [YYYY-MM-DD]
  *   tsx scripts/posts/post_tool.ts rm <slug>
- *   tsx scripts/posts/post_tool.ts posted <slug> <channels...> [--at YYYY-MM-DD]
+ *   tsx scripts/posts/post_tool.ts posted <slug[,slug...]> <channels...> [--at YYYY-MM-DD]
  *   tsx scripts/posts/post_tool.ts unposted <slug> <channels...>
  *   tsx scripts/posts/post_tool.ts status [channel]
  *
@@ -353,41 +353,62 @@ const saveRegistry = (reg: PostEntry[]): void => {
   writeFileSync(REGISTRY, JSON.stringify(reg, null, 2) + "\n");
 };
 
-// Stamp a post as published on one or more channels. Nothing here publishes —
-// this records what the operator already did by hand.
+/**
+ * Resolve a comma- and/or space-separated slug list against the registry.
+ *
+ * Every slug is checked BEFORE anything is written: publishing a batch and then
+ * having the stamp abort halfway leaves the registry disagreeing with reality in
+ * a way nobody will notice, which is the failure this field exists to prevent.
+ */
+const resolveSlugs = (input: string[], reg: PostEntry[]): PostEntry[] => {
+  const slugs = input
+    .flatMap((s) => s.split(","))
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (slugs.length === 0) throw new Error("no slugs given");
+  const missing = slugs.filter((s) => !reg.some((e) => e.slug === s));
+  if (missing.length) throw new Error(`not in registry: ${missing.join(", ")}`);
+  const seen = new Set<string>();
+  return slugs
+    .filter((s) => !seen.has(s) && seen.add(s))
+    .map((s) => reg.find((e) => e.slug === s) as PostEntry);
+};
+
+// Stamp posts as published on one or more channels. Nothing here publishes —
+// this records what the operator already did by hand. Slugs are comma-separated
+// so seeding a whole channel is one command rather than one per post.
 const cmdPosted = (
-  slug: string,
+  slugArgs: string[],
   channelArgs: string[],
   at: string | undefined,
   overwrite: boolean,
 ): void => {
   const reg = loadRegistry();
-  const entry = reg.find((e) => e.slug === slug);
-  if (!entry) throw new Error(`slug "${slug}" not in registry`);
+  const entries = resolveSlugs(slugArgs, reg);
   const channels = parseChannels(channelArgs);
   const date = at ?? new Date().toISOString().slice(0, 10);
-  const { next, added, kept } = mergePosted(
-    entry.postedTo,
-    channels,
-    date,
-    overwrite,
-  );
-  entry.postedTo = next;
-  saveRegistry(reg);
-  if (added.length)
-    console.log(`stamped ${slug}: ${added.join(", ")} @ ${date}`);
-  for (const c of kept)
-    console.log(
-      `already recorded on ${c} (${entry.postedTo.find((p) => p.channel === c)?.at}) — kept; use --force to overwrite the date`,
+  for (const entry of entries) {
+    const { next, added, kept } = mergePosted(
+      entry.postedTo,
+      channels,
+      date,
+      overwrite,
     );
-  console.log(`postedTo: ${formatPosted(entry.postedTo)}`);
+    entry.postedTo = next;
+    if (added.length)
+      console.log(`stamped ${entry.slug}: ${added.join(", ")} @ ${date}`);
+    for (const c of kept)
+      console.log(
+        `${entry.slug}: already on ${c} (${next.find((p) => p.channel === c)?.at}) — kept; --force to overwrite`,
+      );
+  }
+  saveRegistry(reg);
 };
 
 // Undo a stamp — for when something was recorded against the wrong post.
-const cmdUnposted = (slug: string, channelArgs: string[]): void => {
+const cmdUnposted = (slugArgs: string[], channelArgs: string[]): void => {
   const reg = loadRegistry();
-  const entry = reg.find((e) => e.slug === slug);
-  if (!entry) throw new Error(`slug "${slug}" not in registry`);
+  const [entry] = resolveSlugs(slugArgs, reg);
   const { next, removed } = removePosted(
     entry.postedTo,
     parseChannels(channelArgs),
@@ -399,8 +420,8 @@ const cmdUnposted = (slug: string, channelArgs: string[]): void => {
   saveRegistry(reg);
   console.log(
     removed.length
-      ? `removed ${removed.join(", ")} from ${slug}`
-      : `nothing to remove on ${slug}`,
+      ? `removed ${removed.join(", ")} from ${entry.slug}`
+      : `nothing to remove on ${entry.slug}`,
   );
   console.log(`postedTo: ${formatPosted(entry.postedTo)}`);
 };
@@ -491,7 +512,7 @@ const main = (): void => {
   const at = atIdx > -1 ? process.argv[atIdx + 1] : undefined;
   if (cmd === "posted" && arg) {
     cmdPosted(
-      arg,
+      [arg],
       flagless.filter((a) => a !== at),
       at,
       force,
@@ -499,7 +520,7 @@ const main = (): void => {
     return;
   }
   if (cmd === "unposted" && arg) {
-    cmdUnposted(arg, flagless);
+    cmdUnposted([arg], flagless);
     return;
   }
   if (cmd === "status") {
@@ -512,7 +533,7 @@ const main = (): void => {
       "  post_tool.ts save <spec.json> [--force]\n" +
       "  post_tool.ts pins [YYYY-MM-DD]\n" +
       "  post_tool.ts rm <slug>\n" +
-      "  post_tool.ts posted <slug> <channels...> [--at YYYY-MM-DD] [--force]\n" +
+      "  post_tool.ts posted <slug[,slug...]> <channels...> [--at YYYY-MM-DD] [--force]\n" +
       "  post_tool.ts unposted <slug> <channels...>\n" +
       "  post_tool.ts status [channel]\n" +
       `\nchannels: ${CHANNELS.join(", ")}`,
