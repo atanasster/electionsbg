@@ -8,6 +8,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
@@ -72,7 +73,16 @@ export const BudgetInvestmentProjectsTile: FC<{ fiscalYear: number }> = ({
           </span>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
-          {t("investment_tile_intro")}
+          {t("investment_tile_intro")}{" "}
+          {/* The tile is a summary; /budget/investments is the whole programme
+              by type and by province, and states outright that the list is an
+              appropriation rather than spending. */}
+          <Link
+            to="/budget/investments"
+            className="text-primary hover:underline"
+          >
+            {t("budget_inv_see_all")}
+          </Link>
         </p>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
