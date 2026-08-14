@@ -87,9 +87,26 @@ const FY2026 = {
 };
 
 let payload: unknown = FY2024;
+/** Overridable so a test can move the EUROSTAT figure without touching the
+ *  cash figures — which is the only way to prove the Maastricht badge reads
+ *  the right one of the two. */
+let peerB9: Record<string, number> | null = {
+  year: 2025,
+  bgPctGdp: -3.5,
+  euAvgPctGdp: -3.1,
+  rank: 19,
+  total: 27,
+};
 
 beforeEach(() => {
   payload = FY2024;
+  peerB9 = {
+    year: 2025,
+    bgPctGdp: -3.5,
+    euAvgPctGdp: -3.1,
+    rank: 19,
+    total: 27,
+  };
   vi.stubGlobal(
     "fetch",
     vi.fn(async (url: string) =>
@@ -99,15 +116,7 @@ beforeEach(() => {
             json: async () => ({
               fiscalYear: 2024,
               yearsAvailable: [2024, 2026],
-              peerBands: {
-                B9: {
-                  year: 2025,
-                  bgPctGdp: -3.5,
-                  euAvgPctGdp: -3.1,
-                  rank: 19,
-                  total: 27,
-                },
-              },
+              peerBands: peerB9 ? { B9: peerB9 } : {},
             }),
           }
         : { ok: true, json: async () => payload },
@@ -265,5 +274,147 @@ describe("BudgetExecutionScreen", () => {
     expect(body).not.toContain("14 495 911 100");
     // 12 796 331 646 / 27 292 242 746 = 46.9%
     expect(body).toContain("46.9%");
+  });
+
+  // ── T9.4 · the Maastricht badge ───────────────────────────────────────────
+  //
+  // Restored from the pre-migration screen, but moved onto the Eurostat line.
+  // The 3% ceiling is defined on general-government net lending (ESA B.9); the
+  // KFP cash ratio this page prints above it is a narrower perimeter the rule
+  // does not govern. They disagree about the VERDICT in three of six years —
+  // FY2025 most cleanly, since that is also the band's own year, so the
+  // opposite verdict comes from perimeter alone (cash −2.68%, Eurostat −3.5%).
+  //
+  // EVERY assertion below anchors on the EUROSTAT SENTENCE, never on
+  // `budget_exec_gdp_h`. That heading renders from `useBudgetYear` alone, so a
+  // negative assertion anchored there runs before the stats query settles —
+  // measured: with the hub-stats response delayed 200 ms, "shows no badge on a
+  // surplus" passed with the suppression removed.
+  // Proof the STATS query settled — the year chips are the only node on this
+  // page rendered from `stats.yearsAvailable`, so it is the one anchor an
+  // absence assertion can use when there is no band to render. `findByText(
+  // budget_exec_source)` is NOT one: measured, it resolves while the page is
+  // still the loading state, with no table and no GDP block at all, so both
+  // null-band tests passed against a page that had rendered nothing.
+  const statsSettled = () => screen.findByRole("button", { name: "2024" });
+
+  const euSentence = () =>
+    screen.findByText(
+      (_, el) =>
+        // The <p> itself, not every ancestor that contains it — an unscoped
+        // matcher returns body/div/p and throws "found multiple elements".
+        el?.tagName === "P" &&
+        (el.textContent ?? "").includes("методологията на Евростат"),
+    );
+
+  it("badges the EUROSTAT figure, not the cash ratio beside it", async () => {
+    // FY2026 cash projection is −2.66% — INSIDE. Eurostat is −3.5%, outside.
+    // A badge computed from the cash ratio says „within" here and fails.
+    payload = FY2026;
+    renderIt(2026);
+    await euSentence();
+    expect(screen.getByText(dict.budget_maastricht_over_eurostat)).toBeTruthy();
+    expect(
+      screen.queryByText(dict.budget_maastricht_under_eurostat),
+    ).toBeNull();
+    // …and the cash ratio really is the inside-the-ceiling one, or the
+    // assertion above is satisfied by both readings at once.
+    expect(sp(document.body.textContent)).toContain("-2.7%");
+  });
+
+  it("says within the ceiling when Eurostat is inside it", async () => {
+    peerB9 = {
+      year: 2025,
+      bgPctGdp: -2.4,
+      euAvgPctGdp: -3.1,
+      rank: 9,
+      total: 27,
+    };
+    payload = FY2026;
+    renderIt(2026);
+    await euSentence();
+    expect(
+      screen.getByText(dict.budget_maastricht_under_eurostat),
+    ).toBeTruthy();
+    expect(screen.queryByText(dict.budget_maastricht_over_eurostat)).toBeNull();
+  });
+
+  it("treats exactly −3.0% as within, not above", async () => {
+    // The ceiling is „above 3%". Written `<= -3` this flips, and no other
+    // test moves: every one of them is at least 0.4pp from the boundary.
+    peerB9 = {
+      year: 2025,
+      bgPctGdp: -3.0,
+      euAvgPctGdp: -3.1,
+      rank: 14,
+      total: 27,
+    };
+    payload = FY2026;
+    renderIt(2026);
+    await euSentence();
+    expect(
+      screen.getByText(dict.budget_maastricht_under_eurostat),
+    ).toBeTruthy();
+  });
+
+  it("shows no badge on a surplus, nor on an exact zero", async () => {
+    // „within the ceiling" over a surplus is true and reads as faint praise
+    // for unambiguously good news. The legacy tile suppressed it too. Zero is
+    // the boundary: written `v > 0` it would badge a balanced budget.
+    for (const bgPctGdp of [0.8, 0]) {
+      peerB9 = { year: 2025, bgPctGdp, euAvgPctGdp: -3.1, rank: 1, total: 27 };
+      payload = FY2026;
+      const { unmount } = renderIt(2026);
+      await euSentence();
+      expect(
+        screen.queryByText(dict.budget_maastricht_under_eurostat),
+        `badged at ${bgPctGdp}% of GDP`,
+      ).toBeNull();
+      expect(
+        screen.queryByText(dict.budget_maastricht_over_eurostat),
+        `badged at ${bgPctGdp}% of GDP`,
+      ).toBeNull();
+      unmount();
+    }
+  });
+
+  it("shows neither the EU sentence nor a badge when the figure is NULL", async () => {
+    // The reachable state the `{band ? …}` wrapper hides: the row exists and
+    // the figure is unpublished. Before this guard the sentence rendered
+    // „България е на % от БВП" — measured, not hypothesised — and a
+    // default-to-within badge could not be caught by any other test here.
+    peerB9 = {
+      year: 2025,
+      bgPctGdp: null,
+      euAvgPctGdp: -3.1,
+      rank: 19,
+      total: 27,
+    } as unknown as Record<string, number>;
+    payload = FY2026;
+    renderIt(2026);
+    await statsSettled();
+    // The table proves the YEAR query settled too, so the GDP block below it
+    // has had its chance to render.
+    await screen.findByText(dict.budget_exec_balance);
+    expect(sp(document.body.textContent)).not.toContain(
+      "методологията на Евростат",
+    );
+    expect(
+      screen.queryByText(dict.budget_maastricht_under_eurostat),
+    ).toBeNull();
+    expect(screen.queryByText(dict.budget_maastricht_over_eurostat)).toBeNull();
+  });
+
+  it("shows no badge when the peer band is absent entirely", async () => {
+    peerB9 = null;
+    payload = FY2026;
+    renderIt(2026);
+    // No band at all, so no stats-derived node beyond the chips.
+    await statsSettled();
+    await screen.findByText(dict.budget_exec_balance);
+    expect(
+      screen.queryByText(dict.budget_maastricht_under_eurostat),
+    ).toBeNull();
+    expect(screen.queryByText(dict.budget_maastricht_over_eurostat)).toBeNull();
   });
 });

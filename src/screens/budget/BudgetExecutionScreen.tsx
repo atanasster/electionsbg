@@ -109,6 +109,30 @@ export const BudgetExecutionScreen: FC = () => {
   }, [gdp, year, balance]);
 
   const band = stats?.peerBands?.B9 ?? null;
+
+  /** The Maastricht verdict, on the ONE basis the 3% ceiling is defined for:
+   *  general-government net lending (ESA B.9), which is what `band` carries.
+   *  Never computed from the KFP cash ratio above it — see the render site.
+   *
+   *  A SURPLUS gets no badge. „within the ceiling" over a positive balance is
+   *  technically true and reads as faint praise for what is unambiguously good
+   *  news; the legacy tile suppressed it the same way (`v.value < 0`).
+   *
+   *  The `v == null` arm is UNREACHABLE through the current render path — the
+   *  JSX guards on `band?.bgPctGdp != null` before this value is read, and a
+   *  mutation that turns this arm into `{ over: false }` leaves every test
+   *  green. It stays anyway, and it is not the tautology it looks like:
+   *  `null >= 0` is TRUE in JavaScript, so a missing figure would be caught by
+   *  the second arm — but `undefined >= 0` is FALSE, so an ABSENT band would
+   *  fall through to `{ over: undefined < -3 }` = „within". That is the one
+   *  wrong answer this whole step exists to prevent, so the explicit check
+   *  earns its place as the guard that survives the JSX being refactored. */
+  const maastricht = useMemo(() => {
+    const v = band?.bgPctGdp;
+    if (v == null || v >= 0) return null;
+    return { over: v < -3 };
+  }, [band]);
+
   const title = t("budget_exec_title");
 
   const Row: FC<{
@@ -317,7 +341,10 @@ export const BudgetExecutionScreen: FC = () => {
                     { gdp: formatEur(gdp), defaultValue: "" },
                   )}
                 </p>
-                {band ? (
+                {/* `bgPctGdp` present, not merely `band` — with the row loaded
+                    and the figure NULL this sentence rendered „България е на
+                    % от БВП", measured. */}
+                {band?.bgPctGdp != null ? (
                   <>
                     <p className="mt-2 text-sm tabular-nums">
                       {t("budget_exec_eu_body", {
@@ -329,6 +356,45 @@ export const BudgetExecutionScreen: FC = () => {
                         defaultValue: "",
                       })}
                     </p>
+                    {/* ⚠️ THE BADGE BELONGS TO THE EUROSTAT LINE, NOT TO THE
+                        CASH RATIO ABOVE IT — and that is a correction, not a
+                        placement preference. The 3% ceiling is defined on
+                        general-government net lending (ESA B.9), which is the
+                        figure `band` carries; the number above is the state
+                        budget's KFP cash balance, a narrower perimeter the
+                        rule does not govern.
+
+                        The pre-migration screen badged the CASH ratio, and the
+                        two disagree about the VERDICT — not merely about the
+                        number — in three of the six selectable years. FY2025 is
+                        the cleanest case, because it is also the band's own
+                        year, so the „different year" half of the disclaimer
+                        below does not apply and the opposite verdict comes from
+                        PERIMETER alone: cash −2.68% (inside) against Eurostat
+                        −3.5% (outside). Both numbers are correct; the badge was
+                        attached to the wrong one. */}
+                    {/* The label NAMES its basis. Without that the badge reads
+                        „above 3% of GDP" three lines under a headline of
+                        −2.7% of GDP, and the sentence that resolves the two
+                        sits BELOW it. */}
+                    {maastricht ? (
+                      <p className="mt-1.5 text-[11px]">
+                        <span
+                          className={cn(
+                            "inline-block rounded px-1.5 py-0.5",
+                            maastricht.over
+                              ? "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300"
+                              : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+                          )}
+                        >
+                          {t(
+                            maastricht.over
+                              ? "budget_maastricht_over_eurostat"
+                              : "budget_maastricht_under_eurostat",
+                          )}
+                        </span>
+                      </p>
+                    ) : null}
                     {/* Two different perimeters AND two different years — the
                         state budget's cash balance above, Eurostat's whole
                         general-government net lending here. */}

@@ -58,6 +58,15 @@ const SkeletonCard: FC = () => (
 );
 
 // One headline figure card for the selected fiscal year.
+//
+// NO MAASTRICHT BADGE. It used to sit on the deficit card, computed from
+// `|balance| / gdpEur` — the state budget's KFP CASH ratio. The 3% ceiling is
+// defined on general-government net lending (ESA B.9), a wider perimeter, and
+// the two disagree about the VERDICT in three of the six years here: on FY2025
+// cash is −2.68% (inside) while Eurostat has Bulgaria at −3.5% (outside), same
+// year, so the gap is perimeter alone. The badge now lives on /budget/execution
+// against the Eurostat figure (T9.4). Leaving this copy in place made the site
+// state both verdicts at once, in the same two locale keys.
 const FigureCard: FC<{
   label: string;
   icon: typeof Coins;
@@ -69,7 +78,6 @@ const FigureCard: FC<{
   absolute?: boolean;
   gdpEur?: number | null;
   asOf?: string | null;
-  maastrichtThreshold?: boolean;
   // Optional peer band from Eurostat gov_10a_main distribution. Renders a
   // small chip under the GDP-share line on revenue / expenditure / balance
   // cards. EU contribution is BG-specific КФП — no Eurostat counterpart.
@@ -84,7 +92,6 @@ const FigureCard: FC<{
   absolute,
   gdpEur,
   asOf,
-  maastrichtThreshold,
   peerBand,
 }) => {
   const { t } = useTranslation();
@@ -98,12 +105,6 @@ const FigureCard: FC<{
     gdpEur && gdpEur > 0 ? Math.abs(v.value) / gdpEur : null;
   const gdpShare =
     gdpShareRatio != null ? `${(gdpShareRatio * 100).toFixed(1)}%` : null;
-  const showMaastricht =
-    maastrichtThreshold &&
-    gdpShareRatio != null &&
-    v.value < 0 &&
-    (v.mode === "actual" || v.mode === "projected");
-  const overMaastricht = showMaastricht && (gdpShareRatio as number) > 0.03;
 
   const labelEl = asOf ? (
     <div className="flex items-baseline justify-between gap-2">
@@ -138,24 +139,6 @@ const FigureCard: FC<{
               year={peerBand.year}
             />
           ) : null}
-        </div>
-      ) : null}
-      {showMaastricht ? (
-        <div className="text-[11px]">
-          <span
-            className={cn(
-              "inline-block rounded px-1.5 py-0.5",
-              overMaastricht
-                ? "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300"
-                : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-            )}
-          >
-            {overMaastricht
-              ? t("budget_maastricht_over") ||
-                "above the Maastricht ceiling (3% of GDP)"
-              : t("budget_maastricht_under") ||
-                "within the Maastricht ceiling (3% of GDP)"}
-          </span>
         </div>
       ) : null}
       {v.mode === "projected" ? (
@@ -409,7 +392,6 @@ export const BudgetScreen: FC = () => {
               absolute
               gdpEur={gdpEur}
               asOf={summary.asOf}
-              maastrichtThreshold
               peerBand={peerB9}
               ringTone={
                 deficit
