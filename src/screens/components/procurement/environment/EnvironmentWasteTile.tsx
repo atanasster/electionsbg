@@ -34,11 +34,38 @@ export const EnvironmentWasteTile: FC = () => {
   if (bgSeries.length < 3) return null;
 
   const latest = bgSeries[bgSeries.length - 1];
-  const euLatest = euSeries[euSeries.length - 1];
+  // Compare LIKE YEARS. Eurostat publishes the EU aggregate ahead of Bulgaria —
+  // today BG ends 2023 and EU27 ends 2024 — so taking each series' own last
+  // point silently compares two different years, and neither figure carried a
+  // year label to give it away. Prefer the EU point at BG's year; where there is
+  // none, fall back to the EU's latest and RENDER its year, so a mismatched
+  // comparison is visible rather than implied.
+  const euSameYear = euSeries.find((p) => p.year === latest.year);
+  const euRef = euSameYear ?? euSeries[euSeries.length - 1];
+  const euYearDiffers = !!euRef && euRef.year !== latest.year;
   const target = data.targets.y2025;
   const gap = target - latest.value;
+  // The comparatives below are CLAIMS, so they are derived rather than asserted.
+  // Both were unconditional prose while the „N пункта под целта" chip beside them
+  // was already guarded on `gap > 0` — so at a BG rate above 55% the tile would
+  // have said „под целта" with the chip correctly absent, contradicting itself on
+  // one line. Bulgaria is a long way below both today; that is not a licence to
+  // hard-code the direction.
+  const belowTarget = latest.value < target;
+  const belowEu = !!euRef && latest.value < euRef.value;
   const perCapita = data.wastePerCapita.byGeo.BG ?? [];
   const perCapitaLatest = perCapita[perCapita.length - 1];
+  // „Waste per person is rising to 490 kg" is true of the recent trend and reads
+  // as an all-time high, which it is not — the series starts at 554 kg in 2010.
+  // So name the low point it has risen FROM, and let the reader see both ends.
+  const perCapitaTrough = perCapita.length
+    ? perCapita.reduce((lo, p) => (p.value <= lo.value ? p : lo))
+    : undefined;
+  const perCapitaRising =
+    !!perCapitaLatest &&
+    !!perCapitaTrough &&
+    perCapitaTrough.year < perCapitaLatest.year &&
+    perCapitaLatest.value > perCapitaTrough.value;
 
   // Only show a readable number of recent years.
   const bars = bgSeries.slice(-12);
@@ -93,18 +120,18 @@ export const EnvironmentWasteTile: FC = () => {
               </span>
             </div>
           ))}
-          {/* EU average reference line */}
-          {euLatest && (
+          {/* EU average reference line — at BG's year where Eurostat has it. */}
+          {euRef && (
             <div
               className="absolute left-0 right-0 border-t border-dotted border-sky-500/70"
-              style={{ bottom: y(euLatest.value) }}
+              style={{ bottom: y(euRef.value) }}
             >
               <span className="absolute left-0 -top-3.5 text-[9px] text-sky-600 dark:text-sky-400">
                 {bg ? "ЕС средно" : "EU avg"}{" "}
-                {euLatest.value.toLocaleString(loc, {
+                {euRef.value.toLocaleString(loc, {
                   maximumFractionDigits: 0,
                 })}
-                %
+                %{euYearDiffers ? ` (${euRef.year})` : ""}
               </span>
             </div>
           )}
@@ -143,30 +170,34 @@ export const EnvironmentWasteTile: FC = () => {
                 {latest.value.toLocaleString(loc, { maximumFractionDigits: 1 })}
                 %
               </span>{" "}
-              от битовите си отпадъци — под целта на ЕС от{" "}
+              от битовите си отпадъци ({latest.year} г.) —{" "}
+              {belowTarget ? "под" : "над"} целта на ЕС от{" "}
               <span className="font-semibold">{target}%</span> за 2025 г.
-              {euLatest ? (
+              {euRef ? (
                 <>
                   {" "}
-                  и доста под средното за ЕС (
-                  {euLatest.value.toLocaleString(loc, {
+                  и {belowEu ? "под" : "над"} средното за ЕС (
+                  {euRef.value.toLocaleString(loc, {
                     maximumFractionDigits: 0,
                   })}
-                  %)
+                  %{euYearDiffers ? ` за ${euRef.year} г.` : ""})
                 </>
               ) : null}
               .
               {perCapitaLatest ? (
                 <>
                   {" "}
-                  Същевременно образуваните отпадъци на човек растат до{" "}
+                  Същевременно образуваните отпадъци на човек са{" "}
                   <span className="font-semibold tabular-nums">
                     {perCapitaLatest.value.toLocaleString(loc, {
                       maximumFractionDigits: 0,
                     })}{" "}
                     кг
                   </span>{" "}
-                  ({perCapitaLatest.year} г.).
+                  ({perCapitaLatest.year} г.)
+                  {perCapitaRising && perCapitaTrough
+                    ? ` — нагоре от ${perCapitaTrough.value.toLocaleString(loc, { maximumFractionDigits: 0 })} кг през ${perCapitaTrough.year} г.`
+                    : "."}
                 </>
               ) : null}
             </>
@@ -177,30 +208,35 @@ export const EnvironmentWasteTile: FC = () => {
                 {latest.value.toLocaleString(loc, { maximumFractionDigits: 1 })}
                 %
               </span>{" "}
-              of its municipal waste — below the EU{" "}
+              of its municipal waste ({latest.year}) —{" "}
+              {belowTarget ? "below" : "above"} the EU{" "}
               <span className="font-semibold">{target}%</span> target for 2025
-              {euLatest ? (
+              {euRef ? (
                 <>
                   {" "}
-                  and well under the EU average (
-                  {euLatest.value.toLocaleString(loc, {
+                  and {belowEu ? "under" : "over"} the EU average (
+                  {euRef.value.toLocaleString(loc, {
                     maximumFractionDigits: 0,
                   })}
-                  %)
+                  %{euYearDiffers ? ` in ${euRef.year}` : ""})
                 </>
               ) : null}
               .
               {perCapitaLatest ? (
                 <>
                   {" "}
-                  Meanwhile waste generated per person has risen to{" "}
+                  Meanwhile waste generated per person stands at{" "}
                   <span className="font-semibold tabular-nums">
                     {perCapitaLatest.value.toLocaleString(loc, {
                       maximumFractionDigits: 0,
                     })}{" "}
                     kg
                   </span>{" "}
-                  ({perCapitaLatest.year}).
+                  ({perCapitaLatest.year})
+                  {perCapitaRising && perCapitaTrough
+                    ? ` — up from ${perCapitaTrough.value.toLocaleString(loc, { maximumFractionDigits: 0 })} kg in ${perCapitaTrough.year}`
+                    : ""}
+                  .
                 </>
               ) : null}
             </>
