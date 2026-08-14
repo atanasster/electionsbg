@@ -226,11 +226,23 @@ select contractor_eik, min(contractor_name), count(*), round(sum(amount_eur)) eu
 ```
 
 ```bash
-# PUBLIC-BODY beneficiaries — money that never leaves the state. Any contractor
-# that is itself an awarder elsewhere in the corpus. On energy this returned the
-# МВР guarding series (€158.8M all-scope) and, less obviously, the БАН
-# archaeological institute at €63.3M across 94 contracts — rescue excavation for
-# pipeline and plant construction, entirely invisible from the buyer side.
+# CONTRACTING-AUTHORITY beneficiaries — a candidate list for "money that never
+# left the state". Any contractor that is itself an awarder elsewhere.
+#
+# ⚠ THIS OVER-CAPTURES, and the label is deliberately not "public body". ЗОП's
+# UTILITIES regime makes private regulated companies contracting authorities, so
+# ЕРП distributors, gas distributors and electricity traders all appear as
+# awarders and get matched here. The result needs a manual public/private pass
+# before any share is quoted. Measured: of water's 2.60% only 1.44% is genuinely
+# public — €37.8M of the €84.8M is ЕВН, ЕРП Запад, Овергаз, Ситигаз and
+# Енерго-Про, i.e. 44% of the probe's own answer was wrong. On transport the same
+# error is 0.16 of 15.59 points, so the size of the mistake is not predictable
+# from the sector.
+#
+# On energy it returned the МВР guarding series (€158.8M all-scope) and, less
+# obviously, the БАН archaeological institute at €63.3M across 94 contracts —
+# rescue excavation for pipeline and plant construction, invisible from the
+# buyer side.
 psql "$PG" -F$'\t' -tAc "
 select c.contractor_eik, min(c.contractor_name), count(*), round(sum(c.amount_eur))
   from contracts c
@@ -282,7 +294,7 @@ reaches an MP/PEP-linked company. Treat the result the way the person layer does
 | # | Symptom | Detect | Root cause / fix |
 |---|---------|--------|------------------|
 | **J** | One contract or contractor is a huge share of the scope; the "leaderboard" is really one row | `pct` in the concentration probe (energy: 32.7% from 1 of 363 rows) | Usually NOT a bug — a property of a short window. Fix the CAPTION, or surface the share, so a reader does not read a dominated total as a spread. Never silently drop the row. |
-| **K** | The top „изпълнител" is a state body, so the money never leaves government | the public-body probe (МВР ← АЕЦ Козлодуй, €89.6M) | Not a bug — an intra-government transfer rendered as procurement. Label it; do not exclude it, and do not let it read as a private vendor winning the sector. |
+| **K** | The top „изпълнител" is a state body, so the money never leaves government | the contracting-authority probe, **then a manual public/private pass** — it over-captures private regulated utilities (МВР ← АЕЦ Козлодуй €89.6M is real; ЕВН in water is not) | Not a bug — an intra-government transfer rendered as procurement. Label it; do not exclude it, and do not let it read as a private vendor winning the sector. |
 | **L** | A statutory sole-source award is counted as weak competition | `tenders.legal_basis` on the single-bid rows (Чл. 164, ал. 1, т. 5 ЗОП = exclusive rights) | Not a bug in the number, a limit on its meaning. The single-bid gauge is a count-based metric and cannot know this; say so rather than re-scoring it per sector. |
 | **M** | Consortium members each credited the full contract value, or a parent and its own subsidiary both counted | `consortium_eik` / `consortium_role` / `consortium_full_eur`; look for a repeated `consortium_eik` across rows summing above the contract | Real double-count. Fix in the rollup, never per-sector — see the €0-consortium-member guard in Failure mode F. |
 | **N** | One company split across several EIK spellings / name variants, so its true rank is understated | group by `contractor_name` and compare against the group-by-`contractor_eik` ranking; check `contractor_eik_full` | Keyed on the wrong column. Rank by EIK, show the name — the reverse fragments a real beneficiary. |
