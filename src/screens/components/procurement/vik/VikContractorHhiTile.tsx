@@ -36,11 +36,18 @@ const TOP_N = 8;
 export const VikContractorHhiTile: FC<{
   suppliers: Supplier[];
   totalEur: number;
-}> = ({ suppliers, totalEur }) => {
+  /** The sector's own member EIKs. A contractor that is also a member is an
+   *  IN-GROUP transfer — the state paying its own company — not a supplier won
+   *  on a market. Such rows are still counted (see the note below), but they are
+   *  labelled, because unlabelled they read as a private vendor topping the
+   *  sector. Omit to disable the check. */
+  memberEiks?: readonly string[];
+}> = ({ suppliers, totalEur, memberEiks }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = suppliers.filter((s) => s.totalEur > 0);
+  const members = new Set(memberEiks ?? []);
   if (rows.length < 3 || totalEur <= 0) return null;
 
   // Denominator is the ATTRIBUTED total (Σ over ranked suppliers), not the
@@ -96,15 +103,30 @@ export const VikContractorHhiTile: FC<{
         <div className="space-y-1.5">
           {top.map((s) => {
             const share = s.totalEur / denom;
+            const inGroup = members.has(s.eik);
             return (
               <div key={s.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
-                  <Link
-                    to={`/company/${s.eik}`}
-                    className="min-w-0 truncate hover:text-primary hover:underline"
-                  >
-                    {s.name}
-                  </Link>
+                  <span className="flex min-w-0 items-baseline gap-1.5">
+                    <Link
+                      to={`/company/${s.eik}`}
+                      className="min-w-0 truncate hover:text-primary hover:underline"
+                    >
+                      {s.name}
+                    </Link>
+                    {inGroup && (
+                      <span
+                        className="shrink-0 rounded bg-muted px-1 py-px text-[10px] font-medium text-muted-foreground"
+                        title={
+                          bg
+                            ? "Изпълнителят е от същата група — парите остават в сектора"
+                            : "The contractor belongs to the same group — the money stays inside the sector"
+                        }
+                      >
+                        {bg ? "в групата" : "in-group"}
+                      </span>
+                    )}
+                  </span>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {formatEurCompact(s.totalEur, lang)}
                     <span className="ml-1 text-muted-foreground/70">
@@ -114,7 +136,9 @@ export const VikContractorHhiTile: FC<{
                 </div>
                 <div className="mt-0.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full rounded-full bg-violet-600"
+                    className={`h-full rounded-full ${
+                      inGroup ? "bg-violet-600/40" : "bg-violet-600"
+                    }`}
                     style={{
                       width: `${Math.max(2, (s.totalEur / max) * 100)}%`,
                     }}
@@ -124,6 +148,14 @@ export const VikContractorHhiTile: FC<{
             );
           })}
         </div>
+
+        {top.some((s) => members.has(s.eik)) && (
+          <p className="text-[11px] text-muted-foreground">
+            {bg
+              ? "„В групата“ = изпълнителят е една от организациите в самия сектор — държавата плаща на собственото си дружество, а не на външен пазар. Тези договори са включени в индекса, защото са реални обществени поръчки."
+              : "“In-group” = the contractor is one of the sector's own organisations — the state paying its own company rather than an external market. These contracts are included in the index, because they are real public procurements."}
+          </p>
+        )}
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg

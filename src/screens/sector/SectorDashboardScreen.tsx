@@ -222,12 +222,14 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
           {showSpendChart && showTopChart ? (
             <div className="grid gap-4 md:grid-cols-2">
               <SectorSpendByYearTile model={model} />
-              <SectorTopContractorsTile model={model} />
+              <SectorTopContractorsTile model={model} memberEiks={eiks} />
             </div>
           ) : (
             <>
               {showSpendChart && <SectorSpendByYearTile model={model} />}
-              {showTopChart && <SectorTopContractorsTile model={model} />}
+              {showTopChart && (
+                <SectorTopContractorsTile model={model} memberEiks={eiks} />
+              )}
             </>
           )}
         </>

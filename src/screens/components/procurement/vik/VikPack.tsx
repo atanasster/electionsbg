@@ -156,6 +156,7 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       {/* Contractor-market concentration (HHI) across the group's ЗОП spend */}
       <VikContractorHhiTile
+        memberEiks={groupEiks}
         suppliers={model.suppliers}
         totalEur={model.totalEur}
       />

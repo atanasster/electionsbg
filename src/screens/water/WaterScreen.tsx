@@ -83,6 +83,7 @@ export const WaterScreen: FC = () => {
             totalEur={model.totalEur}
           />
           <VikContractorHhiTile
+            memberEiks={groupEiks}
             suppliers={model.suppliers}
             totalEur={model.totalEur}
           />

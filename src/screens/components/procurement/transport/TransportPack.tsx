@@ -337,6 +337,7 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <PackSection id="transport-suppliers">
         <VikContractorHhiTile
+          memberEiks={TRANSPORT_SECTOR_EIKS}
           suppliers={model.suppliers}
           totalEur={model.totalEur}
         />

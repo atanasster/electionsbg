@@ -36,6 +36,7 @@ import {
 } from "@/lib/environmentAttributes";
 import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
+  ENV_SECTOR_EIKS,
   ENV_UNIVERSES,
   IAOS_EIK,
   envUniverseLabel,
@@ -300,6 +301,7 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <PackSection id="environment-suppliers">
         <VikContractorHhiTile
+          memberEiks={ENV_SECTOR_EIKS}
           suppliers={model.suppliers}
           totalEur={model.totalEur}
         />
