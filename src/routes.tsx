@@ -716,6 +716,11 @@ const ContractDetailScreen = lazy(() =>
     default: m.ContractDetailScreen,
   })),
 );
+// /budget is the HUB now (T5.3). The old deep-dive screen'"'"'s content is
+// distributed across the fourteen sub-pages T6 shipped, and its eager
+// ~1.1 MB — kfp.json, macro_peers.json, index.json, documents.json — is
+// replaced by one ~1.1 KB stat call. The old screen stays in the tree only
+// because `/budget/deep-dive` still renders it; nothing else imports it.
 const BudgetScreen = lazy(() =>
   import("./screens/BudgetScreen").then((m) => ({
     default: m.BudgetScreen,
@@ -794,6 +799,11 @@ const BudgetMuniInvestmentsScreen = lazy(() =>
 const BudgetMuniCapitalScreen = lazy(() =>
   import("./screens/budget/BudgetMuniCapitalScreen").then((m) => ({
     default: m.BudgetMuniCapitalScreen,
+  })),
+);
+const BudgetHubScreen = lazy(() =>
+  import("./screens/budget/BudgetHubScreen").then((m) => ({
+    default: m.BudgetHubScreen,
   })),
 );
 const BudgetMinistryScreen = lazy(() =>
@@ -2965,6 +2975,18 @@ export const AuthRoutes = () => {
           />
           <Route
             path="budget"
+            element={
+              <LayoutScreen>
+                <BudgetHubScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The previous /budget, kept reachable: it holds the Sankey flow and
+              several drill-downs the fourteen sub-pages do not yet replace, and
+              retiring it would lose them. It is no longer the module's front
+              door, so its ~1.1 MB is paid only by a reader who asks for it. */}
+          <Route
+            path="budget/deep-dive"
             element={
               <LayoutScreen>
                 <BudgetScreen />

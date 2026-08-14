@@ -564,10 +564,15 @@ CREATE OR REPLACE FUNCTION budget_muni_ipop(
   p_q     text DEFAULT NULL,
   p_limit int  DEFAULT 300
 ) RETURNS jsonb LANGUAGE sql STABLE AS $$
+  -- Scoped to the corpus's OWN latest year, which is also what
+  -- `fiscalYear` below reports and what the hub blob counts. Unscoped it
+  -- counted every vintage and labelled the result `max(fiscal_year)` — true
+  -- only while the corpus has one vintage, and false the day a second lands.
   WITH scoped AS (
     SELECT i.*, coalesce(p.name_bg, i.obshtina) AS name_bg, p.name_en
       FROM budget_muni_ipop_project i
       LEFT JOIN place_dim p ON p.code = i.obshtina AND p.kind = 'obshtina'
+     WHERE i.fiscal_year = (SELECT max(fiscal_year) FROM budget_muni_ipop_project)
   )
   SELECT jsonb_build_object(
     'fiscalYear', (SELECT max(fiscal_year) FROM scoped),

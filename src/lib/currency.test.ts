@@ -4,7 +4,12 @@
 // it must not sit.
 
 import { describe, it, expect } from "vitest";
-import { formatEur, formatEurSigned } from "./currency";
+import {
+  formatEur,
+  formatEurSigned,
+  formatEurCompact,
+  formatEurCompactSigned,
+} from "./currency";
 
 /** `formatEur` groups with NBSP (U+00A0), so a literal typed with ordinary
  *  spaces compares unequal to a visually identical string. */
@@ -47,5 +52,25 @@ describe("formatEurSigned", () => {
   it("returns empty for null and non-finite, like formatEur", () => {
     expect(formatEurSigned(null)).toBe("");
     expect(formatEurSigned(Number.NaN)).toBe("");
+  });
+});
+
+describe("formatEurCompactSigned", () => {
+  it("signs a compact deficit in front of the symbol", () => {
+    // formatEurCompact buries the minus: „€-1,9 млрд.".
+    expect(formatEurCompactSigned(-1914405872)).toMatch(/^−€/);
+    expect(formatEurCompact(-1914405872)).toMatch(/^€-/);
+  });
+
+  it("leaves a surplus unsigned unless asked", () => {
+    expect(formatEurCompactSigned(1914405872)).toMatch(/^€/);
+    expect(
+      formatEurCompactSigned(1914405872, "bg-BG", { plusForPositive: true }),
+    ).toMatch(/^\+€/);
+  });
+
+  it("returns empty for null and non-finite", () => {
+    expect(formatEurCompactSigned(null)).toBe("");
+    expect(formatEurCompactSigned(Number.NaN)).toBe("");
   });
 });

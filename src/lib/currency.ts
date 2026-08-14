@@ -112,6 +112,22 @@ export const formatEurSigned = (
   return `${sign}${formatEur(Math.abs(value), locale, opts)}`;
 };
 
+/** The compact twin of `formatEurSigned` — „−€1,9 млрд." rather than
+ *  `formatEurCompact`'s „€-1,9 млрд.", which buries the minus between the
+ *  currency symbol and the digits. Used wherever a compact figure can be
+ *  NEGATIVE and the sign is the information: a budget balance is the whole
+ *  case. */
+export const formatEurCompactSigned = (
+  value: number | null | undefined,
+  locale: string = "bg-BG",
+  opts: { plusForPositive?: boolean } = {},
+): string => {
+  if (value == null || !Number.isFinite(value)) return "";
+  const sign =
+    value < 0 ? "\u2212" : value > 0 && opts.plusForPositive ? "+" : "";
+  return `${sign}${formatEurCompact(Math.abs(value), locale)}`;
+};
+
 /** A plain count/ratio: "4,3" / "5 835". Returns "—" for null/non-finite. */
 export const formatCount = (
   value: number | null | undefined,

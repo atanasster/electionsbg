@@ -156,8 +156,18 @@ CREATE OR REPLACE FUNCTION budget_hub_stats(
            -- The LAW's envelope, not money paid out — чл. 53 is an
            -- appropriation. „Planned" is the fork this key has to name.
            p.muni_transfer_planned_eur    AS "muniTransferPlannedEur",
-           p.ipop_project_count           AS "ipopProjectCount",
-           p.ipop_stalled_count           AS "ipopStalledCount",
+           -- ⚠️ From the ИПОП corpus's OWN latest row, NOT from `pick`. The
+           -- cache is keyed per fiscal year and its per-year rows are correct
+           -- (a 2026 row holds 2026's zero); the TILE, though, fronts a page
+           -- that shows the whole 2025 return, and a tile reading „0 обекта"
+           -- over a destination showing 3 492 is the „destination counts a
+           -- different set" trap. `ipopLatestYear` ships so the caption can
+           -- name the year, and `budget_muni_ipop()` is scoped the same way so
+           -- the two can never diverge.
+           (SELECT c.ipop_project_count FROM budget_hub_stats_cache c
+             WHERE c.fiscal_year = p.ipop_latest_year) AS "ipopProjectCount",
+           (SELECT c.ipop_stalled_count FROM budget_hub_stats_cache c
+             WHERE c.fiscal_year = p.ipop_latest_year) AS "ipopStalledCount",
            p.ipop_latest_year             AS "ipopLatestYear",
            p.capital_municipality_count   AS "capitalMunicipalityCount",
            p.capital_latest_year          AS "capitalLatestYear",
