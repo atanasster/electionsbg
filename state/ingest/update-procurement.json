@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-08-12T10:05:23.017Z",
+  "lastSuccessfulIngest": "2026-08-14T18:22:34.089Z",
   "skill": "update-procurement",
-  "summary": "eop self-heal + tenders already ingested by b95995eb05 (142 rows/85 buyers, 237,386 tenders); re-run idempotent, local PG reconciles to the euro"
+  "summary": "ЦАИС ЕОП self-heal +113 rows/64 buyers; annex fold +€2272.8M net; tenders 237,526 procedures; geo map 2164→2167 (Tier B 403, 93 carried); db:refresh loaders OK"
 }

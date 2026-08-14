@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.284Z",
+  "generatedAt": "2026-08-14T17:10:17.121Z",
   "obshtinaCode": "VTR04",
   "municipalityName": "Велико Търново",
   "oblastCode": "VTR",
@@ -11,14 +11,14 @@
     "oblastCode": "VTR",
     "oblastName": "Велико Търново",
     "projectCount": 64,
-    "stalledCount": 12,
-    "agreementEur": 36267109.11,
-    "submittedEur": 1634691.09,
+    "stalledCount": 13,
+    "agreementEur": 37077506.739999995,
+    "submittedEur": 1555924.56,
     "awaitingEur": 0,
     "paidEur": 4680234.04,
     "mrrbPaidEur": 1629986.27,
     "bbrPaidEur": 3050247.77,
-    "paidPct": 12.9
+    "paidPct": 12.62
   },
   "projects": [
     {
@@ -125,7 +125,7 @@
       "obshtinaCode": "VTR04",
       "municipalityName": "Велико Търново",
       "agreementEur": 1559440.24,
-      "submittedEur": 1373649.08,
+      "submittedEur": 1373649.06,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
@@ -189,13 +189,29 @@
       "obshtinaCode": "VTR04",
       "municipalityName": "Велико Търново",
       "agreementEur": 827065.75,
-      "submittedEur": 175249.68,
+      "submittedEur": 96483.17,
       "awaitingEur": 0,
       "paidEur": 726615.24,
       "mrrbPaidEur": 354449.29,
       "bbrPaidEur": 372165.95,
       "paidPct": 87.85,
       "stalled": false
+    },
+    {
+      "id": "OP-24.001-1745",
+      "description": "Реконструкция на улица \"Полтава\", гр. Велико Търново – Етап 1",
+      "oblastCode": "VTR",
+      "oblastName": "Велико Търново",
+      "obshtinaCode": "VTR04",
+      "municipalityName": "Велико Търново",
+      "agreementEur": 810397.63,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-1752",
@@ -276,22 +292,6 @@
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
-    },
-    {
-      "id": "OP-24.001-1745",
-      "description": "Реконструкция на улица \"Полтава\", гр. Велико Търново – Етап 1",
-      "oblastCode": "VTR",
-      "oblastName": "Велико Търново",
-      "obshtinaCode": "VTR04",
-      "municipalityName": "Велико Търново",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
     },
     {
       "id": "OP-25.001-0271",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-13T03:05:03.518Z",
+  "generatedAt": "2026-08-14T18:22:58.590Z",
   "nodes": [
     {
       "id": "src:water",
@@ -207,7 +207,7 @@
       ],
       "url": "https://register.cacbg.bg/",
       "origin": "state",
-      "cadence": "weekly",
+      "cadence": "daily",
       "freshness": "2026-08-11T06:09:08.095Z",
       "skills": [
         "update-connections",
@@ -240,21 +240,21 @@
           "id": "cacbg_declarations",
           "label": "Сметна палата declarations — MPs",
           "url": "https://register.cacbg.bg/",
-          "cadence": "weekly",
+          "cadence": "daily",
           "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "cacbg_officials",
           "label": "Сметна палата declarations — executive (officials)",
           "url": "https://register.cacbg.bg/",
-          "cadence": "weekly",
+          "cadence": "daily",
           "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "cacbg_local",
           "label": "Сметна палата declarations — municipal (mayors & councillors)",
           "url": "https://register.cacbg.bg/",
-          "cadence": "weekly",
+          "cadence": "daily",
           "freshness": "2026-07-29T11:45:08.536Z"
         }
       ],
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-12T06:09:05.168Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-08-12T06:09:05.168Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         }
       ],
       "x": 28,
@@ -734,7 +734,7 @@
       "url": "https://keep.eu/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-08-08T06:08:44.721Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-funds"
       ],
@@ -744,7 +744,7 @@
           "label": "keep.eu Interreg (programme re-imports)",
           "url": "https://keep.eu/",
           "cadence": "weekly",
-          "freshness": "2026-08-08T06:08:44.721Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         }
       ],
       "x": 28,
@@ -847,7 +847,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -994,7 +994,7 @@
           "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
           "url": "https://ipop.mrrb.bg/",
           "cadence": "daily",
-          "freshness": "2026-07-09T06:09:03.525Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         },
         {
           "id": "iisda_doklad",
@@ -1014,7 +1014,8 @@
           "id": "municipal_fiscal_due",
           "label": "Финансови показатели на общините (ЗПФ чл. 130г) — предстоящо тримесечие",
           "url": "https://www.minfin.bg/bg/810",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-08-13T09:48:59.961Z"
         },
         {
           "id": "static:https://portal.registryagency.bg/",
@@ -1049,7 +1050,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-11T06:09:08.095Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -1068,7 +1069,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-08-11T06:09:08.095Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         },
         {
           "id": "municipal_naredba",
@@ -1258,7 +1259,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "daily",
-      "freshness": "2026-08-12T06:09:05.168Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1270,7 +1271,7 @@
           "label": "Eurostat macro (BG): 29 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "daily",
-          "freshness": "2026-08-12T06:09:05.168Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         },
         {
           "id": "eurostat_policy",
@@ -1585,7 +1586,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-08-12T06:09:05.168Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [
         "update-prices"
       ],
@@ -1595,7 +1596,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-08-12T06:09:05.168Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         }
       ],
       "x": 28,
@@ -1846,7 +1847,7 @@
       "url": "https://ec.europa.eu/eurostat/databrowser/view/sdg_11_40/default/table",
       "origin": "intl",
       "cadence": "monthly",
-      "freshness": "2026-07-15T06:08:41.204Z",
+      "freshness": "2026-08-13T09:48:59.961Z",
       "skills": [],
       "sources": [
         {
@@ -1854,7 +1855,7 @@
           "label": "Eurostat road safety (BG): пътни жертви (sdg_11_40)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/sdg_11_40/default/table",
           "cadence": "monthly",
-          "freshness": "2026-07-15T06:08:41.204Z"
+          "freshness": "2026-08-13T09:48:59.961Z"
         }
       ],
       "x": 28,
@@ -1883,7 +1884,7 @@
       "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
       "origin": "intl",
       "cadence": "monthly",
-      "freshness": "2026-07-16T06:08:43.640Z",
+      "freshness": "2026-08-14T15:05:23.140Z",
       "skills": [],
       "sources": [
         {
@@ -1891,7 +1892,7 @@
           "label": "Eurostat rail (BG): жп пътници (rail_pa_total)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
           "cadence": "monthly",
-          "freshness": "2026-07-16T06:08:43.640Z"
+          "freshness": "2026-08-14T15:05:23.140Z"
         }
       ],
       "x": 28,
@@ -2581,8 +2582,8 @@
         "en": "rail subsidy & passengers"
       },
       "desc": {
-        "bg": "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (~€5.9 млрд., 11 структури) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
-        "en": "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€5.9bn, 11 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector."
+        "bg": "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (~€7,3 млрд., 15 структури) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
+        "en": "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€7.3bn, 15 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector."
       },
       "tags": [
         "indicators"

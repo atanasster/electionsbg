@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.295Z",
+  "generatedAt": "2026-08-14T17:10:17.131Z",
   "obshtinaCode": "KNL41",
   "municipalityName": "Сапарева баня",
   "oblastCode": "KNL",
@@ -11,14 +11,14 @@
     "oblastCode": "KNL",
     "oblastName": "Кюстендил",
     "projectCount": 15,
-    "stalledCount": 4,
+    "stalledCount": 1,
     "agreementEur": 7329318,
     "submittedEur": 383527.30000000005,
-    "awaitingEur": 881433.03,
-    "paidEur": 1987212.5999999999,
+    "awaitingEur": 20.330000000000002,
+    "paidEur": 2868625.3000000003,
     "mrrbPaidEur": 1214089.84,
-    "bbrPaidEur": 773122.76,
-    "paidPct": 27.11
+    "bbrPaidEur": 1654535.46,
+    "paidPct": 39.14
   },
   "projects": [
     {
@@ -46,11 +46,11 @@
       "municipalityName": "Сапарева баня",
       "agreementEur": 1028054.59,
       "submittedEur": 0,
-      "awaitingEur": 50637.67,
-      "paidEur": 385395.88,
+      "awaitingEur": 20.32,
+      "paidEur": 436013.23,
       "mrrbPaidEur": 16361.34,
-      "bbrPaidEur": 369034.54,
-      "paidPct": 37.49,
+      "bbrPaidEur": 419651.89,
+      "paidPct": 42.41,
       "stalled": false
     },
     {
@@ -78,12 +78,12 @@
       "municipalityName": "Сапарева баня",
       "agreementEur": 927739.12,
       "submittedEur": 0,
-      "awaitingEur": 608040.49,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 608040.49,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 608040.49,
+      "paidPct": 65.54,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1903",
@@ -126,12 +126,12 @@
       "municipalityName": "Сапарева баня",
       "agreementEur": 664986.22,
       "submittedEur": 0,
-      "awaitingEur": 120144.3,
-      "paidEur": 0,
+      "awaitingEur": 0.01,
+      "paidEur": 120144.29,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 120144.29,
+      "paidPct": 18.07,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1900",
@@ -142,12 +142,12 @@
       "municipalityName": "Сапарева баня",
       "agreementEur": 506894.77,
       "submittedEur": 0,
-      "awaitingEur": 102610.57,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 102610.57,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 102610.57,
+      "paidPct": 20.24,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0667",

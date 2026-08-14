@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.315Z",
+  "generatedAt": "2026-08-14T17:10:17.151Z",
   "obshtinaCode": "HKV33",
   "municipalityName": "Харманли",
   "oblastCode": "HKV",
@@ -11,14 +11,14 @@
     "oblastCode": "HKV",
     "oblastName": "Хасково",
     "projectCount": 33,
-    "stalledCount": 8,
+    "stalledCount": 6,
     "agreementEur": 5468317.799999999,
     "submittedEur": 20676.64,
-    "awaitingEur": 520412.54000000004,
-    "paidEur": 1125700.12,
+    "awaitingEur": 40036.9,
+    "paidEur": 1606075.76,
     "mrrbPaidEur": 1125700.12,
-    "bbrPaidEur": 0,
-    "paidPct": 20.59
+    "bbrPaidEur": 480375.64,
+    "paidPct": 29.37
   },
   "projects": [
     {
@@ -62,12 +62,12 @@
       "municipalityName": "Харманли",
       "agreementEur": 823026.54,
       "submittedEur": 0,
-      "awaitingEur": 161485.66,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 161485.66,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 161485.66,
+      "paidPct": 19.62,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1546",
@@ -110,12 +110,12 @@
       "municipalityName": "Харманли",
       "agreementEur": 398807.67,
       "submittedEur": 0,
-      "awaitingEur": 358926.88,
-      "paidEur": 0,
+      "awaitingEur": 40036.9,
+      "paidEur": 318889.98,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 318889.98,
+      "paidPct": 79.96,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1549",

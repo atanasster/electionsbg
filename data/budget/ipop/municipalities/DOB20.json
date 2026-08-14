@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.291Z",
+  "generatedAt": "2026-08-14T17:10:17.129Z",
   "obshtinaCode": "DOB20",
   "municipalityName": "Крушари",
   "oblastCode": "DOB",
@@ -11,14 +11,14 @@
     "oblastCode": "DOB",
     "oblastName": "Добрич",
     "projectCount": 3,
-    "stalledCount": 1,
+    "stalledCount": 0,
     "agreementEur": 6276158.97,
-    "submittedEur": 847754.66,
+    "submittedEur": 193665.57,
     "awaitingEur": 0,
-    "paidEur": 1474715.34,
+    "paidEur": 2322470,
     "mrrbPaidEur": 1474715.34,
-    "bbrPaidEur": 0,
-    "paidPct": 23.5
+    "bbrPaidEur": 847754.66,
+    "paidPct": 37
   },
   "projects": [
     {
@@ -29,13 +29,13 @@
       "obshtinaCode": "DOB20",
       "municipalityName": "Крушари",
       "agreementEur": 4518235.22,
-      "submittedEur": 847754.66,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
+      "paidEur": 847754.66,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 847754.66,
+      "paidPct": 18.76,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0551",
@@ -45,7 +45,7 @@
       "obshtinaCode": "DOB20",
       "municipalityName": "Крушари",
       "agreementEur": 1757923.75,
-      "submittedEur": 0,
+      "submittedEur": 193665.57,
       "awaitingEur": 0,
       "paidEur": 1474715.34,
       "mrrbPaidEur": 1474715.34,

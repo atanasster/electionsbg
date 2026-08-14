@@ -1,6 +1,6 @@
 {
   "skill": "council_RSE01",
-  "lastSuccessfulIngest": "2026-08-11T07:00:41.712Z",
+  "lastSuccessfulIngest": "2026-08-14T17:23:03.365Z",
   "summary": "0 prot(s) → 0+/0=/211 total",
   "sinceDate": "2026-07-16",
   "deferred": [
@@ -9,7 +9,7 @@
       "kind": "content",
       "message": "PDF variant skipped (use --include-pdf when supported)",
       "firstSeen": "2026-08-09T14:09:10.184Z",
-      "attempts": 5,
+      "attempts": 6,
       "givenUp": true
     },
     {
@@ -17,7 +17,7 @@
       "kind": "content",
       "message": "PDF variant skipped (use --include-pdf when supported)",
       "firstSeen": "2026-08-09T14:09:10.184Z",
-      "attempts": 5,
+      "attempts": 6,
       "givenUp": true
     }
   ]

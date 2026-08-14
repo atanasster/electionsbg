@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.298Z",
+  "generatedAt": "2026-08-14T17:10:17.133Z",
   "obshtinaCode": "PAZ03",
   "municipalityName": "Батак",
   "oblastCode": "PAZ",
@@ -14,11 +14,11 @@
     "stalledCount": 3,
     "agreementEur": 4360092.65,
     "submittedEur": 324643.83,
-    "awaitingEur": 24542,
-    "paidEur": 0,
+    "awaitingEur": 0,
+    "paidEur": 24542,
     "mrrbPaidEur": 0,
-    "bbrPaidEur": 0,
-    "paidPct": 0
+    "bbrPaidEur": 24542,
+    "paidPct": 0.56
   },
   "projects": [
     {
@@ -30,11 +30,11 @@
       "municipalityName": "Батак",
       "agreementEur": 3373452.7,
       "submittedEur": 24542,
-      "awaitingEur": 24542,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 24542,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 24542,
+      "paidPct": 0.73,
       "stalled": true
     },
     {

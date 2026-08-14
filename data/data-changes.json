@@ -1,12 +1,46 @@
 {
-  "updatedAt": "2026-08-14T06:28:58.692Z",
+  "updatedAt": "2026-08-14T19:45:08.678Z",
   "entries": [
     {
-      "timestamp": "2026-08-14T06:28:58.692Z",
+      "timestamp": "2026-08-14T19:45:08.678Z",
       "date": "2026-08-14",
       "skill": "update-persons",
-      "summary": "Профилите на публичните лица преизчислени — 63 758 лица, 122 574 длъжности",
+      "summary": "Профилите на публичните лица преизчислени — 64 946 лица, 124 098 длъжности",
       "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-08-14T18:22:34.545Z",
+      "date": "2026-08-14",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: 113 нови договора от 64 възложителя; обновени анекси и 237,526 процедури",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-08-14T17:44:51.969Z",
+      "date": "2026-08-14",
+      "skill": "update-council-minutes",
+      "summary": "Общински съвет Перник: 27 нови решения от протокол 7 (2026 г.)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-08-14T17:10:31.600Z",
+      "date": "2026-08-14",
+      "skill": "update-budget",
+      "summary": "ИПОП: изпълнението на общинските проекти — изплатени €1,059.9M от €3,006.2M (35.3%), 700 забавени проекта",
+      "source": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение"
+    },
+    {
+      "timestamp": "2026-08-14T17:09:19.859Z",
+      "date": "2026-08-14",
+      "skill": "update-macro",
+      "summary": "Eurostat refresh: gdpGrowth → 2026 Q2 = 2.7%; peers + PLI (2025, 9 geos) + admin context rebuilt; no degraded keys",
+      "source": "Eurostat macro (BG): 29 datasets",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
     },
     {
       "timestamp": "2026-08-14T05:44:39.144Z",

@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.283Z",
+  "generatedAt": "2026-08-14T17:10:17.118Z",
   "obshtinaCode": "BGS13",
   "municipalityName": "Царево",
   "oblastCode": "BGS",
@@ -13,12 +13,12 @@
     "projectCount": 12,
     "stalledCount": 1,
     "agreementEur": 11017726.490000002,
-    "submittedEur": 2002531.71,
-    "awaitingEur": 430570.3,
-    "paidEur": 5924467.28,
+    "submittedEur": 341799,
+    "awaitingEur": 400506.34,
+    "paidEur": 5954531.240000001,
     "mrrbPaidEur": 3449885.5,
-    "bbrPaidEur": 2474581.7800000003,
-    "paidPct": 53.77
+    "bbrPaidEur": 2504645.74,
+    "paidPct": 54.05
   },
   "projects": [
     {
@@ -45,7 +45,7 @@
       "obshtinaCode": "BGS13",
       "municipalityName": "Царево",
       "agreementEur": 4090335.05,
-      "submittedEur": 2002531.71,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 815036.07,
       "mrrbPaidEur": 0,
@@ -61,7 +61,7 @@
       "obshtinaCode": "BGS13",
       "municipalityName": "Царево",
       "agreementEur": 1171880.99,
-      "submittedEur": 0,
+      "submittedEur": 341799,
       "awaitingEur": 0,
       "paidEur": 537112.12,
       "mrrbPaidEur": 537112.12,
@@ -126,11 +126,11 @@
       "municipalityName": "Царево",
       "agreementEur": 30677.51,
       "submittedEur": 0,
-      "awaitingEur": 15031.98,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 15031.98,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 15031.98,
+      "paidPct": 49,
       "stalled": false
     },
     {
@@ -142,11 +142,11 @@
       "municipalityName": "Царево",
       "agreementEur": 30677.51,
       "submittedEur": 0,
-      "awaitingEur": 15031.98,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 15031.98,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 15031.98,
+      "paidPct": 49,
       "stalled": false
     },
     {

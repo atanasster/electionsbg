@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.288Z",
+  "generatedAt": "2026-08-14T17:10:17.124Z",
   "obshtinaCode": "VID37",
   "municipalityName": "Чупрене",
   "oblastCode": "VID",
@@ -11,14 +11,14 @@
     "oblastCode": "VID",
     "oblastName": "Видин",
     "projectCount": 3,
-    "stalledCount": 1,
+    "stalledCount": 0,
     "agreementEur": 1022583.76,
     "submittedEur": 0,
-    "awaitingEur": 173837.39,
-    "paidEur": 24066.01,
+    "awaitingEur": 0.01,
+    "paidEur": 197903.39,
     "mrrbPaidEur": 12033.01,
-    "bbrPaidEur": 12033,
-    "paidPct": 2.35
+    "bbrPaidEur": 185870.38,
+    "paidPct": 19.35
   },
   "projects": [
     {
@@ -30,12 +30,12 @@
       "municipalityName": "Чупрене",
       "agreementEur": 1022583.76,
       "submittedEur": 0,
-      "awaitingEur": 173837.39,
-      "paidEur": 24066.01,
+      "awaitingEur": 0.01,
+      "paidEur": 197903.39,
       "mrrbPaidEur": 12033.01,
-      "bbrPaidEur": 12033,
-      "paidPct": 2.35,
-      "stalled": true
+      "bbrPaidEur": 185870.38,
+      "paidPct": 19.35,
+      "stalled": false
     },
     {
       "id": "OP-25.001-0019",

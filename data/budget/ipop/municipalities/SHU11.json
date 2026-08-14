@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.316Z",
+  "generatedAt": "2026-08-14T17:10:17.153Z",
   "obshtinaCode": "SHU11",
   "municipalityName": "Хитрино",
   "oblastCode": "SHU",
@@ -11,14 +11,14 @@
     "oblastCode": "SHU",
     "oblastName": "Шумен",
     "projectCount": 6,
-    "stalledCount": 3,
+    "stalledCount": 1,
     "agreementEur": 4413369.26,
-    "submittedEur": 2929036.5100000002,
-    "awaitingEur": 333001.55,
-    "paidEur": 0,
+    "submittedEur": 0,
+    "awaitingEur": 9222.86,
+    "paidEur": 2699725.93,
     "mrrbPaidEur": 0,
-    "bbrPaidEur": 0,
-    "paidPct": 0
+    "bbrPaidEur": 2699725.93,
+    "paidPct": 61.17
   },
   "projects": [
     {
@@ -29,13 +29,13 @@
       "obshtinaCode": "SHU11",
       "municipalityName": "Хитрино",
       "agreementEur": 3065961.77,
-      "submittedEur": 2392223.83,
+      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
+      "paidEur": 2375947.24,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 2375947.24,
+      "paidPct": 77.49,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1589",
@@ -45,7 +45,7 @@
       "obshtinaCode": "SHU11",
       "municipalityName": "Хитрино",
       "agreementEur": 692033.56,
-      "submittedEur": 536812.68,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
@@ -62,12 +62,12 @@
       "municipalityName": "Хитрино",
       "agreementEur": 655373.93,
       "submittedEur": 0,
-      "awaitingEur": 333001.55,
-      "paidEur": 0,
+      "awaitingEur": 9222.86,
+      "paidEur": 323778.69,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 323778.69,
+      "paidPct": 49.4,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1592",

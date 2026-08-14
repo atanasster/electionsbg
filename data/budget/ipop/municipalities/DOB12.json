@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.290Z",
+  "generatedAt": "2026-08-14T17:10:17.128Z",
   "obshtinaCode": "DOB12",
   "municipalityName": "Генерал Тошево",
   "oblastCode": "DOB",
@@ -11,14 +11,14 @@
     "oblastCode": "DOB",
     "oblastName": "Добрич",
     "projectCount": 10,
-    "stalledCount": 3,
+    "stalledCount": 2,
     "agreementEur": 3963279.0200000005,
-    "submittedEur": 0,
-    "awaitingEur": 462381.87,
-    "paidEur": 192619.08,
+    "submittedEur": 119177.9,
+    "awaitingEur": 0,
+    "paidEur": 655000.95,
     "mrrbPaidEur": 192619.08,
-    "bbrPaidEur": 0,
-    "paidPct": 4.86
+    "bbrPaidEur": 462381.87,
+    "paidPct": 16.53
   },
   "projects": [
     {
@@ -30,12 +30,12 @@
       "municipalityName": "Генерал Тошево",
       "agreementEur": 1577335.45,
       "submittedEur": 0,
-      "awaitingEur": 457688.21,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 457688.21,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 457688.21,
+      "paidPct": 29.02,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1867",
@@ -61,7 +61,7 @@
       "obshtinaCode": "DOB12",
       "municipalityName": "Генерал Тошево",
       "agreementEur": 512109.95,
-      "submittedEur": 0,
+      "submittedEur": 119177.9,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,
@@ -78,11 +78,11 @@
       "municipalityName": "Генерал Тошево",
       "agreementEur": 475092.42,
       "submittedEur": 0,
-      "awaitingEur": 4693.66,
-      "paidEur": 192619.08,
+      "awaitingEur": 0,
+      "paidEur": 197312.74,
       "mrrbPaidEur": 192619.08,
-      "bbrPaidEur": 0,
-      "paidPct": 40.54,
+      "bbrPaidEur": 4693.66,
+      "paidPct": 41.53,
       "stalled": false
     },
     {

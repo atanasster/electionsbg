@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.303Z",
+  "generatedAt": "2026-08-14T17:10:17.140Z",
   "obshtinaCode": "PDV22",
   "municipalityName": "Пловдив",
   "oblastCode": "PDV",
@@ -11,14 +11,14 @@
     "oblastCode": "PDV",
     "oblastName": "Пловдив",
     "projectCount": 34,
-    "stalledCount": 3,
-    "agreementEur": 70494368.1,
-    "submittedEur": 2848406.97,
-    "awaitingEur": 5986292.07,
-    "paidEur": 27800940.310000002,
+    "stalledCount": 4,
+    "agreementEur": 73623474.41,
+    "submittedEur": 2118254.29,
+    "awaitingEur": 2101114.28,
+    "paidEur": 31686118.100000005,
     "mrrbPaidEur": 11934891.01,
-    "bbrPaidEur": 15866049.3,
-    "paidPct": 39.44
+    "bbrPaidEur": 19751227.090000004,
+    "paidPct": 43.04
   },
   "projects": [
     {
@@ -30,11 +30,11 @@
       "municipalityName": "Пловдив",
       "agreementEur": 21474259.01,
       "submittedEur": 0,
-      "awaitingEur": 3885177.79,
-      "paidEur": 5286208.44,
+      "awaitingEur": 0,
+      "paidEur": 9171386.23,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 5286208.44,
-      "paidPct": 24.62,
+      "bbrPaidEur": 9171386.23,
+      "paidPct": 42.71,
       "stalled": false
     },
     {
@@ -61,7 +61,7 @@
       "obshtinaCode": "PDV22",
       "municipalityName": "Пловдив",
       "agreementEur": 9714545.74,
-      "submittedEur": 730152.68,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 6949802.17,
       "mrrbPaidEur": 6949802.17,
@@ -100,6 +100,22 @@
       "bbrPaidEur": 1937043.87,
       "paidPct": 46.54,
       "stalled": false
+    },
+    {
+      "id": "OP-25.001-0185",
+      "description": "Изграждане на обект/строеж: \"Тренировъчни спортни зали, заведение, обслужващи помещения и благоустрояване\", в УПИ IX-511.9586 спорт, общ. обсл. и ТП, кв. 77 – нов по плана на кв. \"Христо Смирненски\" – гр. Пловдив, идентичен с ПИ с ИД 56784.511.818 по КК на гр. Пловдив (стар XXXII-1169,1170 спортни и обсл. дейности и ТП по плана на жк \"Кишинев\", кв. 16, ПИ с ИД 56784.511.9586 по КК на гр. Пловдив)",
+      "oblastCode": "PDV",
+      "oblastName": "Пловдив",
+      "obshtinaCode": "PDV22",
+      "municipalityName": "Пловдив",
+      "agreementEur": 3129106.31,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-0987",
@@ -488,22 +504,6 @@
     {
       "id": "OP-25.001-0184",
       "description": "Реконструкция на ул. \"Любен Каравелов\" от бул. \"Васил Априлов\" до бул. \"Христо Ботев\"",
-      "oblastCode": "PDV",
-      "oblastName": "Пловдив",
-      "obshtinaCode": "PDV22",
-      "municipalityName": "Пловдив",
-      "agreementEur": 0,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
-    },
-    {
-      "id": "OP-25.001-0185",
-      "description": "Изграждане на обект/строеж: \"Тренировъчни спортни зали, заведение, обслужващи помещения и благоустрояване\", в УПИ IX-511.9586 спорт, общ. обсл. и ТП, кв. 77 – нов по плана на кв. \"Христо Смирненски\" – гр. Пловдив, идентичен с ПИ с ИД 56784.511.818 по КК на гр. Пловдив (стар XXXII-1169,1170 спортни и обсл. дейности и ТП по плана на жк \"Кишинев\", кв. 16, ПИ с ИД 56784.511.9586 по КК на гр. Пловдив)",
       "oblastCode": "PDV",
       "oblastName": "Пловдив",
       "obshtinaCode": "PDV22",

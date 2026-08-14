@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.283Z",
+  "generatedAt": "2026-08-14T17:10:17.119Z",
   "obshtinaCode": "VAR04",
   "municipalityName": "Белослав",
   "oblastCode": "VAR",
@@ -11,14 +11,14 @@
     "oblastCode": "VAR",
     "oblastName": "Варна",
     "projectCount": 14,
-    "stalledCount": 2,
+    "stalledCount": 1,
     "agreementEur": 5112918.81,
-    "submittedEur": 486872.39,
-    "awaitingEur": 688414.1,
-    "paidEur": 2746545.52,
+    "submittedEur": 466631.36,
+    "awaitingEur": 0,
+    "paidEur": 3434959.62,
     "mrrbPaidEur": 1713641.8599999999,
-    "bbrPaidEur": 1032903.66,
-    "paidPct": 53.72
+    "bbrPaidEur": 1721317.76,
+    "paidPct": 67.18
   },
   "projects": [
     {
@@ -29,13 +29,13 @@
       "obshtinaCode": "VAR04",
       "municipalityName": "Белослав",
       "agreementEur": 1610569.43,
-      "submittedEur": 30671.38,
-      "awaitingEur": 688414.1,
-      "paidEur": 0,
+      "submittedEur": 10430.35,
+      "awaitingEur": 0,
+      "paidEur": 688414.1,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 688414.1,
+      "paidPct": 42.74,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1720",

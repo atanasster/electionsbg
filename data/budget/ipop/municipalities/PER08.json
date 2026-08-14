@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.300Z",
+  "generatedAt": "2026-08-14T17:10:17.136Z",
   "obshtinaCode": "PER08",
   "municipalityName": "Брезник",
   "oblastCode": "PER",
@@ -11,14 +11,14 @@
     "oblastCode": "PER",
     "oblastName": "Перник",
     "projectCount": 29,
-    "stalledCount": 3,
-    "agreementEur": 5152125.170000001,
-    "submittedEur": 12189.37,
+    "stalledCount": 4,
+    "agreementEur": 5592705.380000001,
+    "submittedEur": 11412.54,
     "awaitingEur": 0,
     "paidEur": 2189840.15,
     "mrrbPaidEur": 1643407.81,
     "bbrPaidEur": 546432.34,
-    "paidPct": 42.5
+    "paidPct": 39.16
   },
   "projects": [
     {
@@ -70,6 +70,22 @@
       "stalled": true
     },
     {
+      "id": "OP-24.001-2453",
+      "description": "Изграждане на улична водопроводна и канализационна мрежа на квартал \"Петров камък\", гр. Брезник",
+      "oblastCode": "PER",
+      "oblastName": "Перник",
+      "obshtinaCode": "PER08",
+      "municipalityName": "Брезник",
+      "agreementEur": 513183.66,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-2037",
       "description": "Реконструкция на довеждащ водопровод от РШ13 до съществуващ водопровод при р. Конска, гр. Брезник, община Брезник",
       "oblastCode": "PER",
@@ -93,7 +109,7 @@
       "obshtinaCode": "PER08",
       "municipalityName": "Брезник",
       "agreementEur": 433361.28,
-      "submittedEur": 12189.37,
+      "submittedEur": 11412.54,
       "awaitingEur": 0,
       "paidEur": 342376.18,
       "mrrbPaidEur": 0,
@@ -164,22 +180,6 @@
       "bbrPaidEur": 0,
       "paidPct": 0,
       "stalled": true
-    },
-    {
-      "id": "OP-24.001-2453",
-      "description": "Изграждане на улична водопроводна и канализационна мрежа на квартал \"Петров камък\", гр. Брезник",
-      "oblastCode": "PER",
-      "oblastName": "Перник",
-      "obshtinaCode": "PER08",
-      "municipalityName": "Брезник",
-      "agreementEur": 72603.45,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": false
     },
     {
       "id": "OP-24.001-2036",

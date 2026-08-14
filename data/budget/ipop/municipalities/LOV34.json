@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.296Z",
+  "generatedAt": "2026-08-14T17:10:17.132Z",
   "obshtinaCode": "LOV34",
   "municipalityName": "Троян",
   "oblastCode": "LOV",
@@ -12,13 +12,13 @@
     "oblastName": "Ловеч",
     "projectCount": 39,
     "stalledCount": 6,
-    "agreementEur": 15523298.719999999,
-    "submittedEur": 607193.31,
-    "awaitingEur": 49498.57,
-    "paidEur": 2577774.7099999995,
+    "agreementEur": 16401272.099999998,
+    "submittedEur": 810133.6,
+    "awaitingEur": 7727.360000000001,
+    "paidEur": 2619545.9199999995,
     "mrrbPaidEur": 1050861.95,
-    "bbrPaidEur": 1526912.76,
-    "paidPct": 16.61
+    "bbrPaidEur": 1568683.97,
+    "paidPct": 15.97
   },
   "projects": [
     {
@@ -45,13 +45,29 @@
       "obshtinaCode": "LOV34",
       "municipalityName": "Троян",
       "agreementEur": 2896468.51,
-      "submittedEur": 286221.19,
+      "submittedEur": 307838.61,
       "awaitingEur": 0,
       "paidEur": 270725.55,
       "mrrbPaidEur": 0,
       "bbrPaidEur": 270725.55,
       "paidPct": 9.35,
       "stalled": false
+    },
+    {
+      "id": "OP-24.001-2841",
+      "description": "Основен ремонт на сградите на кметство и НЧ \"Напредък – 1900 г.\" в с. Дълбок дол, община Троян – инженеринг",
+      "oblastCode": "LOV",
+      "oblastName": "Ловеч",
+      "obshtinaCode": "LOV34",
+      "municipalityName": "Троян",
+      "agreementEur": 1778528.81,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
     },
     {
       "id": "OP-24.001-0714",
@@ -94,28 +110,12 @@
       "municipalityName": "Троян",
       "agreementEur": 1009290.17,
       "submittedEur": 0,
-      "awaitingEur": 41324.85,
-      "paidEur": 868708.58,
-      "mrrbPaidEur": 447673.68,
-      "bbrPaidEur": 421034.9,
-      "paidPct": 86.07,
-      "stalled": false
-    },
-    {
-      "id": "OP-24.001-2841",
-      "description": "Основен ремонт на сградите на кметство и НЧ \"Напредък – 1900 г.\" в с. Дълбок дол, община Троян – инженеринг",
-      "oblastCode": "LOV",
-      "oblastName": "Ловеч",
-      "obshtinaCode": "LOV34",
-      "municipalityName": "Троян",
-      "agreementEur": 909076.96,
-      "submittedEur": 0,
       "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "paidEur": 910033.43,
+      "mrrbPaidEur": 447673.68,
+      "bbrPaidEur": 462359.75,
+      "paidPct": 90.17,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1927",
@@ -173,12 +173,12 @@
       "obshtinaCode": "LOV34",
       "municipalityName": "Троян",
       "agreementEur": 554751.69,
-      "submittedEur": 0,
-      "awaitingEur": 446.36,
-      "paidEur": 103613.07,
+      "submittedEur": 181322.87,
+      "awaitingEur": 0,
+      "paidEur": 104059.43,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 103613.07,
-      "paidPct": 18.68,
+      "bbrPaidEur": 104059.43,
+      "paidPct": 18.76,
       "stalled": false
     },
     {
@@ -310,8 +310,8 @@
       "stalled": false
     },
     {
-      "id": "OP-24.001-0732",
-      "description": "Проектиране обект \"Изграждане на битова канализация и прилежащите й съоръжения в южната част на гр. Троян\"",
+      "id": "OP-24.001-0728",
+      "description": "Реконструкция на общинска сграда, в която се предоставят обществени услуги, представляваща сграда на Кметство с. Голяма Желязна, община Троян, с цел подобряване на нейната енергийна ефективност",
       "oblastCode": "LOV",
       "oblastName": "Ловеч",
       "obshtinaCode": "LOV34",
@@ -326,13 +326,13 @@
       "stalled": false
     },
     {
-      "id": "OP-24.001-0728",
-      "description": "Реконструкция на общинска сграда, в която се предоставят обществени услуги, представляваща сграда на Кметство с. Голяма Желязна, община Троян, с цел подобряване на нейната енергийна ефективност",
+      "id": "OP-24.001-0732",
+      "description": "Проектиране обект \"Изграждане на битова канализация и прилежащите й съоръжения в южната част на гр. Троян\"",
       "oblastCode": "LOV",
       "oblastName": "Ловеч",
       "obshtinaCode": "LOV34",
       "municipalityName": "Троян",
-      "agreementEur": 42607.66,
+      "agreementEur": 51129.19,
       "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 0,

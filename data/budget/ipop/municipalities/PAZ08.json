@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.298Z",
+  "generatedAt": "2026-08-14T17:10:17.134Z",
   "obshtinaCode": "PAZ08",
   "municipalityName": "Велинград",
   "oblastCode": "PAZ",
@@ -11,14 +11,14 @@
     "oblastCode": "PAZ",
     "oblastName": "Пазарджик",
     "projectCount": 64,
-    "stalledCount": 11,
+    "stalledCount": 10,
     "agreementEur": 21254120.24,
-    "submittedEur": 814531.4699999999,
-    "awaitingEur": 214742.59,
-    "paidEur": 5563222.949999999,
+    "submittedEur": 1261372.3299999998,
+    "awaitingEur": 0,
+    "paidEur": 5777965.539999999,
     "mrrbPaidEur": 3780300.1500000004,
-    "bbrPaidEur": 1782922.8,
-    "paidPct": 26.17
+    "bbrPaidEur": 1997665.39,
+    "paidPct": 27.19
   },
   "projects": [
     {
@@ -110,12 +110,12 @@
       "municipalityName": "Велинград",
       "agreementEur": 1126887.31,
       "submittedEur": 8180.67,
-      "awaitingEur": 214742.59,
-      "paidEur": 10225.84,
+      "awaitingEur": 0,
+      "paidEur": 224968.43,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 10225.84,
-      "paidPct": 0.91,
-      "stalled": true
+      "bbrPaidEur": 224968.43,
+      "paidPct": 19.96,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0802",
@@ -141,7 +141,7 @@
       "obshtinaCode": "PAZ08",
       "municipalityName": "Велинград",
       "agreementEur": 843784.99,
-      "submittedEur": 290679.69,
+      "submittedEur": 581359.38,
       "awaitingEur": 0,
       "paidEur": 166102.68,
       "mrrbPaidEur": 0,
@@ -189,7 +189,7 @@
       "obshtinaCode": "PAZ08",
       "municipalityName": "Велинград",
       "agreementEur": 451061.7,
-      "submittedEur": 155435.34,
+      "submittedEur": 310870.68,
       "awaitingEur": 0,
       "paidEur": 88820.19,
       "mrrbPaidEur": 0,
@@ -493,7 +493,7 @@
       "obshtinaCode": "PAZ08",
       "municipalityName": "Велинград",
       "agreementEur": 73472.64,
-      "submittedEur": 0,
+      "submittedEur": 725.83,
       "awaitingEur": 0,
       "paidEur": 0,
       "mrrbPaidEur": 0,

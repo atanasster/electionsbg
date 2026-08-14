@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.315Z",
+  "generatedAt": "2026-08-14T17:10:17.152Z",
   "obshtinaCode": "SHU19",
   "municipalityName": "Каспичан",
   "oblastCode": "SHU",
@@ -11,14 +11,14 @@
     "oblastCode": "SHU",
     "oblastName": "Шумен",
     "projectCount": 5,
-    "stalledCount": 2,
-    "agreementEur": 5112918.81,
-    "submittedEur": 1047633.5700000001,
+    "stalledCount": 1,
+    "agreementEur": 4456777.94,
+    "submittedEur": 0,
     "awaitingEur": 38.16,
     "paidEur": 811740.7500000001,
     "mrrbPaidEur": 398127.06,
     "bbrPaidEur": 413613.69,
-    "paidPct": 15.88
+    "paidPct": 18.21
   },
   "projects": [
     {
@@ -29,22 +29,6 @@
       "obshtinaCode": "SHU19",
       "municipalityName": "Каспичан",
       "agreementEur": 3121232.42,
-      "submittedEur": 765406.87,
-      "awaitingEur": 0,
-      "paidEur": 0,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
-    },
-    {
-      "id": "OP-24.001-1573",
-      "description": "Реконструкция и изграждане на водопроводна мрежа на гр. Каспичан",
-      "oblastCode": "SHU",
-      "oblastName": "Шумен",
-      "obshtinaCode": "SHU19",
-      "municipalityName": "Каспичан",
-      "agreementEur": 656140.87,
       "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 0,
@@ -61,7 +45,7 @@
       "obshtinaCode": "SHU19",
       "municipalityName": "Каспичан",
       "agreementEur": 623827.22,
-      "submittedEur": 282226.7,
+      "submittedEur": 0,
       "awaitingEur": 38.16,
       "paidEur": 121751.57,
       "mrrbPaidEur": 0,
@@ -99,6 +83,22 @@
       "mrrbPaidEur": 163104.11,
       "bbrPaidEur": 204.52,
       "paidPct": 99.81,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-1573",
+      "description": "Реконструкция и изграждане на водопроводна мрежа на гр. Каспичан",
+      "oblastCode": "SHU",
+      "oblastName": "Шумен",
+      "obshtinaCode": "SHU19",
+      "municipalityName": "Каспичан",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
       "stalled": false
     }
   ]

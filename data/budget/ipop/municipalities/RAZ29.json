@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.304Z",
+  "generatedAt": "2026-08-14T17:10:17.142Z",
   "obshtinaCode": "RAZ29",
   "municipalityName": "Самуил",
   "oblastCode": "RAZ",
@@ -11,14 +11,14 @@
     "oblastCode": "RAZ",
     "oblastName": "Разград",
     "projectCount": 4,
-    "stalledCount": 2,
+    "stalledCount": 0,
     "agreementEur": 1713901.51,
     "submittedEur": 0,
-    "awaitingEur": 305541.73,
-    "paidEur": 0,
+    "awaitingEur": 0,
+    "paidEur": 305541.73,
     "mrrbPaidEur": 0,
-    "bbrPaidEur": 0,
-    "paidPct": 0
+    "bbrPaidEur": 305541.73,
+    "paidPct": 17.83
   },
   "projects": [
     {
@@ -30,12 +30,12 @@
       "municipalityName": "Самуил",
       "agreementEur": 1022583.76,
       "submittedEur": 0,
-      "awaitingEur": 170612.04,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 170612.04,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 170612.04,
+      "paidPct": 16.68,
+      "stalled": false
     },
     {
       "id": "OP-24.001-1043",
@@ -46,12 +46,12 @@
       "municipalityName": "Самуил",
       "agreementEur": 691317.75,
       "submittedEur": 0,
-      "awaitingEur": 134929.69,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 134929.69,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 134929.69,
+      "paidPct": 19.52,
+      "stalled": false
     },
     {
       "id": "OP-24.001-2083",

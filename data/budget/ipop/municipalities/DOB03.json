@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.290Z",
+  "generatedAt": "2026-08-14T17:10:17.128Z",
   "obshtinaCode": "DOB03",
   "municipalityName": "Балчик",
   "oblastCode": "DOB",
@@ -11,14 +11,14 @@
     "oblastCode": "DOB",
     "oblastName": "Добрич",
     "projectCount": 7,
-    "stalledCount": 2,
+    "stalledCount": 1,
     "agreementEur": 2164758.7,
     "submittedEur": 0,
-    "awaitingEur": 279967.66,
-    "paidEur": 0,
+    "awaitingEur": 0,
+    "paidEur": 279967.66,
     "mrrbPaidEur": 0,
-    "bbrPaidEur": 0,
-    "paidPct": 0
+    "bbrPaidEur": 279967.66,
+    "paidPct": 12.93
   },
   "projects": [
     {
@@ -30,12 +30,12 @@
       "municipalityName": "Балчик",
       "agreementEur": 1391941.02,
       "submittedEur": 0,
-      "awaitingEur": 275089.94,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 275089.94,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 275089.94,
+      "paidPct": 19.76,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0513",
@@ -46,11 +46,11 @@
       "municipalityName": "Балчик",
       "agreementEur": 772817.68,
       "submittedEur": 0,
-      "awaitingEur": 4877.72,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 4877.72,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 4877.72,
+      "paidPct": 0.63,
       "stalled": true
     },
     {

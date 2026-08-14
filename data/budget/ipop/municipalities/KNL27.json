@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.294Z",
+  "generatedAt": "2026-08-14T17:10:17.130Z",
   "obshtinaCode": "KNL27",
   "municipalityName": "Кочериново",
   "oblastCode": "KNL",
@@ -11,14 +11,14 @@
     "oblastCode": "KNL",
     "oblastName": "Кюстендил",
     "projectCount": 11,
-    "stalledCount": 3,
+    "stalledCount": 2,
     "agreementEur": 4701584.479999999,
     "submittedEur": 194828.31999999998,
-    "awaitingEur": 413775.34,
-    "paidEur": 2579522.09,
+    "awaitingEur": 0,
+    "paidEur": 2993297.43,
     "mrrbPaidEur": 2579522.09,
-    "bbrPaidEur": 0,
-    "paidPct": 54.86
+    "bbrPaidEur": 413775.34,
+    "paidPct": 63.67
   },
   "projects": [
     {
@@ -46,11 +46,11 @@
       "municipalityName": "Кочериново",
       "agreementEur": 991599.47,
       "submittedEur": 186712.61,
-      "awaitingEur": 27742.14,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 27742.14,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 27742.14,
+      "paidPct": 2.8,
       "stalled": true
     },
     {
@@ -62,11 +62,11 @@
       "municipalityName": "Кочериново",
       "agreementEur": 684313.05,
       "submittedEur": 0,
-      "awaitingEur": 9061.34,
-      "paidEur": 498336.19,
+      "awaitingEur": 0,
+      "paidEur": 507397.53,
       "mrrbPaidEur": 498336.19,
-      "bbrPaidEur": 0,
-      "paidPct": 72.82,
+      "bbrPaidEur": 9061.34,
+      "paidPct": 74.15,
       "stalled": false
     },
     {
@@ -78,12 +78,12 @@
       "municipalityName": "Кочериново",
       "agreementEur": 558126.22,
       "submittedEur": 0,
-      "awaitingEur": 376971.86,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 376971.86,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 376971.86,
+      "paidPct": 67.54,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0630",

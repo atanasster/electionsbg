@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.297Z",
+  "generatedAt": "2026-08-14T17:10:17.133Z",
   "obshtinaCode": "MON24",
   "municipalityName": "Лом",
   "oblastCode": "MON",
@@ -11,14 +11,14 @@
     "oblastCode": "MON",
     "oblastName": "Монтана",
     "projectCount": 21,
-    "stalledCount": 4,
+    "stalledCount": 3,
     "agreementEur": 26423922.330000002,
-    "submittedEur": 103020.2,
-    "awaitingEur": 241436.94,
-    "paidEur": 12231311.200000001,
+    "submittedEur": 60930.899999999994,
+    "awaitingEur": 0,
+    "paidEur": 12472748.14,
     "mrrbPaidEur": 10927195.959999999,
-    "bbrPaidEur": 1304115.2399999998,
-    "paidPct": 46.29
+    "bbrPaidEur": 1545552.1799999997,
+    "paidPct": 47.2
   },
   "projects": [
     {
@@ -109,13 +109,13 @@
       "obshtinaCode": "MON24",
       "municipalityName": "Лом",
       "agreementEur": 1893313.84,
-      "submittedEur": 35592.21,
-      "awaitingEur": 241436.94,
-      "paidEur": 0,
+      "submittedEur": 17179.41,
+      "awaitingEur": 0,
+      "paidEur": 241436.94,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
-      "stalled": true
+      "bbrPaidEur": 241436.94,
+      "paidPct": 12.75,
+      "stalled": false
     },
     {
       "id": "OP-25.001-0445",
@@ -141,7 +141,7 @@
       "obshtinaCode": "MON24",
       "municipalityName": "Лом",
       "agreementEur": 1278740.99,
-      "submittedEur": 23676.5,
+      "submittedEur": 0,
       "awaitingEur": 0,
       "paidEur": 250941.66,
       "mrrbPaidEur": 0,

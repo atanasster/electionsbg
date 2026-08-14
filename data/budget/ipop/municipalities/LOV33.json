@@ -1,6 +1,6 @@
 {
   "fiscalYear": 2025,
-  "generatedAt": "2026-06-28T17:42:42.296Z",
+  "generatedAt": "2026-08-14T17:10:17.131Z",
   "obshtinaCode": "LOV33",
   "municipalityName": "Тетевен",
   "oblastCode": "LOV",
@@ -11,14 +11,14 @@
     "oblastCode": "LOV",
     "oblastName": "Ловеч",
     "projectCount": 26,
-    "stalledCount": 14,
-    "agreementEur": 21460781.36,
+    "stalledCount": 15,
+    "agreementEur": 22339416.009999998,
     "submittedEur": 1342676.5,
-    "awaitingEur": 18938.899999999998,
-    "paidEur": 2253723.1000000006,
+    "awaitingEur": 12547.75,
+    "paidEur": 2260114.2500000005,
     "mrrbPaidEur": 483878.04,
-    "bbrPaidEur": 1769845.0600000003,
-    "paidPct": 10.5
+    "bbrPaidEur": 1776236.2100000002,
+    "paidPct": 10.12
   },
   "projects": [
     {
@@ -134,6 +134,22 @@
       "stalled": true
     },
     {
+      "id": "OP-24.001-0705",
+      "description": "Основен ремонт на общински път LOV2112 III-358, Шипково – Тетевен – Рибарица – паметник Георги Бенковски",
+      "oblastCode": "LOV",
+      "oblastName": "Ловеч",
+      "obshtinaCode": "LOV33",
+      "municipalityName": "Тетевен",
+      "agreementEur": 1244177.66,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 50924.67,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 50924.67,
+      "paidPct": 4.09,
+      "stalled": true
+    },
+    {
       "id": "OP-24.001-1919",
       "description": "Изграждане на улица \"Ген. Дендевил\" и водопровод, с. Голям извор, община Тетевен",
       "oblastCode": "LOV",
@@ -180,22 +196,6 @@
       "bbrPaidEur": 25523.69,
       "paidPct": 4.62,
       "stalled": true
-    },
-    {
-      "id": "OP-24.001-0705",
-      "description": "Основен ремонт на общински път LOV2112 III-358, Шипково – Тетевен – Рибарица – паметник Георги Бенковски",
-      "oblastCode": "LOV",
-      "oblastName": "Ловеч",
-      "obshtinaCode": "LOV33",
-      "municipalityName": "Тетевен",
-      "agreementEur": 489786.94,
-      "submittedEur": 0,
-      "awaitingEur": 0,
-      "paidEur": 50924.67,
-      "mrrbPaidEur": 0,
-      "bbrPaidEur": 50924.67,
-      "paidPct": 10.4,
-      "stalled": false
     },
     {
       "id": "OP-24.001-0694",
@@ -350,12 +350,28 @@
       "municipalityName": "Тетевен",
       "agreementEur": 138048.81,
       "submittedEur": 0,
-      "awaitingEur": 6391.15,
-      "paidEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 6391.15,
       "mrrbPaidEur": 0,
-      "bbrPaidEur": 0,
-      "paidPct": 0,
+      "bbrPaidEur": 6391.15,
+      "paidPct": 4.63,
       "stalled": true
+    },
+    {
+      "id": "OP-24.001-1921",
+      "description": "Реконструкция на улица \"Цар Самуил\", с. Градежница, община Тетевен",
+      "oblastCode": "LOV",
+      "oblastName": "Ловеч",
+      "obshtinaCode": "LOV33",
+      "municipalityName": "Тетевен",
+      "agreementEur": 138048.81,
+      "submittedEur": 0,
+      "awaitingEur": 0.01,
+      "paidEur": 30464.18,
+      "mrrbPaidEur": 3195.57,
+      "bbrPaidEur": 27268.61,
+      "paidPct": 22.07,
+      "stalled": false
     },
     {
       "id": "OP-24.001-0703",
@@ -403,22 +419,6 @@
       "mrrbPaidEur": 0,
       "bbrPaidEur": 26587.18,
       "paidPct": 88.89,
-      "stalled": false
-    },
-    {
-      "id": "OP-24.001-1921",
-      "description": "Реконструкция на улица \"Цар Самуил\", с. Градежница, община Тетевен",
-      "oblastCode": "LOV",
-      "oblastName": "Ловеч",
-      "obshtinaCode": "LOV33",
-      "municipalityName": "Тетевен",
-      "agreementEur": 13804.88,
-      "submittedEur": 0,
-      "awaitingEur": 0.01,
-      "paidEur": 30464.18,
-      "mrrbPaidEur": 3195.57,
-      "bbrPaidEur": 27268.61,
-      "paidPct": 220.68,
       "stalled": false
     },
     {

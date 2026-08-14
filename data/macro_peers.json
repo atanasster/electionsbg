@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-14T05:34:07.759Z",
+  "fetchedAt": "2026-08-14T17:08:25.835Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -4773,7 +4773,7 @@
             "year": 2021,
             "quarter": 1,
             "period": "2021-Q1",
-            "value": 2
+            "value": 2.1
           },
           {
             "year": 2021,
@@ -4875,7 +4875,7 @@
             "year": 2025,
             "quarter": 2,
             "period": "2025-Q2",
-            "value": 3.3
+            "value": 3.4
           },
           {
             "year": 2025,
@@ -4893,7 +4893,13 @@
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
-            "value": 3.1
+            "value": 2.9
+          },
+          {
+            "year": 2026,
+            "quarter": 2,
+            "period": "2026-Q2",
+            "value": 2.7
           }
         ],
         "EU27_2020": [
@@ -5881,7 +5887,7 @@
             "year": 2024,
             "quarter": 2,
             "period": "2024-Q2",
-            "value": 0.5
+            "value": 0.6
           },
           {
             "year": 2024,
@@ -5924,6 +5930,12 @@
             "quarter": 1,
             "period": "2026-Q1",
             "value": -1.1
+          },
+          {
+            "year": 2026,
+            "quarter": 2,
+            "period": "2026-Q2",
+            "value": -2
           }
         ],
         "GR": [
@@ -7470,13 +7482,13 @@
         ]
       },
       "latestDistribution": {
-        "period": "2026-Q1",
+        "period": "2026-Q2",
         "year": 2026,
-        "quarter": 1,
-        "bgValue": 3.1,
-        "euAverage": 0.8,
-        "rank": 4,
-        "total": 27,
+        "quarter": 2,
+        "bgValue": 2.7,
+        "euAverage": 1.2,
+        "rank": 6,
+        "total": 21,
         "direction": "higher"
       }
     },
@@ -32315,7 +32327,7 @@
     }
   },
   "wgi": {
-    "fetchedAt": "2026-08-14T05:34:07.753Z",
+    "fetchedAt": "2026-08-14T17:08:25.829Z",
     "latestYear": 2024,
     "source": {
       "name": "World Bank — Worldwide Governance Indicators",

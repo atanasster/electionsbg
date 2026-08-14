@@ -1,11 +1,6 @@
 {
-  "generatedAt": "2026-08-14T05:49:29.001Z",
+  "generatedAt": "2026-08-14T17:50:39.768Z",
   "nodes": [
-    {
-      "id": "contractor:831544869",
-      "type": "contractor",
-      "label": "Прохелт ЕООД"
-    },
     {
       "id": "contractor:122055819",
       "type": "contractor",
@@ -202,6 +197,11 @@
       "label": "Министерство на здравеопазването /МЗ/"
     },
     {
+      "id": "contractor:831605795",
+      "type": "contractor",
+      "label": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД"
+    },
+    {
       "id": "awarder:000695324",
       "type": "awarder",
       "label": "Министерство на отбраната /МО/"
@@ -315,11 +315,6 @@
       "id": "awarder:121410441",
       "type": "awarder",
       "label": "Изпълнителна агенция \"Автомобилна администрация\""
-    },
-    {
-      "id": "awarder:121663601",
-      "type": "awarder",
-      "label": "Многопрофилна болница за активно лечение \"Национална кардиологична болница\" ЕАД"
     },
     {
       "id": "awarder:121683408",
@@ -487,19 +482,9 @@
       "label": "Тихомир Гочев Тенев"
     },
     {
-      "id": "mp:3026",
-      "type": "mp",
-      "label": "Антон Йорданов Адамов"
-    },
-    {
       "id": "mp:4149",
       "type": "mp",
       "label": "Радослава Пламен Чеканска"
-    },
-    {
-      "id": "mp:4527",
-      "type": "mp",
-      "label": "Георги Панчев Куков"
     },
     {
       "id": "mp:3799",
@@ -920,6 +905,11 @@
       "id": "official:viktor-ivanov-iotsov-940dcd",
       "type": "official",
       "label": "Виктор Иванов Йоцов"
+    },
+    {
+      "id": "official:veselina-vasiyanova-petrova-84b74e",
+      "type": "official",
+      "label": "Веселина Васиянова Петрова"
     }
   ],
   "links": [
@@ -1260,11 +1250,6 @@
     },
     {
       "source": "contractor:175203485",
-      "target": "mp:3026",
-      "valueEur": 44680073.88
-    },
-    {
-      "source": "contractor:175203485",
       "target": "official:anton-iordanov-adamov-a86294",
       "valueEur": 44680073.88
     },
@@ -1342,11 +1327,6 @@
       "source": "contractor:175331015",
       "target": "official:iva-aleksandrova-talanova-35b43e",
       "valueEur": 42389317.91
-    },
-    {
-      "source": "contractor:831544869",
-      "target": "mp:4527",
-      "valueEur": 41599156.4
     },
     {
       "source": "contractor:129006778",
@@ -1674,14 +1654,19 @@
       "valueEur": 14914052.84
     },
     {
+      "source": "contractor:831605795",
+      "target": "official:veselina-vasiyanova-petrova-84b74e",
+      "valueEur": 14913532.02
+    },
+    {
+      "source": "awarder:000695317",
+      "target": "contractor:831605795",
+      "valueEur": 14912679.87
+    },
+    {
       "source": "awarder:128000893",
       "target": "contractor:206705510",
       "valueEur": 11248421.38
-    },
-    {
-      "source": "awarder:121663601",
-      "target": "contractor:831544869",
-      "valueEur": 9266936.9
     },
     {
       "source": "awarder:831917834",

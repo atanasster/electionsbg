@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-12T06:21:31.719Z",
-  "total": 83,
+  "generatedAt": "2026-08-14T17:50:34.812Z",
+  "total": 94,
   "entries": [
     {
       "mpId": 3271,
@@ -11,7 +11,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 983347084.42,
@@ -255,7 +255,7 @@
         {
           "kind": "branch_manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 358162619.37,
@@ -407,7 +407,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 209981277.59,
@@ -559,7 +559,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 209981277.59,
@@ -853,7 +853,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 48948214.15,
@@ -947,104 +947,6 @@
           "name": "Национална агенция за професионално образование и обучение",
           "contractCount": 1,
           "totalEur": 17895.22,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 3026,
-      "mpName": "Антон Йорданов Адамов",
-      "contractorEik": "175203485",
-      "contractorName": "Булгаргаз ЕАД",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalEur": 44680073.88,
-      "totalOther": {},
-      "contractCount": 14,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2017",
-          "contractCount": 1,
-          "totalEur": 86919.62,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 2,
-          "totalEur": 205835.3,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 2,
-          "totalEur": 3812031.21,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 1,
-          "totalEur": 2464999.51,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 3,
-          "totalEur": 11367411.49,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 4,
-          "totalEur": 26724232.16,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 1,
-          "totalEur": 18644.59,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "121683408",
-          "name": "Столичен автотранспорт ЕАД",
-          "contractCount": 4,
-          "totalEur": 28624806.06,
-          "totalOther": {}
-        },
-        {
-          "eik": "103195446",
-          "name": "Веолия енерджи варна ЕАД",
-          "contractCount": 3,
-          "totalEur": 15522951.89,
-          "totalOther": {}
-        },
-        {
-          "eik": "121023551",
-          "name": "Летище София ЕАД",
-          "contractCount": 3,
-          "totalEur": 224698.38,
-          "totalOther": {}
-        },
-        {
-          "eik": "117001983",
-          "name": "Свободна ЗОНА-РУСЕ ЕАД",
-          "contractCount": 3,
-          "totalEur": 172837.42,
-          "totalOther": {}
-        },
-        {
-          "eik": "000697179",
-          "name": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"РВД\"/",
-          "contractCount": 1,
-          "totalEur": 134780.13,
           "totalOther": {}
         }
       ]
@@ -1182,7 +1084,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 42389317.91,
@@ -1242,152 +1144,6 @@
       ]
     },
     {
-      "mpId": 4527,
-      "mpName": "Георги Панчев Куков",
-      "contractorEik": "831544869",
-      "contractorName": "Прохелт ЕООД",
-      "relations": [
-        {
-          "kind": "sole_owner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalEur": 41599156.4,
-      "totalOther": {},
-      "contractCount": 278,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 16,
-          "totalEur": 3137375.96,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 17,
-          "totalEur": 3668781,
-          "totalOther": {}
-        },
-        {
-          "year": "2013",
-          "contractCount": 19,
-          "totalEur": 3615440.12,
-          "totalOther": {}
-        },
-        {
-          "year": "2014",
-          "contractCount": 18,
-          "totalEur": 3802083.13,
-          "totalOther": {}
-        },
-        {
-          "year": "2015",
-          "contractCount": 14,
-          "totalEur": 2888349.02,
-          "totalOther": {}
-        },
-        {
-          "year": "2016",
-          "contractCount": 17,
-          "totalEur": 4294949.73,
-          "totalOther": {}
-        },
-        {
-          "year": "2017",
-          "contractCount": 13,
-          "totalEur": 2939502.66,
-          "totalOther": {}
-        },
-        {
-          "year": "2018",
-          "contractCount": 14,
-          "totalEur": 1449783.05,
-          "totalOther": {}
-        },
-        {
-          "year": "2019",
-          "contractCount": 12,
-          "totalEur": 2253876.84,
-          "totalOther": {}
-        },
-        {
-          "year": "2021",
-          "contractCount": 21,
-          "totalEur": 2162287.71,
-          "totalOther": {}
-        },
-        {
-          "year": "2022",
-          "contractCount": 38,
-          "totalEur": 1569313.33,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 26,
-          "totalEur": 2223528.62,
-          "totalOther": {}
-        },
-        {
-          "year": "2024",
-          "contractCount": 23,
-          "totalEur": 3019109.15,
-          "totalOther": {}
-        },
-        {
-          "year": "2025",
-          "contractCount": 19,
-          "totalEur": 2809992.88,
-          "totalOther": {}
-        },
-        {
-          "year": "2026",
-          "contractCount": 11,
-          "totalEur": 1764783.2,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "121663601",
-          "name": "Многопрофилна болница за активно лечение \"Национална кардиологична болница\" ЕАД",
-          "contractCount": 59,
-          "totalEur": 9266936.9,
-          "totalOther": {}
-        },
-        {
-          "eik": "130367715",
-          "name": "Многопрофилна болница за активно лечение \"Света анна\" софия АД",
-          "contractCount": 46,
-          "totalEur": 6029577.24,
-          "totalOther": {}
-        },
-        {
-          "eik": "831901901",
-          "name": "Болница \"Лозенец\" - София",
-          "contractCount": 32,
-          "totalEur": 5204004.77,
-          "totalOther": {}
-        },
-        {
-          "eik": "103562052",
-          "name": "Университетска многопрофилна болница за активно лечение /УМБАЛ/ \"Света Марина\" ЕАД - Варна\n/Предишно - Многопрофилна болница за активно лечение /МБАЛ/ \"Света Марина\" ЕАД - Варна/",
-          "contractCount": 12,
-          "totalEur": 4911945.03,
-          "totalOther": {}
-        },
-        {
-          "eik": "831605795",
-          "name": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД",
-          "contractCount": 12,
-          "totalEur": 4168518.16,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
       "mpId": 3799,
       "mpName": "Лозко Стефанов Лозев",
       "contractorEik": "206086428",
@@ -1396,7 +1152,7 @@
         {
           "kind": "representative",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 26976756.13,
@@ -1470,7 +1226,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 26976756.13,
@@ -1840,12 +1596,12 @@
         {
           "kind": "procurator",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
-      "totalEur": 10143020.48,
+      "totalEur": 10204375.51,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 12,
       "awardCount": 0,
       "byYear": [
         {
@@ -1892,8 +1648,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 3,
-          "totalEur": 2105531.15,
+          "contractCount": 4,
+          "totalEur": 2166886.18,
           "totalOther": {}
         }
       ],
@@ -1901,8 +1657,8 @@
         {
           "eik": "831913661",
           "name": "Държавна агенция \"Държавен резерв и военновременни запаси\"",
-          "contractCount": 8,
-          "totalEur": 10006287.23,
+          "contractCount": 9,
+          "totalEur": 10067642.26,
           "totalOther": {}
         },
         {
@@ -2303,17 +2059,17 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "kind": "sole_owner",
-          "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "partner",
           "isCurrent": false,
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "totalEur": 4645747.77,
@@ -2633,7 +2389,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 2699157.47,
@@ -2741,6 +2497,112 @@
       ]
     },
     {
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "contractorEik": "831635354",
+      "contractorName": "Национална спортна база ЕАД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "Член на Съвета на директорите, заличено обстоятелство в ТР на 23.06.2026 г.",
+          "valueEur": null,
+          "fiscalYear": null,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 2376981.98,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 276097.61,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 3,
+          "totalEur": 409033.5,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 2,
+          "totalEur": 144866.03,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 460162.69,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 51129.18,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 230081.34,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 277375.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 5,
+          "totalEur": 528235.79,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121505512",
+          "name": "Българска федерация по борба Сдружение",
+          "contractCount": 8,
+          "totalEur": 1322583.75,
+          "totalOther": {}
+        },
+        {
+          "eik": "831331305",
+          "name": "Българска федерация плувни спортове Сдружение",
+          "contractCount": 10,
+          "totalEur": 578641.15,
+          "totalOther": {}
+        },
+        {
+          "eik": "176464933",
+          "name": "Български стрелкови съюз Сдружение",
+          "contractCount": 4,
+          "totalEur": 199659.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "121341855",
+          "name": "Сдружение \"Българска федерация по бокс",
+          "contractCount": 1,
+          "totalEur": 199403.83,
+          "totalOther": {}
+        },
+        {
+          "eik": "121448709",
+          "name": "Сдружение Българска федерация по биатлон",
+          "contractCount": 1,
+          "totalEur": 76693.78,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 139,
       "mpName": "Йордан Мирчев Митев",
       "contractorEik": "130822878",
@@ -2749,12 +2611,12 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "representative",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 1840645.65,
@@ -3041,6 +2903,97 @@
       ]
     },
     {
+      "mpId": 2108,
+      "mpName": "Петър Георгиев Башикаров",
+      "contractorEik": "130982231",
+      "contractorName": "ОПТЕКСИМ АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 1042213.38,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 19787,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 202113.68,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 153873.29,
+          "totalOther": {}
+        },
+        {
+          "year": "2018",
+          "contractCount": 1,
+          "totalEur": 199787.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 357037.78,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 33233.97,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 76380.36,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /ГДГП/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 5,
+          "totalEur": 620525.4,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010068",
+          "name": "Дирекция \"Международни проекти\" /ДМП/ , на МВР",
+          "contractCount": 1,
+          "totalEur": 202113.68,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695235",
+          "name": "Министерство на вътрешните работи /МВР/",
+          "contractCount": 1,
+          "totalEur": 199787.3,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010157",
+          "name": "Дирекция Управление на собствеността и социални дейности /ДУССД/ - МВР",
+          "contractCount": 1,
+          "totalEur": 19787,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 3459,
       "mpName": "Чавдар Борисов Божурски",
       "contractorEik": "119097701",
@@ -3049,7 +3002,7 @@
         {
           "kind": "partner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 1001045.49,
@@ -3341,7 +3294,7 @@
         {
           "kind": "procurator",
           "isCurrent": false,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 856377.71,
@@ -3387,7 +3340,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 856377.71,
@@ -3425,6 +3378,196 @@
       ]
     },
     {
+      "mpId": 1586,
+      "mpName": "Йордан Георгиев Стойков",
+      "contractorEik": "126180065",
+      "contractorName": "ЕВРО ФЕРТ АД",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 841934.69,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 3,
+          "totalEur": 81791.92,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 65874.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 2,
+          "totalEur": 67572.34,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 165075.7,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 8,
+          "totalEur": 461619.89,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "123650036",
+          "name": "ИНСТИТУТ ПО ПОЛСКИ КУЛТУРИ",
+          "contractCount": 4,
+          "totalEur": 367036,
+          "totalOther": {}
+        },
+        {
+          "eik": "000840410",
+          "name": "ДОБРУДЖАНСКИ ЗЕМЕДЕЛСКИ ИНСТИТУТ",
+          "contractCount": 1,
+          "totalEur": 160545.65,
+          "totalOther": {}
+        },
+        {
+          "eik": "102674956",
+          "name": "ИНСТИТУТ ПО ЗЕМЕДЕЛИЕ - КАРНОБАТ",
+          "contractCount": 3,
+          "totalEur": 141924.4,
+          "totalOther": {}
+        },
+        {
+          "eik": "000450524",
+          "name": "ИНСТИТУТ ПО РАСТИТЕЛНИ ГЕНЕТИЧНИ РЕСУРСИ - САДОВО",
+          "contractCount": 2,
+          "totalEur": 77460.72,
+          "totalOther": {}
+        },
+        {
+          "eik": "106524772",
+          "name": "ИНСТИТУТ ПО ЦАРЕВИЦАТА",
+          "contractCount": 1,
+          "totalEur": 39880.77,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 4736,
+      "mpName": "Гюнай Мюмюнов Далоолу",
+      "contractorEik": "204270917",
+      "contractorName": "А ЕНД ДЖИ груп ВТ ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "2",
+          "valueEur": 1.02,
+          "fiscalYear": 2025,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 818913.6,
+      "totalOther": {},
+      "contractCount": 26,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 4,
+          "totalEur": 83703.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 11,
+          "totalEur": 202398.25,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 292790.3,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 88819.84,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 5,
+          "totalEur": 76201.37,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 75000,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133762",
+          "name": "Община Елена",
+          "contractCount": 4,
+          "totalEur": 246666.06,
+          "totalOther": {}
+        },
+        {
+          "eik": "000133778",
+          "name": "ОБЩИНА ЗЛАТАРИЦА",
+          "contractCount": 6,
+          "totalEur": 101574.9,
+          "totalOther": {}
+        },
+        {
+          "eik": "000931575",
+          "name": "ОБЩИНА НОВИ ПАЗАР",
+          "contractCount": 1,
+          "totalEur": 95810.51,
+          "totalOther": {}
+        },
+        {
+          "eik": "000133972",
+          "name": "ОБЩИНА СТРАЖИЦА",
+          "contractCount": 2,
+          "totalEur": 83063.53,
+          "totalOther": {}
+        },
+        {
+          "eik": "000133673",
+          "name": "Община Горна оряховица",
+          "contractCount": 6,
+          "totalEur": 75180.91,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 809,
       "mpName": "Альоша Маков Даков",
       "contractorEik": "201745141",
@@ -3433,7 +3576,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 805353.74,
@@ -3459,6 +3602,42 @@
       ]
     },
     {
+      "mpId": 5296,
+      "mpName": "Рашко Георгиев Динков",
+      "contractorEik": "203904037",
+      "contractorName": "Билд инвест 2016 ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100",
+          "valueEur": 2.56,
+          "fiscalYear": 2026,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 775600.75,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 8,
+          "totalEur": 775600.75,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000024695",
+          "name": "Община Благоевград",
+          "contractCount": 8,
+          "totalEur": 775600.75,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 5165,
       "mpName": "Валери Пламенов Лачовски",
       "contractorEik": "202809611",
@@ -3468,8 +3647,8 @@
           "kind": "stake",
           "shareSize": "50%",
           "valueEur": 0.51,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
+          "fiscalYear": 2025,
+          "declarationYear": 2026
         }
       ],
       "totalEur": 770389.33,
@@ -3515,12 +3694,12 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "sole_owner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 763243.23,
@@ -3655,8 +3834,8 @@
           "kind": "stake",
           "shareSize": "1/2",
           "valueEur": 1278.23,
-          "fiscalYear": 2023,
-          "declarationYear": 2023
+          "fiscalYear": 2026,
+          "declarationYear": 2026
         }
       ],
       "totalEur": 734087.32,
@@ -3689,6 +3868,55 @@
           "name": "ОБЩИНА РАКОВСКИ",
           "contractCount": 3,
           "totalEur": 734087.32,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5108,
+      "mpName": "ИЛКО ПЕНКОВ ИЛИЕВ",
+      "contractorEik": "200414264",
+      "contractorName": "Пахира ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "10",
+          "valueEur": 261.27,
+          "fiscalYear": 2026,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 617954.53,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 267422.02,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 5,
+          "totalEur": 350532.51,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "831609046",
+          "name": "Топлофикация - София АД",
+          "contractCount": 5,
+          "totalEur": 350532.51,
+          "totalOther": {}
+        },
+        {
+          "eik": "000386751",
+          "name": "Община Перник",
+          "contractCount": 1,
+          "totalEur": 267422.02,
           "totalOther": {}
         }
       ]
@@ -3806,14 +4034,14 @@
       "contractorName": "ЖИЛ-СТРОЙ 2003 ЕООД",
       "relations": [
         {
-          "kind": "sole_owner",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "totalEur": 527709,
@@ -3935,7 +4163,7 @@
         {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 427373.54,
@@ -4200,8 +4428,8 @@
           "kind": "stake",
           "shareSize": "50",
           "valueEur": 2556.46,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
+          "fiscalYear": 2025,
+          "declarationYear": 2026
         }
       ],
       "totalEur": 266429.08,
@@ -4325,6 +4553,45 @@
       ]
     },
     {
+      "mpId": 4108,
+      "mpName": "Смиляна Николова Нитова - Кръстева",
+      "contractorEik": "121031861",
+      "contractorName": "Държавна консолидационна компания ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 201238.35,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 201238.35,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "175888562",
+          "name": "Агенция за публичните предприятия и контрол",
+          "contractCount": 1,
+          "totalEur": 201238.35,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 3185,
       "mpName": "ГРИГОР АНГЕЛОВ ГОРЧЕВ",
       "contractorEik": "205555253",
@@ -4424,6 +4691,42 @@
           "name": "ОБЩИНА ГЕНЕРАЛ ТОШЕВО",
           "contractCount": 1,
           "totalEur": 20153.42,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5213,
+      "mpName": "СЛАВИ ВАСИЛЕВ ВАСИЛЕВ",
+      "contractorEik": "000620161",
+      "contractorName": "Мраз АД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "Член на СД",
+          "valueEur": null,
+          "fiscalYear": null,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 155723.1,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 155723.1,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121015056",
+          "name": "Агенция за социално подпомагане",
+          "contractCount": 1,
+          "totalEur": 155723.1,
           "totalOther": {}
         }
       ]
@@ -4744,12 +5047,12 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "sole_owner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 97247.71,
@@ -4845,7 +5148,7 @@
         {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 81806.7,
@@ -4907,18 +5210,54 @@
       ]
     },
     {
+      "mpId": 5204,
+      "mpName": "МАЛОМИР ВАСИЛЕВ ВЛАСОВ",
+      "contractorEik": "116550331",
+      "contractorName": "Власови ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "20%",
+          "valueEur": null,
+          "fiscalYear": null,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 71232.4,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 71232.4,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000505928",
+          "name": "Община Самуил",
+          "contractCount": 2,
+          "totalEur": 71232.4,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 4456,
       "mpName": "Христо Симеонов Борисов",
       "contractorEik": "205590667",
       "contractorName": "ПЕТРОВ И БОРИСОВ АРХИТЕКТИ ЕООД",
       "relations": [
         {
-          "kind": "sole_owner",
+          "kind": "manager",
           "isCurrent": true,
           "confidence": "high"
         },
         {
-          "kind": "manager",
+          "kind": "sole_owner",
           "isCurrent": true,
           "confidence": "high"
         },
@@ -4985,14 +5324,14 @@
       "contractorName": "Бургас - 2032 Фондация",
       "relations": [
         {
-          "kind": "ngo_representative",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "totalEur": 62500,
@@ -5141,6 +5480,42 @@
       ]
     },
     {
+      "mpId": 5111,
+      "mpName": "Калоян Тошков Иванов",
+      "contractorEik": "204619226",
+      "contractorName": "Икон груп ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "1/2",
+          "valueEur": 12.78,
+          "fiscalYear": 2026,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 55730.82,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 55730.82,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000086191",
+          "name": "Средно училище \"ГЕО Милев\"",
+          "contractCount": 1,
+          "totalEur": 55730.82,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 5244,
       "mpName": "ИВАЙЛО НИКОЛАЕВ МИРЧЕВ",
       "contractorEik": "203010795",
@@ -5172,6 +5547,46 @@
           "name": "Национална Електрическа компания ЕАД",
           "contractCount": 1,
           "totalEur": 46578.69,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 667,
+      "mpName": "Мария Вердова Гигова",
+      "contractorEik": "121330447",
+      "contractorName": "Сдружение Българска Федерация по Художествена Гимнастика",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 46016.27,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2018",
+          "contractCount": 2,
+          "totalEur": 35790.43,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 10225.84,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "176789478",
+          "name": "Министерство на туризма",
+          "contractCount": 3,
+          "totalEur": 46016.27,
           "totalOther": {}
         }
       ]
@@ -5221,12 +5636,12 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "sole_owner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 40227.17,
@@ -5260,12 +5675,12 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         },
         {
           "kind": "sole_owner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 39931.38,
@@ -5370,6 +5785,55 @@
       ]
     },
     {
+      "mpId": 5205,
+      "mpName": "РАШИД МЕХМЕДОВ УЗУНОВ",
+      "contractorEik": "116003561",
+      "contractorName": "Раломекс АД - Завет",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "51,49",
+          "valueEur": null,
+          "fiscalYear": null,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 31556.43,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 20691.47,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 4,
+          "totalEur": 10864.96,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000559000",
+          "name": "Професионална земеделска гимназия - Добруджа, гр. Силистра",
+          "contractCount": 3,
+          "totalEur": 20691.47,
+          "totalOther": {}
+        },
+        {
+          "eik": "000559025",
+          "name": "Професионална гимназия по механизация на селското стопанство /ПГМСС/ \"Никола Йонков Вапцаров\" с. Средище",
+          "contractCount": 4,
+          "totalEur": 10864.96,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 5076,
       "mpName": "Валентин Ботев Гечевски",
       "contractorEik": "204593913",
@@ -5404,20 +5868,56 @@
       ]
     },
     {
+      "mpId": 5299,
+      "mpName": "Георги Владов Григоров",
+      "contractorEik": "200416602",
+      "contractorName": "Континео  ЕООД -  гр.София",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "Управител",
+          "valueEur": null,
+          "fiscalYear": null,
+          "declarationYear": 2026
+        }
+      ],
+      "totalEur": 23775.07,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 23775.07,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000697371",
+          "name": "Министерство на околната среда и водите /МОСВ/",
+          "contractCount": 1,
+          "totalEur": 23775.07,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 1622,
       "mpName": "Милка Дончева Христова",
       "contractorEik": "104688050",
       "contractorName": "Бред - Кооп Павликени ЕАД - Павликени",
       "relations": [
         {
-          "kind": "representative",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
           "kind": "director",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "totalEur": 18601.36,
@@ -5451,7 +5951,7 @@
         {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 16616.99,
@@ -5485,7 +5985,7 @@
         {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 16616.99,
@@ -5519,7 +6019,7 @@
         {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 16616.99,
@@ -5580,16 +6080,16 @@
     },
     {
       "mpId": 4707,
-      "mpName": "АНДРЕЙ ИВАНОВ ЦЕКОВ",
+      "mpName": "Андрей Иванов Цеков",
       "contractorEik": "203105962",
       "contractorName": "Инфинитус ЕООД",
       "relations": [
         {
           "kind": "stake",
           "shareSize": "20",
-          "valueEur": 1022.58,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
+          "valueEur": 522.54,
+          "fiscalYear": 2026,
+          "declarationYear": 2026
         }
       ],
       "totalEur": 9177.69,
@@ -5623,7 +6123,7 @@
         {
           "kind": "partner",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 5554.05,
@@ -5740,9 +6240,9 @@
         {
           "kind": "stake",
           "shareSize": "100%",
-          "valueEur": 2556.46,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
+          "valueEur": 1306.86,
+          "fiscalYear": 2026,
+          "declarationYear": 2026
         }
       ],
       "totalEur": 2982.47,
@@ -5865,7 +6365,7 @@
         {
           "kind": "ngo_board",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 1012.36,
@@ -5899,7 +6399,7 @@
         {
           "kind": "partner",
           "isCurrent": false,
-          "confidence": "medium"
+          "confidence": "high"
         }
       ],
       "totalEur": 204.52,
